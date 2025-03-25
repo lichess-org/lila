@@ -40,7 +40,8 @@ final class MentionNotifier(
     yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
-    post.text.contains('@').so {
-      val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.userId.foldLeft(m.map(_.group(1)).map(u => UserStr(u).id).toSet)) { _ - _ }
-    }
+    post.text
+      .contains('@')
+      .so:
+        val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
+        (post.userId.foldLeft(m.map(_.group(1)).map(u => UserStr(u).id).toSet)) { _ - _ }

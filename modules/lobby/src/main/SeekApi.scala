@@ -22,13 +22,11 @@ final class SeekApi(
       .sort($sort.desc("createdAt"))
       .cursor[Seek]()
 
-  private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
+  private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list"):
     _.refreshAfterWrite(3.seconds)
-      .buildAsyncFuture {
+      .buildAsyncFuture:
         if _ then allCursor.list(500)
         else allCursor.list(maxPerPage.value)
-      }
-  }
 
   private def cacheClear() =
     cache.invalidate(ForAnon)
@@ -53,13 +51,12 @@ final class SeekApi(
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
     seeks
-      .foldLeft(List.empty[Seek] -> Set.empty[String]) {
+      .foldLeft(List.empty[Seek] -> Set.empty[String]):
         case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
         case ((res, h), seek) =>
           val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.user.id).mkString(",")
           if h contains seekH then (res, h)
           else (seek :: res, h + seekH)
-      }
       ._1
       .reverse
 

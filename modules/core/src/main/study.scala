@@ -3,7 +3,7 @@ package study
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.id.{ StudyId, StudyChapterId }
+import lila.core.id.StudyId
 import lila.core.userId.UserId
 
 object data:

@@ -135,7 +135,7 @@ final private class YouTubeApi(
         "hub.lease_seconds" -> s"${3600 * 24 * 10}" // 10 days seems to be the max
       )
     )
-    .flatMap {
+    .flatMap:
       case res if res.status / 100 == 2 =>
         logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
         funit
@@ -144,7 +144,6 @@ final private class YouTubeApi(
           s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
         )
         fufail(s"YouTubeApi.channelSubscribe $channelId failed ${res.status} ${res.body[String].take(200)}")
-    }
 
   private def asFormBody(params: (String, String)*): String =
     params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
@@ -164,7 +163,7 @@ final private class YouTubeApi(
         )
       .map(bulk.many(_))
 
-  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so {
+  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so:
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll
@@ -179,4 +178,3 @@ final private class YouTubeApi(
       .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
       .run()
       .map(nb => logger.info(s"YouTubeApi.subscribeAll: done $nb"))
-  }

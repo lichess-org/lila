@@ -9,7 +9,7 @@ class AutoConfigTest extends munit.FunSuite:
 
   private def parse(c: String) = Configuration(ConfigFactory.parseString(c.stripMargin))
 
-  test("simple") {
+  test("simple"):
     case class Foo(str: String, int: Int)
     given ConfigLoader[Foo] = AutoConfig.loader
 
@@ -21,9 +21,8 @@ class AutoConfigTest extends munit.FunSuite:
     """.stripMargin))
 
     assertEquals(config.get[Foo]("foo"), Foo("string", 7))
-  }
 
-  test("option") {
+  test("option"):
     case class Foo(str: String, int: Option[Int])
     given ConfigLoader[Foo] = AutoConfig.loader
 
@@ -48,9 +47,8 @@ class AutoConfigTest extends munit.FunSuite:
   """).get[Foo]("foo"),
       Foo("string", Some(43))
     )
-  }
 
-  test("named keys") {
+  test("named keys"):
 
     final class BarApiConfig(
         @ConfigName("api-key") val apiKey: String,
@@ -71,9 +69,8 @@ class AutoConfigTest extends munit.FunSuite:
 
     assertEquals(BarApiConfig.fromConfiguration(conf).apiKey, "abcdef")
     assertEquals(BarApiConfig.fromConfiguration(conf).requestTimeout, 1.minute)
-  }
 
-  test("nested config") {
+  test("nested config"):
 
     case class FooNestedConfig(
         @ConfigName("nested.str") str: String,
@@ -89,9 +86,8 @@ class AutoConfigTest extends munit.FunSuite:
     """)
 
     assertEquals(config.get[FooNestedConfig]("foo"), FooNestedConfig("string", 7))
-  }
 
-  test("curried constructor") {
+  test("curried constructor"):
     case class Bar(a: String, b: String)(c: Double):
       assert(c >= 0)
 
@@ -105,4 +101,3 @@ class AutoConfigTest extends munit.FunSuite:
         """)
 
     assertEquals(config.get[Bar]("bar"), Bar("hello", "goodbye")(4.2))
-  }

@@ -8,7 +8,7 @@ import ScalatagsTemplate.{ *, given }
 final class SimulUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def link(simulId: SimulId): Frag =
+  def link(simulId: SimulId): Tag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
   def notFound(using Context) =

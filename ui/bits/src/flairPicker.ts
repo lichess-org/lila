@@ -1,4 +1,4 @@
-import { frag } from 'common';
+import { frag } from 'lib';
 
 export default async function flairPickerLoader(element: HTMLElement): Promise<void> {
   const selectEl = element.querySelector('select')!;
@@ -41,10 +41,7 @@ export default async function flairPickerLoader(element: HTMLElement): Promise<v
   ]);
 
   ['mousedown', 'keydown'].forEach(t => selectEl.addEventListener(t, onClick));
-  removeEl.addEventListener('click', e => {
-    e.preventDefault();
-    onEmojiSelect();
-  });
+  removeEl.addEventListener('click', () => onEmojiSelect());
 
   element.closest('.dialog-content')?.addEventListener('click', (e: PointerEvent) => {
     // em's onClickOutside callback does not trigger inside modal dialog, so do it manually

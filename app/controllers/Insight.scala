@@ -28,25 +28,26 @@ final class Insight(env: Env) extends LilaController(env):
       Context
   ) =
     import lila.insight.InsightApi.UserStatus.*
-    env.insight.api.userStatus(user).flatMap {
-      case NoGame => Ok.page(views.site.message.insightNoGames(user))
-      case Empty  => Ok.page(views.insight.empty(user))
-      case s =>
-        for
-          insightUser <- env.insight.api.insightUser(user)
-          prefId      <- env.insight.share.getPrefId(user)
-          page <- renderPage:
-            views.insight.index(
-              u = user,
-              insightUser = insightUser,
-              prefId = prefId,
-              ui = env.insight.jsonView
-                .ui(insightUser.families, insightUser.openings, asMod = isGrantedOpt(_.ViewBlurs)),
-              question = env.insight.jsonView.question(metric, dimension, filters),
-              stale = s == Stale
-            )
-        yield Ok(page)
-    }
+    env.insight.api
+      .userStatus(user)
+      .flatMap:
+        case NoGame => Ok.page(views.site.message.insightNoGames(user))
+        case Empty  => Ok.page(views.insight.empty(user))
+        case s =>
+          for
+            insightUser <- env.insight.api.insightUser(user)
+            prefId      <- env.insight.share.getPrefId(user)
+            page <- renderPage:
+              views.insight.index(
+                u = user,
+                insightUser = insightUser,
+                prefId = prefId,
+                ui = env.insight.jsonView
+                  .ui(insightUser.families, insightUser.openings, asMod = isGrantedOpt(_.ViewBlurs)),
+                question = env.insight.jsonView.question(metric, dimension, filters),
+                stale = s == Stale
+              )
+          yield Ok(page)
 
   def json(username: UserStr) =
     OpenOrScopedBody(parse.json)(): ctx ?=>

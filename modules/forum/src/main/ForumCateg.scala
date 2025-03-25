@@ -1,7 +1,9 @@
 package lila.forum
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 case class ForumCateg(
-    _id: ForumCategId, // slug
+    @Key("_id") id: ForumCategId, // slug
     name: String,
     desc: String,
     team: Option[TeamId] = None,
@@ -14,9 +16,6 @@ case class ForumCateg(
     quiet: Boolean = false,
     hidden: Boolean = false
 ):
-
-  inline def id = _id
-
   def nbTopics(forUser: Option[User]): Int = if forUser.exists(_.marks.troll) then nbTopicsTroll else nbTopics
   def nbPosts(forUser: Option[User]): Int  = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
   def lastPostId(forUser: Option[User]): ForumPostId =

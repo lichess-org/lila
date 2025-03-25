@@ -1,8 +1,8 @@
-import { defined, prop } from 'common';
-import { throttle } from 'common/timing';
+import { defined, prop } from 'lib';
+import { throttle } from 'lib/async';
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import type { AnalyseSocketSend } from './socket';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export interface EvalCacheOpts {
   variant: VariantKey;

@@ -77,14 +77,15 @@ export async function readable(file: string): Promise<boolean> {
 }
 
 export async function subfolders(folder: string, depth = 1): Promise<string[]> {
-  const folders: string[] = [];
-  if (depth > 0)
+  if (depth <= 0) return [];
+  return (
     await Promise.all(
-      (await fs.promises.readdir(folder).catch(() => [])).map(f =>
-        fs.promises.stat(join(folder, f)).then(s => s.isDirectory() && folders.push(join(folder, f))),
-      ),
-    );
-  return folders;
+      (await fs.promises.readdir(folder).catch(() => [])).map(async f => {
+        const fullpath = join(folder, f);
+        return (await isFolder(fullpath)) ? [fullpath, ...(await subfolders(fullpath, depth - 1))] : [];
+      }),
+    )
+  ).flat();
 }
 
 export function isFolder(file: string): Promise<boolean> {

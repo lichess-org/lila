@@ -305,6 +305,5 @@ object BSONHandlers:
           case b => lila.db.BSON.handlerBadType(b)
 
   private[game] def clockBSONWrite(since: Instant, clock: Clock) =
-    byteArrayHandler.writeTry {
+    byteArrayHandler.writeTry:
       BinaryFormat.clock(since).write(clock)
-    }

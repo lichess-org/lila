@@ -20,7 +20,7 @@ final private class Streaming(
 
   def getLiveStreams: LiveStreams = liveStreams
 
-  LilaScheduler("Streaming", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)) {
+  LilaScheduler("Streaming", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)):
     for
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
@@ -30,7 +30,7 @@ final private class Streaming(
       (twitchStreams, youTubeStreams) <-
         twitchApi
           .fetchStreams(streamers, 0, None)
-          .map {
+          .map:
             _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
               streamers
                 .find { s =>
@@ -41,16 +41,12 @@ final private class Streaming(
                 }
                 .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.core.i18n.defaultLang) }
             }.flatten
-          }
           .zip(ytApi.fetchStreams(streamers))
-      streams = LiveStreams {
-        ThreadLocalRandom.shuffle {
+      streams = LiveStreams:
+        ThreadLocalRandom.shuffle:
           (youTubeStreams ::: twitchStreams).pipe(dedupStreamers)
-        }
-      }
       _ <- api.setLangLiveNow(streams.streams)
     yield publishStreams(streamers, streams)
-  }
 
   private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2.hour)
 
@@ -82,8 +78,7 @@ final private class Streaming(
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams
-      .foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
+      .foldLeft((Set.empty[Streamer.Id], List.empty[Stream])):
         case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
         case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
-      }
       ._2

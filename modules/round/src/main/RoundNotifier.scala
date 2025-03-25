@@ -1,6 +1,5 @@
 package lila.round
 
-import lila.core.chess.Win
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.core.timeline.{ GameEnd as TLGameEnd, Propagate }
 
@@ -28,7 +27,7 @@ final private class RoundNotifier(
               NotificationContent.GameEnd(
                 game.fullIdOf(color),
                 game.opponent(color).userId,
-                Win.from(game.wonBy(color))
+                game.wonBy(color)
               )
             )
           case _ =>

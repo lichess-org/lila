@@ -1,5 +1,5 @@
 import { initial as initialBoardFEN } from 'chessground/fen';
-import { ops as treeOps } from 'tree';
+import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from './ctrl';
 import type { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
 import type { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
@@ -155,9 +155,8 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
         ctrl.forecast &&
         e.id === ctrl.data.game.id &&
         treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0
-      ) {
+      )
         ctrl.forecast.reloadToLastPly();
-      }
     },
     analysisProgress(data: ServerEvalData) {
       ctrl.mergeAnalysisData(data);

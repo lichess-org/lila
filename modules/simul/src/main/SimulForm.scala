@@ -26,10 +26,9 @@ object SimulForm:
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras         = clockExtrasPositive.tail.map(-_).reverse.concat(clockExtrasPositive)
-  val clockExtraChoices = options(clockExtras, "%d minute{s}").map {
+  val clockExtraChoices = options(clockExtras, "%d minute{s}").map:
     case (d, str) if d > 0 => (d, s"+$str")
     case pair              => pair
-  }
   val clockExtraDefault = LimitMinutes(0)
 
   val clockExtraPerPlayerChoices = options((0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300), "%d second{s}")

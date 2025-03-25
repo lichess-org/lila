@@ -1,6 +1,6 @@
 import type { Outcome } from 'chessops/types';
 import { h, type VNode } from 'snabbdom';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { bind, type MaybeVNodes } from 'lib/snabbdom';
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';

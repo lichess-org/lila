@@ -24,10 +24,9 @@ object net:
     def inet = Try(parseIPv6Address(value).toInetAddress).toOption
 
   object IpAddress:
-    private def parse(str: String): Try[IpAddress] = Try {
+    private def parse(str: String): Try[IpAddress] = Try:
       if str.contains(".") then IpV4Address(parseIPv4Address(str).toString)
       else IpV6Address(parseIPv6Address(str).toString)
-    }
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress    = parse(str).get
 

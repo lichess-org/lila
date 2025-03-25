@@ -6,11 +6,12 @@ import lila.common.Json.given
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import scalatags.Text.TypedTag
 
 final class ChatUi(helpers: Helpers):
   import helpers.*
 
-  val frag = st.section(cls := "mchat")(
+  val frag: Tag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
       div(cls := "mchat__tab")(nbsp)
     ),

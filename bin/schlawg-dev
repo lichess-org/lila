@@ -3,7 +3,7 @@
 journalctl --user -fu lila -o cat | grep -E -v fishnet &
 JOURNALCTL_PID=$!
 
-# l=/ui-build
+# l=https://schlawg.org/console
 "$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wd'} &
 UI_BUILD_PID=$!
 

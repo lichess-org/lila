@@ -28,14 +28,16 @@ final class Video(env: Env) extends LilaController(env):
       Ok.async:
         control.query match
           case Some(query) =>
-            api.video.search(ctx.me, query, getInt("page") | 1).map {
-              views.video.search(_, control)
-            }
+            api.video
+              .search(ctx.me, query, getInt("page") | 1)
+              .map:
+                views.video.search(_, control)
           case None =>
-            api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1).zip(api.video.count.apply).map {
-              (videos, count) =>
+            api.video
+              .byTags(ctx.me, control.filter.tags, getInt("page") | 1)
+              .zip(api.video.count.apply)
+              .map: (videos, count) =>
                 views.video.index(videos, count, control)
-            }
 
   def show(id: String) = Open:
     WithUserControl: control =>
@@ -56,13 +58,13 @@ final class Video(env: Env) extends LilaController(env):
   def author(author: String) = Open:
     WithUserControl: control =>
       Ok.async:
-        api.video.byAuthor(ctx.me, author, getInt("page") | 1).map {
-          views.video.author(author, _, control)
-        }
+        api.video
+          .byAuthor(ctx.me, author, getInt("page") | 1)
+          .map:
+            views.video.author(author, _, control)
 
   def tags = Open:
     WithUserControl: control =>
       Ok.async:
-        api.tag.allPopular.map {
+        api.tag.allPopular.map:
           views.video.tags(_, control)
-        }

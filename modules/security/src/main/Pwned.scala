@@ -1,9 +1,7 @@
 package lila.security
 
 import com.roundeights.hasher.Implicits.*
-import play.api.libs.json.JsValue
 import play.api.libs.ws.DefaultBodyReadables.*
-import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 final class Pwned(ws: StandaloneWSClient, rangeUrl: String)(using Executor):

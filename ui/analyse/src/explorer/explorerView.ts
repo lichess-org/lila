@@ -1,8 +1,8 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { numberFormat } from 'common/number';
-import perfIcons from 'common/perfIcons';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { numberFormat } from 'lib/i18n';
+import perfIcons from 'lib/game/perfIcons';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import type AnalyseCtrl from '../ctrl';
@@ -269,11 +269,13 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       lastShow = h('div.data', [
         ...row('loss', i18n.site.winning),
         ...row('unknown', i18n.site.unknown),
-        ...row('maybe-loss', i18n.site.winOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
+        ...row('syzygy-loss', i18n.site.winOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
+        ...row('maybe-loss', 'Win or 50 moves'),
         ...row('blessed-loss', i18n.site.winPreventedBy50MoveRule),
         ...row('draw', i18n.site.drawn),
         ...row('cursed-win', i18n.site.lossSavedBy50MoveRule),
-        ...row('maybe-win', i18n.site.lossOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
+        ...row('maybe-win', 'Loss or 50 moves'),
+        ...row('syzygy-win', i18n.site.lossOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
         ...row('win', i18n.site.losing),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, i18n.site.checkmate);

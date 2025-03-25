@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { copyMeInput } from 'common/copyMe';
+import * as licon from 'lib/licon';
+import { copyMeInput } from 'lib/controls';
 import type { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
@@ -10,9 +10,9 @@ import { parseSquare, makeSquare } from 'chessops/util';
 import type EditorCtrl from './ctrl';
 import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
-import { dataIcon } from 'common/snabbdom';
-import { domDialog } from 'common/dialog';
-import { fenToEpd } from 'chess';
+import { dataIcon } from 'lib/snabbdom';
+import { domDialog } from 'lib/dialog';
+import { fenToEpd } from 'lib/chess/chess';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {

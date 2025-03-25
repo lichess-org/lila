@@ -90,7 +90,7 @@ final class CoachApi(
           $doc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
         )
         .map: codes =>
-          ("all", "All countries") :: flagApi.all
+          flagApi.all
             .collect:
               case f if codes.contains(f.code) && !flagApi.nonCountries.contains(f.code) => f.code -> f.name
             .sortBy(_._2)

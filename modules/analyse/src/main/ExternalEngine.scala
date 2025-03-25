@@ -25,7 +25,7 @@ case class ExternalEngine(
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
     userId: UserId,               // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
-) {}
+)
 
 object ExternalEngine:
 
@@ -86,9 +86,8 @@ object ExternalEngine:
 
 final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
-  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
+  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user"):
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
-  }
   import lila.db.dsl.list
   private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
   private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
@@ -121,9 +120,12 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
     }
 
   def withExternalEngines(json: JsObject)(using me: Option[Me]): Fu[JsObject] =
+    myExternalEnginesAsJson(me).map(json ++ _)
+
+  def myExternalEnginesAsJson(me: Option[Me]): Fu[JsObject] =
     me.so(u => list(u.userId))
       .map: engines =>
-        json.add("externalEngines", engines.nonEmpty.option(engines))
+        engines.nonEmpty.so(Json.obj("externalEngines" -> engines))
 
   private[analyse] def onTokenRevoke(id: String) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>

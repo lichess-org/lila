@@ -21,6 +21,7 @@ object home:
               "showRatings"             -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
+            .add("bots", Granter.opt(_.Beta))
             .add(
               "playban",
               playban.map: pb =>
@@ -142,7 +143,7 @@ object home:
                 span(trans.patron.becomePatron())
               )
             ),
-            a(href := "https://shop.spreadshirt.com/lichess-org")(
+            a(href := "/swag")(
               iconTag(Icon.Tshirt),
               span(cls := "lobby__support__text")(
                 strong("Swag Store"),

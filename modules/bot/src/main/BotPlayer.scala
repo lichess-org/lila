@@ -46,17 +46,17 @@ final class BotPlayer(
   def rematchDecline(id: GameId)(using Me): Fu[Boolean] = rematch(id, accept = false)
 
   private def rematch(challengeId: GameId, accept: Boolean)(using me: Me): Fu[Boolean] =
-    rematches.prevGameIdOffering(challengeId).so(gameRepo.game).map {
-      _.flatMap(Pov(_, me)).so { pov =>
-        // delay so it feels more natural
-        lila.common.LilaFuture.delay(if accept then 100.millis else 1.second) {
-          fuccess {
-            tellRound(pov.gameId, Rematch(pov.playerId, accept))
-          }
+    rematches
+      .prevGameIdOffering(challengeId)
+      .so(gameRepo.game)
+      .map:
+        _.flatMap(Pov(_, me)).so { pov =>
+          // delay so it feels more natural
+          lila.common.LilaFuture.delay(if accept then 100.millis else 1.second):
+            fuccess:
+              tellRound(pov.gameId, Rematch(pov.playerId, accept))
+          true
         }
-        true
-      }
-    }
 
   private def tellRound(id: GameId, msg: Any) =
     Bus.publish(Tell(id.value, msg), "roundSocket")
@@ -64,19 +64,16 @@ final class BotPlayer(
   def abort(pov: Pov): Funit =
     if !pov.game.abortableByUser then clientError("This game can no longer be aborted")
     else
-      fuccess {
+      fuccess:
         tellRound(pov.gameId, Abort(pov.playerId))
-      }
 
   def resign(pov: Pov): Funit =
     if pov.game.abortableByUser then
-      fuccess {
+      fuccess:
         tellRound(pov.gameId, Abort(pov.playerId))
-      }
     else if pov.game.resignable then
-      fuccess {
+      fuccess:
         tellRound(pov.gameId, Resign(pov.playerId))
-      }
     else clientError("This game cannot be resigned")
 
   private def declineDraw(pov: Pov): Unit =
@@ -99,13 +96,11 @@ final class BotPlayer(
       lila.common.LilaFuture.delay(500.millis):
         gameRepo
           .finished(pov.gameId)
-          .map {
+          .map:
             _.exists(_.winner.map(_.id).has(pov.playerId))
-          }
-          .flatMap {
+          .flatMap:
             if _ then funit
             else clientError("You cannot claim the win on this game")
-          }
 
   def berserk(game: Game)(using me: Me): Boolean =
     game.berserkable.so:

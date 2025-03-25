@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
+  <string name="playOffline">Joacă offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -164,6 +165,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="claimADraw">Cere remiză</string>
+  <string name="drawClaimed">Remiză revendicată</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
   <plurals name="nbPlayers">
@@ -785,6 +787,9 @@
   <string name="checkYourEmail">Verifică-ți adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Dă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, gunoi, mesaje sociale sau alte foldere.</string>
+  <string name="ifYouDoNotGetTheEmail">Dacă nu primești emailul în decurs de 5 minute:</string>
+  <string name="checkAllEmailFolders">Verifică secțiunile de spam, junk și altele</string>
+  <string name="verifyYourAddress">Asigură-te că %s este adresa ta de email</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
   <string name="readAboutOur">Citește despre %s.</string>
@@ -814,24 +819,14 @@
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
-  <string name="asFreeAsLichess">Gratis ca Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Creat din dragoste pentru șah, nu pentru bani</string>
   <string name="everybodyGetsAllFeaturesForFree">Toată lumea are access la toate opțiunile, gratuit</string>
-  <string name="zeroAdvertisement">Zero reclame</string>
-  <string name="fullFeatured">Toate opțiunile</string>
-  <string name="phoneAndTablet">Telefon și tabletă</string>
-  <string name="bulletBlitzClassical">Bullet, blitz și clasic</string>
-  <string name="correspondenceChess">Șah prin corespondență</string>
-  <string name="onlineAndOfflinePlay">Joc online și offline</string>
   <string name="viewTheSolution">Vezi soluția</string>
-  <string name="followAndChallengeFriends">Urmărește și provoacă-ți prietenii</string>
   <string name="noChallenges">Nicio provocare.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
     <item quantity="other">Disponibil în %s limbi!</item>
   </plurals>
-  <string name="gameAnalysis">Analiza jocului</string>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
@@ -840,6 +835,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Scorul tău: %s</string>
   <string name="language">Limbă</string>
+  <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>
@@ -1028,8 +1024,8 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="analysisOptions">Opțiuni de analiză</string>
   <string name="focusChat">Focalizează conversația</string>
   <string name="showHelpDialog">Arată acest dialog de ajutor</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Redeschide contul tău</string>
-  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
+  <string name="reopenYourAccount">Redeschide contul tău</string>
+  <string name="reopenYourAccountDescription">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
   <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
   <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
   <string name="tournamentEntryCode">Cod de intrare în turneu</string>

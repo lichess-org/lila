@@ -56,14 +56,13 @@ final private[video] class Youtube(
           "key"  -> apiKey.value
         )
         .get()
-        .flatMap {
+        .flatMap:
           case res if res.status == 200 =>
             readEntries.reads(res.body[JsValue]) match
               case JsError(err)          => fufail(err.toString)
               case JsSuccess(entries, _) => fuccess(entries.toList)
           case res =>
             fufail(s"[video youtube] fetch ${res.status}")
-        }
     }
 
 object Youtube:

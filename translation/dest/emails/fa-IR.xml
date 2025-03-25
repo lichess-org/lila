@@ -17,6 +17,6 @@
 خوش بگذرانید، و به امید آن که مهره‌های شما همیشه راه خود را به سوی شاه حریف پیدا کنند!</string>
   <string name="logInToLichess">%s، وارد lichess.org شوید.</string>
   <string name="common_orPaste">(با کلیک کردن عمل نمیکند؟ سعی کنید در مرورگر خود وارد کنید!)</string>
-  <string name="common_note">این یک ایمیل خدماتی مربوط به استفاده شما از %s می‌باشد.</string>
+  <string name="common_note">این یک رایانامهٔ خدمات، مربوط به استفاده‌تان از %s است.</string>
   <string name="common_contact">خواهشمندیم برای تماس با ما از %s استفاده کنید.</string>
 </resources>

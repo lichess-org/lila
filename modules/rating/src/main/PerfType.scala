@@ -221,16 +221,16 @@ object PerfType:
       PerfKey.racingKings
     )
 
-  def variantOf(pk: PerfKey): chess.variant.Variant = pk match
-    case PerfKey.crazyhouse    => chess.variant.Crazyhouse
-    case PerfKey.chess960      => chess.variant.Chess960
-    case PerfKey.kingOfTheHill => chess.variant.KingOfTheHill
-    case PerfKey.threeCheck    => chess.variant.ThreeCheck
-    case PerfKey.antichess     => chess.variant.Antichess
-    case PerfKey.atomic        => chess.variant.Atomic
-    case PerfKey.horde         => chess.variant.Horde
-    case PerfKey.racingKings   => chess.variant.RacingKings
-    case _                     => chess.variant.Standard
+  def variantOf(pk: PerfKey): variant.Variant = pk match
+    case PerfKey.crazyhouse    => variant.Crazyhouse
+    case PerfKey.chess960      => variant.Chess960
+    case PerfKey.kingOfTheHill => variant.KingOfTheHill
+    case PerfKey.threeCheck    => variant.ThreeCheck
+    case PerfKey.antichess     => variant.Antichess
+    case PerfKey.atomic        => variant.Atomic
+    case PerfKey.horde         => variant.Horde
+    case PerfKey.racingKings   => variant.RacingKings
+    case _                     => variant.Standard
 
   def apply(variant: chess.variant.Variant, speed: Speed): PerfType = PerfType(PerfKey(variant, speed))
 

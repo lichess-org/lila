@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "fast-xml-parser": "^4.5.1"
+    "fast-xml-parser": "^4.5.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

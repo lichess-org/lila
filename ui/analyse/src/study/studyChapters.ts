@@ -1,6 +1,6 @@
-import { defined, prop, Prop, scrollToInnerSelector } from 'common';
-import * as licon from 'common/licon';
-import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import { defined, prop, Prop, scrollToInnerSelector } from 'lib';
+import * as licon from 'lib/licon';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -22,10 +22,10 @@ import type {
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'common/miniBoard';
+import { fenColor } from 'lib/miniBoard';
 import type Sortable from 'sortablejs';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -170,9 +170,7 @@ export function view(ctrl: StudyCtrl): VNode {
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.list.first().id) {
-        scrollToInnerSelector(el, '.active');
-      }
+      if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
     } else if (vData.currentId !== ctrl.data.chapter.id) {
       vData.currentId = ctrl.data.chapter.id;
       scrollToInnerSelector(el, '.active');
@@ -233,7 +231,8 @@ export function view(ctrl: StudyCtrl): VNode {
             h('span', (i + 1).toString()),
             h('h3', chapter.name),
             chapter.status && h('res', chapter.status),
-            canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),
+            canContribute &&
+              h('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
           ],
         );
       })

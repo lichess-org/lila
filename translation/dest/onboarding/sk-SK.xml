@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Prihlásiť sa ako %s</string>
   <string name="welcome">Vitajte!</string>
   <string name="welcomeToLichess">Vitajte na lichess.org!</string>
   <string name="thisIsYourProfilePage">Toto je Váš používateľský profil.</string>

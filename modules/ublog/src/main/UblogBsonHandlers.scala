@@ -22,6 +22,7 @@ private object UblogBsonHandlers:
   given BSONDocumentHandler[LightPost]   = Macros.handler
   given BSONDocumentHandler[PreviewPost] = Macros.handler
 
+  val postProjection      = $doc("likers" -> false)
   val lightPostProjection = $doc("title" -> true)
   val previewPostProjection =
     $doc(

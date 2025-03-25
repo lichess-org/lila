@@ -2,8 +2,9 @@
 <resources>
   <string name="playWithAFriend">தோழருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
+  <string name="playOffline">ஆஃப்லைனில் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளைக்கொடு</string>
-  <string name="gameOver">ஆட்டம் முற்றிற்று</string>
+  <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
   <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிராளியை இந்த QR குறியீட்டை மேவ அனுமதிக்கவும்</string>
   <string name="waiting">காத்திருக்கின்றது</string>
@@ -681,7 +682,7 @@
   <string name="createdSimuls">புதிதாக உருவாக்கப்பட்ட ஒருங்கமை</string>
   <string name="hostANewSimul">புதிய, ஒருங்கமை நடத்துங்கள்</string>
   <string name="signUpToHostOrJoinASimul">ஒரு ஹோஸ்டை சேர நீங்கள் உங்களைப் பதிவு செய்யவும் அல்லது ஒருங்கமை யில் சேரவும்</string>
-  <string name="noSimulFound">ஒருங்கமை கிடைக்கவில்லை</string>
+  <string name="noSimulFound">சிமுல் கண்டுபிடிக்க முடியவில்லை</string>
   <string name="noSimulExplanation">இந்த ஒருங்கமை இல்லை.</string>
   <string name="returnToSimulHomepage">ஒருங்கமை முகப்புப்பக்கத்திற்குத் திரும்பு</string>
   <string name="aboutSimul">ஒரே நேரத்தில் பல வீரர்களை எதிர்கொள்ளும் ஒரு வீரரை ஒருங்கமை உள்ளடக்கியது.</string>
@@ -773,23 +774,13 @@
   <string name="sessions">அமர்வுகள்</string>
   <string name="revokeAllSessions">அனைத்து அமர்வுகளையும் திரும்பப் பெறவும்</string>
   <string name="playChessEverywhere">எல்லா இடங்களிலும் சதுரங்கம் விளையாடுங்கள்</string>
-  <string name="asFreeAsLichess">லிசெஸ் போல இலவசம்</string>
-  <string name="builtForTheLoveOfChessNotMoney">சதுரங்கத்தின் மீதுள்ள அன்பிற்காக அன்பிற்காகக் கட்டப்பட்டது, பணத்திற்காக அல்ல</string>
   <string name="everybodyGetsAllFeaturesForFree">அனைவரும் அனைத்து அம்சங்களையும் இலவசமாகப் பெறுகிறார்கள்</string>
-  <string name="zeroAdvertisement">சுழிய விளம்பரம்</string>
-  <string name="fullFeatured">முழுமையாக இடம்பெற்றுள்ளது</string>
-  <string name="phoneAndTablet">தொலைபேசி மற்றும் கைக்கணினி</string>
-  <string name="bulletBlitzClassical">தெறிக்கை, சடுதி, செந்தரம்</string>
-  <string name="correspondenceChess">இசைவு சதுரங்கம்</string>
-  <string name="onlineAndOfflinePlay">நிகழ்நிலை மற்றும் அகல்நிலை விளையாடுதல்</string>
   <string name="viewTheSolution">தீர்வைப் பார்க்கவும்</string>
-  <string name="followAndChallengeFriends">நண்பர்களைப் பின்தொடர்ந்து சவால் விடுங்கள்</string>
   <string name="noChallenges">சவால்கள் இல்லை.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s மொழியில் கிடைக்கிறது!</item>
     <item quantity="other">%s மொழிகளில் கிடைக்கிறது!</item>
   </plurals>
-  <string name="gameAnalysis">விளையாட்டு பகுப்பாய்வு</string>
   <string name="xHostsY">%1$s ஹோஸ்ட்கள் %2$s</string>
   <string name="xJoinsY">%1$s %2$s இல் இணைகிறது</string>
   <string name="xLikesY">%1$s %2$s ஐ விரும்புகிறார்</string>

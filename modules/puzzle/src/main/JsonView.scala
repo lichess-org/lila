@@ -9,13 +9,16 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.i18n.{ Translate, Translator }
 import lila.tree.{ Metas, NewBranch, NewTree }
+import lila.core.net.ApiVersion
+import lila.ui.Context
 
 final class JsonView(
     gameJson: GameJson,
-    gameRepo: lila.core.game.GameRepo
+    gameRepo: lila.core.game.GameRepo,
+    myEngines: lila.core.misc.analysis.MyEnginesAsJson
 )(using Executor, Translator):
 
-  import JsonView.*
+  import JsonView.{ *, given }
 
   def apply(
       puzzle: Puzzle,
@@ -34,15 +37,7 @@ final class JsonView(
           "angle",
           angle.map: a =>
             Json
-              .obj(
-                "key" -> a.key,
-                "name" -> {
-                  if a == PuzzleAngle.mix
-                  then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
-                  else a.name.txt()
-                },
-                "desc" -> a.description.txt()
-              )
+              .toJsObject(a)
               .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
               .add("opening" -> a.opening.map: op =>
                 Json.obj("key" -> op.key, "name" -> op.name))
@@ -50,6 +45,22 @@ final class JsonView(
                 case op: PuzzleAngle.Opening => op.isAbstract
                 case _                       => false)
         )
+
+  def analysis(
+      puzzle: Puzzle,
+      angle: PuzzleAngle,
+      replay: Option[lila.puzzle.PuzzleReplay] = None,
+      newMe: Option[Me] = None,
+      apiVersion: Option[ApiVersion] = None
+  )(using ctx: Context)(using Perf, Translate): Fu[JsObject] =
+    given me: Option[Me] = newMe.orElse(ctx.me)
+    for
+      puzzleJson <-
+        if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
+        then bc(puzzle)
+        else apply(puzzle, angle.some, replay)
+      enginesJson <- myEngines.get(me)
+    yield puzzleJson ++ enginesJson
 
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
     Json
@@ -63,8 +74,8 @@ final class JsonView(
     Json.obj("days" -> r.days, "i" -> r.i, "of" -> r.nb)
 
   object roundJson:
-    def web(round: PuzzleRound, perf: Perf)(using me: Me, prevPerf: Perf) =
-      base(round, IntRatingDiff(perf.intRating.value - prevPerf.intRating.value))
+    def web(round: PuzzleRound, perf: Perf)(using prevPerf: Perf) =
+      base(round, (perf.intRating - prevPerf.intRating).into(IntRatingDiff))
         .add("vote" -> round.vote)
         .add("themes" -> round.nonEmptyThemes.map: rt =>
           JsObject:
@@ -116,9 +127,10 @@ final class JsonView(
       puzzles
         .zip(games)
         .collect { case (puzzle, Some(game)) =>
-          gameJson.noCache(game, puzzle.initialPly).map {
-            puzzleAndGamejson(puzzle, _)
-          }
+          gameJson
+            .noCache(game, puzzle.initialPly)
+            .map:
+              puzzleAndGamejson(puzzle, _)
         }
   yield
     import lila.rating.Glicko.glickoWrites
@@ -173,6 +185,20 @@ final class JsonView(
     )
 
 object JsonView:
+
+  given (using Translate): OWrites[PuzzleAngle] = a =>
+    Json
+      .obj(
+        "key" -> a.key,
+        "name" -> {
+          if a == PuzzleAngle.mix
+          then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
+          else a.name.txt()
+        },
+        "desc" -> a.description.txt()
+      )
+
+  given OWrites[PuzzleReplay] = Json.writes[PuzzleReplay]
 
   def makeTree(puzzle: Puzzle): Option[NewTree] =
 

@@ -18,10 +18,6 @@ private final class RecapJson(lightUserApi: LightUserApi)(using Executor):
 
   given Writes[UserId] = writeAs(lightUserApi.syncFallback)
 
-  given [A: Writes]: Writes[ByColor[A]] = new:
-    def writes(o: ByColor[A]): JsObject =
-      Json.obj("white" -> o.white, "black" -> o.black)
-
   given [A: Writes]: Writes[Recap.Counted[A]] = Json.writes
 
   given Writes[LilaOpeningFamily] = new:

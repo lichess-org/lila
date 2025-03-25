@@ -158,9 +158,10 @@ object GameExt:
         blackOffersDraw = g.blackPlayer.isOfferingDraw
       )
 
-      val clockEvent = updated.chess.clock.map(Event.Clock.apply).orElse {
-        updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
-      }
+      val clockEvent = updated.chess.clock
+        .map(Event.Clock.apply)
+        .orElse:
+          updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
 
       val events = moveOrDrop.fold(
         Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),

@@ -12,7 +12,7 @@ import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 
 final class Signup(
-    store: Store,
+    store: SessionStore,
     api: SecurityApi,
     ipTrust: IpTrust,
     forms: SecurityForm,
@@ -60,7 +60,7 @@ final class Signup(
       blind: Boolean
   )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
-    forms.signup.website.flatMap {
+    forms.signup.website.flatMap:
       _.form
         .bindFromRequest()
         .fold[Fu[Signup.Result]](
@@ -103,7 +103,6 @@ final class Signup(
                     }
             yield result
         )
-    }
 
   private def confirmOrAllSet(
       email: EmailAddress,

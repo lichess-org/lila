@@ -37,14 +37,16 @@ final class Env(
     unsubApi.get(channel, me)
 
   def status(channel: String)(using me: Me): Fu[Option[Boolean]] =
-    unsubApi.get(channel, me).flatMap {
-      if _ then fuccess(Some(true)) // unsubbed
-      else
-        entryApi.channelUserIdRecentExists(channel, me).map {
-          if _ then Some(false) // subbed
-          else None             // not applicable
-        }
-    }
+    unsubApi
+      .get(channel, me)
+      .flatMap:
+        if _ then fuccess(Some(true)) // unsubbed
+        else
+          entryApi
+            .channelUserIdRecentExists(channel, me)
+            .map:
+              if _ then Some(false) // subbed
+              else None             // not applicable
 
   private val api = wire[TimelineApi]
 

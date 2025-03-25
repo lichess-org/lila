@@ -150,11 +150,12 @@ final private class MsgSecurity(
         }
 
     private def create(contacts: Contacts): Fu[Boolean] =
-      prefApi.getMessage(contacts.dest.id).flatMap {
-        case lila.core.pref.Message.NEVER  => fuccess(false)
-        case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
-        case lila.core.pref.Message.ALWAYS => fuccess(true)
-      }
+      prefApi
+        .getMessage(contacts.dest.id)
+        .flatMap:
+          case lila.core.pref.Message.NEVER  => fuccess(false)
+          case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
+          case lila.core.pref.Message.ALWAYS => fuccess(true)
 
     // Even if the dest prefs disallow it,
     // you can still reply if they recently messaged you,

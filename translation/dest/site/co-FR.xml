@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Ghjucà cù un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
+  <string name="playOffline">Ghjucà offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
   <string name="waitingForOpponent">Aspittendu un aversariu</string>
@@ -689,22 +690,12 @@
   <string name="sessions">Sessioni</string>
   <string name="revokeAllSessions">rivucà tutte e sessione</string>
   <string name="playChessEverywhere">Ghjucà à i scacchi dapertuttu</string>
-  <string name="asFreeAsLichess">Di rigalu cum\'è u restu di Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Criatu pè l\' amore di i scacchi, senza pagà</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutte e funziunalità sò di rigalu pè tuttu ognunu</string>
-  <string name="zeroAdvertisement">Ùn ci hè publicità</string>
-  <string name="fullFeatured">Lichess, è tantu in più</string>
-  <string name="phoneAndTablet">Telefuninu è tavuletta</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classicu</string>
-  <string name="correspondenceChess">Scacchi pè via di currispundenza</string>
-  <string name="onlineAndOfflinePlay">Ghjocu in direttu o in senza reta</string>
   <string name="viewTheSolution">Vede a suluzione</string>
-  <string name="followAndChallengeFriends">Seguità è sfidà amichi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispunibule in %s lingua!</item>
     <item quantity="other">Dispunibule in %s lingue!</item>
   </plurals>
-  <string name="gameAnalysis">Analisa di e partite</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>

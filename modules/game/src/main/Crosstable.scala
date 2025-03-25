@@ -120,7 +120,6 @@ object Crosstable:
       val r = new BSON.Reader(doc)
       r.str(id).split('/') match
         case Array(u1Id, u2Id) =>
-          Success {
+          Success:
             Matchup(Users(User(UserId(u1Id), r.intD(score1)), User(UserId(u2Id), r.intD(score2))))
-          }
         case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")

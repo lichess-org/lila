@@ -28,7 +28,7 @@ final class Setup(
             processor.ai(config).flatMap { pov =>
               negotiateApi(
                 html = redirectPov(pov),
-                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map(Created(_))
+                api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map(Created(_))
               )
             }
         )
@@ -201,7 +201,7 @@ final class Setup(
   def validateFen = Open:
     (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
-      case Some(v) => Ok.snip(views.board.miniSpan(v.fen.board, v.color))
+      case Some(v) => Ok.snip(views.analyse.ui.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):

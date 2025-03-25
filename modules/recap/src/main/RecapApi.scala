@@ -1,7 +1,5 @@
 package lila.recap
 
-import reactivemongo.api.bson.*
-import lila.db.dsl.{ *, given }
 import lila.common.LilaFuture.delay
 import play.api.libs.json.JsObject
 import lila.core.lilaism.LilaException

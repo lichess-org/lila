@@ -2,14 +2,13 @@ package lila.api
 
 import monocle.syntax.all.*
 
-import lila.shutup.PublicLine
-import lila.core.shutup.PublicSource as Source
+import lila.core.shutup.{ PublicLine, PublicSource as Source }
 import lila.playban.TempBan
 
 class ModTimelineTest extends munit.FunSuite:
 
   import ModTimeline.*
-  import PublicLine.merge.sep
+  import lila.shutup.PublicLine.merge.sep
 
   val now = nowInstant
 

@@ -10,6 +10,7 @@ import lila.memo.PicfitApi
 
 final class UblogApi(
     colls: UblogColls,
+    userRepo: lila.core.user.UserRepo,
     rank: UblogRank,
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
@@ -23,9 +24,7 @@ final class UblogApi(
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
     colls.post.insert
-      .one(
-        bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
-      )
+      .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
       .inject(post)
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
@@ -50,31 +49,33 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-        if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
+        sendPostToZulip(author, post, blog.modTier)
+
+  def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
+    getBlog(UblogBlog.Id.User(user.id))
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)).getOrElse:
-      for
-        user <- userApi.withPerfs(user)
-        blog = UblogBlog.make(user)
-        _ <- insertMissing.so(colls.blog.insert.one(blog).void)
-      yield blog
+    getUserBlogOption(user).getOrElse:
+      if insertMissing then
+        for
+          user <- userApi.withPerfs(user)
+          blog = UblogBlog.make(user)
+          _ <- colls.blog.insert.one(blog).void
+        yield blog
+      else fuccess(UblogBlog.makeWithoutPerfs(user))
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
-  def isBlogVisible(userId: UserId): Fu[Option[Boolean]] =
-    getBlog(UblogBlog.Id.User(userId)).dmap(_.map(_.visible))
-
-  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
+  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byIdProj[UblogPost](id, postProjection)
 
   def findEditableByMe(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post
-      .byId[UblogPost](id)
+      .byIdProj[UblogPost](id, postProjection)
       .dmap:
         _.filter(_.allows.edit)
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
-    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
+    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog), postProjection)
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
@@ -145,15 +146,16 @@ final class UblogApi(
 
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
-  private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000).so:
-      irc.ublogPost(
-        user.light,
-        id = post.id,
-        slug = post.slug,
-        title = post.title,
-        intro = post.intro
-      )
+  private def sendPostToZulip(user: User, post: UblogPost, modTier: Option[UblogRank.Tier]): Funit =
+    val tierName = modTier.fold("non-tiered")(t => s"${UblogRank.Tier.name(t).toLowerCase} tier")
+    irc.ublogPost(
+      user.light,
+      id = post.id,
+      slug = post.slug,
+      title = post.title,
+      intro = post.intro,
+      topic = s"$tierName new posts"
+    )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -161,21 +163,26 @@ final class UblogApi(
       .cursor[UblogPost.LightPost]()
       .list(30)
 
-  def delete(post: UblogPost): Funit =
-    colls.post.delete.one($id(post.id)) >> image.deleteAll(post)
+  def delete(post: UblogPost): Funit = for
+    _ <- colls.post.delete.one($id(post.id))
+    _ <- image.deleteAll(post)
+  yield ()
 
-  def setTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
+  def setModTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
 
+  def setTierIfBlogExists(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
+    colls.blog.update.one($id(blog), $set("tier" -> tier)).void
+
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
 
-  def onAccountClose(user: User) = for
-    blog <- getBlog(UblogBlog.Id.User(user.id))
-    _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
-  yield ()
+  def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
+
+  def onAccountReopen(user: User) = getUserBlogOption(user).flatMapz: blog =>
+    setTierIfBlogExists(UblogBlog.Id.User(user.id), blog.modTier | UblogRank.Tier.defaultWithoutPerfs(user))
 
   def onAccountDelete(user: User) = for
     _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
@@ -189,9 +196,67 @@ final class UblogApi(
     if v then fuccess(UblogRank.Tier.HIDDEN)
     else userApi.withPerfs(userId).map(_.fold(UblogRank.Tier.HIDDEN)(UblogRank.Tier.default))
   }.flatMap:
-    setTier(UblogBlog.Id.User(userId), _)
+    setModTier(UblogBlog.Id.User(userId), _)
 
   def canBlog(u: User) =
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
+
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
+  private[ublog] def aggregateVisiblePosts(
+      select: Bdoc,
+      offset: Int,
+      length: Int,
+      ranking: UblogRank.Sorting = UblogRank.Sorting.ByRank
+  ) =
+    colls.post
+      .aggregateList(length, _.sec): framework =>
+        import framework.*
+        Match(select ++ $doc("live" -> true)) -> (ranking.sortingQuery(colls.post, framework) ++
+          List(Limit(100))
+          ++ removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) ++ List(
+            Skip(offset),
+            Limit(length)
+          ))
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[UblogPost.PreviewPost]
+        yield post
+
+  private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
+      coll: Coll,
+      framework: coll.AggregationFramework.type
+  ) =
+    import framework.*
+    List(
+      PipelineOperator:
+        $lookup.pipelineBC(
+          from = colls.blog,
+          as = "blog",
+          local = "blog",
+          foreign = "_id",
+          pipe = List(
+            $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogRank.Tier.LOW)))),
+            $doc("$project" -> $id(true))
+          )
+        )
+      ,
+      UnwindField("blog"),
+      PipelineOperator:
+        $lookup.pipelineBC(
+          from = userRepo.coll,
+          as = "user",
+          local = "created.by",
+          foreign = "_id",
+          pipe = List(
+            $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
+            $doc("$project" -> $id(true))
+          )
+        )
+      ,
+      UnwindField("user"),
+      Project(previewPostProjection ++ $doc("blog" -> "$blog._id"))
+    )

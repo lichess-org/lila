@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type LobbyController from '../../../ctrl';
-import { initMiniBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'lib/miniBoard';
 
 export const fenInput = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;

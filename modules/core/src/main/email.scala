@@ -65,7 +65,8 @@ object email:
       Domain.Lower.from(Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by"))
 
     // adding normalized domains requires database migration!
-    private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
+    private val gmailLikeNormalizedDomains =
+      gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me", "proton.me")
 
     def isValid(str: String) =
       str.sizeIs < maxLength &&
@@ -81,9 +82,8 @@ object email:
   opaque type UserStrOrEmail = String
   object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
     extension (e: UserStrOrEmail)
-      def normalize = UserIdOrEmail(
+      def normalize: UserIdOrEmail =
         EmailAddress.from(e).fold(e.toLowerCase)(e => EmailAddress.normalize(e).value)
-      )
 
   opaque type UserIdOrEmail = String
   object UserIdOrEmail extends OpaqueString[UserIdOrEmail]

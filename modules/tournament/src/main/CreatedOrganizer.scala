@@ -14,11 +14,10 @@ final private class CreatedOrganizer(
     _.Every(2.seconds),
     _.AtMost(20.seconds),
     _.Delay(18.seconds)
-  ) {
+  ):
     tournamentRepo.shouldStartCursor
       .documentSource()
       .mapAsync(1)(api.start)
       .runWith(Sink.ignore)
       .monSuccess(_.tournament.createdOrganizer.tick)
       .void
-  }

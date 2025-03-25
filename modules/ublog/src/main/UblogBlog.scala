@@ -33,6 +33,12 @@ object UblogBlog:
     modTier = none
   )
 
+  def makeWithoutPerfs(user: User) = UblogBlog(
+    _id = Id.User(user.id),
+    tier = UblogRank.Tier.defaultWithoutPerfs(user),
+    modTier = none
+  )
+
   class Allows(creator: UserId):
     def moderate(using Option[Me]): Boolean = Granter.opt(_.ModerateBlog)
     def edit(using me: Option[Me]): Boolean =

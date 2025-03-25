@@ -111,7 +111,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       pref = ctx.pref
     )
 
-  def roundAppPreload(pov: Pov)(using Context) =
+  def roundAppPreload(pov: Pov)(using Context): Tag =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(povChessground(pov)),
       div(cls := "col1-rmoves-preload")

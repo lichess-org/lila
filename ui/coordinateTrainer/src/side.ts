@@ -1,8 +1,8 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind } from 'lib/snabbdom';
 import type CoordinateTrainerCtrl from './ctrl';
 import type { ColorChoice, TimeControl, Mode } from './interfaces';
-import { toggle } from 'common/controls';
+import { toggle } from 'lib/controls';
 
 const colors: [ColorChoice, string][] = [
   ['black', i18n.site.asBlack],
@@ -97,9 +97,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 ctrl.mode(target.value as Mode);
                 if (target.value === 'nameSquare') {
                   if (ctrl.voice.enabled()) ctrl.voice.mic.start();
-                } else {
-                  ctrl.voice.mic.stop();
-                }
+                } else ctrl.voice.mic.stop();
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -228,7 +226,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
     ctrl.mode() === 'findSquare'
       ? toggle(
           {
-            name: 'Practice only some files & ranks',
+            name: i18n.coordinates.practiceOnlySomeFilesAndRanks,
             id: 'enableSelection',
             checked: ctrl.selectionEnabled(),
             change: ctrl.selectionEnabled,

@@ -1,7 +1,7 @@
-import { prop } from 'common';
-import { bind } from 'common/snabbdom';
-import { throttle } from 'common/timing';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { prop } from 'lib';
+import { bind } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
+import { spinnerVdom as spinner } from 'lib/controls';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';

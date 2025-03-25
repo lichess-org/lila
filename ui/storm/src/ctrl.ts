@@ -1,20 +1,21 @@
 import * as xhr from './xhr';
 import config from './config';
-import CurrentPuzzle from 'puz/current';
-import sign from 'puz/sign';
+import CurrentPuzzle from 'lib/puz/current';
+import sign from 'lib/puz/sign';
 import { Api as CgApi } from 'chessground/api';
-import { Clock } from 'puz/clock';
-import { Combo } from 'puz/combo';
-import { getNow, puzzlePov, sound } from 'puz/util';
-import { makeCgOpts } from 'puz/run';
+import { Clock } from 'lib/puz/clock';
+import { Combo } from 'lib/puz/combo';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
+import { makeCgOpts } from 'lib/puz/run';
 import { parseUci } from 'chessops/util';
-import { PromotionCtrl } from 'chess/promotion';
-import { prop, type Prop } from 'common';
-import type { PuzCtrl, Run } from 'puz/interfaces';
-import { PuzFilters } from 'puz/filters';
+import { PromotionCtrl } from 'lib/chess/promotion';
+import { prop, type Prop } from 'lib';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { PuzFilters } from 'lib/puz/filters';
 import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
-import { storage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { storage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
+import type { WithGround } from 'lib/chess/ground';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
@@ -170,9 +171,9 @@ export default class StormCtrl implements PuzCtrl {
     return false;
   };
 
-  withGround = <A>(f: (cg: CgApi) => A): A | false => {
+  withGround: WithGround = f => {
     const g = this.ground();
-    return g && f(g);
+    return g ? f(g) : undefined;
   };
 
   private setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));

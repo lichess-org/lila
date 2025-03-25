@@ -38,9 +38,10 @@ object PlayerAssessment:
 
   private def highlyConsistentMoveTimeStreaksOf(pov: Pov): Boolean =
     pov.game.clock.exists(_.estimateTotalSeconds > 60) && {
-      Statistics.slidingMoveTimesCvs(pov).so {
-        _.exists(Statistics.cvIndicatesHighlyFlatTimesForStreaks)
-      }
+      Statistics
+        .slidingMoveTimesCvs(pov)
+        .so:
+          _.exists(Statistics.cvIndicatesHighlyFlatTimesForStreaks)
     }
 
   private def antichessCorrectedGameAssessment(

@@ -27,4 +27,11 @@ trait IrcApi:
       boardName: StudyChapterName
   ): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
-  def ublogPost(user: LightUser, id: UblogPostId, slug: String, title: String, intro: String): Funit
+  def ublogPost(
+      user: LightUser,
+      id: UblogPostId,
+      slug: String,
+      title: String,
+      intro: String,
+      topic: String
+  ): Funit

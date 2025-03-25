@@ -2,7 +2,6 @@ package lila.pref
 
 import monocle.syntax.all.*
 import play.api.data.*
-import play.api.data.Forms.*
 
 object PrefSingleChange:
 

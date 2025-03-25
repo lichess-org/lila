@@ -15,8 +15,8 @@ final class MemoConfig(
 
 final class PicfitConfig(
     val collection: CollName,
-    val endpointGet: EndpointUrl,
-    val endpointPost: EndpointUrl,
+    val endpointGet: String,
+    val endpointPost: String,
     val secretKey: Secret
 )
 
@@ -28,11 +28,9 @@ final class Env(
 )(using Executor, Scheduler, play.api.Mode, lila.core.config.RateLimit):
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
-  private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
+  val config                       = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
   val cacheApi = wire[CacheApi]
-
-  val configStore = wire[ConfigStore.Builder]
 
   val settingStore = wire[SettingStore.Builder]
 

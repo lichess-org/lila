@@ -5,10 +5,10 @@ import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
 import lila.report.{ Report, ReportApi }
 import lila.playban.{ TempBan, PlaybanApi }
-import lila.shutup.{ PublicLine, ShutupApi }
 import lila.core.perm.{ Permission, Granter }
 import lila.core.userId.ModId
 import lila.core.id.ReportId
+import lila.core.shutup.PublicLine
 
 case class ModTimeline(
     user: User,
@@ -38,7 +38,7 @@ object ModTimeline:
     def like(r: Report): Boolean = report.room == r.room
   case class ReportLineFlag(openId: Option[ReportId], line: PublicLine):
     def merge(o: ReportLineFlag) = (openId == o.openId).so:
-      PublicLine.merge(line, o.line).map(l => copy(line = l))
+      lila.shutup.PublicLine.merge(line, o.line).map(l => copy(line = l))
   case class PlayBans(list: NonEmptyList[TempBan])
   case class AccountCreation(at: Instant)
 
@@ -144,7 +144,7 @@ final class ModTimelineApi(
     noteApi: NoteApi,
     reportApi: ReportApi,
     playBanApi: PlaybanApi,
-    shutupApi: ShutupApi,
+    shutupApi: lila.shutup.ShutupApi,
     userRepo: lila.user.UserRepo
 )(using Executor)(using scheduler: Scheduler):
 

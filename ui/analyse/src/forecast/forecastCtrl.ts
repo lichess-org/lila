@@ -1,10 +1,10 @@
-import { prop, notEmpty, Prop } from 'common';
-import { json as xhrJson } from 'common/xhr';
+import { prop, notEmpty, Prop } from 'lib';
+import { json as xhrJson } from 'lib/xhr';
 import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import type { AnalyseData } from '../interfaces';
 import { scalachessCharPair } from 'chessops/compat';
 import { parseUci } from 'chessops';
-import type { TreeWrapper } from 'tree';
+import type { TreeWrapper } from 'lib/tree/tree';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);
@@ -33,9 +33,7 @@ export default class ForecastCtrl {
 
   collides = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean => {
     for (let i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
-      if (fc1[i].uci !== fc2[i].uci) {
-        return this.cfg.onMyTurn ? i !== 0 && i % 2 === 0 : i % 2 === 1;
-      }
+      if (fc1[i].uci !== fc2[i].uci) return this.cfg.onMyTurn ? i !== 0 && i % 2 === 0 : i % 2 === 1;
     }
     return true;
   };

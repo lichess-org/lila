@@ -8,10 +8,9 @@ object Links:
     text.linesIterator.toList
       .map(_.trim)
       .filter(_.nonEmpty)
-      .flatMap {
+      .flatMap:
         case Site.mastodonRegex(user, server) => Link(Site.Mastodon, s"https://$server/@$user").some
         case line => toLink(if line.contains("://") then line else s"https://$line")
-      }
 
   private def toLink(line: String): Option[Link] =
     for

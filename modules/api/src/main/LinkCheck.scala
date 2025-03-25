@@ -66,14 +66,16 @@ final private class LinkCheck(
     }
 
   private def simulLink(simulId: String, source: FullSource) =
-    simulApi.teamOf(SimulId(simulId)).map {
-      _.exists(source.teamId.has)
-    }
+    simulApi
+      .teamOf(SimulId(simulId))
+      .map:
+        _.exists(source.teamId.has)
 
   private def swissLink(swissId: String, source: FullSource) =
-    swissApi.teamOf(SwissId(swissId)).map {
-      _.exists(source.teamId.has)
-    }
+    swissApi
+      .teamOf(SwissId(swissId))
+      .map:
+        _.exists(source.teamId.has)
 
   private def studyLink(@nowarn studyId: String, @nowarn source: FullSource) = fuFalse
 

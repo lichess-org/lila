@@ -64,7 +64,7 @@ private case object TutorOpening:
     accuracy <- answerBoth(accuracyQuestion, user, Max(1000))
     awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
     awareness <- answerBoth(awarenessQuestion, user, Max(1000))
-  yield TutorColorOpenings {
+  yield TutorColorOpenings:
     performances.mine.list.map { (family, myPerformance) =>
       TutorOpeningFamily(
         family,
@@ -73,7 +73,6 @@ private case object TutorOpening:
         awareness = GoodPercent.from(awareness.valueMetric(family))
       )
     }
-  }
 
   def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,

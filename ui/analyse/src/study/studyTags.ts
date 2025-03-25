@@ -1,9 +1,9 @@
-import { onInsert } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { onInsert } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
 import { h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
-import { prop } from 'common';
+import { prop } from 'lib';
 import type StudyCtrl from './studyCtrl';
 
 export class TagsForm {

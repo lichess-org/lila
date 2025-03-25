@@ -42,9 +42,10 @@ final class StreamerApi(
     users <- userApi.byIds(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
-    users.find(_.is(s.streamer)).map {
-      Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
-    }
+    users
+      .find(_.is(s.streamer))
+      .map:
+        Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
@@ -181,11 +182,10 @@ final class StreamerApi(
   object approval:
 
     def request(user: User) =
-      find(user).flatMap {
+      find(user).flatMap:
         _.filter(!_.streamer.approval.granted).so { s =>
           coll.updateField($id(s.streamer.id), "approval.requested", true).void
         }
-      }
 
     def countRequests: Fu[Int] = coll.countSel:
       $doc(

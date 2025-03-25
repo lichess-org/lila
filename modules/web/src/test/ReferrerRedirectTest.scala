@@ -6,7 +6,7 @@ class ReferrerRedirectTest extends munit.FunSuite:
 
   def r = new ReferrerRedirect(BaseUrl("https://lichess.org"))
 
-  test("be valid") {
+  test("be valid"):
     assertEquals(r.valid("/tournament"), Some("https://lichess.org/tournament"))
     assertEquals(r.valid("/@/neio"), Some("https://lichess.org/@/neio"))
     assertEquals(r.valid("/@/Neio"), Some("https://lichess.org/@/Neio"))
@@ -20,8 +20,7 @@ class ReferrerRedirectTest extends munit.FunSuite:
     val legacyOauth =
       "https://oauth.lichess.org/oauth/authorize?response_type=code&client_id=NotReal1&redirect_uri=http%3A%2F%2Fexample.lichess.ovh%3A9371%2Foauth-callback&scope=challenge:read+challenge:write+board:play&state=123abc"
     assertEquals(r.valid(legacyOauth), Some(legacyOauth))
-  }
-  test("be invalid") {
+  test("be invalid"):
     assertEquals(r.valid(""), None)
     assertEquals(r.valid("ftp://lichess.org/tournament"), None)
     assertEquals(r.valid("https://evil.com"), None)
@@ -31,4 +30,3 @@ class ReferrerRedirectTest extends munit.FunSuite:
     assertEquals(r.valid("/\t/evil.com"), None)
     assertEquals(r.valid("/ /evil.com"), None)
     assertEquals(r.valid("http://lichess.org/"), None) // downgrade to http
-  }

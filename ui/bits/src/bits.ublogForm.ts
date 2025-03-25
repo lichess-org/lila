@@ -1,10 +1,10 @@
-import { json as xhrJson } from 'common/xhr';
-import { throttle } from 'common/timing';
+import { json as xhrJson } from 'lib/xhr';
+import { throttle } from 'lib/async';
 import { Editor, type EditorType } from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from 'lib/device';
 import { wireCropDialog } from './crop';
-import { storedJsonProp } from 'common/storage';
+import { storedJsonProp } from 'lib/storage';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {

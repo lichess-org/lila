@@ -1,12 +1,12 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
-import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbdom';
+import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'lib/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
-import { shuffle } from 'common/algo';
-import { fullName, userFlair, userTitle } from 'common/userLink';
-import { spinnerVdom } from 'common/spinner';
+import { shuffle } from 'lib/algo';
+import { fullName, userFlair, userTitle } from 'lib/userLink';
+import { spinnerVdom } from 'lib/controls';
 import { formatDuration, perfLabel, perfNames } from './util';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'lib/game/perfIcons';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
@@ -91,7 +91,7 @@ const opponentLink = (o: LightUser): VNode =>
 
 const userFallbackFlair = new Map<string, string>();
 const noFlair = (o: LightUser): VNode => {
-  let randomFlair =
+  const randomFlair =
     userFallbackFlair.get(o.id) ||
     userFallbackFlair
       .set(

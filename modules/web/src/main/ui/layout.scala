@@ -11,7 +11,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
     reportScore: () => Int
@@ -92,12 +91,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
     )
 
-  def botImage =
-    img(
-      src   := staticAssetUrl("images/icons/bot.png"),
-      title := "Robot chess",
-      style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
-    )
+  def botImage = img(
+    src   := staticAssetUrl("images/icons/bot.png"),
+    title := "Robot chess",
+    style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+  )
 
   val manifests = raw:
     """<link rel="manifest" href="/manifest.json">"""
@@ -142,13 +140,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
-      ctx: Context
-  ) =
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList)(using ctx: Context) =
     val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
-    scriptsPreload(
-      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
-    )
+    scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
   def scriptsPreload(keys: List[String]) =
     frag(
@@ -172,13 +166,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
-  def hrefLangs(path: LangPath) = raw {
+  def hrefLangs(path: LangPath) = raw:
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       popularAlternateLanguages.map { l =>
         hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
-  }
 
   def pageZoom(using ctx: Context): Int = {
     def oldZoom = ctx.req.session.get("zoom2").flatMap(_.toIntOption).map(_ - 100)
@@ -346,3 +339,17 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
+
+  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+
+  private def isRTL(lang: Lang): Boolean =
+    rtlCache.getOrElseUpdate(
+      lang,
+      lang.locale
+        .getDisplayName(lang.locale)
+        .headOption
+        .map(_.getDirectionality)
+        .exists: dir =>
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+            dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+    )

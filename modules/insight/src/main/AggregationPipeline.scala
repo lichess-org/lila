@@ -53,7 +53,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         )
 
         lazy val movetimeIdDispatcher =
-          MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)) {
+          MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)):
             case (acc, mtr) =>
               $doc(
                 "$cond" -> $arr(
@@ -62,7 +62,6 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   acc
                 )
               )
-          }
 
         lazy val cplIdDispatcher =
           CplRange.all.reverse.foldLeft[BSONValue](BSONInteger(CplRange.worse.cpl)) { case (acc, cpl) =>

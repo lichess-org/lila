@@ -40,7 +40,8 @@ final private class AbortListener(
       }
 
   private def worthRecreating(seek: Seek): Fu[Boolean] =
-    userApi.byId(seek.user.id).map {
-      _.exists: u =>
-        u.enabled.yes && !u.lame
-    }
+    userApi
+      .byId(seek.user.id)
+      .map:
+        _.exists: u =>
+          u.enabled.yes && !u.lame

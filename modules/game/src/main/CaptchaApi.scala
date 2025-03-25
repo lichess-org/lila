@@ -57,9 +57,10 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       gameRepo.game(id).flatMapz(fromGame)
 
     def fromGame(game: Game): Fu[Option[Captcha]] =
-      gameRepo.getOptionPgn(game.id).map {
-        _.flatMap { makeCaptcha(game, _) }
-      }
+      gameRepo
+        .getOptionPgn(game.id)
+        .map:
+          _.flatMap { makeCaptcha(game, _) }
 
     def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
       for

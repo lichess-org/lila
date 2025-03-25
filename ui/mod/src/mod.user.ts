@@ -1,13 +1,13 @@
-import { formToXhr, text as xhrText } from 'common/xhr';
-import { debounce } from 'common/timing';
-import * as licon from 'common/licon';
-import extendTablesortNumber from 'common/tablesortNumber';
+import { formToXhr, text as xhrText } from 'lib/xhr';
+import { debounce } from 'lib/async';
+import * as licon from 'lib/licon';
+import extendTablesortNumber from 'lib/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
-import { spinnerHtml } from 'common/spinner';
-import { confirm } from 'common/dialog';
-import { pubsub } from 'common/pubsub';
-import { commonDateFormat, toDate } from 'common/i18n';
+import { spinnerHtml } from 'lib/controls';
+import { confirm } from 'lib/dialogs';
+import { pubsub } from 'lib/pubsub';
+import { commonDateFormat, toDate } from 'lib/i18n';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),

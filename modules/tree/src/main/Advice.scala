@@ -10,15 +10,13 @@ sealed trait Advice:
 
   export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
-  def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment {
+  def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment:
     withEval.so(evalComment.so(c => s"($c) ")) +
       (this.match
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString) + "." + withBestMove.so:
         info.variation.headOption.so: move =>
           s" $move was best."
-
-  }
 
   def evalComment: Option[String] =
     List(prev.evalComment, info.evalComment).flatten.mkString(" → ").some.filter(_.nonEmpty)
@@ -76,11 +74,10 @@ private[tree] case object MateLost
 
 private[tree] object MateSequence:
   def apply(prev: Score, next: Score): Option[MateSequence] =
-    (prev, next).some.collect {
+    (prev, next).some.collect:
       case (Score.Cp(_), Score.Mate(n)) if n.negative                 => MateCreated
       case (Score.Mate(p), Score.Cp(_)) if p.positive                 => MateLost
       case (Score.Mate(p), Score.Mate(n)) if p.positive && n.negative => MateLost
-    }
 private[tree] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,

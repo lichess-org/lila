@@ -17,5 +17,21 @@ def sides(
   div(
     side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
     cross.map: c =>
-      div(cls := "crosstable")(ui.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
+      div(cls := "crosstable")(ui.crosstable(ctx.userId.foldLeft(c)(_.fromPov(_)), pov.gameId.some))
   )
+
+def widgets(
+    games: Seq[Game],
+    notes: Map[GameId, String] = Map(),
+    user: Option[User] = None,
+    ownerLink: Boolean = false
+)(using ctx: lila.ui.Context): Frag =
+  games.map: g =>
+    ui.widgets(g, notes.get(g.id), user, ownerLink):
+      g.tournamentId
+        .map: tourId =>
+          views.tournament.ui.tournamentLink(tourId)(using ctx.translate)
+        .orElse(g.simulId.map: simulId =>
+          views.simul.ui.link(simulId))
+        .orElse(g.swissId.map: swissId =>
+          views.swiss.ui.link(swissId))

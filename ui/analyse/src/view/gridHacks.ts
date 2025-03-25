@@ -1,14 +1,15 @@
-import * as gridHacks from 'common/gridHacks';
-import { pubsub } from 'common/pubsub';
+import { throttle } from 'lib/async';
+import { bindChessgroundResizeOnce } from 'lib/chessgroundResize';
+import { pubsub } from 'lib/pubsub';
 
 let booted = false;
 
 export function start(container: HTMLElement) {
   const runHacks = () => fixChatHeight(container);
 
-  gridHacks.runner(runHacks);
+  runner(runHacks);
 
-  gridHacks.bindChessgroundResizeOnce(runHacks);
+  bindChessgroundResizeOnce(runHacks);
 
   if (!booted) {
     pubsub.on('chat.resize', runHacks);
@@ -25,3 +26,21 @@ function fixChatHeight(container: HTMLElement) {
     if (height) chat.style.height = `calc(${height}px - 2vmin)`;
   }
 }
+
+const runner = (hacks: () => void, throttleMs = 100): void => {
+  let timeout: Timeout | undefined;
+
+  const runHacks = throttle(throttleMs, () =>
+    requestAnimationFrame(() => {
+      hacks();
+      schedule();
+    }),
+  );
+
+  function schedule() {
+    timeout && clearTimeout(timeout);
+    timeout = setTimeout(runHacks, 500);
+  }
+
+  runHacks();
+};

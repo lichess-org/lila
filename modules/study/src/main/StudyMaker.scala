@@ -15,7 +15,7 @@ final private class StudyMaker(
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId
       .so(gameRepo.gameWithInitialFen))
-      .flatMap {
+      .flatMap:
         case Some(WithInitialFen(game, initialFen)) =>
           createFromPov(
             data,
@@ -25,7 +25,6 @@ final private class StudyMaker(
             withRatings
           )
         case None => createFromScratch(data, user)
-      }
       .map { sc =>
         // apply specified From if any
         sc.copy(study = sc.study.copy(from = data.from | sc.study.from))

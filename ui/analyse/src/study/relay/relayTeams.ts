@@ -1,12 +1,12 @@
-import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'common/snabbdom';
-import { json as xhrJson } from 'common/xhr';
+import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'lib/snabbdom';
+import { json as xhrJson } from 'lib/xhr';
 import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'lib/controls';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { userTitle } from 'common/userLink';
+import { userTitle } from 'lib/userLink';
 import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {

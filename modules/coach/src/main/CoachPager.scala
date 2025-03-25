@@ -8,6 +8,7 @@ import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.core.user.{ Flag, UserMark }
+import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 
 final class CoachPager(
@@ -59,9 +60,8 @@ final class CoachPager(
                   s"_user.${lila.core.user.BSONFields.enabled}" -> true,
                   s"_user.${lila.core.user.BSONFields.marks}"
                     .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
-                ) ++ country.so { c =>
+                ) ++ country.so: c =>
                   $doc("_user.profile.country" -> c.code)
-                }
               ),
               Skip(offset),
               Limit(length),
@@ -89,10 +89,10 @@ final class CoachPager(
 
 object CoachPager:
 
-  enum Order(val key: String, val name: String):
-    case Login         extends Order("login", "Last login")
-    case LichessRating extends Order("rating", "Lichess rating")
-    case Alphabetical  extends Order("alphabetical", "Alphabetical")
+  enum Order(val key: String, val i18nKey: I18nKey):
+    case Login         extends Order("login", I18nKey.coach.lastLogin)
+    case LichessRating extends Order("rating", I18nKey.coach.lichessRating)
+    case Alphabetical  extends Order("alphabetical", I18nKey.study.alphabetical)
 
   object Order:
     val default                   = Login

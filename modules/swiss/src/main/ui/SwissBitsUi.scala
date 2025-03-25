@@ -7,9 +7,9 @@ import ScalatagsTemplate.{ *, given }
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   import helpers.{ *, given }
 
-  def link(swiss: Swiss): Frag     = link(swiss.id, swiss.name)
-  def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
-  def link(swissId: SwissId, name: String): Frag =
+  def link(swiss: Swiss): Tag     = link(swiss.id, swiss.name)
+  def link(swissId: SwissId): Tag = link(swissId, idToName(swissId))
+  def link(swissId: SwissId, name: String): Tag =
     a(
       dataIcon := Icon.Trophy,
       cls      := "text",

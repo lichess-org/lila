@@ -1,4 +1,4 @@
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 
 import type { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
@@ -14,20 +14,6 @@ export const variants: Variant[] = [
   { id: 9, icon: licon.FlagRacingKings, key: 'racingKings', name: 'Racing Kings' },
   { id: 3, icon: licon.Crown, key: 'fromPosition', name: 'From Position' },
 ];
-
-export const variantsBlindMode: Variant[] = variants.filter(({ key }: Variant) =>
-  [
-    'standard',
-    'chess960',
-    'kingOfTheHill',
-    'threeCheck',
-    'fromPosition',
-    'antichess',
-    'atomic',
-    'racingKings',
-    'horde',
-  ].includes(key),
-);
 
 export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
   gameType === 'hook' ? baseVariants.filter(({ key }) => key !== 'fromPosition') : baseVariants;

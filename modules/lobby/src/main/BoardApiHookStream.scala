@@ -5,6 +5,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.common.actorBus.*
 import lila.core.socket.Sri
 
 final class BoardApiHookStream(
@@ -37,7 +38,7 @@ final class BoardApiHookStream(
 
     override def postStop() =
       super.postStop()
-      Bus.unsubscribe(self, classifiers)
+      classifiers.foreach(Bus.unsubscribe(self, _))
       lobby ! CancelHook(hook.sri)
       queue.complete()
 

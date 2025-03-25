@@ -45,7 +45,7 @@ final class AccountTermination(
     swissApi: lila.swiss.SwissApi,
     planApi: lila.plan.PlanApi,
     seekApi: lila.lobby.SeekApi,
-    securityStore: lila.security.Store,
+    securityStore: lila.security.SessionStore,
     pushEnv: lila.push.Env,
     streamerApi: lila.streamer.StreamerApi,
     reportApi: lila.report.ReportApi,
@@ -87,7 +87,7 @@ final class AccountTermination(
     _       <- planApi.cancelIfAny(u).recoverDefault
     _       <- seekApi.removeByUser(u)
     _       <- securityStore.closeAllSessionsOf(u.id)
-    _       <- tokenApi.revokeAllByUser(u)
+    _       <- selfClose.so(tokenApi.revokeAllByUser(u))
     _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
     _       <- pushEnv.unregisterDevices(u)
     _       <- streamerApi.demote(u.id)
@@ -138,6 +138,7 @@ final class AccountTermination(
     _                   <- swissIds.nonEmpty.so(swissApi.onUserDelete(u.id, swissIds))
     _                   <- teamApi.onUserDelete(u.id)
     _                   <- ublogApi.onAccountDelete(u)
+    _                   <- tokenApi.revokeAllByUser(u)
     _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
   yield

@@ -1,7 +1,7 @@
-import { type Attrs, looseH as h, type VNode, bind } from 'common/snabbdom';
-import * as licon from 'common/licon';
+import { type Attrs, looseH as h, type VNode, bind } from 'lib/snabbdom';
+import * as licon from 'lib/licon';
 import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export class LinksCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {

@@ -16,11 +16,11 @@ final class OpeningBits(helpers: Helpers):
       "opening",
       page.fold(JsNull): p =>
         import lila.common.Json.given
-        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+        Json.obj("history" -> p.exploredOption.so[List[Float]](_.history), "sans" -> p.query.sans)
     )
 
   def whatsNext(page: OpeningPage): Option[Tag] =
-    page.explored.map: explored =>
+    page.exploredOption.map: explored =>
       div(cls := "opening__nexts")(
         explored.next.map: next =>
           val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
@@ -98,7 +98,7 @@ final class OpeningBits(helpers: Helpers):
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
-  def resultSegments(result: ResultCounts) = (result.sum > 0).option {
+  def resultSegments(result: ResultCounts) = (result.sum > 0).option:
     import result.*
     val (blackV, drawsV, whiteV) = exaggerateResults(result)
     frag(
@@ -106,7 +106,6 @@ final class OpeningBits(helpers: Helpers):
       resultSegment("draws", "Draws", drawsPercent, drawsV),
       resultSegment("white", "White wins", whitePercent, whiteV)
     )
-  }
 
   def resultSegment(key: String, help: String, percent: Double, visualPercent: Double) =
     val visible = visualPercent > 7

@@ -4,8 +4,8 @@ package socket
 import _root_.chess.{ Centis, Color }
 import alleycats.Zero
 import play.api.libs.json.*
+import scalalib.data.LazyFu
 
-import lila.core.data.LazyFu
 import lila.core.userId.UserId
 
 opaque type IsOnline = UserId => Boolean

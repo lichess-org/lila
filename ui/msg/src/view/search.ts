@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import { throttle } from 'common/timing';
+import { throttle } from 'lib/async';
 import type MsgCtrl from '../ctrl';
 import type { SearchResult, User } from '../interfaces';
 import renderContacts, { userIcon } from './contact';
-import { fullName } from 'common/userLink';
-import { hookMobileMousedown } from 'common/device';
+import { fullName } from 'lib/userLink';
+import { hookMobileMousedown } from 'lib/device';
 
 export const renderInput = (ctrl: MsgCtrl): VNode =>
   h('div.msg-app__side__search', [

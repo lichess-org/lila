@@ -17,7 +17,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
       .mapMaterializedValue: queue =>
         var watchedIds = initialIds
         val chans      = List("startGame", "finishGame", streamChan(streamId))
-        val sub = Bus.subscribeFun(chans*) {
+        val sub = Bus.subscribeFun(chans*):
           case lila.core.game.StartGame(game) if watchedIds(game.id) => queue.offer(game)
           case lila.core.game.FinishGame(game, _) if watchedIds(game.id) =>
             queue.offer(game)
@@ -27,7 +27,6 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
             watchedIds = (watchedIds ++ newIds).take(maxGames)
             gameSource(newIds.intersect(watchedIds))
               .runWith(Sink.foreach(g => queue.offer(g)))
-        }
         queue
           .watchCompletion()
           .addEffectAnyway:

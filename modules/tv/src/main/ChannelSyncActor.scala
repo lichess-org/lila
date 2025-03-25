@@ -4,15 +4,17 @@ import chess.{ Color, Ply }
 import chess.IntRating
 import monocle.syntax.all.*
 import scalalib.actor.SyncActor
+import scalalib.HeapSort.topNToList
 
 import lila.core.LightUser
 
-final private[tv] class ChannelSyncActor(
+final private class ChannelSyncActor(
     channel: Tv.Channel,
     onSelect: TvSyncActor.Selected => Unit,
-    proxyGame: GameId => Fu[Option[Game]],
+    gameProxy: lila.core.game.GameProxy,
     rematchOf: GameId => Option[GameId],
-    lightUserSync: LightUser.GetterSync
+    lightUserSync: LightUser.GetterSync,
+    userApi: lila.core.user.UserApi
 )(using Executor)
     extends SyncActor:
 
@@ -43,34 +45,34 @@ final private[tv] class ChannelSyncActor(
     case SetGame(game) =>
       onSelect(TvSyncActor.Selected(channel, game))
       history = game.id :: history.take(2)
+      lila.mon.tv.selector.rating(channel.name).record(game.averageUsersRating.so(_.value))
 
     case TvSyncActor.Select =>
-      candidateIds.keys
-        .parallel(proxyGame)
-        .map(
-          _.view
-            .collect {
-              case Some(g) if channel.isFresh(g) => g
-            }
-            .toList
-        )
-        .foreach { candidates =>
-          oneId.so(proxyGame).foreach {
-            case Some(current) if channel.isFresh(current) =>
-              fuccess(wayBetter(current, candidates)).orElse(rematch(current)).foreach(elect)
-            case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates))).foreach(elect)
-            case _             => elect(bestOf(candidates))
-          }
-          manyIds = candidates
-            .sortBy: g =>
-              -(g.averageUsersRating.so(_.value))
-            .take(50)
-            .map(_.id)
-        }
+      lila.mon.tv.selector.candidates(channel.name).record(candidateIds.count)
+      doSelectNow().foreach: (one, many) =>
+        manyIds = many
+        one.foreach: game =>
+          this ! SetGame(game)
 
   def addCandidate(game: Game): Unit = candidateIds.put(game.id)
 
-  private def elect(gameOption: Option[Game]): Unit = gameOption.foreach { this ! SetGame(_) }
+  private val ratingOrdering = Ordering.by[Game, Int](_.averageUsersRating.so(_.value))
+
+  private def doSelectNow(): Fu[(Option[Game], List[GameId])] = for
+    allCandidates <- candidateIds.keys.parallel(gameProxy.gameIfPresent)
+    freshCandidates = allCandidates.view.collect:
+      case Some(g) if channel.isFresh(g) => g
+    sortedCandidates = topNToList(freshCandidates, 64)(using ratingOrdering)
+    cheaters <- userApi.filterEngines(sortedCandidates.flatMap(_.userIds))
+    candidates = sortedCandidates.filterNot(_.userIds.toSet.intersect(cheaters).nonEmpty)
+    _          = lila.mon.tv.selector.cheats(channel.name).record(sortedCandidates.size - candidates.size)
+    currentBest <- oneId.so(gameProxy.gameIfPresent)
+    newBest <- currentBest match
+      case Some(current) if channel.isFresh(current) =>
+        fuccess(wayBetter(current, candidates)).orElse(rematch(current))
+      case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates)))
+      case _             => fuccess(bestOf(candidates))
+  yield newBest -> candidates.map(_.id)
 
   private def wayBetter(game: Game, candidates: List[Game]) =
     bestOf(candidates).filter { isWayBetter(game, _) }
@@ -80,15 +82,14 @@ final private[tv] class ChannelSyncActor(
 
   private def isWayBetter(g1: Game, g2: Game) = score(resetTurns(g2)) > (score(resetTurns(g1)) * 1.17)
 
-  private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id).so(proxyGame)
+  private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id).so(gameProxy.game)
 
   private def bestOf(candidates: List[Game]) =
     candidates.maximumByOption(score)
 
   private def score(game: Game): Int =
-    heuristics.foldLeft(0) { case (score, fn) =>
+    heuristics.foldLeft(0): (score, fn) =>
       score + fn(game)
-    }
 
   private type Heuristic = Game => Int
 
@@ -106,9 +107,8 @@ final private[tv] class ChannelSyncActor(
     ~game
       .player(color)
       .some
-      .flatMap { p =>
+      .flatMap: p =>
         p.stableRating.exists(_ > IntRating(2100)).so(p.userId)
-      }
       .flatMap(lightUserSync)
       .flatMap(_.title)
       .flatMap(Tv.titleScores.get)

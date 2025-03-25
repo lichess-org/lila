@@ -160,29 +160,25 @@ final class LobbySocket(
         member,
         cost = if member.isAuth then 4 else 5,
         msg = s"join $o ${member.userId | "anon"}"
-      ) {
+      ):
         o.str("d").foreach { id =>
           lobby ! BiteHook(id, member.sri, member.user)
         }
-      }
     case ("cancel", _) =>
-      HookPoolLimit(member, cost = 1, msg = "cancel") {
+      HookPoolLimit(member, cost = 1, msg = "cancel"):
         lobby ! CancelHook(member.sri)
-      }
     case ("joinSeek", o) if !member.bot =>
-      HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
+      HookPoolLimit(member, cost = 5, msg = s"joinSeek $o"):
         for
           id   <- o.str("d")
           user <- member.user
         do lobby ! BiteSeek(id, user)
-      }
     case ("cancelSeek", o) =>
-      HookPoolLimit(member, cost = 1, msg = s"cancelSeek $o") {
+      HookPoolLimit(member, cost = 1, msg = s"cancelSeek $o"):
         for
           id   <- o.str("d")
           user <- member.user
         do lobby ! CancelSeek(id, user)
-      }
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o.boolean("d")))
     // entering a pool
     case ("poolIn", o) if member.bot =>
@@ -229,19 +225,20 @@ final class LobbySocket(
     case ("hookOut", _) => actor ! HookSub(member, value = false)
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
-    actor.ask[Option[Member]](GetMember(sri, _)).getOrElse {
-      userOpt.so(userApi.withPerfs).flatMap { user =>
-        user
-          .filter(_.enabled.yes)
-          .so: u =>
-            socketKit.baseHandler(P.In.ConnectUser(u.id))
-            relationApi.fetchBlocking(u.id)
-          .map: blocks =>
-            val member = Member(sri, user.map { LobbyUser.make(_, lila.core.pool.Blocking(blocks)) })
-            actor ! Join(member)
-            member
-      }
-    }
+    actor
+      .ask[Option[Member]](GetMember(sri, _))
+      .getOrElse:
+        userOpt.so(userApi.withPerfs).flatMap { user =>
+          user
+            .filter(_.enabled.yes)
+            .so: u =>
+              socketKit.baseHandler(P.In.ConnectUser(u.id))
+              relationApi.fetchBlocking(u.id)
+            .map: blocks =>
+              val member = Member(sri, user.map { LobbyUser.make(_, lila.core.pool.Blocking(blocks)) })
+              actor ! Join(member)
+              member
+        }
 
   private val handler: SocketHandler =
 

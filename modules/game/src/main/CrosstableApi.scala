@@ -70,7 +70,7 @@ final class CrosstableApi(
           ),
           upsert = true
         )
-        val updateMatchup = matchupColl {
+        val updateMatchup = matchupColl:
           _.update
             .one(
               select(u1, u2),
@@ -83,7 +83,6 @@ final class CrosstableApi(
               upsert = true
             )
             .void
-        }
         updateCrosstable.zip(updateMatchup).void
       case _ => funit
 

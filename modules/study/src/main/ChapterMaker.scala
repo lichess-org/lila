@@ -24,17 +24,16 @@ final private class ChapterMaker(
   def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
     data.game
       .so(parseGame)
-      .flatMap {
+      .flatMap:
         case None =>
-          data.game.so(pgnFetch.fromUrl).flatMap {
-            case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
-            case _         => fromFenOrPgnOrBlank(study, data, order, userId)
-          }
+          data.game
+            .so(pgnFetch.fromUrl)
+            .flatMap:
+              case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
+              case _         => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
-      }
-      .map { (c: Chapter) =>
+      .map: c =>
         if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
-      }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.value.trim.nonEmpty) match
@@ -77,7 +76,7 @@ final private class ChapterMaker(
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
-    def isMe(name: Option[chess.PlayerName]) = name.flatMap(n => UserStr.read(n.value)).exists(_.id == userId)
+    def isMe(name: Option[chess.PlayerName]) = name.flatMap(n => UserStr.read(n.value)).exists(_.is(userId))
     data.orientation match
       case Orientation.Fixed(color)    => color
       case _ if isMe(tags.names.white) => Color.white

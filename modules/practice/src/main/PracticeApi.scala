@@ -7,7 +7,7 @@ import lila.study.{ ChapterPreview, Study }
 
 final class PracticeApi(
     coll: Coll,
-    configStore: lila.memo.ConfigStore[PracticeConfig],
+    configStore: ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
 )(using Executor):

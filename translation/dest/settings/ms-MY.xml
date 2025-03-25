@@ -2,6 +2,6 @@
 <resources>
   <string name="settings">Tetapan</string>
   <string name="closeAccount">Tutup Akaun</string>
-  <string name="cantOpenSimilarAccount">Anda tidak akan dibenarkan membuka akaun baru dengan nama yang sama, walaupun besar-kecil hurufnya berbeza.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Anda tidak akan dibenarkan membuka akaun baru dengan nama yang sama, walaupun besar-kecil hurufnya berbeza.</string>
   <string name="thisAccountIsClosed">Akaun ini telah ditutup.</string>
 </resources>

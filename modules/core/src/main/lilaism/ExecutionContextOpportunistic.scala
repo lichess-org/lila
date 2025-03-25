@@ -1,4 +1,4 @@
-package scala.concurrent {
+package scala.concurrent:
   /*
    * Asynchronous code with short-lived nested tasks is executed more efficiently when using
    * `ExecutionContext.opportunistic` (continue reading to learn why it is `private[scala]` and how to access it).
@@ -14,4 +14,3 @@ package scala.concurrent {
    */
   val ExecutionContextOpportunistic: ExecutionContextExecutor =
     ExecutionContext.opportunistic
-}

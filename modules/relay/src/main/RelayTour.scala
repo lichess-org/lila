@@ -10,7 +10,6 @@ import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
 import chess.TournamentClock
-import chess.format.pgn.Tag
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,

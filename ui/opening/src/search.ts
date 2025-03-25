@@ -1,6 +1,6 @@
-import { text as xhrText, url as xhrUrl } from 'common/xhr';
+import { text as xhrText, url as xhrUrl } from 'lib/xhr';
 import debounce from 'debounce-promise';
-import { initMiniBoards } from 'common/miniBoard';
+import { initMiniBoards } from 'lib/miniBoard';
 
 export function init(): void {
   const debounced = debounce((str: string) => {

@@ -46,10 +46,11 @@ final class GarbageCollector(
           .recoverDefault(e => logger.info(e.getMessage, e)) >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
-    userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail(LilaNoStackTrace(s"never got a print for ${data.user.username}"))
-      case _     => funit
-    }
+    userLogins
+      .userHasPrint(data.user)
+      .flatMap:
+        case false => fufail(LilaNoStackTrace(s"never got a print for ${data.user.username}"))
+        case _     => funit
 
   private def apply(data: ApplyData): Funit =
     data match
@@ -93,7 +94,7 @@ final class GarbageCollector(
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
-      hasBeenCollectedBefore(user).not.mapz {
+      hasBeenCollectedBefore(user).not.mapz:
         val armed = isArmed()
         val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(240)).seconds
         val message =
@@ -104,7 +105,6 @@ final class GarbageCollector(
         if armed then
           scheduler.scheduleOnce(wait):
             doCollect(user.id)
-      }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collected")))

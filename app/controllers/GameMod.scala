@@ -68,7 +68,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
     yield NoContent
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
-    val res = Ok.chunked {
+    val res = Ok.chunked:
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
           ids = gameIds,
@@ -78,5 +78,4 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           playerFile = none
         )
       )
-    }
     asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn")(res).as(pgnContentType)

@@ -6,7 +6,7 @@ import chess.variant.Standard
 import monocle.syntax.all.*
 import play.api.libs.json.JsValue
 
-import lila.analyse.{ Analysis, Annotator }
+import lila.analyse.Annotator
 import lila.core.config.NetDomain
 import lila.core.game.Player
 import lila.core.id.GamePlayerId

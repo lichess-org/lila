@@ -39,6 +39,8 @@ object PublicSource:
       case PublicSource.Ublog(id)       => s"blog/$id"
       case PublicSource.Relay(id)       => s"relay/$id"
 
+case class PublicLine(text: String, from: PublicSource, date: Instant)
+
 trait ShutupApi:
   def publicText(userId: UserId, text: String, source: PublicSource): Funit
   def privateMessage(userId: UserId, toUserId: UserId, text: String): Funit

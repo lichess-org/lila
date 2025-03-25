@@ -79,9 +79,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
     }.map(_.replace("{DOT}", "."))
 
-  private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki") {
+  private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki"):
     _.maximumSize(4096).buildAsyncFuture(compute)
-  }
 
   private def compute(key: OpeningKey): Fu[OpeningWiki] = for
     docOpt <- coll.aggregateOne(): F =>
@@ -93,20 +92,21 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
     OpeningDb.shortestLines.get(key).so { op =>
-      explorer.simplePopularity(op).flatMap {
-        _.so { popularity =>
-          coll.update
-            .one(
-              $id(key),
-              $set(
-                "popularity"   -> popularity,
-                "popularityAt" -> nowInstant
-              ),
-              upsert = true
-            )
-            .inject(popularity)
-        }
-      }
+      explorer
+        .simplePopularity(op)
+        .flatMap:
+          _.so { popularity =>
+            coll.update
+              .one(
+                $id(key),
+                $set(
+                  "popularity"   -> popularity,
+                  "popularityAt" -> nowInstant
+                ),
+                upsert = true
+              )
+              .inject(popularity)
+          }
     }
 
 object OpeningWiki:
@@ -116,15 +116,13 @@ object OpeningWiki:
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 
   private val MoveLiRegex = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
-  private def filterMarkupForMove(move: String)(markup: Html) = markup.map {
+  private def filterMarkupForMove(move: String)(markup: Html) = markup.map:
     _.linesIterator
-      .collect {
+      .collect:
         case MoveLiRegex(m, content) =>
           if m.toLowerCase == move.toLowerCase then s"<p>${content.trim}</p>" else ""
         case html => html
-      }
       .mkString("\n")
-  }
 
   private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)
   def priorityOf(explored: OpeningExplored) =

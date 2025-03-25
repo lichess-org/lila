@@ -21,18 +21,19 @@ final class Msg(env: Env) extends LilaController(env):
     if username.value == "new"
     then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
-      env.msg.api.convoWithMe(username, before).flatMap {
-        case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
-        case Some(c) =>
-          def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
-          negotiateApi(
-            html = Ok.async(newJson.map(views.msg.home)),
-            api = v =>
-              JsonOk:
-                if v.value >= 5 then newJson
-                else fuccess(env.msg.compat.thread(c))
-          )
-      }
+      env.msg.api
+        .convoWithMe(username, before)
+        .flatMap:
+          case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
+          case Some(c) =>
+            def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
+            negotiateApi(
+              html = Ok.async(newJson.map(views.msg.home)),
+              api = v =>
+                JsonOk:
+                  if v.value >= 5 then newJson
+                  else fuccess(env.msg.compat.thread(c))
+            )
   }
 
   def search(q: String) = Auth { _ ?=> me ?=>

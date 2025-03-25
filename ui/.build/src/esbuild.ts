@@ -4,7 +4,7 @@ import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { task, stopTask } from './task.ts';
-import { reduceWhitespace } from './algo.ts';
+import { definedMap, reduceWhitespace } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
@@ -17,13 +17,14 @@ export async function esbuild(): Promise<any> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2020',
+    target: 'es2018',
+    supported: { bigint: true },
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
     outdir: env.jsOutDir,
     entryNames: '[name].[hash]',
-    chunkNames: 'common.[hash]',
+    chunkNames: 'lib.[hash]',
     plugins,
   };
 
@@ -36,11 +37,11 @@ export async function esbuild(): Promise<any> {
       debounce: 300,
       noEnvStatus: true,
       globListOnly: true,
-      glob: env.building.flatMap(pkg =>
-        pkg.bundle
-          .map(bundle => bundle.module)
-          .filter((module): module is string => Boolean(module))
-          .map(path => ({ cwd: pkg.root, path })),
+      includes: env.building.flatMap(pkg =>
+        definedMap(
+          pkg.bundle.map(bundle => bundle.module),
+          path => ({ cwd: pkg.root, path }),
+        ),
       ),
       execute: async entryPoints => {
         await esbuildCtx?.dispose();
@@ -75,11 +76,11 @@ function inlineTask() {
     ctx: 'esbuild',
     debounce: 300,
     noEnvStatus: true,
-    glob: env.building.flatMap(pkg =>
-      pkg.bundle
-        .map(b => b.inline)
-        .filter((i): i is string => Boolean(i))
-        .map(i => ({ cwd: pkg.root, path: i })),
+    includes: env.building.flatMap(pkg =>
+      definedMap(
+        pkg.bundle.map(b => b.inline),
+        path => ({ cwd: pkg.root, path }),
+      ),
     ),
     execute: (_, inlines) =>
       Promise.all(
@@ -89,6 +90,7 @@ function inlineTask() {
             const res = await es.transform(await fs.promises.readFile(inlineSrc), {
               minify: true,
               loader: 'ts',
+              target: 'es2018',
             });
             esbuildLog(res.warnings);
             js[moduleName] ??= {};
@@ -108,8 +110,8 @@ function bundleManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
   for (const [filename, info] of Object.entries(meta.outputs)) {
     const out = splitPath(filename);
     if (!out) continue;
-    if (out.name === 'common') {
-      out.name = `common.${out.hash}`;
+    if (out.name === 'lib') {
+      out.name = `lib.${out.hash}`;
       js[out.name] = {};
     } else js[out.name] = { hash: out.hash };
     const imports: string[] = [];
@@ -149,7 +151,7 @@ function splitPath(path: string) {
 //   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
 //
 // nested template literals in interpolations are unchanged and still work, but they
-// won't be minified. this is fine, we don't need an ast parser as it's pretty rare
+// won't be minified.
 
 const plugins = [
   {

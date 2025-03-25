@@ -11,9 +11,9 @@ import type {
   Standing,
   Player,
 } from './interfaces';
-import { storage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
-import { alerts, prompt } from 'common/dialog';
+import { storage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
+import { alerts, prompt } from 'lib/dialogs';
 
 interface CtrlTeamInfo {
   requested?: string;

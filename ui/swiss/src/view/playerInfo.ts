@@ -1,12 +1,12 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { spinnerVdom as spinner } from 'lib/controls';
+import { bind, dataIcon, looseH as h } from 'lib/snabbdom';
 import { player as renderPlayer, numberRow } from './util';
 import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import type SwissCtrl from '../ctrl';
-import { fullName } from 'common/userLink';
+import { fullName } from 'lib/userLink';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
   if (!ctrl.playerInfoId) return;

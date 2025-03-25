@@ -1,9 +1,9 @@
 import { makeSocket, type SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'lib/async';
 import { maxPerPage, myPage, players } from './pagination';
 import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 
 export default class SwissCtrl {
   data: SwissData;

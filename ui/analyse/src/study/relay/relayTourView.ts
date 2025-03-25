@@ -1,15 +1,15 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
-import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, onInsert, looseH as h } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
-import { innerHTML, richHTML } from 'common/richText';
+import { innerHTML, richHTML } from 'lib/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
-import { defined, memoize } from 'common';
+import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle } from 'common/controls';
-import { text as xhrText } from 'common/xhr';
+import { toggle, copyMeInput } from 'lib/controls';
+import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
 import { makeChatEl, type RelayViewContext } from '../../view/components';
@@ -17,10 +17,9 @@ import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
-import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
-import { commonDateFormat, timeago } from 'common/i18n';
-import { watchers } from 'common/watchers';
+import { commonDateFormat, timeago } from 'lib/i18n';
+import { watchers } from 'lib/watchers';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -73,7 +72,7 @@ export const tourSide = (ctx: RelayViewContext) => {
                   hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
                 }),
               h('button.relay-tour__side__search', {
-                attrs: { 'data-icon': licon.Search, title: 'Search' },
+                attrs: { 'data-icon': licon.Search },
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),
@@ -270,6 +269,12 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
             h('label.fullscreen-mask', clickHook),
             h(
               'div.relay-tour__round-select__list.mselect__list',
+              {
+                hook: onInsert(el => {
+                  const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
+                  goTo?.scrollIntoView();
+                }),
+              },
               h(
                 'table',
                 h(
@@ -282,31 +287,40 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                     }),
                   },
                   relay.data.rounds.map((round, i) =>
-                    h(`tr.mselect__item${round.id === study.data.id ? '.current-round' : ''}`, [
-                      h(
-                        'td.name',
+                    h(
+                      'tr.mselect__item',
+                      {
+                        class: {
+                          ['current-round']: round.id === study.data.id,
+                          ['ongoing-round']: !!round.ongoing,
+                        },
+                      },
+                      [
                         h(
-                          'a',
-                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                          round.name,
+                          'td.name',
+                          h(
+                            'a',
+                            { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
+                            round.name,
+                          ),
                         ),
-                      ),
-                      h(
-                        'td.time',
-                        round.startsAt
-                          ? commonDateFormat(new Date(round.startsAt))
-                          : round.startsAfterPrevious
-                            ? i18n.broadcast.startsAfter(
-                                relay.data.rounds[i - 1]?.name || 'the previous round',
-                              )
-                            : '',
-                      ),
-                      h(
-                        'td.status',
-                        roundStateIcon(round, false) ||
-                          (round.startsAt ? timeago(round.startsAt) : undefined),
-                      ),
-                    ]),
+                        h(
+                          'td.time',
+                          round.startsAt
+                            ? commonDateFormat(new Date(round.startsAt))
+                            : round.startsAfterPrevious
+                              ? i18n.broadcast.startsAfter(
+                                  relay.data.rounds[i - 1]?.name || 'the previous round',
+                                )
+                              : '',
+                        ),
+                        h(
+                          'td.status',
+                          roundStateIcon(round, false) ||
+                            (round.startsAt ? timeago(round.startsAt) : undefined),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

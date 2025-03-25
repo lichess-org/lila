@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.9
         version: 4.0.9
       '@types/node':
-        specifier: 22.12.0
-        version: 22.12.0
+        specifier: 22.13.9
+        version: 22.13.9
       '@types/tinycolor2':
         specifier: 1.4.6
         version: 1.4.6
@@ -24,8 +24,11 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       fast-xml-parser:
-        specifier: 4.5.1
-        version: 4.5.1
+        specifier: 5.0.8
+        version: 5.0.8
+      json-stringify-pretty-compact:
+        specifier: 4.0.0
+        version: 4.0.0
       micromatch:
         specifier: 4.0.8
         version: 4.0.8
@@ -33,27 +36,27 @@ importers:
         specifier: 1.6.0
         version: 1.6.0
       typescript:
-        specifier: 5.7.3
-        version: 5.7.3
+        specifier: 5.8.2
+        version: 5.8.2
     optionalDependencies:
       sass-embedded-darwin-arm64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
       sass-embedded-darwin-x64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
       sass-embedded-linux-arm64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
       sass-embedded-linux-x64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
       sass-embedded-win32-arm64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
       sass-embedded-win32-x64:
-        specifier: 1.83.3
-        version: 1.83.3
+        specifier: 1.85.0
+        version: 1.85.0
 
 packages:
 
@@ -225,8 +228,8 @@ packages:
   '@types/micromatch@4.0.9':
     resolution: {integrity: sha512-7V+8ncr22h4UoYRLnLXSpTxjQrNUXtWHGeMPRJt1nULXI57G9bIcpyrHlmrQ7QK24EyyuXvYcSSWAM8GA9nqCg==}
 
-  '@types/node@22.12.0':
-    resolution: {integrity: sha512-Fll2FZ1riMjNmlmJOdAyY5pUbkftXslB5DgEzlIuNaiWhXd00FhWxVC/r4yV/4wBb9JfImTu+jiSvXTkJ7F/gA==}
+  '@types/node@22.13.9':
+    resolution: {integrity: sha512-acBjXdRJ3A6Pb3tqnw9HZmyR3Fiol3aGxRCK1x3d+6CDAMjl7I649wpSd+yNURCjbOUGu9tqtLKnTGxmK6CyGw==}
 
   '@types/tinycolor2@1.4.6':
     resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
@@ -244,12 +247,12 @@ packages:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
 
-  fast-xml-parser@4.5.1:
-    resolution: {integrity: sha512-y655CeyUQ+jj7KBbYMc4FG01V8ZQqjN+gDYGJ50RtfsUB8iG9AmwmwoAgeKLJdmueKKMrH1RJ7yXHTSoczdv5w==}
+  fast-xml-parser@5.0.8:
+    resolution: {integrity: sha512-qY8NiI5L8ff00F2giyICiJxSSKHO52tC36LJqx2JtvGyAd5ZfehC/l4iUVVHpmpIa6sM9N5mneSLHQG2INGoHA==}
     hasBin: true
 
-  fastq@1.17.1:
-    resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
+  fastq@1.19.0:
+    resolution: {integrity: sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -270,6 +273,9 @@ packages:
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+
+  json-stringify-pretty-compact@4.0.0:
+    resolution: {integrity: sha512-3CNZ2DnrpByG9Nqj6Xo8vqbjT4F6N+tb4Gb28ESAZjYZ5yqvmc56J+/kuIwkaAMOyblTQhUW7PxMkUb8Q36N3Q==}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -293,44 +299,44 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sass-embedded-darwin-arm64@1.83.3:
-    resolution: {integrity: sha512-fcqA3QGPgz4y7TPG/nD9/t3QJvGBZjLMG2gixH6hudRKsu13SvK/ES5sY54fGTgWTAOWXIb8JJV9MPzwZ55ybw==}
+  sass-embedded-darwin-arm64@1.85.0:
+    resolution: {integrity: sha512-plp8TyMz97YFBCB3ndftEvoW29vyfsSBJILM5U84cGzr06SvLh/Npjj8psfUeRw+upEk1zkFtw5u61sRCdgwIw==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [darwin]
 
-  sass-embedded-darwin-x64@1.83.3:
-    resolution: {integrity: sha512-12oCfJa580J0o8b/eCFMQmvooB8wp1SfeBMX2G0tk+xjDxk+bpGdjmMociejY0cb9SzMLF+p4PR9BVSQRW+RTg==}
+  sass-embedded-darwin-x64@1.85.0:
+    resolution: {integrity: sha512-LP8Zv8DG57Gn6PmSwWzC0gEZUsGdg36Ps3m0i1fVTOelql7N3HZIrlPYRjJvidL8ZlB3ISxNANebTREUHn/wkQ==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [darwin]
 
-  sass-embedded-linux-arm64@1.83.3:
-    resolution: {integrity: sha512-n0MzfjktJ9+5zKhoKwqhedTMhKwLfcf2CLAV1ETij3FeliMmhLtq0j9CX3dFC9SFWJR/a31HnJJhjHDavXKFSw==}
+  sass-embedded-linux-arm64@1.85.0:
+    resolution: {integrity: sha512-JRIRKVOY5Y8M1zlUOv9AQGju4P6lj8i5vLJZsVYVN/uY8Cd2dDJZPC8EOhjntp+IpF8AOGIHqCeCkHBceIyIjA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
 
-  sass-embedded-linux-x64@1.83.3:
-    resolution: {integrity: sha512-YKbMXmuj8Lb6q1MUoO6artymTrRxXjnPt1EZ3z5njFpzm0lNKxb9wh3SEeUSl012GOSbVBz2k4X4RsgQAfl+ow==}
+  sass-embedded-linux-x64@1.85.0:
+    resolution: {integrity: sha512-NTDeQFZcuVR7COoaRy8pZD6/+QznwBR8kVFsj7NpmvX9aJ7TX/q+OQZHX7Bfb3tsfKXhf1YZozegPuYxRnMKAQ==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
 
-  sass-embedded-win32-arm64@1.83.3:
-    resolution: {integrity: sha512-Bsg+TwpOnd9UJ81DO5t/QyV6fnwINYlN0KgZEPoRk7sTi5EchYWGLbHVlghQSqkxQMB9KAGmURtdSIa56YYxqQ==}
+  sass-embedded-win32-arm64@1.85.0:
+    resolution: {integrity: sha512-gO0VAuxC4AdV+uZYJESRWVVHQWCGzNs0C3OKCAdH4r1vGRugooMi7J/5wbwUdXDA1MV9ICfhlKsph2n3GiPdqA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [win32]
 
-  sass-embedded-win32-x64@1.83.3:
-    resolution: {integrity: sha512-Lz0q4a6797Knhi+p/2EZovrrdmum93xRyWEr0K8TzF1qFTsi0YK8xoo1zzZBPZIF7QEupQFw4N+uc41E/ip16A==}
+  sass-embedded-win32-x64@1.85.0:
+    resolution: {integrity: sha512-AknE2jLp6OBwrR5hQ8pDsG94KhJCeSheFJ2xgbnk8RUjZX909JiNbgh2sNt9LG+RXf4xZa55dDL537gZoCx/iw==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [win32]
 
-  strnum@1.0.5:
-    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
+  strnum@2.0.5:
+    resolution: {integrity: sha512-YAT3K/sgpCUxhxNMrrdhtod3jckkpYwH6JAuwmUdXZsmzH1wUyzTMrrK2wYCEEqlKwrWDd35NeuUkbBy/1iK+Q==}
 
   tinycolor2@1.6.0:
     resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
@@ -339,8 +345,8 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  typescript@5.7.3:
-    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -434,7 +440,7 @@ snapshots:
   '@nodelib/fs.walk@1.2.8':
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.17.1
+      fastq: 1.19.0
 
   '@types/braces@3.0.5': {}
 
@@ -442,7 +448,7 @@ snapshots:
     dependencies:
       '@types/braces': 3.0.5
 
-  '@types/node@22.12.0':
+  '@types/node@22.13.9':
     dependencies:
       undici-types: 6.20.0
 
@@ -488,11 +494,11 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.8
 
-  fast-xml-parser@4.5.1:
+  fast-xml-parser@5.0.8:
     dependencies:
-      strnum: 1.0.5
+      strnum: 2.0.5
 
-  fastq@1.17.1:
+  fastq@1.19.0:
     dependencies:
       reusify: 1.0.4
 
@@ -512,6 +518,8 @@ snapshots:
 
   is-number@7.0.0: {}
 
+  json-stringify-pretty-compact@4.0.0: {}
+
   merge2@1.4.1: {}
 
   micromatch@4.0.8:
@@ -529,25 +537,25 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sass-embedded-darwin-arm64@1.83.3:
+  sass-embedded-darwin-arm64@1.85.0:
     optional: true
 
-  sass-embedded-darwin-x64@1.83.3:
+  sass-embedded-darwin-x64@1.85.0:
     optional: true
 
-  sass-embedded-linux-arm64@1.83.3:
+  sass-embedded-linux-arm64@1.85.0:
     optional: true
 
-  sass-embedded-linux-x64@1.83.3:
+  sass-embedded-linux-x64@1.85.0:
     optional: true
 
-  sass-embedded-win32-arm64@1.83.3:
+  sass-embedded-win32-arm64@1.85.0:
     optional: true
 
-  sass-embedded-win32-x64@1.83.3:
+  sass-embedded-win32-x64@1.85.0:
     optional: true
 
-  strnum@1.0.5: {}
+  strnum@2.0.5: {}
 
   tinycolor2@1.6.0: {}
 
@@ -555,6 +563,6 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  typescript@5.7.3: {}
+  typescript@5.8.2: {}
 
   undici-types@6.20.0: {}

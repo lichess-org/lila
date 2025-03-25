@@ -3,5 +3,5 @@
   "compilerOptions": {
     "noImplicitAny": false
   },
-  "references": [{ "path": "../common/tsconfig.json" }]
+  "references": [{ "path": "../lib/tsconfig.json" }]
 }

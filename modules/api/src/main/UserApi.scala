@@ -45,9 +45,10 @@ final class UserApi(
       withTrophies: Boolean,
       withCanChallenge: Boolean
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
-    userApi.withPerfs(username).flatMapz {
-      extended(_, withFollows, withTrophies, withCanChallenge).dmap(some)
-    }
+    userApi
+      .withPerfs(username)
+      .flatMapz:
+        extended(_, withFollows, withTrophies, withCanChallenge).dmap(some)
 
   def extended(
       u: User | UserWithPerfs,
@@ -155,7 +156,7 @@ final class UserApi(
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
 
   private def trophiesJson(all: UserApi.TrophiesAndAwards)(using Lang): JsArray =
-    JsArray {
+    JsArray:
       all.ranks.toList
         .sortBy(_._2)
         .map: (perf, rank) =>
@@ -175,7 +176,6 @@ final class UserApi(
           .add("icon" -> t.kind.icon)
           .add("url" -> t.anyUrl)
       }
-    }
 
   private def perfTopTrophy(perf: PerfType, top: Int, name: String)(using Lang) = Json.obj(
     "type" -> "perfTop",

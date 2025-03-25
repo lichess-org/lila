@@ -1,5 +1,5 @@
 import { parseUci } from 'chessops/util';
-import { path as pathOps } from 'tree';
+import { path as pathOps } from 'lib/tree/tree';
 import type { MoveTest } from './interfaces';
 import type PuzzleCtrl from './ctrl';
 

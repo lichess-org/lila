@@ -35,9 +35,8 @@ private object BSONHandlers:
                   )
                 case x => sys.error(s"Invalid PV $pvStr: ${x.toList} (in $value)")
             }
-          }.flatMap {
+          }.flatMap:
             _.toNel.toTry(s"Empty PVs $value")
-          }
         case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
 
   given BSONHandler[BinaryFen] = lila.db.dsl.quickHandler[BinaryFen](

@@ -1,5 +1,5 @@
-import { throttlePromiseDelay } from 'common/timing';
-import { json, form } from 'common/xhr';
+import { throttlePromiseDelay } from 'lib/async';
+import { json, form } from 'lib/xhr';
 import type SwissCtrl from './ctrl';
 import { isOutcome } from './util';
 import type { Sheet } from './interfaces';

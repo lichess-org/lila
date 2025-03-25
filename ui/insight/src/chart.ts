@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
 import {
@@ -14,11 +14,11 @@ import {
   Tooltip,
   type ChartOptions,
 } from 'chart.js';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from 'lib/device';
 import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'lib/controls';
 
 resizePolyfill();
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);

@@ -9,6 +9,13 @@
     flex-flow: column;
     justify-content: center;
 
+    @include mq-is-col1 {
+      &.view,
+      &.win {
+        flex-flow: row;
+      }
+    }
+
     .find,
     .fail {
       padding-top: 5px;

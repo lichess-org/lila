@@ -57,9 +57,8 @@ export async function initModule(): Promise<SoundMove> {
       const pitch = keyToPitch(o.uci.slice(2));
       const instrument = isPawn(o.san) || isKing(o.san) ? 'clav' : 'celesta';
       play(instrument, pitch, volume);
-      if (hasCastle(o.san) || hasCheck(o.san) || hasCapture(o.san) || hasMate(o.san)) {
+      if (hasCastle(o.san) || hasCheck(o.san) || hasCapture(o.san) || hasMate(o.san))
         play('swells', pitch, volume);
-      }
     } else play('swells', Math.random() * 24, volume);
   };
 }

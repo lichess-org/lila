@@ -1,7 +1,7 @@
-import { view as cevalView } from 'ceval';
+import { view as cevalView } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
-import { defined, repeater } from 'common';
-import * as licon from 'common/licon';
+import { defined, repeater } from 'lib';
+import * as licon from 'lib/licon';
 import {
   type VNode,
   type VNodeKids,
@@ -11,11 +11,11 @@ import {
   onInsert,
   dataIcon,
   looseH as h,
-} from 'common/snabbdom';
-import { playable } from 'game';
-import { bindMobileMousedown, isMobile } from 'common/device';
-import * as materialView from 'game/view/material';
-import { path as treePath } from 'tree';
+} from 'lib/snabbdom';
+import { playable } from 'lib/game/game';
+import { bindMobileMousedown, isMobile } from 'lib/device';
+import * as materialView from 'lib/game/view/material';
+import { path as treePath } from 'lib/tree/tree';
 import { view as actionMenu } from './actionMenu';
 import retroView from '../retrospect/retroView';
 import practiceView from '../practice/practiceView';
@@ -27,21 +27,20 @@ import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner } from 'common/spinner';
-import * as Prefs from 'common/prefs';
-import statusView from 'game/view/status';
-import { stepwiseScroll } from 'common/controls';
+import { spinnerVdom as spinner, stepwiseScroll } from 'lib/controls';
+import * as Prefs from 'lib/prefs';
+import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';
-import { dispatchChessgroundResize } from 'common/resize';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type StudyCtrl from '../study/studyCtrl';
 import type RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
-import { storage } from 'common/storage';
-import { makeChat } from 'chat';
+import { storage } from 'lib/storage';
+import { makeChat } from 'lib/chat/chat';
 import { backToLiveView } from '../study/relay/relayView';
 
 export interface ViewContext {
@@ -100,9 +99,8 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars !== document.body.classList.contains('header-margin')) {
+          if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          }
           !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
@@ -354,7 +352,7 @@ export function renderResult(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode[
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
-    return render(result, statusView(ctrl));
+    return render(result, statusView(ctrl.data));
   } else if (ctrl.study) {
     const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
     if (!result || result === '*') return [];

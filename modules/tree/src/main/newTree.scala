@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.json.Json.given
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Check, HasId, Mergeable, Node as ChessNode, Ply, Situation, Square, Tree, Variation }
+import chess.{ Check, HasId, Mergeable, Node as ChessNode, Ply, Situation, Square, Tree, Variation }
 import monocle.syntax.all.*
 import play.api.libs.json.*
 import scalalib.json.Json.{ *, given }

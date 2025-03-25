@@ -1,7 +1,7 @@
-import { winningChances } from 'ceval';
-import { fenToEpd } from 'chess';
-import { defined } from 'common';
-import { zip } from 'common/algo';
+import { winningChances } from 'lib/ceval/ceval';
+import { fenToEpd } from 'lib/chess/chess';
+import { defined } from 'lib';
+import { zip } from 'lib/algo';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
@@ -35,7 +35,7 @@ export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
 }
 
 // can be 3fold or 5fold
-export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
+export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): boolean {
   const threefoldMap = new Map<string, Tree.Node[]>();
   for (const node of mainlineNodes) {
     const previousOccurences = threefoldMap.get(fenToEpd(node.fen)) || [];
@@ -52,5 +52,7 @@ export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
       if (!node.glyphs) node.glyphs = [glyph];
       else node.glyphs.push(glyph);
     }
+    return true;
   }
+  return false;
 }

@@ -4,6 +4,7 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
 import scalalib.ThreadLocalRandom
+import scalalib.model.Seconds
 
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
@@ -68,16 +69,16 @@ case class Tournament(
 
   def imminentStart = isCreated && (startsAt.toMillis - nowMillis) < 1000
 
-  def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt.atLeast(0)
+  def secondsToStart = Seconds((startsAt.toSeconds - nowSeconds).toInt.atLeast(0))
 
-  def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt.atLeast(0)
+  def secondsToFinish = Seconds((finishesAt.toSeconds - nowSeconds).toInt.atLeast(0))
 
   def progressPercent: Int =
     if isCreated then 0
     else if isFinished then 100
     else
       val total     = minutes * 60
-      val remaining = secondsToFinish
+      val remaining = secondsToFinish.value
       100 - (remaining * 100 / total)
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
@@ -121,8 +122,8 @@ case class Tournament(
   def streakable  = !noStreak
 
   def clockStatus =
-    secondsToFinish.pipe: s =>
-      "%02d:%02d".format(s / 60, s % 60)
+    val s = secondsToFinish.value
+    "%02d:%02d".format(s / 60, s % 60)
 
   def winner =
     winnerId.map { userId =>

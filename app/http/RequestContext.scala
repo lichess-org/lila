@@ -81,7 +81,7 @@ trait RequestContext(using Executor):
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api
       .restoreUser(req)
-      .map {
+      .map:
         case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.net.isProd =>
@@ -90,12 +90,11 @@ trait RequestContext(using Executor):
             .some
         case Some(Right(d)) => d.some
         case _              => none
-      }
-      .flatMap {
+      .flatMap:
         case None => fuccess(LoginContext.anon)
         case Some(d) =>
-          env.mod.impersonate.impersonating(d.me).map {
-            _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
-              LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)
-          }
-      }
+          env.mod.impersonate
+            .impersonating(d.me)
+            .map:
+              _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
+                LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)

@@ -179,10 +179,13 @@ object mod:
     )
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails[UserWithModlog])(u: User) =
-    emails.emails.get(u.id).map(_.value).map {
-      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(lila.core.id.ClasId(id)))(s"Class #$id")
-      case email                        => frag(email)
-    }
+    emails.emails
+      .get(u.id)
+      .map(_.value)
+      .map:
+        case EmailAddress.clasIdRegex(id) =>
+          a(href := routes.Clas.show(lila.core.id.ClasId(id)))(s"Class #$id")
+        case email => frag(email)
 
   def identification(logins: UserLogins, othersPartiallyLoaded: Boolean)(using
       ctx: Context,

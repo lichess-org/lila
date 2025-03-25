@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import chess.variant.{ FromPosition, Standard, Variant }
+import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
 import chess.{ ByColor, FullMoveNumber, Situation }
 import play.api.libs.json.Json
 import play.api.mvc.*
@@ -31,13 +31,17 @@ final class UserAnalysis(
       case _ => load("", Standard)
 
   def load(urlFen: String, variant: Variant) = Open:
-    val decodedFen: Option[Fen.Full] = lila.common.String
+    val inputFen: Option[Fen.Full] = lila.common.String
       .decodeUriPath(urlFen)
       .filter(_.trim.nonEmpty)
       .orElse(get("fen"))
       .map(Fen.Full.clean)
-    val pov         = makePov(decodedFen, variant)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val chess960PositionNum: Option[Int] = variant.chess960.so:
+      getInt("position").orElse: // no input fen or num defaults to standard start position
+        Chess960.positionNumber(inputFen | variant.initialFen)
+    val decodedFen: Option[Fen.Full] = chess960PositionNum.flatMap(Chess960.positionToFen).orElse(inputFen)
+    val pov                          = makePov(decodedFen, variant)
+    val orientation                  = get("color").flatMap(Color.fromName) | pov.color
     for
       data <- env.api.roundApi.userAnalysisJson(
         pov,
@@ -46,7 +50,7 @@ final class UserAnalysis(
         orientation,
         owner = false
       )
-      page <- renderPage(views.board.userAnalysis(data, pov))
+      page <- renderPage(views.analyse.ui.userAnalysis(data, pov, chess960PositionNum))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
       .enforceCrossSiteIsolation
@@ -63,7 +67,7 @@ final class UserAnalysis(
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false)
         .map: data =>
-          views.board.userAnalysis(data, pov, inlinePgn = decodedPgn)
+          views.analyse.ui.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
@@ -106,7 +110,7 @@ final class UserAnalysis(
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
-                  views.board.userAnalysis(data, pov, withForecast = withForecast)
+                  views.analyse.ui.userAnalysis(data, pov, withForecast = withForecast)
               yield Ok(page).noCache
           ,
           api = _ => mobileAnalysis(pov)

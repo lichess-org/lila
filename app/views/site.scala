@@ -13,27 +13,12 @@ object page:
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
 
-  def lone(p: CmsPage.Render)(using ctx: Context): Page =
-    Page(p.title)
-      .css("bits.page")
-      .js(Esm("bits.expandText"))
-      .js(
-        (p.key == lila.core.id.CmsPageKey("fair-play"))
-          .option(esmInitBit("colorizeYesNoTable"))
-      ):
-        main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
-
   def withMenu(active: String, p: CmsPage.Render)(using Context) =
     ui.SitePage(
       title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr"
-    ).css("bits.page")(pageContent(p))
-
-  def pageContent(p: CmsPage.Render)(using Context) = frag(
-    h1(cls := "box__top")(p.title),
-    div(cls := "body expand-text")(views.cms.render(p))
-  )
+    ).css("bits.page")(views.cms.pageContent(p))
 
   def contact(using Context) =
     ui.SitePage(
@@ -42,15 +27,6 @@ object page:
       contentCls = "page box box-pad"
     ).css("bits.contact")
       .js(esmInitBit("contact"))(lila.web.ui.contact(netConfig.email))
-
-  def source(p: CmsPage.Render)(using ctx: Context) =
-    ui.source(
-      p.title,
-      views.cms.render(p),
-      env.appVersionCommit | "???",
-      env.appVersionDate,
-      env.appVersionMessage
-    )
 
   def webmasters(using Context) =
     ui.webmasters(

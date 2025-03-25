@@ -643,6 +643,8 @@ interface I18n {
     aboutMe: string;
     /** Accepting students */
     accepting: string;
+    /** All countries */
+    allCountries: string;
     /** Are you a great chess coach with a %s? */
     areYouCoach: I18nFormat;
     /** Availability */
@@ -655,10 +657,14 @@ interface I18n {
     hourlyRate: string;
     /** Languages */
     languages: string;
+    /** Last login */
+    lastLogin: string;
     /** Lichess coach */
     lichessCoach: string;
     /** Lichess coaches */
     lichessCoaches: string;
+    /** Lichess rating */
+    lichessRating: string;
     /** Location */
     location: string;
     /** NM or FIDE title */
@@ -861,6 +867,8 @@ interface I18n {
     mostChessCourses: string;
     /** Name square */
     nameSquare: string;
+    /** Practice only some files & ranks */
+    practiceOnlySomeFilesAndRanks: string;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -2747,6 +2755,8 @@ interface I18n {
     aiNameLevelAiLevel: I18nFormat;
     /** All information is public and optional. */
     allInformationIsPublicAndOptional: string;
+    /** All languages */
+    allLanguages: string;
     /** All set! */
     allSet: string;
     /** All squares of the board */
@@ -2769,8 +2779,6 @@ interface I18n {
     apply: string;
     /** as black */
     asBlack: string;
-    /** As free as Lichess */
-    asFreeAsLichess: string;
     /** Your account is managed. Ask your chess teacher about lifting kid mode. */
     askYourChessTeacherAboutLiftingKidMode: string;
     /** as white */
@@ -2863,12 +2871,8 @@ interface I18n {
     bookmarkThisGame: string;
     /** Brightness */
     brightness: string;
-    /** Built for the love of chess, not money */
-    builtForTheLoveOfChessNotMoney: string;
     /** Bullet */
     bullet: string;
-    /** Bullet, blitz, classical */
-    bulletBlitzClassical: string;
     /** Very fast games: less than 3 minutes */
     bulletDesc: string;
     /** by %s */
@@ -2915,6 +2919,8 @@ interface I18n {
     cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
+    /** Check all junk, spam, and other folders */
+    checkAllEmailFolders: string;
     /** Checkmate */
     checkmate: string;
     /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
@@ -2993,8 +2999,6 @@ interface I18n {
     copyVariationPgn: string;
     /** Correspondence */
     correspondence: string;
-    /** Correspondence chess */
-    correspondenceChess: string;
     /** Correspondence games: one or several days per move */
     correspondenceDesc: string;
     /** Country or region */
@@ -3071,6 +3075,8 @@ interface I18n {
     doneReviewingWhiteMistakes: string;
     /** Download */
     download: string;
+    /** Download all games */
+    downloadAllGames: string;
     /** Download annotated */
     downloadAnnotated: string;
     /** Download imported */
@@ -3083,6 +3089,8 @@ interface I18n {
     drawByFiftyMoves: string;
     /** Draw by mutual agreement */
     drawByMutualAgreement: string;
+    /** Draw claimed */
+    drawClaimed: string;
     /** Drawn */
     drawn: string;
     /** Draw offer accepted */
@@ -3201,8 +3209,6 @@ interface I18n {
     focusChat: string;
     /** Follow */
     follow: string;
-    /** Follow and challenge friends */
-    followAndChallengeFriends: string;
     /** Following */
     following: string;
     /** Follow %s */
@@ -3223,12 +3229,8 @@ interface I18n {
     friends: string;
     /** From position */
     fromPosition: string;
-    /** Full featured */
-    fullFeatured: string;
     /** Game aborted */
     gameAborted: string;
-    /** Game analysis */
-    gameAnalysis: string;
     /** Game as GIF */
     gameAsGIF: string;
     /** You have a game in progress with %s. */
@@ -3277,6 +3279,8 @@ interface I18n {
     ifRatingIsPlusMinusX: I18nFormat;
     /** If registered */
     ifRegistered: string;
+    /** If you do not get the email within 5 minutes: */
+    ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
     /** Important */
@@ -3647,8 +3651,6 @@ interface I18n {
     oneDay: string;
     /** One URL per line. */
     oneUrlPerLine: string;
-    /** Online and offline play */
-    onlineAndOfflinePlay: string;
     /** Online bots */
     onlineBots: string;
     /** Online players */
@@ -3715,8 +3717,6 @@ interface I18n {
     performance: string;
     /** Rating: %s */
     perfRatingX: I18nFormat;
-    /** Phone and tablet */
-    phoneAndTablet: string;
     /** Piece set */
     pieceSet: string;
     /** Play */
@@ -4229,6 +4229,8 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
+    /** Verify that %s is your email address */
+    verifyYourAddress: I18nFormat;
     /** Victory */
     victory: string;
     /** %1$s vs %2$s in %3$s */
@@ -4423,8 +4425,6 @@ interface I18n {
     yourTopWeeklyPerfRatingIsTooHigh: I18nFormat;
     /** Your turn */
     yourTurn: string;
-    /** Zero advertisement */
-    zeroAdvertisement: string;
   };
   storm: {
     /** Accuracy */
@@ -4631,6 +4631,8 @@ interface I18n {
   study: {
     /** Add members */
     addMembers: string;
+    /** Click the %s button.<br>Then decide who can contribute or not. */
+    addMembersText: I18nFormat;
     /** Add a new chapter */
     addNewChapter: string;
     /** Allow cloning */
@@ -4643,6 +4645,10 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and saved. */
+    annotatePositionText: string;
+    /** Annotate a position */
+    annotatePositionTitle: string;
     /** Annotate with glyphs */
     annotateWithGlyphs: string;
     /** Attack */
@@ -4661,6 +4667,8 @@ interface I18n {
     blunder: string;
     /** Brilliant move */
     brilliantMove: string;
+    /** Chapters are saved forever.<br>Have fun organizing your chess content! */
+    chapterConclusionText: string;
     /** Chapter PGN */
     chapterPgn: string;
     /** Chapter %s */
@@ -4675,10 +4683,18 @@ interface I18n {
     clearVariations: string;
     /** Clone */
     cloneStudy: string;
+    /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and saved. */
+    commentPositionText: I18nFormat;
+    /** Comment on a position */
+    commentPositionTitle: string;
     /** Comment on this move */
     commentThisMove: string;
     /** Comment on this position */
     commentThisPosition: string;
+    /** You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>Power users might want to press "?" to see keyboard shortcuts.<br>Have fun! */
+    conclusionText: string;
+    /** Thanks for your time */
+    conclusionTitle: string;
     /** Delete the entire study? There is no going back! Type the name of the study to confirm: %s */
     confirmDeleteStudy: I18nFormat;
     /** Contributor */
@@ -4691,10 +4707,18 @@ interface I18n {
     counterplay: string;
     /** Create chapter */
     createChapter: string;
+    /** A study can have several chapters.<br>Each chapter has a distinct move tree,<br>and can be created in various ways. */
+    createChapterText: string;
+    /** Let's create a study chapter */
+    createChapterTitle: string;
     /** Create study */
     createStudy: string;
     /** Current chapter URL */
     currentChapterUrl: string;
+    /** Setup the board your way.<br>Suited to explore endgames. */
+    customPositionText: string;
+    /** Custom position */
+    customPositionTitle: string;
     /** Date added (newest) */
     dateAddedNewest: string;
     /** Date added (oldest) */
@@ -4731,10 +4755,22 @@ interface I18n {
     equalPosition: string;
     /** Everyone */
     everyone: string;
-    /** First */
-    first: string;
+    /** Paste a position in FEN format<br><i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>to start the chapter from a position. */
+    fromFenStringText: string;
+    /** From a FEN string */
+    fromFenStringTitle: string;
+    /** Just a board setup for a new game.<br>Suited to explore openings. */
+    fromInitialPositionText: string;
+    /** From initial position */
+    fromInitialPositionTitle: string;
+    /** Paste a game in PGN format.<br>to load moves, comments and variations in the chapter. */
+    fromPgnGameText: string;
+    /** From a PGN game */
+    fromPgnGameTitle: string;
     /** Get a full server-side computer analysis of the mainline. */
     getAFullComputerAnalysis: string;
+    /** Need help? Get the tour! */
+    getTheTour: string;
     /** Good move */
     goodMove: string;
     /** Hide next moves */
@@ -4755,8 +4791,6 @@ interface I18n {
     inviteToTheStudy: string;
     /** Kick */
     kick: string;
-    /** Last */
-    last: string;
     /** Leave the study */
     leaveTheStudy: string;
     /** Like */
@@ -4769,6 +4803,10 @@ interface I18n {
     loadAGameFromXOrY: I18nFormat;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
+    /** Paste a lichess game URL<br>(like lichess.org/7fHIU0XI)<br>to load the game moves in the chapter. */
+    loadExistingLichessGameText: string;
+    /** Load an existing lichess game */
+    loadExistingLichessGameTitle: string;
     /** Make sure the chapter is complete. You can only request analysis once. */
     makeSureTheChapterIsComplete: string;
     /** Manage topics */
@@ -4847,8 +4885,6 @@ interface I18n {
     popularTopics: string;
     /** Previous chapter */
     prevChapter: string;
-    /** Previous */
-    previous: string;
     /** Private */
     private: string;
     /** Public */
@@ -4869,6 +4905,10 @@ interface I18n {
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
     shareChanges: string;
+    /** Other members can see your moves in real time!<br>Plus, everything is saved forever. */
+    sharedAndSavedText: string;
+    /** Shared and saved */
+    sharedAndSaveTitle: string;
     /** Evaluation bars */
     showEvalBar: string;
     /** Results */
@@ -4891,6 +4931,14 @@ interface I18n {
     studiesIContributeTo: string;
     /** Study actions */
     studyActions: string;
+    /** A study can contain several chapters.<br>Each chapter has a distinct initial position and move tree. */
+    studyChaptersText: string;
+    /** Study chapters */
+    studyChaptersTitle: string;
+    /** %1$s Spectators can view the study and talk in the chat.<br><br>%2$s Contributors can make moves and update the study. */
+    studyMembersText: I18nFormat;
+    /** Study members */
+    studyMembersTitle: string;
     /** Study not found */
     studyNotFound: string;
     /** Study PGN */
@@ -4911,8 +4959,16 @@ interface I18n {
     unlisted: string;
     /** URL of the games, one per line */
     urlOfTheGame: string;
+    /** Yes, you can study crazyhouse<br>and all lichess variants! */
+    variantsAreSupportedText: string;
+    /** Studies support variants */
+    variantsAreSupportedTitle: string;
     /** Visibility */
     visibility: string;
+    /** This is a shared analysis board.<br><br>Use it to analyse and annotate games,<br>discuss positions with friends,<br>and of course for chess lessons!<br><br>It's a powerful tool, let's take some time to see how it works. */
+    welcomeToLichessStudyText: string;
+    /** Welcome to Lichess Study! */
+    welcomeToLichessStudyTitle: string;
     /** What are studies? */
     whatAreStudies: string;
     /** What would you play in this position? */
@@ -5421,6 +5477,8 @@ interface I18n {
     inappropriateContentAccountClosed: string;
     /** Latest blog posts */
     latestBlogPosts: string;
+    /** Lichess blog */
+    lichessBlog: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
     /** Lichess Official Blog */
@@ -5429,6 +5487,8 @@ interface I18n {
     likedBlogs: string;
     /** More blog posts by %s */
     moreBlogPostsBy: I18nFormat;
+    /** My blog */
+    myBlog: string;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */

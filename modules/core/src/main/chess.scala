@@ -1,9 +1,6 @@
 package lila.core
 package chess
 
-opaque type Win = Boolean
-object Win extends YesNo[Win]
-
 opaque type Rank = Int
 object Rank extends RelaxedOpaqueInt[Rank]
 

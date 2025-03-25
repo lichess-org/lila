@@ -1,11 +1,13 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
+import lila.ui.Context
 
 final class PuzzleSelector(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    sessionApi: PuzzleSessionApi
+    sessionApi: PuzzleSessionApi,
+    anon: PuzzleAnon
 )(using Executor):
 
   import BsonHandlers.given
@@ -17,6 +19,22 @@ final class PuzzleSelector(
     case PuzzleMissing(id: PuzzleId)         extends NextPuzzleResult("puzzleMissing")
     case PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
+
+  def nextPuzzleForReq(
+      angle: PuzzleAngle,
+      color: Option[Option[Color]],
+      difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
+  )(using ctx: Context, perf: Perf): Fu[Option[Puzzle]] =
+    ctx.me match
+      case Some(me) =>
+        given Me = me
+        val diff = ctx.req.session.get(difficultyCookie).flatMap(PuzzleDifficulty.find)
+        for
+          _   <- diff.so(sessionApi.setDifficulty)
+          _   <- color.so(sessionApi.setAngleAndColor(angle, _))
+          puz <- nextPuzzleFor(angle)
+        yield puz
+      case None => anon.getOneFor(angle, difficulty, ~color)
 
   def nextPuzzleFor(angle: PuzzleAngle)(using Me, Perf): Fu[Option[Puzzle]] =
     findNextPuzzleFor(angle, 0)

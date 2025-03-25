@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
+  <string name="playOffline">Hrať offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
@@ -172,6 +173,7 @@
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="claimADraw">Požadovať remízu</string>
+  <string name="drawClaimed">Požiadavka na remízu</string>
   <string name="offerDraw">Ponúknuť remízu</string>
   <string name="draw">Remíza</string>
   <plurals name="nbPlayers">
@@ -826,6 +828,9 @@
   <string name="checkYourEmail">Skontrolujte si svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Práve sme Vám poslali správu na Váš e-mail. Kliknite na link v e-mail-i, na aktivovanie Vášho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
+  <string name="ifYouDoNotGetTheEmail">Ak nedostanete e-mail do 5 minút:</string>
+  <string name="checkAllEmailFolders">Skontrolujte všetky priečinky nevyžiadanej pošty</string>
+  <string name="verifyYourAddress">Overte, či %s je Vaša e-mailová adresa</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="readAboutOur">Prečítajte si o našej %s.</string>
@@ -855,17 +860,8 @@
   <string name="sessions">Pripojenia</string>
   <string name="revokeAllSessions">zrušiť všetky pripojenia</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
-  <string name="asFreeAsLichess">Slobodný ako lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
   <string name="everybodyGetsAllFeaturesForFree">Každý dostane všetky možnosti zadarmo</string>
-  <string name="zeroAdvertisement">Bez reklám</string>
-  <string name="fullFeatured">Plne vybavený</string>
-  <string name="phoneAndTablet">Mobil a tablet</string>
-  <string name="bulletBlitzClassical">Ultrarýchla hra, blesková hra, klasická hra</string>
-  <string name="correspondenceChess">Korespondenčné šachy</string>
-  <string name="onlineAndOfflinePlay">Hra online i offline</string>
   <string name="viewTheSolution">Pozrite riešenie</string>
-  <string name="followAndChallengeFriends">Sledovať a vyzvať priateľov</string>
   <string name="noChallenges">Žiadne výzvy.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazyku!</item>
@@ -873,7 +869,6 @@
     <item quantity="many">Dostupné v %s jazykoch!</item>
     <item quantity="other">Dostupné v %s jazykoch!</item>
   </plurals>
-  <string name="gameAnalysis">Analýza hry</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s sa pridal k %2$s</string>
   <string name="xLikesY">%1$s lajkol %2$s</string>
@@ -882,6 +877,7 @@
   <string name="anonymous">Anonymný</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
+  <string name="allLanguages">Všetky jazyky</string>
   <string name="background">Pozadie</string>
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>

@@ -21,7 +21,7 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
-object Bus extends bus.GivenChannel[Bus]("fishnet")
+object Bus extends scalalib.bus.GivenChannel[Bus]("fishnet")
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 

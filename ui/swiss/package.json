@@ -6,10 +6,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "chat": "workspace:*",
-    "common": "workspace:*",
-    "flatpickr": "^4.6.13",
-    "game": "workspace:*"
+    "lib": "workspace:*",
+    "flatpickr": "^4.6.13"
   },
   "build": {
     "bundle": "src/swiss.ts"

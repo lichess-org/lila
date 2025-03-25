@@ -79,7 +79,7 @@
   <string name="noEscape">രക്ഷപെടൽ സാധ്യമല്ല,
 പക്ഷെ പ്രതിരോധം സാധ്യമാണ്!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">നിങ്ങൾ സംരക്ഷിക്കാത്ത കരു അവർക്കു സ്വന്തമാക്കാൻ അനുവദിക്കരുത്!</string>
-  <string name="combat">യുദ്ധം</string>
+  <string name="combat">പോരാട്ടം</string>
   <string name="captureAndDefendPieces">കരുക്കൾ കീഴ്പെടുത്തു, പ്രതിരോധിക്കൂ</string>
   <string name="combatIntro">യഥാർത്ഥ പോരാളിക്കു ആക്രമണവും പ്രതിരോധവും ഒരുപോലെ അറിയാം!</string>
   <string name="combatComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ചെസ്സ് കരുക്കൾ കൊണ്ട് പൊരുതാൻ പഠിച്ചിരിക്കുന്നു!</string>
@@ -196,7 +196,7 @@
   <string name="checkInTwoComplete">അഭിനന്ദനങൾ! നിങ്ങൾ എതിരാളിയെ ചെക്ക് ചെയ്തിരിക്കുന്നു. അവർ രാജാവിനെ പ്രതിരോധിക്കാൻ നിർബന്ധിക്കപ്പെട്ടിരിക്കുന്നു!</string>
   <string name="whatNext">അടുത്തതെന്ത്?</string>
   <string name="youKnowHowToPlayChess">നിങ്ങൾക്ക് ചെസ്സ് കളിക്കാൻ അറിയാം, അഭിനന്ദനങൾ! ഇനി കൂടുതൽ കരുത്തുറ്റ കളിക്കാരനാകണോ?</string>
-  <string name="register">രജിസ്റ്റർ</string>
+  <string name="register">ചേരുക</string>
   <string name="getAFreeLichessAccount">ഫ്രീയായി Lichess അക്കൗണ്ട് നേടൂ</string>
   <string name="practice">അഭ്യസിക്കുക</string>
   <string name="learnCommonChessPositions">സാധാരണ ചെസ്സ് പൊസിഷൻസ് പഠിക്കാം</string>
@@ -206,7 +206,7 @@
   <string name="watchInstructiveChessVideos">പഠനസംബന്ധമായ ചെസ്സ് വീഡിയോസ് കാണാം</string>
   <string name="playPeople">മറ്റുള്ളവരോട് കളിക്കാം</string>
   <string name="opponentsFromAroundTheWorld">ലോകമെമ്പാടുമുള്ള എതിരാളികൾ</string>
-  <string name="playMachine">മെഷീനോട് കളിക്കാം</string>
+  <string name="playMachine">യന്ത്രത്തിനെതിരെ കളിക്കാം</string>
   <string name="testYourSkillsWithTheComputer">കമ്പ്യൂട്ടറിനെതിരെ നിങ്ങളുടെ കഴിവ് പരിശോധിക്കുക</string>
   <string name="letsGo">നമുക്ക് തുടങ്ങാം!</string>
   <string name="stageX">സ്റ്റേജ് %s</string>

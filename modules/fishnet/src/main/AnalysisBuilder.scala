@@ -62,27 +62,32 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       case (None, i)                             => cached.get(i)
       case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
       case (_, i) =>
-        cached.get(i).orElse {
-          logger.error(s"Missing cached eval for skipped position at index $i in $work")
-          none[Evaluation]
-        }
+        cached
+          .get(i)
+          .orElse:
+            logger.error(s"Missing cached eval for skipped position at index $i in $work")
+            none[Evaluation]
 
   private def makeInfos(
       evals: List[Option[Evaluation]],
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).mapWithIndex {
-      case ((List(Some(before), Some(after)), move), index) =>
-        val variation = before.cappedPv match
-          case first :: rest if first != move => first :: rest
-          case _                              => Nil
-        val best = variation.headOption
-        val info = Info(
-          ply = startedAtPly + index + 1,
-          eval = Eval(after.score.cp, after.score.mate, best),
-          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
-        )
-        if info.ply.isOdd then info.invert else info
-      case ((_, _), index) => Info(startedAtPly + index + 1, lila.tree.evals.empty, Nil)
-    }
+    evals
+      .filterNot(_.exists(_.isCheckmate))
+      .sliding(2)
+      .toList
+      .zip(moves)
+      .mapWithIndex:
+        case ((List(Some(before), Some(after)), move), index) =>
+          val variation = before.cappedPv match
+            case first :: rest if first != move => first :: rest
+            case _                              => Nil
+          val best = variation.headOption
+          val info = Info(
+            ply = startedAtPly + index + 1,
+            eval = Eval(after.score.cp, after.score.mate, best),
+            variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
+          )
+          if info.ply.isOdd then info.invert else info
+        case ((_, _), index) => Info(startedAtPly + index + 1, lila.tree.evals.empty, Nil)

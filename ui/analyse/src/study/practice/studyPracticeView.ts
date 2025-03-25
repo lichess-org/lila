@@ -1,9 +1,8 @@
-import * as licon from 'common/licon';
-import { bind, bindNonPassive, type MaybeVNodes } from 'common/snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import * as licon from 'lib/licon';
+import { bind, bindNonPassive, type MaybeVNodes } from 'lib/snabbdom';
+import { spinnerVdom as spinner, toggle } from 'lib/controls';
 import { h, thunk, type VNode } from 'snabbdom';
-import { toggle } from 'common/controls';
-import { richHTML } from 'common/richText';
+import { richHTML } from 'lib/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';
 import type { StudyPracticeData } from './interfaces';
@@ -58,15 +57,18 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
-      return [
-        h(
-          'a.feedback.win',
-          ctrl.nextChapter()
-            ? { hook: bind('click', ctrl.goToNextChapter) }
-            : { attrs: { href: '/practice' } },
-          [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'],
-        ),
-      ];
+      if (p.autoNext()) return [h('span.feedback.win', 'Success!')];
+      else {
+        return [
+          h(
+            'a.feedback.win',
+            ctrl.nextChapter()
+              ? { hook: bind('click', ctrl.goToNextChapter) }
+              : { attrs: { href: '/practice' } },
+            [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'],
+          ),
+        ];
+      }
     case false:
       return [
         h('a.feedback.fail', { hook: bind('click', p.reset, ctrl.redraw) }, [

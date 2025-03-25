@@ -15,47 +15,41 @@ class UserTest extends munit.FunSuite:
 
   import UserStr.couldBeUsername
 
-  test("username regex bad prefix: can login") {
+  test("username regex bad prefix: can login"):
     assert(couldBeUsername("000"))
     assert(couldBeUsername("0foo"))
     assert(couldBeUsername("_foo"))
     assert(couldBeUsername("__foo"))
     assert(couldBeUsername("-foo"))
-  }
 
-  test("username regex bad prefix: cannot signup") {
+  test("username regex bad prefix: cannot signup"):
     assert(!canSignup("000"))
     assert(!canSignup("0foo"))
     assert(!canSignup("_foo"))
     assert(!canSignup("__foo"))
     assert(!canSignup("-foo"))
-  }
 
-  test("username regex bad suffix: can login") {
+  test("username regex bad suffix: can login"):
     assert(couldBeUsername("a_"))
     assert(couldBeUsername("a-"))
-  }
 
-  test("username regex bad suffix: cannot signup") {
+  test("username regex bad suffix: cannot signup"):
     assert(!canSignup("a_"))
     assert(!canSignup("a-"))
-  }
 
-  test("username regex bad length: cannot login") {
+  test("username regex bad length: cannot login"):
     assert(!couldBeUsername(""))
     assert(!couldBeUsername("a"))
     assert(!couldBeUsername("A123456789012345678901234567890"))
     assert(!couldBeUsername("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
-  }
 
-  test("username regex bad length: cannot signup") {
+  test("username regex bad length: cannot signup"):
     assert(!canSignup(""))
     assert(!canSignup("a"))
     assert(!canSignup("A123456789012345678901234567890"))
     assert(!canSignup("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
-  }
 
-  test("username regex too many consecutive non-letter chars") {
+  test("username regex too many consecutive non-letter chars"):
     assert(!canSignup("a_-a"))
     assert(!canSignup("_-a"))
     assert(!canSignup("a__a"))
@@ -68,9 +62,8 @@ class UserTest extends munit.FunSuite:
     assert(canSignup("a333"))
     assert(canSignup("ksean222"))
     assert(canSignup("Ksean222"))
-  }
 
-  test("username regex ok names: can login") {
+  test("username regex ok names: can login"):
     assert(couldBeUsername("g-foo"))
     assert(couldBeUsername("G_FOo"))
     assert(couldBeUsername("g-foO"))
@@ -78,9 +71,8 @@ class UserTest extends munit.FunSuite:
     assert(couldBeUsername("AB"))
     assert(couldBeUsername("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
     assert(couldBeUsername("A12345678901234567890123456789"))
-  }
 
-  test("username regex ok names: can signup") {
+  test("username regex ok names: can signup"):
     assert(canSignup("g-foo"))
     assert(canSignup("G_FOo"))
     assert(canSignup("g-foO"))
@@ -88,4 +80,3 @@ class UserTest extends munit.FunSuite:
     assert(canSignup("AB"))
     assert(canSignup("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
     assert(canSignup("A12345678901234567890123456789"))
-  }

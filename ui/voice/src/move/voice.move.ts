@@ -1,10 +1,10 @@
-import { jsonSimple } from 'common/xhr';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'common/storage';
-import * as licon from 'common/licon';
-import { readFen, destsToUcis, square, type Board } from 'chess';
+import { jsonSimple } from 'lib/xhr';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import * as licon from 'lib/licon';
+import { readFen, destsToUcis, square, type Board } from 'lib/chess/chess';
 import { charToRole } from 'chessops';
-import { type PromotionCtrl, promote } from 'chess/promotion';
-import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import { type PromotionCtrl, promote } from 'lib/chess/promotion';
+import type { MoveRootCtrl, MoveUpdate } from 'lib/chess/moveRootCtrl';
 import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
@@ -626,7 +626,7 @@ export function initModule({
 
   function valWord(val: string, tag?: string) {
     // if no tag, returns only the first matching input word for val, there may be others
-    let v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
+    const v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
     if (v instanceof Set) {
       if (tag) return [...v].find(e => e.tags.includes(tag))?.in ?? val;
       else return (v.values().next().value as Entry).in;

@@ -1,9 +1,9 @@
-import extendTablesortNumber from 'common/tablesortNumber';
+import extendTablesortNumber from 'lib/tablesortNumber';
 import tablesort from 'tablesort';
-import { debounce } from 'common/timing';
-import { formToXhr } from 'common/xhr';
+import { debounce } from 'lib/async';
+import { formToXhr } from 'lib/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'common/dialog';
+import { confirm } from 'lib/dialogs';
 
 site.load.then(() => {
   setupTable();

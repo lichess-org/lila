@@ -67,6 +67,53 @@
 ¡Escapa de l\'amenaza!</string>
   <string name="noEscape">Nun hai escapatoria,
 pero ¡pues defendete!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">¡Nun dexes que te garren
+nenguna pieza indefensa!</string>
+  <string name="combat">Combate</string>
+  <string name="captureAndDefendPieces">Garra y defende pieces</string>
+  <string name="combatIntro">¡Un bon guerreru sabe atacar y defender!</string>
+  <string name="combatComplete">¡Felicidaes! ¡Agora sabes lluchar coles tos pieces!</string>
+  <string name="checkInOne">Xaque n\'una</string>
+  <string name="attackTheOpponentsKing">Ataca al rei enemigu</string>
+  <string name="checkInOneIntro">Da xaque al rei rival ¡Ta obligáu a defendelo!</string>
+  <string name="checkInOneGoal">¡Ataca al rei enemigu nun movimientu!</string>
+  <string name="checkInOneComplete">¡Felicidaes! ¡Disti xaque al to oponente, obligándole a defender al so rei!</string>
+  <string name="outOfCheck">Salir del xaque</string>
+  <string name="defendYourKing">Defende al to rei</string>
+  <string name="outOfCheckIntro">¡Tas en xaque! Tienes qu\'escapar o bloquiar l\'ataque.</string>
+  <string name="escapeWithTheKing">¡Escapa col rei!</string>
+  <string name="theKingCannotEscapeButBlock">¡El rei nun puede escapar,
+pero pues bloquiar l\'ataque!</string>
+  <string name="youCanGetOutOfCheckByTaking">Pues salir del xaque 
+garrando la pieza qu\'ataca al rei.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">¡Esti caballu ta dándote xaque
+per enriba de las tos defenses!</string>
+  <string name="escapeOrBlock">¡Escapa col rei o bloquia l\'ataque!</string>
+  <string name="outOfCheckComplete">¡Felicidaes! Nun puedes dexar que garren el to rei, ¡ten les tos defenses llistes pa un xaque!</string>
+  <string name="mateInOne">Xaque mate n\'una</string>
+  <string name="defeatTheOpponentsKing">Derrota al rei enemigu</string>
+  <string name="mateInOneIntro">Ganes cuando el to oponente nun pue defendese d\'un xaque.</string>
+  <string name="attackYourOpponentsKing">¡Ataca el rei rival de forma que nun pueda defendese!</string>
+  <string name="mateInOneComplete">¡Felicidaes! ¡Asina ye como se ganen partíes!</string>
+  <string name="intermediate">Intermediu</string>
+  <string name="boardSetup">Disposición del tableru</string>
+  <string name="howTheGameStarts">Cómo empezar</string>
+  <string name="boardSetupIntro">Los dos exércitos enfréntense, preparaos pa la batalla.</string>
+  <string name="thisIsTheInitialPosition">Esta ye la posición inicial 
+de cualquier partida d\'axedrez.
+Mueve cualquier pieza pa siguir.</string>
+  <string name="firstPlaceTheRooks">Primero, asitia les torres.
+Van nes esquines.</string>
+  <string name="thenPlaceTheKnights">Depués, asitia los caballos.
+Van al llau de les torres.</string>
+  <string name="placeTheBishops">Asitia los alfiles. 
+Van al llau de los caballos.</string>
+  <string name="placeTheQueen">Asitia la dama. 
+Va nel so propiu color.</string>
+  <string name="placeTheKing">Asitia el rei.
+Al llau de la dama.</string>
+  <string name="pawnsFormTheFrontLine">Los peones formen la llínea delantera.
+Mueve cualquier pieza pa siguir.</string>
   <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
@@ -134,5 +181,27 @@ Peón = 1</string>
   <string name="puzzles">Exercicios de táutica</string>
   <string name="exerciseYourTacticalSkills">Practica les tos habilidaes táctiques</string>
   <string name="videos">Vídeos</string>
+  <string name="watchInstructiveChessVideos">Ve vídeos educativos d\'axedrez</string>
+  <string name="playPeople">Xugar contra otros</string>
+  <string name="opponentsFromAroundTheWorld">Oponentes de tol mundu</string>
+  <string name="playMachine">Xugar contra la máquina</string>
+  <string name="testYourSkillsWithTheComputer">Ponte a prueba contra l\'ordenador</string>
+  <string name="letsGo">¡Empecemos!</string>
+  <string name="stageX">Nivel %s</string>
+  <string name="awesome">¡Allucinante!</string>
+  <string name="excellent">¡Escelente!</string>
+  <string name="greatJob">¡Bon trabayu!</string>
+  <string name="perfect">¡Perfectu!</string>
+  <string name="outstanding">¡Estraordinariu!</string>
+  <string name="wayToGo">¡Asi se fai!</string>
+  <string name="yesYesYes">¡Sí, sí, sí!</string>
+  <string name="youreGoodAtThis">¡Dásete bien!</string>
+  <string name="nailedIt">¡Clavastelo!</string>
+  <string name="rightOn">¡Esactu!</string>
+  <string name="stageXComplete">Nivel %s completu</string>
+  <string name="next">Siguiente</string>
+  <string name="nextX">Siguiente: %s</string>
+  <string name="backToMenu">Volver al menú</string>
+  <string name="puzzleFailed">¡Exerciciu fallíu!</string>
   <string name="retry">Reintentar</string>
 </resources>

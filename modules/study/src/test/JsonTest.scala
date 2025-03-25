@@ -1,7 +1,6 @@
 package lila.study
 
 import chess.variant.Variant
-import play.api.libs.json.Json
 
 import lila.core.LightUser
 import lila.db.BSON

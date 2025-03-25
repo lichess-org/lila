@@ -1,5 +1,5 @@
-import { promiseTimeout } from 'common/promise';
-import { wsDestroy } from 'common/socket';
+import { promiseTimeout } from 'lib/async';
+import { wsDestroy } from 'lib/socket';
 
 let redirectInProgress: false | string = false;
 

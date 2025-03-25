@@ -74,6 +74,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def setKidMode(mod: ModId, kid: UserId) = add:
     Modlog(mod, kid.some, Modlog.setKidMode)
 
+  def blankPassword(user: UserId)(using Me) = add:
+    Modlog(user.some, Modlog.blankPassword)
+
   def loginWithBlankedPassword(user: UserId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.blankedPassword)
 

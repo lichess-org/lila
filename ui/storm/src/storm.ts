@@ -1,5 +1,5 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import StormCtrl from './ctrl';
 import type { StormOpts } from './interfaces';
 

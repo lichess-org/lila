@@ -1,11 +1,10 @@
 import * as xhr from './xhr';
-import * as router from 'common/router';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
-import { throttle } from 'common/timing';
+import { type Deferred, defer, throttle } from 'lib/async';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -16,28 +15,28 @@ import type {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'tree';
+import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'lib/tree/tree';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { CevalCtrl } from 'ceval';
+import { CevalCtrl } from 'lib/ceval/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { type Deferred, defer } from 'common/defer';
-import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'common';
+import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'chess/promotion';
+import { PromotionCtrl } from 'lib/chess/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
-import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
-import { fromNodeList } from 'tree/path';
+import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
+import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
-import { last } from 'tree/ops';
+import { last } from 'lib/tree/ops';
 import { uciToMove } from 'chessground/util';
-import type { ParentCtrl } from 'ceval/types';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import type { ParentCtrl } from 'lib/ceval/types';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
+import { type WithGround } from 'lib/chess/ground';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -206,9 +205,9 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   pref = this.opts.pref;
 
-  withGround = <A>(f: (cg: CgApi) => A): A | undefined => {
+  withGround: WithGround = f => {
     const g = this.ground();
-    return g && f(g);
+    return g ? f(g) : undefined;
   };
 
   initiate = (fromData: PuzzleData): void => {
@@ -473,7 +472,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback != 'win') {
-      if (this.lastFeedback === 'fail') site.redirect(router.withLang('/streak'));
+      if (this.lastFeedback === 'fail') site.redirect(this.routerWithLang('/streak'));
       return;
     }
     if (this.mode !== 'view') return;
@@ -491,7 +490,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
 
     if (!this.streak && !this.data.replay) {
-      const path = router.withLang(`/training/${this.data.angle.key}`);
+      const path = this.routerWithLang(`/training/${this.data.angle.key}`);
       if (location.pathname != path) history.replaceState(null, '', path);
     }
   };
@@ -687,4 +686,9 @@ export default class PuzzleCtrl implements ParentCtrl {
   ongoing = false;
   getNode = () => this.node;
   showComputer = () => this.mode === 'view';
+  routerWithLang = (path: string): string => {
+    if (document.body.hasAttribute('data-user')) return path;
+    const language = document.documentElement.lang.slice(0, 2);
+    return language === 'en' ? path : `/${language}${path}`;
+  };
 }

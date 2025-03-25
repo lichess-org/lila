@@ -1,5 +1,5 @@
-import { initMiniBoard } from 'common/miniBoard';
-import { frag } from 'common';
+import { initMiniBoard } from 'lib/miniBoard';
+import { frag } from 'lib';
 
 export function initModule(): void {
   $('main.lobby').each(function (this: HTMLElement) {

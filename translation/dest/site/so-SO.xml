@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">La ciyaar saaxiib</string>
   <string name="playWithTheMachine">La ciyaar komyuutar</string>
+  <string name="playOffline">Ciyaar khad la\'aan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>
@@ -388,7 +389,6 @@
   <string name="watch">Daawo</string>
   <string name="aboutSimulImage">50 ciyaarood Fischer wuxuu ka keenay 47 guulood, 2 baraaje iyo 1 guuldarro.</string>
   <string name="create">Abuur</string>
-  <string name="correspondenceChess">Jes maalinle ah</string>
   <string name="viewTheSolution">Xalka eeg</string>
   <string name="quickPairing">Kulan degdeg ah</string>
   <string name="lobby">Dooro kulan</string>

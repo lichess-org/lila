@@ -1,14 +1,14 @@
 import type AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import { throttle } from 'common/timing';
-import { enrichText, innerHTML } from 'common/richText';
+import { throttle } from 'lib/async';
+import { enrichText, innerHTML } from 'lib/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { bindMobileTapHold } from 'common/device';
+import { bindMobileTapHold } from 'lib/device';
 import { h, type Hooks, type VNode } from 'snabbdom';
-import { isEmpty, defined } from 'common';
-import { type MaybeVNodes } from 'common/snabbdom';
-import { path as treePath } from 'tree';
-import { playable } from 'game';
+import { isEmpty, defined } from 'lib';
+import { type MaybeVNodes } from 'lib/snabbdom';
+import { path as treePath } from 'lib/tree/tree';
+import { playable } from 'lib/game/game';
 
 export const nonEmpty = (x: unknown): boolean => !!x;
 
@@ -19,9 +19,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       if (ctrl.path !== '') autoScroll(ctrl, el);
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
-        if (path !== null) {
-          contextMenu(e, { path, root: ctrl });
-        }
+        if (path !== null) contextMenu(e, { path, root: ctrl });
         ctrl.redraw();
         return false;
       };

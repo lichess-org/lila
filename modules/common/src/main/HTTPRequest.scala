@@ -67,11 +67,16 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/""" +
+    """Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
+
+  def isImagePreviewCrawler(req: RequestHeader) = Crawler(imagePreviewCrawlerMatcher(req))
+
+  private val imagePreviewCrawlerMatcher = UaMatcher:
+    """BingPreview|Discordbot|WhatsApp"""
 
   final class UaMatcher(rStr: String):
     private val pattern                    = rStr.r.pattern

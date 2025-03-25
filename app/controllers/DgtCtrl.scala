@@ -17,7 +17,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
   def generateToken = Auth { _ ?=> me ?=>
     findToken.flatMap: t =>
       t.isEmpty
-        .so {
+        .so:
           env.oAuth.tokenApi.create(
             lila.oauth.OAuthTokenForm.Data(
               description = "DGT board automatic token",
@@ -26,7 +26,6 @@ final class DgtCtrl(env: Env) extends LilaController(env):
             isStudent = false
           ) >>
             env.pref.api.saveTag(me, _.dgt, true)
-        }
         .inject(Redirect(routes.DgtCtrl.config))
   }
 

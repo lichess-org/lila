@@ -104,11 +104,10 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
         if ranked.sizeIs == battle.teams.size then ranked
         else
           ranked ::: battle.teams
-            .foldLeft(List.empty[RankedTeam]) {
+            .foldLeft(List.empty[RankedTeam]):
               case (missing, team) if !ranked.exists(_.teamId == team) =>
                 new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil, 0) :: missing
               case (acc, _) => acc
-            }
             .reverse
 
   // very expensive
@@ -284,11 +283,10 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .result
 
   def pairByTourAndUserIds(tourId: TourId, id1: UserId, id2: UserId): Fu[Option[(Player, Player)]] =
-    byTourAndUserIds(tourId, List(id1, id2)).map {
+    byTourAndUserIds(tourId, List(id1, id2)).map:
       case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
       case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
       case _                                        => none
-    }
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players

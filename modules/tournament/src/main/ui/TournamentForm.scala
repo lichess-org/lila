@@ -237,7 +237,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
 
     private def page(title: String)(using Context) =
       Page(title)
-        .js(Esm("bits.flatpick"))
+        .js(Esm("bits.tourForm"))
         .wrap: body =>
           main(cls := "page-menu")(modMenu, body)
 

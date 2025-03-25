@@ -1,10 +1,10 @@
-import { prop } from 'common';
-import { onInsert } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { prop } from 'lib';
+import { onInsert } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 
 interface Current {
   chapterId: string;

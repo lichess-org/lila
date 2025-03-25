@@ -117,23 +117,20 @@ final class Preload(
   def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
     gameRepo
       .playingRealtimeNoAi(me)
-      .flatMap {
+      .flatMap:
         _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
-      }
-      .flatMap {
+      .flatMap:
         currentGameMyTurn(_, lightUserApi.sync)
-      }
 
   private def currentGameMyTurn(povs: List[Pov], lightUser: lila.core.LightUser.GetterSync)(using
       me: Me
   ): Fu[Option[CurrentGame]] =
-    ~povs.collectFirst {
+    ~povs.collectFirst:
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
         roundProxy.pov(p1.gameId, me).dmap(_ | p1).map { pov =>
           val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
           CurrentGame(pov = pov, opponent = opponent).some
         }
-    }
 
 object Preload:
 

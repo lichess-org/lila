@@ -76,12 +76,15 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
   import EmailConfirm.Result.*
 
   def dryTest(token: String): Fu[EmailConfirm.Result] =
-    tokener.read(token).flatMapz(userRepo.enabledById).flatMap {
-      _.fold(fuccess(NotFound)): user =>
-        userRepo.mustConfirmEmail(user.id).map {
-          if _ then NeedsConfirm(user) else AlreadyConfirmed(user)
-        }
-    }
+    tokener
+      .read(token)
+      .flatMapz(userRepo.enabledById)
+      .flatMap:
+        _.fold(fuccess(NotFound)): user =>
+          userRepo
+            .mustConfirmEmail(user.id)
+            .map:
+              if _ then NeedsConfirm(user) else AlreadyConfirmed(user)
 
   def confirm(token: String): Fu[EmailConfirm.Result] =
     dryTest(token).flatMap:
@@ -170,16 +173,18 @@ object EmailConfirm:
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
-      userApi.withEmails(u).flatMap {
-        case None => fuccess(NoSuchUser(u.into(UserName)))
-        case Some(lila.core.user.WithEmails(user, emails)) =>
-          if user.enabled.no then fuccess(Closed(user.username))
-          else
-            userRepo.mustConfirmEmail(user.id).dmap {
-              if _ then
-                emails.current match
-                  case None        => NoEmail(user.username)
-                  case Some(email) => EmailSent(user.username, email)
-              else Confirmed(user.username)
-            }
-      }
+      userApi
+        .withEmails(u)
+        .flatMap:
+          case None => fuccess(NoSuchUser(u.into(UserName)))
+          case Some(lila.core.user.WithEmails(user, emails)) =>
+            if user.enabled.no then fuccess(Closed(user.username))
+            else
+              userRepo
+                .mustConfirmEmail(user.id)
+                .dmap:
+                  if _ then
+                    emails.current match
+                      case None        => NoEmail(user.username)
+                      case Some(email) => EmailSent(user.username, email)
+                  else Confirmed(user.username)

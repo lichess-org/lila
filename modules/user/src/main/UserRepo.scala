@@ -240,11 +240,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       mustConfirmEmail: Boolean,
       lang: Option[LangTag] = None
   ): Fu[Option[User]] =
-    exists(name).not.flatMapz {
+    exists(name).not.flatMapz:
       val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
-    }
 
   def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
 
@@ -409,6 +408,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def getPasswordHash(id: UserId): Fu[Option[String]] =
     coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)
 
+  def blankPassword(id: UserId): Funit =
+    coll.updateField($id(id), F.bpass, HashedPassword(Array.empty)).void
+
   def setEmail(id: UserId, email: EmailAddress): Funit =
     val normalized = email.normalize
     coll.update
@@ -521,6 +523,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def countEngines(userIds: List[UserId]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
+
+  def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ engineSelect(true), _.sec)
 
   def countLameOrTroll(userIds: List[UserId]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ lameOrTroll)

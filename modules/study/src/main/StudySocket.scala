@@ -284,7 +284,7 @@ final private class StudySocket(
       relay: Option[Chapter.Relay],
       who: Who
   ) =
-    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
+    AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
     val relayPathDedup = relay
       .map(_.path)
       .map: path =>

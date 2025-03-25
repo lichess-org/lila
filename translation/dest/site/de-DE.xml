@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
+  <string name="playOffline">Spiele offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Brett drehen</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="claimADraw">Remis beanspruchen</string>
+  <string name="drawClaimed">Remis reklamiert</string>
   <string name="offerDraw">Remis anbieten</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -744,6 +746,9 @@
   <string name="checkYourEmail">Prüfe deine E-Mails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wir haben dir eine E-Mail gesendet. Klicke den Link in der Email, um deinen Account zu aktivieren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
+  <string name="ifYouDoNotGetTheEmail">Falls du keine E-Mail innerhalb der nächsten 5 Minuten erhältst:</string>
+  <string name="checkAllEmailFolders">Überprüfe alle Müll-, Spam- und anderen Ordner</string>
+  <string name="verifyYourAddress">Überprüfen, ob %s deine E-Mail-Adresse ist</string>
   <string name="weHaveSentYouAnEmailTo">Wir haben dir eine Email an %s gesendet. Klicke auf den Link in der E-Mail, um dein Passwort zurück zu setzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Durch die Anmeldung wird den %s zugestimmt.</string>
   <string name="readAboutOur">Lies unsere %s.</string>
@@ -773,23 +778,13 @@
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
-  <string name="asFreeAsLichess">Frei wie Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Aus Liebe zum Schach</string>
   <string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
-  <string name="zeroAdvertisement">Keine Werbung</string>
-  <string name="fullFeatured">Keine Einschränkungen</string>
-  <string name="phoneAndTablet">Handy und Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, Klassisch</string>
-  <string name="correspondenceChess">Fernschach</string>
-  <string name="onlineAndOfflinePlay">Spiele online und offline</string>
   <string name="viewTheSolution">Lösung ansehen</string>
-  <string name="followAndChallengeFriends">Folge deinen Freunden und fordere sie heraus</string>
   <string name="noChallenges">Keine Herausforderungen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
-  <string name="gameAnalysis">Spielanalyse</string>
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
@@ -798,6 +793,7 @@
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
+  <string name="allLanguages">Alle Sprachen</string>
   <string name="background">Hintergrund</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>

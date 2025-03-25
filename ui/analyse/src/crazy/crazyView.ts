@@ -1,11 +1,11 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
 import type { MouchEvent } from 'chessground/types';
-import { onInsert } from 'common/snabbdom';
+import { onInsert } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
-const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;
 
 type Position = 'top' | 'bottom';
 

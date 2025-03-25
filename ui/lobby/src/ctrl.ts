@@ -1,4 +1,4 @@
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'lib/i18n';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
@@ -22,9 +22,9 @@ import type {
 import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
-import { storage, type LichessStorage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
-import { wsPingInterval } from 'common/socket';
+import { storage, type LichessStorage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
+import { wsPingInterval } from 'lib/socket';
 
 export default class LobbyController {
   data: LobbyData;
@@ -58,7 +58,6 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);

@@ -1,4 +1,4 @@
-import { looseH as h, type Redraw, type VNode, onInsert } from 'common/snabbdom';
+import { looseH as h, type Redraw, type VNode, onInsert } from 'lib/snabbdom';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {
@@ -28,9 +28,7 @@ export class VideoPlayer {
   }
 
   cover = (el?: HTMLElement) => {
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
+    if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
     this.animationFrameId = requestAnimationFrame(() => {
       if (!el) {
         this.iframe.remove();

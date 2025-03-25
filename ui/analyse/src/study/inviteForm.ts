@@ -1,14 +1,14 @@
-import * as licon from 'common/licon';
-import { bind, onInsert } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, onInsert } from 'lib/snabbdom';
 import { titleNameToId } from '../view/util';
 import { h, type VNode } from 'snabbdom';
-import { prop, type Prop } from 'common';
+import { prop, type Prop } from 'lib';
 import type { StudyMemberMap } from './interfaces';
 import type { AnalyseSocketSend } from '../socket';
-import { storedSet, type StoredSet } from 'common/storage';
-import { snabDialog } from 'common/dialog';
-import { userComplete } from 'common/userComplete';
-import { pubsub } from 'common/pubsub';
+import { storedSet, type StoredSet } from 'lib/storage';
+import { snabDialog } from 'lib/dialog';
+import { userComplete } from 'lib/userComplete';
+import { pubsub } from 'lib/pubsub';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;

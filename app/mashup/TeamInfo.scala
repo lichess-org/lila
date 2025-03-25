@@ -92,8 +92,10 @@ final class TeamInfoApi(
   )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
-    tourApi.visibleByTeam(team.id, nbPast, nbSoon).zip(swissApi.visibleByTeam(team.id, nbPast, nbSoon)).map {
-      (tours, swisses) =>
+    tourApi
+      .visibleByTeam(team.id, nbPast, nbSoon)
+      .zip(swissApi.visibleByTeam(team.id, nbPast, nbSoon))
+      .map: (tours, swisses) =>
         PastAndNext(
           past = {
             tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
@@ -102,4 +104,3 @@ final class TeamInfoApi(
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
           }.sortBy(_.startsAt.toSeconds)
         )
-    }

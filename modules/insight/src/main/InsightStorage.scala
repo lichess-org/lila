@@ -59,21 +59,19 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
     }.map(_ | (Nil -> Nil))
 
   def nbByPerf(userId: UserId): Fu[Map[PerfType, Int]] =
-    coll {
+    coll:
       _.aggregateList(lila.rating.PerfType.nonPuzzle.size) { framework =>
         import framework.*
         Match($doc(F.userId -> userId)) -> List(
           GroupField(F.perf)("nb" -> SumAll)
         )
-      }.map {
+      }.map:
         _.flatMap { doc =>
           for
             perfType <- doc.getAsOpt[PerfType]("_id")
             nb       <- doc.int("nb")
           yield perfType -> nb
         }.toMap
-      }
-    }
 
 object InsightStorage:
 

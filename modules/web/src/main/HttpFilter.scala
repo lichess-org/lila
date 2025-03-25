@@ -21,13 +21,14 @@ final class HttpFilter(
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))
     else
       val startTime = nowMillis
-      redirectWrongDomain(req).map(fuccess).getOrElse {
-        handle(req).map: result =>
-          monitoring(req, startTime):
-            addContextualResponseHeaders(req):
-              addEmbedderPolicyHeaders(req):
-                result
-      }
+      redirectWrongDomain(req)
+        .map(fuccess)
+        .getOrElse:
+          handle(req).map: result =>
+            monitoring(req, startTime):
+              addContextualResponseHeaders(req):
+                addEmbedderPolicyHeaders(req):
+                  result
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
     val actionName = HTTPRequest.actionName(req)

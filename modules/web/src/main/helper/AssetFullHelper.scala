@@ -11,9 +11,7 @@ trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
   def netConfig: NetConfig
   def manifest: AssetManifest
-  def explorerEndpoint: String
-  def tablebaseEndpoint: String
-  def externalEngineEndpoint: String
+  def analyseEndpoints: lila.ui.AnalyseEndpoints
 
   export lila.common.String.html.safeJsonValue
 
@@ -57,7 +55,7 @@ trait AssetFullHelper:
         :: (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
     lila.web.ContentSecurityPolicy.page(
       netConfig.assetDomain,
-      netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
+      netConfig.assetDomain.value :: sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
     )
 
   def embedCsp(using ctx: Context): ContentSecurityPolicy =

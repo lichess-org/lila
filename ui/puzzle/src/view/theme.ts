@@ -1,6 +1,5 @@
-import * as licon from 'common/licon';
-import { withLang } from 'common/router';
-import { type VNode, type MaybeVNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { type VNode, type MaybeVNode, bind, dataIcon, looseH as h } from 'lib/snabbdom';
 import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
 import type PuzzleCtrl from '../ctrl';
@@ -13,7 +12,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   const showEditor = ctrl.mode === 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   const puzzleMenu = (v: VNode): VNode =>
-    h('a', { attrs: { href: withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
+    h('a', { attrs: { href: ctrl.routerWithLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
   return ctrl.streak
     ? null
     : ctrl.isDaily

@@ -36,27 +36,27 @@ final class OAuthServer(
   ): Fu[AccessResult] =
     getTokenFromSignedBearer(tokenId)
       .orFailWith(NoSuchToken)
-      .flatMap {
+      .flatMap:
         case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
           fufail(MissingScope(at.scopes))
         case at =>
-          userApi.me(at.userId).flatMap {
-            case None => fufail(NoSuchUser)
-            case Some(u) =>
-              val blocked =
-                at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
-              andLogReq
-                .filter: req =>
-                  blocked || {
-                    u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
-                  }
-                .foreach: req =>
-                  logger.debug:
-                    s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
-              if blocked then fufail(OriginBlocked)
-              else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
-          }
-      }
+          userApi
+            .me(at.userId)
+            .flatMap:
+              case None => fufail(NoSuchUser)
+              case Some(u) =>
+                val blocked =
+                  at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+                andLogReq
+                  .filter: req =>
+                    blocked || {
+                      u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
+                    }
+                  .foreach: req =>
+                    logger.debug:
+                      s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+                if blocked then fufail(OriginBlocked)
+                else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
       .dmap(Right(_))
       .recover:
         case e: AuthError => Left(e)

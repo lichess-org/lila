@@ -24,16 +24,15 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def sides(gameId: GameId, color: Color) = Open:
     Found(env.round.proxyRepo.pov(gameId, color)): pov =>
       env.game.crosstableApi.withMatchup(pov.game).flatMap { ct =>
-        Ok.snip(views.tv.side.sides(pov, ct))
+        Ok.snip(views.tv.ui.side.sides(pov, ct))
       }
 
   private given Writes[lila.tv.Tv.Champion] = Json.writes
 
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions
-      .map {
+      .map:
         _.channels.map { (chan, champ) => chan.key -> champ }
-      }
       .map { Json.toJson(_) }
       .dmap(Api.ApiResult.Data.apply)
 
@@ -63,7 +62,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def gamesChannel(chanKey: String) = Open:
     Channel.byKey.get(chanKey).so { channel =>
       env.tv.tv.getChampions.zip(env.tv.tv.getGames(channel, 15)).flatMap { (champs, games) =>
-        Ok.page(views.tv.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
+        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
       }
     }
 

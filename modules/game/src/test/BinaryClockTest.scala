@@ -22,7 +22,7 @@ class BinaryClockTest extends munit.FunSuite:
 
   val clock  = Clock(120, 2)
   val bits22 = List("00000010", "00000010")
-  test("write") {
+  test("write"):
     assertEquals(write(clock), bits22 ::: List.fill(6)(_0_))
     assertEquals(
       write(clock.giveTime(White, Centis(3))),
@@ -36,8 +36,7 @@ class BinaryClockTest extends munit.FunSuite:
       write(Clock(0, 3)),
       List("00000000", "00000011", "10000000", "00000001", "00101100", "10000000", "00000001", "00101100")
     )
-  }
-  test("read with timer") {
+  test("read with timer"):
     assertEquals(read(bits22 ::: List.fill(11)(_0_)), clock)
     assertEquals(
       read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(8)(_0_)),
@@ -47,8 +46,7 @@ class BinaryClockTest extends munit.FunSuite:
       read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)),
       clock.giveTime(White, Centis(-3))
     )
-  }
-  test("read without timer bytes") {
+  test("read without timer bytes"):
     assertEquals(read(bits22 ::: List.fill(7)(_0_)), clock)
     assertEquals(
       read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(4)(_0_)),
@@ -58,9 +56,8 @@ class BinaryClockTest extends munit.FunSuite:
       read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)),
       clock.giveTime(White, Centis(-3))
     )
-  }
 
-  test("isomorphism without berserk") {
+  test("isomorphism without berserk"):
     assertEquals(isomorphism(clock), clock)
 
     val c2 = clock.giveTime(White, Centis.ofSeconds(15))
@@ -75,9 +72,8 @@ class BinaryClockTest extends munit.FunSuite:
     Clock(120, 60).pipe { c =>
       assertEquals(isomorphism(c), c)
     }
-  }
 
-  test("isomorphism with berserk") {
+  test("isomorphism with berserk"):
     val b1 = clock.goBerserk(White)
     assertEquals(readBytes(writeBytes(b1), true), b1)
 
@@ -86,4 +82,3 @@ class BinaryClockTest extends munit.FunSuite:
 
     val b3 = Clock(60, 2).goBerserk(White)
     assertEquals(readBytes(writeBytes(b3), true), b3)
-  }

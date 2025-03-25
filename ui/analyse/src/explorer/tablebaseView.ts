@@ -20,7 +20,7 @@ export function showTablebase(
         moves.map(move =>
           h('tr', { key: move.uci, attrs: { 'data-uci': move.uci } }, [
             h('td', move.san),
-            h('td', [showDtz(fen, move), showDtm(fen, move), showDtw(fen, move)]),
+            h('td', [showDtz(fen, move), showDtc(fen, move), showDtm(fen, move), showDtw(fen, move)]),
           ]),
         ),
       ),
@@ -50,18 +50,28 @@ function showDtw(fen: FEN, move: TablebaseMoveStats) {
   return undefined;
 }
 
+function showDtc(fen: FEN, move: TablebaseMoveStats) {
+  if (move.dtc)
+    return h(
+      'result.' + winnerOf(fen, move),
+      { attrs: { title: 'Depth To Conversion (experimental)' } },
+      'DTC ' + Math.abs(move.dtc),
+    );
+  return undefined;
+}
+
 function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | null {
   if (move.checkmate) return h('result.' + winnerOf(fen, move), i18n.site.checkmate);
-  else if (move.variant_win) return h('result.' + winnerOf(fen, move), i18n.site.variantLoss);
-  else if (move.variant_loss) return h('result.' + winnerOf(fen, move), i18n.site.variantWin);
-  else if (move.stalemate) return h('result.draws', i18n.site.stalemate);
-  else if (move.insufficient_material) return h('result.draws', i18n.site.insufficientMaterial);
-  else if (move.dtz === null) return null;
-  else if (move.dtz === 0) return h('result.draws', i18n.site.draw);
-  else if (move.zeroing)
+  if (move.variant_win) return h('result.' + winnerOf(fen, move), i18n.site.variantLoss);
+  if (move.variant_loss) return h('result.' + winnerOf(fen, move), i18n.site.variantWin);
+  if (move.stalemate) return h('result.draws', i18n.site.stalemate);
+  if (move.insufficient_material) return h('result.draws', i18n.site.insufficientMaterial);
+  if (move.dtz === 0 || move.dtc === 0) return h('result.draws', i18n.site.draw);
+  if ((move.dtz || move.dtc) && move.zeroing)
     return move.san.includes('x')
       ? h('result.' + winnerOf(fen, move), i18n.site.capture)
       : h('result.' + winnerOf(fen, move), i18n.site.pawnMove);
+  if (move.dtz === null) return null;
   return h(
     'result.' + winnerOf(fen, move),
     {

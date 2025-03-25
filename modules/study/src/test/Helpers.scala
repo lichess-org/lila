@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ PgnStr, Tags }
-import chess.{ Centis, Node as PgnNode, Tree }
+import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
 import alleycats.Zero
 

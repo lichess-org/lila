@@ -60,9 +60,8 @@ final class Cms(env: Env) extends LilaController(env):
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
     FoundPage(env.cms.render(key)): p =>
-      active match
-        case None       => views.site.page.lone(p)
-        case Some(name) => views.site.page.withMenu(name, p)
+      active.fold(views.cms.lone(p)):
+        views.site.page.withMenu(_, p)
 
   def lonePage(key: CmsPageKey) = Open:
     orCreateOrNotFound(key): page =>
@@ -70,7 +69,7 @@ final class Cms(env: Env) extends LilaController(env):
         case Some(path) => Redirect(path)
         case None =>
           pageHit
-          Ok.async(views.site.page.lone(page))
+          Ok.async(views.cms.lone(page))
 
   def orCreateOrNotFound(key: CmsPageKey)(f: CmsPage.Render => Fu[Result])(using Context): Fu[Result] =
     env.cms
@@ -90,8 +89,8 @@ final class Cms(env: Env) extends LilaController(env):
 
   def source = Open:
     pageHit
-    FoundPage(env.cms.renderKey("source")):
-      views.site.page.source
+    FoundPage(env.cms.renderKey("source")): p =>
+      views.site.ui.source(p.title, views.cms.render(p), env.web.lilaVersion)
 
   def variantHome = Open:
     negotiate(

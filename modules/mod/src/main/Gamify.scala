@@ -51,11 +51,10 @@ final class Gamify(
           mixedLeaderboard(
             after = instantOf(year, month, 1, 0, 0),
             before = instantOf(year, month, 1, 0, 0).plusMonths(1).some
-          ).map {
+          ).map:
             _.headOption.map { champ =>
               HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
             }
-          }
         }.toList
       }
       .toList
@@ -67,7 +66,7 @@ final class Gamify(
 
   def leaderboards = leaderboardsCache.getUnit
 
-  private val leaderboardsCache = cacheApi.unit[Leaderboards] {
+  private val leaderboardsCache = cacheApi.unit[Leaderboards]:
     _.expireAfterWrite(10.minutes)
       .buildAsyncFuture { _ =>
         mixedLeaderboard(nowInstant.minusDays(1), none)
@@ -77,7 +76,6 @@ final class Gamify(
             Leaderboards(daily, weekly, monthly)
           }
       }
-  }
 
   private def mixedLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModMixed]] =
     for

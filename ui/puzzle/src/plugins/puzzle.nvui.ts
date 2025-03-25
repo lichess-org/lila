@@ -6,7 +6,7 @@ import {
   boardCommandsHandler,
   boardSetting,
   castlingFlavours,
-  inputToLegalUci,
+  inputToMove,
   lastCapturedCommandHandler,
   pieceJumpingHandler,
   pieceSetting,
@@ -21,14 +21,14 @@ import {
   selectionHandler,
   styleSetting,
   type MoveStyle,
-} from 'nvui/chess';
+} from 'lib/nvui/chess';
 import { makeConfig } from '../view/chessground';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands, boardCommands, addBreaks } from 'nvui/command';
+import { renderSetting } from 'lib/nvui/setting';
+import { Notify } from 'lib/nvui/notify';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { next as controlNext, prev } from '../control';
-import { bind, onInsert } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { bind, onInsert } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { opposite } from 'chessops';
@@ -91,12 +91,11 @@ export function initModule() {
           ),
           h('h2', 'Move form'),
           h(
-            'form',
+            'form#move-form',
             {
               hook: onInsert(el => {
                 const $form = $(el),
                   $input = $form.find('.move').val('');
-                $input[0]?.focus();
                 $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
               }),
             },
@@ -134,18 +133,7 @@ export function initModule() {
                   'keydown',
                   lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                 );
-                $buttons.on(
-                  'keydown',
-                  possibleMovesHandler(
-                    ctrl.pov,
-                    () => ground.state.turnColor,
-                    ground.getFen,
-                    () => ground.state.pieces,
-                    'standard',
-                    () => ground.state.movable.dests,
-                    () => steps,
-                  ),
-                );
+                $buttons.on('keydown', possibleMovesHandler(ctrl.pov, ground, 'standard', steps));
                 $buttons.on('keydown', positionJumpHandler());
                 $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
               }),
@@ -221,8 +209,8 @@ function onSubmit(
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const uci = inputToLegalUci(input, ctrl.node.fen, ground);
-      if (uci) {
+      const uci = inputToMove(input, ctrl.node.fen, ground);
+      if (uci && typeof uci === 'string') {
         ctrl.playUci(uci);
         const fback = ctrl.lastFeedback;
         if (fback === 'fail') notify(i18n.puzzle.notTheMove);

@@ -101,12 +101,11 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       .hint(coll.hint($doc("hostSeenAt" -> -1)))
       .cursor[Simul]()
       .list(50)
-      .map {
+      .map:
         _.foldLeft(List.empty[Simul]) {
           case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
           case (acc, sim)                                       => sim :: acc
         }.reverse
-      }
 
   def allStarted: Fu[List[Simul]] =
     coll

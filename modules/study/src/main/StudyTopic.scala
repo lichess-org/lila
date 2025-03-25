@@ -44,8 +44,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)).dmap { _.flatMap(docTopic) }
 
-  def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = StudyTopics.from {
-    (str.lengthIs >= 2).so {
+  def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = StudyTopics.from:
+    (str.lengthIs >= 2).so:
       val favsFu: Fu[List[StudyTopic]] =
         myId.so: userId =>
           userTopics(userId).map:
@@ -59,8 +59,6 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
               .list(nb - favs.size)
           .dmap { _.flatMap(docTopic) }
           .dmap { favs ::: _ }
-    }
-  }
 
   def userTopics(userId: UserId): Fu[StudyTopics] =
     userTopicRepo.coll:

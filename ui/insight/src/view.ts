@@ -1,6 +1,6 @@
 import { thunk } from 'snabbdom';
-import { debounce } from 'common/timing';
-import * as licon from 'common/licon';
+import { debounce } from 'lib/async';
+import * as licon from 'lib/licon';
 import axis from './axis';
 import filters from './filters';
 import presets from './presets';
@@ -11,7 +11,7 @@ import info from './info';
 import boards from './boards';
 import type Ctrl from './ctrl';
 import type { ViewTab } from './interfaces';
-import { bind, looseH as h } from 'common/snabbdom';
+import { bind, looseH as h } from 'lib/snabbdom';
 
 let forceRender = false;
 

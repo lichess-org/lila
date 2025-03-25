@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Shvetsariya</string>
+  <string name="swiss">Shvetsariya</string>
   <string name="swissTournaments">Tezkor turnirlar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Raundni koʻrish</item>
@@ -10,7 +10,7 @@
     <item quantity="one">%s saund</item>
     <item quantity="other">%s raundlar</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Shveytsariya raundi</item>
     <item quantity="other">%s Shveytsariya raundlari</item>
   </plurals>
@@ -27,7 +27,7 @@
     <item quantity="one">Davralar orasidagi %s daqiqa</item>
     <item quantity="other">Davralar orasida %s daqiqa</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Boshlanishi</string>
+  <string name="startingIn" comment="Displayed above a timer">Boshlanishi</string>
   <string name="nextRound">Keyingi tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Davom etayotgan o\'yin</item>
@@ -74,7 +74,7 @@ Bundan tashqari, o\'yinchi turnirga kech qo\'shilsa, yarim ochkoli bitta xayrlas
 Keyin tizim o\'yinchini turnirdan olib tashlaydi, shuning uchun ular ko\'proq o\'yinlarni yutqazmaydi.
  Ular istalgan vaqtda turnirga qayta qo\'shilishlari mumkin.</string>
   <string name="protectionAgainstNoShowQ">Ko\'rsatilmaganlar bo\'yicha nima qilinadi?</string>
-  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Shveytsariya tadbirlariga ro\'yxatdan o\'tgan, lekin o\'yinlarini o\'ynamaydigan o\'yinchilar muammoli bo\'lishi mumkin.
+  <string name="protectionAgainstNoShowA">Shveytsariya tadbirlariga ro\'yxatdan o\'tgan, lekin o\'yinlarini o\'ynamaydigan o\'yinchilar muammoli bo\'lishi mumkin.
 Ushbu muammoni engillashtirish uchun Lichess o\'yinni o\'ynay olmagan o\'yinchilarni ma\'lum vaqt davomida yangi Shveytsariya tadbiriga qo\'shilishiga yo\'l qo\'ymaydi.
 Shveytsariya tadbirining yaratuvchisi baribir ularga tadbirga qo\'shilishga ruxsat berishga qaror qilishi mumkin.</string>
   <string name="lateJoinQ">O\'yinchilar kech qo\'shila oladimi?</string>

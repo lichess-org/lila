@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Schpill mit eme Fründ</string>
   <string name="playWithTheMachine">Schpill mit em Computer</string>
+  <string name="playOffline">Schpill offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
+  <string name="drawClaimed">Remis g\'forderet</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -386,13 +388,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Du muesch no %1$s g\'werteti Schpiel meh %2$s schpille</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du bruchsch no %s Wertigs-Schpiel meh</item>
-    <item quantity="other">Du bruchsch no %s Wertigs-Schpiel meh</item>
+    <item quantity="one">Du bruchsch no %s g\'wertets Schpiel meh</item>
+    <item quantity="other">Du bruchsch no %s g\'werteti Schpiel meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wertig isch provisorisch</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
-  <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüüf</string>
+  <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüf</string>
   <string name="ratedMoreThanInPerf">G\'wertet ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">≤ %1$s im %2$s die letscht Wuche</string>
   <string name="mustBeInTeam">Du muesch im Team %s si</string>
@@ -753,6 +755,9 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir es Mail gschickt: Klick de Link i de Nachricht, um dis Konto z\'aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech witeri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
+  <string name="ifYouDoNotGetTheEmail">Wänn die E-Mail nöd innerhalb 5 Minute chunnt:</string>
+  <string name="checkAllEmailFolders">Suech im Junk, Spam und andere Ordner</string>
+  <string name="verifyYourAddress">Prüef ob %s würkli dini E-Mail-Adrässe isch</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
@@ -782,23 +787,13 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="sessions">Sitzige</string>
   <string name="revokeAllSessions">alli Sitzige beände</string>
   <string name="playChessEverywhere">Schpill überall Schach</string>
-  <string name="asFreeAsLichess">So gratis wie Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Erschaffe us Liebi zum Schach, nöd zum Gäld</string>
   <string name="everybodyGetsAllFeaturesForFree">Jede chann alli Funktione gratis nutze</string>
-  <string name="zeroAdvertisement">Null Werbig</string>
-  <string name="fullFeatured">Alli Funktione</string>
-  <string name="phoneAndTablet">Smart Phone und Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, Klassisch</string>
-  <string name="correspondenceChess">Fernschach</string>
-  <string name="onlineAndOfflinePlay">Online und offline schpille</string>
   <string name="viewTheSolution">Lueg d\'Lösig a</string>
-  <string name="followAndChallengeFriends">Folg Fründe und forder sie zum Schpil</string>
   <string name="noChallenges">Kei Useforderige.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfüegbar i %s Schprach!</item>
     <item quantity="other">Verfüegbar i %s Schprache!</item>
   </plurals>
-  <string name="gameAnalysis">Schpil-Analyse</string>
   <string name="xHostsY">%1$s hät %2$s erschtellt</string>
   <string name="xJoinsY">%1$s isch %2$s biträte</string>
   <string name="xLikesY">%1$s gfallt %2$s</string>
@@ -807,6 +802,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din Punkteschtand: %s</string>
   <string name="language">Schprach</string>
+  <string name="allLanguages">Alli Schprache</string>
   <string name="background">Hindergrund</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>

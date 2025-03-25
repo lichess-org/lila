@@ -899,7 +899,6 @@ class SchedulerTest extends munit.FunSuite:
         """2023-01-01T20:00:00Z Hourly standard superBlitz(3+0) Conditions() position""",
         """2023-01-03T16:00:00Z Shield standard superBlitz(3+0) Conditions() standard""",
         """2023-01-03T17:00:00Z Weekly standard superBlitz(3+0) Conditions() standard""",
-        """2023-01-07T17:00:00Z Weekend standard superBlitz(3+0) Conditions() standard""",
         """2023-01-31T17:00:00Z Monthly standard superBlitz(3+0) Conditions() standard""",
         """2023-02-14T17:00:00Z Yearly standard superBlitz(3+0) Conditions() standard""",
         """2022-12-31T22:00:00Z Hourly standard blitz(5+0) Conditions() standard""",

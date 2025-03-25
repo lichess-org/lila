@@ -9,6 +9,7 @@ import lila.core.config.*
 import lila.core.forum.BusForum
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
+import lila.core.mod.BoardApiMark
 
 @Module
 final class Env(
@@ -126,3 +127,7 @@ final class Env(
       else
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
+
+  Bus.sub[BoardApiMark]:
+    case BoardApiMark(userId, name) =>
+      api.autoMark(SuspectId(userId), s"Board API: ${name}")(using UserId.lichessAsMe)

@@ -104,7 +104,7 @@ Also verlang de Titel nöd.</string>
   <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Schpiel vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">es schtündlichs Bullet-Turnier</string>
   <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
-  <string name="lichessRatings">Lichess-Wertige</string>
+  <string name="lichessRatings">Lichess Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
 
@@ -118,7 +118,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg g\'werteti Schpiel gäge %1$s i dere Wertigskategorie gschpillt.</string>
   <string name="similarOpponents">Gägner mit ähnlicher Schpielschtärchi</string>
   <string name="notPlayedRecently">De Schpiller hät nöd gnueg aktuelli Schpiel. Abhängig vu de Azahl Schpiel, wo g\'schpillt worde sind, bruchts zirka es Jahr Inaktivität, bis e Wertig wieder provisorisch wird.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d? Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d\'Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
   <string name="howDoLeaderoardsWork">Wie funktioniered Räng und Ranglischte?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
   <string name="ratingLeaderboards">Wertigs Ranglischte</string>

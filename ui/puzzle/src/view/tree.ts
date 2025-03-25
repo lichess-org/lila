@@ -1,11 +1,11 @@
 import type { VNode, Classes } from 'snabbdom';
-import { defined } from 'common';
-import { throttle } from 'common/timing';
-import { renderEval as normalizeEval } from 'ceval';
-import { path as treePath } from 'tree';
-import { type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
+import { defined } from 'lib';
+import { throttle } from 'lib/async';
+import { renderEval as normalizeEval } from 'lib/ceval/ceval';
+import { path as treePath } from 'lib/tree/tree';
+import { type MaybeVNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
 import type PuzzleCtrl from '../ctrl';
-import { plyToTurn } from 'chess';
+import { plyToTurn } from 'lib/chess/chess';
 
 interface Ctx {
   ctrl: PuzzleCtrl;

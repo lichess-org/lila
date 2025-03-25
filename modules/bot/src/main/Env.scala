@@ -11,7 +11,8 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     rematches: lila.game.Rematches,
     spam: lila.core.security.SpamApi,
-    isOnline: IsOnline
+    isOnline: IsOnline,
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode, lila.core.i18n.Translator):
 
   lazy val jsonView = wire[BotJsonView]
@@ -21,5 +22,7 @@ final class Env(
   lazy val player = wire[BotPlayer]
 
   lazy val onlineApiUsers: OnlineApiUsers = wire[OnlineApiUsers]
+
+  lazy val boardReport = wire[BoardReport]
 
   val form = BotForm

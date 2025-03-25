@@ -21,6 +21,8 @@ object Json:
 
   given Writes[chess.PlayerTitle] = tile => JsString(tile.value)
 
+  given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
+
   given NoJsonHandler[chess.Square] with {}
 
   import lila.core.LightUser
@@ -32,3 +34,5 @@ object Json:
       .add("title", u.title)
       .add("flair", u.flair)
       .add("patron", u.isPatron)
+
+  trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]

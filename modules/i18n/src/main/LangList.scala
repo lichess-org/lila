@@ -154,21 +154,6 @@ object LangList extends lila.core.i18n.LangList:
     .toList
     .sortBy(_._1)
 
-  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
-
-  def isRTL(lang: Lang): Boolean =
-    rtlCache.getOrElseUpdate(
-      lang,
-      lang.locale
-        .getDisplayName(lang.locale)
-        .headOption
-        .map(_.getDirectionality)
-        .exists { dir =>
-          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
-          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
-        }
-    )
-
   lazy val allLanguagesForm = new LangForm:
     val choices = languageChoices
     val mapping = languageMapping(choices)

@@ -1,7 +1,6 @@
 package controllers
 
 import lila.app.*
-import play.api.libs.json.*
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -17,6 +16,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.report.discordScoreThresholdSetting,
     env.round.selfReportEndGame,
     env.round.selfReportMarkUser,
+    env.bot.boardReport.domainSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.round.ratingFactorsSetting,
@@ -70,9 +70,8 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
-    isGranted(_.Cli).so {
+    isGranted(_.Cli).so:
       runCommand(ctx.body.body).map { Ok(_) }
-    }
   }
 
   private def runCommand(command: String)(using Me): Fu[String] =

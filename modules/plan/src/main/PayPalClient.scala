@@ -115,11 +115,10 @@ final private class PayPalClient(
     getOne[PayPalOrder](s"${path.orders}/$id")
 
   def getSubscription(id: PayPalSubscriptionId): Fu[Option[PayPalSubscription]] =
-    getOne[PayPalSubscription](s"${path.subscriptions}/$id").recover {
+    getOne[PayPalSubscription](s"${path.subscriptions}/$id").recover:
       case CantParseException(json, _)
           if json.str("status").exists(status => status == "CANCELLED" || status == "SUSPENDED") =>
         none
-    }
 
   def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
     getOne[PayPalEvent](s"${path.events}/$id")
@@ -215,22 +214,20 @@ final private class PayPalClient(
           case Some(error) => fufail { new InvalidRequestException(status, error) }
       case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
 
-  private val tokenCache = cacheApi.unit[AccessToken] {
+  private val tokenCache = cacheApi.unit[AccessToken]:
     _.refreshAfterWrite(10.minutes).buildAsyncFuture { _ =>
       ws.url(s"${config.endpoint}/${path.token}")
         .withAuth(config.publicKey, config.secretKey.value, WSAuthScheme.BASIC)
         .post(Map("grant_type" -> Seq("client_credentials")))
-        .flatMap {
+        .flatMap:
           case res if res.status != 200 =>
             fufail(s"PayPal access token ${res.statusText} ${res.body[String].take(200)}")
           case res =>
             (res.body[JsValue] \ "access_token").validate[String] match
               case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
-        }
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
     }
-  }
 
 object PayPalClient:
 

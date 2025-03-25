@@ -51,8 +51,8 @@ object account:
   val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
-  csp = analyse.ui.csp,
-  board.explorerAndCevalConfig,
+  csp = analyse.ui.bits.cspExternalEngine,
+  views.analyse.ui.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )
 
@@ -75,7 +75,7 @@ object opening:
 
 val video = lila.video.ui.VideoUi(helpers)
 
-val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(game.widgets(_))
+val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
 
 val auth = lila.web.ui.AuthUi(helpers)
 
@@ -86,6 +86,8 @@ val racer = lila.racer.ui.RacerUi(helpers)
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
+
+val local = lila.local.ui.LocalUi(helpers)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))

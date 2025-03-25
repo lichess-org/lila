@@ -112,7 +112,7 @@ final class StudyPager(
         case Order.mine => $sort.desc("rank")
       ,
       hint = hint
-    ).mapFutureList(withChaptersAndLiking(me))
+    ).mapFutureList(withChaptersAndLiking())
     Paginator(
       adapter = nbResults.fold(adapter): nb =>
         CachedAdapter(adapter, nb),
@@ -121,10 +121,9 @@ final class StudyPager(
     )
 
   def withChaptersAndLiking(
-      me: Option[User],
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
-  )(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies, nbChaptersPerStudy).flatMap(withLiking(me))
+  )(studies: Seq[Study])(using me: Option[Me]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(
       studies: Seq[Study],
@@ -137,15 +136,14 @@ final class StudyPager(
     }
 
   private def withLiking(
-      me: Option[User]
-  )(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    me.so { u =>
+      studies: Seq[Study.WithChapters]
+  )(using me: Option[Me]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    me.so: u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))
-    }.map { liked =>
-      studies.map { case Study.WithChapters(study, chapters) =>
-        Study.WithChaptersAndLiked(study, chapters, liked(study.id))
-      }
-    }
+    .map: liked =>
+        studies.map { case Study.WithChapters(study, chapters) =>
+          Study.WithChaptersAndLiked(study, chapters, liked(study.id))
+        }
 
 object Orders:
   import lila.core.study.Order

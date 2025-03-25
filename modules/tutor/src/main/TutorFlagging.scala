@@ -26,7 +26,7 @@ object TutorFlagging:
       peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
     yield
       def valueCountOf(answer: Answer[Result], result: Result) =
-        answer.clusters.collectFirst {
+        answer.clusters.collectFirst:
           case Cluster(res, Insight.Stacked(points), _, _) if res == result =>
             ValueCount(
               GoodPercent(~points.collectFirst {
@@ -34,7 +34,6 @@ object TutorFlagging:
               }),
               mine.totalSize
             )
-        }
       TutorFlagging(
         win = TutorBothValueOptions(
           mine = valueCountOf(mine, Result.Win),

@@ -41,7 +41,8 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
         },
         "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
         "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
-        "line_items[0][quantity]"                -> 1
+        "line_items[0][quantity]"                -> 1,
+        "expand[]"                               -> "payment_intent"
       ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
@@ -133,12 +134,13 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   private val logger = lila.plan.logger.branch("stripe")
 
   private def getOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[Option[A]] =
-    get[A](url, queryString).dmap(some).recover {
-      case _: NotFoundException => None
-      case e: DeletedException =>
-        logger.warn(e.getMessage)
-        None
-    }
+    get[A](url, queryString)
+      .dmap(some)
+      .recover:
+        case _: NotFoundException => None
+        case e: DeletedException =>
+          logger.warn(e.getMessage)
+          None
 
   // private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
   //   get[List[A]](url, queryString)(using listReader[A])
@@ -170,8 +172,8 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match
       case 200 =>
-        (summon[Reads[A]]
-          .reads(res.body[JsValue]))
+        summon[Reads[A]]
+          .reads(res.body[JsValue])
           .fold(
             errs =>
               fufail {

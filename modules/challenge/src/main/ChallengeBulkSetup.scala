@@ -102,9 +102,8 @@ final class ChallengeBulkSetupApi(
       .mapAsync(8): token =>
         oauthServer
           .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
-          .map {
+          .map:
             _.left.map { BadToken(token, _) }
-          }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)

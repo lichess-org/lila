@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Грати з другом</string>
   <string name="playWithTheMachine">Грати з комп’ютером</string>
+  <string name="playOffline">Грати офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -172,6 +173,7 @@
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
+  <string name="drawClaimed">Оголошена нічия</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
@@ -826,6 +828,9 @@
   <string name="checkYourEmail">Перевірте електронну пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ми надіслали вам лист. Перейдіть за посиланням у листі для активації облікового запису.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо Ви не бачите листа, перевірте інші місця, де б він міг бути, наприклад, корзину, спам та інші папки.</string>
+  <string name="ifYouDoNotGetTheEmail">Якщо ви не отримаєте лист протягом 5 хвилин:</string>
+  <string name="checkAllEmailFolders">Перевірте кошик, спам та інші папки</string>
+  <string name="verifyYourAddress">Перевірте, чи %s дійсно є вашою адресою електронної пошти</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Реєструючись, Ви даєте згоду дотримуватись наших %s.</string>
   <string name="readAboutOur">Читайте про наш %s.</string>
@@ -855,17 +860,8 @@
   <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
-  <string name="asFreeAsLichess">Безкоштовний, як і Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Створений з любов\'ю до шахів, не до грошей</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
-  <string name="zeroAdvertisement">Без реклами</string>
-  <string name="fullFeatured">Повнофункціональний</string>
-  <string name="phoneAndTablet">Для смартфонів та планшетів</string>
-  <string name="bulletBlitzClassical">Куля, бліц, класичні шахи</string>
-  <string name="correspondenceChess">Заочні</string>
-  <string name="onlineAndOfflinePlay">Гра онлайн та офлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
-  <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
   <string name="noChallenges">Немає викликів.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
@@ -873,7 +869,6 @@
     <item quantity="many">Доступно %s мовами!</item>
     <item quantity="other">Доступно %s мовами!</item>
   </plurals>
-  <string name="gameAnalysis">Аналіз гри</string>
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
@@ -882,6 +877,7 @@
   <string name="anonymous">Анонім</string>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
+  <string name="allLanguages">Усі мови</string>
   <string name="background">Фон</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>

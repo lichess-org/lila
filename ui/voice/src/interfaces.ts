@@ -1,4 +1,4 @@
-import type { Toggle } from 'common';
+import type { Toggle } from 'lib';
 import type { VNode } from 'snabbdom';
 
 export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';

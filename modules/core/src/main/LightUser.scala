@@ -15,7 +15,7 @@ case class LightUser(
     isPatron: Boolean
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
-  def isBot             = title.exists(_.value == "BOT")
+  def isBot             = title.contains(PlayerTitle.BOT)
 
 object LightUser:
 

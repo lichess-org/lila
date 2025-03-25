@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import type { BasePlayer } from '../interfaces';
-import { numberFormat } from 'common/number';
-import { fullName, userRating } from 'common/userLink';
+import { numberFormat } from 'lib/i18n';
+import { fullName, userRating } from 'lib/userLink';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(

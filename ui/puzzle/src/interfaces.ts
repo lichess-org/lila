@@ -1,9 +1,9 @@
 import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
-import type { Coords } from 'common/prefs';
-import perfIcons from 'common/perfIcons';
+import type { Coords } from 'lib/prefs';
+import perfIcons from 'lib/game/perfIcons';
 import type PuzzleCtrl from './ctrl';
-import type { ExternalEngineInfo } from 'ceval';
+import type { ExternalEngineInfo } from 'lib/ceval/ceval';
 
 export type PuzzleId = string;
 export type ThemeKey = keyof I18n['puzzleTheme'];

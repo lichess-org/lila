@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogs da comunidade</string>
   <string name="friendBlogs">Blogs de amigos</string>
+  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Blog Lichess</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Meu Blog</string>
   <string name="likedBlogs">Publicações curtidas</string>
   <string name="blogTopics">Tópicos do Blog</string>
   <plurals name="blogPosts">

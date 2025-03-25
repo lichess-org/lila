@@ -1,5 +1,5 @@
-import { looseH as h, type VNode } from 'common/snabbdom';
-import type { Position } from '../interfaces';
+import { looseH as h, type VNode } from 'lib/snabbdom';
+import type { TopOrBottom } from 'lib/game/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
@@ -34,7 +34,7 @@ function formatClockTime(time: Millis) {
 export default function (
   ctrl: CorresClockController,
   color: Color,
-  position: Position,
+  position: TopOrBottom,
   runningColor: Color,
 ): VNode {
   const millis = ctrl.millisOf(color),

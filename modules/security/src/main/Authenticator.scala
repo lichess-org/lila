@@ -84,12 +84,13 @@ final class Authenticator(
 
   private def loginCandidate(select: Bdoc): Fu[Option[LoginCandidate]] = {
     import lila.user.BSONHandlers.given
-    userRepo.coll.one[AuthData](select, AuthData.projection).zip(userRepo.coll.one[User](select)).map {
-      case (Some(authData), Some(user)) =>
-        LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.bytes.isEmpty).some
-      case _ => none
-    }
-  }.recover {
+    userRepo.coll
+      .one[AuthData](select, AuthData.projection)
+      .zip(userRepo.coll.one[User](select))
+      .map:
+        case (Some(authData), Some(user)) =>
+          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.bytes.isEmpty).some
+        case _ => none
+  }.recover:
     case _: reactivemongo.api.bson.exceptions.HandlerException           => none
     case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // erased user
-  }

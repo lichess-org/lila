@@ -26,16 +26,17 @@ final class InquiryApi(
     logApi: ModlogApi
 ):
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
-    lila.core.perm.Granter(_.SeeReport).so {
-      reportApi.inquiries
-        .ofModId(mod)
-        .flatMapz: report =>
-          (
-            reportApi.moreLike(report, Max(10)),
-            userApi.withPerfs(report.user),
-            noteApi.toUserForMod(report.user),
-            logApi.userHistory(report.user)
-          ).mapN: (moreReports, userOption, notes, history) =>
-            userOption.map: user =>
-              Inquiry(mod.light, report, moreReports, notes, history, user)
-    }
+    lila.core.perm
+      .Granter(_.SeeReport)
+      .so:
+        reportApi.inquiries
+          .ofModId(mod)
+          .flatMapz: report =>
+            (
+              reportApi.moreLike(report, Max(10)),
+              userApi.withPerfs(report.user),
+              noteApi.toUserForMod(report.user),
+              logApi.userHistory(report.user)
+            ).mapN: (moreReports, userOption, notes, history) =>
+              userOption.map: user =>
+                Inquiry(mod.light, report, moreReports, notes, history, user)

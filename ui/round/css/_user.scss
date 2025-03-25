@@ -1,6 +1,7 @@
 .ruser {
   @extend %zen;
 
+  user-select: none;
   display: flex;
   justify-content: start;
   align-items: center;

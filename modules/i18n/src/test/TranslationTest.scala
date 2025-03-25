@@ -12,7 +12,7 @@ class TranslationTest extends munit.FunSuite:
 
   given lila.core.i18n.Translator = lila.i18n.Translator
 
-  test("be valid") {
+  test("be valid"):
     val en     = Registry.getAll(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
@@ -43,15 +43,13 @@ class TranslationTest extends munit.FunSuite:
     }.toList
     println(s"$tested translations tested")
     assertEquals(errors, Nil)
-  }
-  test("escape html") {
+  test("escape html"):
     import scalatags.Text.all.*
     given Lang = defaultLang
     assertEquals(I18nKey.site.depthX("string"), RawFrag("Depth string"))
     assertEquals(I18nKey.site.depthX("<string>"), RawFrag("Depth &lt;string&gt;"))
     assertEquals(I18nKey.site.depthX(Html("<html>")), RawFrag("Depth &lt;html&gt;"))
-  }
-  test("quotes") {
+  test("quotes"):
     given Lang = Lang("fr", "FR")
     assertEquals(
       I18nKey.faq.explainingEnPassant.txt("link1", "link2", "link3"),
@@ -63,14 +61,12 @@ Il est décrit dans la section 3.7 (d) des link2 :
 
 Voir les link3 sur ce coup pour vous entraîner."""
     )
-  }
-  test("user backslashes") {
+  test("user backslashes"):
     given Lang = Lang("ar", "SA")
     assertEquals(
       I18nKey.faq.lichessCombinationLiveLightLibrePronounced.txt("link1"),
       """كلمة Lichess مزيج من live/light/libre (مباشر\خفيف\حر) و chess (شطرنج). تنطق link1."""
     )
-  }
 
   private def argsForKey(k: String): List[String] =
     if k.contains("%s") then List("arg1")

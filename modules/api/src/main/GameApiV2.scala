@@ -116,9 +116,10 @@ final class GameApiV2(
             if config.finished then
               config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
             else
-              config.vs.map(_.id).fold(Query.nowPlaying(config.user.id)) {
-                Query.nowPlayingVs(config.user.id, _)
-              }
+              config.vs
+                .map(_.id)
+                .fold(Query.nowPlaying(config.user.id)):
+                  Query.nowPlayingVs(config.user.id, _)
           val requiresElasticSearch =
             config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
           val gameSource: Source[Game, ?] =
@@ -179,15 +180,16 @@ final class GameApiV2(
           .so:
             playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
           .flatMap: playerTeams =>
-            gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)).map {
-              _.zip(pairings).collect { case (Some(game), pairing) =>
-                (
-                  game,
-                  pairing,
-                  ByColor(pairing.user1, pairing.user2).traverse(playerTeams.get)
-                )
-              }
-            }
+            gameRepo
+              .gameOptionsFromSecondary(pairings.map(_.gameId))
+              .map:
+                _.zip(pairings).collect { case (Some(game), pairing) =>
+                  (
+                    game,
+                    pairing,
+                    ByColor(pairing.user1, pairing.user2).traverse(playerTeams.get)
+                  )
+                }
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4): (game, pairing, teams) =>

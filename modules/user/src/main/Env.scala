@@ -9,6 +9,7 @@ import lila.core.userId
 @Module
 final class Env(
     db: lila.db.Db,
+    getFile: lila.common.config.GetRelativeFile,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
@@ -64,3 +65,6 @@ final class Env(
       rankingApi.remove(userId)
     }
   )
+
+  lila.common.Bus.sub[lila.core.misc.puzzle.StreakRun]:
+    case r => api.addPuzRun("streak", r.userId, r.score)

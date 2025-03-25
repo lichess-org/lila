@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jogar contra um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
+  <string name="playOffline">Jogar offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Girar o tabuleiro</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
+  <string name="drawClaimed">Empate reivindicado</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
@@ -744,6 +746,9 @@
   <string name="checkYourEmail">Verifique seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
+  <string name="ifYouDoNotGetTheEmail">Se não receber o e-mail dentro de 5 minutos:</string>
+  <string name="checkAllEmailFolders">Verifique o lixo, o spam e outras pastas</string>
+  <string name="verifyYourAddress">Confirme se %s é seu endereço de e-mail</string>
   <string name="weHaveSentYouAnEmailTo">Enviamos um e-mail para %s. Clique no link do e-mail para redefinir sua senha.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao registrar, você concorda em se comprometer com nossa %s.</string>
   <string name="readAboutOur">Leia sobre a nossa %s.</string>
@@ -773,23 +778,13 @@
   <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
-  <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
-  <string name="zeroAdvertisement">Zero anúncios</string>
-  <string name="fullFeatured">Cheio de recursos</string>
-  <string name="phoneAndTablet">Celular e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
-  <string name="correspondenceChess">Xadrez por correspondência</string>
-  <string name="onlineAndOfflinePlay">Jogue online e offline</string>
   <string name="viewTheSolution">Ver solução</string>
-  <string name="followAndChallengeFriends">Siga e desafie amigos</string>
   <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
     <item quantity="other">Disponível em %s idiomas!</item>
   </plurals>
-  <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
@@ -798,6 +793,7 @@
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
+  <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Cor tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>

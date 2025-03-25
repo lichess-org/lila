@@ -31,10 +31,6 @@ object UiEnv
 
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
-  def explorerEndpoint       = env.explorerEndpoint
-  def tablebaseEndpoint      = env.tablebaseEndpoint
-  def externalEngineEndpoint = env.externalEngineEndpoint
-
   // helpers dependencies
   lazy val assetBaseUrl            = netConfig.assetBaseUrl
   lazy val netBaseUrl              = netConfig.baseUrl
@@ -43,6 +39,7 @@ object UiEnv
   lazy val isOnline                = env.socket.isOnline
   lazy val lightUserSync           = env.user.lightUserSync
   def manifest                     = env.web.manifest
+  def analyseEndpoints             = env.web.analyseEndpoints
   protected val translator         = lila.i18n.Translator
   val langList                     = lila.i18n.LangList
   protected val namer              = lila.game.Namer

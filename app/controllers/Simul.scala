@@ -39,18 +39,19 @@ final class Simul(env: Env) extends LilaController(env):
     ).tupled
 
   def show(id: SimulId) = Open:
-    env.simul.repo.find(id).flatMap {
-      _.fold(simulNotFound): sim =>
-        WithMyPerf(sim.mainPerfType):
-          for
-            verdicts <- env.simul.api.getVerdicts(sim)
-            version  <- env.simul.version(sim.id)
-            json     <- env.simul.jsonView(sim, verdicts)
-            chat     <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
-            stream   <- env.streamer.liveStreamApi.one(sim.hostId)
-            page     <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
-          yield Ok(page).noCache
-    }
+    env.simul.repo
+      .find(id)
+      .flatMap:
+        _.fold(simulNotFound): sim =>
+          WithMyPerf(sim.mainPerfType):
+            for
+              verdicts <- env.simul.api.getVerdicts(sim)
+              version  <- env.simul.version(sim.id)
+              json     <- env.simul.jsonView(sim, verdicts)
+              chat     <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
+              stream   <- env.streamer.liveStreamApi.one(sim.hostId)
+              page     <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
+            yield Ok(page).noCache
 
   private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
     ctx.kid.no && ctx.noBot && // no public chats for kids or bots
@@ -71,12 +72,13 @@ final class Simul(env: Env) extends LilaController(env):
 
   def abort(simulId: SimulId) = Auth { ctx ?=> me ?=>
     AsHost(simulId): simul =>
-      env.simul.api.abort(simul.id).inject {
-        if !simul.isHost(me) then env.mod.logApi.terminateTournament(simul.fullName)
-        if HTTPRequest.isXhr(ctx.req)
-        then jsonOkResult
-        else Redirect(routes.Simul.home)
-      }
+      env.simul.api
+        .abort(simul.id)
+        .inject:
+          if !simul.isHost(me) then env.mod.logApi.terminateTournament(simul.fullName)
+          if HTTPRequest.isXhr(ctx.req)
+          then jsonOkResult
+          else Redirect(routes.Simul.home)
   }
 
   def accept(simulId: SimulId, userId: UserStr) = Open:
@@ -128,10 +130,11 @@ final class Simul(env: Env) extends LilaController(env):
   }
 
   def withdraw(id: SimulId) = Auth { ctx ?=> me ?=>
-    env.simul.api.removeApplicant(id, me).inject {
-      if HTTPRequest.isXhr(ctx.req) then jsonOkResult
-      else Redirect(routes.Simul.show(id))
-    }
+    env.simul.api
+      .removeApplicant(id, me)
+      .inject:
+        if HTTPRequest.isXhr(ctx.req) then jsonOkResult
+        else Redirect(routes.Simul.show(id))
   }
 
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>

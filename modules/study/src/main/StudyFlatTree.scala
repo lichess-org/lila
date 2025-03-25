@@ -90,7 +90,6 @@ private object StudyFlatTree:
       (parentPath.depth < Node.MAX_PLIES).so:
         val path = parentPath + node.id
         node.children.nodes
-          .flatMap {
+          .flatMap:
             traverse(_, path)
-          }
           .appended(UciPathDb.encodeDbKey(path) -> writeBranch(node))

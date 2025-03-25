@@ -1,6 +1,5 @@
-import * as licon from 'common/licon';
-import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import * as router from 'common/router';
+import * as licon from 'lib/licon';
+import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'lib/snabbdom';
 import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
@@ -32,7 +31,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
     h('span.game-over', 'GAME OVER'),
     h('span', i18n.puzzle.yourStreakX.asArray(h('strong', `${ctrl.streak?.data.index ?? 0}`))),
   ]),
-  h('a.continue', { attrs: { href: router.withLang('/streak') } }, [
+  h('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.puzzle.newStreak,
   ]),
@@ -41,6 +40,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 export default function (ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
   const win = ctrl.lastFeedback === 'win';
+  const canContinue = !ctrl.node.san?.includes('#');
   return h(
     'div.puzzle__feedback.after',
     ctrl.streak && !win
@@ -49,14 +49,16 @@ export default function (ctrl: PuzzleCtrl): VNode {
           h('div.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           data.user ? renderVote(ctrl) : renderContinue(ctrl),
           h('div.puzzle__more', [
-            h('a', {
-              attrs: {
-                'data-icon': licon.Bullseye,
-                href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                title: i18n.site.playWithTheMachine,
-                target: '_blank',
-              },
-            }),
+            canContinue
+              ? h('a', {
+                  attrs: {
+                    'data-icon': licon.Bullseye,
+                    href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
+                    title: i18n.site.playWithTheMachine,
+                    target: '_blank',
+                  },
+                })
+              : h('a'),
             data.user &&
               !ctrl.autoNexting() &&
               h(

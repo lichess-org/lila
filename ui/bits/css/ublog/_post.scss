@@ -40,7 +40,6 @@
   &__topics {
     @extend %flex-wrap;
     justify-content: center;
-    margin-bottom: 6vh;
     line-height: 2em;
 
     a {
@@ -63,6 +62,12 @@
   }
   &__tier {
     margin-inline-start: 1em;
+  }
+  &__ads-disclosure {
+    @extend %box-radius;
+    padding: 1rem 1.5rem;
+    margin-top: 3vh;
+    background: $c-bg-zebra;
   }
   &__like {
     font-weight: bold;
@@ -105,7 +110,7 @@
   &__intro {
     @extend %break-word;
     font-size: 1.2em;
-    margin-bottom: 4vh;
+    margin: 5vh 0 5vh 0;
     display: block;
   }
 

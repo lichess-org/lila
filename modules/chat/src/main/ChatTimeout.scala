@@ -17,7 +17,7 @@ final class ChatTimeout(
   private val global = scalalib.cache.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
-    isActive(chat.id, user.id).flatMap {
+    isActive(chat.id, user.id).flatMap:
       if _ then fuccess(false)
       else
         if scope == Scope.Global then global.put(user.id)
@@ -34,7 +34,6 @@ final class ChatTimeout(
             )
           )
           .inject(true)
-    }
 
   def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
     fuccess(global.get(userId)) >>| coll.exists:
@@ -54,10 +53,9 @@ final class ChatTimeout(
           "expiresAt".$lt(nowInstant)
         )
       )
-      .flatMap {
+      .flatMap:
         case Nil  => fuccess(Nil)
         case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true).inject(objs)
-      }
 
 object ChatTimeout:
 

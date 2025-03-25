@@ -19,6 +19,7 @@
   <string name="sourceUrlHelp">URL ที่ Lichess จะทำโพลเพื่อรับอัพเดท PGN มันต้องเข้าถึงได้อย่างสาธารณะจากอินเทอร์เน็ต</string>
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
+  <string name="deleteTournament">ลบทัวนาเมนต์นี้</string>
   <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>
@@ -30,6 +31,12 @@
   <string name="ageThisYear">อายุปัจจุบัน</string>
   <string name="unrated">ไม่มีคะแนน</string>
   <string name="recentTournaments">ทัวร์นาเมนต์ล่าสุด</string>
+  <string name="openLichess">เปิดใน Lichess</string>
+  <string name="teams">ทีม</string>
+  <string name="boards">กระดาน</string>
+  <string name="uploadImage">อัปโหลดรูปทัวนาเมนต์</string>
+  <string name="gamesThisTournament">เกมในทัวร์นาเมนต์นี้</string>
+  <string name="score">คะแนน</string>
   <string name="allTeams">ทีมทั้งหมด</string>
   <string name="tournamentLocation">ตำแหน่งของทัวร์นาเมนต์</string>
   <string name="topPlayers">ผู้เล่นท็อป:</string>

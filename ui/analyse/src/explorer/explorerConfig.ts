@@ -1,15 +1,15 @@
 import { h, VNode } from 'snabbdom';
-import { myUsername, type Prop, prop } from 'common';
-import * as licon from 'common/licon';
-import { type Dialog, snabDialog } from 'common/dialog';
-import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
-import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
+import { myUsername, type Prop, prop } from 'lib';
+import * as licon from 'lib/licon';
+import { type Dialog, snabDialog } from 'lib/dialog';
+import { bind, dataIcon, iconTag, onInsert } from 'lib/snabbdom';
+import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'lib/game/perfIcons';
 import { ucfirst } from './explorerUtil';
 import { opposite } from 'chessground/util';
-import { userComplete } from 'common/userComplete';
+import { userComplete } from 'lib/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -119,9 +119,7 @@ export class ExplorerConfigCtrl {
     const previous = this.data.playerName.previous().filter(n => n !== name);
     this.data.playerName.previous(previous);
 
-    if (this.data.playerName.value() === name) {
-      this.data.playerName.value('');
-    }
+    if (this.data.playerName.value() === name) this.data.playerName.value('');
   };
 
   toggleMany =
@@ -330,13 +328,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     dlg.close();
   };
   const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) {
-      return;
-    } else if (name === ctrl.myName) {
-      return '.button-green';
-    } else if (ctrl.data.playerName.previous().includes(name)) {
-      return '';
-    }
+    if (!name) return;
+    else if (name === ctrl.myName) return '.button-green';
+    else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
   return snabDialog({

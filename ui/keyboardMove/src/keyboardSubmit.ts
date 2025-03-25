@@ -1,5 +1,5 @@
 import { files } from 'chessground/types';
-import { sanToUci, type SanToUci } from 'chess';
+import { sanToUci, type SanToUci } from 'lib/chess/chess';
 import type { Opts } from './exports';
 
 const keyRegex = /^[a-h][1-8]$/;

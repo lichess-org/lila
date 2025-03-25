@@ -1,8 +1,8 @@
-import { storage } from 'common/storage';
-import { isIos } from 'common/device';
-import { throttle } from 'common/timing';
-import { defined } from 'common';
-import { speakable } from 'chess/sanWriter';
+import { storage } from 'lib/storage';
+import { isIos } from 'lib/device';
+import { throttle } from 'lib/async';
+import { defined } from 'lib';
+import { speakable } from 'lib/chess/sanWriter';
 
 type Name = string;
 type Path = string;

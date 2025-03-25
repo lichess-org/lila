@@ -45,10 +45,15 @@ Allow: /game/export/gif/thumbnail/
       )
     )
 
+  val mobileAndroidUrl = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
+  val mobileIosUrl     = "https://apps.apple.com/us/app/lichess-free-online-chess/id968371784"
+
   def appStoreUrl(using req: RequestHeader) =
-    if HTTPRequest.isAndroid(req)
-    then "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-    else "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
+    if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
+
+  val swagUrlUs                            = "https://lichess.myspreadshop.com/"
+  val swagUrlEu                            = "https://lichess.myspreadshop.net/"
+  def swagUrl(countryCode: Option[String]) = if countryCode.has("US") then swagUrlUs else swagUrlEu
 
   val variantsJson =
     JsArray(chess.variant.Variant.list.all.map { v =>

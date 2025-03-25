@@ -1,8 +1,8 @@
-import * as licon from 'common/licon';
-import { text as xhrText } from 'common/xhr';
+import * as licon from 'lib/licon';
+import { text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
-import { userComplete } from 'common/userComplete';
-import { confirm } from 'common/dialog';
+import { userComplete } from 'lib/userComplete';
+import { confirm } from 'lib/dialogs';
 
 export function attachDomHandlers() {
   topBar();
@@ -12,9 +12,12 @@ export function attachDomHandlers() {
       $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
       setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
     };
+    const copyText = (text: string) => navigator.clipboard.writeText(text).then(showCheckmark);
+    const fetchContent = $(this).parent().hasClass('fetch-content');
     $(this.parentElement!.firstElementChild!).each(function (this: any) {
       try {
-        navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
+        if (fetchContent) xhrText(this.href).then(res => copyText(res));
+        else copyText(this.value || this.href);
       } catch (e) {
         console.error(e);
       }

@@ -38,12 +38,12 @@ private object UciToSan:
     def validateMove(acc: List[MoveOrDrop], sit: Situation, ply: Ply, uci: Uci) =
       uci(sit).bimap(e => s"ply $ply $e", move => move.situationAfter -> (move :: acc))
 
-    onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
+    onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
         uciToSan(info.ply, SanStr.raw(info.variation)).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           pgn => (info.copy(variation = pgn) :: infos, errs)
         )
-    } match
+    match
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors

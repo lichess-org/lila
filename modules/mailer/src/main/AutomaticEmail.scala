@@ -134,44 +134,46 @@ $regards
     }
 
   def onPatronNew(userId: UserId): Funit =
-    userApi.byId(userId).map {
-      _.foreach: user =>
-        alsoSendAsPrivateMessage(user)(
-          body = _ =>
-            s"""Thank you for supporting Lichess!
+    userApi
+      .byId(userId)
+      .map:
+        _.foreach: user =>
+          alsoSendAsPrivateMessage(user)(
+            body = _ =>
+              s"""Thank you for supporting Lichess!
 
 Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
 Lichess is entirely funded by user's donations like yours, and we truly appreciate the help we're getting.
 As a small token of our thanks, your account now has the awesome Patron wings!"""
-        )
-    }
+          )
 
   def onPatronStop(userId: UserId): Funit =
-    userApi.byId(userId).map {
-      _.foreach: user =>
-        alsoSendAsPrivateMessage(user)(
-          body = _ =>
-            s"""End of Lichess Patron subscription
+    userApi
+      .byId(userId)
+      .map:
+        _.foreach: user =>
+          alsoSendAsPrivateMessage(user)(
+            body = _ =>
+              s"""End of Lichess Patron subscription
 
 Thank you for your support over the last month.
 We appreciate all donations, being a small team relying entirely on generous donors like you!
 If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $baseUrl/help/contribute.
 To make a new donation, head to $baseUrl/patron"""
-        )
-    }
+          )
 
   def onPatronGift(from: UserId, to: UserId, lifetime: Boolean): Funit =
-    userApi.pair(from, to).map {
-      _.foreach: (from, to) =>
-        val wings =
-          if lifetime then "lifetime Patron wings"
-          else "Patron wings for one month"
-        alsoSendAsPrivateMessage(from): _ =>
-          s"""You gifted @${to.username} $wings. Thank you so much!"""
-        alsoSendAsPrivateMessage(to): _ =>
-          s"""@${from.username} gifted you $wings!"""
-
-    }
+    userApi
+      .pair(from, to)
+      .map:
+        _.foreach: (from, to) =>
+          val wings =
+            if lifetime then "lifetime Patron wings"
+            else "Patron wings for one month"
+          alsoSendAsPrivateMessage(from): _ =>
+            s"""You gifted @${to.username} $wings. Thank you so much!"""
+          alsoSendAsPrivateMessage(to): _ =>
+            s"""@${from.username} gifted you $wings!"""
 
   private[mailer] def dailyCorrespondenceNotice(
       userId: UserId,

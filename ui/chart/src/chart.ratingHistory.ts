@@ -20,8 +20,8 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import utc from 'dayjs/plugin/utc';
-import { memoize } from 'common';
-import { pubsub } from 'common/pubsub';
+import { memoize } from 'lib';
+import { pubsub } from 'lib/pubsub';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -324,6 +324,10 @@ function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const reversed = data.slice().reverse();
   const allDates: number[] = [];
   for (let i = begin; i <= end; i += oneStep) allDates.push(i);
+  // Ensure latest rating is always included (regardless of step or begin)
+  if (allDates[allDates.length - 1] < end) {
+    allDates.push(end);
+  }
   const result: Point[] = [];
   for (let j = 0; j < allDates.length; j++) {
     const match = reversed.find(x => x.ts <= allDates[j]);

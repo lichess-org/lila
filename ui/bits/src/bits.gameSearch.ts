@@ -1,4 +1,4 @@
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 site.load.then(() => {
   const form = document.querySelector('.search__form') as HTMLFormElement,

@@ -14,9 +14,8 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
     trf.fetchPlayerIds(swiss).flatMap { playerIds =>
-      invoke(swiss, trf(swiss, playerIds, sorted = false)).map {
+      invoke(swiss, trf(swiss, playerIds, sorted = false)).map:
         reader(playerIds.map(_.swap), _)
-      }
     }
 
   private def invoke(swiss: Swiss, input: Source[String, ?]): Fu[List[String]] =

@@ -37,7 +37,7 @@ final private class Player(
             applyUci(game, uci, blur, lag)
               .leftMap(e => s"$pov $e")
               .fold(errs => fufail(ClientError(errs)), fuccess)
-              .flatMap {
+              .flatMap:
                 case Flagged => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop, compedLag) =>
                   compedLag.foreach { lag =>
@@ -45,7 +45,6 @@ final private class Player(
                   }
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-              }
           case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
           case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
@@ -59,11 +58,10 @@ final private class Player(
       case Pov(game, color) if game.playableBy(color) =>
         applyUci(game, uci, blur = false, botLag)
           .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
-          .flatMap {
+          .flatMap:
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-          }
       case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
       case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))

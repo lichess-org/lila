@@ -24,7 +24,7 @@ object config:
     }
 
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
-    ConfigLoader[Option[A]](c => k => if c.hasPath(k) then Some(loader.load(c, k)) else None)
+    ConfigLoader[Option[A]](c => k => c.hasPath(k).option(loader.load(c, k)))
 
   def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader.map(f)
   def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader.map(f)
@@ -33,3 +33,6 @@ object config:
   def strLoader[A](using sr: SameRuntime[String, A]): ConfigLoader[A]   = strLoader(sr.apply)
   def intLoader[A](using sr: SameRuntime[Int, A]): ConfigLoader[A]      = intLoader(sr.apply)
   def boolLoader[A](using sr: SameRuntime[Boolean, A]): ConfigLoader[A] = boolLoader(sr.apply)
+
+  opaque type GetRelativeFile = String => java.io.File
+  object GetRelativeFile extends FunctionWrapper[GetRelativeFile, String => java.io.File]

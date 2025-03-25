@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="shareChanges">向旁觀者分享這些變動並將其保留在伺服器中</string>
   <string name="playing">下棋中</string>
+  <string name="showResults">結果</string>
   <string name="showEvalBar">評估條</string>
   <string name="first">第一頁</string>
   <string name="previous">上一頁</string>
@@ -99,7 +100,7 @@
   <string name="loadAPositionFromFen">透過FEN讀取局面</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
   <string name="automatic">自動</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
   </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>

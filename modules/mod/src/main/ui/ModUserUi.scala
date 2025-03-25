@@ -246,7 +246,13 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               submitButton(cls := "button", dataIcon := Icon.Checkmark)
             ),
             emails.previous.map: email =>
-              s"Previously $email"
+              s"Previously $email",
+            postForm(
+              action := routes.Mod.blankPassword(u.username),
+              title  := "Blank the password",
+              cls    := "yes-no-confirm"
+            ):
+              submitButton(cls := List("btn-rack__btn" -> true))("Blank password")
           )
         )
     )

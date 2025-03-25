@@ -1,10 +1,11 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { dataIcon } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'lib/game/perfIcons';
 import type { TournamentData } from '../interfaces';
-import { setClockWidget } from 'common/clock';
+import { setClockWidget } from 'lib/clock';
+import { userTitle } from 'lib/userLink';
 
 const startClock = (time: number): Hooks => ({
   insert: vnode => setClockWidget(vnode.elm as HTMLElement, { time }),
@@ -60,13 +61,14 @@ function title(ctrl: TournamentController) {
       h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),
       d.fullName,
     ]);
-  return h(
-    'h1',
-    (d.greatPlayer
-      ? [h('a', { attrs: { href: d.greatPlayer.url, target: '_blank' } }, d.greatPlayer.name), ' Arena']
-      : [d.fullName]
-    ).concat(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
-  );
+  const baseName = d.greatPlayer
+    ? [h('a', { attrs: { href: d.greatPlayer.url, target: '_blank' } }, d.greatPlayer.name), ' Arena']
+    : [d.fullName];
+  return h('h1', [
+    ...(ctrl.data.botsAllowed ? [userTitle({ title: 'BOT' })] : []),
+    ...baseName,
+    ...(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
+  ]);
 }
 
 export default function (ctrl: TournamentController): VNode {

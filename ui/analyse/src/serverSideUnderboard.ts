@@ -1,14 +1,17 @@
 import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
-import * as licon from 'common/licon';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
+import * as licon from 'lib/licon';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { stockfishName, spinnerHtml } from 'common/spinner';
-import { alert, confirm, domDialog } from 'common/dialog';
-import { escapeHtml } from 'common';
-import { storage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { spinnerHtml } from 'lib/controls';
+import { domDialog } from 'lib/dialog';
+import { alert, confirm } from 'lib/dialogs';
+import { escapeHtml } from 'lib';
+import { storage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
+
+export const stockfishName = 'Stockfish 17';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -140,8 +143,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
+    const currentlyUnselected = selection!.isCollapsed;
     selection!.removeAllRanges();
-    selection!.addRange(range);
+    if (currentlyUnselected) selection!.addRange(range);
   });
 
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {

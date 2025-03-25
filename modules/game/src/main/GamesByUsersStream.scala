@@ -1,7 +1,6 @@
 package lila.game
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
 import play.api.libs.json.*
 
 import lila.common.Bus

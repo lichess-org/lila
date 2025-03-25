@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Παίξτε με έναν φίλο</string>
   <string name="playWithTheMachine">Παίξτε με τον υπολογιστή</string>
+  <string name="playOffline">Παίξτε χωρίς σύνδεση</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παιχνιδιού</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
+  <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
   <plurals name="nbPlayers">
@@ -774,23 +776,13 @@
   <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
-  <string name="asFreeAsLichess">Δωρεάν</string>
-  <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
-  <string name="zeroAdvertisement">Χωρίς διαφημίσεις</string>
-  <string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
-  <string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
-  <string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασικά</string>
-  <string name="correspondenceChess">Σκάκι δι\' αλληλογραφίας</string>
-  <string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
-  <string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
   <string name="noChallenges">Δεν έχετε προκλήσεις.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Διαθέσιμο σε %s γλώσσες!</item>
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
-  <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%2$s αρέσει στην/ον %1$s</string>
@@ -799,6 +791,7 @@
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
+  <string name="allLanguages">Όλες οι γλώσσες</string>
   <string name="background">Φόντο</string>
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>

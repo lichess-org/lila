@@ -6,11 +6,12 @@ import scalalib.actor.SyncActor
 import lila.common.Bus
 import lila.common.Json.given
 
-final private[tv] class TvSyncActor(
+final private class TvSyncActor(
     lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
     gameProxy: lila.core.game.GameProxy,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
+    userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
     extends SyncActor:
 
@@ -22,9 +23,10 @@ final private[tv] class TvSyncActor(
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,
-      gameProxy.game,
+      gameProxy,
       rematches.getAcceptedId,
-      lightUserApi.sync
+      lightUserApi.sync,
+      userApi
     )
   }.toMap
 
@@ -53,9 +55,8 @@ final private[tv] class TvSyncActor(
       if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelActors
-          .collect {
+          .collect:
             case (chan, actor) if chan.filter(candidate) => actor
-          }
           .foreach(_.addCandidate(g))
 
     case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)
@@ -101,7 +102,7 @@ final private[tv] class TvSyncActor(
             )
             Bus.publish(event, "changeFeaturedGame")
 
-private[tv] object TvSyncActor:
+private object TvSyncActor:
 
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[GameId]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[GameId]])

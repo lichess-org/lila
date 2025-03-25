@@ -1,16 +1,12 @@
 package lila.recap
 package ui
 
-import play.api.libs.json.Json
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import ScalatagsTemplate.*
 import lila.recap.Recap.Availability
-import lila.common.Json.given
-import lila.ui.HtmlHelper.spinner
 
 final class RecapUi(helpers: Helpers):
-  import helpers.{ *, given }
-  import trans.perfStat as tps
+  import helpers.*
 
   private def title(user: User)(using ctx: Context) =
     if ctx.is(user) then "Your yearly recap"

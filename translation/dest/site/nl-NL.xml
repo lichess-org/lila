@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Speel tegen een vriend</string>
   <string name="playWithTheMachine">Speel tegen de computer</string>
+  <string name="playOffline">Offline spelen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="claimADraw">Remise opeisen</string>
+  <string name="drawClaimed">Remise geclaimd</string>
   <string name="offerDraw">Remise aanbieden</string>
   <string name="draw">Remise</string>
   <plurals name="nbPlayers">
@@ -539,7 +541,7 @@
     <item quantity="other">%s partijen bezig</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Na je zet direct doorgaan naar de volgende partij</string>
-  <string name="autoSwitch">Automatische switch</string>
+  <string name="autoSwitch">Automatische wissel</string>
   <string name="puzzles">Puzzels</string>
   <string name="onlineBots">Online bots</string>
   <string name="name">Naam</string>
@@ -744,6 +746,8 @@
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
+  <string name="ifYouDoNotGetTheEmail">Als u de e-mail niet binnen 5 minuten ontvangt:</string>
+  <string name="verifyYourAddress">Controleer of %s je e-mailadres is</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
   <string name="readAboutOur">Lees meer over ons %s.</string>
@@ -773,23 +777,13 @@
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
   <string name="playChessEverywhere">Schaak overal</string>
-  <string name="asFreeAsLichess">Zo gratis als lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Gemaakt met liefde voor het schaken, niet voor geld</string>
   <string name="everybodyGetsAllFeaturesForFree">Iedereen krijgt gratis alle mogelijkheden</string>
-  <string name="zeroAdvertisement">Geen advertenties</string>
-  <string name="fullFeatured">Volledig geïntegreerd</string>
-  <string name="phoneAndTablet">Telefoon en tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassiek</string>
-  <string name="correspondenceChess">Correspondentiepartijen</string>
-  <string name="onlineAndOfflinePlay">Online en offline spelen</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
-  <string name="followAndChallengeFriends">Volg vrienden en daag ze uit</string>
   <string name="noChallenges">Geen uitdagingen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beschikbaar in %s taal!</item>
     <item quantity="other">Beschikbaar in %s talen!</item>
   </plurals>
-  <string name="gameAnalysis">Partijanalyse</string>
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
@@ -798,6 +792,7 @@
   <string name="anonymous">Anoniem</string>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
+  <string name="allLanguages">Alle talen</string>
   <string name="background">Achtergrond</string>
   <string name="light">Licht</string>
   <string name="dark">Donker</string>

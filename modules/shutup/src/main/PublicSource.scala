@@ -1,7 +1,6 @@
 package lila.shutup
 
 import scala.util.{ Success, Failure, Try }
-import reactivemongo.api.bson.*
 
 import lila.core.shutup.PublicSource as Source
 import lila.core.id.RelayRoundId

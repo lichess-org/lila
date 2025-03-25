@@ -13,9 +13,8 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
         $doc(F.id     -> clientId.value, F.redirectUri -> redirectUri.value.toString),
         $set(F.usedAt -> nowInstant)
       )
-      .map {
+      .map:
         _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret.apply)
-      }
 
 object LegacyClientApi:
   object BSONFields:

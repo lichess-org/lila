@@ -104,10 +104,11 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def requestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>
-      api.request(lila.team.TeamRequest.makeId(team.id, userId.id)).flatMap {
-        case None      => fuccess(ApiResult.ClientError("No such team join request"))
-        case Some(req) => api.processRequest(team, req, decision).inject(ApiResult.Done)
-      }
+      api
+        .request(lila.team.TeamRequest.makeId(team.id, userId.id))
+        .flatMap:
+          case None      => fuccess(ApiResult.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision).inject(ApiResult.Done)
   }
 
   private val kickLimitReportOnce = scalalib.cache.OnceEvery[UserId](10.minutes)
@@ -129,7 +130,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
   )(using me: Me): Fu[Result] =
     api
       .teamEnabled(teamId)
-      .flatMap {
+      .flatMap:
         case Some(team) =>
           api
             .isGranted(team.id, me.value, perm)
@@ -137,5 +138,4 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
               if _ then f(team)
               else fuccess(ApiResult.ClientError("Insufficient team permissions"))
         case None => fuccess(ApiResult.NoData)
-      }
       .map(apiC.toHttp)

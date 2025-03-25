@@ -54,11 +54,10 @@ object AutoConfig:
 
             // see if the name needs to be overridden using ConfigName annotation
             val nameOverride = param.annotations
-              .collectFirst {
+              .collectFirst:
                 case a if a.tpe.derivesFrom(TypeRepr.of[ConfigName].typeSymbol) =>
                   val annot = a.asExprOf[ConfigName]
                   annot
-              }
               .map(ac => '{ $ac.name })
               .getOrElse(paramName)
 

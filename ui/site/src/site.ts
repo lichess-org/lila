@@ -1,13 +1,13 @@
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import { randomToken } from 'common/algo';
+import { randomToken } from 'lib/algo';
 import powertip from './powertip';
 import * as assets from './asset';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { displayLocale } from 'common/i18n';
+import { displayLocale } from 'lib/i18n';
 import sound from './sound';
-import { api } from 'api';
+import { api } from 'lib/api';
 
 const site = window.site;
 // site.load is initialized in site.inline.ts (body script)

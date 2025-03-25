@@ -1,4 +1,4 @@
-import { sanWriter, destsToUcis } from 'chess';
+import { sanWriter, destsToUcis } from 'lib/chess/chess';
 import type { KeyboardMoveHandler, Opts, ArrowKey } from './exports';
 import { type Submit, makeSubmit } from './keyboardSubmit';
 

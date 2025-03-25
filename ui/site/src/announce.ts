@@ -1,5 +1,5 @@
-import { escapeHtml } from 'common';
-import { pubsub } from 'common/pubsub';
+import { escapeHtml } from 'lib';
+import { pubsub } from 'lib/pubsub';
 
 let timeout: Timeout | undefined;
 

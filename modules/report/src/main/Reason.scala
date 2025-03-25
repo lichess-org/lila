@@ -2,8 +2,6 @@ package lila.report
 
 import scalalib.Iso
 
-import lila.core.user.Me
-
 enum Reason:
   case Cheat
   case Stall

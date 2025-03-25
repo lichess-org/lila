@@ -5,10 +5,6 @@ import lila.game.GameExt.playerBlurPercent
 
 lazy val ui = lila.round.ui.RoundUi(helpers, views.game.ui)
 
-def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
-  cross.map: c =>
-    views.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
-
 def underchat(game: Game)(using ctx: Context) =
   frag(
     views.chat.spectatorsFrag,

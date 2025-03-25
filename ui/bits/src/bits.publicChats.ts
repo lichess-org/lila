@@ -1,5 +1,5 @@
-import { text, form } from 'common/xhr';
-import { domDialog } from 'common/dialog';
+import { text, form } from 'lib/xhr';
+import { domDialog } from 'lib/dialog';
 
 site.load.then(() => {
   let autoRefreshEnabled = true;

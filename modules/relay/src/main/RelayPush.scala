@@ -60,10 +60,7 @@ final class RelayPush(
       .flatMap(_.value.split("as:").headOption)
       .orElse(ua.map(_.value))
       .fold("unknown")(_.trim)
-    lila.mon.relay.push(
-      name = rt.fullName,
-      user = me.username,
-      client = client,
+    lila.mon.relay.push(name = rt.fullName, user = me.username, client = client)(
       moves = results.collect { case Right(a) => a.moves }.sum,
       errors = results.count(_.isLeft)
     )

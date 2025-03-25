@@ -38,13 +38,12 @@ final private class ExplorerGameApi(
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
     val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
-    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])) {
+    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])):
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
         if fromNode.children.nodeAt(nextPath).isDefined then (nextPath, none)
         else (path, gameNode.some)
       case (found, _) => found
-    }
     foundGameNode.map { _ -> fromPath.+(path) }
 
   private def gameComment(game: Game) =

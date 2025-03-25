@@ -31,7 +31,7 @@ object Entry:
 
   private def toBson[A](data: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
-  private[timeline] def make(data: Atom): Entry = {
+  private[timeline] def make(data: Atom): Entry =
     import atomBsonHandlers.given
     data match
       case d: Follow        => "follow"          -> toBson(d)
@@ -48,9 +48,9 @@ object Entry:
       case d: PlanRenew     => "plan-renew"      -> toBson(d)
       case d: UblogPostLike => "ublog-post-like" -> toBson(d)
       case d: StreamStart   => "stream-start"    -> toBson(d)
-  } match
-    case (typ, bson) =>
-      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
+    match
+      case (typ, bson) =>
+        new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
 
   object atomBsonHandlers:
     given followHandler: BSONDocumentHandler[Follow]               = Macros.handler
@@ -100,7 +100,7 @@ object Entry:
     val planRenewWrite     = Json.writes[PlanRenew]
     val ublogPostLikeWrite = Json.writes[UblogPostLike]
     val streamStartWrite   = Json.writes[StreamStart]
-    given Writes[Atom] = Writes {
+    given Writes[Atom] = Writes:
       case d: Follow        => followWrite.writes(d)
       case d: TeamJoin      => teamJoinWrite.writes(d)
       case d: TeamCreate    => teamCreateWrite.writes(d)
@@ -115,7 +115,6 @@ object Entry:
       case d: PlanRenew     => planRenewWrite.writes(d)
       case d: UblogPostLike => ublogPostLikeWrite.writes(d)
       case d: StreamStart   => streamStartWrite.writes(d)
-    }
 
   given BSONDocumentHandler[Entry] = Macros.handler
 

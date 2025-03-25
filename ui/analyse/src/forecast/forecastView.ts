@@ -1,11 +1,11 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind, dataIcon } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, dataIcon } from 'lib/snabbdom';
 import type { ForecastStep } from './interfaces';
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { spinnerVdom as spinner } from 'common/spinner';
-import { fixCrazySan } from 'chess';
+import { spinnerVdom as spinner } from 'lib/controls';
+import { fixCrazySan } from 'lib/chess/chess';
 import { findCurrentPath } from '../treeView/common';
 import type ForecastCtrl from './forecastCtrl';
 

@@ -1,23 +1,19 @@
-import type { VNode } from 'common/snabbdom';
-import type { GameData, Status, Player } from 'game';
-import type { ClockData } from './clock/clockCtrl';
+import type { VNode } from 'lib/snabbdom';
+import type { GameData, Status, RoundStep } from 'lib/game/game';
+import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
-import type { ChatCtrl, ChatPlugin } from 'chat';
-import * as Prefs from 'common/prefs';
-import type { EnhanceOpts } from 'common/richText';
+import type { ChatCtrl, ChatPlugin } from 'lib/chat/chat';
+import * as Prefs from 'lib/prefs';
+import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
 import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
-
+export type { RoundStep as Step } from 'lib/game/game';
 export type { default as RoundController } from './ctrl';
-export type { ClockData } from './clock/clockCtrl';
-
-export interface Untyped {
-  [key: string]: any;
-}
+export type { ClockData } from 'lib/game/clock/clockCtrl';
 
 export interface NvuiPlugin {
   submitMove?: (submitStoredPremove?: boolean) => void;
@@ -52,18 +48,19 @@ export type EncodedDests =
 export interface RoundData extends GameData {
   clock?: ClockData;
   pref: Pref;
-  steps: Step[];
+  steps: RoundStep[];
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
   opponentSignal?: number;
-  crazyhouse?: CrazyData;
+  crazyhouse?: Tree.NodeCrazy;
   correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
     id: string;
   };
   expiration?: Expiration;
+  local?: RoundProxy;
 }
 
 export interface Expiration {
@@ -77,17 +74,9 @@ export interface Tv {
   flip: boolean;
 }
 
-interface CrazyData {
-  pockets: [CrazyPocket, CrazyPocket];
-}
-
-export interface CrazyPocket {
-  [role: string]: number;
-}
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
-  userVNode(player: Player, postion: Position): VNode | undefined;
 }
 
 export interface RoundOpts {
@@ -99,7 +88,6 @@ export interface RoundOpts {
   element?: HTMLElement;
   crosstableEl?: HTMLElement;
   chat?: ChatOpts;
-  local?: RoundProxy;
 }
 
 export interface ChatOpts {
@@ -111,15 +99,6 @@ export interface ChatOpts {
   noteAge?: number;
   noteText?: string;
   instance?: ChatCtrl;
-}
-
-export interface Step {
-  ply: Ply;
-  fen: FEN;
-  san: San;
-  uci: Uci;
-  check?: boolean;
-  crazy?: StepCrazy;
 }
 
 export interface ApiMove {
@@ -140,7 +119,7 @@ export interface ApiMove {
   fiftyMoves?: boolean;
   wDraw?: boolean;
   bDraw?: boolean;
-  crazyhouse?: CrazyData;
+  crazyhouse?: Tree.NodeCrazy;
   role?: Role;
   drops?: string;
   promotion?: {
@@ -171,8 +150,6 @@ export interface ApiEnd {
   };
 }
 
-export interface StepCrazy extends Untyped {}
-
 export interface Pref {
   animationDuration: number;
   autoQueen: Prefs.AutoQueen;
@@ -202,8 +179,6 @@ export interface MoveMetadata extends CgMoveMetadata {
   justDropped?: Role;
   justCaptured?: Piece;
 }
-
-export type Position = 'top' | 'bottom';
 
 export interface RoundTour {
   corresRematchOffline: () => void;

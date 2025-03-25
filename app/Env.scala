@@ -6,6 +6,7 @@ import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
+import lila.common.config.GetRelativeFile
 
 final class Env(
     val config: Configuration,
@@ -17,8 +18,7 @@ final class Env(
     StandaloneWSClient,
     akka.stream.Materializer
 ):
-  val net: NetConfig = config.get[NetConfig]("net")
-
+  val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.{ baseUrl, assetBaseUrlInternal }
 
   given mode: Mode                            = environment.mode
@@ -26,6 +26,7 @@ final class Env(
   given scheduler: Scheduler                  = system.scheduler
   given RateLimit                             = net.rateLimit
   given NetDomain                             = net.domain
+  val getFile: GetRelativeFile                = GetRelativeFile(environment.getFile(_))
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type = lila.i18n.Env
@@ -98,20 +99,13 @@ final class Env(
   val bot: lila.bot.Env                 = wire[lila.bot.Env]
   val storm: lila.storm.Env             = wire[lila.storm.Env]
   val racer: lila.racer.Env             = wire[lila.racer.Env]
+  val local: lila.local.Env             = wire[lila.local.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val recap: lila.recap.Env             = wire[lila.recap.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
   val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
-
-  val explorerEndpoint       = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
-  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
-
-  val appVersionDate    = config.getOptional[String]("app.version.date")
-  val appVersionCommit  = config.getOptional[String]("app.version.commit")
-  val appVersionMessage = config.getOptional[String]("app.version.message")
 
   val preloader     = wire[mashup.Preload]
   val socialInfo    = wire[mashup.UserInfo.SocialApi]
@@ -128,27 +122,3 @@ final class Env(
       promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env
-
-given ConfigLoader[NetConfig] = ConfigLoader(config =>
-  path =>
-    def get[A](at: String)(using loader: ConfigLoader[A]): A = loader.load(config, s"$path.$at")
-    import lila.common.config.given
-    NetConfig(
-      domain = get[NetDomain]("domain"),
-      prodDomain = get[NetDomain]("prodDomain"),
-      baseUrl = get[BaseUrl]("base_url"),
-      assetDomain = get[AssetDomain]("asset.domain"),
-      assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
-      assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
-      minifiedAssets = get[Boolean]("asset.minified"),
-      externalManifest = get[Boolean]("asset.external_manifest"),
-      stageBanner = get[Boolean]("stage.banner"),
-      siteName = get[String]("site.name"),
-      socketDomains = get[List[String]]("socket.domains"),
-      socketAlts = get[List[String]]("socket.alts"),
-      crawlable = get[Boolean]("crawlable"),
-      rateLimit = get[RateLimit]("ratelimit"),
-      email = get[EmailAddress]("email"),
-      logRequests = get[Boolean]("http.log")
-    )
-)

@@ -25,7 +25,7 @@ object PuzzleHistory:
 
     def slice(offset: Int, length: Int): Fu[Seq[PuzzleSession]] =
       colls
-        .round {
+        .round:
           _.aggregateList(length, _.sec): framework =>
             import framework.*
             Match($doc("u" -> user.id)) -> List(
@@ -35,8 +35,6 @@ object PuzzleHistory:
               PipelineOperator(PuzzleRound.puzzleLookup(colls)),
               Unwind("puzzle")
             )
-
-        }
         .map: r =>
           for
             doc   <- r

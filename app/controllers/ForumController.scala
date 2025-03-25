@@ -9,21 +9,17 @@ import lila.forum.ForumTopic
 private[controllers] trait ForumController:
   self: LilaController =>
 
-  protected def categApi  = env.forum.categApi
-  protected def topicApi  = env.forum.topicApi
-  protected def topicRepo = env.forum.topicRepo
-  protected def postApi   = env.forum.postApi
-  protected def forms     = env.forum.forms
-  protected def access    = env.forum.forumAccess
+  export env.forum.{ categApi, topicApi, topicRepo, postApi, forms, access }
 
   protected def CategGrantWrite[A <: Result](
       categId: ForumCategId,
       tryingToPostAsMod: Boolean = false
   )(a: => Fu[A])(using Context, Me): Fu[Result] =
-    access.isGrantedWrite(categId, tryingToPostAsMod).flatMap {
-      if _ then a
-      else Forbidden("You cannot post to this category")
-    }
+    access
+      .isGrantedWrite(categId, tryingToPostAsMod)
+      .flatMap:
+        if _ then a
+        else Forbidden("You cannot post to this category")
 
   protected def CategGrantMod[A <: Result](
       categId: ForumCategId

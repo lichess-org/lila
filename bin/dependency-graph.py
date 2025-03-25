@@ -94,7 +94,7 @@ for node in G.nodes:
 
 pydot_graph = nx.drawing.nx_pydot.to_pydot(G)
 # pydot_graph.set_rankdir('LR')
-# pydot_graph.set_ratio(1)
+pydot_graph.set_ratio(0.4)
 
 sink_nodes = pydot.Subgraph(rank="same")
 
@@ -119,7 +119,8 @@ for module in essentials_dict:
             edge = pydot.Edge(dependency, module)
             pydot_graph.add_edge(edge)
 
-        edge.set_color('red')
+        edge.set_color('#88aaff')
         edge.set_penwidth(1)
+        edge.set_arrowsize(0)
 
 pydot_graph.write_png(output_path)

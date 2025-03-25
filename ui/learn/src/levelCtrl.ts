@@ -1,4 +1,4 @@
-import { type PromotionRole, type WithGround, arrow } from './util';
+import { type PromotionRole, arrow } from './util';
 import { type Items, ctrl as makeItems } from './item';
 import type { Level } from './stage/list';
 import { scenario as scoreScenario, pieceValue, capture, apple, getLevelBonus } from './score';
@@ -9,9 +9,10 @@ import makeScenario, { type Scenario } from './scenario';
 import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
 import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
-import { type Prop, prop } from 'common';
+import { type Prop, prop } from 'lib';
 import type { DrawShape } from 'chessground/draw';
 import { makeAppleShape } from './apple';
+import { type WithGround } from 'lib/chess/ground';
 
 export interface LevelVm {
   score: number;

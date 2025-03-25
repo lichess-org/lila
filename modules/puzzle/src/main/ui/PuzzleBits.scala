@@ -4,7 +4,6 @@ package ui
 import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
 
-import lila.core.i18n.I18nKey
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }

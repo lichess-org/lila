@@ -1,7 +1,7 @@
-import type { Redraw } from 'common/snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import type { Redraw } from 'lib/snabbdom';
+import { spinnerVdom as spinner } from 'lib/controls';
 import type { RelayRound } from './interfaces';
-import { json as xhrJson } from 'common/xhr';
+import { json as xhrJson } from 'lib/xhr';
 import { h } from 'snabbdom';
 
 export default class RelayStats {

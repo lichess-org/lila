@@ -101,7 +101,7 @@
   <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
   <string name="loadAGameFromPgn">PGN से एक गेम लोड करें</string>
   <string name="automatic">स्वचालित</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">यहां अपना PGN टेक्स्ट डाले,%s खेल तक</item>
     <item quantity="other">यहां अपना PGN टेक्स्ट डाले,%s खेल तक</item>
   </plurals>

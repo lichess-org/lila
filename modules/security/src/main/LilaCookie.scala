@@ -66,6 +66,5 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
       case Some(sessionId) => res(sessionId)
       case None =>
         val sid = generateSessionId()
-        res(sid).map {
+        res(sid).map:
           _.withCookies(session(LilaCookie.sessionId, sid)(using req))
-        }

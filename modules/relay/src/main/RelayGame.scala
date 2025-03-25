@@ -54,8 +54,6 @@ case class RelayGame(
             else root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
-  private def outcome = points.flatMap(Outcome.fromPoints)
-
   def showResult = Outcome.showPoints(points)
 
 private object RelayGame:

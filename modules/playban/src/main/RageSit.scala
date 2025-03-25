@@ -22,7 +22,7 @@ object RageSit:
     case Reset
     case Inc(v: Int)
 
-  def imbalanceInc(game: Game, loser: Color) = Update.Inc {
+  def imbalanceInc(game: Game, loser: Color) = Update.Inc:
     {
       import chess.variant.*
       (game.chess.board.materialImbalance, game.variant) match
@@ -37,12 +37,10 @@ object RageSit:
       else if game.speed == Speed.Blitz then 10
       else 15
     }
-  }
 
-  def redeem(game: Game) = Update.Inc {
+  def redeem(game: Game) = Update.Inc:
     game.speed match
       case s if s < Speed.Bullet => 0
       case Speed.Bullet          => ThreadLocalRandom.nextInt(2)
       case Speed.Blitz           => 1
       case _                     => 2
-  }
