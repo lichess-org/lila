@@ -38,9 +38,9 @@ export default function (
 function multiRedraw(base: Redraw): MultiRedraw {
   // to build redraws involving multiple patch functions.
   const redraws: Redraw[] = [base];
-  const multi = (() => {
+  const multi: MultiRedraw = () => {
     for (const r of redraws) r();
-  }) as MultiRedraw;
+  };
 
   multi.add = (r: Redraw) => {
     redraws.push(r);
