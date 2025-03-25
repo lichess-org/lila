@@ -754,6 +754,7 @@
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
+  <string name="downloadAllGames">Last ned alle partiene</string>
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hold muspekeren over maskinvarianter for å forhåndsvise dem.</string>
