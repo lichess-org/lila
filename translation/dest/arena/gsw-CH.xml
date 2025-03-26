@@ -85,6 +85,6 @@ Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler
   <string name="tournamentShields">Turnier - Schilder</string>
   <string name="onlyTitled">Nur Schpiler mit Titel</string>
   <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
-  <string name="tournamentPairingsAreNowClosed">D\'Turnierpaarige sind gschlosse.</string>
+  <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
   <string name="berserkRate">Berserk-Wertig</string>
 </resources>
