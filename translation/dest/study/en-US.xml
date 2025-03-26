@@ -166,4 +166,14 @@
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
   <string name="perPage">%s per page</string>
+  <string name="getTheTour">Need help? Get the tour!</string>
+  <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
+  <string name="studyMembersTitle">Study members</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that are shown inline with the text.&#10;%1$s is the icon for spectators, while %2$s is the icon for contributors.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">%1$s Spectators can view the study and talk in the chat.&lt;br&gt;&lt;br&gt;%2$s Contributors can make moves and update the study.</string>
+  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">Click the %s button.&lt;br&gt;Then decide who can contribute.</string>
+  <string name="studyChaptersTitle">Study chapters</string>
+  <string name="studyChaptersText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">A study can contain several chapters.&lt;br&gt;Each chapter has a distinct initial position and move tree.</string>
+  <string name="commentPositionTitle">Comment on a position</string>
 </resources>
