@@ -1,5 +1,5 @@
-import { throttlePromiseDelay } from 'common/async';
-import { json as xhrJson } from 'common/xhr';
+import { throttlePromiseDelay } from 'lib/async';
+import { json as xhrJson } from 'lib/xhr';
 import type {
   InsightData,
   Dimension,

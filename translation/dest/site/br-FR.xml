@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">C\'hoari a-enep ur mignon</string>
   <string name="playWithTheMachine">C\'hoari a-enep an urzhiataer</string>
+  <string name="playOffline">C\'hoari ezlinenn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
   <string name="waitingForOpponent">O c\'hortoz an enebour</string>

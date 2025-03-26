@@ -178,7 +178,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             bits.searchForm(text)
           ),
           strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
-          table(cls := "slist slist-pad search__results")(
+          table(cls := "slist slist-pad slist-invert search__results")(
             (pager.nbResults > 0).option(
               tbody(cls := "infinite-scroll")(
                 pager.currentPageResults.map: viewWithRead =>

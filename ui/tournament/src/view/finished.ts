@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type TournamentController from '../ctrl';
 import type { TournamentData } from '../interfaces';
 import { players } from '../pagination';
@@ -9,8 +9,8 @@ import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
-import { type MaybeVNodes } from 'common/snabbdom';
-import { once } from 'common/storage';
+import { type MaybeVNodes } from 'lib/snabbdom';
+import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
@@ -53,7 +53,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.study.downloadAllGames,
+        i18n.site.downloadAllGames,
       ),
       data.me &&
         h(

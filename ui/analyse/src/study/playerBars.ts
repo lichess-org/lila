@@ -1,15 +1,15 @@
 import type { VNode } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
+import { looseH as h } from 'lib/snabbdom';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
 import type { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
-import { userTitle } from 'common/userLink';
+import { userTitle } from 'lib/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
-import { intersection } from 'tree/path';
-import { defined } from 'common';
+import { intersection } from 'lib/tree/path';
+import { defined } from 'lib';
 import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {

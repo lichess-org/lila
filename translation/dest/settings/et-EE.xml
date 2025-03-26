@@ -3,6 +3,6 @@
   <string name="settings">Seaded</string>
   <string name="closeAccount">Sulge konto</string>
   <string name="managedAccountCannotBeClosed">Sinu konto on valve all ja seda ei saa sulgeda.</string>
-  <string name="cantOpenSimilarAccount">Uut samanimelist kontot ei saa luua, isegi kui sümbolite register on erinev.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Uut samanimelist kontot ei saa luua, isegi kui sümbolite register on erinev.</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
 </resources>

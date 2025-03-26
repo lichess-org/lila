@@ -1,0 +1,30 @@
+.bot-game__opponent {
+  &__head {
+    @extend %flex-center-nowrap;
+    gap: 2em;
+  }
+
+  &-img {
+    max-height: calc(var(---cg-width) / 3);
+    max-width: 50%;
+    aspect-ratio: 1;
+    line-height: 0;
+  }
+
+  &__description {
+    background: $c-bg-zebra;
+    padding: 0.8em 0.6em 0.8em 0.8em;
+  }
+
+  &__name {
+    @include line-clamp(2);
+    margin-top: 0.3em;
+    font-weight: normal;
+    color: $c-brag;
+    font-size: 1.6em;
+    text-align: center;
+  }
+  &__rating {
+    color: $c-font-dim;
+  }
+}

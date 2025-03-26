@@ -192,6 +192,7 @@ object user:
     def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]]
     def isManaged(id: UserId): Fu[Boolean]
     def countEngines(userIds: List[UserId]): Fu[Int]
+    def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]]
     def getTitle(id: UserId): Fu[Option[PlayerTitle]]
     def withPerf(id: User, pk: PerfKey): Fu[WithPerf]
     def withPerfs(u: User): Fu[UserWithPerfs]

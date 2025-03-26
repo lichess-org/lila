@@ -9,8 +9,8 @@ import {
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
 import { fontColor, fontFamily, resizePolyfill } from './common';
-import { pubsub } from 'common/pubsub';
-import { wsSend, wsAverageLag } from 'common/socket';
+import { pubsub } from 'lib/pubsub';
+import { wsSend, wsAverageLag } from 'lib/socket';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

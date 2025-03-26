@@ -123,6 +123,8 @@ GET   /dasher                          controllers.Dasher.get
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
+GET   /blog/best-of                    controllers.Ublog.bestOfYear(page: Int ?= 1)
+GET   /blog/best-of/:year/:month       controllers.Ublog.bestOfMonth(year: Int, month: Int, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
@@ -349,6 +351,17 @@ POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
+
+# Private Play
+
+GET   /bots                            controllers.Local.index
+GET   /bots/assets                    controllers.Local.assetKeys
+GET   /bots/dev                       controllers.Local.devIndex
+GET   /bots/dev/history               controllers.Local.devBotHistory(id: Option[UserStr])
+POST  /bots/dev/bot                   controllers.Local.devPostBot
+GET   /bots/dev/assets                controllers.Local.devAssets
+POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controllers.Local.devPostAsset(tpe: String, key: String)
+POST  /bots/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name  controllers.Local.devNameAsset(key: String, name: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

@@ -1,8 +1,8 @@
 import { scroller } from './scroller';
-import * as licon from 'common/licon';
-import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/richText';
-import { escapeHtml } from 'common';
-export { isMoreThanText } from 'common/richText';
+import * as licon from 'lib/licon';
+import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'lib/richText';
+import { escapeHtml } from 'lib';
+export { isMoreThanText } from 'lib/richText';
 
 export const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(?!gallery\b)(\w{7})(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex =

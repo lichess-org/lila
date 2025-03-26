@@ -1,11 +1,11 @@
 import { withLinebreaks } from '../util';
 import { getStageRank } from '../score';
-import { numberSpread } from 'common/i18n';
+import { numberSpread } from 'lib/i18n';
 import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind } from 'lib/snabbdom';
 import { hashNavigate } from '../hashRouting';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 
 function makeStars(rank: number) {
   const stars = [];

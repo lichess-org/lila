@@ -1,7 +1,7 @@
-@import '../../../common/css/plugin';
-@import '../../../common/css/theme/board/coords-in';
-@import '../../../common/css/component/button';
-@import '../../../common/css/component/lichess-pgn-viewer';
+@import '../../../lib/css/plugin';
+@import '../../../lib/css/theme/board/coords-in';
+@import '../../../lib/css/component/button';
+@import '../../../lib/css/component/lichess-pgn-viewer';
 
 .lpv--gamebook {
   position: relative;

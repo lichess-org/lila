@@ -6,9 +6,9 @@
   <string name="passwordReset_subject">ನಿಮ್ಮ lichess.org ಖಾತೆಯ ಗುಪ್ತಪದ ಅಂದರೆ ಫಾಸ್ವರ್ಡ್ ಅನ್ನು ಬದಲಾಯಿಸಿ, %s</string>
   <string name="passwordReset_intro">ನಿಮ್ಮ ಖಾತೆಯ ಗುಪ್ತಪದವನ್ನು ಅಂದರೆ ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಲು ವಿನಂತಿಯನ್ನು ಪಡೆದಿದ್ದೇವೆ.</string>
   <string name="passwordReset_clickOrIgnore">ಈ ವಿನಂತಿಯನ್ನು ನೀವೇ ಕಳುಹಿಸಿದ್ದೀರಿ ಎಂದಾದರೆ, ಕೆಳಗೆ ಸೂಚಿಸಿರುವ ಲಿಂಕನ್ನು ಒತ್ತಿ. ಇಲ್ಲದಿದ್ದರೇ, ಈ ಇಮೇಲ್ ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ.</string>
-  <string name="emailChange_subject">ನಿಮ್ಮ ಹೊಸ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ದೃಢೀಕರಿಸಿ, %s</string>
+  <string name="emailChange_subject">ನಿಮ್ಮ ಹೊಸ ಇಮೇಲ್ ವಿಳಾಸ %s ವನ್ನು ದೃಢೀಕರಿಸಿ</string>
   <string name="emailChange_intro">ನೀವು ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಬದಲಾಯಿಸಲು ವಿನಂತಿಸಿದ್ದೀರಿ.</string>
-  <string name="emailChange_click">ಈ ಇಮೇಲ್ ವಿಳಾಸ ನಿಮ್ಮದೇ ಎಂದು ದೃಢೀಕರಿಸಲು, ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕೊಟ್ಟಿರುವ ಲಿಂಕನ್ನು ವತ್ತಿ:</string>
+  <string name="emailChange_click">ಈ ಇಮೇಲ್ ವಿಳಾಸ ನಿಮ್ಮದೇ ಎಂದು ದೃಢೀಕರಿಸಲು, ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕೊಟ್ಟಿರುವ ಕೊಂಡಿಯನ್ನು ಒತ್ತಿ:</string>
   <string name="welcome_subject">%s ಅವರೇ, lichess.org ಗೆ ಸ್ವಾಗತ</string>
   <string name="welcome_text">ನೀವು ಯಶ್ವಸಿಯಾಗಿ https://lichess.org ನಲ್ಲಿ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ತೆರೆದಿದ್ದೀರಿ.
 

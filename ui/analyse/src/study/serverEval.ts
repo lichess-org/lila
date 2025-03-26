@@ -1,12 +1,12 @@
-import * as licon from 'common/licon';
-import { bind, onInsert } from 'common/snabbdom';
-import { spinnerVdom } from 'common/controls';
-import { requestIdleCallback } from 'common';
+import * as licon from 'lib/licon';
+import { bind, onInsert } from 'lib/snabbdom';
+import { spinnerVdom } from 'lib/controls';
+import { requestIdleCallback } from 'lib';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { ChartGame, AcplChart } from 'chart';
 import type { AnalyseData } from '../interfaces';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 import { stockfishName } from '../serverSideUnderboard';
 
 export const chartSpinner = (): VNode =>

@@ -1,12 +1,12 @@
-import { type Prop, prop, defined } from 'common';
-import { storedBooleanProp } from 'common/storage';
-import { pieceCount } from 'chess';
-import { fenColor } from 'common/miniBoard';
-import { debounce, defer, sync, type Sync } from 'common/async';
+import { type Prop, prop, defined } from 'lib';
+import { storedBooleanProp } from 'lib/storage';
+import { pieceCount } from 'lib/chess/chess';
+import { fenColor } from 'lib/miniBoard';
+import { debounce, defer, sync, type Sync } from 'lib/async';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
-import { replayable } from 'game';
+import { replayable } from 'lib/game/game';
 import type AnalyseCtrl from '../ctrl';
 import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';

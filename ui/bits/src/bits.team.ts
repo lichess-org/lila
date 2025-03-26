@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
+import * as xhr from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
-import { wsConnect } from 'common/socket';
-import { makeChat } from 'chat';
-import { prompt } from 'common/dialogs';
+import { wsConnect } from 'lib/socket';
+import { makeChat } from 'lib/chat/chat';
+import { prompt } from 'lib/dialogs';
 
 interface TeamOpts {
   id: string;

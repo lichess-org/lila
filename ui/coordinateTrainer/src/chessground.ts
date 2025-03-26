@@ -1,9 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 import type { Elements } from 'chessground/types';
-import resizeHandle from 'common/chessgroundResize';
+import resizeHandle from 'lib/chessgroundResize';
 import type CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {

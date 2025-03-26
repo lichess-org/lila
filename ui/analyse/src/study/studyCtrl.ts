@@ -1,6 +1,6 @@
 import type { DrawShape } from 'chessground/draw';
-import { prop, defined } from 'common';
-import { debounce, throttle, throttlePromiseDelay } from 'common/async';
+import { prop, defined } from 'lib';
+import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
@@ -14,7 +14,7 @@ import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as xhr from './studyXhr';
-import { path as treePath, ops as treeOps } from 'tree';
+import { path as treePath, ops as treeOps } from 'lib/tree/tree';
 import type {
   StudyVm,
   Tab,
@@ -42,15 +42,15 @@ import RelayCtrl from './relay/relayCtrl';
 import type { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
-import { storedMap } from 'common/storage';
+import { storedMap } from 'lib/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl, { isFinished } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialogs';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;

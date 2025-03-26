@@ -8,7 +8,7 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@types/fnando__sparkline": "^0.3.7",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "voice": "workspace:*"
   },
   "build": {

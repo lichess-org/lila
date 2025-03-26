@@ -1,8 +1,6 @@
-import type { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import type { Config, PuzPrefs, Puzzle } from 'lib/puz/interfaces';
 
 export type RaceStatus = 'pre' | 'racing' | 'post';
-
-export type WithGround = <A>(f: (g: CgApi) => A) => A | false;
 
 export type PlayerId = string;
 

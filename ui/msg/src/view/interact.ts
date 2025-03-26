@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bindSubmit } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bindSubmit } from 'lib/snabbdom';
 import type { User } from '../interfaces';
 import type MsgCtrl from '../ctrl';
-import { throttle } from 'common/async';
-import { alert } from 'common/dialogs';
+import { throttle } from 'lib/async';
+import { alert } from 'lib/dialogs';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();

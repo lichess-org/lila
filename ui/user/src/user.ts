@@ -1,8 +1,11 @@
-import * as xhr from 'common/xhr';
-import { alert, makeLinkPopups } from 'common/dialogs';
-import { pubsub } from 'common/pubsub';
+import * as xhr from 'lib/xhr';
+import { alert, makeLinkPopups } from 'lib/dialogs';
+import { pubsub } from 'lib/pubsub';
 
-export function initModule(): void {
+const gamesAngle = document.querySelector<HTMLElement>('.games');
+if (gamesAngle) gamesAngle.style.visibility = 'hidden'; // FOUC
+
+export async function initModule(): Promise<void> {
   makeLinkPopups($('.social_links'));
   makeLinkPopups($('.user-infos .bio'));
 
@@ -47,7 +50,7 @@ export function initModule(): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          pubsub.emit('content-loaded', $content[0]);
+          pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
           history.replaceState({}, '', path);
           site.asset.loadEsm('bits.infiniteScroll');
         });
@@ -64,5 +67,8 @@ export function initModule(): void {
       browseTo(this.href);
       return false;
     });
+  });
+  setTimeout(() => {
+    if (gamesAngle) gamesAngle.style.visibility = 'visible'; // FOUC
   });
 }

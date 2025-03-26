@@ -2,8 +2,8 @@ import * as commentForm from './commentForm';
 import * as glyphForm from './studyGlyph';
 import * as practiceView from './practice/studyPracticeView';
 import type AnalyseCtrl from '../ctrl';
-import * as licon from 'common/licon';
-import { type VNode, iconTag, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { type VNode, iconTag, bind, dataIcon, type MaybeVNodes, looseH as h } from 'lib/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import type { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
@@ -22,7 +22,7 @@ import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
 import { render as renderTrainingView } from '../view/roundTraining';
 import type StudyCtrl from './studyCtrl';
-import { shareIcon } from 'common/device';
+import { shareIcon } from 'lib/device';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -113,7 +113,7 @@ function buttons(root: AnalyseCtrl): VNode {
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
-          attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
+          attrs: { title: i18n.study.getTheTour, ...dataIcon(licon.InfoCircle) },
           hook: bind('click', ctrl.startTour),
         }),
     ]),

@@ -1,5 +1,5 @@
-import { escapeHtml } from 'common';
-import { pubsub } from 'common/pubsub';
+import { escapeHtml } from 'lib';
+import { pubsub } from 'lib/pubsub';
 
 let timeout: Timeout | undefined;
 
@@ -9,7 +9,7 @@ const kill = () => {
   $('#announce').remove();
 };
 
-const announce = (d: LichessAnnouncement) => {
+export const display = (d: LichessAnnouncement) => {
   kill();
   if (d.msg) {
     $('body')
@@ -29,4 +29,10 @@ const announce = (d: LichessAnnouncement) => {
   }
 };
 
-export default announce;
+export const fromPage = (): LichessAnnouncement | undefined => {
+  const pageAnnounce = document.body.getAttribute('data-announce');
+  return pageAnnounce && JSON.parse(pageAnnounce);
+};
+
+const announcement = fromPage();
+if (announcement) display(announcement);

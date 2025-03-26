@@ -1,5 +1,5 @@
 import debounce from 'debounce-promise';
-import { json as xhrJson, url as xhrUrl } from 'common/xhr';
+import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 import Tagify from '@yaireo/tagify';
 
 site.load.then(() => {

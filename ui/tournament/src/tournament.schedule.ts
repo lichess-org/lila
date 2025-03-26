@@ -2,8 +2,8 @@ import view from './view/scheduleView';
 
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
 import type { Tournament } from './interfaces';
-import { wsConnect } from 'common/socket';
-import { pubsub } from 'common/pubsub';
+import { wsConnect } from 'lib/socket';
+import { pubsub } from 'lib/pubsub';
 
 const patch = init([classModule, attributesModule]);
 

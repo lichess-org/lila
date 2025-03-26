@@ -121,6 +121,8 @@ interface I18n {
     berserk: string;
     /** When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point. */
     berserkAnswer: string;
+    /** Berserk rate */
+    berserkRate: string;
     /** Best results */
     bestResults: string;
     /** Created */
@@ -205,6 +207,8 @@ interface I18n {
     thisIsPrivate: string;
     /** Total */
     total: string;
+    /** The tournament pairings are now closed. */
+    tournamentPairingsAreNowClosed: string;
     /** Tournament shields */
     tournamentShields: string;
     /** Tournament stats */
@@ -3075,6 +3079,8 @@ interface I18n {
     doneReviewingWhiteMistakes: string;
     /** Download */
     download: string;
+    /** Download all games */
+    downloadAllGames: string;
     /** Download annotated */
     downloadAnnotated: string;
     /** Download imported */
@@ -3593,8 +3599,6 @@ interface I18n {
     newTournament: string;
     /** Next */
     next: string;
-    /** Next %s tournament: */
-    nextXTournament: I18nFormat;
     /** No */
     no: string;
     /** No challenges. */
@@ -4013,6 +4017,8 @@ interface I18n {
     startedStreaming: string;
     /** Starting: */
     starting: string;
+    /** Starting in */
+    startingIn: string;
     /** Starting position */
     startPosition: string;
     /** Stats */
@@ -4135,8 +4141,6 @@ interface I18n {
     tournamentHomeDescription: string;
     /** Chess tournaments featuring various time controls and variants */
     tournamentHomeTitle: string;
-    /** The tournament is starting */
-    tournamentIsStarting: string;
     /** The tournament may have been cancelled if all players left before it started. */
     tournamentMayHaveBeenCanceled: string;
     /** Tournament not found */
@@ -4629,6 +4633,8 @@ interface I18n {
   study: {
     /** Add members */
     addMembers: string;
+    /** Click the %s button.<br>Then decide who can contribute or not. */
+    addMembersText: I18nFormat;
     /** Add a new chapter */
     addNewChapter: string;
     /** Allow cloning */
@@ -4641,6 +4647,10 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and saved. */
+    annotatePositionText: string;
+    /** Annotate a position */
+    annotatePositionTitle: string;
     /** Annotate with glyphs */
     annotateWithGlyphs: string;
     /** Attack */
@@ -4659,6 +4669,8 @@ interface I18n {
     blunder: string;
     /** Brilliant move */
     brilliantMove: string;
+    /** Chapters are saved forever.<br>Have fun organizing your chess content! */
+    chapterConclusionText: string;
     /** Chapter PGN */
     chapterPgn: string;
     /** Chapter %s */
@@ -4673,10 +4685,18 @@ interface I18n {
     clearVariations: string;
     /** Clone */
     cloneStudy: string;
+    /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and saved. */
+    commentPositionText: I18nFormat;
+    /** Comment on a position */
+    commentPositionTitle: string;
     /** Comment on this move */
     commentThisMove: string;
     /** Comment on this position */
     commentThisPosition: string;
+    /** You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>Power users might want to press "?" to see keyboard shortcuts.<br>Have fun! */
+    conclusionText: string;
+    /** Thanks for your time */
+    conclusionTitle: string;
     /** Delete the entire study? There is no going back! Type the name of the study to confirm: %s */
     confirmDeleteStudy: I18nFormat;
     /** Contributor */
@@ -4689,10 +4709,18 @@ interface I18n {
     counterplay: string;
     /** Create chapter */
     createChapter: string;
+    /** A study can have several chapters.<br>Each chapter has a distinct move tree,<br>and can be created in various ways. */
+    createChapterText: string;
+    /** Let's create a study chapter */
+    createChapterTitle: string;
     /** Create study */
     createStudy: string;
     /** Current chapter URL */
     currentChapterUrl: string;
+    /** Setup the board your way.<br>Suited to explore endgames. */
+    customPositionText: string;
+    /** Custom position */
+    customPositionTitle: string;
     /** Date added (newest) */
     dateAddedNewest: string;
     /** Date added (oldest) */
@@ -4729,10 +4757,22 @@ interface I18n {
     equalPosition: string;
     /** Everyone */
     everyone: string;
-    /** First */
-    first: string;
+    /** Paste a position in FEN format<br><i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>to start the chapter from a position. */
+    fromFenStringText: string;
+    /** From a FEN string */
+    fromFenStringTitle: string;
+    /** Just a board setup for a new game.<br>Suited to explore openings. */
+    fromInitialPositionText: string;
+    /** From initial position */
+    fromInitialPositionTitle: string;
+    /** Paste a game in PGN format.<br>to load moves, comments and variations in the chapter. */
+    fromPgnGameText: string;
+    /** From a PGN game */
+    fromPgnGameTitle: string;
     /** Get a full server-side computer analysis of the mainline. */
     getAFullComputerAnalysis: string;
+    /** Need help? Get the tour! */
+    getTheTour: string;
     /** Good move */
     goodMove: string;
     /** Hide next moves */
@@ -4753,8 +4793,6 @@ interface I18n {
     inviteToTheStudy: string;
     /** Kick */
     kick: string;
-    /** Last */
-    last: string;
     /** Leave the study */
     leaveTheStudy: string;
     /** Like */
@@ -4767,6 +4805,10 @@ interface I18n {
     loadAGameFromXOrY: I18nFormat;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
+    /** Paste a lichess game URL<br>(like lichess.org/7fHIU0XI)<br>to load the game moves in the chapter. */
+    loadExistingLichessGameText: string;
+    /** Load an existing lichess game */
+    loadExistingLichessGameTitle: string;
     /** Make sure the chapter is complete. You can only request analysis once. */
     makeSureTheChapterIsComplete: string;
     /** Manage topics */
@@ -4845,8 +4887,6 @@ interface I18n {
     popularTopics: string;
     /** Previous chapter */
     prevChapter: string;
-    /** Previous */
-    previous: string;
     /** Private */
     private: string;
     /** Public */
@@ -4867,6 +4907,10 @@ interface I18n {
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
     shareChanges: string;
+    /** Other members can see your moves in real time!<br>Plus, everything is saved forever. */
+    sharedAndSavedText: string;
+    /** Shared and saved */
+    sharedAndSaveTitle: string;
     /** Evaluation bars */
     showEvalBar: string;
     /** Results */
@@ -4889,6 +4933,14 @@ interface I18n {
     studiesIContributeTo: string;
     /** Study actions */
     studyActions: string;
+    /** A study can contain several chapters.<br>Each chapter has a distinct initial position and move tree. */
+    studyChaptersText: string;
+    /** Study chapters */
+    studyChaptersTitle: string;
+    /** %1$s Spectators can view the study and talk in the chat.<br><br>%2$s Contributors can make moves and update the study. */
+    studyMembersText: I18nFormat;
+    /** Study members */
+    studyMembersTitle: string;
     /** Study not found */
     studyNotFound: string;
     /** Study PGN */
@@ -4909,8 +4961,16 @@ interface I18n {
     unlisted: string;
     /** URL of the games, one per line */
     urlOfTheGame: string;
+    /** Yes, you can study crazyhouse<br>and all lichess variants! */
+    variantsAreSupportedText: string;
+    /** Studies support variants */
+    variantsAreSupportedTitle: string;
     /** Visibility */
     visibility: string;
+    /** This is a shared analysis board.<br><br>Use it to analyse and annotate games,<br>discuss positions with friends,<br>and of course for chess lessons!<br><br>It's a powerful tool, let's take some time to see how it works. */
+    welcomeToLichessStudyText: string;
+    /** Welcome to Lichess Study! */
+    welcomeToLichessStudyTitle: string;
     /** What are studies? */
     whatAreStudies: string;
     /** What would you play in this position? */

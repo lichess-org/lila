@@ -1,5 +1,5 @@
-import { winningChances, type CevalCtrl } from 'ceval';
-import { annotationShapes } from 'chess/glyphs';
+import { winningChances, type CevalCtrl } from 'lib/ceval/ceval';
+import { annotationShapes } from 'lib/chess/glyphs';
 import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import type { NormalMove, Square } from 'chessops/types';

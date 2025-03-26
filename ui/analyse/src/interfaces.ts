@@ -1,15 +1,15 @@
 import type { VNode } from 'snabbdom';
-import type { Player, Status, Source, Clock } from 'game';
+import type { Player, Status, Source, Clock } from 'lib/game/game';
 import type { ForecastData } from './forecast/interfaces';
 import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import type { RelayData } from './study/relay/interfaces';
-import type { ChatCtrl } from 'chat';
+import type { ChatCtrl } from 'lib/chat/chat';
 import type { ExplorerOpts } from './explorer/interfaces';
 import type { StudyDataFromServer } from './study/interfaces';
 import type { AnalyseSocketSend } from './socket';
-import type { ExternalEngineInfo } from 'ceval';
-import type { Coords, MoveEvent } from 'common/prefs';
-import type { EnhanceOpts } from 'common/richText';
+import type { ExternalEngineInfo } from 'lib/ceval/ceval';
+import type { Coords, MoveEvent } from 'lib/prefs';
+import type { EnhanceOpts } from 'lib/richText';
 
 export interface NvuiPlugin {
   render(): VNode;

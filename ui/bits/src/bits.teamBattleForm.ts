@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import * as xhr from 'lib/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 

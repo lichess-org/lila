@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
-import { confirm } from 'common/dialogs';
+import * as licon from 'lib/licon';
+import { bind } from 'lib/snabbdom';
+import { confirm } from 'lib/dialogs';
 import { Convo } from '../interfaces';
 import type MsgCtrl from '../ctrl';
 

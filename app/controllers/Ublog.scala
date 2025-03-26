@@ -7,7 +7,7 @@ import lila.app.{ *, given }
 import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
+import lila.ublog.{ UblogBlog, UblogPost, UblogRank, UblogBestOf }
 import lila.core.i18n.toLanguage
 
 final class Ublog(env: Env) extends LilaController(env):
@@ -230,7 +230,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         Ok.async:
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
@@ -250,7 +250,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         pageHit
         Ok.async:
           val language = l.map(toLanguage)
@@ -268,7 +268,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         Ok.async:
           env.ublog.paginator
             .liveByLiked(page)
@@ -284,7 +284,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         lila.ublog.UblogTopic
           .fromUrl(str)
           .so: top =>
@@ -294,6 +294,23 @@ final class Ublog(env: Env) extends LilaController(env):
                 .map:
                   views.ublog.ui.topic(top, _, byDate)
 
+  def bestOfYear(page: Int) = Open:
+    NotForKids:
+      Ok.async:
+        env.ublog.bestOf.liveByYear(page).map(views.ublog.ui.year)
+
+  def bestOfMonth(year: Int, month: Int, page: Int) = Open:
+    NotForKids:
+      Reasonable(page, Max(20)):
+        UblogBestOf
+          .readYearMonth(year, month)
+          .so: yearMonth =>
+            Ok.async:
+              env.ublog.paginator
+                .liveByMonth(yearMonth, page)
+                .map:
+                  views.ublog.ui.month(yearMonth, _)
+
   def userAtom(username: UserStr) = Anon:
     env.user.repo
       .enabledById(username)
@@ -302,8 +319,8 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
-              (isBlogVisible(user, blog)
-                .so(env.ublog.paginator.byUser(user, true, 1)))
+              isBlogVisible(user, blog)
+                .so(env.ublog.paginator.byUser(user, true, 1))
                 .map: posts =>
                   Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 

@@ -10,9 +10,7 @@
     ".": "./src/exports.ts"
   },
   "dependencies": {
-    "chess": "workspace:*",
-    "common": "workspace:*",
-    "game": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/keyboardMove.ts"

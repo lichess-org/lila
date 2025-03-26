@@ -27,7 +27,7 @@ import {
 } from './common';
 import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);

@@ -33,7 +33,7 @@ type TaskOpts = {
   includes: CwdPath | CwdPath[];
   execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
   excludes?: Path | Path[];
-  key?: TaskKey; // optional key for overwrite, stop, tickle
+  key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
@@ -119,7 +119,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   try {
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
-    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx);
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
   } catch (e) {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);

@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
   <string name="playWithTheMachine">Xogar coa a máquina</string>
+  <string name="playOffline">Xogar sen conexión</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
@@ -747,7 +748,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa noutros cartafoles onde poida estar, coma no lixo, co correo non desexado ou de redes sociais.</string>
   <string name="ifYouDoNotGetTheEmail">Se non recibes o correo en 5 minutos:</string>
   <string name="checkAllEmailFolders">Revisa no lixo, no correo non solicitado e noutros cartafoles</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Confirma que %s é o teu enderezo de correo electrónico</string>
+  <string name="verifyYourAddress">Confirma que %s é o teu enderezo de correo electrónico</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
   <string name="readAboutOur">Le acerca da nosa %s.</string>

@@ -1,9 +1,9 @@
 import { loadCssPath, loadEsm } from './asset';
-import { memoize } from 'common';
-import { spinnerHtml } from 'common/controls';
-import { clamp } from 'common/algo';
-import { pubsub } from 'common/pubsub';
-import { wsSend } from 'common/socket';
+import { memoize } from 'lib';
+import { spinnerHtml } from 'lib/controls';
+import { clamp } from 'lib/algo';
+import { pubsub } from 'lib/pubsub';
+import { wsSend } from 'lib/socket';
 
 export default function () {
   const top = document.getElementById('top')!;
@@ -16,7 +16,7 @@ export default function () {
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
-  // Only for mq-topnav-visible in ui/common/css/abstract/_media-queries.scss
+  // Only for mq-topnav-visible in ui/lib/css/abstract/_media-queries.scss
   if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
     $('#topnav section > a').removeAttr('href');
 

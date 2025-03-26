@@ -1,24 +1,24 @@
 import type { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import RoundController from './ctrl';
 import { main as view } from './view/main';
-import { text as xhrText } from 'common/xhr';
+import { text as xhrText } from 'lib/xhr';
 import type MoveOn from './moveOn';
-import type { TourPlayer } from 'game';
+import type { TourPlayer } from 'lib/game/game';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
-import { wsConnect, wsDestroy } from 'common/socket';
-import { storage } from 'common/storage';
-import { setClockWidget } from 'common/clock';
-import { makeChat } from 'chat';
-import { pubsub } from 'common/pubsub';
-import { myUserId } from 'common';
-import { alert } from 'common/dialogs';
+import { wsConnect, wsDestroy } from 'lib/socket';
+import { storage } from 'lib/storage';
+import { setClockWidget } from 'lib/clock';
+import { makeChat } from 'lib/chat/chat';
+import { pubsub } from 'lib/pubsub';
+import { myUserId } from 'lib';
+import { alert } from 'lib/dialogs';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
-  return opts.local ? app(opts) : boot(opts, app);
+  return opts.data.local ? app(opts) : boot(opts, app);
 }
 
 async function app(opts: RoundOpts): Promise<RoundController> {

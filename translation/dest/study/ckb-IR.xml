@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
   <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
     <item quantity="other">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
   </plurals>

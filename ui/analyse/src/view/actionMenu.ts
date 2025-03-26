@@ -1,12 +1,12 @@
-import { isEmpty } from 'common';
-import * as licon from 'common/licon';
-import { isTouchDevice } from 'common/device';
-import { domDialog } from 'common/dialog';
-import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
+import { isEmpty } from 'lib';
+import * as licon from 'lib/licon';
+import { isTouchDevice } from 'lib/device';
+import { domDialog } from 'lib/dialog';
+import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
-import { toggle, type ToggleSettings } from 'common/controls';
+import { toggle, type ToggleSettings } from 'lib/controls';
 import type AnalyseCtrl from '../ctrl';
-import { cont as contRoute } from 'game/router';
+import { cont as contRoute } from 'lib/game/router';
 import * as pgnExport from '../pgnExport';
 
 interface AutoplaySpeed {

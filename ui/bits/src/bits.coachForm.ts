@@ -1,10 +1,10 @@
-import { debounce } from 'common/async';
-import * as xhr from 'common/xhr';
-import { isSafari } from 'common/device';
-import { notNull } from 'common';
+import { debounce } from 'lib/async';
+import * as xhr from 'lib/xhr';
+import { isSafari } from 'lib/device';
+import { notNull } from 'lib';
 import Tagify from '@yaireo/tagify';
 import { wireCropDialog } from './crop';
-import { spinnerHtml } from 'common/controls';
+import { spinnerHtml } from 'lib/controls';
 
 if (isSafari()) wireCropDialog(); // preload
 

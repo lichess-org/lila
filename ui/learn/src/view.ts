@@ -1,4 +1,4 @@
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import { h, type VNode } from 'snabbdom';
 import type { LearnCtrl } from './ctrl';
 import { type Stage, categs } from './stage/list';

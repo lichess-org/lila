@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "bits": "workspace:*",
-    "common": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/user.*ts"

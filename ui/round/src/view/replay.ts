@@ -1,17 +1,16 @@
-import * as licon from 'common/licon';
-import { userAnalysable, playable } from 'game';
-import { finished, aborted } from 'game/status';
+import * as licon from 'lib/licon';
+import { finished, aborted, userAnalysable, playable } from 'lib/game/game';
 import * as util from '../util';
-import { bindMobileMousedown, isCol1 } from 'common/device';
+import { bindMobileMousedown, isCol1 } from 'lib/device';
 import type RoundController from '../ctrl';
-import { throttle } from 'common/async';
-import viewStatus from 'game/view/status';
-import { game as gameRoute } from 'game/router';
+import { throttle } from 'lib/async';
+import viewStatus from 'lib/game/view/status';
+import { game as gameRoute } from 'lib/game/router';
 import type { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
+import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
+import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'lib/snabbdom';
 import boardMenu from './boardMenu';
-import { repeater } from 'common';
+import { repeater } from 'lib';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -116,6 +115,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
     userAnalysable(ctrl.data) &&
+    !ctrl.data.local &&
     h(
       'a.fbt.analysis',
       {

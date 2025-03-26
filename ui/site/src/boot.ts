@@ -1,22 +1,22 @@
-import * as licon from 'common/licon';
-import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
-import { text as xhrText } from 'common/xhr';
-import announce from './announce';
+import * as licon from 'lib/licon';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'lib/miniBoard';
+import { text as xhrText } from 'lib/xhr';
+import { display as announceDisplay } from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
-import { watchers } from 'common/watchers';
-import { isIos, isWebkit, prefersLightThemeQuery } from 'common/device';
-import { scrollToInnerSelector, requestIdleCallback } from 'common';
-import { dispatchChessgroundResize } from 'common/chessgroundResize';
+import { watchers } from 'lib/watchers';
+import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
+import { scrollToInnerSelector, requestIdleCallback } from 'lib';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
-import { pubsub } from 'common/pubsub';
-import { once } from 'common/storage';
-import { toggleBoxInit } from 'common/controls';
+import { pubsub } from 'lib/pubsub';
+import { once } from 'lib/storage';
+import { toggleBoxInit } from 'lib/controls';
 import { addExceptionListeners } from './unhandledError';
-import { eventuallySetupDefaultConnection } from 'common/socket';
-import { alert } from 'common/dialogs';
+import { eventuallySetupDefaultConnection } from 'lib/socket';
+import { alert } from 'lib/dialogs';
 
 export function boot() {
   addExceptionListeners();
@@ -63,9 +63,6 @@ export function boot() {
     if (site.debug) site.asset.loadEsm('bits.devMode');
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
 
-    const pageAnnounce = document.body.getAttribute('data-announce');
-    if (pageAnnounce) announce(JSON.parse(pageAnnounce));
-
     serviceWorker();
 
     console.info('Lichess is open source! See https://lichess.org/source');
@@ -90,7 +87,7 @@ export function boot() {
     pubsub.on('socket.in.finish', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
     );
-    pubsub.on('socket.in.announce', announce);
+    pubsub.on('socket.in.announce', announceDisplay);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
       if ($('#announce').length || document.body.dataset.tournamentId === data.id) return;
       const url = '/tournament/' + data.id;

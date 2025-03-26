@@ -1,9 +1,9 @@
-import { isTouchDevice } from 'common/device';
-import { domDialog } from 'common/dialog';
-import * as licon from 'common/licon';
-import { escapeHtml, myUserId } from 'common';
-import { storage } from 'common/storage';
-import { log } from 'common/permalog';
+import { isTouchDevice } from 'lib/device';
+import { domDialog } from 'lib/dialog';
+import * as licon from 'lib/licon';
+import { escapeHtml, myUserId } from 'lib';
+import { storage } from 'lib/storage';
+import { log } from 'lib/permalog';
 
 interface DiagnosticOpts {
   text: string;

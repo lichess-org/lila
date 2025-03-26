@@ -1,16 +1,16 @@
 import config from '../config';
-import renderClock from 'puz/view/clock';
+import renderClock from 'lib/puz/view/clock';
 import renderEnd from './end';
 import type StormCtrl from '../ctrl';
 import type { VNode } from 'snabbdom';
-import { makeCgOpts, povMessage } from 'puz/run';
-import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { getNow } from 'puz/util';
-import { playModifiers, renderCombo } from 'puz/view/util';
-import * as licon from 'common/licon';
-import { onInsert, looseH as h } from 'common/snabbdom';
+import { makeCgOpts, povMessage } from 'lib/puz/run';
+import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
+import { getNow } from 'lib/puz/util';
+import { playModifiers, renderCombo } from 'lib/puz/view/util';
+import * as licon from 'lib/licon';
+import { onInsert, looseH as h } from 'lib/snabbdom';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(i18n.storm.thisRunWasOpenedInAnotherTab);

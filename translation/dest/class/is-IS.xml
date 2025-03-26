@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="reopen">Enduropna</string>
-  <string name="removeStudent">Fjarlæga nemanda</string>
-  <string name="removedStudents">Fjarlægðir</string>
+  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Enduropna</string>
+  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Fjarlæga nemanda</string>
+  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Fjarlægðir</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
   <string name="addStudent">Bæta nemanda</string>
   <string name="lichessUsername">Lichess notendanafn</string>

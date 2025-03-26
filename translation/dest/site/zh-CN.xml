@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">与好友下棋</string>
   <string name="playWithTheMachine">和电脑下棋</string>
+  <string name="playOffline">离线下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>

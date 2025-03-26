@@ -1,4 +1,4 @@
-import { winningChances } from 'ceval';
+import { winningChances } from 'lib/ceval/ceval';
 import {
   type ChartConfiguration,
   type ChartDataset,
@@ -28,8 +28,8 @@ import {
 import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { pubsub } from 'common/pubsub';
-import { plyToTurn } from 'chess';
+import { pubsub } from 'lib/pubsub';
+import { plyToTurn } from 'lib/chess/chess';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);

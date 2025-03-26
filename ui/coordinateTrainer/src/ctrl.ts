@@ -1,9 +1,9 @@
 import { sparkline } from '@fnando/sparkline';
-import { text as xhrText, form as xhrForm } from 'common/xhr';
-import { throttlePromiseDelay } from 'common/async';
-import { myUserId, withEffect } from 'common';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+import { throttlePromiseDelay } from 'lib/async';
+import { myUserId, withEffect } from 'lib';
 import { makeVoice, type VoiceCtrl } from 'voice';
-import { storedBooleanProp, storedProp } from 'common/storage';
+import { storedBooleanProp, storedProp } from 'lib/storage';
 import type { Api as CgApi } from 'chessground/api';
 import type {
   ColorChoice,
@@ -14,7 +14,7 @@ import type {
   ModeScores,
   Redraw,
 } from './interfaces';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;

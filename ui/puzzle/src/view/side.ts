@@ -1,9 +1,9 @@
 import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
-import * as licon from 'common/licon';
-import { type VNode, dataIcon, onInsert, type MaybeVNode, looseH as h } from 'common/snabbdom';
-import { numberFormat } from 'common/i18n';
-import perfIcons from 'game/perfIcons';
-import { userLink } from 'common/userLink';
+import * as licon from 'lib/licon';
+import { type VNode, dataIcon, onInsert, type MaybeVNode, looseH as h } from 'lib/snabbdom';
+import { numberFormat } from 'lib/i18n';
+import perfIcons from 'lib/game/perfIcons';
+import { userLink } from 'lib/userLink';
 import type PuzzleStreak from '../streak';
 import type PuzzleCtrl from '../ctrl';
 

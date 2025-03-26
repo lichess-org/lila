@@ -59,9 +59,9 @@ object page:
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
-          cssTag("common.theme.all"),
+          cssTag("lib.theme.all"),
           cssTag("site"),
-          pref.is3d.option(cssTag("common.board-3d")),
+          pref.is3d.option(cssTag("lib.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("bits.blind")),
@@ -89,7 +89,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(p.i18nModules, allModules, isInquiry = ctx.data.inquiry.isDefined),
+          sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
@@ -121,7 +121,7 @@ object page:
                                           else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
-          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain),
+          dataNonce        := ctx.nonce,
           dataTheme        := pref.currentBg,
           dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,

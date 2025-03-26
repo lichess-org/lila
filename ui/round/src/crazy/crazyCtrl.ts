@@ -1,11 +1,11 @@
-import { isPlayerTurn } from 'game/game';
+import { isPlayerTurn } from 'lib/game/game';
 import { dragNewPiece } from 'chessground/drag';
 import { setDropMode, cancelDropMode } from 'chessground/drop';
 import type RoundController from '../ctrl';
 import type { MouchEvent } from 'chessground/types';
 import type { RoundData } from '../interfaces';
-import { storage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { storage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
 
 export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 

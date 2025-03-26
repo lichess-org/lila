@@ -1,6 +1,6 @@
-import notify from 'common/notification';
+import notify from 'lib/notification';
 import type { TournamentData } from './interfaces';
-import { once } from 'common/storage';
+import { once } from 'lib/storage';
 
 let countDownTimeout: number | undefined;
 

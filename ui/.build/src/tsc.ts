@@ -5,7 +5,7 @@ import ts from 'typescript';
 import fg from 'fast-glob';
 import { Worker } from 'node:worker_threads';
 import { env, c, errorMark } from './env.ts';
-import { folderSize, readable } from './parse.ts';
+import { folderSize } from './parse.ts';
 import { clamp } from './algo.ts';
 import type { WorkerData, Message, ErrorMessage } from './tscWorker.ts';
 
@@ -39,10 +39,10 @@ export async function tsc(): Promise<void> {
       )
       .push(cfg);
 
-  tscLog(`Typing ${c.grey('--noCheck')} (${workBuckets.noCheck.length} workers)`);
+  env.log(`Typing ${c.grey('--noCheck')} (${workBuckets.noCheck.length} workers)`, 'tsc');
   await assignWork(workBuckets.noCheck, 'noCheck');
 
-  tscLog(`Checking ${c.grey('--noEmit')} (${workBuckets.noEmit.length} workers)`);
+  env.log(`Checking ${c.grey('--noEmit')} (${workBuckets.noEmit.length} workers)`, 'tsc');
   await assignWork(workBuckets.noEmit, 'noEmit');
 }
 
@@ -52,21 +52,26 @@ export async function stopTsc(): Promise<void> {
 }
 
 function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit'): Promise<void> {
-  let okResolve: (() => void) | undefined = undefined;
+  let okResolve: () => void;
   const status: ('ok' | 'busy' | 'error')[] = [];
   const okPromise = new Promise<void>(res => (okResolve = res));
   const onError = (err: Error): void => env.exit(err.message, 'tsc');
   const onMessage = (msg: Message): void => {
-    // the watch builder always gives us a 6194 first time thru, even when errors are found
-    if (env.watch && okResolve && msg.type === 'ok' && status[msg.index] === 'error') return;
+    // direct error -> ok transition must be ignored. error must transition to busy first
+    if (env.watch && msg.type === 'ok' && status[msg.index] === 'error') return;
 
     status[msg.index] = msg.type;
 
-    if (msg.type === 'error') return tscError(msg.data);
-    if (status.some(s => s !== 'ok')) return;
-
-    okResolve?.();
-    if (key === 'noEmit') env.done('tsc');
+    switch (msg.type) {
+      case 'error':
+        return tscError(msg.data);
+      case 'busy':
+        return env.done('tsc', undefined);
+      case 'ok':
+        if (status.some(s => s !== 'ok')) return;
+        env.done('tsc', key === 'noEmit' ? 0 : undefined);
+        okResolve();
+    }
   };
 
   for (const bucket of buckets) {
@@ -101,6 +106,7 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   const pkgName = basename(root);
   const { config, error } = ts.readConfigFile(cfgPath, ts.sys.readFile);
   const io: Promise<any>[] = [];
+  const fixGlobs = (globs?: string[]) => globs?.map(glob => resolve(root, glob.replace('${configDir}', '.')));
 
   if (error) throw new Error(`'${cfgPath}': ${error.messageText}`);
 
@@ -115,45 +121,33 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
 
   config.compilerOptions = co;
   config.size = await folderSize(join(root, 'src'));
-  config.include = config.include?.map((glob: string) => resolve(root, glob.replace('${configDir}', '.')));
-  config.include ??= [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
-  config.exclude = config.exclude
-    ?.filter((glob: string) => !env.test || !glob.includes('tests'))
-    .map((glob: string) => resolve(root, glob.replace('${configDir}', '.')));
+  config.include = fixGlobs(config.include) ?? [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
+  config.exclude = fixGlobs(config.exclude);
   config.extends = undefined;
   config.references = env.workspaceDeps
     .get(pkgName)
     ?.map(ref => ({ path: join(env.buildTempDir, 'noCheck', `${ref}.tsconfig.json`) }));
 
-  const noEmitData = structuredClone(config);
-  const noEmit = join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
-  noEmitData.compilerOptions.noEmit = true;
-  noEmitData.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noEmit', `${pkgName}.tsbuildinfo`);
-  if (env.test && (await readable(join(root, 'tests')))) {
-    noEmitData.include.push(join(root, 'tests'));
-    noEmitData.compilerOptions.rootDir = root;
-    noEmitData.compilerOptions.skipLibCheck = true;
-    noEmitData.size += await folderSize(join(root, 'tests'));
-  }
-  io.push(fs.promises.writeFile(noEmit, JSON.stringify(noEmitData, undefined, 2)));
+  const checkCfg = structuredClone(config);
+  const checkPath = join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
+  checkCfg.compilerOptions.noEmit = true;
+  checkCfg.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noEmit', `${pkgName}.tsbuildinfo`);
 
-  const res: SplitConfig[] = [{ type: 'noEmit', configFile: noEmit, pkgName, size: config.size }];
+  io.push(fs.promises.writeFile(checkPath, JSON.stringify(checkCfg, undefined, 2)));
+
+  const res: SplitConfig[] = [{ type: 'noEmit', configFile: checkPath, pkgName, size: config.size }];
 
   if (!co.noEmit) {
-    const noCheckData = structuredClone(config);
-    const noCheck = join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`);
-    noCheckData.compilerOptions.noCheck = true;
-    noCheckData.compilerOptions.emitDeclarationOnly = true;
-    noCheckData.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noCheck', `${pkgName}.tsbuildinfo`);
-    res.push({ type: 'noCheck', configFile: noCheck, pkgName, size: config.size });
-    io.push(fs.promises.writeFile(noCheck, JSON.stringify(noCheckData, undefined, 2)));
+    const emitCfg = structuredClone(config);
+    const emitPath = join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`);
+    emitCfg.compilerOptions.noCheck = true;
+    emitCfg.compilerOptions.emitDeclarationOnly = true;
+    emitCfg.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noCheck', `${pkgName}.tsbuildinfo`);
+    res.push({ type: 'noCheck', configFile: emitPath, pkgName, size: config.size });
+    io.push(fs.promises.writeFile(emitPath, JSON.stringify(emitCfg, undefined, 2)));
   }
   await Promise.all(io);
   return res;
-}
-
-function tscLog(msg: string): void {
-  env.log(msg, 'tsc');
 }
 
 function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
@@ -167,7 +161,7 @@ function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
       if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
       location += `' - `;
     }
-    tscLog(`${prelude}${location}${message}`);
+    env.log(`${prelude}${location}${message}`, 'tsc');
   }
   spamGuard.set(key, performance.now() + 1000);
   env.done('tsc', -2);

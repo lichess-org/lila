@@ -8,7 +8,7 @@ import {
   makeStore,
 } from './form';
 import type LobbyController from './ctrl';
-import type { LichessStorage } from 'common/storage';
+import type { LichessStorage } from 'lib/storage';
 
 interface FilterData {
   form: FormLines;

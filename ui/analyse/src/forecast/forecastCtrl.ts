@@ -1,10 +1,10 @@
-import { prop, notEmpty, Prop } from 'common';
-import { json as xhrJson } from 'common/xhr';
+import { prop, notEmpty, Prop } from 'lib';
+import { json as xhrJson } from 'lib/xhr';
 import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import type { AnalyseData } from '../interfaces';
 import { scalachessCharPair } from 'chessops/compat';
 import { parseUci } from 'chessops';
-import type { TreeWrapper } from 'tree';
+import type { TreeWrapper } from 'lib/tree/tree';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);

@@ -1,4 +1,4 @@
-import { json as xhrJson, form } from 'common/xhr';
+import { json as xhrJson, form } from 'lib/xhr';
 import debounce from 'debounce-promise';
 import type { Pool, Seek } from './interfaces';
 

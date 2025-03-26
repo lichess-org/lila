@@ -1,8 +1,8 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { dataIcon } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { dataIcon, onInsert } from 'lib/snabbdom';
 import type SwissCtrl from '../ctrl';
-import { setClockWidget } from 'common/clock';
+import { setClockWidget } from 'lib/clock';
 
 const startClock = (time: number): Hooks => ({
   insert: (vnode: VNode) => setClockWidget(vnode.elm as HTMLElement, { time }),
@@ -17,15 +17,11 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
     return h('div.clock', [
       h('time.timeago.shy', {
         attrs: { datetime: Date.now() + next.in * 1000 },
-        hook: {
-          insert(vnode) {
-            (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + next.in * 1000));
-          },
-        },
+        hook: onInsert(el => el.setAttribute('datetime', '' + (Date.now() + next.in * 1000))),
       }),
     ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, [
-    h('span.shy', ctrl.data.status === 'created' ? i18n.swiss.startingIn : i18n.swiss.nextRound),
+    h('span.shy', ctrl.data.status === 'created' ? i18n.site.startingIn : i18n.swiss.nextRound),
     h('span.time.text', { hook: startClock(next.in + 1) }),
   ]);
 }

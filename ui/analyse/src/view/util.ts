@@ -1,4 +1,4 @@
-import { fixCrazySan, plyToTurn } from 'chess';
+import { fixCrazySan, plyToTurn } from 'lib/chess/chess';
 import { attributesModule, classModule, eventListenersModule, init, h, VNodeData } from 'snabbdom';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);

@@ -22,7 +22,7 @@ case class RelayRound(
      * sync.nextAt is used for actually synchronising */
     finishedAt: Option[Instant],
     createdAt: Instant,
-    crowd: Option[Int]
+    crowd: Option[Crowd]
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
 ):
   inline def studyId = id.into(StudyId)
@@ -202,7 +202,6 @@ object RelayRound:
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
-    def crowd                                   = display.crowd.orElse(link.crowd)
 
   trait AndGroup:
     def group: Option[RelayGroup.Name]

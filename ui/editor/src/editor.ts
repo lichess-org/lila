@@ -1,6 +1,6 @@
 import EditorCtrl from './ctrl';
 import type { LichessEditor, Config } from './interfaces';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import view from './view';
 import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 
@@ -27,6 +27,7 @@ export function initModule(config: Config): LichessEditor {
 
   return {
     getFen: ctrl.getFen.bind(ctrl),
+    setFen: fen => ctrl.setFen(fen),
     setOrientation: ctrl.setOrientation.bind(ctrl),
     setRules: ctrl.setRules.bind(ctrl),
   };
