@@ -28,9 +28,8 @@ final class GitHub(cacheApi: lila.memo.CacheApi, ws: StandaloneWSClient)(using E
     _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       ws.url("https://api.github.com/meta/public_keys/secret_scanning")
         .get()
-        .map:
-          case res if res.status == 200 => res.body[JsValue].some
-          case _                        => none
+        .map: res =>
+          (res.status == 200).option(res.body[JsValue])
         .recoverDefault
 
   private def getPublicKeyFromPEM(pem: String): PublicKey =

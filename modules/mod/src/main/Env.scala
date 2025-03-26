@@ -104,8 +104,9 @@ final class Env(
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
     },
-    "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name) =>
-      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
+    "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>
+      val msg = s"Self report: ${name} on https://lichess.org/${gameId}"
+      api.autoMark(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(MyId))

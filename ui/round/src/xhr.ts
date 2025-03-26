@@ -3,10 +3,8 @@ import { throttlePromiseDelay } from 'lib/async';
 import { text, json, form } from 'lib/xhr';
 import type { RoundData } from './interfaces';
 
-export const reload = (ctrl: RoundController): Promise<RoundData> => {
-  const url = ctrl.data.player.spectator
-    ? `/${ctrl.data.game.id}/${ctrl.data.player.color}`
-    : `/${ctrl.data.game.id}${ctrl.data.player.id}`;
+export const reload = (d: RoundData): Promise<RoundData> => {
+  const url = d.player.spectator ? `/${d.game.id}/${d.player.color}` : `/${d.game.id}${d.player.id}`;
   return json(url);
 };
 

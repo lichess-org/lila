@@ -42,6 +42,7 @@ export type PubsubEvent =
   | 'socket.in.sk1'
   | 'socket.in.tournamentReminder'
   | 'socket.in.unblockedBy'
+  | 'socket.in.serverRestart'
   | 'socket.lag'
   | 'socket.open'
   | 'socket.send'
