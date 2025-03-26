@@ -12,14 +12,14 @@ import { toggle, copyMeInput } from 'lib/controls';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
-import { makeChatEl, type RelayViewContext } from '../../view/components';
+import { type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
-import { watchers } from 'lib/watchers';
+import { relayChatView } from './relayChat';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -79,13 +79,7 @@ export const tourSide = (ctx: RelayViewContext) => {
           ]),
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
-      !ctrl.isEmbed &&
-        h('div.chat__members', {
-          hook: onInsert(el => {
-            makeChatEl(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-            watchers(el);
-          }),
-        }),
+      relayChatView(ctx),
     ],
   );
 };

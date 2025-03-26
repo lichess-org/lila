@@ -88,7 +88,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 }
 
 export function renderMain(
-  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour, relay }: ViewContext,
   kids: VNodeKids,
 ): VNode {
   const isRelay = defined(ctrl.study?.relay);
@@ -101,7 +101,7 @@ export function renderMain(
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
+          !relay && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
         update(_, _2) {

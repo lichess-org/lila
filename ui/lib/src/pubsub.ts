@@ -8,7 +8,6 @@ export type PubsubEvent =
   | 'board.change'
   | 'challenge-app.open'
   | 'chart.panning'
-  | 'chat.enabled'
   | 'chat.permissions'
   | 'chat.resize'
   | 'chat.writeable'
