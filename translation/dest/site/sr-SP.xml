@@ -404,7 +404,7 @@
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
-  <string name="xJoinedTeamY">%1$s је ушао/ла у тим %2$s</string>
+  <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
   <string name="xStartedStreaming">%s је почео са приказивањем</string>
@@ -483,7 +483,7 @@
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
   <string name="standing">Позиција</string>
-  <string name="createANewTournament">Направите нови турнир</string>
+  <string name="createANewTournament">Направи нови турнир</string>
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
   <string name="advancedSettings">Напредна подешавања</string>
@@ -493,7 +493,7 @@
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
-  <string name="points">Поена</string>
+  <string name="points">Бодови</string>
   <string name="wins">Победа</string>
   <string name="losses">Пораза</string>
   <string name="createdBy">Направио/ла:</string>
