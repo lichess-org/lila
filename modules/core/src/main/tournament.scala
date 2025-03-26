@@ -11,9 +11,9 @@ import lila.core.userId.UserId
 import lila.core.game.Game
 
 enum Status(val id: Int):
-  case Created  extends Status(10)
-  case Started  extends Status(20)
-  case Finished extends Status(30)
+  case created  extends Status(10)
+  case started  extends Status(20)
+  case finished extends Status(30)
   def name                                  = toString
   def is(f: Status.type => Status): Boolean = f(Status) == this
 

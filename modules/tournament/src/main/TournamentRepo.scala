@@ -10,11 +10,11 @@ import lila.db.dsl.{ *, given }
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
-  private val enterableSelect                  = $doc("status".$lt(Status.Finished.id))
-  private val createdSelect                    = $doc("status" -> Status.Created.id)
-  private val startedSelect                    = $doc("status" -> Status.Started.id)
-  private[tournament] val finishedSelect       = $doc("status" -> Status.Finished.id)
-  private val unfinishedSelect                 = $doc("status".$ne(Status.Finished.id))
+  private val enterableSelect                  = $doc("status".$lt(Status.finished.id))
+  private val createdSelect                    = $doc("status" -> Status.created.id)
+  private val startedSelect                    = $doc("status" -> Status.started.id)
+  private[tournament] val finishedSelect       = $doc("status" -> Status.finished.id)
+  private val unfinishedSelect                 = $doc("status".$ne(Status.finished.id))
   private[tournament] val scheduledSelect      = $doc("schedule".$exists(true))
   private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
@@ -109,7 +109,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     lila.db.paginator
       .Adapter[Tournament](
         collection = coll,
-        selector = $doc("schedule.freq" -> freq, "status" -> Status.Finished.id),
+        selector = $doc("schedule.freq" -> freq, "status" -> Status.finished.id),
         projection = none,
         sort = $sort.desc("startsAt"),
         _.sec
