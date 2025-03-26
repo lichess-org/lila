@@ -211,7 +211,7 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
       ]
     : [
         pearl && h('pearl', [pearl]),
-        h('help', [
+        h('div.engine', [
           ...engineName(ceval),
           h('br'),
           ceval.analysable ? i18n.site.inLocalBrowser : 'Illegal positions cannot be analyzed',
