@@ -162,4 +162,23 @@
   <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
   <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
   <string name="perPage">%s mỗi trang</string>
+  <string name="getTheTour">Cần giúp đỡ? Khám phá nào!</string>
+  <string name="welcomeToLichessStudyTitle">Chào mừng đến với Lichess Study!</string>
+  <string name="welcomeToLichessStudyText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các trò chơi,&lt;br&gt;thảo luận về các vị trí với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đó là một công cụ mạnh mẽ, hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Đã lưu và chia sẻ</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Các thành viên khác có thể thấy các nước đi của bạn trong thời gian thực!&lt;br&gt;Ngoài ra, mọi thứ được lưu mãi mãi.</string>
+  <string name="studyMembersTitle">Thành viên nghiên cứu</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that are shown inline with the text.&#10;%1$s is the icon for spectators, while %2$s is the icon for contributors.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">%1$s Khán giả có thể xem nghiên cứu và nói chuyện trong cuộc trò chuyện.&lt;br&gt;&lt;br&gt;%2$sNgười đóng góp có thể thực hiện các nước cờ và cập nhật nghiên cứu.</string>
+  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">Nhấp vào nút %s.&lt;br&gt;Sau đó, quyết định ai có thể đóng góp hay không.</string>
+  <string name="studyChaptersTitle">Các chương nghiên cứu</string>
+  <string name="commentPositionTitle">Bình luận về một thế cờ</string>
+  <string name="annotatePositionTitle">Chú thích một thế cờ</string>
+  <string name="conclusionTitle">Cảm ơn bạn đã dành thời gian</string>
+  <string name="createChapterTitle">Hãy tạo một chương nghiên cứu</string>
+  <string name="fromInitialPositionTitle">Từ thế cờ ban đầu</string>
+  <string name="customPositionTitle">Thế cờ tùy chỉnh</string>
+  <string name="loadExistingLichessGameTitle">Tải một ván cờ Lichess hiện có</string>
+  <string name="fromFenStringTitle">Từ một chuỗi FEN</string>
+  <string name="fromPgnGameTitle">Từ một PGN của ván cờ</string>
+  <string name="variantsAreSupportedTitle">Nghiên cứu hỗ trợ các biến thể</string>
 </resources>
