@@ -83,4 +83,5 @@ Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3 %. Être class
   <string name="onlyTitled">Uniquement les joueurs titrés</string>
   <string name="onlyTitledHelp">Un titre officiel est requis pour participer au tournoi</string>
   <string name="tournamentPairingsAreNowClosed">Les appariements sont terminés.</string>
+  <string name="berserkRate">Taux de berserk</string>
 </resources>
