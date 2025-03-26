@@ -63,7 +63,8 @@ final class ChatUi(helpers: Helpers):
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
       palantir: Boolean = false,
-      hostIds: List[UserId] = Nil
+      hostIds: List[UserId] = Nil,
+      blockedUsers: Option[Set[UserId]] = None
   )(using ctx: Context): JsObject =
     val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
     if ctx.kid.yes then
@@ -79,6 +80,7 @@ final class ChatUi(helpers: Helpers):
               "id"         -> chat.id,
               "name"       -> name,
               "lines"      -> lines,
+              "blocked"    -> blockedUsers,
               "resourceId" -> resourceId.value
             )
             .add("hostIds" -> hostIds.some.filter(_.nonEmpty))

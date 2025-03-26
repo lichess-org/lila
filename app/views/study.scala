@@ -73,7 +73,8 @@ def show(
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
               palantir = ctx.userId.exists(s.isMember),
-              localMod = ctx.userId.exists(s.canContribute)
+              localMod = ctx.userId.exists(s.canContribute),
+              blockedUsers = c.blockedUserIds
             ),
           "socketUrl"     -> socketUrl(s.id),
           "socketVersion" -> socketVersion

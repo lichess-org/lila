@@ -31,7 +31,8 @@ def show(
         resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
         localMod = rt.tour.tier.isEmpty && ctx.userId.exists(rt.study.canContribute),
         broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout),
-        hostIds = rt.study.members.ids.toList
+        hostIds = rt.study.members.ids.toList,
+        blockedUsers = c.blockedUserIds
       ) -> views.chat.frag
   ui.show(rt, data, chat, socketVersion)
     .csp(crossSiteIsolation.so(views.analyse.ui.bits.cspExternalEngine).compose(_.withExternalAnalysisApis))

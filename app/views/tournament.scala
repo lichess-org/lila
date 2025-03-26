@@ -44,6 +44,7 @@ def show(
       public = true,
       resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
       localMod = ctx.userId.has(tour.createdBy),
-      writeable = !c.locked
+      writeable = !c.locked,
+      blockedUsers = c.blockedUserIds
     )
   showUi(tour, verdicts, shieldOwner, data, chat, views.streamer.bits.contextual(streamers))

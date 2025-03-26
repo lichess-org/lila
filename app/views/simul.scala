@@ -38,5 +38,6 @@ object simul:
         timeout = c.timeout,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-        localMod = userIsHost
+        localMod = userIsHost,
+        blockedUsers = c.blockedUserIds
       ) -> views.chat.frag

@@ -38,6 +38,7 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
+    this.data.lines = this.data.lines.filter(l => !this.lineFromBlockedUser(l));
     if (!opts.kidMode) this.allTabs.push('discussion');
     if (opts.noteId) this.allTabs.push('note');
     if (!opts.kidMode && opts.plugin) this.allTabs.push(opts.plugin.tab.key);
@@ -138,7 +139,11 @@ export default class ChatCtrl {
     }
   };
 
+  private lineFromBlockedUser = (line: Line): boolean =>
+    !!(line.u && this.data.blocked?.includes(line.u.toLowerCase()));
+
   private onMessage = (line: Line): void => {
+    if (this.lineFromBlockedUser(line)) return;
     this.data.lines.push(line);
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {

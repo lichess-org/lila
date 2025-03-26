@@ -45,7 +45,8 @@ object show:
                 timeout = chat.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                localMod = havePerm(_.Comm)
+                localMod = havePerm(_.Comm),
+                blockedUsers = chat.blockedUserIds
               ))
         )
       )

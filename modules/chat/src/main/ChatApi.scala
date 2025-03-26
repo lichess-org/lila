@@ -20,6 +20,7 @@ final class ChatApi(
     spam: SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
+    relationApi: lila.core.relation.RelationApi,
     netDomain: NetDomain
 )(using Executor, Scheduler, FlairGet, FlairGetMap)
     extends lila.core.chat.ChatApi:
@@ -51,7 +52,7 @@ final class ChatApi(
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId.raw(chatIds), _.sec)
 
-    def findMine(chatId: ChatId, cond: Boolean = true)(using Option[Me], AllMessages): Fu[UserChat.Mine] =
+    def findMine(chatId: ChatId, cond: Boolean = true)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
       if cond then find(chatId).flatMap(makeMine)
       else fuccess(UserChat.Mine(Chat.makeUser(chatId), JsonChatLines.empty, timeout = false))
 
@@ -63,7 +64,8 @@ final class ChatApi(
           .ifFalse(mine.isEmpty)
           .so:
             chatTimeout.isActive(chat.id, _)
-      yield UserChat.Mine(mine, lines, timeout)
+        blockedUsers <- me.so(relationApi.fetchBlocking(_))
+      yield UserChat.Mine(mine, lines, timeout, false, Some(blockedUsers))
 
     def write(
         chatId: ChatId,

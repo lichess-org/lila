@@ -24,7 +24,8 @@ final class Env(
     flood: lila.core.security.FloodApi,
     spam: lila.core.security.SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    relationApi: lila.core.relation.RelationApi
 )(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)

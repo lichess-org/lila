@@ -33,5 +33,6 @@ private def renderChat(c: Option[lila.chat.UserChat.Mine], isLocalMod: Boolean)(
       public = true,
       resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
       localMod = isLocalMod,
-      writeable = !c.locked
+      writeable = !c.locked,
+      blockedUsers = c.blockedUserIds
     ) -> views.chat.frag

@@ -25,7 +25,8 @@ def watcher(
       withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
       public = true,
       resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-      palantir = ctx.canPalantir
+      palantir = ctx.canPalantir,
+      blockedUsers = c.blockedUserIds
     )
 
   ui.RoundPage(pov.game.variant, s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator")

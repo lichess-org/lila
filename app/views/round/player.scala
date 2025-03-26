@@ -38,7 +38,8 @@ def player(
           name = trans.site.chatRoom.txt(),
           timeout = c.timeout,
           public = true,
-          resourceId = res
+          resourceId = res,
+          blockedUsers = c.blockedUserIds
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
