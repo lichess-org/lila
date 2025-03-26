@@ -487,6 +487,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Oppretta av</string>
+  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
