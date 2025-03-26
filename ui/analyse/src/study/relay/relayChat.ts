@@ -2,7 +2,7 @@ import { type RelayViewContext } from '../../view/components';
 import type { StudyChapters } from '../studyChapters';
 import { spinnerVdom } from 'lib/controls';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
-import { initMiniBoard } from 'lib/miniBoard';
+import { initMiniBoardWith } from 'lib/miniBoard';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { watchers } from 'lib/watchers';
 import { uciToMove } from 'chessground/util';
@@ -52,19 +52,21 @@ export class RelayChatPlugin implements ChatPlugin {
 
   view(): VNode {
     const preview = this.chapters.get(this.chapter || 0);
-    if (!preview) return spinnerVdom();
-    const cg = {
-      fen: preview.fen,
-      lastMove: uciToMove(preview.lastMove),
-      animation: { enabled: this.animate },
-    };
-    this.animate = true;
-    return h('div.chat-liveboard', {
-      attrs: { 'data-state': [preview.fen, 'white', preview.lastMove].join(',') },
-      hook: {
-        insert: (vn: VNode) => initMiniBoard(vn.elm as HTMLElement),
-        update: (_, vn: VNode) => (vn.elm as any)['lichess-chessground']?.set(cg),
-      },
-    });
+    return preview
+      ? h('div.chat-liveboard', {
+          hook: {
+            insert: (vn: VNode) =>
+              initMiniBoardWith(vn.elm as HTMLElement, preview.fen, 'white', preview.lastMove),
+            update: (_, vn: VNode) => {
+              (vn.elm as any)['lichess-chessground']?.set({
+                fen: preview.fen,
+                lastMove: uciToMove(preview.lastMove),
+                animation: { enabled: this.animate },
+              });
+              this.animate = true;
+            },
+          },
+        })
+      : spinnerVdom();
   }
 }

@@ -11,7 +11,7 @@ export const initMiniBoard = (node: HTMLElement): void => {
   initMiniBoardWith(node, fen, orientation as Color, lm);
 };
 
-export const initMiniBoardWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
+export const initMiniBoardWith = (node: HTMLElement, fen: FEN, orientation: Color, lm?: Uci): void => {
   domData.set(
     node,
     'chessground',
