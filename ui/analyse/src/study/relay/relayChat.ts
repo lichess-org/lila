@@ -2,7 +2,7 @@ import { type RelayViewContext } from '../../view/components';
 import type { StudyChapters } from '../studyChapters';
 import { spinnerVdom } from 'lib/controls';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
-import { initMiniBoardWith } from 'lib/miniBoard';
+import { getChessground, initMiniBoardWith } from 'lib/miniBoard';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { watchers } from 'lib/watchers';
 import { uciToMove } from 'chessground/util';
@@ -58,7 +58,7 @@ export class RelayChatPlugin implements ChatPlugin {
             insert: (vn: VNode) =>
               initMiniBoardWith(vn.elm as HTMLElement, preview.fen, 'white', preview.lastMove),
             update: (_, vn: VNode) => {
-              (vn.elm as any)['lichess-chessground']?.set({
+              getChessground(vn.elm as HTMLElement)?.set({
                 fen: preview.fen,
                 lastMove: uciToMove(preview.lastMove),
                 animation: { enabled: this.animate },

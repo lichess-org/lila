@@ -72,6 +72,8 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
   return node.getAttribute('data-live');
 };
 
+export const getChessground = (node: HTMLElement): CgApi => domData.get(node, 'chessground');
+
 export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => initMiniGame(x)).filter(id => id);
@@ -80,7 +82,7 @@ export const initMiniGames = (parent?: HTMLElement): void => {
 
 export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): void => {
   const lm = data.lm,
-    cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');
+    cg = getChessground(node.querySelector('.cg-wrap')!);
   if (cg)
     cg.set({
       fen: data.fen,
