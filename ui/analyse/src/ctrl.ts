@@ -629,6 +629,11 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
+  async deleteVariation(path: Tree.Path): Promise<void> {
+    const variationStart = this.tree.variationStart(path);
+    if (variationStart) await this.deleteNode(variationStart);
+  }
+
   promote(path: Tree.Path, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);

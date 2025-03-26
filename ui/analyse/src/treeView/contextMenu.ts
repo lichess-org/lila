@@ -78,6 +78,10 @@ function view(opts: Opts, coords: Coords): VNode {
 
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
 
+      !onMainline &&
+        opts.path !== ctrl.tree.variationStart(opts.path) &&
+        action(licon.Trash, i18n.site.deleteVariation, () => ctrl.deleteVariation(opts.path)),
+
       action(licon.Trash, i18n.site.deleteFromHere, () => ctrl.deleteNode(opts.path)),
 
       action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),

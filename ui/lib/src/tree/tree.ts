@@ -26,6 +26,7 @@ export interface TreeWrapper {
   lastMainlineNode(path: Tree.Path): Tree.Node;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
+  variationStart(path: Tree.Path): Tree.Path | undefined;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
   setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
@@ -146,6 +147,17 @@ export function build(root: Tree.Node): TreeWrapper {
     ops.removeChild(parentNode(path), treePath.last(path));
   }
 
+  function variationStart(path: Tree.Path): Tree.Path | undefined {
+    const nodes = getNodeList(path);
+    for (let i = nodes.length - 2; i >= 0; i--) {
+      const node = nodes[i + 1];
+      const parent = nodes[i];
+      if (parent.children[0].id !== node.id || node.forceVariation)
+        return treePath.fromNodeList(nodes.slice(0, i + 2));
+    }
+    return undefined;
+  }
+
   function promoteAt(path: Tree.Path, toMainline: boolean): void {
     const nodes = getNodeList(path);
     for (let i = nodes.length - 2; i >= 0; i--) {
@@ -236,6 +248,7 @@ export function build(root: Tree.Node): TreeWrapper {
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
     pathExists,
     deleteNodeAt,
+    variationStart,
     promoteAt,
     forceVariationAt(path: Tree.Path, force: boolean) {
       return updateAt(path, function (node) {

@@ -3057,6 +3057,8 @@ interface I18n {
     deleteFromHere: string;
     /** Delete this imported game? */
     deleteThisImportedGame: string;
+    /** Delete variation */
+    deleteVariation: string;
     /** Depth %s */
     depthX: I18nFormat;
     /** Private description */
