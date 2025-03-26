@@ -22,7 +22,10 @@
 
 .mchat:has(.chat-live-board) {
   box-shadow: none;
-  .liveboard {
-    background-color: transparent;
+}
+.mchat .liveboard {
+  background-color: transparent;
+  cg-board {
+    border-top-right-radius: 0;
   }
 }
