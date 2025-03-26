@@ -486,6 +486,7 @@
   <string name="wins">Victòries</string>
   <string name="losses">Derrotes</string>
   <string name="createdBy">Creat per</string>
+  <string name="startingIn" comment="Displayed above a timer">Començant en</string>
   <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>
