@@ -59,7 +59,7 @@ export class RelayChatPlugin implements ChatPlugin {
       animation: { enabled: this.animate },
     };
     this.animate = true;
-    return h('div.chat-live-board', {
+    return h('div.chat-liveboard', {
       attrs: { 'data-state': [preview.fen, 'white', preview.lastMove].join(',') },
       hook: {
         insert: (vn: VNode) => initMiniBoard(vn.elm as HTMLElement),

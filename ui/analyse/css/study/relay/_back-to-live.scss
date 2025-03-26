@@ -13,14 +13,14 @@
   }
 }
 
-.chat-live-board {
+.chat-liveboard {
   display: flex;
   position: relative;
   width: 100%;
   aspect-ratio: 1;
 }
 
-.mchat:has(.chat-live-board) {
+.mchat:has(.chat-liveboard) {
   box-shadow: none;
 }
 .mchat .liveboard {
