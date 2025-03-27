@@ -295,7 +295,7 @@ def deploy_script(profile, session, run, url):
             f"git -C {deploy_dir} checkout {commit}",
             "git lfs pull public",
             "echo \\# Copying assets ...",
-            f"rsync -a {artifact_unzipped}/d/public/ {deploy_dir}/",
+            f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
             f"rm -rf {artifact_unzipped}",
         ]
     elif not profile.get("symlinks"):
