@@ -165,21 +165,16 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     mouchEvents.forEach(event => document.body.removeEventListener(event, mouchListener, { capture: true }));
 };
 
-const sameLines = (l1: Line, l2: Line) => l1.d && l2.d && l1.u === l2.u;
-
 function selectLines(ctrl: ChatCtrl): Array<Line> {
   const ls: Array<Line> = [];
-  let prev: Line | undefined;
   ctrl.data.lines.forEach(line => {
     if (
       !line.d &&
-      (!prev || !sameLines(prev, line)) &&
       (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
       !spam.skip(line.t) &&
       !(line.u && ctrl.data.blocked?.includes(line.u.toLowerCase()))
     )
       ls.push(line);
-    prev = line;
   });
   return ls;
 }
