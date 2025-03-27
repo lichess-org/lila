@@ -119,7 +119,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
       flex: 5 0 30%;
 
       &:has(.liveboard.mchat__tab-active) {
-        min-height: calc(min(max(var(--col3-uniboard-side-min, 250px), 350px), 100%) + 24px);
+        min-height: 374px;
       }
     }
   }
