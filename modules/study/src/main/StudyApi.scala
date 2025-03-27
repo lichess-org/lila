@@ -268,15 +268,15 @@ final class StudyApi(
             }
           }
 
-  private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
+  private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref): Fu[Unit] =
     chapter.conceal.so: conceal =>
-      chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal).so { newConceal =>
-        if newConceal >= chapter.root.lastMainlinePly then
-          for _ <- chapterRepo.removeConceal(chapter.id) yield sendTo(study.id)(_.setConceal(position, none))
-        else
-          for _ <- chapterRepo.setConceal(chapter.id, newConceal)
-          yield sendTo(study.id)(_.setConceal(position, newConceal.some))
-      }
+      if chapter.conceal.isEmpty then
+        val newConceal = chapter.root.lastMainlinePlyOf(position.path)
+        for
+          _ <- chapterRepo.setConceal(chapter.id, newConceal)
+          _ = sendTo(study.id)(_.setConceal(position, newConceal.some))
+        yield ()
+      else fuccess(())
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
