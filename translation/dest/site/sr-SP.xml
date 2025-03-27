@@ -494,9 +494,9 @@
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
   <string name="points">Бодови</string>
-  <string name="wins">Победа</string>
-  <string name="losses">Пораза</string>
-  <string name="createdBy">Направио/ла:</string>
+  <string name="wins">Победе</string>
+  <string name="losses">Порази</string>
+  <string name="createdBy">Направио/ла</string>
   <string name="tournamentPairingsAreNowClosed">Упаривање за турнир је заустављено.</string>
   <string name="standByX">Стрпи се %s, упарујемо играче, будите спремни!</string>
   <string name="pause">Заустави</string>
