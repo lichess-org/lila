@@ -289,15 +289,13 @@ def deploy_script(profile, session, run, url):
     ]
 
     if profile["artifact_name"] == "lila-assets":
-        assets_dir = f"{deploy_dir}/public"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
             f"echo \\# Checkout {commit} ...",
-            f"cd {assets_dir}",
-            f"git checkout {commit}",
+            f"git -C {deploy_dir} checkout {commit}",
             "git lfs pull public",
             "echo \\# Copying assets ...",
-            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
+            f"rsync -a {artifact_unzipped}/d/public/ {deploy_dir}/",
             f"rm -rf {artifact_unzipped}",
         ]
     elif not profile.get("symlinks"):
