@@ -755,6 +755,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="downloadAnnotated">Transferir anotação</string>
   <string name="downloadRaw">Transferir texto</string>
   <string name="downloadImported">Transferir a partida importada</string>
+  <string name="downloadAllGames">Descarregar todos os jogos</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
