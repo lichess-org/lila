@@ -175,7 +175,8 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
       !line.d &&
       (!prev || !sameLines(prev, line)) &&
       (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
-      !spam.skip(line.t)
+      !spam.skip(line.t) &&
+      !(line.u && ctrl.data.blocked?.includes(line.u.toLowerCase()))
     )
       ls.push(line);
     prev = line;
