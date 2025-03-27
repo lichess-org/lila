@@ -50,19 +50,6 @@ const gamePowertip = (el: HTMLElement) =>
       popupId: 'miniGame',
     });
 
-const imagePowertip = (el: HTMLElement) =>
-  $(el)
-    .removeClass('image-powertip')
-    .powerTip({
-      preRender: (el: HTMLElement) => {
-        const w = el.dataset.width ? ` width="${el.dataset.width}"` : '';
-        const h = el.dataset.height ? ` height="${el.dataset.height}"` : '';
-        document.querySelector('#image-powertip')!.innerHTML = `<img src="${el.dataset.src}"${w}${h}>`;
-      },
-      popupId: 'image-powertip',
-      placement: 's',
-    });
-
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
   if ('ontouchstart' in window && !el.classList.contains('mobile-powertip')) return;
   f(el);
@@ -82,7 +69,6 @@ const powertip: LichessPowertip = {
       const t = e.target as HTMLElement;
       if (t.classList.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (t.classList.contains('glpt')) powerTipWith(t, e, gamePowertip);
-      else if (t.classList.contains('image-powertip')) powerTipWith(t, e, imagePowertip);
     });
   },
   manualGameIn(parent: HTMLElement) {
