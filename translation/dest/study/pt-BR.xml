@@ -167,6 +167,15 @@
   <string name="youCompletedThisLesson">Parabéns! Você completou essa lição.</string>
   <string name="perPage">%s por página</string>
   <string name="getTheTour">Perdido(a)? Faça o tour!</string>
+  <string name="welcomeToLichessStudyTitle">Bem-vindo(a) aos Estudos do Lichess!</string>
+  <string name="welcomeToLichessStudyText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Este é um tabuleiro de análise compartilhado.&lt;br&gt;&lt;br&gt;Use para analisar jogos,&lt;br&gt;discutir posições com amigos&lt;br&gt;e, claro, ter aulas de xadrez!&lt;br&gt;&lt;br&gt;Vejamos como usar esse poderoso recurso.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartilhado e salvo</string>
-  <string name="conclusionTitle">Obrigado pelo seu tempo.</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Outros membros podem ver suas jogadas em tempo real!&lt;br&gt;E tudo fica salvo para sempre.</string>
+  <string name="studyMembersTitle">Membros do estudo</string>
+  <string name="studyChaptersTitle">Capítulos</string>
+  <string name="commentPositionTitle">Comentar uma posição</string>
+  <string name="annotatePositionTitle">Fazer anotações</string>
+  <string name="conclusionTitle">Agradecemos seu tempo</string>
+  <string name="createChapterTitle">Vamos criar um capítulo</string>
+  <string name="fromInitialPositionTitle">A partir da posição inicial</string>
 </resources>
