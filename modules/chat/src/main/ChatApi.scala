@@ -52,7 +52,10 @@ final class ChatApi(
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId.raw(chatIds), _.sec)
 
-    def findMine(chatId: ChatId, cond: Boolean = true)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
+    def findMine(chatId: ChatId, cond: Boolean = true)(using
+        me: Option[Me],
+        all: AllMessages
+    ): Fu[UserChat.Mine] =
       if cond then find(chatId).flatMap(makeMine)
       else fuccess(UserChat.Mine(Chat.makeUser(chatId), JsonChatLines.empty, timeout = false))
 
