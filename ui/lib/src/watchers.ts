@@ -13,7 +13,7 @@ let watchersData: Data | undefined;
 
 const name = (u: string) => (u.includes(' ') ? u.split(' ')[1] : u);
 
-export function watchers(element: HTMLElement): void {
+export function watchers(element: HTMLElement, withUserList = true): void {
   if (element.dataset.watched) return;
   element.dataset.watched = '1';
   const $innerElement = $('<div class="chat__members__inner">').appendTo(element);
@@ -35,7 +35,7 @@ export function watchers(element: HTMLElement): void {
 
     $numberEl.text('' + data.nb);
 
-    if (data.users) {
+    if (data.users && withUserList) {
       const prevUsers = data.users.map(u => u || '').join(';');
       if (get(listEl, 'prevUsers') !== prevUsers) {
         set(listEl, 'prevUsers', prevUsers);

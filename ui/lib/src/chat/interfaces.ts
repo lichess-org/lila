@@ -20,6 +20,7 @@ export interface ChatOpts {
   plugin?: ChatPlugin;
   persistent?: boolean;
   kidMode: boolean;
+  persistent?: boolean;
 }
 
 export type Tab = { key: string; hidden?: boolean };

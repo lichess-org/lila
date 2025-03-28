@@ -16,17 +16,17 @@ type Config = CgConfig & { lastUci?: Uci };
 export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefined {
   if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;
   return h('section.mchat.mchat-optional', {
-    hook: onInsert(el => {
-      ctrl.opts.chat.instance?.destroy();
+    hook: onInsert(() => {
       ctrl.opts.chat.instance = makeChat({
         ...ctrl.opts.chat,
         plugin: relay.chatCtrl,
         persistent: true,
         enhance: { plies: true, boards: true },
+        persistent: true,
       });
       const members = frag<HTMLElement>('<div class="chat__members">');
-      el.parentElement?.append(members);
-      watchers(members);
+      document.querySelector('.relay-tour__side')?.append(members);
+      watchers(members, false);
     }),
   });
 }
@@ -70,11 +70,11 @@ export class RelayChatPlugin implements ChatPlugin {
         lastUci: preview.lastMove,
         check: !!preview.check && fenColor(preview.fen),
       };
-    } else
-      this.board ??= this.fromUcis(
-        mainline[0],
-        mainline.slice(1).map(x => x.uci!),
-      );
+    }
+    this.board ??= this.fromUcis(
+      mainline[0],
+      mainline.slice(1).map(x => x.uci!),
+    );
     this.board.animation = { enabled: this.animate };
     this.animate = true;
 
