@@ -187,7 +187,7 @@ final class TournamentApi(
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "start")(cached.tourCache.created): tour =>
-      for _ <- tournamentRepo.setStatus(tour.id, Status.Started)
+      for _ <- tournamentRepo.setStatus(tour.id, Status.started)
       yield
         cached.tourCache.clear(tour.id)
         socket.reload(tour.id)
@@ -210,7 +210,7 @@ final class TournamentApi(
           case 0 => destroy(tour)
           case _ =>
             for
-              _      <- tournamentRepo.setStatus(tour.id, Status.Finished)
+              _      <- tournamentRepo.setStatus(tour.id, Status.finished)
               _      <- playerRepo.unWithdraw(tour.id)
               _      <- pairingRepo.removePlaying(tour.id)
               winner <- playerRepo.winner(tour.id)

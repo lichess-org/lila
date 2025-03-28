@@ -8,7 +8,7 @@
     @media (min-width: at-least($xx-small)) {
       display: grid;
     }
-    opacity: 0.65;
+    opacity: 0.85;
     @include transition(opacity);
   }
   .ublog-post-card {

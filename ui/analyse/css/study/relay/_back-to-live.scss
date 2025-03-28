@@ -12,3 +12,20 @@
     display: none;
   }
 }
+
+.chat-liveboard {
+  display: flex;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.mchat:has(.chat-liveboard) {
+  box-shadow: none;
+}
+.mchat .liveboard {
+  background-color: transparent;
+  cg-board {
+    border-top-right-radius: 0;
+  }
+}
