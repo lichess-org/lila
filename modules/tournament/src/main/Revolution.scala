@@ -27,7 +27,7 @@ final class RevolutionApi(
               "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
               "startsAt".$lt(nowInstant).$gt(nowInstant.minusYears(1).minusDays(1)),
               "name".$regex(Revolution.namePattern),
-              "status" -> (Status.Finished: Status)
+              "status" -> (Status.finished: Status)
             ),
             $doc("winner" -> true, "variant" -> true).some
           )

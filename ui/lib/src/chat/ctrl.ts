@@ -13,8 +13,8 @@ import type {
 import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop } from '../common';
-import { storage, type LichessStorage } from '../storage';
+import { prop, type Prop } from '../common';
+import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
 import { alert } from '../dialogs';
 
@@ -23,11 +23,11 @@ export default class ChatCtrl {
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
   private subs: [PubsubEvent, PubsubCallback][];
+  private storedTabKey: Prop<string> = storedStringProp('chat.tab', 'discussion');
+  private allTabs: Tab[] = [];
 
-  allTabs: Tab[] = [];
+  chatEnabled: Prop<boolean> = storedBooleanProp('chat.enabled', true);
   palantir: ChatPalantir;
-  tabStorage: LichessStorage = storage.make('chat.tab');
-  storedTab: string | null = this.tabStorage.get();
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
   preset: PresetCtrl;
@@ -38,25 +38,25 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
-    if (!opts.kidMode) this.allTabs.push('discussion');
-    if (opts.noteId) this.allTabs.push('note');
-    if (!opts.kidMode && opts.plugin) this.allTabs.push(opts.plugin.tab.key);
+    if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
+    if (opts.noteId) this.allTabs.push({ key: 'note' });
+    if (opts.plugin && (opts.plugin.kidSafe || !opts.kidMode)) {
+      opts.plugin.redraw = redraw;
+      this.allTabs.push(opts.plugin);
+    }
     this.palantir = {
       instance: undefined,
       loaded: false,
       enabled: prop(!opts.kidMode && !!this.data.palantir),
     };
-    const noChat = storage.get('nochat');
     this.vm = {
-      tab: this.allTabs.find(tab => tab === this.storedTab) || this.allTabs[0],
-      enabled: opts.alwaysEnabled || !noChat,
       loading: false,
       autofocus: false,
       timeout: opts.timeout,
       writeable: opts.writeable,
       domVersion: 1, // increment to force redraw
     };
-
+    this.storedTabKey(this.getTab().key);
     this.note = opts.noteId
       ? noteCtrl({
           id: opts.noteId,
@@ -73,9 +73,6 @@ export default class ChatCtrl {
 
     if (opts.kidMode) return;
 
-    /* If discussion is disabled, and we have another chat tab,
-     * then select that tab over discussion */
-    if (this.allTabs.length > 1 && this.vm.tab === 'discussion' && noChat) this.vm.tab = this.allTabs[1];
     this.instanciateModeration();
 
     this.subs = [
@@ -88,8 +85,15 @@ export default class ChatCtrl {
     ];
 
     this.subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
+  }
 
-    this.emitEnabled();
+  get isOptional(): boolean {
+    const tabs = this.visibleTabs;
+    return tabs.length === 1 && tabs[0].key === 'discussion';
+  }
+
+  get visibleTabs(): Tab[] {
+    return this.allTabs.filter(x => !x.hidden);
   }
 
   get plugin(): ChatPlugin | undefined {
@@ -178,20 +182,16 @@ export default class ChatCtrl {
     this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
-  private emitEnabled = (): void => pubsub.emit('chat.enabled', this.vm.enabled);
-
-  setTab = (t: Tab): void => {
-    this.vm.tab = t;
+  setTab = (tab: Tab = this.getTab()): Tab => {
     this.vm.autofocus = true;
-    this.tabStorage.set(t);
-    this.redraw();
+    this.storedTabKey(tab.key);
+    return tab;
   };
 
-  setEnabled = (v: boolean): void => {
-    this.vm.enabled = v;
-    this.emitEnabled();
-    if (!v) storage.set('nochat', '1');
-    else storage.remove('nochat');
-    this.redraw();
-  };
+  getTab(): Tab {
+    const tabs = this.visibleTabs;
+    return this.chatEnabled()
+      ? (tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0])
+      : tabs[tabs.length - 1];
+  }
 }

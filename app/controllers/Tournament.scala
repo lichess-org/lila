@@ -419,13 +419,13 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   }
 
   def byTeam(id: TeamId) = Anon:
-    apiC
-      .jsonDownload:
-        repo
-          .byTeamCursor(id)
-          .documentSource(getInt("max") | 100)
-          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-          .throttle(20, 1.second)
+    apiC.jsonDownload:
+      val status = get("status").flatMap(lila.core.tournament.Status.byName)
+      repo
+        .byTeamCursor(id, status, getAs[UserStr]("createdBy"), get("name"))
+        .documentSource(getInt("max") | 100)
+        .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+        .throttle(20, 1.second)
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:

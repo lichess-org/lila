@@ -97,6 +97,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       title: Option[String] = None
   ) =
     frag(
+      (disabled && checked).option: // disabled checkboxes don't submit; need an extra hidden field
+        hidden(fieldName, value)
+      ,
       st.input(
         st.id    := fieldId,
         name     := fieldName,

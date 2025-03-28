@@ -3,7 +3,7 @@ import type { Player, Status, Source, Clock } from 'lib/game/game';
 import type { ForecastData } from './forecast/interfaces';
 import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import type { RelayData } from './study/relay/interfaces';
-import type { ChatCtrl } from 'lib/chat/chat';
+import type { ChatCtrl, ChatPlugin } from 'lib/chat/chat';
 import type { ExplorerOpts } from './explorer/interfaces';
 import type { StudyDataFromServer } from './study/interfaces';
 import type { AnalyseSocketSend } from './socket';
@@ -149,6 +149,7 @@ export interface AnalyseOpts {
   $side?: Cash;
   $underboard?: Cash;
   chat: {
+    plugin: ChatPlugin;
     enhance: EnhanceOpts;
     instance?: ChatCtrl;
   };
@@ -184,3 +185,7 @@ export interface AnalyseState {
   path: Tree.Path | undefined;
   flipped: boolean;
 }
+
+export type MultiRedraw = Redraw & {
+  add: (redraw: Redraw) => void;
+};

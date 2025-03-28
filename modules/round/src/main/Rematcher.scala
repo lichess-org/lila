@@ -135,7 +135,7 @@ final private class Rematcher(
       if game.fromPosition && users.count(_.exists(_.user.isBot)) == 1
       then color
       else !color
-    game.player(color).aiLevel match
+    game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(fromColor))
 
