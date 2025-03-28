@@ -89,7 +89,7 @@
   <string name="rightUnderTheBoard">Xusto debaxo del tableru</string>
   <string name="noPinnedComment">Nengún</string>
   <string name="normalAnalysis">Análisis normal</string>
-  <string name="hideNextMoves">Despintar los siguientes movimientos</string>
+  <string name="hideNextMoves">Esconder los siguientes movimientos</string>
   <string name="interactiveLesson">Llección interactiva</string>
   <string name="chapterX">Capítulu %s</string>
   <string name="empty">Vacíu</string>
