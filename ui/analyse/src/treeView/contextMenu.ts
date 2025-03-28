@@ -91,7 +91,7 @@ function view(opts: Opts, coords: Coords): VNode {
 
       action(licon.Clipboard, onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn, () =>
         navigator.clipboard.writeText(
-          renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path)),
+          renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path), onMainline),
         ),
       ),
     ],
