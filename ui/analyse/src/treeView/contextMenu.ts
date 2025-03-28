@@ -89,7 +89,7 @@ function view(opts: Opts, coords: Coords): VNode {
       onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
-      action(licon.Clipboard, i18n.site.copyVariationPgn, () =>
+      action(licon.Clipboard, onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn, () =>
         navigator.clipboard.writeText(
           renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path)),
         ),
