@@ -67,8 +67,10 @@ final class ChatApi(
           .ifFalse(mine.isEmpty)
           .so:
             chatTimeout.isActive(chat.id, _)
-        blockedUsers <- me.so(relationApi.fetchBlocking(_))
-      yield UserChat.Mine(mine, lines, timeout, false, Some(blockedUsers))
+        blockedUsersInChat <- me.so(relationApi.fetchBlocking(_).map { blocked =>
+          blocked.filter(userId => chat.lines.exists(_.userId == userId))
+        })
+      yield UserChat.Mine(mine, lines, timeout, false, Some(blockedUsersInChat))
 
     def write(
         chatId: ChatId,
