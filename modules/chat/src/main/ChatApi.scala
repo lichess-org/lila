@@ -60,7 +60,7 @@ final class ChatApi(
       else fuccess(UserChat.Mine(Chat.makeUser(chatId), JsonChatLines.empty, timeout = false))
 
     private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
-      val mine = chat.forMe
+      val mine        = chat.forMe
       val userIdsChat = chat.lines.map(_.userId).toSet
       for
         lines <- JsonView.asyncLines(mine)
