@@ -21,7 +21,8 @@ object home:
               "showRatings"             -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
-            .add("bots", Granter.opt(_.Beta))
+            .add("bots", /* Granter.opt(_.Beta) || */ Granter.opt(_.BotEditor))
+            .add("botEditor", Granter.opt(_.BotEditor))
             .add(
               "playban",
               playban.map: pb =>

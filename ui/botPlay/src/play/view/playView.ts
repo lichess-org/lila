@@ -26,7 +26,6 @@ export const playView = (ctrl: PlayCtrl) =>
 const viewTable = (ctrl: PlayCtrl) => {
   const diffs = materialDiffs(ctrl);
   return [
-    viewOpponentImage(ctrl.opts.bot),
     viewClockMat(ctrl, 'top', diffs[0]),
     viewOpponent(ctrl.opts.bot),
     viewMoves(ctrl),
@@ -158,14 +157,13 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
 };
 
 const viewOpponentImage = (bot: BotInfo) =>
-  h('img.bot-game__opponent-img', {
-    attrs: { src: bot.image && botAssetUrl('image', bot.image) },
-  });
+  bot.image && h('img', { attrs: { src: botAssetUrl('image', bot.image) } });
 
 const viewOpponent = (bot: BotInfo) =>
   h('div.bot-game__opponent', [
     h('div.bot-game__opponent__head', [
-      h('h2.bot-game__opponent__name', bot.name),
+      viewOpponentImage(bot),
+      h('span.bot-game__opponent__name', bot.name),
       h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
     ]),
     h('div.bot-game__opponent__description', bot.description),

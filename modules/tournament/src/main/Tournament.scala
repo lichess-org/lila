@@ -37,9 +37,9 @@ case class Tournament(
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
-  def isCreated   = status == Status.Created
-  def isStarted   = status == Status.Started
-  def isFinished  = status == Status.Finished
+  def isCreated   = status == Status.created
+  def isStarted   = status == Status.started
+  def isFinished  = status == Status.finished
   def isEnterable = !isFinished
 
   def isPrivate = password.isDefined
@@ -165,7 +165,7 @@ object Tournament:
         case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
       ,
-      status = Status.Created,
+      status = Status.created,
       clock = setup.clockConfig,
       minutes = setup.minutes,
       createdBy = me.userId,
@@ -190,7 +190,7 @@ object Tournament:
     Tournament(
       id = makeId,
       name = TournamentName(sched, full = false),
-      status = Status.Created,
+      status = Status.created,
       clock = Schedule.clockFor(sched),
       minutes = minutes,
       createdBy = UserId.lichess,

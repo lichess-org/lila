@@ -211,7 +211,7 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
       ]
     : [
         pearl && h('pearl', [pearl]),
-        h('help', [
+        h('div.engine', [
           ...engineName(ceval),
           h('br'),
           ceval.analysable ? i18n.site.inLocalBrowser : 'Illegal positions cannot be analyzed',
@@ -335,7 +335,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           el.addEventListener(
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              e.preventDefault();
+              if (scroll) e.preventDefault();
               if (pvIndex !== null) {
                 if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
                 else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
