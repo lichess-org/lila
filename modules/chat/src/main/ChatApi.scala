@@ -61,15 +61,14 @@ final class ChatApi(
 
     private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
       val mine = chat.forMe
+      val userIdsChat = chat.lines.map(_.userId).toSet
       for
         lines <- JsonView.asyncLines(mine)
         timeout <- me
           .ifFalse(mine.isEmpty)
           .so:
             chatTimeout.isActive(chat.id, _)
-        blockedUsersInChat <- me.so(relationApi.fetchBlocking(_).map { blocked =>
-          blocked.filter(userId => chat.lines.exists(_.userId == userId))
-        })
+        blockedUsersInChat <- me.so(relationApi.fetchBlocking(_).map(_.filter(userIdsChat.contains)))
       yield UserChat.Mine(mine, lines, timeout, false, Some(blockedUsersInChat))
 
     def write(
