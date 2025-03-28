@@ -1,7 +1,7 @@
 import * as xhr from 'lib/xhr';
 import { throttle } from 'lib/async';
 import { currentTheme } from 'lib/device';
-import tablesort from 'tablesort';
+import { sortTable } from 'lib/tablesort';
 import { storedJsonProp } from 'lib/storage';
 import { Editor, type EditorType } from '@toast-ui/editor';
 
@@ -11,7 +11,7 @@ site.load.then(() => {
   });
   $('.flash').addClass('fade');
   $('table.cms__pages').each(function (this: HTMLTableElement) {
-    tablesort(this, { descending: true });
+    sortTable(this, { descending: true });
   });
   $('.cms__pages__search').on('input', function (this: HTMLInputElement) {
     const query = this.value.toLowerCase().trim();

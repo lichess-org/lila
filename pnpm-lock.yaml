@@ -103,9 +103,6 @@ importers:
       sortablejs:
         specifier: ^1.15.6
         version: 1.15.6
-      tablesort:
-        specifier: ^5.5.0
-        version: 5.5.0
 
   ui/bits:
     dependencies:
@@ -172,9 +169,6 @@ importers:
       shepherd.js:
         specifier: ^11.2.0
         version: 11.2.0
-      tablesort:
-        specifier: ^5.3.0
-        version: 5.3.0
       zxcvbn:
         specifier: ^4.4.2
         version: 4.4.2
@@ -319,8 +313,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       tablesort:
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: 5.5.0
+        version: 5.5.0
 
   ui/lobby:
     dependencies:
@@ -393,9 +387,6 @@ importers:
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
-      tablesort:
-        specifier: ^5.3.0
-        version: 5.3.0
 
   ui/msg:
     dependencies:
@@ -516,9 +507,6 @@ importers:
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
-      tablesort:
-        specifier: ^5.3.0
-        version: 5.3.0
 
   ui/storm:
     dependencies:
@@ -2158,9 +2146,6 @@ packages:
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
-
-  tablesort@5.3.0:
-    resolution: {integrity: sha512-WkfcZBHsp47gVH9CBHG0ZXopriG01IA87arGrchvIe868d4RiXVvoYPS1zMq9IdW05kBs5iGsqxTABqLyWonbg==}
 
   tablesort@5.5.0:
     resolution: {integrity: sha512-/yi34JHVmfuzwtK+6O/rhxbIimNp+eAZGXlVz8pWTyoJggAs8lDf76bsbjeGpE2sbvsNmIR9u8a0KfUj0YGGvw==}
@@ -3962,8 +3947,6 @@ snapshots:
 
   symbol-tree@3.2.4:
     optional: true
-
-  tablesort@5.3.0: {}
 
   tablesort@5.5.0: {}
 

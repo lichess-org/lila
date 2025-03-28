@@ -13,8 +13,7 @@ import type {
   StudyPlayer,
   StudyPlayerFromServer,
 } from '../interfaces';
-import tablesort from 'tablesort';
-import extendTablesortNumber from 'lib/tablesortNumber';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { defined } from 'lib';
 import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
@@ -394,7 +393,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
 const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
   $(el).each(function (this: HTMLElement) {
-    tablesort(this, {
+    sortTable(this, {
       descending: true,
     });
   });

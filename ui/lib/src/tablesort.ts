@@ -1,6 +1,10 @@
 import tablesort from 'tablesort';
 
-export default function extendTablesortNumber(): void {
+export function sortTable(el: HTMLElement, options: { descending: boolean }): void {
+  tablesort(el, options);
+}
+
+export function extendTablesortNumber(): void {
   tablesort.extend(
     'number',
     (item: string) => item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/),
