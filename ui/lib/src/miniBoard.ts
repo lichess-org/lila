@@ -8,23 +8,22 @@ import { wsSend } from './socket';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
-  initMiniBoardWith(node, fen, orientation as Color, lm);
+  initMiniBoardWith(node, { fen, orientation: orientation as Color, lastMove: uciToMove(lm) });
 };
 
-export const initMiniBoardWith = (node: HTMLElement, fen: FEN, orientation: Color, lm?: Uci): void => {
+export const initMiniBoardWith = (node: HTMLElement, config: CgConfig & { lastUci?: Uci }): void => {
   domData.set(
     node,
     'chessground',
     makeChessground(node, {
-      orientation,
       coordinates: false,
       viewOnly: !node.getAttribute('data-playable'),
-      fen,
-      lastMove: uciToMove(lm),
       drawable: {
         enabled: false,
         visible: false,
       },
+      ...config,
+      lastMove: uciToMove(config.lastUci),
     }),
   );
 };

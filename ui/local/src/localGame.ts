@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { normalizeMove } from 'chessops/chess';
+import { normalMove } from 'lib/chess/chess';
 import { type Status, type RoundStep, statusOf } from 'lib/game/game';
 import { deepFreeze, randomId } from 'lib/algo';
 import { hashBoard } from 'lib/chess/hash';
@@ -232,11 +232,4 @@ export class LocalGame extends LocalGameData {
     if (!['started', 'created'].includes(result.status.name)) this.finish(result);
     return result;
   }
-}
-
-export function normalMove(chess: co.Chess, uci: Uci): { uci: Uci; move: co.NormalMove } | undefined {
-  const bareMove = co.parseUci(uci);
-  const move =
-    bareMove && 'from' in bareMove ? { ...bareMove, ...normalizeMove(chess, bareMove) } : undefined;
-  return move && chess.isLegal(move) ? { uci: co.makeUci(move), move } : undefined;
 }

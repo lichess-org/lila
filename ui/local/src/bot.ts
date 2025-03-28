@@ -6,8 +6,8 @@ import type { SearchResult } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import { movetime as getMovetime } from './movetime';
-import { normalMove } from './localGame';
 import type { BotCtrl } from './botCtrl';
+import { normalMove } from 'lib/chess/chess';
 import type {
   BotInfo,
   FishSearch,

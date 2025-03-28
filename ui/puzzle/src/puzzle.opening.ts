@@ -24,7 +24,10 @@ const makeBoardTip = (el: HTMLElement, e: Event) => {
       preRender(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
         tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
-        initMiniBoardWith(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
+        initMiniBoardWith(tipEl.querySelector('.cg-wrap')!, {
+          fen: el.dataset['fen']!,
+          orientation: 'white',
+        });
       },
     });
   $.powerTip.show(el, e);
