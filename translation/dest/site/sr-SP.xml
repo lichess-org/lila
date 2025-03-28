@@ -518,9 +518,9 @@
   <string name="endgamePositions">Позиције у завршници</string>
   <string name="chess960StartPosition">Почетна позиција за шах960: %s</string>
   <string name="startPosition">Почетна позиција</string>
-  <string name="clearBoard">Уклони фигуре</string>
+  <string name="clearBoard">Очисти таблу</string>
   <string name="loadPosition">Учитај позицију</string>
-  <string name="isPrivate">Приватно</string>
+  <string name="isPrivate">Приватни</string>
   <string name="reportXToModerators">Пријави %s модераторима</string>
   <string name="profileCompletion">Комплетност профила: %s</string>
   <string name="xRating">%s рејтинг</string>
