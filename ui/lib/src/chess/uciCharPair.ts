@@ -45,5 +45,5 @@ function fromPromotionChar(char: string): [co.FileName, co.Role] {
 function fromDropRoleChar(char: string): co.Role {
   const dropRoleOffset = CHAR_SHIFT + 64 + promotableRoles.length * 8;
   const index = char.charCodeAt(0) - dropRoleOffset;
-  return dropRoles.filter(r => r !== 'king')[index];
+  return dropRoles[index];
 }
