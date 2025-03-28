@@ -134,6 +134,7 @@ class BookPane extends RangeSetting {
     const span = this.label.firstElementChild as HTMLElement;
     span.dataset.src = env.assets.getBookCoverUrl(key);
     span.classList.add('image-powertip');
+    imagePowertip(span);
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
 
@@ -154,3 +155,14 @@ class BookPane extends RangeSetting {
     } else super.update(e);
   }
 }
+
+const imagePowertip = (el: HTMLElement) =>
+  $(el).powerTip({
+    preRender: (el: HTMLElement) => {
+      const w = el.dataset.width ? ` width="${el.dataset.width}"` : '';
+      const h = el.dataset.height ? ` height="${el.dataset.height}"` : '';
+      document.querySelector('#image-powertip')!.innerHTML = `<img src="${el.dataset.src}"${w}${h}>`;
+    },
+    popupId: 'image-powertip',
+    placement: 's',
+  });

@@ -10,11 +10,11 @@ import lila.db.dsl.{ *, given }
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
-  private val enterableSelect                  = $doc("status".$lt(Status.Finished.id))
-  private val createdSelect                    = $doc("status" -> Status.Created.id)
-  private val startedSelect                    = $doc("status" -> Status.Started.id)
-  private[tournament] val finishedSelect       = $doc("status" -> Status.Finished.id)
-  private val unfinishedSelect                 = $doc("status".$ne(Status.Finished.id))
+  private val enterableSelect                  = $doc("status".$lt(Status.finished.id))
+  private val createdSelect                    = $doc("status" -> Status.created.id)
+  private val startedSelect                    = $doc("status" -> Status.started.id)
+  private[tournament] val finishedSelect       = $doc("status" -> Status.finished.id)
+  private val unfinishedSelect                 = $doc("status".$ne(Status.finished.id))
   private[tournament] val scheduledSelect      = $doc("schedule".$exists(true))
   private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
@@ -109,7 +109,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     lila.db.paginator
       .Adapter[Tournament](
         collection = coll,
-        selector = $doc("schedule.freq" -> freq, "status" -> Status.Finished.id),
+        selector = $doc("schedule.freq" -> freq, "status" -> Status.finished.id),
         projection = none,
         sort = $sort.desc("startsAt"),
         _.sec
@@ -119,14 +119,22 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   def isUnfinished(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
-  def byTeamCursor(teamId: TeamId) =
+  def byTeamCursor(
+      teamId: TeamId,
+      status: Option[Status],
+      createdBy: Option[UserStr],
+      name: Option[String]
+  ) =
+    val statusSel  = status.so(s => $doc("status" -> s.id))
+    val creatorSel = createdBy.so(u => $doc("createdBy" -> u))
+    val nameSel    = name.so(n => $doc("name" -> n))
     coll
-      .find(forTeamSelect(teamId))
+      .find(forTeamSelect(teamId) ++ statusSel ++ creatorSel ++ nameSel)
       .sort($sort.desc("startsAt"))
       .cursor[Tournament]()
 
   private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
-    (nb > 0).so(
+    (nb > 0).so:
       coll
         .find(
           forTeamSelect(teamId) ++ enterableSelect ++ $doc(
@@ -136,16 +144,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         .sort($sort.asc("startsAt"))
         .cursor[Tournament]()
         .list(nb)
-    )
 
   private[tournament] def finishedByTeam(teamId: TeamId, nb: Int) =
-    (nb > 0).so(
+    (nb > 0).so:
       coll
         .find(forTeamSelect(teamId) ++ finishedSelect)
         .sort($sort.desc("startsAt"))
         .cursor[Tournament]()
         .list(nb)
-    )
 
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
     coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))

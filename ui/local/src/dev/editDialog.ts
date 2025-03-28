@@ -380,7 +380,7 @@ export class EditDialog {
     buildFromSchema(this, ['info']);
     botCard.firstElementChild?.appendChild(this.panes.byId['info_description'].el);
     botCard.append(this.panes.byId['info_name'].el);
-    botCard.append(this.panes.byId['info_ratings_classical'].el);
+    botCard.append(this.panes.byId['info_ratings'].el);
     botCard.append(this.botActionsEl);
     return botCard;
   }

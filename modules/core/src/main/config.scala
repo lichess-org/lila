@@ -67,4 +67,5 @@ object config:
       email: EmailAddress,
       logRequests: Boolean
   ):
-    def isProd = domain == prodDomain
+    val isProd  = domain == prodDomain
+    val isHttps = baseUrl.startsWith("https")

@@ -40,10 +40,7 @@ $col1-moves-height: 4em;
     grid-column-gap: $block-gap;
 
     &__table {
-      grid-area: 5 / 2 / 9 / 3;
-    }
-    &__opponent-img {
-      grid-area: 3 / 2 / 4 / 3;
+      grid-area: 4 / 2 / 8 / 3;
     }
 
     .keyboard-move {

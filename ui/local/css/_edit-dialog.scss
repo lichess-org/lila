@@ -136,7 +136,7 @@
     gap: 1em;
     grid-area: info;
 
-    div {
+    > div {
       padding: 0;
     }
     .uid {
