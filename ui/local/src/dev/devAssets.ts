@@ -156,14 +156,11 @@ export class DevAssets extends Assets {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!this.idb.book.keyNames.has(key)) return super.getBook(key);
-    const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
-      this.idb.book
-        .get(key)
-        .then(res => res.blob.arrayBuffer())
-        .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
-        .then(result => resolve(result.getMoves))
-        .catch(reject),
-    );
+    const bookPromise = this.idb.book
+      .get(key)
+      .then(res => res.blob.arrayBuffer())
+      .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
+      .then(result => result.getMoves);
     this.book.set(key, bookPromise);
     return bookPromise;
   }

@@ -31,12 +31,9 @@ export class Assets {
 
   async getNet(key: string): Promise<Uint8Array> {
     if (this.net.has(key)) return (await this.net.get(key)!).data;
-    const netPromise = new Promise<NetData>((resolve, reject) => {
-      fetch(botAssetUrl('net', key))
-        .then(res => res.arrayBuffer())
-        .then(buf => resolve({ key, data: new Uint8Array(buf) }))
-        .catch(reject);
-    });
+    const netPromise = fetch(botAssetUrl('net', key))
+      .then(res => res.arrayBuffer())
+      .then(buf => ({ key, data: new Uint8Array(buf) }));
     this.net.set(key, netPromise);
     const [lru] = this.net.keys();
     if (this.net.size > 2) this.net.delete(lru);
@@ -49,13 +46,10 @@ export class Assets {
     const bookPromise =
       key === 'lichess'
         ? Promise.resolve(makeLichessBook())
-        : new Promise<OpeningBook>((resolve, reject) =>
-            fetch(botAssetUrl('book', `${key}.bin`))
-              .then(res => res.arrayBuffer())
-              .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
-              .then(result => resolve(result.getMoves))
-              .catch(reject),
-          );
+        : fetch(botAssetUrl('book', `${key}.bin`))
+            .then(res => res.arrayBuffer())
+            .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
+            .then(result => result.getMoves);
     this.book.set(key, bookPromise);
     return bookPromise;
   }
