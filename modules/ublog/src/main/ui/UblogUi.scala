@@ -225,7 +225,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       route = (p, _) => routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue, p),
       onEmpty = "Nothing to show.",
       header = div(cls := "ublog-index__calendar")(
-        h1(cls := "box__top")("Best blog posts per month"),
+        h1(cls := "box__top")("Best blog posts by month"),
         lila.ui.bits.calendarMselect(
           helpers,
           "best-of",
@@ -293,13 +293,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       )
 
   def year(bests: Paginator[UblogBestOf.WithPosts])(using Context) =
-    Page("Bests blogs per month")
+    Page("Best blogs by month")
       .css("bits.ublog")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu(Right("best-of")),
           div(cls := "page-menu__content box")(
-            boxTop(h1("Best blog posts per month")),
+            boxTop(h1("Best blog posts by month")),
             div(cls := "ublog-topics infinite-scroll")(
               bests.currentPageResults.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
                 a(
