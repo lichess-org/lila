@@ -162,6 +162,8 @@
   <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
   <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
   <string name="perPage">%s 每页</string>
+  <string name="commentPositionTitle">评论当前局面</string>
   <string name="conclusionTitle">感谢您抽出宝贵的时间</string>
   <string name="createChapterTitle">让我们创建一个学习章节</string>
+  <string name="variantsAreSupportedTitle">研究支持变体</string>
 </resources>
