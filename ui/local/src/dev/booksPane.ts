@@ -135,6 +135,7 @@ class BookPane extends RangeSetting {
     span.dataset.src = env.assets.getBookCoverUrl(key);
     span.classList.add('image-powertip');
     imagePowertip(span);
+    span.title = '';
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
 
