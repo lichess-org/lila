@@ -76,7 +76,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   autoScrollNow: boolean;
   voteDisabled?: boolean;
   isDaily: boolean;
-  blindfolded = false;
+  blindfolded: StoredProp<boolean>;
   private report: Report;
 
   constructor(
@@ -89,6 +89,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
       !!opts.data.streak,
     );
+    this.blindfolded = storedBooleanProp(`puzzle.${this.opts.data.user?.id || 'anon'}.blindfolded`, false);
     this.streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
     if (this.streak) {
       opts.data = { ...opts.data, ...this.streak.data.current };
@@ -663,11 +664,11 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
   };
   blindfold = (v?: boolean): boolean => {
-    if (v !== undefined && v !== this.blindfolded) {
-      this.blindfolded = v;
+    if (v !== undefined && v !== this.blindfolded()) {
+      this.blindfolded(v);
       this.redraw();
     }
-    return this.blindfolded;
+    return this.blindfolded();
   };
   playBestMove = (): void => {
     const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
