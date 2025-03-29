@@ -42,9 +42,9 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
-      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
-        nonEmpty,
-      );
+      commentTags = !main.forceVariation
+        ? renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(nonEmpty)
+        : [];
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return [
         isWhite && moveView.renderIndex(main.ply, false),
