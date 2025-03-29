@@ -381,6 +381,8 @@ interface I18n {
     upcoming: string;
     /** Upload tournament image */
     uploadImage: string;
+    /** %s viewers */
+    viewers: I18nPlural;
     /** webmasters page */
     webmastersPage: string;
   };

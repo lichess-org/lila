@@ -33,7 +33,7 @@ export function watchers(element: HTMLElement, withUserList = true): void {
       return;
     }
 
-    $numberEl.text('' + data.nb);
+    $numberEl.text(withUserList ? String(data.nb) : i18n.broadcast.viewers(data.nb));
 
     if (data.users && withUserList) {
       const prevUsers = data.users.map(u => u || '').join(';');
