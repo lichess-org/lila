@@ -300,6 +300,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         "date".$gte(nowInstant.minusMonths(6))
       )
 
+  def recentHuman =
+    coll.secondaryPreferred
+      .find($doc("mod".$ne(UserId.lichess, UserId.irwin, UserId.kaladin)))
+      .sort($sort.desc("date"))
+      .cursor[Modlog]()
+      .list(200)
+
   def recentBy(mod: Mod) =
     coll.secondaryPreferred
       .find($doc("mod" -> mod.id))

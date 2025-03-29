@@ -228,15 +228,37 @@ final class Mod(
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
+    val modQuery: Option[UserStr] =
+      getUserStr("mod").orElse((!isGranted(_.Admin)).option(me.userId.into(UserStr)))
     Ok.async:
-      for
-        log     <- env.mod.logApi.recentBy(me)
-        appeals <- env.appeal.api.myLog(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)))
-        appealsLog = appeals.map: (user, msg) =>
-          Modlog(user.some, "appeal", msg.text.some).copy(date = msg.at)
-        sorted = (log ::: appealsLog).sortBy(_.date).reverse
-      yield views.mod.ui.myLogs(sorted)
+      modQuery
+        .fold(
+          // strictly speaking redudant because it should never be
+          // empty for non-admins, but feels safer to keep
+          isGranted(_.Admin)
+            .so:
+              env.mod.logApi.recentHuman
+            .map(views.mod.ui.logs(_, none, modQuery))
+        )(
+          env.report.api
+            .getMod(_)
+            .flatMap: modOpt =>
+              modOpt
+                .so(logsOf)
+                .map(views.mod.ui.logs(_, modOpt, modQuery))
+        )
+
   }
+
+  private def logsOf(mod: AsMod)(using me: Me, ctx: Context): Fu[List[Modlog]] =
+    (isGranted(_.Admin) || mod.user.is(me)).so:
+      for
+        log <- env.mod.logApi.recentBy(mod)
+        appeals <- env.appeal.api
+          .logsOf(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)), mod.id)
+        appealsLog = appeals.map: (user, msg) =>
+          Modlog(user.some, "appeal", msg.text.some)(using mod.user.id.into(MyId)).copy(date = msg.at)
+      yield (log ::: appealsLog).sortBy(_.date).reverse
 
   private def communications(username: UserStr, priv: Boolean) =
     Secure(perms => if priv then perms.ViewPrivateComms else perms.Shadowban) { ctx ?=> me ?=>
