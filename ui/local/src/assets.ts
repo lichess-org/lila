@@ -1,9 +1,8 @@
-import { type OpeningBook, type OpeningMove, makeBookFromPolyglot } from 'bits/polyglot';
+import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 import { type BotCtrl } from './botCtrl';
 import { definedMap } from 'lib/algo';
 import { env } from './localEnv';
 import { makeLichessBook } from './lichessBook';
-import { Chess } from 'chessops';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
@@ -18,31 +17,33 @@ export class Assets {
 
   constructor(readonly botCtrl?: BotCtrl | undefined) {}
 
-  async preload(uids: string[]): Promise<void> {
-    for (const bot of definedMap(uids, uid => (this.botCtrl ?? env.bot).bots.get(uid))) {
-      for (const sounds of Object.values(bot.sounds ?? {})) {
-        sounds.forEach(sound => fetch(botAssetUrl('sound', sound.key)));
-      }
-      const books = bot?.books?.flatMap(x => x.key) ?? [];
-      [...this.book.keys()].filter(k => !books.includes(k)).forEach(release => this.book.delete(release));
-      books.forEach(book => this.getBook(book));
-    }
+  preload(uids: string[]): Promise<any> {
+    const bots = definedMap(uids, uid => (this.botCtrl ?? env.bot).bots.get(uid));
+    const books = bots.flatMap(bot => (bot.books ?? []).map(book => book.key));
+    const sounds = bots.flatMap(bot =>
+      Object.values(bot.sounds ?? {}).flatMap(sounds => sounds.map(sound => sound.key)),
+    );
+    [...this.book.keys()].filter(k => !books.includes(k)).forEach(release => this.book.delete(release));
+    return Promise.all([
+      ...books.map(key => fetch(botAssetUrl('book', `${key}.bin`))),
+      ...sounds.map(key => fetch(botAssetUrl('sound', key))),
+    ]);
   }
 
-  async getNet(key: string): Promise<Uint8Array> {
-    if (this.net.has(key)) return (await this.net.get(key)!).data;
+  getNet(key: string): Promise<Uint8Array> {
+    if (this.net.has(key)) return this.net.get(key)!.then(net => net.data);
     const netPromise = fetch(botAssetUrl('net', key))
       .then(res => res.arrayBuffer())
       .then(buf => ({ key, data: new Uint8Array(buf) }));
     this.net.set(key, netPromise);
     const [lru] = this.net.keys();
     if (this.net.size > 2) this.net.delete(lru);
-    return (await netPromise).data;
+    return netPromise.then(net => net.data);
   }
 
-  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
-    if (!key) return undefined;
-    if (this.book.has(key)) return this.book.get(key);
+  getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+    if (!key) return Promise.resolve(undefined);
+    if (this.book.has(key)) return Promise.resolve(this.book.get(key));
     const bookPromise =
       key === 'lichess'
         ? Promise.resolve(makeLichessBook())

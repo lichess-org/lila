@@ -5,26 +5,12 @@ import { clamp } from 'lib/algo';
 export function makeLichessBook(): OpeningBook {
   // todo, timeout cancel and probably don't even bother below bullet
   return async (pos: co.Chess, rating: number, speed: Speed) => {
-    rating = Math.round(clamp(rating, { min: 400, max: 3000 }));
-    const variant =
-      pos instanceof co.variant.Antichess
-        ? 'antichess'
-        : pos instanceof co.variant.ThreeCheck
-          ? 'threeCheck'
-          : pos instanceof co.variant.KingOfTheHill
-            ? 'kingOfTheHill'
-            : pos instanceof co.variant.RacingKings
-              ? 'racingKings'
-              : pos instanceof co.variant.Horde
-                ? 'horde'
-                : 'standard';
-    const fen = co.fen.makeFen(pos.toSetup());
     const url = new URL('https://explorer.lichess.ovh/lichess');
-    url.searchParams.set('variant', variant);
-    url.searchParams.set('fen', fen);
+    url.searchParams.set('variant', co.compat.lichessVariant(pos.rules));
+    url.searchParams.set('fen', co.fen.makeFen(pos.toSetup()));
     url.searchParams.set('topGames', '0');
     url.searchParams.set('recentGames', '0');
-    url.searchParams.set('ratings', String(rating));
+    url.searchParams.set('ratings', String(Math.round(clamp(rating, { min: 400, max: 3000 }))));
     url.searchParams.set('speeds', speed);
     url.searchParams.set('source', 'botPlay');
     const d = await fetch(url.toString(), { mode: 'cors' }).then(res => res.json());
