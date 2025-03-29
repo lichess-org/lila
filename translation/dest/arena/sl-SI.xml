@@ -87,4 +87,6 @@ Na primer, 3. mesto na turnirju s 100 igralci = 3%. 10. mesto na turnirju s 1000
   <string name="tournamentShields">Turnirski ščiti</string>
   <string name="onlyTitled">Samo igralci z nazivom</string>
   <string name="onlyTitledHelp">Za pridružitev turnirju zahtevajte uradni naziv</string>
+  <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
+  <string name="berserkRate">Delež divjanja</string>
 </resources>

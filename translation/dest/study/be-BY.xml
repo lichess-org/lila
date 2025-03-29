@@ -60,10 +60,7 @@
   <string name="shareChanges">Падзяліцца зменамі з гледачамі та захаваць іх на серверы</string>
   <string name="playing">Гуляецца</string>
   <string name="showEvalBar">Шкалы ацэнкі</string>
-  <string name="first">На першую</string>
-  <string name="previous">Папярэдняя</string>
   <string name="next">Наступная</string>
-  <string name="last">На апошнюю</string>
   <string name="shareAndExport">Падзяліцца &amp; экспартаваць</string>
   <string name="cloneStudy">Кланаваць</string>
   <string name="studyPgn">PGN навучання</string>

@@ -53,10 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">ಎಲ್ಲಾ SYNC ಸದಸ್ಯರು ಒಂದೇ ಸ್ಥಾನದಲ್ಲಿ ಉಳಿಯುತ್ತಾರೆ</string>
   <string name="shareChanges">ವೀಕ್ಷಕರೊಂದಿಗೆ ಬದಲಾವಣೆಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ ಮತ್ತು ಅವುಗಳನ್ನು ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಸಿ</string>
   <string name="playing">ನುಡಿಸುತ್ತಿದೆ</string>
-  <string name="first">ಪ್ರಥಮ</string>
-  <string name="previous">ಹಿಂದಿನ</string>
   <string name="next">ಮುಂದೆ</string>
-  <string name="last">ಕೊನೆಯದು</string>
   <string name="shareAndExport">ಹಂಚಿಕೊಳ್ಳಿ &amp; ರಫ್ತು</string>
   <string name="cloneStudy">ಕ್ಲೋನ್</string>
   <string name="studyPgn">PGN ಅಧ್ಯಯನ</string>

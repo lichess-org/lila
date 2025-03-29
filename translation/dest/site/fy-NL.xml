@@ -372,7 +372,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="wins">Oerwinnings</string>
   <string name="losses">Ferlern</string>
   <string name="createdBy">Makke troch</string>
-  <string name="tournamentIsStarting">It toernoai begjint</string>
   <string name="tournamentPairingsAreNowClosed">De toernoaikeppelings binne no sletten.</string>
   <string name="standByX">Spilers wurde no keppele, meitsje dy klear %s!</string>
   <string name="youArePlaying">Do spilest!</string>
@@ -384,7 +383,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="whiteWins">Wûn mei wyt</string>
   <string name="blackWins">Wûn mei swart</string>
   <string name="draws">Lyk spul</string>
-  <string name="nextXTournament">Folgjende %s-toernoai:</string>
   <string name="averageOpponent">Gemiddelde tsjinstanner</string>
   <string name="boardEditor">Boerd-bewurker</string>
   <string name="setTheBoard">Boerd opsette</string>

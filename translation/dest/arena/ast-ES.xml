@@ -84,4 +84,6 @@ Por casu, ocupar el puestu 3 nun tornéu de 100 xugadores = 3%. Tar nel puestu 1
   <string name="tournamentShields">Escudos de tornéu</string>
   <string name="onlyTitled">Solo xugadores titulaos</string>
   <string name="onlyTitledHelp">Esixir un títulu oficial para participar nel tornéu</string>
+  <string name="tournamentPairingsAreNowClosed">Los emparexamientos del tornéu tán zarraos.</string>
+  <string name="berserkRate">Tasa de berserk</string>
 </resources>

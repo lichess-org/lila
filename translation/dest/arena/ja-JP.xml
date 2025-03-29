@@ -75,4 +75,6 @@
   <string name="tournamentShields">トーナメント・シールド</string>
   <string name="onlyTitled">公式タイトル保持者のみ</string>
   <string name="onlyTitledHelp">参加には公式タイトルの保持を必須とする</string>
+  <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
+  <string name="berserkRate">バーサーク率</string>
 </resources>

@@ -52,10 +52,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
   <string name="playing">Oynanılan</string>
-  <string name="first">İlk</string>
-  <string name="previous">Əvvəlki</string>
   <string name="next">Növbəti</string>
-  <string name="last">Son</string>
   <string name="shareAndExport">Paylaş və yüklə</string>
   <string name="cloneStudy">Klonla</string>
   <string name="studyPgn">Çalışma PGN-i</string>

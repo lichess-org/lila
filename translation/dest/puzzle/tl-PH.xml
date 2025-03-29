@@ -3,8 +3,10 @@
   <string name="puzzles">Mga Palaisipan</string>
   <string name="puzzleThemes">Mga Tema ng Palaisipan</string>
   <string name="recommended">Inirerekomenda</string>
+  <string name="phases">Mga Yugto</string>
   <string name="lengths">Mga Haba</string>
   <string name="mates">Mga Mate</string>
+  <string name="goals">Mga Layunin</string>
   <string name="origin">Pinagmulan</string>
   <string name="specialMoves">Di-pangkaraniwan na tira</string>
   <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
@@ -13,6 +15,8 @@
   <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
   <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>
   <string name="puzzleId">Palaisipang %s</string>
+  <string name="puzzleOfTheDay">Palaisipan ngayong araw</string>
+  <string name="dailyPuzzle">Arawang Palaisipan</string>
   <string name="clickToSolve">Pindutin para malutas</string>
   <string name="goodMove">Magandang tira</string>
   <string name="bestMove">Pinakamahusay na tira!</string>
@@ -24,6 +28,10 @@
   <string name="trySomethingElse">Subukan mo iba.</string>
   <string name="ratingX">Marka: %s</string>
   <string name="hidden">nakakubli</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Naglaro ng %s beses</item>
+    <item quantity="other">Naglaro ng %s beses</item>
+  </plurals>
   <string name="fromGameLink">Mula sa larong %s</string>
   <string name="continueTraining">Ipagpatuloy ang pagsasanay</string>
   <string name="difficultyLevel">Antas ng kahirapan</string>

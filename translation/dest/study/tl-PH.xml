@@ -25,10 +25,7 @@
   <string name="shareChanges">Ibahagi ang mga pagbabago sa mga manonood at i-save sila sa server</string>
   <string name="playing">Naglalaro</string>
   <string name="showResults">Mga Resulta</string>
-  <string name="first">Una</string>
-  <string name="previous">Nakaraan</string>
   <string name="next">Sunod</string>
-  <string name="last">Huli</string>
   <string name="shareAndExport">Ibahagi &amp; i-export</string>
   <string name="studyPgn">PGN ng pag-aaral</string>
   <string name="downloadAllGames">I-download lahat ng mga laro</string>

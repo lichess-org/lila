@@ -58,10 +58,7 @@
   <string name="playing">În desfășurare</string>
   <string name="showResults">Rezultate</string>
   <string name="showEvalBar">Bară de evaluare</string>
-  <string name="first">Prima</string>
-  <string name="previous">Precedentă</string>
   <string name="next">Următoarea</string>
-  <string name="last">Ultima</string>
   <string name="shareAndExport">Împărtășește &amp; exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>

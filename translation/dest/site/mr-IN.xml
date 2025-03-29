@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">मित्रा सोबत खेळा</string>
   <string name="playWithTheMachine">संगणकाविरूद्ध खेळा</string>
-  <string name="playOffline">ऑफलाईन खेळा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
@@ -482,7 +481,6 @@
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
   <string name="createdBy">निर्माता</string>
-  <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
@@ -497,7 +495,6 @@
   <string name="blackWins">काळ्याचे विजय</string>
   <string name="drawRate">अनिर्मितीचे दर</string>
   <string name="draws">बरोबरी सुटलेले</string>
-  <string name="nextXTournament">पुढील %s क्रीडासत्र:</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="boardEditor">पट संपादक</string>
   <string name="setTheBoard">पट मांडा</string>

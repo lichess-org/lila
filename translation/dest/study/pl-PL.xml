@@ -61,10 +61,7 @@
   <string name="playing">W toku</string>
   <string name="showResults">Wyniki</string>
   <string name="showEvalBar">Paski ewaluacji</string>
-  <string name="first">Pierwszy</string>
-  <string name="previous">Poprzedni</string>
   <string name="next">Następny</string>
-  <string name="last">Ostatni</string>
   <string name="shareAndExport">Udostępnianie i eksport</string>
   <string name="cloneStudy">Powiel</string>
   <string name="studyPgn">PGN opracowania</string>
@@ -177,4 +174,19 @@
   <string name="whatWouldYouPlay">Co byś zagrał w tej pozycji?</string>
   <string name="youCompletedThisLesson">Gratulacje! Ukończono tę lekcję.</string>
   <string name="perPage">%s na stronie</string>
+  <string name="getTheTour">Potrzebujesz pomocy? Zapoznaj się z przewodnikiem!</string>
+  <string name="welcomeToLichessStudyTitle">Witaj w opracowaniach Lichess!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Udostępnione i zapisane</string>
+  <string name="studyMembersTitle">Twórcy opracowania</string>
+  <string name="studyChaptersTitle">Rozdziały opracowania</string>
+  <string name="commentPositionTitle">Komentarz do pozycji</string>
+  <string name="conclusionTitle">Dziękujemy za poświęcony czas</string>
+  <string name="createChapterTitle">Stwórzmy rozdział opracowania</string>
+  <string name="createChapterText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Opracowanie może mieć kilka rozdziałów.&lt;br&gt;Każdy rozdział ma odrębne drzewo posunięć,&lt;br&gt;i może być tworzony na różne sposoby.</string>
+  <string name="fromInitialPositionTitle">Z pozycji początkowej</string>
+  <string name="customPositionTitle">Z własnej niestandardowej pozycji</string>
+  <string name="loadExistingLichessGameTitle">Załaduj istniejącą partię lichess</string>
+  <string name="fromFenStringTitle">Z zapisu FEN pozycji</string>
+  <string name="fromPgnGameTitle">Z zapisu PGN partii</string>
+  <string name="variantsAreSupportedTitle">Opracowania wspierają warianty</string>
 </resources>

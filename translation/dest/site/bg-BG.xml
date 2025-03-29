@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Играй с приятел</string>
   <string name="playWithTheMachine">Играй с компютъра</string>
-  <string name="playOffline">Играй офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -485,7 +484,6 @@
   <string name="wins">Победи</string>
   <string name="losses">Загуби</string>
   <string name="createdBy">Създадено от</string>
-  <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="pause">Пауза</string>
@@ -499,7 +497,6 @@
   <string name="whiteWins">Белите печелят</string>
   <string name="blackWins">Черните печелят</string>
   <string name="draws">Равенства</string>
-  <string name="nextXTournament">Следващ %s турнир:</string>
   <string name="averageOpponent">Среден противник</string>
   <string name="boardEditor">Шахматен редактор</string>
   <string name="setTheBoard">Подреди дъската</string>

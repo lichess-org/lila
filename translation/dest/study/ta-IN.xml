@@ -55,10 +55,7 @@
   <string name="playing">விளையாடுகிறார்</string>
   <string name="showResults">முடிவுகள்</string>
   <string name="showEvalBar">கணிப்பு பட்டிகள்</string>
-  <string name="first">முதலாவது</string>
-  <string name="previous">முந்தைய</string>
   <string name="next">அடுத்து</string>
-  <string name="last">இறுதி</string>
   <string name="shareAndExport">பகிர் &amp; ஏற்றுமதி</string>
   <string name="cloneStudy">நகல்</string>
   <string name="studyPgn">PGN கற்கை</string>

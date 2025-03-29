@@ -77,4 +77,6 @@ For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En ti
   <string name="tournamentShields">Turneringsskjold</string>
   <string name="onlyTitled">Kun spillere med sjakktittel</string>
   <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å kunne bli med i turneringen</string>
+  <string name="tournamentPairingsAreNowClosed">Turneringsparingene er nå lukket.</string>
+  <string name="berserkRate">Berserkrate</string>
 </resources>

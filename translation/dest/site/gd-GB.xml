@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Cluich còmhla ri caraid</string>
   <string name="playWithTheMachine">Cluich an aghaidh a\' choimpiutair</string>
-  <string name="playOffline">Cluich far loidhne</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gus cuireadh a thoirt do chuideigin, thoir an url seo dha</string>
   <string name="gameOver">Crìoch a’ gheama</string>
   <string name="waitingForOpponent">A’ feitheamh air nàmhaid</string>
@@ -182,7 +181,6 @@
   <string name="wins">Buaidhean</string>
   <string name="losses">Ruaigean</string>
   <string name="createdBy">Air a chruthachadh le</string>
-  <string name="tournamentIsStarting">Tha an fhèill-chluich gu bhith tòiseachadh</string>
   <string name="boardEditor">Deasaiche a’ bhùird</string>
   <string name="startPosition">Suidheachadh an tòiseachaidh</string>
   <string name="clearBoard">Falamhaich am bòrd</string>

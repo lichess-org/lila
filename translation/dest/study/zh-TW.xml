@@ -52,10 +52,7 @@
   <string name="playing">下棋中</string>
   <string name="showResults">結果</string>
   <string name="showEvalBar">評估條</string>
-  <string name="first">第一頁</string>
-  <string name="previous">上一頁</string>
   <string name="next">下一頁</string>
-  <string name="last">最後一頁</string>
   <string name="shareAndExport">分享 &amp; 導出</string>
   <string name="cloneStudy">複製</string>
   <string name="studyPgn">研究 PGN</string>

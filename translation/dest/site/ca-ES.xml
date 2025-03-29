@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Juga amb un amic</string>
   <string name="playWithTheMachine">Juga contra la màquina</string>
-  <string name="playOffline">Juga sense connexió</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -487,7 +486,7 @@
   <string name="wins">Victòries</string>
   <string name="losses">Derrotes</string>
   <string name="createdBy">Creat per</string>
-  <string name="tournamentIsStarting">El torneig està començant</string>
+  <string name="startingIn" comment="Displayed above a timer">Començant en</string>
   <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>
@@ -502,7 +501,6 @@
   <string name="blackWins">Victòries negres</string>
   <string name="drawRate">Percentatge de taules</string>
   <string name="draws">Entaulades</string>
-  <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="averageOpponent">Oponent mitjà</string>
   <string name="boardEditor">Editor del tauler</string>
   <string name="setTheBoard">Disposa el tauler</string>
@@ -757,6 +755,7 @@
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
   <string name="downloadImported">Descàrrega importada</string>
+  <string name="downloadAllGames">Descarrega totes les partides</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>

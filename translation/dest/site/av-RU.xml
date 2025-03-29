@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Гьудулгун хӀазе</string>
   <string name="playWithTheMachine">Компутергун хӀазе</string>
-  <string name="playOffline">Офлайн хӀазе</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щивалиго ахӀизе, гьаб бухьен кье</string>
   <string name="gameOver">ХӀай лъугӀана</string>
   <string name="waitingForOpponent">Дандиясухъ балагьун чӀун</string>
@@ -478,7 +477,6 @@
   <string name="wins">Бергьенлъи</string>
   <string name="losses">Къей</string>
   <string name="createdBy">Гьабуна</string>
-  <string name="tournamentIsStarting">Турнир байбихьулеб буго</string>
   <string name="tournamentPairingsAreNowClosed">Турниралде кӀи-кӀи рикьи гьанже къан буго.</string>
   <string name="standByX">%sгун балагьун чӀа, хӀалел кӀи-кӀи рикьулел руго, хӀадур вукӀа!</string>
   <string name="pause">ЧӀезабизе</string>
@@ -492,7 +490,6 @@
   <string name="whiteWins">ХъахӀаз бергьенлъи</string>
   <string name="blackWins">ЧӀегӀераз бергьенлъи</string>
   <string name="draws">Ращад ккей</string>
-  <string name="nextXTournament">Хадусеб %s турнир:</string>
   <string name="averageOpponent">Гьоркьохъев дандияв</string>
   <string name="boardEditor">Хъорщол редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>

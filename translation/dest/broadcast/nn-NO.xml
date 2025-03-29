@@ -80,4 +80,5 @@
   <string name="allBroadcastsByMonth">Vis alle overføringar etter månad</string>
   <string name="backToLiveMove">Attende til gjeldande trekk</string>
   <string name="sinceHideResults">Du valde skjula resultatane, så alle forhåndsvisningane av bretta er tome for å unngå å røpa noko.</string>
+  <string name="liveboard">Brett i sanntid</string>
 </resources>

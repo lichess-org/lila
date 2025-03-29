@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Spill géint e Kolleeg</string>
   <string name="playWithTheMachine">Spill géint de Computer</string>
-  <string name="playOffline">Offline spillen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
@@ -484,7 +483,6 @@
   <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
   <string name="createdBy">Kreéiert vum</string>
-  <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
   <string name="standByX">Turnéier-Paarungen lafen. Maach dech prett, %s!</string>
   <string name="pause">Paus</string>
@@ -499,7 +497,6 @@
   <string name="blackWins">Schwaarz Victoiren</string>
   <string name="drawRate">Remisquot</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerchschnëttleche Géigner</string>
   <string name="boardEditor">Briet-Editor</string>
   <string name="setTheBoard">Briet opbauen</string>

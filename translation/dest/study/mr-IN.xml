@@ -36,10 +36,7 @@
   <string name="youAreNowAContributor">तुम्ही आता योगदानकर्ते आहात</string>
   <string name="youAreNowASpectator">तुम्ही आता प्रेक्षक आहात</string>
   <string name="playing">खेळताहेत</string>
-  <string name="first">पहिला</string>
-  <string name="previous">मागील</string>
   <string name="next">पुढील</string>
-  <string name="last">शेवटचा</string>
   <string name="shareAndExport">शेअर आणि निर्यात करा</string>
   <string name="cloneStudy">प्रतिकृती तयार करा</string>
   <string name="studyPgn">अभ्यासाची PGN</string>

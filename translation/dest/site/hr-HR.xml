@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Igraj protiv prijatelja</string>
   <string name="playWithTheMachine">Igraj protiv računala</string>
-  <string name="playOffline">Igraj izvan mreže</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Za poziv na igru, pošalji ovaj URL</string>
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
@@ -522,7 +521,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="createdBy">Kreirao</string>
-  <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="pause">Pauza</string>
@@ -537,7 +535,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blackWins">Pobjede crnog</string>
   <string name="drawRate">Postotak neriješenih</string>
   <string name="draws">Remi</string>
-  <string name="nextXTournament">Sljedeći %s turnir:</string>
   <string name="averageOpponent">Prosječni protivnik</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="setTheBoard">Postavi ploču</string>

@@ -54,10 +54,7 @@
   <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
   <string name="playing">In corso</string>
   <string name="showEvalBar">Barre di valutazione</string>
-  <string name="first">Primo</string>
-  <string name="previous">Precedente</string>
   <string name="next">Successivo</string>
-  <string name="last">Ultimo</string>
   <string name="shareAndExport">Condividi &amp; esporta</string>
   <string name="cloneStudy">Duplica</string>
   <string name="studyPgn">PGN dello studio</string>

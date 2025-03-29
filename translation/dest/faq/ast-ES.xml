@@ -103,6 +103,8 @@ Nun solicites el títulu de LM.</string>
   <string name="wayOfBerserkExplanation">Pa llogralo, hiimgosu desafiose a sigo mesmu a berserk y ganó toles partíes de %s.</string>
   <string name="aHourlyBulletTournament">un tornéu Bullet per hora</string>
   <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict taba retransmitiendo y mientres les dos últimes hores tuviera tratando de ganar a la I.A. nivel 8 nuna partida 1+0, ensin ésitu .Thibault díxo-y que si lo llograba mientres la tresmisión, llograría un troféu únicu. Xuna hora dempués, venció a Stockfish y cumplióse la promesa.</string>
+  <string name="lichessRatings">Puntuaciones de Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Les puntuaciones calcúlense utilizando el métodu de clasificación Glicko-2 desenvueltu por Mark Glickman. Ye un métodu de puntuación bien popular y qu\'utilicen munches organizaciones d\'axedrez (la FIDE ye un contraexemplu notable, ya que utilicen el sistema de puntuación Elo).
 
 En resumen, les puntuaciones de Glicko usen \"intervalos de confianza\" al calcular y representar la to puntuación. Cuando empieces a utilizar per primer vez en la páxina, la to puntuación ye de 1500 ± 1000. El 1500 representa la to puntuación, y el 1000 representa l\'intervalu de confianza, que ye una midida de la incertidume que\'l sistema tien sobro la to puntuación real.
@@ -110,17 +112,65 @@ En resumen, les puntuaciones de Glicko usen \"intervalos de confianza\" al calcu
 Básicamente, el sistema tien un 95% de seguridá de que la to puntuación ta ente 500 y 2500. Ye un intervalu bien ampliu y poco precisu (hai muncha incertidume). Por eso, cuando un xugador acaba d\'empezar, la so puntuación va camudar de forma bien brusca, inclusive pue que dellos cientos de puntos cada vez. Pero dempués de delles partíes contra xugadores más veteranos, l\'intervalu de confianza dirá amenorgándose (el sistema va tener cada vez más clara cuál ye la so puntuación esacta), y la cantidá de puntos ganaos o perdíos dempués de cada partida va menguar.
 
 Otru puntu que cabo señalar ye que, si pasa un tiempu ensin xugar, l\'intervalu de confianza va volver aumentar. Esto déxate ganar o perder puntos más rápido pa igualar cualquier cambiu na to fuerza de xuegu mientres esi tiempu que pasasti ensin xugar.</string>
+  <string name="whatIsProvisionalRating">¿Por qué hai un signu d\'interrogación (?) al llau de una puntuación?</string>
+  <string name="provisionalRatingExplanation">El signu d\'interrogación significa que la puntuación ye provisional. Les razones incluyen:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">El xugador nun xugó suficientes partíes por puntos contra %1$s na categoría.</string>
+  <string name="similarOpponents">oponentes de fuerza similar</string>
   <string name="notPlayedRecently">El xugador nun xugó abondes partíes recién. Dependiendo de la cantidá de partíes que xugares, pue tardar alredor d\'un añu d\'inactividá por que la to puntuación vuelva ser provisional.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que la esviación Glicko-2 ye mayor que 110. La esviación ye el nivel de confianza que tien el sistema na clasificación. Cuanto más baxa sía la esviación, más estable va ser una puntuación.</string>
+  <string name="howDoLeaderoardsWork">¿Cómo funcionen los rankings y el llistáu de líderes?</string>
+  <string name="inOrderToAppearsYouMust">Pa llegar al %1$s deberíes:</string>
+  <string name="ratingLeaderboards">llistáu de líderes</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">xugar siquiera 30 partíes por puntos con una puntuación dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">xugar una partida por puntos na última selmana con esta puntuación,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">tener una esviación de puntuación menor que %1$s, n\'axedrez estándar, y menor que %2$s en variantes,</string>
+  <string name="beInTopTen">tar ente los 10 primeros d\'esta clasificación.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundu requisitu ye que los xugadores que yá nun usen les sos cuentes dexen de poblar el llistáu de líderes.</string>
+  <string name="whyAreRatingHigher">¿Por qué son más altes les puntuaciones en comparación con otres páxines y organizaciones como FIDE, USCF y el CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo meyor ye nun considerar les puntuaciones como cifres absolutes nin comparales con otres organizaciones. Distintes organizaciones tienen distintos niveles de xugadores y sistemes de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeres). Estos factores pueden afectar drásticamente los númberos absolutos (puntuaciones).
 
 Ye meyor pensar nes puntuaciones como figures \"relatives\" (a diferencia de les \"figures absolutes\"): dientro d\'un conxuntu de xugadores, les sos diferencies rees nelativs puntuaciones van ayudate a envalorar quién gana/empata/pierde, y con qué frecuencia. Dicir \"tengo puntuación X\" significa nada nun siendo qu\'haya otru xugadores colos que comparar esa puntuación.</string>
+  <string name="howToHideRatingWhilePlaying">¿Cómo esconder les mios puntuaciones mientres les partíes?</string>
+  <string name="enableZenMode">Habilita el mou Zen en %1$s o primiendo %2$s durante una partida.</string>
+  <string name="displayPreferences">preferencies de visualización</string>
+  <string name="connexionLostCanIGetMyRatingBack">Perdí un xuegu por cuenta de un retrasu/desconexón. ¿Puedo recuperar los mis puntos?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, nun podemos devolver puntajes pes pa lartíes perdíes por cuenta de retrasu o desconexón, independientemente de si el problema taba del to llau o del nuestru. Sin embargo, esto ye bien raru. Tamién ten en cuenta que cuando Lichess reiníciase y pierdes el tiempu por cuenta de eso, albortamos el xuegu pa prevenir una perdida inxusta.</string>
+  <string name="howToThreeDots">Cómo...</string>
+  <string name="enableDisableNotificationPopUps">¿Activar o desactivar les notificaciones emerxentes?</string>
+  <string name="viewSiteInformationPopUp">Ver notificación emerxente d\'información del sitiu</string>
+  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede unviar notificaciones emerxentes, por casu cuando sía la to vez o recibieres un mensaxe priváu.
+
+Fai clic nel iconu de bloquéu al pie de la dirección de lichess.org, na barra d\'enllaces del to navegador.
+
+llueu escueye si dexar o bloquiar notificaciones de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">¿Habilitar la reproducción automática de soníos?</string>
   <string name="enableAutoplayForSoundsA">La mayoría de los navegadores puen evitar que se reproduza soníu nuna páxina recién cargada pa protexer a los usuarios. Imaxínate si tolos sitios web pudieren bombardearte darréu con anuncios d\'audiu.
 
 L\'iconu coloráu de silenciu apaez cuando el to navegador impide que lichess.org reproduza un soníu. Polo xeneral, esta restricción eliminase una vegada que fexes clic en daqué. En dellos navegadores móviles, tocar y arrastrar una pieza nun cunta como un clic. Nesi casu tienes que tocar el tableru pa dexar el soníu al entamu de cada xuegu.
 
 Amosemos l\'iconu coloráu p\'avisate cuando esto asoceda. A menudo, pues dexar explícitamente que lichess.org reproduza soníos. Equí vas atopar instrucciones pa faelo en versiones recién de dellos navegadores populares.</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritoriu</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Ve a lichess.org
+2. Pulsia Ctrl-i en Linux/Windows o cmd-i en MacOS
+3. Fai clic na pestaña Permisos
+4. Dexar audiu y video en lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Ve a lichess.org
+2. Fai clic nel iconu de bloquéu de la barra de direcciones
+3. Fai clic en Configuración del sitiu
+4. Habilitar soníu</string>
+  <string name="enableAutoplayForSoundsSafari">1. Ve a lichess.org
+2. Fai clic en Safari de la barra de menú
+3. Fai clic en Configuración de lichess.org ...
+4. Habilitar la reproducción automática</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Fai clic nos trés puntos de la esquina cimera derecha
+2. Fai clic en Axustes
+3. Fai clic en Cookies y permisos del sitiu
+4. Muévite escontra baxo y fai clic en Reproducción automática
+5. Añede a lichess.org en Habilitar</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">¿Parar de xugar?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">condición de salú mental independiente</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Estilos d\'usuariu de Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menos caxiellas d\'emparexamientu</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Solemos recibir mensaxes de xente que nos pide ayuda pa nun xugar tanto.
 
 Anque Lichess non prohibe nin bloquia a los xugadores, sacante si tratese de violaciones de los Terminos de Serviciu, l\'usu de ferramientes de terceros pa llindar el comportamientu de xuegu escesivu. Delles suxerencies de bloquiadores de sitio web son %1$s, %2$s, y %3$s. Si lo que deseyes ye siguir usando el sitiu, pero non los controles de tiempu más rápidos, podría interesate %4$s y %5$s.

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">שחק/י עם חבר/ה</string>
   <string name="playWithTheMachine">שחק/י מול המחשב</string>
-  <string name="playOffline">שחק/י (לא מקוון)</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -558,7 +557,6 @@
   <string name="wins">ניצחונות</string>
   <string name="losses">הפסדים</string>
   <string name="createdBy">נוצר ע\"י</string>
-  <string name="tournamentIsStarting">הטורניר מתחיל</string>
   <string name="tournamentPairingsAreNowClosed">השיבוץ לזוגות בטורניר הסתיים.</string>
   <string name="standByX">%s, נא להמתין, משבצים לזוגות, היו מוכנים!</string>
   <string name="pause">השהה</string>
@@ -573,7 +571,6 @@
   <string name="blackWins">ניצחונות כשחור</string>
   <string name="drawRate">שיעור תוצאות התיקו</string>
   <string name="draws">תוצאות תיקו</string>
-  <string name="nextXTournament">טורניר ה%s הבא:</string>
   <string name="averageOpponent">יריב ממוצע</string>
   <string name="boardEditor">עריכת לוח</string>
   <string name="setTheBoard">עריכת הלוח</string>

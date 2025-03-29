@@ -77,4 +77,6 @@ Til dømes vil ein tredjeplass i ei turnering med 100 deltakarar gje plasserings
   <string name="tournamentShields">Turneringsskjold</string>
   <string name="onlyTitled">Berre spelarar med sjakktittel</string>
   <string name="onlyTitledHelp">Berre spelarar med offisielle sjakktitlar kan delta i turneringa</string>
+  <string name="tournamentPairingsAreNowClosed">Turneringsparingane er no stengde.</string>
+  <string name="berserkRate">Berserkrate</string>
 </resources>

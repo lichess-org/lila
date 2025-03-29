@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Lagun baten aurka jokatu</string>
   <string name="playWithTheMachine">Ordenagailuaren aurka jokatu</string>
-  <string name="playOffline">Jokatu offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
@@ -487,7 +486,6 @@
   <string name="wins">Irabazitakoak</string>
   <string name="losses">Porrotak</string>
   <string name="createdBy">Sortuta</string>
-  <string name="tournamentIsStarting">Txapelketa hasiko da</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
   <string name="pause">Gelditu</string>
@@ -502,7 +500,6 @@
   <string name="blackWins">Beltzen irabaziak</string>
   <string name="drawRate">Berdinketa-tasa</string>
   <string name="draws">Berdinketak</string>
-  <string name="nextXTournament">Hurrengo %s txapelketa:</string>
   <string name="averageOpponent">Aurkarien batazbestekoa</string>
   <string name="boardEditor">Taula-editorea</string>
   <string name="setTheBoard">Xake-taula konfiguratu</string>

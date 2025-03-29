@@ -81,4 +81,6 @@ Por exemplo, estar classificado como 3° de um torneio de 100 jogadores = 3%. Es
   <string name="tournamentShields">Torneios de escudo</string>
   <string name="onlyTitled">Apenas jogadores titulados</string>
   <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
+  <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio fecharam.</string>
+  <string name="berserkRate">Taxa Berserk</string>
 </resources>

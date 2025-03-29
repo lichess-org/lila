@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Дустың белән уйнарга</string>
   <string name="playWithTheMachine">Компьютер белән уйнарга</string>
-  <string name="playOffline">Уйнарга челтәрсез</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
   <string name="gameOver">Уен бетте</string>
   <string name="waitingForOpponent">Ярышучыны көтәбез</string>
@@ -383,7 +382,6 @@
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
   <string name="createdBy">Оештыручы</string>
-  <string name="tournamentIsStarting">Бәйгене башлана</string>
   <string name="tournamentPairingsAreNowClosed">Бәйге чиратлаштыруы ябылган.</string>
   <string name="standByX">%s көтегез, уйнаучылар чиратлаштырыла, әзерләнегез!</string>
   <string name="pause">Туктату</string>
@@ -397,7 +395,6 @@
   <string name="whiteWins">Аклар җиңүләре</string>
   <string name="blackWins">Каралар җиңүләре</string>
   <string name="draws">Тиңлекләр</string>
-  <string name="nextXTournament">Киләсе %s бәйгесе:</string>
   <string name="averageOpponent">Уртача ярышучы</string>
   <string name="boardEditor">Тактаны үзгәртү</string>
   <string name="setTheBoard">Тактаны урнаштыру</string>

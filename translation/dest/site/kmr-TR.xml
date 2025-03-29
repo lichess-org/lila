@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Bi hevalekê re bilîze</string>
   <string name="playWithTheMachine">Bi kompîtûrê ra bilîze</string>
-  <string name="playOffline">Derhêl bilîze</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bilîzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
@@ -486,7 +485,6 @@
   <string name="wins">Serkeftin</string>
   <string name="losses">Mexlûbiyet</string>
   <string name="createdBy">Hate çêkirin ji aliyê</string>
-  <string name="tournamentIsStarting">Pêşbirk dest pê dike</string>
   <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
   <string name="pause">Bisekîne</string>
@@ -501,7 +499,6 @@
   <string name="blackWins">Serkeftinên reş</string>
   <string name="drawRate">Rêjeya wekhevmayînê</string>
   <string name="draws">Wekhevî</string>
-  <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="averageOpponent">Dijbera averaj</string>
   <string name="boardEditor">Edîtorê texteyê</string>
   <string name="setTheBoard">Texteyê bisazîne</string>

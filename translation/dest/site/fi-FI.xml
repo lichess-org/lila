@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Pelaa kaveria vastaan</string>
   <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
-  <string name="playOffline">Pelaa offline-tilassa</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -487,7 +486,7 @@
   <string name="wins">Voitot</string>
   <string name="losses">Tappiot</string>
   <string name="createdBy">Tekijä:</string>
-  <string name="tournamentIsStarting">Turnaus alkaa</string>
+  <string name="startingIn" comment="Displayed above a timer">Aikaa alkuun:</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
@@ -502,7 +501,6 @@
   <string name="blackWins">Mustan voittoja</string>
   <string name="drawRate">Tasapelien osuus</string>
   <string name="draws">Tasapelejä</string>
-  <string name="nextXTournament">Seuraava %s-turnaus:</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
   <string name="boardEditor">Lautaeditori</string>
   <string name="setTheBoard">Asettele lauta</string>
@@ -686,11 +684,11 @@
   <string name="noSimulFound">Simultaania ei löydy</string>
   <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
-  <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
+  <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa yhtä aikaa monta pelaajaa vastaan.</string>
   <string name="aboutSimulImage">50 vastustajastaan Fischer voitti 47, pelasi kahdesti tasan ja hävisi yhden.</string>
   <string name="aboutSimulRealLife">Simultaanien käsite on otettu netin ulkopuolisista tapahtumista; niissä simultaaninäytöksen antaja liikkuu pöydältä toiselle pelaten siirron kerrallaan.</string>
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
-  <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
+  <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat poissa käytöstä.</string>
   <string name="create">Luo</string>
   <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
   <string name="simulVariantsHint">Jos valitset useita variantteja, jokainen pelaaja valitsee mihin osallistuu.</string>
@@ -757,6 +755,7 @@
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
+  <string name="downloadAllGames">Lataa kaikki pelit</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>

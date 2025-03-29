@@ -61,10 +61,7 @@
   <string name="playing">Práve sa hrá</string>
   <string name="showResults">Výsledky</string>
   <string name="showEvalBar">Ukazovatele hodnotenia</string>
-  <string name="first">Prvá</string>
-  <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
-  <string name="last">Posledná</string>
   <string name="shareAndExport">Zdielať &amp; export</string>
   <string name="cloneStudy">Naklonovať</string>
   <string name="studyPgn">PGN štúdie</string>

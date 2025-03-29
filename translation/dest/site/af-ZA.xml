@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Speel teen \'n vriend</string>
   <string name="playWithTheMachine">Speel teen die rekenaar</string>
-  <string name="playOffline">Speel vanlyn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Nooi iemand vir \'n spel, gebruik hierdie URL</string>
   <string name="gameOver">Spel Verby</string>
   <string name="waitingForOpponent">Wag vir uitdager</string>
@@ -488,7 +487,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="wins">Oorwinnings</string>
   <string name="losses">Verliese</string>
   <string name="createdBy">Geskep deur</string>
-  <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
+  <string name="startingIn" comment="Displayed above a timer">Begin in</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
   <string name="pause">Onderbreek</string>
@@ -503,7 +502,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blackWins">Gewen deur swart</string>
   <string name="drawRate">Gelykopwaarskynlikheid</string>
   <string name="draws">Gelykop gespeel</string>
-  <string name="nextXTournament">Volgende %s toernooi:</string>
   <string name="averageOpponent">Gemmidelde opponent</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
@@ -752,6 +750,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
+  <string name="downloadAllGames">Laai alle spelle af</string>
   <string name="crosstable">Kruistabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Jy kan ook blaai oor die bord om te beweeg in die spel.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hou die muis oor die rekenaar variante om dit te voorskou.</string>

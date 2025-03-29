@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Spill mot en venn</string>
   <string name="playWithTheMachine">Spill mot maskinen</string>
-  <string name="playOffline">Spill frakoblet</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
@@ -487,7 +486,7 @@
   <string name="wins">Seire</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Opprettet av</string>
-  <string name="tournamentIsStarting">Turneringen begynner</string>
+  <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
@@ -502,7 +501,6 @@
   <string name="blackWins">Svart vinner</string>
   <string name="drawRate">Remisrate</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittlig motstand</string>
   <string name="boardEditor">Oppsett</string>
   <string name="setTheBoard">Still opp brett</string>
@@ -757,6 +755,7 @@
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
+  <string name="downloadAllGames">Last ned alle partiene</string>
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hold muspekeren over maskinvarianter for å forhåndsvise dem.</string>

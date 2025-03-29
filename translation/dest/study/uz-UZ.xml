@@ -55,10 +55,7 @@
   <string name="playing">O\'ynash</string>
   <string name="showResults">Natijalar</string>
   <string name="showEvalBar">Baholash chiziqlari</string>
-  <string name="first">Birinchi</string>
-  <string name="previous">Oldingi</string>
   <string name="next">Keyingi</string>
-  <string name="last">Oxirgi</string>
   <string name="shareAndExport">Ulashish &amp; eksport</string>
   <string name="cloneStudy">Klonlash</string>
   <string name="studyPgn">PGN o\'rganish</string>

@@ -24,7 +24,7 @@
   <string name="lichessConnectivity">Lichess bağlantısı</string>
   <string name="validDgtOauthToken">DGT oyunu için uygun bir OAuth belirteciniz var.</string>
   <string name="dgtPlayMenuEntryAdded">Üst menüde PLAY menünüze %s girişi eklendi.</string>
-  <string name="noSuitableOauthToken">Uygun bir OAuth belirteci oluşturulmadı.</string>
+  <string name="noSuitableOauthToken">Uygun bir OAuth jetonu oluşturulmadı.</string>
   <string name="dgtBoardConnectivity">DGT tahta bağlantısı</string>
   <string name="clickToGenerateOne">Bir tane oluşturmak için tıklayın</string>
   <string name="webSocketUrl">%s WebSocket URL\'i</string>

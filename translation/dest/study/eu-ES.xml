@@ -55,10 +55,7 @@
   <string name="playing">Jokatzen</string>
   <string name="showResults">Emaitzak</string>
   <string name="showEvalBar">Ebaluazio barrak</string>
-  <string name="first">Lehenengoa</string>
-  <string name="previous">Aurrekoa</string>
   <string name="next">Hurrengoa</string>
-  <string name="last">Azkena</string>
   <string name="shareAndExport">Partekatu &amp; esportatu</string>
   <string name="cloneStudy">Klonatu</string>
   <string name="studyPgn">Azterlanaren PGNa</string>

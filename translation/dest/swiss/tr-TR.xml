@@ -47,8 +47,8 @@ Bir oyuncuya (1 puan) bay geçmek için bir satır ekleyin:
 OyuncuE 1
 Eksik oyuncular yok sayılacak ve sıfır puan alacak.
 Eşleştirmeleri otomatik olarak oluşturmak için bu alanı boş bırakın.</string>
-  <string name="mustHavePlayedTheirLastSwissGame">Son İsviçre oyunlarını oynamış olmalıdırlar</string>
-  <string name="mustHavePlayedTheirLastSwissGameHelp">Sadece son İsviçre oyunlarını oynamış olan oyuncuların katılmasına izin verin. Yakın zamanda bir İsviçre etkinliğine katılmayanlar, sizinkine giremeyecekler. Bu, gerçekten katılan oyuncular için daha iyi bir İsviçre deneyimi sağlar.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Son İsviçre sistemi oyunlarını oynamış olmalıdırlar</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Sadece son İsviçre sistemi oyunlarını oynamış olan oyuncuların katılmasına izin verin. Yakın zamanda bir İsviçre sistemi etkinliğine katılmayanlar, sizinkine giremeyecekler. Bu, gerçekten katılan oyuncular için daha iyi bir İsviçre sistemi deneyimi sağlar.</string>
   <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
   <string name="swissVsArenaQ">İsviçre sistemi turnuvaları ne zaman arena turnuvaları yerine kullanmalıyım?</string>
   <string name="swissVsArenaA">İsviçre sistemi turnuvalarda bütün oyuncular eşit sayıda maç yapar ve birbirleriyle yalnızca bir kez karşı karşıya gelir. Satranç kulüpleri ve resmî turnuvalar için iyi bir seçenek olabilir.</string>
