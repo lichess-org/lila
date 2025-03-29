@@ -242,6 +242,7 @@ export class DevAssets extends Assets {
   async update(rlist?: AssetList): Promise<void> {
     if (!rlist) rlist = await fetch('/bots/dev/assets').then(res => res.json());
     Object.values(this.server).forEach(m => m.clear());
+    this.server.book.set('lichess', 'lichess');
     assetTypes.forEach(type => rlist?.[type]?.forEach(a => this.server[type].set(a.key, a.name)));
     const books = Object.entries(this.server.book);
     this.server.bookCover = new Map(books.map(([k, v]) => [`${k}.png`, v]));

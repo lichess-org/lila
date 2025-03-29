@@ -1,7 +1,9 @@
-import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
+import { type OpeningBook, type OpeningMove, makeBookFromPolyglot } from 'bits/polyglot';
 import { type BotCtrl } from './botCtrl';
 import { definedMap } from 'lib/algo';
 import { env } from './localEnv';
+import { makeLichessBook } from './lichessBook';
+import { Chess } from 'chessops';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
@@ -44,13 +46,16 @@ export class Assets {
   async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
-    const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
-      fetch(botAssetUrl('book', `${key}.bin`))
-        .then(res => res.arrayBuffer())
-        .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
-        .then(result => resolve(result.getMoves))
-        .catch(reject),
-    );
+    const bookPromise =
+      key === 'lichess'
+        ? Promise.resolve(makeLichessBook())
+        : new Promise<OpeningBook>((resolve, reject) =>
+            fetch(botAssetUrl('book', `${key}.bin`))
+              .then(res => res.arrayBuffer())
+              .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
+              .then(result => resolve(result.getMoves))
+              .catch(reject),
+          );
     this.book.set(key, bookPromise);
     return bookPromise;
   }

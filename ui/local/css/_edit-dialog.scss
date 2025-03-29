@@ -163,6 +163,14 @@
       background: none;
     }
   }
+
+  .under-bot {
+    @extend %flex-column;
+    max-height: 30%;
+    gap: 1em;
+    overflow: auto;
+  }
+
   .bot-actions {
     @extend %flex-wrap;
     justify-content: end;
