@@ -13,8 +13,12 @@ export function makeLichessBook(): OpeningBook {
     url.searchParams.set('ratings', String(Math.round(clamp(rating, { min: 400, max: 3000 }))));
     url.searchParams.set('speeds', speed);
     url.searchParams.set('source', 'botPlay');
-    const d = await fetch(url.toString(), { mode: 'cors' }).then(res => res.json());
-    const sum = d.moves.reduce((s: number, m: any) => s + Number(m[pos.turn]), 0);
-    return d.moves.map((m: any) => ({ uci: m.uci, weight: Number(m[pos.turn]) / sum }));
+    try {
+      const d = await fetch(url.toString(), { mode: 'cors' }).then(res => res.json());
+      const sum = d.moves.reduce((s: number, m: any) => s + Number(m[pos.turn]), 0);
+      return d.moves.map((m: any) => ({ uci: m.uci, weight: Number(m[pos.turn]) / sum }));
+    } catch {
+      return [];
+    }
   };
 }
