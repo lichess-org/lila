@@ -25,7 +25,10 @@ object Query:
 
   val mate: Bdoc = status(Status.Mate)
 
-  def draw(u: UserId): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
+  def draw(u: UserId): Bdoc =
+    user(u) ++ F.winnerId.$exists(false) ++ $doc(
+      F.status $in List(Status.Stalemate.id, Status.Draw.id)
+    )
 
   val finished: Bdoc = F.status.$gte(Status.Mate.id)
 
