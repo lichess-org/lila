@@ -9,14 +9,7 @@ import { opposite } from 'chessops';
 
 export class BooksPane extends Pane {
   info: BooksInfo;
-  template: RangeInfo /* = {
-    type: 'range',
-    class: ['setting', 'book'],
-    value: 1,
-    min: 1,
-    max: 10,
-    step: 1,
-  }*/;
+  template: RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
@@ -153,14 +146,3 @@ class BookPane extends RangeSetting {
     } else super.update(e);
   }
 }
-
-const imagePowertip = (el: HTMLElement) =>
-  $(el).powerTip({
-    preRender: (el: HTMLElement) => {
-      const w = el.dataset.width ? ` width="${el.dataset.width}"` : '';
-      const h = el.dataset.height ? ` height="${el.dataset.height}"` : '';
-      document.querySelector('#image-powertip')!.innerHTML = `<img src="${el.dataset.src}"${w}${h}>`;
-    },
-    popupId: 'image-powertip',
-    placement: 's',
-  });
