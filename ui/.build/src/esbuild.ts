@@ -73,9 +73,7 @@ function inlineTask() {
         : basename(bundle.inline, '.inline.ts');
   return task({
     key: 'inline',
-    ctx: 'esbuild',
     debounce: 300,
-    noEnvStatus: true,
     includes: env.building.flatMap(pkg =>
       definedMap(
         pkg.bundle.map(b => b.inline),

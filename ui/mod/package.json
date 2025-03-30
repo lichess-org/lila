@@ -12,8 +12,7 @@
     "apexcharts": "^3.54.1",
     "lib": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "prop-types": "^15.8.1",
-    "tablesort": "^5.3.0"
+    "prop-types": "^15.8.1"
   },
   "build": {
     "bundle": "src/mod.*ts"

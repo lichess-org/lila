@@ -93,15 +93,6 @@ export const schema: Schema = deepFreeze<Schema>({
         toggle: true,
       },
     },
-    // ratings_classical: {
-    //   type: 'range',
-    //   label: 'classical rating',
-    //   class: ['setting'],
-    //   value: 1500,
-    //   min: 600,
-    //   max: 2400,
-    //   step: 10,
-    // },
   },
   behavior: {
     class: ['behavior'],
