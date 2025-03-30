@@ -20,12 +20,20 @@ export class Assets {
   preload(uids: string[]): Promise<any> {
     const bots = definedMap(uids, uid => (this.botCtrl ?? env.bot).bots.get(uid));
     const books = bots.flatMap(bot => (bot.books ?? []).map(book => book.key));
-    const sounds = bots.flatMap(bot =>
-      Object.values(bot.sounds ?? {}).flatMap(sounds => sounds.map(sound => sound.key)),
-    );
-    [...this.book.keys()].filter(k => !books.includes(k)).forEach(release => this.book.delete(release));
+    const nets = bots.flatMap(bot => (bot.zero?.net ? [bot.zero.net] : []));
+    const sounds = [
+      ...new Set(
+        bots.flatMap(bot =>
+          Object.values(bot.sounds ?? {}).flatMap(sounds => sounds.map(sound => sound.key)),
+        ),
+      ),
+    ];
+    [...this.book.keys()]
+      .filter(k => k !== 'lichess' && !books.includes(k))
+      .forEach(garbageCollect => this.book.delete(garbageCollect));
     return Promise.all([
-      ...books.map(key => fetch(botAssetUrl('book', `${key}.bin`))),
+      ...nets.map(key => this.getNet(key)),
+      ...books.map(key => this.getBook(key)),
       ...sounds.map(key => fetch(botAssetUrl('sound', key))),
     ]);
   }
