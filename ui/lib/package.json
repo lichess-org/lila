@@ -23,7 +23,7 @@
     "debounce-promise": "^3.1.2",
     "idb-keyval": "^6.2.1",
     "lichess-pgn-viewer": "^2.4.0",
-    "lila-stockfish-web": "0.0.9",
+    "lila-stockfish-web": "0.0.10",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
