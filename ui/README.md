@@ -83,17 +83,13 @@ We define a custom "build" property object to describe how [/ui/build](./build) 
 
 Properties within build come in three flavors - "bundle", "sync", and "hash". Each of these can have one or more entries containing pathnames or globs. 
 
-### pathname & glob resolution
-
-Anywhere a pathname is expected, a [micromatch glob](https://github.com/micromatch/micromatch) can also be used. The following path/glob resolution rules always apply (except when explicitly stated):
+Usually, anywhere a pathname can be given, you can use a [micromatch glob](https://github.com/micromatch/micromatch) instead. The following resolution rules always apply to pathnames and globs (except when explicitly stated):
 - "bundle" paths are resolved relative to the package folder
 - "sync" paths that start with `/` resolve to the git repo root. Otherwise, they resolve relative to the package folder.
 - "hash" paths are resolved same as "sync", with `/` mapping to repo root otherwise package relative.
 
 ## "bundle" property
-The "bundle" property defines the javascript modules to create as named entry points. Most correspond to a server controller and scala module found in [/app](../app) and [/modules](../modules) which usually generate the page in which the javascript operates.
-
-Use a glob pattern to match multiple module sources and bundle each into named javascript entry points.
+The "bundle" property defines the javascript modules to create as named entry points which can be fetched by client browsers. Use a glob pattern to match multiple module sources and bundle each into named javascript entry points.
 
 This excerpt from [/ui/analyse/package.json](./analyse/package.json) matches analyse.ts, analyse.nvui.ts, analyse.study.ts, analyse.study.topic.form.ts, and analyse.study.tour.ts from various places in the folder hierarchy within analyse/src:
 
@@ -103,11 +99,13 @@ This excerpt from [/ui/analyse/package.json](./analyse/package.json) matches ana
   }
 ```
 
-Bundle outputs result in javascript esm modules flattened into the /public/compiled folder. Filenames are composed with the module source basename, followed by an 8 char content hash, and ending with .js. The directory components of the input pathname are ignored, so we have a rule where sources that will be entry points must have names prefixed by their package followed by a decimal.
+Bundling results in one or more es6 modules flattened into the /public/compiled folder. Filenames are composed with the module source basename, followed by an 8 char content hash, and ending with .js. The directory components of the input pathname are ignored, so:
+
+* **We have a rule** - source filenames of entry points must be prefixed by their package followed by a decimal.
 
 Bundles may also be described by objects containing a "module" path and an "inline" path. 
 
-* Globs are not allowed for either path when using the "inline" property.
+* Globs are not allowed for either path in object form (when an "inline" property is given).
 
 The "module" path serves the same purpose as a bare string - naming the source module for an entry point. The "inline" path identifies a special typescript source from which ui/build will emit javascript statements into a manifest.\*.json entry for the server.
 
