@@ -56,7 +56,7 @@ export default class ChatCtrl {
       writeable: opts.writeable,
       domVersion: 1, // increment to force redraw
     };
-    this.setTab();
+    this.storedTabKey(this.getTab().key);
     this.note = opts.noteId
       ? noteCtrl({
           id: opts.noteId,

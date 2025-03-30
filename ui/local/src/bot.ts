@@ -7,6 +7,7 @@ import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import { movetime as getMovetime } from './movetime';
 import { normalMove } from './localGame';
+import type { BotCtrl } from './botCtrl';
 import type {
   BotInfo,
   FishSearch,
@@ -27,6 +28,7 @@ export class Bot implements BotInfo, MoveSource {
   private stats: { cplMoves: number; cpl: number };
   private traces: string[];
   private cp: number;
+  private ctrl: BotCtrl;
 
   readonly uid: string;
   readonly version: number = 0;
@@ -45,7 +47,7 @@ export class Bot implements BotInfo, MoveSource {
     return bot?.ratings[speed] ?? bot?.ratings.classical ?? 1500;
   }
 
-  constructor(info: BotInfo) {
+  constructor(info: BotInfo, ctrl: BotCtrl) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
 
@@ -53,9 +55,10 @@ export class Bot implements BotInfo, MoveSource {
     Object.defineProperties(this, {
       cp: { value: 0, writable: true },
       stats: { value: { cplMoves: 0, cpl: 0 } },
+      ctrl: { value: ctrl },
       traces: { value: [], writable: true },
       openings: {
-        get: () => Promise.all(this.books?.flatMap(b => env.assets.getBook(b.key)) ?? []),
+        get: () => Promise.all(this.books?.flatMap(b => env.bot.getBook(b.key)) ?? []),
       },
     });
   }
@@ -73,13 +76,11 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
-    const bots = args.bots ?? env.bot;
-    const assets = args.assets ?? env.assets;
     const { pos, chess } = args;
     const { fish, zero } = this;
     this.trace([`  ${env?.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
     if (args.avoid?.length) this.trace(`[move] - avoid = [${args.avoid.join(', ')}]`);
-    const openingMove = await this.bookMove(chess);
+    const openingMove = await this.bookMove(args);
     args.movetime = getMovetime(args, Bot.rating(this, clockToSpeed(args.initial, args.increment)));
 
     if (openingMove) return { uci: openingMove, movetime: args.movetime };
@@ -88,7 +89,7 @@ export class Bot implements BotInfo, MoveSource {
       ? {
           nodes: zero.nodes,
           multipv: Math.max(zero.multipv, args.avoid.length + 1), // avoid threefold
-          net: { key: this.name + '-' + zero.net, fetch: () => assets.getNet(zero.net) },
+          net: { key: this.name + '-' + zero.net, fetch: () => this.ctrl.getNet(zero.net) },
         }
       : undefined;
     if (zeroSearch) this.trace(`[move] - zero: ${stringify(zeroSearch)}`);
@@ -97,8 +98,8 @@ export class Bot implements BotInfo, MoveSource {
     if (fish) this.trace(`[move] - fish: ${stringify(fish)}`);
 
     const [fishResults, zeroResults] = await Promise.all([
-      bots.zerofish.goFish(pos, fishSearch),
-      zeroSearch && bots.zerofish.goZero(pos, zeroSearch),
+      this.ctrl.zerofish.goFish(pos, fishSearch),
+      zeroSearch && this.ctrl.zerofish.goZero(pos, zeroSearch),
     ]);
     this.cp = fishResults.lines[fishResults.lines.length - 1][0].score;
 
@@ -136,14 +137,15 @@ export class Bot implements BotInfo, MoveSource {
     return y;
   }
 
-  private async bookMove(chess: co.Chess) {
+  private async bookMove({ chess, initial, increment }: MoveArgs) {
+    const speed = clockToSpeed(initial, increment);
     const books = this.books?.filter(b => !b.color || b.color === chess.turn);
     // first use book relative weights to choose from the subset of books with moves for the current position
     if (!books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
     for (const [book, opening] of zip(books, await this.openings)) {
-      const moves = opening(chess);
+      const moves = await opening(chess, this.ratings[speed] ?? this.ratings.classical ?? 1500, speed);
       if (moves.length === 0) continue;
       moveList.push({ moves, book });
       bookChance += book.weight;

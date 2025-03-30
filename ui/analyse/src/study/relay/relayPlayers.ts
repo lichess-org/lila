@@ -13,8 +13,7 @@ import type {
   StudyPlayer,
   StudyPlayerFromServer,
 } from '../interfaces';
-import tablesort from 'tablesort';
-import extendTablesortNumber from 'lib/tablesortNumber';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { defined } from 'lib';
 import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
@@ -225,7 +224,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       h(
         'thead',
         h('tr', [
-          h('th', { attrs: { 'data-sort-method': 'string' } }, i18n.site.player),
+          h('th', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
           withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
         ]),
@@ -393,19 +392,8 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
 
 const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
-  // This allows to sort by default the player names from A to Z instead of Z to A
-  // Until https://github.com/tristen/tablesort/pull/244
-  tablesort.extend(
-    'string',
-    () => false,
-    (a: string, b: string) => {
-      a = a.trim().toLowerCase();
-      b = b.trim().toLowerCase();
-      return a === b ? 0 : a < b ? -1 : 1;
-    },
-  );
   $(el).each(function (this: HTMLElement) {
-    tablesort(this, {
+    sortTable(this, {
       descending: true,
     });
   });
