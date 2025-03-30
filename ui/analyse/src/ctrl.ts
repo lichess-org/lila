@@ -616,6 +616,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
+    this.deletionHighlightFromHere(path, true);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1044,5 +1045,17 @@ export default class AnalyseCtrl {
     if (!fen.startsWith(this.chessground?.getFen())) return;
 
     this.keyboardMove?.update({ fen, canMove: true });
+  };
+
+  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
+    const node = this.tree.nodeAtPath(path);
+    const moveList = document.querySelector('.areplay');
+    let paths = [path, ...this.tree.getPathsOfDescendants(node, path)];
+    paths.forEach(currPath => {
+      const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
+      unhighlight
+        ? moveElement?.classList.remove('pending-deletion')
+        : moveElement?.classList.add('pending-deletion');
+    });
   };
 }

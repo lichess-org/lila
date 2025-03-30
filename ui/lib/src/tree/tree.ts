@@ -35,6 +35,7 @@ export interface TreeWrapper {
   removeCeval(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
+  getPathsOfDescendants(node: Tree.Node, path: Tree.Path): Tree.Path[];
 }
 
 export function build(root: Tree.Node): TreeWrapper {
@@ -194,6 +195,15 @@ export function build(root: Tree.Node): TreeWrapper {
     return parent ? parent.clock : node.clock;
   }
 
+  function getPathsOfDescendants(node: Tree.Node, path: Tree.Path): Tree.Path[] {
+    let paths = [];
+    for (const child of node.children) {
+      const newPath = path + child.id;
+      paths.push(newPath, ...getPathsOfDescendants(child, newPath));
+    }
+    return paths;
+  }
+
   return {
     root,
     lastPly: (): number => lastNode()?.ply || root.ply,
@@ -254,5 +264,6 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     parentNode,
     getParentClock,
+    getPathsOfDescendants,
   };
 }
