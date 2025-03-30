@@ -130,19 +130,27 @@
   <string name="inaccuracy">Hindi tama</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s na malaking pagkakamali</item>
-    <item quantity="other">%s mga malaking pagkakamali</item>
+    <item quantity="other">%s malaking pagkakamali</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s Na malaking pagkakamali</item>
-    <item quantity="other">%s Mga malaking pagkakamali</item>
+    <item quantity="one">%s Malaking pagkakamali</item>
+    <item quantity="other">%s Malaking pagkakamali</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s na pagkakamali</item>
-    <item quantity="other">%s mga pagkakamali</item>
+    <item quantity="one">%s pagkakamali</item>
+    <item quantity="other">%s pagkakamali</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">%s Na pagkakamali</item>
-    <item quantity="other">%s Mga pagkakamali</item>
+    <item quantity="one">%s Pagkakamali</item>
+    <item quantity="other">%s Pagkakamali</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s di-pagkakatama</item>
+    <item quantity="other">%s di-pagkakatama</item>
+  </plurals>
+  <plurals name="numberInaccuracies">
+    <item quantity="one">%s Di-pagkakatama</item>
+    <item quantity="other">%s Di-pagkakatama</item>
   </plurals>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
