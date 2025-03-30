@@ -61,7 +61,7 @@ export class SoundEventPane extends Pane {
     const buttonEl = frag(
       `<button class="button button-empty preview-sound icon-btn" data-icon="${licon.PlayTriangle}"></button>`,
     );
-    const audioEl = frag<HTMLAudioElement>(`<audio src="${env.assets.getSoundUrl(key)}"></audio>`);
+    const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);
     soundEl.prepend(frag(`<legend>${env.assets.nameOf(key)}</legend>`), buttonEl);

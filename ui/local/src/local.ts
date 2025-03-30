@@ -22,7 +22,6 @@ export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
   makeEnv({
     redraw,
     bot: new BotCtrl(await zerofish),
-    assets: new Assets(),
     db: new LocalDb(),
     game: new GameCtrl(opts),
   });

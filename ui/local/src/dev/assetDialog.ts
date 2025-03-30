@@ -250,7 +250,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
   private categories = {
     image: {
       placeholder: '<img src="/assets/lifat/bots/image/gray-torso.webp">',
-      preview: (key: string) => frag<HTMLElement>(`<img src="${env.assets.getImageUrl(key)}">`),
+      preview: (key: string) => frag<HTMLElement>(`<img src="${env.bot.getImageUrl(key)}">`),
       process: (file: File, onSuccess: (key: string) => void) => {
         if (!file.type.startsWith('image/')) return;
         // TODO this doesn't seem to always work. find out why.
@@ -353,7 +353,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       placeholder: '',
       preview: (key: string) => {
         const soundEl = document.createElement('span');
-        const audioEl = frag<HTMLAudioElement>(`<audio src="${env.assets.getSoundUrl(key)}"></audio>`);
+        const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
         const buttonEl = frag<Node>(
           `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );

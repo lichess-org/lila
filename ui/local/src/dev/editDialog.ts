@@ -332,7 +332,7 @@ export class EditDialog {
     };
     this.scratch.set(
       this.uid,
-      Object.defineProperties(new Bot(newBot), {
+      Object.defineProperties(new Bot(newBot, env.bot), {
         disabled: { value: new Set<string>() },
         viewing: { value: new Map<string, string>() },
       }) as WritableBot,

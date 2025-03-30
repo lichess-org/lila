@@ -5,5 +5,5 @@ import { type LocalEnv, makeEnv } from './localEnv';
 
 export default async function initModule(): Promise<LocalEnv> {
   const [db, bot] = await Promise.all([new LocalDb().init(), new BotCtrl(false).init()]);
-  return makeEnv({ db, bot, assets: new Assets() });
+  return makeEnv({ db, bot });
 }

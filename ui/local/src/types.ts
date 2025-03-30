@@ -48,6 +48,8 @@ export type Ratings = { [speed in LocalSpeed]?: number };
 
 export type FilterType = 'cplTarget' | 'cplStdev' | 'aggression' | 'lc0bias' | 'moveDecay';
 
+export type AssetType = 'image' | 'book' | 'sound' | 'net';
+
 export type BotId = string;
 
 export interface BotInfo {
@@ -79,8 +81,6 @@ export interface MoveArgs {
   remaining: Seconds;
   opponentRemaining: Seconds;
   movetime?: Seconds;
-  bots?: BotCtrl;
-  assets?: Assets;
 }
 
 export type MoveResult = { uci: string; movetime: Seconds };

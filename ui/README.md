@@ -105,11 +105,11 @@ Bundling results in one or more es6 modules flattened into the /public/compiled 
 
 Bundles may also be described by objects containing a "module" path and an "inline" path. 
 
-* Globs are not allowed for either path in object form (when an "inline" property is given).
+* Globs are not allowed for either path when an "inline" property is given in object form.
 
-The "module" path serves the same purpose as a bare string - naming the source module for an entry point. The "inline" path identifies a special typescript source from which ui/build will emit javascript statements into a manifest.\*.json entry for the server.
+The "module" path serves the same purpose as a bare string - naming the source module for an entry point. The "inline" path identifies a special typescript source from which ui/build will emit javascript statements into a special manifest.\*.json entry.
 
-When that parent module is requested by a browser, the lila server injects those inline statements into a \<script> tag following the assembled DOM within the \<body> element. This allows blocking setup code to manipulate the DOM based on viewport calculations before rendering to avoid FOUC. This should be rare and globs are not supported here. [/ui/site/package.json](./site/package.json) shows an example:
+When that module is requested by a browser, the lila server injects those inline statements into a \<script> tag following the assembled DOM within the \<body> element. This allows blocking setup code to manipulate the DOM based on viewport calculations before rendering to avoid FOUC. This should be rare and globs are not supported here. [/ui/site/package.json](./site/package.json) shows an example:
 
 ```json
     "bundle": [
@@ -123,9 +123,9 @@ When that parent module is requested by a browser, the lila server injects those
 
 ## "sync" property
 
-The sync object describes filesystem copies performed by ui/build. Sync operations are listed as properties where each key is a source path and the value is its destination folder. In watch mode, ui/build will copy assets to the destination folder whenever they change.
+The sync object describes filesystem copies performed by ui/build. Sync operations are listed as properties where each key is a source path/glob and its value is a destination folder. In watch mode, ui/build will copy assets to the destination folder whenever they change.
 
-One usage for sync is to copy npm package assets from node_modules to the /public/npm folder where they can be fetched and imported dynamically, often because they are too large to bundle. This example from [/ui/ceval/package.json](./ceval/package.json) copies stockfish wasms to /public/npm:
+One usage for sync is to copy npm package assets from node_modules to the /public/npm folder where they can be fetched and imported dynamically, often because they are too large to bundle. This example from [/ui/lib/package.json](./lib/package.json) copies assorted stockfish wasms to /public/npm:
 
 ```json
     "sync": {
@@ -153,7 +153,11 @@ Hash entries identify files for which a symlink named with their content hash wi
       "/public/piece-css/*"
     ]
 ```
-They may also be `{ "glob": "<pattern>", "update": "<package-relative-path>" }` objects. When these are processed, symlinks for globbed files are created in /public/hashed. Then all occurrence of those globbed filenames are replaced with their hashed symlinks within the "update" file's contents. The updated contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. An asset mapping within a static json or text file can be kept current in this way.
+Entries may also take object form:
+```json
+    "hash": { "glob": "<pattern>", "update": "<package-relative-path>" }
+```
+When the object form is processed, symlinks for globbed files are created in /public/hashed same as before. Then the "update" file is processed and all occurrence of those globbed filenames are replaced with their hashed symlink URLs. The modified "update" file contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. Any asset mapping within a static json or text file can be kept current in this way.
 
 * "hash" sources must begin with `/public` to resolve correctly on production deployments.
 * "update" files may not begin with `/` and are always package relative.
