@@ -29,13 +29,22 @@ function analysisButton(ctrl: RoundController): VNode | false {
   return (
     replayable(d) &&
     h(
-      'button.fbt',
+      'a.fbt',
       {
-        hook: bind('click', () => {
-          if (d.local) d.local.analyse();
-          else if (location.pathname === url.split('#')[0]) location.reload();
-          else location.href = url;
-        }),
+        attrs: { href: url },
+        hook: bind(
+          'click',
+          e => {
+            // force page load in case the URL is the same
+            if (d.local) {
+              d.local.analyse();
+              return e.preventDefault();
+            }
+            if (location.pathname === url.split('#')[0]) location.reload();
+          },
+          undefined,
+          false,
+        ),
       },
       i18n.site.analysis,
     )

@@ -1,6 +1,5 @@
 import { text as xhrText } from 'lib/xhr';
-import extendTablesortNumber from 'lib/tablesortNumber';
-import tablesort from 'tablesort';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
 import { confirm } from 'lib/dialogs';
 
@@ -17,7 +16,7 @@ site.load.then(() => {
   $('.mod-user-table').each(function (this: HTMLTableElement) {
     const table = this;
     extendTablesortNumber();
-    tablesort(table, { descending: true });
+    sortTable(table, { descending: true });
     expandCheckboxZone(table, 'td:last-child', shiftClickCheckboxRange(table));
     checkBoxAll(table);
     const select = table.querySelector('thead select');

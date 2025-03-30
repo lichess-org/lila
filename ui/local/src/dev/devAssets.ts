@@ -156,14 +156,11 @@ export class DevAssets extends Assets {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!this.idb.book.keyNames.has(key)) return super.getBook(key);
-    const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
-      this.idb.book
-        .get(key)
-        .then(res => res.blob.arrayBuffer())
-        .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
-        .then(result => resolve(result.getMoves))
-        .catch(reject),
-    );
+    const bookPromise = this.idb.book
+      .get(key)
+      .then(res => res.blob.arrayBuffer())
+      .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
+      .then(result => result.getMoves);
     this.book.set(key, bookPromise);
     return bookPromise;
   }
@@ -242,6 +239,7 @@ export class DevAssets extends Assets {
   async update(rlist?: AssetList): Promise<void> {
     if (!rlist) rlist = await fetch('/bots/dev/assets').then(res => res.json());
     Object.values(this.server).forEach(m => m.clear());
+    this.server.book.set('lichess', 'lichess');
     assetTypes.forEach(type => rlist?.[type]?.forEach(a => this.server[type].set(a.key, a.name)));
     const books = Object.entries(this.server.book);
     this.server.bookCover = new Map(books.map(([k, v]) => [`${k}.png`, v]));

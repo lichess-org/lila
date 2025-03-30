@@ -90,6 +90,7 @@ export class BotCtrl {
     this.uids.white = white;
     this.uids.black = black;
     this.reset();
+    env.assets.preload([white, black].filter(defined));
   }
 
   reset(): void {

@@ -266,7 +266,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
               {
                 hook: onInsert(el => {
                   const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
-                  goTo?.scrollIntoView();
+                  goTo
+                    ?.closest('.relay-tour__round-select')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }),
               },
               h(

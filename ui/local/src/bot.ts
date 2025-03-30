@@ -79,7 +79,7 @@ export class Bot implements BotInfo, MoveSource {
     const { fish, zero } = this;
     this.trace([`  ${env?.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
     if (args.avoid?.length) this.trace(`[move] - avoid = [${args.avoid.join(', ')}]`);
-    const openingMove = await this.bookMove(chess);
+    const openingMove = await this.bookMove(args);
     args.movetime = getMovetime(args, Bot.rating(this, clockToSpeed(args.initial, args.increment)));
 
     if (openingMove) return { uci: openingMove, movetime: args.movetime };
@@ -136,14 +136,15 @@ export class Bot implements BotInfo, MoveSource {
     return y;
   }
 
-  private async bookMove(chess: co.Chess) {
+  private async bookMove({ chess, initial, increment }: MoveArgs) {
+    const speed = clockToSpeed(initial, increment);
     const books = this.books?.filter(b => !b.color || b.color === chess.turn);
     // first use book relative weights to choose from the subset of books with moves for the current position
     if (!books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
     for (const [book, opening] of zip(books, await this.openings)) {
-      const moves = opening(chess);
+      const moves = await opening(chess, this.ratings[speed] ?? this.ratings.classical ?? 1500, speed);
       if (moves.length === 0) continue;
       moveList.push({ moves, book });
       bookChance += book.weight;

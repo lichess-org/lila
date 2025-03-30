@@ -383,5 +383,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             else if presetPerms(Permission.CheatHunter) then permissions(MonitoredCheatMod)
             else false
           case _ => false
-        monitorable.so(ircApi.monitorMod(icon = icon, text = text, dom))
+        for
+          _ <- monitorable.so(ircApi.monitorMod(icon = icon, text = text, dom))
+          _ <- m.isForum.so(ircApi.publicForumLog(icon = icon, text = text))
+        yield ()
     }

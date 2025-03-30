@@ -131,10 +131,8 @@ class BookPane extends RangeSetting {
       .forEach(b => b.classList.add('active'));
     this.el.append(this.colorInput);
     this.el.append(renderRemoveButton());
-    const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = env.assets.getBookCoverUrl(key);
-    span.classList.add('image-powertip');
-    imagePowertip(span);
+    this.label.append(frag(`<img src="${env.assets.getBookCoverUrl(key)}">`));
+    this.label.title = '';
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
 

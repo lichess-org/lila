@@ -379,9 +379,11 @@ export class EditDialog {
 
     buildFromSchema(this, ['info']);
     botCard.firstElementChild?.appendChild(this.panes.byId['info_description'].el);
-    botCard.append(this.panes.byId['info_name'].el);
-    botCard.append(this.panes.byId['info_ratings'].el);
     botCard.append(this.botActionsEl);
+    const underBot = frag<HTMLElement>('<div class="under-bot"></div>');
+    underBot.append(this.panes.byId['info_name'].el);
+    underBot.append(this.panes.byId['info_ratings'].el);
+    botCard.append(underBot);
     return botCard;
   }
 }

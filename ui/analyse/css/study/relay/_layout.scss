@@ -117,6 +117,10 @@ main.analyse.is-relay:not(.has-relay-tour) {
     .mchat {
       margin-top: $analyse-block-gap;
       flex: 5 0 30%;
+
+      &:has(.liveboard.mchat__tab-active) {
+        min-height: 374px;
+      }
     }
   }
   .eval-chart-and-training {
