@@ -6,7 +6,6 @@ import type { LocalEnv } from './localEnv';
 import type { BotCtrl } from './botCtrl';
 import type { LocalGame } from './localGame';
 import type { LocalDb, LiteGame } from './localDb';
-import { Assets } from './assets';
 
 export type {
   CardData,

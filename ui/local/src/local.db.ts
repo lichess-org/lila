@@ -1,6 +1,5 @@
 import { LocalDb } from './localDb';
 import { BotCtrl } from './botCtrl';
-import { Assets } from './assets';
 import { type LocalEnv, makeEnv } from './localEnv';
 
 export default async function initModule(): Promise<LocalEnv> {

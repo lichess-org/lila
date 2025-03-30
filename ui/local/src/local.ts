@@ -3,7 +3,6 @@ import type { RoundController } from 'round';
 import { LocalDb } from './localDb';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
-import { Assets } from './assets';
 //import { showSetupDialog } from './dev/setupDialog';
 import { type LocalEnv, env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
