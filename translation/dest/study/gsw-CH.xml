@@ -179,4 +179,5 @@
   <string name="commentPositionTitle">Kommentar zunere Schtellig</string>
   <string name="commentPositionText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Klick d\'Schaltflächi %s, oder en Rächtsklick uf de Zug, i de Zugslischte, rächts.&lt;br&gt;D\'Kommentär sind teilt und gschpeicheret.</string>
   <string name="annotatePositionTitle">E Schtellig vermerke</string>
+  <string name="conclusionTitle">Merci für dini Ziit</string>
 </resources>
