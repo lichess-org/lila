@@ -460,6 +460,7 @@
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
   <string name="createdBy">Ginawa ni</string>
+  <string name="startingIn" comment="Displayed above a timer">Nagsisimula sa</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>
@@ -664,6 +665,7 @@
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
+  <string name="accuracy">Katumpakan</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
   <string name="keyMoveBackwardOrForward">gumalaw pabalik/pasulong</string>
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
@@ -686,6 +688,7 @@
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ay mas magaling sa %2$s ng %3$s manlalaro.</string>
+  <string name="betterThanPercentPlayers">Mas magaling kaysa sa %1$s ng mga manlalaro sa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
   <string name="yourRating">Ang iyong grado</string>
   <string name="cumulative">Naiipon</string>
@@ -722,6 +725,7 @@
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="viewTheSolution">Tingnan ang solusyon</string>
+  <string name="noChallenges">Walang hamon.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Magagamit sa %s wika!</item>
     <item quantity="other">Magagamit sa %s mga wika!</item>
@@ -734,11 +738,14 @@
   <string name="anonymous">Hindi kilala</string>
   <string name="yourScore">Ang iyong marka: %s</string>
   <string name="language">Wika</string>
+  <string name="allLanguages">Lahat ng wika</string>
   <string name="background">Likuran</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
+  <string name="size">Laki</string>
+  <string name="brightness">Liwanag</string>
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
@@ -808,6 +815,8 @@
     <item quantity="one">at i-save %s bago gumalaw na linya</item>
     <item quantity="other">at i-save %s bago gumalaw na mga linya</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Nakatanggap ka ng pribadong mensahe mula kay Lichess.</string>
+  <string name="clickHereToReadIt">Mag-click dito upang basahin ito</string>
   <string name="sorry">Pasensya na :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
   <string name="why">Bakit?</string>
@@ -829,6 +838,7 @@
   <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Mabilisan</string>
   <string name="classical">Klasiko</string>
   <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
@@ -845,6 +855,7 @@
   <string name="useTheReportForm">gamitin ang form na pang-sumbong</string>
   <string name="toRequestSupport">Para humiling ng suporta, %1$s</string>
   <string name="tryTheContactPage">subukan ang pahina ng kontak</string>
+  <string name="makeSureToRead">Siguraduhing basahin ang %1$s</string>
   <string name="thisTopicIsArchived">Ang topic na ito ay naisa-baol na at hindi na maaaring sagutin.</string>
   <string name="joinTheTeamXToPost">Sumali sa %1$s, para maka-paskil sa forum na ito</string>
   <string name="teamNamedX">%1$s na koponan</string>
@@ -918,6 +929,8 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>
   <string name="switchSides">Lumipat ng sides</string>
   <string name="closingAccountWithdrawAppeal">Ang pagsasara ng iyong account ay babawiin ang iyong apela</string>
+  <string name="instructions">Mga Tagubilin</string>
+  <string name="showMeEverything">Ipakita ang lahat sa akin</string>
   <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
 Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
 </resources>
