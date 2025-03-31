@@ -1,19 +1,19 @@
 import * as licon from 'lib/licon';
-import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'lib/snabbdom';
+import { bind, looseH as h, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'lib/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
-import { botAssetUrl } from 'local/botLoader';
-import { BotInfo } from 'local';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { type BotInfo } from 'lib/bot/types';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';
 import { bindMobileMousedown } from 'lib/device';
-import { StatusData, statusOf as viewStatus } from 'lib/game/view/status';
+import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
 import boardMenu from './boardMenu';
 import { renderMaterialDiffs } from 'lib/game/view/material';
-import { TopOrBottom } from 'lib/game/game';
+import { type TopOrBottom } from 'lib/game/game';
 import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>

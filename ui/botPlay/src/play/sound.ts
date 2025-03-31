@@ -1,4 +1,4 @@
-import { SoundEvent } from 'local';
+import { type SoundEvent } from 'lib/bot/types';
 import PlayCtrl from './playCtrl';
 
 export const playMoveSounds = async (ctrl: PlayCtrl, san: San) => {

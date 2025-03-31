@@ -1,5 +1,5 @@
-import { Chess, makeUci, Move, parseUci } from 'chessops';
-import type { MoveArgs, MoveSource } from 'local';
+import { type Chess, makeUci, type Move, parseUci } from 'chessops';
+import type { MoveArgs, MoveSource } from 'lib/bot/types';
 import type { Game } from '../game';
 import { toPgn } from '../chess';
 import { INITIAL_FEN } from 'chessops/fen';

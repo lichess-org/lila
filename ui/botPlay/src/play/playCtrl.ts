@@ -1,7 +1,7 @@
 import { Move, opposite, parseSquare } from 'chessops';
 import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { BotInfo } from 'local';
+import { type BotInfo } from 'lib/bot/types';
 import { addMove, Board, makeBoardAt } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';

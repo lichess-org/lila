@@ -1,8 +1,8 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
 import type { BotOpts, LocalBridge } from './interfaces';
-import { type BotInfo } from 'local';
-import { BotLoader } from 'local/botLoader';
+import { type BotInfo } from 'lib/bot/types';
+import { BotLoader } from 'lib/bot/botLoader';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
@@ -77,6 +77,7 @@ export class BotCtrl {
     const loader = new BotLoader();
 
     await loader.init(this.opts.bots);
+    await loader.preload(info.uid);
 
     const bot = loader.bots.get(info.uid)!;
 
