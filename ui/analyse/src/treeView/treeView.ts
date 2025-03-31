@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '../ctrl';
 import column from './columnView';
 import inline from './inlineView';
-import { isCol1 } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import type { VNode } from 'snabbdom';
 import type { ConcealOf } from '../interfaces';
 import { storedProp, type StoredProp } from 'lib/storage';
@@ -26,4 +26,4 @@ export class TreeView {
 
 // entry point, dispatching to selected view
 export const render = (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode =>
-  (ctrl.treeView.inline() || isCol1()) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);
+  (ctrl.treeView.inline() || displayColumns()) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);

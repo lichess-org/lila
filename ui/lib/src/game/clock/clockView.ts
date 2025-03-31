@@ -1,7 +1,7 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
 import { looseH as h, type VNode, LooseVNodes } from '../../snabbdom';
-import { isCol1 } from '../../device';
+import { displayColumns } from '../../device';
 import { TopOrBottom } from '../game';
 
 export function renderClock(
@@ -98,7 +98,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
       el.style.transform = 'scale(' + ctrl.timeRatio(ctrl.millisOf(color)) + ',1)';
     }
   };
-  return isCol1()
+  return displayColumns() === 1
     ? undefined
     : h('div.bar', {
         class: { berserk: ctrl.opts.hasGoneBerserk(color) },

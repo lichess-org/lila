@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h, type LooseVNode } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
@@ -20,6 +20,9 @@ import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { relayChatView } from './relayChat';
+import { displayColumns } from 'lib/device';
+import { storedMap } from 'lib/storage';
+import { clamp } from 'lib/algo';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -37,9 +40,11 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctx: RelayViewContext) => {
+export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
+  const resizable = displayColumns() > (ctx.hasRelayTour ? 1 : 2);
+  const tourKey = relay.tourPath().slice(11);
   return h(
     'aside.relay-tour__side',
     {
@@ -79,7 +84,10 @@ export const tourSide = (ctx: RelayViewContext) => {
           ]),
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
+      resizable && resizeDivider(`games-${tourKey}`, 48, 48 * study.chapters.list.size()),
       relayChatView(ctx),
+      resizable && resizeDivider(`chat-${tourKey}`, 52, window.innerHeight),
+      kid,
     ],
   );
 };
@@ -471,5 +479,44 @@ const broadcastImageOrStream = (ctx: RelayViewContext) => {
               i18n.broadcast.uploadImage,
             )
           : undefined,
+  );
+};
+
+const sizeMap = storedMap<number>('relay.side.divider', 100, () => 0); // at most one of these
+
+const resizeDivider = (key: string, min: number, max: number) => {
+  return h(
+    'div.resize-divider',
+    {
+      hook: {
+        insert: vnode => {
+          const divider = vnode.elm as HTMLElement;
+          const resizeEl = divider.previousElementSibling as HTMLElement;
+          const oldHeight = sizeMap(key);
+          if (oldHeight) {
+            resizeEl.style.flex = 'none';
+            resizeEl.style.height = oldHeight + 'px';
+          }
+          divider.addEventListener('pointerdown', e => {
+            divider.setPointerCapture(e.pointerId);
+            const beginFrom = resizeEl.getBoundingClientRect().height - e.clientY;
+            const move = (moveEvent: PointerEvent) => {
+              resizeEl.style.flex = 'none';
+              resizeEl.style.height = `${clamp(beginFrom + moveEvent.clientY, { min, max })}px`;
+            };
+            const up = () => {
+              divider.releasePointerCapture(e.pointerId);
+              window.removeEventListener('pointermove', move);
+              window.removeEventListener('pointerup', up);
+              sizeMap(key, parseInt(resizeEl.style.height));
+            };
+            window.addEventListener('pointermove', move);
+            window.addEventListener('pointerup', up);
+            window.addEventListener('pointercancel', up);
+          });
+        },
+      },
+    },
+    [h('hr', { attrs: { role: 'separator' } })],
   );
 };
