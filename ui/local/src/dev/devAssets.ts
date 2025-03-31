@@ -1,6 +1,6 @@
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'bits/polyglot';
-import { botAssetUrl } from '../botCtrl';
+import { botAssetUrl } from '../botLoader';
 import { alert } from 'lib/dialogs';
 import { zip } from 'lib/algo';
 import { env } from './devEnv';

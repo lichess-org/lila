@@ -6,10 +6,10 @@ import { shuffle } from 'lib/algo';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { storedBooleanProp } from 'lib/storage';
 import type { GameStatus, GameContext } from '../localGame';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';
 import { type PermaLog, makeLog } from 'lib/permalog';
-import type { GameObserver } from '../gameCtrl';
+import type { GameObserver } from './gameCtrl';
 
 export interface Result {
   winner: Color | undefined;

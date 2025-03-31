@@ -1,10 +1,10 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { type GameContext, type GameStatus, LocalGame } from './localGame';
+import { type GameContext, type GameStatus, LocalGame } from '../localGame';
 import { statusOf, clockToSpeed, playable } from 'lib/game/game';
 import type { ClockData } from 'round';
-import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
-import { env } from './localEnv';
+import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from '../types';
+import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';
 
 export interface GameObserver {
@@ -221,6 +221,8 @@ export class GameCtrl {
   private playSounds(moveCtx: GameContext) {
     if (moveCtx.silent) return;
     const justPlayed = this.live.awaiting;
+    const botInfo = env.bot[justPlayed] ?? env.bot[co.opposite(justPlayed)];
+    if (!botInfo) return;
     const { san } = moveCtx;
     const sounds: SoundEvent[] = [];
     const prefix = env.bot[justPlayed] ? 'bot' : 'player';
@@ -228,12 +230,16 @@ export class GameCtrl {
     if (this.live.chess.isCheck()) sounds.push(`${prefix}Check`);
     if (this.live.finished) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
-    const boardSoundVolume = sounds.length ? env.bot.playSound(justPlayed, sounds) : 1;
+    const bot = env.bot.bots.get(botInfo.uid)!;
+    const boardSoundVolume = sounds.length ? bot.playSound(sounds) : 1;
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 
   private triggerStart(inProgress = false) {
-    ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
+    for (const c of ['white', 'black'] as const) {
+      if (!env.bot[c]) continue;
+      env.bot.bots.get(env.bot[c].uid)?.playSound(['greeting']);
+    }
     if (!env.bot[this.live.turn] || env.bot[this.live.awaiting]) return;
     if (!inProgress) {
       setTimeout(() => this.start(), 200);

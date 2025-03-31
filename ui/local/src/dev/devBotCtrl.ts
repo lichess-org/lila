@@ -1,18 +1,20 @@
 import { type Zerofish } from 'zerofish';
 import { Bot } from '../bot';
 import { RateBot } from './rateBot';
-import { BotCtrl, botAssetUrl } from '../botCtrl';
+import { BotLoader, botAssetUrl } from '../botLoader';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { deepFreeze } from 'lib/algo';
 import { pubsub } from 'lib/pubsub';
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 import { env } from './devEnv';
-import type { CardData, BotInfo, LocalSpeed } from '../types';
+import type { CardData, BotInfo, LocalSpeed, MoveArgs, MoveResult, MoveSource } from '../types';
+import { defined } from 'lib';
 
 const currentBotDbVersion = 3;
 
-export class DevBotCtrl extends BotCtrl {
+export class DevBotCtrl extends BotLoader {
   readonly rateBots: RateBot[] = [];
+  readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   private store: ObjectStorage<BotInfo>;
   localBots: Record<string, BotInfo> = {};
   serverBots: Record<string, BotInfo> = {};
@@ -42,8 +44,47 @@ export class DevBotCtrl extends BotCtrl {
           }),
       ),
     );
+    if (this.uids.white && !this.bots.has(this.uids.white)) this.uids.white = undefined;
+    if (this.uids.black && !this.bots.has(this.uids.black)) this.uids.black = undefined;
     pubsub.complete('local.images.ready');
     return this;
+  }
+
+  async move(args: MoveArgs): Promise<MoveResult | undefined> {
+    const bot = this[args.chess.turn] as BotInfo & MoveSource;
+    if (!bot) return undefined;
+    if (this.busy) return undefined; // ignore different call stacks
+    this.busy = true;
+    const move = await bot.move(args);
+    this.busy = false;
+    return move?.uci !== '0000' ? move : undefined;
+  }
+
+  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+    this.uids.white = white;
+    this.uids.black = black;
+    this.reset();
+    this.preload([this.uids.white, this.uids.black].filter(defined));
+  }
+
+  get white(): BotInfo | undefined {
+    return this.get(this.uids.white);
+  }
+
+  get black(): BotInfo | undefined {
+    return this.get(this.uids.black);
+  }
+
+  get isBusy(): boolean {
+    return this.busy;
+  }
+
+  get all(): BotInfo[] {
+    return [...this.bots.values()] as Bot[];
+  }
+
+  get playing(): BotInfo[] {
+    return [this.white, this.black].filter(defined);
   }
 
   get firstUid(): string | undefined {

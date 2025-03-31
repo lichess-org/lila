@@ -3,7 +3,7 @@ import type { CardData } from './dev/handOfCards';
 import type { Chess } from 'chessops';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
 import type { LocalEnv } from './localEnv';
-import type { BotCtrl } from './botCtrl';
+import type { BotLoader } from './botLoader';
 import type { LocalGame } from './localGame';
 import type { LocalDb, LiteGame } from './localDb';
 
@@ -14,7 +14,7 @@ export type {
   Filters,
   Point,
   LocalEnv,
-  BotCtrl,
+  BotLoader as BotCtrl,
   LocalGame,
   LocalDb,
   LiteGame as LiteGame,

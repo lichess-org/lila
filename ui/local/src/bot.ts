@@ -7,7 +7,7 @@ import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import { movetime as getMovetime } from './movetime';
 import { normalMove } from './localGame';
-import type { BotCtrl } from './botCtrl';
+import type { BotLoader } from './botLoader';
 import type {
   BotInfo,
   FishSearch,
@@ -19,6 +19,7 @@ import type {
   MoveArgs,
   MoveResult,
   LocalSpeed,
+  SoundEvent,
   SoundEvents,
   Ratings,
 } from './types';
@@ -28,7 +29,7 @@ export class Bot implements BotInfo, MoveSource {
   private stats: { cplMoves: number; cpl: number };
   private traces: string[];
   private cp: number;
-  private ctrl: BotCtrl;
+  private ctrl: BotLoader;
 
   readonly uid: string;
   readonly version: number = 0;
@@ -47,7 +48,7 @@ export class Bot implements BotInfo, MoveSource {
     return bot?.ratings[speed] ?? bot?.ratings.classical ?? 1500;
   }
 
-  constructor(info: BotInfo, ctrl: BotCtrl) {
+  constructor(info: BotInfo, ctrl: BotLoader) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
 
@@ -110,6 +111,24 @@ export class Bot implements BotInfo, MoveSource {
     }
     this.trace(`[move] - chose ${uci} in ${movetime.toFixed(1)}s`);
     return { uci, movetime };
+  }
+
+  playSound(eventList: SoundEvent[]): number {
+    const prioritized = soundPriority.filter(e => eventList.includes(e));
+    for (const soundList of prioritized.map(priority => this.sounds?.[priority] ?? [])) {
+      let r = Math.random();
+      for (const { key, chance, delay, mix } of soundList) {
+        r -= chance / 100;
+        if (r > 0) continue;
+        // right now we play at most one sound per move, might want to revisit this.
+        // also definitely need cancelation of the timeout
+        site.sound
+          .load(key, this.ctrl.getSoundUrl(key))
+          .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
+        return Math.min(1, (1 - mix) * 2);
+      }
+    }
+    return 1;
   }
 
   private hasFilter(op: FilterType): boolean {
@@ -322,3 +341,15 @@ function stringify(obj: any) {
   if (!obj) return '';
   return JSON.stringify(obj, (_, v) => (typeof v === 'number' ? v.toFixed(2) : v));
 }
+
+const soundPriority: SoundEvent[] = [
+  'playerWin',
+  'botWin',
+  'playerCheck',
+  'botCheck',
+  'playerCapture',
+  'botCapture',
+  'playerMove',
+  'botMove',
+  'greeting',
+];

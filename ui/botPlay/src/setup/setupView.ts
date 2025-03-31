@@ -1,4 +1,4 @@
-import { botAssetUrl } from 'local/botCtrl';
+import { botAssetUrl } from 'local/botLoader';
 import { bind, looseH as h } from 'lib/snabbdom';
 import SetupCtrl from './setupCtrl';
 import { BotInfo } from 'local';

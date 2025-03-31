@@ -26,5 +26,5 @@ export interface Pref {
 }
 
 export interface LocalBridge extends MoveSource {
-  playSound: (c: Color, eventList: SoundEvent[]) => number;
+  playSound: (eventList: SoundEvent[]) => number;
 }

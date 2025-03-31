@@ -4,7 +4,7 @@ import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'lib/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
-import { botAssetUrl } from 'local/botCtrl';
+import { botAssetUrl } from 'local/botLoader';
 import { BotInfo } from 'local';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';

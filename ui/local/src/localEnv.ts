@@ -1,5 +1,5 @@
-import type { BotCtrl } from './botCtrl';
-import type { GameCtrl } from './gameCtrl';
+import type { BotLoader } from './botLoader';
+import type { GameCtrl } from './dev/gameCtrl';
 import type { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import { myUserId, myUsername } from 'lib';
@@ -12,7 +12,7 @@ export function makeEnv(cfg: Partial<LocalEnv>): LocalEnv {
 }
 
 export class LocalEnv {
-  bot: BotCtrl;
+  bot: BotLoader;
   game: GameCtrl;
   db: LocalDb;
   round: RoundController;

@@ -1,10 +1,10 @@
 import * as co from 'chessops';
-import { showSetupDialog } from './dev/setupDialog';
-import { LocalGame } from './localGame';
+import { showSetupDialog } from './setupDialog';
+import { LocalGame } from '../localGame';
 import { type Player, clockToSpeed } from 'lib/game/game';
 import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
 import { analyse } from './analyse';
-import { env } from './localEnv';
+import { env } from './devEnv';
 
 export class RoundProxy implements RoundProxyType {
   readonly data: RoundData;

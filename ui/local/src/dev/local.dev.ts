@@ -1,12 +1,12 @@
 import { attributesModule, classModule, init } from 'snabbdom';
-import { GameCtrl } from '../gameCtrl';
+import { GameCtrl } from './gameCtrl';
 import { DevCtrl } from './devCtrl';
 import { DevAssets, type AssetList } from './devAssets';
 import { renderDevSide } from './devSideView';
 import { DevBotCtrl } from './devBotCtrl';
 import { PushCtrl } from './pushCtrl';
 import { env, makeEnv } from './devEnv';
-import { renderGameView } from '../gameView';
+import { renderGameView } from './gameView';
 import { LocalDb } from '../localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts, LocalSetup } from '../types';

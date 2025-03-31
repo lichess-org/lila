@@ -1,15 +1,14 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
-import { BotOpts, LocalBridge } from './interfaces';
-import { BotInfo } from 'local';
-import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
+import type { BotOpts, LocalBridge } from './interfaces';
+import { type BotInfo } from 'local';
+import { BotLoader } from 'local/botLoader';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/dialogs';
-import { Bot } from 'local/bot';
 import { opposite } from 'chessops';
-import { Game, makeGame } from './game';
+import { type Game, makeGame } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
 
@@ -54,7 +53,7 @@ export class BotCtrl {
       pref: this.opts.pref,
       game,
       bot,
-      bridge: this.makeLocalBridge(bot, opposite(game.pov)),
+      bridge: this.makeLocalBridge(bot),
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,
@@ -74,16 +73,16 @@ export class BotCtrl {
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
-  private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
-    const bots = new LocalBotCtrl();
-    const uids = { [opposite(color)]: undefined, [color]: info.uid };
-    bots.setUids(uids);
-    await bots.init(this.opts.bots);
-    const bot = new Bot(info, bots);
+  private makeLocalBridge = async (info: BotInfo): Promise<LocalBridge> => {
+    const loader = new BotLoader();
+
+    await loader.init(this.opts.bots);
+
+    const bot = loader.bots.get(info.uid)!;
 
     return {
       move: args => bot.move(args),
-      playSound: (c, eventList) => bots.playSound(c, eventList),
+      playSound: eventList => bot.playSound(eventList),
     };
   };
 }
