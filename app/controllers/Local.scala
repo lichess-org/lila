@@ -9,10 +9,6 @@ import lila.local.{ AssetType, BotJson }
 
 final class Local(env: Env) extends LilaController(env):
 
-  extension (r: Result)
-    def withServiceWorker(using RequestHeader) =
-      r.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
-
   def index = Secure(_.Beta) { _ ?=> _ ?=>
     for
       bots <- env.local.repo.getLatestBots()

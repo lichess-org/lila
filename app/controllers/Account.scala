@@ -394,7 +394,6 @@ final class Account(
       .orNotFound: user =>
         if getBool("text") then
           apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
-            Ok.chunked(source.map(_ + "\n"))
-              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+            Ok.chunked(source.map(_ + "\n")).asAttachmentStream(s"lichess_${user.username}.txt")
         else Ok.page(pages.data(user))
   }
