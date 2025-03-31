@@ -29,11 +29,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.draft): (user, blog) =>
-        Ok.async:
-          env.ublog.paginator
-            .byBlog(blog.id, false, page)
-            .map:
-              views.ublog.ui.drafts(user, blog, _)
+        for
+          posts <- env.ublog.paginator.byBlog(blog.id, false, page)
+          page  <- renderPage(views.ublog.ui.drafts(user, blog, posts))
+        yield Ok(page).hasPersonalData
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
@@ -130,6 +129,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
         views.ublog.form.edit(post, env.ublog.form.edit(post))
+      .map(_.hasPersonalData)
   }
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
