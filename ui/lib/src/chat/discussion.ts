@@ -12,7 +12,7 @@ import { pubsub } from '../pubsub';
 import { alert } from '../dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
-const scrollState = { pinToBottom: true, lastScrollTop: 999999 };
+const scrollState = { pinToBottom: true, lastScrollTop: 0 };
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
@@ -42,9 +42,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
-            el.scrollTop = 999999;
             scrollState.lastScrollTop = el.scrollTop;
-            scrollState.pinToBottom = true;
             el.addEventListener('scroll', () => {
               if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
               scrollState.lastScrollTop = el.scrollTop;
@@ -53,11 +51,9 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLElement;
             if (el.scrollTop + el.clientHeight > el.scrollHeight - 10) scrollState.pinToBottom = true;
-            if (scrollState.pinToBottom)
-              el.lastElementChild?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-              });
+            if (!scrollState.pinToBottom) return;
+            el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+            scrollState.lastScrollTop = el.scrollTop;
           },
         },
       },
