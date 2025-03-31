@@ -308,7 +308,7 @@ final class Mod(
             s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").toList.mkString("\n")}"
         env.mod.logApi.fullCommExport(Suspect(user))
         env.irc.api.fullCommExport(user.light)
-        Ok.chunked(source).pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
+        Ok.chunked(source).asAttachmentStream(s"full-comms-export-of-${user.id}.txt")
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =

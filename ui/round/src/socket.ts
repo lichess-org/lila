@@ -56,7 +56,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       handlers[o.t]!(o.d);
     } else
-      xhrReload(ctrl).then(data => {
+      xhrReload(ctrl.data).then(data => {
         const version = wsVersion();
         if (version !== false && version > data.player.version) {
           // race condition! try to reload again

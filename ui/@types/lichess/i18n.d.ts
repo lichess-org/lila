@@ -121,6 +121,8 @@ interface I18n {
     berserk: string;
     /** When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point. */
     berserkAnswer: string;
+    /** Berserk rate */
+    berserkRate: string;
     /** Best results */
     bestResults: string;
     /** Created */
@@ -205,6 +207,8 @@ interface I18n {
     thisIsPrivate: string;
     /** Total */
     total: string;
+    /** The tournament pairings are now closed. */
+    tournamentPairingsAreNowClosed: string;
     /** Tournament shields */
     tournamentShields: string;
     /** Tournament stats */
@@ -285,6 +289,8 @@ interface I18n {
     howToUseLichessBroadcasts: string;
     /** More options on the %s */
     iframeHelp: I18nFormat;
+    /** Live board */
+    liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
     /** My broadcasts */
@@ -3595,8 +3601,6 @@ interface I18n {
     newTournament: string;
     /** Next */
     next: string;
-    /** Next %s tournament: */
-    nextXTournament: I18nFormat;
     /** No */
     no: string;
     /** No challenges. */
@@ -4015,6 +4019,8 @@ interface I18n {
     startedStreaming: string;
     /** Starting: */
     starting: string;
+    /** Starting in */
+    startingIn: string;
     /** Starting position */
     startPosition: string;
     /** Stats */
@@ -4137,8 +4143,6 @@ interface I18n {
     tournamentHomeDescription: string;
     /** Chess tournaments featuring various time controls and variants */
     tournamentHomeTitle: string;
-    /** The tournament is starting */
-    tournamentIsStarting: string;
     /** The tournament may have been cancelled if all players left before it started. */
     tournamentMayHaveBeenCanceled: string;
     /** Tournament not found */

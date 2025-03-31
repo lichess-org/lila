@@ -1,12 +1,6 @@
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { botAssetUrl, Assets } from '../assets';
-import {
-  type OpeningBook,
-  makeBookFromPolyglot,
-  makeBookFromPgn,
-  PgnProgress,
-  PgnFilter,
-} from 'bits/polyglot';
+import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'bits/polyglot';
+import { botAssetUrl } from '../botCtrl';
 import { alert } from 'lib/dialogs';
 import { zip } from 'lib/algo';
 import { env } from './devEnv';
@@ -25,24 +19,23 @@ export type AssetList = Record<AssetType, Record<string, string>[]>;
 const assetTypes = ['image', 'sound', 'book', 'bookCover', 'net'] as const;
 const urlTypes = ['image', 'sound', 'bookCover'] as const;
 
-export class DevAssets extends Assets {
-  private server = assetTypes.reduce(
+export class DevAssets {
+  server: Record<AssetType, Map<string, string>> = assetTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Map() }),
     {} as Record<AssetType, Map<string, string>>,
   );
 
-  private idb = assetTypes.reduce(
+  idb: Record<AssetType, Store> = assetTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Store(type) }),
     {} as Record<AssetType, Store>,
   );
 
-  private urls = urlTypes.reduce(
+  urls: Record<AssetType, Map<string, string>> = urlTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Map() }),
     {} as Record<AssetType, Map<string, string>>,
   );
 
   constructor(public rlist?: AssetList | undefined) {
-    super();
     this.update(rlist);
     window.addEventListener('storage', this.onStorageEvent);
   }
@@ -152,30 +145,6 @@ export class DevAssets extends Assets {
     if (assetList.status === 'fulfilled') return this.update(await assetList.value.json());
   }
 
-  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
-    if (!key) return undefined;
-    if (this.book.has(key)) return this.book.get(key);
-    if (!this.idb.book.keyNames.has(key)) return super.getBook(key);
-    const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
-      this.idb.book
-        .get(key)
-        .then(res => res.blob.arrayBuffer())
-        .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
-        .then(result => resolve(result.getMoves))
-        .catch(reject),
-    );
-    this.book.set(key, bookPromise);
-    return bookPromise;
-  }
-
-  getImageUrl(key: string): string {
-    return this.urls.image.get(key) ?? botAssetUrl('image', key);
-  }
-
-  getSoundUrl(key: string): string {
-    return this.urls.sound.get(key) ?? botAssetUrl('sound', key);
-  }
-
   getBookCoverUrl(key: string): string {
     return this.urls.bookCover.get(key) ?? botAssetUrl('book', `${key}.png`);
   }
@@ -242,6 +211,7 @@ export class DevAssets extends Assets {
   async update(rlist?: AssetList): Promise<void> {
     if (!rlist) rlist = await fetch('/bots/dev/assets').then(res => res.json());
     Object.values(this.server).forEach(m => m.clear());
+    this.server.book.set('lichess', 'lichess');
     assetTypes.forEach(type => rlist?.[type]?.forEach(a => this.server[type].set(a.key, a.name)));
     const books = Object.entries(this.server.book);
     this.server.bookCover = new Map(books.map(([k, v]) => [`${k}.png`, v]));
@@ -279,11 +249,11 @@ type IdbAsset = { blob: Blob; name: string; user: string };
 class Store {
   private store: ObjectStorage<IdbAsset, string>;
 
-  keyNames = new Map<string, string>();
+  keyNames: Map<string, string> = new Map();
 
   constructor(readonly type: AssetType) {}
 
-  async init() {
+  async init(): Promise<any> {
     this.keyNames.clear();
     this.store = await objectStorage<IdbAsset, string>({ store: `local.${this.type}` });
     const [keys, assets] = await Promise.all([this.store.list(), this.store.getMany()]);

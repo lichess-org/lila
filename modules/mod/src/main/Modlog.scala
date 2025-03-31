@@ -15,6 +15,13 @@ case class Modlog(
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
 
+  // only show actions not tied to a specific user
+  def isForum = action match
+    case Modlog.stickyTopic | Modlog.unstickyTopic | Modlog.postAsAnonMod | Modlog.editAsAnonMod |
+        Modlog.openTopic | Modlog.closeTopic =>
+      true
+    case _ => false
+
   def gameId: Option[GameId] = GameId.from:
     details.ifTrue(action == Modlog.cheatDetected).so(_.split(' ').lift(1))
 

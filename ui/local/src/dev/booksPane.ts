@@ -9,14 +9,7 @@ import { opposite } from 'chessops';
 
 export class BooksPane extends Pane {
   info: BooksInfo;
-  template: RangeInfo /* = {
-    type: 'range',
-    class: ['setting', 'book'],
-    value: 1,
-    min: 1,
-    max: 10,
-    step: 1,
-  }*/;
+  template: RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
@@ -131,9 +124,8 @@ class BookPane extends RangeSetting {
       .forEach(b => b.classList.add('active'));
     this.el.append(this.colorInput);
     this.el.append(renderRemoveButton());
-    const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = env.assets.getBookCoverUrl(key);
-    span.classList.add('image-powertip');
+    this.label.append(frag(`<img src="${env.assets.getBookCoverUrl(key)}">`));
+    this.label.title = '';
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
 

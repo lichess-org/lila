@@ -52,6 +52,7 @@ import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
 import { plyToTurn } from 'lib/chess/chess';
 import { wsDestroy } from 'lib/socket';
+import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 
@@ -90,6 +91,7 @@ export default class RoundController implements MoveRootCtrl {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   blindfoldStorage: LichessBooleanStorage;
+  server: Server;
 
   constructor(
     readonly opts: RoundOpts,
@@ -115,7 +117,7 @@ export default class RoundController implements MoveRootCtrl {
       f => f(this.chessground),
       () => {
         this.chessground.cancelPremove();
-        xhr.reload(this).then(this.reload, site.reload);
+        xhr.reload(this.data).then(this.reload, site.reload);
       },
       this.redraw,
       d.pref.autoQueen,
@@ -125,6 +127,7 @@ export default class RoundController implements MoveRootCtrl {
     this.confirmMoveToggle = toggle(d.pref.submitMove);
     this.moveOn = new MoveOn(this, 'move-on');
     if (!d.local) this.transientMove = new TransientMove(this.socket);
+    this.server = new Server(() => this.data);
 
     this.menu = toggle(false, redraw);
 
@@ -498,6 +501,7 @@ export default class RoundController implements MoveRootCtrl {
     this.pluginUpdate(step.fen);
     if (!this.data.local) site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
+    this.server.alive();
     return true; // prevents default socket pubsub
   };
 
@@ -601,6 +605,7 @@ export default class RoundController implements MoveRootCtrl {
     wakeLock.release();
     if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
     else site.sound.say(viewStatus(this.data), false, false, true);
+    this.server.alive();
     if (
       !d.player.spectator &&
       o.status.name === 'outoftime' &&

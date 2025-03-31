@@ -154,8 +154,12 @@ final class Account(
 
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
-    then Ok.page(renderCheckYourEmail)
-    else emailForm.flatMap(f => Ok.page(pages.email(f)))
+    then Ok.page(renderCheckYourEmail).map(_.hasPersonalData)
+    else
+      for
+        f   <- emailForm
+        res <- Ok.page(pages.email(f))
+      yield res.hasPersonalData
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
@@ -323,7 +327,7 @@ final class Account(
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- Ok.async:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
-    yield page
+    yield page.hasPersonalData
   }
 
   def signout(sessionId: String) = Auth { _ ?=> me ?=>
@@ -394,7 +398,6 @@ final class Account(
       .orNotFound: user =>
         if getBool("text") then
           apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
-            Ok.chunked(source.map(_ + "\n"))
-              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+            Ok.chunked(source.map(_ + "\n")).asAttachmentStream(s"lichess_${user.username}.txt")
         else Ok.page(pages.data(user))
   }

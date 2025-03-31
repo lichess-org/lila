@@ -9,7 +9,9 @@ import type { StudyChapters } from '../studyChapters';
 import type { MultiCloudEval } from '../multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
+import { RelayChatPlugin } from './relayChat';
 import { pubsub } from 'lib/pubsub';
+import type { MultiRedraw } from '../../interfaces';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -27,18 +29,20 @@ export default class RelayCtrl {
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
+  chatCtrl: RelayChatPlugin;
 
   constructor(
     readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: (redrawOnly?: boolean) => void,
+    readonly baseRedraw: MultiRedraw,
     readonly isEmbed: boolean,
     readonly members: StudyMemberCtrl,
-    private readonly chapters: StudyChapters,
+    readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
+    private readonly updateHistoryAndAddressBar: () => void,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
@@ -49,16 +53,16 @@ export default class RelayCtrl {
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
+      ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, this.redraw)
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
       this.isEmbed,
       this.federations,
-      redraw,
+      this.redraw,
     );
-    this.stats = new RelayStats(this.currentRound(), redraw);
+    this.stats = new RelayStats(this.currentRound(), this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
       this.videoPlayer = new VideoPlayer(
         {
@@ -67,11 +71,13 @@ export default class RelayCtrl {
           image: this.data.tour.image,
           text: this.data.pinned?.text,
         },
-        redraw,
+        this.redraw,
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', pinnedName]);
-
+    this.chatCtrl = new RelayChatPlugin(this.chapters, this.tourShow);
+    this.chatCtrl.chapterId = chapterSelect.get();
+    this.baseRedraw.add(() => this.chatCtrl.redraw?.());
     pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
       if (pinnedName) s.unshift(['ps', pinnedName]);
@@ -79,8 +85,13 @@ export default class RelayCtrl {
       this.streams = s;
       this.redraw();
     });
-    setInterval(() => this.redraw(true), 1000);
+    setInterval(this.baseRedraw, 1000);
   }
+
+  redraw = () => {
+    this.baseRedraw();
+    this.updateHistoryAndAddressBar();
+  };
 
   openTab = (t: RelayTab) => {
     this.players.closePlayer();
@@ -89,11 +100,12 @@ export default class RelayCtrl {
     this.redraw();
   };
 
-  onChapterChange = () => {
+  onChapterChange = (id: ChapterId) => {
     if (this.tourShow()) {
       this.tourShow(false);
-      this.redraw();
     }
+    this.chatCtrl.chapterId = id;
+    this.redraw();
   };
 
   lastMoveAt = (id: ChapterId): number | undefined => this.chapters.get(id)?.lastMoveAt;

@@ -13,14 +13,13 @@
     "@yaireo/tagify": "4.17.9",
     "bits": "workspace:*",
     "chart": "workspace:*",
-    "lib": "workspace:*",
     "debounce-promise": "^3.1.2",
     "editor": "workspace:*",
     "keyboardMove": "workspace:*",
+    "lib": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "^11.2.0",
-    "sortablejs": "^1.15.6",
-    "tablesort": "^5.3.0"
+    "sortablejs": "^1.15.6"
   },
   "build": {
     "bundle": "src/**/analyse.*ts",

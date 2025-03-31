@@ -8,7 +8,6 @@ import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/dialogs';
 import { Bot } from 'local/bot';
-import { Assets } from 'local/assets';
 import { opposite } from 'chessops';
 import { Game, makeGame } from './game';
 import { debugCli } from './debug';
@@ -77,16 +76,14 @@ export class BotCtrl {
 
   private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
     const bots = new LocalBotCtrl();
-    const assets = new Assets(bots);
     const uids = { [opposite(color)]: undefined, [color]: info.uid };
     bots.setUids(uids);
-    bots.reset();
     await bots.init(this.opts.bots);
-    const bot = new Bot(info);
+    const bot = new Bot(info, bots);
 
     return {
-      move: args => bot.move({ ...args, bots, assets }),
-      playSound: (c, eventList) => bots.playSound(c, eventList, assets),
+      move: args => bot.move(args),
+      playSound: (c, eventList) => bots.playSound(c, eventList),
     };
   };
 }

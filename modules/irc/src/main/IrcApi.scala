@@ -85,6 +85,11 @@ final class IrcApi(
       zulip(_.mod.adminMonitor(tpe), mod.name.value):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
+  def publicForumLog(icon: String, text: String)(using modId: MyId): Funit =
+    lightUser(modId).flatMapz: mod =>
+      zulip(_.mod.commsPublic, "forum-log"):
+        s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
+
   def ublogPost(
       user: LightUser,
       id: UblogPostId,

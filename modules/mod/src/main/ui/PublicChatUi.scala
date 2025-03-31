@@ -72,5 +72,5 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
   private def tournamentTitle(tournament: lila.core.tournament.Tournament) =
     div(cls := "title-time")(
       a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
-      span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)
+      span(cls := s"tournament-status ${tournament.status.name}")(tournament.status.name)
     )

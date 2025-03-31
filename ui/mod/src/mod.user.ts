@@ -1,8 +1,7 @@
 import { formToXhr, text as xhrText } from 'lib/xhr';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
-import extendTablesortNumber from 'lib/tablesortNumber';
-import tablesort from 'tablesort';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 import { spinnerHtml } from 'lib/controls';
 import { confirm } from 'lib/dialogs';
@@ -124,7 +123,7 @@ site.load.then(() => {
       $(el).height($(el).height());
     });
     makeReady('.mz-section--others table', (table: HTMLTableElement) => {
-      tablesort(table, { descending: true });
+      sortTable(table, { descending: true });
       if (table) {
         expandCheckboxZone(table, 'td:last-child', shiftClickCheckboxRange(table));
         const select = table.querySelector('thead select');
@@ -186,7 +185,7 @@ site.load.then(() => {
     makeReady(
       '.mz-section--identification .slist--sort',
       el => {
-        tablesort(el, { descending: true });
+        sortTable(el, { descending: true });
       },
       'ready-sort',
     );

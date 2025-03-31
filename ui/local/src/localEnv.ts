@@ -1,6 +1,5 @@
 import type { BotCtrl } from './botCtrl';
 import type { GameCtrl } from './gameCtrl';
-import type { Assets } from './assets';
 import type { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import { myUserId, myUsername } from 'lib';
@@ -16,7 +15,6 @@ export class LocalEnv {
   bot: BotCtrl;
   game: GameCtrl;
   db: LocalDb;
-  assets: Assets;
   round: RoundController;
   redraw: () => void;
 
