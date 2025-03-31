@@ -2999,6 +2999,8 @@ interface I18n {
     continueFromHere: string;
     /** Contribute */
     contribute: string;
+    /** Copy mainline PGN */
+    copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
     /** Copy variation PGN */
