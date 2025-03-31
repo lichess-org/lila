@@ -12,20 +12,11 @@ import { pubsub } from '../pubsub';
 import { alert } from '../dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
+const scrollState = { pinToBottom: true, lastScrollTop: 999999 };
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
-  const scrollCb = (vnode: VNode, insert: boolean) => {
-      const el = vnode.elm as HTMLElement;
-      if (ctrl.data.lines.length > 5) {
-        const autoScroll = insert || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
-        if (autoScroll) {
-          el.scrollTop = 999999;
-          setTimeout((_: any) => (el.scrollTop = 999999), 300);
-        }
-      }
-    },
-    hasMod = !!ctrl.moderation;
+  const hasMod = !!ctrl.moderation;
   const vnodes = [
     h(
       `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
@@ -33,7 +24,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           insert(vnode) {
-            const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
+            const el = vnode.elm as HTMLElement;
+            const $el = $(el).on('click', 'a.jump', (e: Event) => {
               pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             $el.on('click', '.reply', (e: Event) => {
@@ -50,9 +42,23 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
-            scrollCb(vnode, true);
+            el.scrollTop = 999999;
+            scrollState.lastScrollTop = el.scrollTop;
+            scrollState.pinToBottom = true;
+            el.addEventListener('scroll', () => {
+              if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
+              scrollState.lastScrollTop = el.scrollTop;
+            });
           },
-          postpatch: (_, vnode) => scrollCb(vnode, false),
+          postpatch: (_, vnode) => {
+            const el = vnode.elm as HTMLElement;
+            if (el.scrollTop + el.clientHeight > el.scrollHeight - 32) scrollState.pinToBottom = true;
+            if (scrollState.pinToBottom)
+              el.lastElementChild?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+              });
+          },
         },
       },
       selectLines(ctrl).map(line => renderLine(ctrl, line)),
