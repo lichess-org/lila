@@ -1051,12 +1051,14 @@ export default class AnalyseCtrl {
     const moveList = document.querySelector('.areplay');
     paths.forEach(currPath => {
       const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
-      remove
-        ? moveElement?.classList.remove(className)
-        : moveElement?.classList.add(className);
+      remove ? moveElement?.classList.remove(className) : moveElement?.classList.add(className);
     });
   };
 
   deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) =>
-    this.updateClassListsOfMoves([path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)], 'pending-deletion', unhighlight);
+    this.updateClassListsOfMoves(
+      [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
+      'pending-deletion',
+      unhighlight,
+    );
 }

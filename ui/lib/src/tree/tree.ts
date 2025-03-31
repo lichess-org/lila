@@ -196,7 +196,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function getPathsOfDescendants(node: Tree.Node, path: Tree.Path): Tree.Path[] {
-    let paths = [];
+    const paths = [];
     for (const child of node.children) {
       const newPath = path + child.id;
       paths.push(newPath, ...getPathsOfDescendants(child, newPath));
