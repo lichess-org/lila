@@ -1047,15 +1047,16 @@ export default class AnalyseCtrl {
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
-    const node = this.tree.nodeAtPath(path);
+  updateClassListsOfMoves = (paths: Tree.Path[], className: string, remove: boolean) => {
     const moveList = document.querySelector('.areplay');
-    const paths = [path, ...this.tree.getPathsOfDescendants(node, path)];
     paths.forEach(currPath => {
       const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
-      unhighlight
-        ? moveElement?.classList.remove('pending-deletion')
-        : moveElement?.classList.add('pending-deletion');
+      remove
+        ? moveElement?.classList.remove(className)
+        : moveElement?.classList.add(className);
     });
   };
+
+  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) =>
+    this.updateClassListsOfMoves([path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)], 'pending-deletion', unhighlight);
 }
