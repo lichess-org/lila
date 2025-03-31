@@ -1050,7 +1050,7 @@ export default class AnalyseCtrl {
   deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
     const node = this.tree.nodeAtPath(path);
     const moveList = document.querySelector('.areplay');
-    let paths = [path, ...this.tree.getPathsOfDescendants(node, path)];
+    const paths = [path, ...this.tree.getPathsOfDescendants(node, path)];
     paths.forEach(currPath => {
       const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
       unhighlight
