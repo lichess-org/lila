@@ -131,7 +131,7 @@
   <string name="brilliantMove">极好</string>
   <string name="blunder">漏着</string>
   <string name="interestingMove">略好</string>
-  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">略坏</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">惑着</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一着法</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">均势</string>
@@ -162,8 +162,10 @@
   <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
   <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
   <string name="perPage">%s 每页</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">已共享并保存</string>
   <string name="commentPositionTitle">评论当前局面</string>
   <string name="conclusionTitle">感谢您抽出宝贵的时间</string>
   <string name="createChapterTitle">让我们创建一个学习章节</string>
   <string name="variantsAreSupportedTitle">研究支持变体</string>
+  <string name="chapterConclusionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">章节会永久保存。&lt;br&gt;研讨愉快！</string>
 </resources>
