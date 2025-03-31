@@ -1,11 +1,12 @@
 import { type Zerofish } from 'zerofish';
 import { Bot } from '../bot';
 import { RateBot } from './rateBot';
-import { BotCtrl } from '../botCtrl';
+import { BotCtrl, botAssetUrl } from '../botCtrl';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { deepFreeze } from 'lib/algo';
 import { pubsub } from 'lib/pubsub';
-import { botAssetUrl } from '../assets';
+import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
+import { env } from './devEnv';
 import type { CardData, BotInfo, LocalSpeed } from '../types';
 
 const currentBotDbVersion = 3;
@@ -29,7 +30,7 @@ export class DevBotCtrl extends BotCtrl {
     this.serverBots = Object.fromEntries(
       [...this.bots.entries()].map(x => [x[0], deepFreeze(structuredClone(x[1]))]),
     );
-    for (const [uid, botInfo] of Object.entries(this.localBots)) this.bots.set(uid, new Bot(botInfo));
+    for (const [uid, botInfo] of Object.entries(this.localBots)) this.bots.set(uid, new Bot(botInfo, this));
     await Promise.all(
       [...new Set<string>(Object.values(this.bots).map(b => botAssetUrl('image', b.image)))].map(
         url =>
@@ -51,7 +52,7 @@ export class DevBotCtrl extends BotCtrl {
 
   storeBot(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
-    this.bots.set(bot.uid, new Bot(bot));
+    this.bots.set(bot.uid, new Bot(bot, this));
     if (botEquals(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
     this.localBots[bot.uid] = deepFreeze(structuredClone(bot));
     return this.store.put(bot.uid, bot);
@@ -69,7 +70,7 @@ export class DevBotCtrl extends BotCtrl {
   }
 
   async setServerBot(bot: BotInfo): Promise<void> {
-    this.bots.set(bot.uid, new Bot(bot));
+    this.bots.set(bot.uid, new Bot(bot, this));
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
@@ -109,6 +110,27 @@ export class DevBotCtrl extends BotCtrl {
       const [ab, bb] = [this.get(domIdToUid(a.domId)), this.get(domIdToUid(b.domId))];
       return Bot.rating(ab, speed) - Bot.rating(bb, speed) || a.label.localeCompare(b.label);
     };
+  }
+
+  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+    if (!key) return undefined;
+    if (this.book.has(key)) return this.book.get(key);
+    if (!env.assets.idb.book.keyNames.has(key)) return super.getBook(key);
+    const bookPromise = env.assets.idb.book
+      .get(key)
+      .then(res => res.blob.arrayBuffer())
+      .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
+      .then(result => result.getMoves);
+    this.book.set(key, bookPromise);
+    return bookPromise;
+  }
+
+  getImageUrl(key: string): string {
+    return env.assets.urls.image.get(key) ?? super.getImageUrl(key);
+  }
+
+  getSoundUrl(key: string): string {
+    return env.assets.urls.sound.get(key) ?? super.getSoundUrl(key);
   }
 
   protected storedBots(): Promise<BotInfo[]> {

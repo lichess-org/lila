@@ -7,6 +7,7 @@ import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import { movetime as getMovetime } from './movetime';
 import { normalMove } from './localGame';
+import type { BotCtrl } from './botCtrl';
 import type {
   BotInfo,
   FishSearch,
@@ -27,6 +28,7 @@ export class Bot implements BotInfo, MoveSource {
   private stats: { cplMoves: number; cpl: number };
   private traces: string[];
   private cp: number;
+  private ctrl: BotCtrl;
 
   readonly uid: string;
   readonly version: number = 0;
@@ -45,7 +47,7 @@ export class Bot implements BotInfo, MoveSource {
     return bot?.ratings[speed] ?? bot?.ratings.classical ?? 1500;
   }
 
-  constructor(info: BotInfo) {
+  constructor(info: BotInfo, ctrl: BotCtrl) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
 
@@ -53,9 +55,10 @@ export class Bot implements BotInfo, MoveSource {
     Object.defineProperties(this, {
       cp: { value: 0, writable: true },
       stats: { value: { cplMoves: 0, cpl: 0 } },
+      ctrl: { value: ctrl },
       traces: { value: [], writable: true },
       openings: {
-        get: () => Promise.all(this.books?.flatMap(b => env.assets.getBook(b.key)) ?? []),
+        get: () => Promise.all(this.books?.flatMap(b => env.bot.getBook(b.key)) ?? []),
       },
     });
   }
@@ -73,8 +76,6 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
-    const bots = args.bots ?? env.bot;
-    const assets = args.assets ?? env.assets;
     const { pos, chess } = args;
     const { fish, zero } = this;
     this.trace([`  ${env?.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
@@ -88,7 +89,7 @@ export class Bot implements BotInfo, MoveSource {
       ? {
           nodes: zero.nodes,
           multipv: Math.max(zero.multipv, args.avoid.length + 1), // avoid threefold
-          net: { key: this.name + '-' + zero.net, fetch: () => assets.getNet(zero.net) },
+          net: { key: this.name + '-' + zero.net, fetch: () => this.ctrl.getNet(zero.net) },
         }
       : undefined;
     if (zeroSearch) this.trace(`[move] - zero: ${stringify(zeroSearch)}`);
@@ -97,8 +98,8 @@ export class Bot implements BotInfo, MoveSource {
     if (fish) this.trace(`[move] - fish: ${stringify(fish)}`);
 
     const [fishResults, zeroResults] = await Promise.all([
-      bots.zerofish.goFish(pos, fishSearch),
-      zeroSearch && bots.zerofish.goZero(pos, zeroSearch),
+      this.ctrl.zerofish.goFish(pos, fishSearch),
+      zeroSearch && this.ctrl.zerofish.goZero(pos, zeroSearch),
     ]);
     this.cp = fishResults.lines[fishResults.lines.length - 1][0].score;
 
