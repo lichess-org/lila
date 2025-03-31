@@ -1,6 +1,6 @@
 const searchParams = new URL(self.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
-let hasLocalCache = caches.has('local');
+//let hasLocalCache = caches.has('local');
 
 function assetUrl(path: string): string {
   return `${assetBase}assets/${path}`;
