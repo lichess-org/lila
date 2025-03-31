@@ -4,6 +4,7 @@ import type AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
 import { renderVariationPgn } from '../pgnExport';
+import { isTouchDevice } from 'lib/device';
 
 export interface Opts {
   path: Tree.Path;
@@ -66,7 +67,7 @@ function action(
         insert: vnode => {
           const elm = vnode.elm as HTMLElement;
           elm.addEventListener('click', onClick);
-          if (onHover) elm.addEventListener('mouseover', onHover);
+          if (onHover && !isTouchDevice()) elm.addEventListener('mouseover', onHover);
           if (onLeave) elm.addEventListener('mouseout', onLeave);
         },
       },
