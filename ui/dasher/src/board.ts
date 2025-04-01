@@ -7,21 +7,24 @@ import { bind, looseH as h, type VNode } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 
-type Board = string;
 type Range = { min: number; max: number; step: number };
-type BoardPicks = { current: Board; list: Board[] };
-
-export interface BoardData {
-  is3d: boolean;
-  d2: BoardPicks;
-  d3: BoardPicks;
-}
 
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
+  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
 
   constructor(root: DasherCtrl) {
     super(root);
+    for (const dim of ['d2', 'd3'] as const) {
+      this.featured[dim] = this.data[dim].list.filter(t => t.tags.includes('Featured')).map(t => t.name);
+    }
+  }
+
+  get boardList(): string[] {
+    const all = this.data[this.dimension].list.map(t => t.name);
+    const visible = this.featured[this.dimension].slice();
+    if (!visible.includes(this.current)) visible.push(this.current);
+    return this.root.longPress ? all : visible;
   }
 
   render = (): VNode =>
@@ -59,7 +62,7 @@ export class BoardCtrl extends PaneCtrl {
         ),
       h(
         'div.list',
-        this.data[this.dimension].list.map((t: Board) =>
+        this.boardList.map((t: string) =>
           h(
             'button',
             {
@@ -81,11 +84,11 @@ export class BoardCtrl extends PaneCtrl {
     return this.data[this.dimension].current;
   }
 
-  private set current(t: Board) {
+  private set current(t: string) {
     this.data[this.dimension].current = t;
   }
 
-  private setBoard = (t: Board) => {
+  private setBoard = (t: string) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
@@ -140,7 +143,7 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private apply = (t: Board = this.current) => {
+  private apply = (t: string = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
     pubsub.emit('board.change', this.is3d);

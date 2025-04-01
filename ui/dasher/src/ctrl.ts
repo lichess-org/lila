@@ -22,6 +22,8 @@ export class DasherCtrl implements ModeIndexed {
   board: BoardCtrl;
   piece: PieceCtrl;
   links: LinksCtrl;
+  longPress: boolean | undefined;
+
   opts: { playing: boolean; zenable: boolean } = {
     playing: $('body').hasClass('playing'),
     zenable: $('body').hasClass('zenable'),
@@ -43,7 +45,8 @@ export class DasherCtrl implements ModeIndexed {
 
   mode: Prop<Mode> = prop(defaultMode as Mode);
   render = (): MaybeVNode => this[this.mode()]?.render() || null;
-  setMode = (m: Mode): void => {
+  setMode = (m: Mode, longPress?: boolean): void => {
+    this.longPress = longPress;
     this.mode(m);
     this.redraw();
   };

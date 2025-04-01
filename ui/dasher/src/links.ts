@@ -1,9 +1,11 @@
-import { type Attrs, looseH as h, type VNode, bind } from 'lib/snabbdom';
+import { type Attrs, looseH as h, type VNode, bind, onInsert } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 
 export class LinksCtrl extends PaneCtrl {
+  private pointerDown: number = performance.now();
+
   constructor(root: DasherCtrl) {
     super(root);
   }
@@ -73,7 +75,14 @@ export class LinksCtrl extends PaneCtrl {
   }
 
   private modeCfg = (m: Mode): any => ({
-    hook: bind('click', () => this.root.setMode(m)),
+    hook: onInsert(el => {
+      el.addEventListener('pointerdown', () => (this.pointerDown = performance.now()));
+      el.addEventListener('pointerup', e => {
+        this.root.setMode(m, performance.now() - this.pointerDown > 500);
+        e.preventDefault();
+      });
+      el.addEventListener('click', () => this.root.setMode(m)); // compat, accessibility, etc
+    }),
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });
 
