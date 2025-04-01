@@ -21,6 +21,7 @@ function yeet() {
     `<style>
     .main-board cg-board { box-shadow: none !important; }
     .main-board cg-board:not(.clone)::before {background-image: none !important}
+    .main-board square { display: none; }
     .board-yeet-rotate {
       animation: yeet-rotate 1s ease forwards;
     }
@@ -49,7 +50,6 @@ function yeet() {
     }
 </style>`,
   );
-  $('.main-board square').remove();
   $('.main-board .cg-shapes').remove();
   $('.main-board coords').remove();
   const clone = document.createElement('cg-board');
