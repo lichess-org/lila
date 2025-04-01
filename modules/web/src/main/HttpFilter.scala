@@ -23,8 +23,6 @@ final class HttpFilter(
       val startTime = nowMillis
       redirectWrongDomain(req)
         .map(fuccess)
-        .orElse:
-          redirectWrongProtocol(req).map(fuccess)
         .getOrElse:
           handle(req).map: result =>
             monitoring(req, startTime):
@@ -56,10 +54,6 @@ final class HttpFilter(
     // asset request going through the CDN, don't redirect
     !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
-
-  private def redirectWrongProtocol(req: RequestHeader): Option[Result] = {
-    net.isHttps && !req.secure && HTTPRequest.isRedirectable(req) && !HTTPRequest.isProgrammatic(req)
-  }.option(Results.MovedPermanently(s"https://${req.host}${req.uri}"))
 
   private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
