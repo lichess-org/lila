@@ -12,20 +12,14 @@ export const initMiniBoard = (node: HTMLElement): void => {
 };
 
 export const initMiniBoardWith = (node: HTMLElement, config: CgConfig & { lastUci?: Uci }): void => {
-  domData.set(
-    node,
-    'chessground',
-    makeChessground(node, {
-      coordinates: false,
-      viewOnly: !node.getAttribute('data-playable'),
-      drawable: {
-        enabled: false,
-        visible: false,
-      },
-      ...config,
-      lastMove: uciToMove(config.lastUci),
-    }),
-  );
+  const cgConfig = {
+    coordinates: false,
+    viewOnly: !node.getAttribute('data-playable'),
+    drawable: { enabled: false, visible: false },
+    ...config,
+  };
+  cgConfig.lastMove ??= uciToMove(cgConfig.lastUci);
+  domData.set(node, 'chessground', makeChessground(node, cgConfig));
 };
 
 export const initMiniBoards = (parent?: HTMLElement): void =>
