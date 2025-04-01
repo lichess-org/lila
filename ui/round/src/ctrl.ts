@@ -902,7 +902,10 @@ export default class RoundController implements MoveRootCtrl {
     if (!this.data.player.spectator) this.doYeet();
   };
 
-  private doYeet = memoize(() => site.asset.loadEsm('round.yeet'));
+  private doYeet = memoize(() => {
+    this.chessground.stop();
+    site.asset.loadEsm('round.yeet');
+  });
 
   private delayedInit = () => {
     requestIdleCallback(() => {
