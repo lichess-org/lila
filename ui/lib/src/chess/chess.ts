@@ -1,7 +1,7 @@
 import { uciChar } from './uciChar';
 import { shuffle } from '../algo';
-import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
+import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
 
 export * from './sanWriter';
 
