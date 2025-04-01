@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import type { LooseVNode } from 'lib/snabbdom';
+import { bind, type LooseVNode } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown } from 'lib/boardMenu';
 import { toggle } from 'lib';
@@ -38,6 +38,16 @@ export default function (ctrl: RoundController): LooseVNode {
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
           i18n.preferences.gameBehavior,
+        ),
+        h(
+          'a',
+          {
+            hook: bind('click', () => {
+              ctrl.menu.toggle();
+              ctrl.yeet();
+            }),
+          },
+          'YEET',
         ),
       ]),
     ];
