@@ -41,7 +41,7 @@
     }
 
     background: rgba(0, 0, 0, 0.65);
-    color: --c-ublog-post-card-over-image;
+    color: var(--c-ublog-post-card-over-image);
     text-shadow: 0 1px 1px black;
 
     @include if-light {

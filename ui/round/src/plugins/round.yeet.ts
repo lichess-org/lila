@@ -5,25 +5,42 @@
 export async function initModule(): Promise<void> {
   await site.sound.load('yeet', site.asset.url('sound/other/yeet.mp3'));
   site.sound.play('yeet');
-  setTimeout(yeet, 200);
+  setTimeout(yeet, 150);
 }
 
 function yeet() {
   const gravity = 1.5; // higher -> pieces fall down faster
-  const frictionMultiplier = 0.98; // lower -> more friction
+  const frictionMultiplier = 0.97; // lower -> more friction
   const minAngle = -0.436; // min angle for starting velocity
   const maxAngle = 3.576; // max angle for starting velocity
   const minMagnitude = 250; // min magnitude for starting velocity
   const maxMagnitude = 500; // max magnitude for starting velocity
-  const boardRotateX = 445; // degrees
-  const boardRotateZ = 15;
-  const boardAnimationDurationMs = 750;
 
   document.head.insertAdjacentHTML(
     'beforeend',
     `<style>
     .main-board cg-board { box-shadow: none !important; }
     .main-board cg-board:not(.clone)::before {background-image: none !important}
+    .main-board square { display: none; }
+    .board-yeet-rotate {
+      animation: yeet-rotate 1s ease forwards;
+    }
+    .board-yeet-bounce {
+      animation: yeet-bounce 2s ease forwards;
+    }
+    @keyframes yeet-bounce {
+        0% { transform:translateY(0%); }
+        10% { transform:translateY(-30%); }
+        20% { transform:translateY(0%); }
+        25% { transform:translateY(-14%); }
+        27% { transform:translateY(0%); }
+        29% { transform:translateY(-6%); }
+        30% { transform:translateY(0); }
+    }
+    @keyframes yeet-rotate {
+      0% { transform: rotateX(0) rotateZ(0); }
+      100% { transform: rotateX(445deg) rotateZ(15deg); }
+    }
     button.yeet-reload {
       position: fixed;
       top: 70%;
@@ -33,7 +50,6 @@ function yeet() {
     }
 </style>`,
   );
-  $('.main-board square').remove();
   $('.main-board .cg-shapes').remove();
   $('.main-board coords').remove();
   const clone = document.createElement('cg-board');
@@ -42,10 +58,8 @@ function yeet() {
 
   const pieces = document.querySelectorAll<HTMLElement>('piece:not(.ghost)');
 
-  clone.animate([{ transform: 'rotateX(' + boardRotateX + 'deg) rotateZ(' + boardRotateZ + 'deg)' }], {
-    duration: boardAnimationDurationMs,
-    fill: 'forwards',
-  });
+  clone.classList.add('board-yeet-rotate');
+  clone.parentElement?.classList.add('board-yeet-bounce');
 
   function movePieces() {
     let keepGoing = false;
