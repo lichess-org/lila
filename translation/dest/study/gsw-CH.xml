@@ -180,4 +180,15 @@
   <string name="commentPositionText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Klick d\'Schaltflächi %s, oder en Rächtsklick uf de Zug, i de Zugslischte, rächts.&lt;br&gt;D\'Kommentär sind teilt und gschpeicheret.</string>
   <string name="annotatePositionTitle">E Schtellig vermerke</string>
   <string name="conclusionTitle">Merci für dini Ziit</string>
+  <string name="createChapterTitle">Es Schtudie-Kapitel kreiere</string>
+  <string name="fromInitialPositionTitle">Ab de Usgangsschtellig</string>
+  <string name="fromInitialPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Nur es Brätt in Afangsschtellig.&lt;br&gt;G\'eignet zum Eröffnige erkunde.</string>
+  <string name="customPositionTitle">Benutzerdefinierti Schtellig</string>
+  <string name="customPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Mach dir sälber e Schtellig.&lt;br&gt;G\'eignet zum Ändschpiel erkunde.</string>
+  <string name="loadExistingLichessGameTitle">Lad e exischtierendi Lichess-Partie</string>
+  <string name="loadExistingLichessGameText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Füeg e Lichess-Partie-URL i&lt;br&gt;(wie z.B. lichess.org/7fHIU0XI)&lt;br&gt;zum d\'Züg is Kapitel lade.</string>
+  <string name="fromFenStringTitle">Vunere FEN-Partie</string>
+  <string name="fromPgnGameTitle">Vunere PGN-Partie</string>
+  <string name="fromPgnGameText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">Füeg e Partie im PGN-Format i.&lt;br&gt;zum Züg, Kommentär und Variante is Kapitel lade.</string>
+  <string name="variantsAreSupportedTitle">Vu Schtudie underschtützti Variante</string>
 </resources>
