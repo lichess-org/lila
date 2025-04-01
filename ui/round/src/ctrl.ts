@@ -46,7 +46,7 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, type LichessBooleanStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
@@ -897,6 +897,12 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
     return v;
   };
+
+  yeet = (): void => {
+    if (!this.data.player.spectator) this.doYeet();
+  };
+
+  private doYeet = memoize(() => site.asset.loadEsm('round.yeet'));
 
   private delayedInit = () => {
     requestIdleCallback(() => {
