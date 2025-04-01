@@ -4,8 +4,8 @@ import play.api.libs.json.*
 enum BoardTag:
   case Featured
 
-object BoardTag:
-  given Writes[BoardTag] = Writes(tag => JsString(tag.toString))
+// object BoardTag:
+//   given Writes[BoardTag] = Writes(tag => JsString(tag.toString))
 
 final case class Theme private[pref] (val name: String, val file: String, val tags: Seq[BoardTag]):
 
