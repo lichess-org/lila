@@ -6,8 +6,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "lib": "workspace:*",
-    "local": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/botPlay.main.ts"

@@ -14,7 +14,7 @@ export type PubsubEvent =
   | 'content-loaded'
   | 'flip'
   | 'jump'
-  | 'local.dev.import.book'
+  | 'botdev.import.book'
   | 'notify-app.set-read'
   | 'palantir.toggle'
   | 'ply'
@@ -55,9 +55,9 @@ export type PubsubEvent =
 export type PubsubOneTimeEvent =
   | 'dialog.polyfill'
   | 'socket.hasConnected'
-  | 'local.images.ready'
-  | 'local.gameDb.ready'
-  | 'local.bots.ready';
+  | 'botdev.images.ready'
+  | 'botdev.gameDb.ready'
+  | 'botdev.bots.ready';
 
 export type PubsubCallback = (...data: any[]) => void;
 

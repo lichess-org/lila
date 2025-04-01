@@ -1,5 +1,7 @@
 import { uciChar } from './uciChar';
 import { shuffle } from '../algo';
+import { normalizeMove } from 'chessops/chess';
+import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
 
 export * from './sanWriter';
 
@@ -44,4 +46,11 @@ export function fen960(): string {
   board[queen] = 'q';
   board[knight1] = board[knight2] = 'n';
   return `${board.join('')}/pppppppp/8/8/8/8/PPPPPPPP/${board.join('').toUpperCase()}`;
+}
+
+export function normalMove(chess: Chess, uci: Uci): { uci: Uci; move: NormalMove } | undefined {
+  const bareMove = parseUci(uci);
+  const move =
+    bareMove && 'from' in bareMove ? { ...bareMove, ...normalizeMove(chess, bareMove) } : undefined;
+  return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }

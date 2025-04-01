@@ -1,5 +1,5 @@
 import { BotOpts } from '../interfaces';
-import { BotInfo } from 'local';
+import { type BotInfo } from 'lib/bot/types';
 import { makeBoardAt } from '../chess';
 import { Game } from '../game';
 
