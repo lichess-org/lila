@@ -22,7 +22,6 @@ export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefi
         plugin: relay.chatCtrl,
         persistent: true,
         enhance: { plies: true, boards: true },
-        persistent: true,
       });
       const members = frag<HTMLElement>('<div class="chat__members">');
       document.querySelector('.relay-tour__side')?.append(members);
