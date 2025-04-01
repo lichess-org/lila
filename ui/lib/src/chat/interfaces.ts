@@ -18,6 +18,7 @@ export interface ChatOpts {
   noteId?: string;
   noteText?: string;
   plugin?: ChatPlugin;
+  persistent?: boolean;
   kidMode: boolean;
 }
 

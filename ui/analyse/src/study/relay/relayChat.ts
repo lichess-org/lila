@@ -17,6 +17,7 @@ export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefi
       ctrl.opts.chat.instance = makeChat({
         ...ctrl.opts.chat,
         plugin: relay.chatCtrl,
+        persistent: true,
         enhance: { plies: true, boards: true },
       });
       const members = frag<HTMLElement>('<div class="chat__members">');
