@@ -26,4 +26,4 @@ export class TreeView {
 
 // entry point, dispatching to selected view
 export const render = (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode =>
-  (ctrl.treeView.inline() || displayColumns()) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);
+  (ctrl.treeView.inline() || displayColumns() === 1) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);
