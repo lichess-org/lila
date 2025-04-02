@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">친구와 체스 두기</string>
   <string name="playWithTheMachine">컴퓨터와 체스 두기</string>
-  <string name="playOffline">오프라인 플레이</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
@@ -450,7 +449,6 @@
   <string name="wins">승리</string>
   <string name="losses">패배</string>
   <string name="createdBy">토너먼트 주최자:</string>
-  <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
   <string name="pause">일시 중지</string>
@@ -465,7 +463,6 @@
   <string name="blackWins">검은 말로 우승</string>
   <string name="drawRate">무승부 비율</string>
   <string name="draws">무승부</string>
-  <string name="nextXTournament">다음 %s 대회:</string>
   <string name="averageOpponent">상대의 평균 승점</string>
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
