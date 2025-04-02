@@ -509,10 +509,8 @@ final class Mod(
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
-    env.mod.presets
-      .get(group)
-      .fold(notFound): setting =>
-        Ok.page(views.mod.ui.presets(group, setting.form))
+    Found(env.mod.presets.get(group)): setting =>
+      Ok.page(views.mod.ui.presets(group, setting.form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>

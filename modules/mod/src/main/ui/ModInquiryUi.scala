@@ -31,11 +31,16 @@ final class ModInquiryUi(helpers: Helpers)(
         Granter(_.ModMessage).option:
           div(cls := "dropper warn buttons")(
             iconTag(Icon.Envelope),
-            div:
-              getPmPresets.value.map: preset =>
-                postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-                  submitButton(cls := "fbt", title := preset.text)(preset.name),
-                  autoNextInput
+            div(cls := "dropper__categs"):
+              getPmPresets.byPermission.map: (permission, presets) =>
+                div(cls := "dropper__categ")(
+                  span(permission.name),
+                  div(cls := "dropper__categ__nested"):
+                    presets.map: preset =>
+                      postForm(action := routes.Mod.warn(in.user.username, preset.name))(
+                        submitButton(cls := "fbt", title := preset.text)(preset.name),
+                        autoNextInput
+                      )
                 )
           )
         ,
