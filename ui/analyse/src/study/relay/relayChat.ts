@@ -11,7 +11,7 @@ import { type ChapterId } from '../interfaces';
 import { type StudyChapters } from '../studyChapters';
 import { spinnerVdom } from 'lib/controls';
 
-type Config = CgConfig & { lastUci?: Uci };
+type BoardConfig = CgConfig & { lastUci?: Uci };
 
 export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefined {
   if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;
@@ -32,7 +32,7 @@ export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefi
 
 export class RelayChatPlugin implements ChatPlugin {
   private animate = false;
-  private board: Config | undefined;
+  private board: BoardConfig | undefined;
   private chapter: ChapterId | undefined;
   key = 'liveboard';
   name = i18n.broadcast.liveboard;
@@ -89,7 +89,7 @@ export class RelayChatPlugin implements ChatPlugin {
     });
   }
 
-  private fromUcis(root: Tree.Node, ucis: Uci[]): Config {
+  private fromUcis(root: Tree.Node, ucis: Uci[]): BoardConfig {
     const chess = co.Chess.fromSetup(co.fen.parseFen(root.fen).unwrap()).unwrap();
     ucis.forEach(uci => chess.play(normalMove(chess, uci)!.move));
     return {
