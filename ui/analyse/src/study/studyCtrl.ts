@@ -175,7 +175,7 @@ export default class StudyCtrl {
         this.updateHistoryAndAddressBar,
         new RelayChatPlugin(
           () => this.chapters.list,
-          () => this.ctrl.mainline,
+          () => this.ctrl.tree,
           () => this.data.chapter.relayPath,
         ),
       );

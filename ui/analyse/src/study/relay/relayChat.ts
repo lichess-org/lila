@@ -2,11 +2,10 @@ import { type RelayViewContext } from '../../view/components';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
 import { getChessground, initMiniBoardWith, fenColor } from 'lib/miniBoard';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
+import { type TreeWrapper } from 'lib/tree/tree';
+import { mainlineNodeList } from 'lib/tree/ops';
 import { watchers } from 'lib/watchers';
 import { frag } from 'lib';
-import * as co from 'chessops';
-import { normalMove } from 'lib/chess/chess';
-import { pathToUcis } from 'lib/chess/uciCharPair';
 import { type ChapterId } from '../interfaces';
 import { type StudyChapters } from '../studyChapters';
 import { spinnerVdom } from 'lib/controls';
@@ -42,7 +41,7 @@ export class RelayChatPlugin implements ChatPlugin {
 
   constructor(
     readonly previews: () => StudyChapters,
-    readonly localMainline: () => Tree.Node[],
+    readonly localTree: () => TreeWrapper,
     readonly relayPath: () => Tree.Path | undefined,
   ) {}
 
@@ -58,9 +57,13 @@ export class RelayChatPlugin implements ChatPlugin {
   }
 
   view(): VNode {
-    const [mainline, path] = [this.localMainline(), this.relayPath()];
+    const path = this.relayPath();
+    const tree = this.localTree();
+    const localMainline = mainlineNodeList(tree.root);
+    const node = localMainline[localMainline.length - 1];
     if (path) {
-      this.board = this.fromUcis(mainline[0], pathToUcis(path));
+      const node = tree.nodeAtPath(path);
+      this.board = { fen: node.fen, check: !!node.check && fenColor(node.fen), lastUci: node.uci };
     } else if (this.chapter && !this.board) {
       const preview = this.previews().get(this.chapter);
       if (!preview) return spinnerVdom();
@@ -70,10 +73,7 @@ export class RelayChatPlugin implements ChatPlugin {
         check: !!preview.check && fenColor(preview.fen),
       };
     }
-    this.board ??= this.fromUcis(
-      mainline[0],
-      mainline.slice(1).map(x => x.uci!),
-    );
+    this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
     this.animate = true;
 
@@ -87,15 +87,5 @@ export class RelayChatPlugin implements ChatPlugin {
         },
       },
     });
-  }
-
-  private fromUcis(root: Tree.Node, ucis: Uci[]): BoardConfig {
-    const chess = co.Chess.fromSetup(co.fen.parseFen(root.fen).unwrap()).unwrap();
-    ucis.forEach(uci => chess.play(normalMove(chess, uci)!.move));
-    return {
-      fen: co.fen.makeFen(chess.toSetup()),
-      lastUci: ucis.length > 0 ? ucis[ucis.length - 1] : undefined,
-      check: chess.isCheck() && chess.turn,
-    };
   }
 }
