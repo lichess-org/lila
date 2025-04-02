@@ -1064,7 +1064,7 @@ export default class AnalyseCtrl {
     );
 
   copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
-    let paths = [];
+    const paths = [];
     while (path) {
       paths.push(path);
       path = init(path);
