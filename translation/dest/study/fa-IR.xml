@@ -9,14 +9,14 @@
   <string name="whatAreStudies">مطالعه‌ها چه هستند؟</string>
   <string name="allStudies">همه مطالعه‌ها</string>
   <string name="studiesCreatedByX">مطالعه‌هایی که %s ساخته است</string>
-  <string name="noneYet">هنوز، هیچ.</string>
-  <string name="hot">رواجیده</string>
+  <string name="noneYet">هیچکدام تا به حال.</string>
+  <string name="hot">شلوغ</string>
   <string name="dateAddedNewest">تاریخ افزوده شدن (نوترین)</string>
   <string name="dateAddedOldest">تاریخ افزوده شدن (کهنه‌ترین)</string>
   <string name="recentlyUpdated">تازگی به‌روزشده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
   <string name="alphabetical">براساس حروف الفبا</string>
-  <string name="addNewChapter">افزودن بخش جدید</string>
+  <string name="addNewChapter">بخش جدیدی اضافه کن</string>
   <plurals name="nbChapters">
     <item quantity="one">%s بخش</item>
     <item quantity="other">%s بخش</item>
@@ -55,10 +55,7 @@
   <string name="playing">جاری</string>
   <string name="showResults">نمایش نتایج</string>
   <string name="showEvalBar">نوار ارزیابی</string>
-  <string name="first">اولین</string>
-  <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
-  <string name="last">آخرین</string>
   <string name="shareAndExport">همرسانی و برون‏بُرد</string>
   <string name="cloneStudy">همسانیدن</string>
   <string name="studyPgn">PGN مطالعه</string>
@@ -169,4 +166,10 @@
   <string name="whatWouldYouPlay">در این وضعیت چطور بازی می‌کنید؟</string>
   <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
   <string name="perPage">%s میز</string>
+  <string name="getTheTour">کمک لازم داری؟ یه دور بزن!</string>
+  <string name="welcomeToLichessStudyTitle">به بخش مطالعه لیچس خوش‌آمدید!</string>
+  <string name="studyChaptersTitle">فصل های قابل مطالعه</string>
+  <string name="conclusionTitle">ممنون از وقتی که گذاشتید</string>
+  <string name="loadExistingLichessGameTitle">بازی قبلی در لیچس را بارگذاری کن</string>
+  <string name="fromPgnGameTitle">از بازی یک فایل PGN</string>
 </resources>

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">தோழருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
-  <string name="playOffline">ஆஃப்லைனில் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளைக்கொடு</string>
   <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
@@ -486,7 +485,6 @@
   <string name="wins">வெற்றிகள்</string>
   <string name="losses">தோல்விகள்</string>
   <string name="createdBy">படைத்தவர்</string>
-  <string name="tournamentIsStarting">பந்தயம் துவங்குகின்றது</string>
   <string name="tournamentPairingsAreNowClosed">பந்தயத்தின் இணை சேர்ப்பு இப்போது மூடப்பட்டுள்ளன.</string>
   <string name="standByX">%s உடன் நிற்க, ஆட்டக்காரர்கள் இணைக்கப்படுகிறார்கள், தயாராகுங்கள்!</string>
   <string name="pause">இடைநிறுத்தம்</string>
@@ -501,7 +499,6 @@
   <string name="blackWins">கருப்பு வென்றது</string>
   <string name="drawRate">இழுபறி விகிதம்</string>
   <string name="draws">இழுபறிகள்</string>
-  <string name="nextXTournament">அடுத்த %s பந்தயம்:</string>
   <string name="averageOpponent">சராசரி எதிராளி</string>
   <string name="boardEditor">பலகை அமைப்பாளி</string>
   <string name="setTheBoard">பலகை அமைக்க</string>

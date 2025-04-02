@@ -83,4 +83,6 @@ Bijvoorbeeld, wanneer je de derde plaats staat in een tornooi van 100 deelnemers
   <string name="tournamentShields">Toernooischilden</string>
   <string name="onlyTitled">Alleen titelhouders</string>
   <string name="onlyTitledHelp">Officiële titel vereist voor deelname aan het toernooi</string>
+  <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
+  <string name="berserkRate">Berserk-percentage</string>
 </resources>

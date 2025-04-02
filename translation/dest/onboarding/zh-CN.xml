@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s 已登录</string>
   <string name="welcome">欢迎！</string>
   <string name="welcomeToLichess">欢迎来到 Lichess！</string>
   <string name="thisIsYourProfilePage">这是你的个人资料页面。</string>

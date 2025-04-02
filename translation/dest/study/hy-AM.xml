@@ -53,10 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Բոլոր սինքրոնիզացված մասնակիցները մնում են նույն դիրքում</string>
   <string name="shareChanges">Փոփոխությունները տարածել հանդիսականների շրջանում և դրանք պահպանել սերվերում</string>
   <string name="playing">Ակտիվ</string>
-  <string name="first">Առաջինը</string>
-  <string name="previous">Նախորդը</string>
   <string name="next">Հաջորդը</string>
-  <string name="last">Վերջինը</string>
   <string name="shareAndExport">Տարածել &amp; և արտահանել</string>
   <string name="cloneStudy">Կլոնավորել</string>
   <string name="studyPgn">Ստուդիայի PGN-ն</string>

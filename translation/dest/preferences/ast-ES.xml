@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mou Zen</string>
   <string name="showPlayerRatings">Amosar les puntuaciones de los xugadores</string>
   <string name="showFlairs">Amosar el to figurín</string>
-  <string name="explainShowPlayerRatings">Esto despinta\'l ELO en Lichess, pa ayudar a concentrate solo nel xuegu. Los xuegos por puntos van siguir afectando los tos ELO, esta opción ye solo pa lo que tu ves na plataforma.</string>
+  <string name="explainShowPlayerRatings">Esto esconde\'l ELO en Lichess, pa ayudar a concentrate solo nel xuegu. Los xuegos por puntos van siguir afectando los tos ELO, esta opción ye solo pa lo que tu ves na plataforma.</string>
   <string name="displayBoardResizeHandle">Amosar el control de tamañu del tableru</string>
   <string name="onlyOnInitialPosition">Namás en posición inicial</string>
   <string name="inGameOnly">Solu mientres la partida</string>

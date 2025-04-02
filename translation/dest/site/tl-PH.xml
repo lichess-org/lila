@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Makipaglaro sa Kaibigan</string>
   <string name="playWithTheMachine">Makipaglaro sa Makina</string>
-  <string name="playOffline">Maglaro Offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para mag-anyaya ng iba, ibigay itong URL</string>
   <string name="gameOver">Tapos</string>
   <string name="waitingForOpponent">Hinihintay ang Kalaban</string>
@@ -19,8 +18,8 @@
   <string name="stalemate">Tabla</string>
   <string name="white">Puti</string>
   <string name="black">Itim</string>
-  <string name="asWhite">Bilang puti</string>
-  <string name="asBlack">Bilang itim</string>
+  <string name="asWhite">bilang puti</string>
+  <string name="asBlack">bilang itim</string>
   <string name="randomColor">Ibat-ibang panig</string>
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
@@ -51,12 +50,12 @@
   <string name="blackResigned">Nagpatalo ang Itim</string>
   <string name="whiteLeftTheGame">Umalis sa laro ang puti</string>
   <string name="blackLeftTheGame">Umalis sa laro ang Itim</string>
-  <string name="whiteDidntMove">Hindi gumalaw si White</string>
-  <string name="blackDidntMove">Hindi gumalaw si Black</string>
+  <string name="whiteDidntMove">Hindi gumalaw ang Puti</string>
+  <string name="blackDidntMove">Hindi gumalaw ang Itim</string>
   <string name="requestAComputerAnalysis">Humingi ng pagsusuri ng kompyuter</string>
   <string name="computerAnalysis">Pagsusuri ng kompyuter</string>
   <string name="computerAnalysisAvailable">Magagamit na ang pagsusuri ng Kompyuter</string>
-  <string name="computerAnalysisDisabled">Kompyuter pagsusurì baldado</string>
+  <string name="computerAnalysisDisabled">Kompyuter pagsusuri baldado</string>
   <string name="analysis">Board ng Pagsusuri</string>
   <string name="depthX">Lalim %s</string>
   <string name="usingServerAnalysis">Gamit ang pagsusuri ng server</string>
@@ -96,20 +95,20 @@
     <item quantity="one">Namate sa %s kalahating galaw</item>
     <item quantity="other">Namate sa %s kalahating mga galaw</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50 \"na may pag-ikot, batay sa bilang ng mga kalahating ilipat hanggang sa susunod na pagkuha o paglipat ng pawn</string>
+  <string name="dtzWithRounding">DTZ50\'\' na may pag-ikot, batay sa bilang ng mga kalahating ilipat hanggang sa susunod na pagkuha o paglipat ng pawn</string>
   <string name="noGameFound">Walang nakitang laro</string>
   <string name="maxDepthReached">Naabot na ang pinakamaatas na lalim!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
   <string name="openings">Mga Pagbubukas</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>
-  <string name="openingEndgameExplorer">Pagbubukas / endgame explorer</string>
+  <string name="openingEndgameExplorer">Pagbubukas/endgame explorer</string>
   <string name="xOpeningExplorer">%s pagbubukas ng tagalakbay</string>
   <string name="playFirstOpeningEndgameExplorerMove">I-play ang unang pagbubukas/tirang endgame-explorer</string>
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
   <string name="winOr50MovesByPriorMistake">Manalo o 50 gumagalaw sa pamamagitan ng dating pagkakamali</string>
   <string name="lossOr50MovesByPriorMistake">Pagkawala o 50 paggalaw sa pamamagitan ng dating pagkakamali</string>
-  <string name="unknownDueToRounding">Ginagarantiyahan lamang ang panalo / pagkawala kung ang inirekumendang linya ng baseng talahanayan ay sinundan mula pa noong huling pag-capture o pawn na paglipat, dahil sa posibleng pag-ikot ng mga halaga ng DTZ sa mga tableya ng Syzygy.</string>
+  <string name="unknownDueToRounding">Ginagarantiyahan lamang ang panalo/pagkawala kung ang inirekumendang linya ng baseng talahanayan ay sinundan mula pa noong huling pag-capture o pawn na paglipat, dahil sa posibleng pag-ikot ng mga halaga ng DTZ sa mga tableya ng Syzygy.</string>
   <string name="allSet">Lahat ay natakda na!</string>
   <string name="importPgn">Magluwas ng PGN</string>
   <string name="delete">Burahin</string>
@@ -131,19 +130,27 @@
   <string name="inaccuracy">Hindi tama</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s na malaking pagkakamali</item>
-    <item quantity="other">%s mga malaking pagkakamali</item>
+    <item quantity="other">%s malaking pagkakamali</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s Na malaking pagkakamali</item>
-    <item quantity="other">%s Mga malaking pagkakamali</item>
+    <item quantity="one">%s Malaking pagkakamali</item>
+    <item quantity="other">%s Malaking pagkakamali</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s na pagkakamali</item>
-    <item quantity="other">%s mga pagkakamali</item>
+    <item quantity="one">%s pagkakamali</item>
+    <item quantity="other">%s pagkakamali</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">%s Na pagkakamali</item>
-    <item quantity="other">%s Mga pagkakamali</item>
+    <item quantity="one">%s Pagkakamali</item>
+    <item quantity="other">%s Pagkakamali</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s di-pagkakatama</item>
+    <item quantity="other">%s di-pagkakatama</item>
+  </plurals>
+  <plurals name="numberInaccuracies">
+    <item quantity="one">%s Di-pagkakatama</item>
+    <item quantity="other">%s Di-pagkakatama</item>
   </plurals>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
@@ -164,7 +171,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s marka sa %2$s laro</item>
-    <item quantity="other">%1$s marka sa higit ng %2$s laro</item>
+    <item quantity="other">%1$s marka sa %2$s mga laro</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s minarkahan sa libro</item>
@@ -225,16 +232,16 @@
   <string name="error.weakPassword">Ang password na ito ay sobrang karaniwan, at napakadaling hulaan.</string>
   <string name="error.namePassword">Mangyaring huwag gamitin ang iyong username bilang iyong password.</string>
   <string name="youAreLeavingLichess">Aalis ka sa Lichess</string>
-  <string name="neverTypeYourPassword">Wag mong ilagay ang iyong Password sa ibang website!</string>
+  <string name="neverTypeYourPassword">Wag mong ilagay ang iyong Lichess password sa ibang website!</string>
   <string name="proceedToX">Magpatuloy sa %s</string>
-  <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Dahil gagamitin nila ito sa pagnanakaw ng iyong account.</string>
-  <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Dahil gagamitin nila iyon para nakawin ang iyong account.</string>
-  <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
+  <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Gagamitin nila ito sa pagnanakaw ng iyong account.</string>
+  <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Gagamitin nila iyon para nakawin ang iyong account.</string>
+  <string name="emailForSignupHelp">Kung nabigo ang lahat, ipadala sa amin ang email na ito:</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Umiiba ang ranggo mo bawat minuto</item>
-    <item quantity="other">Umiiba ang ranggo mo bawat ng %s minuto</item>
+    <item quantity="other">Umiiba ang ranggo mo bawat %s minuto</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s palaisipan</item>
@@ -280,7 +287,7 @@
   <string name="rematchOfferDeclined">Tinanggihan ang alok ng paglalabang muli</string>
   <string name="cancelRematchOffer">Kansel ang alok ng paglalabang muli</string>
   <string name="viewRematch">Tingnan ang paglalabang muli</string>
-  <string name="confirmMove">Patunayan ang kilos</string>
+  <string name="confirmMove">Kumpirmahin ang kilos</string>
   <string name="play">Mag-laro</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Silid ng Pakikipagchat</string>
@@ -371,7 +378,7 @@
   <string name="xJoinedTeamY">%1$s sumali sa koponan %2$s</string>
   <string name="xCreatedTeamY">%1$s nagawa na koponan %2$s</string>
   <string name="startedStreaming">nagsimulang mag-stream</string>
-  <string name="xStartedStreaming">%s nagsimulang mag-stream</string>
+  <string name="xStartedStreaming">Nagsimulang mag-stream si %s</string>
   <string name="averageElo">Karaniwang marka</string>
   <string name="location">Lokasyon</string>
   <string name="filterGames">Salain ang mga laro</string>
@@ -379,8 +386,8 @@
   <string name="apply">Isumite</string>
   <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
-  <string name="screenshotCurrentPosition">Screenshot kasalukuyang posisyon</string>
-  <string name="gameAsGIF">Laro Bilang GIF</string>
+  <string name="screenshotCurrentPosition">I-screenshot ang kasalukuyang posisyon</string>
+  <string name="gameAsGIF">Laro bilang GIF</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
   <string name="orUploadPgnFile">O mag upload ng PGN file</string>
@@ -453,7 +460,7 @@
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
   <string name="createdBy">Ginawa ni</string>
-  <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
+  <string name="startingIn" comment="Displayed above a timer">Nagsisimula sa</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>
@@ -468,7 +475,6 @@
   <string name="blackWins">Nanalo ang itim</string>
   <string name="drawRate">Porsiyento ng tabla</string>
   <string name="draws">Mga tabla</string>
-  <string name="nextXTournament">Sunod na %s paligsahan:</string>
   <string name="averageOpponent">Karaniwang kalaban</string>
   <string name="boardEditor">Taga-edit ng board</string>
   <string name="setTheBoard">Tingnan ang board</string>
@@ -659,6 +665,7 @@
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
+  <string name="accuracy">Katumpakan</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
   <string name="keyMoveBackwardOrForward">gumalaw pabalik/pasulong</string>
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
@@ -681,6 +688,7 @@
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ay mas magaling sa %2$s ng %3$s manlalaro.</string>
+  <string name="betterThanPercentPlayers">Mas magaling kaysa sa %1$s ng mga manlalaro sa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
   <string name="yourRating">Ang iyong grado</string>
   <string name="cumulative">Naiipon</string>
@@ -717,6 +725,7 @@
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="viewTheSolution">Tingnan ang solusyon</string>
+  <string name="noChallenges">Walang hamon.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Magagamit sa %s wika!</item>
     <item quantity="other">Magagamit sa %s mga wika!</item>
@@ -729,11 +738,14 @@
   <string name="anonymous">Hindi kilala</string>
   <string name="yourScore">Ang iyong marka: %s</string>
   <string name="language">Wika</string>
+  <string name="allLanguages">Lahat ng wika</string>
   <string name="background">Likuran</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
+  <string name="size">Laki</string>
+  <string name="brightness">Liwanag</string>
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
@@ -803,6 +815,8 @@
     <item quantity="one">at i-save %s bago gumalaw na linya</item>
     <item quantity="other">at i-save %s bago gumalaw na mga linya</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Nakatanggap ka ng pribadong mensahe mula kay Lichess.</string>
+  <string name="clickHereToReadIt">Mag-click dito upang basahin ito</string>
   <string name="sorry">Pasensya na :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
   <string name="why">Bakit?</string>
@@ -824,6 +838,7 @@
   <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Mabilisan</string>
   <string name="classical">Klasiko</string>
   <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
@@ -840,6 +855,7 @@
   <string name="useTheReportForm">gamitin ang form na pang-sumbong</string>
   <string name="toRequestSupport">Para humiling ng suporta, %1$s</string>
   <string name="tryTheContactPage">subukan ang pahina ng kontak</string>
+  <string name="makeSureToRead">Siguraduhing basahin ang %1$s</string>
   <string name="thisTopicIsArchived">Ang topic na ito ay naisa-baol na at hindi na maaaring sagutin.</string>
   <string name="joinTheTeamXToPost">Sumali sa %1$s, para maka-paskil sa forum na ito</string>
   <string name="teamNamedX">%1$s na koponan</string>
@@ -913,6 +929,8 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>
   <string name="switchSides">Lumipat ng sides</string>
   <string name="closingAccountWithdrawAppeal">Ang pagsasara ng iyong account ay babawiin ang iyong apela</string>
+  <string name="instructions">Mga Tagubilin</string>
+  <string name="showMeEverything">Ipakita ang lahat sa akin</string>
   <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
 Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
 </resources>

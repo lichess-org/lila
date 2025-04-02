@@ -54,9 +54,21 @@
     <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
     <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Gumawa ng %s bagong pag-aaral</item>
+    <item quantity="other">Gumawa ng %s bagong pag-aaral</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Nakipagkumpitensya s %s paligsahan sa Arena</item>
+    <item quantity="other">Nakipagkumpitensya sa %s paligsahan sa Arena</item>
+  </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Na-ranggo #%1$s (top %2$s%%) na may %3$s laro sa %4$s</item>
     <item quantity="other">Na-ranggo #%1$s (top %2$s%%) na may %3$s mga laro sa %4$s</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Nakipagkumpitensya sa %s paligsahan sa Swiss</item>
+    <item quantity="other">Nakipagkumpitensya sa %s paligsahan sa Swiss</item>
   </plurals>
   <string name="rankedInSwissTournament">Na-ranggo #%1$s sa %2$s</string>
   <string name="signedUp">Sumali sa lichess.org</string>
