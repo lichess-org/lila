@@ -79,7 +79,8 @@ function action(
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
-    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path);
+    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
+    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
   return h(
     'div#' + elementId + '.visible',
     {
@@ -116,10 +117,15 @@ function view(opts: Opts, coords: Coords): VNode {
       onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
-      action(licon.Clipboard, onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn, () =>
-        navigator.clipboard.writeText(
-          renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path), onMainline),
-        ),
+      action(
+        licon.Clipboard,
+        onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
+        () =>
+          navigator.clipboard.writeText(
+            renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
+          ),
+        () => ctrl.copyVariationHighlight(extendedPath, false),
+        () => ctrl.copyVariationHighlight(extendedPath, true),
       ),
     ],
   );

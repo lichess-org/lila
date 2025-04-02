@@ -54,6 +54,7 @@ import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
 import { confirm } from 'lib/dialogs';
 import api from './api';
+import { init } from 'lib/tree/path';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -1061,4 +1062,13 @@ export default class AnalyseCtrl {
       'pending-deletion',
       unhighlight,
     );
+
+  copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
+    let paths = [];
+    while (path) {
+      paths.push(path);
+      path = init(path);
+    }
+    this.updateClassListsOfMoves(paths, 'pending-copy', unhighlight);
+  };
 }
