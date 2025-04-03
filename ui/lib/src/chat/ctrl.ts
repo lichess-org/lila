@@ -94,7 +94,7 @@ export default class ChatCtrl {
   }
 
   get visibleTabs(): Tab[] {
-    return this.allTabs.filter(x => !x.hidden);
+    return this.allTabs.filter(x => !x.isDisabled?.());
   }
 
   get plugin(): ChatPlugin | undefined {

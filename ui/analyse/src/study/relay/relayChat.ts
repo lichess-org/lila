@@ -51,7 +51,7 @@ export class RelayChatPlugin implements ChatPlugin {
     this.animate = false;
   };
 
-  set chapterId(id: ChapterId) {
+  setChapterId(id: ChapterId) {
     if (id === this.chapter) return;
     this.reset();
     this.chapter = id;

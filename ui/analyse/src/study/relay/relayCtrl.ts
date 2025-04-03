@@ -76,7 +76,7 @@ export default class RelayCtrl {
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', pinnedName]);
     this.chatCtrl.isDisabled = () => this.tourShow() || !this.data.sync?.ongoing;
-    this.chatCtrl.chapterId = chapterSelect.get();
+    this.chatCtrl.setChapterId(chapterSelect.get());
     this.baseRedraw.add(() => this.chatCtrl.redraw?.());
     pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
@@ -104,7 +104,7 @@ export default class RelayCtrl {
     if (this.tourShow()) {
       this.tourShow(false);
     }
-    this.chatCtrl.chapterId = id;
+    this.chatCtrl.setChapterId(id);
     this.redraw();
   };
 
