@@ -60,9 +60,9 @@ object PieceSet extends PieceSetObject:
     PieceSet("horsey", Featured.Yes),    // 22/8
     PieceSet("anarcandy", Featured.Yes), // 15/14
     PieceSet("xkcd"),                    // 0/0 submitted after poll
-    PieceSet("shapes", Featured.Yes),    // 15/15
-    PieceSet("letter", Featured.Yes),    // 17/11
-    PieceSet("disguised", Featured.Yes)  // 18/10
+    PieceSet("shapes"),                  // 15/15
+    PieceSet("letter"),                  // 17/11
+    PieceSet("disguised")                // 18/10
   )
 
 object PieceSet3d extends PieceSetObject:
