@@ -484,7 +484,7 @@ object RoundAsyncActor:
       val moretimer: Moretimer,
       val finisher: Finisher,
       val rematcher: Rematcher,
-      val player: Player,
+      val player: MovePlayer,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
       val simulApi: lila.core.data.CircularDep[lila.core.simul.SimulApi],

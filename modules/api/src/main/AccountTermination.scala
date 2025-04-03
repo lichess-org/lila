@@ -62,13 +62,6 @@ final class AccountTermination(
     chatApi: lila.chat.ChatApi
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  Bus.subscribeFuns(
-    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
-      (modApi.garbageCollect(userId) >> lichessDisable(userId))
-    },
-    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessDisable(userId) }
-  )
-
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     selfClose    = me.is(u)
@@ -108,7 +101,10 @@ final class AccountTermination(
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant).some)
   yield ()
 
-  private def lichessDisable(userId: UserId) =
+  private[api] def garbageCollect(userId: UserId) =
+    modApi.garbageCollect(userId) >> lichessDisable(userId)
+
+  private[api] def lichessDisable(userId: UserId) =
     userRepo.lichessAnd(userId).flatMapz { (lichess, user) =>
       disable(user, forever = false)(using Me(lichess))
     }
