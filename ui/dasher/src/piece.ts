@@ -1,27 +1,34 @@
 import { h, type VNode } from 'snabbdom';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { header, elementScrollBarWidthSlowGuess } from './util';
+import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 import { bind } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
-
-type Piece = string;
-type PieceDimData = { current: Piece; list: Piece[] };
-
-export interface PieceData {
-  d2: PieceDimData;
-  d3: PieceDimData;
-}
+import { Toggle, toggle } from 'lib';
 
 export class PieceCtrl extends PaneCtrl {
+  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  more: Toggle;
+
   constructor(root: DasherCtrl) {
     super(root);
+    this.more = toggle(false, root.redraw);
+    for (const dim of ['d2', 'd3'] as const) {
+      this.featured[dim] = this.root.data.piece[dim].list.filter(t => t.featured).map(t => t.name);
+    }
+  }
+
+  get pieceList(): string[] {
+    const all = this.dimData.list.map(t => t.name);
+    const visible = this.featured[this.dimension].slice();
+    if (!visible.includes(this.dimData.current)) visible.push(this.dimData.current);
+    return this.more() ? all : visible;
   }
 
   render(): VNode {
     const maxHeight = window.innerHeight - 150; // safari vh brokenness
-    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 4;
-    const pieceImage = (t: Piece) =>
+    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.more() ? 4 : 3);
+    const pieceImage = (t: string) =>
       this.is3d
         ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
         : `piece/${t}/wN.svg`;
@@ -31,7 +38,7 @@ export class PieceCtrl extends PaneCtrl {
       h(
         'div.list',
         { attrs: { style: `max-height:${maxHeight}px;` } },
-        this.dimData.list.map((t: Piece) =>
+        this.pieceList.map((t: string) =>
           h(
             'button.no-square',
             {
@@ -43,10 +50,11 @@ export class PieceCtrl extends PaneCtrl {
           ),
         ),
       ),
+      moreButton(this.more),
     ]);
   }
 
-  apply = (t: Piece = this.dimData.current): void => {
+  apply = (t: string = this.dimData.current): void => {
     this.dimData.current = t;
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {
@@ -60,7 +68,7 @@ export class PieceCtrl extends PaneCtrl {
     return this.root.data.piece[this.dimension];
   }
 
-  private set = (t: Piece) => {
+  private set = (t: string) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
