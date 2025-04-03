@@ -355,48 +355,15 @@ body.no-inquiry {
 
     &.counter > div,
     &.warn > div {
-      width: 130px;
-      @include inline-end(-30px);
+      width: 360px;
+      @include inline-end(-155px);
+      max-height: 500px;
+      overflow-y: auto;
     }
 
     .separator {
       border-top: $border;
       margin: 0.6em 0;
-    }
-
-    &__categs {
-      overflow: visible !important;
-    }
-    &__categ {
-      position: relative;
-      > span {
-        display: block;
-        font-size: 1.1em;
-        padding: 1.6em 0;
-        border-bottom: $border;
-      }
-      &:last-child span {
-        border-bottom: none;
-      }
-      &:hover > span {
-        background: $c-primary;
-        color: $c-over;
-      }
-      &__nested {
-        @extend %box-neat;
-        position: absolute;
-        top: 0;
-        right: 130px;
-        width: 300px;
-        background: #555;
-        white-space: normal;
-        max-height: 500px;
-        overflow-y: auto;
-        display: none;
-      }
-      &:hover .dropper__categ__nested {
-        display: block;
-      }
     }
   }
 

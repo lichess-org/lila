@@ -7,6 +7,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.shutup.PublicSource
 import lila.core.i18n.Translate
+import lila.core.perm.Permission
 
 final class ModInquiryUi(helpers: Helpers)(
     sourceOf: PublicSource => Translate ?=> Tag,
@@ -16,6 +17,7 @@ final class ModInquiryUi(helpers: Helpers)(
   import helpers.{ *, given }
 
   def apply(in: Inquiry)(using Context, Me) =
+    val presets = getPmPresets.byPermission
     div(id := "inquiry", data("username") := in.user.user.username)(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
@@ -28,23 +30,7 @@ final class ModInquiryUi(helpers: Helpers)(
       ),
       links(in),
       div(cls := "actions")(
-        Granter(_.ModMessage).option:
-          div(cls := "dropper warn buttons")(
-            iconTag(Icon.Envelope),
-            div(cls := "dropper__categs"):
-              getPmPresets.byPermission.map: (permission, presets) =>
-                div(cls := "dropper__categ")(
-                  span(permission.name),
-                  div(cls := "dropper__categ__nested"):
-                    presets.map: preset =>
-                      postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-                        submitButton(cls := "fbt", title := preset.text)(preset.name),
-                        autoNextInput
-                      )
-                )
-          )
-        ,
-        markButtons(in),
+        markButtons(in, presets),
         dropperButtons(in)
       ),
       closeInquiry(in)
@@ -178,25 +164,29 @@ final class ModInquiryUi(helpers: Helpers)(
     in.report.isAppeal.option(a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal"))
   )
 
-  private def markButtons(in: Inquiry)(using Context, Me) = frag(
+  private def markButtons(in: Inquiry, presets: Map[Permission, List[ModPreset]])(using Context, Me) = frag(
     Granter(_.MarkEngine).option:
       val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
       div(cls := "dropper engine buttons")(
         postForm(action := url, cls := "main", title := "Mark as cheat")(
-          markButton(in.user.marks.engine)(dataIcon := Icon.Cogs),
+          markButton(in.user.marks.engine, Left(Icon.Cogs)),
           autoNextInput
         ),
-        thenForms(url, markButton(false))
+        thenForms(url, markButton(false, Left(Icon.Cogs)))(
+          presets.get(Permission.CheatHunter).map(presetForms(in))
+        )
       )
     ,
     Granter(_.MarkBooster).option:
       val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
       div(cls := "dropper booster buttons")(
         postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-          markButton(in.user.marks.boost)(dataIcon := Icon.LineGraph),
+          markButton(in.user.marks.boost, Left(Icon.LineGraph)),
           autoNextInput
         ),
-        thenForms(url, markButton(false))
+        thenForms(url, markButton(false, Left(Icon.LineGraph)))(
+          presets.get(Permission.BoostHunter).map(presetForms(in))
+        )
       )
     ,
     Granter(_.Shadowban).option:
@@ -207,20 +197,22 @@ final class ModInquiryUi(helpers: Helpers)(
           title  := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
           cls    := "main"
         )(
-          markButton(in.user.marks.troll)(dataIcon := Icon.BubbleSpeech),
+          markButton(in.user.marks.troll, Left(Icon.BubbleSpeech)),
           autoNextInput
         ),
-        thenForms(url, markButton(false))
+        thenForms(url, markButton(false, Left(Icon.BubbleSpeech)))(
+          presets.get(Permission.Shusher).map(presetForms(in))
+        )
       )
     ,
     Granter(_.CloseAccount).option:
       val url = routes.Mod.alt(in.user.username, !in.user.marks.alt).url
       div(cls := "dropper alt buttons")(
         postForm(action := url, cls := "main", title := "Close alt account")(
-          markButton(in.user.marks.alt)(i("A")),
+          markButton(in.user.marks.alt, Right("A")),
           autoNextInput
         ),
-        thenForms(url, markButton(false))
+        thenForms(url, markButton(false, Right("A")))(presets.get(Permission.Admin).map(presetForms(in)))
       )
   )
 
@@ -321,9 +313,21 @@ final class ModInquiryUi(helpers: Helpers)(
   private val sandbagWithRegex =
     "^Sandbagging: throws games to (.+)".r.unanchored
 
-  private def markButton(active: Boolean) = submitButton(
-    cls := List("fbt icon" -> true, "active" -> active)
-  )
+  private def markButton(active: Boolean, icon: Either[Icon, String]) = submitButton(
+    cls      := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
+    dataIcon := icon.left.toOption
+  )(icon.toOption.map(str => frag(i(str), " ")))
+
+  private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Context, Me) =
+    (Granter(_.ModMessage) && presets.nonEmpty).option:
+      frag(
+        div(cls := "separator"),
+        presets.map: preset =>
+          postForm(action := routes.Mod.warn(in.user.username, preset.name))(
+            submitButton(cls := "fbt text", title := preset.text, dataIcon := Icon.Envelope)(preset.name),
+            autoNextInput
+          )
+      )
 
   private def thenForms(url: String, button: Tag) =
     div(
