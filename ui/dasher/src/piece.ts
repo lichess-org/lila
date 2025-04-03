@@ -1,15 +1,18 @@
 import { h, type VNode } from 'snabbdom';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { header, elementScrollBarWidthSlowGuess } from './util';
+import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 import { bind } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+import { Toggle, toggle } from 'lib';
 
 export class PieceCtrl extends PaneCtrl {
   featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
+    this.more = toggle(false, root.redraw);
     for (const dim of ['d2', 'd3'] as const) {
       this.featured[dim] = this.root.data.piece[dim].list
         .filter(t => t.tags.includes('Featured'))
@@ -21,12 +24,12 @@ export class PieceCtrl extends PaneCtrl {
     const all = this.dimData.list.map(t => t.name);
     const visible = this.featured[this.dimension].slice();
     if (!visible.includes(this.dimData.current)) visible.push(this.dimData.current);
-    return this.root.longPress ? all : visible;
+    return this.more() ? all : visible;
   }
 
   render(): VNode {
     const maxHeight = window.innerHeight - 150; // safari vh brokenness
-    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.root.longPress ? 4 : 3);
+    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.more() ? 4 : 3);
     const pieceImage = (t: string) =>
       this.is3d
         ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
@@ -49,6 +52,7 @@ export class PieceCtrl extends PaneCtrl {
           ),
         ),
       ),
+      moreButton(this.more),
     ]);
   }
 

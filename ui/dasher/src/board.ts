@@ -1,5 +1,5 @@
-import { header } from './util';
-import { hyphenToCamel, toggle } from 'lib';
+import { header, moreButton } from './util';
+import { hyphenToCamel, Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
@@ -12,9 +12,11 @@ type Range = { min: number; max: number; step: number };
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
   featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
+    this.more = toggle(false, root.redraw);
     for (const dim of ['d2', 'd3'] as const) {
       this.featured[dim] = this.data[dim].list.filter(t => t.tags.includes('Featured')).map(t => t.name);
     }
@@ -24,7 +26,7 @@ export class BoardCtrl extends PaneCtrl {
     const all = this.data[this.dimension].list.map(t => t.name);
     const visible = this.featured[this.dimension].slice();
     if (!visible.includes(this.current)) visible.push(this.current);
-    return this.root.longPress ? all : visible;
+    return this.more() ? all : visible;
   }
 
   render = (): VNode =>
@@ -74,6 +76,7 @@ export class BoardCtrl extends PaneCtrl {
           ),
         ),
       ),
+      moreButton(this.more),
     ]);
 
   private get data() {

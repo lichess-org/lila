@@ -10,7 +10,7 @@ import type { DasherData, Mode, PaneCtrl } from './interfaces';
 import { type Prop, prop } from 'lib';
 import { pubsub } from 'lib/pubsub';
 
-const defaultMode = 'links';
+const defaultMode: Mode = 'links';
 
 type ModeIndexed = { [key in Mode]: PaneCtrl };
 
@@ -22,7 +22,6 @@ export class DasherCtrl implements ModeIndexed {
   board: BoardCtrl;
   piece: PieceCtrl;
   links: LinksCtrl;
-  longPress: boolean | undefined;
 
   opts: { playing: boolean; zenable: boolean } = {
     playing: $('body').hasClass('playing'),
@@ -43,10 +42,9 @@ export class DasherCtrl implements ModeIndexed {
     pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
   }
 
-  mode: Prop<Mode> = prop(defaultMode as Mode);
+  mode: Prop<Mode> = prop(defaultMode);
   render = (): MaybeVNode => this[this.mode()]?.render() || null;
-  setMode = (m: Mode, longPress?: boolean): void => {
-    this.longPress = longPress;
+  setMode = (m: Mode): void => {
     this.mode(m);
     this.redraw();
   };

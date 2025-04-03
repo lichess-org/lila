@@ -200,6 +200,15 @@
     overflow: auto;
   }
 
+  .button.more {
+    @extend %box-radius-bottom;
+    width: 100%;
+    color: $c-over;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0.4em 0;
+  }
+
   .background #gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
