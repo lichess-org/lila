@@ -13,7 +13,7 @@ import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Progress, UciMemo }
 import lila.round.RoundGame.*
 
-final private class Player(
+final private class MovePlayer(
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo

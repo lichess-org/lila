@@ -52,10 +52,7 @@
   <string name="playing">대국 중</string>
   <string name="showResults">결과</string>
   <string name="showEvalBar">엔진 평가치</string>
-  <string name="first">처음</string>
-  <string name="previous">이전</string>
   <string name="next">다음</string>
-  <string name="last">마지막</string>
   <string name="shareAndExport">공유 및 내보내기</string>
   <string name="cloneStudy">복제</string>
   <string name="studyPgn">연구 PGN</string>

@@ -39,6 +39,7 @@ import type {
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
+import { RelayChatPlugin } from './relay/relayChat';
 import type { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
@@ -159,9 +160,8 @@ export default class StudyCtrl {
     this.multiCloudEval = ctrl.ceval.possible
       ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
       : undefined;
-    this.relay =
-      relayData &&
-      new RelayCtrl(
+    if (relayData) {
+      this.relay = new RelayCtrl(
         this.data.id,
         relayData,
         this.send,
@@ -173,7 +173,13 @@ export default class StudyCtrl {
         () => this.data.federations,
         this.chapterSelect,
         this.updateHistoryAndAddressBar,
+        new RelayChatPlugin(
+          () => this.chapters.list,
+          () => this.ctrl.tree,
+          () => this.data.chapter.relayPath,
+        ),
       );
+    }
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
       defined(this.relay),
@@ -484,6 +490,7 @@ export default class StudyCtrl {
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
       this.vm.loading = true;
+      this.relay?.onChapterChange(id);
       this.redraw();
     } else {
       // not sticky, not sending the chapter change to the server
@@ -492,8 +499,9 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      componentCallbacks(id);
+      this.relay?.chatCtrl.reset();
       await this.xhrReload();
+      componentCallbacks(id);
     }
     window.scrollTo(0, 0);
     return true;

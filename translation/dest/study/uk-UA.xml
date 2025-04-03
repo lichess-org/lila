@@ -61,10 +61,7 @@
   <string name="playing">Активні</string>
   <string name="showResults">Результати</string>
   <string name="showEvalBar">Шкала оцінки</string>
-  <string name="first">Перша</string>
-  <string name="previous">Попередня</string>
   <string name="next">Наступна</string>
-  <string name="last">Остання</string>
   <string name="shareAndExport">Надсилання та експорт</string>
   <string name="cloneStudy">Клонувати</string>
   <string name="studyPgn">PGN дослідження</string>

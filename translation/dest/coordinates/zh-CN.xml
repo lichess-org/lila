@@ -18,4 +18,5 @@
   <string name="startTraining">开始训练</string>
   <string name="findSquare">找格子</string>
   <string name="nameSquare">格子坐标</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">练习指定行&amp;列</string>
 </resources>

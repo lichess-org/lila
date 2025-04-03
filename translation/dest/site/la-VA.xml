@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Cum amicō ludere</string>
   <string name="playWithTheMachine">Cum ordinatrō ludere</string>
-  <string name="playOffline">Ludere extra</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Hōc URL alicui dā ut ludatis</string>
   <string name="gameOver">Ludus conclusus est</string>
   <string name="waitingForOpponent">Adversarius expectatur</string>
@@ -413,7 +412,6 @@
   <string name="wins">Victoriae</string>
   <string name="losses">Clades</string>
   <string name="createdBy">Factum ab</string>
-  <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="pause">Pausa</string>
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Խաղալ ընկերոջ հետ</string>
   <string name="playWithTheMachine">Խաղալ համակարգչի հետ</string>
-  <string name="playOffline">Խաղալ օֆլայն</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
   <string name="waitingForOpponent">Սպասում եմ հակառակորդին</string>
@@ -486,7 +485,6 @@
   <string name="wins">Հաղթանակներ</string>
   <string name="losses">Պարտություններ</string>
   <string name="createdBy">Ստեղծող՝</string>
-  <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
   <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
   <string name="pause">Դադար</string>
@@ -501,7 +499,6 @@
   <string name="blackWins">Սևերը հաղթել են</string>
   <string name="drawRate">Ոչ-ոքիների ցուցանիշ</string>
   <string name="draws">Ոչ-ոքիներ</string>
-  <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
   <string name="boardEditor">Խաղատախտակի խմբագրիչ</string>
   <string name="setTheBoard">Տեղադրել դիրքը</string>

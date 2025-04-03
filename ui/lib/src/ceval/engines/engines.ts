@@ -75,9 +75,26 @@ export class Engines {
           minMem: 1536,
           cloudEval: true,
           assets: {
-            version: 'sfw009',
+            version: 'sfw010',
             root: 'npm/lila-stockfish-web',
             js: 'sf16-7.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+      },
+      {
+        info: {
+          id: '__sf17_1nnue79',
+          name: 'Stockfish 17.1 NNUE · 79MB',
+          short: 'SF 17.1 · 79MB',
+          tech: 'NNUE',
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          minMem: 2560,
+          cloudEval: true,
+          assets: {
+            version: 'sfw010',
+            root: 'npm/lila-stockfish-web',
+            js: 'sf171-79.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -92,7 +109,7 @@ export class Engines {
           minMem: 2560,
           cloudEval: true,
           assets: {
-            version: 'sfw009',
+            version: 'sfw010',
             root: 'npm/lila-stockfish-web',
             js: 'sf17-79.js',
           },
@@ -127,7 +144,7 @@ export class Engines {
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
           assets: {
-            version: 'sfw009',
+            version: 'sfw010',
             root: 'npm/lila-stockfish-web',
             js: 'fsf14.js',
           },

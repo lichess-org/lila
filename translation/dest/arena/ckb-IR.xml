@@ -66,4 +66,6 @@
   <string name="tournamentStats">ئاماری پاڵەوانیەتیەکە</string>
   <string name="rankAvgHelp">تێکڕای پلە یەک لەسەدی ڕیزبەندییەکەتە. نزمتر باشترە.</string>
   <string name="medians">مامناوەندەکان</string>
+  <string name="tournamentPairingsAreNowClosed">بەشداربوون لەپاڵەوانێتییەکە تەواوبوو.</string>
+  <string name="berserkRate">رێژەی مەترسی</string>
 </resources>

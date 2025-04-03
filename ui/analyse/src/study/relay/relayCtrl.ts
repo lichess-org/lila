@@ -29,7 +29,6 @@ export default class RelayCtrl {
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
-  chatCtrl: RelayChatPlugin;
 
   constructor(
     readonly id: RoundId,
@@ -43,6 +42,7 @@ export default class RelayCtrl {
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
     private readonly updateHistoryAndAddressBar: () => void,
+    readonly chatCtrl: RelayChatPlugin,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
@@ -75,7 +75,7 @@ export default class RelayCtrl {
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', pinnedName]);
-    this.chatCtrl = new RelayChatPlugin(this.chapters, this.tourShow);
+    this.chatCtrl.isDisabled = () => this.tourShow() || !this.data.sync?.ongoing;
     this.chatCtrl.chapterId = chapterSelect.get();
     this.baseRedraw.add(() => this.chatCtrl.redraw?.());
     pubsub.on('socket.in.crowd', d => {

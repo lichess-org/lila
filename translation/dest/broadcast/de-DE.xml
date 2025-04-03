@@ -80,4 +80,5 @@
   <string name="allBroadcastsByMonth">Alle Übertragungen nach Monat anzeigen</string>
   <string name="backToLiveMove">Zurück zum aktuellen Zug</string>
   <string name="sinceHideResults">Da du dich entschieden hast, die Ergebnisse nicht anzuzeigen, sind alle Vorschau-Bretter leer, um Spoiler zu vermeiden.</string>
+  <string name="liveboard">Live-Brett</string>
 </resources>
