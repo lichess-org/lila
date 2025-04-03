@@ -83,7 +83,6 @@ export class RelayChatPlugin implements ChatPlugin {
     this.animate = true;
 
     return h('div.chat-liveboard', {
-      key: this.board.fen,
       hook: {
         insert: (vn: VNode) => initMiniBoardWith(vn.elm as HTMLElement, this.board!),
         update: (_, vn: VNode) => {
