@@ -45,11 +45,16 @@ export class RelayChatPlugin implements ChatPlugin {
     readonly relayPath: () => Tree.Path | undefined,
   ) {}
 
-  set chapterId(id: ChapterId | undefined) {
-    if (id === this.chapter) return;
-    this.chapter = id;
-    this.animate = false;
+  reset = () => {
+    this.chapter = undefined;
     this.board = undefined;
+    this.animate = false;
+  };
+
+  set chapterId(id: ChapterId) {
+    if (id === this.chapter) return;
+    this.reset();
+    this.chapter = id;
   }
 
   get hidden(): boolean {
