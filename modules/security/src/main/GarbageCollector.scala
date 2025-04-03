@@ -7,18 +7,21 @@ import lila.common.{ Bus, HTTPRequest }
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
 import lila.core.security.UserSignup
+import lila.common.LilaFuture
+import lila.core.data.LazyDep
 
 // codename UGC
 final class GarbageCollector(
     userLogins: UserLoginsApi,
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
+    currentlyPlaying: LazyDep[lila.core.round.CurrentlyPlaying],
     isArmed: () => Boolean
 )(using ec: Executor, scheduler: Scheduler):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = scalalib.cache.OnceEvery[UserId](10.minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](20.minutes)
 
   private case class ApplyData(
       user: User,
@@ -53,34 +56,33 @@ final class GarbageCollector(
         case _     => funit
 
   private def apply(data: ApplyData): Funit =
-    data match
-      case ApplyData(user, ip, email, req, quickly) =>
-        for
-          spy    <- userLogins(user, 300)
-          ipSusp <- ipTrust.isSuspicious(ip)
-          _ <-
-            val printOpt = spy.prints.headOption
-            logger.debug(s"apply ${data.user.username} print=$printOpt")
-            Bus.publish(
-              UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
-              "userSignup"
-            )
-            printOpt.filter(_.banned).map(_.fp.value) match
-              case Some(print) =>
-                collect(user, email, msg = s"Print ban: `${print.value}`", quickly = quickly)
-              case _ =>
-                badOtherAccounts(spy.otherUsers.map(_.user)).so: others =>
-                  logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-                  spy.ips
-                    .existsM(ipTrust.isSuspicious)
-                    .mapz:
-                      collect(
-                        user,
-                        email,
-                        msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}",
-                        quickly = quickly
-                      )
-        yield ()
+    import data.*
+    for
+      spy    <- userLogins(user, 300)
+      ipSusp <- ipTrust.isSuspicious(ip)
+      _ <-
+        val printOpt = spy.prints.headOption
+        logger.debug(s"apply ${data.user.username} print=$printOpt")
+        Bus.publish(
+          UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
+          "userSignup"
+        )
+        printOpt.filter(_.banned).map(_.fp.value) match
+          case Some(print) =>
+            collect(user, email, msg = s"Print ban: `${print.value}`", quickly = quickly)
+          case _ =>
+            badOtherAccounts(spy.otherUsers.map(_.user)).so: others =>
+              logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
+              spy.ips
+                .existsM(ipTrust.isSuspicious)
+                .mapz:
+                  collect(
+                    user,
+                    email,
+                    msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}",
+                    quickly = quickly
+                  )
+    yield ()
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
@@ -96,21 +98,26 @@ final class GarbageCollector(
     justOnce(user.id).so:
       hasBeenCollectedBefore(user).not.mapz:
         val armed = isArmed()
-        val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(240)).seconds
-        val message =
-          s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${(!armed)
-              .so(" [SIMULATION]")}"
-        logger.info(message)
-        noteApi.lichessWrite(user, s"Garbage collected because of $msg")
+        val wait  = if quickly then 3.seconds else (60 * 5 + ThreadLocalRandom.nextInt(60 * 10)).seconds
+        logger.info:
+          s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${(!armed).so(" [DRY]")}"
+        noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")
         if armed then
-          scheduler.scheduleOnce(wait):
-            doCollect(user.id)
+          for _ <- waitForCollection(user.id, nowInstant.plus(wait))
+          do Bus.publish(lila.core.security.GarbageCollect(user.id), "garbageCollect")
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
-    noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collected")))
+    noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collect")))
 
-  private def doCollect(user: UserId): Unit =
-    Bus.publish(
-      lila.core.security.GarbageCollect(user),
-      "garbageCollect"
-    )
+  private def waitForCollection(userId: UserId, max: Instant): Funit =
+    if nowInstant.isAfter(max) then funit
+    else
+      currentlyPlaying
+        .resolve()
+        .exec(userId)
+        .map2(_.game)
+        .flatMap: game =>
+          if game.exists(_.playedTurns > 25) then funit
+          else
+            LilaFuture.delay(if game.isDefined then 10.seconds else 30.seconds):
+              waitForCollection(userId, max)

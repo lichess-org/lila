@@ -54,7 +54,7 @@ export default (ctrl: PuzCtrl): VNode => {
                 const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
                 const uci = round.puzzle.line.split(' ')[0];
                 pos.play(parseUci(uci)!);
-                initMiniBoardWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+                initMiniBoardWith(e, { fen: makeFen(pos.toSetup()), orientation: pos.turn, lastUci: uci });
               }),
             }),
             h('span.puz-history__round__meta', [
