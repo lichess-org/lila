@@ -6,6 +6,10 @@
     <item quantity="one">%s Übertragung</item>
     <item quantity="other">%s Übertragungen</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s Zuschauer</item>
+    <item quantity="other">%s Zuschauer</item>
+  </plurals>
   <string name="liveBroadcasts">Live-Turnierübertragungen</string>
   <string name="broadcastCalendar">Sendekalender</string>
   <string name="newBroadcast">Neue Liveübertragung</string>
