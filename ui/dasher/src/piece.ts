@@ -14,9 +14,7 @@ export class PieceCtrl extends PaneCtrl {
     super(root);
     this.more = toggle(false, root.redraw);
     for (const dim of ['d2', 'd3'] as const) {
-      this.featured[dim] = this.root.data.piece[dim].list
-        .filter(t => t.tags.includes('Featured'))
-        .map(t => t.name);
+      this.featured[dim] = this.root.data.piece[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }
 

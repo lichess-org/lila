@@ -23,7 +23,7 @@ export abstract class PaneCtrl {
   abstract render(): VNode;
 }
 
-type BoardAsset = { name: string; file?: string; tags: string[] };
+type BoardAsset = { name: string; file?: string; featured: boolean };
 type AssetData = { [key in 'd2' | 'd3']: { current: string; list: BoardAsset[] } };
 
 export interface DasherData {
