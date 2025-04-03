@@ -3,8 +3,6 @@
 export const highlightSearchTerm = (search: string, selector: string): void => {
   const highlightName = 'lichess-highlight';
 
-  console.log(search, CSS.highlights, highlightName);
-
   if (!CSS.highlights) return; // disable feature on Firefox as it does not support CSS Custom Highlight API
 
   // remove previous highlight

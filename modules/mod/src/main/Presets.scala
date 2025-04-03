@@ -8,12 +8,13 @@ import scalalib.Iso
 import lila.core.perm.{ Granter, Permission }
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.core.user.RoleDbKey
+import lila.memo.SettingStore
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
   import ModPresets.setting.given
 
-  def get(group: String) = group match
+  def get(group: String): Option[SettingStore[ModPresets]] = group match
     case "PM"     => pmPresets.some
     case "appeal" => appealPresets.some
     case _        => none
@@ -38,9 +39,12 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
 case class ModPresets(value: List[ModPreset]):
   def named(name: String) = value.find(_.name == name)
+  def byPermission: Map[Permission, List[ModPreset]] =
+    value.flatMap(v => v.permissions.map(_ -> v)).groupBy(_._1).view.mapValues(_.map(_._2)).toMap
 
 case class ModPreset(name: String, text: String, permissions: Set[Permission]):
-  def isNameClose = name.contains(ModPresets.nameClosePresetName)
+  def isNameClose       = name.contains(ModPresets.nameClosePresetName)
+  override def toString = name
 
 object ModPresets:
 
