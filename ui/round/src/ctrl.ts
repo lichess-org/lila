@@ -30,7 +30,6 @@ import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
-import { isCol1 } from 'lib/device';
 
 import type {
   Step,
