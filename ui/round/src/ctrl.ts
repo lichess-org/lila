@@ -31,7 +31,7 @@ import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
 import { info as infoDialog } from 'lib/dialogs';
-import { displayColumns } from 'lib/device';
+import { isCol1 } from 'lib/device';
 
 import type {
   Step,
@@ -583,13 +583,8 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
-    if (displayColumns() === 1) {
-      if (
-        (d.game.status.name === 'resign' && d.game.winner === d.player.color) ||
-        d.game.status.name === 'aborted'
-      ) {
-        infoDialog(viewStatus(this.data), 3000);
-      }
+    if (isCol1()) {
+      infoDialog(viewStatus(this.data), 3000);
     }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
