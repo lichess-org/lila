@@ -9,7 +9,7 @@ import scala.util.matching.Regex
 import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
-import lila.core.round.{ Abort, Resign }
+import lila.core.round.{ Abort, Resign, CurrentlyPlaying }
 import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.game.GameRepo
 import lila.memo.SettingStore
@@ -35,6 +35,7 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
+    gameCache: lila.game.Cached,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
@@ -133,6 +134,12 @@ final class Env(
             if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
+
+  lazy val currentlyPlaying = CurrentlyPlaying: userId =>
+    gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
+
+  def lastPlayed(userId: UserId): Fu[Option[Pov]] =
+    gameRepo.lastPlayed(userId).flatMap(_.soFu(proxyRepo.upgradeIfPresent))
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 

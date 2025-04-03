@@ -5,7 +5,7 @@ import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.{ Color, Move }
 import play.api.libs.json.{ JsArray, JsObject }
 
-import lila.core.game.Game
+import lila.core.game.{ Game, Pov }
 import lila.core.id.{ GameAnyId, GameId, GamePlayerId, SimulId, TourId }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
@@ -81,6 +81,9 @@ case class GameIsFinishedError(id: GameId) extends BenignError:
 
 trait RoundJson:
   def mobileOffline(game: Game, id: GameAnyId): Fu[JsObject]
+
+opaque type CurrentlyPlaying = UserId => Fu[Option[Pov]]
+object CurrentlyPlaying extends FunctionWrapper[CurrentlyPlaying, UserId => Fu[Option[Pov]]]
 
 trait RoundApi:
   def tell(gameId: GameId, msg: Matchable): Unit
