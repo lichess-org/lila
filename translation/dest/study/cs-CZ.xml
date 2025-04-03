@@ -60,10 +60,7 @@
   <string name="shareChanges">Sdílet změny s diváky a uložit je na server</string>
   <string name="playing">Probíhající</string>
   <string name="showEvalBar">Lišta hodnotící pozici</string>
-  <string name="first">První</string>
-  <string name="previous">Předchozí</string>
   <string name="next">Další</string>
-  <string name="last">Poslední</string>
   <string name="shareAndExport">Sdílení a export</string>
   <string name="cloneStudy">Klonovat</string>
   <string name="studyPgn">PGN studie</string>

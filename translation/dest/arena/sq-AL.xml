@@ -80,4 +80,5 @@ Për shembull, të qenët i renditur i 3-i në një turne me 100 lojtarë = 3%. 
   <string name="tournamentWinners">Fitues turnesh</string>
   <string name="onlyTitled">Vetëm lojtarë me titull</string>
   <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
+  <string name="tournamentPairingsAreNowClosed">Çiftimet e turneut tani janë mbyllur.</string>
 </resources>

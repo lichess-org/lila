@@ -3,6 +3,7 @@
  * The following code does not follow our quality standards and is very poorly typed.
  * It's just a joke after all. */
 export async function initModule(): Promise<void> {
+  window.scrollTo(0, 0);
   await site.sound.load('yeet', site.asset.url('sound/other/yeet.mp3'));
   site.sound.play('yeet');
   setTimeout(yeet, 150);

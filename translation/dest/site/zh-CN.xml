@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">与好友下棋</string>
   <string name="playWithTheMachine">和电脑下棋</string>
-  <string name="playOffline">离线下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
@@ -149,6 +148,7 @@
   <string name="flipBoard">翻转棋盘</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="claimADraw">宣布和棋</string>
+  <string name="drawClaimed">平局声明</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">平局</string>
   <plurals name="nbPlayers">
@@ -450,7 +450,7 @@
   <string name="wins">胜</string>
   <string name="losses">负</string>
   <string name="createdBy">创建者:</string>
-  <string name="tournamentIsStarting">锦标赛已开始</string>
+  <string name="startingIn" comment="Displayed above a timer">开始于</string>
   <string name="tournamentPairingsAreNowClosed">本锦标赛已不再产生新的对局</string>
   <string name="standByX">%s 做好准备，你马上就要开始对局了！</string>
   <string name="pause">暂停</string>
@@ -465,7 +465,6 @@
   <string name="blackWins">黑方胜率</string>
   <string name="drawRate">平局率</string>
   <string name="draws">和棋</string>
-  <string name="nextXTournament">下一个 %s 锦标赛：</string>
   <string name="averageOpponent">对手平均等级分</string>
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
@@ -704,6 +703,9 @@
   <string name="checkYourEmail">请查看你的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发送到你的邮箱。请点击邮件中的链接以激活你的账户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果你没有收到我们的邮件，请检查其他收件箱，例如垃圾箱，广告箱等。</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">如果您在 5 分钟内没有收到电子邮件：</string>
+  <string name="checkAllEmailFolders">请检查所有垃圾邮件或其他文件夹</string>
+  <string name="verifyYourAddress">验证 %s 是您的邮箱地址</string>
   <string name="weHaveSentYouAnEmailTo">我们给你的邮箱 %s 发了重置密码的链接。请点击链接来重置你的密码。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表你同意我们的 %s 。</string>
   <string name="readAboutOur">阅读我们的 %s</string>
@@ -712,6 +714,7 @@
   <string name="downloadAnnotated">下载有注释的 PGN</string>
   <string name="downloadRaw">下载无注释的PGN</string>
   <string name="downloadImported">下载导入的棋局</string>
+  <string name="downloadAllGames">下载所有棋局</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">你也可以用鼠标滚轮浏览棋局。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">移到电脑给出的变着上进行预览</string>
@@ -747,6 +750,7 @@
   <string name="anonymous">匿名</string>
   <string name="yourScore">你的分数：%s</string>
   <string name="language">语言</string>
+  <string name="allLanguages">所有语言</string>
   <string name="background">背景</string>
   <string name="light">浅色</string>
   <string name="dark">深色</string>

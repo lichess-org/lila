@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">jvikei lo pendo</string>
   <string name="playWithTheMachine">jvikei lo proga</string>
-  <string name="playOffline">kelci do\'e nai lo kibro</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ko cusku di\'e noi .urli ku\'o lo voi do .aidji lo ka jvikei ke\'a</string>
   <string name="gameOver">mo\'u jivna</string>
   <string name="waitingForOpponent">denpa tu\'a lo se jivna</string>
@@ -367,7 +366,6 @@
   <string name="wins">lo nu jinga</string>
   <string name="losses">lo nu cirko</string>
   <string name="createdBy">fi\'e la\'oi</string>
-  <string name="tournamentIsStarting">le grinunjvi ca\'o cfari</string>
   <string name="standByX">ko denpa doi la\'oi %s .i zi\'o ca\'o zbasu lo re mei be fi lo jvikei .i ko bredi</string>
   <string name="youArePlaying">do ca\'o jivna</string>
   <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
@@ -378,7 +376,6 @@
   <string name="whiteWins">parbi co nu lo se caxmati cu jinga</string>
   <string name="blackWins">parbi co nu lo te caxmati cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
-  <string name="nextXTournament">bavla\'i %s kelnemka\'u</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="boardEditor">keltcini tiktci</string>
   <string name="setTheBoard">cuxna zo\'e lo\'i cumki keirta\'o</string>

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
-  <string name="playOffline">Joacă offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -523,7 +522,6 @@
   <string name="wins">Victorii</string>
   <string name="losses">Înfrângeri</string>
   <string name="createdBy">Creat de</string>
-  <string name="tournamentIsStarting">Turneul începe</string>
   <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>
@@ -538,7 +536,6 @@
   <string name="blackWins">Negrul câștigă</string>
   <string name="drawRate">Rata de remiză</string>
   <string name="draws">Remize</string>
-  <string name="nextXTournament">Următorul turneu %s:</string>
   <string name="averageOpponent">Cota medie a adversarilor</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Așează tabla</string>
@@ -787,7 +784,7 @@
   <string name="checkYourEmail">Verifică-ți adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Dă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, gunoi, mesaje sociale sau alte foldere.</string>
-  <string name="ifYouDoNotGetTheEmail">Dacă nu primești emailul în decurs de 5 minute:</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Dacă nu primești emailul în decurs de 5 minute:</string>
   <string name="checkAllEmailFolders">Verifică secțiunile de spam, junk și altele</string>
   <string name="verifyYourAddress">Asigură-te că %s este adresa ta de email</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
@@ -798,6 +795,7 @@
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poți acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>

@@ -2,22 +2,14 @@ import * as co from 'chessops';
 import { hashBoard, hashChess } from 'lib/chess/hash';
 import { deepFreeze } from 'lib/algo';
 import { normalizeMove } from 'chessops/chess';
-
-export type OpeningMove = { uci: string; weight: number };
-
-export type OpeningBook = (pos: co.Chess, ...args: any[]) => Promise<OpeningMove[]>;
-
-export type PgnProgress = (processed: number, total: number) => boolean | undefined; // return false to stop
-
-export type PgnFilter = (game: co.pgn.Game<co.pgn.PgnNodeData>) => boolean;
-
-export type PolyglotOpts = { cover?: boolean | { boardSize: number } } & (
-  | { pgn: Blob; ply: number; progress?: PgnProgress }
-  | { bytes: DataView }
-  | { getMoves: OpeningBook }
-);
-
-export type PolyglotResult = { getMoves: OpeningBook; positions?: number; polyglot?: Blob; cover?: Blob };
+import type {
+  OpeningMove,
+  OpeningBook,
+  PgnProgress,
+  PgnFilter,
+  PolyglotResult,
+  PolyglotOpts,
+} from 'lib/chess/polyglot';
 
 export async function initModule(o: PolyglotOpts): Promise<any> {
   if (!o) return hashBoard;
