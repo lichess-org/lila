@@ -6,6 +6,10 @@
     <item quantity="one">Zuzeneko %s</item>
     <item quantity="other">%s zuzeneko</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">Ikusle %s</item>
+    <item quantity="other">%s ikusle</item>
+  </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
   <string name="broadcastCalendar">Emanaldien egutegia</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
