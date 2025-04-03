@@ -1,6 +1,6 @@
 import { type RelayViewContext } from '../../view/components';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
-import { getChessground, initMiniBoardWith, fenColor } from 'lib/miniBoard';
+import { getChessground, initMiniBoardWith, fenColor, uciToMove } from 'lib/miniBoard';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { type TreeWrapper } from 'lib/tree/tree';
 import { mainlineNodeList } from 'lib/tree/ops';
@@ -80,6 +80,7 @@ export class RelayChatPlugin implements ChatPlugin {
     }
     this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
+    this.board.lastMove = uciToMove(this.board.lastUci);
     this.animate = true;
 
     return h('div.chat-liveboard', {
