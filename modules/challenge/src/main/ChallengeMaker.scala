@@ -2,7 +2,7 @@ package lila.challenge
 
 import lila.core.game.Player
 import lila.core.user.{ GameUser, WithPerf }
-import lila.game.{ GameRepo, Rematches }
+import lila.game.{ GameRepo, Rematches, rematchAlternatesColor }
 
 import Challenge.TimeControl
 
@@ -56,23 +56,25 @@ final class ChallengeMaker(
       dest: WithPerf,
       nextId: GameId
   ): Fu[Challenge] =
-    gameRepo.initialFen(pov.game).map { initialFen =>
-      val timeControl = (pov.game.clock, pov.game.daysPerTurn) match
-        case (Some(clock), _) => TimeControl.Clock(clock.config)
-        case (_, Some(days))  => TimeControl.Correspondence(days)
-        case _                => TimeControl.Unlimited
-      Challenge.make(
-        variant = pov.game.variant,
-        initialFen = initialFen,
-        timeControl = timeControl,
-        mode = pov.game.mode,
-        color = (!pov.color).name,
-        // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
-        // which doesn't use the secret, so we just use an empty string
-        challenger = challenger
-          .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered),
-        destUser = dest.some,
-        rematchOf = pov.gameId.some,
-        id = nextId.some
-      )
-    }
+    gameRepo
+      .initialFen(pov.game)
+      .map: initialFen =>
+        val timeControl = (pov.game.clock, pov.game.daysPerTurn) match
+          case (Some(clock), _) => TimeControl.Clock(clock.config)
+          case (_, Some(days))  => TimeControl.Correspondence(days)
+          case _                => TimeControl.Unlimited
+        val alternateColor = rematchAlternatesColor(pov.game, List(challenger.map(_.user), dest.user.some))
+        Challenge.make(
+          variant = pov.game.variant,
+          initialFen = initialFen,
+          timeControl = timeControl,
+          mode = pov.game.mode,
+          color = (if alternateColor then !pov.color else pov.color).name,
+          // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
+          // which doesn't use the secret, so we just use an empty string
+          challenger = challenger
+            .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered),
+          destUser = dest.some,
+          rematchOf = pov.gameId.some,
+          id = nextId.some
+        )
