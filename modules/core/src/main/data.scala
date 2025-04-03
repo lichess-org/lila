@@ -37,3 +37,4 @@ object data:
   object Template extends OpaqueString[Template]
 
   final class CircularDep[A](val resolve: () => A)
+  final class LazyDep[A](val resolve: () => A)

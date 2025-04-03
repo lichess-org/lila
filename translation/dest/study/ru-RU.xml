@@ -61,10 +61,7 @@
   <string name="playing">Активные</string>
   <string name="showResults">Результаты</string>
   <string name="showEvalBar">Шкалы оценки</string>
-  <string name="first">Первая</string>
-  <string name="previous">Назад</string>
   <string name="next">Дальше</string>
-  <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
   <string name="studyPgn">PGN студии</string>

@@ -66,10 +66,7 @@
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="playing">يلعب الان</string>
   <string name="showEvalBar">شرائط التقييم</string>
-  <string name="first">الأولى</string>
-  <string name="previous">السابق</string>
   <string name="next">التالي</string>
-  <string name="last">الأخير</string>
   <string name="shareAndExport">مشاركة و تصدير</string>
   <string name="cloneStudy">استنساخ</string>
   <string name="studyPgn">PGN الدراسة</string>

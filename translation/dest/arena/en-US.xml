@@ -85,4 +85,6 @@ For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 1
   <string name="tournamentShields">Tournament shields</string>
   <string name="onlyTitled">Only titled players</string>
   <string name="onlyTitledHelp">Require an official title to join the tournament</string>
+  <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
+  <string name="berserkRate">Berserk rate</string>
 </resources>

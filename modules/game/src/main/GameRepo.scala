@@ -259,13 +259,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .list[Game](Query.nowPlaying(user))
       .dmap { _.flatMap { Pov(_, user) } }
 
-  def lastPlayed(user: User): Fu[Option[Pov]] =
+  def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     coll
-      .find(Query.user(user.id))
+      .find(Query.user(userId))
       .sort($sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
-      .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, user)) }
+      .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)) }
 
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll

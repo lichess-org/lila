@@ -40,7 +40,9 @@
   <string name="joinTheRace">Sumali sa karera!</string>
   <string name="startTheRace">Simulan ang karera</string>
   <string name="yourRankX">Iyong ranggo: %s</string>
+  <string name="waitForRematch">Naghihintay na mag-laro ulit</string>
   <string name="nextRace">Susunod na karera</string>
+  <string name="joinRematch">Sumali sa laro ulit</string>
   <string name="waitingToStart">Naghihintay na magsimula</string>
   <string name="createNewGame">Gumawa ng bagong laro</string>
   <string name="joinPublicRace">Sumali sa isang pampublikong karera</string>
@@ -53,6 +55,7 @@
   <string name="skippedPuzzle">Nalaktawan na palaisipan</string>
   <string name="thisWeek">Ngayong linggo</string>
   <string name="thisMonth">Ngayong buwan</string>
+  <string name="allTime">All-time</string>
   <string name="clickToReload">I-click para mag-reload</string>
   <string name="thisRunHasExpired">Ang takbong ito ay nag-expire na!</string>
   <string name="thisRunWasOpenedInAnotherTab">Ang takbong ito ay binuksan sa ibang tab!</string>

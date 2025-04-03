@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Dos penen oynaw</string>
   <string name="playWithTheMachine">Kompyuter menen oynaw</string>
-  <string name="playOffline">Oflayn oynaw</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Dostıńızdı mirat etiw ushın, usı siltemeni jiberıń</string>
   <string name="gameOver">Oyın juwmaqlandı</string>
   <string name="waitingForOpponent">Qarsılastı kútiw</string>
@@ -281,7 +280,6 @@
   <string name="whiteWins">Aqlar jeńisi</string>
   <string name="blackWins">Qaralar jeńisi</string>
   <string name="draws">Patlar</string>
-  <string name="nextXTournament">Keyingi %s turnir:</string>
   <string name="profile">Profil</string>
   <string name="name">Atı</string>
   <string name="description">Táriypi</string>

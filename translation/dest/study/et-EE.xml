@@ -50,10 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Ainult selle uuringu panustajad saavad taotleda arvuti analüüsi.</string>
   <string name="getAFullComputerAnalysis">Taotle täielikku serveripoolset arvuti analüüsi põhiliinist.</string>
   <string name="playing">Mängimas</string>
-  <string name="first">Esimene</string>
-  <string name="previous">Eelmine</string>
   <string name="next">Järgmine</string>
-  <string name="last">Viimane</string>
   <string name="shareAndExport">Jaga &amp; ekspordi</string>
   <string name="cloneStudy">Klooni</string>
   <string name="studyPgn">Uuringu PGN</string>
