@@ -170,7 +170,7 @@ final class Env(
 
   lazy val isOfferingRematch = lila.core.round.IsOfferingRematch(rematcher.isOffering)
 
-  private lazy val player: Player = wire[Player]
+  private lazy val player: MovePlayer = wire[MovePlayer]
 
   private lazy val drawer = wire[Drawer]
 
