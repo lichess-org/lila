@@ -33,8 +33,9 @@ final class User(
 
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
-      currentlyPlaying(user)
-        .orElse(lastPlayed(user))
+      env.round.currentlyPlaying
+        .exec(user.id)
+        .orElse(env.round.lastPlayed(user.id))
         .flatMap:
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
             ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
@@ -179,12 +180,11 @@ final class User(
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
               negotiate(
-                html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  Ok.snip(
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable)
-                  ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
-                },
+                html = for
+                  pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
+                  ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
+                  snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                yield snip.withHeaders(CACHE_CONTROL -> "max-age=5"),
                 json =
                   import lila.game.JsonView.given
                   Ok:
@@ -210,21 +210,9 @@ final class User(
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
-        .dmap(
+        .dmap: // send an empty JSON array if no history JSON is available
           _ | lila.core.data.SafeJsonStr("[]")
-        ) // send an empty JSON array if no history JSON is available
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
-
-  private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.cached
-      .lastPlayedPlayingId(user.id)
-      .flatMapz:
-        env.round.proxyRepo.pov(_, user)
-
-  private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
-    env.game.gameRepo
-      .lastPlayed(user)
-      .flatMap(_.soFu(env.round.proxyRepo.upgradeIfPresent))
 
   private def userGames(
       u: UserModel,

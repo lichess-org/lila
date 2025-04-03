@@ -584,7 +584,12 @@ export default class RoundController implements MoveRootCtrl {
     }
     endGameView();
     if (displayColumns() === 1) {
-      infoDialog(viewStatus(this.data), 3000);
+      if (
+        (d.game.status.name === 'resign' && d.game.winner === d.player.color) ||
+        d.game.status.name === 'aborted'
+      ) {
+        infoDialog(viewStatus(this.data), 3000);
+      }
     }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();

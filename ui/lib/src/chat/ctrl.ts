@@ -94,7 +94,7 @@ export default class ChatCtrl {
   }
 
   get visibleTabs(): Tab[] {
-    return this.allTabs.filter(x => !x.hidden);
+    return this.allTabs.filter(x => !x.isDisabled?.());
   }
 
   get plugin(): ChatPlugin | undefined {
@@ -180,7 +180,7 @@ export default class ChatCtrl {
   };
 
   destroy = (): void => {
-    this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
+    if (!this.opts.persistent) this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
   setTab = (tab: Tab = this.getTab()): Tab => {

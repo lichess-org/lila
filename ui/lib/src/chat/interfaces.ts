@@ -18,11 +18,11 @@ export interface ChatOpts {
   noteId?: string;
   noteText?: string;
   plugin?: ChatPlugin;
-  persistent?: boolean;
   kidMode: boolean;
+  persistent?: boolean;
 }
 
-export type Tab = { key: string; hidden?: boolean };
+export type Tab = { key: string; isDisabled?: () => boolean };
 
 export interface ChatPlugin extends Tab {
   name: string;
