@@ -38,9 +38,6 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
 
   export idToPlayerCache.get
 
-  def urlToTitle(url: String): Fu[Option[PlayerTitle]] =
-    FideWebsite.urlToFideId(url).so(fetch).map(_.flatMap(_.title))
-
   object guessPlayer:
 
     private case class TitleName(title: Option[PlayerTitle], name: PlayerName)
