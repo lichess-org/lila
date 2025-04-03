@@ -25,6 +25,7 @@ final class Env(
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
     cookieBaker: play.api.mvc.SessionCookieBaker,
+    lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
@@ -82,6 +83,8 @@ final class Env(
   )
 
   lazy val printBan = PrintBan(db(config.collection.printBan))
+
+  private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
