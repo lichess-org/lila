@@ -57,10 +57,6 @@ export class RelayChatPlugin implements ChatPlugin {
     this.chapter = id;
   }
 
-  get hidden(): boolean {
-    return this.isDisabled();
-  }
-
   view(): VNode {
     const path = this.relayPath();
     const tree = this.localTree();
