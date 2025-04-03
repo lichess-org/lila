@@ -297,6 +297,8 @@ interface I18n {
     myBroadcasts: string;
     /** %s broadcasts */
     nbBroadcasts: I18nPlural;
+    /** %s viewers */
+    nbViewers: I18nPlural;
     /** New live broadcast */
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
@@ -381,8 +383,6 @@ interface I18n {
     upcoming: string;
     /** Upload tournament image */
     uploadImage: string;
-    /** %s viewers */
-    viewers: I18nPlural;
     /** webmasters page */
     webmastersPage: string;
   };

@@ -6,7 +6,7 @@
     <item quantity="one">%s broadcast</item>
     <item quantity="other">%s broadcasts</item>
   </plurals>
-  <plurals name="viewers">
+  <plurals name="nbViewers">
     <item quantity="one">%s viewer</item>
     <item quantity="other">%s viewers</item>
   </plurals>
