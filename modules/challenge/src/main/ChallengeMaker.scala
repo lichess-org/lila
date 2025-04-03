@@ -2,7 +2,7 @@ package lila.challenge
 
 import lila.core.game.Player
 import lila.core.user.{ GameUser, WithPerf }
-import lila.game.{ GameRepo, Rematches }
+import lila.game.{ GameRepo, Rematches, rematchAlternatesColor }
 
 import Challenge.TimeControl
 
@@ -63,12 +63,13 @@ final class ChallengeMaker(
           case (Some(clock), _) => TimeControl.Clock(clock.config)
           case (_, Some(days))  => TimeControl.Correspondence(days)
           case _                => TimeControl.Unlimited
+        val alternateColor = rematchAlternatesColor(pov.game, List(challenger.map(_.user), dest.user.some))
         Challenge.make(
           variant = pov.game.variant,
           initialFen = initialFen,
           timeControl = timeControl,
           mode = pov.game.mode,
-          color = maybeSwitchColors(pov.game, challenger, dest.some, pov.color).name,
+          color = (if alternateColor then !pov.color else pov.color).name,
           // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
           // which doesn't use the secret, so we just use an empty string
           challenger = challenger
@@ -77,8 +78,3 @@ final class ChallengeMaker(
           rematchOf = pov.gameId.some,
           id = nextId.some
         )
-
-  // See Rematcher.returnPlayer
-  private def maybeSwitchColors(game: Game, challenger: GameUser, dest: GameUser, povColor: Color): Color =
-    if game.fromPosition && List(challenger, dest).count(_.exists(_.user.isBot)) == 1 then povColor
-    else !povColor

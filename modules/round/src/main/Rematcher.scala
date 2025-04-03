@@ -9,7 +9,7 @@ import lila.common.Bus
 import lila.core.game.{ GameRepo, IdGenerator }
 import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.user.{ GameUsers, UserApi }
-import lila.game.{ AnonCookie, Event, Rematches }
+import lila.game.{ AnonCookie, Event, Rematches, rematchAlternatesColor }
 
 import ChessColor.White
 
@@ -131,10 +131,7 @@ final private class Rematcher(
         case _ => ()
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
-    val fromColor =
-      if game.fromPosition && users.count(_.exists(_.user.isBot)) == 1
-      then color
-      else !color
+    val fromColor = if rematchAlternatesColor(game, users.mapList(_.map(_.user))) then !color else color
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(fromColor))
