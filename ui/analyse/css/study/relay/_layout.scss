@@ -26,7 +26,7 @@ main.is-relay {
     .relay-admin__container {
       grid-area: none;
     }
-    .resize-divider {
+    .vertical-resize-separator {
       display: flex;
     }
     .mchat {
@@ -48,7 +48,7 @@ main.is-relay.has-relay-tour {
 
   @include mq-at-least-col2 {
     grid-template-areas: 'relay-tour . side';
-    .resize-divider {
+    .vertical-resize-separator {
       display: flex;
     }
   }
@@ -106,7 +106,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .mchat:has(.liveboard.mchat__tab-active) {
       max-height: 348px;
-      min-height: 348px; // constrain height set by resize-divider
+      min-height: 348px; // constrain height set by vertical-resize-separator
     }
   }
   .eval-chart-and-training {
@@ -126,7 +126,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   }
 }
 
-.resize-divider {
+.vertical-resize-separator {
   @extend %flex-column;
   display: none;
   justify-content: center;
@@ -145,4 +145,8 @@ main.analyse.is-relay:not(.has-relay-tour) {
   &:hover {
     background: $m-primary--fade-70;
   }
+}
+
+.vertical-spacer {
+  height: $block-gap; // in lieu of resize divider when there is no games list
 }
