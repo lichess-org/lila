@@ -114,8 +114,8 @@ PROFILES = {
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
-    "manta-server-1st-time-lfs": server_profile("root@manta.lichess.ovh", post="", deploy_dir="/home/lichess/lfs-deploy"),
-    "manta-assets-1st-time-lfs": asset_profile("root@manta.lichess.ovh", post="", deploy_dir="/home/lichess/lfs-deploy"),
+    "manta-server-1st-time-lfs": server_profile("root@manta.lichess.ovh", post="whoami", deploy_dir="/home/lichess/lfs-deploy"),
+    "manta-assets-1st-time-lfs": asset_profile("root@manta.lichess.ovh", post="whoami", deploy_dir="/home/lichess/lfs-deploy"),
 }
 
 
