@@ -7,6 +7,13 @@ import { joinWithTeamSelector } from './battle';
 import type TournamentController from '../ctrl';
 import { watchers } from 'lib/watchers';
 import { makeChat } from 'lib/chat/chat';
+import { storedMap } from 'lib/storage';
+
+const collapsedDescriptionStore = storedMap<boolean>(
+  'tournament.main.collapsed-description-store',
+  20,
+  () => false,
+);
 
 export default function (ctrl: TournamentController) {
   let handler: {
@@ -22,6 +29,13 @@ export default function (ctrl: TournamentController) {
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
+        const side = document.querySelector<HTMLElement>('.tour__side')!;
+        side.classList.toggle('collapsed', collapsedDescriptionStore(ctrl.data.id));
+
+        side.querySelector<HTMLElement>('.disclosure')?.addEventListener('click', () => {
+          side.classList.toggle('collapsed');
+          collapsedDescriptionStore(ctrl.data.id, side.classList.contains('collapsed'));
+        });
         ctrl.opts.chat && makeChat(ctrl.opts.chat);
       }),
     }),

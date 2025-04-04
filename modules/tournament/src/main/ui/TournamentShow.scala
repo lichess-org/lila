@@ -77,6 +77,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         streamers: Frag
     )(using ctx: Context) =
       frag(
+        button(cls := "disclosure"),
         div(cls := "tour__meta")(
           st.section(dataIcon := tour.perfType.icon.toString)(
             div(
