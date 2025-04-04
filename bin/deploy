@@ -114,6 +114,8 @@ PROFILES = {
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-server-1st-time-lfs": server_profile("root@manta.lichess.ovh", post="", deploy_dir="/home/lichess/lfs-deploy"),
+    "manta-assets-1st-time-lfs": asset_profile("root@manta.lichess.ovh", post="", deploy_dir="/home/lichess/lfs-deploy"),
 }
 
 
@@ -266,6 +268,7 @@ def deploy_script(profile, session, run, url):
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
     user_group = f"{profile['user']}:{profile['user']}"
+    commit = run["head_commit"]["id"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
@@ -288,16 +291,13 @@ def deploy_script(profile, session, run, url):
     ]
 
     if profile["artifact_name"] == "lila-assets":
-        assets_dir = f"{deploy_dir}/public"
-        lifat_dir = f"{assets_dir}/lifat"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
-            "echo \\# Preparing lifat ...",
-            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R {user_group} {lifat_dir}; fi)",
+            f"echo \\# Checkout {commit} ...",
+            f"git -C {deploy_dir} checkout {commit}",
+            f"git -C {deploy_dir} lfs pull public",
             "echo \\# Copying assets ...",
-            f"mkdir -p {assets_dir}/compiled",
-            f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
-            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
+            f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
             f"rm -rf {artifact_unzipped}",
         ]
     elif not profile.get("symlinks"):
