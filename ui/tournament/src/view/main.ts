@@ -29,10 +29,10 @@ export default function (ctrl: TournamentController) {
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        const side = document.querySelector<HTMLElement>('.tour__side')!;
-        side.classList.toggle('collapsed', collapsedDescriptionStore(ctrl.data.id));
+        const side = document.querySelector<HTMLElement>('.tour__side');
+        side?.classList.toggle('collapsed', collapsedDescriptionStore(ctrl.data.id));
 
-        side.querySelector<HTMLElement>('.disclosure')?.addEventListener('click', () => {
+        side?.querySelector<HTMLElement>('.disclosure')?.addEventListener('click', () => {
           side.classList.toggle('collapsed');
           collapsedDescriptionStore(ctrl.data.id, side.classList.contains('collapsed'));
         });
