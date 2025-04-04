@@ -295,7 +295,7 @@ def deploy_script(profile, session, run, url):
         commands += [
             f"echo \\# Checkout {commit} ...",
             f"git -C {deploy_dir} checkout {commit}",
-            f"git -C {deploy_dir} lfs pull public",
+            f"git -C {deploy_dir} lfs pull",
             "echo \\# Copying assets ...",
             f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
             f"rm -rf {artifact_unzipped}",
