@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">ეთამაშე მეგობარს</string>
   <string name="playWithTheMachine">ეთამაშე კომპიუტერს</string>
-  <string name="playOffline">ოფლაინ თამაში</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">მეტოქეს, მოსაწვევად, გაუგზავნეთ აღნიშნული ბმული</string>
   <string name="gameOver">თამაში დასრულებულია</string>
   <string name="waitingForOpponent">მეტოქის მოლოდინი</string>
@@ -477,7 +476,6 @@
   <string name="wins">იგებს</string>
   <string name="losses">აგებს</string>
   <string name="createdBy">შემქმნელი</string>
-  <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
   <string name="standByX">დაელოდეთ %s, ვაჯგუფებთ მოთამაშეებს, მოემზადეთ!</string>
   <string name="pause">შეჩერება</string>
@@ -491,7 +489,6 @@
   <string name="whiteWins">თეთრებმა მოიგეს</string>
   <string name="blackWins">შავებმა მოიგეს</string>
   <string name="draws">ფრე</string>
-  <string name="nextXTournament">შემდეგი %s ტურნირი:</string>
   <string name="averageOpponent">საშ. ოპონენტი</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
   <string name="setTheBoard">ადგილობრივი თამაში</string>

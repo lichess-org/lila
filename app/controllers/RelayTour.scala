@@ -208,8 +208,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
         env.relay.pgnStream.exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
       ): source =>
-        asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn"):
-          Ok.chunked(source).as(pgnContentType)
+        Ok.chunked(source)
+          .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
+          .as(pgnContentType)
 
   def apiIndex = Anon:
     apiC.jsonDownload:

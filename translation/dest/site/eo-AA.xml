@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Ludi kun amiko</string>
   <string name="playWithTheMachine">Ludi kontraŭ la komputilo</string>
-  <string name="playOffline">Ludi eksterrete</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -486,7 +485,6 @@
   <string name="wins">Venkoj</string>
   <string name="losses">Malvenkoj</string>
   <string name="createdBy">Kreita de</string>
-  <string name="tournamentIsStarting">Turniro komenciĝas</string>
   <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="pause">Paŭzu</string>
@@ -501,7 +499,6 @@
   <string name="blackWins">Nigraj venkoj</string>
   <string name="drawRate">Procento de egalvenkoj</string>
   <string name="draws">Egalvenkoj</string>
-  <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="setTheBoard">Antaŭfaru la tabulo</string>

@@ -8,25 +8,17 @@ import { wsSend } from './socket';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
-  initMiniBoardWith(node, fen, orientation as Color, lm);
+  initMiniBoardWith(node, { fen, orientation: orientation as Color, lastMove: uciToMove(lm) });
 };
 
-export const initMiniBoardWith = (node: HTMLElement, fen: FEN, orientation: Color, lm?: Uci): void => {
-  domData.set(
-    node,
-    'chessground',
-    makeChessground(node, {
-      orientation,
-      coordinates: false,
-      viewOnly: !node.getAttribute('data-playable'),
-      fen,
-      lastMove: uciToMove(lm),
-      drawable: {
-        enabled: false,
-        visible: false,
-      },
-    }),
-  );
+export const initMiniBoardWith = (node: HTMLElement, config: CgConfig): void => {
+  const cgConfig = {
+    coordinates: false,
+    viewOnly: !node.getAttribute('data-playable'),
+    drawable: { enabled: false, visible: false },
+    ...config,
+  };
+  domData.set(node, 'chessground', makeChessground(node, cgConfig));
 };
 
 export const initMiniBoards = (parent?: HTMLElement): void =>
@@ -34,6 +26,8 @@ export const initMiniBoards = (parent?: HTMLElement): void =>
     el.classList.remove('mini-board--init');
     initMiniBoard(el);
   });
+
+export { uciToMove } from 'chessground/util';
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 

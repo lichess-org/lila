@@ -83,4 +83,6 @@ Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun
   <string name="tournamentShields">Torneos de Escudo</string>
   <string name="onlyTitled">Só xogadores titulados</string>
   <string name="onlyTitledHelp">Esixir un título oficial para unirse ó torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados.</string>
+  <string name="berserkRate">Porcentaxe de Berserk</string>
 </resources>

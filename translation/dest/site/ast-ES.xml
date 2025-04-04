@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Xuega con un collacio</string>
   <string name="playWithTheMachine">Xuega contra l\'ordenador</string>
-  <string name="playOffline">Xugar ensin conexón</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -157,6 +156,7 @@
   <string name="flipBoard">Xirar tableru</string>
   <string name="threefoldRepetition">Repetición triple</string>
   <string name="claimADraw">Reclamar tables</string>
+  <string name="drawClaimed">Tables reclamaes</string>
   <string name="offerDraw">Ufiertar tables</string>
   <string name="draw">Tables</string>
   <plurals name="nbPlayers">
@@ -486,7 +486,7 @@
   <string name="wins">Victories</string>
   <string name="losses">Perdíes</string>
   <string name="createdBy">Fechu por</string>
-  <string name="tournamentIsStarting">El tornéu ta entamando</string>
+  <string name="startingIn" comment="Displayed above a timer">Entama en</string>
   <string name="tournamentPairingsAreNowClosed">Los emparexamientos del tornéu tan zarraos.</string>
   <string name="standByX">Espera %s, empareyando xugadores, ¡prepárate!</string>
   <string name="pause">Pausa</string>
@@ -501,7 +501,6 @@
   <string name="blackWins">Victories prietes</string>
   <string name="drawRate">Tasa de tables</string>
   <string name="draws">Tables</string>
-  <string name="nextXTournament">Siguiente tornéu %s:</string>
   <string name="averageOpponent">Oponente promediu</string>
   <string name="boardEditor">Editor de tableru</string>
   <string name="setTheBoard">Configurar tableru</string>
@@ -521,7 +520,7 @@
   <string name="realName">Nome real</string>
   <string name="setFlair">Pon la to bandera</string>
   <string name="flair">Bandera</string>
-  <string name="youCanHideFlair">Hai una opción pa amatagar la configuración d\'entornu en tou\'l sitiu.</string>
+  <string name="youCanHideFlair">Hai una opción pa esconder la configuración d\'entornu en tou\'l sitiu.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o rexón</string>
   <string name="thankYou">¡Gracies!</string>
@@ -707,7 +706,7 @@
   <string name="keyMoveBackwardOrForward">movimientu escontra tras y escontra alante</string>
   <string name="keyGoToStartOrEnd">dir al entamu/fin</string>
   <string name="keyCycleSelectedVariation">Alterna la variante escoyida</string>
-  <string name="keyShowOrHideComments">amosar/amatagar comentarios</string>
+  <string name="keyShowOrHideComments">amosar/esconder comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, apriende de los tos fallos</string>
   <string name="keyNextLearnFromYourMistakes">Siguiente (Apriende de los tos fallos)</string>
@@ -745,6 +744,9 @@
   <string name="checkYourEmail">Confirma\'l to email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te unviemos un corréu. Activa la to cuenta nel enllaz proporcionáu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si nun atopeste col corréu, mira si ta n\'otres carpetes (spam, social, ...).</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Si nun recibes el corréu electrónicu en 5 minutos:</string>
+  <string name="checkAllEmailFolders">Revisa tol corréu basura, spam y otres carpetes</string>
+  <string name="verifyYourAddress">Verifica que %s ye la to dirección de corréu electrónicu</string>
   <string name="weHaveSentYouAnEmailTo">Te unviemos un corréu a %s. Restablez la to contraseña faciendo clic nel enllaz.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al rexistrate, aceptes les %s.</string>
   <string name="readAboutOur">Llee sobre nuesa %s.</string>
@@ -753,6 +755,7 @@
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida ensin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
+  <string name="downloadAllGames">Descargar toles partíes</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién pues usar la rueda del ratón pa movete pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsiáu sobro les variantes del análisis pa previsualizarlas.</string>
@@ -789,6 +792,7 @@
   <string name="anonymous">Anónimu</string>
   <string name="yourScore">La to puntuación: %s</string>
   <string name="language">Llinguaxe</string>
+  <string name="allLanguages">Tolos idiomes</string>
   <string name="background">Fondu</string>
   <string name="light">Claro</string>
   <string name="dark">Escuru</string>
@@ -830,7 +834,7 @@
   <string name="theGameIsADraw">La partida ye tables.</string>
   <string name="computerThinking">L\'ordenador ta calculando...</string>
   <string name="seeBestMove">Ver meyor movimientu</string>
-  <string name="hideBestMove">Amatagar meyor movimientu</string>
+  <string name="hideBestMove">Esconder meyor movimientu</string>
   <string name="getAHint">Pidir una pista</string>
   <string name="evaluatingYourMove">Evaluando\'l to movimientu...</string>
   <string name="whiteWinsGame">Ganen les blanques</string>

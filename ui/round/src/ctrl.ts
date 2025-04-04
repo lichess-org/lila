@@ -30,8 +30,6 @@ import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
-import { info as infoDialog } from 'lib/dialogs';
-import { isCol1 } from 'lib/device';
 
 import type {
   Step,
@@ -46,7 +44,7 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, type LichessBooleanStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
@@ -583,9 +581,6 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
-    if (isCol1()) {
-      infoDialog(viewStatus(this.data), 3000);
-    }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -897,6 +892,15 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
     return v;
   };
+
+  yeet = (): void => {
+    if (!this.data.player.spectator) this.doYeet();
+  };
+
+  private doYeet = memoize(() => {
+    this.chessground.stop();
+    site.asset.loadEsm('round.yeet');
+  });
 
   private delayedInit = () => {
     requestIdleCallback(() => {

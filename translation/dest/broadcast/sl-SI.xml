@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
   <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
+  <string name="liveboard">Živa deska</string>
 </resources>

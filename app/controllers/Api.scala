@@ -179,7 +179,7 @@ final class Api(
       GlobalConcurrencyLimitPerIP
         .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
           Ok.chunked(source)
-            .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
+            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
             .as(gameC.gameContentType(config))
     }
 
@@ -201,7 +201,7 @@ final class Api(
       val result =
         if csv then csvDownload(lila.tournament.TournamentCsv(source))
         else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
-      result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson")))
+      result.asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson"))
     }
 
   def tournamentTeams(id: TourId) = Anon:
@@ -228,7 +228,7 @@ final class Api(
         .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
           val filename = env.api.gameApiV2.filename(swiss, config.format)
           Ok.chunked(source)
-            .pipe(asAttachmentStream(filename))
+            .asAttachmentStream(filename)
             .as(gameC.gameContentType(config))
 
   private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond:
@@ -244,7 +244,7 @@ final class Api(
       val result =
         if csv then csvDownload(lila.swiss.SwissCsv(source))
         else jsonDownload(source.map(env.swiss.json.playerResult))
-      result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson")))
+      result.asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson"))
     }
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>

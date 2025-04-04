@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
   <string name="playWithTheMachine">Xogar coa a máquina</string>
-  <string name="playOffline">Xogar sen conexión</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
@@ -487,7 +486,7 @@
   <string name="wins">Vitorias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Creado por</string>
-  <string name="tournamentIsStarting">O torneo vai comezar</string>
+  <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo xa están pechados.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
@@ -502,7 +501,6 @@
   <string name="blackWins">Vitorias das negras</string>
   <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
-  <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
   <string name="boardEditor">Editor de taboleiro</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
@@ -757,6 +755,7 @@
   <string name="downloadAnnotated">Descargar anotada</string>
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
+  <string name="downloadAllGames">Descargar todas as partidas</string>
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>

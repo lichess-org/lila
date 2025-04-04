@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Main bersama rakan</string>
   <string name="playWithTheMachine">Bermain dengan mesin</string>
-  <string name="playOffline">Main tanpa talian</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
@@ -435,7 +434,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
   <string name="createdBy">Dibuat oleh</string>
-  <string name="tournamentIsStarting">Pertandingan ini akan bermula</string>
   <string name="tournamentPairingsAreNowClosed">Keseimbangan pertandingan sekarang ditutup.</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
@@ -449,7 +447,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="whiteWins">Buah putih menang</string>
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
-  <string name="nextXTournament">Pertandingan %s seterusnya:</string>
   <string name="averageOpponent">Pihak lawan purata</string>
   <string name="boardEditor">Papan penyunting</string>
   <string name="setTheBoard">Perbaiki papan catur</string>

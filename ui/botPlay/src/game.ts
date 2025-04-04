@@ -3,7 +3,7 @@ import { makeFen } from 'chessops/fen';
 import { randomId } from 'lib/algo';
 import { StatusName } from 'lib/game/game';
 import { ClockConfig, ClockData } from 'lib/game/clock/clockCtrl';
-import { BotId } from 'local';
+import { type BotId } from 'lib/bot/types';
 
 export interface Game {
   id: string;

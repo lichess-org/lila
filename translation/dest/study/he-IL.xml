@@ -61,10 +61,7 @@
   <string name="playing">מתקיים כעת</string>
   <string name="showResults">תוצאות</string>
   <string name="showEvalBar">מדי הערכה</string>
-  <string name="first">ראשון</string>
-  <string name="previous">הקודם</string>
   <string name="next">הבא</string>
-  <string name="last">אחרון</string>
   <string name="shareAndExport">שיתוף &amp; ייצוא</string>
   <string name="cloneStudy">שכפול</string>
   <string name="studyPgn">ה-PGN של לוח הלמידה</string>

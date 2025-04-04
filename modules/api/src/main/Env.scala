@@ -109,6 +109,12 @@ final class Env(
     "lpv" -> {
       case AllPgnsFromText(text, max, p)  => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
       case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
+    },
+    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
+      accountTermination.garbageCollect(userId)
+    },
+    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) =>
+      accountTermination.lichessDisable(userId)
     }
   )
 
