@@ -486,14 +486,14 @@
   <string name="wins">Gevinster</string>
   <string name="losses">Tabte</string>
   <string name="createdBy">Oprettet af</string>
-  <string name="startingIn" comment="Displayed above a timer">Starter om</string>
+  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Starter om</string>
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
   <string name="pause">Sæt på pause</string>
   <string name="resume">Genoptag</string>
   <string name="youArePlaying">Du spiller nu!</string>
   <string name="winRate">Sejrsrate</string>
-  <string name="berserkRate">Bersærk-rate</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Bersærk-rate</string>
   <string name="performance">Præstation</string>
   <string name="tournamentComplete">Turnering afsluttet</string>
   <string name="movesPlayed">Spillede træk</string>
@@ -744,7 +744,7 @@
   <string name="checkYourEmail">Tjek din e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt dig en e-mail. Klik på linket i e-mailen for at aktivere din konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se e-mailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
-  <string name="ifYouDoNotGetTheEmail">Hvis du ikke får e-mailen inden for 5 minutter:</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Hvis du ikke får e-mailen inden for 5 minutter:</string>
   <string name="checkAllEmailFolders">Tjek spam og andre mapper</string>
   <string name="verifyYourAddress">Bekræft at %s er din e-mailadresse</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>

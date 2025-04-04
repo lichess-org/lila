@@ -6,6 +6,10 @@
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espectador</item>
+    <item quantity="other">%s espectadores</item>
+  </plurals>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="broadcastCalendar">Calendario de emisións</string>
   <string name="newBroadcast">Nova emisión en directo</string>

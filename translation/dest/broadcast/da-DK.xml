@@ -6,6 +6,10 @@
     <item quantity="one">%s udsendelse</item>
     <item quantity="other">%s udsendelser</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s seer</item>
+    <item quantity="other">%s seere</item>
+  </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
   <string name="broadcastCalendar">Kaldender for udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>

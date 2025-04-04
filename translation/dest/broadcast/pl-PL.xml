@@ -8,6 +8,12 @@
     <item quantity="many">%s transmisji</item>
     <item quantity="other">%s transmisji</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s oglądający</item>
+    <item quantity="few">%s oglądających</item>
+    <item quantity="many">%s oglądających</item>
+    <item quantity="other">%s oglądających</item>
+  </plurals>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
   <string name="broadcastCalendar">Kalendarz transmisji</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
