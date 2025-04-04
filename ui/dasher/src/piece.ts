@@ -42,6 +42,7 @@ export class PieceCtrl extends PaneCtrl {
           h(
             'button.no-square',
             {
+              key: t,
               attrs: { title: t, type: 'button', style: `width: ${pieceSize}px; height: ${pieceSize}px` },
               hook: bind('click', () => this.set(t)),
               class: { active: this.dimData.current === t },
