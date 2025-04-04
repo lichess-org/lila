@@ -5,9 +5,9 @@
   .disclosure {
     @extend %button-none;
     position: absolute;
-    top: 1em;
-    right: 1em;
-    color: $c-primary;
+    top: 1.5em;
+    right: 1.5em;
+    color: $c-font;
     cursor: pointer;
 
     &::before {
@@ -16,7 +16,7 @@
       font-size: 1.5em;
     }
     &:hover {
-      color: $m-primary--lighten-11;
+      color: $c-primary;
     }
   }
 
