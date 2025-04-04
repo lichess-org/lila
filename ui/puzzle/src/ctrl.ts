@@ -21,7 +21,16 @@ import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { CevalCtrl } from 'lib/ceval/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
+import {
+  defined,
+  prop,
+  type Prop,
+  propWithEffect,
+  type Toggle,
+  toggle,
+  requestIdleCallback,
+  myUserId,
+} from 'lib';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -43,6 +52,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
   tree: TreeWrapper;
   ceval: CevalCtrl;
+  showArrows: StoredProp<boolean>;
   autoNext: StoredProp<boolean>;
   rated: StoredProp<boolean>;
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
@@ -84,6 +94,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
+    this.showArrows = storedBooleanProp(`puzzle.show-arrows.${myUserId()}`, true);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
