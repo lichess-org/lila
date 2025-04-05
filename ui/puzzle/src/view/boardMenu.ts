@@ -20,7 +20,7 @@ export default function (ctrl: PuzzleCtrl) {
       ),
       cmnToggle(
         {
-          name: 'Show arrows in analysis',
+          name: i18n.site.bestMoveArrow,
           id: 'showArrows',
           checked: ctrl.showArrows(),
           change: ctrl.showArrows,
