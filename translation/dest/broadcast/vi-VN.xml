@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s người xem</item>
+  </plurals>
   <string name="liveBroadcasts">Các giải đấu phát sóng trực tiếp</string>
   <string name="broadcastCalendar">Lịch phát sóng</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
