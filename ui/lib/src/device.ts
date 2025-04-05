@@ -57,24 +57,24 @@ export const currentTheme = (): 'light' | 'dark' => {
   else return 'dark';
 };
 
-let col1cache: 'init' | 'rec' | boolean = 'init';
+let colCache: 'init' | 'rec' | number = 'init';
 
-export function isCol1(): boolean {
-  if (typeof col1cache === 'string') {
-    if (col1cache === 'init') {
+export function displayColumns(): number {
+  if (typeof colCache === 'string') {
+    if (colCache === 'init') {
       // only once
       window.addEventListener('resize', () => {
-        col1cache = 'rec';
+        colCache = 'rec';
       }); // recompute on resize
       if (navigator.userAgent.indexOf('Edge/') > -1)
         // edge gets false positive on page load, fix later
         requestAnimationFrame(() => {
-          col1cache = 'rec';
+          colCache = 'rec';
         });
     }
-    col1cache = !!window.getComputedStyle(document.body).getPropertyValue('---col1');
+    colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
   }
-  return col1cache;
+  return colCache;
 }
 
 const lowerAgent = navigator.userAgent.toLowerCase();
