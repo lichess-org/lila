@@ -298,7 +298,8 @@ body.no-inquiry {
       top: 100%;
       @include inline-end(0);
       background: #555;
-      overflow: hidden;
+      overflow: scroll;
+      max-height: 80vh;
       padding: 0.4em 0;
     }
 
