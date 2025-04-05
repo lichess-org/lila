@@ -6,6 +6,10 @@
     <item quantity="one">%s transmetim</item>
     <item quantity="other">%s transmetime</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s parës</item>
+    <item quantity="other">%s parës</item>
+  </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
   <string name="broadcastCalendar">Kalendar transmetimesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
