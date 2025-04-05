@@ -105,8 +105,8 @@ main.analyse.is-relay:not(.has-relay-tour) {
       display: flex;
     }
     .mchat:has(.liveboard.mchat__tab-active) {
-      max-height: 348px;
-      min-height: 348px; // constrain height set by vertical-resize-separator
+      max-height: 380px;
+      min-height: 380px; // constrain height set by vertical-resize-separator
     }
   }
   .eval-chart-and-training {
