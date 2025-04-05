@@ -103,6 +103,7 @@ export function verticalResizeSeparator(o: {
   id?: string; // optional id to store the size for a specific instance
   min: () => number;
   max: () => number;
+  initialMaxHeight?: number;
 }): VNode {
   // add these directly after the vnode they resize
   return h(
@@ -114,10 +115,9 @@ export function verticalResizeSeparator(o: {
           const onDomChange = () => {
             const el = divider.previousElementSibling as HTMLElement;
             if (el.style.height) return;
-            const height =
-              (o.id ? heightStore(`${o.key}.${o.id}`) : undefined) ??
-              heightStore(o.key) ?? // this should be evaluated whether id is provided or not
-              el.getBoundingClientRect().height;
+            let height = o.id && heightStore(`${o.key}.${o.id}`);
+            if (typeof height !== 'number') height = heightStore(o.key) ?? o.initialMaxHeight;
+            if (typeof height !== 'number') height = el.getBoundingClientRect().height;
             el.style.flex = 'none';
             el.style.height = `${clamp(height, { min: o.min(), max: o.max() })}px`;
           };

@@ -88,14 +88,16 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           id: resizeId,
           min: () => 48,
           max: () => 48 * study.chapters.list.size(),
+          initialMaxHeight: window.innerHeight / 2,
         }),
       relayChatView(ctx),
       resizeId &&
         verticalResizeSeparator({
           key: 'relay-chat',
           id: resizeId,
-          min: () => 52,
+          min: () => 72,
           max: () => window.innerHeight,
+          initialMaxHeight: window.innerHeight / 3,
         }),
       kid,
     ],
