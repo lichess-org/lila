@@ -87,7 +87,13 @@
   <string name="blunder">Qagh</string>
   <string name="mistake">Qagh</string>
   <string name="inaccuracy">QaghHom</string>
+  <string name="moveTimes">TonSaw\'tonSaw\' or vIH</string>
   <string name="flipBoard">\'echlet qaw\'</string>
+  <string name="threefoldRepetition">tu\'lu\'chugh Segh</string>
+  <string name="claimADraw">tlhol</string>
+  <string name="drawClaimed">tlhol</string>
+  <string name="offerDraw"> \'oS tlhol</string>
+  <string name="draw">tlhol</string>
   <string name="logOut">ngaQmoH</string>
   <string name="signIn">ngaQHa\'moH</string>
   <string name="signUp">qI\'</string>
