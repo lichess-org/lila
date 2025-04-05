@@ -44,7 +44,7 @@ export class Bot implements BotInfo, MoveSource {
   fish?: FishSearch;
 
   static rating(bot: BotInfo | undefined, speed: LocalSpeed): number {
-    return bot?.ratings[speed] ?? bot?.ratings.classical ?? 1500;
+    return bot?.ratings?.[speed] ?? bot?.ratings?.classical ?? 1500;
   }
 
   constructor(info: BotInfo, ctrl: BotLoader) {

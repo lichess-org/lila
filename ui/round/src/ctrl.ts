@@ -861,6 +861,10 @@ export default class RoundController implements MoveRootCtrl {
   setChessground = (cg: CgApi): void => {
     this.chessground = cg;
     const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+    });
     if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) {
       if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(this);
@@ -871,10 +875,6 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-    });
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);

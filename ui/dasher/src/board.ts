@@ -68,6 +68,7 @@ export class BoardCtrl extends PaneCtrl {
           h(
             'button',
             {
+              key: t,
               hook: bind('click', () => this.setBoard(t)),
               attrs: { title: t, type: 'button' },
               class: { active: this.current === t },

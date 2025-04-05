@@ -6,6 +6,10 @@
     <item quantity="one">%s retransmissió</item>
     <item quantity="other">%s retransmissions</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espectador</item>
+    <item quantity="other">%s espectadors</item>
+  </plurals>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
   <string name="broadcastCalendar">Calendari de retransmissions</string>
   <string name="newBroadcast">Nova retransmissió en directe</string>

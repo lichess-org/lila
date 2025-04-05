@@ -255,7 +255,7 @@ class Store {
 
   async init(): Promise<any> {
     this.keyNames.clear();
-    this.store = await objectStorage<IdbAsset, string>({ store: `botdev${this.type}` });
+    this.store = await objectStorage<IdbAsset, string>({ store: `botdev.${this.type}` });
     const [keys, assets] = await Promise.all([this.store.list(), this.store.getMany()]);
     const all = zip(keys, assets);
     all.forEach(([k, a]) => this.keyNames.set(k, a.name));

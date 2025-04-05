@@ -125,7 +125,7 @@ export class DevBotCtrl extends BotLoader {
 
   card(bot: BotInfo): CardData {
     return {
-      label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,
+      label: `${bot.name}${bot.ratings?.classical ? ' ' + bot.ratings.classical : ''}`,
       domId: uidToDomId(bot.uid)!,
       imageUrl: this.imageUrl(bot),
       classList: [],

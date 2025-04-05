@@ -71,7 +71,7 @@ final private class RelaySync(
     then fuccess(chapter)
     else
       studyApi
-        .resetRoot(studyId, chapter.id, game.root.withoutChildren)(who(chapter.ownerId))
+        .resetRoot(studyId, chapter.id, game.root.withoutChildren, game.variant)(who(chapter.ownerId))
         .dmap(_ | chapter)
 
   private type NbMoves = Int

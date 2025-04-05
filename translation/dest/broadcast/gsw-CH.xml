@@ -6,6 +6,10 @@
     <item quantity="one">%s Überträgige</item>
     <item quantity="other">%s Überträgige</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s Zueschauer</item>
+    <item quantity="other">%s Zueschauer</item>
+  </plurals>
   <string name="liveBroadcasts">Live Turnier-Überträgige</string>
   <string name="broadcastCalendar">Überträgigs-Kaländer</string>
   <string name="newBroadcast">Neui Live-Überträgige</string>

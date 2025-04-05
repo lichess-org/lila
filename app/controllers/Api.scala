@@ -205,15 +205,8 @@ final class Api(
     }
 
   def tournamentTeams(id: TourId) = Anon:
-    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      env.tournament.jsonView.apiTeamStanding(tour).map { arr =>
-        JsonOk:
-          Json.obj(
-            "id"    -> tour.id,
-            "teams" -> arr
-          )
-      }
-    }
+    Found(env.tournament.tournamentRepo.byId(id)): tour =>
+      JsonOk(env.tournament.jsonView.apiTeamStanding(tour))
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
