@@ -177,6 +177,7 @@ export default class StudyCtrl {
           () => this.chapters.list,
           () => this.ctrl.tree,
           () => this.data.chapter.relayPath,
+          () => this.bottomColor(),
         ),
       );
     }
