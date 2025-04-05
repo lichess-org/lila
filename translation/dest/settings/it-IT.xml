@@ -4,5 +4,7 @@
   <string name="closeAccount">Elimina account</string>
   <string name="managedAccountCannotBeClosed">Il tuo account è gestito esternamente e non può essere chiuso.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Non potrai creare un nuovo account con lo stesso nome, nemmeno con diverse maiuscole/minuscole.</string>
+  <string name="cancelKeepAccount">Annulla e mantieni il mio account</string>
+  <string name="closeAccountAreYouSure">Sei sicuro di voler chiudere il tuo account?</string>
   <string name="thisAccountIsClosed">Questo account è stato eliminato.</string>
 </resources>
