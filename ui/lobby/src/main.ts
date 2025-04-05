@@ -33,5 +33,5 @@ let animationFrameId: number;
 
 const layoutChanged = () => {
   cancelAnimationFrame(animationFrameId);
-  animationFrameId = requestAnimationFrame(rotateBlogs);
+  animationFrameId = requestAnimationFrame(() => rotateBlogs());
 };

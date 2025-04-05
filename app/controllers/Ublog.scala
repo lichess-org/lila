@@ -50,6 +50,7 @@ final class Ublog(env: Env) extends LilaController(env):
         canViewPost(user, blog)(post).so:
           for
             others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+            recommended    <- env.ublog.api.recommend(post, 5)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
             followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
@@ -58,7 +59,17 @@ final class Ublog(env: Env) extends LilaController(env):
             markup <- env.ublog.markup(post)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
-              views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
+              views.ublog.post.page(
+                user,
+                blog,
+                viewedPost,
+                markup,
+                others,
+                liked,
+                followable,
+                followed,
+                recommended
+              )
           yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:

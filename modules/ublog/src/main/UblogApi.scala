@@ -2,6 +2,9 @@ package lila.ublog
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
+import com.softwaremill.tagging.*
+import play.api.libs.json.JsValue
+import play.api.libs.ws.JsonBodyReadables.*
 
 import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline as tl
@@ -15,7 +18,9 @@ final class UblogApi(
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.core.irc.IrcApi
+    irc: lila.core.irc.IrcApi,
+    ws: play.api.libs.ws.StandaloneWSClient,
+    recommenderEndpoint: String @@ RecommenderEndpoint
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -121,6 +126,28 @@ final class UblogApi(
       .sort($doc("lived.at" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
+
+  def recommend(post: UblogPost, nb: Int): Fu[List[UblogPost.PreviewPost]] =
+    ws.url(s"$recommenderEndpoint/similarblogs/${post.id}")
+      .withRequestTimeout(3.seconds)
+      .get()
+      .flatMap:
+        case res if res.status == 404 => fuccess(Nil)
+        case res if res.status != 200 =>
+          fufail(s"Can't reach recommender: ${res.status}")
+        case res =>
+          res
+            .body[JsValue]
+            .validate[List[String]]
+            .fold(
+              err => fufail(s"Couldn't parse $err, ${res.body}"),
+              data =>
+                data.take(nb).map(lila.core.id.UblogPostId.apply).map(postPreview).parallel.map(_.flatten)
+            )
+      .recover:
+        case e: Exception =>
+          logger.warn(s"Recommender", e)
+          Nil
 
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
