@@ -54,6 +54,7 @@ import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
 import { confirm } from 'lib/dialogs';
 import api from './api';
+import { init } from 'lib/tree/path';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -616,6 +617,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
+    this.deletionHighlightFromHere(path, true);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1044,5 +1046,29 @@ export default class AnalyseCtrl {
     if (!fen.startsWith(this.chessground?.getFen())) return;
 
     this.keyboardMove?.update({ fen, canMove: true });
+  };
+
+  updateClassListsOfMoves = (paths: Tree.Path[], className: string, remove: boolean) => {
+    const moveList = document.querySelector('.areplay');
+    paths.forEach(currPath => {
+      const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
+      remove ? moveElement?.classList.remove(className) : moveElement?.classList.add(className);
+    });
+  };
+
+  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) =>
+    this.updateClassListsOfMoves(
+      [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
+      'pending-deletion',
+      unhighlight,
+    );
+
+  copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
+    const paths = [];
+    while (path) {
+      paths.push(path);
+      path = init(path);
+    }
+    this.updateClassListsOfMoves(paths, 'pending-copy', unhighlight);
   };
 }
