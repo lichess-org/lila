@@ -2,6 +2,8 @@ package lila.ublog
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
 import lila.db.dsl.Coll
@@ -19,12 +21,16 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
-    net: NetConfig
+    net: NetConfig,
+    appConfig: play.api.Configuration,
+    ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
+  private val recommenderEndpoint =
+    appConfig.get[String]("ublog.recommenderEndpoint").taggedWith[RecommenderEndpoint]
 
   val topic = wire[UblogTopicApi]
 
@@ -70,3 +76,5 @@ final class Env(
     case ReopenAccount(user) => api.onAccountReopen(user)
 
 final private class UblogColls(val blog: Coll, val post: Coll)
+
+trait RecommenderEndpoint

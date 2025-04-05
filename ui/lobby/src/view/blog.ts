@@ -1,7 +1,7 @@
 let blogRotateTimer: number | undefined = undefined;
 
-export function rotateBlogs() {
-  document.querySelectorAll<HTMLElement>('.lobby__blog').forEach(el => {
+export function rotateBlogs(selector: string = '.lobby__blog') {
+  document.querySelectorAll<HTMLElement>(selector).forEach(el => {
     const style = window.getComputedStyle(el);
     const gridGap = parseFloat(style.columnGap) * (style.columnGap.endsWith('%') ? el.clientWidth / 100 : 1);
     const kids = el.children as HTMLCollectionOf<HTMLElement>;
