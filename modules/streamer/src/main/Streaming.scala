@@ -11,7 +11,8 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.core.data.UserIds,
     twitchApi: TwitchApi,
-    ytApi: YouTubeApi
+    ytApi: YouTubeApi,
+    langList: lila.core.i18n.LangList
 )(using Executor, Scheduler):
 
   import Stream.*
@@ -51,9 +52,19 @@ final private class Streaming(
   private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2.hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
+    import lila.core.misc.streamer.*
     Bus.pub:
-      lila.core.misc.streamer
-        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value)))
+      StreamersOnline(
+        newStreams.streams.map(s =>
+          (
+            s.streamer.userId,
+            StreamInfo(
+              name = s.streamer.name.value,
+              lang = ~s.streamer.lastStreamLang.map(langList.nameByLanguage)
+            )
+          )
+        )
+      )
     if newStreams != liveStreams then
       newStreams.streams
         .filterNot { s =>

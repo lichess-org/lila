@@ -9,7 +9,7 @@ import play.api.libs.json.*
 import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.misc.streamer.StreamersOnline
+import lila.core.misc.streamer.{ StreamersOnline, StreamInfo }
 import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
 import lila.core.security.CloseAccount
@@ -255,8 +255,14 @@ object RemoteSocket:
       def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
       def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
-      def streamersOnline(streamers: Iterable[(UserId, String)]) =
-        s"streamers/online ${commas(streamers.map { (u, s) => s"$u:$s" })}"
+      def streamersOnline(streamers: Iterable[(UserId, StreamInfo)]) =
+        s"streamers/online " + Json.stringify(
+          JsArray(
+            streamers.map { case (id, info) =>
+              Json.obj(id.value -> Json.writes[StreamInfo].writes(info))
+            }.toSeq
+          )
+        )
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
       def stop(reqId: Int)                       = s"lila/stop $reqId"
 
