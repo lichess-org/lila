@@ -101,23 +101,6 @@ export class Engines {
       },
       {
         info: {
-          id: '__sf17nnue79',
-          name: 'Stockfish 17 NNUE · 79MB',
-          short: 'SF 17 · 79MB',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 2560,
-          cloudEval: true,
-          assets: {
-            version: 'sfw010',
-            root: 'npm/lila-stockfish-web',
-            js: 'sf17-79.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-      },
-      {
-        info: {
           id: '__sf14nnue',
           name: 'Stockfish 14 NNUE',
           short: 'SF 14',
