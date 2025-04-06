@@ -47,7 +47,7 @@ export class Engines {
         variants: [key],
         cloudEval: true,
         assets: {
-          version: 'sfw009',
+          version: 'sfw010',
           root: 'npm/lila-stockfish-web',
           nnue: [`${variantMap(key)}-${nnue}.nnue`],
           js: 'fsf14.js',
