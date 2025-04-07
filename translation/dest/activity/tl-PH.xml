@@ -59,7 +59,7 @@
     <item quantity="other">Gumawa ng %s bagong pag-aaral</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Nakipagkumpitensya s %s paligsahan sa Arena</item>
+    <item quantity="one">Nakipagkumpitensya sa %s paligsahan sa Arena</item>
     <item quantity="other">Nakipagkumpitensya sa %s paligsahan sa Arena</item>
   </plurals>
   <plurals name="rankedInTournament">
