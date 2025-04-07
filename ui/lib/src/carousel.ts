@@ -58,10 +58,10 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
 
 function toPx(key: keyof CSSStyleDeclaration, contextEl: HTMLElement = document.body): number {
   // must be simple units like vw, em, and %. things like 'auto' will return NaN
-  const style = getComputedStyle(contextEl);
+  const style = window.getComputedStyle(contextEl);
   const el = frag<HTMLElement>(`<div style="position:absolute;visibility:hidden;width:${style[key]}"/>`);
   contextEl.append(el);
-  const pixels = parseFloat(getComputedStyle(el).width);
+  const pixels = parseFloat(window.getComputedStyle(el).width);
   el.remove();
   return pixels;
 }
