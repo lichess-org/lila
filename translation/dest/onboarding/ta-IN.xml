@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s ஆக உள்நுழையவும்</string>
   <string name="welcome">நல்வரவு!</string>
   <string name="welcomeToLichess">Lichess.org க்கு வரவேற்கிறோம்!</string>
   <string name="thisIsYourProfilePage">இது உங்கள் சுயவிவரப் பக்கம்.</string>
