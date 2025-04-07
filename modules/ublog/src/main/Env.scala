@@ -30,7 +30,7 @@ final class Env(
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
   private val recommenderEndpoint =
-    appConfig.get[String]("ublog.recommenderEndpoint").taggedWith[RecommenderEndpoint]
+    appConfig.get[String]("ublogRecommender.endpoint").taggedWith[RecommenderEndpoint]
 
   val topic = wire[UblogTopicApi]
 

@@ -89,12 +89,8 @@ body {
 }
 
 .lobby__blog {
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  grid-gap: 0 2%;
-  grid-template-rows: auto; /* first row auto */
-  grid-auto-rows: 0; /* all the other rows 0 */
+  gap: 9px; // same as lobby__app.pools
   font-size: 0.9em;
-  overflow: hidden;
   h2 {
     @extend %page-text-shadow !optional;
     @include line-clamp(4);

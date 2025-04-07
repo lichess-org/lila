@@ -19,8 +19,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followable: Boolean,
-      followed: Boolean,
-      recommended: List[UblogPost.PreviewPost]
+      followed: Boolean
   )(using ctx: Context) =
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
       .css("bits.ublog")
@@ -129,15 +128,14 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   followable.option(followButton(user, followed))
                 )
               ),
-              h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
-              (others.size > 0).option(div(cls := "ublog-post-cards")(others.map(ui.card(_)))),
-              (recommended.size > 0).option(
-                div(cls := "recommend-carousel ublog-post-cards")(
-                  recommended
-                    .filter(_.isLichess || ctx.kid.no)
-                    .take(5)
-                    .map:
-                      ui.card(_, showAuthor = ui.ShowAt.bottom, showIntro = false)
+              (others.length > 0).option(
+                div(
+                  h2("You may also like"),
+                  div(cls := "carousel")(
+                    others
+                      .map:
+                        ui.card(_, showAuthor = ui.ShowAt.bottom, showIntro = false)
+                  )
                 )
               )
             )

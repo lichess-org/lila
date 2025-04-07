@@ -1,0 +1,13 @@
+.carousel {
+  visibility: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  gap: $block-gap;
+
+  .track {
+    display: flex;
+    flex-flow: row nowrap;
+    width: fit-content;
+    align-items: stretch;
+  }
+}
