@@ -10,7 +10,6 @@ import lila.core.security.UserSignup
 import lila.common.LilaFuture
 import lila.core.data.LazyDep
 
-// codename UGC
 final class GarbageCollector(
     userLogins: UserLoginsApi,
     ipTrust: IpTrust,
@@ -98,7 +97,7 @@ final class GarbageCollector(
     justOnce(user.id).so:
       hasBeenCollectedBefore(user).not.mapz:
         val armed = isArmed()
-        val wait  = if quickly then 3.seconds else (60 * 5 + ThreadLocalRandom.nextInt(60 * 10)).seconds
+        val wait  = if quickly then 3.seconds else (10 + ThreadLocalRandom.nextInt(15)).minutes
         logger.info:
           s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${(!armed).so(" [DRY]")}"
         noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")

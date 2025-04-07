@@ -43,6 +43,7 @@ export class RelayChatPlugin implements ChatPlugin {
     readonly previews: () => StudyChapters,
     readonly localTree: () => TreeWrapper,
     readonly relayPath: () => Tree.Path | undefined,
+    readonly orientation: () => Color,
   ) {}
 
   reset = () => {
@@ -77,6 +78,7 @@ export class RelayChatPlugin implements ChatPlugin {
     this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
     this.board.lastMove = uciToMove(this.board.lastUci);
+    this.board.orientation = this.orientation();
     this.animate = true;
 
     return h('div.chat-liveboard', {

@@ -5,7 +5,7 @@
   <string name="menu">Mục lục</string>
   <string name="progressX">Tiến trình: %s</string>
   <string name="resetMyProgress">Đặt lại tiến trình của tôi</string>
-  <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích và tiến trình của bạn!</string>
+  <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các tiến trình của bạn!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">chơi!</string>
   <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>

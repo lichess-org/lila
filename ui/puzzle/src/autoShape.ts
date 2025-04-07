@@ -37,7 +37,7 @@ export default function (opts: Opts): DrawShape[] {
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
     shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
-  if (opts.showComputer()) {
+  if (opts.showComputer() && opts.ceval.storedPv() > 0) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest();
