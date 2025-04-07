@@ -608,10 +608,10 @@
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
-  <string name="none">Нема</string>
-  <string name="fast">Брзо</string>
-  <string name="normal">Нормално</string>
-  <string name="slow">Споро</string>
+  <string name="none">Ниједна</string>
+  <string name="fast">Брза</string>
+  <string name="normal">Нормална</string>
+  <string name="slow">Спора</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
   <string name="allSquaresOfTheBoard">Сва поља табле</string>
