@@ -6,7 +6,7 @@ import { chessgroundDests, lichessRules } from 'chessops/compat';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
-import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from '../chess/chess';
+import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from '../game/chess';
 import { storage } from '../storage';
 
 const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;

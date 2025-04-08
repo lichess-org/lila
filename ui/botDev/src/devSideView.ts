@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { type VNode, looseH as h, onInsert, bind } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/dialog';
+import { domDialog } from 'lib/view/dialog';
 import { EditDialog } from './editDialog';
 import { Bot } from 'lib/bot/bot';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';

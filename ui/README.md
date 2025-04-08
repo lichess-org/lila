@@ -61,11 +61,11 @@ The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bund
 In this example from [/ui/opening/src/opening.ts](./opening/src/opening.ts):
 
 ```typescript
-import { initMiniBoards } from 'lib/miniBoard';
+import { initMiniBoards } from 'lib/view/miniBoard';
 import { requestIdleCallback } from 'lib';
 ```
 
-The above 'lib/miniBoard' and 'lib' import declarations are mapped to the typescript sources by this snippet from [/ui/lib/package.json](./lib/package.json):
+The above 'lib/view/miniBoard' and 'lib' import declarations are mapped to the typescript sources by this snippet from [/ui/lib/package.json](./lib/package.json):
 
 ```json
   "exports": {
@@ -73,7 +73,7 @@ The above 'lib/miniBoard' and 'lib' import declarations are mapped to the typesc
     "./*": "./src/*.ts"
   },
 ```
-That maps `from 'lib'` to `src/common.ts` and `from 'lib/miniBoard'` to `src/miniBoard.ts`.
+That maps `from 'lib'` to `src/common.ts` and `from 'lib/view/miniBoard'` to `src/miniBoard.ts`.
 
 While esbuild may bundle imported code directly into the entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within the browser cache.
 

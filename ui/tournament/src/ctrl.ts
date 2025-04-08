@@ -13,7 +13,7 @@ import type {
 } from './interfaces';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import { alerts, prompt } from 'lib/dialogs';
+import { alerts, prompt } from 'lib/view/dialogs';
 
 interface CtrlTeamInfo {
   requested?: string;

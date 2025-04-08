@@ -1,10 +1,10 @@
 import { type Redraw, type VNode, bind, dataIcon, looseH as h, onInsert } from 'lib/snabbdom';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import type {
   ChapterId,
   Federations,

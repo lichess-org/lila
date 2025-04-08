@@ -27,7 +27,7 @@ import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner, stepwiseScroll } from 'lib/controls';
+import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view/controls';
 import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';

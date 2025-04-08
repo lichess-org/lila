@@ -1,5 +1,5 @@
 import { h, type Hooks } from 'snabbdom';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import type LobbyController from '../ctrl';
 import { onInsert } from 'lib/snabbdom';
 

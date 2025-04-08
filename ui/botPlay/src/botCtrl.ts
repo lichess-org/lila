@@ -6,7 +6,7 @@ import { BotLoader } from 'lib/bot/botLoader';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 import { opposite } from 'chessops';
 import { type Game, makeGame } from './game';
 import { debugCli } from './debug';

@@ -1,5 +1,5 @@
 import makeZerofish, { type Zerofish } from 'zerofish';
-import { type OpeningBook, makeBookFromPolyglot } from '../chess/polyglot';
+import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
 import { Bot } from './bot';
 import { pubsub } from '../pubsub';
 import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';

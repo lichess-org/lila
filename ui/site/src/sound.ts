@@ -2,7 +2,7 @@ import { storage } from 'lib/storage';
 import { isIos } from 'lib/device';
 import { throttle } from 'lib/async';
 import { defined } from 'lib';
-import { speakable } from 'lib/chess/sanWriter';
+import { speakable } from 'lib/game/sanWriter';
 
 type Name = string;
 type Path = string;

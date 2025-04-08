@@ -1,14 +1,15 @@
 import { type RelayViewContext } from '../../view/components';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
-import { getChessground, initMiniBoardWith, fenColor, uciToMove } from 'lib/miniBoard';
+import { getChessground, initMiniBoardWith } from 'lib/view/miniBoard';
+import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { type TreeWrapper } from 'lib/tree/tree';
 import { mainlineNodeList } from 'lib/tree/ops';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
 import { frag } from 'lib';
 import { type ChapterId } from '../interfaces';
 import { type StudyChapters } from '../studyChapters';
-import { spinnerVdom } from 'lib/controls';
+import { spinnerVdom } from 'lib/view/controls';
 
 type BoardConfig = CgConfig & { lastUci?: Uci };
 

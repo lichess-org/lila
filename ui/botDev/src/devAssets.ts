@@ -1,7 +1,7 @@
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'lib/chess/polyglot';
+import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'lib/game/polyglot';
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 import { zip } from 'lib/algo';
 import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';

@@ -5,7 +5,7 @@ import type { Convo, Msg, Daily } from '../interfaces';
 import { enhance, isMoreThanText, expandLpvs } from './enhance';
 import { scroller } from './scroller';
 import type MsgCtrl from '../ctrl';
-import { alert, confirm, makeLinkPopups } from 'lib/dialogs';
+import { alert, confirm, makeLinkPopups } from 'lib/view/dialogs';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo__msgs', { hook: { insert: setupMsgs(true), postpatch: setupMsgs(false) } }, [

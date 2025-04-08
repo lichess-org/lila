@@ -1,7 +1,7 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
-import { fixCrazySan } from 'lib/chess/chess';
+import { fixCrazySan } from 'lib/game/chess';
 import { path as treePath, ops as treeOps } from 'lib/tree/tree';
 import * as moveView from '../view/moveView';
 import type AnalyseCtrl from '../ctrl';

@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import * as domData from './data';
-import { lichessClockIsRunning, setClockWidget } from './clock';
-import { uciToMove } from 'chessground/util';
+import * as domData from '@/data';
+import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
+import { uciToMove, fenColor } from '@/game/chess';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from './pubsub';
-import { wsSend } from './socket';
+import { pubsub } from '@/pubsub';
+import { wsSend } from '@/socket';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -26,10 +26,6 @@ export const initMiniBoards = (parent?: HTMLElement): void =>
     el.classList.remove('mini-board--init');
     initMiniBoard(el);
   });
-
-export { uciToMove } from 'chessground/util';
-
-export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
 export const renderClock = (color: Color, time: number): VNode =>
   h(`span.mini-game__clock.mini-game__clock--${color}`, {

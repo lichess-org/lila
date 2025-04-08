@@ -1,10 +1,10 @@
-import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
-import { isTouchDevice } from './device';
-import { frag, $as } from './common';
-import { Janitor } from './event';
-import * as xhr from './xhr';
-import * as licon from './licon';
-import { pubsub } from './pubsub';
+import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
+import { isTouchDevice } from '@/device';
+import { frag, $as } from '@/common';
+import { Janitor } from '@/event';
+import * as xhr from '@/xhr';
+import * as licon from '@/licon';
+import { pubsub } from '@/pubsub';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 

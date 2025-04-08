@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { fixCrazySan } from 'lib/chess/chess';
+import { fixCrazySan } from 'lib/game/chess';
 import { path as treePath, ops as treeOps } from 'lib/tree/tree';
 import * as moveView from '../view/moveView';
 import type AnalyseCtrl from '../ctrl';

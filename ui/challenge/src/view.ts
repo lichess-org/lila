@@ -1,9 +1,9 @@
 import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
-import { userLink } from 'lib/userLink';
-import { initMiniBoard } from 'lib/miniBoard';
+import { spinnerVdom as spinner } from 'lib/view/controls';
+import { userLink } from 'lib/view/userLink';
+import { initMiniBoard } from 'lib/view/miniBoard';
 import { opposite } from 'chessground/util';
 import type ChallengeCtrl from './ctrl';
 

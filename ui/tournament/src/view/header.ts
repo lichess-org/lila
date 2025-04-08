@@ -4,8 +4,8 @@ import { dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
 import perfIcons from 'lib/game/perfIcons';
 import type { TournamentData } from '../interfaces';
-import { setClockWidget } from 'lib/clock';
-import { userTitle } from 'lib/userLink';
+import { setClockWidget } from 'lib/game/clock/clockWidget';
+import { userTitle } from 'lib/view/userLink';
 
 const startClock = (time: number): Hooks => ({
   insert: vnode => setClockWidget(vnode.elm as HTMLElement, { time }),

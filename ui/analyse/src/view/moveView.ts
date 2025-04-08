@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { fixCrazySan, plyToTurn } from 'lib/chess/chess';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import { defined } from 'lib';
 import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
 

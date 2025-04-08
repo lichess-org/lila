@@ -3,8 +3,8 @@ import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
-import { spinnerHtml } from 'lib/controls';
-import { confirm } from 'lib/dialogs';
+import { spinnerHtml } from 'lib/view/controls';
+import { confirm } from 'lib/view/dialogs';
 import { pubsub } from 'lib/pubsub';
 import { commonDateFormat, toDate } from 'lib/i18n';
 

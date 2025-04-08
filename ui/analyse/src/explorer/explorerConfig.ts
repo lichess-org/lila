@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { myUsername, type Prop, prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type Dialog, snabDialog } from 'lib/dialog';
+import { type Dialog, snabDialog } from 'lib/view/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'lib/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
@@ -9,7 +9,7 @@ import AnalyseCtrl from '../ctrl';
 import perfIcons from 'lib/game/perfIcons';
 import { ucfirst } from './explorerUtil';
 import { opposite } from 'chessground/util';
-import { userComplete } from 'lib/userComplete';
+import { userComplete } from 'lib/view/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];

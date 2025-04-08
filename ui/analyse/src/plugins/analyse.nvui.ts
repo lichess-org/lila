@@ -44,7 +44,7 @@ import { makeSan } from 'chessops/san';
 import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from 'lib/chess/chess';
+import { plyToTurn } from 'lib/game/chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'lib/pubsub';
 import { renderResult } from '../view/components';
