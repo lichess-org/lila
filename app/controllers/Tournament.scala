@@ -85,6 +85,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = false,
                 withScores = true,
                 withAllowList = false,
+                withDescription = false,
                 myInfo = Preload[Option[MyInfo]](myInfo),
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
@@ -112,6 +113,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = partial,
                 withScores = getBoolOpt("scores") | true,
                 withAllowList = true,
+                withDescription = true,
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- (!partial).so(loadChat(tour, json))
@@ -261,7 +263,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                       none,
                       partial = false,
                       withScores = false,
-                      withAllowList = true
+                      withAllowList = true,
+                      withDescription = true
                     ).map { Ok(_) }
                   )
         )
@@ -282,7 +285,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                   none,
                   partial = false,
                   withScores = true,
-                  withAllowList = true
+                  withAllowList = true,
+                  withDescription = true
                 ).map { Ok(_) }
               }
           )
@@ -346,7 +350,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                     none,
                     partial = false,
                     withScores = true,
-                    withAllowList = true
+                    withAllowList = true,
+                    withDescription = true
                   )
                 }
                 .map { Ok(_) }

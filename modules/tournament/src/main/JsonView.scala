@@ -51,6 +51,7 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       withAllowList: Boolean,
+      withDescription: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none,
       addReloadEndpoint: Option[Tournament => Boolean] = none
   )(using
@@ -132,7 +133,7 @@ final class JsonView(
                 "nbLeaders" -> battle.nbLeaders
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted)))
-          .add("description" -> tour.description)
+          .add("description" -> withDescription.so(tour.description))
           .add("myUsername" -> me.map(_.username))
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
           .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
