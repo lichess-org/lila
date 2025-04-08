@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { bind, looseH as h, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/snabbdom';
 import { Chessground } from 'chessground';
-import { stepwiseScroll } from 'lib/controls';
+import { stepwiseScroll } from 'lib/view/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
 import { botAssetUrl } from 'lib/bot/botLoader';
@@ -10,7 +10,7 @@ import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';
 import { bindMobileMousedown } from 'lib/device';
 import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
-import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
+import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import boardMenu from './boardMenu';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { type TopOrBottom } from 'lib/game/game';

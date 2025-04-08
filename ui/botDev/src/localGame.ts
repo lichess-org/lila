@@ -1,8 +1,8 @@
 import * as co from 'chessops';
-import { normalMove } from 'lib/chess/chess';
+import { normalMove } from 'lib/game/chess';
 import { type Status, type RoundStep, statusOf } from 'lib/game/game';
 import { deepFreeze, randomId } from 'lib/algo';
-import { hashBoard } from 'lib/chess/hash';
+import { hashBoard } from 'lib/game/hash';
 import type { LocalSetup } from 'lib/bot/types';
 
 type LocalMove = {

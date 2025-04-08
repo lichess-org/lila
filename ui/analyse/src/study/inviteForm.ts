@@ -6,8 +6,8 @@ import { prop, type Prop } from 'lib';
 import type { StudyMemberMap } from './interfaces';
 import type { AnalyseSocketSend } from '../socket';
 import { storedSet, type StoredSet } from 'lib/storage';
-import { snabDialog } from 'lib/dialog';
-import { userComplete } from 'lib/userComplete';
+import { snabDialog } from 'lib/view/dialog';
+import { userComplete } from 'lib/view/userComplete';
 import { pubsub } from 'lib/pubsub';
 
 export interface StudyInviteFormCtrl {

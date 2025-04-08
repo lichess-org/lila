@@ -89,7 +89,7 @@ body {
 }
 
 .lobby__blog {
-  gap: 9px; // same as lobby__app.pools
+  gap: $block-gap;
   font-size: 0.9em;
   h2 {
     @extend %page-text-shadow !optional;

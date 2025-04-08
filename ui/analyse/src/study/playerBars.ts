@@ -5,7 +5,7 @@ import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
 import type { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';

@@ -1,10 +1,10 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
 import { isTouchDevice } from 'lib/device';
-import { domDialog } from 'lib/dialog';
+import { domDialog } from 'lib/view/dialog';
 import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
-import { toggle, type ToggleSettings } from 'lib/controls';
+import { toggle, type ToggleSettings } from 'lib/view/controls';
 import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
 import * as pgnExport from '../pgnExport';

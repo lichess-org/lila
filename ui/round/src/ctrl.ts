@@ -19,13 +19,13 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import type { MoveRootCtrl } from 'lib/chess/moveRootCtrl';
+import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { userTxt } from './view/user';
 import * as cevalSub from './cevalSub';
 import { init as keyboardInit } from './keyboard';
-import { PromotionCtrl, promote } from 'lib/chess/promotion';
+import { PromotionCtrl, promote } from 'lib/game/promotion';
 import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'lib/prefs';
@@ -47,8 +47,8 @@ import type {
 import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, type LichessBooleanStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
-import { plyToTurn } from 'lib/chess/chess';
+import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
+import { plyToTurn } from 'lib/game/chess';
 import { wsDestroy } from 'lib/socket';
 import Server from './server';
 

@@ -1,6 +1,38 @@
 .tour__side {
   @extend %flex-column;
 
+  .disclosure {
+    @extend %button-none;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    color: $c-font-dim;
+    cursor: pointer;
+
+    &::before {
+      content: $licon-UpTriangle;
+      font-family: 'lichess';
+      font-size: 1em;
+    }
+    &:hover {
+      color: $c-primary;
+    }
+  }
+
+  &.collapsed {
+    .disclosure::before {
+      content: $licon-DownTriangle;
+    }
+    .tour__meta > * {
+      display: none;
+    }
+    .tour__meta__head,
+    .disclosure {
+      display: flex;
+      margin: 0;
+    }
+  }
+
   .mchat {
     flex: 1 1 7em;
     margin-top: $block-gap;
@@ -13,6 +45,7 @@
 
 .tour__meta {
   @extend %box-neat-force;
+  position: relative;
 
   background: $c-bg-box;
   padding: 1.5rem $block-gap;
@@ -77,8 +110,7 @@
 
   .description {
     @extend %break-word;
-
-    max-height: 20vh;
+    height: fit-content;
     overflow-y: auto;
   }
 

@@ -1,6 +1,6 @@
 import * as licon from '../licon';
 import * as enhance from '../richText';
-import { userLink } from '../userLink';
+import { userLink } from '../view/userLink';
 import * as spam from './spam';
 import type { Line } from './interfaces';
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
@@ -9,7 +9,7 @@ import { presetView } from './preset';
 import type ChatCtrl from './ctrl';
 import { tempStorage } from '../storage';
 import { pubsub } from '../pubsub';
-import { alert } from '../dialogs';
+import { alert } from '../view/dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };

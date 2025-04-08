@@ -1,6 +1,6 @@
 import { isMobile } from '../device';
 import { memoize, escapeHtml } from '../common';
-import { domDialog } from '../dialog';
+import { domDialog } from '../view/dialog';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);

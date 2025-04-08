@@ -590,7 +590,10 @@ $hover-bg: $m-primary_bg--mix-30;
     padding: 0.7em 1em;
     font-size: 1.1em;
     color: $c-font;
-
+    gap: 1ch;
+    i {
+      color: $c-font-dimmer;
+    }
     &::before {
       font-size: 1.3em;
     }
