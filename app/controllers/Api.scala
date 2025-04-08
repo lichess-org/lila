@@ -161,6 +161,7 @@ final class Api(
             socketVersion = none,
             partial = false,
             withScores = true,
+            withDescription = true,
             withAllowList = true
           )
           .dmap(some)
