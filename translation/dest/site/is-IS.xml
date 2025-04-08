@@ -20,7 +20,7 @@
   <string name="black">Svartur</string>
   <string name="asWhite">sem hvítur</string>
   <string name="asBlack">sem svartur</string>
-  <string name="randomColor">Litur af handahófi</string>
+  <string name="randomColor">Handahófsvalinn litur</string>
   <string name="createAGame">Hefja leik</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
@@ -250,6 +250,7 @@
     <item quantity="one">%s skák með þér</item>
     <item quantity="other">%s skákir með þér</item>
   </plurals>
+  <string name="ok">Í LAGI</string>
   <string name="cancel">Hætta við</string>
   <string name="whiteTimeOut">Hvítur féll á tíma</string>
   <string name="blackTimeOut">Svartur féll á tíma</string>
@@ -322,7 +323,7 @@
     <item quantity="one">Gefa %s sekúndu</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Þessi notandi braut þjónustuskilmála Lichess</string>
+  <string name="thisAccountViolatedTos">Þessi notandi braut í bága við þjónustuskilmála Lichess</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri &amp; endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
   <string name="proposeATakeback">Biðja um afturköllun</string>
@@ -338,6 +339,14 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s stig úr móti</item>
     <item quantity="other">%s stig úr mótum</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s greining</item>
+    <item quantity="other">%s greiningar</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s fjöltefli</item>
+    <item quantity="other">%s fjöltefli</item>
   </plurals>
   <string name="viewTournament">Sýna mót</string>
   <string name="backToTournament">Aftur í mót</string>
@@ -401,6 +410,7 @@
   <string name="blackCheckmatesInOneMove">Svartur mátar í einum leik</string>
   <string name="retry">Reyna aftur</string>
   <string name="reconnecting">Tengja aftur</string>
+  <string name="noNetwork">Aflínis</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s vinur tengdur</item>
     <item quantity="other">%s vinir tengdir</item>
@@ -452,13 +462,14 @@
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
   <string name="createdBy">Búið til af</string>
+  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Hefst eftir</string>
   <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
   <string name="standByX">Hinkraðu %s, pörun keppanda stendur yfir, vertu tilbúin(n)!</string>
   <string name="pause">Hlé</string>
   <string name="resume">Halda áfram</string>
   <string name="youArePlaying">Þú ert að tefla!</string>
   <string name="winRate">Sigurhlutfall</string>
-  <string name="berserkRate">Berserkjahlutfall</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkjahlutfall</string>
   <string name="performance">Mótsstig</string>
   <string name="tournamentComplete">Móti lokið</string>
   <string name="movesPlayed">Fjöldi leikja</string>
@@ -482,13 +493,18 @@
   <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
+  <string name="realName">Rétt nafn</string>
+  <string name="setFlair">Spreyttu þig á brellu</string>
+  <string name="flair">Brella</string>
+  <string name="youCanHideFlair">Það er stilling til að fela brellur notanda á allri síðunni.</string>
   <string name="biography">Lífssaga</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða svæði</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatenglar</string>
   <string name="oneUrlPerLine">Eitt URL í hverri línu.</string>
+  <string name="inlineNotation">Stöðubundið ritunarkerfi</string>
   <string name="clearSavedMoves">Hreinsa út leiki</string>
-  <string name="previouslyOnLichessTV">Áður á Lichessvarpinu</string>
+  <string name="previouslyOnLichessTV">Áður í Lichess-varpinu</string>
   <string name="onlinePlayers">Tengdir notendur</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
@@ -507,6 +523,7 @@
   <string name="no">Nei</string>
   <string name="yes">Já</string>
   <string name="website">Vefsíða</string>
+  <string name="mobile">Gemsi</string>
   <string name="help">Hjálp:</string>
   <string name="createANewTopic">Búa til nýja umræðu</string>
   <string name="topics">Umræður</string>
@@ -580,13 +597,17 @@
   <string name="clock">Tími</string>
   <string name="opponent">Andstæðingur</string>
   <string name="learnMenu">Læra</string>
-  <string name="studyMenu">Læra</string>
+  <string name="studyMenu">Greining</string>
   <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
   <string name="tools">Gögn</string>
   <string name="increment">Aukning</string>
+  <string name="error.unknown">Ógilt gildi</string>
   <string name="error.required">Þessi reitur er nauðsynlegur</string>
   <string name="error.email">Tölvupóstfangið er ógilt</string>
+  <string name="error.email_acceptable">Þetta netfang er ekki ásættanlegt. Vinsamlegast farðu yfir það og reyndu aftur.</string>
+  <string name="error.email_unique">Netfang ógilt eða þegar í notkun</string>
+  <string name="error.email_different">Þetta er nú þegar netfangið þitt</string>
   <string name="error.minLength">Lykilorðið verður að hafa að minnsta kosti %s stafi</string>
   <string name="error.min">Verður að vera að minnsta kosti %s</string>
   <string name="error.max">Verður að vera í mesta lagi %s</string>
@@ -635,7 +656,7 @@
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
   <string name="simulHostExtraTime">Aukatími á klukku þess sem hýsir.</string>
   <string name="lichessTournaments">Lichess mót</string>
-  <string name="tournamentFAQ">Leikvangsmót - Algengar spurningar</string>
+  <string name="tournamentFAQ">Arena-mót - Algengar spurningar</string>
   <string name="timeBeforeTournamentStarts">Tími áður en mót hefst</string>
   <string name="averageCentipawnLoss">Meðaltap í hundruði peðs</string>
   <string name="accuracy">Nákvæmni</string>
@@ -691,6 +712,7 @@
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
   <string name="everybodyGetsAllFeaturesForFree">Allir fá alla möguleika ókeypis</string>
   <string name="viewTheSolution">Sjá lausn</string>
+  <string name="noChallenges">Engar áskoranir.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Til á %s tungumálum</item>
     <item quantity="other">Til á %s tungumálum</item>
@@ -700,12 +722,18 @@
   <string name="anonymous">Nafnlaus</string>
   <string name="yourScore">Stigin þín: %s</string>
   <string name="language">Tungumál</string>
+  <string name="allLanguages">Öll tungumál</string>
   <string name="background">Bakgrunnur</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
+  <string name="deviceTheme">Þema tækis</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="board">Borð</string>
   <string name="size">Stærð</string>
+  <string name="opacity">Ógagnsæi</string>
+  <string name="brightness">Skærleiki</string>
+  <string name="hue">Litblær</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
