@@ -165,4 +165,6 @@
   <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
   <string name="perPage">%s pro Säit</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeelt a gespäichert</string>
+  <string name="conclusionTitle">Merci fir deng Zäit</string>
 </resources>
