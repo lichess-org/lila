@@ -615,7 +615,7 @@
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
   <string name="allSquaresOfTheBoard">Сва поља табле</string>
-  <string name="onSlowGames">У споријим партијама</string>
+  <string name="onSlowGames">На спорим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
   <string name="xCompetesInY">%1$s се такмичи у %2$s</string>
