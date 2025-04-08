@@ -1,11 +1,11 @@
 import * as licon from 'lib/licon';
-import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'lib/miniBoard';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'lib/view/miniBoard';
 import { text as xhrText } from 'lib/xhr';
 import { display as announceDisplay } from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
 import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
@@ -13,10 +13,10 @@ import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { toggleBoxInit } from 'lib/controls';
+import { toggleBoxInit } from 'lib/view/controls';
 import { addExceptionListeners } from './unhandledError';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 
 export function boot() {
   addExceptionListeners();

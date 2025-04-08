@@ -1,6 +1,6 @@
 import type { VNode, Hooks } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { justIcon } from '../util';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game/game';
 import { game as gameRoute } from 'lib/game/router';

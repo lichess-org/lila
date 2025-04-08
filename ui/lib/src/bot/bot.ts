@@ -3,9 +3,9 @@ import { zip } from '../algo';
 import { clockToSpeed } from '../game/game';
 import { quantizeFilter, filterParameter, filterFacets, combine, type FilterValue } from './filter';
 import type { SearchResult } from 'zerofish';
-import type { OpeningBook } from '../chess/polyglot';
+import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
-import { normalMove } from '../chess/chess';
+import { normalMove } from '../game/chess';
 import type { BotLoader } from './botLoader';
 import type {
   BotInfo,

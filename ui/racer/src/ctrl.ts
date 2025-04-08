@@ -22,10 +22,10 @@ import type {
   RaceStatus,
 } from './interfaces';
 import { storedBooleanProp } from 'lib/storage';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import { wsConnect, wsSend } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
-import { type WithGround } from 'lib/chess/ground';
+import { type WithGround } from 'lib/game/ground';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;

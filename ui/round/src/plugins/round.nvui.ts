@@ -36,7 +36,7 @@ import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'lib/pubsub';
-import { plyToTurn } from 'lib/chess/chess';
+import { plyToTurn } from 'lib/game/chess';
 import { next, prev } from '../keyboard';
 
 const selectSound = () => site.sound.play('select');

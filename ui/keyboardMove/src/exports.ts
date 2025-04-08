@@ -1,11 +1,11 @@
-import type { SanToUci } from 'lib/chess/chess';
+import type { SanToUci } from 'lib/game/chess';
 import { type Prop, propWithEffect } from 'lib';
-import type { MoveRootCtrl, MoveUpdate } from 'lib/chess/moveRootCtrl';
+import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import KeyboardChecker from './keyboardChecker';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'lib/snabbdom';
-import { snabDialog } from 'lib/dialog';
-import { promote } from 'lib/chess/promotion';
+import { snabDialog } from 'lib/view/dialog';
+import { promote } from 'lib/game/promotion';
 import { charToRole } from 'chessops';
 
 export interface Opts {

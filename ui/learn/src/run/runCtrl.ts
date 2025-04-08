@@ -6,7 +6,7 @@ import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
 import { pubsub } from 'lib/pubsub';
-import type { WithGround } from 'lib/chess/ground';
+import type { WithGround } from 'lib/game/ground';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;

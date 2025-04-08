@@ -3,10 +3,10 @@ import { json as xhrJson } from 'lib/xhr';
 import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {

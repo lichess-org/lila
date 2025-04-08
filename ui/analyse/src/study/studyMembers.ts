@@ -7,7 +7,7 @@ import { prop, Prop, scrollTo } from 'lib';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
-import { userLink } from 'lib/userLink';
+import { userLink } from 'lib/view/userLink';
 import type StudyCtrl from './studyCtrl';
 import { once } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';

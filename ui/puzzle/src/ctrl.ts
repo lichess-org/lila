@@ -26,7 +26,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
 import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
 import { fromNodeList } from 'lib/tree/path';
@@ -35,8 +35,8 @@ import { last } from 'lib/tree/ops';
 import { uciToMove } from 'chessground/util';
 import type { ParentCtrl } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
-import { type WithGround } from 'lib/chess/ground';
+import { alert } from 'lib/view/dialogs';
+import { type WithGround } from 'lib/game/ground';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;

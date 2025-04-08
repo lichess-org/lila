@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import { type Toggle, myUserId, onClickAway } from './common';
-import { bindMobileMousedown } from './device';
-import * as licon from './licon';
-import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from './snabbdom';
-import { type ToggleSettings, toggle } from './controls';
-import { pubsub } from './pubsub';
+import { type Toggle, myUserId, onClickAway } from '@/common';
+import { bindMobileMousedown } from '@/device';
+import * as licon from '@/licon';
+import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from '@/snabbdom';
+import { type ToggleSettings, toggle } from '@/view/controls';
+import { pubsub } from '@/pubsub';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
   h('button.fbt.board-menu-toggle', {

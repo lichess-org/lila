@@ -1,9 +1,9 @@
 import * as licon from 'lib/licon';
 import * as xhr from 'lib/xhr';
 import { storage } from 'lib/storage';
-import { addPasswordVisibilityToggleListener } from 'lib/controls';
+import { addPasswordVisibilityToggleListener } from 'lib/view/controls';
 import flairPickerLoader from 'bits/flairPicker';
-import { confirm } from 'lib/dialogs';
+import { confirm } from 'lib/view/dialogs';
 import { $as } from 'lib';
 
 site.load.then(() => {

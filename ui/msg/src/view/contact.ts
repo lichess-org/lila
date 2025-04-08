@@ -3,7 +3,7 @@ import type { Contact, LastMsg, User } from '../interfaces';
 import type MsgCtrl from '../ctrl';
 import * as licon from 'lib/licon';
 import { hookMobileMousedown } from 'lib/device';
-import { fullName, userLine } from 'lib/userLink';
+import { fullName, userLine } from 'lib/view/userLink';
 import { timeago } from 'lib/i18n';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {

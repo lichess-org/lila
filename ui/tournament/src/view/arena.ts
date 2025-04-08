@@ -7,7 +7,7 @@ import { teamName } from './battle';
 import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
 import { renderPager } from '../pagination';
-import { userLink } from 'lib/userLink';
+import { userLink } from 'lib/view/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));

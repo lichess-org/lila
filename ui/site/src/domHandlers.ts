@@ -1,8 +1,8 @@
 import * as licon from 'lib/licon';
 import { text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
-import { userComplete } from 'lib/userComplete';
-import { confirm } from 'lib/dialogs';
+import { userComplete } from 'lib/view/userComplete';
+import { confirm } from 'lib/view/dialogs';
 
 export function attachDomHandlers() {
   topBar();

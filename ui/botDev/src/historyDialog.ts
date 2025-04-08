@@ -1,4 +1,4 @@
-import { domDialog, type Dialog } from 'lib/dialog';
+import { domDialog, type Dialog } from 'lib/view/dialog';
 import { frag, escapeHtml } from 'lib';
 import * as licon from 'lib/licon';
 import type { EditDialog } from './editDialog';

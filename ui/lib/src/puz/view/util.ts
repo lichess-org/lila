@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
-import type { Config, Run } from '../interfaces';
-import { getNow } from '../util';
+import type { Config, Run } from '@/puz/interfaces';
+import { getNow } from '@/puz/util';
 
 export const playModifiers = (
   run: Run,
