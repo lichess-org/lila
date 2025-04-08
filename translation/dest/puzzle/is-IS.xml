@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Þrautir</string>
+  <string name="puzzleThemes">Þrautaþemu</string>
   <string name="recommended">Mælt með</string>
   <string name="lengths">Lengdir</string>
   <string name="mates">Mát</string>
@@ -35,7 +36,13 @@
   <string name="addAnotherTheme">Bæta við annan þema</string>
   <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
+  <string name="puzzleDashboard">Þrautastjórnborð</string>
   <string name="strengths">Styrkleikar</string>
   <string name="history">Þrautsaga</string>
+  <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurdöngun. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
+  <string name="yourStreakX">Döngun þín: %s</string>
+  <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>
+  <string name="continueTheStreak">Halda dönguninni áfram</string>
+  <string name="newStreak">Ný döngun</string>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
 </resources>
