@@ -15,6 +15,7 @@ import type { MultiRedraw } from '../../interfaces';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
+type StreamInfo = [UserId, { name: string; lang: string }];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
@@ -26,7 +27,7 @@ export default class RelayCtrl {
   teams?: RelayTeams;
   players: RelayPlayers;
   stats: RelayStats;
-  streams: [string, string][] = [];
+  streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
 
@@ -74,13 +75,13 @@ export default class RelayCtrl {
         this.redraw,
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
-    if (pinnedName) this.streams.push(['ps', pinnedName]);
+    if (pinnedName) this.streams.push(['ps', { name: pinnedName, lang: '' }]);
     this.chatCtrl.isDisabled = () => this.tourShow();
     this.chatCtrl.setChapterId(chapterSelect.get());
     this.baseRedraw.add(() => this.chatCtrl.redraw?.());
     pubsub.on('socket.in.crowd', d => {
-      const s = (d.streams as [string, string][]) ?? [];
-      if (pinnedName) s.unshift(['ps', pinnedName]);
+      const s = d.streams?.slice() ?? [];
+      if (pinnedName) s.unshift(['ps', { name: pinnedName, lang: '' }]);
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
       this.redraw();
