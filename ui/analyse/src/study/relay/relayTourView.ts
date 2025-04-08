@@ -42,7 +42,8 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
 export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
-  const resizeId = displayColumns() > (ctx.hasRelayTour ? 1 : 2) ? relay.tourPath().slice(11) : undefined;
+  const resizeId =
+    displayColumns() > (ctx.hasRelayTour ? 1 : 2) ? `relayTour/${relay.data.tour.id}` : undefined;
   return h(
     'aside.relay-tour__side',
     {
