@@ -37,4 +37,5 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
 object ModUserSearch:
   val form = Form:
-    single("q" -> lila.common.Form.trim(nonEmptyText))
+    single:
+      "q" -> lila.common.Form.trim(nonEmptyText).transform(_.replace(">", "").replace("<", ""), identity)

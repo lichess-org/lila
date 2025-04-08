@@ -1,4 +1,4 @@
-import * as data from './data';
+import * as data from '@/data';
 
 export const formatMs = (msTime: number): string => {
   const date = new Date(Math.max(0, msTime + 500)),

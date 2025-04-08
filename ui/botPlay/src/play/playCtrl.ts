@@ -10,8 +10,8 @@ import { makeFen } from 'chessops/fen';
 import { makeEndOf, Game } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
-import { PromotionCtrl } from 'lib/chess/promotion';
-import type { WithGround } from 'lib/chess/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import type { WithGround } from 'lib/game/ground';
 import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
 import { TopOrBottom } from 'lib/game/game';
 

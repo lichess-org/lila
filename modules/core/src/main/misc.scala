@@ -10,7 +10,8 @@ package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
   object StreamStart extends bus.GivenChannel[StreamStart]("streamStart")
 
-  case class StreamersOnline(streamers: Iterable[(UserId, String)])
+  case class StreamInfo(name: String, lang: String)
+  case class StreamersOnline(streamers: Map[UserId, StreamInfo])
   object StreamersOnline extends bus.GivenChannel[StreamersOnline]("streamersOnline")
 
 package map:

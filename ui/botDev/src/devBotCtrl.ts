@@ -5,7 +5,7 @@ import { BotLoader, botAssetUrl } from 'lib/bot/botLoader';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { deepFreeze } from 'lib/algo';
 import { pubsub } from 'lib/pubsub';
-import { type OpeningBook, makeBookFromPolyglot } from 'lib/chess/polyglot';
+import { type OpeningBook, makeBookFromPolyglot } from 'lib/game/polyglot';
 import { env } from './devEnv';
 import type { BotInfo, LocalSpeed, MoveArgs, MoveResult, MoveSource } from 'lib/bot/types';
 import type { CardData } from './handOfCards';

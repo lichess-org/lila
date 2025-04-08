@@ -51,7 +51,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -177,6 +177,7 @@ export default class StudyCtrl {
           () => this.chapters.list,
           () => this.ctrl.tree,
           () => this.data.chapter.relayPath,
+          () => this.bottomColor(),
         ),
       );
     }

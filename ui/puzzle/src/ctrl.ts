@@ -21,21 +21,12 @@ import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { CevalCtrl } from 'lib/ceval/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import {
-  defined,
-  prop,
-  type Prop,
-  propWithEffect,
-  type Toggle,
-  toggle,
-  requestIdleCallback,
-  myUserId,
-} from 'lib';
+import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
 import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
 import { fromNodeList } from 'lib/tree/path';
@@ -44,15 +35,14 @@ import { last } from 'lib/tree/ops';
 import { uciToMove } from 'chessground/util';
 import type { ParentCtrl } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
-import { type WithGround } from 'lib/chess/ground';
+import { alert } from 'lib/view/dialogs';
+import { type WithGround } from 'lib/game/ground';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
   tree: TreeWrapper;
   ceval: CevalCtrl;
-  showArrows: StoredProp<boolean>;
   autoNext: StoredProp<boolean>;
   rated: StoredProp<boolean>;
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
@@ -94,7 +84,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
-    this.showArrows = storedBooleanProp(`puzzle.show-arrows.${myUserId()}`, true);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,

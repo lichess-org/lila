@@ -1,8 +1,8 @@
 import { load as loadDasher } from 'dasher';
-import { domDialog } from 'lib/dialog';
-import { alert } from 'lib/dialogs';
+import { domDialog } from 'lib/view/dialog';
+import { alert } from 'lib/view/dialogs';
 import { escapeHtml } from 'lib';
-import { userComplete } from 'lib/userComplete';
+import { userComplete } from 'lib/view/userComplete';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
   userComplete({

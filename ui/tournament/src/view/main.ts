@@ -5,7 +5,7 @@ import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import type TournamentController from '../ctrl';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
 import { makeChat } from 'lib/chat/chat';
 import { storedMap } from 'lib/storage';
 

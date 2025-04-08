@@ -1,8 +1,8 @@
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { type VNode, bind, dataIcon, looseH as h } from 'lib/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
-import { fullName } from 'lib/userLink';
+import { fullName } from 'lib/view/userLink';
 import { teamName } from './battle';
 import { status } from 'lib/game/game';
 import type TournamentController from '../ctrl';
