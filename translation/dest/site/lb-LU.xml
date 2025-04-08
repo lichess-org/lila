@@ -156,6 +156,7 @@
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
+  <string name="drawClaimed">Remis reklaméiert</string>
   <string name="offerDraw">Remis bidden</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -483,13 +484,14 @@
   <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
   <string name="createdBy">Kreéiert vum</string>
+  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Fänkt un an</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
   <string name="standByX">Turnéier-Paarungen lafen. Maach dech prett, %s!</string>
   <string name="pause">Paus</string>
   <string name="resume">Weider</string>
   <string name="youArePlaying">Deng Partie geet lass!</string>
   <string name="winRate">Gewënnrate</string>
-  <string name="berserkRate">Berserkrate</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkrate</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Turnéier fäerdeg</string>
   <string name="movesPlayed">Zich gespillt</string>
@@ -722,6 +724,9 @@
   <string name="checkYourEmail">Kuckt Är Emailen</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir hun dir eng Email geschéckt. Klick den Link an der Email fir däin Konto ze aktivéieren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wanns du keng Email gesäis, kuck op aneren Plazen, wéi Junk, Spam, Sozial Medien, oder aneren Uerdner.</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Wann s de d\'E-Mail net a 5 Minutte kriss:</string>
+  <string name="checkAllEmailFolders">Kuck am Spam-Ordner an an aneren Ordneren no</string>
+  <string name="verifyYourAddress">Iwwerpréif, ob %s deng E-Mail-Adress ass</string>
   <string name="weHaveSentYouAnEmailTo">Mir hun eng Email un %s geschéckt. Klick den Link an der Email fir däin Passwuert zeréckzesetzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mam Registréieren akzeptéiers du %s.</string>
   <string name="readAboutOur">Lies iwwer eis %s.</string>
@@ -730,6 +735,7 @@
   <string name="downloadAnnotated">Download kommentéiert</string>
   <string name="downloadRaw">Download onkommentéiert</string>
   <string name="downloadImported">Importéiert Partie eroflueden</string>
+  <string name="downloadAllGames">All Partien eroflueden</string>
   <string name="crosstable">Matchverlaf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kanns och um Briet scrollen fir duerch d\'Partie ze goen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll iwwer Computer Varianten fir eng Virschau ze kréien.</string>
@@ -766,6 +772,7 @@
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Däin Score: %s</string>
   <string name="language">Sprooch</string>
+  <string name="allLanguages">All Sproochen</string>
   <string name="background">Hannergrond</string>
   <string name="light">Hell</string>
   <string name="dark">Däischter</string>
