@@ -9,6 +9,7 @@ trait ResponseBuilder(using Executor)
     extends ControllerHelpers
     with ResponseWriter
     with ResponseHeaders
+    with CtrlExtensions
     with CtrlErrors:
 
   export scalatags.Text.Frag
@@ -31,7 +32,7 @@ trait ResponseBuilder(using Executor)
   def JsonBadRequest(msg: String): Result         = JsonBadRequest(jsonError(msg))
 
   def strToNdJson(source: Source[String, ?]): Result =
-    noProxyBuffer(Ok.chunked(source).as(ndJson.contentType))
+    Ok.chunked(source).as(ndJson.contentType).noProxyBuffer
 
   def jsToNdJson(source: Source[JsValue, ?]): Result =
     strToNdJson(ndJson.jsToString(source))

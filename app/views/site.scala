@@ -28,9 +28,10 @@ object page:
     ).css("bits.contact")
       .js(esmInitBit("contact"))(lila.web.ui.contact(netConfig.email))
 
+  // actual supported board theme list from lila-gif/src/assets.rs
   def webmasters(using Context) =
     ui.webmasters(
-      li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
+      li(strong("theme"), ": ", List("blue", "brown", "green", "ic", "purple").mkString(", ")),
       li(strong("pieceSet"), ": ", lila.pref.PieceSet.all.map(_.name).mkString(", "))
     )
 

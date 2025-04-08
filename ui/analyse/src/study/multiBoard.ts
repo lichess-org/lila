@@ -1,6 +1,6 @@
 import * as licon from 'lib/licon';
-import { otbClockIsRunning, formatMs } from 'lib/clock';
-import { fenColor } from 'lib/miniBoard';
+import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
+import { fenColor } from 'lib/game/chess';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/snabbdom';
 import { opposite as cgOpposite, uciToMove } from 'chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
@@ -10,7 +10,7 @@ import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import type { Color } from 'chessops';
 import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import { h } from 'snabbdom';
 import { storage, storedBooleanProp } from 'lib/storage';
 import { Chessground as makeChessground } from 'chessground';

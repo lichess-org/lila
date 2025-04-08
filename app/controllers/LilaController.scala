@@ -194,10 +194,15 @@ abstract private[controllers] class LilaController(val env: Env)
 
   private def withSecure[C <: Context](perm: Permission.Selector)(
       f: C ?=> Me ?=> Fu[Result]
-  )(using C, Me) =
+  )(using C, Me): Fu[Result] =
     if isGranted(perm)
-    then f
+    then f.map(preventModCache(perm))
     else authorizationFailed
+
+  private def preventModCache(perm: Permission.Selector)(res: Result) =
+    if Permission.modPermissions(perm(Permission))
+    then res.hasPersonalData
+    else res
 
   /* OAuth requests */
   def Scoped[A](

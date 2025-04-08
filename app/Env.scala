@@ -99,7 +99,7 @@ final class Env(
   val bot: lila.bot.Env                 = wire[lila.bot.Env]
   val storm: lila.storm.Env             = wire[lila.storm.Env]
   val racer: lila.racer.Env             = wire[lila.racer.Env]
-  val local: lila.local.Env             = wire[lila.local.Env]
+  val jsBot: lila.jsBot.Env             = wire[lila.jsBot.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val recap: lila.recap.Env             = wire[lila.recap.Env]

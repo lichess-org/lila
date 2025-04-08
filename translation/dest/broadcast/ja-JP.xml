@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s 人の視聴者</item>
+  </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
   <string name="broadcastCalendar">中継カレンダー</string>
   <string name="newBroadcast">新しいライブ中継</string>

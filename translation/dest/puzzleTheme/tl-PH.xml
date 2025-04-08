@@ -14,6 +14,7 @@
   <string name="crushingDescription">Makita ang malaking pagkakamali ng kalaban upang makakuha ng pagdurog na bentahe. (eval ≥ 600cp)</string>
   <string name="equality">Pantay</string>
   <string name="equalityDescription">Bumalik mula sa isang pagkatalo na posisyon, at makakuha ng isang tabla o isang balanseng posisyon. (eval ≤ 200cp)</string>
+  <string name="defensiveMove">Depensibong galaw</string>
   <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
   <string name="enPassantDescription">Isang taktika na kinasasangkutan ng en passant na panuntunan, kung saan ang isang pawn ay maaaring makuha ang isang pawn ng kalaban na na-bypass ito gamit ang paunang dalawang-parisukat na paglipat.</string>
   <string name="exposedKing">Nakalantad na hari</string>
@@ -24,7 +25,10 @@
   <string name="intermezzo">Intermezzo</string>
   <string name="long">Mahabang palaisipan</string>
   <string name="longDescription">Tatlong galaw para manalo.</string>
+  <string name="masterDescription">Mga palaisipan mula sa mga laro na nilalaro ng mga titulong manlalaro.</string>
+  <string name="masterVsMasterDescription">Mga palaisipan mula sa mga laro na nilalaro sa pagitan ng dalawang titulong manlalaro.</string>
   <string name="mate">Checkmate</string>
+  <string name="mateDescription">Manalo ang laro na may istilo.</string>
   <string name="mateIn1Description">Magbigay ng checkmate sa isang tira.</string>
   <string name="mateIn2Description">Magbigay ng checkmate sa dalawang tira.</string>
   <string name="mateIn3Description">Magbigay ng checkmate sa tatlong tira.</string>
@@ -34,11 +38,13 @@
   <string name="oneMoveDescription">Isang palaisipan na isang galaw lang ang haba.</string>
   <string name="opening">Pagbubukas</string>
   <string name="openingDescription">Isang taktika sa unang yugto ng laro.</string>
+  <string name="promotion">Promosyon</string>
   <string name="queenRookEndgame">Reyna at Rook</string>
   <string name="quietMove">Tahimik na galaw</string>
   <string name="sacrifice">Sakripisyo</string>
   <string name="short">Maikling palaisipan</string>
   <string name="shortDescription">Dalawang galaw para manalo.</string>
+  <string name="skewer">Tuhog</string>
   <string name="superGMDescription">Mga palaisipan mula sa mga laro na nilalaro ng mga pinakamahusay na manlalaro sa mundo.</string>
   <string name="trappedPiece">Nakulong na piraso</string>
   <string name="trappedPieceDescription">Ang isang piraso ay hindi makatakas sa pagkuha dahil limitado ang mga galaw nito.</string>

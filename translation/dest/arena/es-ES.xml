@@ -84,4 +84,6 @@ Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el 
   <string name="tournamentShields">Escudos de torneo</string>
   <string name="onlyTitled">Solo jugadores titulados</string>
   <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
+  <string name="berserkRate">Tasa de berserk</string>
 </resources>

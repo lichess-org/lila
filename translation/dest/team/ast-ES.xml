@@ -52,4 +52,7 @@ Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar 
   <string name="teamAlreadyExists">Esti equipu yá esiste.</string>
   <string name="upcomingTournaments">Próximos torneos</string>
   <string name="completedTourns">Torneos terminaos</string>
+  <string name="declinedRequests">Solicitúes refugaes</string>
+  <string name="joinLichessVariantTeam">Xúnite al equipu oficial de %s pa noticies y eventos</string>
+  <string name="teamPage">Páxina del equipu</string>
 </resources>

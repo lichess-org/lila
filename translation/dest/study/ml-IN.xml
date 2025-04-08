@@ -55,10 +55,7 @@
   <string name="playing">കളിക്കുന്നു</string>
   <string name="showResults">ഫലങ്ങൾ</string>
   <string name="showEvalBar">വിലയിരുത്തൽ വരികൾ</string>
-  <string name="first">ഒന്നാമത്തെ</string>
-  <string name="previous">മുൻപുള്ള</string>
   <string name="next">അടുത്തത്</string>
-  <string name="last">അവസാനത്തെ</string>
   <string name="shareAndExport">&amp;amp പങ്കുവെക്കുക; എക്സ്പോർട്ട്</string>
   <string name="cloneStudy">ക്ലോൺ</string>
   <string name="studyPgn">PGN പഠിക്കുക</string>

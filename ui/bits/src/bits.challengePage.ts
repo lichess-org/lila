@@ -1,6 +1,6 @@
 import * as xhr from 'lib/xhr';
 import { wsConnect, wsSend } from 'lib/socket';
-import { userComplete } from 'lib/userComplete';
+import { userComplete } from 'lib/view/userComplete';
 import { isTouchDevice, isIos } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 

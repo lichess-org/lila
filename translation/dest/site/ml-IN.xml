@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">സുഹൃത്തിനോടൊപ്പം കളിക്കുക</string>
   <string name="playWithTheMachine">ഗണനികയിനെതിരെ മത്സരിക്കുക</string>
-  <string name="playOffline">ഓഫ്‌ലൈൻ കളിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
@@ -484,7 +483,6 @@
   <string name="wins">ജയങ്ങൾ</string>
   <string name="losses">പരാജയങ്ങൾ</string>
   <string name="createdBy">നിർമ്മാണം</string>
-  <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
   <string name="tournamentPairingsAreNowClosed">മത്സര ഇണചേൎക്കലുകൾ തീൎന്നിരിക്കുന്നു.</string>
   <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
   <string name="pause">നിറുത്തുക</string>
@@ -499,7 +497,6 @@
   <string name="blackWins">കറുത്ത കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
   <string name="drawRate">സമനില നിരക്കു്</string>
   <string name="draws">സമനിലകൾ</string>
-  <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
   <string name="boardEditor">കളിക്കളം ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>

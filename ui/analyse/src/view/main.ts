@@ -20,7 +20,7 @@ import {
   renderUnderboard,
 } from './components';
 import { wikiToggleBox } from '../wiki';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {

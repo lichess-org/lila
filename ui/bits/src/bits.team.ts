@@ -2,7 +2,7 @@ import * as xhr from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
 import { wsConnect } from 'lib/socket';
 import { makeChat } from 'lib/chat/chat';
-import { prompt } from 'lib/dialogs';
+import { prompt } from 'lib/view/dialogs';
 
 interface TeamOpts {
   id: string;
