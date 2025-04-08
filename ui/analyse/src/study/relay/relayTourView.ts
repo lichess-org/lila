@@ -8,7 +8,7 @@ import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo }
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput, verticalResizeSeparator } from 'lib/view/controls';
+import { toggle, copyMeInput } from 'lib/view/controls';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -21,6 +21,7 @@ import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { relayChatView } from './relayChat';
 import { displayColumns } from 'lib/device';
+import { verticalResizeSeparator } from 'lib/view/verticalResize';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
