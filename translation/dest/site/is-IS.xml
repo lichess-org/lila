@@ -184,7 +184,7 @@
   <string name="discussions">Samtöl</string>
   <string name="today">Í dag</string>
   <string name="yesterday">Í gær</string>
-  <string name="minutesPerSide">Mínútur á lið</string>
+  <string name="minutesPerSide">Mínútur beggja andstæðinga</string>
   <string name="variant">Afbrigði</string>
   <string name="variants">Afbrigði</string>
   <string name="timeControl">Tímaskorður</string>
@@ -505,7 +505,7 @@
   <string name="inlineNotation">Stöðubundið ritunarkerfi</string>
   <string name="clearSavedMoves">Hreinsa út leiki</string>
   <string name="previouslyOnLichessTV">Áður í Lichess-varpinu</string>
-  <string name="onlinePlayers">Tengdir notendur</string>
+  <string name="onlinePlayers">Álínis notendur</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
   <string name="success">Tókst</string>
@@ -710,7 +710,7 @@
   <string name="security">Öryggi</string>
   <string name="revokeAllSessions">lokað á allar tengingar</string>
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
-  <string name="everybodyGetsAllFeaturesForFree">Allir fá alla möguleika ókeypis</string>
+  <string name="everybodyGetsAllFeaturesForFree">Allir fá alla sérleika ókeypis</string>
   <string name="viewTheSolution">Sjá lausn</string>
   <string name="noChallenges">Engar áskoranir.</string>
   <plurals name="availableInNbLanguages">
@@ -739,6 +739,7 @@
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
   <string name="usernameCharsInvalid">Notendanafnið má aðeins innihalda bókstafi, tölustafi, undirstrik og bandstrik.</string>
   <string name="usernameUnacceptable">Þetta notendanafn er óviðunandi.</string>
+  <string name="playChessInStyle">Tefla með glæsibrag</string>
   <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
   <string name="invalidPgn">Ógilt PGN</string>
