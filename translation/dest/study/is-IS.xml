@@ -2,6 +2,7 @@
 <resources>
   <string name="hot">Heitt</string>
   <string name="mostPopular">Vinsælast</string>
+  <string name="alphabetical">Stafrófsröð</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kafli</item>
     <item quantity="other">%s kaflar</item>
