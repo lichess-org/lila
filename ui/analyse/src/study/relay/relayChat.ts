@@ -17,6 +17,7 @@ export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefi
   if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;
   return h('section.mchat.mchat-optional', {
     hook: onInsert(() => {
+      ctrl.opts.chat.instance?.destroy();
       ctrl.opts.chat.instance = makeChat({
         ...ctrl.opts.chat,
         plugin: relay.chatCtrl,
