@@ -11,9 +11,10 @@ import type {
   Standing,
   Player,
 } from './interfaces';
-import { storage } from 'lib/storage';
+import { storage, storedMapAsProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { alerts, prompt } from 'lib/view/dialogs';
+import { Prop } from 'lib';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -36,6 +37,7 @@ export default class TournamentController {
   joinWithTeamSelector = false;
   redraw: () => void;
   nbWatchers = 0;
+  collapsedDescription: Prop<boolean>;
 
   private lastStorage = storage.make('last-redirect');
 
@@ -46,6 +48,12 @@ export default class TournamentController {
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
+    this.collapsedDescription = storedMapAsProp<boolean>(
+      'tournament.collapsed-description-store',
+      this.data.id,
+      20,
+      () => false,
+    );
     setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
