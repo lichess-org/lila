@@ -1,8 +1,8 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
 import { looseH as h, type VNode, LooseVNodes } from '@/snabbdom';
-import { isCol1 } from '@/device';
 import { TopOrBottom } from '../game';
+import { displayColumns } from '@/device';
 
 export function renderClock(
   ctrl: ClockCtrl,

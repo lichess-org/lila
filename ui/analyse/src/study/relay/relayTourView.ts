@@ -8,7 +8,7 @@ import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo }
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput, verticalResizeSeparator } from 'lib/controls';
+import { toggle, copyMeInput, verticalResizeSeparator } from 'lib/view/controls';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
