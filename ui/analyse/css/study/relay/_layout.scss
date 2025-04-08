@@ -128,22 +128,27 @@ main.analyse.is-relay:not(.has-relay-tour) {
 
 .vertical-resize-separator {
   @extend %flex-column;
+  @include transition;
   display: none;
   justify-content: center;
   align-items: center;
-  height: 16px;
+  height: 14px;
   width: 100%;
   cursor: row-resize;
 
   hr {
-    background-color: $c-bg-low;
+    @include transition;
     margin: 0;
-    width: 16px;
+    width: 14px;
     height: 1px;
     pointer-events: none;
   }
   &:hover {
     background: $m-primary--fade-70;
+    hr {
+      background: $c-font;
+      width: 40px;
+    }
   }
 }
 
