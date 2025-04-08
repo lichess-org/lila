@@ -104,6 +104,23 @@ export const storedMap = <V>(propKey: string, maxSize: number, defaultValue: () 
   };
 };
 
+export const asProp =
+  <V>(map: StoredMap<V>, key: string): Prop<V> =>
+  (v?: V) => {
+    if (defined(v)) {
+      map(key, v);
+      return v;
+    }
+    return map(key);
+  };
+
+export const storedMapAsProp = <V>(
+  propKey: string,
+  key: string,
+  maxSize: number,
+  defaultValue: () => V,
+): Prop<V> => asProp(storedMap(propKey, maxSize, defaultValue), key);
+
 export interface StoredSet<V> {
   (): Set<V>;
   (value: V): Set<V>;

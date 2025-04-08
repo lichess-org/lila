@@ -21,7 +21,15 @@ export default function (ctrl: TournamentController) {
   return h('main.' + ctrl.opts.classes, [
     h('aside.tour__side', {
       hook: onInsert(el => {
-        $(el).replaceWith(ctrl.opts.$side);
+        const side = ctrl.opts.$side;
+        $(el).replaceWith(side);
+        side
+          .toggleClass('collapsed', ctrl.collapsedDescription())
+          .find('.disclosure')
+          .on('click', () => {
+            side.toggleClass('collapsed');
+            ctrl.collapsedDescription(side.hasClass('collapsed'));
+          });
         ctrl.opts.chat && makeChat(ctrl.opts.chat);
       }),
     }),
