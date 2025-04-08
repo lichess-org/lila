@@ -180,7 +180,7 @@ export default class ChatCtrl {
   };
 
   destroy = (): void => {
-    if (!this.opts.persistent) this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
+    this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
   setTab = (tab: Tab = this.getTab()): Tab => {
