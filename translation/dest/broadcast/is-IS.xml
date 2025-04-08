@@ -10,5 +10,6 @@
     <item quantity="one">%s áhorfandi</item>
     <item quantity="other">%s áhorfendur</item>
   </plurals>
+  <string name="openLichess">Opna í Lichess</string>
   <string name="score">Árangur</string>
 </resources>
