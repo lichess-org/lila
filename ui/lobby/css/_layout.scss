@@ -36,7 +36,7 @@
     ---cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: 34% 1fr;
     grid-template-rows:
-      minmax(12em, auto) fit-content(0) min-content auto fit-content(15em) repeat(2, fit-content(0))
+      minmax(12em, auto) fit-content(0) min-content 1fr fit-content(15em) repeat(2, fit-content(0))
       minmax(0, 1fr);
     grid-template-areas:
       'table  app'
@@ -58,6 +58,14 @@
       display: flex;
     }
 
+    &__blog {
+      margin: 1.2em 0;
+    }
+
+    &__support {
+      margin-bottom: 1.2em;
+    }
+
     &__side,
     &__timeline {
       margin-inline-start: 0;
@@ -67,7 +75,7 @@
   @include mq-at-least-col4 {
     ---cols: 4; // ui/lobby/src/main.ts
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: fit-content(0) min-content auto repeat(3, fit-content(0));
+    grid-template-rows: fit-content(0) min-content 1fr repeat(3, fit-content(0));
     grid-template-areas:
       'side   app     app     table'
       'tv     blog    blog    puzzle'
@@ -79,7 +87,6 @@
       justify-content: center;
 
       button {
-        //margin: 1.2em 0;
         padding: 1em;
       }
     }
@@ -94,10 +101,6 @@
       align-items: flex-start;
       position: absolute;
       bottom: 0;
-    }
-
-    &__support {
-      grid-gap: $block-gap;
     }
   }
 

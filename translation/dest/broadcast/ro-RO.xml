@@ -7,6 +7,11 @@
     <item quantity="few">%s transmisiuni</item>
     <item quantity="other">%s de transmisiuni</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s spectator</item>
+    <item quantity="few">%s spectatori</item>
+    <item quantity="other">%s spectatori</item>
+  </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="broadcastCalendar">Calendar de transmisiuni</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>

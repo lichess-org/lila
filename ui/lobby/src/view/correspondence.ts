@@ -4,7 +4,7 @@ import { tds, perfNames } from './util';
 import type LobbyController from '../ctrl';
 import type { Seek } from '../interfaces';
 import perfIcons from 'lib/game/perfIcons';
-import { confirm } from 'lib/dialogs';
+import { confirm } from 'lib/view/dialogs';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';

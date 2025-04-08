@@ -1,6 +1,6 @@
 import type { StudyCtrl } from '../studyDeps';
 import type RelayCtrl from './relayCtrl';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import { defined, scrollToInnerSelector } from 'lib';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import type { ChapterPreview } from '../interfaces';

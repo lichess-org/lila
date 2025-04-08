@@ -4,6 +4,7 @@
   <string name="puzzleThemes">Mga Tema ng Palaisipan</string>
   <string name="recommended">Inirerekomenda</string>
   <string name="phases">Mga Yugto</string>
+  <string name="advanced">Nauna</string>
   <string name="lengths">Mga Haba</string>
   <string name="mates">Mga Mate</string>
   <string name="goals">Mga Layunin</string>
@@ -23,6 +24,7 @@
   <string name="keepGoing">Ipagpatuloy…</string>
   <string name="puzzleSuccess">Tagumpay!</string>
   <string name="puzzleComplete">Tapos na ang palaisipan!</string>
+  <string name="openingsYouPlayedTheMost">Mga pagbubukas na pinakamadalas mong nilaro sa mga namarkahang laro</string>
   <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
   <string name="notTheMove">Hindi iyan ang tira!</string>
   <string name="trySomethingElse">Subukan mo iba.</string>
@@ -44,6 +46,7 @@
   <string name="addAnotherTheme">Magdagdag pa ng isang tema</string>
   <string name="nextPuzzle">Susunod na palaisipan</string>
   <string name="jumpToNextPuzzleImmediately">Pumunta sa susunod na palaisipan agad-agad</string>
+  <string name="puzzleDashboard">Palaisipang Dashboard</string>
   <string name="improvementAreas">Mga lugar ng pagsasanay</string>
   <string name="strengths">Mga Kalakasan</string>
   <string name="history">Kasaysayang ng palaisipan</string>
@@ -56,15 +59,18 @@
   <string name="newStreak">Bagong streak</string>
   <string name="fromMyGames">Mula sa aking mga laro</string>
   <string name="lookupOfPlayer">Maghanap ng mga palaisipan mula sa mga laro ng manlalaro</string>
+  <string name="fromXGames">Mga palaisipan mula sa %s\' mga laro</string>
   <string name="searchPuzzles">Maghanap ng mga palaisipan</string>
   <string name="fromMyGamesNone">Wala kang mga palaisipan sa database, pero mahal na mahal ka parin ng Lichess.
 
 Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na madagdag ang iyong mga palaisipan!</string>
+  <string name="fromXGamesFound">%1$s mga palaisipan natagpuan sa mga laro ni %2$s</string>
   <string name="puzzleDashboardDescription">Magsanay, pagsusuri, magpabuti</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s nalaro</item>
     <item quantity="other">%s nalaro</item>
   </plurals>
+  <string name="percentSolved">%s nalutas</string>
   <string name="noPuzzlesToShow">Walang maipapakita, maglaro ka muna ng mga palaisipan!</string>
   <string name="improvementAreasDescription">Sanayin ang mga ito upang mapabilis ang iyong pag-unlad!</string>
 </resources>

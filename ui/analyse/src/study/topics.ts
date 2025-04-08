@@ -1,7 +1,7 @@
 import { prop } from 'lib';
 import { bind, bindSubmit, onInsert } from 'lib/snabbdom';
 import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
-import { snabDialog } from 'lib/dialog';
+import { snabDialog } from 'lib/view/dialog';
 import { h, type VNode } from 'snabbdom';
 import type { Topic } from './interfaces';
 import type StudyCtrl from './studyCtrl';

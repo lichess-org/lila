@@ -16,7 +16,7 @@ import { moderationCtrl } from './moderation';
 import { prop, type Prop } from '../common';
 import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
-import { alert } from '../dialogs';
+import { alert } from '../view/dialogs';
 
 export default class ChatCtrl {
   data: ChatData;

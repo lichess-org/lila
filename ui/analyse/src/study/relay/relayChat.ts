@@ -1,14 +1,15 @@
 import { type RelayViewContext } from '../../view/components';
 import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
-import { getChessground, initMiniBoardWith, fenColor, uciToMove } from 'lib/miniBoard';
+import { getChessground, initMiniBoardWith } from 'lib/view/miniBoard';
+import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { type TreeWrapper } from 'lib/tree/tree';
 import { mainlineNodeList } from 'lib/tree/ops';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
 import { frag } from 'lib';
 import { type ChapterId } from '../interfaces';
 import { type StudyChapters } from '../studyChapters';
-import { spinnerVdom } from 'lib/controls';
+import { spinnerVdom } from 'lib/view/controls';
 
 type BoardConfig = CgConfig & { lastUci?: Uci };
 
@@ -43,6 +44,7 @@ export class RelayChatPlugin implements ChatPlugin {
     readonly previews: () => StudyChapters,
     readonly localTree: () => TreeWrapper,
     readonly relayPath: () => Tree.Path | undefined,
+    readonly orientation: () => Color,
   ) {}
 
   reset = () => {
@@ -77,6 +79,7 @@ export class RelayChatPlugin implements ChatPlugin {
     this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
     this.board.lastMove = uciToMove(this.board.lastUci);
+    this.board.orientation = this.orientation();
     this.animate = true;
 
     return h('div.chat-liveboard', {

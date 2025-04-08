@@ -1,7 +1,7 @@
 import * as xhr from 'lib/xhr';
-import { spinnerHtml } from 'lib/controls';
+import { spinnerHtml } from 'lib/view/controls';
 import { contactEmail } from './bits';
-import { alert, prompt } from 'lib/dialogs';
+import { alert, prompt } from 'lib/view/dialogs';
 import { myUserId } from 'lib';
 
 export interface Pricing {

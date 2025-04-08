@@ -2,7 +2,7 @@ import { looseH as h, type VNode } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import type { Player, TopOrBottom } from 'lib/game/game';
 import type RoundController from '../ctrl';
-import { ratingDiff, userLink } from 'lib/userLink';
+import { ratingDiff, userLink } from 'lib/view/userLink';
 import { wsAverageLag } from 'lib/socket';
 import { defined } from 'lib';
 

@@ -1,7 +1,7 @@
 import { looseH as h, onInsert } from 'lib/snabbdom';
 import type LobbyController from '../ctrl';
 import type { NowPlaying } from '../interfaces';
-import { initMiniBoard } from 'lib/miniBoard';
+import { initMiniBoard } from 'lib/view/miniBoard';
 import { timeago } from 'lib/i18n';
 
 function timer(pov: NowPlaying) {

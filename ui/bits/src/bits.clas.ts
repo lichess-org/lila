@@ -3,7 +3,7 @@ import * as xhr from 'lib/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
-import type { UserCompleteResult } from 'lib/userComplete';
+import type { UserCompleteResult } from 'lib/view/userComplete';
 
 site.load.then(() => {
   $('table.sortable').each(function (this: HTMLElement) {

@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { hashBoard, hashChess } from 'lib/chess/hash';
+import { hashBoard, hashChess } from 'lib/game/hash';
 import { deepFreeze } from 'lib/algo';
 import { normalizeMove } from 'chessops/chess';
 import type {
@@ -9,7 +9,7 @@ import type {
   PgnFilter,
   PolyglotResult,
   PolyglotOpts,
-} from 'lib/chess/polyglot';
+} from 'lib/game/polyglot';
 
 export async function initModule(o: PolyglotOpts): Promise<any> {
   if (!o) return hashBoard;

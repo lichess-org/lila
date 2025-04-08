@@ -1,6 +1,6 @@
 import { text, formToXhr } from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
-import { spinnerHtml } from 'lib/controls';
+import { spinnerHtml } from 'lib/view/controls';
 import { wireCropDialog } from './crop';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
