@@ -47,6 +47,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.pinToBottom = el.scrollTop >= scrollState.lastScrollTop;
               scrollState.lastScrollTop = el.scrollTop;
             });
+
+            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLElement;
