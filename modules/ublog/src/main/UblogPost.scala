@@ -24,6 +24,7 @@ case class UblogPost(
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
     views: UblogPost.Views,
+    similar: List[UblogPostId],
     rankAdjustDays: Option[Int],
     pinned: Option[Boolean]
 ) extends UblogPost.BasePost

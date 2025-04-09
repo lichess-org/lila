@@ -7,6 +7,7 @@ import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline as tl
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
+import lila.core.user.KidMode
 
 final class UblogApi(
     colls: UblogColls,
@@ -115,15 +116,23 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
-  def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
-    colls.post
-      .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
-      .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPref.sec)
-      .list(nb)
-
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
+
+  private def postPreviews(ids: List[UblogPostId]) = ids.nonEmpty.so:
+    colls.post.byIdsProj[UblogPost.PreviewPost, UblogPostId](ids, previewPostProjection, _.sec)
+
+  def recommend(blog: UblogBlog.Id, post: UblogPost)(using kid: KidMode): Fu[List[UblogPost.PreviewPost]] =
+    for
+      sameAuthor <- colls.post
+        .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
+        .sort($doc("lived.at" -> -1))
+        .cursor[UblogPost.PreviewPost](ReadPref.sec)
+        .list(3)
+      similarIds = post.similar.filterNot(sameAuthor.map(_.id).contains)
+      similar <- postPreviews(post.similar)
+      mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
+    yield scala.util.Random.shuffle(mix).take(6)
 
   object image:
     private def rel(post: UblogPost) = s"ublog:${post.id}"
