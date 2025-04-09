@@ -97,11 +97,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
         verticalResizeSeparator({
           key: 'relay-chat',
           id: resizeId,
-          min: memoize(
-            () =>
-              (document.querySelector('.mchat__tabs')?.getBoundingClientRect().height ?? 30) +
-              (document.querySelector('.mchat__say')?.getBoundingClientRect().height ?? 22),
-          ),
+          min: () => 60,
           max: () => window.innerHeight,
           initialMaxHeight: window.innerHeight / 3,
           kid: h('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
