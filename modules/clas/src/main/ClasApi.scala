@@ -393,7 +393,7 @@ ${clas.desc}""",
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
       val url = s"$baseUrl/class/invitation/${invite.id}"
-      if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
+      if student.kid.yes then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.core.i18n.I18nKey.clas.*
         given play.api.i18n.Lang = student.realLang | lila.core.i18n.defaultLang
