@@ -29,7 +29,7 @@ object user:
       title: Option[PlayerTitle] = None,
       createdAt: Instant,
       seenAt: Option[Instant],
-      kid: Boolean,
+      kid: KidMode,
       lang: Option[LangTag],
       plan: Plan,
       flair: Option[Flair] = None,

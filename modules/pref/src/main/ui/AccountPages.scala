@@ -210,7 +210,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   def kid(u: User, form: Form[?], managed: Boolean)(using Context) =
     AccountPage(s"${u.username} - ${trans.site.kidMode.txt()}", "kid"):
       div(cls := "box box-pad")(
-        h1(cls := "box__top")(if u.kid then trans.site.kidModeIsEnabled() else trans.site.kidMode()),
+        h1(cls := "box__top")(if u.kid.yes then trans.site.kidModeIsEnabled() else trans.site.kidMode()),
         standardFlash,
         p(trans.site.kidModeExplanation()),
         br,
@@ -223,9 +223,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             submitButton(
               cls := List(
                 "button"     -> true,
-                "button-red" -> u.kid
+                "button-red" -> u.kid.yes
               )
-            )(if u.kid then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())
+            )(if u.kid.yes then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())
           )
         ,
         br,

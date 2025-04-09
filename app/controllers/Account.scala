@@ -289,7 +289,7 @@ final class Account(
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    JsonOk(Json.obj("kid" -> me.kid))
+    JsonOk(Json.obj("kid" -> me.kid.yes))
   }
 
   def kidPost = AuthBody { ctx ?=> me ?=>

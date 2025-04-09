@@ -138,7 +138,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             title  := "Activate kid mode if not already the case",
             cls    := "xhr"
           ):
-            submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.option("active"))("Kid")
+            submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.yes.option("active"))("Kid")
         },
         Granter.opt(_.RemoveRanking).option {
           postForm(

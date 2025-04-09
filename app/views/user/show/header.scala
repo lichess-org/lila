@@ -187,7 +187,7 @@ object header:
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
-                (ctx.kid.no && !hideTroll && !u.kid).option(
+                (ctx.kid.no && u.kid.no && !hideTroll).option(
                   frag(
                     profile.nonEmptyRealName.map: name =>
                       strong(cls := "name")(name),
@@ -229,7 +229,7 @@ object header:
                       playTime.nonEmptyTvDuration.map: tvDuration =>
                         p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
                     ),
-                  (!hideTroll && !u.kid).option(
+                  (!hideTroll && u.kid.no).option(
                     div(cls := "social_links col2")(
                       showLinks
                         .option(profile.actualLinks)
@@ -242,7 +242,7 @@ object header:
                           )
                     )
                   ),
-                  (ctx.is(u) || !u.kid).option(
+                  (ctx.is(u) || u.kid.no).option(
                     div(cls := "teams col2")(
                       info.teamIds.nonEmpty.option(strong(trans.team.teams())),
                       info.teamIds
