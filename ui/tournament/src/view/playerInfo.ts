@@ -58,7 +58,7 @@ export default function (ctrl: TournamentController): VNode {
         ...(nb.game
           ? [
               numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
-              numberRow(i18n.site.berserkRate, [nb.berserk, nb.game], 'percent'),
+              numberRow(i18n.arena.berserkRate, [nb.berserk, nb.game], 'percent'),
               ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
             ]
           : []),
