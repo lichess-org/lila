@@ -292,6 +292,7 @@ def deploy_script(profile, session, run, url):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
             f"echo \\# Checkout {commit} ...",
+            f"echo \\# git -C {deploy_dir} checkout {commit}",
             f"git -C {deploy_dir} checkout {commit}",
             f"git -C {deploy_dir} lfs pull",
             "echo \\# Copying assets ...",
