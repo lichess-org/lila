@@ -1,9 +1,9 @@
 /* O(1) assuming constant number of recently updated posts
- * At the time of writing, with 48k ublog_post in the DB, 
+ * At the time of writing, with 48k ublog_post in the DB,
  * it takes about 4 seconds to run and uses up to 300MB of memory.
  *
  * Should run periodically, e.g. every 1 hour.
-  */
+ */
 const since = new Date(Date.now() - 1000 * 60 * 60 * 24 * 15);
 const updatable = db.ublog_post.find({ live: true, 'updated.at': { $gt: since } }, { likers: 1 }).toArray();
 console.log(`${updatable.length} posts were updated since ${since}`);
@@ -27,8 +27,10 @@ updatable.forEach(p => {
   p.likers.forEach(liker => {
     (likerToIds.get(liker) || []).forEach(id => {
       if (id != p._id) similar.set(id, (similar.get(id) || 0) + 1);
-    })
+    });
   });
-  const top3 = Array.from(similar).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const top3 = Array.from(similar)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
   db.ublog_post.updateOne({ _id: p._id }, { $set: { similar: top3.map(([id, _]) => id) } });
 });
