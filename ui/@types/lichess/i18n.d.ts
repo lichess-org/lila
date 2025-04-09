@@ -5483,8 +5483,6 @@ interface I18n {
     lichessOfficialBlog: string;
     /** Liked blog posts */
     likedBlogs: string;
-    /** More blog posts by %s */
-    moreBlogPostsBy: I18nFormat;
     /** My blog */
     myBlog: string;
     /** %s views */
