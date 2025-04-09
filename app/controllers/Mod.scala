@@ -231,23 +231,18 @@ final class Mod(
     val modQuery: Option[UserStr] =
       getUserStr("mod").orElse((!isGranted(_.Admin)).option(me.userId.into(UserStr)))
     Ok.async:
-      modQuery
-        .fold(
+      modQuery.match
+        case None =>
           // strictly speaking redudant because it should never be
           // empty for non-admins, but feels safer to keep
           isGranted(_.Admin)
-            .so:
-              env.mod.logApi.recentHuman
+            .so(env.mod.logApi.recentHuman)
             .map(views.mod.ui.logs(_, none, modQuery))
-        )(
-          env.report.api
-            .getMod(_)
-            .flatMap: modOpt =>
-              modOpt
-                .so(logsOf)
-                .map(views.mod.ui.logs(_, modOpt, modQuery))
-        )
-
+        case Some(mod) =>
+          for
+            modOpt <- env.report.api.getMod(mod)
+            logs   <- modOpt.so(logsOf)
+          yield views.mod.ui.logs(logs, modOpt, modQuery)
   }
 
   private def logsOf(mod: AsMod)(using me: Me, ctx: Context): Fu[List[Modlog]] =
