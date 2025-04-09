@@ -133,7 +133,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   h2("You may also like"),
                   div(cls := "ublog-post-cards")(
                     others.map:
-                      ui.card(_, showAuthor = ui.ShowAt.bottom, showIntro = false)
+                      ui.card(_, showAuthor = ui.ShowAt.top, showIntro = true)
                   )
                 )
               )
