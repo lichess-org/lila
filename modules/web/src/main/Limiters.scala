@@ -9,12 +9,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   import RateLimit.*
 
-  private def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
-    def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =
-      limitA(k._1, default, cost, msg)(limitB(k._2, default, cost, msg)(op))
-    def chargeable[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: ChargeWith => T): T =
-      limitA.chargeable(k._1, default, cost, msg)(_ => limitB.chargeable(k._2, default, cost, msg)(op))
-
   val setupPost = RateLimit[IpAddress](5, 1.minute, key = "setup.post", log = false)
 
   val setupAnonHook = RateLimit.composite[IpAddress](

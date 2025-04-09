@@ -33,7 +33,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(i18n.site.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(numberRow(i18n.arena.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [

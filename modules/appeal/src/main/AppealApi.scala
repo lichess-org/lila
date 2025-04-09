@@ -3,6 +3,7 @@ package lila.appeal
 import lila.appeal.Appeal.Filter
 import lila.core.id.AppealId
 import lila.core.user.{ UserMark, UserRepo }
+import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 
 final class AppealApi(
@@ -48,14 +49,14 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def myLog(since: Instant)(using me: Me): Fu[List[(UserId, AppealMsg)]] =
+  def logsOf(since: Instant, mod: ModId): Fu[List[(UserId, AppealMsg)]] =
     coll
       .aggregateList(maxDocs = 50, _.sec): framework =>
         import framework.*
-        Match($doc("msgs.by" -> me.userId)) -> List(
+        Match($doc("msgs.by" -> mod)) -> List(
           Project($doc("msgs" -> 1)),
           Unwind("msgs"),
-          Match($doc("msgs.by" -> me.userId, "msgs.at".$gt(since))),
+          Match($doc("msgs.by" -> mod, "msgs.at".$gt(since))),
           Sort(Descending("msgs.at")),
           Limit(50)
         )

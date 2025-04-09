@@ -54,4 +54,5 @@
   <string name="timezone">Zäitzon</string>
   <string name="fideRatingCategory">FIDE-Wäertungskategorie</string>
   <string name="optionalDetails">Fakultativ Detailler</string>
+  <string name="liveboard">Live-Briet</string>
 </resources>

@@ -2813,8 +2813,6 @@ interface I18n {
     backToGame: string;
     /** Back to tournament */
     backToTournament: string;
-    /** Berserk rate */
-    berserkRate: string;
     /** Best move arrow */
     bestMoveArrow: string;
     /** Best was %s */
@@ -4149,8 +4147,6 @@ interface I18n {
     tournamentMayHaveBeenCanceled: string;
     /** Tournament not found */
     tournamentNotFound: string;
-    /** The tournament pairings are now closed. */
-    tournamentPairingsAreNowClosed: string;
     /** Tournament points */
     tournamentPoints: string;
     /** Tournaments */
@@ -4739,8 +4735,6 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
-    /** Download all games */
-    downloadAllGames: string;
     /** Download game */
     downloadGame: string;
     /** Dubious move */
@@ -5137,8 +5131,6 @@ interface I18n {
     similarToOTB: string;
     /** Sonneborn–Berger score */
     sonnebornBergerScore: string;
-    /** Starting in */
-    startingIn: string;
     /** Starting soon */
     startingSoon: string;
     /** Streaks and Berserk */

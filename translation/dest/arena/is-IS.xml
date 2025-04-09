@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Leikvangur</string>
+  <string name="arenaTournaments">Arena-mót</string>
   <string name="isItRated">Er það reiknað til stiga?</string>
   <string name="isNotRated">Þetta mót er *ekki* reiknað til stiga og mun ekki *ekki* hafa áhrif á skákstigin þín.</string>
   <string name="someRated">Sum mót eru reiknuð til stiga og munu hafa áhrif á skákstigin þín.</string>
   <string name="otherRules">Aðrar mikilvægar reglur</string>
   <string name="thereIsACountdown">Það er niðurtalning á fyrsta leikin þinn. Takist ekki að leika innan þessa tíma fær andstæðingurinn þinn sigurinn.</string>
   <string name="thisIsPrivate">Þetta er einkamót</string>
+  <string name="arenaStreaks">Arena-döngun</string>
+  <string name="arenaStreaksHelp">Eftir 2 sigra gefa samfelldir sigrar 4 stig í stað 2.</string>
+  <string name="noArenaStreaks">Engin Arena-döngun</string>
   <string name="myTournaments">Mótin mín</string>
 </resources>

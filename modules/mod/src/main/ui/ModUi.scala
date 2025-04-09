@@ -9,6 +9,8 @@ import lila.core.perm.Permission
 import lila.mod.ModActivity.{ Period, Who }
 import lila.ui.*
 
+import lila.report.Mod
+
 import ScalatagsTemplate.{ *, given }
 
 final class ModUi(helpers: Helpers):
@@ -36,12 +38,26 @@ final class ModUi(helpers: Helpers):
       (!allowed).option(disabled)
     )("GDPR erasure")
 
-  def myLogs(logs: List[lila.mod.Modlog])(using Context) =
-    Page("My logs").css("mod.misc"):
+  def logs(logs: List[lila.mod.Modlog], mod: Option[Mod], query: Option[UserStr])(using Context) =
+    Page("Mod logs").css("mod.misc"):
       main(cls := "page-menu")(
         menu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
-          h1(cls := "box__top")("My logs"),
+          boxTop(cls := "box__top")(
+            h1(mod.fold(frag("All logs"))(of => span("Logs of ", userLink(of.user)))),
+            Granter
+              .opt(_.Admin)
+              .option:
+                div(cls := "box__top__actions")(
+                  st.form(cls := "search", action := routes.Mod.log)(
+                    input(
+                      st.name     := "mod",
+                      value       := query,
+                      placeholder := "filter by mod"
+                    )
+                  )
+                )
+          ),
           table(cls := "slist slist-pad")(
             thead(
               tr(
@@ -275,7 +291,7 @@ final class ModUi(helpers: Helpers):
         .option(a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats")),
       Granter(_.GamifyView)
         .option(a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame")),
-      Granter(_.GamifyView).option(a(cls := active.active("log"), href := routes.Mod.log)("My logs")),
+      Granter(_.GamifyView).option(a(cls := active.active("log"), href := routes.Mod.log)("Mod logs")),
       Granter(_.UserSearch)
         .option(a(cls := active.active("search"), href := routes.Mod.search)("Search users")),
       Granter(_.Admin).option(a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes")),
