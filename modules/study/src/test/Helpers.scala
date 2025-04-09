@@ -39,7 +39,10 @@ object Helpers:
     .render
 
   extension (root: Root)
-    def toNewRoot = NewRoot(root)
+    def toNewRoot: NewRoot = NewRoot(root)
+
+    def withoutClockTrust: Root =
+      toNewRoot.withoutClockTrust.toRoot
 
     def debug = root.ppAs(rootToPgn)
 
@@ -74,26 +77,40 @@ object Helpers:
       val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)
 
-  extension (newRoot: NewRoot)
+  extension (root: NewRoot)
     def toRoot =
       Root(
-        newRoot.ply,
-        newRoot.fen,
-        newRoot.check,
-        newRoot.dests,
-        newRoot.drops,
-        newRoot.eval,
-        newRoot.shapes,
-        newRoot.comments,
-        newRoot.gamebook,
-        newRoot.glyphs,
-        newRoot.tree.fold(Branches.empty)(_.toBranches),
-        newRoot.opening,
-        newRoot.clock,
-        newRoot.crazyData
+        root.ply,
+        root.fen,
+        root.check,
+        root.dests,
+        root.drops,
+        root.eval,
+        root.shapes,
+        root.comments,
+        root.gamebook,
+        root.glyphs,
+        root.tree.fold(Branches.empty)(_.toBranches),
+        root.opening,
+        root.clock,
+        root.crazyData
       )
 
-    def debug = newRoot.ppAs(rootToPgn)
+    def cleanup: NewRoot =
+      root
+        .focus(_.tree.some)
+        .modify(_.map(_.cleanup))
+        .focus(_.metas.comments)
+        .modify(_.cleanup)
+
+    def withoutClockTrust: NewRoot =
+      root
+        .focus(_.metas.clock.some.trust)
+        .replace(none)
+        .focus(_.tree.some)
+        .modify(_.map(_.focus(_.metas.clock.some.trust).replace(none)))
+
+    def debug = root.ppAs(rootToPgn)
 
   extension (comments: Comments)
     def cleanup: Comments =
@@ -104,14 +121,6 @@ object Helpers:
       node
         .focus(_.metas.clock)
         .replace(none)
-        .focus(_.metas.comments)
-        .modify(_.cleanup)
-
-  extension (root: NewRoot)
-    def cleanup: NewRoot =
-      root
-        .focus(_.tree.some)
-        .modify(_.map(_.cleanup))
         .focus(_.metas.comments)
         .modify(_.cleanup)
 
