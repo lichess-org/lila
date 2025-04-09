@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Gemeinschafts Blogs</string>
   <string name="friendBlogs">Blogs vu Fründe</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess Blog</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Min Blog</string>
+  <string name="lichessBlog">Lichess Blog</string>
+  <string name="myBlog">Min Blog</string>
   <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
   <string name="blogTopics">Blog Theme</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">De Bitrag isch veröffentlicht worde</string>
   <string name="thisIsADraft">Das isch en Entwurf</string>
-  <string name="moreBlogPostsBy">Meh Blog-Biträg vu %s</string>
   <string name="noPostsInThisBlogYet">Bis jetzt no kei Biträg i dem Blog.</string>
   <string name="noDrafts">Kei Entwürf zum zeige.</string>
   <string name="latestBlogPosts">Neuschti Blog-Biträg</string>
