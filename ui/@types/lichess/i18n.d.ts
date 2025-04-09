@@ -5135,8 +5135,6 @@ interface I18n {
     similarToOTB: string;
     /** Sonneborn–Berger score */
     sonnebornBergerScore: string;
-    /** Starting in */
-    startingIn: string;
     /** Starting soon */
     startingSoon: string;
     /** Streaks and Berserk */
