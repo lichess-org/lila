@@ -8,6 +8,12 @@
     <item quantity="many">%s трансляцій</item>
     <item quantity="other">%s трансляцій</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s глядач</item>
+    <item quantity="few">%s глядачі</item>
+    <item quantity="many">%s глядачів</item>
+    <item quantity="other">%s глядачів</item>
+  </plurals>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="broadcastCalendar">Календар трансляцій</string>
   <string name="newBroadcast">Нова трансляція</string>
@@ -78,5 +84,8 @@
   <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
   <string name="optionalDetails">Додаткові деталі</string>
   <string name="pastBroadcasts">Минулі трансляції</string>
+  <string name="allBroadcastsByMonth">Переглянути всі трансляції за місяцями</string>
   <string name="backToLiveMove">Повернутися до поточного ходу</string>
+  <string name="sinceHideResults">Оскільки ви вибрали приховати результати, огляд дощок порожній, щоб не розкривати подробиць.</string>
+  <string name="liveboard">Наживо</string>
 </resources>

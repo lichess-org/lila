@@ -38,8 +38,8 @@
     <item quantity="other">#%1$s sæti (topp %2$s%%) með %3$s skákir í %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Tók þátt í %s Swiss móti</item>
-    <item quantity="other">Tók þátt í %s Swiss mótum</item>
+    <item quantity="one">Tók þátt í %s Swiss-móti</item>
+    <item quantity="other">Tók þátt í %s Swiss-mótum</item>
   </plurals>
   <string name="rankedInSwissTournament">#%1$s sæti í %2$s</string>
   <string name="signedUp">Nýskráning á lichess.org</string>

@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Útsendingar</string>
+  <string name="myBroadcasts">Útsendingar mínar</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s útsending</item>
+    <item quantity="other">%s útsendingar</item>
+  </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s áhorfandi</item>
+    <item quantity="other">%s áhorfendur</item>
+  </plurals>
+  <string name="openLichess">Opna í Lichess</string>
+  <string name="score">Árangur</string>
+</resources>

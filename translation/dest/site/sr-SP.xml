@@ -608,14 +608,14 @@
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
-  <string name="none">Нема</string>
-  <string name="fast">Брзо</string>
-  <string name="normal">Нормално</string>
-  <string name="slow">Споро</string>
+  <string name="none">Ниједна</string>
+  <string name="fast">Брза</string>
+  <string name="normal">Нормална</string>
+  <string name="slow">Спора</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
   <string name="allSquaresOfTheBoard">Сва поља табле</string>
-  <string name="onSlowGames">У споријим партијама</string>
+  <string name="onSlowGames">На спорим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
   <string name="xCompetesInY">%1$s се такмичи у %2$s</string>
@@ -626,7 +626,7 @@
   <string name="drawVsYInZ">%1$s против %2$s у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
-  <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
+  <string name="allInformationIsPublicAndOptional">Све информације су јавне и необавезне.</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Највише: %s карактер</item>
@@ -639,7 +639,7 @@
     <item quantity="other">%s блокираних</item>
   </plurals>
   <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
-  <string name="human">Човек</string>
+  <string name="human">Особа</string>
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
   <string name="clock">Сат</string>
