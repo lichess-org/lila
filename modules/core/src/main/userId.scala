@@ -1,6 +1,5 @@
 package lila.core
 
-import alleycats.Zero
 import scalalib.newtypes.*
 
 import lila.core.user.Me

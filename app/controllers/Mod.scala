@@ -246,12 +246,11 @@ final class Mod(
           yield views.mod.ui.logs(logs, modOpt, whichMod)
   }
 
-  private def logsOf(mod: AsMod)(using me: Me, ctx: Context): Fu[List[Modlog]] =
+  private def logsOf(mod: AsMod)(using me: Me): Fu[List[Modlog]] =
     (isGranted(_.Admin) || mod.user.is(me)).so:
       for
-        log <- env.mod.logApi.recentBy(mod)
-        appeals <- env.appeal.api
-          .logsOf(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)), mod.id)
+        log     <- env.mod.logApi.recentBy(mod)
+        appeals <- env.appeal.api.logsOf(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)), mod.id)
         appealsLog = appeals.map: (user, msg) =>
           Modlog(user.some, "appeal", msg.text.some)(using mod.user.id.into(MyId)).copy(date = msg.at)
       yield (log ::: appealsLog).sortBy(_.date).reverse

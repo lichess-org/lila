@@ -44,10 +44,10 @@ final class ModUi(helpers: Helpers):
         menu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
           boxTop(cls := "box__top")(
-            h1(mod.fold(frag("All logs"))(of => span("Logs of ", userIdLink(of.user.id.some)))),
+            h1(mod.fold(frag("All logs"))(of => span("Logs of ", userLink(of.user)))),
             Granter
               .opt(_.Admin)
-              .option(
+              .option:
                 div(cls := "box__top__actions")(
                   st.form(cls := "search", action := routes.Mod.log)(
                     input(
@@ -57,7 +57,6 @@ final class ModUi(helpers: Helpers):
                     )
                   )
                 )
-              )
           ),
           table(cls := "slist slist-pad")(
             thead(
