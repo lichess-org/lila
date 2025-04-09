@@ -110,14 +110,15 @@ final class RelayPush(
         parsed =>
           val game = Game(variantOption = parsed.tags.variant, fen = parsed.tags.fen)
 
-          val (maybeErr, replay) = parsed.mainline.foldLeft((none[ErrorStr], Replay(game))):
+          val mainline = parsed.mainline
+          val (maybeErr, replay) = mainline.foldLeft((none[ErrorStr], Replay(game))):
             case (acc @ (Some(_), _), _) => acc
             case ((none, r), san) =>
               san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
 
           maybeErr.fold(parsed.tags.asRight): err =>
-            parsed.mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, replay, parsed.mainline) =>
+            mainline.lastOption match
+              case Some(mv: Std) if isFatal(mv, replay, mainline) =>
                 Left(Failure(parsed.tags, oneline(err)))
               case _ => Right(parsed.tags)
       )
