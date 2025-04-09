@@ -50,7 +50,7 @@ final class Ublog(env: Env) extends LilaController(env):
         canViewPost(user, blog)(post).so:
           for
             sameAuthor     <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
-            recommend      <- env.ublog.api.recommend(post, 9)
+            recommend      <- env.ublog.api.postPreviews(post.similar)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
             followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))

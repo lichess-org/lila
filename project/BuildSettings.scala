@@ -51,7 +51,7 @@ object BuildSettings {
     "-source:3.7",
     "-indent",
     // "-explaintypes",
-    // "-explain",
+    // "-explain-cyclic",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",

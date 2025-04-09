@@ -29,8 +29,6 @@ final class Env(
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
-  private val recommenderEndpoint =
-    appConfig.get[String]("ublogRecommender.endpoint").taggedWith[RecommenderEndpoint]
 
   val topic = wire[UblogTopicApi]
 
@@ -76,5 +74,3 @@ final class Env(
     case ReopenAccount(user) => api.onAccountReopen(user)
 
 final private class UblogColls(val blog: Coll, val post: Coll)
-
-trait RecommenderEndpoint

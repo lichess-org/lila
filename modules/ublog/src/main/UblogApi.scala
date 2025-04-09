@@ -19,8 +19,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
-    ws: play.api.libs.ws.StandaloneWSClient,
-    recommenderEndpoint: String @@ RecommenderEndpoint
+    ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -127,27 +126,11 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
-  def recommend(post: UblogPost, nb: Int): Fu[List[UblogPost.PreviewPost]] =
-    ws.url(s"$recommenderEndpoint/similarblogs/${post.id}")
-      .withRequestTimeout(3.seconds)
-      .get()
-      .flatMap:
-        case res if res.status == 200 =>
-          res
-            .body[JsValue]
-            .validate(Reads.list((__ \ "_id").read[String]))
-            .fold(
-              err => fufail(s"parse $err"),
-              data => data.take(nb).map(UblogPostId.apply).map(postPreview).parallel.map(_.flatten)
-            )
-        case res => fufail(s"${res.status}")
-      .recover:
-        case e: Exception =>
-          logger.warn("error", e)
-          Nil
-
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
+
+  def postPreviews(ids: List[UblogPostId]) = ids.nonEmpty.so:
+    colls.post.byIdsProj[UblogPost.PreviewPost, UblogPostId](ids, previewPostProjection)
 
   object image:
     private def rel(post: UblogPost) = s"ublog:${post.id}"
