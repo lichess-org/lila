@@ -2,8 +2,6 @@ package lila.ublog
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
-import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
 import lila.db.dsl.Coll
@@ -21,9 +19,7 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
-    net: NetConfig,
-    appConfig: play.api.Configuration,
-    ws: StandaloneWSClient
+    net: NetConfig
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }

@@ -2,9 +2,6 @@ package lila.ublog
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
-import com.softwaremill.tagging.*
-import play.api.libs.json.*
-import play.api.libs.ws.JsonBodyReadables.*
 
 import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline as tl
@@ -19,8 +16,7 @@ final class UblogApi(
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.core.irc.IrcApi,
-    ws: play.api.libs.ws.StandaloneWSClient
+    irc: lila.core.irc.IrcApi
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 

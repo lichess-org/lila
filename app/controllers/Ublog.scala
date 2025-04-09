@@ -58,16 +58,7 @@ final class Ublog(env: Env) extends LilaController(env):
             markup <- env.ublog.markup(post)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
-              views.ublog.post.page(
-                user,
-                blog,
-                viewedPost,
-                markup,
-                otherPosts,
-                liked,
-                followable,
-                followed
-              )
+              views.ublog.post.page(user, blog, viewedPost, markup, otherPosts, liked, followable, followed)
           yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
