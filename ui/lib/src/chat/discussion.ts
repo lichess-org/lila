@@ -43,21 +43,21 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               );
             else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
 
-            el.scrollTop = el.scrollHeight;
-
             el.addEventListener('scroll', () => {
-              if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
+              scrollState.pinToBottom = el.scrollTop >= scrollState.lastScrollTop;
               scrollState.lastScrollTop = el.scrollTop;
             });
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLElement;
-            if (el.scrollTop + el.clientHeight > el.scrollHeight - 10) scrollState.pinToBottom = true;
 
-            if (!scrollState.pinToBottom) return;
+            if (el.scrollTop + el.clientHeight > el.scrollHeight - 10) scrollState.pinToBottom = true;
+            else if (!scrollState.pinToBottom) return;
 
             if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
-            else el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+
             scrollState.lastScrollTop = el.scrollTop;
           },
         },
