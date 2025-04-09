@@ -11,7 +11,7 @@ import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailAddress }
+import lila.security.{ FingerPrint, Signup, EmailConfirm }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
