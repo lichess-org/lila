@@ -25,7 +25,7 @@ export class TagsForm {
 
   editable = () => this.root.vm.mode.write;
 
-  submit = (name: string) => (value: string) => this.editable() && this.makeChange(name, value);
+  submit = (name: string, value: string) => this.editable() && this.makeChange(name, value);
 }
 
 export function view(root: StudyCtrl): VNode {
@@ -37,17 +37,34 @@ export function view(root: StudyCtrl): VNode {
 
 const doRender = (root: StudyCtrl): VNode => h('div', renderPgnTags(root.tags, root.data.showRatings));
 
-const editable = (value: string, submit: (v: string, el: HTMLInputElement) => void): VNode =>
+const editable = (
+  name: string,
+  value: string,
+  submit: (n: string, v: string, el: HTMLInputElement) => void,
+): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: { spellcheck: 'false', value },
+    attrs: { spellcheck: 'false', pattern: patterns[name], value },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = () => submit(el.value, el);
+      el.onblur = () => submit(name, el.value, el);
       el.onkeydown = e => {
         if (e.key === 'Enter') el.blur();
       };
     }),
   });
+
+const patterns: { [name: string]: string } = (() => {
+  const elo = '\\d{3,4}';
+  const fideId = '\\d{2,8}';
+  return {
+    // yyyy.mm.dd - unfortunately https://html5pattern.com/ is down.
+    Date: '(?:17|18|19|20)[0-9]{2}\\.(?:(?:0[1-9]|1[0-2])\\.(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
+    WhiteElo: elo,
+    BlackElo: elo,
+    WhiteFideId: fideId,
+    BlackFideId: fideId,
+  };
+})();
 
 type TagRow = (string | VNode)[];
 
@@ -67,7 +84,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
         tag =>
           showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
       )
-      .map(tag => [tag[0], tags.editable() ? editable(tag[1], tags.submit(tag[0])) : fixed(tag)]),
+      .map(tag => [tag[0], tags.editable() ? editable(tag[0], tag[1], tags.submit) : fixed(tag)]),
   );
   if (tags.editable()) {
     const existingTypes = chapter.tags.map(t => t[0]);
@@ -97,10 +114,10 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
           ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
         ],
       ),
-      editable('', (value, el) => {
+      editable('', '', (_, value, el) => {
         const tpe = tags.selectedType();
         if (tpe) {
-          tags.submit(tpe)(value);
+          tags.submit(tpe, value);
           el.value = '';
         }
       }),
