@@ -4,7 +4,17 @@ import reactivemongo.api.bson.*
 import scalalib.model.LangTag
 
 import lila.core.security.HashedPassword
-import lila.core.user.{ Count, Plan, PlayTime, Profile, TotpSecret, UserEnabled, UserMarks, RoleDbKey }
+import lila.core.user.{
+  KidMode,
+  Count,
+  Plan,
+  PlayTime,
+  Profile,
+  TotpSecret,
+  UserEnabled,
+  UserMarks,
+  RoleDbKey
+}
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -94,7 +104,7 @@ object BSONHandlers:
         playTime = r.getO[PlayTime](playTime),
         createdAt = r.date(createdAt),
         seenAt = r.dateO(seenAt),
-        kid = r.boolD(kid),
+        kid = KidMode(r.boolD(kid)),
         lang = r.getO[LangTag](lang),
         title = r.getO[chess.PlayerTitle](title),
         plan = r.getO[Plan](plan) | lila.user.Plan.empty,
@@ -116,7 +126,7 @@ object BSONHandlers:
         playTime   -> o.playTime,
         createdAt  -> o.createdAt,
         seenAt     -> o.seenAt,
-        kid        -> w.boolO(o.kid),
+        kid        -> w.boolO(o.kid.yes),
         lang       -> o.lang,
         title      -> o.title,
         plan       -> o.plan.nonEmpty,

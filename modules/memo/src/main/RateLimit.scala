@@ -66,6 +66,12 @@ object RateLimit:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
 
+  def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
+    def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =
+      limitA(k._1, default, cost, msg)(limitB(k._2, default, cost, msg)(op))
+    def chargeable[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: ChargeWith => T): T =
+      limitA.chargeable(k._1, default, cost, msg)(_ => limitB.chargeable(k._2, default, cost, msg)(op))
+
   def composite[K](
       key: String,
       log: Boolean = true

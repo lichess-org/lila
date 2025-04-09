@@ -1,50 +1,26 @@
-import { type RelayViewContext } from '../../view/components';
-import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
+import { looseH as h, VNode } from 'lib/snabbdom';
 import { getChessground, initMiniBoardWith } from 'lib/view/miniBoard';
 import { fenColor, uciToMove } from 'lib/game/chess';
-import { type ChatPlugin, makeChat } from 'lib/chat/chat';
-import { type TreeWrapper } from 'lib/tree/tree';
+import { type ChatPlugin } from 'lib/chat/interfaces';
+import type AnalyseCtrl from '@/ctrl';
 import { mainlineNodeList } from 'lib/tree/ops';
-import { watchers } from 'lib/view/watchers';
-import { frag } from 'lib';
 import { type ChapterId } from '../interfaces';
-import { type StudyChapters } from '../studyChapters';
 import { spinnerVdom } from 'lib/view/controls';
 
 type BoardConfig = CgConfig & { lastUci?: Uci };
 
-export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefined {
-  if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;
-  return h('section.mchat.mchat-optional', {
-    hook: onInsert(() => {
-      ctrl.opts.chat.instance = makeChat({
-        ...ctrl.opts.chat,
-        plugin: relay.chatCtrl,
-        persistent: true,
-        enhance: { plies: true, boards: true },
-      });
-      const members = frag<HTMLElement>('<div class="chat__members">');
-      document.querySelector('.relay-tour__side')?.append(members);
-      watchers(members, false);
-    }),
-  });
-}
-
-export class RelayChatPlugin implements ChatPlugin {
+export class LiveboardPlugin implements ChatPlugin {
   private animate = false;
   private board: BoardConfig | undefined;
-  private chapter: ChapterId | undefined;
   key = 'liveboard';
   name = i18n.broadcast.liveboard;
   kidSafe = true;
   redraw: Redraw;
-  isDisabled = () => true;
 
   constructor(
-    readonly previews: () => StudyChapters,
-    readonly localTree: () => TreeWrapper,
-    readonly relayPath: () => Tree.Path | undefined,
-    readonly orientation: () => Color,
+    readonly ctrl: AnalyseCtrl,
+    readonly isDisabled: () => boolean,
+    private chapter: ChapterId | undefined,
   ) {}
 
   reset = () => {
@@ -60,15 +36,15 @@ export class RelayChatPlugin implements ChatPlugin {
   }
 
   view(): VNode {
-    const path = this.relayPath();
-    const tree = this.localTree();
+    const path = this.ctrl.study?.data.chapter.relayPath;
+    const tree = this.ctrl.tree;
     const localMainline = mainlineNodeList(tree.root);
     const node = localMainline[localMainline.length - 1];
     if (path) {
       const node = tree.nodeAtPath(path);
       this.board = { fen: node.fen, check: !!node.check && fenColor(node.fen), lastUci: node.uci };
     } else if (this.chapter && !this.board) {
-      const preview = this.previews().get(this.chapter);
+      const preview = this.ctrl.study?.chapters.list.get(this.chapter);
       if (!preview) return spinnerVdom();
       this.board = {
         fen: preview.fen,
@@ -79,7 +55,7 @@ export class RelayChatPlugin implements ChatPlugin {
     this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
     this.board.lastMove = uciToMove(this.board.lastUci);
-    this.board.orientation = this.orientation();
+    this.board.orientation = this.ctrl.bottomColor();
     this.animate = true;
 
     return h('div.chat-liveboard', {

@@ -187,16 +187,15 @@ object header:
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
-                (ctx.kid.no && !hideTroll && !u.kid).option(
-                  frag(
-                    profile.nonEmptyRealName.map: name =>
-                      strong(cls := "name")(name),
-                    showLinks
-                      .so(profile.nonEmptyBio)
-                      .map: bio =>
-                        p(cls := "bio")(richText(bio, nl2br = true))
-                  )
-                ),
+                (ctx.kid.no && u.kid.no && !hideTroll)
+                  .so(profile.nonEmptyRealName)
+                  .map(strong(cls := "name")(_)),
+                info.publicFideId.map: id =>
+                  p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
+                (showLinks && ctx.kid.no && u.kid.no && !hideTroll)
+                  .so(profile.nonEmptyBio)
+                  .map: bio =>
+                    p(cls := "bio")(richText(bio, nl2br = true)),
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),
@@ -229,7 +228,7 @@ object header:
                       playTime.nonEmptyTvDuration.map: tvDuration =>
                         p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
                     ),
-                  (!hideTroll && !u.kid).option(
+                  (!hideTroll && u.kid.no).option(
                     div(cls := "social_links col2")(
                       showLinks
                         .option(profile.actualLinks)
@@ -242,7 +241,7 @@ object header:
                           )
                     )
                   ),
-                  (ctx.is(u) || !u.kid).option(
+                  (ctx.is(u) || u.kid.no).option(
                     div(cls := "teams col2")(
                       info.teamIds.nonEmpty.option(strong(trans.team.teams())),
                       info.teamIds

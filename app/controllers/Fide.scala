@@ -26,8 +26,9 @@ final class Fide(env: Env) extends LilaController(env):
           if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
           else
             for
+              user     <- env.title.api.publicUserOf(player.id)
               tours    <- env.relay.playerTour.playerTours(player, page)
-              rendered <- renderPage(views.fide.player.show(player, tours))
+              rendered <- renderPage(views.fide.player.show(player, user, tours))
             yield Ok(rendered)
 
   def apiShow(id: chess.FideId) = Anon:

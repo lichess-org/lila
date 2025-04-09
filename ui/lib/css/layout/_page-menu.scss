@@ -21,8 +21,7 @@
   &__content {
     grid-area: content;
     height: 100%;
-
-    // overflow: hidden; /* fixes crazy text overflow on Fx */
+    min-width: 0;
   }
 
   &__content.box {

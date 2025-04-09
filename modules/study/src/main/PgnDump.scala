@@ -30,9 +30,10 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done).so(analyser.byId(Analysis.Id(study.id, chapter.id))).map { analysis =>
-      ofChapter(study, flags)(chapter, analysis)
-    }
+    chapter.serverEval
+      .exists(_.done)
+      .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
+      .map(ofChapter(study, flags)(chapter, _))
 
   private val fileR         = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")

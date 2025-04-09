@@ -25,7 +25,6 @@ final class LoginContext(
   def username: Option[UserName] = user.map(_.username)
   def isBot                      = me.exists(_.isBot)
   def troll                      = user.exists(_.marks.troll)
-  def isKidUser                  = user.exists(_.kid)
   def isAppealUser               = me.exists(_.enabled.no)
   def isWebAuth                  = isAuth && oauth.isEmpty
   def isOAuth                    = isAuth && oauth.isDefined
@@ -47,7 +46,7 @@ class Context(
   lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   lazy val blind            = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
   def isMobileApi           = mobileApiVersion.isDefined
-  def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
+  def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
   def canPalantir                 = kid.no && me.exists(!_.marks.troll)

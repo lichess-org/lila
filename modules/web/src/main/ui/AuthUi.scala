@@ -176,7 +176,7 @@ final class AuthUi(helpers: Helpers):
             )
         )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Option[String])(using Context) =
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")
       .js(hcaptchaScript(form))
@@ -184,11 +184,12 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.isDefined.option(span(cls := "is-red", dataIcon := Icon.X)),
               trans.site.passwordReset()
             )
           ),
           postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
+            fail.map(p(cls := "error")(_)),
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),

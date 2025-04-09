@@ -6,7 +6,7 @@ import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import type TournamentController from '../ctrl';
 import { watchers } from 'lib/view/watchers';
-import { makeChat } from 'lib/chat/chat';
+import standaloneChat from 'lib/chat/standalone';
 
 export default function (ctrl: TournamentController) {
   let handler: {
@@ -30,7 +30,7 @@ export default function (ctrl: TournamentController) {
             side.toggleClass('collapsed');
             ctrl.collapsedDescription(side.hasClass('collapsed'));
           });
-        ctrl.opts.chat && makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && standaloneChat(ctrl.opts.chat);
       }),
     }),
     h('div.tour__underchat', {

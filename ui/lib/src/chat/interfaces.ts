@@ -1,10 +1,10 @@
 import type { VNode } from 'snabbdom';
-import type { Prop } from '../common';
+import type { Prop } from '@/common';
 
-import type { EnhanceOpts } from '../richText';
+import type { EnhanceOpts } from '@/richText';
+export type { ChatCtrl } from './chatCtrl';
 
 export interface ChatOpts {
-  el: HTMLElement;
   data: ChatData;
   writeable: boolean;
   kobold: boolean;

@@ -1,7 +1,7 @@
 import * as xhr from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
 import { wsConnect } from 'lib/socket';
-import { makeChat } from 'lib/chat/chat';
+import standaloneChat from 'lib/chat/standalone';
 import { prompt } from 'lib/view/dialogs';
 
 interface TeamOpts {
@@ -13,7 +13,7 @@ interface TeamOpts {
 export function initModule(opts: TeamOpts): void {
   wsConnect('/team/' + opts.id, opts.socketVersion);
 
-  if (opts.chat) makeChat(opts.chat);
+  if (opts.chat) standaloneChat(opts.chat);
 
   $('#team-subscribe').on('change', function (this: HTMLInputElement) {
     $(this)

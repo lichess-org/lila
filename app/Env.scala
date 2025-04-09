@@ -40,6 +40,7 @@ final class Env(
   val security: lila.security.Env = wire[lila.security.Env]
   val pref: lila.pref.Env         = wire[lila.pref.Env]
   val relation: lila.relation.Env = wire[lila.relation.Env]
+  val title: lila.title.Env       = wire[lila.title.Env]
   val game: lila.game.Env         = wire[lila.game.Env]
   import game.given
   val notifyM: lila.notify.Env          = wire[lila.notify.Env]
@@ -82,7 +83,6 @@ final class Env(
   val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
   val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   val fide: lila.fide.Env               = wire[lila.fide.Env]
-  val title: lila.title.Env             = wire[lila.title.Env]
   val study: lila.study.Env             = wire[lila.study.Env]
   val studySearch: lila.studySearch.Env = wire[lila.studySearch.Env]
   val learn: lila.learn.Env             = wire[lila.learn.Env]

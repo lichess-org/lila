@@ -128,8 +128,15 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   followable.option(followButton(user, followed))
                 )
               ),
-              h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
-              (others.size > 0).option(div(cls := "ublog-post-cards")(others.map(ui.card(_))))
+              (others.length > 0).option(
+                div(
+                  h2("You may also like"),
+                  div(cls := "ublog-post-cards")(
+                    others.map:
+                      ui.card(_, showAuthor = ui.ShowAt.top, showIntro = true)
+                  )
+                )
+              )
             )
           )
         )

@@ -74,6 +74,11 @@
     background: $m-primary_bg--mix-10;
   }
 
+  input:invalid {
+    border: 1px solid $c-bad;
+    color: $c-bad;
+  }
+
   select {
     cursor: pointer;
     border: none;

@@ -170,7 +170,12 @@ object StudyPgnImport:
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
         None
 
-  private def guessNewClockState(prev: Clock, ply: Ply, tc: Option[TournamentClock], emt: Centis): Clock =
+  private[study] def guessNewClockState(
+      prev: Clock,
+      ply: Ply,
+      tc: Option[TournamentClock],
+      emt: Centis
+  ): Clock =
     Clock(prev.centis - emt + ~tc.map(_.incrementAtPly(ply)), trust = false.some)
 
   /*

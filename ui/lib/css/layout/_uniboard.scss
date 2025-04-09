@@ -10,10 +10,6 @@ body {
 }
 
 @include mq-is-col1 {
-  body {
-    ---col1: 1;
-  }
-
   .main-board cg-board {
     border-radius: 0;
   }

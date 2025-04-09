@@ -1,17 +1,17 @@
 import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
-import type { StudyMemberCtrl } from '../studyMembers';
-import type { AnalyseSocketSend } from '../../socket';
+import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '@/study/interfaces';
+import type { StudyMemberCtrl } from '@/study/studyMembers';
+import type { AnalyseSocketSend } from '@/socket';
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
-import type { StudyChapters } from '../studyChapters';
-import type { MultiCloudEval } from '../multiCloudEval';
+import type { StudyChapters } from '@/study/studyChapters';
+import type { MultiCloudEval } from '@/study/multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
-import { RelayChatPlugin } from './relayChat';
+import type AnalyseCtrl from '@/ctrl';
+import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
-import type { MultiRedraw } from '../../interfaces';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -30,22 +30,27 @@ export default class RelayCtrl {
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
+  liveboardPlugin: LiveboardPlugin;
+  readonly baseRedraw: Redraw;
+  readonly send: AnalyseSocketSend;
 
   constructor(
     readonly id: RoundId,
     public data: RelayData,
-    readonly send: AnalyseSocketSend,
-    readonly baseRedraw: MultiRedraw,
-    readonly isEmbed: boolean,
+    analyse: AnalyseCtrl,
     readonly members: StudyMemberCtrl,
     readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
     private readonly updateHistoryAndAddressBar: () => void,
-    readonly chatCtrl: RelayChatPlugin,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
+    this.baseRedraw = analyse.redraw;
+    this.send = analyse.socket.send;
+    this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
+    analyse.opts.chat.plugin = this.liveboardPlugin;
+
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
@@ -59,7 +64,7 @@ export default class RelayCtrl {
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
-      this.isEmbed,
+      analyse.isEmbed,
       this.federations,
       this.redraw,
     );
@@ -76,9 +81,6 @@ export default class RelayCtrl {
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', { name: pinnedName, lang: '' }]);
-    this.chatCtrl.isDisabled = () => this.tourShow();
-    this.chatCtrl.setChapterId(chapterSelect.get());
-    this.baseRedraw.add(() => this.chatCtrl.redraw?.());
     pubsub.on('socket.in.crowd', d => {
       const s = d.streams?.slice() ?? [];
       if (pinnedName) s.unshift(['ps', { name: pinnedName, lang: '' }]);
@@ -105,7 +107,7 @@ export default class RelayCtrl {
     if (this.tourShow()) {
       this.tourShow(false);
     }
-    this.chatCtrl.setChapterId(id);
+    this.liveboardPlugin.setChapterId(id);
     this.redraw();
   };
 

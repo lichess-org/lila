@@ -76,7 +76,7 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
       ? [
           h('tr', [h('th', i18n.site.winRate), h('td', ratio2percent(nb.win / nb.game))]),
           berserkable
-            ? h('tr', [h('th', i18n.site.berserkRate), h('td', ratio2percent(nb.berserk / nb.game))])
+            ? h('tr', [h('th', i18n.arena.berserkRate), h('td', ratio2percent(nb.berserk / nb.game))])
             : null,
         ]
       : []),

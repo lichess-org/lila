@@ -3,7 +3,7 @@ import type { GameData, Status, RoundStep } from 'lib/game/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
-import type { ChatCtrl, ChatPlugin } from 'lib/chat/chat';
+import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
@@ -90,7 +90,7 @@ export interface RoundOpts {
   chat?: ChatOpts;
 }
 
-export interface ChatOpts {
+export interface ChatOpts extends BaseChatOpts {
   preset: 'start' | 'end' | undefined;
   enhance?: EnhanceOpts;
   plugin?: ChatPlugin;

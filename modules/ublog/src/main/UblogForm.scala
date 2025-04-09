@@ -86,6 +86,7 @@ object UblogForm:
         lived = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0),
+        similar = Nil,
         rankAdjustDays = none,
         pinned = none
       )

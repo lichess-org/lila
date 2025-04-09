@@ -15,6 +15,7 @@ import {
   renderTools,
   renderUnderboard,
 } from '../../view/components';
+import { displayColumns, isTouchDevice } from 'lib/device';
 import type RelayCtrl from './relayCtrl';
 
 export function relayView(
@@ -25,13 +26,22 @@ export function relayView(
 ): VNode {
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
 
-  const renderTourView = () => [renderRelayTour(ctx), tourSide(ctx), deps.relayManager(relay, study)];
+  const renderTourView = () => {
+    const resizable = displayColumns() > (ctx.hasRelayTour ? 1 : 2);
 
-  return renderMain(ctx, [
+    return [
+      renderRelayTour(ctx),
+      tourSide(ctx, resizable && deps.relayManager(relay, study)),
+      !resizable && deps.relayManager(relay, study),
+    ];
+  };
+
+  return renderMain(
+    ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
     ...(ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx)),
-  ]);
+  );
 }
 
 export const backToLiveView = (ctrl: AnalyseCtrl) =>
@@ -87,13 +97,14 @@ export function allowVideo(): boolean {
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
+  const resizable = !isTouchDevice() && displayColumns() > 2;
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
     renderTools(ctx, relay.noEmbed() ? undefined : relay.videoPlayer?.render()),
     renderControls(ctrl),
     !ctrl.isEmbed && renderUnderboard(ctx),
-    tourSide(ctx),
-    deps.relayManager(relay, study),
+    tourSide(ctx, resizable && deps.relayManager(relay, study)),
+    !resizable && deps.relayManager(relay, study),
   ];
 }
