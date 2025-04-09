@@ -145,11 +145,8 @@ main.analyse.is-relay:not(.has-relay-tour) {
   align-items: center;
   cursor: row-resize;
   width: 100%;
-  height: 14px;
+  height: 22px;
 
-  &:has(.chat__members) {
-    height: 22px;
-  }
   &:hover {
     background: $m-primary--fade-70;
     hr {
