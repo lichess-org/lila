@@ -487,13 +487,11 @@
   <string name="losses">Perdíes</string>
   <string name="createdBy">Fechu por</string>
   <string name="startingIn" comment="Displayed above a timer">Entama en</string>
-  <string name="tournamentPairingsAreNowClosed">Los emparexamientos del tornéu tan zarraos.</string>
   <string name="standByX">Espera %s, empareyando xugadores, ¡prepárate!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Siguir</string>
   <string name="youArePlaying">¡Tas xugando!</string>
   <string name="winRate">Tasa de victories</string>
-  <string name="berserkRate">Tasa de bersek</string>
   <string name="performance">Rindimientu</string>
   <string name="tournamentComplete">Tornéu termináu</string>
   <string name="movesPlayed">Movimientos xugaos</string>
@@ -744,7 +742,7 @@
   <string name="checkYourEmail">Confirma\'l to email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te unviemos un corréu. Activa la to cuenta nel enllaz proporcionáu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si nun atopeste col corréu, mira si ta n\'otres carpetes (spam, social, ...).</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Si nun recibes el corréu electrónicu en 5 minutos:</string>
+  <string name="ifYouDoNotGetTheEmail">Si nun recibes el corréu electrónicu en 5 minutos:</string>
   <string name="checkAllEmailFolders">Revisa tol corréu basura, spam y otres carpetes</string>
   <string name="verifyYourAddress">Verifica que %s ye la to dirección de corréu electrónicu</string>
   <string name="weHaveSentYouAnEmailTo">Te unviemos un corréu a %s. Restablez la to contraseña faciendo clic nel enllaz.</string>
