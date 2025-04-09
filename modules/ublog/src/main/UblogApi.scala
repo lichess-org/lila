@@ -119,7 +119,7 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
-  def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
+  def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
