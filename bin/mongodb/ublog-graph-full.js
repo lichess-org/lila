@@ -1,3 +1,10 @@
+/* O(n) for ublog_post documents
+ * for 48k documents in the DB, it takes about 2 minutes to run
+ * and uses up to 600MB of memory.
+ *
+ * Should run only once, then be replaced with
+ * ublog-graph-incremental.js
+  */
 console.log('Full recompute');
 const all = db.ublog_post.find({ live: true, 'likers.1': { $exists: true } }, { likers: 1 }).toArray();
 console.log(`${all.length} posts to go.`);

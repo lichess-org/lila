@@ -1,3 +1,9 @@
+/* O(1) assuming constant number of recently updated posts
+ * At the time of writing, with 48k ublog_post in the DB, 
+ * it takes about 4 seconds to run and uses up to 300MB of memory.
+ *
+ * Should run periodically, e.g. every 1 hour.
+  */
 const since = new Date(Date.now() - 1000 * 60 * 60 * 24 * 15);
 const updatable = db.ublog_post.find({ live: true, 'updated.at': { $gt: since } }, { likers: 1 }).toArray();
 console.log(`${updatable.length} posts were updated since ${since}`);
