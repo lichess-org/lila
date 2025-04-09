@@ -7,11 +7,11 @@ import { moderationView } from './moderation';
 
 import type { ChatCtrl } from './chatCtrl';
 
-export function renderChat(ctrl: ChatCtrl, footer?: VNode): VNode {
+export function renderChat(ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
     { class: { 'mchat-mod': !!ctrl.moderation } },
-    [...(moderationView(ctrl.moderation) || normalView(ctrl)), footer],
+    moderationView(ctrl.moderation) || normalView(ctrl),
   );
 }
 
