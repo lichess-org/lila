@@ -450,14 +450,12 @@
   <string name="wins">胜</string>
   <string name="losses">负</string>
   <string name="createdBy">创建者:</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">开始于</string>
-  <string name="tournamentPairingsAreNowClosed">本锦标赛已不再产生新的对局</string>
+  <string name="startingIn" comment="Displayed above a timer">开始于</string>
   <string name="standByX">%s 做好准备，你马上就要开始对局了！</string>
   <string name="pause">暂停</string>
   <string name="resume">继续</string>
   <string name="youArePlaying">你已加入锦标赛！</string>
   <string name="winRate">胜率</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">快棋率</string>
   <string name="performance">表现评分</string>
   <string name="tournamentComplete">锦标赛结束</string>
   <string name="movesPlayed">步数</string>
@@ -703,7 +701,7 @@
   <string name="checkYourEmail">请查看你的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发送到你的邮箱。请点击邮件中的链接以激活你的账户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果你没有收到我们的邮件，请检查其他收件箱，例如垃圾箱，广告箱等。</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">如果您在 5 分钟内没有收到电子邮件：</string>
+  <string name="ifYouDoNotGetTheEmail">如果您在 5 分钟内没有收到电子邮件：</string>
   <string name="checkAllEmailFolders">请检查所有垃圾邮件或其他文件夹</string>
   <string name="verifyYourAddress">验证 %s 是您的邮箱地址</string>
   <string name="weHaveSentYouAnEmailTo">我们给你的邮箱 %s 发了重置密码的链接。请点击链接来重置你的密码。</string>
