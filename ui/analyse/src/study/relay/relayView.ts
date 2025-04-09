@@ -36,11 +36,12 @@ export function relayView(
     ];
   };
 
-  return renderMain(ctx, [
+  return renderMain(
+    ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
     ...(ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx)),
-  ]);
+  );
 }
 
 export const backToLiveView = (ctrl: AnalyseCtrl) =>

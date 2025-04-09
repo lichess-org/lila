@@ -7,7 +7,7 @@ import results from './results';
 import pairings from './pairings';
 import { initMiniGames } from 'lib/view/miniBoard';
 import { watchers } from 'lib/view/watchers';
-import { makeChat } from 'lib/chat/chat';
+import { makeChatWithPatch } from 'lib/chat/patch';
 
 export default function (ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);
@@ -18,7 +18,7 @@ export default function (ctrl: SimulCtrl) {
         $(el).replaceWith(ctrl.opts.$side);
         if (ctrl.opts.chat) {
           ctrl.opts.chat.data.hostIds = [ctrl.data.host.id];
-          makeChat(ctrl.opts.chat);
+          makeChatWithPatch(ctrl.opts.chat);
         }
       }),
     }),

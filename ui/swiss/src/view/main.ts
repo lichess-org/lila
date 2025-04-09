@@ -15,7 +15,7 @@ import { use24h } from 'lib/i18n';
 import { once } from 'lib/storage';
 import { initMiniGames } from 'lib/view/miniBoard';
 import { watchers } from 'lib/view/watchers';
-import { makeChat } from 'lib/chat/chat';
+import { makeChatWithPatch } from 'lib/chat/patch';
 import { prompt } from 'lib/view/dialogs';
 
 export default function (ctrl: SwissCtrl) {
@@ -26,7 +26,7 @@ export default function (ctrl: SwissCtrl) {
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && makeChatWithPatch(ctrl.opts.chat);
       }),
     }),
     h('div.swiss__underchat', {

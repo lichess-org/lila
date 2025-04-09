@@ -10,7 +10,7 @@ import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
-import { makeChat } from 'lib/chat/chat';
+import { makeChatWithPatch } from 'lib/chat/patch';
 import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
 import { alert } from 'lib/view/dialogs';
@@ -117,7 +117,7 @@ async function boot(
       chatOpts.enhance = { plies: true };
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
-    chatOpts.instance = makeChat(chatOpts);
+    chatOpts.instance = makeChatWithPatch(chatOpts);
     if (!data.tournament && !data.simul && !data.swiss) {
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
       if (myUserId())

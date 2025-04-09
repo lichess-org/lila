@@ -5,16 +5,13 @@ import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
 
-import type ChatCtrl from './ctrl';
+import type { ChatCtrl } from './chatCtrl';
 
-export default function (ctrl: ChatCtrl): VNode {
+export function renderChat(ctrl: ChatCtrl, footer?: VNode): VNode {
   return h(
     'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
-    {
-      class: { 'mchat-mod': !!ctrl.moderation },
-      hook: ctrl.opts.persistent ? {} : { destroy: ctrl.destroy },
-    },
-    moderationView(ctrl.moderation) || normalView(ctrl),
+    { class: { 'mchat-mod': !!ctrl.moderation } },
+    [...(moderationView(ctrl.moderation) || normalView(ctrl)), footer],
   );
 }
 

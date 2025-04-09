@@ -39,7 +39,6 @@ import type {
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
-import { RelayChatPlugin } from './relay/relayChat';
 import type { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
@@ -164,21 +163,13 @@ export default class StudyCtrl {
       this.relay = new RelayCtrl(
         this.data.id,
         relayData,
-        this.send,
-        ctrl.redraw,
-        ctrl.isEmbed,
+        ctrl,
         this.members,
         this.chapters.list,
         this.multiCloudEval,
         () => this.data.federations,
         this.chapterSelect,
         this.updateHistoryAndAddressBar,
-        new RelayChatPlugin(
-          () => this.chapters.list,
-          () => this.ctrl.tree,
-          () => this.data.chapter.relayPath,
-          () => this.bottomColor(),
-        ),
       );
     }
     this.multiBoard = new MultiBoardCtrl(
@@ -500,7 +491,7 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      this.relay?.chatCtrl.reset();
+      this.relay?.liveboardPlugin.reset();
       await this.xhrReload();
       componentCallbacks(id);
     }

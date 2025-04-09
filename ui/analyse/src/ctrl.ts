@@ -7,14 +7,7 @@ import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'lib/device';
-import type {
-  AnalyseOpts,
-  AnalyseData,
-  ServerEvalData,
-  JustCaptured,
-  NvuiPlugin,
-  MultiRedraw,
-} from './interfaces';
+import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
@@ -52,6 +45,7 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
+import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
 
@@ -83,6 +77,7 @@ export default class AnalyseCtrl {
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
+  chatCtrl: ChatCtrl;
   wiki?: WikiTheory;
 
   // state flags
@@ -131,7 +126,7 @@ export default class AnalyseCtrl {
 
   constructor(
     readonly opts: AnalyseOpts,
-    readonly redraw: MultiRedraw,
+    readonly redraw: Redraw,
     makeStudy?: typeof StudyCtrl,
   ) {
     this.data = opts.data;
@@ -190,7 +185,12 @@ export default class AnalyseCtrl {
       }
       site.redirect('/analysis');
     }
-
+    if (this.opts.chat && !this.isEmbed) {
+      this.chatCtrl = new ChatCtrl(
+        { ...this.opts.chat, enhance: { plies: true, boards: !!this.study?.relay } },
+        this.redraw,
+      );
+    }
     pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();

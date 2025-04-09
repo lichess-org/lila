@@ -6,7 +6,7 @@ import type { Line } from './interfaces';
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
-import type ChatCtrl from './ctrl';
+import type { ChatCtrl } from './chatCtrl';
 import { tempStorage } from '../storage';
 import { pubsub } from '../pubsub';
 import { alert } from '../view/dialogs';

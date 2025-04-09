@@ -18,7 +18,9 @@ import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
 import { alert } from '../view/dialogs';
 
-export default class ChatCtrl {
+//export { type ChatOpts, type ChatPlugin } from './interfaces';
+
+export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
@@ -53,8 +55,8 @@ export default class ChatCtrl {
     this.vm = {
       loading: false,
       autofocus: false,
-      timeout: opts.timeout,
-      writeable: opts.writeable,
+      timeout: opts.timeout ?? false,
+      writeable: opts.writeable ?? false,
       domVersion: 1, // increment to force redraw
     };
 

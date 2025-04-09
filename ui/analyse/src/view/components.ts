@@ -4,8 +4,7 @@ import { defined, repeater } from 'lib';
 import * as licon from 'lib/licon';
 import {
   type VNode,
-  type VNodeKids,
-  type MaybeVNode,
+  type LooseVNode,
   bind,
   bindNonPassive,
   onInsert,
@@ -40,7 +39,6 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'lib/storage';
-import { makeChat } from 'lib/chat/chat';
 import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
 
@@ -89,8 +87,8 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 }
 
 export function renderMain(
-  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour, relay }: ViewContext,
-  kids: VNodeKids,
+  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  ...kids: LooseVNode[]
 ): VNode {
   const isRelay = defined(ctrl.study?.relay);
   return h(
@@ -102,7 +100,6 @@ export function renderMain(
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          !relay && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
         update(_, _2) {
@@ -129,7 +126,7 @@ export function renderMain(
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: MaybeVNode) {
+export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embedded,
     ...(ctrl.actionMenu()
@@ -351,7 +348,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
 }
 
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
+  const render = (result: string, status: string) => [h('div.result', result), h('div.status', status)];
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
@@ -359,9 +356,9 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   } else if (ctrl.study) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result');
     if (!result || result === '*') return [];
-    if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
-    if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
-    return render('½-½', [i18n.site.draw]);
+    if (result === '1-0') return render(result, i18n.site.whiteIsVictorious);
+    if (result === '0-1') return render(result, i18n.site.blackIsVictorious);
+    return render('½-½', i18n.site.draw);
   }
   return [];
 }
@@ -384,18 +381,6 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
-
-export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
-  if (ctrl.opts.chat) {
-    const chatEl = document.createElement('section');
-    chatEl.classList.add('mchat');
-    insert(chatEl);
-    const chatOpts = ctrl.opts.chat;
-    chatOpts.instance?.destroy();
-    chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
-    chatOpts.instance = makeChat(chatOpts);
-  }
-}
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {

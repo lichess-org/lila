@@ -19,9 +19,10 @@ import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
-import { relayChatView } from './relayChat';
-import { displayColumns } from 'lib/device';
+import { renderChat } from 'lib/chat/renderChat';
+import { displayColumns, isTouchDevice } from 'lib/device';
 import { verticalResizeSeparator } from 'lib/view/verticalResize';
+import { watchers } from 'lib/view/watchers';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -43,7 +44,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   const resizeId =
-    displayColumns() > (ctx.hasRelayTour ? 1 : 2) ? `relayTour/${relay.data.tour.id}` : undefined;
+    !isTouchDevice() && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
   return h(
     'aside.relay-tour__side',
     {
@@ -92,12 +93,15 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           max: () => 48 * study.chapters.list.size(),
           initialMaxHeight: window.innerHeight / 2,
         }),
-      relayChatView(ctx),
+      renderChat(
+        ctx.ctrl.chatCtrl,
+        h('div.chat__members.none', { hook: onInsert(el => watchers(el, false)) }),
+      ),
       resizeId &&
         verticalResizeSeparator({
           key: 'relay-chat',
           id: resizeId,
-          min: () => 72,
+          min: () => 64,
           max: () => window.innerHeight,
           initialMaxHeight: window.innerHeight / 3,
         }),

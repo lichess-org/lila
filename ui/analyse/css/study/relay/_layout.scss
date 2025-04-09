@@ -7,6 +7,19 @@ body {
   }
 }
 
+@mixin resizable-side {
+  .vertical-resize-separator {
+    display: flex;
+  }
+  .mchat {
+    margin-top: 0;
+    min-height: 52px;
+  }
+  .relay-admin {
+    margin-top: 0;
+  }
+}
+
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
@@ -23,14 +36,11 @@ main.is-relay {
     button.streamer-show {
       display: block;
     }
-    .relay-admin__container {
-      grid-area: none;
-    }
-    .vertical-resize-separator {
-      display: flex;
-    }
-    .mchat {
-      min-height: 52px;
+    @media (pointer: fine) {
+      .relay-admin__container {
+        grid-area: none;
+      }
+      @include resizable-side;
     }
   }
 }
@@ -48,8 +58,8 @@ main.is-relay.has-relay-tour {
 
   @include mq-at-least-col2 {
     grid-template-areas: 'relay-tour . side';
-    .vertical-resize-separator {
-      display: flex;
+    @media (pointer: fine) {
+      @include resizable-side;
     }
   }
 
