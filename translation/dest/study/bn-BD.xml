@@ -47,7 +47,6 @@
   <string name="next">পরের ধাপ</string>
   <string name="cloneStudy">ডুপ্লিকেট/নকল করবেন</string>
   <string name="studyPgn">অধ্যায়ন PGN আকারে</string>
-  <string name="downloadAllGames">ডাউনলোড করুন সকল গেম</string>
   <string name="open">ওপেন</string>
   <string name="startFromCustomPosition">নির্দিষ্ট অবস্থান থেকে শুরু করুন</string>
   <string name="loadAGameByUrl">URL থেকে খেলা লোড করুন</string>
