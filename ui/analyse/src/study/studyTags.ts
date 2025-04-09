@@ -1,6 +1,6 @@
 import { onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
-import { h, thunk, type VNode } from 'snabbdom';
+import { Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
@@ -44,7 +44,7 @@ const editable = (
 ): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: { spellcheck: 'false', pattern: patterns[name], maxlength: 140, value },
+    attrs: { spellcheck: 'false', ...(inputAttrs[name] ?? {}), maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
       el.onblur = () => submit(name, el.value, el);
       el.onkeydown = e => {
@@ -53,12 +53,16 @@ const editable = (
     }),
   });
 
-const patterns: { [name: string]: string } = (() => {
-  const elo = '\\d{3,4}';
-  const fideId = '\\d{2,8}';
+const inputAttrs: { [name: string]: Attrs } = (() => {
+  const elo = { pattern: '\\d{3,4}' };
+  const fideId = { pattern: '\\d{2,8}' };
   return {
     // yyyy.mm.dd - unfortunately https://html5pattern.com/ is down.
-    Date: '(?:17|18|19|20)[0-9]{2}\\.(?:(?:0[1-9]|1[0-2])\\.(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
+    Date: {
+      pattern:
+        '(?:17|18|19|20)[0-9]{2}\\.(?:(?:0[1-9]|1[0-2])\\.(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
+      title: 'yyyy.mm.dd',
+    },
     WhiteElo: elo,
     BlackElo: elo,
     WhiteFideId: fideId,
