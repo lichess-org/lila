@@ -1,5 +1,5 @@
 import { winningChances, type CevalCtrl } from 'lib/ceval/ceval';
-import { annotationShapes } from 'lib/chess/glyphs';
+import { annotationShapes } from 'lib/game/glyphs';
 import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import type { NormalMove, Square } from 'chessops/types';
@@ -37,7 +37,7 @@ export default function (opts: Opts): DrawShape[] {
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
     shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
-  if (opts.showComputer()) {
+  if (opts.showComputer() && opts.ceval.storedPv() > 0) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest();

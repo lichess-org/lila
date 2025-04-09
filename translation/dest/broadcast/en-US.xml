@@ -6,6 +6,10 @@
     <item quantity="one">%s broadcast</item>
     <item quantity="other">%s broadcasts</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s viewer</item>
+    <item quantity="other">%s viewers</item>
+  </plurals>
   <string name="liveBroadcasts">Live tournament broadcasts</string>
   <string name="broadcastCalendar">Broadcast calendar</string>
   <string name="newBroadcast">New live broadcast</string>
@@ -78,4 +82,7 @@
   <string name="optionalDetails">Optional details</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
+  <string name="backToLiveMove">Back to live move</string>
+  <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
+  <string name="liveboard">Live board</string>
 </resources>

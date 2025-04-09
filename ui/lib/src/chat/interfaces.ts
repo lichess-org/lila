@@ -19,9 +19,10 @@ export interface ChatOpts {
   noteText?: string;
   plugin?: ChatPlugin;
   kidMode: boolean;
+  persistent?: boolean;
 }
 
-export type Tab = { key: string; hidden?: boolean };
+export type Tab = { key: string; isDisabled?: () => boolean };
 
 export interface ChatPlugin extends Tab {
   name: string;

@@ -13,7 +13,7 @@ import ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  val engineFullName = "Stockfish 17"
+  val engineFullName = "Stockfish 17.1"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)

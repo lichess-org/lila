@@ -51,6 +51,7 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       withAllowList: Boolean,
+      withDescription: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none,
       addReloadEndpoint: Option[Tournament => Boolean] = none
   )(using
@@ -132,7 +133,7 @@ final class JsonView(
                 "nbLeaders" -> battle.nbLeaders
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted)))
-          .add("description" -> tour.description)
+          .add("description" -> withDescription.so(tour.description))
           .add("myUsername" -> me.map(_.username))
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
           .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
@@ -364,13 +365,19 @@ final class JsonView(
   def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.isTeamBattle.soFu(teamStandingJsonCache.get(tour.id))
 
-  def apiTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
-    tour.teamBattle.soFu: battle =>
-      if battle.hasTooManyTeams
-      then bigTeamStandingJsonCache.get(tour.id)
-      else teamStandingJsonCache.get(tour.id)
+  def apiTeamStanding(tour: Tournament): Fu[Option[JsObject]] =
+    tour.teamBattle
+      .soFu: battle =>
+        if battle.hasTooManyTeams
+        then bigTeamStandingJsonCache.get(tour.id)
+        else teamStandingJsonCache.get(tour.id)
+      .map2: teams =>
+        Json.obj(
+          "id"    -> tour.id,
+          "teams" -> teams
+        )
 
-  private val teamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding"):
+  private val teamStandingJsonCache = cacheApi[TourId, JsArray](16, "tournament.teamStanding"):
     _.expireAfterWrite(500.millis)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
 

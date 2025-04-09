@@ -9,11 +9,11 @@ import type { TourPlayer } from 'lib/game/game';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';
-import { setClockWidget } from 'lib/clock';
+import { setClockWidget } from 'lib/game/clock/clockWidget';
 import { makeChat } from 'lib/chat/chat';
 import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 
 const patch = init([classModule, attributesModule]);
 

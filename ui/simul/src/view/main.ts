@@ -5,8 +5,8 @@ import created from './created';
 import { richHTML } from 'lib/richText';
 import results from './results';
 import pairings from './pairings';
-import { initMiniGames } from 'lib/miniBoard';
-import { watchers } from 'lib/watchers';
+import { initMiniGames } from 'lib/view/miniBoard';
+import { watchers } from 'lib/view/watchers';
 import { makeChat } from 'lib/chat/chat';
 
 export default function (ctrl: SimulCtrl) {

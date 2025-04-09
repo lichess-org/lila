@@ -12,7 +12,7 @@ import { PromotionCtrl } from './promotionCtrl';
 import { type Prop, prop } from 'lib';
 import type { DrawShape } from 'chessground/draw';
 import { makeAppleShape } from './apple';
-import { type WithGround } from 'lib/chess/ground';
+import { type WithGround } from 'lib/game/ground';
 
 export interface LevelVm {
   score: number;

@@ -8,6 +8,12 @@
     <item quantity="few">%s oddaje</item>
     <item quantity="other">%s oddaj</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s gledalec</item>
+    <item quantity="two">%s gledalca</item>
+    <item quantity="few">%s gledalci</item>
+    <item quantity="other">%s gledalcev</item>
+  </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
   <string name="broadcastCalendar">Koledar oddaj</string>
   <string name="newBroadcast">Nov prenos v živo</string>
@@ -81,4 +87,5 @@
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
   <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
+  <string name="liveboard">Živa deska</string>
 </resources>

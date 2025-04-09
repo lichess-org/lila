@@ -1,4 +1,4 @@
-import { fenToEpd, readDests, readDrops } from 'lib/chess/chess';
+import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
 import { playable, playedTurns } from 'lib/game/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -42,7 +42,7 @@ import { storedBooleanProp } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import type StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
@@ -52,7 +52,7 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
-import { confirm } from 'lib/dialogs';
+import { confirm } from 'lib/view/dialogs';
 import api from './api';
 import { init } from 'lib/tree/path';
 

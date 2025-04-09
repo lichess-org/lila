@@ -1,6 +1,6 @@
 import { type PubsubCallback, type PubsubEvent, pubsub } from './pubsub';
-import { domDialog } from './dialog';
-import { alert, confirm, prompt } from './dialogs';
+import { domDialog } from './view/dialog';
+import { alert, confirm, prompt } from './view/dialogs';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];

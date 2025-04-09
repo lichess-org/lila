@@ -98,7 +98,7 @@ final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.Pa
 
 final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
   export ctx.*
-  def boardClass = ctx.pref.realTheme.cssClass
+  def boardClass = ctx.pref.realTheme.name
   def pieceSet   = ctx.pref.realPieceSet
 
 object EmbedContext:

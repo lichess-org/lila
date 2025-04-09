@@ -3,7 +3,7 @@ import * as licon from 'lib/licon';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, looseH as h } from 'lib/snabbdom';
 import { numberFormat } from 'lib/i18n';
 import perfIcons from 'lib/game/perfIcons';
-import { userLink } from 'lib/userLink';
+import { userLink } from 'lib/view/userLink';
 import type PuzzleStreak from '../streak';
 import type PuzzleCtrl from '../ctrl';
 

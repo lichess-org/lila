@@ -245,7 +245,7 @@ final class Swiss(
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
-            .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
+            .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
 
   def byTeam(id: TeamId) = Anon:
     apiC.jsonDownload:

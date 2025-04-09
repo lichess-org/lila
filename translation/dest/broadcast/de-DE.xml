@@ -6,6 +6,10 @@
     <item quantity="one">%s Übertragung</item>
     <item quantity="other">%s Übertragungen</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s Zuschauer</item>
+    <item quantity="other">%s Zuschauer</item>
+  </plurals>
   <string name="liveBroadcasts">Live-Turnierübertragungen</string>
   <string name="broadcastCalendar">Sendekalender</string>
   <string name="newBroadcast">Neue Liveübertragung</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Alle Übertragungen nach Monat anzeigen</string>
   <string name="backToLiveMove">Zurück zum aktuellen Zug</string>
   <string name="sinceHideResults">Da du dich entschieden hast, die Ergebnisse nicht anzuzeigen, sind alle Vorschau-Bretter leer, um Spoiler zu vermeiden.</string>
+  <string name="liveboard">Live-Brett</string>
 </resources>

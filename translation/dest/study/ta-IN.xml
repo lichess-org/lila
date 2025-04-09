@@ -55,10 +55,7 @@
   <string name="playing">விளையாடுகிறார்</string>
   <string name="showResults">முடிவுகள்</string>
   <string name="showEvalBar">கணிப்பு பட்டிகள்</string>
-  <string name="first">முதலாவது</string>
-  <string name="previous">முந்தைய</string>
   <string name="next">அடுத்து</string>
-  <string name="last">இறுதி</string>
   <string name="shareAndExport">பகிர் &amp; ஏற்றுமதி</string>
   <string name="cloneStudy">நகல்</string>
   <string name="studyPgn">PGN கற்கை</string>
@@ -169,4 +166,19 @@
   <string name="whatWouldYouPlay">இந்த நிலையில் நீங்கள் என்ன விளையாடுவீர்கள்?</string>
   <string name="youCompletedThisLesson">வாழ்த்துகள்! இந்தப் பாடத்தை முடித்துவிட்டீர்கள்.</string>
   <string name="perPage">ஒரு பக்கத்திற்கு %s</string>
+  <string name="getTheTour">உதவி தேவையா? வழிகாட்டியைச் சரிபார்க்கவும்!</string>
+  <string name="welcomeToLichessStudyTitle">Lichess படிப்புக்கு வருக!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">பகிரப்பட்டு சேமிக்கப்பட்டது</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">மற்ற உறுப்பினர்கள் உங்கள் நகர்வுகளை நிகழ்நேரத்தில் பார்க்கலாம்!&lt;br&gt;மேலும், அனைத்தும் என்றென்றும் சேமிக்கப்படும்.</string>
+  <string name="studyMembersTitle">கற்கை உறுப்பினர்கள்</string>
+  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">%s பொத்தானைக் அழுத்துங்கள்.&lt;br&gt;பின்னர் யார் பங்களிக்கலாம் அல்லது பங்களிக்கக் கூடாது என்பதை முடிவு செய்யுங்கள்.</string>
+  <string name="studyChaptersTitle">கற்கை அத்தியாயங்கள்</string>
+  <string name="commentPositionTitle">ஒரு நிலை குறித்து கருத்து தெரிவிக்கவும்</string>
+  <string name="annotatePositionTitle">ஒரு நிலையைக் குறிப்பிடவும்</string>
+  <string name="conclusionTitle">உங்கள் நேரத்திற்கு நன்றி</string>
+  <string name="createChapterTitle">ஒரு படிப்பு அத்தியாயத்தை உருவாக்குவோம்</string>
+  <string name="fromInitialPositionTitle">தொடக்க நிலையிலிருந்து</string>
+  <string name="customPositionTitle">விருப்ப நிலை</string>
+  <string name="loadExistingLichessGameTitle">ஏற்கனவே உள்ள ஒரு Lichess விளையாட்டை ஏற்றவும்</string>
+  <string name="fromPgnGameTitle">ஒரு PGN விளையாட்டிலிருந்து</string>
 </resources>

@@ -54,10 +54,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Сви SYNC чланови остају на истој позицији</string>
   <string name="shareChanges">Делите измене са посматрачима и сачувајте их на сервер</string>
   <string name="playing">У току</string>
-  <string name="first">Прва</string>
-  <string name="previous">Претходна</string>
   <string name="next">Следећа</string>
-  <string name="last">Последња</string>
   <string name="shareAndExport">Подели и извези</string>
   <string name="cloneStudy">Клонирај</string>
   <string name="studyPgn">PGN студије</string>

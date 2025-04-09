@@ -1,10 +1,9 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
-import { requestIdleCallback } from 'lib';
 import type { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';
-import { rotateBlogs } from './view/blog';
+import { makeCarousel } from 'lib/view/carousel';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);
 
@@ -21,17 +20,6 @@ export default function main(opts: LobbyOpts) {
     tableVNode = patch(tableVNode, tableView(ctrl));
   }
 
-  requestIdleCallback(() => {
-    layoutChanged();
-    window.addEventListener('resize', layoutChanged);
-  });
-
+  makeCarousel({ selector: '.lobby__blog', itemWidth: 192, pauseFor: 10 });
   return ctrl;
 }
-
-let animationFrameId: number;
-
-const layoutChanged = () => {
-  cancelAnimationFrame(animationFrameId);
-  animationFrameId = requestAnimationFrame(rotateBlogs);
-};

@@ -221,6 +221,7 @@ type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'corre
 
 type Perf = Exclude<VariantKey, 'standard'> | Speed;
 
+type UserId = string;
 type Uci = string;
 type San = string;
 type Ply = number;

@@ -5,7 +5,7 @@ import { renderEval as normalizeEval } from 'lib/ceval/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { type MaybeVNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
 import type PuzzleCtrl from '../ctrl';
-import { plyToTurn } from 'lib/chess/chess';
+import { plyToTurn } from 'lib/game/chess';
 
 interface Ctx {
   ctrl: PuzzleCtrl;

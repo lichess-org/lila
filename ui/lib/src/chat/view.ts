@@ -10,7 +10,10 @@ import type ChatCtrl from './ctrl';
 export default function (ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
-    { class: { 'mchat-mod': !!ctrl.moderation }, hook: { destroy: ctrl.destroy } },
+    {
+      class: { 'mchat-mod': !!ctrl.moderation },
+      hook: ctrl.opts.persistent ? {} : { destroy: ctrl.destroy },
+    },
     moderationView(ctrl.moderation) || normalView(ctrl),
   );
 }

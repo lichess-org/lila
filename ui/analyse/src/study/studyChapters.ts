@@ -22,10 +22,10 @@ import type {
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'lib/miniBoard';
+import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */

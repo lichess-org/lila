@@ -4,7 +4,7 @@ import { findTag } from '../study/studyChapters';
 import { getPlayer } from 'lib/game/game';
 import * as licon from 'lib/licon';
 import { bind, dataIcon } from 'lib/snabbdom';
-import { ratingDiff } from 'lib/userLink';
+import { ratingDiff } from 'lib/view/userLink';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 

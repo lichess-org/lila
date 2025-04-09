@@ -78,7 +78,8 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
-          st.section(dataIcon := tour.perfType.icon.toString)(
+          tour.description.isDefined.option(button(cls := "disclosure")),
+          st.section(cls := "tour__meta__head", dataIcon := tour.perfType.icon.toString)(
             div(
               p(
                 tour.clock.show,

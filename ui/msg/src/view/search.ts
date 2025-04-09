@@ -3,7 +3,7 @@ import { throttle } from 'lib/async';
 import type MsgCtrl from '../ctrl';
 import type { SearchResult, User } from '../interfaces';
 import renderContacts, { userIcon } from './contact';
-import { fullName } from 'lib/userLink';
+import { fullName } from 'lib/view/userLink';
 import { hookMobileMousedown } from 'lib/device';
 
 export const renderInput = (ctrl: MsgCtrl): VNode =>

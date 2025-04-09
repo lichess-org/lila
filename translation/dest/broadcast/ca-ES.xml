@@ -6,6 +6,10 @@
     <item quantity="one">%s retransmissió</item>
     <item quantity="other">%s retransmissions</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espectador</item>
+    <item quantity="other">%s espectadors</item>
+  </plurals>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
   <string name="broadcastCalendar">Calendari de retransmissions</string>
   <string name="newBroadcast">Nova retransmissió en directe</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
   <string name="backToLiveMove">Torna al moviment en directe</string>
   <string name="sinceHideResults">Ja que heu escollit amagar els resultats, la previsualització de tots els taulers està buida per tal d\'evitar espòilers.</string>
+  <string name="liveboard">Tauler en directe</string>
 </resources>

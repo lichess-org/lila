@@ -6,6 +6,10 @@
     <item quantity="one">%s diffusion</item>
     <item quantity="other">%s diffusions</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s observateur</item>
+    <item quantity="other">%s observateurs</item>
+  </plurals>
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
   <string name="broadcastCalendar">Calendrier des diffusions</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Voir les diffusions par mois</string>
   <string name="backToLiveMove">Retour au coup en direct</string>
   <string name="sinceHideResults">Vous avez choisi de masquer les résultats. Les échiquiers de prévisualisation sont donc vides pour ne rien révéler.</string>
+  <string name="liveboard">Échiquier en direct</string>
 </resources>

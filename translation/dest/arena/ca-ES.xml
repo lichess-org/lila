@@ -82,4 +82,6 @@ Per exemple, estar en el tercer lloc en un torneig de 100 jugadors = 3%. Ser cla
   <string name="tournamentShields">Insígnies de tornejos</string>
   <string name="onlyTitled">Només jugadors titulats</string>
   <string name="onlyTitledHelp">Demana un títol oficial per entrar al torneig</string>
+  <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
+  <string name="berserkRate">Taxa de Berserk</string>
 </resources>

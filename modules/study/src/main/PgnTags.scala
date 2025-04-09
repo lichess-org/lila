@@ -58,6 +58,7 @@ object PgnTags:
       BlackTeam,
       BlackFideId,
       TimeControl,
+      Variant,
       Date,
       Result,
       Termination,

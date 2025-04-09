@@ -23,7 +23,7 @@ object UblogRank:
 
     def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
-      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2400))
+      else if user.hasTitle
       then Tier.NORMAL
       else Tier.LOW
 
