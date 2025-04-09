@@ -317,16 +317,19 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       .inject(NoContent)
   }
 
-  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
+  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Option[String])(using
+      ctx: Context
+  ) =
     renderAsync:
       env.security.forms.passwordReset.map: baseForm =>
         views.auth.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def passwordReset = Open:
-    renderPasswordReset(none, fail = false).map { Ok(_) }
+    renderPasswordReset(none, fail = none).map { Ok(_) }
 
   def passwordResetApply =
     OpenBody:
+      def badRequest(msg: String) = renderPasswordReset(none, fail = msg.some).map(BadRequest(_))
       env.security.hcaptcha
         .verify()
         .flatMap: captcha =>
@@ -336,22 +339,21 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
               _.form
                 .bindFromRequest()
                 .fold(
-                  err => renderPasswordReset(err.some, fail = true).map { BadRequest(_) },
+                  err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
                   data =>
                     env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                       case Some(user, storedEmail) =>
-                        lila.mon.user.auth.passwordResetRequest("success").increment()
                         env.security.passwordReset
-                          .send(user, storedEmail)
-                          .inject:
-                            Redirect:
-                              routes.Auth.passwordResetSent(storedEmail.value)
+                          .limiter(storedEmail -> req.ipAddress, badRequest("Too many requests"), cost = 1):
+                            lila.mon.user.auth.passwordResetRequest("success").increment()
+                            for _ <- env.security.passwordReset.send(user, storedEmail)
+                            yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
                       case _ =>
                         lila.mon.user.auth.passwordResetRequest("noEmail").increment()
                         Redirect(routes.Auth.passwordResetSent(data.email.value))
                     }
                 )
-          else renderPasswordReset(none, fail = true).map { BadRequest(_) }
+          else badRequest("Invalid captcha")
 
   def passwordResetSent(email: String) = Open:
     Ok.page(views.auth.passwordResetSent(email))
