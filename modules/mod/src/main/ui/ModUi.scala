@@ -52,7 +52,7 @@ final class ModUi(helpers: Helpers):
                   st.form(cls := "search", action := routes.Mod.log)(
                     input(
                       st.name     := "mod",
-                      value       := ~query,
+                      value       := query,
                       placeholder := "filter by mod"
                     )
                   )

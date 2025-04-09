@@ -65,7 +65,6 @@ object userId:
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String
   object UserStr extends OpaqueString[UserStr]:
-    given Zero[UserStr] = Zero("")
     extension (e: UserStr)
       def couldBeUsername: Boolean   = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
       def validateId: Option[UserId] = Option.when(couldBeUsername)(e.id)
