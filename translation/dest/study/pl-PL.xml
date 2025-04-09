@@ -65,7 +65,6 @@
   <string name="shareAndExport">Udostępnianie i eksport</string>
   <string name="cloneStudy">Powiel</string>
   <string name="studyPgn">PGN opracowania</string>
-  <string name="downloadAllGames">Pobierz wszystkie partie</string>
   <string name="chapterPgn">PGN rozdziału</string>
   <string name="copyChapterPgn">Kopiuj PGN</string>
   <string name="downloadGame">Pobierz partię</string>
@@ -182,7 +181,7 @@
   <string name="commentPositionTitle">Komentarz do pozycji</string>
   <string name="conclusionTitle">Dziękujemy za poświęcony czas</string>
   <string name="createChapterTitle">Stwórzmy rozdział opracowania</string>
-  <string name="createChapterText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Opracowanie może mieć kilka rozdziałów.&lt;br&gt;Każdy rozdział ma odrębne drzewo posunięć,&lt;br&gt;i może być tworzony na różne sposoby.</string>
+  <string name="createChapterText">Opracowanie może mieć kilka rozdziałów.&lt;br&gt;Każdy rozdział ma odrębne drzewo posunięć,&lt;br&gt;i może być tworzony na różne sposoby.</string>
   <string name="fromInitialPositionTitle">Z pozycji początkowej</string>
   <string name="customPositionTitle">Z własnej niestandardowej pozycji</string>
   <string name="loadExistingLichessGameTitle">Załaduj istniejącą partię lichess</string>
