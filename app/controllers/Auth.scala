@@ -11,13 +11,9 @@ import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup }
-import lila.security.EmailConfirm
+import lila.security.{ FingerPrint, Signup, EmailAddress }
 
-final class Auth(
-    env: Env,
-    accountC: => Account
-) extends LilaController(env):
+final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
 
@@ -424,9 +420,8 @@ final class Auth(
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some(user, storedEmail) =>
                       env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                        env.security.loginToken
-                          .send(user, storedEmail)
-                          .inject(Redirect(routes.Auth.magicLinkSent))
+                        for _ <- env.security.loginToken.send(user, storedEmail)
+                        yield Redirect(routes.Auth.magicLinkSent)
                     case _ => Redirect(routes.Auth.magicLinkSent)
                   }
               )
@@ -481,13 +476,13 @@ final class Auth(
 
   private[controllers] object LoginRateLimit:
     private val lastAttemptIp =
-      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](128, "login.lastIp"):
+      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](256, "login.lastIp"):
         _.expireAfterWrite(1.minute).build()
     def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result])(using
         Context
     ): Fu[Result] =
       val ip          = req.ipAddress
-      val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
+      val multipleIps = lastAttemptIp.asMap().put(id, ip).exists(_ != ip)
       passwordCost(req).flatMap: cost =>
         env.security.passwordHasher.rateLimit[Result](
           rateLimited,

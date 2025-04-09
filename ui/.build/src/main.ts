@@ -1,6 +1,6 @@
 import ps from 'node:process';
-import { deepClean } from './clean.ts';
-import { build } from './build.ts';
+import { deepClean, clean } from './clean.ts';
+import { build, stopBuild } from './build.ts';
 import { startConsole } from './console.ts';
 import { env, errorMark } from './env.ts';
 
@@ -35,7 +35,8 @@ Options:
   -c, --clean         clean all build artifacts and build fresh
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
-  -d, --debug         build assets with site.debug = true
+  -d, --debug         set tsc compiler options noUnusedLocals, noImplicitReturns, noUnusedParameters
+                      to false and build assets with site.debug = true
   -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
                       <url> or localhost:8666 (default). if used with --watch, the ui/build process
                       will listen for http on 8666 and display received json as 'web' in build logs
@@ -115,5 +116,17 @@ if (env.clean) {
 }
 
 startConsole();
+
+if ('setRawMode' in ps.stdin) {
+  ps.stdin.setRawMode(true);
+  ps.stdin.resume();
+  ps.stdin.on('data', (key: Buffer) => {
+    if (key[0] === 3 || key[0] === 27) {
+      ps.exit(0);
+    } else if (key[0] === 99) {
+      stopBuild().then(() => clean('force').then(() => build(argv.filter(x => !x.startsWith('-')))));
+    }
+  });
+}
 
 build(argv.filter(x => !x.startsWith('-')));
