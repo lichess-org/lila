@@ -1,6 +1,5 @@
 import * as xhr from 'lib/xhr';
 import { throttlePromiseDelay } from 'lib/async';
-import { makeCarousel } from 'lib/carousel';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -44,5 +43,4 @@ site.load.then(() => {
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();
   });
-  makeCarousel({ selector: '.carousel', itemWidth: 220, pauseFor: 4 });
 });
