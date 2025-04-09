@@ -564,13 +564,11 @@
   <string name="wins">Trec\'hioù</string>
   <string name="losses">Lammoù</string>
   <string name="createdBy">Krouet gant</string>
-  <string name="tournamentPairingsAreNowClosed">Echu eo koubladegoù an tournamant.</string>
   <string name="standByX">Gortozit %s, o koublañ ar c\'hoarierien, bezit prest!</string>
   <string name="pause">Ehan</string>
   <string name="resume">Adkregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'hiñ</string>
-  <string name="berserkRate">Feur berserk</string>
   <string name="performance">Performañs</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
