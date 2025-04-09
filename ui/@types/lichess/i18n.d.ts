@@ -4739,8 +4739,6 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
-    /** Download all games */
-    downloadAllGames: string;
     /** Download game */
     downloadGame: string;
     /** Dubious move */
