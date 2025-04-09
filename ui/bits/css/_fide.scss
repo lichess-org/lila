@@ -101,6 +101,14 @@
   }
 }
 .fide-player {
+  h1 {
+    @extend %flex-between;
+    align-items: center;
+    gap: 1em;
+  }
+  &__user {
+    font-size: 0.7em;
+  }
   &__federation {
     @extend %flex-center-nowrap;
     .flag {

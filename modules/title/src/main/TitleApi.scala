@@ -8,8 +8,9 @@ import lila.core.msg.SystemMsg
 import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
+import lila.core.user.UserApi
 
-final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl)(using Executor):
+final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl, userApi: UserApi)(using Executor):
 
   import TitleRequest.*
 
@@ -87,6 +88,15 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl)(using E
   def tryAgain(req: TitleRequest) =
     coll.update.one($id(req.id), req.tryAgain).void
 
+  def publicUserOf(fideId: chess.FideId): Fu[Option[User]] = for
+    ids <- coll.primitive[UserId](
+      $doc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
+      $sort.desc(updatedAtField),
+      "userId"
+    )
+    users <- userApi.enabledByIds(ids)
+  yield users.sortBy(u => u.seenAt | u.createdAt).lastOption
+
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""
 Your title request has been reviewed by the Lichess team.
@@ -117,12 +127,11 @@ $baseUrl/verify-title
 
   private[title] def cleanupOldPics: Funit = for
     oldPics <- coll
-      .find(
+      .find:
         $doc(
           updatedAtField -> $lt(nowInstant.minusMonths(1)),
           $or("idDocument".$exists(true), "selfie".$exists(true))
         )
-      )
       .sort($sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(20)

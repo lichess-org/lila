@@ -296,6 +296,7 @@ db.study_chapter_flat.createIndex(
 );
 db.title_request.createIndex({ userId: 1 });
 db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
+db.title_request.createIndex({ 'data.fideId': 1, 'history.0.at': -1 }, { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } })
 
 // you may want to run these on the insight database
 // if it's a different one
