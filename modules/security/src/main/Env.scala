@@ -41,6 +41,7 @@ final class Env(
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),
+    config = config,
     scheduler = scheduler,
     ws = ws
   )
