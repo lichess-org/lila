@@ -26,6 +26,7 @@ case class UserInfo(
     teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
+    publicFideId: Option[chess.FideId],
     insightVisible: Boolean
 ):
   export trophies.ranks
@@ -98,6 +99,7 @@ object UserInfo:
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
+      titleApi: lila.title.TitleApi,
       insightShare: lila.insight.Share
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
@@ -116,7 +118,8 @@ object UserInfo:
         teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
+        user.hasTitle.so(titleApi.publicFideIdOf(user.id)),
         (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me))
-      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
+      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

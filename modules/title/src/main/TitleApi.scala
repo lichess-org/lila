@@ -2,6 +2,7 @@ package lila.title
 
 import reactivemongo.api.bson.*
 
+import chess.FideId
 import lila.core.config.BaseUrl
 import lila.core.id.TitleRequestId
 import lila.core.msg.SystemMsg
@@ -88,7 +89,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl, userApi
   def tryAgain(req: TitleRequest) =
     coll.update.one($id(req.id), req.tryAgain).void
 
-  def publicUserOf(fideId: chess.FideId): Fu[Option[User]] = for
+  def publicUserOf(fideId: FideId): Fu[Option[User]] = for
     ids <- coll.primitive[UserId](
       $doc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
       $sort.desc(updatedAtField),
@@ -96,6 +97,25 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl, userApi
     )
     users <- userApi.enabledByIds(ids)
   yield users.sortBy(u => u.seenAt | u.createdAt).lastOption
+
+  def publicFideIdOf(userId: UserId): Fu[Option[chess.FideId]] =
+    coll
+      .find(
+        $doc(
+          "userId"      -> userId,
+          "data.public" -> true,
+          "data.fideId".$exists(true),
+          s"$statusField.n" -> Status.approved.toString
+        ),
+        $doc("data.fideId" -> true).some
+      )
+      .one[Bdoc]
+      .dmap: docOpt =>
+        for
+          doc    <- docOpt
+          data   <- doc.child("data")
+          fideId <- data.getAsOpt[FideId]("fideId")
+        yield fideId
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""
