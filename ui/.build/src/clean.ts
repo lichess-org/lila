@@ -21,10 +21,10 @@ const allGlobs = [
   'public/hashed',
 ];
 
-export async function clean(globs?: string[]): Promise<void> {
+export async function clean(globs?: string[] | 'force'): Promise<void> {
   if (!env.clean && !globs) return;
 
-  for (const glob of globs ?? allGlobs) {
+  for (const glob of Array.isArray(globs) ? globs : allGlobs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);
     for await (const f of fg.stream(glob, { cwd: env.rootDir, ...globOpts })) {
       if (f.includes('ui/.build') && !f.includes('/build')) continue;
