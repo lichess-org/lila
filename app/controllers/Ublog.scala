@@ -49,9 +49,7 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(createdBy): (user, blog) =>
         canViewPost(user, blog)(post).so:
           for
-            sameAuthor <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post, 3)
-            similarIds = post.similar.filterNot(sameAuthor.map(_.id).contains)
-            similar        <- env.ublog.api.postPreviews(post.similar)
+            otherPosts     <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
             followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
@@ -59,16 +57,13 @@ final class Ublog(env: Env) extends LilaController(env):
             followable = prefFollowable && !blocked
             markup <- env.ublog.markup(post)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
-            others = scala.util.Random
-              .shuffle((similar ++ sameAuthor).filter(_.isLichess || ctx.kid.no))
-              .take(7)
             page <- renderPage:
               views.ublog.post.page(
                 user,
                 blog,
                 viewedPost,
                 markup,
-                others,
+                otherPosts,
                 liked,
                 followable,
                 followed
