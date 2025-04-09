@@ -131,10 +131,9 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               (others.length > 0).option(
                 div(
                   h2("You may also like"),
-                  div(cls := "carousel")(
-                    others
-                      .map:
-                        ui.card(_, showAuthor = ui.ShowAt.bottom, showIntro = false)
+                  div(cls := "ublog-post-cards")(
+                    others.map:
+                      ui.card(_, showAuthor = ui.ShowAt.bottom, showIntro = false)
                   )
                 )
               )

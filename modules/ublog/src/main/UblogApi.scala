@@ -136,7 +136,7 @@ final class UblogApi(
       similarIds = post.similar.filterNot(sameAuthor.map(_.id).contains)
       similar <- postPreviews(post.similar)
       mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
-    yield scala.util.Random.shuffle(mix).take(7)
+    yield scala.util.Random.shuffle(mix).take(6)
 
   object image:
     private def rel(post: UblogPost) = s"ublog:${post.id}"
