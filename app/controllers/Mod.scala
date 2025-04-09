@@ -228,21 +228,22 @@ final class Mod(
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
-    val modQuery: Option[UserStr] =
-      getUserStr("mod").orElse((!isGranted(_.Admin)).option(me.userId.into(UserStr)))
+    val whichMod: Option[UserStr] =
+      if isGranted(_.Admin) then getUserStr("mod")
+      else me.userId.into(UserStr).some
     Ok.async:
-      modQuery.match
+      whichMod.match
         case None =>
-          // strictly speaking redudant because it should never be
+          // strictly speaking redundant because it should never be
           // empty for non-admins, but feels safer to keep
           isGranted(_.Admin)
             .so(env.mod.logApi.recentHuman)
-            .map(views.mod.ui.logs(_, none, modQuery))
+            .map(views.mod.ui.logs(_, none, whichMod))
         case Some(mod) =>
           for
             modOpt <- env.report.api.getMod(mod)
             logs   <- modOpt.so(logsOf)
-          yield views.mod.ui.logs(logs, modOpt, modQuery)
+          yield views.mod.ui.logs(logs, modOpt, whichMod)
   }
 
   private def logsOf(mod: AsMod)(using me: Me, ctx: Context): Fu[List[Modlog]] =
