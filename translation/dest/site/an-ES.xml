@@ -485,13 +485,11 @@
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
   <string name="createdBy">Creau per</string>
-  <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Reprener</string>
   <string name="youArePlaying">Te toca chugar!</string>
   <string name="winRate">Taxa de victorias</string>
-  <string name="berserkRate">Taxa de berserk</string>
   <string name="performance">Actuación</string>
   <string name="tournamentComplete">Torneyo rematau</string>
   <string name="movesPlayed">Movimientos</string>
