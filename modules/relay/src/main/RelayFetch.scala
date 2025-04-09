@@ -327,7 +327,7 @@ final private class RelayFetch(
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
-            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
+            .map(MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)))
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
@@ -403,7 +403,7 @@ private object RelayFetch:
               .get(pgn)
               .flatMap: game =>
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
-                else (acc :+ game, index + 1).asRight[LilaInvalid]
+                else (acc :+ game, index + 1).asRight
         .map(_._1)
 
     def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
