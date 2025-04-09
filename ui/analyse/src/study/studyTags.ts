@@ -44,7 +44,7 @@ const editable = (
 ): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: { spellcheck: 'false', pattern: patterns[name], value },
+    attrs: { spellcheck: 'false', pattern: patterns[name], maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
       el.onblur = () => submit(name, el.value, el);
       el.onkeydown = e => {
