@@ -485,13 +485,11 @@
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
   <string name="createdBy">Skapad av</string>
-  <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Fortsätt</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
-  <string name="berserkRate">Berserkfrekvens</string>
   <string name="performance">Prestation</string>
   <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
