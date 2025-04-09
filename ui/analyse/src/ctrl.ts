@@ -1051,7 +1051,7 @@ export default class AnalyseCtrl {
   updateClassListsOfMoves = (paths: Tree.Path[], className: string, remove: boolean) => {
     const moveList = document.querySelector('.areplay');
     paths.forEach(currPath => {
-      const moveElement = moveList?.querySelector(`move[p="${currPath}"]`);
+      const moveElement = moveList?.querySelector(`move[p="${currPath.replace(/\\/g, '\\\\')}"]`);
       remove ? moveElement?.classList.remove(className) : moveElement?.classList.add(className);
     });
   };
