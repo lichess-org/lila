@@ -487,13 +487,11 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
-  <string name="berserkRate">Taxa de partidas no modo frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
