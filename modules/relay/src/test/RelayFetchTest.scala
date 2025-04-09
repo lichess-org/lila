@@ -29,13 +29,11 @@ class RelayFetchTest extends munit.FunSuite:
   val tc = TournamentClock(LimitSeconds(15 * 60), IncrementSeconds(10))
 
   test("inject time control"):
-    assertEquals(in(p1, none), p1)
-    assertEquals(in(p2, none), p2)
     assertEquals(
-      in(p1, tc.some),
+      in(tc)(p1),
       PgnStr(s"""[TimeControl "15+10"]\n${p1}""")
     )
-    assertEquals(in(p2, tc.some), p2)
+    assertEquals(in(tc)(p2), p2)
 
   given Mode                = Mode.Prod
   def parseUrl(str: String) = lila.common.url.parse(str).toOption
