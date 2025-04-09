@@ -302,7 +302,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def recentHuman =
     coll.secondaryPreferred
-      .find($doc("mod".$ne(UserId.lichess, UserId.irwin, UserId.kaladin)))
+      .find($doc("mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin))))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
