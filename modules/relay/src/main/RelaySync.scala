@@ -190,8 +190,7 @@ final private class RelaySync(
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
       path = path,
-      lastMoveAt = path.nonEmpty.option(nowInstant),
-      fideIds = tour.official.so(game.fideIdsPair)
+      lastMoveAt = path.nonEmpty.option(nowInstant)
     )
 
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =

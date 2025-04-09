@@ -139,8 +139,7 @@ object Chapter:
 
   case class Relay(
       path: UciPath,
-      lastMoveAt: Option[Instant],
-      fideIds: Option[PairOf[Option[chess.FideId]]]
+      lastMoveAt: Option[Instant]
   ):
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt
