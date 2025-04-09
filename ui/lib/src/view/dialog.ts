@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
 import { isTouchDevice } from '@/device';
-import { frag, $as } from '@/common';
+import { frag } from '@/common';
 import { Janitor } from '@/event';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
@@ -309,9 +309,7 @@ function loadAssets(o: DialogOpts) {
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
-      : Promise.resolve(
-          o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
-        ),
+      : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
     ...(o.css ?? []).map(css =>
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),
