@@ -8,10 +8,17 @@ import lila.core.id.TitleRequestId
 import lila.core.msg.SystemMsg
 import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
-import lila.memo.PicfitApi
+import lila.memo.{ CacheApi, PicfitApi }
 import lila.core.user.UserApi
+import lila.core.LightUser
 
-final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl, userApi: UserApi)(using Executor):
+final class TitleApi(
+    coll: Coll,
+    picfitApi: PicfitApi,
+    cacheApi: CacheApi,
+    baseUrl: BaseUrl,
+    userApi: UserApi
+)(using Executor):
 
   import TitleRequest.*
 
@@ -98,24 +105,30 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl, userApi
     users <- userApi.enabledByIds(ids)
   yield users.sortBy(u => u.seenAt | u.createdAt).lastOption
 
-  def publicFideIdOf(userId: UserId): Fu[Option[chess.FideId]] =
-    coll
-      .find(
-        $doc(
-          "userId"      -> userId,
-          "data.public" -> true,
-          "data.fideId".$exists(true),
-          s"$statusField.n" -> Status.approved.toString
-        ),
-        $doc("data.fideId" -> true).some
-      )
-      .one[Bdoc]
-      .dmap: docOpt =>
-        for
-          doc    <- docOpt
-          data   <- doc.child("data")
-          fideId <- data.getAsOpt[FideId]("fideId")
-        yield fideId
+  object publicFideIdOf:
+
+    private val cache = cacheApi[UserId, Option[FideId]](8192, "title.publicFideIdOf"):
+      _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
+        coll
+          .find(
+            $doc(
+              "userId"      -> id,
+              "data.public" -> true,
+              "data.fideId".$exists(true),
+              s"$statusField.n" -> Status.approved.toString
+            ),
+            $doc("data.fideId" -> true).some
+          )
+          .one[Bdoc]
+          .dmap: docOpt =>
+            for
+              doc    <- docOpt
+              data   <- doc.child("data")
+              fideId <- data.getAsOpt[FideId]("fideId")
+            yield fideId.pp("computed")
+
+    def apply(user: LightUser): Fu[Option[FideId]] =
+      (user.title.isDefined && !user.isBot).so(cache.get(user.id))
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""

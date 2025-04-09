@@ -56,7 +56,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
+    def light = LightUser(id, username, title, flair, isPatron = isPatron)
 
     def profileOrDefault = profile | Profile.default
 
@@ -346,6 +346,8 @@ object user:
 
   type GameUser  = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
+
+  type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]
 
   object TrophyKind:
     val marathonWinner         = "marathonWinner"

@@ -30,7 +30,8 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
-    getTourName: => lila.core.tournament.GetTourName
+    getTourName: => lila.core.tournament.GetTourName,
+    fideIdOf: lila.core.user.PublicFideIdOf
 )(using scheduler: Scheduler)(using
     lila.core.i18n.Translator,
     Executor,
