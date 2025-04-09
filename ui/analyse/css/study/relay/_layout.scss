@@ -15,9 +15,6 @@ body {
     margin-top: 0;
     min-height: 52px;
   }
-  .chat__members {
-    margin: 4px 0;
-  }
   .relay-admin {
     margin-top: 0;
   }
@@ -142,19 +139,16 @@ main.analyse.is-relay:not(.has-relay-tour) {
 .vertical-resize-separator {
   @extend %flex-column;
   @include transition;
+  position: relative;
   display: none;
   justify-content: center;
   align-items: center;
-  height: 14px;
-  width: 100%;
   cursor: row-resize;
+  width: 100%;
+  height: 14px;
 
-  hr {
-    @include transition;
-    margin: 0;
-    width: 14px;
-    height: 1px;
-    pointer-events: none;
+  &:has(.chat__members) {
+    height: 22px;
   }
   &:hover {
     background: $m-primary--fade-70;
@@ -162,6 +156,19 @@ main.analyse.is-relay:not(.has-relay-tour) {
       background: $c-font;
       width: 40px;
     }
+  }
+  hr {
+    @include transition;
+    margin: 0;
+    width: 14px;
+    height: 1px;
+    pointer-events: none;
+  }
+  .chat__members {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 4px;
   }
 }
 

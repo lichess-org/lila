@@ -87,13 +87,12 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
       !empty &&
         resizeId &&
         verticalResizeSeparator({
-          key: 'relay-games',
-          id: resizeId,
+          key: `relay-games.${resizeId}`,
           min: () => 48,
           max: () => 48 * study.chapters.list.size(),
           initialMaxHeight: window.innerHeight / 2,
         }),
-      renderChat(ctx.ctrl.chatCtrl, h('div.chat__members', { hook: onInsert(el => watchers(el, false)) })),
+      renderChat(ctx.ctrl.chatCtrl),
       resizeId &&
         verticalResizeSeparator({
           key: 'relay-chat',
@@ -101,6 +100,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           min: () => 64,
           max: () => window.innerHeight,
           initialMaxHeight: window.innerHeight / 3,
+          kid: h('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
         }),
       kid,
     ],

@@ -34,7 +34,6 @@ export default function (deps?: typeof studyDeps) {
 function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { study, gamebookPlayView, gaugeOn } = ctx;
-  console.log(ctrl.opts.chat);
   return renderMain(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),

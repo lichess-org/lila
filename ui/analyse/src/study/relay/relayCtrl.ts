@@ -51,6 +51,7 @@ export default class RelayCtrl {
     this.isEmbed = analyse.isEmbed;
     this.send = analyse.socket.send;
     this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
+    analyse.opts.chat.plugin = this.liveboardPlugin;
 
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
