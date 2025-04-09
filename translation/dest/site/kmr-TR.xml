@@ -485,13 +485,11 @@
   <string name="wins">Serkeftin</string>
   <string name="losses">Mexlûbiyet</string>
   <string name="createdBy">Hate çêkirin ji aliyê</string>
-  <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
   <string name="pause">Bisekîne</string>
   <string name="resume">Bidomîne</string>
   <string name="youArePlaying">Tu vê gavê dilîzî!</string>
   <string name="winRate">Rêjeya serkeftinê</string>
-  <string name="berserkRate">Rêjeya Berserk-ê</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Pêşbirk qedîya</string>
   <string name="movesPlayed">Hemleyên lîstî</string>
