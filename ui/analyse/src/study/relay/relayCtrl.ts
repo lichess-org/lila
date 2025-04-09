@@ -32,7 +32,6 @@ export default class RelayCtrl {
   videoPlayer?: VideoPlayer;
   liveboardPlugin: LiveboardPlugin;
   readonly baseRedraw: Redraw;
-  readonly isEmbed: boolean;
   readonly send: AnalyseSocketSend;
 
   constructor(
@@ -48,7 +47,6 @@ export default class RelayCtrl {
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     this.baseRedraw = analyse.redraw;
-    this.isEmbed = analyse.isEmbed;
     this.send = analyse.socket.send;
     this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
     analyse.opts.chat.plugin = this.liveboardPlugin;
@@ -66,7 +64,7 @@ export default class RelayCtrl {
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
-      this.isEmbed,
+      analyse.isEmbed,
       this.federations,
       this.redraw,
     );
