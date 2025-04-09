@@ -4,6 +4,7 @@
  *
  * Should run periodically, e.g. every 1 hour.
  */
+const nbSimilar = 6;
 const since = new Date(Date.now() - 1000 * 60 * 60 * 24 * 15);
 const updatable = db.ublog_post.find({ live: true, 'updated.at': { $gt: since } }, { likers: 1 }).toArray();
 console.log(`${updatable.length} posts were updated since ${since}`);
@@ -31,6 +32,6 @@ updatable.forEach(p => {
   });
   const top3 = Array.from(similar)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 3);
+    .slice(0, nbSimilar);
   db.ublog_post.updateOne({ _id: p._id }, { $set: { similar: top3.map(([id, _]) => id) } });
 });
