@@ -174,4 +174,5 @@
   <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
   <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
   <string name="perPage">%s на сторінку</string>
+  <string name="welcomeToLichessStudyTitle">Вітаємо у Lichess Study!</string>
 </resources>
