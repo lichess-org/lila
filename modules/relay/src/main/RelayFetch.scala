@@ -383,15 +383,16 @@ private object RelayFetch:
 
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
-    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:
-      multiPgn.value.map(in(_, tco))
+    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn =
+      tco.fold(multiPgn): tc =>
+        MultiPgn:
+          multiPgn.value.map(in(tc))
 
-    def in(pgn: PgnStr, tco: Option[TournamentClock]): PgnStr =
-      tco.fold(pgn): tc =>
-        pgn.map: txt =>
-          if txt.contains("""[TimeControl """")
-          then txt
-          else s"""${replace(tc)}$txt"""
+    def in(tco: TournamentClock)(pgn: PgnStr): PgnStr =
+      pgn.map: txt =>
+        if txt.contains("""[TimeControl """")
+        then txt
+        else s"""${replace(tco)}$txt"""
 
   object multiPgnToGames:
 
