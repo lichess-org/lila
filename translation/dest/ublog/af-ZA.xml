@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Gemeenskapsblogs</string>
   <string name="friendBlogs">Vriendblogs</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess blog</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">My blog</string>
+  <string name="lichessBlog">Lichess blog</string>
+  <string name="myBlog">My blog</string>
   <string name="blogTopics">Blog-onderwerpe</string>
   <string name="lichessOfficialBlog">Amptelike Lichess-Blog</string>
   <string name="previousBlogPosts">Vorige blog-plasings</string>
@@ -32,7 +32,6 @@
   <string name="xPublishedY">%1$s publiseer %2$s</string>
   <string name="thisPostIsPublished">Hierdie inskrywing is gepubliseerd</string>
   <string name="thisIsADraft">Hierdie is \'n konsep</string>
-  <string name="moreBlogPostsBy">Meer webjoernaal inskrywings van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen inskrywings in hierdie webjoernal nie.</string>
   <string name="noDrafts">Geen konsepte om te wys nie.</string>
   <string name="latestBlogPosts">Jongste webjoernaal inskrywings</string>
