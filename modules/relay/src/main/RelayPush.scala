@@ -32,8 +32,7 @@ final class RelayPush(
   type Results = List[Either[Failure, Success]]
 
   def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, RequestHeader): Fu[Results] =
-    push(rt, pgn)
-      .addEffect(monitor(rt))
+    push(rt, pgn).addEffect(monitor(rt))
 
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Results] =
     if rt.round.sync.hasUpstream
@@ -97,9 +96,9 @@ final class RelayPush(
         validate(pgn).flatMap: tags =>
           StudyPgnImport
             .result(pgn, Nil)
-            .fold(
-              errStr => Left(Failure(tags, oneline(errStr))),
-              game => Right(RelayGame.fromStudyImport(game))
+            .bimap(
+              errStr => Failure(tags, oneline(errStr)),
+              game => RelayGame.fromStudyImport(game)
             )
 
   // silently consume DGT board king-check move to center at game end
@@ -116,7 +115,7 @@ final class RelayPush(
             case ((none, r), san) =>
               san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
 
-          maybeErr.fold(Right(parsed.tags)): err =>
+          maybeErr.fold(parsed.tags.asRight): err =>
             parsed.mainline.lastOption match
               case Some(mv: Std) if isFatal(mv, replay, parsed.mainline) =>
                 Left(Failure(parsed.tags, oneline(err)))
