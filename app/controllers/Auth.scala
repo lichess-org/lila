@@ -341,17 +341,17 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .fold(
                   err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
                   data =>
-                    env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
-                      case Some(user, storedEmail) =>
-                        env.security.passwordReset
-                          .limiter(storedEmail -> req.ipAddress, badRequest("Too many requests"), cost = 1):
+                    env.security.passwordReset
+                      .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
+                        env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
+                          case Some(user, storedEmail) =>
                             lila.mon.user.auth.passwordResetRequest("success").increment()
                             for _ <- env.security.passwordReset.send(user, storedEmail)
                             yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
-                      case _ =>
-                        lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                        Redirect(routes.Auth.passwordResetSent(data.email.value))
-                    }
+                          case _ =>
+                            lila.mon.user.auth.passwordResetRequest("noEmail").increment()
+                            Redirect(routes.Auth.passwordResetSent(data.email.value))
+                        }
                 )
           else badRequest("Invalid captcha")
 
