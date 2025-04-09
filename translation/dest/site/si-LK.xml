@@ -466,13 +466,11 @@
   <string name="wins">ජය ලබයි</string>
   <string name="losses">Losses</string>
   <string name="createdBy">නිර්මාණය කළේ</string>
-  <string name="tournamentPairingsAreNowClosed">තරඟාවලි යුගල දැන් වසා ඇත.</string>
   <string name="standByX">%s ළඟ සිටින්න, ක්‍රීඩකයන් යුගල කරන්න, සූදානම් වන්න!</string>
   <string name="pause">විරාමය</string>
   <string name="resume">යලි අරඹන්න</string>
   <string name="youArePlaying">ඔබ සෙල්ලම් කරනවා!</string>
   <string name="winRate">ජයග්රාහී අනුපාතය</string>
-  <string name="berserkRate">බර්සර්ක් අනුපාතය</string>
   <string name="performance">කාර්ය සාධනය</string>
   <string name="tournamentComplete">තරඟාවලිය අවසන්</string>
   <string name="movesPlayed">ක්‍රීඩා කල Moves ගණන</string>
