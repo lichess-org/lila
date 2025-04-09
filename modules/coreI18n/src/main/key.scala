@@ -2798,7 +2798,6 @@ object I18nKey:
     val `xPublishedY`: I18nKey = "ublog:xPublishedY"
     val `thisPostIsPublished`: I18nKey = "ublog:thisPostIsPublished"
     val `thisIsADraft`: I18nKey = "ublog:thisIsADraft"
-    val `moreBlogPostsBy`: I18nKey = "ublog:moreBlogPostsBy"
     val `noPostsInThisBlogYet`: I18nKey = "ublog:noPostsInThisBlogYet"
     val `noDrafts`: I18nKey = "ublog:noDrafts"
     val `latestBlogPosts`: I18nKey = "ublog:latestBlogPosts"
