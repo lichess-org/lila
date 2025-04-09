@@ -3,7 +3,7 @@ import type RacerCtrl from '../ctrl';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
 import * as licon from 'lib/licon';
-import { copyMeInput } from 'lib/controls';
+import { copyMeInput } from 'lib/view/controls';
 import { type VNode, type MaybeVNodes, bind, looseH as h } from 'lib/snabbdom';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
 import { renderRace } from './race';

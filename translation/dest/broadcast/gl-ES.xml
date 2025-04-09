@@ -6,6 +6,10 @@
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espectador</item>
+    <item quantity="other">%s espectadores</item>
+  </plurals>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="broadcastCalendar">Calendario de emisións</string>
   <string name="newBroadcast">Nova emisión en directo</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Ver todas as emisións por mes</string>
   <string name="backToLiveMove">Voltar á xogada en directo</string>
   <string name="sinceHideResults">Os taboleiros de vista previa están baleiros xa que elixiches agochar os resultados.</string>
+  <string name="liveboard">Taboleiro en directo</string>
 </resources>

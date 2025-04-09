@@ -6,7 +6,7 @@ import type { Convo } from '../interfaces';
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { hookMobileMousedown } from 'lib/device';
-import { userLink } from 'lib/userLink';
+import { userLink } from 'lib/view/userLink';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

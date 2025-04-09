@@ -62,10 +62,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Fanann gach ball SYNC sa suíomh céanna</string>
   <string name="shareChanges">Roinn athruithe le lucht féachana agus sábháil iad ar an freastalaí</string>
   <string name="playing">Ag imirt</string>
-  <string name="first">Céad</string>
-  <string name="previous">Roimhe</string>
   <string name="next">Ar aghaidh</string>
-  <string name="last">Deiridh</string>
   <string name="shareAndExport">Comhroinn &amp; easpórtáil</string>
   <string name="cloneStudy">Déan cóip</string>
   <string name="studyPgn">Déan staidéar ar PGN</string>

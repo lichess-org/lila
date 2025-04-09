@@ -1,13 +1,13 @@
 import type { ParentCtrl } from '../types';
 import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
-import { rangeConfig } from '../../controls';
+import { rangeConfig } from '../../view/controls';
 import { isChrome } from '../../device';
 import { type VNode, onInsert, bind, dataIcon, looseH as h } from '../../snabbdom';
 import * as Licon from '../../licon';
 import { onClickAway } from '../../common';
 import { clamp } from '../../algo';
-import { confirm } from '../../dialogs';
+import { confirm } from '../../view/dialogs';
 
 const allSearchTicks: [number, string][] = [
   [4000, '4s'],

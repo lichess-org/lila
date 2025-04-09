@@ -45,13 +45,6 @@ trait ResponseHeaders extends HeaderNames:
       "fullscreen=(self)"
     ).mkString(", ")
 
-  val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
-
-  def noProxyBuffer(res: Result) = res.withHeaders(noProxyBufferHeader)
-  def asAttachment(name: String)(res: Result) =
-    res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
-  def asAttachmentStream(name: String)(res: Result) = noProxyBuffer(asAttachment(name)(res))
-
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
 
   object crossOriginPolicy:

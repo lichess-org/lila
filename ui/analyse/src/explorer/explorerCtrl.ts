@@ -1,7 +1,6 @@
 import { type Prop, prop, defined } from 'lib';
 import { storedBooleanProp } from 'lib/storage';
-import { pieceCount } from 'lib/chess/chess';
-import { fenColor } from 'lib/miniBoard';
+import { pieceCount, fenColor } from 'lib/game/chess';
 import { debounce, defer, sync, type Sync } from 'lib/async';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';

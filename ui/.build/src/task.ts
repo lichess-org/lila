@@ -37,7 +37,7 @@ type TaskOpts = {
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
-  root?: AbsPath; // default absolute - optional relative root for file lists
+  root?: AbsPath; // optional relative root for file lists, otherwise they're absolute
   globListOnly?: boolean; // default false - ignore file mods, only execute when glob list changes
   monitorOnly?: boolean; // default false - do not execute on initial traverse, only on future changes
   noEnvStatus?: boolean; // default false - don't inform env.done of task status

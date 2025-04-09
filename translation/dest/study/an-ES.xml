@@ -53,10 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Toz los miembros de SYNC son en a mesma posición</string>
   <string name="shareChanges">Comparte cambios con os espectadors y alza-los en o servidor</string>
   <string name="playing">Chugando</string>
-  <string name="first">Primer</string>
-  <string name="previous">Anterior</string>
   <string name="next">Siguient</string>
-  <string name="last">Zaguer</string>
   <string name="shareAndExport">Compartir y exportar</string>
   <string name="cloneStudy">Clonar</string>
   <string name="studyPgn">PGN d\'o estudio</string>

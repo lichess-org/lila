@@ -8,7 +8,7 @@ import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo }
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/controls';
+import { toggle, copyMeInput } from 'lib/view/controls';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -266,7 +266,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
               {
                 hook: onInsert(el => {
                   const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
-                  goTo?.scrollIntoView();
+                  goTo
+                    ?.closest('.relay-tour__round-select')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }),
               },
               h(

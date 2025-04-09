@@ -27,7 +27,7 @@ import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner, stepwiseScroll } from 'lib/controls';
+import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view/controls';
 import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
@@ -42,6 +42,7 @@ import { renderPgnError } from '../pgnImport';
 import { storage } from 'lib/storage';
 import { makeChat } from 'lib/chat/chat';
 import { backToLiveView } from '../study/relay/relayView';
+import { findTag } from '../study/studyChapters';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -349,14 +350,14 @@ export function renderControls(ctrl: AnalyseCtrl) {
   );
 }
 
-export function renderResult(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode[] {
+export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return render(result, statusView(ctrl.data));
   } else if (ctrl.study) {
-    const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
+    const result = findTag(ctrl.study.data.chapter.tags, 'result');
     if (!result || result === '*') return [];
     if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
     if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);

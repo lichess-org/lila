@@ -11,7 +11,6 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
-      - 'bin/download-lifat'
   pull_request:
     paths:
       - '.github/workflows/assets.yml'
@@ -19,7 +18,6 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
-      - 'bin/download-lifat'
 
 jobs:
   assets:
@@ -61,7 +59,11 @@ jobs:
       - name: Tests
         run: pnpm test
       - name: Prepare asset dir
-        run: mkdir assets && mv public assets/ && cp -p bin/download-lifat LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+        run: |
+          mkdir -p assets/public
+          mv public/compiled public/css public/hashed public/npm assets/public/
+          cp -p LICENSE COPYING.md README.md assets/
+          git log -n 1 --pretty=oneline > assets/commit.txt
       - name: Tar assets
         run: cd assets && tar --zstd -cvpf ../assets.tar.zst . && cd -
       - name: Upload artifact

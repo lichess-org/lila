@@ -75,7 +75,7 @@ lazy val modules = Seq(
   // and then the smaller ones
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
-  practice, evalCache, irwin, bot, racer, cms, i18n, local,
+  practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
   socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
 )
 
@@ -148,7 +148,7 @@ lazy val racer = module("racer",
   Seq()
 )
 
-lazy val local = module("local",
+lazy val jsBot = module("jsBot",
   Seq(db, ui),
   Seq()
 )

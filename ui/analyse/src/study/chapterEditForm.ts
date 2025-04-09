@@ -1,6 +1,6 @@
 import { fieldValue, modeChoices } from './chapterNewForm';
 import { bind, bindSubmit, onInsert } from 'lib/snabbdom';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { option, emptyRedButton } from '../view/util';
 import type {
   ChapterMode,
@@ -10,8 +10,8 @@ import type {
   ChapterPreview,
 } from './interfaces';
 import { defined, prop } from 'lib';
-import { snabDialog } from 'lib/dialog';
-import { confirm } from 'lib/dialogs';
+import { snabDialog } from 'lib/view/dialog';
+import { confirm } from 'lib/view/dialogs';
 import { h, VNode } from 'snabbdom';
 import type { StudySocketSend } from '../socket';
 

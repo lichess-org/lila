@@ -61,10 +61,7 @@
   <string name="playing">Práve sa hrá</string>
   <string name="showResults">Výsledky</string>
   <string name="showEvalBar">Ukazovatele hodnotenia</string>
-  <string name="first">Prvá</string>
-  <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
-  <string name="last">Posledná</string>
   <string name="shareAndExport">Zdielať &amp; export</string>
   <string name="cloneStudy">Naklonovať</string>
   <string name="studyPgn">PGN štúdie</string>
@@ -177,4 +174,16 @@
   <string name="whatWouldYouPlay">Čo by ste hrali v tejto pozícii?</string>
   <string name="youCompletedThisLesson">Gratulujeme! Túto lekciu ste ukončili.</string>
   <string name="perPage">%s na stránku</string>
+  <string name="getTheTour">Potrebujete pomoc? Pozrite sa ako to funguje!</string>
+  <string name="welcomeToLichessStudyTitle">Vitajte v Lichess štúdii!</string>
+  <string name="welcomeToLichessStudyText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Toto je zdieľaná analytická tabuľka.&lt;br&gt;&lt;br&gt;Použite ju na analýzu a komentovanie partií,&lt;br&gt;diskutujte o pozíciách s priateľmi,&lt;br&gt;a samozrejme na šachové lekcie!&lt;br&gt;&lt;br&gt;Je to silný nástroj, poďme sa pozrieť, ako funguje.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Zdieľané a uložené</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Ostatní členovia môžu vidieť vaše pohyby v reálnom čase!&lt;br&gt;Navyše je všetko navždy uložené.</string>
+  <string name="studyMembersTitle">Členovia štúdie</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that are shown inline with the text.&#10;%1$s is the icon for spectators, while %2$s is the icon for contributors.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">%1$s Diváci si môžu prezerať štúdiu a rozprávať sa na čete.&lt;br&gt;&lt;br&gt;%2$s Prispievatelia môžu vykonávať ťahy a aktualizovať štúdiu.</string>
+  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">Kliknite na tlačidlo %s.&lt;br&gt;Potom rozhodnite, kto môže alebo nemôže prispieť.</string>
+  <string name="studyChaptersTitle">Kapitoly štúdie</string>
+  <string name="studyChaptersText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Štúdia môže obsahovať niekoľko kapitol.&lt;br&gt;Každá kapitola má odlišnú počiatočnú pozíciu a strom ťahov.</string>
+  <string name="commentPositionTitle">Komentovať pozíciu</string>
+  <string name="commentPositionText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Kliknite na tlačidlo %s alebo kliknite pravým tlačidlom myši na záznam ťahov vpravo.&lt;br&gt;Komentáre sú zdieľané a uložené.</string>
 </resources>

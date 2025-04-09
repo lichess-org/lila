@@ -82,4 +82,5 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="tournamentShields">Turnuva kalkanları</string>
   <string name="onlyTitled">Sadece unvanlı oyuncular</string>
   <string name="onlyTitledHelp">Turnuvaya katılmak için resmî bir unvana sahip olmayı iste</string>
+  <string name="berserkRate">Divane oranı</string>
 </resources>

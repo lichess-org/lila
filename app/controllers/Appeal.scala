@@ -14,13 +14,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def userForm(using Context) = AppealModel.form
 
   def home = Auth { _ ?=> me ?=>
-    Ok.async(renderAppealOrTree())
+    Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
   }
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       FoundPage(env.cms.renderKey("appeal-landing")):
         views.cms.lone
+      .map(_.hasPersonalData)
     else notFound
   }
 
@@ -110,15 +111,16 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def mute(username: UserStr) = Secure(_.Appeals) { _ ?=> _ ?=>
     asMod(username): (appeal, _) =>
-      (env.appeal.api.toggleMute(appeal) >>
-        env.report.api.inquiries.toggle(Right(appeal.userId))).inject(Redirect(routes.Appeal.queue()))
+      for
+        _ <- env.appeal.api.toggleMute(appeal)
+        _ <- env.report.api.inquiries.toggle(Right(appeal.userId))
+      yield Redirect(routes.Appeal.queue())
   }
 
   def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     asMod(username): (_, s) =>
-      env.irc.api
-        .userAppeal(s.user.light)
-        .inject(NoContent)
+      for _ <- env.irc.api.userAppeal(s.user.light)
+      yield NoContent
   }
 
   def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { _ ?=> _ ?=>

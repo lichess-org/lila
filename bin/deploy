@@ -112,8 +112,8 @@ PROFILES = {
     "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "testy-assets": asset_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post=curl_cli("change asset version", url="https://testy.lichess.dev/run/cli", token_file="/home/testy/.testy-cli"), stage=True, user="testy"),
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
-    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
-    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess/deploy"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess/deploy"),
 }
 
 
@@ -266,6 +266,7 @@ def deploy_script(profile, session, run, url):
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
     user_group = f"{profile['user']}:{profile['user']}"
+    commit = run["head_commit"]["id"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
@@ -288,29 +289,17 @@ def deploy_script(profile, session, run, url):
     ]
 
     if profile["artifact_name"] == "lila-assets":
-        assets_dir = f"{deploy_dir}/public"
-        lifat_dir = f"{assets_dir}/lifat"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
-            "echo \\# Preparing lifat ...",
-            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R {user_group} {lifat_dir}; fi)",
+            f"echo \\# Checkout {commit} ...",
+            f"git -C {deploy_dir} checkout {commit}",
+            f"git -C {deploy_dir} lfs pull",
             "echo \\# Copying assets ...",
-            f"mkdir -p {assets_dir}/compiled",
-            f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
-            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
+            f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
             f"rm -rf {artifact_unzipped}",
         ]
     elif not profile.get("symlinks"):
-        # testy runs in podman and cannot escape a volume mapping via symlink. so we just shuffle things around
-        # rather than copying
-        commands += [
-            f"rm -rf {deploy_dir}/bin~ {deploy_dir}/lib~",
-            f"mv -f {deploy_dir}/bin {deploy_dir}/bin~",
-            f"mv -f {deploy_dir}/lib {deploy_dir}/lib~",
-            f"mv -f {artifact_unzipped}/d/bin {deploy_dir}/bin",
-            f"mv -f {artifact_unzipped}/d/lib {deploy_dir}/lib",
-            f"chmod -f +x {deploy_dir}/bin/lila || true",
-        ]
+        commands += podman_deploy_bins(deploy_dir, f"{artifact_unzipped}/d")
     else:
         commands += [
             f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
@@ -348,6 +337,18 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
     print(f"Deploying {url} to {profile['ssh']}...")
     return tmux(profile["ssh"], deploy_script(profile, session, run, url), dry_run=dry_run)
 
+
+def podman_deploy_bins(deploy_dir, artifact_dir):
+    # podman deploys cannot escape a volume mapping via symlink.
+    # but the powerful technology 'mv' can deploy bin and lib in place
+    return [
+            f"rm -rf {deploy_dir}/bin~ {deploy_dir}/lib~",
+            f"mv -f {deploy_dir}/bin {deploy_dir}/bin~",
+            f"mv -f {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv -f {artifact_dir}/bin {deploy_dir}/bin",
+            f"mv -f {artifact_dir}/lib {deploy_dir}/lib",
+            f"chmod -f +x {deploy_dir}/bin/lila || true",
+        ]
 
 def main():
     # Parse command line arguments.

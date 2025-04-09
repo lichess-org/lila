@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Spela med en vän</string>
   <string name="playWithTheMachine">Spela mot datorn</string>
-  <string name="playOffline">Spela nerkopplad</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
@@ -486,7 +485,6 @@
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
   <string name="createdBy">Skapad av</string>
-  <string name="tournamentIsStarting">Turneringen startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>
@@ -501,7 +499,6 @@
   <string name="blackWins">Vinster Svart</string>
   <string name="drawRate">Gräns för remi</string>
   <string name="draws">Remier</string>
-  <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="setTheBoard">Ställ upp brädet</string>

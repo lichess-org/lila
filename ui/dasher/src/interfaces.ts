@@ -1,7 +1,5 @@
 import type { LangsData } from './langs';
 import type { BackgroundData } from './background';
-import type { BoardData } from './board';
-import type { PieceData } from './piece';
 import type { DasherCtrl } from './ctrl';
 import type { Redraw, VNode } from 'lib/snabbdom';
 
@@ -25,6 +23,9 @@ export abstract class PaneCtrl {
   abstract render(): VNode;
 }
 
+type BoardAsset = { name: string; file?: string; featured: boolean };
+type AssetData = { [key in 'd2' | 'd3']: { current: string; list: BoardAsset[] } };
+
 export interface DasherData {
   user?: LightUser;
   lang: LangsData;
@@ -32,8 +33,8 @@ export interface DasherData {
     list: string[];
   };
   background: BackgroundData;
-  board: BoardData;
-  piece: PieceData;
+  board: AssetData & { is3d: boolean };
+  piece: AssetData;
   coach: boolean;
   streamer: boolean;
 }

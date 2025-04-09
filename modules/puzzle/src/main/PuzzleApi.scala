@@ -99,9 +99,9 @@ final class PuzzleApi(
               .one(
                 $id(puzzleId),
                 $set(
-                  F.voteUp   -> up,
-                  F.voteDown -> down,
-                  F.vote     -> ((up - down).toFloat / (up + down))
+                  F.voteUp   -> up.atLeast(0),
+                  F.voteDown -> down.atLeast(0),
+                  F.vote     -> ((up - down).toFloat / (up + down)).atLeast(0).atMost(1)
                 ) ++ {
                   newVote <= -100 &&
                   doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))

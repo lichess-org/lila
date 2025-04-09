@@ -44,7 +44,7 @@ export async function build(pkgs: string[]): Promise<void> {
   }
 }
 
-function stopBuild(): Promise<any> {
+export function stopBuild(): Promise<any> {
   stopTask();
   stopSass();
   stopManifest(true);

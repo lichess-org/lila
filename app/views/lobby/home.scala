@@ -125,13 +125,13 @@ object home:
           ,
           puzzle.map: p =>
             views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
-          div(cls := "lobby__blog ublog-post-cards"):
+          div(cls := "lobby__blog carousel")(
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
               .take(9)
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
-          ,
+          ),
           ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)

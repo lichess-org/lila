@@ -6,7 +6,7 @@ import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
 import { Board } from './chess';
 import { h } from 'snabbdom';
-import { initMiniBoard } from 'lib/miniBoard';
+import { initMiniBoard } from 'lib/view/miniBoard';
 import { makeUci } from 'chessops';
 
 export const updateGround = (board: Board): CgConfig => ({

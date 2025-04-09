@@ -14,7 +14,7 @@
   <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
   <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er aðal munurinn í bréfskákreglum að byrjunabók er leyfð. Notkun skákforrita er samt bannað og mun leiða til þess að þú verður flaggaður fyrir skákforritaaðstoð. Þótt ICCF leyfa notkun véla í bréfaskiptum gerir Lichess það ekki.</string>
-  <string name="eightVariants">8 skákafbrigðir</string>
+  <string name="eightVariants">8 skákafbrigði</string>
   <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
   <string name="threefoldRepetitionLowerCase">þreföld endurtekning</string>

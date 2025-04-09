@@ -6,7 +6,7 @@ import { userHtml } from './user';
 import * as button from './button';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, looseH as h, bind } from 'lib/snabbdom';
-import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
+import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import { anyClockView } from './clock';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {

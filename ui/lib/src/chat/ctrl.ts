@@ -16,14 +16,14 @@ import { moderationCtrl } from './moderation';
 import { prop, type Prop } from '../common';
 import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
-import { alert } from '../dialogs';
+import { alert } from '../view/dialogs';
 
 export default class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
   private subs: [PubsubEvent, PubsubCallback][];
-  private storedTabKey: Prop<string> = storedStringProp('chat.tab', 'discussion');
+  private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
   chatEnabled: Prop<boolean> = storedBooleanProp('chat.enabled', true);
@@ -38,6 +38,7 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
+    this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
     if (opts.noteId) this.allTabs.push({ key: 'note' });
     if (opts.plugin && (opts.plugin.kidSafe || !opts.kidMode)) {
@@ -56,7 +57,7 @@ export default class ChatCtrl {
       writeable: opts.writeable,
       domVersion: 1, // increment to force redraw
     };
-    this.storedTabKey(this.getTab().key);
+
     this.note = opts.noteId
       ? noteCtrl({
           id: opts.noteId,
@@ -93,7 +94,7 @@ export default class ChatCtrl {
   }
 
   get visibleTabs(): Tab[] {
-    return this.allTabs.filter(x => !x.hidden);
+    return this.allTabs.filter(x => !x.isDisabled?.());
   }
 
   get plugin(): ChatPlugin | undefined {

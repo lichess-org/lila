@@ -3,6 +3,7 @@ package lila.study
 import akka.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
+import monocle.syntax.all.*
 
 import lila.common.Bus
 import lila.core.perm.Granter
@@ -294,10 +295,18 @@ final class StudyApi(
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid delNode $studyId $position")
 
-  def resetRoot(studyId: StudyId, chapterId: StudyChapterId, newRoot: lila.tree.Root)(who: Who) =
+  def resetRoot(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      newRoot: lila.tree.Root,
+      newVariant: chess.variant.Variant
+  )(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, prevChapter) =>
-        val chapter = prevChapter.copy(root = newRoot)
+        val chapter = prevChapter
+          .copy(root = newRoot)
+          .focus(_.setup.variant)
+          .replace(newVariant)
         for
           _ <- chapterRepo.update(chapter)
           _ = onChapterChange(studyId, chapterId, who)

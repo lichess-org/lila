@@ -3,8 +3,8 @@ import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './int
 import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'lib/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
-import { fullName, userFlair, userTitle } from 'lib/userLink';
-import { spinnerVdom } from 'lib/controls';
+import { fullName, userFlair, userTitle } from 'lib/view/userLink';
+import { spinnerVdom } from 'lib/view/controls';
 import { formatDuration, perfLabel, perfNames } from './util';
 import perfIcons from 'lib/game/perfIcons';
 

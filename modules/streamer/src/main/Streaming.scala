@@ -11,7 +11,8 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.core.data.UserIds,
     twitchApi: TwitchApi,
-    ytApi: YouTubeApi
+    ytApi: YouTubeApi,
+    langList: lila.core.i18n.LangList
 )(using Executor, Scheduler):
 
   import Stream.*
@@ -51,30 +52,33 @@ final private class Streaming(
   private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2.hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
+    import lila.core.misc.streamer.*
     Bus.pub:
-      lila.core.misc.streamer
-        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value)))
+      StreamersOnline:
+        newStreams.streams
+          .map: s =>
+            s.streamer.userId ->
+              StreamInfo(
+                name = s.streamer.name.value,
+                lang = ~s.streamer.lastStreamLang.map(langList.nameByLanguage)
+              )
+          .toMap
     if newStreams != liveStreams then
       newStreams.streams
-        .filterNot { s =>
+        .filterNot: s =>
           liveStreams.has(s.streamer)
-        }
-        .foreach { s =>
+        .foreach: s =>
           import s.streamer.userId
           if streamStartOnceEvery(userId) then
             Bus.pub(lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value))
-        }
     liveStreams = newStreams
-    streamers.foreach { streamer =>
-      streamer.twitch.foreach { t =>
+    streamers.foreach: streamer =>
+      streamer.twitch.foreach: t =>
         if liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
-      }
-      streamer.youTube.foreach { t =>
+      streamer.youTube.foreach: t =>
         if liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
-      }
-    }
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams

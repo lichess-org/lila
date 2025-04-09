@@ -2,7 +2,7 @@ import { looseH as h } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 import type { Palantir } from 'lib/chat/interfaces';
 
 type State =

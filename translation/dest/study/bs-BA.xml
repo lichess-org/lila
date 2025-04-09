@@ -57,10 +57,7 @@
   <string name="shareChanges">Podijelite promjene sa posmatračima i sačuvajte ih na server</string>
   <string name="playing">U toku</string>
   <string name="showEvalBar">Evaluacijske trake</string>
-  <string name="first">Prva strana</string>
-  <string name="previous">Prethodna strana</string>
   <string name="next">Sljedeća strana</string>
-  <string name="last">Posljednja strana</string>
   <string name="shareAndExport">Podijelite i izvezite</string>
   <string name="cloneStudy">Klonirajte</string>
   <string name="studyPgn">Studirajte PGN</string>

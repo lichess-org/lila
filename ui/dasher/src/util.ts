@@ -1,12 +1,22 @@
 import * as licon from 'lib/licon';
 import { bind, looseH as h, type VNode } from 'lib/snabbdom';
-import { memoize } from 'lib';
+import { memoize, Toggle } from 'lib';
 
 export const header = (name: string, close: () => void): VNode =>
   h(
     'button.head.text',
     { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
     name,
+  );
+
+export const moreButton = (toggle: Toggle): VNode =>
+  h(
+    'button.button.more',
+    {
+      attrs: { title: i18n.site.more },
+      hook: bind('click', toggle.toggle),
+    },
+    toggle() ? '-' : '+',
   );
 
 export const elementScrollBarWidthSlowGuess: () => number = memoize<number>(() => {

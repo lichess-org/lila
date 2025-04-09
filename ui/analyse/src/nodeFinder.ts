@@ -1,5 +1,5 @@
 import { winningChances } from 'lib/ceval/ceval';
-import { fenToEpd } from 'lib/chess/chess';
+import { fenToEpd } from 'lib/game/chess';
 import { defined } from 'lib';
 import { zip } from 'lib/algo';
 

@@ -9,7 +9,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def home = Auth { _ ?=> me ?=>
     negotiateApi(
-      html = Ok.async(inboxJson.map(views.msg.home)),
+      html = Ok.async(inboxJson.map(views.msg.home)).map(_.hasPersonalData),
       api = v =>
         JsonOk:
           if v.value >= 5 then inboxJson
@@ -33,7 +33,7 @@ final class Msg(env: Env) extends LilaController(env):
                 JsonOk:
                   if v.value >= 5 then newJson
                   else fuccess(env.msg.compat.thread(c))
-            )
+            ).map(_.hasPersonalData)
   }
 
   def search(q: String) = Auth { _ ?=> me ?=>

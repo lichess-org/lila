@@ -1,10 +1,10 @@
 import { h } from 'snabbdom';
 import { onInsert } from 'lib/snabbdom';
-import { renderClock } from 'lib/miniBoard';
+import { renderClock } from 'lib/view/miniBoard';
 import type SimulCtrl from '../ctrl';
 import type { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
-import { userFlair } from 'lib/userLink';
+import { userFlair } from 'lib/view/userLink';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));

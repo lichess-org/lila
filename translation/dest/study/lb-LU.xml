@@ -54,10 +54,7 @@
   <string name="shareChanges">Deel Ännerungen mat den Zuschauer an späicher se um Server</string>
   <string name="playing">Lafend Partie</string>
   <string name="showResults">Resultater</string>
-  <string name="first">Éischt Säit</string>
-  <string name="previous">Zeréck</string>
   <string name="next">Weider</string>
-  <string name="last">Lescht Säit</string>
   <string name="shareAndExport">Deelen &amp; exportéieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Etüden PGN</string>
@@ -168,4 +165,6 @@
   <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
   <string name="perPage">%s pro Säit</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeelt a gespäichert</string>
+  <string name="conclusionTitle">Merci fir deng Zäit</string>
 </resources>

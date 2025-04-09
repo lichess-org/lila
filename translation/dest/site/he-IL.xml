@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">שחק/י עם חבר/ה</string>
   <string name="playWithTheMachine">שחק/י מול המחשב</string>
-  <string name="playOffline">שחק/י (לא מקוון)</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -173,6 +172,7 @@
   <string name="flipBoard">סיבוב הלוח</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="claimADraw">דרוש תיקו</string>
+  <string name="drawClaimed">התבקש תיקו</string>
   <string name="offerDraw">הצע תיקו</string>
   <string name="draw">תיקו</string>
   <plurals name="nbPlayers">
@@ -558,14 +558,14 @@
   <string name="wins">ניצחונות</string>
   <string name="losses">הפסדים</string>
   <string name="createdBy">נוצר ע\"י</string>
-  <string name="tournamentIsStarting">הטורניר מתחיל</string>
+  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">מתחיל בעוד</string>
   <string name="tournamentPairingsAreNowClosed">השיבוץ לזוגות בטורניר הסתיים.</string>
   <string name="standByX">%s, נא להמתין, משבצים לזוגות, היו מוכנים!</string>
   <string name="pause">השהה</string>
   <string name="resume">המשך</string>
   <string name="youArePlaying">את/ה משחק/ת!</string>
   <string name="winRate">שיעור זכייה</string>
-  <string name="berserkRate">אחוז המשחקים באטרף</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">אחוז המשחקים באטרף</string>
   <string name="performance">דירוג הביצוע</string>
   <string name="tournamentComplete">הטורניר הושלם</string>
   <string name="movesPlayed">מהלכים ששוחקו</string>
@@ -573,7 +573,6 @@
   <string name="blackWins">ניצחונות כשחור</string>
   <string name="drawRate">שיעור תוצאות התיקו</string>
   <string name="draws">תוצאות תיקו</string>
-  <string name="nextXTournament">טורניר ה%s הבא:</string>
   <string name="averageOpponent">יריב ממוצע</string>
   <string name="boardEditor">עריכת לוח</string>
   <string name="setTheBoard">עריכת הלוח</string>
@@ -827,6 +826,9 @@
   <string name="checkYourEmail">נא לבדוק את הדוא״ל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק במייל כדי להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם את/ה לא מוצא/ת את המייל, חפש/י במקומות אחרים, כגון דואר זבל, ספאם או תיקיות אחרות.</string>
+  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">אם לא יתקבל המייל ב-5 הדקות הקרובות:</string>
+  <string name="checkAllEmailFolders">בדקו את כל תיקיות הספאם, דואר הזבל וכיוצא בזה</string>
+  <string name="verifyYourAddress">ודאו שאכן %s היא כתובת המייל שלכם</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, את/ה מסכים/ה ל%s.</string>
   <string name="readAboutOur">קראו את %s.</string>
@@ -835,6 +837,7 @@
   <string name="downloadAnnotated">הורדה עם הערות</string>
   <string name="downloadRaw">הורדה ללא הערות</string>
   <string name="downloadImported">הורד משחק מיובא</string>
+  <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="crosstable">חשבון הנקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול כדי להתקדם במשחק.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">רחפו מעל וריאציות המחשב עם העכבר בשביל לראות תצוגה מקדימה שלהן.</string>
@@ -873,6 +876,7 @@
   <string name="anonymous">אנונימי</string>
   <string name="yourScore">התוצאה שלך: %s</string>
   <string name="language">שפה</string>
+  <string name="allLanguages">כל השפות</string>
   <string name="background">רקע</string>
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
@@ -1066,6 +1070,7 @@
   <string name="focusChat">הגדלת הצ\'אט</string>
   <string name="showHelpDialog">הצגת מסך עזרה זה</string>
   <string name="reopenYourAccount">פתח/י את חשבונך מחדש</string>
+  <string name="reopenYourAccountDescription">אם סגרת את חשבונך והתחרטת, עדיין ישנה אפשרות לקבל את חשבונך בחזרה.</string>
   <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
   <string name="sentEmailWithLink">שלחנו לך דוא״ל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>

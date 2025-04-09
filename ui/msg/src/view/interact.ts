@@ -4,7 +4,7 @@ import { bindSubmit } from 'lib/snabbdom';
 import type { User } from '../interfaces';
 import type MsgCtrl from '../ctrl';
 import { throttle } from 'lib/async';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();

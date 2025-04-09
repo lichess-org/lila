@@ -3,7 +3,7 @@ import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
 import { clockToSpeed } from 'lib/game/game';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {

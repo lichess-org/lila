@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј са рачунаром</string>
-  <string name="playOffline">Играј offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
@@ -405,7 +404,7 @@
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
-  <string name="xJoinedTeamY">%1$s је ушао/ла у тим %2$s</string>
+  <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
   <string name="xStartedStreaming">%s је почео са приказивањем</string>
@@ -470,21 +469,21 @@
   </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
-  <string name="lastSeenActive">Последња посета %s</string>
+  <string name="lastSeenActive">Активан/на %s</string>
   <string name="player">Играч</string>
-  <string name="list">Списак</string>
+  <string name="list">Листа</string>
   <string name="graph">Графикон</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Мање од %s минут</item>
     <item quantity="few">Мање од %s минута</item>
     <item quantity="other">Мање од %s минута</item>
   </plurals>
-  <string name="required">Обавезно.</string>
+  <string name="required">Неопходно.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
   <string name="standing">Позиција</string>
-  <string name="createANewTournament">Направите нови турнир</string>
+  <string name="createANewTournament">Направи нови турнир</string>
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
   <string name="advancedSettings">Напредна подешавања</string>
@@ -494,18 +493,17 @@
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
-  <string name="points">Поена</string>
-  <string name="wins">Победа</string>
-  <string name="losses">Пораза</string>
-  <string name="createdBy">Направио/ла:</string>
-  <string name="tournamentIsStarting">Турнир почиње</string>
+  <string name="points">Бодови</string>
+  <string name="wins">Победе</string>
+  <string name="losses">Порази</string>
+  <string name="createdBy">Направио/ла</string>
   <string name="tournamentPairingsAreNowClosed">Упаривање за турнир је заустављено.</string>
   <string name="standByX">Стрпи се %s, упарујемо играче, будите спремни!</string>
   <string name="pause">Заустави</string>
   <string name="resume">Настаби</string>
   <string name="youArePlaying">Играш на турниру!</string>
   <string name="winRate">Проценат победа</string>
-  <string name="berserkRate">Проценат лудила</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Проценат лудила</string>
   <string name="performance">Перформанса</string>
   <string name="tournamentComplete">Турнир завршен</string>
   <string name="movesPlayed">Одиграно потеза</string>
@@ -513,7 +511,6 @@
   <string name="blackWins">Победе као црни</string>
   <string name="drawRate">Проценат ремија</string>
   <string name="draws">Ремија</string>
-  <string name="nextXTournament">Следећи %s турнир:</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="boardEditor">Уређивач табле</string>
   <string name="setTheBoard">Постави таблу</string>
@@ -521,15 +518,15 @@
   <string name="endgamePositions">Позиције у завршници</string>
   <string name="chess960StartPosition">Почетна позиција за шах960: %s</string>
   <string name="startPosition">Почетна позиција</string>
-  <string name="clearBoard">Уклони фигуре</string>
+  <string name="clearBoard">Очисти таблу</string>
   <string name="loadPosition">Учитај позицију</string>
-  <string name="isPrivate">Приватно</string>
+  <string name="isPrivate">Приватни</string>
   <string name="reportXToModerators">Пријави %s модераторима</string>
   <string name="profileCompletion">Комплетност профила: %s</string>
   <string name="xRating">%s рејтинг</string>
   <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
   <string name="profile">Профил</string>
-  <string name="editProfile">Уредите профил</string>
+  <string name="editProfile">Уреди профил</string>
   <string name="realName">Право име</string>
   <string name="setFlair">Постави своју значку</string>
   <string name="flair">Значка</string>
@@ -542,10 +539,10 @@
   <string name="inlineNotation">Нотација у реду</string>
   <string name="makeAStudy">Како би сачувао и делио, размисли о томе да направиш студију.</string>
   <string name="clearSavedMoves">Уклони потезе</string>
-  <string name="previouslyOnLichessTV">Претходно на Личес ТВ</string>
+  <string name="previouslyOnLichessTV">Претходно на Lichess ТВ-у</string>
   <string name="onlinePlayers">Играчи на мрежи</string>
   <string name="activePlayers">Активни играчи</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Опрезно, партија је рангирана али нема шаховског сата!</string>
   <string name="success">Успешно</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија се игра</item>
@@ -607,18 +604,18 @@
   <string name="clockIncrement">Повећање времена</string>
   <string name="privacy">Приватност</string>
   <string name="privacyPolicy">Политика приватности</string>
-  <string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
-  <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
+  <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
+  <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
-  <string name="none">Нема</string>
-  <string name="fast">Брзо</string>
-  <string name="normal">Нормално</string>
-  <string name="slow">Споро</string>
+  <string name="none">Ниједна</string>
+  <string name="fast">Брза</string>
+  <string name="normal">Нормална</string>
+  <string name="slow">Спора</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
   <string name="allSquaresOfTheBoard">Сва поља табле</string>
-  <string name="onSlowGames">У споријим партијама</string>
+  <string name="onSlowGames">На спорим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
   <string name="xCompetesInY">%1$s се такмичи у %2$s</string>
@@ -629,7 +626,7 @@
   <string name="drawVsYInZ">%1$s против %2$s у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
-  <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
+  <string name="allInformationIsPublicAndOptional">Све информације су јавне и необавезне.</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Највише: %s карактер</item>
@@ -642,7 +639,7 @@
     <item quantity="other">%s блокираних</item>
   </plurals>
   <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
-  <string name="human">Човек</string>
+  <string name="human">Особа</string>
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
   <string name="clock">Сат</string>

@@ -16,45 +16,46 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def index = Open: ctx ?=>
     NoBot:
-      ctx.me match
-        case _ if getBool("home") => renderHome
-        case None                 => renderHome
-        case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
-          Ok.async:
-            env.clas.api.clas
-              .of(me)
-              .map:
-                views.clas.clas.teacherIndex(_, getBool("closed"))
-        case Some(me) =>
-          for
-            hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
-            res <-
-              if hasClas
-              then
-                for
-                  ids     <- env.clas.api.student.clasIdsOfUser(me)
-                  classes <- env.clas.api.clas.byIds(ids)
-                  res <- classes match
-                    case List(single) => redirectTo(single).toFuccess
-                    case many         => Ok.page(views.clas.clas.studentIndex(many))
-                yield res
-              else renderHome
-          yield res
+      ctx.me
+        .match
+          case _ if getBool("home") => renderHome
+          case None                 => renderHome
+          case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
+            Ok.async:
+              env.clas.api.clas
+                .of(me)
+                .map:
+                  views.clas.clas.teacherIndex(_, getBool("closed"))
+          case Some(me) =>
+            for
+              hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
+              res <-
+                if hasClas
+                then
+                  for
+                    ids     <- env.clas.api.student.clasIdsOfUser(me)
+                    classes <- env.clas.api.clas.byIds(ids)
+                    res <- classes match
+                      case List(single) => redirectTo(single).toFuccess
+                      case many         => Ok.page(views.clas.clas.studentIndex(many))
+                  yield res
+                else renderHome
+            yield res
+        .map(_.hasPersonalData)
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
     FoundPage(meOrFetch(username)): teacher =>
       env.clas.api.clas
         .of(teacher)
-        .map:
-          views.mod.search.teacher(teacher.id, _)
+        .map(views.mod.search.teacher(teacher.id, _))
+    .map(_.hasPersonalData)
   }
 
   private def renderHome(using Context) =
     Ok.page(views.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
-    Ok.async:
-      renderCreate(none)
+    Ok.async(renderCreate(none)).map(_.hasPersonalData)
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -128,6 +129,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               if students.exists(_.student.is(me)) then forStudent(clas, students)
               else orDefault(ctx)
             }
+      .map(_.hasPersonalData)
 
   def wall(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAny(id)(
@@ -529,7 +531,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else Unauthorized.page(views.clas.teacherDashboard.unreasonable(clas, students, active))
 
   private def WithClass(clasId: ClasId)(f: lila.clas.Clas => Fu[Result])(using Context, Me): Fu[Result] =
-    Found(env.clas.api.clas.getAndView(clasId))(f)
+    Found(env.clas.api.clas.getAndView(clasId))(f).map(_.hasPersonalData)
 
   private def WithClassAndStudents(clasId: ClasId)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
@@ -541,7 +543,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       f: lila.clas.Student.WithUser => Fu[Result]
   )(using Context): Fu[Result] =
     Found(meOrFetch(username)): user =>
-      Found(env.clas.api.student.get(clas, user))(f)
+      Found(env.clas.api.student.get(clas, user))(f).map(_.hasPersonalData)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if ctx.me.exists(!_.lameOrTroll) && ctx.noBot then f

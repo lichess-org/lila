@@ -1,9 +1,8 @@
-import extendTablesortNumber from 'lib/tablesortNumber';
-import tablesort from 'tablesort';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { debounce } from 'lib/async';
 import { formToXhr } from 'lib/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'lib/dialogs';
+import { confirm } from 'lib/view/dialogs';
 
 site.load.then(() => {
   setupTable();
@@ -26,7 +25,7 @@ const setupFilter = () => {
 const setupTable = () => {
   const table = document.querySelector('table.game-list') as HTMLTableElement;
   extendTablesortNumber();
-  tablesort(table, { descending: true });
+  sortTable(table, { descending: true });
 
   expandCheckboxZone(table, 'td:first-child', shiftClickCheckboxRange(table));
   checkBoxAll(table);

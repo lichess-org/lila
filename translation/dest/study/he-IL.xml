@@ -61,10 +61,7 @@
   <string name="playing">מתקיים כעת</string>
   <string name="showResults">תוצאות</string>
   <string name="showEvalBar">מדי הערכה</string>
-  <string name="first">ראשון</string>
-  <string name="previous">הקודם</string>
   <string name="next">הבא</string>
-  <string name="last">אחרון</string>
   <string name="shareAndExport">שיתוף &amp; ייצוא</string>
   <string name="cloneStudy">שכפול</string>
   <string name="studyPgn">ה-PGN של לוח הלמידה</string>
@@ -177,4 +174,6 @@
   <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
   <string name="youCompletedThisLesson">מזל טוב! סיימתם את השיעור.</string>
   <string name="perPage">%s לכל עמוד</string>
+  <string name="getTheTour">זקוקים לעזרה? קבלו הדרכה!</string>
+  <string name="welcomeToLichessStudyTitle">ברוכים הבאים ללוחות הלמידה של Lichess!</string>
 </resources>
