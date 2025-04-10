@@ -207,34 +207,39 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         )
       )
 
-  def kid(u: User, form: Form[?], managed: Boolean)(using Context) =
-    AccountPage(s"${u.username} - ${trans.site.kidMode.txt()}", "kid"):
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")(if u.kid.yes then trans.site.kidModeIsEnabled() else trans.site.kidMode()),
-        standardFlash,
-        p(trans.site.kidModeExplanation()),
-        br,
-        br,
-        br,
-        if managed then p(trans.site.askYourChessTeacherAboutLiftingKidMode())
-        else
-          postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
-            form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
-            submitButton(
-              cls := List(
-                "button"     -> true,
-                "button-red" -> u.kid.yes
-              )
-            )(if u.kid.yes then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())
+  def kid(u: User, form: Form[?], managed: Boolean, cms: Option[Html])(using Context) =
+    AccountPage(s"${u.username} - ${trans.site.kidMode.txt()}", "kid")
+      .css("bits.page"):
+      frag(
+        div(cls := "box box-pad")(
+          h1(cls := "box__top")(if u.kid.yes then trans.site.kidModeIsEnabled() else trans.site.kidMode()),
+          standardFlash,
+          p(trans.site.kidModeExplanation()),
+          br,
+          br,
+          br,
+          if managed then p(trans.site.askYourChessTeacherAboutLiftingKidMode())
+          else
+            postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
+              form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
+              submitButton(
+                cls := List(
+                  "button"     -> true,
+                  "button-red" -> u.kid.yes
+                )
+              )(if u.kid.yes then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())
+            )
+          ,
+          br,
+          br,
+          p(
+            trans.site.inKidModeTheLichessLogoGetsIconX(
+              span(cls := "kiddo", title := trans.site.kidMode.txt())(":)")
+            )
           )
-        ,
-        br,
-        br,
-        p(
-          trans.site.inKidModeTheLichessLogoGetsIconX(
-            span(cls := "kiddo", title := trans.site.kidMode.txt())(":)")
-          )
-        )
+        ),
+        cms.map: content =>
+          frag(br, div(cls := "box box-pad page")(div(cls := "body expand-text")(rawHtml(content))))
       )
 
   def password(form: Form[?])(using Context) =
