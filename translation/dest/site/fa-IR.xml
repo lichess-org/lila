@@ -485,13 +485,11 @@
   <string name="wins">بردها</string>
   <string name="losses">باخت‌ها</string>
   <string name="createdBy">ساخته شده توسط</string>
-  <string name="tournamentPairingsAreNowClosed">تعین حریف به اتمام رسیده است.</string>
   <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="pause">توقف</string>
   <string name="resume">ادامه دادن</string>
   <string name="youArePlaying">شما بازی می‌کنید!</string>
   <string name="winRate">درصد برد</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">میزان دیوانگی</string>
   <string name="performance">عملکرد</string>
   <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>

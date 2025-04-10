@@ -24,7 +24,6 @@
   <string name="xPublishedY">%1$s %2$s жариялады</string>
   <string name="thisPostIsPublished">Бұл жазба жарияланған</string>
   <string name="thisIsADraft">Бұл уақытша жазба</string>
-  <string name="moreBlogPostsBy">%s-ның басқа да блог-жазбалары</string>
   <string name="noPostsInThisBlogYet">Осы блогта әлі жазба жоқ.</string>
   <string name="noDrafts">Көрсетерлік уақытша жазба жоқ.</string>
   <string name="latestBlogPosts">Кейінгі блог-жазбалар</string>

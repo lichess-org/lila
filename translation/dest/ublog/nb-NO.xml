@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogger fra fellesskapet</string>
   <string name="friendBlogs">Venners blogger</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Bloggen til Lichess</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Bloggen min</string>
+  <string name="lichessBlog">Bloggen til Lichess</string>
+  <string name="myBlog">Bloggen min</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
   <string name="blogTopics">Bloggemner</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s publiserte %2$s</string>
   <string name="thisPostIsPublished">Dette innlegget er publisert</string>
   <string name="thisIsADraft">Dette er et utkast</string>
-  <string name="moreBlogPostsBy">Flere blogginnlegg av %s</string>
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>

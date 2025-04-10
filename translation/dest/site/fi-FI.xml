@@ -487,13 +487,11 @@
   <string name="losses">Tappiot</string>
   <string name="createdBy">Tekijä:</string>
   <string name="startingIn" comment="Displayed above a timer">Aikaa alkuun:</string>
-  <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
   <string name="resume">Jatka</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
-  <string name="berserkRate">Berserkkiprosentti</string>
   <string name="performance">Suoritus</string>
   <string name="tournamentComplete">Turnaus päättynyt</string>
   <string name="movesPlayed">Siirtoja</string>

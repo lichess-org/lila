@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">社群部落格</string>
   <string name="friendBlogs">好友的部落格</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess 部落格</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">我的部落格</string>
+  <string name="lichessBlog">Lichess 部落格</string>
+  <string name="myBlog">我的部落格</string>
   <string name="likedBlogs">已喜歡的部落格</string>
   <string name="blogTopics">部落格主題</string>
   <plurals name="blogPosts">
@@ -37,7 +37,6 @@
   <string name="xPublishedY">%1$s 發布了 %2$s</string>
   <string name="thisPostIsPublished">文章已發布</string>
   <string name="thisIsADraft">這是一個草稿</string>
-  <string name="moreBlogPostsBy">%s 的更多文章</string>
   <string name="noPostsInThisBlogYet">此網誌中尚無文章</string>
   <string name="noDrafts">沒有草稿</string>
   <string name="latestBlogPosts">最新的部落格</string>

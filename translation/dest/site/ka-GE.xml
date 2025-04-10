@@ -476,13 +476,11 @@
   <string name="wins">იგებს</string>
   <string name="losses">აგებს</string>
   <string name="createdBy">შემქმნელი</string>
-  <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
   <string name="standByX">დაელოდეთ %s, ვაჯგუფებთ მოთამაშეებს, მოემზადეთ!</string>
   <string name="pause">შეჩერება</string>
   <string name="resume">გაგრძელება</string>
   <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
   <string name="winRate">მოგების სიხშირე</string>
-  <string name="berserkRate">ბერსერკის პროცენტი</string>
   <string name="performance">თამაშის დონე</string>
   <string name="tournamentComplete">ტურნირი დასრულდა</string>
   <string name="movesPlayed">ნათამაშები სვლები</string>

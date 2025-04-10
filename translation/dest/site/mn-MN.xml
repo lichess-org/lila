@@ -436,13 +436,11 @@
   <string name="wins">Ялалт</string>
   <string name="losses">Ялагдал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
-  <string name="tournamentPairingsAreNowClosed">Тэмцээний оноолт хаагдсан байна.</string>
   <string name="standByX">%s бэлтэнэ үү, тоглолтын оноолт явагдаж байна!</string>
   <string name="pause">Паузлах</string>
   <string name="resume">Үргэлжлүүлэх</string>
   <string name="youArePlaying">Та тоглож байна!</string>
   <string name="winRate">Ялалтын хувь</string>
-  <string name="berserkRate">Берсеркийн хувь</string>
   <string name="performance">Тэмцээнд үзүүлсэн чансаа</string>
   <string name="tournamentComplete">Тэмцээн өндөрллөө</string>
   <string name="movesPlayed">Нийт нүүдлийн тоо</string>

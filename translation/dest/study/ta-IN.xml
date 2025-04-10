@@ -59,7 +59,6 @@
   <string name="shareAndExport">பகிர் &amp; ஏற்றுமதி</string>
   <string name="cloneStudy">நகல்</string>
   <string name="studyPgn">PGN கற்கை</string>
-  <string name="downloadAllGames">எல்லா விளையாட்டுக்களையும் பதிவிறக்க</string>
   <string name="chapterPgn">அத்தியாயத்திற்குரிய PGN</string>
   <string name="copyChapterPgn">PGN நகல்</string>
   <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
@@ -169,9 +168,9 @@
   <string name="getTheTour">உதவி தேவையா? வழிகாட்டியைச் சரிபார்க்கவும்!</string>
   <string name="welcomeToLichessStudyTitle">Lichess படிப்புக்கு வருக!</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">பகிரப்பட்டு சேமிக்கப்பட்டது</string>
-  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">மற்ற உறுப்பினர்கள் உங்கள் நகர்வுகளை நிகழ்நேரத்தில் பார்க்கலாம்!&lt;br&gt;மேலும், அனைத்தும் என்றென்றும் சேமிக்கப்படும்.</string>
+  <string name="sharedAndSavedText">மற்ற உறுப்பினர்கள் உங்கள் நகர்வுகளை நிகழ்நேரத்தில் பார்க்கலாம்!&lt;br&gt;மேலும், அனைத்தும் என்றென்றும் சேமிக்கப்படும்.</string>
   <string name="studyMembersTitle">கற்கை உறுப்பினர்கள்</string>
-  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">%s பொத்தானைக் அழுத்துங்கள்.&lt;br&gt;பின்னர் யார் பங்களிக்கலாம் அல்லது பங்களிக்கக் கூடாது என்பதை முடிவு செய்யுங்கள்.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s பொத்தானைக் அழுத்துங்கள்.&lt;br&gt;பின்னர் யார் பங்களிக்கலாம் அல்லது பங்களிக்கக் கூடாது என்பதை முடிவு செய்யுங்கள்.</string>
   <string name="studyChaptersTitle">கற்கை அத்தியாயங்கள்</string>
   <string name="commentPositionTitle">ஒரு நிலை குறித்து கருத்து தெரிவிக்கவும்</string>
   <string name="annotatePositionTitle">ஒரு நிலையைக் குறிப்பிடவும்</string>

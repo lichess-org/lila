@@ -30,7 +30,6 @@
   <string name="xPublishedY">%1$s님이 %2$s를 게시했습니다.</string>
   <string name="thisPostIsPublished">게시물이 게시되었습니다.</string>
   <string name="thisIsADraft">임시저장입니다</string>
-  <string name="moreBlogPostsBy">더 많은 %s의 글</string>
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
   <string name="noDrafts">임시저장된 글이 없습니다.</string>
   <string name="latestBlogPosts">최근 블로그 글</string>

@@ -485,13 +485,11 @@
   <string name="wins">Galibiyetler</string>
   <string name="losses">Mağlubiyetler</string>
   <string name="createdBy">Oluşturan kişi</string>
-  <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
   <string name="pause">Duraklat</string>
   <string name="resume">Devam et</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
-  <string name="berserkRate">Divane oranı</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnuva sona erdi</string>
   <string name="movesPlayed">Toplam hamle sayısı</string>

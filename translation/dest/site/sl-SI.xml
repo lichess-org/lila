@@ -558,13 +558,11 @@
   <string name="losses">Porazi</string>
   <string name="createdBy">Ustvaril</string>
   <string name="startingIn" comment="Displayed above a timer">Začetek čez</string>
-  <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
   <string name="pause">Premor</string>
   <string name="resume">Nadaljuj</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Delež zmag</string>
-  <string name="berserkRate">Delež divjanja</string>
   <string name="performance">Izkazan rating</string>
   <string name="tournamentComplete">Turnir je zaključen</string>
   <string name="movesPlayed">Odigranih potez</string>

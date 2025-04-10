@@ -434,13 +434,11 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
   <string name="createdBy">Dibuat oleh</string>
-  <string name="tournamentPairingsAreNowClosed">Keseimbangan pertandingan sekarang ditutup.</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Sambung</string>
   <string name="youArePlaying">Anda sedang bermain!</string>
   <string name="winRate">Rate menang</string>
-  <string name="berserkRate">Rate berserk</string>
   <string name="performance">Pencapaian</string>
   <string name="tournamentComplete">Pertandingan selesai</string>
   <string name="movesPlayed">Gerakan dimain</string>

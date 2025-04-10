@@ -32,7 +32,6 @@
   <string name="xPublishedY">%1$s publicerade %2$s</string>
   <string name="thisPostIsPublished">Det här inlägget är publicerat</string>
   <string name="thisIsADraft">Detta är ett utkast</string>
-  <string name="moreBlogPostsBy">Fler blogginlägg av %s</string>
   <string name="noPostsInThisBlogYet">Inga inlägg i denna blogg, ännu.</string>
   <string name="noDrafts">Inga utkast att visa.</string>
   <string name="latestBlogPosts">Senaste blogginläggen</string>

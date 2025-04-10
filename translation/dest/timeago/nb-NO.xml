@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">om litt</string>
+  <string name="justNow">akkurat nå</string>
   <plurals name="inNbSeconds">
     <item quantity="one">om %s sekund</item>
     <item quantity="other">om %s sekunder</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">om %s minutt</item>
-    <item quantity="other">om %s minutter</item>
+    <item quantity="one">i %s minutt</item>
+    <item quantity="other">i %s minutter</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">om %s time</item>
-    <item quantity="other">om %s timer</item>
+    <item quantity="one">i %s time</item>
+    <item quantity="other">i %s timer</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">om %s døgn</item>
-    <item quantity="other">om %s døgn</item>
+    <item quantity="one">i %s dag</item>
+    <item quantity="other">i %s dager</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">om %s uke</item>
@@ -29,30 +29,30 @@
     <item quantity="one">om %s år</item>
     <item quantity="other">om %s år</item>
   </plurals>
-  <string name="rightNow">for litt siden</string>
+  <string name="rightNow">akkurat nå</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">for %s minutt siden</item>
-    <item quantity="other">for %s minutter siden</item>
+    <item quantity="one">%s minutt siden</item>
+    <item quantity="other">%s minutter siden</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="one">for %s time siden</item>
-    <item quantity="other">for %s timer siden</item>
+    <item quantity="one">%s time siden</item>
+    <item quantity="other">%s timer siden</item>
   </plurals>
   <plurals name="nbDaysAgo">
-    <item quantity="one">for %s døgn siden</item>
-    <item quantity="other">for %s døgn siden</item>
+    <item quantity="one">%s dag siden</item>
+    <item quantity="other">%s dager siden</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="one">for %s uke siden</item>
-    <item quantity="other">for %s uker siden</item>
+    <item quantity="one">%s uke siden</item>
+    <item quantity="other">%s uker siden</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">for %s måned siden</item>
-    <item quantity="other">for %s måneder siden</item>
+    <item quantity="one">%s måned siden</item>
+    <item quantity="other">%s måneder siden</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">for %s år siden</item>
-    <item quantity="other">for %s år siden</item>
+    <item quantity="one">%s år siden</item>
+    <item quantity="other">%s år siden</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="one">%s minutt igjen</item>

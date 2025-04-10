@@ -21,7 +21,6 @@
   <string name="xPublishedY">%1$s menerbitkan %2$s</string>
   <string name="thisPostIsPublished">Postingan ini telah dipublikasi</string>
   <string name="thisIsADraft">Ini sebuah draf</string>
-  <string name="moreBlogPostsBy">Blog post lainnya oleh %s</string>
   <string name="noPostsInThisBlogYet">Belum ada post di blog ini.</string>
   <string name="noDrafts">Tidak ada draf.</string>
   <string name="latestBlogPosts">Postingan blog terbaru</string>

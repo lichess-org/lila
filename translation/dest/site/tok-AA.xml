@@ -476,13 +476,11 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="wins">pona</string>
   <string name="losses">ike</string>
   <string name="createdBy">tan jan</string>
-  <string name="tournamentPairingsAreNowClosed">mi pini pali e linja tawa jan musi pi utala musi ni.</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
   <string name="pause">o tawa ala</string>
   <string name="resume">o awen</string>
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
-  <string name="berserkRate">musi pi tenpo lili</string>
   <string name="performance">nanpa wawa pi lipu ni</string>
   <string name="tournamentComplete">utala musi suli li pini</string>
   <string name="movesPlayed">mute tawa</string>

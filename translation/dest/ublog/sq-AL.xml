@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogje bashkësie</string>
   <string name="friendBlogs">Blogje shokësh</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Blogu i Lichess-it</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Blogu im</string>
+  <string name="lichessBlog">Blogu i Lichess-it</string>
+  <string name="myBlog">Blogu im</string>
   <string name="likedBlogs">Postime të pëlqyer në blogje</string>
   <string name="blogTopics">Tema blogjesh</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s botoi %2$s</string>
   <string name="thisPostIsPublished">Ky postim u botua</string>
   <string name="thisIsADraft">Kjo është një skicë</string>
-  <string name="moreBlogPostsBy">Më tepër postime blogu nga %s</string>
   <string name="noPostsInThisBlogYet">Ende pa postime në këtë blog.</string>
   <string name="noDrafts">S’ka skica për shfaqje.</string>
   <string name="latestBlogPosts">Postimet më të reja në blog</string>

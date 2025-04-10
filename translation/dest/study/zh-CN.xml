@@ -56,7 +56,6 @@
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
   <string name="studyPgn">研究 PGN</string>
-  <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="copyChapterPgn">复制PGN</string>
   <string name="downloadGame">下载棋局</string>
@@ -164,33 +163,33 @@
   <string name="perPage">%s 每页</string>
   <string name="getTheTour">需要帮助？开始导览！</string>
   <string name="welcomeToLichessStudyTitle">欢迎来到Lichess研讨！</string>
-  <string name="welcomeToLichessStudyText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">这是一个共同的分析委员会。&lt;br&gt;&lt;br&gt;用它来分析和批注游戏，&lt;br&gt;与朋友讨论位置，&lt;br&gt;或者进行课程！&lt;br&gt;&lt;br&gt;这是一个强大的工具，让我们花一些时间看看它如何运作。</string>
+  <string name="welcomeToLichessStudyText">这是一个共同的分析委员会。&lt;br&gt;&lt;br&gt;用它来分析和批注游戏，&lt;br&gt;与朋友讨论位置，&lt;br&gt;或者进行课程！&lt;br&gt;&lt;br&gt;这是一个强大的工具，让我们花一些时间看看它如何运作。</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">已共享并保存</string>
-  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">其他成员可以实时看到您的移动！&lt;br&gt;一切都会永远保存。</string>
+  <string name="sharedAndSavedText">其他成员可以实时看到您的移动！&lt;br&gt;一切都会永远保存。</string>
   <string name="studyMembersTitle">研讨成员</string>
-  <string name="studyMembersText" comment="%1$s and %2$s are icons that are shown inline with the text.&#10;%1$s is the icon for spectators, while %2$s is the icon for contributors.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">%1$s 旁观者可以在聊天室查看研讨并进行谈话。&lt;br&gt;&lt;br&gt;%2$s 贡献者可以移动并更新研讨。</string>
-  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">点击 %s 按钮.&lt;br&gt;选择你的贡献者</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s 旁观者可以在聊天室查看研讨并进行谈话。&lt;br&gt;&lt;br&gt;%2$s 贡献者可以移动并更新研讨。</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">点击 %s 按钮.&lt;br&gt;选择你的贡献者</string>
   <string name="studyChaptersTitle">研讨章节</string>
-  <string name="studyChaptersText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">研讨可以包含多个章节。&lt;br&gt;每个章节都有一个独特的初始位置并行动树。</string>
+  <string name="studyChaptersText">研讨可以包含多个章节。&lt;br&gt;每个章节都有一个独特的初始位置并行动树。</string>
   <string name="commentPositionTitle">评论当前局面</string>
-  <string name="commentPositionText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">点击 %s 按钮，或右键点击棋步列表。&lt;br&gt;注释会被共享并保存。</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">点击 %s 按钮，或右键点击棋步列表。&lt;br&gt;注释会被共享并保存。</string>
   <string name="annotatePositionTitle">标注局面</string>
-  <string name="annotatePositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">点击!?按钮，或右键点击棋步列表。&lt;br&gt;标注会被共享并保存。</string>
+  <string name="annotatePositionText">点击!?按钮，或右键点击棋步列表。&lt;br&gt;标注会被共享并保存。</string>
   <string name="conclusionTitle">感谢您抽出宝贵的时间</string>
-  <string name="conclusionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">你可以从你的个人资料界面找到你的&lt;a href=\'/study/mine/hot\'&gt;过往研讨 &lt;br&gt; 我们也提供了 &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;研讨博客&lt;/a&gt;.&lt;br&gt;高级用户可以点击\"?\"查看键盘快捷键&lt;br&gt;研讨愉快</string>
+  <string name="conclusionText">你可以从你的个人资料界面找到你的&lt;a href=\'/study/mine/hot\'&gt;过往研讨 &lt;br&gt; 我们也提供了 &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;研讨博客&lt;/a&gt;.&lt;br&gt;高级用户可以点击\"?\"查看键盘快捷键&lt;br&gt;研讨愉快</string>
   <string name="createChapterTitle">让我们创建一个学习章节</string>
-  <string name="createChapterText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">一份研讨可以有多个章节。&lt;br&gt;每个章节可以有独立的棋步树&lt;br&gt;可以通过多种方式</string>
+  <string name="createChapterText">一份研讨可以有多个章节。&lt;br&gt;每个章节可以有独立的棋步树&lt;br&gt;可以通过多种方式</string>
   <string name="fromInitialPositionTitle">从起始局面开始</string>
-  <string name="fromInitialPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">起始局面。&lt;br&gt; 可以用来研讨开局。</string>
+  <string name="fromInitialPositionText">起始局面。&lt;br&gt; 可以用来研讨开局。</string>
   <string name="customPositionTitle">自定义局面</string>
-  <string name="customPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">自定义局面。&lt;br&gt;可以用来研讨终局。</string>
+  <string name="customPositionText">自定义局面。&lt;br&gt;可以用来研讨终局。</string>
   <string name="loadExistingLichessGameTitle">导入Lichess棋局</string>
-  <string name="loadExistingLichessGameText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">导入Lichess棋局链接&lt;br&gt;(例如 lichess.org/7fHIU0XI)&lt;br&gt;来导入这局棋中的所有棋步</string>
+  <string name="loadExistingLichessGameText">导入Lichess棋局链接&lt;br&gt;(例如 lichess.org/7fHIU0XI)&lt;br&gt;来导入这局棋中的所有棋步</string>
   <string name="fromFenStringTitle">导入FEN代码</string>
-  <string name="fromFenStringText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">粘贴一个局面的FEN代码&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;来从这个局面开始章节</string>
+  <string name="fromFenStringText">粘贴一个局面的FEN代码&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;来从这个局面开始章节</string>
   <string name="fromPgnGameTitle">导入PGN代码</string>
-  <string name="fromPgnGameText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">粘贴一局棋的PGN代码&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;在章节中导入所有的棋步，注释和变招。</string>
+  <string name="fromPgnGameText">粘贴一局棋的PGN代码&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;在章节中导入所有的棋步，注释和变招。</string>
   <string name="variantsAreSupportedTitle">研究支持变体</string>
-  <string name="variantsAreSupportedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">你也可以研讨CrazyHouse&lt;br&gt;和所有其他的lichess变种</string>
-  <string name="chapterConclusionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">章节会永久保存。&lt;br&gt;研讨愉快！</string>
+  <string name="variantsAreSupportedText">你也可以研讨CrazyHouse&lt;br&gt;和所有其他的lichess变种</string>
+  <string name="chapterConclusionText">章节会永久保存。&lt;br&gt;研讨愉快！</string>
 </resources>

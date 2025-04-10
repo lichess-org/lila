@@ -449,13 +449,11 @@
   <string name="wins">勝</string>
   <string name="losses">負</string>
   <string name="createdBy">創建者：</string>
-  <string name="tournamentPairingsAreNowClosed">此錦標賽的對手配對已結束。</string>
   <string name="standByX">%s準備好，你馬上要開始對棋了！</string>
   <string name="pause">暫停</string>
   <string name="resume">繼續</string>
   <string name="youArePlaying">等待對手中</string>
   <string name="winRate">勝率</string>
-  <string name="berserkRate">快棋率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
   <string name="movesPlayed">步數</string>

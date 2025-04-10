@@ -461,13 +461,11 @@
   <string name="losses">Mga Talo</string>
   <string name="createdBy">Ginawa ni</string>
   <string name="startingIn" comment="Displayed above a timer">Nagsisimula sa</string>
-  <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>
   <string name="resume">Ipatuloy</string>
   <string name="youArePlaying">Ikaw ay naglalaro!</string>
   <string name="winRate">Porsyento na manalo</string>
-  <string name="berserkRate">Porsyento na magberserk</string>
   <string name="performance">Pagganap</string>
   <string name="tournamentComplete">Ang paligsahan ay kompleto na</string>
   <string name="movesPlayed">Mga Galaw na nagawa</string>

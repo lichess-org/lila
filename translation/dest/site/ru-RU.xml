@@ -558,13 +558,11 @@
   <string name="wins">Победы</string>
   <string name="losses">Поражения</string>
   <string name="createdBy">Создан</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="pause">Приостановить</string>
   <string name="resume">Возобновить</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
-  <string name="berserkRate">Берсерк</string>
   <string name="performance">Перформанс</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>

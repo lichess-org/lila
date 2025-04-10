@@ -558,13 +558,11 @@
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
   <string name="createdBy">Vytvorené</string>
-  <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="pause">Pozastaviť</string>
   <string name="resume">Pokračovať</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Miera besnenia</string>
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odohraných ťahov</string>
@@ -825,7 +823,7 @@
   <string name="checkYourEmail">Skontrolujte si svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Práve sme Vám poslali správu na Váš e-mail. Kliknite na link v e-mail-i, na aktivovanie Vášho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Ak nedostanete e-mail do 5 minút:</string>
+  <string name="ifYouDoNotGetTheEmail">Ak nedostanete e-mail do 5 minút:</string>
   <string name="checkAllEmailFolders">Skontrolujte všetky priečinky nevyžiadanej pošty</string>
   <string name="verifyYourAddress">Overte, či %s je Vaša e-mailová adresa</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
