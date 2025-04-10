@@ -16,7 +16,7 @@ export class BotCtrl {
   setupCtrl: SetupCtrl;
   playCtrl?: PlayCtrl;
 
-  private currentGame = storedJsonProp<Game | undefined>('bot.current-game', () => undefined);
+  private currentGame = storedJsonProp<Game | null>('bot.current-game', () => null);
 
   constructor(
     readonly opts: BotOpts,
@@ -61,9 +61,9 @@ export class BotCtrl {
         rematch: () => this.newGame(bot, opposite(game.pov)),
       });
     } catch (e) {
-      this.closeGame();
       console.error('Failed to resume game', e);
       alert('Failed to resume game. Please start a new one.');
+      this.currentGame(null);
       return;
     }
   };
