@@ -47,6 +47,10 @@ export class Bot implements BotInfo, MoveSource {
     return bot?.ratings?.[speed] ?? bot?.ratings?.classical ?? 1500;
   }
 
+  static isValid(maybeBot: any): boolean {
+    return Boolean(maybeBot?.zero || maybeBot?.fish);
+  }
+
   constructor(info: BotInfo, ctrl: BotLoader) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
