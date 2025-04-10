@@ -9,6 +9,7 @@ import scalalib.actor.AsyncActorSequencers
 
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.common.HTTPRequest
+import RelayPush.*
 
 final class RelayPush(
     sync: RelaySync,
@@ -26,10 +27,6 @@ final class RelayPush(
     name = "relay.push",
     lila.log.asyncActorMonitor.full
   )
-
-  case class Failure(tags: Tags, error: String)
-  case class Success(tags: Tags, moves: Int)
-  type Results = List[Either[Failure, Success]]
 
   def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, RequestHeader): Fu[Results] =
     push(rt, pgn).addEffect(monitor(rt))
@@ -101,8 +98,14 @@ final class RelayPush(
               game => RelayGame.fromStudyImport(game)
             )
 
+object RelayPush:
+
+  case class Failure(tags: Tags, error: String)
+  case class Success(tags: Tags, moves: Int)
+  type Results = List[Either[Failure, Success]]
+
   // silently consume DGT board king-check move to center at game end
-  private def validate(pgnBody: PgnStr): Either[Failure, Tags] =
+  private[relay] def validate(pgnBody: PgnStr): Either[Failure, Tags] =
     Parser
       .full(pgnBody)
       .fold(
