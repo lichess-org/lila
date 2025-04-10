@@ -87,7 +87,7 @@ const viewResult = (ctrl: PlayCtrl) => {
 const viewMoves = (ctrl: PlayCtrl) => {
   const pairs: Array<[San, San]> = [];
   for (let i = 0; i < ctrl.lastPly(); i += 2)
-    pairs.push([ctrl.game.moves[i].san, ctrl.game.moves[i + 1].san]);
+    pairs.push([ctrl.game.moves[i].san, ctrl.game.moves[i + 1]?.san]);
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {

@@ -42,8 +42,8 @@ export const addMove = (board: Board, move: ChessMove): San => {
 export function toPgn(game: Game, plies?: Ply): [PgnGame<PgnNodeData>, Chess] {
   const headers = new Map<string, string>();
   if (game.initialFen) headers.set('FEN', game.initialFen);
-  const sans = defined(plies) ? game.moves.slice(0, plies) : game.moves;
-  const pgn = parsePgn(sans.join(' '), () => headers)[0] || defaultGame();
+  const moves = defined(plies) ? game.moves.slice(0, plies) : game.moves;
+  const pgn = parsePgn(moves.map(m => m.san).join(' '), () => headers)[0] || defaultGame();
   const chess: Chess = game.initialFen
     ? parseFen(game.initialFen)
         .chain(setup => Chess.fromSetup(setup))
