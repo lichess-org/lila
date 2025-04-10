@@ -28,7 +28,7 @@ const args: Record<string, string> = {
 };
 
 const usage = `Usage:
-  ui/build <options>  # multiple short options can be preceded by a single dash
+  ui/build <options>  # multiple short options can follow a single dash
 
 Options:
   -h, --help          show this help and exit
@@ -36,12 +36,12 @@ Options:
   -c, --clean         clean all build artifacts and build fresh
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
-  -d, --debug         set tsc compiler options noUnusedLocals, noImplicitReturns, noUnusedParameters
-                      to false and build assets with site.debug = true
-  -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
-                      <url> or localhost:8666 (default). if used with --watch, the ui/build process
-                      will listen for http on 8666 and display received json as 'web' in build logs
-  --update            update ui/.build/node_modules with pnpm install
+  -d, --debug         disable noUnusedLocals, noImplicitReturns, noUnusedParameters in tsc and build
+                      assets with site.debug = true
+  -l, --log=<url>     patch console logging functions in javascript manifest to POST messages to
+                      <url> or localhost:8666 (default). if used with --watch, the watch process
+                      will listen for http on 8666 and display received messages in build logs
+  --clean-exit        clean all build artifacts and exit
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
@@ -52,15 +52,14 @@ Exclusive Options:    (any of these will disable other functions)
   --sass              run sass on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
-  --clean-exit        clean all build artifacts and exit
 
 Recommended:
-  ui/build -w         # clean and watch for changes
+   ./build -w         # clean and watch for changes
 
 Other Examples:
   ./build -np         # no pnpm install, build minified
   ./build --tsc -w    # watch mode but type checking only
-  ./build -dwl=/xyz   # build debug, watch. patch console methods in emitted js to POST log statements
+  ./build -dwl=/xyz   # watch debug and patch console methods in emitted js to POST log statements
                         to \${location.origin}/xyz. ui/build watch process displays messages received
                         via http(s) on this endpoint as 'web' in build logs
 `;
