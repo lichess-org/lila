@@ -8,7 +8,7 @@ import play.api.libs.json.*
 
 import lila.db.dsl.{ *, given }
 
-final private class JsBotRepo(private[jsBot] val bots: Coll, private[jsBot] val assets: Coll)(using Executor):
+final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
 
   def getVersions(botId: Option[UserId] = none): Fu[List[BotJson]] =
     bots
