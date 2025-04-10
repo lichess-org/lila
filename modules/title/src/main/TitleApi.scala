@@ -125,7 +125,7 @@ final class TitleApi(
               doc    <- docOpt
               data   <- doc.child("data")
               fideId <- data.getAsOpt[FideId]("fideId")
-            yield fideId.pp("computed")
+            yield fideId
 
     def apply(user: LightUser): Fu[Option[FideId]] =
       (user.title.isDefined && !user.isBot).so(cache.get(user.id))
