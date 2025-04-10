@@ -3,6 +3,7 @@ import { deepClean, clean } from './clean.ts';
 import { build, stopBuild } from './build.ts';
 import { startConsole } from './console.ts';
 import { env, errorMark } from './env.ts';
+import { tasksIdle } from './task.ts';
 
 // main entry point
 ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(sig => ps.on(sig, () => ps.exit(2)));
@@ -117,13 +118,14 @@ if (env.clean) {
 
 startConsole();
 
-if ('setRawMode' in ps.stdin) {
+if (env.watch && 'setRawMode' in ps.stdin) {
+  env.stdin = true;
   ps.stdin.setRawMode(true);
   ps.stdin.resume();
   ps.stdin.on('data', (key: Buffer) => {
     if (key[0] === 3 || key[0] === 27) {
       ps.exit(0);
-    } else if (key[0] === 99) {
+    } else if (key[0] === 32 && tasksIdle()) {
       stopBuild().then(() => clean('force').then(() => build(argv.filter(x => !x.startsWith('-')))));
     }
   });
