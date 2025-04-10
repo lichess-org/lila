@@ -7,7 +7,7 @@ import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game, Move } from '../game';
+import { makeEndOf, Game, Move, computeClockState } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -44,8 +44,16 @@ export default class PlayCtrl {
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
 
-    this.clock =
-      this.game.clock && new ClockCtrl(this.game.clock, opts.pref, undefined, this.makeClockOpts());
+    const clk = computeClockState(this.game);
+    if (clk) {
+      const clockData = {
+        ...this.game.clockConfig!,
+        white: clk.white,
+        black: clk.black,
+        running: !!clk.ticking,
+      };
+      this.clock = new ClockCtrl(clockData, opts.pref, clk.ticking, this.makeClockOpts());
+    }
     keyboard(this);
     setTimeout(this.safelyRequestBotMove, 500);
   }
@@ -110,11 +118,12 @@ export default class PlayCtrl {
   private addMove = (chessMove: ChessMove) => {
     const move: Move = {
       san: addMove(this.board, chessMove),
-      millis: 0,
+      at: Date.now(),
     };
     this.game.moves = [...this.game.moves.slice(0, this.board.onPly), move];
     this.game.end = makeEndOf(this.board.chess);
     this.withGround(cg => cg.set(updateGround(this.board)));
+    this.recomputeAndSetClock();
     this.opts.redraw();
     this.opts.save(this.game);
     this.autoScroll();
@@ -140,6 +149,11 @@ export default class PlayCtrl {
     soundColor: this.game.pov,
     nvui: false,
   });
+
+  private recomputeAndSetClock = () => {
+    const clk = computeClockState(this.game);
+    if (this.clock && clk) this.clock.setClock(clk);
+  };
 
   private setGround = () => this.withGround(g => g.set(initialGround(this)));
 

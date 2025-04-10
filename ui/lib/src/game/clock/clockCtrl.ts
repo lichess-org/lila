@@ -51,7 +51,7 @@ interface EmergSound {
   };
 }
 
-interface SetData {
+export interface SetData {
   white: Seconds;
   black: Seconds;
   ticking: Color | undefined;

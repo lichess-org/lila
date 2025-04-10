@@ -21,4 +21,10 @@ export function debugCli(play: (game: Game) => void) {
   };
 }
 
-const addMoveTimes = (moves: San[]): Move[] => moves.map(san => ({ san, millis: 1000 })); // 1s per move
+const addMoveTimes = (moves: San[]): Move[] => {
+  const startedAt = Date.now() - 1000 * moves.length;
+  return moves.map((san, i) => ({
+    san,
+    at: startedAt + 1000 * i,
+  }));
+};
