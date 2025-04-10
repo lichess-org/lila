@@ -77,7 +77,7 @@ export default class AnalyseCtrl {
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
-  chatCtrl: ChatCtrl;
+  chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
 
   // state flags
