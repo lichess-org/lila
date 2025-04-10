@@ -57,7 +57,7 @@ export const computeClockState = (game: Game): ClockState | undefined => {
   game.moves.forEach(({ at }, i) => {
     const color = i % 2 ? 'black' : 'white';
     if (lastMoveAt && i > 1) {
-      state[color] -= (at - lastMoveAt) / 1000 - config.increment;
+      state[color] = Math.max(0, state[color] - (at - lastMoveAt) / 1000 + config.increment);
     }
     lastMoveAt = at;
   });
