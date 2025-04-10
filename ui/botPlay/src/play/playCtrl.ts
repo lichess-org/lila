@@ -7,7 +7,7 @@ import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game, Move, computeClockState } from '../game';
+import { makeEndOf, Game, Move, computeClockState, isClockTicking } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -99,7 +99,18 @@ export default class PlayCtrl {
     if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
 
-  onFlag = () => alert('flagged');
+  onFlag = () => {
+    const ticking = isClockTicking(this.game);
+    if (ticking) {
+      this.game.end = {
+        winner: opposite(ticking),
+        status: 'outoftime',
+        fen: makeFen(makeBoardAt(this.game).chess.toSetup()),
+      };
+      this.recomputeAndSetClock();
+      this.opts.redraw();
+    }
+  };
 
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
