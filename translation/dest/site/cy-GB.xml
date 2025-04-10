@@ -407,13 +407,11 @@
   <string name="wins">o fuddugoliaethau</string>
   <string name="losses">o gêmau wedi\'u colli</string>
   <string name="createdBy">greuwyd gan</string>
-  <string name="tournamentPairingsAreNowClosed">Ni fydd gemau newydd yn y talwrn.</string>
   <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="pause">Seibiant</string>
   <string name="resume">Ailddechrau</string>
   <string name="youArePlaying">Rwyt ti\'n chwarae!</string>
   <string name="winRate">Cyfradd enill</string>
-  <string name="berserkRate">Cyfradd myllio</string>
   <string name="performance">Perfformiad</string>
   <string name="tournamentComplete">Talwrn wedi ei chwblhau</string>
   <string name="movesPlayed">Symudiadau wedi\'w chwarae</string>

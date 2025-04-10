@@ -481,13 +481,11 @@
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
   <string name="createdBy">निर्माता</string>
-  <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
   <string name="resume">परत सुरू करा</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचा दर</string>
-  <string name="berserkRate">बेभान खेळाचा दर</string>
   <string name="performance">कामगिरी</string>
   <string name="tournamentComplete">क्रीडासत्र संपले</string>
   <string name="movesPlayed">खेळलेल्या चाली</string>

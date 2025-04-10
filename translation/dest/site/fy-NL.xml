@@ -372,11 +372,9 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="wins">Oerwinnings</string>
   <string name="losses">Ferlern</string>
   <string name="createdBy">Makke troch</string>
-  <string name="tournamentPairingsAreNowClosed">De toernoaikeppelings binne no sletten.</string>
   <string name="standByX">Spilers wurde no keppele, meitsje dy klear %s!</string>
   <string name="youArePlaying">Do spilest!</string>
   <string name="winRate">Win-ferhâlding</string>
-  <string name="berserkRate">Berserk persintaazje</string>
   <string name="performance">Prestaasje</string>
   <string name="tournamentComplete">Toernoai ôfrûn</string>
   <string name="movesPlayed">Setten spile</string>

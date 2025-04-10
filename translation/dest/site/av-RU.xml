@@ -477,13 +477,11 @@
   <string name="wins">Бергьенлъи</string>
   <string name="losses">Къей</string>
   <string name="createdBy">Гьабуна</string>
-  <string name="tournamentPairingsAreNowClosed">Турниралде кӀи-кӀи рикьи гьанже къан буго.</string>
   <string name="standByX">%sгун балагьун чӀа, хӀалел кӀи-кӀи рикьулел руго, хӀадур вукӀа!</string>
   <string name="pause">ЧӀезабизе</string>
   <string name="resume">Биччазе</string>
   <string name="youArePlaying">Мун хӀалев вуго!</string>
   <string name="winRate">Бергьенлъи</string>
-  <string name="berserkRate">Берсерк рейтинг</string>
   <string name="performance">Бажари</string>
   <string name="tournamentComplete">Турнир лъугӀана</string>
   <string name="movesPlayed">Хъурщи гьабуна</string>

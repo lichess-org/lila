@@ -452,13 +452,11 @@
   <string name="losses">敗</string>
   <string name="createdBy">トーナメント作成者</string>
   <string name="startingIn" comment="Displayed above a timer">開始まで</string>
-  <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="pause">休む</string>
   <string name="resume">再開する</string>
   <string name="youArePlaying">参加中！</string>
   <string name="winRate">勝率</string>
-  <string name="berserkRate">バーサーク率</string>
   <string name="performance">パフォーマンス</string>
   <string name="tournamentComplete">トーナメント終了</string>
   <string name="movesPlayed">総手数</string>

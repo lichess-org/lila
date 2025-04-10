@@ -463,13 +463,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="wins">Võidud</string>
   <string name="losses">Kaotused</string>
   <string name="createdBy">Loodud</string>
-  <string name="tournamentPairingsAreNowClosed">Turniiri paaride loomine on nüüd lõppenud.</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="pause">Peata</string>
   <string name="resume">Jätka</string>
   <string name="youArePlaying">Te mängite!</string>
   <string name="winRate">Võidumäär</string>
-  <string name="berserkRate">Berserk määr</string>
   <string name="performance">Sooritus</string>
   <string name="tournamentComplete">Turniir lõppenud</string>
   <string name="movesPlayed">Tehtud käikude arv</string>

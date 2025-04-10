@@ -55,7 +55,7 @@
   <string name="requestAComputerAnalysis">Be om computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Datamaskinanalyse tilgjengelig</string>
-  <string name="computerAnalysisDisabled">Maskinanalyse er skrudd av</string>
+  <string name="computerAnalysisDisabled">Datamaskinanalyse deaktivert</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
@@ -487,13 +487,11 @@
   <string name="losses">Tap</string>
   <string name="createdBy">Opprettet av</string>
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
-  <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
   <string name="resume">Fortsett</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Seierprosent</string>
-  <string name="berserkRate">Berserkprosent</string>
   <string name="performance">Prestasjon</string>
   <string name="tournamentComplete">Turnering fullført</string>
   <string name="movesPlayed">Spilte trekk</string>

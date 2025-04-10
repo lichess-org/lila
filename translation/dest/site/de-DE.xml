@@ -487,13 +487,11 @@
   <string name="losses">Niederlagen</string>
   <string name="createdBy">Erstellt von</string>
   <string name="startingIn" comment="Displayed above a timer">Beginnt in</string>
-  <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
   <string name="pause">Pausieren</string>
   <string name="resume">Fortsetzen</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
-  <string name="berserkRate">Berserkrate</string>
   <string name="performance">Turnierleistung</string>
   <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>

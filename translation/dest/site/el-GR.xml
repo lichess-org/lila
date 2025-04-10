@@ -487,13 +487,11 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
-  <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του διαγωνισμού έχουν κλείσει.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
   <string name="resume">Συνέχεια</string>
   <string name="youArePlaying">Παίζετε τώρα!</string>
   <string name="winRate">Ποσοστό νικών</string>
-  <string name="berserkRate">Ποσοστό berserk</string>
   <string name="performance">Επίδοση</string>
   <string name="tournamentComplete">Το τουρνουά ολοκληρώθηκε</string>
   <string name="movesPlayed">Παιγμένες κινήσεις</string>
@@ -744,7 +742,7 @@
   <string name="checkYourEmail">Ελέγξτε το ηλ. ταχυδρομείο σας</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Σας έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου. Κάντε κλικ τον σύνδεσμο στο ηλ.ταχυδρομείο για να ενεργοποιήσετε τον λογαριασμό σας.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Εάν δε λάβετε το email σε 5 λεπτά:</string>
+  <string name="ifYouDoNotGetTheEmail">Εάν δε λάβετε το email σε 5 λεπτά:</string>
   <string name="checkAllEmailFolders">Ελέγξτε τα ανεπιθύμητα μηνύματα σας και άλλους φακέλους</string>
   <string name="verifyYourAddress">Επιβεβαιώστε ότι το %s είναι η διεύθυνση email σας</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
