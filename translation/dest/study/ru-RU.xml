@@ -173,4 +173,9 @@
   <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
   <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
   <string name="perPage">%s на страницу</string>
+  <string name="studyChaptersText">В студии может быть несколько глав. В каждой главе есть своя начальная позиция и дерево ходов.</string>
+  <string name="commentPositionTitle">Комментарий на позицию</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Нажмите на кнопку %s, или нажмите ПКМ на лист ходов справа. Комментарии открыты для сети и сохранены.</string>
+  <string name="annotatePositionTitle">Установите позицию.</string>
+  <string name="annotatePositionText">Нажмите на кнопку !?, или ПКМ на лист ходов справа. &lt;br&gt;Глифы аннотаций открыты для сети сохранены.</string>
 </resources>
