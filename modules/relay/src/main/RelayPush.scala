@@ -106,25 +106,18 @@ object RelayPush:
     lila.tree
       .parseImport(pgnBody)
       .fold(
-        err => Left(Failure(Tags.empty, oneline(err))),
+        err => Failure(Tags.empty, oneline(err)).asLeft,
         result =>
-          val game     = Game(variantOption = result.parsed.tags.variant, fen = result.parsed.tags.fen)
           val mainline = result.parsed.mainline
-          val (maybeErr, replay) = mainline.foldLeft((none[ErrorStr], Replay(game))):
-            case (acc @ (Some(_), _), _) => acc
-            case ((none, r), san) =>
-              san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
-          maybeErr.fold(result.asRight): err =>
+          if result.replay.moves.size < mainline.size - 1 then Failure(result.parsed.tags, "").asLeft
+          else
             mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, replay, mainline) =>
-                Failure(result.parsed.tags, oneline(err)).asLeft
-              case _ => result.asRight
+              case Some(mv: Std) if isFatal(mv, mainline) => Failure(result.parsed.tags, "").asLeft
+              case _                                      => result.asRight
       )
 
-  private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
+  private def isFatal(mv: Std, parsed: List[San]) =
     import Square.*
-    replay.moves.size < parsed.size - 1
-    || mv.role != chess.King
+    mv.role != chess.King
     || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)
-
   private def oneline(err: ErrorStr) = err.value.linesIterator.nextOption.getOrElse("error")
