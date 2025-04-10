@@ -1,4 +1,4 @@
-import { Move, opposite, parseSquare } from 'chessops';
+import { Move as ChessMove, opposite, parseSquare } from 'chessops';
 import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { type BotInfo } from 'lib/bot/types';
@@ -7,7 +7,7 @@ import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game } from '../game';
+import { makeEndOf, Game, Move } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -52,7 +52,7 @@ export default class PlayCtrl {
 
   isPlaying = () => !this.game.end;
 
-  lastPly = () => this.game.sans.length;
+  lastPly = () => this.game.moves.length;
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
 
@@ -75,7 +75,7 @@ export default class PlayCtrl {
   private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     if (!this.isOnLastPly()) {
       // allow branching out from anywhere
-      this.game.sans = this.game.sans.slice(0, this.board.onPly);
+      this.game.moves = this.game.moves.slice(0, this.board.onPly);
     }
     const move = normalizeMove(this.board.chess, {
       from: parseSquare(orig)!,
@@ -107,15 +107,18 @@ export default class PlayCtrl {
 
   goToLast = () => this.goTo(this.lastPly());
 
-  private addMove = (move: Move) => {
-    const san = addMove(this.board, move);
-    this.game.sans = [...this.game.sans.slice(0, this.board.onPly), san];
+  private addMove = (chessMove: ChessMove) => {
+    const move: Move = {
+      san: addMove(this.board, chessMove),
+      millis: 0,
+    };
+    this.game.moves = [...this.game.moves.slice(0, this.board.onPly), move];
     this.game.end = makeEndOf(this.board.chess);
     this.withGround(cg => cg.set(updateGround(this.board)));
     this.opts.redraw();
     this.opts.save(this.game);
     this.autoScroll();
-    playMoveSounds(this, san);
+    playMoveSounds(this, move);
     this.withGround(cg => cg.playPremove());
   };
 
@@ -132,7 +135,7 @@ export default class PlayCtrl {
   private makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.onFlag,
     playable: () => true,
-    bothPlayersHavePlayed: () => this.game.sans.length > 1,
+    bothPlayersHavePlayed: () => this.game.moves.length > 1,
     hasGoneBerserk: () => false,
     soundColor: this.game.pov,
     nvui: false,

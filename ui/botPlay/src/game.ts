@@ -5,12 +5,17 @@ import { StatusName } from 'lib/game/game';
 import { ClockConfig, ClockData } from 'lib/game/clock/clockCtrl';
 import { type BotId } from 'lib/bot/types';
 
+export interface Move {
+  san: San;
+  millis: number;
+}
+
 export interface Game {
   id: string;
   botId: BotId;
   pov: Color;
   initialFen?: FEN;
-  sans: San[];
+  moves: Move[];
   clock?: ClockData;
   end?: GameEnd;
 }
@@ -20,11 +25,11 @@ interface GameEnd {
   fen: FEN;
 }
 
-export const makeGame = (botId: BotId, pov: Color, clock?: ClockConfig, sans: San[] = []): Game => ({
+export const makeGame = (botId: BotId, pov: Color, clock?: ClockConfig, moves: Move[] = []): Game => ({
   id: randomId(),
   botId,
   pov,
-  sans,
+  moves,
   clock: clock && {
     ...clock,
     white: clock.initial,

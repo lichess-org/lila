@@ -6,7 +6,7 @@ import { Game } from '../game';
 export default class SetupCtrl {
   constructor(
     readonly opts: BotOpts,
-    private readonly ongoing: () => Game | null,
+    private readonly ongoing: () => Game | undefined,
     readonly resume: () => void,
     private readonly start: (bot: BotInfo, pov: Color | undefined) => void,
     readonly redraw: () => void,

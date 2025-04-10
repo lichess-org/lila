@@ -16,7 +16,7 @@ export class BotCtrl {
   setupCtrl: SetupCtrl;
   playCtrl?: PlayCtrl;
 
-  currentGame = storedJsonProp<Game | null>('bot.current-game', () => null);
+  private currentGame = storedJsonProp<Game | undefined>('bot.current-game', () => undefined);
 
   constructor(
     readonly opts: BotOpts,
@@ -49,16 +49,23 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
-    this.playCtrl = new PlayCtrl({
-      pref: this.opts.pref,
-      game,
-      bot,
-      bridge: this.makeLocalBridge(bot),
-      redraw: this.redraw,
-      save: g => this.currentGame(g),
-      close: this.closeGame,
-      rematch: () => this.newGame(bot, opposite(game.pov)),
-    });
+    try {
+      this.playCtrl = new PlayCtrl({
+        pref: this.opts.pref,
+        game,
+        bot,
+        bridge: this.makeLocalBridge(bot),
+        redraw: this.redraw,
+        save: g => this.currentGame(g),
+        close: this.closeGame,
+        rematch: () => this.newGame(bot, opposite(game.pov)),
+      });
+    } catch (e) {
+      this.closeGame();
+      console.error('Failed to resume game', e);
+      alert('Failed to resume game. Please start a new one.');
+      return;
+    }
   };
 
   private resumeGameAndRedraw = (game: Game) => {

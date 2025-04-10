@@ -1,7 +1,9 @@
 import { type SoundEvent } from 'lib/bot/types';
 import PlayCtrl from './playCtrl';
+import { Move } from '@/game';
 
-export const playMoveSounds = async (ctrl: PlayCtrl, san: San) => {
+export const playMoveSounds = async (ctrl: PlayCtrl, move: Move) => {
+  const san = move.san;
   const sounds: SoundEvent[] = [];
   const prefix = ctrl.board.chess.turn === ctrl.game.pov ? 'bot' : 'player';
   if (san.includes('x')) sounds.push(`${prefix}Capture`);
