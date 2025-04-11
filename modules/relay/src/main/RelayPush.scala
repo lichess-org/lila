@@ -92,8 +92,7 @@ final class RelayPush(
       .value
       .map: pgn =>
         validate(pgn).map: importResult =>
-          RelayGame
-            .fromStudyImport(StudyPgnImport.result(importResult, Nil))
+          RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
 
 object RelayPush:
 
@@ -109,11 +108,13 @@ object RelayPush:
         err => Failure(Tags.empty, oneline(err)).asLeft,
         result =>
           val mainline = result.parsed.mainline
-          if result.replay.moves.size < mainline.size - 1 then Failure(result.parsed.tags, "").asLeft
+          if result.replay.moves.size < mainline.size - 1 then
+            Failure(result.parsed.tags, result.relayError.fold("")(_.value)).asLeft
           else
             mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, mainline) => Failure(result.parsed.tags, "").asLeft
-              case _                                      => result.asRight
+              case Some(mv: Std) if isFatal(mv, mainline) =>
+                Failure(result.parsed.tags, result.relayError.fold("")(_.value)).asLeft
+              case _ => result.asRight
       )
 
   private def isFatal(mv: Std, parsed: List[San]) =
