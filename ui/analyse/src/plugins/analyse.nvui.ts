@@ -142,7 +142,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               h('label', [
                 'Command input',
                 h('input.move.mousetrap', {
-                  attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
+                  attrs: { name: 'move', type: 'text', autocomplete: 'off' },
                 }),
               ]),
             ],
