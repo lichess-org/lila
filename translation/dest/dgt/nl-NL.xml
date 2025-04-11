@@ -19,16 +19,26 @@ The board will auto connect to any game that is already on course or any new gam
   <string name="reloadThisPage">Herlaad deze pagina</string>
   <string name="dgtConfigure">DGT - Instellen</string>
   <string name="lichessConnectivity">Lichess verbinding</string>
+  <string name="validDgtOauthToken">Je hebt een OAuth token geschikt voor DGT spellen.</string>
+  <string name="dgtPlayMenuEntryAdded">Een %s item is toegevoegd aan je PLAY menu aan de bovenkant.</string>
+  <string name="noSuitableOauthToken">Er is geen geschikte OAuth token aangemaakt.</string>
+  <string name="dgtBoardConnectivity">DGT-bord verbinding</string>
   <string name="clickToGenerateOne">Klik om er een te genereren</string>
+  <string name="webSocketUrl">%s WebSocket URL</string>
+  <string name="useWebSocketUrl">Gebruik \"%1$s\" tenzij %2$s draait op een ander apparaat of een andere poort.</string>
   <string name="textToSpeech">Tekst naar spraak</string>
+  <string name="configureVoiceNarration">Configureer stem van de gespeelde zetten, zodat je je ogen op het bord kunt houden.</string>
   <string name="enableSpeechSynthesis">Spraaksynthese inschakelen</string>
   <string name="speechSynthesisVoice">Spraaksynthese stem</string>
   <string name="announceAllMoves">Kondig alle zetten aan</string>
   <string name="selectAnnouncePreference">Selecteer JA om uw en uw tegenstanders zetten aan te kondigen. Selecteer NEE om alleen uw tegenstanders zetten aan te kondigen.</string>
+  <string name="announceMoveFormat">Zetnotatie aankondigen</string>
   <string name="moveFormatDescription">SAN is standaard op Lichess, zoals \"Pf6\". UCI is gebruikelijk bij schaakcomputers, zoals \"g8f6\".</string>
   <string name="keywords">Trefwoorden</string>
+  <string name="keywordFormatDescription">Trefwoorden zijn in JSON-formaat. Ze worden gebruikt om zetten en resultaten naar jouw taal te vertalen. Standaard is Engels, maar voel je vrij om het te veranderen.</string>
   <string name="debug">Debuggen</string>
   <string name="verboseLogging">Uitgebreide logging</string>
+  <string name="toSeeConsoleMessage">Om console-bericht te zien druk op Command + Option + C (Mac) of Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Speel met een DGT bord</string>
   <string name="configure">Configureren</string>
 </resources>
