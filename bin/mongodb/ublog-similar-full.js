@@ -5,7 +5,7 @@
  * Should run only once, then be replaced with
  * ublog-graph-incremental.js
  */
-const nbSimilar = 6;
+const nbSimilar = 20;
 console.log('Full recompute');
 const all = db.ublog_post.find({ live: true, 'likers.1': { $exists: true } }, { likers: 1 }).toArray();
 console.log(`${all.length} posts to go.`);
@@ -28,8 +28,11 @@ all.forEach(p => {
       if (id != p._id) similar.set(id, (similar.get(id) || 0) + 1);
     });
   });
-  const top3 = Array.from(similar)
+  const sorted = Array.from(similar)
     .sort((a, b) => b[1] - a[1])
     .slice(0, nbSimilar);
-  db.ublog_post.updateOne({ _id: p._id }, { $set: { similar: top3.map(([id, _]) => id) } });
+  db.ublog_post.updateOne(
+    { _id: p._id },
+    { $set: { similar: sorted.map(([id, count]) => ({ id, count })) } },
+  );
 });
