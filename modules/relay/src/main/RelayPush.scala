@@ -109,11 +109,11 @@ object RelayPush:
         result =>
           val mainline = result.parsed.mainline
           if result.replay.moves.size < mainline.size - 1 then
-            Failure(result.parsed.tags, result.relayError.fold("")(_.value)).asLeft
+            Failure(result.parsed.tags, result.relayError.fold("")(oneline)).asLeft
           else
             mainline.lastOption match
               case Some(mv: Std) if isFatal(mv, mainline) =>
-                Failure(result.parsed.tags, result.relayError.fold("")(_.value)).asLeft
+                Failure(result.parsed.tags, result.relayError.fold("")(oneline)).asLeft
               case _ => result.asRight
       )
 
