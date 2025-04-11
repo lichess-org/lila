@@ -595,47 +595,59 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
-        h(
-          'select',
-          {
-            hook: bind('change', (e: InputEvent) => {
-              const target = e.target as HTMLSelectElement;
-              const selectedOption = target.options[target.selectedIndex];
-              const url = selectedOption.getAttribute('url');
-              if (url) window.location.href = url;
-            }),
-          },
-          relayGroups.tours.map(t =>
-            h('option', { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}` } }, t.name),
-          ),
-        ),
-      tour &&
-        relayRounds &&
-        h(
-          'select',
-          {
-            hook: bind('change', (e: InputEvent) => {
-              const target = e.target as HTMLSelectElement;
-              const selectedOption = target.options[target.selectedIndex];
-              const url = selectedOption.getAttribute('url');
-              if (url) window.location.href = url;
-            }),
-          },
-          relayRounds.map(r =>
-            h(
-              'option',
-              {
-                attrs: { selected: r.id == study.data.id, url: `/broadcast/${tour.slug}/${r.slug}/${r.id}` },
-              },
-              r.name,
+        h('div.relay-groups', [
+          h('label', { attrs: { for: 'group-select' } }, 'Current group:'),
+          h(
+            'select',
+            {
+              attrs: { id: 'group-select' },
+              hook: bind('change', (e: InputEvent) => {
+                const target = e.target as HTMLSelectElement;
+                const selectedOption = target.options[target.selectedIndex];
+                const url = selectedOption.getAttribute('url');
+                if (url) window.location.href = url;
+              }),
+            },
+            relayGroups.tours.map(t =>
+              h('option', { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}` } }, t.name),
             ),
           ),
-        ),
-      h('label.chapters', [
-        h('h2', 'Current chapter:'),
+        ]),
+      tour &&
+        relayRounds &&
+        h('div.relay-rounds', [
+          h('label', { attrs: { for: 'round-select' } }, 'Current round:'),
+          h(
+            'select',
+            {
+              attrs: { id: 'round-select' },
+              hook: bind('change', (e: InputEvent) => {
+                const target = e.target as HTMLSelectElement;
+                const selectedOption = target.options[target.selectedIndex];
+                const url = selectedOption.getAttribute('url');
+                if (url) window.location.href = url;
+              }),
+            },
+            relayRounds.map(r =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    selected: r.id == study.data.id,
+                    url: `/broadcast/${tour.slug}/${r.slug}/${r.id}`,
+                  },
+                },
+                r.name,
+              ),
+            ),
+          ),
+        ]),
+      h('div.chapters', [
+        h('label', { attrs: { for: 'chapter-select' } }, 'Current chapter:'),
         h(
           'select',
           {
+            attrs: { id: 'chapter-select' },
             hook: bind('change', (e: InputEvent) => {
               const target = e.target as HTMLSelectElement;
               const selectedOption = target.options[target.selectedIndex];
