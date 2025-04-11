@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>
   <string name="intermezzoDescription">Vietoje to, kad būtų padarytas ėjimas, kurio tikėtasi, įterpiamas kitas ėjimas, kuris apgaulingai pateikiamas kaip staigi ataka priešininkui, į kurią jis turi atsakyti. Dar žinomas kaip \"intermezzo\" ar \"zwischenzug\".</string>
+  <string name="killBoxMate">Mirtinos dėžutės matas</string>
+  <string name="killBoxMateDescription">Bokštas yra šalia varžovo karaliaus ir jį palaiko karalienė, kuri tuo pačiu uždaro karaliaus pabėgimo langelius. Bokštas ir karalienė sugauna varžovo karalių 3×3 langelių „mirties dėžutėje“.</string>
+  <string name="vukovicMate">Vukovic matas</string>
+  <string name="vukovicMateDescription">Bokštas ir žirgas kartu matuoja karalių. Bokštas atlieka matą, jį palaiko trečioji figūra, o žirgas naudojamas uždaryti karaliaus pabėgimo langelius.</string>
   <string name="knightEndgame">Žirgų endšpilis</string>
   <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
   <string name="long">Ilgas galvosūkis</string>
