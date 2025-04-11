@@ -198,10 +198,13 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
         scoreList.length
           ? h('div.color-chart', [
               h('p', fmt.asArray(h('strong', `${average(scoreList).toFixed(2)}`))),
-              h('svg.sparkline', {
-                attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
-                hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
-              }),
+              h('div.sparkline-box', [
+                h('svg.sparkline', {
+                  attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
+                  hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
+                }),
+                h('span.sparkline-tooltip', { attrs: { hidden: true } }),
+              ]),
             ])
           : null,
       ),
