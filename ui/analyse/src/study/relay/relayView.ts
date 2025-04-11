@@ -84,7 +84,7 @@ export function renderStreamerMenu(relay: RelayCtrl): VNode {
       relay.streams.map(([id, info]) =>
         h('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
           info.name,
-          info.lang && h('i', ` (${info.lang})`),
+          h('i', info.lang),
         ]),
       ),
     ),
