@@ -39,10 +39,8 @@ const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo) =>
     h('div.bot-card__content', [
       h('div.bot-card__header', [
         h('h2.bot-card__name', bot.name),
-        h('span.bot-card__rating', botRating(bot)),
+        h('span.bot-card__rating', Bot.rating(bot, 'classical').toString()),
       ]),
       h('p.bot-card__description', bot.description),
     ]),
   ]);
-
-const botRating = (bot: BotInfo) => Bot.rating(bot, 'classical').toString();
