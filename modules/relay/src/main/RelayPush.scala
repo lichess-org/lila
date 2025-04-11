@@ -108,17 +108,17 @@ object RelayPush:
         err => Failure(Tags.empty, oneline(err)).asLeft,
         result =>
           val mainline = result.parsed.mainline
-          if result.replay.moves.size < mainline.size - 1 then
-            Failure(result.parsed.tags, result.relayError.fold("")(oneline)).asLeft
-          else
+          result.replayError.fold(result.asRight): err =>
             mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, mainline) =>
-                Failure(result.parsed.tags, result.relayError.fold("")(oneline)).asLeft
+              case Some(mv: Std) if isFatal(mv, result.replay, mainline) =>
+                Failure(result.parsed.tags, oneline(err)).asLeft
               case _ => result.asRight
       )
 
-  private def isFatal(mv: Std, parsed: List[San]) =
+  private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
     import Square.*
-    mv.role != chess.King
+    replay.moves.size < parsed.size - 1
+    || mv.role != chess.King
     || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)
+
   private def oneline(err: ErrorStr) = err.value.linesIterator.nextOption.getOrElse("error")

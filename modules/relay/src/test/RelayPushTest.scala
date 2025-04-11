@@ -18,3 +18,7 @@ class RelayPushTest extends munit.FunSuite:
   test("any failure with the last move is not king in the center is fatal"):
     val pgn = PgnStr(s"1.e4 e5 2.e3")
     assert(validate(pgn).isLeft)
+
+  test("happy path should work"):
+    val pgn = PgnStr(s"1.e4 e5")
+    assert(validate(pgn).isRight)
