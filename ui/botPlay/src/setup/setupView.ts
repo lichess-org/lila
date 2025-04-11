@@ -1,8 +1,7 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, looseH as h } from 'lib/snabbdom';
 import type SetupCtrl from './setupCtrl';
-import { type BotInfo } from 'lib/bot/types';
-import { Bot } from 'lib/bot/bot';
+import { type BotInfo, Bot } from 'lib/bot/bot';
 import { miniBoard } from '../ground';
 
 export const setupView = (ctrl: SetupCtrl) =>
