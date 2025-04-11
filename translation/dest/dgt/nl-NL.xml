@@ -11,10 +11,14 @@
   <string name="openingThisLink">deze link openen</string>
   <string name="ifLiveChessRunningElsewhere">Als %1$s op een andere machine of poort draait, dan moet je het IP-adres en de poort hier in de %2$s instellen.</string>
   <string name="configurationSection">Configuratiesectie</string>
+  <string name="keepPlayPageOpen">De speelpagina moet open blijven in je browser. Het hoeft niet zichtbaar te zijn, je kunt het minimaliseren of het naast de Lichess partijpagina zetten maar sluit het niet, want dan zal het bord niet meer werken.</string>
   <string name="boardWillAutoConnect">Het bord verbindt automatisch met elk spel dat al gestart is, of elk nieuw spel dat begint. Het wordt snel mogelijk om te kiezen welk spel je wilt spelen.
 The board will auto connect to any game that is already on course or any new game that starts. Ability to choose which game to play is coming soon.</string>
+  <string name="timeControlsForCasualGames">Speeltempo voor vrijblijvende partijen: alleen Klassiek, Correspondentie en Rapid.</string>
+  <string name="timeControlsForRatedGames">Speeltempo voor partijen met rating: Klassiek, Correspondentie en sommige Rapids zoals 15+10 en 20+0</string>
   <string name="whenReadySetupBoard">Zet uw bord op en klik %s wanneer u klaar bent.</string>
   <string name="ifMoveNotDetected">Als een zet niet gedetecteerd is</string>
+  <string name="checkYouHaveMadeOpponentsMove">Controleer of je de zet van de tegenstander eerst op het DGT-bord hebt gemaakt. Maak je zet ongedaan. Speel opnieuw.</string>
   <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Als laatste redmiddel, stel het bord identiek in zoals op Lichess, en %s</string>
   <string name="reloadThisPage">Herlaad deze pagina</string>
   <string name="dgtConfigure">DGT - Instellen</string>
