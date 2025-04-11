@@ -2,6 +2,7 @@ import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, looseH as h } from 'lib/snabbdom';
 import type SetupCtrl from './setupCtrl';
 import { type BotInfo } from 'lib/bot/types';
+import { Bot } from 'lib/bot/bot';
 import { miniBoard } from '../ground';
 
 export const setupView = (ctrl: SetupCtrl) =>
@@ -44,4 +45,4 @@ const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo) =>
     ]),
   ]);
 
-const botRating = (bot: BotInfo) => (bot.ratings['classical'] || 1500).toString();
+const botRating = (bot: BotInfo) => Bot.rating(bot, 'classical').toString();

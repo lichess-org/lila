@@ -6,6 +6,7 @@ import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { type BotInfo } from 'lib/bot/types';
+import { Bot } from 'lib/bot/bot';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';
 import { bindMobileMousedown } from 'lib/device';
@@ -165,7 +166,7 @@ const viewOpponent = (bot: BotInfo) =>
     h('div.bot-game__opponent__head', [
       viewOpponentImage(bot),
       h('span.bot-game__opponent__name', bot.name),
-      h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
+      h('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
     ]),
     h('div.bot-game__opponent__description', bot.description),
   ]);

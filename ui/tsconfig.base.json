@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "isolatedDeclarations": true,
     "composite": true,
+    "libReplacement": false,
     "moduleResolution": "Node",
     "module": "ESNext",
     "target": "ES2020",
