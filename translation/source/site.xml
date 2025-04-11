@@ -74,6 +74,7 @@
   <string name="expandVariations">Expand variations</string>
   <string name="forceVariation">Force variation</string>
   <string name="copyVariationPgn">Copy variation PGN</string>
+  <string name="copyMainLinePgn">Copy mainline PGN</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
