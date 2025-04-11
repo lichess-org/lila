@@ -586,6 +586,8 @@ const onInsertHandler = (callback: () => void, el: HTMLElement) => {
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
   const relayGroups = study?.relay?.data.group;
+  const relayRounds = study?.relay?.data.rounds;
+  const tour = study?.relay?.data.tour;
   return (
     study &&
     h('div.study-details', [
@@ -593,10 +595,42 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
-        h('div.relayGroups', [
-          h('h2', 'Relay groups'),
-          ...relayGroups.tours.map(tour => h('a', { attrs: { href: `/broadcast/-/${tour.id}` } }, tour.name)),
-        ]),
+        h(
+          'select',
+          {
+            hook: bind('change', (e: InputEvent) => {
+              const target = e.target as HTMLSelectElement;
+              const selectedOption = target.options[target.selectedIndex];
+              const url = selectedOption.getAttribute('url');
+              if (url) window.location.href = url;
+            }),
+          },
+          relayGroups.tours.map(t =>
+            h('option', { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}` } }, t.name),
+          ),
+        ),
+      tour &&
+        relayRounds &&
+        h(
+          'select',
+          {
+            hook: bind('change', (e: InputEvent) => {
+              const target = e.target as HTMLSelectElement;
+              const selectedOption = target.options[target.selectedIndex];
+              const url = selectedOption.getAttribute('url');
+              if (url) window.location.href = url;
+            }),
+          },
+          relayRounds.map(r =>
+            h(
+              'option',
+              {
+                attrs: { selected: r.id == study.data.id, url: `/broadcast/${tour.slug}/${r.slug}/${r.id}` },
+              },
+              r.name,
+            ),
+          ),
+        ),
       h('label.chapters', [
         h('h2', 'Current chapter:'),
         h(
