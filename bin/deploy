@@ -288,11 +288,12 @@ def deploy_script(profile, session, run, url):
     if profile["artifact_name"] == "lila-assets":
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
-            f"echo \\# Checkout {commit} ...",
-            f"echo \\# git -C {deploy_dir} checkout {commit}",
+            f"echo '\n# git -c {deploy_dir} fetch origin {commit}'",
+            f"git -C {deploy_dir} fetch origin {commit}",
+            f"echo '\n# git -C {deploy_dir} checkout {commit}'",
             f"git -C {deploy_dir} checkout {commit}",
             f"git -C {deploy_dir} lfs pull",
-            "echo \\# Copying assets ...",
+            f"echo '\n# rsync -a {artifact_unzipped}/d/public {deploy_dir}/'",
             f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
         ]
     else:
