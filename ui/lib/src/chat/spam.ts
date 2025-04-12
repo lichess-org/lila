@@ -27,7 +27,7 @@ const spamRegex = new RegExp(
     '001.rs/',
     'shr.name/',
     'u.to/',
-    '.3-a.net',
+    '\\.3-a\\.net',
     '.ssl443.org',
     '.ns02.us',
     '.myftp.info',
