@@ -354,7 +354,7 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return render(result, statusView(ctrl.data));
   } else if (ctrl.study) {
-    const result = findTag(ctrl.study.data.chapter.tags, 'result')?.replace('1/2','½');
+    const result = findTag(ctrl.study.data.chapter.tags, 'result')?.replace('1/2', '½');
     if (!result || result === '*') return [];
     if (result === '1-0') return render(result, i18n.site.whiteIsVictorious);
     if (result === '0-1') return render(result, i18n.site.blackIsVictorious);
