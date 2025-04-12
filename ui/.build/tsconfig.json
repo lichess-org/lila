@@ -5,6 +5,7 @@
     "noUnusedParameters": true,
     "allowUnreachableCode": true,
     "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
     "skipLibCheck": true,
     "noImplicitThis": true,
     "strict": true,

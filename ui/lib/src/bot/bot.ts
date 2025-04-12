@@ -23,6 +23,8 @@ import type {
   Ratings,
 } from './types';
 
+export type * from './types';
+
 export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };

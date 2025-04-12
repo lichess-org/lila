@@ -15,7 +15,8 @@ case class ImportResult(
     result: Option[TagResult],
     replay: Replay,
     initialFen: Option[Fen.Full],
-    parsed: ParsedPgn
+    parsed: ParsedPgn,
+    replayError: Option[ErrorStr]
 )
 
 private val maxPlies = 600
@@ -26,9 +27,9 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
       Reader
         .fullWithSans(parsed, _.map(_.take(maxPlies)))
         .pipe:
-          case Reader.Result.Complete(replay)      => replay
-          case Reader.Result.Incomplete(replay, _) => replay
-        .pipe { case replay @ Replay(setup, _, state) =>
+          case Reader.Result.Complete(replay)          => (replay, none[ErrorStr])
+          case Reader.Result.Incomplete(replay, error) => (replay, error.some)
+        .pipe { case (replay @ Replay(setup, _, state), relayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
           val variant =
@@ -65,7 +66,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
                   .guessPointsFromStatusAndPosition(status, game.situation.winner)
                   .map(TagResult(status, _))
 
-          ImportResult(game, result, replay.copy(state = game), initialFen, parsed)
+          ImportResult(game, result, replay.copy(state = game), initialFen, parsed, relayError)
         }
     }
 

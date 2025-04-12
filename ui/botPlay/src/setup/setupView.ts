@@ -1,7 +1,7 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, looseH as h } from 'lib/snabbdom';
 import type SetupCtrl from './setupCtrl';
-import { type BotInfo } from 'lib/bot/types';
+import { type BotInfo, Bot } from 'lib/bot/bot';
 import { miniBoard } from '../ground';
 
 export const setupView = (ctrl: SetupCtrl) =>
@@ -38,10 +38,8 @@ const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo) =>
     h('div.bot-card__content', [
       h('div.bot-card__header', [
         h('h2.bot-card__name', bot.name),
-        h('span.bot-card__rating', botRating(bot)),
+        h('span.bot-card__rating', Bot.rating(bot, 'classical').toString()),
       ]),
       h('p.bot-card__description', bot.description),
     ]),
   ]);
-
-const botRating = (bot: BotInfo) => (bot.ratings['classical'] || 1500).toString();

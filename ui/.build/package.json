@@ -14,16 +14,16 @@
     "sass-embedded-win32-x64": "1.85.0"
   },
   "dependencies": {
-    "@types/micromatch": "^4.0.9",
-    "@types/node": "22.13.9",
+    "@types/micromatch": "4.0.9",
+    "@types/node": "22.14.0",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.2",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.0.8",
+    "fast-xml-parser": "5.2.0",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
