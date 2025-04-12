@@ -353,7 +353,7 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return render(result, statusView(ctrl.data));
-  } else if (ctrl.study) {
+  } else if (ctrl.study && ctrl.study.multiBoard.showResults()) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result');
     if (!result || result === '*') return [];
     if (result === '1-0') return render(result, i18n.site.whiteIsVictorious);
