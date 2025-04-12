@@ -101,7 +101,8 @@ function queues(data: any) {
 function merge(base: any, extend: any): void {
   for (const key in extend) {
     if (!extend.hasOwnProperty(key) || key === '__proto__' || key === 'constructor') continue;
-    if (base.hasOwnProperty(key) && isObject(base[key]) && isObject(extend[key])) merge(base[key], extend[key]);
+    if (base.hasOwnProperty(key) && isObject(base[key]) && isObject(extend[key]))
+      merge(base[key], extend[key]);
     else base[key] = extend[key];
   }
   return base;
