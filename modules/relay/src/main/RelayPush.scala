@@ -40,7 +40,7 @@ final class RelayPush(
       val games  = parsed.collect { case Right(g) => g }.toVector
       val response: List[Either[Failure, Success]] =
         parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
-      val andSyncTargets = response.exists(_.isRight)
+      val andSyncTargets = games.nonEmpty
 
       rt.round.sync.delayMinusLag
         .ifTrue(games.exists(_.root.children.nonEmpty))
