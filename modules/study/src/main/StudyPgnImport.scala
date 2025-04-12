@@ -18,49 +18,51 @@ object StudyPgnImport:
   )
 
   def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
-      val annotator = findAnnotator(parsedPgn, contributors)
+    lila.tree.parseImport(pgn).map(result(_, contributors))
 
-      val timeControl = parsedPgn.tags.timeControl
-      val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
-      parseComments(parsedPgn.initialPosition.comments, annotator) match
-        case (shapes, _, _, comments) =>
-          val root = Root(
-            ply = replay.setup.ply,
-            fen = initialFen | game.board.variant.initialFen,
-            check = replay.setup.situation.check,
-            shapes = shapes,
-            comments = comments,
-            glyphs = Glyphs.empty,
-            clock = clock,
-            crazyData = replay.setup.board.crazyData,
-            children = parsedPgn.tree.fold(Branches.empty):
-              makeBranches(Context(replay.setup, ByColor.fill(clock), timeControl), _, annotator)
+  def result(importResult: ImportResult, contributors: List[LightUser]): Result =
+    import importResult.*
+    val annotator = findAnnotator(parsed, contributors)
+
+    val timeControl = parsed.tags.timeControl
+    val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
+    parseComments(parsed.initialPosition.comments, annotator) match
+      case (shapes, _, _, comments) =>
+        val root = Root(
+          ply = replay.setup.ply,
+          fen = initialFen | game.board.variant.initialFen,
+          check = replay.setup.situation.check,
+          shapes = shapes,
+          comments = comments,
+          glyphs = Glyphs.empty,
+          clock = clock,
+          crazyData = replay.setup.board.crazyData,
+          children = parsed.tree.fold(Branches.empty):
+            makeBranches(Context(replay.setup, ByColor.fill(clock), timeControl), _, annotator)
+        )
+
+        val ending = importResult.result.map: res =>
+          Ending(
+            status = res.status,
+            points = res.points,
+            resultText = chess.Outcome.showPoints(res.points.some),
+            statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
           )
 
-          val ending = result.map: res =>
-            Ending(
-              status = res.status,
-              points = res.points,
-              resultText = chess.Outcome.showPoints(res.points.some),
-              statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
-            )
+        val commented =
+          if root.mainline.lastOption.so(_.isCommented) then root
+          else
+            ending.map(endComment).fold(root) { comment =>
+              root.updateMainlineLast { _.setComment(comment) }
+            }
 
-          val commented =
-            if root.mainline.lastOption.so(_.isCommented) then root
-            else
-              ending.map(endComment).fold(root) { comment =>
-                root.updateMainlineLast { _.setComment(comment) }
-              }
-
-          Result(
-            root = commented,
-            variant = game.board.variant,
-            tags = PgnTags
-              .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
-            ending = ending
-          )
-    }
+        Result(
+          root = commented,
+          variant = game.board.variant,
+          tags = PgnTags
+            .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
+          ending = ending
+        )
 
   case class Result(
       root: Root,

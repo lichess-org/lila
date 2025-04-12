@@ -6,9 +6,11 @@ import play.api.mvc.RequestHeader
 import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Game, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
+import lila.tree.ImportResult
 
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.common.HTTPRequest
+import RelayPush.*
 
 final class RelayPush(
     sync: RelaySync,
@@ -26,10 +28,6 @@ final class RelayPush(
     name = "relay.push",
     lila.log.asyncActorMonitor.full
   )
-
-  case class Failure(tags: Tags, error: String)
-  case class Success(tags: Tags, moves: Int)
-  type Results = List[Either[Failure, Success]]
 
   def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, RequestHeader): Fu[Results] =
     push(rt, pgn).addEffect(monitor(rt))
@@ -93,34 +91,28 @@ final class RelayPush(
       .in(tc)(MultiPgn.split(pgnBody, RelayFetch.maxChaptersToShow))
       .value
       .map: pgn =>
-        validate(pgn).flatMap: tags =>
-          StudyPgnImport
-            .result(pgn, Nil)
-            .bimap(
-              errStr => Failure(tags, oneline(errStr)),
-              game => RelayGame.fromStudyImport(game)
-            )
+        validate(pgn).map: importResult =>
+          RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
+
+object RelayPush:
+
+  case class Failure(tags: Tags, error: String)
+  case class Success(tags: Tags, moves: Int)
+  type Results = List[Either[Failure, Success]]
 
   // silently consume DGT board king-check move to center at game end
-  private def validate(pgnBody: PgnStr): Either[Failure, Tags] =
-    Parser
-      .full(pgnBody)
+  private[relay] def validate(pgnBody: PgnStr): Either[Failure, ImportResult] =
+    lila.tree
+      .parseImport(pgnBody)
       .fold(
-        err => Left(Failure(Tags.empty, oneline(err))),
-        parsed =>
-          val game = Game(variantOption = parsed.tags.variant, fen = parsed.tags.fen)
-
-          val mainline = parsed.mainline
-          val (maybeErr, replay) = mainline.foldLeft((none[ErrorStr], Replay(game))):
-            case (acc @ (Some(_), _), _) => acc
-            case ((none, r), san) =>
-              san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
-
-          maybeErr.fold(parsed.tags.asRight): err =>
+        err => Failure(Tags.empty, oneline(err)).asLeft,
+        result =>
+          val mainline = result.parsed.mainline
+          result.replayError.fold(result.asRight): err =>
             mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, replay, mainline) =>
-                Left(Failure(parsed.tags, oneline(err)))
-              case _ => Right(parsed.tags)
+              case Some(mv: Std) if isFatal(mv, result.replay, mainline) =>
+                Failure(result.parsed.tags, oneline(err)).asLeft
+              case _ => result.asRight
       )
 
   private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
