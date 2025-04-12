@@ -14,16 +14,24 @@ db.ublog_post.updateMany({}, { $set: { similar: [] } });
 
 print('Full recompute');
 
-const all = db.ublog_post.aggregate([
-  { $match: { live: true, 'likers.1': { $exists: true } } },
-  {
-    $lookup: {
-      let: { id: '$blog' }, pipeline: [
-        { $match: { $expr: { $and: [{ $eq: ['$_id', '$$id'] }, { $gte: ['$tier', minTier] }] } } },
-        { $project: { _id: 1 } }
-      ], from: 'ublog_blog', as: 'blog'
-    }
-  }, { $unwind: '$blog' }, { $project: { likers: 1 } }]).toArray();
+const all = db.ublog_post
+  .aggregate([
+    { $match: { live: true, 'likers.1': { $exists: true } } },
+    {
+      $lookup: {
+        let: { id: '$blog' },
+        pipeline: [
+          { $match: { $expr: { $and: [{ $eq: ['$_id', '$$id'] }, { $gte: ['$tier', minTier] }] } } },
+          { $project: { _id: 1 } },
+        ],
+        from: 'ublog_blog',
+        as: 'blog',
+      },
+    },
+    { $unwind: '$blog' },
+    { $project: { likers: 1 } },
+  ])
+  .toArray();
 print(`${all.length} listed posts to go.`);
 
 print(`Computing likers...`);
