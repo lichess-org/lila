@@ -671,8 +671,8 @@
     <item quantity="few">%s коментара на форуму</item>
     <item quantity="other">%s коментара на форуму</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Време проведено: %s</string>
-  <string name="watchGames">Посматрај партије</string>
+  <string name="tpTimeSpentPlaying">Време проведено играјући: %s</string>
+  <string name="watchGames">Гледај партије</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Посматрај</string>
   <string name="videoLibrary">Видео библиотека</string>
