@@ -9,16 +9,24 @@ const nbSimilar = 6;
 const minTier = 2;
 const since = new Date(Date.now() - 1000 * 60 * 60 * 24 * 14);
 
-const updatable = db.ublog_post.aggregate([
-  { $match: { live: true, 'updated.at': { $gt: since } } },
-  {
-    $lookup: {
-      let: { id: '$blog' }, pipeline: [
-        { $match: { $expr: { $and: [{ $eq: ['$_id', '$$id'] }, { $gte: ['$tier', minTier] }] } } },
-        { $project: { _id: 1 } }
-      ], from: 'ublog_blog', as: 'blog'
-    }
-  }, { $unwind: '$blog' }, { $project: { likers: 1 } }]).toArray();
+const updatable = db.ublog_post
+  .aggregate([
+    { $match: { live: true, 'updated.at': { $gt: since } } },
+    {
+      $lookup: {
+        let: { id: '$blog' },
+        pipeline: [
+          { $match: { $expr: { $and: [{ $eq: ['$_id', '$$id'] }, { $gte: ['$tier', minTier] }] } } },
+          { $project: { _id: 1 } },
+        ],
+        from: 'ublog_blog',
+        as: 'blog',
+      },
+    },
+    { $unwind: '$blog' },
+    { $project: { likers: 1 } },
+  ])
+  .toArray();
 
 console.log(`${updatable.length} listed posts were updated since ${since}`);
 
@@ -30,10 +38,12 @@ console.log(`Computing liker->ids...`);
 const likerToIds = new Map();
 db.ublog_post.find({ live: true, likers: { $in: Array.from(updatableLikers) } }, { likers: 1 }).forEach(p => {
   // updatableLikers.intersection(new Set(p.likers)) // TypeError: updatableLikers.intersection is not a function
-  p.likers.filter(l => updatableLikers.has(l)).forEach(l => {
-    if (!likerToIds.has(l)) likerToIds.set(l, []);
-    likerToIds.get(l).push(p._id);
-  });
+  p.likers
+    .filter(l => updatableLikers.has(l))
+    .forEach(l => {
+      if (!likerToIds.has(l)) likerToIds.set(l, []);
+      likerToIds.get(l).push(p._id);
+    });
 });
 console.log(`Updating ${updatable.length} posts...`);
 
