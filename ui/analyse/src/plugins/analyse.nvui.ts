@@ -588,6 +588,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const relayGroups = study?.relay?.data.group;
   const relayRounds = study?.relay?.data.rounds;
   const tour = study?.relay?.data.tour;
+  const hash = window.location.hash;
   return (
     study &&
     h('div.study-details', [
@@ -602,7 +603,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
             h(
               'select',
               {
-                attrs: { id: 'group-select' },
+                attrs: { autofocus: hash === '#group-select' ? true : false },
                 hook: bind('change', (e: InputEvent) => {
                   const target = e.target as HTMLSelectElement;
                   const selectedOption = target.options[target.selectedIndex];
@@ -611,7 +612,11 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
                 }),
               },
               relayGroups.tours.map(t =>
-                h('option', { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}` } }, t.name),
+                h(
+                  'option',
+                  { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
+                  t.name,
+                ),
               ),
             ),
           ]),
@@ -625,6 +630,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
             h(
               'select',
               {
+                attrs: { autofocus: hash === '#round-select' ? true : false },
                 hook: bind('change', (e: InputEvent) => {
                   const target = e.target as HTMLSelectElement;
                   const selectedOption = target.options[target.selectedIndex];
@@ -638,7 +644,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
                   {
                     attrs: {
                       selected: r.id == study.data.id,
-                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}`,
+                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
                     },
                   },
                   r.name,
