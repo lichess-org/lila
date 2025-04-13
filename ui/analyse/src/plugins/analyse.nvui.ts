@@ -583,6 +583,13 @@ const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
 };
 
+const redirectToSelectedHook = bind('change', (e: InputEvent) => {
+  const target = e.target as HTMLSelectElement;
+  const selectedOption = target.options[target.selectedIndex];
+  const url = selectedOption.getAttribute('url');
+  if (url) window.location.href = url;
+});
+
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
   const relayGroups = study?.relay?.data.group;
@@ -604,12 +611,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
               'select',
               {
                 attrs: { autofocus: hash === '#group-select' },
-                hook: bind('change', (e: InputEvent) => {
-                  const target = e.target as HTMLSelectElement;
-                  const selectedOption = target.options[target.selectedIndex];
-                  const url = selectedOption.getAttribute('url');
-                  if (url) window.location.href = url;
-                }),
+                hook: redirectToSelectedHook,
               },
               relayGroups.tours.map(t =>
                 h(
@@ -631,12 +633,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
               'select',
               {
                 attrs: { autofocus: hash === '#round-select' },
-                hook: bind('change', (e: InputEvent) => {
-                  const target = e.target as HTMLSelectElement;
-                  const selectedOption = target.options[target.selectedIndex];
-                  const url = selectedOption.getAttribute('url');
-                  if (url) window.location.href = url;
-                }),
+                hook: redirectToSelectedHook,
               },
               relayRounds.map(r =>
                 h(
