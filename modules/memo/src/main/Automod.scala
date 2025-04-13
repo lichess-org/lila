@@ -15,6 +15,8 @@ final case class AutomodConfig(
     url: Option[String]
 )
 
+// play scala boilerplate for OpenChat-compatible model interactions
+
 final class Automod(appConfig: Configuration, ws: StandaloneWSClient)(using Executor):
 
   private val defaultUrl   = "https://api.together.xyz/v1/chat/completions"
