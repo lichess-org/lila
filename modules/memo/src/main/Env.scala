@@ -41,3 +41,5 @@ final class Env(
   val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
   val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+
+  val automod = wire[Automod]

@@ -8,6 +8,7 @@
 /bin/git-hooks/pre-push
 /project/.bloop/
 /conf/application.conf
+/conf/automod.conf
 /conf/version.conf
 /translation/js
 logs/
