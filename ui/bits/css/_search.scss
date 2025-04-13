@@ -26,6 +26,11 @@
       text-align: right;
     }
 
+    input[type='date']{
+    @include if-light {
+      color-scheme: light;
+    }
+
     .two-columns {
       @extend %flex-wrap;
       gap: 1em;
