@@ -30,6 +30,7 @@
     @include if-light {
       color-scheme: light;
     }
+  }
 
     .two-columns {
       @extend %flex-wrap;
