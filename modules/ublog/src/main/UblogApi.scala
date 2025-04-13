@@ -129,8 +129,10 @@ final class UblogApi(
         .sort($doc("lived.at" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(3)
-      similarIds = post.similar.filterNot(s => s.count < 4 && sameAuthor.map(_.id).contains(s.id))
-      similar <- postPreviews(post.similar.map(_.id))
+      similar <- post.similar
+        .map(_.filterNot(s => s.count < 4 && sameAuthor.exists(_.id == s.id)).map(_.id))
+        .collect { case ids if ids.nonEmpty => postPreviews(ids) }
+        .getOrElse(fuccess(Nil))
       mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
     yield scala.util.Random.shuffle(mix).take(6)
 
