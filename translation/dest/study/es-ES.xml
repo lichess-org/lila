@@ -197,6 +197,6 @@
   <string name="variantsAreSupportedText">¡Sí, puedes estudiar Crazyhouse&lt;br&gt;y todas las variantes de Lichess!</string>
   <string name="chapterConclusionText">Los capítulos se guardan para siempre.&lt;br&gt;¡Diviértete organizando tu contenido de ajedrez!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Doble derrota</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Las negras han sido derrotadas, pero las blancas no pueden ganar</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Las blancas han sido derrotadas, pero las negras no pueden ganar</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Derrota negra, aunque el blanco no puede ganar</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Derrota Blanca, aunque el Negro no puede ganar</string>
 </resources>
