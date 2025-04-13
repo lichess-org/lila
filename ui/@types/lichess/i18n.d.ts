@@ -4659,6 +4659,8 @@ interface I18n {
     automatic: string;
     /** Back */
     back: string;
+    /** Black defeat, but White can't win */
+    blackDefeatWhiteCanNotWin: string;
     /** Black is better */
     blackIsBetter: string;
     /** Black is slightly better */
@@ -4735,6 +4737,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
+    /** Double defeat */
+    doubleDefeat: string;
     /** Download game */
     downloadGame: string;
     /** Dubious move */
@@ -4975,6 +4979,8 @@ interface I18n {
     whatWouldYouPlay: string;
     /** Where do you want to study that? */
     whereDoYouWantToStudyThat: string;
+    /** White defeat, but Black can't win */
+    whiteDefeatBlackCanNotWin: string;
     /** White is better */
     whiteIsBetter: string;
     /** White is slightly better */
