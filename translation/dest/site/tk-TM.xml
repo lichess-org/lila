@@ -366,11 +366,9 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="wins">Ýeňiş</string>
   <string name="losses">Utulyş</string>
   <string name="createdBy">Dörediji:</string>
-  <string name="tournamentPairingsAreNowClosed">Bäsleşik jübütleşdirmeleri indi ýapyk.</string>
   <string name="standByX">%s agza garaş, jübütleşdirilýär, taýyn bol!</string>
   <string name="youArePlaying">Oýnaýaňyz!</string>
   <string name="winRate">Ýeňiş göterimi</string>
-  <string name="berserkRate">Berserk göterimi</string>
   <string name="performance">Başarnyk</string>
   <string name="tournamentComplete">Bäsleşik tamam</string>
   <string name="movesPlayed">Oýnalan göçümler sany</string>

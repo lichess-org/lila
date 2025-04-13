@@ -6,11 +6,35 @@
  * ublog-graph-incremental.js
  */
 const nbSimilar = 6;
-console.log('Full recompute');
-const all = db.ublog_post.find({ live: true, 'likers.1': { $exists: true } }, { likers: 1 }).toArray();
-console.log(`${all.length} posts to go.`);
+const minTier = 2;
 
-console.log(`Computing likers...`);
+print('Deleting all post.similar');
+
+db.ublog_post.updateMany({}, { $set: { similar: [] } });
+
+print('Full recompute');
+
+const all = db.ublog_post
+  .aggregate([
+    { $match: { live: true, 'likers.1': { $exists: true } } },
+    {
+      $lookup: {
+        let: { id: '$blog' },
+        pipeline: [
+          { $match: { $expr: { $and: [{ $eq: ['$_id', '$$id'] }, { $gte: ['$tier', minTier] }] } } },
+          { $project: { _id: 1 } },
+        ],
+        from: 'ublog_blog',
+        as: 'blog',
+      },
+    },
+    { $unwind: '$blog' },
+    { $project: { likers: 1 } },
+  ])
+  .toArray();
+print(`${all.length} listed posts to go.`);
+
+print(`Computing likers...`);
 const likers = new Map();
 all.forEach(p => {
   p.likers.forEach(l => {
@@ -18,9 +42,9 @@ all.forEach(p => {
     likers.get(l).push(p._id);
   });
 });
-console.log(likers.size + ` likers found.`);
+print(likers.size + ` likers found.`);
 
-console.log(`Updating posts...`);
+print(`Updating posts...`);
 all.forEach(p => {
   const similar = new Map();
   p.likers.forEach(liker => {
@@ -28,8 +52,11 @@ all.forEach(p => {
       if (id != p._id) similar.set(id, (similar.get(id) || 0) + 1);
     });
   });
-  const top3 = Array.from(similar)
+  const sorted = Array.from(similar)
     .sort((a, b) => b[1] - a[1])
     .slice(0, nbSimilar);
-  db.ublog_post.updateOne({ _id: p._id }, { $set: { similar: top3.map(([id, _]) => id) } });
+  db.ublog_post.updateOne(
+    { _id: p._id },
+    { $set: { similar: sorted.map(([id, count]) => ({ id, count })) } },
+  );
 });

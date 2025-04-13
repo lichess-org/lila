@@ -558,14 +558,12 @@
   <string name="wins">Перемоги</string>
   <string name="losses">Поразки</string>
   <string name="createdBy">Створив</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Початок через</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребкування турніру завершено.</string>
+  <string name="startingIn" comment="Displayed above a timer">Початок через</string>
   <string name="standByX">Очікуйте, %s, йде жеребкування, будьте готові!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Відновити</string>
   <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Відсоток перемог</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Ігор з берсерком</string>
   <string name="performance">Ефективність</string>
   <string name="tournamentComplete">Турнір завершено</string>
   <string name="movesPlayed">Ходів зіграно</string>
@@ -826,7 +824,7 @@
   <string name="checkYourEmail">Перевірте електронну пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ми надіслали вам лист. Перейдіть за посиланням у листі для активації облікового запису.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо Ви не бачите листа, перевірте інші місця, де б він міг бути, наприклад, корзину, спам та інші папки.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Якщо ви не отримаєте лист протягом 5 хвилин:</string>
+  <string name="ifYouDoNotGetTheEmail">Якщо ви не отримаєте лист протягом 5 хвилин:</string>
   <string name="checkAllEmailFolders">Перевірте кошик, спам та інші папки</string>
   <string name="verifyYourAddress">Перевірте, чи %s дійсно є вашою адресою електронної пошти</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>

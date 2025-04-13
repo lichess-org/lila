@@ -41,7 +41,7 @@ object UblogRank:
       BEST    -> "Best"
     )
     object tierDays:
-      val LOW  = -7
+      val LOW  = -4
       val HIGH = 5
       val BEST = 7
       val map  = Map(Tier.LOW -> LOW, Tier.HIGH -> HIGH, Tier.BEST -> BEST)

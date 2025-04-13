@@ -23,6 +23,8 @@ import type {
   Ratings,
 } from './types';
 
+export type * from './types';
+
 export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
@@ -45,6 +47,10 @@ export class Bot implements BotInfo, MoveSource {
 
   static rating(bot: BotInfo | undefined, speed: LocalSpeed): number {
     return bot?.ratings?.[speed] ?? bot?.ratings?.classical ?? 1500;
+  }
+
+  static isValid(maybeBot: any): boolean {
+    return Boolean(maybeBot?.zero || maybeBot?.fish);
   }
 
   constructor(info: BotInfo, ctrl: BotLoader) {

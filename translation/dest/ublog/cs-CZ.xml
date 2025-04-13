@@ -36,7 +36,6 @@
   <string name="xPublishedY">%1$s publikoval %2$s</string>
   <string name="thisPostIsPublished">Tento příspěvek je publikován</string>
   <string name="thisIsADraft">Toto je koncept</string>
-  <string name="moreBlogPostsBy">Více příspěvků blogu od %s</string>
   <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
   <string name="noDrafts">Žádné koncepty k zobrazení.</string>
   <string name="latestBlogPosts">Poslední příspěvky na blogu</string>

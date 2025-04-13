@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogy komunít</string>
   <string name="friendBlogs">Blogy priateľov</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess blog</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Môj blog</string>
+  <string name="lichessBlog">Lichess blog</string>
+  <string name="myBlog">Môj blog</string>
   <string name="likedBlogs">Blogové príspevky, ktoré sa Vám páčia</string>
   <string name="blogTopics">Témy blogov</string>
   <plurals name="blogPosts">
@@ -46,7 +46,6 @@
   <string name="xPublishedY">Používateľ %1$s uverejnil blog s názvom %2$s</string>
   <string name="thisPostIsPublished">Tento príspevok je zverejnený</string>
   <string name="thisIsADraft">Toto je koncept</string>
-  <string name="moreBlogPostsBy">Viac príspevkov na blogu od používateľa %s</string>
   <string name="noPostsInThisBlogYet">V tomto blogu zatiaľ nie sú žiadne príspevky.</string>
   <string name="noDrafts">Žiadne koncepty na zobrazenie.</string>
   <string name="latestBlogPosts">Najnovšie príspevky na blogu</string>

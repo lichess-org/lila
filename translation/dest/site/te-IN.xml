@@ -489,13 +489,11 @@
   <string name="wins">విజయాలు</string>
   <string name="losses">నష్టాలు</string>
   <string name="createdBy">సృష్టికర్త</string>
-  <string name="tournamentPairingsAreNowClosed">టోర్నమెంట్ జతలు ఇప్పుడు మూసివేయబడ్డాయి.</string>
   <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
   <string name="pause">విరామం</string>
   <string name="resume">రెస్యూమ్</string>
   <string name="youArePlaying">మీరు ఆడుతున్నారు!</string>
   <string name="winRate">విన్ రేట్</string>
-  <string name="berserkRate">బెర్సర్క్ రేటు</string>
   <string name="performance">ప్రదర్శన</string>
   <string name="tournamentComplete">టోర్నమెంట్ పూర్తయింది</string>
   <string name="movesPlayed">కదలికలు ఆడారు</string>

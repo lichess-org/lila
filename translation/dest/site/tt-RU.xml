@@ -382,13 +382,11 @@
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
   <string name="createdBy">Оештыручы</string>
-  <string name="tournamentPairingsAreNowClosed">Бәйге чиратлаштыруы ябылган.</string>
   <string name="standByX">%s көтегез, уйнаучылар чиратлаштырыла, әзерләнегез!</string>
   <string name="pause">Туктату</string>
   <string name="resume">Дәвам итү</string>
   <string name="youArePlaying">Сез уйныйсыз!</string>
   <string name="winRate">Җиңүләр</string>
-  <string name="berserkRate">Берсерк</string>
   <string name="performance">Перфоманс</string>
   <string name="tournamentComplete">Бәйге тәмамланды</string>
   <string name="movesPlayed">Йөрешләр саны</string>

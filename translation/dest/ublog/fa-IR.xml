@@ -34,7 +34,6 @@
   <string name="xPublishedY">%1$s، %2$s را منتشر کرد</string>
   <string name="thisPostIsPublished">این وبنوشته منتشر شد</string>
   <string name="thisIsADraft">این یک پیش‌نویس است</string>
-  <string name="moreBlogPostsBy">وبنوشته‌های بیشتر از %s</string>
   <string name="noPostsInThisBlogYet">هنوز، نوشته‌ای در این وبنوشت نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
   <string name="latestBlogPosts">تازه‌ترین وبنوشته‌ها</string>

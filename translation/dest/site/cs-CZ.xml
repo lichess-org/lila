@@ -557,13 +557,11 @@
   <string name="wins">Výhry</string>
   <string name="losses">Prohry</string>
   <string name="createdBy">Vytvořeno uživatelem</string>
-  <string name="tournamentPairingsAreNowClosed">Turnajové rozlosování je nyní uzavřeno.</string>
   <string name="standByX">Vyčkejte %s, vybírám soupeře, připravte se!</string>
   <string name="pause">Pozastavit</string>
   <string name="resume">Pokračovat</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Poměr výher</string>
-  <string name="berserkRate">Poměr Berserk</string>
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odehráno tahů</string>

@@ -22,7 +22,6 @@
   <string name="xPublishedY">%1$s avalikustas %2$s</string>
   <string name="thisPostIsPublished">Postitus on avalikustatud</string>
   <string name="thisIsADraft">See on mustand</string>
-  <string name="moreBlogPostsBy">Rohkem blogipostitusi kasutajalt %s</string>
   <string name="noPostsInThisBlogYet">Selles blogis ei ole veel postitusi.</string>
   <string name="noDrafts">Pole näidata ühtegi mustandit.</string>
   <string name="latestBlogPosts">Viimased blogipostitused</string>

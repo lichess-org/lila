@@ -482,13 +482,11 @@
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
   <string name="createdBy">Készítette</string>
-  <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
   <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
   <string name="pause">Szünet</string>
   <string name="resume">Folytatás</string>
   <string name="youArePlaying">Te következel!</string>
   <string name="winRate">Győzelmi arány</string>
-  <string name="berserkRate">Berserk arány</string>
   <string name="performance">Teljesítmény</string>
   <string name="tournamentComplete">Verseny összefoglaló</string>
   <string name="movesPlayed">Lépések száma</string>

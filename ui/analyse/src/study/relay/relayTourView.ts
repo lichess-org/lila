@@ -92,12 +92,12 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           max: () => 48 * study.chapters.list.size(),
           initialMaxHeight: window.innerHeight / 2,
         }),
-      renderChat(ctx.ctrl.chatCtrl),
+      ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
       resizeId &&
         verticalResizeSeparator({
           key: 'relay-chat',
           id: resizeId,
-          min: () => 60,
+          min: () => 0,
           max: () => window.innerHeight,
           initialMaxHeight: window.innerHeight / 3,
           kid: h('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),

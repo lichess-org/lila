@@ -462,14 +462,12 @@
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
   <string name="createdBy">Búið til af</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Hefst eftir</string>
-  <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
+  <string name="startingIn" comment="Displayed above a timer">Hefst eftir</string>
   <string name="standByX">Hinkraðu %s, pörun keppanda stendur yfir, vertu tilbúin(n)!</string>
   <string name="pause">Hlé</string>
   <string name="resume">Halda áfram</string>
   <string name="youArePlaying">Þú ert að tefla!</string>
   <string name="winRate">Sigurhlutfall</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkjahlutfall</string>
   <string name="performance">Mótsstig</string>
   <string name="tournamentComplete">Móti lokið</string>
   <string name="movesPlayed">Fjöldi leikja</string>

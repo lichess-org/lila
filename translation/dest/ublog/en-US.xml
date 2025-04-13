@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Community blogs</string>
   <string name="friendBlogs">Friends\' blogs</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess blog</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">My blog</string>
+  <string name="lichessBlog">Lichess blog</string>
+  <string name="myBlog">My blog</string>
   <string name="likedBlogs">Liked blog posts</string>
   <string name="blogTopics">Blog topics</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s published %2$s</string>
   <string name="thisPostIsPublished">This post is published</string>
   <string name="thisIsADraft">This is a draft</string>
-  <string name="moreBlogPostsBy">More blog posts by %s</string>
   <string name="noPostsInThisBlogYet">No posts in this blog, yet.</string>
   <string name="noDrafts">No drafts to show.</string>
   <string name="latestBlogPosts">Latest blog posts</string>

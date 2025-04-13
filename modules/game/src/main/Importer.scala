@@ -46,7 +46,7 @@ val form = Form:
   )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
-  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed) =>
+  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed, _) =>
     val dbGame = lila.core.game
       .newImportedGame(
         chess = game,

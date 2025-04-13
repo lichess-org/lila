@@ -52,12 +52,7 @@ export type PubsubEvent =
   | 'top.toggle.user_tag'
   | 'zen';
 
-export type PubsubOneTimeEvent =
-  | 'dialog.polyfill'
-  | 'socket.hasConnected'
-  | 'botdev.images.ready'
-  | 'botdev.gameDb.ready'
-  | 'botdev.bots.ready';
+export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected' | 'botdev.images.ready';
 
 export type PubsubCallback = (...data: any[]) => void;
 

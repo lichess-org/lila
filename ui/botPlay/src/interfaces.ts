@@ -1,6 +1,8 @@
 import { BotInfo, MoveSource, SoundEvent } from 'lib/bot/types';
 import * as Prefs from 'lib/prefs';
 
+export type DateMillis = number; // local millis since Unix epoch = Date.getTime()
+
 export interface BotOpts {
   bots: BotInfo[];
   pref: Pref;

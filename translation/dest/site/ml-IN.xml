@@ -483,13 +483,11 @@
   <string name="wins">ജയങ്ങൾ</string>
   <string name="losses">പരാജയങ്ങൾ</string>
   <string name="createdBy">നിർമ്മാണം</string>
-  <string name="tournamentPairingsAreNowClosed">മത്സര ഇണചേൎക്കലുകൾ തീൎന്നിരിക്കുന്നു.</string>
   <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
   <string name="pause">നിറുത്തുക</string>
   <string name="resume">തുടരുക</string>
   <string name="youArePlaying">നിങ്ങൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു!</string>
   <string name="winRate">വിജയനിരക്ക്</string>
-  <string name="berserkRate">ജടാപാടാലിറ്റി റേറ്റ്</string>
   <string name="performance">പെർഫോമൻസ്</string>
   <string name="tournamentComplete">ടൂർണമെന്റ് പൂർത്തിയായിരിക്കുന്നു</string>
   <string name="movesPlayed">കളിച്ച കളികൾ</string>

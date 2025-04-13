@@ -15,12 +15,13 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogBlog] = Macros.handler
 
-  given BSONHandler[Lang]                = langByCodeHandler
-  given BSONDocumentHandler[Recorded]    = Macros.handler
-  given BSONDocumentHandler[UblogImage]  = Macros.handler
-  given BSONDocumentHandler[UblogPost]   = Macros.handler
-  given BSONDocumentHandler[LightPost]   = Macros.handler
-  given BSONDocumentHandler[PreviewPost] = Macros.handler
+  given BSONHandler[Lang]                 = langByCodeHandler
+  given BSONDocumentHandler[Recorded]     = Macros.handler
+  given BSONDocumentHandler[UblogImage]   = Macros.handler
+  given BSONDocumentHandler[UblogPost]    = Macros.handler
+  given BSONDocumentHandler[LightPost]    = Macros.handler
+  given BSONDocumentHandler[PreviewPost]  = Macros.handler
+  given BSONDocumentHandler[UblogSimilar] = Macros.handler
 
   val postProjection      = $doc("likers" -> false)
   val lightPostProjection = $doc("title" -> true)

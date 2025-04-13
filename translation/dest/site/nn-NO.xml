@@ -488,13 +488,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Oppretta av</string>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
-  <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
   <string name="resume">Fortsett</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
-  <string name="berserkRate">Berserkfrekvens</string>
   <string name="performance">Prestasjon</string>
   <string name="tournamentComplete">Turnering fullførd</string>
   <string name="movesPlayed">Trekk spela</string>

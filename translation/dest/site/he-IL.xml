@@ -558,14 +558,12 @@
   <string name="wins">ניצחונות</string>
   <string name="losses">הפסדים</string>
   <string name="createdBy">נוצר ע\"י</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">מתחיל בעוד</string>
-  <string name="tournamentPairingsAreNowClosed">השיבוץ לזוגות בטורניר הסתיים.</string>
+  <string name="startingIn" comment="Displayed above a timer">מתחיל בעוד</string>
   <string name="standByX">%s, נא להמתין, משבצים לזוגות, היו מוכנים!</string>
   <string name="pause">השהה</string>
   <string name="resume">המשך</string>
   <string name="youArePlaying">את/ה משחק/ת!</string>
   <string name="winRate">שיעור זכייה</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">אחוז המשחקים באטרף</string>
   <string name="performance">דירוג הביצוע</string>
   <string name="tournamentComplete">הטורניר הושלם</string>
   <string name="movesPlayed">מהלכים ששוחקו</string>
@@ -826,7 +824,7 @@
   <string name="checkYourEmail">נא לבדוק את הדוא״ל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק במייל כדי להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם את/ה לא מוצא/ת את המייל, חפש/י במקומות אחרים, כגון דואר זבל, ספאם או תיקיות אחרות.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">אם לא יתקבל המייל ב-5 הדקות הקרובות:</string>
+  <string name="ifYouDoNotGetTheEmail">אם לא יתקבל המייל ב-5 הדקות הקרובות:</string>
   <string name="checkAllEmailFolders">בדקו את כל תיקיות הספאם, דואר הזבל וכיוצא בזה</string>
   <string name="verifyYourAddress">ודאו שאכן %s היא כתובת המייל שלכם</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>

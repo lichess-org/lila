@@ -285,7 +285,8 @@ final class Account(
     for
       managed <- env.clas.api.student.isManaged(me)
       form    <- env.security.forms.toggleKid
-      page    <- Ok.page(pages.kid(me, form, managed))
+      content <- env.cms.renderKey("kid-mode")
+      page    <- Ok.page(pages.kid(me, form, managed, content.map(_.html)))
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
@@ -298,7 +299,10 @@ final class Account(
         bindForm(form)(
           err =>
             negotiate(
-              BadRequest.page(pages.kid(me, err, managed = false)),
+              for
+                content <- env.cms.renderKey("kid-mode")
+                page    <- BadRequest.page(pages.kid(me, err, managed = false, content.map(_.html)))
+              yield page,
               BadRequest(errorsAsJson(err))
             ),
           _ =>

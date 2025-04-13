@@ -414,11 +414,9 @@
   <string name="wins">فتوحات</string>
   <string name="losses">ہاریں</string>
   <string name="createdBy">خالق</string>
-  <string name="tournamentPairingsAreNowClosed">ٹورنامنٹ میں کھلاڑیوں کی جوڑیاں بند ہو چکی ہیں.</string>
   <string name="standByX">انتظار فرمائیں %s ، کھلاڑیوں کی جوڑیاں کی جا رہی ہیں، تیار رہیں!</string>
   <string name="youArePlaying">آپ کھیل رہے ہیں!</string>
   <string name="winRate">فتح کی شرح</string>
-  <string name="berserkRate">برزرک کی شرح</string>
   <string name="performance">کارکردگی</string>
   <string name="tournamentComplete">ٹورنمنٹ مکمل ہوا</string>
   <string name="movesPlayed">چالوں کی تعداد</string>

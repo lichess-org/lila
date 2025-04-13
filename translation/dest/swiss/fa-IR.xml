@@ -27,7 +27,6 @@
     <item quantity="one">%s دقیقه بین دورها</item>
     <item quantity="other">%s دقیقه بین دورها</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">شروع در</string>
   <string name="nextRound">دور بعد</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">بازی در جریان</item>

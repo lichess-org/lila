@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Topluluk blogları</string>
   <string name="friendBlogs">Arkadaş blogları</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess bloğu</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Bloğum</string>
+  <string name="lichessBlog">Lichess bloğu</string>
+  <string name="myBlog">Bloğum</string>
   <string name="likedBlogs">Beğenilen blog gönderileri</string>
   <string name="blogTopics">Blog konuları</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s yayımladı: %2$s</string>
   <string name="thisPostIsPublished">Bu gönderi yayımlanmıştır</string>
   <string name="thisIsADraft">Bu bir taslaktır</string>
-  <string name="moreBlogPostsBy">%s adlı kullanıcının diğer blog gönderileri</string>
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
   <string name="latestBlogPosts">Son blog gönderileri</string>
