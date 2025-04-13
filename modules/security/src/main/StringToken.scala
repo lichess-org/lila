@@ -66,11 +66,12 @@ object StringToken:
     def toStr(date: Instant)   = date.toMillis.toString
     def toInstant(str: String) = str.toLongOption.map(millisToInstant)
 
-  def userId(secret: Secret, lifetime: FiniteDuration)(using Executor) = StringToken[UserId](
-    secret = secret,
-    getCurrentValue = _ => fuccess(StringToken.DateStr.toStr(nowInstant)),
-    currentValueHashSize = none,
-    valueChecker = StringToken.ValueChecker.Custom: v =>
-      fuccess:
-        StringToken.DateStr.toInstant(v).exists(nowInstant.minus(lifetime).isBefore)
-  )
+  def withLifetime[A: Iso.StringIso](secret: Secret, lifetime: FiniteDuration)(using Executor) =
+    StringToken[A](
+      secret = secret,
+      getCurrentValue = _ => fuccess(StringToken.DateStr.toStr(nowInstant)),
+      currentValueHashSize = none,
+      valueChecker = StringToken.ValueChecker.Custom: v =>
+        fuccess:
+          StringToken.DateStr.toInstant(v).exists(nowInstant.minus(lifetime).isBefore)
+    )

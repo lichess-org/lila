@@ -91,4 +91,4 @@ ${trans.common_orPaste.txt()}"""),
         user.some
     }
 
-  private val tokener = StringToken.userId(tokenerSecret, 20.minutes)
+  private val tokener = StringToken.withLifetime[UserId](tokenerSecret, 20.minutes)
