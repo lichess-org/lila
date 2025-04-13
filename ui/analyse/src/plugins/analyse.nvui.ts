@@ -603,7 +603,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
             h(
               'select',
               {
-                attrs: { autofocus: hash === '#group-select' ? true : false },
+                attrs: { autofocus: hash === '#group-select' },
                 hook: bind('change', (e: InputEvent) => {
                   const target = e.target as HTMLSelectElement;
                   const selectedOption = target.options[target.selectedIndex];
@@ -630,7 +630,7 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
             h(
               'select',
               {
-                attrs: { autofocus: hash === '#round-select' ? true : false },
+                attrs: { autofocus: hash === '#round-select' },
                 hook: bind('change', (e: InputEvent) => {
                   const target = e.target as HTMLSelectElement;
                   const selectedOption = target.options[target.selectedIndex];
