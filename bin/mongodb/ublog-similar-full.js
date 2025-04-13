@@ -52,8 +52,11 @@ all.forEach(p => {
       if (id != p._id) similar.set(id, (similar.get(id) || 0) + 1);
     });
   });
-  const top = Array.from(similar)
+  const sorted = Array.from(similar)
     .sort((a, b) => b[1] - a[1])
     .slice(0, nbSimilar);
-  db.ublog_post.updateOne({ _id: p._id }, { $set: { similar: top.map(([id, _]) => id) } });
+  db.ublog_post.updateOne(
+    { _id: p._id },
+    { $set: { similar: sorted.map(([id, count]) => ({ id, count })) } },
+  );
 });
