@@ -170,7 +170,8 @@ export function view(ctrl: StudyCtrl): VNode {
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
+      if (current.id !== ctrl.chapters.list.first().id)
+        setTimeout(() => scrollToInnerSelector(el, '.active'));
     } else if (vData.currentId !== ctrl.data.chapter.id) {
       vData.currentId = ctrl.data.chapter.id;
       scrollToInnerSelector(el, '.active');
