@@ -56,7 +56,7 @@ final class User(
     }
 
   private val userShowHtmlRateLimit =
-    env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.ip", _.antiScraping(dch = 10, others = 4))
+    env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
