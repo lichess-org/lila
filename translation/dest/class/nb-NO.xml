@@ -88,7 +88,7 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="noRemovedStudents">Ingen fjernede elever.</string>
   <string name="overDays">Over dager</string>
   <string name="timePlaying">Spilletid</string>
-  <string name="variantXOverLastY">%1$s over siste %2$s</string>
+  <string name="variantXOverLastY">%1$s de siste %2$s</string>
   <string name="winrate">Seiersrate</string>
   <string name="na">N/A (ikke tilgjengelig)</string>
   <string name="overview">Oversikt</string>
