@@ -168,8 +168,9 @@ private final class RelayPlayerEnrich(
       val (updated, ambiguous) = txt.parse.update(games)
       (ambiguous.nonEmpty && rt.tour.official && once(ambiguous))
         .so:
+          def show(p: RelayPlayerLine): String = p.fideId.map(_.toString) | p.name.fold("?")(_.value)
           val players = ambiguous.map: a =>
-            (a.name.value, a.players.map(p => p.name.fold("?")(_.value)))
+            (a.name.value, a.players.map(show))
           irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullName, players)
         .inject(updated)
 
