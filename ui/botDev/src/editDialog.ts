@@ -44,8 +44,7 @@ export class EditDialog {
       <div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
-    if (!env.bot.all.length) env.bot.storeBot(EditDialog.default);
-    this.selectBot();
+    this.selectBot(localStorage.getItem('devBot.edit'));
     this.deck = handOfCards({
       viewEl: this.view,
       deckEl: this.view.querySelector('.placeholder') as HTMLElement,
@@ -147,8 +146,8 @@ export class EditDialog {
 
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
-    const all = [...mapValues(this.bots), ...mapValues(this.scratch)];
-    return definedMap(Array.from(new Set(all)), b => env.bot.groupedCard(b, this.isDirty)).sort(
+    const all = [...new Map([...this.bots, ...this.scratch])];
+    return definedMap(Array.from(new Set(all)), ([_, b]) => env.bot.groupedCard(b, this.isDirty)).sort(
       env.bot.groupedSort(speed),
     );
   }
@@ -169,9 +168,11 @@ export class EditDialog {
     this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
   }
 
-  private selectBot(uid = this.uid ?? env.bot[this.color]?.uid ?? env.bot.firstUid): void {
-    if (!uid) return this.dlg.close();
+  private selectBot(uid: string | null = this.uid): void {
+    if (!this.bots.size) env.bot.storeBot(EditDialog.default);
+    if (!uid || !this.bots.has(uid)) uid = env.bot[this.color]?.uid ?? env.bot.firstUid ?? '#default';
     this.uid = uid;
+    localStorage.setItem('devBot.edit', uid);
     this.makeEditView();
     this.update();
   }
