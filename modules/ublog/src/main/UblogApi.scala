@@ -130,7 +130,7 @@ final class UblogApi(
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(3)
       similar <- post.similar
-        .map(_.filterNot(s => s.count < 4 && sameAuthor.exists(_.id == s.id)).map(_.id))
+        .map(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
         .collect { case ids if ids.nonEmpty => postPreviews(ids) }
         .getOrElse(fuccess(Nil))
       mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
