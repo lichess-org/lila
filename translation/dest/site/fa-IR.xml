@@ -626,7 +626,7 @@
   <string name="computer">رایانه</string>
   <string name="side">چه رنگی؟</string>
   <string name="clock">ساعت</string>
-  <string name="opponent">حریف</string>
+  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">حریف</string>
   <string name="learnMenu">یادگیری</string>
   <string name="studyMenu">مطالعه</string>
   <string name="practice">تمرین</string>
