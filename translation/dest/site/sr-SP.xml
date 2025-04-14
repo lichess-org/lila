@@ -684,8 +684,8 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
   <string name="contribute">Добринеси</string>
-  <string name="termsOfService">Услови коришћења услуге</string>
-  <string name="sourceCode">Изворни код</string>
+  <string name="termsOfService">Услови коришћења Услуге</string>
+  <string name="sourceCode">Изворни Код</string>
   <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
   <string name="hostColorX">Боја приређивача: %s</string>
