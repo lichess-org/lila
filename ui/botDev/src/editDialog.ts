@@ -146,10 +146,8 @@ export class EditDialog {
 
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
-    const all = [...new Map([...this.bots, ...this.scratch])];
-    return definedMap(Array.from(new Set(all)), ([_, b]) => env.bot.groupedCard(b, this.isDirty)).sort(
-      env.bot.groupedSort(speed),
-    );
+    const all = [...new Map([...this.bots, ...this.scratch]).values()]; // scratches override bots
+    return definedMap(all, b => env.bot.groupedCard(b, this.isDirty)).sort(env.bot.groupedSort(speed));
   }
 
   private async push() {
