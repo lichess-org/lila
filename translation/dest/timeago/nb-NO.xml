@@ -14,8 +14,8 @@
     <item quantity="other">i %s timer</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">i %s dag</item>
-    <item quantity="other">i %s dager</item>
+    <item quantity="one">om %s dag</item>
+    <item quantity="other">om %s dager</item>
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">om %s uke</item>
