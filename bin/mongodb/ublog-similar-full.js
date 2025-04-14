@@ -10,7 +10,7 @@ const minTier = 2;
 
 print('Deleting all post.similar');
 
-db.ublog_post.updateMany({}, { $set: { similar: [] } });
+db.ublog_post.updateMany({}, { $unset: { similar: 1 } });
 
 print('Full recompute');
 
