@@ -195,4 +195,7 @@
   <string name="variantsAreSupportedTitle">Uhtrimet mbulojnë variante</string>
   <string name="variantsAreSupportedText">Po, mund të ushtroheni në “crazyhouse”&lt;br&gt;dhe krejt variantet e lichess-it!</string>
   <string name="chapterConclusionText">Kapitujt ruhen përgjithmonë.&lt;br&gt;Zbavituni duke sistemuar lëndën tuaj për shahun!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dopiohumbje</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">I ziu humb, por i Bardhi s’fiton dot</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">I bardhi humb, por i Ziu s’fiton dot</string>
 </resources>

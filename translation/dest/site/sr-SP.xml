@@ -641,15 +641,15 @@
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
   <string name="clock">Сат</string>
-  <string name="opponent">Противник</string>
+  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">Противник</string>
   <string name="learnMenu">учи</string>
   <string name="studyMenu">Проучи</string>
   <string name="practice">Вежбање</string>
   <string name="community">Заједница</string>
   <string name="tools">Алати</string>
-  <string name="increment">додатак</string>
+  <string name="increment">Додатак</string>
   <string name="error.unknown">Неправилна вредност</string>
-  <string name="error.required">Ово поље морате попунити</string>
+  <string name="error.required">Ово поље је обавезно</string>
   <string name="error.email">Ова Е-пошта адреса је погрешна</string>
   <string name="error.email_acceptable">Ова мејл адреса је неодговарајућа. Молим те провери и пробај поново.</string>
   <string name="error.email_unique">Мејл адреса је погрешна или већ заузета</string>
@@ -662,7 +662,7 @@
   <string name="ifRegistered">Само регистровани</string>
   <string name="onlyExistingConversations">Само постојећи разговори</string>
   <string name="onlyFriends">Само пријатељи</string>
-  <string name="menu">Опције</string>
+  <string name="menu">Мени</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
   <string name="blackCastlingKingside">Црни O-O</string>
@@ -671,19 +671,19 @@
     <item quantity="few">%s коментара на форуму</item>
     <item quantity="other">%s коментара на форуму</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Време проведено: %s</string>
-  <string name="watchGames">Посматрај партије</string>
+  <string name="tpTimeSpentPlaying">Време проведено играјући: %s</string>
+  <string name="watchGames">Гледај партије</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
-  <string name="watch">Посматрај</string>
+  <string name="watch">Гледај</string>
   <string name="videoLibrary">Видео библиотека</string>
   <string name="streamersMenu">Стримери</string>
-  <string name="mobileApp">Апликација за телефон</string>
+  <string name="mobileApp">Мобилна Апликација</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
   <string name="aboutX">О %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
-  <string name="contribute">Допринос</string>
+  <string name="contribute">Добринеси</string>
   <string name="termsOfService">Услови коришћења услуге</string>
   <string name="sourceCode">Изворни код</string>
   <string name="simultaneousExhibitions">Симултанке</string>

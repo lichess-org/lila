@@ -191,4 +191,7 @@
   <string name="fromPgnGameText">Plak een partij in PGN-formaat.&lt;br&gt;om zetten, reacties en variaties in het hoofdstuk te laden.</string>
   <string name="variantsAreSupportedTitle">Studies ondersteunen varianten</string>
   <string name="chapterConclusionText">Hoofdstukken worden voor altijd bewaard.&lt;br&gt;Veel plezier met het ordenen van uw schaakinhoud!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dubbele nederlaag</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Zwarte nederlaag, maar Wit kan niet winnen</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Witte nederlaag, maar Zwart kan niet winnen</string>
 </resources>

@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
   <string name="inGameOnly">Tik žaidimo metu</string>
+  <string name="exceptInGame">Išskyrus žaidime</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 10 sekundžių</string>
