@@ -690,7 +690,7 @@
   <string name="host">Домаћин</string>
   <string name="hostColorX">Боја приређивача: %s</string>
   <string name="yourPendingSimuls">Незавршене симултанке</string>
-  <string name="createdSimuls">Недавно креиране симултанке</string>
+  <string name="createdSimuls">Новостворене симултанке</string>
   <string name="hostANewSimul">Покрени нову симултанку</string>
   <string name="signUpToHostOrJoinASimul">Пријави се да би организовао или учествовао у симултанци</string>
   <string name="noSimulFound">Симултанка није пронађена</string>
