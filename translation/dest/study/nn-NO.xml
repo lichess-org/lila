@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Studiar støttar variantar</string>
   <string name="variantsAreSupportedText">Ja, du kan studera crazyhouse&lt;br&gt;og alle lichess varianter!</string>
   <string name="chapterConclusionText">Kapittel lagras for alltid.&lt;br&gt;God fornøyelse med å organisere sjakkinnholdet ditt!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt nederlag</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Nederlag for svart, men kvit kan ikkje sigra</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Nederlag for kvit, men svart kan ikkje sigra</string>
 </resources>

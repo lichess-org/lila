@@ -2,38 +2,39 @@
 <resources>
   <string name="donate">Paremti</string>
   <string name="donateAsX">Paaukoti kaip %s</string>
-  <string name="lichessPatron">Lichess Rėmėjas</string>
+  <string name="lichessPatron">Lichess rėmėjas</string>
+  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Rėmėjas nuo %s</string>
   <string name="freeAccount">Nemokama paskyra</string>
-  <string name="becomePatron">Tapkite Lichess Rėmėju</string>
-  <string name="xBecamePatron">%s tapo Lichess Rėmėju</string>
+  <string name="becomePatron">Tapkite Lichess rėmėju</string>
+  <string name="xBecamePatron">%s tapo Lichess rėmėju</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s Lichess Rėmėjas %2$s mėnesį</item>
-    <item quantity="few">%1$s Lichess Rėmėjas %2$s mėnesius</item>
-    <item quantity="many">%1$s Lichess Rėmėjas %2$s mėnesio</item>
-    <item quantity="other">%1$s Lichess Rėmėjas %2$s mėnesių</item>
+    <item quantity="one">%1$s Lichess rėmėjas %2$s mėnesį</item>
+    <item quantity="few">%1$s Lichess rėmėjas %2$s mėnesius</item>
+    <item quantity="many">%1$s Lichess rėmėjas %2$s mėnesio</item>
+    <item quantity="other">%1$s Lichess rėmėjas %2$s mėnesių</item>
   </plurals>
-  <string name="newPatrons">Nauji Rėmėjai</string>
+  <string name="newPatrons">Nauji rėmėjai</string>
   <string name="freeChess">Nemokami šachmatai visiems, visada!</string>
-  <string name="noAdsNoSubs">Jokių reklamų, prenumeratų - tik atviras kodas ir aistra.</string>
+  <string name="noAdsNoSubs">Jokių reklamų, jokių prenumeratų - tik atviras kodas ir aistra.</string>
   <string name="thankYou">Dėkojame už jūsų paramą!</string>
-  <string name="youHaveLifetime">Jūs turite Rėmėjo Gyvenimui paskyrą. Kietai!</string>
-  <string name="patronUntil">Jūs turite Rėmėjo paskyrą iki %s.</string>
+  <string name="youHaveLifetime">Jūs turite rėmėjo visam gyvenimui paskyrą. Kietai!</string>
+  <string name="patronUntil">Jūs turite rėmėjo paskyrą iki %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Jei nebus atnaujinta, jūsų paskyra atsivers į įprastą paskyrą.</string>
-  <string name="weAreNonProfit">Mes esame nepelno asocijacija, nes tikime, kad visi turėtų turėti prieigą prie nemokamos, pasaulinės klasės šachmatų platformos.</string>
-  <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lichess, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
+  <string name="weAreNonProfit">Mes esame nepelno asociacija, nes tikime, kad visi turėtų turėti prieigą prie nemokamos, pasaulinės klasės šachmatų platformos.</string>
+  <string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lichess, pamąstykite apie paramą mums ir tapkite rėmėju!</string>
   <string name="lifetime">Gyvenimui</string>
-  <string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite Lichess Rėmėju visam laikui!</string>
-  <string name="lifetimePatron">Lichess Rėmėjas gyvenimui</string>
+  <string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite Lichess rėmėju visam laikui!</string>
+  <string name="lifetimePatron">Lichess rėmėjas visam gyvenimui</string>
   <string name="monthly">Kas mėnesį</string>
-  <string name="recurringBilling">Pasikartojantis mokėjimas, atnaujinantis jūsų Rėmėjo sparnus kiekvieną mėnesį.</string>
+  <string name="recurringBilling">Pasikartojantis mokėjimas, atnaujinantis jūsų rėmėjo sparnus kiekvieną mėnesį.</string>
   <string name="onetime">Vieną kartą</string>
-  <string name="singleDonation">Viena parama suteikia jums Rėmėjo sparnus vienam mėnesiui.</string>
+  <string name="singleDonation">Viena parama suteikia jums rėmėjo sparnus vienam mėnesiui.</string>
   <string name="otherAmount">Kita</string>
   <string name="pleaseEnterAmountInX">Įveskite sumą %s</string>
   <string name="withCreditCard">Banko kortele</string>
   <string name="logInToDonate">Norėdami paremti prisijunkite</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
-  <string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti Lichess</string>
+  <string name="celebratedPatrons">Mūsų gerbiami rėmėjai, kurie leidžia gyvuoti Lichess</string>
   <string name="whereMoneyGoes">Kur eina pinigai?</string>
   <string name="serversAndDeveloper">Visų pirma - galingiems serveriams.
 Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>

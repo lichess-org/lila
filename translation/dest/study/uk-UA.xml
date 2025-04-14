@@ -189,4 +189,7 @@
   <string name="annotatePositionText">Натисніть кнопку !? або клацніть правою кнопкою миші на список ходів справа.&lt;br&gt;Символьні анотації зберігаються та доступні всім.</string>
   <string name="conclusionTitle">Дякуємо за ваш час</string>
   <string name="conclusionText">Ви можете знайти свої &lt;a href=\'/study/mine/hot\'&gt;попередні дослідження&lt;/a&gt; на сторінці профілю.&lt;br&gt;Також радимо ознайомитися з &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;блогом про дослідження&lt;/a&gt;.&lt;br&gt;Досвідчені користувачі можуть натиснути \"?\", щоб побачити комбінації клавіш.&lt;br&gt;Бажаємо успіхів!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Подвійна поразка</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Поразка чорних, але білі не виграли</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Поразка білих, але чорні не виграли</string>
 </resources>
