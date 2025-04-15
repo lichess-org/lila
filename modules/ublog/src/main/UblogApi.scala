@@ -187,8 +187,8 @@ final class UblogApi(
               "assess"     -> assess,
               "flagged"    -> (json \ "flagged").asOpt[String],
               "commercial" -> (json \ "commercial").asOpt[String]
-            ),
-            "rankAdjustDays" -> adjust
+            )
+            // "rankAdjustDays" -> adjust
           )
           colls.post.update.one($id(post.id), doc)
 
