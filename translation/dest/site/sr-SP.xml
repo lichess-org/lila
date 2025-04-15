@@ -641,7 +641,7 @@
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
   <string name="clock">Сат</string>
-  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">Противник</string>
+  <string name="opponent">Противник</string>
   <string name="learnMenu">учи</string>
   <string name="studyMenu">Проучи</string>
   <string name="practice">Вежбање</string>
