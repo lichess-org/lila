@@ -24,8 +24,6 @@ object Lilaism extends LilaLibraryExtensions:
   export lila.core.user.{ User, Me }
   export lila.core.game.{ Game, Pov }
 
-  def some[A](a: A): Option[A] = Some(a)
-
   trait StringValue extends Any:
     def value: String
     override def toString = value
