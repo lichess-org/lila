@@ -26,7 +26,8 @@ case class UblogPost(
     views: UblogPost.Views,
     similar: Option[List[UblogSimilar]],
     rankAdjustDays: Option[Int],
-    pinned: Option[Boolean]
+    pinned: Option[Boolean],
+    automod: Option[UblogAutomodDoc]
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
@@ -42,6 +43,7 @@ case class UblogPost(
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 
 case class UblogSimilar(id: UblogPostId, count: Int)
+case class UblogAutomodDoc(assess: String, flagged: Option[String], commercial: Option[String])
 
 object UblogPost:
 

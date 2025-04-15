@@ -18,7 +18,8 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     val default: A,
     val text: Option[String],
     init: SettingStore.Init[A],
-    onSet: A => Funit
+    onSet: A => Funit,
+    val isMultiline: Boolean
 )(using Executor):
 
   import SettingStore.{ dbField, ConfigValue, DbValue }
@@ -56,8 +57,9 @@ object SettingStore:
         default: A,
         text: Option[String] = None,
         init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value,
-        onSet: A => Funit = (_: A) => funit
-    ) = SettingStore[A](coll, id, default, text, init = init, onSet = onSet)
+        onSet: A => Funit = (_: A) => funit,
+        isMultiline: Boolean = false
+    ) = SettingStore[A](coll, id, default, text, init = init, onSet = onSet, isMultiline = isMultiline)
 
   final class StringReader[A](val read: String => Option[A])
 

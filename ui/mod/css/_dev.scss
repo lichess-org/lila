@@ -6,9 +6,14 @@
 
   p,
   input,
+  textarea,
   > div {
     flex: 1 1 40%;
     margin-inline-end: 1rem;
+  }
+
+  textarea {
+    height: 20em;
   }
 
   .button {
