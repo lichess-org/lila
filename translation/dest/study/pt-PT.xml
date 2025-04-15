@@ -174,8 +174,13 @@
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Os espetadores podem ver o estudo e falar no chat.&lt;br&gt;&lt;br&gt;%2$s Os contribuidores podem fazer movimentos e atualizar o estudo.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Clica no botão %s.&lt;br&gt;Depois, decide quem pode contribuir ou não.</string>
   <string name="studyChaptersTitle">Capítulos do estudo</string>
+  <string name="studyChaptersText">Um estudo pode conter vários capítulos.&lt;br&gt; Cada capítulo tem uma posição inicial distinta e uma árvore de movimentos.</string>
   <string name="commentPositionTitle">Comentar em uma posição</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Clique no botão %s, ou faça um clique no lado direito do rato na lista de movimentos à direita.&lt;br&gt; Os comentários são partilhados e salvos.</string>
+  <string name="annotatePositionTitle">Anote uma posição</string>
+  <string name="annotatePositionText">Clique no botão!?, ou faça um clique no lado direito do rato sobre a lista de movimentos à direita.&lt;br&gt; Glifos de anotação são partilhados e salvos.</string>
   <string name="conclusionTitle">Obrigado pelo seu tempo</string>
+  <string name="conclusionText">Pode encontrar os seus &lt;a href=\'/study/mine/hot\'&gt; estudos prévios&lt;/a&gt; a partir da sua página de perfil.&lt;br&gt; Também há uma &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; publicação no blog sobre estudos&lt;/a&gt;.&lt;br&gt; Usuários avançados podem querer pressionar \"?\" para ver os atalhos do teclado.&lt;br&gt; Divirta-se!</string>
   <string name="createChapterTitle">Vamos criar um capítulo de estudo</string>
   <string name="customPositionTitle">Posição personalizada</string>
   <string name="loadExistingLichessGameTitle">Carregar um jogo lichess existente</string>
