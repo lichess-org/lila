@@ -3957,7 +3957,7 @@ interface I18n {
     signupEmailHint: string;
     /** Sign up to host or join a simul */
     signUpToHostOrJoinASimul: string;
-    /** Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed! */
+    /** Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed! */
     signupUsernameHint: string;
     /** You may add extra initial time to your clock to help you cope with the simul. */
     simulAddExtraTime: string;
