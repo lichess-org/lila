@@ -192,4 +192,5 @@
   <string name="variantsAreSupportedTitle">研究支持变体</string>
   <string name="variantsAreSupportedText">你也可以研讨CrazyHouse&lt;br&gt;和所有其他的lichess变种</string>
   <string name="chapterConclusionText">章节会永久保存。&lt;br&gt;研讨愉快！</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">双败</string>
 </resources>
