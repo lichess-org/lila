@@ -182,9 +182,17 @@
   <string name="conclusionTitle">Obrigado pelo seu tempo</string>
   <string name="conclusionText">Pode encontrar os seus &lt;a href=\'/study/mine/hot\'&gt; estudos prévios&lt;/a&gt; a partir da sua página de perfil.&lt;br&gt; Também há uma &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; publicação no blog sobre estudos&lt;/a&gt;.&lt;br&gt; Usuários avançados podem querer pressionar \"?\" para ver os atalhos do teclado.&lt;br&gt; Divirta-se!</string>
   <string name="createChapterTitle">Vamos criar um capítulo de estudo</string>
+  <string name="createChapterText">Um estudo pode ter vários capítulos.&lt;br&gt; Cada capítulo tem uma árvore de movimentos distinta,&lt;br&gt; e pode ser criado de diversas formas.</string>
+  <string name="fromInitialPositionTitle">A partir da posição inicial</string>
+  <string name="fromInitialPositionText">Apenas uma configuração de tabuleiro para um novo jogo.&lt;br&gt; Adequado para explorar aberturas.</string>
   <string name="customPositionTitle">Posição personalizada</string>
+  <string name="customPositionText">Configure o tabuleiro à sua maneira.&lt;br&gt; Adequado para explorar finais de jogos.</string>
   <string name="loadExistingLichessGameTitle">Carregar um jogo lichess existente</string>
+  <string name="loadExistingLichessGameText">Copie um URL de um jogo de lichess&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para carregar os movimentos do jogo no capítulo.</string>
+  <string name="fromFenStringTitle">A partir de uma string FEN</string>
+  <string name="fromFenStringText">Cole uma posição em formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para começar o capítulo a partir de uma posição.</string>
   <string name="fromPgnGameTitle">De um jogo em PGN</string>
+  <string name="fromPgnGameText">Cole um jogo em formato PNG.&lt;br&gt;para carregar movimentos, comentários e variações no capítulo.</string>
   <string name="variantsAreSupportedTitle">Estudos suportam variantes</string>
   <string name="variantsAreSupportedText">Sim, podes estudar crazyhouse&lt;br&gt;e todas as variantes do Lichess!</string>
   <string name="chapterConclusionText">Capítulos são salvos permanentemente.&lt;br&gt;Diverte a organizar o teu conteúdo de xadrez!</string>
