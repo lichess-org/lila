@@ -628,7 +628,7 @@
   <string name="computer">Ordinateur</string>
   <string name="side">Côté</string>
   <string name="clock">Pendule</string>
-  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">Adversaire</string>
+  <string name="opponent">Adversaire</string>
   <string name="learnMenu">Apprendre</string>
   <string name="studyMenu">Étudier</string>
   <string name="practice">S\'entraîner</string>
