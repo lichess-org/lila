@@ -21,11 +21,15 @@ object UblogAutomod:
   import reactivemongo.api.bson.{ BSONWriter, Macros }
   given resultWriter: BSONWriter[Result] = Macros.handler
 
+  private val classifications = Set("spam", "weak", "quality", "phenomenal")
+
 final class UblogAutomod(
     ws: StandaloneWSClient,
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
+
+  import UblogAutomod.*
 
   val promptSetting = settingStore[Text](
     "ublogAutomodPrompt",
@@ -38,7 +42,7 @@ final class UblogAutomod(
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
 
-  def fetch(userText: String): Fu[Option[UblogAutomod.Result]] =
+  def fetch(userText: String): Fu[Option[Result]] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
@@ -65,7 +69,8 @@ final class UblogAutomod(
             if rsp.status == 200
             best      <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
-            result    <- Json.parse(resultStr).asOpt[UblogAutomod.Result]
+            result    <- Json.parse(resultStr).asOpt[Result]
+            if classifications.contains(result.classification)
           yield result) match
             case None      => fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
             case Some(res) => fuccess(res.some)
