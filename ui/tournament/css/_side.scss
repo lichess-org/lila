@@ -46,6 +46,7 @@
 .tour__meta {
   @extend %box-neat-force;
   position: relative;
+  overflow: auto;
 
   background: $c-bg-box;
   padding: 1.5rem $block-gap;
