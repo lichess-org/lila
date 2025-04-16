@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Os estudos suportam variantes</string>
   <string name="variantsAreSupportedText">Sim, você pode estudar Crazyhouse&lt;br&gt;e qualquer outra variante!</string>
   <string name="chapterConclusionText">Capítulos ficam salvos para sempre.&lt;br&gt;Divirta-se organizando o conteúdo!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dupla derrota</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Pretas perdem, mas brancas não podem vencer</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Brancas perdem, mas pretas não podem vencer</string>
 </resources>

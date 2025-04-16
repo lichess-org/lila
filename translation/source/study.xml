@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Studies support variants</string>
   <string name="variantsAreSupportedText">Yes, you can study crazyhouse&lt;br&gt;and all lichess variants!</string>
   <string name="chapterConclusionText">Chapters are saved forever.&lt;br&gt;Have fun organizing your chess content!</string>
+  <string name="doubleDefeat">Double defeat</string>
+  <string name="blackDefeatWhiteCanNotWin">Black defeat, but White can't win</string>
+  <string name="whiteDefeatBlackCanNotWin">White defeat, but Black can't win</string>
 </resources>

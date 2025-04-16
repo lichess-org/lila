@@ -97,7 +97,7 @@
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
   <string name="queenRookEndgame">Dame-toreneindspel</string>
   <string name="queenRookEndgameDescription">Een eindspel met alleen dame, torens en pionnen.</string>
-  <string name="queensideAttack">Dameaanval</string>
+  <string name="queensideAttack">Aanval op de damevleugel</string>
   <string name="queensideAttackDescription">Een aanval op de vijandelijke koning na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
   <string name="quietMoveDescription">Een zet die niet schaak geeft of een stuk slaat, maar een onvermijdelijke dreiging door een latere zet voorbereidt.</string>

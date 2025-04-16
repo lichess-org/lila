@@ -59,6 +59,8 @@ Slaptažodis: %3$s</string>
     <item quantity="many">%s laukiančio kvietimo</item>
     <item quantity="other">%s laukiančių kvietimų</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Laukiama</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Atsisakyta</string>
   <string name="onlyVisibleToTeachers">Matoma tik klasės mokytojams</string>
   <string name="lastActiveDate">Aktyvus</string>
   <string name="managed">Valdoma</string>
@@ -120,4 +122,6 @@ Taip bus parodyta horizontali linija.</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Pakvietimas buvo išsiųstas %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s jau turi laukiantį pakvietimą</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s yra vaiko paskyra ir negali priimti jūsų žinutės. Turite jiems duoti pakvietimo adresą kitu būdu: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Perkelti į %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Perkelti į kitą klasę</string>
 </resources>

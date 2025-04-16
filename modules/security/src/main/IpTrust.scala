@@ -88,6 +88,11 @@ object IpTrust:
     case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
     case proxy          => defaultRateLimitStrategy(proxy) * times
 
+  def antiScraping(dch: Float, others: Float): RateLimitStrategy =
+    case IsProxy.server => dch
+    case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
+    case proxy          => defaultRateLimitStrategy(proxy) * others
+
   type ThrottleStrategy = IsProxy => Float
 
   val defaultThrottleStrategy: ThrottleStrategy =

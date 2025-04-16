@@ -44,7 +44,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
 
             el.addEventListener('scroll', () => {
-              scrollState.pinToBottom = el.scrollTop >= scrollState.lastScrollTop;
+              if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
               scrollState.lastScrollTop = el.scrollTop;
             });
 

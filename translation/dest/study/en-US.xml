@@ -188,7 +188,7 @@
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Set up the board your way.&lt;br&gt;Suited to explore endgames.</string>
   <string name="loadExistingLichessGameTitle">Load an existing lichess game</string>
-  <string name="loadExistingLichessGameText">Paste a lichess game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load the game moves in the chapter.</string>
+  <string name="loadExistingLichessGameText">Paste a Lichess game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load the game moves in the chapter.</string>
   <string name="fromFenStringTitle">From a FEN string</string>
   <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
   <string name="fromPgnGameTitle">From a PGN game</string>

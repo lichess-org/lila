@@ -195,4 +195,7 @@
   <string name="variantsAreSupportedTitle">Studier understøtter varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle lichess-varianter!</string>
   <string name="chapterConclusionText">Kapitler gemmes for evigt.&lt;br&gt;God fornøjelse med at organisere dit skakindhold!</string>
+  <string name="doubleDefeat" comment="Indicates that one side was defeated but the other is unable to win. For example, White was defeated but Black cannot win.">Dobbelt nederlag</string>
+  <string name="blackDefeatWhiteCanNotWin">Sort nederlag, men hvid kan ikke vinde</string>
+  <string name="whiteDefeatBlackCanNotWin">Hvidt nederlag, men sort kan ikke vinde</string>
 </resources>

@@ -8,6 +8,12 @@
     <item quantity="many">%s transliacijos</item>
     <item quantity="other">%s transliacijų</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s žiūrovas</item>
+    <item quantity="few">%s žiūrovai</item>
+    <item quantity="many">%s žiūrovų</item>
+    <item quantity="other">%s žiūrovų</item>
+  </plurals>
   <string name="liveBroadcasts">Vykstančios turnyrų transliacijos</string>
   <string name="broadcastCalendar">Transliavimo kalendorius</string>
   <string name="newBroadcast">Nauja transliacija</string>
@@ -80,4 +86,7 @@
   <string name="optionalDetails">Papildoma informacija</string>
   <string name="pastBroadcasts">Ankstesnės transliacijos</string>
   <string name="allBroadcastsByMonth">Rodyti visas transliacijas pagal mėnesį</string>
+  <string name="backToLiveMove">Grįžti prie esamo ėjimo</string>
+  <string name="sinceHideResults">Kadangi pasirinkote nerodyti rezutatų, visos peržiūros lentos yra tuščios, kad neišduotų jų.</string>
+  <string name="liveboard">Esama lenta</string>
 </resources>

@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Studier støtter varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle Lichess-varianter!</string>
   <string name="chapterConclusionText">Kapitler lagres for alltid.&lt;br&gt;Ha det gøy med å organisere sjakkinnholdet ditt!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt tap</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svart tap, men hvit kan ikke vinne</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvitt tap, men svart kan ikke vinne</string>
 </resources>

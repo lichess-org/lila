@@ -82,7 +82,9 @@ Dito ang link para ma-access ang klase.</string>
   <string name="noRemovedStudents">Walang tinanggal na mga mag-aaral.</string>
   <string name="overDays">Paglipas ng mga araw</string>
   <string name="timePlaying">Oras na naglaro</string>
+  <string name="variantXOverLastY">%1$s sa huling %2$s</string>
   <string name="winrate">Porsyento na manalo</string>
+  <string name="na">N/A</string>
   <string name="news">Mga balita</string>
   <string name="classNews">Balita sa klase</string>
   <string name="editNews">I-edit ang balita</string>
@@ -101,6 +103,7 @@ Magpapakita ito ng pahalang na linya.</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Maaari mo ring gamitin ang %s upang magawa ng maraming Lichess accounts mula sa listahan ng mga pangalan ng mag-aaral.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">porma na ito</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tandaan na ang isang klase ay maaaring magkaroon ng hanggang %1$s mag-aaral. Upang pamahalaan ang higit pang mga mag-aaral, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">gumawa nang higit pang mga klase</string>
   <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Totoong pangalan ng mga mag-aaral, isa bawat linya</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Isang imbitasyon ang ipinadala kay %s</string>
   <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Ilipat sa %s</string>

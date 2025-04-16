@@ -1,4 +1,4 @@
-import { frag, requestIdleCallback } from '@/common';
+import { frag, requestIdleCallback } from 'lib';
 
 type CarouselOpts = {
   selector: string;
