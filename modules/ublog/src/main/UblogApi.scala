@@ -174,7 +174,6 @@ final class UblogApi(
     private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
     def apply(post: UblogPost): Funit = dedup(s"${post.id}:${post.allText}").so:
-      import UblogAutomod.resultWriter
       automod
         .fetch(post.allText)
         .flatMapz: res =>

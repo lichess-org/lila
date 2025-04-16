@@ -237,7 +237,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
             post.automod.map: automod =>
               span(
                 "Automod:",
-                strong(automod.assess),
+                strong(automod.classification),
                 automod.flagged.map: flagged =>
                   i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),
                 automod.commercial.map: commercial =>
