@@ -152,7 +152,7 @@ Today's date is [current date]""")
           form("public"),
           frag("Public account"),
           help = frag(
-            "Makes your FIDE ID public in your profile. Required for coaching."
+            "Makes your real name and FIDE ID public in your profile. Required for coaching."
           ).some,
           half = true
         ),
