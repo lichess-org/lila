@@ -72,5 +72,9 @@ final class UblogAutomod(
             result    <- Json.parse(resultStr).asOpt[Result]
             if classifications.contains(result.classification)
           yield result) match
-            case None      => fufail(s"${rsp.status} ${rsp.body.take(200)}")
-            case Some(res) => fuccess(res.some)
+            case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
+            case Some(res) =>
+              lila.mon.ublog.automod.classification(res.classification)
+              lila.mon.ublog.automod.flagged(res.flagged.isDefined)
+              fuccess(res.some)
+        .monSuccess(_.ublog.automod.request)
