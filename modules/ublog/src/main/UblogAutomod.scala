@@ -72,5 +72,5 @@ final class UblogAutomod(
             result    <- Json.parse(resultStr).asOpt[Result]
             if classifications.contains(result.classification)
           yield result) match
-            case None      => fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
+            case None      => fufail(s"${rsp.status} ${rsp.body.take(200)}")
             case Some(res) => fuccess(res.some)

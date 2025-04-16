@@ -191,7 +191,7 @@ final class UblogApi(
           )
           colls.post.update.one($id(post.id), doc).void
         .recover: e =>
-          logger.warn(e.getMessage, e)
+          logger.warn(s"automod ${post.id} ${e.getMessage}", e)
           ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
