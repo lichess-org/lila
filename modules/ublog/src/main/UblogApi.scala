@@ -172,25 +172,27 @@ final class UblogApi(
   private def sendPostToAutomod(post: UblogPost): Funit =
     automod
       .fetch(post.allText)
-      .collect:
-        case Some(json) =>
-          val assess  = (json \ "classification").as[String]
-          val flagged = (json \ "flagged").asOpt[String]
-          val adjust = assess match
-            case "phenomenal" => 4
-            case "quality"    => 0
-            case "weak"       => -10
-            case "spam"       => -30
+      .flatMap: json =>
+        val assess  = (json \ "classification").as[String]
+        val flagged = (json \ "flagged").asOpt[String]
+        val adjust = assess match
+          case "phenomenal" => 4
+          case "quality"    => 0
+          case "weak"       => -10
+          case "spam"       => -30
 
-          val doc = $set(
-            "automod" -> $doc(
-              "assess"     -> assess,
-              "flagged"    -> (json \ "flagged").asOpt[String],
-              "commercial" -> (json \ "commercial").asOpt[String]
-            )
-            // "rankAdjustDays" -> adjust
+        val doc = $set(
+          "automod" -> $doc(
+            "assess"     -> assess,
+            "flagged"    -> (json \ "flagged").asOpt[String],
+            "commercial" -> (json \ "commercial").asOpt[String]
           )
-          colls.post.update.one($id(post.id), doc)
+          // "rankAdjustDays" -> adjust
+        )
+        colls.post.update.one($id(post.id), doc).void
+      .recover: e =>
+        logger.error(e.getMessage, e)
+        ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

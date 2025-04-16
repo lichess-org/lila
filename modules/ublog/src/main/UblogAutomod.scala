@@ -31,7 +31,7 @@ final class UblogAutomod(
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomodConfig]("ublog.automod")(AutoConfig.loader)
 
-  def fetch(userText: String): Fu[Option[JsObject]] =
+  def fetch(userText: String): Fu[JsObject] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
@@ -53,15 +53,11 @@ final class UblogAutomod(
         )
         .post(body)
         .flatMap: rsp =>
-          if rsp.status == 200 then
-            val content = for
-              choices    <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
-              best       <- choices.headOption
-              contentStr <- (best \ "message" \ "content").asOpt[String]
-              content    <- Json.parse(contentStr).asOpt[JsObject]
-            yield fuccess(content)
-            content.traverse(identity)
-          else fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
-        .recover: e =>
-          logger.error(e.getMessage, e)
-          none
+          val content = for
+            choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
+            if rsp.status == 200
+            best       <- choices.headOption
+            contentStr <- (best \ "message" \ "content").asOpt[String]
+            content    <- Json.parse(contentStr).asOpt[JsObject]
+          yield content
+          content.fold(fufail(s"error: ${rsp.status} ${rsp.body.take(200)}"))(fuccess)
