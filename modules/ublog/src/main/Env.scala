@@ -21,7 +21,7 @@ final class Env(
     langList: lila.core.i18n.LangList,
     net: NetConfig,
     appConfig: play.api.Configuration,
-    storeBuilder: lila.memo.SettingStore.Builder,
+    settingStore: lila.memo.SettingStore.Builder,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
@@ -33,12 +33,6 @@ final class Env(
 
   val rank: UblogRank = wire[UblogRank]
 
-  val automodPrompt = storeBuilder[String](
-    "ublogAutomodPrompt",
-    text = "Ublog automod prompt".some,
-    default = "",
-    isMultiline = true
-  )
   val automod = wire[UblogAutomod]
 
   val api: UblogApi = wire[UblogApi]

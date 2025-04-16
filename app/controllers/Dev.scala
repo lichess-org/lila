@@ -34,7 +34,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials,
-    env.ublog.automodPrompt
+    env.ublog.automod.promptSetting
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>

@@ -11,6 +11,7 @@ import lila.core.data.{ Ints, Strings, UserIds }
 import lila.db.dsl.*
 
 import Forms.*
+import lila.core.data.Text
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -18,8 +19,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     val default: A,
     val text: Option[String],
     init: SettingStore.Init[A],
-    onSet: A => Funit,
-    val isMultiline: Boolean
+    onSet: A => Funit
 )(using Executor):
 
   import SettingStore.{ dbField, ConfigValue, DbValue }
@@ -57,9 +57,8 @@ object SettingStore:
         default: A,
         text: Option[String] = None,
         init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value,
-        onSet: A => Funit = (_: A) => funit,
-        isMultiline: Boolean = false
-    ) = SettingStore[A](coll, id, default, text, init = init, onSet = onSet, isMultiline = isMultiline)
+        onSet: A => Funit = (_: A) => funit
+    ) = SettingStore[A](coll, id, default, text, init = init, onSet = onSet)
 
   final class StringReader[A](val read: String => Option[A])
 
@@ -68,10 +67,10 @@ object SettingStore:
       case "on" | "yes" | "true" | "1"  => true.some
       case "off" | "no" | "false" | "0" => false.some
       case _                            => none
-    given StringReader[Int]                     = StringReader[Int](_.toIntOption)
-    given StringReader[Float]                   = StringReader[Float](_.toFloatOption)
-    given StringReader[String]                  = StringReader[String](some)
-    def fromIso[A](using iso: Iso.StringIso[A]) = StringReader[A](v => iso.from(v).some)
+    given StringReader[Int]                     = StringReader(_.toIntOption)
+    given StringReader[Float]                   = StringReader(_.toFloatOption)
+    given StringReader[String]                  = StringReader(some)
+    def fromIso[A](using iso: Iso.StringIso[A]) = StringReader(v => iso.from(v).some)
 
   private type CredOption = Option[lila.core.config.Credentials]
   private type HostOption = Option[lila.core.config.HostPort]
@@ -103,11 +102,16 @@ object SettingStore:
     val hostPortIso                = Iso.string[HostOption](lila.core.config.HostPort.read, _.so(_.show))
     given BSONHandler[HostOption]  = lila.db.dsl.isoHandler(using hostPortIso)
     given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
+  object Text:
+    val textIso              = Iso.string[Text](lila.core.data.Text(_), _.value)
+    given BSONHandler[Text]  = lila.db.dsl.isoHandler(using textIso)
+    given StringReader[Text] = StringReader.fromIso(using textIso)
 
   final class Formable[A](val form: A => Form[?])
   object Formable:
+    import lila.common.Form.*
     given Formable[Regex] =
-      Formable[Regex](v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))).fill(v.toString))
+      Formable(v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))).fill(v.toString))
     given Formable[Boolean] = Formable[Boolean](v => Form(single("v" -> boolean)).fill(v))
     given Formable[Int]     = Formable[Int](v => Form(single("v" -> number)).fill(v))
     given Formable[Float]   = Formable[Float](v => Form(single("v" -> bigDecimal)).fill(BigDecimal(v)))
@@ -116,6 +120,7 @@ object SettingStore:
     given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)).fill(UserIds.userIdsIso.to(v)))
     given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)
     given Formable[HostOption] = stringPair(using HostPortOption.hostPortIso)
+    given Formable[Text] = Formable(v => Form(single[Text]("v" -> text.iso(using Text.textIso))).fill(v))
     private def stringPair[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
       Form(
         single("v" -> text.verifying(t => t.isEmpty || t.count(_ == ':') == 1))
