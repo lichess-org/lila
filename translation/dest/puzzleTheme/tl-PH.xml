@@ -29,10 +29,15 @@
   <string name="masterVsMasterDescription">Mga palaisipan mula sa mga laro na nilalaro sa pagitan ng dalawang titulong manlalaro.</string>
   <string name="mate">Checkmate</string>
   <string name="mateDescription">Manalo ang laro na may istilo.</string>
+  <string name="mateIn1">Mag-mate sa 1</string>
   <string name="mateIn1Description">Magbigay ng checkmate sa isang tira.</string>
+  <string name="mateIn2">Mag-mate sa 2</string>
   <string name="mateIn2Description">Magbigay ng checkmate sa dalawang tira.</string>
+  <string name="mateIn3">Mag-mate sa 3</string>
   <string name="mateIn3Description">Magbigay ng checkmate sa tatlong tira.</string>
+  <string name="mateIn4">Mag-mate sa 4</string>
   <string name="mateIn4Description">Magbigay ng checkmate sa apat na tira.</string>
+  <string name="mateIn5">Mag-mate sa 5 o higit pa</string>
   <string name="middlegameDescription">Isang taktika sa ikalawang yugto ng laro.</string>
   <string name="oneMove">Isang galaw na palaisipan</string>
   <string name="oneMoveDescription">Isang palaisipan na isang galaw lang ang haba.</string>
