@@ -18,7 +18,6 @@ object UblogAutomod:
 
   case class Result(classification: String, flagged: Option[String], commercial: Option[String])
   private given Reads[Result] = Json.reads[Result]
-  import reactivemongo.api.bson.{ BSONWriter, Macros }
 
   private val classifications = Set("spam", "weak", "quality", "phenomenal")
 
