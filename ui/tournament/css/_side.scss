@@ -4,8 +4,7 @@
   .disclosure {
     @extend %button-none;
     position: absolute;
-    top: 1em;
-    right: 1em;
+    right: 5%;
     color: $c-font-dim;
     cursor: pointer;
 
@@ -29,7 +28,7 @@
     .tour__meta__head,
     .disclosure {
       display: flex;
-      margin: 0;
+      bottom: 15%;
     }
   }
 
@@ -46,7 +45,7 @@
 .tour__meta {
   @extend %box-neat-force;
   position: relative;
-  overflow: auto;
+  overflow-y: scroll;
 
   background: $c-bg-box;
   padding: 1.5rem $block-gap;

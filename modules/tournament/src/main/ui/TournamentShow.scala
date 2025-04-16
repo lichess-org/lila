@@ -78,7 +78,6 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
-          tour.description.isDefined.option(button(cls := "disclosure")),
           st.section(cls := "tour__meta__head", dataIcon := tour.perfType.icon.toString)(
             div(
               p(
@@ -149,7 +148,8 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
                 separator,
                 lila.ui.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
               )
-            })
+            }),
+          tour.description.isDefined.option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),
