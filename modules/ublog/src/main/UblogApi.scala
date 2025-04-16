@@ -16,7 +16,8 @@ final class UblogApi(
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.core.irc.IrcApi
+    irc: lila.core.irc.IrcApi,
+    automod: UblogAutomod
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -34,6 +35,7 @@ final class UblogApi(
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog   <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
+    _    = sendPostToAutomod(post).logFailure(logger)
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
   yield post
@@ -50,6 +52,7 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+        sendPostToAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
@@ -165,6 +168,30 @@ final class UblogApi(
       intro = post.intro,
       topic = s"$tierName new posts"
     )
+
+  private object sendPostToAutomod:
+
+    private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
+
+    def apply(post: UblogPost): Funit = dedup(s"${post.id}:${post.allText}").so:
+      automod
+        .fetch(post.allText)
+        .flatMapz: res =>
+          val adjust = res.classification match
+            case "phenomenal" => 4
+            case "quality"    => 0
+            case "weak"       => -10
+            case "spam"       => -30
+            case _            => -10
+
+          val doc = $set(
+            "automod" -> res
+            // "rankAdjustDays" -> adjust
+          )
+          colls.post.update.one($id(post.id), doc).void
+        .recover: e =>
+          logger.warn(s"automod ${post.id} ${e.getMessage}", e)
+          ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
