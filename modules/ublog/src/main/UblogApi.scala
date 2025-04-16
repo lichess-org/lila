@@ -183,6 +183,7 @@ final class UblogApi(
             case "quality"    => 0
             case "weak"       => -10
             case "spam"       => -30
+            case _            => -10
 
           val doc = $set(
             "automod" -> res
