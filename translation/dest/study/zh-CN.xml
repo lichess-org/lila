@@ -193,4 +193,6 @@
   <string name="variantsAreSupportedText">你也可以研讨CrazyHouse&lt;br&gt;和所有其他的lichess变种</string>
   <string name="chapterConclusionText">章节会永久保存。&lt;br&gt;研讨愉快！</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">双败</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">黑负，但白方无法获胜</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">白负，但黑方无法获胜</string>
 </resources>
