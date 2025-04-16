@@ -4,7 +4,7 @@
   .disclosure {
     @extend %button-none;
     position: absolute;
-    bottom: 1em;
+    top: 1em;
     right: 1em;
     color: $c-font-dim;
     cursor: pointer;
