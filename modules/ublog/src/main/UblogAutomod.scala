@@ -12,7 +12,7 @@ import lila.core.data.Text
 import lila.memo.SettingStore.Text.given
 import lila.core.config.Secret
 
-object UblogAutomod:
+private object UblogAutomod:
 
   case class Config(apiKey: Secret, model: String, url: String)
 
@@ -40,7 +40,7 @@ final class UblogAutomod(
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
 
-  def fetch(userText: String): Fu[Option[Result]] =
+  private[ublog] def fetch(userText: String): Fu[Option[Result]] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
