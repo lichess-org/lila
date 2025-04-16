@@ -170,23 +170,18 @@ final class UblogApi(
     )
 
   private def sendPostToAutomod(post: UblogPost): Funit =
+    import UblogAutomod.resultWriter
     automod
       .fetch(post.allText)
-      .flatMap: json =>
-        val assess  = (json \ "classification").as[String]
-        val flagged = (json \ "flagged").asOpt[String]
-        val adjust = assess match
+      .flatMapz: res =>
+        val adjust = res.classification match
           case "phenomenal" => 4
           case "quality"    => 0
           case "weak"       => -10
           case "spam"       => -30
 
         val doc = $set(
-          "automod" -> $doc(
-            "assess"     -> assess,
-            "flagged"    -> (json \ "flagged").asOpt[String],
-            "commercial" -> (json \ "commercial").asOpt[String]
-          )
+          "automod" -> res
           // "rankAdjustDays" -> adjust
         )
         colls.post.update.one($id(post.id), doc).void

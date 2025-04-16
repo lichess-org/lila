@@ -12,7 +12,14 @@ import lila.core.data.Text
 import lila.memo.SettingStore.Text.given
 import lila.core.config.Secret
 
-case class UblogAutomodConfig(apiKey: Secret, model: String, url: String)
+object UblogAutomod:
+
+  case class Config(apiKey: Secret, model: String, url: String)
+
+  case class Result(classification: String, flagged: Option[String], commercial: Option[String])
+  private given Reads[Result] = Json.reads[Result]
+  import reactivemongo.api.bson.{ BSONWriter, Macros }
+  given resultWriter: BSONWriter[Result] = Macros.handler
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
@@ -29,9 +36,9 @@ final class UblogAutomod(
   private val cfg =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
-    appConfig.get[UblogAutomodConfig]("ublog.automod")(AutoConfig.loader)
+    appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
 
-  def fetch(userText: String): Fu[JsObject] =
+  def fetch(userText: String): Fu[Option[UblogAutomod.Result]] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
@@ -53,11 +60,12 @@ final class UblogAutomod(
         )
         .post(body)
         .flatMap: rsp =>
-          val content = for
+          (for
             choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
             if rsp.status == 200
-            best       <- choices.headOption
-            contentStr <- (best \ "message" \ "content").asOpt[String]
-            content    <- Json.parse(contentStr).asOpt[JsObject]
-          yield content
-          content.fold(fufail(s"error: ${rsp.status} ${rsp.body.take(200)}"))(fuccess)
+            best      <- choices.headOption
+            resultStr <- (best \ "message" \ "content").asOpt[String]
+            result    <- Json.parse(resultStr).asOpt[UblogAutomod.Result]
+          yield result) match
+            case None      => fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
+            case Some(res) => fuccess(res.some)
