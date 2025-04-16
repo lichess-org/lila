@@ -7,16 +7,12 @@ import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.DefaultBodyReadables.readableAsString
 
-import lila.common.autoconfig.AutoConfig
 import lila.memo.SettingStore
 import lila.core.data.Text
 import lila.memo.SettingStore.Text.given
+import lila.core.config.Secret
 
-case class UblogAutomodConfig(
-    apikey: String,
-    model: String,
-    url: String
-)
+case class UblogAutomodConfig(apiKey: Secret, model: String, url: String)
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
@@ -30,11 +26,14 @@ final class UblogAutomod(
     default = Text("")
   )
 
-  private val cfg = appConfig.get[UblogAutomodConfig]("ublog.automod")(AutoConfig.loader)
+  private val cfg =
+    import lila.common.config.given
+    import lila.common.autoconfig.AutoConfig
+    appConfig.get[UblogAutomodConfig]("ublog.automod")(AutoConfig.loader)
 
   def fetch(userText: String): Fu[Option[JsObject]] =
     val prompt = promptSetting.get().value
-    prompt.nonEmpty.so:
+    (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
         "model" -> cfg.model,
         // "response_format" -> "json", // not universally supported it seems
@@ -42,30 +41,27 @@ final class UblogAutomod(
         // "top_p" -> 1,
         // "frequency_penalty" -> 0,
         // "presence_penalty" -> 0
-        "messages" -> JsArray(
-          List(
-            Json.obj("role" -> "system", "content" -> prompt),
-            Json.obj("role" -> "user", "content"   -> userText)
-          )
+        "messages" -> Json.arr(
+          Json.obj("role" -> "system", "content" -> prompt),
+          Json.obj("role" -> "user", "content"   -> userText)
         )
       )
       ws.url(cfg.url)
         .withHttpHeaders(
-          "Authorization" -> s"Bearer ${cfg.apikey}",
+          "Authorization" -> s"Bearer ${cfg.apiKey.value}",
           "Content-Type"  -> "application/json"
         )
         .post(body)
         .flatMap: rsp =>
           if rsp.status == 200 then
-            val choices = (Json.parse(rsp.body) \ "choices").as[JsArray]
-            if choices.value.isEmpty then fuccess(None)
-            else
-              val value = Json.parse((choices(0) \ "message" \ "content").as[JsString].value)
-              if value.isInstanceOf[JsObject] then fuccess(Some(value.as[JsObject]))
-              else fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
+            val content = for
+              choices    <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
+              best       <- choices.headOption
+              contentStr <- (best \ "message" \ "content").asOpt[String]
+              content    <- Json.parse(contentStr).asOpt[JsObject]
+            yield fuccess(content)
+            content.traverse(identity)
           else fufail(s"error: ${rsp.status} ${rsp.body.take(200)}")
         .recover: e =>
-          logger.error(e.getMessage)
-          None
-
-  trait UblogAutomodPrompt
+          logger.error(e.getMessage, e)
+          none
