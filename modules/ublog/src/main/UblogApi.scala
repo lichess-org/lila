@@ -35,7 +35,7 @@ final class UblogApi(
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog   <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
-    _    = sendPostToAutomod(post).logFailure(logger)
+    _    = applyAutomod(post).logFailure(logger)
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
   yield post
@@ -52,7 +52,7 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-        sendPostToAutomod(post).logFailure(logger)
+        applyAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
@@ -169,7 +169,7 @@ final class UblogApi(
       topic = s"$tierName new posts"
     )
 
-  private def sendPostToAutomod(post: UblogPost): Funit =
+  private def applyAutomod(post: UblogPost): Funit =
     automod(post)
       .flatMapz: res =>
         val adjust = res.classification match

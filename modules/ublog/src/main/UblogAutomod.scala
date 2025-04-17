@@ -42,8 +42,9 @@ final class UblogAutomod(
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
-  private[ublog] def apply(post: UblogPost): Fu[Option[Result]] =
-    (post.live && dedup(s"${post.id}:${post.allText}")).so(fetchText(post.allText))
+  private[ublog] def apply(post: UblogPost): Fu[Option[Result]] = post.live.so:
+    val text = post.allText.take(10_000) // post body can have up to 100_000 chars which would be expensive
+    dedup(s"${post.id}:$text").so(fetchText(text))
 
   private def fetchText(userText: String): Fu[Option[Result]] =
     val prompt = promptSetting.get().value
