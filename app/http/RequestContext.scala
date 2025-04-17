@@ -75,7 +75,7 @@ trait RequestContext(using Executor):
     pageDataBuilder.dmap(PageContext(ctx, _))
 
   def InEmbedContext[A](f: EmbedContext ?=> A)(using ctx: Context): A =
-    if !env.net.isProd then env.web.manifest.update()
+    if env.mode.isDev then env.web.manifest.update()
     f(using EmbedContext(ctx))
 
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
@@ -84,7 +84,7 @@ trait RequestContext(using Executor):
       .map:
         case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
           FingerPrintedUser(me, true).some
-        case Some(Right(d)) if !env.net.isProd =>
+        case Some(Right(d)) if !env.mode.isProd =>
           d.copy(me = d.me.map:
             _.addRole(lila.core.perm.Permission.Beta.dbKey))
             .some

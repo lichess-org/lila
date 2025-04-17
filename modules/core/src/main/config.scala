@@ -65,5 +65,4 @@ object config:
       rateLimit: RateLimit,
       email: EmailAddress,
       logRequests: Boolean
-  ):
-    def isProd = domain == prodDomain
+  )
