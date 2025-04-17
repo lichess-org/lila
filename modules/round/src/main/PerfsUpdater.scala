@@ -6,7 +6,7 @@ import chess.rating.glicko.{ Glicko, Player }
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.addOrReset
-import lila.rating.{ PerfType, RatingFactor, RatingRegulator }
+import lila.rating.{ PerfType, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 import lila.rating.PerfExt.toGlickoPlayer
 
@@ -14,8 +14,7 @@ final class PerfsUpdater(
     gameRepo: lila.game.GameRepo,
     userApi: UserApi,
     rankingApi: RankingApi,
-    farming: FarmBoostDetection,
-    ratingFactors: () => RatingFactor.ByKey
+    farming: FarmBoostDetection
 )(using Executor):
 
   def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
@@ -41,7 +40,7 @@ final class PerfsUpdater(
     prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
     computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
   yield
-    val newGlickos = RatingRegulator(ratingFactors())(
+    val newGlickos = RatingRegulator(
       perfKey,
       prevPlayers.map(_.glicko),
       computedPlayers.map(_.glicko),

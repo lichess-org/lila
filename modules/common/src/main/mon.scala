@@ -651,8 +651,7 @@ object mon:
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")
   object bus:
-    val classifiers       = gauge("bus.classifiers").withoutTags()
-    def ask(name: String) = future("bus.ask", name)
+    val classifiers = gauge("bus.classifiers").withoutTags()
   object blocking:
     def time(name: String)    = timer("blocking.time").withTag("name", name)
     def timeout(name: String) = counter("blocking.timeout").withTag("name", name)
