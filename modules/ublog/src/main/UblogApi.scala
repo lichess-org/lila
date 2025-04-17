@@ -169,29 +169,24 @@ final class UblogApi(
       topic = s"$tierName new posts"
     )
 
-  private object sendPostToAutomod:
+  private def sendPostToAutomod(post: UblogPost): Funit =
+    automod(post)
+      .flatMapz: res =>
+        val adjust = res.classification match
+          case "phenomenal" => 4
+          case "quality"    => 0
+          case "weak"       => -10
+          case "spam"       => -30
+          case _            => -10
 
-    private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
-
-    def apply(post: UblogPost): Funit = (post.live && dedup(s"${post.id}:${post.allText}")).so:
-      automod
-        .fetch(post.allText)
-        .flatMapz: res =>
-          val adjust = res.classification match
-            case "phenomenal" => 4
-            case "quality"    => 0
-            case "weak"       => -10
-            case "spam"       => -30
-            case _            => -10
-
-          val doc = $set(
-            "automod" -> res
-            // "rankAdjustDays" -> adjust
-          )
-          colls.post.update.one($id(post.id), doc).void
-        .recover: e =>
-          logger.warn(s"automod ${post.id} ${e.getMessage}", e)
-          ()
+        val doc = $set(
+          "automod" -> res
+          // "rankAdjustDays" -> adjust
+        )
+        colls.post.update.one($id(post.id), doc).void
+      .recover: e =>
+        logger.warn(s"automod ${post.id} ${e.getMessage}", e)
+        ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

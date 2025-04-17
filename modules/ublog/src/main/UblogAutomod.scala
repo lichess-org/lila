@@ -40,7 +40,12 @@ final class UblogAutomod(
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
 
-  private[ublog] def fetch(userText: String): Fu[Option[Result]] =
+  private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
+
+  private[ublog] def apply(post: UblogPost): Fu[Option[Result]] =
+    (post.live && dedup(s"${post.id}:${post.allText}")).so(fetchText(post.allText))
+
+  private def fetchText(userText: String): Fu[Option[Result]] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
