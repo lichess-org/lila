@@ -72,7 +72,7 @@ final class UblogAutomod(
           yield result) match
             case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
             case Some(res) =>
-              lila.mon.ublog.automod.classification(res.classification)
-              lila.mon.ublog.automod.flagged(res.flagged.isDefined)
+              lila.mon.ublog.automod.classification(res.classification).increment()
+              lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
               fuccess(res.some)
         .monSuccess(_.ublog.automod.request)
