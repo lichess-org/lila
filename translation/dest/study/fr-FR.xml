@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Les variantes sont possibles dans les études.</string>
   <string name="variantsAreSupportedText">Oui, vous pouvez étudier la variante Crazyhorse&lt;br&gt;et toutes les autres variantes Lichess!</string>
   <string name="chapterConclusionText">Les chapitres sont sauvegardés indéfiniment.&lt;br&gt;Amusez-vous à organiser votre contenu d\'échecs!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Double défaite</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Défaite des noirs, mais les blancs ne peuvent pas gagner</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Défaite des blancs, mais les noirs ne peuvent pas gagner</string>
 </resources>

@@ -192,4 +192,7 @@
   <string name="variantsAreSupportedTitle">Nghiên cứu hỗ trợ các biến thể</string>
   <string name="variantsAreSupportedText">Có, bạn có thể nghiên cứu Crazyhouse&lt;br&gt;và tất cả các biến thể của Lichess!</string>
   <string name="chapterConclusionText">Các chương được lưu mãi mãi.&lt;br&gt;Hãy vui vẻ tổ chức nội dung cờ vua của bạn!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Đôi bại</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
 </resources>

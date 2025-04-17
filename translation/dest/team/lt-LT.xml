@@ -70,4 +70,16 @@ Negalite pašalinti komandos, jei žaidėjas su ja jau prisijungė prie turnyro.
   <string name="numberOfLeadsPerTeam">Lyderių skaičius komandoje. Jų taškų suma yra komandos rezultatas.</string>
   <string name="numberOfLeadsPerTeamHelp">Prasidėjus turnyrui, šios vertės keisti tikrai neturėtumėte!</string>
   <string name="innerTeam">Vidinė komanda</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s komandų mūšis</item>
+    <item quantity="few">%s komandų mūšis</item>
+    <item quantity="many">%s komandų mūšis</item>
+    <item quantity="other">%s komandų mūšis</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Vienas lyderis komandoje</item>
+    <item quantity="few">%s lyderiai komandoje</item>
+    <item quantity="many">%s lyderių komandoje</item>
+    <item quantity="other">%s lyderių komandoje</item>
+  </plurals>
 </resources>

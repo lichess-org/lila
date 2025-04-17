@@ -18,4 +18,5 @@
   <string name="startTraining">Pradėti treniruotę</string>
   <string name="findSquare">Rasti langelį</string>
   <string name="nameSquare">Pavadinti langelį</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Treniruotis tik kai kurias statines ir gulstines</string>
 </resources>

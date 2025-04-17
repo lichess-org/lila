@@ -63,7 +63,7 @@ final class Main(
 
   val robots = Anon:
     Ok:
-      if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
+      if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
       then StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 

@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Studien unterstützen Schachvarianten</string>
   <string name="variantsAreSupportedText">Ja, du kannst Crazyhouse&lt;br&gt;und alle Lichess-Varianten studieren!</string>
   <string name="chapterConclusionText">Kapitel werden für immer gespeichert.&lt;br&gt;Viel Spaß beim Organisieren deines Schachinhalts!</string>
+  <string name="doubleDefeat" comment="Indicates that one side was defeated but the other is unable to win. For example, White was defeated but Black cannot win.">Doppelte Niederlage</string>
+  <string name="blackDefeatWhiteCanNotWin">Niederlage von Schwarz, aber Weiß kann nicht gewinnen</string>
+  <string name="whiteDefeatBlackCanNotWin">Niederlage von Weiß, aber Schwarz kann nicht gewinnen</string>
 </resources>

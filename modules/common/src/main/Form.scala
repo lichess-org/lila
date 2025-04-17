@@ -1,6 +1,5 @@
 package lila.common
 
-import chess.format.Fen
 import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
@@ -8,6 +7,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Form as PlayForm, FormError, Mapping, FieldMapping, validation as V }
 import java.lang
 import java.time.{ LocalDate, LocalDateTime, ZoneId }
+import scalalib.Iso
 import scala.util.Try
 
 object Form:
@@ -233,6 +233,7 @@ object Form:
       }
 
   object fen:
+    import chess.format.Fen
     val mapping = trim(of[String]).into[Fen.Full]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
@@ -311,6 +312,7 @@ object Form:
   extension [A](m: Mapping[A])
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
       m.transform(sr.apply, rs.apply)
+    def iso[B](using iso: Iso[A, B]): Mapping[B] = m.transform(iso.from, iso.to)
     def partial[B](f2: B => A)(f1: PartialFunction[A, B]): Mapping[B] =
       m.verifying("Invalid value", f1.isDefinedAt).transform(f1, f2)
 

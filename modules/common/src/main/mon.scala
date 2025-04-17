@@ -651,8 +651,7 @@ object mon:
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")
   object bus:
-    val classifiers       = gauge("bus.classifiers").withoutTags()
-    def ask(name: String) = future("bus.ask", name)
+    val classifiers = gauge("bus.classifiers").withoutTags()
   object blocking:
     def time(name: String)    = timer("blocking.time").withTag("name", name)
     def timeout(name: String) = counter("blocking.timeout").withTag("name", name)
@@ -672,6 +671,10 @@ object mon:
   object ublog:
     def create(user: String) = counter("ublog.create").withTag("user", user)
     def view(user: String)   = counter("ublog.view").withTag("user", user)
+    object automod:
+      val request                   = future("ublog.automod.request")
+      def classification(c: String) = counter("ublog.automod.classification").withTag("classification", c)
+      def flagged(f: Boolean)       = counter("ublog.automod.flagged").withTag("flagged", f)
   object picfit:
     def uploadTime(user: String) = future("picfit.upload.time", tags("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)

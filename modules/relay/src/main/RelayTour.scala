@@ -101,7 +101,7 @@ object RelayTour:
       website: Option[URL],
       standings: Option[URL]
   ):
-    def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
+    def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).exists(_.nonEmpty)
     override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
     lazy val fideTcOrGuess: FideTC     = fideTc | FideTC.standard
     def timeZoneOrDefault: ZoneId      = timeZone | ZoneId.systemDefault

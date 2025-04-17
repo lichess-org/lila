@@ -5,37 +5,17 @@ import chess.ByColor
 import chess.rating.glicko.Glicko
 import scalalib.Iso
 
-opaque type RatingFactor = Double
-object RatingFactor extends OpaqueDouble[RatingFactor]:
+object RatingRegulator:
 
-  type ByKey = Map[PerfKey, RatingFactor]
-
-  private val separator = ","
-
-  def write(rfs: ByKey): String =
-    rfs
-      .map: (pk, f) =>
-        s"$pk=$f"
-      .mkString(separator)
-
-  private def read(s: String): ByKey =
-    s.split(separator)
-      .toList
-      .map(_.trim.split('='))
-      .flatMap:
-        case Array(ptk, fs) =>
-          for
-            pk <- PerfKey(ptk)
-            f  <- fs.toDoubleOption
-          yield pk -> RatingFactor(f)
-        case _ => None
-      .toMap
-
-  given Iso.StringIso[ByKey] = Iso.string(read, write)
-
-  given BSONHandler[ByKey] = lila.db.dsl.isoHandler
-
-final class RatingRegulator(factors: RatingFactor.ByKey):
+  private val factors = Map(
+    PerfKey.rapid       -> 1.015,
+    PerfKey.classical   -> 1.015,
+    PerfKey.blitz       -> 1.005,
+    PerfKey.bullet      -> 1.015,
+    PerfKey.ultraBullet -> 1.013,
+    PerfKey.atomic      -> 1.02,
+    PerfKey.antichess   -> 1.02
+  )
 
   def apply(
       key: PerfKey,
@@ -53,15 +33,15 @@ final class RatingRegulator(factors: RatingFactor.ByKey):
   private def regulate(key: PerfKey, before: Glicko, after: Glicko): Glicko =
     factors
       .get(key)
-      .filter(_.value != 1)
+      .filter(_ != 1)
       .fold(after):
         regulate(_, key, before, after)
 
-  private def regulate(factor: RatingFactor, key: PerfKey, before: Glicko, after: Glicko): Glicko =
+  private def regulate(factor: Double, key: PerfKey, before: Glicko, after: Glicko): Glicko =
     if after.rating > before.rating
     then
       val diff  = after.rating - before.rating
-      val extra = diff * (factor.value - 1)
+      val extra = diff * (factor - 1)
       lila.mon.rating.regulator.micropoints(key.value).record((extra * 1000 * 1000).toLong)
       after.copy(rating = after.rating + extra)
     else after
