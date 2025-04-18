@@ -73,7 +73,8 @@ final class UblogAutomod(
             if rsp.status == 200
             best      <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
-            result    <- Json.parse(resultStr).asOpt[Result]
+            trimmed = resultStr.slice(resultStr.indexOf('{'), resultStr.lastIndexOf('}') + 1)
+            result <- Json.parse(trimmed).asOpt[Result]
             if classifications.contains(result.classification)
           yield result) match
             case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
