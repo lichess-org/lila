@@ -107,6 +107,10 @@ db.user4.createIndex(
   { 'delete.requested': 1 },
   { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } },
 );
+db.user4.createIndex(
+  { mustConfirmEmail: 1 },
+  { partialFilterExpression: { mustConfirmEmail: { $exists: 1 } }, expireAfterSeconds: 3600 * 24 * 2 },
+);
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, slug: 1 });
