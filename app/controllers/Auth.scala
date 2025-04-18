@@ -186,10 +186,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 forms.signup.website.flatMap: baseForm =>
                   BadRequest.page(views.auth.signup(baseForm.withForm(err)))
               case Signup.Result.ConfirmEmail(user, email) =>
-                Redirect(routes.Auth.checkYourEmail).withCookies(
-                  EmailConfirm.cookie
-                    .make(env.security.lilaCookie, user, email)(using ctx.req)
-                )
+                Redirect(routes.Auth.checkYourEmail).withCookies:
+                  EmailConfirm.cookie.make(env.security.lilaCookie, user, email)(using ctx.req)
               case Signup.Result.AllSet(user, email) =>
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
           ,
