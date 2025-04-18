@@ -691,12 +691,12 @@
   <string name="hostColorX">Боја приређивача: %s</string>
   <string name="yourPendingSimuls">Незавршене симултанке</string>
   <string name="createdSimuls">Новостворене симултанке</string>
-  <string name="hostANewSimul">Покрени нову симултанку</string>
+  <string name="hostANewSimul">Организуј нову симултанку</string>
   <string name="signUpToHostOrJoinASimul">Пријави се да би организовао или учествовао у симултанци</string>
   <string name="noSimulFound">Симултанка није пронађена</string>
-  <string name="noSimulExplanation">Симултанка не постоји</string>
-  <string name="returnToSimulHomepage">Врати се на почетну страну</string>
-  <string name="aboutSimul">Cимултанке укључује једног играча који игра против више противника одједном.</string>
+  <string name="noSimulExplanation">Ова симултанка не постоји.</string>
+  <string name="returnToSimulHomepage">Врати се на почетну страну симултанке</string>
+  <string name="aboutSimul">Симултанке обухватају суочавање једонг играча против неколико играча одједном.</string>
   <string name="aboutSimulImage">ОД 50 противника, Фишер је победио 47, ремизирао са 2, а изгубио од једног</string>
   <string name="aboutSimulRealLife">Идеја је преузета из стварног живота. У стварном животу, ово укључује домаћин симултанке који иде од табле до табле да би се одиграо појединачни потез.</string>
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
