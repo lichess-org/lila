@@ -60,12 +60,14 @@ private object DgtJson:
   ):
     def outcome = result.flatMap(Outcome.fromResult)
     def mergeRoundTags(roundTags: Tags): Tags =
-      val fenTag = chess960
-        .filter(_ != 518) // LCC sends 518 for standard chess
+      val chess960PositionId = chess960.filter(_ != 518) // LCC sends 518 for standard chess
+      val fenTag = chess960PositionId
         .flatMap(chess.variant.Chess960.positionToFen)
         .map(pos => Tag(_.FEN, pos.value))
+      val variantTag = (chess960PositionId.isDefined && roundTags.variant.isEmpty).option:
+        Tag(_.Variant, chess.variant.Chess960.name)
       val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
-      roundTags ++ Tags(List(fenTag, outcomeTag).flatten)
+      roundTags ++ Tags(List(fenTag, variantTag, outcomeTag).flatten)
     def clockTags: Tags =
       clock.fold(Tags.empty): c =>
         Tags(
