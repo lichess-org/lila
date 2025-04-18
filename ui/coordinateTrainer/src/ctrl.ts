@@ -306,8 +306,21 @@ export default class CoordinateTrainerCtrl {
 
   updateChart = (svgElement: SVGSVGElement, color: Color) => {
     const parent = svgElement.parentElement as HTMLDivElement;
+    const scoreValues = this.modeScores[this.mode()][color];
+    const tooltip = svgElement.nextElementSibling as HTMLSpanElement;
     svgElement.setAttribute('width', `${parent.offsetWidth}px`);
-    sparkline(svgElement, this.modeScores[this.mode()][color], { interactive: true });
+    const options = {
+      onmousemove(_event: any, datapoint: any) {
+        tooltip.hidden = false;
+        tooltip.textContent = scoreValues[datapoint.index].toString();
+        tooltip.style.top = `${datapoint.y}px`;
+        tooltip.style.left = `${datapoint.x}px`;
+      },
+      onmouseout() {
+        tooltip.hidden = true;
+      },
+    };
+    sparkline(svgElement, scoreValues, options);
   };
 
   hasModeScores = (): boolean =>
