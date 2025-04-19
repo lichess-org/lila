@@ -24,6 +24,7 @@ export interface TreeWrapper {
   pathIsMainline(path: Tree.Path): boolean;
   pathIsForcedVariation(path: Tree.Path): boolean;
   lastMainlineNode(path: Tree.Path): Tree.Node;
+  extendPath(path: Tree.Path, isMainline: boolean): Tree.Path;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
@@ -35,6 +36,7 @@ export interface TreeWrapper {
   removeCeval(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
+  getPathsOfDescendants(node: Tree.Node, path: Tree.Path): Tree.Path[];
 }
 
 export function build(root: Tree.Node): TreeWrapper {
@@ -101,6 +103,13 @@ export function build(root: Tree.Node): TreeWrapper {
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
+
+  const extendPath = (path: Tree.Path, isMainline: boolean): Tree.Path => {
+    let currNode = nodeAtPath(path);
+    while ((currNode = currNode?.children[0]) && !(isMainline && currNode.forceVariation))
+      path += currNode.id;
+    return path;
+  };
 
   function updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined {
     const node = nodeAtPathOrNull(path);
@@ -194,6 +203,15 @@ export function build(root: Tree.Node): TreeWrapper {
     return parent ? parent.clock : node.clock;
   }
 
+  function getPathsOfDescendants(node: Tree.Node, path: Tree.Path): Tree.Path[] {
+    const paths = [];
+    for (const child of node.children) {
+      const newPath = path + child.id;
+      paths.push(newPath, ...getPathsOfDescendants(child, newPath));
+    }
+    return paths;
+  }
+
   return {
     root,
     lastPly: (): number => lastNode()?.ply || root.ply,
@@ -234,6 +252,7 @@ export function build(root: Tree.Node): TreeWrapper {
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
+    extendPath,
     pathExists,
     deleteNodeAt,
     promoteAt,
@@ -254,5 +273,6 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     parentNode,
     getParentClock,
+    getPathsOfDescendants,
   };
 }
