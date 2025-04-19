@@ -18,6 +18,7 @@ import lila.core.i18n.Translate
 
 final class Mailer(
     config: Mailer.Config,
+    canSendEmails: lila.memo.SettingStore[Boolean],
     getSecondaryPermille: () => Int
 )(using system: ActorSystem):
 
@@ -31,7 +32,12 @@ final class Mailer(
     if ThreadLocalRandom.nextInt(1000) < getSecondaryPermille() then (secondaryClient, config.secondary)
     else (primaryClient, config.primary)
 
-  def send(msg: Mailer.Message): Funit =
+  def canSend = canSendEmails.get()
+
+  def sendOrFail(msg: Mailer.Message): Funit = send(msg, orFail = true)
+  def sendOrSkip(msg: Mailer.Message): Funit = send(msg, orFail = false)
+
+  def send(msg: Mailer.Message, orFail: Boolean): Funit =
     if msg.to.isNoReply then
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
@@ -51,7 +57,10 @@ final class Mailer(
       .recoverWith:
         case e: EmailException if msg.to.normalize.value != msg.to.value =>
           logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
-          send(msg.copy(to = msg.to.normalize.into(EmailAddress)))
+          send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
+        case e: Exception if !orFail =>
+          logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+          funit
       .void
 
 object Mailer:

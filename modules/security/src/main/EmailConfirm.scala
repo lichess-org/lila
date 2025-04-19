@@ -50,7 +50,7 @@ final class EmailConfirmMailer(
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"
         lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
-        mailer.send(
+        mailer.sendOrFail:
           Mailer.Message(
             to = email,
             subject = trans.emailConfirm_subject.txt(user.username),
@@ -70,7 +70,6 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
               serviceNote
             ).some
           )
-        )
       }
 
   import EmailConfirm.Result.*

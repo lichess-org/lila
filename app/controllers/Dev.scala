@@ -11,6 +11,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.security.mobileSignupProxy,
     env.oAuth.originBlocklistSetting,
     env.mailer.mailerSecondaryPermilleSetting,
+    env.mailer.canSendEmailsSetting,
     env.irwin.irwinApi.thresholds,
     env.irwin.kaladinApi.thresholds,
     env.report.scoreThresholdsSetting,

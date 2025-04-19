@@ -24,7 +24,7 @@ final class LoginToken(
       val url                  = s"$baseUrl/auth/token/$token"
       given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       import Mailer.html.*
-      mailer.send(
+      mailer.sendOrFail:
         Mailer.Message(
           to = email,
           subject = trans.logInToLichess.txt(user.username),
@@ -40,7 +40,6 @@ ${trans.common_orPaste.txt()}"""),
             serviceNote
           ).some
         )
-      )
     }
 
   def consume(token: String): Fu[Option[User]] =

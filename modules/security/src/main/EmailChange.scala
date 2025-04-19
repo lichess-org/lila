@@ -18,13 +18,13 @@ final class EmailChange(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
-    (!email.looksLikeFakeEmail).so:
+    email.looksLikeFakeEmail.not.so:
       tokener.make(TokenPayload(user.id, email)).flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
         val url                  = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
-        mailer.send:
+        mailer.sendOrFail:
           Mailer.Message(
             to = email,
             subject = trans.emailChange_subject.txt(user.username),

@@ -24,19 +24,19 @@ final class AutomaticEmail(
 The Lichess team"""
 
   def welcomeEmail(user: User, email: EmailAddress)(using Lang): Funit =
-    lila.mon.email.send.welcome.increment()
-    val profileUrl = s"$baseUrl/@/${user.username}"
-    val editUrl    = s"$baseUrl/account/profile"
-    mailer.send(
-      Mailer.Message(
-        to = email,
-        subject = trans.welcome_subject.txt(user.username),
-        text = Mailer.txt.addServiceNote(trans.welcome_text.txt(profileUrl, editUrl)),
-        htmlBody = standardEmail(
-          trans.welcome_text.txt(profileUrl, editUrl)
-        ).some
-      )
-    )
+    mailer.canSend.so:
+      lila.mon.email.send.welcome.increment()
+      val profileUrl = s"$baseUrl/@/${user.username}"
+      val editUrl    = s"$baseUrl/account/profile"
+      mailer.sendOrSkip:
+        Mailer.Message(
+          to = email,
+          subject = trans.welcome_subject.txt(user.username),
+          text = Mailer.txt.addServiceNote(trans.welcome_text.txt(profileUrl, editUrl)),
+          htmlBody = standardEmail(
+            trans.welcome_text.txt(profileUrl, editUrl)
+          ).some
+        )
 
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
@@ -58,14 +58,13 @@ $regards
 """
       _ <- emailOption.so { email =>
         given Lang = userLang(user)
-        mailer.send(
+        mailer.sendOrSkip:
           Mailer.Message(
             to = email,
             subject = s"$title title confirmed on lichess.org",
             text = Mailer.txt.addServiceNote(body),
             htmlBody = standardEmail(body).some
           )
-        )
       }
     yield ()
   }.recover { case e: LilaException =>
@@ -123,14 +122,13 @@ $regards
 """
     userApi.emailOrPrevious(user.id).flatMapz { email =>
       given Lang = userLang(user)
-      mailer.send(
+      mailer.sendOrSkip:
         Mailer.Message(
           to = email,
           subject = "lichess.org account deletion",
           text = Mailer.txt.addServiceNote(body),
           htmlBody = standardEmail(body).some
         )
-      )
     }
 
   def onPatronNew(userId: UserId): Funit =
@@ -190,7 +188,7 @@ To make a new donation, head to $baseUrl/patron"""
             val disableSettingNotice =
               "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
             val disableLink = s"$baseUrl/account/preferences/notification#correspondence-email-notif"
-            mailer.send(
+            mailer.sendOrSkip:
               Mailer.Message(
                 to = email,
                 subject = "Daily correspondence notice",
@@ -213,7 +211,6 @@ $disableSettingNotice $disableLink"""
                   serviceNote
                 ).some
               )
-            )
     }
 
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
@@ -231,14 +228,13 @@ $disableSettingNotice $disableLink"""
         .email(user.id)
         .flatMapz: email =>
           given lang: Lang = userLang(user)
-          mailer.send(
+          mailer.sendOrSkip:
             Mailer.Message(
               to = email,
               subject = subject(lang),
               text = Mailer.txt.addServiceNote(body),
               htmlBody = standardEmail(body).some
             )
-          )
 
   private def sendAsPrivateMessageAndEmail[U: UserIdOf](
       to: U

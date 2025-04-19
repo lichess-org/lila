@@ -10,14 +10,15 @@ import lila.core.config.NetConfig
 import lila.core.email.UserIdOrEmail
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.ClearPassword
-import lila.memo.RateLimit
+import lila.memo.{ RateLimit, SettingStore }
 
 final class Signup(
     store: SessionStore,
     api: SecurityApi,
     ip2proxy: lila.core.security.Ip2ProxyApi,
     ipTrust: IpTrust,
-    mobileSignupProxy: lila.memo.SettingStore[lila.core.data.Strings] @@ MobileSignupProxy,
+    mobileSignupProxy: SettingStore[lila.core.data.Strings] @@ MobileSignupProxy,
+    canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     forms: SecurityForm,
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
@@ -42,22 +43,24 @@ final class Signup(
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =
-      val ip = HTTPRequest.ipAddress(req)
-      store.recentByIpExists(ip, 7.days).flatMap { ipExists =>
-        if ipExists then fuccess(YesBecauseIpExists)
-        else if UserAgentParser.trust.isSuspicious(req) then fuccess(YesBecauseUA)
-        else
-          print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)): fp =>
-            store
-              .recentByPrintExists(fp)
-              .map: printFound =>
-                if printFound then YesBecausePrintExists
-                else if suspIp then YesBecauseIpSusp
-                else if email.domain.exists: dom =>
-                    DisposableEmailDomain.whitelisted(dom) && !DisposableEmailDomain.isOutlook(dom)
-                then Nope
-                else YesBecauseEmailDomain
-      }
+      if !canSendEmails.get() then fuccess(Nope)
+      else
+        val ip = HTTPRequest.ipAddress(req)
+        store.recentByIpExists(ip, 7.days).flatMap { ipExists =>
+          if ipExists then fuccess(YesBecauseIpExists)
+          else if UserAgentParser.trust.isSuspicious(req) then fuccess(YesBecauseUA)
+          else
+            print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)): fp =>
+              store
+                .recentByPrintExists(fp)
+                .map: printFound =>
+                  if printFound then YesBecausePrintExists
+                  else if suspIp then YesBecauseIpSusp
+                  else if email.domain.exists: dom =>
+                      DisposableEmailDomain.whitelisted(dom) && !DisposableEmailDomain.isOutlook(dom)
+                  then Nope
+                  else YesBecauseEmailDomain
+        }
 
   def website(
       blind: Boolean

@@ -24,6 +24,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
+    canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
     lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db

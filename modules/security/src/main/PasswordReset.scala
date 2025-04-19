@@ -23,7 +23,7 @@ final class PasswordReset(
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
       val url = s"$baseUrl/password/reset/confirm/$token"
-      mailer.send(
+      mailer.sendOrFail:
         Mailer.Message(
           to = email,
           subject = trans.passwordReset_subject.txt(user.username),
@@ -42,7 +42,6 @@ ${trans.common_orPaste.txt()}"""),
             serviceNote
           ).some
         )
-      )
     }
 
   def confirm(token: String): Fu[Option[Me]] =
