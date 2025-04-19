@@ -517,7 +517,7 @@ object I18nKey:
   object emails:
     val `emailConfirm_subject`: I18nKey = "emails:emailConfirm_subject"
     val `emailConfirm_click`: I18nKey = "emails:emailConfirm_click"
-    val `emailConfirm_ignore`: I18nKey = "emails:emailConfirm_ignore"
+    val `emailConfirm_justIgnore`: I18nKey = "emails:emailConfirm_justIgnore"
     val `passwordReset_subject`: I18nKey = "emails:passwordReset_subject"
     val `passwordReset_intro`: I18nKey = "emails:passwordReset_intro"
     val `passwordReset_clickOrIgnore`: I18nKey = "emails:passwordReset_clickOrIgnore"
