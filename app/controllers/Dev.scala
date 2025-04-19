@@ -8,6 +8,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.security.proxy2faSetting,
+    env.security.mobileSignupProxy,
     env.oAuth.originBlocklistSetting,
     env.mailer.mailerSecondaryPermilleSetting,
     env.irwin.irwinApi.thresholds,
