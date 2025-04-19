@@ -70,7 +70,8 @@ ${trans.common_orPaste.txt()}
         .err("Invalid token payload")
     val to = a => s"${a.userId}$sep${a.email}"
 
-  private val tokener = new StringToken[TokenPayload](
+  private val tokener = StringToken.withLifetimeAndFutureValue[TokenPayload](
     secret = tokenerSecret,
-    getCurrentValue = p => userRepo.email(p.userId).dmap(_.so(_.value))
+    lifetime = 10.minutes,
+    getCurrentValue = t => userRepo.email(t.userId).dmap(_.so(_.value))
   )
