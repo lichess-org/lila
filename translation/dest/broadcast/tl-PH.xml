@@ -1,2 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Mga Brodkast</string>
+  <string name="myBroadcasts">Aking mga brodkast</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s brodkast</item>
+    <item quantity="other">%s mga brodkast</item>
+  </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s nanonood</item>
+    <item quantity="other">%s mga nanonood</item>
+  </plurals>
+  <string name="liveBroadcasts">Mga live na brodkast sa torneo</string>
+  <string name="broadcastCalendar">Kalendaryo ng brodkast</string>
+  <string name="newBroadcast">Bagong live na brodkast</string>
+  <string name="subscribedBroadcasts">Mga nag-subscribe na brodkast</string>
+  <string name="aboutBroadcasts">Tungkol sa mga brodkast</string>
+  <string name="howToUseLichessBroadcasts">Paano gamitin ang mga Lichess Brodkast.</string>
+  <string name="tournamentName">Pangalan ng torneo</string>
+  <string name="currentGameUrl">Kasalukuyang URL ng laro</string>
+  <string name="federation">Pederasyon</string>
+  <string name="ageThisYear">Edad ngayong taon</string>
+  <string name="unrated">Hindi namarkahan</string>
+  <string name="openLichess">Buksan sa Lichess</string>
+  <string name="teams">Mga Koponan</string>
+  <string name="boards">Mga Board</string>
+  <string name="noBoardsYet">Wala pang mga board. Lilitaw ang mga ito pagkatapos na-upload ang mga laro.</string>
+  <string name="startsAfter">Magsisimula pagkatapos ng %s</string>
+  <string name="officialWebsite">Opisyal na website</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Higit pang mga opsyon sa %s</string>
+  <string name="webmastersPage">pahina ng mga webmaster</string>
+  <string name="embedThisBroadcast">I-embed ang brodkast na ito sa iyong website</string>
+  <string name="embedThisRound">I-embed ang %s sa iyong website</string>
+  <string name="ratingDiff">Pagkakaiba ng marka</string>
+  <string name="gamesThisTournament">Mga laro sa torneo na ito</string>
+  <string name="score">Iskor</string>
+  <string name="allTeams">Lahat ng mga koponan</string>
+  <string name="tournamentFormat">Format ng Torneo</string>
+  <string name="tournamentLocation">Lokasyon ng Torneo</string>
+  <string name="topPlayers">Mga nangungunang manlalaro</string>
+  <string name="timezone">Sona ng oras</string>
+  <string name="optionalDetails">Mga opsiyonal na detalye</string>
+  <string name="pastBroadcasts">Mga nakaraang brodkast</string>
+  <string name="backToLiveMove">Bumalik sa live ng tira</string>
+  <string name="liveboard">Live board</string>
+</resources>

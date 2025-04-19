@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Vu Schtudie underschtützti Variante</string>
   <string name="variantsAreSupportedText">Ja, du chasch crazyhouse Schtudie mache&lt;br&gt;und alli andere LichessVariante!</string>
   <string name="chapterConclusionText">Kapitel sind für immer g\'sicheret.&lt;br&gt;Freu dich am Organisiere vu dine Schach-Inhält!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Beidi besiegt</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Schwarz besiegt, aber Wiss chann nöd günne</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Wiss besiegt, aber Schwarz chann nöd günne</string>
 </resources>
