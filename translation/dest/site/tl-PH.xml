@@ -180,6 +180,7 @@
   <string name="viewInFullSize">Tingnan sa buong sukat</string>
   <string name="logOut">Lumabas</string>
   <string name="signIn">Mag-sign in</string>
+  <string name="rememberMe">Panatilihin akong naka-log in</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
   <string name="computersAreNotAllowedToPlay">Mga kompyuter at tinulungan ng kompyuter na mga manlalaro ay hindi pwedeng maglaro. Huwag ng humingi ng tulong sa mga makina ng chess, mga database, at galing sa ibang manlalaro habang naglalaro. Pakitandaan din na ang paggawa ng maraming akawnt ay hindi pinapayagan na maaring magresulta sa pagbabawal na pumasok muli.</string>
@@ -480,7 +481,7 @@
   <string name="endgamePositions">Posisyon ng Endgame</string>
   <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
-  <string name="clearBoard">Linisin ang board</string>
+  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Linisin ang board</string>
   <string name="loadPosition">I-load ang posisyon</string>
   <string name="isPrivate">Pribado</string>
   <string name="reportXToModerators">I-report %s sa mga moderator</string>
@@ -570,6 +571,7 @@
   <string name="slow">Mabagal</string>
   <string name="insideTheBoard">Sa loob ng lupon</string>
   <string name="outsideTheBoard">Sa labas ng lupon</string>
+  <string name="allSquaresOfTheBoard">Lahat ng mga parisukat ng board</string>
   <string name="onSlowGames">Sa mabagal na mga laro</string>
   <string name="always">Lagi</string>
   <string name="never">Hindi Kailanman</string>
@@ -671,6 +673,9 @@
   <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
   <string name="keyNextBlunder">Susunod na malaking pagkakamali</string>
   <string name="keyNextMistake">Susunod na pagkakamali</string>
+  <string name="keyNextInaccuracy">Susunod na di-pagkakatama</string>
+  <string name="keyPreviousBranch">Nakaraang sangay</string>
+  <string name="keyNextBranch">Susunod na sangay</string>
   <string name="newTournament">Bagong torneo</string>
   <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
   <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
