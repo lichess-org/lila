@@ -162,6 +162,20 @@
   <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
   <string name="perPage">%s 件/ページ</string>
   <string name="getTheTour">お困りですか？　ツアーへどうぞ！</string>
+  <string name="welcomeToLichessStudyTitle">Lichess 「研究」機能にようこそ！</string>
+  <string name="fromInitialPositionTitle">開始局面から</string>
+  <string name="fromInitialPositionText">新しいゲーム開始局面です。&lt;br&gt;序盤の研究に最適です。</string>
+  <string name="customPositionTitle">自由配置局面</string>
+  <string name="customPositionText">駒を好きなように配置します。&lt;br&gt;終盤の研究に最適です。</string>
+  <string name="loadExistingLichessGameTitle">Lichess の対局の読み込み</string>
+  <string name="loadExistingLichessGameText">Lichess の対局の URL&lt;br&gt;（例：lichess.org/7fHIU0XI）&lt;br&gt;をペーストすると章内にその手順が読み込めます。</string>
+  <string name="fromFenStringTitle">FEN の局面から</string>
+  <string name="fromFenStringText">FEN 形式の局面&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;をペーストするとその局面から章が始まります。</string>
+  <string name="fromPgnGameTitle">PGN の棋譜から</string>
+  <string name="fromPgnGameText">PGN形式の棋譜をペーストすれば&lt;br&gt;章内に手順、コメント、変化を入れられます。</string>
+  <string name="variantsAreSupportedTitle">研究はバリアントにも対応</string>
+  <string name="variantsAreSupportedText">はい、クレージーハウスなど Lichess の&lt;br&gt;バリアントすべてを研究できます！</string>
+  <string name="chapterConclusionText">各章は永久に保存されます。&lt;br&gt;チェスコンテンツの整理は楽しい作業です！</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">両者負け</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">黒負け白1/2ポイント</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">白負け黒1/2ポイント</string>
