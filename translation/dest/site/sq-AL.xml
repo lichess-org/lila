@@ -519,6 +519,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="editProfile">Përpunoni profilin</string>
   <string name="realName">Emër i njëmendtë</string>
   <string name="setFlair">Vendosni dhuntinë tuaj</string>
+  <string name="flair">Dhunti</string>
+  <string name="youCanHideFlair">Ekziston një cilësim për të fshehur të gjitha aftësitë e përdoruesve në të gjithë faqen.</string>
   <string name="biography">Jetëshkrim</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
@@ -675,8 +677,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
   <string name="hostColorX">Ngjyra e organizatorit: %s</string>
+  <string name="yourPendingSimuls">Simulat tuaja në pritje</string>
   <string name="createdSimuls">Simultane të krijuara së fundi</string>
   <string name="hostANewSimul">Organizoni një simultane të re</string>
+  <string name="signUpToHostOrJoinASimul">Regjistrohu për të pritur ose bashkuar një simul</string>
   <string name="noSimulFound">S’u gjet simultane</string>
   <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
