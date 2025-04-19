@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">የእርስዎን lichess.org መለያ፣ %s ያረጋግጡ</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">የ Lichess መለያዎን ለማንቃት አገናኙን ጠቅ ያድርጉ፡-:</string>
-  <string name="emailConfirm_ignore">በ Lichess ካልተመዘገቡ ይህንን መልእክት በደህና ችላ ማለት ይችላሉ።.</string>
   <string name="passwordReset_subject">የእርስዎን lichess.org ይለፍ ቃል፣%s ዳግም ያስጀምሩ</string>
   <string name="passwordReset_intro">የመለያዎን የይለፍ ቃል ዳግም እንድናስጀምር ጥያቄ ደርሶናል።.</string>
   <string name="passwordReset_clickOrIgnore">ይህን ጥያቄ ካቀረብክ ከታች ያለውን ሊንክ ይጫኑ። ካልሆነ፣ ይህን ኢሜይል ችላ ማለት ይችላሉ።.</string>
