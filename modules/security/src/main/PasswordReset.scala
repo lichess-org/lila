@@ -53,11 +53,12 @@ ${trans.common_orPaste.txt()}"""),
     RateLimit[IpAddress](credits = 20, duration = 1.day, key = "password.reset.ip")
   )
 
-  private val tokener = StringToken[UserId](
+  private val tokener = StringToken.withLifetimeAndFutureValue[UserId](
     secret = tokenerSecret,
+    lifetime = 10.minutes,
     getCurrentValue = id =>
       for
         hash  <- userRepo.getPasswordHash(id)
         email <- userRepo.email(id)
-      yield ~hash + email.fold("")(_.value)
+      yield ~hash + email.so(_.value)
   )
