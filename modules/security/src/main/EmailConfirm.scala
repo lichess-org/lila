@@ -61,12 +61,12 @@ $url
 
 ${trans.common_orPaste.txt()}
 
-${trans.emailConfirm_ignore.txt("https://lichess.org")}
+${trans.emailConfirm_justIgnore.txt("https://lichess.org")}
 """),
             htmlBody = emailMessage(
               pDesc(trans.emailConfirm_click()),
               potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-              small(trans.emailConfirm_ignore()),
+              small(trans.emailConfirm_justIgnore()),
               serviceNote
             ).some
           )
