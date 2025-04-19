@@ -159,6 +159,12 @@ final class Env(
     text = "Types of proxy that require 2FA to login".some
   ).taggedWith[Proxy2faSetting]
 
+  val mobileSignupProxy = settingStore[Strings](
+    "mobileSignupProxy",
+    default = Strings(List("VPN", "CPN")),
+    text = "Types of proxy that can signup using the legacy mobile API".some
+  ).taggedWith[MobileSignupProxy]
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
@@ -170,3 +176,4 @@ final class Env(
     export userLogins.getUserIdsWithSameIpAndPrint
 
 private trait Proxy2faSetting
+private trait MobileSignupProxy
