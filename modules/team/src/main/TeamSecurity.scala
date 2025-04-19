@@ -124,7 +124,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
               .isEmpty
         )
         .verifying(
-          "There can only be 3 admins.",
+          "There can only be 3 admins",
           _.count(_.perms(Permission.Admin)) <= 3
         )
     ).fill(t.leaders.map(m => LeaderData(m.user.into(UserStr), m.perms)))
