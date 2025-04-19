@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Konfirmasi panjenengan lichess.org akun, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klik link kanggo ngaktifake akun Lichess panjenengan:</string>
-  <string name="emailConfirm_ignore">Yen sampeyan durung ndhaftar Karo Liches sampeyan bisa aman ditolak lewat pesen iki.</string>
   <string name="passwordReset_subject">Ngreset panjenengan lichess.org sandhi, %s</string>
   <string name="passwordReset_intro">Kita nampa panjaluk kanggo ngreset sandhi kanggo akun sampeyan.</string>
   <string name="passwordReset_clickOrIgnore">Yen sampeyan nggawe panjaluk iki, klik link ing ngisor iki. Yen ora, sampeyan bisa nglirwakake email iki.</string>
