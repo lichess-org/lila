@@ -2,6 +2,7 @@
 <resources>
   <string name="communityBlogs">Mga blog ng komunidad</string>
   <string name="friendBlogs">Mga blog ng mga kaibigan</string>
+  <string name="lichessBlog">Blog ni Lichess</string>
   <string name="myBlog">Ang aking blog</string>
   <string name="likedBlogs">Mga blog post na ni-like</string>
   <string name="blogTopics">Mga blog topic</string>
