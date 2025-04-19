@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">%s, lichess.org akkauntıńızdı tastıyıqlań</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess akkauntıńızdı qosıw ushın siltemeni basıń:</string>
-  <string name="emailConfirm_ignore">Eger siz Lichessten dizimnen ótpegen bolsańız, bul xabardı itibarsız qaldırıńız múmkin.</string>
   <string name="passwordReset_subject">%s, lichess.org parolińizdi qayta ornatıń</string>
   <string name="passwordReset_intro">Biz siziń akkauntıńız ushın paroldi qayta ornatıw kerekligi haqqındaǵı sorawıńızdı qabılladıq.</string>
   <string name="passwordReset_clickOrIgnore">Eger siz sol sorawdı jibergen bolsańız, tómendegi siltemeni basıń. Eger jibermegen bolsańız, xabardı itibarsız qaldırıń.</string>
