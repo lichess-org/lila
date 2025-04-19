@@ -89,12 +89,11 @@ object StringToken:
       getCurrentValue = t =>
         getCurrentValue(t).map: v =>
           s"${StringToken.DateStr.toStr(nowInstant)}$separator$v",
+      currentValueHashSize = None,
       valueChecker = ValueChecker.Custom[A]: (payload, hashed) =>
-        hashed.split(separator).pp(hashed) match
+        hashed.split(separator) match
           case Array(dateStr, value) =>
-            getCurrentValue(payload.pp("payload"))
-              .thenPp(value)
-              .map: cur =>
-                cur == value && StringToken.DateStr.valueCheck(hashed, lifetime).pp("valueCheck")
+            getCurrentValue(payload).map: cur =>
+              cur == value && StringToken.DateStr.valueCheck(dateStr, lifetime)
           case _ => fuccess(false)
     )
