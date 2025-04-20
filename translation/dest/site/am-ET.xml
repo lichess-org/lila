@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ሌላ ሰው ለመጋበዝ ፣ ይህን ማስፈንጠሪያ ያጋሩ</string>
   <string name="gameOver">ጨዋታው አልቋል</string>
   <string name="waitingForOpponent">ተጫዋቹን እየጠበቀ</string>
+  <string name="orLetYourOpponentScanQrCode">ወይም ተቃዋሚዎ ይህን የQR ኮድ እንዲቃኝ ይፍቀዱለት</string>
   <string name="waiting">እየጠበቀ</string>
   <string name="yourTurn">የእርስዎ ተራ</string>
   <string name="aiNameLevelAiLevel">%1$s ደረጃ %2$s</string>
@@ -30,11 +31,16 @@
   <string name="kingInTheCenter">ንጉስ መሃል ላይ</string>
   <string name="threeChecks">ሶስት ቼክ</string>
   <string name="raceFinished">ውድድሩ አልቋል</string>
+  <string name="variantEnding">ተለዋጭ ማብቂያ</string>
   <string name="newOpponent">አዲስ ተጫዋች</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">ተጫዋቹ/ቿ ከእርሶ ጋር እንደገና መጫወት ይፈልጋል</string>
   <string name="joinTheGame">ጨዋታውን ይቀላቀሉ</string>
   <string name="whitePlays">የነጭ ተራ</string>
   <string name="blackPlays">የጥቁር ተራ</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">ተቃዋሚዎ ጨዋታውን ለቋል። በ%s ሰከንድ ድሉን መጠየቅ ይችላሉ።.</item>
+    <item quantity="other">ተቃዋሚዎ ጨዋታውን ለቋል። በ%s ሰከንዶች ውስጥ ድል መጠየቅ ትችላለህ።.</item>
+  </plurals>
   <string name="opponentLeftChoices">ተጫዋቹ/ቿ ጨዋታውን ትተው ወተውዋል. ድሉን ይውሰዱ ፣ እንደ እኩል ይጋሩ.</string>
   <string name="forceResignation">ድል ይውሰዱ</string>
   <string name="forceDraw">እኩል ለመውጣት ይጠይቁ</string>
