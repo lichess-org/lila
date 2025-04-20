@@ -74,6 +74,7 @@
   <string name="expandVariations">Abrir variantes</string>
   <string name="forceVariation">Convertir en variante</string>
   <string name="copyVariationPgn">Copiar PGN de la variante</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Copiar PGN de la línea principal</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -611,7 +612,7 @@
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Cronología</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Cronología</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
   <string name="biographyDescription">Cuéntanos sobre ti, qué te gusta del ajedrez, tus aperturas favoritas, partidas, jugadores…</string>
