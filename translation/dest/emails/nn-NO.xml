@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Stadfest lichess.org-kontoen din, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Trykk på lenkja for å aktivere Lichess-kontoen:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Hvis du ikkje har registrert deg på Lichess, kan du trygt sjå bort denne meldinga. Kontoen din er ikkje bekrefta og alle spor av e-postadressa din blir sletta frå systemet vårt etter 48 timer.</string>
   <string name="passwordReset_subject">Attendestill lichess.org-passordet ditt, %s</string>
   <string name="passwordReset_intro">Me har mottatt ein førespurnad om å attendestilla passordet for kontoen din.</string>
   <string name="passwordReset_clickOrIgnore">Klikk på lenka nedanfor om det er du som står bak denne førespurnaden. Sjå bort frå denne e-posten om det ikkje var du.</string>
