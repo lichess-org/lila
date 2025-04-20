@@ -74,6 +74,7 @@
   <string name="expandVariations">Variante erwitere</string>
   <string name="forceVariation">Variante erzwinge</string>
   <string name="copyVariationPgn">PGN Variante kopiere</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">PGN-Überschrift kopiere</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verlore</string>
   <string name="variantWin">Variante gwunne</string>
@@ -613,7 +614,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="victoryVsYInZ">%1$s gäge %2$s in %3$s</string>
   <string name="defeatVsYInZ">%1$s gäge %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s gäge %2$s in %3$s</string>
-  <string name="timeline">Verlauf</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Verlauf</string>
   <string name="starting">Schtartet:</string>
   <string name="allInformationIsPublicAndOptional">Alli Informatione sind öffentlich und freiwillig.</string>
   <string name="biographyDescription">Verzell öppis über dich: dini Inträsse, was du gern häsch bim Schach, dini liebschte Eröffnige oder Schpiller wo du guet findsch, etc...</string>
