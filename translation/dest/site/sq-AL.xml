@@ -508,7 +508,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
   <string name="startPosition">Pozicioni fillestar</string>
-  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Spastro fushën</string>
+  <string name="clearBoard">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raportojeni %s tek moderatorët</string>
