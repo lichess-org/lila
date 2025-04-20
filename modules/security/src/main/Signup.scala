@@ -146,7 +146,8 @@ final class Signup(
                   suspIp <- ipTrust.isSuspicious(ip)
                   ipData <- ipTrust.data(ip)
                   result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
-                    val mustConfirm = MustConfirmEmail.YesBecauseMobile
+                    val mustConfirm =
+                      if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile else MustConfirmEmail.Nope
                     monitor(
                       data,
                       captcha = Hcaptcha.Result.Mobile,
