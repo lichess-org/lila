@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Туспа выльа</string>
   <string name="playWithTheMachine">Машшинпа выльа</string>
-  <string name="playOffline">Офлайн вӑйӑ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленнӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
@@ -267,12 +266,9 @@
   <string name="wins">Ҫӗнтерӳ шучӗ</string>
   <string name="losses">Парӑну шучӗ</string>
   <string name="createdBy">Йӗркелӳҫӗ</string>
-  <string name="tournamentIsStarting">Турнир кӗҫех пуҫланать</string>
-  <string name="berserkRate">Берҫерк хаклавӗ</string>
   <string name="whiteWins">Шуррисем ҫӗнтерни</string>
   <string name="blackWins">Хурисем ҫӗнтерни</string>
   <string name="draws">Парма-пар</string>
-  <string name="nextXTournament">Тепӗр %s турнир:</string>
   <string name="boardEditor">Хӑма хайласси</string>
   <string name="popularOpenings">Сарӑлнӑ пуҫӑнни</string>
   <string name="endgamePositions">Ендшпил тӑрӑмӗ</string>

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Ghjucà cù un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
-  <string name="playOffline">Ghjucà offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
   <string name="waitingForOpponent">Aspittendu un aversariu</string>
@@ -438,21 +437,17 @@
   <string name="wins">Vittorie</string>
   <string name="losses">Scunfitte</string>
   <string name="createdBy">Criatu da</string>
-  <string name="tournamentIsStarting">Principia a ghjustra</string>
-  <string name="tournamentPairingsAreNowClosed">L\' appaghjamentu di u turneu hè chjosu avà.</string>
   <string name="standByX">%s, avete da esse appaghjatu, siate prontu à ghjucà!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Ripiglià</string>
   <string name="youArePlaying">Ghjucate avà!</string>
   <string name="winRate">Percentuale di vittoria</string>
-  <string name="berserkRate">Percentuale di Bersek</string>
   <string name="performance">Performanza</string>
   <string name="tournamentComplete">Ghjustra finita</string>
   <string name="movesPlayed">Colpi ghjucati</string>
   <string name="whiteWins">I bianchi vincenu</string>
   <string name="blackWins">I neri vincenu</string>
   <string name="draws">Partite patte</string>
-  <string name="nextXTournament">Prossima %s ghjustra:</string>
   <string name="averageOpponent">Mezana di l\' opponenti</string>
   <string name="boardEditor">Editore di scacchera</string>
   <string name="setTheBoard">Stallà a scacchera</string>

@@ -86,4 +86,6 @@
   <string name="tournamentShields">מגיני הטורנירים</string>
   <string name="onlyTitled">שחקנים עטורי דרגות בלבד</string>
   <string name="onlyTitledHelp">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
+  <string name="tournamentPairingsAreNowClosed">שיבוצי הטורניר סגורים כעת.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">אחוז המשחקים ב״אטרף״</string>
 </resources>

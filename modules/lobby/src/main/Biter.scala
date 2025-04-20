@@ -91,7 +91,7 @@ final private class Biter(
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&
-      (seek.realMode.casual || user.lame == seek.user.lame) &&
+      (user.lame == seek.user.lame) &&
       !(user.blocking.value contains seek.user.id) &&
       !(seek.user.blocking.value contains user.id) &&
       seek.realRatingRange.forall:

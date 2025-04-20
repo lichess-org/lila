@@ -6,6 +6,10 @@
     <item quantity="one">%s transmissão</item>
     <item quantity="other">%s transmissões</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espetador</item>
+    <item quantity="other">%s espetadores</item>
+  </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
   <string name="broadcastCalendar">Calendário de transmissão</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
   <string name="backToLiveMove">Voltar a posição em direto</string>
   <string name="sinceHideResults">Como optastes por ocultar os resultados, todas as pré-visualizações dos tabuleiros estão vazias para evitar spoilers.</string>
+  <string name="liveboard">Tabuleiro em direto</string>
 </resources>

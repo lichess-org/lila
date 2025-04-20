@@ -11,13 +11,9 @@ import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup }
-import lila.security.EmailConfirm
+import lila.security.{ FingerPrint, Signup, EmailConfirm }
 
-final class Auth(
-    env: Env,
-    accountC: => Account
-) extends LilaController(env):
+final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
 
@@ -182,7 +178,7 @@ final class Auth(
           html = env.security.signup
             .website(ctx.blind)
             .flatMap:
-              case Signup.Result.RateLimited => rateLimited
+              case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
               case Signup.Result.MissingCaptcha =>
                 forms.signup.website.flatMap: form =>
                   BadRequest.page(views.auth.signup(form))
@@ -190,32 +186,24 @@ final class Auth(
                 forms.signup.website.flatMap: baseForm =>
                   BadRequest.page(views.auth.signup(baseForm.withForm(err)))
               case Signup.Result.ConfirmEmail(user, email) =>
-                Redirect(routes.Auth.checkYourEmail).withCookies(
-                  EmailConfirm.cookie
-                    .make(env.security.lilaCookie, user, email)(using ctx.req)
-                )
+                Redirect(routes.Auth.checkYourEmail).withCookies:
+                  EmailConfirm.cookie.make(env.security.lilaCookie, user, email)(using ctx.req)
               case Signup.Result.AllSet(user, email) =>
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
           ,
           api = apiVersion =>
-            env.security
-              .ip2proxy(ctx.ip)
-              .flatMap: proxy =>
-                if proxy.isSafeish
-                then
-                  env.security.signup
-                    .mobile(apiVersion)
-                    .flatMap:
-                      case Signup.Result.RateLimited        => rateLimited
-                      case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                      case Signup.Result.Bad(err)           => doubleJsonFormError(err)
-                      case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
-                      case Signup.Result.AllSet(user, email) =>
-                        welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(
-                          user,
-                          remember = true
-                        )
-                else Forbidden(jsonError("This network cannot create new accounts."))
+            env.security.signup
+              .mobile(apiVersion)
+              .flatMap:
+                case Signup.Result.RateLimited => rateLimited
+                case Signup.Result.ForbiddenNetwork =>
+                  BadRequest(jsonError("This network cannot create new accounts."))
+                case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
+                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
+                case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                case Signup.Result.AllSet(user, email) =>
+                  welcome(user, email, sendWelcomeEmail = true) >>
+                    authenticateUser(user, remember = true)
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
@@ -321,16 +309,19 @@ final class Auth(
       .inject(NoContent)
   }
 
-  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
+  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Option[String])(using
+      ctx: Context
+  ) =
     renderAsync:
       env.security.forms.passwordReset.map: baseForm =>
         views.auth.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def passwordReset = Open:
-    renderPasswordReset(none, fail = false).map { Ok(_) }
+    renderPasswordReset(none, fail = none).map { Ok(_) }
 
   def passwordResetApply =
     OpenBody:
+      def badRequest(msg: String) = renderPasswordReset(none, fail = msg.some).map(BadRequest(_))
       env.security.hcaptcha
         .verify()
         .flatMap: captcha =>
@@ -340,22 +331,21 @@ final class Auth(
               _.form
                 .bindFromRequest()
                 .fold(
-                  err => renderPasswordReset(err.some, fail = true).map { BadRequest(_) },
+                  err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
                   data =>
-                    env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
-                      case Some(user, storedEmail) =>
-                        lila.mon.user.auth.passwordResetRequest("success").increment()
-                        env.security.passwordReset
-                          .send(user, storedEmail)
-                          .inject:
-                            Redirect:
-                              routes.Auth.passwordResetSent(storedEmail.value)
-                      case _ =>
-                        lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                        Redirect(routes.Auth.passwordResetSent(data.email.value))
-                    }
+                    env.security.passwordReset
+                      .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
+                        env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
+                          case Some(user, storedEmail) =>
+                            lila.mon.user.auth.passwordResetRequest("success").increment()
+                            for _ <- env.security.passwordReset.send(user, storedEmail)
+                            yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
+                          case _ =>
+                            lila.mon.user.auth.passwordResetRequest("noEmail").increment()
+                            Redirect(routes.Auth.passwordResetSent(data.email.value))
+                        }
                 )
-          else renderPasswordReset(none, fail = true).map { BadRequest(_) }
+          else badRequest("Invalid captcha")
 
   def passwordResetSent(email: String) = Open:
     Ok.page(views.auth.passwordResetSent(email))
@@ -424,9 +414,8 @@ final class Auth(
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some(user, storedEmail) =>
                       env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                        env.security.loginToken
-                          .send(user, storedEmail)
-                          .inject(Redirect(routes.Auth.magicLinkSent))
+                        for _ <- env.security.loginToken.send(user, storedEmail)
+                        yield Redirect(routes.Auth.magicLinkSent)
                     case _ => Redirect(routes.Auth.magicLinkSent)
                   }
               )
@@ -481,13 +470,13 @@ final class Auth(
 
   private[controllers] object LoginRateLimit:
     private val lastAttemptIp =
-      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](128, "login.lastIp"):
+      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](256, "login.lastIp"):
         _.expireAfterWrite(1.minute).build()
     def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result])(using
         Context
     ): Fu[Result] =
       val ip          = req.ipAddress
-      val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
+      val multipleIps = lastAttemptIp.asMap().put(id, ip).exists(_ != ip)
       passwordCost(req).flatMap: cost =>
         env.security.passwordHasher.rateLimit[Result](
           rateLimited,

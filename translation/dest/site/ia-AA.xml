@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Jocar con un amico</string>
   <string name="playWithTheMachine">Jocar con le machina</string>
-  <string name="playOffline">Jocar disconnectite</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro invitar alcuno a jocar, da le iste adresse</string>
   <string name="gameOver">Partita finite</string>
   <string name="waitingForOpponent">Attendente le adversario</string>
@@ -386,19 +385,15 @@
   <string name="wins">Victorias</string>
   <string name="losses">Perditas</string>
   <string name="createdBy">Create per</string>
-  <string name="tournamentIsStarting">Le torneo comencia ora</string>
-  <string name="tournamentPairingsAreNowClosed">Le junction de jocatores in le torneo es claudite ora.</string>
   <string name="standByX">%s, attende un momento. On connecte le jocatores, prepara te!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
-  <string name="berserkRate">Percentage Berserk</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Torneo finite</string>
   <string name="movesPlayed">Movimentos jocate</string>
   <string name="whiteWins">Victorias del blanco</string>
   <string name="blackWins">Victorias del nigro</string>
   <string name="draws">Partitas nulle</string>
-  <string name="nextXTournament">Proxime torneo %s:</string>
   <string name="averageOpponent">Classification medie</string>
   <string name="boardEditor">Editor de tabuliero</string>
   <string name="setTheBoard">Arrangiar le tabuliero</string>

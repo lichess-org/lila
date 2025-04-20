@@ -1,5 +1,5 @@
 import { dragNewPiece } from 'chessground/drag';
-import { readDrops } from 'lib/chess/chess';
+import { readDrops } from 'lib/game/chess';
 import type AnalyseCtrl from '../ctrl';
 import type { MouchEvent } from 'chessground/types';
 

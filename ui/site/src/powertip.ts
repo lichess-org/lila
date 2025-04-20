@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { text as xhrText } from 'lib/xhr';
-import { requestIdleCallback, $as } from 'lib';
-import { spinnerHtml } from 'lib/controls';
+import { requestIdleCallback } from 'lib';
+import { spinnerHtml } from 'lib/view/controls';
 import { pubsub } from 'lib/pubsub';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
@@ -61,6 +61,10 @@ function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => voi
     () => Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)), // do not codegolf to `f`
     800,
   );
+}
+
+function $as<T>(cashOrHtml: Cash | string): T {
+  return (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 }
 
 const powertip: LichessPowertip = {

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Играј со пријател</string>
   <string name="playWithTheMachine">Играј со компјутерот</string>
-  <string name="playOffline">Играј offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да поканиш некој да игра, прати му го овој линк</string>
   <string name="gameOver">Крај на играта</string>
   <string name="waitingForOpponent">Се чека противникот</string>
@@ -473,21 +472,17 @@
   <string name="wins">Победи</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Создадено од</string>
-  <string name="tournamentIsStarting">Турнирот започна</string>
-  <string name="tournamentPairingsAreNowClosed">Спарувањата за турнирот се затворени.</string>
   <string name="standByX">Почекај %s, се спаруваат играчите, подготви се!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Продолжи</string>
   <string name="youArePlaying">Играш!</string>
   <string name="winRate">Стапка на победи</string>
-  <string name="berserkRate">Стапка на лудило</string>
   <string name="performance">Изведби</string>
   <string name="tournamentComplete">Турнирот е завршен</string>
   <string name="movesPlayed">Број на потези</string>
   <string name="whiteWins">Победа на белите</string>
   <string name="blackWins">Победа на црните</string>
   <string name="draws">Ремија</string>
-  <string name="nextXTournament">Следен %s турнир:</string>
   <string name="averageOpponent">Просечен противник</string>
   <string name="boardEditor">Уредник на таблата</string>
   <string name="setTheBoard">Постави ја таблата</string>

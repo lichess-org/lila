@@ -50,6 +50,12 @@
     <item quantity="many">Užbaigė %s korespondencinių partijų</item>
     <item quantity="other">Užbaigė %s korespondencinių partijų</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Baigta %1$s %2$s korespondencinės partija</item>
+    <item quantity="few">Baigtos %1$s %2$s korespondencinės partijos</item>
+    <item quantity="many">Baigta %1$s %2$s korespondencinių partijų</item>
+    <item quantity="other">Baigta %1$s %2$s korespondencinių partijų</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Pradėjo sekti %s žaidėją</item>
     <item quantity="few">Pradėjo sekti %s žaidėjus</item>

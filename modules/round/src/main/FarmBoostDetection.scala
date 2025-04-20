@@ -47,10 +47,13 @@ final private class FarmBoostDetection(
           if g.variant.standard
           then linearInterpolation(perf.nb)(0 -> 40, 5 -> 20)
           else reasonableMinimumNumberOfMoves(g.variant)
-        val found =
+        val found = (
           perf.provisional.yes &&
             g.playedTurns < minMoves &&
             g.durationSeconds.exists(_ < minSeconds)
+        ) || (
+          g.playedTurns < 10
+        )
         if found then
           lila.mon.round.farming.provisional.increment()
           logger.info(s"new account boosting: https://lichess.org/${g.id} ${users.map(_.user.username)}")

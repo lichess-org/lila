@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
   <string name="playWithTheMachine">Play with the computer</string>
-  <string name="playOffline">Play offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -487,14 +486,12 @@
   <string name="wins">Wins</string>
   <string name="losses">Losses</string>
   <string name="createdBy">Created by</string>
-  <string name="tournamentIsStarting">The tournament is starting</string>
-  <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
+  <string name="startingIn" comment="Displayed above a timer">Starting in</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>
   <string name="resume">Resume</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
-  <string name="berserkRate">Berserk rate</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Tournament complete</string>
   <string name="movesPlayed">Moves played</string>
@@ -502,7 +499,6 @@
   <string name="blackWins">Black wins</string>
   <string name="drawRate">Draw rate</string>
   <string name="draws">Draws</string>
-  <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
   <string name="boardEditor">Board editor</string>
   <string name="setTheBoard">Set the board</string>
@@ -746,6 +742,9 @@
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
+  <string name="ifYouDoNotGetTheEmail">If you do not get the email within 5 minutes:</string>
+  <string name="checkAllEmailFolders">Check all junk, spam, and other folders</string>
+  <string name="verifyYourAddress">Verify that %s is your email address</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to the %s.</string>
   <string name="readAboutOur">Read about our %s.</string>
@@ -754,6 +753,7 @@
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
+  <string name="downloadAllGames">Download all games</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
@@ -777,6 +777,7 @@
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="viewTheSolution">View the solution</string>
+  <string name="noChallenges">No challenges.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>

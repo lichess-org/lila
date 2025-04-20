@@ -64,6 +64,7 @@ public/piece/mpchess | [Maxime Chupin](https://github.com/chupinmaxime) | [GPL3v
 public/piece/cooke | [fejfar](https://github.com/fejfar) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/monarchy | [slither77](https://github.com/slither77) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/xkcd | [Randall Munroe](https://xkcd.com/about) | [CC BY-NC-SA 2.5](https://xkcd.com/license.html)
+public/piece/Firi | [James Faure](https://github.com/jfaure/Firi-pieceset) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -71,7 +72,7 @@ public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/lisp | [EdinburghCollective](http://lichess.org/@/EdinburghCollective) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 SVG in ui/learn/src/apple.ts | [Sensa](https://www.svgrepo.com/svg/434273/star) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
 public/flair/img/symbols.neovim-mark.webp | Jason Long | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) (Modified by converting to webp and resizing)
-
+translation/source/puzzleTheme.xml | the lila authors and contributors | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
 ## Exceptions (non-free)
 
 <!-- prettier-ignore -->

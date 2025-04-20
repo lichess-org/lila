@@ -49,14 +49,10 @@
   <string name="theChapterIsTooShortToBeAnalysed">mi ken ala lukin sona e wan ni tan ni: ona li lili.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">jan li kepeken e nasin SYNC la, ona ale li lukin e nasin ma sama.</string>
   <string name="playing">musi</string>
-  <string name="first">o tawa e nanpa wan</string>
-  <string name="previous">monsi</string>
   <string name="next">tawa</string>
-  <string name="last">o tawa monsi</string>
   <string name="shareAndExport">o pana tawa jan ante / o pali e lipu ilo</string>
   <string name="cloneStudy">o kama jo</string>
   <string name="studyPgn">kama sona e PGN</string>
-  <string name="downloadAllGames">o kama jo e lipu ilo pi musi ale</string>
   <string name="chapterPgn">lipu \"PGN\" pi wan ni</string>
   <string name="downloadGame">o kama jo e musi</string>
   <string name="studyUrl">kama sona e URL</string>

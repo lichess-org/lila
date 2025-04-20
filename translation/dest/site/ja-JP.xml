@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">コンピューターとチェスする</string>
-  <string name="playOffline">オフラインで対局する</string>
+  <string name="playWithTheMachine">コンピュータと対戦</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -452,14 +451,12 @@
   <string name="wins">勝</string>
   <string name="losses">敗</string>
   <string name="createdBy">トーナメント作成者</string>
-  <string name="tournamentIsStarting">トーナメント開始</string>
-  <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
+  <string name="startingIn" comment="Displayed above a timer">開始まで</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="pause">休む</string>
   <string name="resume">再開する</string>
   <string name="youArePlaying">参加中！</string>
   <string name="winRate">勝率</string>
-  <string name="berserkRate">バーサーク率</string>
   <string name="performance">パフォーマンス</string>
   <string name="tournamentComplete">トーナメント終了</string>
   <string name="movesPlayed">総手数</string>
@@ -467,7 +464,6 @@
   <string name="blackWins">黒勝ち</string>
   <string name="drawRate">ドロー率</string>
   <string name="draws">ドロー</string>
-  <string name="nextXTournament">次の %s トーナメント:</string>
   <string name="averageOpponent">対局相手の平均</string>
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
@@ -717,6 +713,7 @@
   <string name="downloadAnnotated">解説つきダウンロード</string>
   <string name="downloadRaw">棋譜のみダウンロード</string>
   <string name="downloadImported">インポート分のダウンロード</string>
+  <string name="downloadAllGames">全局をダウンロード</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>

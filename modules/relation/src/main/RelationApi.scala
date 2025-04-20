@@ -38,9 +38,14 @@ final class RelationApi(
     following as fetchFollowing,
     freshFollowersFromSecondary,
     filterBlocked,
-    unfollowAll,
     removeAllFollowers
   }
+
+  def accountTermination(user: User): Fu[Set[UserId]] = for
+    followedIds <- fetchFollowing(user.id)
+    _           <- repo.removeAllRelationsFrom(user.id)
+    _           <- removeAllFollowers(user.id)
+  yield followedIds
 
   def fetchFriends(userId: UserId): Fu[Set[UserId]] =
     coll

@@ -33,8 +33,9 @@ final class User(
 
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
-      currentlyPlaying(user)
-        .orElse(lastPlayed(user))
+      env.round.currentlyPlaying
+        .exec(user.id)
+        .orElse(env.round.lastPlayed(user.id))
         .flatMap:
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
             ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
@@ -54,8 +55,8 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.ip", _.proxyMultiplier(4))
+  private val userShowHtmlRateLimit =
+    env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -73,7 +74,11 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(u.id) then 2 else 3):
+      val cost =
+        if isGrantedOpt(_.UserModView) then 0
+        else if env.socket.isOnline.exec(u.id) then 1
+        else 2
+      userShowHtmlRateLimit(rateLimited, cost = cost):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -179,12 +184,11 @@ final class User(
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
               negotiate(
-                html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  Ok.snip(
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable)
-                  ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
-                },
+                html = for
+                  pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
+                  ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
+                  snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                yield snip.withHeaders(CACHE_CONTROL -> "max-age=5"),
                 json =
                   import lila.game.JsonView.given
                   Ok:
@@ -210,21 +214,9 @@ final class User(
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
-        .dmap(
+        .dmap: // send an empty JSON array if no history JSON is available
           _ | lila.core.data.SafeJsonStr("[]")
-        ) // send an empty JSON array if no history JSON is available
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
-
-  private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.cached
-      .lastPlayedPlayingId(user.id)
-      .flatMapz:
-        env.round.proxyRepo.pov(_, user)
-
-  private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
-    env.game.gameRepo
-      .lastPlayed(user)
-      .flatMap(_.soFu(env.round.proxyRepo.upgradeIfPresent))
 
   private def userGames(
       u: UserModel,
@@ -514,12 +506,9 @@ final class User(
   )(f: UserModel => Fu[Result])(using Context, Me) =
     Found(meOrFetch(username)): user =>
       val isMod = data.mod && isGranted(_.ModNote)
-      val dox   = isMod && (data.dox || lila.fide.FideWebsite.urlToFideId(data.text).isDefined)
       for
-        _        <- env.user.noteApi.write(user.id, data.text, isMod, dox)
-        newTitle <- isMod.so(env.fide.playerApi.urlToTitle(data.text))
-        _        <- newTitle.so(env.user.repo.setTitle(user.id, _))
-        result   <- f(user)
+        _      <- env.user.noteApi.write(user.id, data.text, isMod, dox = isMod && data.dox)
+        result <- f(user)
       yield result
 
   def deleteNote(id: String) = Auth { ctx ?=> me ?=>

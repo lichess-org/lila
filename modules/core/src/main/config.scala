@@ -57,7 +57,6 @@ object config:
       assetBaseUrl: AssetBaseUrl,
       assetBaseUrlInternal: AssetBaseUrlInternal,
       minifiedAssets: Boolean,
-      externalManifest: Boolean,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],
@@ -66,6 +65,4 @@ object config:
       rateLimit: RateLimit,
       email: EmailAddress,
       logRequests: Boolean
-  ):
-    val isProd  = domain == prodDomain
-    val isHttps = baseUrl.startsWith("https")
+  )

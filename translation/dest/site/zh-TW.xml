@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">和好友下棋</string>
   <string name="playWithTheMachine">和電腦下棋</string>
-  <string name="playOffline">離線對弈</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
@@ -450,14 +449,11 @@
   <string name="wins">勝</string>
   <string name="losses">負</string>
   <string name="createdBy">創建者：</string>
-  <string name="tournamentIsStarting">錦標賽即將開始</string>
-  <string name="tournamentPairingsAreNowClosed">此錦標賽的對手配對已結束。</string>
   <string name="standByX">%s準備好，你馬上要開始對棋了！</string>
   <string name="pause">暫停</string>
   <string name="resume">繼續</string>
   <string name="youArePlaying">等待對手中</string>
   <string name="winRate">勝率</string>
-  <string name="berserkRate">快棋率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
   <string name="movesPlayed">步數</string>
@@ -465,7 +461,6 @@
   <string name="blackWins">黑方獲勝</string>
   <string name="drawRate">和棋率</string>
   <string name="draws">和棋</string>
-  <string name="nextXTournament">下一個%s錦標賽</string>
   <string name="averageOpponent">平均對手評分</string>
   <string name="boardEditor">棋盤編輯器</string>
   <string name="setTheBoard">設定版型</string>

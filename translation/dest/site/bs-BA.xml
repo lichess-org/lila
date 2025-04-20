@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Igrajte protiv prijatelja</string>
   <string name="playWithTheMachine">Igrajte protiv računara</string>
-  <string name="playOffline">Igraj bez mreže</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Da bi ste pozvali nekoga na partiju, pošaljite ovaj link</string>
   <string name="gameOver">Partija je gotova</string>
   <string name="waitingForOpponent">Čekanje na protivnika</string>
@@ -514,21 +513,17 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="createdBy">Kreirao/la</string>
-  <string name="tournamentIsStarting">Turnir počinje</string>
-  <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Pričekajte %s, uparivanje igrača je u toku, pripremite se za igru!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Nastavite</string>
   <string name="youArePlaying">Igrate!</string>
   <string name="winRate">Postotak pobjeda</string>
-  <string name="berserkRate">Postotak berserka</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnir završen</string>
   <string name="movesPlayed">Poteza odigrano</string>
   <string name="whiteWins">Pobjede bijelog</string>
   <string name="blackWins">Pobjede crnog</string>
   <string name="draws">Remi</string>
-  <string name="nextXTournament">Sljedeći %s turnir:</string>
   <string name="averageOpponent">Prosječni protivnik</string>
   <string name="boardEditor">Namjestite ploču</string>
   <string name="setTheBoard">Postavite ploču</string>

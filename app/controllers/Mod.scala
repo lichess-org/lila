@@ -228,15 +228,32 @@ final class Mod(
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
+    val whichMod: Option[UserStr] =
+      if isGranted(_.Admin) then getUserStr("mod")
+      else me.userId.into(UserStr).some
     Ok.async:
-      for
-        log     <- env.mod.logApi.recentBy(me)
-        appeals <- env.appeal.api.myLog(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)))
-        appealsLog = appeals.map: (user, msg) =>
-          Modlog(user.some, "appeal", msg.text.some).copy(date = msg.at)
-        sorted = (log ::: appealsLog).sortBy(_.date).reverse
-      yield views.mod.ui.myLogs(sorted)
+      whichMod.match
+        case None =>
+          // strictly speaking redundant because it should never be
+          // empty for non-admins, but feels safer to keep
+          isGranted(_.Admin)
+            .so(env.mod.logApi.recentHuman)
+            .map(views.mod.ui.logs(_, none, whichMod))
+        case Some(mod) =>
+          for
+            modOpt <- env.report.api.getMod(mod)
+            logs   <- modOpt.so(logsOf)
+          yield views.mod.ui.logs(logs, modOpt, whichMod)
   }
+
+  private def logsOf(mod: AsMod)(using me: Me): Fu[List[Modlog]] =
+    (isGranted(_.Admin) || mod.user.is(me)).so:
+      for
+        log     <- env.mod.logApi.recentBy(mod)
+        appeals <- env.appeal.api.logsOf(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)), mod.id)
+        appealsLog = appeals.map: (user, msg) =>
+          Modlog(user.some, "appeal", msg.text.some)(using mod.user.id.into(MyId)).copy(date = msg.at)
+      yield (log ::: appealsLog).sortBy(_.date).reverse
 
   private def communications(username: UserStr, priv: Boolean) =
     Secure(perms => if priv then perms.ViewPrivateComms else perms.Shadowban) { ctx ?=> me ?=>
@@ -308,7 +325,7 @@ final class Mod(
             s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").toList.mkString("\n")}"
         env.mod.logApi.fullCommExport(Suspect(user))
         env.irc.api.fullCommExport(user.light)
-        Ok.chunked(source).pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
+        Ok.chunked(source).asAttachmentStream(s"full-comms-export-of-${user.id}.txt")
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
@@ -509,10 +526,8 @@ final class Mod(
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
-    env.mod.presets
-      .get(group)
-      .fold(notFound): setting =>
-        Ok.page(views.mod.ui.presets(group, setting.form))
+    Found(env.mod.presets.get(group)): setting =>
+      Ok.page(views.mod.ui.presets(group, setting.form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>

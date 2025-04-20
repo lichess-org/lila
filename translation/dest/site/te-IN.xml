@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
   <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
-  <string name="playOffline">ఆఫ్ లైన్ ప్లే చేయండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు పిలవడానికి ఈ లంకె పంపండి</string>
   <string name="gameOver">ఆట ముగిసింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
@@ -490,14 +489,11 @@
   <string name="wins">విజయాలు</string>
   <string name="losses">నష్టాలు</string>
   <string name="createdBy">సృష్టికర్త</string>
-  <string name="tournamentIsStarting">టోర్నమెంట్ ప్రారంభమవుతుంది</string>
-  <string name="tournamentPairingsAreNowClosed">టోర్నమెంట్ జతలు ఇప్పుడు మూసివేయబడ్డాయి.</string>
   <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
   <string name="pause">విరామం</string>
   <string name="resume">రెస్యూమ్</string>
   <string name="youArePlaying">మీరు ఆడుతున్నారు!</string>
   <string name="winRate">విన్ రేట్</string>
-  <string name="berserkRate">బెర్సర్క్ రేటు</string>
   <string name="performance">ప్రదర్శన</string>
   <string name="tournamentComplete">టోర్నమెంట్ పూర్తయింది</string>
   <string name="movesPlayed">కదలికలు ఆడారు</string>
@@ -505,7 +501,6 @@
   <string name="blackWins">బ్లాక్ విజయాలు</string>
   <string name="drawRate">డ్రా రేటు </string>
   <string name="draws">డ్రాలు</string>
-  <string name="nextXTournament">తదుపరి %s టోర్నమెంట్:</string>
   <string name="averageOpponent">సగటు ప్రత్యర్థి</string>
   <string name="boardEditor">బోర్డు ఎడిటర్</string>
   <string name="setTheBoard">బోర్డు సెట్ చేయండి</string>

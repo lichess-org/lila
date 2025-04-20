@@ -1,10 +1,10 @@
 import { type Redraw, type VNode, bind, dataIcon, looseH as h, onInsert } from 'lib/snabbdom';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
-import { userTitle } from 'lib/userLink';
+import { userTitle } from 'lib/view/userLink';
 import type {
   ChapterId,
   Federations,
@@ -13,8 +13,7 @@ import type {
   StudyPlayer,
   StudyPlayerFromServer,
 } from '../interfaces';
-import tablesort from 'tablesort';
-import extendTablesortNumber from 'lib/tablesortNumber';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { defined } from 'lib';
 import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
@@ -394,7 +393,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
 const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
   $(el).each(function (this: HTMLElement) {
-    tablesort(this, {
+    sortTable(this, {
       descending: true,
     });
   });

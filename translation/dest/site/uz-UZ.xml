@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
   <string name="playWithTheMachine">Kompyuter bilan o\'ynang</string>
-  <string name="playOffline">Offline o\'ynash</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
@@ -486,14 +485,11 @@
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="createdBy">Yaratgan tomon</string>
-  <string name="tournamentIsStarting">Turnir boshlandi</string>
-  <string name="tournamentPairingsAreNowClosed">Turnirda sherikchilik yopilgan.</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Qayta boshlash</string>
   <string name="youArePlaying">Siz o\'yindasiz!</string>
   <string name="winRate">G\'alaba uchun imkoniyat</string>
-  <string name="berserkRate">Berserk hisobi</string>
   <string name="performance">Kutilgan reyting</string>
   <string name="tournamentComplete">Turnir yakunlandi</string>
   <string name="movesPlayed">Yurilgan yo\'llar</string>
@@ -501,7 +497,6 @@
   <string name="blackWins">Qoralar g\'alabalari</string>
   <string name="drawRate">Oʻyin tezligi</string>
   <string name="draws">Durranglar</string>
-  <string name="nextXTournament">Keyingi %s turnir:</string>
   <string name="averageOpponent">O\'rtacha raqiblar soni</string>
   <string name="boardEditor">Doskani tahrilovchi</string>
   <string name="setTheBoard">Doskani sozlash</string>

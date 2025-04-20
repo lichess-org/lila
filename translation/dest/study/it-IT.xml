@@ -53,15 +53,12 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tutti i membri in SYNC rimangono sulla stessa posizione</string>
   <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
   <string name="playing">In corso</string>
+  <string name="showResults">Risultati</string>
   <string name="showEvalBar">Barre di valutazione</string>
-  <string name="first">Primo</string>
-  <string name="previous">Precedente</string>
   <string name="next">Successivo</string>
-  <string name="last">Ultimo</string>
   <string name="shareAndExport">Condividi &amp; esporta</string>
   <string name="cloneStudy">Duplica</string>
   <string name="studyPgn">PGN dello studio</string>
-  <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="chapterPgn">PGN del capitolo</string>
   <string name="copyChapterPgn">Copia in PGN</string>
   <string name="downloadGame">Scarica partita</string>
@@ -168,4 +165,6 @@
   <string name="whatWouldYouPlay">Cosa giocheresti in questa posizione?</string>
   <string name="youCompletedThisLesson">Congratulazioni! Hai completato questa lezione.</string>
   <string name="perPage">%s per pagina</string>
+  <string name="welcomeToLichessStudyTitle">Benvenuto allo Studio!</string>
+  <string name="fromPgnGameTitle">Preso da una partita PGN</string>
 </resources>

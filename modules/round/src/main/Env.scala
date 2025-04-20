@@ -9,11 +9,10 @@ import scala.util.matching.Regex
 import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
-import lila.core.round.{ Abort, Resign }
+import lila.core.round.{ Abort, Resign, CurrentlyPlaying }
 import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.game.GameRepo
 import lila.memo.SettingStore
-import lila.rating.RatingFactor
 import lila.round.RoundGame.*
 
 @Module
@@ -35,6 +34,7 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
+    gameCache: lila.game.Cached,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
@@ -92,21 +92,6 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
-  lazy val ratingFactorsSetting: SettingStore[RatingFactor.ByKey] =
-    import play.api.data.Form
-    import play.api.data.Forms.{ single, text }
-    import lila.memo.SettingStore.{ Formable, StringReader }
-    import lila.rating.RatingFactor.given
-    given StringReader[RatingFactor.ByKey] = StringReader.fromIso
-    given Formable[RatingFactor.ByKey] =
-      Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
-    settingStore[RatingFactor.ByKey](
-      "ratingFactor",
-      default = Map.empty,
-      text = "Rating gain factor per perf type".some
-    )
-  private val getFactors: () => Map[PerfKey, RatingFactor] = ratingFactorsSetting.get
-
   Bus.subscribeFuns(
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
       onStart.exec(gameId)
@@ -133,6 +118,12 @@ final class Env(
             if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
+
+  lazy val currentlyPlaying = CurrentlyPlaying: userId =>
+    gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
+
+  def lastPlayed(userId: UserId): Fu[Option[Pov]] =
+    gameRepo.lastPlayed(userId).flatMap(_.soFu(proxyRepo.upgradeIfPresent))
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
@@ -170,7 +161,7 @@ final class Env(
 
   lazy val isOfferingRematch = lila.core.round.IsOfferingRematch(rematcher.isOffering)
 
-  private lazy val player: Player = wire[Player]
+  private lazy val player: MovePlayer = wire[MovePlayer]
 
   private lazy val drawer = wire[Drawer]
 

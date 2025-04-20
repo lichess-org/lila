@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Játék egy ismerőssel</string>
   <string name="playWithTheMachine">Játék a gép ellen</string>
-  <string name="playOffline">Offline játék</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -483,14 +482,11 @@
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
   <string name="createdBy">Készítette</string>
-  <string name="tournamentIsStarting">A verseny kezdődik</string>
-  <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
   <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
   <string name="pause">Szünet</string>
   <string name="resume">Folytatás</string>
   <string name="youArePlaying">Te következel!</string>
   <string name="winRate">Győzelmi arány</string>
-  <string name="berserkRate">Berserk arány</string>
   <string name="performance">Teljesítmény</string>
   <string name="tournamentComplete">Verseny összefoglaló</string>
   <string name="movesPlayed">Lépések száma</string>
@@ -498,7 +494,6 @@
   <string name="blackWins">Sötét győzelmek</string>
   <string name="drawRate">Döntetlenek aránya</string>
   <string name="draws">Döntetlenek</string>
-  <string name="nextXTournament">Következő %s verseny:</string>
   <string name="averageOpponent">Ellenfelek átlaga</string>
   <string name="boardEditor">Táblaszerkesztő</string>
   <string name="setTheBoard">Táblaállás</string>

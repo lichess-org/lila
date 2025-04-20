@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Jouer avec un(e) ami(e)</string>
   <string name="playWithTheMachine">Jouer contre l\'ordinateur</string>
-  <string name="playOffline">Jouer hors ligne</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
@@ -157,7 +156,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
-  <string name="drawClaimed">Nulle réclamée</string>
+  <string name="drawClaimed">Offre de nulle</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -487,14 +486,12 @@
   <string name="wins">Victoires</string>
   <string name="losses">Défaites</string>
   <string name="createdBy">Créé par</string>
-  <string name="tournamentIsStarting">Le tournoi commence</string>
-  <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
+  <string name="startingIn" comment="Displayed above a timer">Début dans</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
   <string name="pause">Pause</string>
   <string name="resume">Reprendre</string>
   <string name="youArePlaying">Vous êtes en train de jouer !</string>
   <string name="winRate">Taux de victoires</string>
-  <string name="berserkRate">Taux de berserk</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Tournoi complet</string>
   <string name="movesPlayed">Coups joués</string>
@@ -502,7 +499,6 @@
   <string name="blackWins">Gains noirs</string>
   <string name="drawRate">Taux de nulles</string>
   <string name="draws">Nulles</string>
-  <string name="nextXTournament">Prochain tournoi de %s :</string>
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="boardEditor">Éditeur de position</string>
   <string name="setTheBoard">Entrer une position</string>
@@ -757,6 +753,7 @@
   <string name="downloadAnnotated">Télécharger le PGN annoté</string>
   <string name="downloadRaw">Télécharger le PGN brut</string>
   <string name="downloadImported">Télécharger le PGN importé</string>
+  <string name="downloadAllGames">Télécharger toutes les parties</string>
   <string name="crosstable">Historique des parties</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour faire défiler la partie.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Survolez les variantes du moteur d\'analyse avec la souris pour les visualiser.</string>

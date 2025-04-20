@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Сыграть с другом</string>
   <string name="playWithTheMachine">Сыграть с компьютером</string>
-  <string name="playOffline">Играть офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -559,14 +558,12 @@
   <string name="wins">Победы</string>
   <string name="losses">Поражения</string>
   <string name="createdBy">Создан</string>
-  <string name="tournamentIsStarting">Турнир начинается</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
+  <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="pause">Приостановить</string>
   <string name="resume">Возобновить</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
-  <string name="berserkRate">Берсерк</string>
   <string name="performance">Перформанс</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
@@ -574,7 +571,6 @@
   <string name="blackWins">Побед чёрными</string>
   <string name="drawRate">Показатель ничьих</string>
   <string name="draws">Ничьих</string>
-  <string name="nextXTournament">Следующий турнир по %s:</string>
   <string name="averageOpponent">Средний рейтинг соперников</string>
   <string name="boardEditor">Редактор доски</string>
   <string name="setTheBoard">Установить позицию</string>
@@ -839,6 +835,7 @@
   <string name="downloadAnnotated">Скачать с аннотациями</string>
   <string name="downloadRaw">Скачать в исходном виде</string>
   <string name="downloadImported">Скачать в исходном виде</string>
+  <string name="downloadAllGames">Скачать все игры</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Пролистывайте варианты для их просмотра.</string>

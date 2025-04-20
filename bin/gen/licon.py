@@ -91,7 +91,7 @@ def main():
         gen_sources(codes)
 
         print('Generated:\n  public/font/lichess.woff2\n  public/font/lichess.ttf\n  public/oops/font.html')
-        print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
+        print('  modules/ui/src/main/Icon.scala\n  ui/lib/src/licon.ts')
         print('  ui/lib/css/abstract/_licon.scss\n')
         print("Don't forget to install lichess.ttf in your code editor\n")
 
@@ -134,7 +134,7 @@ def gen_sources(codes):
     longest = len(max(codes.keys(), key=len)) + 6
 
     with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
-         open('../../ui/common/src/licon.ts', 'w') as ts, \
+         open('../../ui/lib/src/licon.ts', 'w') as ts, \
          open('../../ui/lib/css/abstract/_licon.scss', 'w') as scss, \
          open('../../public/oops/font.html', 'w') as debug:
         scala.write(scala_preamble)

@@ -55,14 +55,10 @@
   <string name="playing">Playing</string>
   <string name="showResults">Results</string>
   <string name="showEvalBar">Evaluation gauge</string>
-  <string name="first">First</string>
-  <string name="previous">Previous</string>
   <string name="next">Next</string>
-  <string name="last">Last</string>
   <string name="shareAndExport">Share &amp; export</string>
   <string name="cloneStudy">Clone</string>
   <string name="studyPgn">Study PGN</string>
-  <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Chapter PGN</string>
   <string name="copyChapterPgn">Copy PGN</string>
   <string name="downloadGame">Download game</string>
@@ -169,4 +165,35 @@
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
   <string name="perPage">%s per page</string>
+  <string name="getTheTour">Need help? Get the tour!</string>
+  <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
+  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
+  <string name="sharedAndSavedText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
+  <string name="studyMembersTitle">Study members</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectators can view the study and talk in the chat.&lt;br&gt;&lt;br&gt;%2$s Contributors can make moves and update the study.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Click the %s button.&lt;br&gt;Then decide who can contribute.</string>
+  <string name="studyChaptersTitle">Study chapters</string>
+  <string name="studyChaptersText">A study can contain several chapters.&lt;br&gt;Each chapter has a distinct initial position and move tree.</string>
+  <string name="commentPositionTitle">Comment on a position</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Click the %s button, or right click on the move list on the right.&lt;br&gt;Comments are shared and saved.</string>
+  <string name="annotatePositionTitle">Annotate a position</string>
+  <string name="annotatePositionText">Click the !? button, or right click on the move list on the right.&lt;br&gt;Annotation glyphs are shared and saved.</string>
+  <string name="conclusionTitle">Thanks for your time</string>
+  <string name="conclusionText">You can find your &lt;a href=\'/study/mine/hot\'&gt;previous studies&lt;/a&gt; on your profile page.&lt;br&gt;There is also a &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blog post about studies&lt;/a&gt;.&lt;br&gt;Power users might want to press \"?\" to see keyboard shortcuts.&lt;br&gt;Have fun!</string>
+  <string name="createChapterTitle">Let\'s create a study chapter</string>
+  <string name="createChapterText">A study can have several chapters.&lt;br&gt;Each chapter has a distinct move tree &lt;br&gt;and can be created in various ways.</string>
+  <string name="fromInitialPositionTitle">From initial position</string>
+  <string name="fromInitialPositionText">Just a board setup for a new game.&lt;br&gt;Suited to explore openings.</string>
+  <string name="customPositionTitle">Custom position</string>
+  <string name="customPositionText">Set up the board your way.&lt;br&gt;Suited to explore endgames.</string>
+  <string name="loadExistingLichessGameTitle">Load an existing lichess game</string>
+  <string name="loadExistingLichessGameText">Paste a Lichess game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load the game moves in the chapter.</string>
+  <string name="fromFenStringTitle">From a FEN string</string>
+  <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
+  <string name="fromPgnGameTitle">From a PGN game</string>
+  <string name="fromPgnGameText">Paste a game in PGN format&lt;br&gt;to load moves, comments, and variations in the chapter.</string>
+  <string name="variantsAreSupportedTitle">Studies support variants</string>
+  <string name="variantsAreSupportedText">Yes, you can study crazyhouse&lt;br&gt;and all lichess variants!</string>
+  <string name="chapterConclusionText">Chapters are saved forever.&lt;br&gt;Have fun organizing your chess content!</string>
 </resources>

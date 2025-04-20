@@ -10,9 +10,7 @@ import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments }
 import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree, Clock }
 
-/** This code is still unused, and is now out of sync with the StudyPgnImport it's supposed to replace. Some
-  * features are missing that are present in StudyPgnImport, such as the ability to replay clock states.
-  */
+// This code is still unused
 object StudyPgnImportNew:
 
   import StudyPgnImport.Context
@@ -25,7 +23,7 @@ object StudyPgnImportNew:
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
+    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn, _) =>
       val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
@@ -93,33 +91,40 @@ object StudyPgnImportNew:
     data
       .san(context.currentGame.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.applyGame(context.currentGame)
-        val uci    = moveOrDrop.toUci
-        val id     = UciCharPair(uci)
-        val sanStr = moveOrDrop.toSanStr
-        val newBranch = StudyPgnImport.parseComments(data.metas.comments, annotator) match
-          case (shapes, clock, emt, comments) =>
-            NewBranch(
-              id = id,
-              move = Uci.WithSan(uci, sanStr),
-              comp = false,
-              forceVariation = false,
-              Metas(
-                ply = game.ply,
-                fen = Fen.write(game),
-                check = game.situation.check,
-                dests = None,
-                drops = None,
-                eval = None,
-                shapes = shapes,
-                comments = comments,
-                gamebook = None,
-                glyphs = data.metas.glyphs,
-                opening = None,
-                clock = ???, // TODO it's in StudyPgnImport, but not here
-                crazyData = game.situation.board.crazyData
-              )
+        val game                           = moveOrDrop.applyGame(context.currentGame)
+        val uci                            = moveOrDrop.toUci
+        val id                             = UciCharPair(uci)
+        val sanStr                         = moveOrDrop.toSanStr
+        val (shapes, clock, emt, comments) = StudyPgnImport.parseComments(data.metas.comments, annotator)
+        val mover                          = !game.ply.turn
+        val computedClock: Option[Clock] = clock
+          .map(Clock(_, trust = true.some))
+          .orElse:
+            (context.clocks(mover), emt)
+              .mapN(StudyPgnImport.guessNewClockState(_, game.ply, context.timeControl, _))
+          .filter(_.positive)
+        val newBranch =
+          NewBranch(
+            id = id,
+            move = Uci.WithSan(uci, sanStr),
+            comp = false,
+            forceVariation = false,
+            Metas(
+              ply = game.ply,
+              fen = Fen.write(game),
+              check = game.situation.check,
+              dests = None,
+              drops = None,
+              eval = None,
+              shapes = shapes,
+              comments = comments,
+              gamebook = None,
+              glyphs = data.metas.glyphs,
+              opening = None,
+              clock = computedClock,
+              crazyData = game.situation.board.crazyData
             )
+          )
 
         (Context(game, context.clocks, context.timeControl), newBranch.some)
       )

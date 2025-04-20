@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Jogar contra um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
-  <string name="playOffline">Jogar offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -487,14 +486,12 @@
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentIsStarting">O torneio está começando</string>
-  <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
+  <string name="startingIn" comment="Displayed above a timer">Começando em</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
   <string name="pause">Pausar</string>
   <string name="resume">Continuar</string>
   <string name="youArePlaying">Você está participando!</string>
   <string name="winRate">Taxa de vitórias</string>
-  <string name="berserkRate">Taxa Berserk</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio completo</string>
   <string name="movesPlayed">Movimentos realizados</string>
@@ -502,7 +499,6 @@
   <string name="blackWins">Pretas venceram</string>
   <string name="drawRate">Taxa de empates</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Defina a posição</string>
@@ -757,6 +753,7 @@
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
+  <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>

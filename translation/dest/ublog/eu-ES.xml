@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Komunitateko blogak</string>
   <string name="friendBlogs">Lagunen blogak</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess bloga</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Nire bloga</string>
+  <string name="lichessBlog">Lichess bloga</string>
+  <string name="myBlog">Nire bloga</string>
   <string name="likedBlogs">Atsegin dituzun sarrerak</string>
   <string name="blogTopics">Blogeko gaiak</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s erabiltzaileak %2$s argitaratu du</string>
   <string name="thisPostIsPublished">Sarrera hau argitaratuta dago</string>
   <string name="thisIsADraft">Hau zirriborro bat da</string>
-  <string name="moreBlogPostsBy">%s erabiltzailearen sarrera gehiago</string>
   <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
   <string name="noDrafts">Ez dago zirriborrorik.</string>
   <string name="latestBlogPosts">Blogeko azken sarrerak</string>

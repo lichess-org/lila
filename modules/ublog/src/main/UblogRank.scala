@@ -23,7 +23,7 @@ object UblogRank:
 
     def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
-      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2400))
+      else if user.hasTitle
       then Tier.NORMAL
       else Tier.LOW
 
@@ -41,7 +41,7 @@ object UblogRank:
       BEST    -> "Best"
     )
     object tierDays:
-      val LOW  = -7
+      val LOW  = -4
       val HIGH = 5
       val BEST = 7
       val map  = Map(Tier.LOW -> LOW, Tier.HIGH -> HIGH, Tier.BEST -> BEST)

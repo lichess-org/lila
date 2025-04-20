@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Bir arkadaşınla oyna</string>
   <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
-  <string name="playOffline">Çevrimdışı Oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -486,14 +485,11 @@
   <string name="wins">Galibiyetler</string>
   <string name="losses">Mağlubiyetler</string>
   <string name="createdBy">Oluşturan kişi</string>
-  <string name="tournamentIsStarting">Turnuva başlıyor</string>
-  <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
   <string name="pause">Duraklat</string>
   <string name="resume">Devam et</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
-  <string name="berserkRate">Divane oranı</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnuva sona erdi</string>
   <string name="movesPlayed">Toplam hamle sayısı</string>
@@ -501,7 +497,6 @@
   <string name="blackWins">Siyah zaferleri</string>
   <string name="drawRate">Berabere oranı</string>
   <string name="draws">Beraberlikler</string>
-  <string name="nextXTournament">Sıradaki %s Turnuvası:</string>
   <string name="averageOpponent">Ortalama rakip</string>
   <string name="boardEditor">Tahta yapıcı</string>
   <string name="setTheBoard">Tahtayı ayarla</string>
@@ -746,6 +741,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="ifYouDoNotGetTheEmail">Eğer 5 dakika içerisinde mail size ulaşmazsa:</string>
+  <string name="checkAllEmailFolders">Tüm çöp, spam ve diğer klasörleri kontrol edin</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="readAboutOur">%s hakkında bilgi edinin.</string>

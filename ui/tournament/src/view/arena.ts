@@ -7,7 +7,7 @@ import { teamName } from './battle';
 import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
 import { renderPager } from '../pagination';
-import { userLink } from 'lib/userLink';
+import { userLink } from 'lib/view/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -76,7 +76,7 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
       ? [
           h('tr', [h('th', i18n.site.winRate), h('td', ratio2percent(nb.win / nb.game))]),
           berserkable
-            ? h('tr', [h('th', i18n.site.berserkRate), h('td', ratio2percent(nb.berserk / nb.game))])
+            ? h('tr', [h('th', i18n.arena.berserkRate), h('td', ratio2percent(nb.berserk / nb.game))])
             : null,
         ]
       : []),

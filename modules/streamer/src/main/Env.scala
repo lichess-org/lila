@@ -35,7 +35,8 @@ final class Env(
     userApi: lila.core.user.UserApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
     db: lila.db.Db,
-    net: lila.core.config.NetConfig
+    net: lila.core.config.NetConfig,
+    langList: lila.core.i18n.LangList
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
@@ -73,7 +74,8 @@ final class Env(
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
     twitchApi = twitchApi,
-    ytApi = ytApi
+    ytApi = ytApi,
+    langList = langList
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]

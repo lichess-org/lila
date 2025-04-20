@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
-  <string name="playOffline">Joacă offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -523,14 +522,11 @@
   <string name="wins">Victorii</string>
   <string name="losses">Înfrângeri</string>
   <string name="createdBy">Creat de</string>
-  <string name="tournamentIsStarting">Turneul începe</string>
-  <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>
   <string name="resume">Continuare</string>
   <string name="youArePlaying">Te joci!</string>
   <string name="winRate">Procent de câștig</string>
-  <string name="berserkRate">Procent jocuri cu timp înjumătățit</string>
   <string name="performance">Performanță</string>
   <string name="tournamentComplete">Turneu încheiat</string>
   <string name="movesPlayed">Mutări jucate</string>
@@ -538,7 +534,6 @@
   <string name="blackWins">Negrul câștigă</string>
   <string name="drawRate">Rata de remiză</string>
   <string name="draws">Remize</string>
-  <string name="nextXTournament">Următorul turneu %s:</string>
   <string name="averageOpponent">Cota medie a adversarilor</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Așează tabla</string>
@@ -798,6 +793,7 @@
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poți acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>

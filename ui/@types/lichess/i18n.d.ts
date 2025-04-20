@@ -297,6 +297,8 @@ interface I18n {
     myBroadcasts: string;
     /** %s broadcasts */
     nbBroadcasts: I18nPlural;
+    /** %s viewers */
+    nbViewers: I18nPlural;
     /** New live broadcast */
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
@@ -995,8 +997,8 @@ interface I18n {
     emailChange_subject: I18nFormat;
     /** Click the link to enable your Lichess account: */
     emailConfirm_click: string;
-    /** If you did not register with Lichess you can safely ignore this message. */
-    emailConfirm_ignore: string;
+    /** If you did not register with Lichess, you can safely ignore this message. The unconfirmed account and all traces of your email address will be deleted from our system after 48 hours. */
+    emailConfirm_justIgnore: string;
     /** Confirm your lichess.org account, %s */
     emailConfirm_subject: I18nFormat;
     /** Log in to lichess.org, %s */
@@ -2811,8 +2813,6 @@ interface I18n {
     backToGame: string;
     /** Back to tournament */
     backToTournament: string;
-    /** Berserk rate */
-    berserkRate: string;
     /** Best move arrow */
     bestMoveArrow: string;
     /** Best was %s */
@@ -3959,7 +3959,7 @@ interface I18n {
     signupEmailHint: string;
     /** Sign up to host or join a simul */
     signUpToHostOrJoinASimul: string;
-    /** Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed! */
+    /** Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed! */
     signupUsernameHint: string;
     /** You may add extra initial time to your clock to help you cope with the simul. */
     simulAddExtraTime: string;
@@ -4149,8 +4149,6 @@ interface I18n {
     tournamentMayHaveBeenCanceled: string;
     /** Tournament not found */
     tournamentNotFound: string;
-    /** The tournament pairings are now closed. */
-    tournamentPairingsAreNowClosed: string;
     /** Tournament points */
     tournamentPoints: string;
     /** Tournaments */
@@ -4663,6 +4661,8 @@ interface I18n {
     automatic: string;
     /** Back */
     back: string;
+    /** Black defeat, but White can't win */
+    blackDefeatWhiteCanNotWin: string;
     /** Black is better */
     blackIsBetter: string;
     /** Black is slightly better */
@@ -4739,8 +4739,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
-    /** Download all games */
-    downloadAllGames: string;
+    /** Double defeat */
+    doubleDefeat: string;
     /** Download game */
     downloadGame: string;
     /** Dubious move */
@@ -4981,6 +4981,8 @@ interface I18n {
     whatWouldYouPlay: string;
     /** Where do you want to study that? */
     whereDoYouWantToStudyThat: string;
+    /** White defeat, but Black can't win */
+    whiteDefeatBlackCanNotWin: string;
     /** White is better */
     whiteIsBetter: string;
     /** White is slightly better */
@@ -5137,8 +5139,6 @@ interface I18n {
     similarToOTB: string;
     /** Sonneborn–Berger score */
     sonnebornBergerScore: string;
-    /** Starting in */
-    startingIn: string;
     /** Starting soon */
     startingSoon: string;
     /** Streaks and Berserk */
@@ -5491,8 +5491,6 @@ interface I18n {
     lichessOfficialBlog: string;
     /** Liked blog posts */
     likedBlogs: string;
-    /** More blog posts by %s */
-    moreBlogPostsBy: I18nFormat;
     /** My blog */
     myBlog: string;
     /** %s views */

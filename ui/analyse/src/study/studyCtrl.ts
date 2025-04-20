@@ -50,7 +50,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/dialogs';
+import { alert } from 'lib/view/dialogs';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -159,14 +159,11 @@ export default class StudyCtrl {
     this.multiCloudEval = ctrl.ceval.possible
       ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
       : undefined;
-    this.relay =
-      relayData &&
-      new RelayCtrl(
+    if (relayData) {
+      this.relay = new RelayCtrl(
         this.data.id,
         relayData,
-        this.send,
-        ctrl.redraw,
-        ctrl.isEmbed,
+        ctrl,
         this.members,
         this.chapters.list,
         this.multiCloudEval,
@@ -174,6 +171,7 @@ export default class StudyCtrl {
         this.chapterSelect,
         this.updateHistoryAndAddressBar,
       );
+    }
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
       defined(this.relay),
@@ -484,6 +482,7 @@ export default class StudyCtrl {
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
       this.vm.loading = true;
+      this.relay?.onChapterChange(id);
       this.redraw();
     } else {
       // not sticky, not sending the chapter change to the server
@@ -492,8 +491,9 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      componentCallbacks(id);
+      this.relay?.liveboardPlugin?.reset();
       await this.xhrReload();
+      componentCallbacks(id);
     }
     window.scrollTo(0, 0);
     return true;

@@ -34,7 +34,6 @@
   <string name="xPublishedY">%1$s objavio %2$s</string>
   <string name="thisPostIsPublished">Ovaj post je objavljen</string>
   <string name="thisIsADraft">Ovo je skica</string>
-  <string name="moreBlogPostsBy">Više blog objava od %s</string>
   <string name="noPostsInThisBlogYet">Još nema postova na ovom blogu.</string>
   <string name="noDrafts">Nema skica za prikaz.</string>
   <string name="latestBlogPosts">Najnovije objave na blogu</string>

@@ -104,7 +104,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       h2(tro.welcomeToLichess()),
       p(tro.thisIsYourProfilePage()),
       p(
-        if u.kid then trans.site.kidModeIsEnabled()
+        if u.kid.yes then trans.site.kidModeIsEnabled()
         else
           tro.enabledKidModeSuggestion:
             a(href := routes.Account.kid)(trans.site.kidMode())

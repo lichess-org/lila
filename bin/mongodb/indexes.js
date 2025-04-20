@@ -107,6 +107,10 @@ db.user4.createIndex(
   { 'delete.requested': 1 },
   { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } },
 );
+db.user4.createIndex(
+  { mustConfirmEmail: 1 },
+  { partialFilterExpression: { mustConfirmEmail: { $exists: 1 } }, expireAfterSeconds: 3600 * 24 * 2 },
+);
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, slug: 1 });
@@ -296,6 +300,10 @@ db.study_chapter_flat.createIndex(
 );
 db.title_request.createIndex({ userId: 1 });
 db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
+db.title_request.createIndex(
+  { 'data.fideId': 1, 'history.0.at': -1 },
+  { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } },
+);
 
 // you may want to run these on the insight database
 // if it's a different one

@@ -1,14 +1,14 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h, type LooseVNode } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/controls';
+import { toggle, copyMeInput } from 'lib/view/controls';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -19,7 +19,10 @@ import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
-import { relayChatView } from './relayChat';
+import { renderChat } from 'lib/chat/renderChat';
+import { displayColumns, isTouchDevice } from 'lib/device';
+import { verticalResizeSeparator } from 'lib/view/verticalResize';
+import { watchers } from 'lib/view/watchers';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -37,9 +40,11 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctx: RelayViewContext) => {
+export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
+  const resizeId =
+    !isTouchDevice() && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
   return h(
     'aside.relay-tour__side',
     {
@@ -78,8 +83,26 @@ export const tourSide = (ctx: RelayViewContext) => {
             ]),
           ]),
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
-      !empty && gamesList(study, relay),
-      relayChatView(ctx),
+      !empty ? gamesList(study, relay) : h('div.vertical-spacer'),
+      !empty &&
+        resizeId &&
+        verticalResizeSeparator({
+          key: `relay-games.${resizeId}`,
+          min: () => 48,
+          max: () => 48 * study.chapters.list.size(),
+          initialMaxHeight: window.innerHeight / 2,
+        }),
+      ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
+      resizeId &&
+        verticalResizeSeparator({
+          key: 'relay-chat',
+          id: resizeId,
+          min: () => 0,
+          max: () => window.innerHeight,
+          initialMaxHeight: window.innerHeight / 3,
+          kid: h('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
+        }),
+      kid,
     ],
   );
 };
@@ -266,7 +289,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
               {
                 hook: onInsert(el => {
                   const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
-                  goTo?.scrollIntoView();
+                  goTo
+                    ?.closest('.relay-tour__round-select')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }),
               },
               h(

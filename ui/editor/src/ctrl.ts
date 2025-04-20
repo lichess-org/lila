@@ -17,7 +17,7 @@ import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'lib';
-import { prompt } from 'lib/dialogs';
+import { prompt } from 'lib/view/dialogs';
 import { opposite } from 'chessground/util';
 
 export default class EditorCtrl {

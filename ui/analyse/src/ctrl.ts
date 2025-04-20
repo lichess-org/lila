@@ -1,4 +1,4 @@
-import { fenToEpd, readDests, readDrops } from 'lib/chess/chess';
+import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
 import { playable, playedTurns } from 'lib/game/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -7,14 +7,7 @@ import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'lib/device';
-import type {
-  AnalyseOpts,
-  AnalyseData,
-  ServerEvalData,
-  JustCaptured,
-  NvuiPlugin,
-  MultiRedraw,
-} from './interfaces';
+import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
@@ -42,7 +35,7 @@ import { storedBooleanProp } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import type StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
@@ -52,7 +45,8 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
-import { confirm } from 'lib/dialogs';
+import { ChatCtrl } from 'lib/chat/chatCtrl';
+import { confirm } from 'lib/view/dialogs';
 import api from './api';
 
 export default class AnalyseCtrl {
@@ -83,6 +77,7 @@ export default class AnalyseCtrl {
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
+  chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
 
   // state flags
@@ -131,7 +126,7 @@ export default class AnalyseCtrl {
 
   constructor(
     readonly opts: AnalyseOpts,
-    readonly redraw: MultiRedraw,
+    readonly redraw: Redraw,
     makeStudy?: typeof StudyCtrl,
   ) {
     this.data = opts.data;
@@ -190,7 +185,12 @@ export default class AnalyseCtrl {
       }
       site.redirect('/analysis');
     }
-
+    if (this.opts.chat && !this.isEmbed) {
+      this.chatCtrl = new ChatCtrl(
+        { ...this.opts.chat, enhance: { plies: true, boards: !!this.study?.relay } },
+        this.redraw,
+      );
+    }
     pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
@@ -204,9 +204,11 @@ export default class AnalyseCtrl {
       this.redraw();
     });
     pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-      redraw();
+      if (this.chessground) {
+        this.chessground.state.addPieceZIndex = is3d;
+        this.chessground.redrawAll();
+        redraw();
+      }
     });
     this.persistence?.merge();
     (window as any).lichess.analysis = api(this);

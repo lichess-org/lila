@@ -55,14 +55,10 @@
   <string name="playing">Παίζονται</string>
   <string name="showResults">Αποτελέσματα</string>
   <string name="showEvalBar">Μπάρες αξιολόγησης</string>
-  <string name="first">Πρώτη</string>
-  <string name="previous">Προηγούμενη</string>
   <string name="next">Επόμενη</string>
-  <string name="last">Τελευταία</string>
   <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="studyPgn">PGN της μελέτης</string>
-  <string name="downloadAllGames">Λήψη όλων των παιχνιδιών</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
   <string name="copyChapterPgn">Αντιγραφή PGN</string>
   <string name="downloadGame">Λήψη παιχνιδιού</string>

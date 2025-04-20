@@ -55,14 +55,10 @@
   <string name="playing">Pågår</string>
   <string name="showResults">Resultater</string>
   <string name="showEvalBar">Evalueringssøyler</string>
-  <string name="first">Første</string>
-  <string name="previous">Forrige</string>
   <string name="next">Neste</string>
-  <string name="last">Siste</string>
   <string name="shareAndExport">Del og eksporter</string>
   <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Studie-PGN</string>
-  <string name="downloadAllGames">Last ned alle partiene</string>
   <string name="chapterPgn">Kapittel-PGN</string>
   <string name="copyChapterPgn">Kopier PGN</string>
   <string name="downloadGame">Last ned partiet</string>
@@ -169,4 +165,38 @@
   <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
   <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
   <string name="perPage">%s per side</string>
+  <string name="getTheTour">Trenger du hjelp? Ta omvisningen!</string>
+  <string name="welcomeToLichessStudyTitle">Velkommen til Lichess-studier!</string>
+  <string name="welcomeToLichessStudyText">Dette er et delt analysebrett.&lt;br&gt;&lt;br&gt;Bruk det til å analysere og kommentere partier,&lt;br&gt;diskutere stillinger med venner,&lt;br&gt;og selvfølgelig til sjakkleksjoner!&lt;br&gt;&lt;br&gt;Det er et kraftig verktøy, la oss ta oss tid til å se hvordan det fungerer.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Delt og lagret</string>
+  <string name="sharedAndSavedText">Andre medlemmer kan se trekkene dine i sanntid!&lt;br&gt;I tillegg blir alt lagret for alltid.</string>
+  <string name="studyMembersTitle">Studiemedlemmer</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Tilskuere kan se studien og samtale.&lt;br&gt;&lt;br&gt;%2$s Bidragsytere kan gjøre trekk og oppdatere studien.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klikk på %s-knappen.&lt;br&gt;Deretter bestemmer du hvem som kan bidra eller ikke.</string>
+  <string name="studyChaptersTitle">Studiekapitler</string>
+  <string name="studyChaptersText">En studie kan inneholde flere kapitler.&lt;br&gt;Hvert kapittel har en egen utgangsstilling og et eget trekktre.</string>
+  <string name="commentPositionTitle">Kommenter en stilling</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikk på %s-knappen, eller høyreklikk på trekklisten til høyre.&lt;br&gt;Kommentarer deles og lagres.</string>
+  <string name="annotatePositionTitle">Kommenter en stilling med symboler</string>
+  <string name="annotatePositionText">Klikk på !? -knappen, eller høyreklikk på trekklisten til høyre.&lt;br&gt;Kommentarsymboler deles og lagres.</string>
+  <string name="conclusionTitle">Takk for at du tok deg tid</string>
+  <string name="conclusionText">Du kan finne dine &lt;a href=\'/study/mine/hot\'&gt;tidligere studier&lt;/a&gt; fra profilen din.&lt;br&gt;Det finnes også et &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blogginnlegg om studier&lt;/a&gt;.&lt;br&gt;Erfarne brukere kan trykke på «?» for å se hurtigtaster.&lt;br&gt;Ha det gøy!</string>
+  <string name="createChapterTitle">La oss lage et studiekapittel</string>
+  <string name="createChapterText">En studie kan ha flere kapitler.&lt;br&gt;Hvert kapittel har et eget trekktre,&lt;br&gt;og kan opprettes på forskjellige måter.</string>
+  <string name="fromInitialPositionTitle">Fra utgangsstillingen</string>
+  <string name="fromInitialPositionText">Bare et brettoppsett for et nytt parti.&lt;br&gt;Egnet for å utforske åpninger.</string>
+  <string name="customPositionTitle">Egendefinert stilling</string>
+  <string name="customPositionText">Sett opp brettet slik du ønsker.&lt;br&gt;Egnet for å utforske sluttspill.</string>
+  <string name="loadExistingLichessGameTitle">Last inn et eksisterende Lichess-parti</string>
+  <string name="loadExistingLichessGameText">Lim inn en URL til et Lichess-parti&lt;br&gt;(som lichess.org/7fHIU0XI)&lt;br&gt;for å laste inn trekkene fra partiet i kapittelet.</string>
+  <string name="fromFenStringTitle">Fra FEN-streng</string>
+  <string name="fromFenStringText">Lim inn en stilling i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;for å starte kapittelet fra en stilling.</string>
+  <string name="fromPgnGameTitle">Fra PGN-parti</string>
+  <string name="fromPgnGameText">Lim inn et parti i PGN-format.&lt;br&gt;for å laste inn trekk, kommentarer og varianter i kapittelet.</string>
+  <string name="variantsAreSupportedTitle">Studier støtter varianter</string>
+  <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle Lichess-varianter!</string>
+  <string name="chapterConclusionText">Kapitler lagres for alltid.&lt;br&gt;Ha det gøy med å organisere sjakkinnholdet ditt!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt tap</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svart tap, men hvit kan ikke vinne</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvitt tap, men svart kan ikke vinne</string>
 </resources>

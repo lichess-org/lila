@@ -4,6 +4,8 @@
 /.bloop/
 /.metals/
 /.pnpm-store/
+/bin/git-hooks/post-*
+/bin/git-hooks/pre-push
 /project/.bloop/
 /conf/application.conf
 /conf/version.conf
@@ -15,7 +17,6 @@ logs/
 /public/compiled/
 /public/hashed/
 /public/npm/
-/public/lifat
 /public/css/
 /public/json/
 target/

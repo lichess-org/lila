@@ -20,7 +20,8 @@ import {
   renderUnderboard,
 } from './components';
 import { wikiToggleBox } from '../wiki';
-import { watchers } from 'lib/watchers';
+import { watchers } from 'lib/view/watchers';
+import { renderChat } from 'lib/chat/renderChat';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
@@ -33,8 +34,8 @@ export default function (deps?: typeof studyDeps) {
 function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { study, gamebookPlayView, gaugeOn } = ctx;
-
-  return renderMain(ctx, [
+  return renderMain(
+    ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
     study && deps?.studyView.overboard(study),
     renderBoard(ctx),
@@ -81,6 +82,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                     ),
                 ],
         ),
+    ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
     h('div.chat__members.none', { hook: onInsert(watchers) }),
-  ]);
+  );
 }

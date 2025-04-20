@@ -1,23 +1,15 @@
 import * as co from 'chessops';
-import { hashBoard, hashChess } from 'lib/chess/hash';
+import { hashBoard, hashChess } from 'lib/game/hash';
 import { deepFreeze } from 'lib/algo';
 import { normalizeMove } from 'chessops/chess';
-
-export type OpeningMove = { uci: string; weight: number };
-
-export type OpeningBook = (pos: co.Chess, normalized?: boolean /* = true */) => OpeningMove[];
-
-export type PgnProgress = (processed: number, total: number) => boolean | undefined; // return false to stop
-
-export type PgnFilter = (game: co.pgn.Game<co.pgn.PgnNodeData>) => boolean;
-
-export type PolyglotOpts = { cover?: boolean | { boardSize: number } } & (
-  | { pgn: Blob; ply: number; progress?: PgnProgress }
-  | { bytes: DataView }
-  | { getMoves: OpeningBook }
-);
-
-export type PolyglotResult = { getMoves: OpeningBook; positions?: number; polyglot?: Blob; cover?: Blob };
+import type {
+  OpeningMove,
+  OpeningBook,
+  PgnProgress,
+  PgnFilter,
+  PolyglotResult,
+  PolyglotOpts,
+} from 'lib/game/polyglot';
 
 export async function initModule(o: PolyglotOpts): Promise<any> {
   if (!o) return hashBoard;
@@ -43,7 +35,7 @@ async function makeBookPgn(
 ): Promise<PolyglotResult> {
   let bigMap: Map<bigint, Map<string, number>> | undefined = new Map();
   for await (const game of pgnFromBlob(blob, 8 * 1024 * 1024, progress)) {
-    if (!game) return { getMoves: () => [], positions: 0 };
+    if (!game) return { getMoves: () => Promise.resolve([]), positions: 0 };
     if (filter && !filter(game)) continue;
     traverseTree(co.pgn.startingPosition(game.headers).unwrap(), game.moves, maxPly);
   }
@@ -157,7 +149,7 @@ async function makeCover(polyglotBook: OpeningBook, boardSize: number, numMoves?
     }
   }
 
-  traverseTree(co.Chess.default(), 4);
+  await traverseTree(co.Chess.default(), 4);
 
   for (const [sq, comp] of composition.squares) {
     const [x, y] = [co.squareFile(sq) * squareSize, (7 - co.squareRank(sq)) * squareSize];
@@ -182,14 +174,14 @@ async function makeCover(polyglotBook: OpeningBook, boardSize: number, numMoves?
   }
   return await canvas.convertToBlob({ type: 'image/png' });
 
-  function traverseTree(chess: co.Chess, plyToGo: number) {
+  async function traverseTree(chess: co.Chess, plyToGo: number) {
     if (plyToGo === 0) return;
-    for (const om of polyglotBook(chess)) {
+    for (const om of await polyglotBook(chess)) {
       const { move } = normalMove(chess, om.uci) ?? {};
       if (!move) continue;
       const nextChess = chess.clone();
       nextChess.play(move);
-      traverseTree(nextChess, plyToGo - 1);
+      await traverseTree(nextChess, plyToGo - 1);
       composeBoard(nextChess);
     }
   }
@@ -218,11 +210,10 @@ function makeImage(svg: string) {
 }
 
 function getMoves(book: Map<bigint, OpeningMove[]>): OpeningBook {
-  return (pos: co.Chess, normalized = true) => {
+  return (pos: co.Chess): Promise<OpeningMove[]> => {
     const moves = book.get(hashChess(pos)) ?? [];
-    if (!normalized) return moves;
     const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
-    return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
+    return Promise.resolve(moves.map(m => ({ uci: m.uci, weight: m.weight / sum })));
   };
 }
 

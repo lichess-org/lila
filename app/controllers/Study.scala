@@ -429,7 +429,7 @@ final class Study(
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader, Option[Me]) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, flags(requestPgnFlags)).throttle(20, 1.second))
-      .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn"))
+      .asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn")
       .as(pgnContentType)
       .withDateHeaders(lastModified(study.updatedAt))
 
@@ -460,7 +460,7 @@ final class Study(
           CanView(study) {
             env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter).map { pgn =>
               Ok(pgn.toString)
-                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+                .asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn")
                 .as(pgnContentType)
             }
           }(studyUnauthorized(study), studyForbidden(study))
@@ -481,7 +481,7 @@ final class Study(
         akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
-        .pipe(asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn"))
+        .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")
         .as(pgnContentType)
 
   def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
@@ -510,7 +510,7 @@ final class Study(
             .ofChapter(chapter, theme, piece)
             .map: stream =>
               Ok.chunked(stream)
-                .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
+                .asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)

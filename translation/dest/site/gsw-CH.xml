@@ -2,11 +2,10 @@
 <resources>
   <string name="playWithAFriend">Schpill mit eme Fründ</string>
   <string name="playWithTheMachine">Schpill mit em Computer</string>
-  <string name="playOffline">Schpill offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
-  <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
+  <string name="orLetYourOpponentScanQrCode">Oder loh din Gägner de QR-Code skänne</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
@@ -282,8 +281,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="drawOfferCanceled">Remis-Agebot zruggzoge</string>
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
   <string name="blackOffersDraw">Schwarz offeriert Remis</string>
-  <string name="whiteDeclinesDraw">Wiss lähnt es Remis ab</string>
-  <string name="blackDeclinesDraw">Schwarz lähnt es Remis ab</string>
+  <string name="whiteDeclinesDraw">Wiss wott keis Remis</string>
+  <string name="blackDeclinesDraw">Schwarz wott keis Remis</string>
   <string name="yourOpponentOffersADraw">Din Gägner offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
   <string name="decline">Ablehnä</string>
@@ -489,22 +488,19 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="wins">Sieg</string>
   <string name="losses">Niederlage</string>
   <string name="createdBy">Erschtellt vo</string>
-  <string name="tournamentIsStarting">s\'Turnier fangt a</string>
-  <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
+  <string name="startingIn" comment="Displayed above a timer">Schtartet in</string>
   <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
   <string name="pause">Pausiere</string>
   <string name="resume">wieder ischtige</string>
   <string name="youArePlaying">Dis Schpiel fangt a!</string>
   <string name="winRate">Gwünn Rate</string>
-  <string name="berserkRate">Berserkrate</string>
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
   <string name="movesPlayed">Gschpillti Züg</string>
-  <string name="whiteWins">Sieg mit Wiss</string>
-  <string name="blackWins">Sieg mit Schwarz</string>
+  <string name="whiteWins">Wiss günnt</string>
+  <string name="blackWins">Schwarz günnt</string>
   <string name="drawRate">Remis-Rate</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnitt - Gägner</string>
   <string name="boardEditor">Schtellig ufbaue</string>
   <string name="setTheBoard">Brätt ufbaue</string>
@@ -597,8 +593,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="clockIncrement">Zit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
   <string name="privacyPolicy">Datäschutzbeschtimmige</string>
-  <string name="letOtherPlayersFollowYou">Lass anderi Schpiller dir folge</string>
-  <string name="letOtherPlayersChallengeYou">Lass anderi Schpiller dich fordere</string>
+  <string name="letOtherPlayersFollowYou">Loh anderi Schpiller dir folge</string>
+  <string name="letOtherPlayersChallengeYou">Loh anderi Schpiller dich usefordere</string>
   <string name="letOtherPlayersInviteYouToStudy">Andere Schpiller erlaube, dich zu ere Schtudie izlade</string>
   <string name="sound">Ton</string>
   <string name="none">Keine</string>
@@ -766,6 +762,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
   <string name="downloadImported">Importierte Download</string>
+  <string name="downloadAllGames">All Schpiel abelade</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpil vor- oder rückwärts laufe.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
@@ -845,7 +842,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="computerThinking">De Computer rächnet ...</string>
   <string name="seeBestMove">Zeig de bescht Zug</string>
   <string name="hideBestMove">Verschteck de bescht Zug</string>
-  <string name="getAHint">Lass dir en Tipp geh</string>
+  <string name="getAHint">Loh dir en Tipp geh</string>
   <string name="evaluatingYourMove">Din Zug wird g\'wertet ...</string>
   <string name="whiteWinsGame">Wiss günnt</string>
   <string name="blackWinsGame">Schwarz günnt</string>

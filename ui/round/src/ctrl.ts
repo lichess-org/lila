@@ -19,20 +19,17 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import type { MoveRootCtrl } from 'lib/chess/moveRootCtrl';
+import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { userTxt } from './view/user';
 import * as cevalSub from './cevalSub';
 import { init as keyboardInit } from './keyboard';
-import { PromotionCtrl, promote } from 'lib/chess/promotion';
+import { PromotionCtrl, promote } from 'lib/game/promotion';
 import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
-import { info as infoDialog } from 'lib/dialogs';
-import { isCol1 } from 'lib/device';
-
 import type {
   Step,
   RoundOpts,
@@ -46,11 +43,11 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, type LichessBooleanStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
-import { plyToTurn } from 'lib/chess/chess';
+import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
+import { plyToTurn } from 'lib/game/chess';
 import { wsDestroy } from 'lib/socket';
 import Server from './server';
 
@@ -583,9 +580,6 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
-    if (isCol1()) {
-      infoDialog(viewStatus(this.data), 3000);
-    }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -867,6 +861,10 @@ export default class RoundController implements MoveRootCtrl {
   setChessground = (cg: CgApi): void => {
     this.chessground = cg;
     const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+    });
     if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) {
       if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(this);
@@ -877,10 +875,6 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-    });
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
@@ -897,6 +891,15 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
     return v;
   };
+
+  yeet = (): void => {
+    if (!this.data.player.spectator) this.doYeet();
+  };
+
+  private doYeet = memoize(() => {
+    this.chessground.stop();
+    site.asset.loadEsm('round.yeet');
+  });
 
   private delayedInit = () => {
     requestIdleCallback(() => {

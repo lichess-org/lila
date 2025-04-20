@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Bir dostunla oyna</string>
   <string name="playWithTheMachine">Kompüterlə oyna</string>
-  <string name="playOffline">Oflayn oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
   <string name="gameOver">Oyun Bitdi</string>
   <string name="waitingForOpponent">Rəqib gözlənilir</string>
@@ -478,21 +477,17 @@
   <string name="wins">Qələbələr</string>
   <string name="losses">Məğlubiyyətlər</string>
   <string name="createdBy">tərəfindən yaradılıb.</string>
-  <string name="tournamentIsStarting">Turnir başlayır</string>
-  <string name="tournamentPairingsAreNowClosed">Turnir qoşulmaları indi bağlıdır.</string>
   <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
   <string name="pause">Fasilə ver</string>
   <string name="resume">Davam et</string>
   <string name="youArePlaying">Oyundasınız!</string>
   <string name="winRate">Qazanma əmsalı</string>
-  <string name="berserkRate">Berserk əmsalı</string>
   <string name="performance">Reytinq</string>
   <string name="tournamentComplete">Turnir tamamlandı</string>
   <string name="movesPlayed">Oynanılan gediş</string>
   <string name="whiteWins">Ağların qələbəsi</string>
   <string name="blackWins">Qaraların qələbəsi</string>
   <string name="draws">Heç-heçələr</string>
-  <string name="nextXTournament">Növbəti %s turniri:</string>
   <string name="averageOpponent">Ortalama rəqib</string>
   <string name="boardEditor">Lövhə redaktoru</string>
   <string name="setTheBoard">Lövhəni tənzimlə</string>

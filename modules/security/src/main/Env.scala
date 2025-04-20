@@ -24,7 +24,9 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
+    canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
+    lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
@@ -40,6 +42,7 @@ final class Env(
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),
+    config = config,
     scheduler = scheduler,
     ws = ws
   )
@@ -82,6 +85,8 @@ final class Env(
   )
 
   lazy val printBan = PrintBan(db(config.collection.printBan))
+
+  private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
@@ -155,6 +160,12 @@ final class Env(
     text = "Types of proxy that require 2FA to login".some
   ).taggedWith[Proxy2faSetting]
 
+  val mobileSignupProxy = settingStore[Strings](
+    "mobileSignupProxy",
+    default = Strings(List("VPN", "CPN")),
+    text = "Types of proxy that can signup using the legacy mobile API".some
+  ).taggedWith[MobileSignupProxy]
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
@@ -166,3 +177,4 @@ final class Env(
     export userLogins.getUserIdsWithSameIpAndPrint
 
 private trait Proxy2faSetting
+private trait MobileSignupProxy

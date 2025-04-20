@@ -55,14 +55,10 @@
   <string name="playing">Po luhet</string>
   <string name="showResults">Përfundime</string>
   <string name="showEvalBar">Shtylla vlerësimi</string>
-  <string name="first">E para</string>
-  <string name="previous">E mëparshmja</string>
   <string name="next">Pasuesja</string>
-  <string name="last">E fundit</string>
   <string name="shareAndExport">Ndajeni me të tjerë &amp; eksportoni</string>
   <string name="cloneStudy">Klonoje</string>
   <string name="studyPgn">Studioni PGN</string>
-  <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
   <string name="chapterPgn">PGN e kapitullit</string>
   <string name="copyChapterPgn">Kopjo PGN</string>
   <string name="downloadGame">Shkarko lojën</string>
@@ -169,4 +165,37 @@
   <string name="whatWouldYouPlay">Ç’lëvizje do të bënit në këtë pozicion?</string>
   <string name="youCompletedThisLesson">Përgëzime! E mbaruat këtë mësim.</string>
   <string name="perPage">%s për faqe</string>
+  <string name="getTheTour">Ju duhet ndihmë? Bëni turin!</string>
+  <string name="welcomeToLichessStudyTitle">Mirë se vini te Ushtrim në Lichess!</string>
+  <string name="welcomeToLichessStudyText">Kjo është një fushë analize që u tregohet të tjerëve.&lt;br&gt;&lt;br&gt;Përdoreni për të analizuar dhe mbajtur shëni lojërat,&lt;br&gt;për të diskutuar pozicione me shokët,&lt;br&gt;dhe, sigurisht, për mësime shahu!&lt;br&gt;&lt;br&gt;Është një mjet i fuqishëm, le ta kalojmë për pak, për të parë se si funksionon.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Tregohen dhe ruhen</string>
+  <string name="sharedAndSavedText">Anëtarët e tjerë mund të shohin aty për aty lëvizjet tuaja!&lt;br&gt;Plus, gjithçka ruhet përgjithmonë.</string>
+  <string name="studyMembersTitle">Anëtar të ushtrimit</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spektatorët mund të shohin ushtrimin dhe të bisedojnë te fjalosja.&lt;br&gt;&lt;br&gt;%2$s Kontribuesit mund të bëjnë lëvizje dhe të përditësojnë ushtrimin.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klikoni mbi butonin %s.&lt;br&gt;Mandej vendosni cili mund të kontribuojë apo jo.</string>
+  <string name="studyChaptersTitle">Kapituj ushtrimi</string>
+  <string name="studyChaptersText">Një ushtrim mund të përmbajë disa kapituj.&lt;br&gt;Çdo kapitull ka një pozicio të dallueshëm fillestar dhe një pemë lëvizjesh.</string>
+  <string name="commentPositionTitle">Komentoni një pozicion</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikoni mbi butonin %s, ose djathtasklikoni te lista e lëvizjeve në të djathtë.&lt;br&gt;Komentet u tregohen të tjerëve dhe ruhen.</string>
+  <string name="annotatePositionTitle">Vini shënim për një pozicion</string>
+  <string name="conclusionTitle">Faleminderit për kohën që harxhoni</string>
+  <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Ushtrimet tuaja të mëparshme&lt;/a&gt; mund t’i gjeni te faqja e profilit tuaj.&lt;br&gt;Ka edhe një &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;postim blogu rreth ushtrimeve&lt;/a&gt;.&lt;br&gt;Përdoruesit e sprovuar mund të duan të shtypin “?”, që të shohin shkurtore tastiere.&lt;br&gt;Bëfshi qejf!</string>
+  <string name="createChapterTitle">Le të krijojmë një kapitull ushtrimi</string>
+  <string name="createChapterText">Një ushtrim mund të ketë disa kapituj.&lt;br&gt;Çdo kapitull ka një pemë të vetën lëvizjesh,&lt;br&gt;dhe mund të krijohet në rrugë të ndryshme.</string>
+  <string name="fromInitialPositionTitle">Nga pozicioni fillestar</string>
+  <string name="fromInitialPositionText">Thjesht një udjisje fushe për një lojë të re.&lt;br&gt;E përshtatshme për të eksloruar hapjet.</string>
+  <string name="customPositionTitle">Custom position</string>
+  <string name="customPositionText">Ujdiseni fushën si doni.&lt;br&gt;E përshtatshme të eksploruar funde lojërash.</string>
+  <string name="loadExistingLichessGameTitle">Ngarko një lojë shahu ekzistuese</string>
+  <string name="loadExistingLichessGameText">Hidhni URL-në e një loje shahu&lt;br&gt;(fjala vjen, lichess.org/7fHIU0XI)&lt;br&gt;që të ngarkohen te kapitulli lëvizjet e lojës.</string>
+  <string name="fromFenStringTitle">Nga një varg FEN</string>
+  <string name="fromFenStringText">Ngjitni një pozicion në format FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;që kapitulli të niset prej një pozicioni.</string>
+  <string name="fromPgnGameTitle">Nga një lojë PGN</string>
+  <string name="fromPgnGameText">Ngjitni një lojë në format PGN.&lt;br&gt;që të ngarkohen te kapitulli lëvizje, komente dhe variante.</string>
+  <string name="variantsAreSupportedTitle">Uhtrimet mbulojnë variante</string>
+  <string name="variantsAreSupportedText">Po, mund të ushtroheni në “crazyhouse”&lt;br&gt;dhe krejt variantet e lichess-it!</string>
+  <string name="chapterConclusionText">Kapitujt ruhen përgjithmonë.&lt;br&gt;Zbavituni duke sistemuar lëndën tuaj për shahun!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dopiohumbje</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">I ziu humb, por i Bardhi s’fiton dot</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">I bardhi humb, por i Ziu s’fiton dot</string>
 </resources>

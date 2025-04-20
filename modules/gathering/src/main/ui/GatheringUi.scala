@@ -12,7 +12,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
 
   def userPrizeDisclaimer(ownerId: UserId): Option[Frag] =
     (!prizeTournamentMakers().value.contains(ownerId)).option:
-      div(cls := "tour__prize")(
+      st.section(cls := "tour__prize")(
         "This tournament is not organized by Lichess.",
         br,
         "If it has prizes, Lichess is not responsible for paying them."

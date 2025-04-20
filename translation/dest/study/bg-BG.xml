@@ -53,14 +53,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
   <string name="playing">Играе се</string>
-  <string name="first">Първа</string>
-  <string name="previous">Предишна</string>
   <string name="next">Следваща</string>
-  <string name="last">Последна</string>
   <string name="shareAndExport">Сподели</string>
   <string name="cloneStudy">Клонирай</string>
   <string name="studyPgn">PGN на казуса</string>
-  <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="chapterPgn">PGN на главата</string>
   <string name="copyChapterPgn">Копирай PGN</string>
   <string name="downloadGame">Изтегли партия</string>

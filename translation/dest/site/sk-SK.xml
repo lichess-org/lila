@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="playOffline">Hrať offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
@@ -559,14 +558,11 @@
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
   <string name="createdBy">Vytvorené</string>
-  <string name="tournamentIsStarting">Turnaj sa začína</string>
-  <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="pause">Pozastaviť</string>
   <string name="resume">Pokračovať</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
-  <string name="berserkRate">Miera besnenia</string>
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odohraných ťahov</string>
@@ -574,7 +570,6 @@
   <string name="blackWins">Výhry ako čierny</string>
   <string name="drawRate">Pomer remíz</string>
   <string name="draws">Remízy</string>
-  <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
@@ -839,6 +834,7 @@
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
   <string name="downloadImported">Stiahnuť importované</string>
+  <string name="downloadAllGames">Stiahnuť všetky partie</string>
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Prejdite kurzorom ponad počítačové varianty pre zobrazenie ich náhľadu.</string>

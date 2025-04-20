@@ -56,14 +56,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC dalībnieki paliek vienā pozīcijā</string>
   <string name="shareChanges">Koplietot izmaiņas ar skatītājiem un saglabāt tās serverī</string>
   <string name="playing">Notiek</string>
-  <string name="first">Pirmais</string>
-  <string name="previous">Iepriekšējais</string>
   <string name="next">Nākamais</string>
-  <string name="last">Pēdējais</string>
   <string name="shareAndExport">Koplietot &amp; eksportēt</string>
   <string name="cloneStudy">Klonēt</string>
   <string name="studyPgn">Izpētes PGN</string>
-  <string name="downloadAllGames">Lejupielādēt visas spēles</string>
   <string name="chapterPgn">Nodaļas PGN</string>
   <string name="copyChapterPgn">Kopēt PGN</string>
   <string name="downloadGame">Lejupielādēt spēli</string>

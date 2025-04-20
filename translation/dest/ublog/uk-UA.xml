@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Блоги спільноти</string>
   <string name="friendBlogs">Блоги друзів</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Блог Lichess</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Мій блог</string>
+  <string name="lichessBlog">Блог Lichess</string>
+  <string name="myBlog">Мій блог</string>
   <string name="likedBlogs">Вподобані дописи</string>
   <string name="blogTopics">Теми дописів</string>
   <plurals name="blogPosts">
@@ -46,7 +46,6 @@
   <string name="xPublishedY">%1$s опубліковав %2$s</string>
   <string name="thisPostIsPublished">Цей допис опубліковано</string>
   <string name="thisIsADraft">Це чернетка</string>
-  <string name="moreBlogPostsBy">Більше дописів блогу від %s</string>
   <string name="noPostsInThisBlogYet">У цьому блозі ще немає дописів.</string>
   <string name="noDrafts">Немає чернеток для перегляду.</string>
   <string name="latestBlogPosts">Останні дописи у блозі</string>

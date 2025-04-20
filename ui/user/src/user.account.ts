@@ -1,10 +1,9 @@
 import * as licon from 'lib/licon';
 import * as xhr from 'lib/xhr';
 import { storage } from 'lib/storage';
-import { addPasswordVisibilityToggleListener } from 'lib/controls';
+import { addPasswordVisibilityToggleListener } from 'lib/view/controls';
 import flairPickerLoader from 'bits/flairPicker';
-import { confirm } from 'lib/dialogs';
-import { $as } from 'lib';
+import { confirm } from 'lib/view/dialogs';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
@@ -66,7 +65,7 @@ site.load.then(() => {
       if (!isDanger) return true;
       e.preventDefault();
       confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
-        if (yes) $as<HTMLFormElement>(form).submit();
+        if (yes) (form[0] as HTMLFormElement).submit();
       });
       return false;
     });

@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Hrát proti kamarádovi</string>
   <string name="playWithTheMachine">Hrát proti počítači</string>
-  <string name="playOffline">Hrát offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -558,14 +557,11 @@
   <string name="wins">Výhry</string>
   <string name="losses">Prohry</string>
   <string name="createdBy">Vytvořeno uživatelem</string>
-  <string name="tournamentIsStarting">Turnaj začíná</string>
-  <string name="tournamentPairingsAreNowClosed">Turnajové rozlosování je nyní uzavřeno.</string>
   <string name="standByX">Vyčkejte %s, vybírám soupeře, připravte se!</string>
   <string name="pause">Pozastavit</string>
   <string name="resume">Pokračovat</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Poměr výher</string>
-  <string name="berserkRate">Poměr Berserk</string>
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odehráno tahů</string>
@@ -573,7 +569,6 @@
   <string name="blackWins">Černý vyhrál</string>
   <string name="drawRate">Poměr remíz</string>
   <string name="draws">Remízy</string>
-  <string name="nextXTournament">Příští %s turnaj:</string>
   <string name="averageOpponent">Průměrná síla soupeře</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upravit šachovnici</string>

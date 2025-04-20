@@ -5,8 +5,8 @@ import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import type TournamentController from '../ctrl';
-import { watchers } from 'lib/watchers';
-import { makeChat } from 'lib/chat/chat';
+import { watchers } from 'lib/view/watchers';
+import standaloneChat from 'lib/chat/standalone';
 
 export default function (ctrl: TournamentController) {
   let handler: {
@@ -21,8 +21,16 @@ export default function (ctrl: TournamentController) {
   return h('main.' + ctrl.opts.classes, [
     h('aside.tour__side', {
       hook: onInsert(el => {
-        $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && makeChat(ctrl.opts.chat);
+        const side = ctrl.opts.$side;
+        $(el).replaceWith(side);
+        side
+          .toggleClass('collapsed', ctrl.collapsedDescription())
+          .find('.disclosure')
+          .on('click', () => {
+            side.toggleClass('collapsed');
+            ctrl.collapsedDescription(side.hasClass('collapsed'));
+          });
+        ctrl.opts.chat && standaloneChat(ctrl.opts.chat);
       }),
     }),
     h('div.tour__underchat', {

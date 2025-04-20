@@ -1,8 +1,8 @@
 import * as licon from 'lib/licon';
 import { onInsert, bind, looseH as h, type VNode } from 'lib/snabbdom';
 import { jsonSimple } from 'lib/xhr';
-import { snabDialog, type Dialog } from 'lib/dialog';
-import { onClickAway, $as } from 'lib';
+import { snabDialog, type Dialog } from 'lib/view/dialog';
+import { onClickAway } from 'lib';
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 
@@ -37,7 +37,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
 }
 
 export function flash(): void {
-  const div = $as<HTMLElement>('#voice-status-row');
+  const div = document.querySelector<HTMLElement>('#voice-status-row')!;
   div.classList.add('flash');
   div.onanimationend = () => div.classList.remove('flash');
 }

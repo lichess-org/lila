@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">اللعب مع صديق</string>
   <string name="playWithTheMachine">اللعب مع الحاسوب</string>
-  <string name="playOffline">العب دون اتصال</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار المنافس</string>
@@ -630,14 +629,11 @@
   <string name="wins">الفوز</string>
   <string name="losses">الخسارة</string>
   <string name="createdBy">أنشأها</string>
-  <string name="tournamentIsStarting">بدأت المسابقة</string>
-  <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
   <string name="standByX">تأهب يا %s، جارٍ مزاوجة اللاعبين، استعد!</string>
   <string name="pause">الإيقاف المؤقت</string>
   <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
-  <string name="berserkRate">معدل المخاطرة</string>
   <string name="performance">تقييم الأداء</string>
   <string name="tournamentComplete">إكتملت البطولة</string>
   <string name="movesPlayed">نقلات اللعب</string>
@@ -645,7 +641,6 @@
   <string name="blackWins">فوز الأسود</string>
   <string name="drawRate">معدل التعادل</string>
   <string name="draws">تعادل</string>
-  <string name="nextXTournament">بطولة ال %s التالية:</string>
   <string name="averageOpponent">معدل الخصم</string>
   <string name="boardEditor">محرر الرقعة</string>
   <string name="setTheBoard">إعداد الرقعة</string>

@@ -5,7 +5,7 @@ import { h } from 'snabbdom';
 import { bind } from 'lib/snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
 import type { LearnCtrl } from './ctrl';
-import { confirm } from 'lib/dialogs';
+import { confirm } from 'lib/view/dialogs';
 
 export function mapSideView(ctrl: LearnCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);

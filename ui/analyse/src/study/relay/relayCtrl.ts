@@ -1,20 +1,21 @@
 import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
-import type { StudyMemberCtrl } from '../studyMembers';
-import type { AnalyseSocketSend } from '../../socket';
+import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '@/study/interfaces';
+import type { StudyMemberCtrl } from '@/study/studyMembers';
+import type { AnalyseSocketSend } from '@/socket';
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
-import type { StudyChapters } from '../studyChapters';
-import type { MultiCloudEval } from '../multiCloudEval';
+import type { StudyChapters } from '@/study/studyChapters';
+import type { MultiCloudEval } from '@/study/multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
-import { RelayChatPlugin } from './relayChat';
+import type AnalyseCtrl from '@/ctrl';
+import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
-import type { MultiRedraw } from '../../interfaces';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
+type StreamInfo = [UserId, { name: string; lang: string }];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
@@ -26,17 +27,17 @@ export default class RelayCtrl {
   teams?: RelayTeams;
   players: RelayPlayers;
   stats: RelayStats;
-  streams: [string, string][] = [];
+  streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
-  chatCtrl: RelayChatPlugin;
+  liveboardPlugin?: LiveboardPlugin;
+  readonly baseRedraw: Redraw;
+  readonly send: AnalyseSocketSend;
 
   constructor(
     readonly id: RoundId,
     public data: RelayData,
-    readonly send: AnalyseSocketSend,
-    readonly baseRedraw: MultiRedraw,
-    readonly isEmbed: boolean,
+    analyse: AnalyseCtrl,
     readonly members: StudyMemberCtrl,
     readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval | undefined,
@@ -45,6 +46,13 @@ export default class RelayCtrl {
     private readonly updateHistoryAndAddressBar: () => void,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
+    this.baseRedraw = analyse.redraw;
+    this.send = analyse.socket.send;
+    if (analyse.opts.chat) {
+      this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
+      analyse.opts.chat.plugin = this.liveboardPlugin;
+    }
+
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
@@ -58,7 +66,7 @@ export default class RelayCtrl {
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
-      this.isEmbed,
+      analyse.isEmbed,
       this.federations,
       this.redraw,
     );
@@ -74,13 +82,10 @@ export default class RelayCtrl {
         this.redraw,
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
-    if (pinnedName) this.streams.push(['ps', pinnedName]);
-    this.chatCtrl = new RelayChatPlugin(this.chapters, this.tourShow);
-    this.chatCtrl.chapterId = chapterSelect.get();
-    this.baseRedraw.add(() => this.chatCtrl.redraw?.());
+    if (pinnedName) this.streams.push(['ps', { name: pinnedName, lang: '' }]);
     pubsub.on('socket.in.crowd', d => {
-      const s = (d.streams as [string, string][]) ?? [];
-      if (pinnedName) s.unshift(['ps', pinnedName]);
+      const s = d.streams?.slice() ?? [];
+      if (pinnedName) s.unshift(['ps', { name: pinnedName, lang: '' }]);
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
       this.redraw();
@@ -104,7 +109,7 @@ export default class RelayCtrl {
     if (this.tourShow()) {
       this.tourShow(false);
     }
-    this.chatCtrl.chapterId = id;
+    this.liveboardPlugin?.setChapterId(id);
     this.redraw();
   };
 

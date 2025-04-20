@@ -24,7 +24,6 @@
   <string name="xPublishedY">%1$s, %2$s ಪ್ರಕಟಿಸಲಾಗಿದೆ</string>
   <string name="thisPostIsPublished">ಈ ಪೋಸ್ಟ್ ಪ್ರಕಟಿಸಲಾಗಿದೆ</string>
   <string name="thisIsADraft">ಇದು ಡ್ರಾಫ್ಟ್ ಆಗಿದೆ</string>
-  <string name="moreBlogPostsBy">%s ಅವರಿಂದ ಇನ್ನಷ್ಟು ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು</string>
   <string name="noPostsInThisBlogYet">ಈ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಇನ್ನೂ ಯಾವುದೇ ಪೋಸ್ಟ್‌ಗಳಿಲ್ಲ.</string>
   <string name="noDrafts">ತೋರಿಸಲು ಯಾವುದೇ ಡ್ರಾಫ್ಟ್‌ಗಳಿಲ್ಲ.</string>
   <string name="latestBlogPosts">ಇತ್ತೀಚಿನ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು</string>

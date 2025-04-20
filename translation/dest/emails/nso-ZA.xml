@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Kgonthišiša lichess.org account ya gago,%s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Kgotla link go bula account ya gago ya Lichess:</string>
-  <string name="emailConfirm_ignore">Ge o se o ngwadiše le Lichess o ka hlokomologa molaetša wo.</string>
   <string name="passwordReset_subject">Ngwadiša password e mpsha, %s</string>
   <string name="passwordReset_intro">Re humane kgopela ya go mpshafatša password ya gago.</string>
   <string name="passwordReset_clickOrIgnore">Ge o dirile kgopelo ye, kgotle link ya ka tlase. Ge go se bjalo hlokomologa molaetša wo.</string>

@@ -55,14 +55,10 @@
   <string name="playing">A ser jogado</string>
   <string name="showResults">Resultados</string>
   <string name="showEvalBar">Barras de avaliação</string>
-  <string name="first">Primeira</string>
-  <string name="previous">Anterior</string>
   <string name="next">Seguinte</string>
-  <string name="last">Última</string>
   <string name="shareAndExport">Partilhar &amp; exportar</string>
   <string name="cloneStudy">Clonar</string>
   <string name="studyPgn">PGN do estudo</string>
-  <string name="downloadAllGames">Transferir todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
   <string name="downloadGame">Transferir partida</string>
@@ -169,4 +165,38 @@
   <string name="whatWouldYouPlay">O que jogaria nessa situação?</string>
   <string name="youCompletedThisLesson">Parabéns! Completou esta lição.</string>
   <string name="perPage">%s por página</string>
+  <string name="getTheTour">Precisas de ajuda? Obter uma visita guiada!</string>
+  <string name="welcomeToLichessStudyTitle">Bem-vindo ao Estudo Lichess!</string>
+  <string name="welcomeToLichessStudyText">Este é um tabuleiro de análise partilhado.&lt;br&gt;&lt;br&gt;Utilize-o para analisar e anotar jogos,&lt;br&gt;discutir posições com amigos,&lt;br&gt;e, claro, para lições de xadrez!&lt;br&gt;&lt;br&gt;É uma ferramenta poderosa, vamos tirar algum tempo para ver como funciona.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Partilhado e salvado</string>
+  <string name="sharedAndSavedText">Outros membros podem ver as suas jogadas em tempo real! &lt;br&gt;Além disso, tudo é guardado para sempre.</string>
+  <string name="studyMembersTitle">Membros do estudo</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Os espetadores podem ver o estudo e falar no chat.&lt;br&gt;&lt;br&gt;%2$s Os contribuidores podem fazer movimentos e atualizar o estudo.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Clica no botão %s.&lt;br&gt;Depois, decide quem pode contribuir ou não.</string>
+  <string name="studyChaptersTitle">Capítulos do estudo</string>
+  <string name="studyChaptersText">Um estudo pode conter vários capítulos.&lt;br&gt; Cada capítulo tem uma posição inicial distinta e uma árvore de movimentos.</string>
+  <string name="commentPositionTitle">Comentar em uma posição</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Clique no botão %s, ou faça um clique no lado direito do rato na lista de movimentos à direita.&lt;br&gt; Os comentários são partilhados e salvos.</string>
+  <string name="annotatePositionTitle">Anote uma posição</string>
+  <string name="annotatePositionText">Clique no botão!?, ou faça um clique no lado direito do rato sobre a lista de movimentos à direita.&lt;br&gt; Glifos de anotação são partilhados e salvos.</string>
+  <string name="conclusionTitle">Obrigado pelo seu tempo</string>
+  <string name="conclusionText">Pode encontrar os seus &lt;a href=\'/study/mine/hot\'&gt; estudos prévios&lt;/a&gt; a partir da sua página de perfil.&lt;br&gt; Também há uma &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; publicação no blog sobre estudos&lt;/a&gt;.&lt;br&gt; Usuários avançados podem querer pressionar \"?\" para ver os atalhos do teclado.&lt;br&gt; Divirta-se!</string>
+  <string name="createChapterTitle">Vamos criar um capítulo de estudo</string>
+  <string name="createChapterText">Um estudo pode ter vários capítulos.&lt;br&gt; Cada capítulo tem uma árvore de movimentos distinta,&lt;br&gt; e pode ser criado de diversas formas.</string>
+  <string name="fromInitialPositionTitle">A partir da posição inicial</string>
+  <string name="fromInitialPositionText">Apenas uma configuração de tabuleiro para um novo jogo.&lt;br&gt; Adequado para explorar aberturas.</string>
+  <string name="customPositionTitle">Posição personalizada</string>
+  <string name="customPositionText">Configure o tabuleiro à sua maneira.&lt;br&gt; Adequado para explorar finais de jogos.</string>
+  <string name="loadExistingLichessGameTitle">Carregar um jogo lichess existente</string>
+  <string name="loadExistingLichessGameText">Copie um URL de um jogo de lichess&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para carregar os movimentos do jogo no capítulo.</string>
+  <string name="fromFenStringTitle">A partir de uma string FEN</string>
+  <string name="fromFenStringText">Cole uma posição em formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para começar o capítulo a partir de uma posição.</string>
+  <string name="fromPgnGameTitle">De um jogo em PGN</string>
+  <string name="fromPgnGameText">Cole um jogo em formato PNG.&lt;br&gt;para carregar movimentos, comentários e variações no capítulo.</string>
+  <string name="variantsAreSupportedTitle">Estudos suportam variantes</string>
+  <string name="variantsAreSupportedText">Sim, podes estudar crazyhouse&lt;br&gt;e todas as variantes do Lichess!</string>
+  <string name="chapterConclusionText">Capítulos são salvos permanentemente.&lt;br&gt;Diverte a organizar o teu conteúdo de xadrez!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Derrota dupla</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Pretas perderam, mas Brancas não podem vencer</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Brancas perderam, mas Pretas não podem vencer</string>
 </resources>

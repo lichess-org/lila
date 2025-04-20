@@ -1,31 +1,22 @@
 import * as licon from '../licon';
 import * as enhance from '../richText';
-import { userLink } from '../userLink';
+import { userLink } from '../view/userLink';
 import * as spam from './spam';
 import type { Line } from './interfaces';
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
-import type ChatCtrl from './ctrl';
+import type { ChatCtrl } from './chatCtrl';
 import { tempStorage } from '../storage';
 import { pubsub } from '../pubsub';
-import { alert } from '../dialogs';
+import { alert } from '../view/dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
+const scrollState = { pinToBottom: true, lastScrollTop: 0 };
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
-  const scrollCb = (vnode: VNode, insert: boolean) => {
-      const el = vnode.elm as HTMLElement;
-      if (ctrl.data.lines.length > 5) {
-        const autoScroll = insert || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
-        if (autoScroll) {
-          el.scrollTop = 999999;
-          setTimeout((_: any) => (el.scrollTop = 999999), 300);
-        }
-      }
-    },
-    hasMod = !!ctrl.moderation;
+  const hasMod = !!ctrl.moderation;
   const vnodes = [
     h(
       `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
@@ -33,7 +24,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           insert(vnode) {
-            const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
+            const el = vnode.elm as HTMLElement;
+            const $el = $(el).on('click', 'a.jump', (e: Event) => {
               pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             $el.on('click', '.reply', (e: Event) => {
@@ -50,9 +42,26 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
-            scrollCb(vnode, true);
+
+            el.addEventListener('scroll', () => {
+              if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
+              scrollState.lastScrollTop = el.scrollTop;
+            });
+
+            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
           },
-          postpatch: (_, vnode) => scrollCb(vnode, false),
+          postpatch: (_, vnode) => {
+            const el = vnode.elm as HTMLElement;
+
+            if (el.scrollTop + el.clientHeight > el.scrollHeight - 10) scrollState.pinToBottom = true;
+            else if (!scrollState.pinToBottom) return;
+
+            if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
+            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+
+            scrollState.lastScrollTop = el.scrollTop;
+          },
         },
       },
       selectLines(ctrl).map(line => renderLine(ctrl, line)),
@@ -123,7 +132,10 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
       else {
         if (!ctrl.opts.kobold) spam.selfReport(txt);
         if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
-        else ctrl.post(txt);
+        else {
+          scrollState.pinToBottom = true;
+          ctrl.post(txt);
+        }
         el.value = '';
         storage.remove();
         if (!pub) el.classList.remove('whisper');

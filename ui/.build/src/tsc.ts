@@ -115,8 +115,13 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   if (co.moduleResolution) co.moduleResolution = ts.ModuleResolutionKind[co.moduleResolution];
   if (co.module) co.module = ts.ModuleKind[co.module];
   if (co.target) co.target = ts.ScriptTarget[co.target];
-
+  if (env.debug) {
+    co.noUnusedLocals = false;
+    co.noImplicitReturns = false;
+    co.noUnusedParameters = false;
+  }
   co.lib = co.lib?.map((lib: string) => (lib.startsWith('lib.') ? lib.split('.')[1] : lib));
+  co.pathsBasePath = undefined;
   co.incremental = true;
 
   config.compilerOptions = co;

@@ -44,7 +44,6 @@
   <string name="xPublishedY">%1$s פרסם/ה את הפוסט: \"%2$s\"</string>
   <string name="thisPostIsPublished">הפוסט פורסם</string>
   <string name="thisIsADraft">זוהי טיוטה</string>
-  <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
   <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
   <string name="noDrafts">אין טיוטות להצגה.</string>
   <string name="latestBlogPosts">פוסטים אחרונים</string>

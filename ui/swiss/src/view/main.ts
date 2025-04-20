@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, looseH as h } from 'lib/snabbdom';
 import { numberRow } from './util';
 import type SwissCtrl from '../ctrl';
@@ -13,10 +13,10 @@ import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
 import { use24h } from 'lib/i18n';
 import { once } from 'lib/storage';
-import { initMiniGames } from 'lib/miniBoard';
-import { watchers } from 'lib/watchers';
-import { makeChat } from 'lib/chat/chat';
-import { prompt } from 'lib/dialogs';
+import { initMiniGames } from 'lib/view/miniBoard';
+import { watchers } from 'lib/view/watchers';
+import standaloneChat from 'lib/chat/standalone';
+import { prompt } from 'lib/view/dialogs';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -26,7 +26,7 @@ export default function (ctrl: SwissCtrl) {
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && standaloneChat(ctrl.opts.chat);
       }),
     }),
     h('div.swiss__underchat', {

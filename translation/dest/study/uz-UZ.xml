@@ -55,14 +55,10 @@
   <string name="playing">O\'ynash</string>
   <string name="showResults">Natijalar</string>
   <string name="showEvalBar">Baholash chiziqlari</string>
-  <string name="first">Birinchi</string>
-  <string name="previous">Oldingi</string>
   <string name="next">Keyingi</string>
-  <string name="last">Oxirgi</string>
   <string name="shareAndExport">Ulashish &amp; eksport</string>
   <string name="cloneStudy">Klonlash</string>
   <string name="studyPgn">PGN o\'rganish</string>
-  <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
   <string name="chapterPgn">PGN bo\'limi</string>
   <string name="copyChapterPgn">PGN ni nusxalash</string>
   <string name="downloadGame">Oʻyinni yuklab olish</string>

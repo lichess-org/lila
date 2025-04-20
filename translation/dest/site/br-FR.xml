@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">C\'hoari a-enep ur mignon</string>
   <string name="playWithTheMachine">C\'hoari a-enep an urzhiataer</string>
-  <string name="playOffline">C\'hoari ezlinenn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
   <string name="waitingForOpponent">O c\'hortoz an enebour</string>
@@ -565,21 +564,17 @@
   <string name="wins">Trec\'hioù</string>
   <string name="losses">Lammoù</string>
   <string name="createdBy">Krouet gant</string>
-  <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
-  <string name="tournamentPairingsAreNowClosed">Echu eo koubladegoù an tournamant.</string>
   <string name="standByX">Gortozit %s, o koublañ ar c\'hoarierien, bezit prest!</string>
   <string name="pause">Ehan</string>
   <string name="resume">Adkregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'hiñ</string>
-  <string name="berserkRate">Feur berserk</string>
   <string name="performance">Performañs</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
   <string name="whiteWins">Feur trec\'hiñ ar re zu</string>
   <string name="blackWins">Feur trec\'hiñ ar re zu</string>
   <string name="draws">Krogadoù rampo</string>
-  <string name="nextXTournament">Tournamant %s war-lerc\'h:</string>
   <string name="averageOpponent">Keidenn live an enebour</string>
   <string name="boardEditor">Krouer plegennoù</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>

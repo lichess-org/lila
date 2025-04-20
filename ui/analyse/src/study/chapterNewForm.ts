@@ -1,14 +1,14 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'lib';
-import { type Dialog, snabDialog } from 'lib/dialog';
-import { alert } from 'lib/dialogs';
+import { type Dialog, snabDialog } from 'lib/view/dialog';
+import { alert } from 'lib/view/dialogs';
 import * as licon from 'lib/licon';
 import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'lib/snabbdom';
 import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
-import { spinnerVdom as spinner } from 'lib/controls';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -16,6 +16,7 @@ import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'lib/pubsub';
 import { lichessRules } from 'chessops/compat';
+import pgnImport from '@/pgnImport';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -89,11 +90,18 @@ export class StudyChapterNewForm {
     const study = this.root.study!;
     const dd = { ...d, sticky: study.vm.mode.sticky, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
-    else
+    else {
+      try {
+        pgnImport(dd.pgn);
+      } catch (error) {
+        alert('Error parsing PGN: ' + (error as any).message);
+        return;
+      }
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
         throw e;
       });
+    }
     this.isOpen(false);
     this.setChaptersTab();
   };

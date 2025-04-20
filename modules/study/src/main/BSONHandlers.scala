@@ -321,12 +321,7 @@ object BSONHandlers:
     { case BSONInteger(v) => (v > 0).option(FideId(v)) },
     id => BSONInteger(id.so(_.value))
   )
-  given BSONDocumentHandler[Chapter.Relay] =
-    given BSONHandler[Option[FideId]] = quickHandler(
-      { case BSONInteger(v) => (v > 0).option(FideId(v)) },
-      id => BSONInteger(id.so(_.value))
-    )
-    Macros.handler
+  given BSONDocumentHandler[Chapter.Relay]      = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
 
   private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler

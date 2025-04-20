@@ -53,14 +53,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Барлық үйлескен мүшелер өз күйінде қалады</string>
   <string name="shareChanges">Көрермендермен өзгертулерді бөлісіңіз әрі серверде сақтап қойыңыз</string>
   <string name="playing">Қазір ойында</string>
-  <string name="first">Бірінші</string>
-  <string name="previous">Алдыңғы</string>
   <string name="next">Келесі</string>
-  <string name="last">Соңғы</string>
   <string name="shareAndExport">Бөлісу мен Жүктеп алу</string>
   <string name="cloneStudy">Көшірме</string>
   <string name="studyPgn">Зерттеудің PGN</string>
-  <string name="downloadAllGames">Барлық ойындарды жүктеп алу</string>
   <string name="chapterPgn">Бөлімнің PGN</string>
   <string name="copyChapterPgn">PGN-ді көшіру</string>
   <string name="downloadGame">Ойынды жүктеп алу</string>

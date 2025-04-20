@@ -23,7 +23,8 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
               p(s.text | s.id),
               s.form.value match
                 case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
-                case v                => input(name := "v", value := v.map(_.toString))
+                case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
+                case v                            => input(name := "v", value := v.map(_.toString))
               ,
               submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
             )

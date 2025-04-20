@@ -2,11 +2,10 @@
 <resources>
   <string name="playWithAFriend">Jogar com um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
-  <string name="playOffline">Jogar offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente escanear este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -488,14 +487,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentIsStarting">O torneio está a começar</string>
-  <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
+  <string name="startingIn" comment="Displayed above a timer">Começa em</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
-  <string name="berserkRate">Taxa de partidas no modo frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
@@ -503,7 +500,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blackWins">Vitórias com as pretas</string>
   <string name="drawRate">Taxa de empate</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média dos adversários</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
@@ -758,6 +754,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="downloadAnnotated">Transferir anotação</string>
   <string name="downloadRaw">Transferir texto</string>
   <string name="downloadImported">Transferir a partida importada</string>
+  <string name="downloadAllGames">Descarregar todos os jogos</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>

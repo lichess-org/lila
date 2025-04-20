@@ -6,6 +6,10 @@
     <item quantity="one">%s overføring</item>
     <item quantity="other">%s overføringer</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s tilskuer</item>
+    <item quantity="other">%s tilskuere</item>
+  </plurals>
   <string name="liveBroadcasts">Direkteoverføringer av turneringer</string>
   <string name="broadcastCalendar">Kalender for overføringer</string>
   <string name="newBroadcast">Ny direkteoverføring</string>
@@ -80,4 +84,5 @@
   <string name="allBroadcastsByMonth">Vis alle overføringer etter måned</string>
   <string name="backToLiveMove">Tilbake til trekk på direkten</string>
   <string name="sinceHideResults">Du valgte å skjule resultatene, så alle forhåndsvisningene av brettene er tomme for å unngå å røpe noe.</string>
+  <string name="liveboard">Brett i sanntid</string>
 </resources>

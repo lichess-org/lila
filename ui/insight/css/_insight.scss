@@ -128,8 +128,7 @@
     padding: 0 1vw;
     flex-wrap: nowrap;
     height: var(---header-height);
-    background: #333;
-    color: #ddd;
+    background: $c-bg-zebra;
     h2 {
       font-size: vmax;
       line-height: var(---header-height);
@@ -144,12 +143,6 @@
 
     > * {
       display: inline-block;
-    }
-
-    .ms-choice {
-      background: #444;
-      color: #ddd;
-      border-color: #666;
     }
   }
 

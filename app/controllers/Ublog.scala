@@ -29,11 +29,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.draft): (user, blog) =>
-        Ok.async:
-          env.ublog.paginator
-            .byBlog(blog.id, false, page)
-            .map:
-              views.ublog.ui.drafts(user, blog, _)
+        for
+          posts <- env.ublog.paginator.byBlog(blog.id, false, page)
+          page  <- renderPage(views.ublog.ui.drafts(user, blog, posts))
+        yield Ok(page).hasPersonalData
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
@@ -50,7 +49,7 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(createdBy): (user, blog) =>
         canViewPost(user, blog)(post).so:
           for
-            others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+            otherPosts     <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
             followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
@@ -59,7 +58,7 @@ final class Ublog(env: Env) extends LilaController(env):
             markup <- env.ublog.markup(post)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
-              views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
+              views.ublog.post.page(user, blog, viewedPost, markup, otherPosts, liked, followable, followed)
           yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
@@ -130,6 +129,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
         views.ublog.form.edit(post, env.ublog.form.edit(post))
+      .map(_.hasPersonalData)
   }
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>

@@ -62,44 +62,35 @@ final class AccountTermination(
     chatApi: lila.chat.ChatApi
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  Bus.subscribeFuns(
-    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
-      (modApi.garbageCollect(userId) >> lichessDisable(userId))
-    },
-    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessDisable(userId) }
-  )
-
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     selfClose    = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose     = !selfClose && Granter(_.CloseAccount)
     tos          = u.marks.dirty || modClose || playbanned
-    _       <- userRepo.disable(u, keepEmail = tos, forever = forever)
-    _       <- roundApi.resignAllGamesOf(u.id)
-    _       <- relationApi.unfollowAll(u.id)
-    _       <- relationApi.removeAllFollowers(u.id)
-    _       <- rankingApi.remove(u.id)
-    teamIds <- teamApi.quitAllOnAccountClosure(u.id)
-    _       <- challengeApi.removeByUserId(u.id)
-    _       <- tournamentApi.withdrawAll(u)
-    _       <- swissApi.withdrawAll(u, teamIds)
-    _       <- planApi.cancelIfAny(u).recoverDefault
-    _       <- seekApi.removeByUser(u)
-    _       <- securityStore.closeAllSessionsOf(u.id)
-    _       <- selfClose.so(tokenApi.revokeAllByUser(u))
-    _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
-    _       <- pushEnv.unregisterDevices(u)
-    _       <- streamerApi.demote(u.id)
-    reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
+    _           <- userRepo.disable(u, keepEmail = tos, forever = forever)
+    _           <- roundApi.resignAllGamesOf(u.id)
+    followedIds <- relationApi.accountTermination(u)
+    _           <- rankingApi.remove(u.id)
+    teamIds     <- teamApi.quitAllOnAccountClosure(u.id)
+    _           <- challengeApi.removeByUserId(u.id)
+    _           <- tournamentApi.withdrawAll(u)
+    _           <- swissApi.withdrawAll(u, teamIds)
+    _           <- planApi.cancelIfAny(u).recoverDefault
+    _           <- seekApi.removeByUser(u)
+    _           <- securityStore.closeAllSessionsOf(u.id)
+    _           <- selfClose.so(tokenApi.revokeAllByUser(u))
+    _           <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
+    _           <- pushEnv.unregisterDevices(u)
+    _           <- streamerApi.demote(u.id)
+    reports     <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-
       if selfClose then modLogApi.selfCloseAccount(u.id, forever, reports)
       else if teacherClose then modLogApi.teacherCloseAccount(u.id)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
     _ <- ublogApi.onAccountClose(u)
-    _ <- u.marks.troll.so:
-      relationApi.fetchFollowing(u.id).flatMap(activityWrite.unfollowAll(u, _))
+    _ <- (u.marks.troll || u.marks.alt).so(activityWrite.unfollowAll(u, followedIds))
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   def scheduleDelete(u: User)(using Me): Funit = for
@@ -108,7 +99,10 @@ final class AccountTermination(
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant).some)
   yield ()
 
-  private def lichessDisable(userId: UserId) =
+  private[api] def garbageCollect(userId: UserId) =
+    modApi.garbageCollect(userId) >> lichessDisable(userId)
+
+  private[api] def lichessDisable(userId: UserId) =
     userRepo.lichessAnd(userId).flatMapz { (lichess, user) =>
       disable(user, forever = false)(using Me(lichess))
     }

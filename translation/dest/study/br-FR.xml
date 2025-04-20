@@ -60,14 +60,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Er memes lec\'hiadur e chom holl izili ar SYNC</string>
   <string name="shareChanges">Rannañ cheñchamantoù gant an arvesterien ha saveteiñ anezhe war ar servor</string>
   <string name="playing">O c\'hoari</string>
-  <string name="first">Kentañ</string>
-  <string name="previous">War-gil</string>
   <string name="next">War-lec\'h</string>
-  <string name="last">Diwezhañ</string>
   <string name="shareAndExport">Skignañ &amp; ezporzhiañ</string>
   <string name="cloneStudy">Eilañ</string>
   <string name="studyPgn">PGN ar studi</string>
-  <string name="downloadAllGames">Pellgargañ an holl grogadoù</string>
   <string name="chapterPgn">PGN ar pennad</string>
   <string name="downloadGame">Pellgargañ ur c\'hrogad</string>
   <string name="studyUrl">Studiañ URL</string>

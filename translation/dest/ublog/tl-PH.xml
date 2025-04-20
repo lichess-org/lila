@@ -2,7 +2,8 @@
 <resources>
   <string name="communityBlogs">Mga blog ng komunidad</string>
   <string name="friendBlogs">Mga blog ng mga kaibigan</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Ang aking blog</string>
+  <string name="lichessBlog">Blog ni Lichess</string>
+  <string name="myBlog">Ang aking blog</string>
   <string name="likedBlogs">Mga blog post na ni-like</string>
   <string name="blogTopics">Mga blog topic</string>
   <string name="lichessOfficialBlog">Opisyal na blog ng Lichess</string>
@@ -25,7 +26,6 @@
   <string name="xPublishedY">%1$s nalathala %2$s</string>
   <string name="thisPostIsPublished">Ang post na ito ay nai-publish</string>
   <string name="thisIsADraft">Ito ay isang draft</string>
-  <string name="moreBlogPostsBy">Marami pang mga post sa blog ni %s</string>
   <string name="noPostsInThisBlogYet">Wala pang post sa blog na ito.</string>
   <string name="noDrafts">Walang mga draft na ipapakita.</string>
   <string name="latestBlogPosts">Pinakabagong mga post sa blog</string>

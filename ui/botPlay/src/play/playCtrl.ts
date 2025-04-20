@@ -1,17 +1,17 @@
-import { Move, opposite, parseSquare } from 'chessops';
+import { Move as ChessMove, opposite, parseSquare } from 'chessops';
 import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { BotInfo } from 'local';
+import { type BotInfo } from 'lib/bot/types';
 import { addMove, Board, makeBoardAt } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game } from '../game';
+import { makeEndOf, Game, Move, computeClockState, isClockTicking } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
-import { PromotionCtrl } from 'lib/chess/promotion';
-import type { WithGround } from 'lib/chess/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import type { WithGround } from 'lib/game/ground';
 import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
 import { TopOrBottom } from 'lib/game/game';
 
@@ -44,15 +44,23 @@ export default class PlayCtrl {
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
 
-    this.clock =
-      this.game.clock && new ClockCtrl(this.game.clock, opts.pref, undefined, this.makeClockOpts());
+    const clk = computeClockState(this.game);
+    if (clk) {
+      const clockData = {
+        ...this.game.clockConfig!,
+        white: clk.white,
+        black: clk.black,
+        running: !!clk.ticking,
+      };
+      this.clock = new ClockCtrl(clockData, opts.pref, clk.ticking, this.makeClockOpts());
+    }
     keyboard(this);
     setTimeout(this.safelyRequestBotMove, 500);
   }
 
   isPlaying = () => !this.game.end;
 
-  lastPly = () => this.game.sans.length;
+  lastPly = () => this.game.moves.length;
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
 
@@ -75,7 +83,7 @@ export default class PlayCtrl {
   private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     if (!this.isOnLastPly()) {
       // allow branching out from anywhere
-      this.game.sans = this.game.sans.slice(0, this.board.onPly);
+      this.game.moves = this.game.moves.slice(0, this.board.onPly);
     }
     const move = normalizeMove(this.board.chess, {
       from: parseSquare(orig)!,
@@ -91,7 +99,18 @@ export default class PlayCtrl {
     if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
 
-  onFlag = () => alert('flagged');
+  onFlag = () => {
+    const ticking = isClockTicking(this.game);
+    if (ticking) {
+      this.game.end = {
+        winner: opposite(ticking),
+        status: 'outoftime',
+        fen: makeFen(makeBoardAt(this.game).chess.toSetup()),
+      };
+      this.recomputeAndSetClock();
+      this.opts.redraw();
+    }
+  };
 
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
@@ -107,15 +126,19 @@ export default class PlayCtrl {
 
   goToLast = () => this.goTo(this.lastPly());
 
-  private addMove = (move: Move) => {
-    const san = addMove(this.board, move);
-    this.game.sans = [...this.game.sans.slice(0, this.board.onPly), san];
+  private addMove = (chessMove: ChessMove) => {
+    const move: Move = {
+      san: addMove(this.board, chessMove),
+      at: Date.now(),
+    };
+    this.game.moves = [...this.game.moves.slice(0, this.board.onPly), move];
     this.game.end = makeEndOf(this.board.chess);
     this.withGround(cg => cg.set(updateGround(this.board)));
+    this.recomputeAndSetClock();
     this.opts.redraw();
     this.opts.save(this.game);
     this.autoScroll();
-    playMoveSounds(this, san);
+    playMoveSounds(this, move);
     this.withGround(cg => cg.playPremove());
   };
 
@@ -132,11 +155,16 @@ export default class PlayCtrl {
   private makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.onFlag,
     playable: () => true,
-    bothPlayersHavePlayed: () => this.game.sans.length > 1,
+    bothPlayersHavePlayed: () => this.game.moves.length > 1,
     hasGoneBerserk: () => false,
     soundColor: this.game.pov,
     nvui: false,
   });
+
+  private recomputeAndSetClock = () => {
+    const clk = computeClockState(this.game);
+    if (this.clock && clk) this.clock.setClock(clk);
+  };
 
   private setGround = () => this.withGround(g => g.set(initialGround(this)));
 

@@ -154,8 +154,12 @@ final class Account(
 
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
-    then Ok.page(renderCheckYourEmail)
-    else emailForm.flatMap(f => Ok.page(pages.email(f)))
+    then Ok.page(renderCheckYourEmail).map(_.hasPersonalData)
+    else
+      for
+        f   <- emailForm
+        res <- Ok.page(pages.email(f))
+      yield res.hasPersonalData
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
@@ -281,11 +285,12 @@ final class Account(
     for
       managed <- env.clas.api.student.isManaged(me)
       form    <- env.security.forms.toggleKid
-      page    <- Ok.page(pages.kid(me, form, managed))
+      content <- env.cms.renderKey("kid-mode")
+      page    <- Ok.page(pages.kid(me, form, managed, content.map(_.html)))
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    JsonOk(Json.obj("kid" -> me.kid))
+    JsonOk(Json.obj("kid" -> me.kid.yes))
   }
 
   def kidPost = AuthBody { ctx ?=> me ?=>
@@ -294,7 +299,10 @@ final class Account(
         bindForm(form)(
           err =>
             negotiate(
-              BadRequest.page(pages.kid(me, err, managed = false)),
+              for
+                content <- env.cms.renderKey("kid-mode")
+                page    <- BadRequest.page(pages.kid(me, err, managed = false, content.map(_.html)))
+              yield page,
               BadRequest(errorsAsJson(err))
             ),
           _ =>
@@ -323,7 +331,7 @@ final class Account(
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- Ok.async:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
-    yield page
+    yield page.hasPersonalData
   }
 
   def signout(sessionId: String) = Auth { _ ?=> me ?=>
@@ -394,7 +402,6 @@ final class Account(
       .orNotFound: user =>
         if getBool("text") then
           apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
-            Ok.chunked(source.map(_ + "\n"))
-              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+            Ok.chunked(source.map(_ + "\n")).asAttachmentStream(s"lichess_${user.username}.txt")
         else Ok.page(pages.data(user))
   }

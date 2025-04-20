@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">%s, та lichess.org дахь хэрэглэгчийн дансаа баталгаажуулна уу</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Личессийн хэрэглэгчийн дансаа нээхийн тулд та дараах холбоос дээр товшно уу:</string>
-  <string name="emailConfirm_ignore">Хэрэв та Личесст бүртгүүлээгүй бол энэхүү захиаг тоохгүй орхиж болно.</string>
   <string name="passwordReset_subject">%s, та lichess.org-ын бүртгэлийнхээ нэвтрэх нууц үгээ солино уу</string>
   <string name="passwordReset_intro">Бид таны дансруу нэвтрэх үгийг шинэчлэх хүсэлт хүлээн авсан.</string>
   <string name="passwordReset_clickOrIgnore">Хэрэв та энэхүү хүсэлтийг гаргасан бол доорх холбоос дээр товшно уу. Хэрэв хүсэлт гаргаагүй бол энэхүү захиаг тоохгүй орхиж болно.</string>

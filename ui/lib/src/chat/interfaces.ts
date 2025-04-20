@@ -1,10 +1,10 @@
 import type { VNode } from 'snabbdom';
-import type { Prop } from '../common';
+import type { Prop } from '@/common';
 
-import type { EnhanceOpts } from '../richText';
+import type { EnhanceOpts } from '@/richText';
+export type { ChatCtrl } from './chatCtrl';
 
 export interface ChatOpts {
-  el: HTMLElement;
   data: ChatData;
   writeable: boolean;
   kobold: boolean;
@@ -19,9 +19,10 @@ export interface ChatOpts {
   noteText?: string;
   plugin?: ChatPlugin;
   kidMode: boolean;
+  persistent?: boolean;
 }
 
-export type Tab = { key: string; hidden?: boolean };
+export type Tab = { key: string; isDisabled?: () => boolean };
 
 export interface ChatPlugin extends Tab {
   name: string;

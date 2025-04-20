@@ -1,16 +1,14 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
-import { BotOpts, LocalBridge } from './interfaces';
-import { BotInfo } from 'local';
-import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
+import type { BotOpts, LocalBridge } from './interfaces';
+import { type BotInfo } from 'lib/bot/types';
+import { BotLoader } from 'lib/bot/botLoader';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/dialogs';
-import { Bot } from 'local/bot';
-import { Assets } from 'local/assets';
+import { alert } from 'lib/view/dialogs';
 import { opposite } from 'chessops';
-import { Game, makeGame } from './game';
+import { type Game, makeGame } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
 
@@ -18,7 +16,7 @@ export class BotCtrl {
   setupCtrl: SetupCtrl;
   playCtrl?: PlayCtrl;
 
-  currentGame = storedJsonProp<Game | null>('bot.current-game', () => null);
+  private currentGame = storedJsonProp<Game | null>('bot.current-game', () => null);
 
   constructor(
     readonly opts: BotOpts,
@@ -51,16 +49,23 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
-    this.playCtrl = new PlayCtrl({
-      pref: this.opts.pref,
-      game,
-      bot,
-      bridge: this.makeLocalBridge(bot, opposite(game.pov)),
-      redraw: this.redraw,
-      save: g => this.currentGame(g),
-      close: this.closeGame,
-      rematch: () => this.newGame(bot, opposite(game.pov)),
-    });
+    try {
+      this.playCtrl = new PlayCtrl({
+        pref: this.opts.pref,
+        game,
+        bot,
+        bridge: this.makeLocalBridge(bot),
+        redraw: this.redraw,
+        save: g => this.currentGame(g),
+        close: this.closeGame,
+        rematch: () => this.newGame(bot, opposite(game.pov)),
+      });
+    } catch (e) {
+      console.error('Failed to resume game', e);
+      alert('Failed to resume game. Please start a new one.');
+      this.currentGame(null);
+      return;
+    }
   };
 
   private resumeGameAndRedraw = (game: Game) => {
@@ -75,18 +80,17 @@ export class BotCtrl {
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
-  private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
-    const bots = new LocalBotCtrl();
-    const assets = new Assets(bots);
-    const uids = { [opposite(color)]: undefined, [color]: info.uid };
-    bots.setUids(uids);
-    bots.reset();
-    await bots.init(this.opts.bots);
-    const bot = new Bot(info);
+  private makeLocalBridge = async (info: BotInfo): Promise<LocalBridge> => {
+    const loader = new BotLoader();
+
+    await loader.init(this.opts.bots);
+    await loader.preload(info.uid);
+
+    const bot = loader.bots.get(info.uid)!;
 
     return {
-      move: args => bot.move({ ...args, bots, assets }),
-      playSound: (c, eventList) => bots.playSound(c, eventList, assets),
+      move: args => bot.move(args),
+      playSound: eventList => bot.playSound(eventList),
     };
   };
 }

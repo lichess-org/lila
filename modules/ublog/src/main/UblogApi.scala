@@ -7,6 +7,7 @@ import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline as tl
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
+import lila.core.user.KidMode
 
 final class UblogApi(
     colls: UblogColls,
@@ -15,7 +16,8 @@ final class UblogApi(
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.core.irc.IrcApi
+    irc: lila.core.irc.IrcApi,
+    automod: UblogAutomod
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -33,6 +35,7 @@ final class UblogApi(
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog   <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
+    _    = applyAutomod(post).logFailure(logger)
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
   yield post
@@ -49,6 +52,7 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+        applyAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
@@ -115,15 +119,23 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
-  def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
-    colls.post
-      .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
-      .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPref.sec)
-      .list(nb)
-
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
+
+  private def postPreviews(ids: List[UblogPostId]) = ids.nonEmpty.so:
+    colls.post.byIdsProj[UblogPost.PreviewPost, UblogPostId](ids, previewPostProjection, _.sec)
+
+  def recommend(blog: UblogBlog.Id, post: UblogPost)(using kid: KidMode): Fu[List[UblogPost.PreviewPost]] =
+    for
+      sameAuthor <- colls.post
+        .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
+        .sort($doc("lived.at" -> -1))
+        .cursor[UblogPost.PreviewPost](ReadPref.sec)
+        .list(3)
+      similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
+      similar <- postPreviews(similarIds)
+      mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
+    yield scala.util.Random.shuffle(mix).take(6)
 
   object image:
     private def rel(post: UblogPost) = s"ublog:${post.id}"
@@ -156,6 +168,25 @@ final class UblogApi(
       intro = post.intro,
       topic = s"$tierName new posts"
     )
+
+  private def applyAutomod(post: UblogPost): Funit =
+    automod(post)
+      .flatMapz: res =>
+        val adjust = res.classification match
+          case "phenomenal" => 4
+          case "quality"    => 0
+          case "weak"       => -10
+          case "spam"       => -30
+          case _            => -10
+
+        val doc = $set(
+          "automod" -> res
+          // "rankAdjustDays" -> adjust
+        )
+        colls.post.update.one($id(post.id), doc).void
+      .recover: e =>
+        logger.warn(s"automod ${post.id} ${e.getMessage}", e)
+        ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

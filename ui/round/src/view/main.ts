@@ -1,7 +1,7 @@
 import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
-import { stepwiseScroll } from 'lib/controls';
+import { stepwiseScroll } from 'lib/view/controls';
 import { type VNode, looseH as h, bind } from 'lib/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';

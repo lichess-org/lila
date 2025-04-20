@@ -9,6 +9,7 @@ import { type Context, env, c, errorMark } from './env.ts';
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
 const fileTimes = new Map<AbsPath, number>();
+let activeTaskCount = 0;
 
 type Path = string;
 type AbsPath = string;
@@ -37,7 +38,7 @@ type TaskOpts = {
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
-  root?: AbsPath; // default absolute - optional relative root for file lists
+  root?: AbsPath; // optional relative root for file lists, otherwise they're absolute
   globListOnly?: boolean; // default false - ignore file mods, only execute when glob list changes
   monitorOnly?: boolean; // default false - do not execute on initial traverse, only on future changes
   noEnvStatus?: boolean; // default false - don't inform env.done of task status
@@ -83,6 +84,10 @@ export function taskOk(ctx?: Context): boolean {
   return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
 }
 
+export function tasksIdle(): boolean {
+  return activeTaskCount === 0;
+}
+
 async function execute(t: Task, firstRun = false): Promise<void> {
   const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
   const debounced = [...t.debounce.files];
@@ -117,6 +122,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
   try {
+    activeTaskCount++;
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
     if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
@@ -127,6 +133,8 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     else if (e)
       env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${c.grey(message)}`, t.ctx);
     if (t.ctx && !t.noEnvStatus) env.done(t.ctx, -1);
+  } finally {
+    activeTaskCount--;
   }
 }
 

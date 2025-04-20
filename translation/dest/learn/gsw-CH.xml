@@ -70,7 +70,7 @@ Umwandle muesch nöd.</string>
   <string name="protectionComplete">Gratuliere, jedi Figur wo du nöd verlore häsch, isch e gunneni Figur!</string>
   <string name="escape">Du wirsch agriffe, entchum dere Bedrohig!</string>
   <string name="noEscape">Es git e keis Entrinne, aber du chasch di verteidige!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Lass dir kei ungschützti Figure neh!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Loh dir kei ungschützti Figure schnappe!</string>
   <string name="combat">Kampf</string>
   <string name="captureAndDefendPieces">Schlag und verteidig Figure</string>
   <string name="combatIntro">En guete Chrieger kännt beides, Agriff und Verteidigung!</string>
@@ -105,7 +105,8 @@ Sie chömmed in Egge.</string>
 Grad näbe de Turm.</string>
   <string name="placeTheBishops">Jetzt chömmed no zwei Läufer!
 Grad nach de Schpringer.</string>
-  <string name="placeTheQueen">Dänn e Dame, ufs wiss Fäld, die Wiss und ufs schwarz Fäld die Schwarz.</string>
+  <string name="placeTheQueen">Platzier d\'Königin!
+Die Wiss uf\'s wisse Fäld, die Schwarz uf\'s Schwarze.</string>
   <string name="placeTheKing">Und dänn no de König!
 Zu de Dame - näbe sini Königin.</string>
   <string name="pawnsFormTheFrontLine">Pure bilded die vorderscht Linie.

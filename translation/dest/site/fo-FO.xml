@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Telva móti einum vini</string>
   <string name="playWithTheMachine">Telva móti telduni</string>
-  <string name="playOffline">Telva ótongt (offline)</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum at telva við at geva honum hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
   <string name="waitingForOpponent">Bíða eftir móttelvara</string>
@@ -428,19 +427,15 @@
   <string name="wins">Sigrar</string>
   <string name="losses">Tapt</string>
   <string name="createdBy">Stovnað hevur</string>
-  <string name="tournamentIsStarting">Kappingin byrjar</string>
-  <string name="tournamentPairingsAreNowClosed">Liðugt er at seta luttakararnar saman tveir og tveir.</string>
   <string name="standByX">Bíða %s, telvarar verða greipaðir, ger teg til reiðar!</string>
   <string name="youArePlaying">Tú telvar!</string>
   <string name="winRate">Sigurslutfall</string>
-  <string name="berserkRate">Berserksstig</string>
   <string name="performance">Avrik</string>
   <string name="tournamentComplete">Kappingin fullfíggjað</string>
   <string name="movesPlayed">Telvdir leikir</string>
   <string name="whiteWins">Sigrar við hvítum</string>
   <string name="blackWins">Sigrar við svørtum</string>
   <string name="draws">Javnleikir</string>
-  <string name="nextXTournament">Næsta %s kapping:</string>
   <string name="averageOpponent">Miðalmótleikari</string>
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>

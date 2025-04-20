@@ -30,6 +30,6 @@ final class Recap(env: Env) extends LilaController(env):
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)
-      else if isGranted(_.SeeInsight) || !env.net.isProd then Found(env.user.api.byId(username))(proceed)
+      else if isGranted(_.SeeInsight) || !env.mode.isProd then Found(env.user.api.byId(username))(proceed)
       else Redirect(routes.Recap.home).toFuccess
     }

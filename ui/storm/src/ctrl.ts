@@ -8,14 +8,14 @@ import { Combo } from 'lib/puz/combo';
 import { getNow, puzzlePov, sound } from 'lib/puz/util';
 import { makeCgOpts } from 'lib/puz/run';
 import { parseUci } from 'chessops/util';
-import { PromotionCtrl } from 'lib/chess/promotion';
+import { PromotionCtrl } from 'lib/game/promotion';
 import { prop, type Prop } from 'lib';
 import type { PuzCtrl, Run } from 'lib/puz/interfaces';
 import { PuzFilters } from 'lib/puz/filters';
 import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import type { WithGround } from 'lib/chess/ground';
+import type { WithGround } from 'lib/game/ground';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;

@@ -24,8 +24,10 @@ case class UblogPost(
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
     views: UblogPost.Views,
+    similar: Option[List[UblogSimilar]],
     rankAdjustDays: Option[Int],
-    pinned: Option[Boolean]
+    pinned: Option[Boolean],
+    automod: Option[UblogAutomod.Result]
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
@@ -39,6 +41,8 @@ case class UblogPost(
   def canView(using Option[Me]) = live || allows.draft
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
+
+case class UblogSimilar(id: UblogPostId, count: Int)
 
 object UblogPost:
 

@@ -51,14 +51,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Allir SYNC-limir verða verandi í somu støðu</string>
   <string name="shareChanges">Deil broytingar við áskoðarar, og goym tær á ambætaranum</string>
   <string name="playing">Í gongd</string>
-  <string name="first">Fyrsta</string>
-  <string name="previous">Undanfarna</string>
   <string name="next">Næsta</string>
-  <string name="last">Síðsta</string>
   <string name="shareAndExport">Deil &amp; flyt út</string>
   <string name="cloneStudy">Klona</string>
   <string name="studyPgn">PGN rannsókn</string>
-  <string name="downloadAllGames">Tak øll talv niður</string>
   <string name="chapterPgn">PGN kapittul</string>
   <string name="downloadGame">Tak talv niður</string>
   <string name="studyUrl">URL rannsókn</string>

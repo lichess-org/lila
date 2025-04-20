@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s 直播</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s 名观众</item>
+  </plurals>
   <string name="liveBroadcasts">赛事转播</string>
   <string name="broadcastCalendar">转播日程表</string>
   <string name="newBroadcast">新建实况转播</string>
@@ -79,4 +82,5 @@
   <string name="allBroadcastsByMonth">按月查看所有转播</string>
   <string name="backToLiveMove">回到实时着法</string>
   <string name="sinceHideResults">由于您选择隐藏比赛结果，为避免剧透，所有棋局预览均为空白状态。</string>
+  <string name="liveboard">实时棋局</string>
 </resources>

@@ -1,5 +1,7 @@
-import { BotInfo, MoveSource, SoundEvent } from 'local';
+import { BotInfo, MoveSource, SoundEvent } from 'lib/bot/types';
 import * as Prefs from 'lib/prefs';
+
+export type DateMillis = number; // local millis since Unix epoch = Date.getTime()
 
 export interface BotOpts {
   bots: BotInfo[];
@@ -26,5 +28,5 @@ export interface Pref {
 }
 
 export interface LocalBridge extends MoveSource {
-  playSound: (c: Color, eventList: SoundEvent[]) => number;
+  playSound: (eventList: SoundEvent[]) => number;
 }

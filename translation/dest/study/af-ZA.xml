@@ -53,14 +53,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC lede bly op dieselfde posisie</string>
   <string name="shareChanges">Deel veranderinge met toeskouers en stoor dit op die bediener</string>
   <string name="playing">Besig om te speel</string>
-  <string name="first">Eerste</string>
-  <string name="previous">Vorige</string>
   <string name="next">Volgende</string>
-  <string name="last">Laaste</string>
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
   <string name="studyPgn">Studie PGN</string>
-  <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
   <string name="copyChapterPgn">Kopieer PGN</string>
   <string name="downloadGame">Aflaai spel</string>
@@ -166,4 +162,28 @@
   <string name="playAgain">Speel weer</string>
   <string name="whatWouldYouPlay">Wat sal jy in hierdie posisie speel?</string>
   <string name="youCompletedThisLesson">Geluk! Jy het hierdie les voltooi.</string>
+  <string name="getTheTour">Hulp nodig? Doen die toer!</string>
+  <string name="welcomeToLichessStudyTitle">Welkom by Lichess Studie!</string>
+  <string name="welcomeToLichessStudyText">Hierdie is \'n gedeelde analisebord.&lt;br&gt;&lt;br&gt;Gebruik dit om mee te analiseer en spelle te annoteer,&lt;br&gt;posisies met vriende te deel,&lt;br&gt;en natuurlik vir skaaklesse!&lt;br&gt;&lt;br&gt;Dit is \'n kragtige hulpmiddel; spandeer \'n bietjie tyd om te sien hoe dit werk.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeel en gestoor</string>
+  <string name="sharedAndSavedText">Ander lede kan jou skuiwe intyds sien!&lt;br&gt;Alles is boonop vir altyd gestoor.</string>
+  <string name="studyMembersTitle">Studielede</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Toeskouers kan die studie sien en praat in die chat.&lt;br&gt;&lt;br&gt;%2$s Bydraers kan skuiwe maak en die studie opdateer.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klik die %s-knoppie.&lt;br&gt;Besluit dan wie kan bydra en wie nie.</string>
+  <string name="studyChaptersTitle">Studiehoofstukke</string>
+  <string name="studyChaptersText">\'n Studie kan verskeie hoofstukke bevat.&lt;br&gt;Elke hoofstuk het \'n spesifieke beginposisie en skuiwe-boom.</string>
+  <string name="commentPositionTitle">Lewer kommentaar op \'n posisie</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klik die %s-knoppie, of regs-klik op die skuiflys aan die regterkant.&lt;br&gt;Kommentaar word gedeel en gestoor.</string>
+  <string name="annotatePositionTitle">Annoteer \'n posisie</string>
+  <string name="annotatePositionText">Klik die !?-knoppie, of regs-klik op die skuiflys aan die regterkant.&lt;br&gt;Annoteringsimbole word gedeel en gestoor.</string>
+  <string name="conclusionTitle">Dankie vir jou tyd</string>
+  <string name="createChapterTitle">Kom ons skep \'n studiehoofstuk</string>
+  <string name="createChapterText">\'n Studie kan verskeie hoofstukke hê.&lt;br&gt;Elke hoofstuk het \'n spesifieke skuifboom,&lt;br&gt;en kan op verskillende maniere geskep word.</string>
+  <string name="fromInitialPositionTitle">Van die beginposisie</string>
+  <string name="fromInitialPositionText">Slegs \'n bordopstelling vir \'n nuwe spel.&lt;br&gt;Geskik om openinge te ondersoek.</string>
+  <string name="customPositionTitle">Doelgemaakte posisie</string>
+  <string name="customPositionText">Stel die bord op soos jy dit wil hê.&lt;br&gt;Geskik vir eindspelle.</string>
+  <string name="loadExistingLichessGameTitle">Laai \'n bestaande lichess-spel</string>
+  <string name="fromFenStringTitle">Vanaf \'n FEN-string</string>
+  <string name="fromPgnGameTitle">Vanaf \'n PGN-spel</string>
 </resources>

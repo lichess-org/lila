@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Zagraj ze znajomym</string>
   <string name="playWithTheMachine">Zagraj z komputerem</string>
-  <string name="playOffline">Graj offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
@@ -559,14 +558,12 @@
   <string name="wins">Wygrane</string>
   <string name="losses">Przegrane</string>
   <string name="createdBy">Stworzony przez</string>
-  <string name="tournamentIsStarting">Rozpoczęcie turnieju</string>
-  <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
+  <string name="startingIn" comment="Displayed above a timer">Rozpoczęcie za</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Współczynnik zwycięstw</string>
-  <string name="berserkRate">Berserków</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
   <string name="movesPlayed">Wykonanych ruchów</string>
@@ -574,7 +571,6 @@
   <string name="blackWins">Wygranych czarnych</string>
   <string name="drawRate">Częstość remisowania</string>
   <string name="draws">Remisów</string>
-  <string name="nextXTournament">Następny turniej %s:</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
@@ -839,6 +835,7 @@
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane</string>
+  <string name="downloadAllGames">Pobierz wszystkie partie</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>

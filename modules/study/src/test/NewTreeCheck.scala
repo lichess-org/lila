@@ -38,32 +38,33 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
       val root = x.toRoot
       val bdoc = treeBson.writes(w, root)
       val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
+      assertEquals(y, root.withoutClockTrust)
 
   test("NewTree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = newTreeBson.writes(w, x)
       val y    = treeBson.reads(bdoc).toNewRoot
-      assertEquals(y, x)
+      assertEquals(y, x.withoutClockTrust)
 
   test("Tree.writes.NewTree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = treeBson.writes(w, x.toRoot)
       val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
+      assertEquals(y, x.withoutClockTrust)
 
   test("NewTree.writes.NewTree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = newTreeBson.writes(w, x)
       val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
+      assertEquals(y, x.withoutClockTrust)
 
   test("Tree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
       val root = x.toRoot
       val bdoc = treeBson.writes(w, root)
       val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
+      assertEquals(y, root.withoutClockTrust)
+
   test("Root conversion check"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot

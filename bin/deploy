@@ -71,7 +71,7 @@ def curl_cli(command, *, url="https://lichess.org/run/cli", token_file=".lila-cl
 
 
 def asset_profile(ssh, *,
-                  deploy_dir="/home/lichess-deploy",
+                  deploy_dir="/home/lichess/deploy",
                   post=curl_cli("change asset version"),
                   stage=False,
                   user="lichess"):
@@ -81,25 +81,22 @@ def asset_profile(ssh, *,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
-        "symlinks": [],
         "post": post,
         "stage": stage,
         "user": user
     }
 
 def server_profile(ssh, *,
-                   deploy_dir="/home/lichess-deploy",
-                   post="systemctl restart lichess",
+                   deploy_dir="/home/lichess/deploy",
+                   post="echo 'All set.'",
                    stage=False,
-                   user="lichess",
-                   symlinks=["lib", "bin"]):
+                   user="lichess"):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
-        "symlinks": symlinks,
         "post": post,
         "stage": stage,
         "user": user,
@@ -111,9 +108,9 @@ PROFILES = {
     "snafu-assets": asset_profile("root@snafu.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
     "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "testy-assets": asset_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post=curl_cli("change asset version", url="https://testy.lichess.dev/run/cli", token_file="/home/testy/.testy-cli"), stage=True, user="testy"),
-    "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
-    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
-    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy"),
+    "manta-server": server_profile("root@manta.lichess.ovh", post="systemctl restart lichess"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh"),
 }
 
 
@@ -266,6 +263,7 @@ def deploy_script(profile, session, run, url):
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
     user_group = f"{profile['user']}:{profile['user']}"
+    commit = run["head_commit"]["id"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
@@ -288,40 +286,31 @@ def deploy_script(profile, session, run, url):
     ]
 
     if profile["artifact_name"] == "lila-assets":
-        assets_dir = f"{deploy_dir}/public"
-        lifat_dir = f"{assets_dir}/lifat"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
-            "echo \\# Preparing lifat ...",
-            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R {user_group} {lifat_dir}; fi)",
-            "echo \\# Copying assets ...",
-            f"mkdir -p {assets_dir}/compiled",
-            f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
-            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
-            f"rm -rf {artifact_unzipped}",
-        ]
-    elif not profile.get("symlinks"):
-        # testy runs in podman and cannot escape a volume mapping via symlink. so we just shuffle things around
-        # rather than copying
-        commands += [
-            f"rm -rf {deploy_dir}/bin~ {deploy_dir}/lib~",
-            f"mv -f {deploy_dir}/bin {deploy_dir}/bin~",
-            f"mv -f {deploy_dir}/lib {deploy_dir}/lib~",
-            f"mv -f {artifact_unzipped}/d/bin {deploy_dir}/bin",
-            f"mv -f {artifact_unzipped}/d/lib {deploy_dir}/lib",
-            f"chmod -f +x {deploy_dir}/bin/lila || true",
+            f"echo '\n# git -c {deploy_dir} fetch origin {commit}'",
+            f"git -C {deploy_dir} fetch origin {commit}",
+            f"echo '\n# git -C {deploy_dir} checkout {commit}'",
+            f"git -C {deploy_dir} checkout {commit}",
+            f"git -C {deploy_dir} lfs pull",
+            f"echo '\n# rsync -a {artifact_unzipped}/d/public {deploy_dir}/'",
+            f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
         ]
     else:
         commands += [
-            f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
-            for symlink in profile["symlinks"]
-        ] + [f"chmod -f +x {deploy_dir}/bin/lila || true"]
+            f"rsync -a {artifact_unzipped}/d/bin/ {deploy_dir}/bin/",
+            f"rm -rf {deploy_dir}/lib~",
+            f"mv {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv {artifact_unzipped}/d/lib {deploy_dir}/",
+            f"chmod -f +x {deploy_dir}/bin/lila || true",
+        ]
 
     return commands + [
         f"chown -R {user_group} {deploy_dir}",
         f"echo \"SSH: {profile['ssh']}\"",
         f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
         profile["post"],
+        f"rm -rf {artifact_unzipped}",
         "echo",
         f"echo \\# Done.",
     ]

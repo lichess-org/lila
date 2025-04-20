@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Luani me një shok</string>
   <string name="playWithTheMachine">Luaj me kompjuterin</string>
-  <string name="playOffline">Luani jashtë interneti</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
@@ -489,21 +488,19 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="wins">Fitore</string>
   <string name="losses">Humbje</string>
   <string name="createdBy">Krijuar nga</string>
-  <string name="tournamentIsStarting">Turneu po fillon</string>
-  <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet tani u mbyllën.</string>
+  <string name="startingIn" comment="Displayed above a timer">Fillon më</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
   <string name="resume">Rifillo</string>
   <string name="youArePlaying">Po luani!</string>
   <string name="winRate">Përqindje fitoresh</string>
-  <string name="berserkRate">Perqindja e berserkeve</string>
   <string name="performance">Sukseshmëri</string>
   <string name="tournamentComplete">Turneu mbaroi</string>
   <string name="movesPlayed">Lëvizje të luajtura</string>
   <string name="whiteWins">I bardhi fiton</string>
   <string name="blackWins">I ziu fiton</string>
+  <string name="drawRate">Norma e tërheqjes</string>
   <string name="draws">Barazime</string>
-  <string name="nextXTournament">Turneu %s i radhës:</string>
   <string name="averageOpponent">Kundërshtari mesatar</string>
   <string name="boardEditor">Përpunues fushe</string>
   <string name="setTheBoard">Rregulloni fushën</string>
@@ -511,7 +508,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
   <string name="startPosition">Pozicioni fillestar</string>
-  <string name="clearBoard">Spastro fushën</string>
+  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raportojeni %s tek moderatorët</string>
@@ -521,6 +518,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Përpunoni profilin</string>
   <string name="realName">Emër i njëmendtë</string>
+  <string name="setFlair">Vendosni dhuntinë tuaj</string>
+  <string name="flair">Dhunti</string>
+  <string name="youCanHideFlair">Ekziston një cilësim për të fshehur të gjitha aftësitë e përdoruesve në të gjithë faqen.</string>
   <string name="biography">Jetëshkrim</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
@@ -677,8 +677,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
   <string name="hostColorX">Ngjyra e organizatorit: %s</string>
+  <string name="yourPendingSimuls">Simulat tuaja në pritje</string>
   <string name="createdSimuls">Simultane të krijuara së fundi</string>
   <string name="hostANewSimul">Organizoni një simultane të re</string>
+  <string name="signUpToHostOrJoinASimul">Regjistrohu për të pritur ose bashkuar një simul</string>
   <string name="noSimulFound">S’u gjet simultane</string>
   <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
@@ -748,6 +750,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="downloadAnnotated">Shkarkoje me shënimet</string>
   <string name="downloadRaw">Shkarkoje shqeto</string>
   <string name="downloadImported">Shkarko të importuarën</string>
+  <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>

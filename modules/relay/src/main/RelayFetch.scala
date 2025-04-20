@@ -88,7 +88,7 @@ final private class RelayFetch(
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
-        _ <- (sliced.sizeCompare(limited) != 0)
+        _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
@@ -172,8 +172,8 @@ final private class RelayFetch(
       r.round.sync.log.events.lastOption
         .filterNot(_.isTimeout)
         .flatMap(_.error)
-        .filterNot(_.contains("Cannot parse move"))
-        .filterNot(_.contains("Cannot parse pgn"))
+        .filterNot(_.contains("Error parsing move"))
+        .filterNot(_.contains("Error parsing PGN"))
         .filterNot(_.contains("Found an empty PGN"))
         .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 
@@ -327,7 +327,7 @@ final private class RelayFetch(
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
-            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
+            .map(MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)))
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
@@ -383,15 +383,16 @@ private object RelayFetch:
 
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
-    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:
-      multiPgn.value.map(in(_, tco))
+    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn =
+      tco.fold(multiPgn): tc =>
+        MultiPgn:
+          multiPgn.value.map(in(tc))
 
-    def in(pgn: PgnStr, tco: Option[TournamentClock]): PgnStr =
-      tco.fold(pgn): tc =>
-        pgn.map: txt =>
-          if txt.contains("""[TimeControl """")
-          then txt
-          else s"""${replace(tc)}$txt"""
+    def in(tco: TournamentClock)(pgn: PgnStr): PgnStr =
+      pgn.map: txt =>
+        if txt.contains("""[TimeControl """")
+        then txt
+        else s"""${replace(tco)}$txt"""
 
   object multiPgnToGames:
 
@@ -403,7 +404,7 @@ private object RelayFetch:
               .get(pgn)
               .flatMap: game =>
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
-                else (acc :+ game, index + 1).asRight[LilaInvalid]
+                else (acc :+ game, index + 1).asRight
         .map(_._1)
 
     def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture

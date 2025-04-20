@@ -55,14 +55,10 @@
   <string name="playing">Oynanıyor</string>
   <string name="showResults">Sonuçlar</string>
   <string name="showEvalBar">Değerlendirme çubuğu</string>
-  <string name="first">İlk</string>
-  <string name="previous">Önceki</string>
   <string name="next">Sonraki</string>
-  <string name="last">Son</string>
   <string name="shareAndExport">Paylaş ve dışa aktar</string>
   <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Çalışma PGN\'si</string>
-  <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="copyChapterPgn">PGN \'yi kopyala</string>
   <string name="downloadGame">Oyunu indir</string>
@@ -169,4 +165,5 @@
   <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
   <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
   <string name="perPage">Sayfa başına %s</string>
+  <string name="conclusionTitle">Zamanınız için teşekkürler</string>
 </resources>

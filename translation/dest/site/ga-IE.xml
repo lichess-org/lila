@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Imir le cara</string>
   <string name="playWithTheMachine">Imir in aghaidh an ríomhaire</string>
-  <string name="playOffline">Imir as líne</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo dóibh</string>
   <string name="gameOver">Cluiche Thart</string>
   <string name="waitingForOpponent">Ag fanacht ar chéile comhraic</string>
@@ -570,21 +569,17 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="wins">Buanna</string>
   <string name="losses">Cailliúintí</string>
   <string name="createdBy">Cruthaithe ag</string>
-  <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
-  <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
   <string name="pause">Cuir ar sos</string>
   <string name="resume">Atosaigh</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
-  <string name="berserkRate">Ráta Beirseirc</string>
   <string name="performance">Caighdeán imeartha</string>
   <string name="tournamentComplete">Comórtas críochnaithe</string>
   <string name="movesPlayed">Bearta imeartha</string>
   <string name="whiteWins">Buanna ag bán</string>
   <string name="blackWins">Buanna ag dubh</string>
   <string name="draws">Comhscór</string>
-  <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Gnáth-céile comhraic</string>
   <string name="boardEditor">Eagarthóir boird</string>
   <string name="setTheBoard">Socraigh an bord</string>
