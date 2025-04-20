@@ -316,7 +316,7 @@ object mon:
       val change        = c.withTag("type", "change")
       val confirmation  = c.withTag("type", "confirmation")
       val welcome       = c.withTag("type", "welcome")
-      val time          = timer("email.send.time").withoutTags()
+      val time          = future("email.send.time")
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   object security:
     val torNodes = gauge("security.tor.node").withoutTags()

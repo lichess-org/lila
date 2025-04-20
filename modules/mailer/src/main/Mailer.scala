@@ -43,25 +43,25 @@ final class Mailer(
       funit
     else
       Future:
-        Chronometer.syncMon(_.email.send.time):
-          blocking:
-            val (client, config) = randomClient()
-            val email = Email(
-              subject = msg.subject,
-              from = config.sender,
-              to = Seq(msg.to.value),
-              bodyText = msg.text.some,
-              bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
-            )
-            client.send(email)
-      .recoverWith:
-        case e: EmailException if msg.to.normalize.value != msg.to.value =>
-          logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
-          send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
-        case e: Exception if !orFail =>
-          logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
-          funit
-      .void
+        val (client, config) = randomClient()
+        val email = Email(
+          subject = msg.subject,
+          from = config.sender,
+          to = Seq(msg.to.value),
+          bodyText = msg.text.some,
+          bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
+        )
+        blocking:
+          client.send(email)
+      .monSuccess(_.email.send.time)
+        .recoverWith:
+          case e: EmailException if msg.to.normalize.value != msg.to.value =>
+            logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
+            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
+          case e: Exception if !orFail =>
+            logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+            funit
+        .void
 
 object Mailer:
 
