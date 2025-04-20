@@ -611,7 +611,7 @@
   <string name="victoryVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
   <string name="defeatVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
   <string name="drawVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
-  <string name="timeline">Χρονολόγιο</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Χρονολόγιο</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
@@ -789,7 +789,7 @@
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
-  <string name="allLanguages">Όλες οι γλώσσες</string>
+  <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>
