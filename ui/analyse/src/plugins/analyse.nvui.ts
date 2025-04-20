@@ -51,6 +51,7 @@ import { renderResult } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
 import renderClocks from '../view/clocks';
+import { renderChat } from 'lib/chat/renderChat';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -243,6 +244,8 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 .map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
+          h('h2', 'Chat'),
+          ctrl.chatCtrl && renderChat(ctrl.chatCtrl)
         ]),
       ]);
     },
