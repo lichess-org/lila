@@ -224,7 +224,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       h(
         'thead',
         h('tr', [
-          h('th', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
+          h('th', defaultSort, i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
           withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
         ]),
@@ -234,7 +234,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         players.map(player =>
           h('tr', [
             h(
-              'th',
+              'td.player-name',
               { attrs: { 'data-sort': player.name || '' } },
               h('a', playerLinkConfig(ctrl, player, true), [
                 playerFed(player.fed),
