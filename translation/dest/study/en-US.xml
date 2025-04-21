@@ -167,7 +167,7 @@
   <string name="perPage">%s per page</string>
   <string name="getTheTour">Need help? Get the tour!</string>
   <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
-  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
+  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyze and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
   <string name="sharedAndSavedText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
   <string name="studyMembersTitle">Study members</string>
