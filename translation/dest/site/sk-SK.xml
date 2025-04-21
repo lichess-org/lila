@@ -70,12 +70,13 @@
   <string name="inLocalBrowser">vo Vašom prehliadači</string>
   <string name="toggleLocalEvaluation">Prepnúť na analýzu vo Vašom prehliadači</string>
   <string name="promoteVariation">Povýšiť variant</string>
-  <string name="makeMainLine">Povýšiť na hlavnú variantu</string>
+  <string name="makeMainLine">Povýšiť na hlavný variant</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
   <string name="collapseVariations">Skryť varianty</string>
   <string name="expandVariations">Ukázať varianty</string>
-  <string name="forceVariation">Povýšiť variant</string>
+  <string name="forceVariation">Vynútiť variant</string>
   <string name="copyVariationPgn">Kopírovať PGN variantu</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopírovať PNG hlavného variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
@@ -684,7 +685,7 @@
   <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
-  <string name="timeline">Rozvrh</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Rozvrh</string>
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
   <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené otvorenia, partie, hráči…</string>
