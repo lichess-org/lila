@@ -80,7 +80,11 @@ object Protocol:
       )
       .toString
 
-    def matches(other: UncheckedRedirectUri) = value.toString == other.value
+    def matches(other: UncheckedRedirectUri): Boolean = {
+      val normalizedThis = if (value.toString.endsWith("/")) value.toString.dropRight(1) else value.toString
+      val normalizedOther = if (other.value.endsWith("/")) other.value.dropRight(1) else other.value
+      normalizedThis == normalizedOther
+    }
   object RedirectUri:
     def from(redirectUri: String): Either[Error, RedirectUri] =
       lila.common.url
