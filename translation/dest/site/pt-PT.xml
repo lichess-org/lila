@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente escanear este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -74,6 +74,7 @@
   <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Forçar variante</string>
   <string name="copyVariationPgn">Copiar variação PGN</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Copiar linha principal do PGN</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -612,7 +613,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="victoryVsYInZ">%1$s contra %2$s em %3$s</string>
   <string name="defeatVsYInZ">%1$s contra %2$s em %3$s</string>
   <string name="drawVsYInZ">%1$s contra %2$s em %3$s</string>
-  <string name="timeline">Cronologia</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Cronologia</string>
   <string name="starting">Começa às:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
