@@ -1,7 +1,7 @@
 import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
 import { handOfCards, type HandOfCards } from './handOfCards';
 import { frag } from 'lib';
-import { deepFreeze, definedMap, mapValues } from 'lib/algo';
+import { deepFreeze, definedMap } from 'lib/algo';
 import { buildFromSchema, Panes } from './panes';
 import { deadStrip } from './devUtil';
 import { domDialog, type Dialog, type Action } from 'lib/view/dialog';
