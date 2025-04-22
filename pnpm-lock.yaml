@@ -346,8 +346,8 @@ importers:
         specifier: 5.5.0
         version: 5.5.0
       zerofish:
-        specifier: 0.0.35
-        version: 0.0.35
+        specifier: ../../../zerofish
+        version: link:../../../zerofish
 
   ui/lobby:
     dependencies:

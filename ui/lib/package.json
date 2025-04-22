@@ -29,7 +29,7 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "tablesort": "5.5.0",
-    "zerofish": "0.0.35"
+    "zerofish": "0.0.36"
   },
   "build": {
     "sync": {
@@ -37,7 +37,8 @@
       "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
     },
     "hash": [
-      "/public/npm/lila-stockfish-web/*"
+      "/public/npm/lila-stockfish-web/*",
+      "/public/npm/zerofishEngine.*"
     ]
   }
 }

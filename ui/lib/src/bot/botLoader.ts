@@ -32,7 +32,6 @@ export class BotLoader {
       this.zerofish ??
         makeZerofish({
           locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
-          nonce: document.body.dataset.nonce,
         }).then(zf => (this.zerofish = zf)),
     ]);
     for (const b of [...bots].filter(Bot.isValid)) {
