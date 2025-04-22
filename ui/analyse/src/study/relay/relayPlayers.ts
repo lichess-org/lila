@@ -224,7 +224,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       h(
         'thead',
         h('tr', [
-          h('th', defaultSort, i18n.site.player),
+          h('th', i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
           withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
         ]),
