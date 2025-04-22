@@ -15,7 +15,6 @@
     "./*": "./src/*.ts"
   },
   "dependencies": {
-    "@types/lichess": "workspace:*",
     "bits": "workspace:*",
     "chart.js": "4.4.3",
     "chessops": "^0.14.0",
