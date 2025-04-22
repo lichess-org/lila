@@ -49,7 +49,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
     const now = Date.now();
     if (prev > now - 1000 || !ctrl.connected()) return;
     prev = now;
-    const txt = area.value.trim();
+    const txt = area.value;
     if (txt.length > 8000) {
       alert('The message is too long.');
       return;
@@ -66,7 +66,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   area.addEventListener(
     'input',
     throttle(500, () => {
-      const text = area.value.trim();
+      const text = area.value;
       area.rows = 1;
       // the resize magic
       if (text) area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
