@@ -1,6 +1,7 @@
 package views.analyse
 
 import chess.format.pgn.PgnStr
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
 import lila.round.RoundGame.secondsSinceCreation
@@ -70,14 +71,25 @@ object replay:
 
 object embed:
 
-  def lpv(pgn: PgnStr, orientation: Option[Color], getPgn: Boolean)(using ctx: EmbedContext) =
+  def lpv(pgn: PgnStr, getPgn: Boolean, title: String, args: (String, Json.JsValueWrapper)*)(using
+      ctx: EmbedContext
+  ) =
+    val opts = Seq[(String, Json.JsValueWrapper)](
+      "menu" -> Json.obj("getPgn" -> Json.obj("enabled" -> getPgn)),
+      "i18n" -> Json.obj(
+        "flipTheBoard"         -> trans.site.flipBoard.txt(),
+        "analysisBoard"        -> trans.site.analysis.txt(),
+        "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
+        "getPgn"               -> trans.study.copyChapterPgn.txt(),
+        "download"             -> trans.site.download.txt()
+      )
+    ) ++ args
     views.base.embed.minimal(
-      title = "Lichess PGN viewer",
+      title = title,
       cssKeys = List("bits.lpv.embed"),
-      modules = Esm("site.lpvEmbed")
+      modules = esmInitObj("site.lpvEmbed", opts*)
     )(
-      div(cls := "is2d")(div(pgn)),
-      ui.embed.lpvJs(orientation, getPgn)(ctx.nonce.some)
+      div(cls := "is2d")(div(pgn))
     )
 
   def notFound(using EmbedContext) =
