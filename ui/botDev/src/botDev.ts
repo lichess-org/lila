@@ -41,7 +41,6 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     bot: new DevBotCtrl(
       await makeZerofish({
         locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
-        nonce: document.body.dataset.nonce,
         dev: true,
       }),
     ),

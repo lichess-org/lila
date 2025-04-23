@@ -28,8 +28,11 @@ final class Mailer(
   private val primaryClient   = SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
 
-  private def randomClient(): (SMTPMailer, Mailer.Smtp) =
-    if ThreadLocalRandom.nextInt(1000) < getSecondaryPermille() then (secondaryClient, config.secondary)
+  private def randomClientFor(recipient: EmailAddress): (SMTPMailer, Mailer.Smtp) =
+    // Stick to one mailer for each recipient, because each mailer may have its
+    // own supression list.
+    if recipient.value.toLowerCase.hashCode % 1000 < getSecondaryPermille() then
+      (secondaryClient, config.secondary)
     else (primaryClient, config.primary)
 
   def canSend = canSendEmails.get()
@@ -43,7 +46,7 @@ final class Mailer(
       funit
     else
       Future:
-        val (client, config) = randomClient()
+        val (client, config) = randomClientFor(msg.to)
         val email = Email(
           subject = msg.subject,
           from = config.sender,
