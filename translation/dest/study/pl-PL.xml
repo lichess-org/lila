@@ -179,10 +179,12 @@
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Udostępnione i zapisane</string>
   <string name="sharedAndSavedText">Inni uczestnicy mogą widzieć Twoje ruchy w czasie rzeczywistym!&lt;br&gt;Co więcej, wszystko jest zapisywane na zawsze.</string>
   <string name="studyMembersTitle">Twórcy opracowania</string>
-  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Obserwatorzy mogą oglądać analizę i rozmawiać na czacie.&lt;br&gt;&lt;br&gt;%2$s Współautorzy mogą wykonywać ruchy i aktualizować analizę.</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Obserwatorzy mogą oglądać opracowanie i rozmawiać na czacie.&lt;br&gt;&lt;br&gt;%2$s Współautorzy mogą wykonywać ruchy i aktualizować opracowanie.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Kliknij przycisk %s.&lt;br&gt;Następnie zdecyduj, kto może współtworzyć, a kto nie.</string>
   <string name="studyChaptersTitle">Rozdziały opracowania</string>
+  <string name="studyChaptersText">Opracowanie może zawierać kilka rozdziałów.&lt;br&gt;Każdy rozdział ma swoją unikalną pozycję początkową i drzewo posunięć.</string>
   <string name="commentPositionTitle">Komentarz do pozycji</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kliknij przycisk %s lub kliknij prawym przyciskiem myszy na liście ruchów po prawej stronie.&lt;br&gt;Komentarze są udostępniane i zapisywane.</string>
   <string name="conclusionTitle">Dziękujemy za poświęcony czas</string>
   <string name="createChapterTitle">Stwórzmy rozdział opracowania</string>
   <string name="createChapterText">Opracowanie może mieć kilka rozdziałów.&lt;br&gt;Każdy rozdział ma odrębne drzewo posunięć,&lt;br&gt;i może być tworzony na różne sposoby.</string>
