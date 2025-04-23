@@ -76,6 +76,7 @@
   <string name="expandVariations">Rozwiń warianty</string>
   <string name="forceVariation">Zamień w wariant</string>
   <string name="copyVariationPgn">Skopiuj wariant PGN</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Skopiuj główną linię PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -209,7 +210,7 @@
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
-  <string name="games">Partie</string>
+  <string name="games" comment="Appears in many areas, including:&#10;&#10;* Users' profile pages (https://lichess.org/@/thibault) alongside the total number of games they have played&#10;* Broadcast pages (https://lichess.org/broadcast)&#10;* Page of an individual player's tournament results: https://lichess.org/@/thibault/tournaments/recent&#10;* Pages of classes, showing how many games a student has played over a given period&#10;* Tournament creation: https://lichess.org/tournament/new&#10;* Simul creation: https://lichess.org/simul/new">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze wpisy</string>
@@ -286,7 +287,7 @@
   <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
   <string name="accountClosed">Konto %s jest zamknięte.</string>
   <string name="accountRegisteredWithoutEmail">Konto %s zostało zarejestrowane bez adresu e-mail.</string>
-  <string name="rank">Miejsce</string>
+  <string name="rank" comment="rank&#10;&#10;This is your current rank among all lichess players for that rating category. Appears next to that rating on your profile.&#10;&#10;It shows up e.g. as Rank: 1,423. This would mean you are the 1423rd best player on lichess for that rating category (e.g. Blitz chess, Crazyhouse, etc).&#10;&#10;May also appears as a column heading on a table of tournament results e.g. https://lichess.org/@/thibault/tournaments/recent">Miejsce</string>
   <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Ranking jest aktualizowany co minutę</item>
@@ -498,7 +499,7 @@
   <string name="blackCheckmatesInOneMove">Czarne dają mata w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
-  <string name="noNetwork">Offline</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s znajomy online</item>
     <item quantity="few">%s znajomych online</item>
@@ -531,8 +532,8 @@
   <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>
   <string name="player">Gracz</string>
-  <string name="list">Lista</string>
-  <string name="graph">Wykres</string>
+  <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">Lista</string>
+  <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">Wykres</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Poniżej %s minuty</item>
     <item quantity="few">Poniżej %s minut</item>
@@ -554,7 +555,7 @@
   <string name="makePrivateTournament">Ustaw turniej jako prywatny i ogranicz dostęp za pomocą hasła</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
-  <string name="points">Punkty</string>
+  <string name="points" comment="Appears as a column heading on pages with a table of a player's tournament results. Shows how many points that player earned in the tournament. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/recent">Punkty</string>
   <string name="wins">Wygrane</string>
   <string name="losses">Przegrane</string>
   <string name="createdBy">Stworzony przez</string>
@@ -685,7 +686,7 @@
   <string name="victoryVsYInZ">%1$s z %2$s (%3$s)</string>
   <string name="defeatVsYInZ">%1$s z %2$s (%3$s)</string>
   <string name="drawVsYInZ">%1$s z %2$s (%3$s)</string>
-  <string name="timeline">Historia</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Historia</string>
   <string name="starting">Zaczynają się:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
   <string name="biographyDescription">Napisz coś o sobie: dlaczego grasz w szachy, twoje ulubione otwarcia, partie, szachiści…</string>
@@ -747,18 +748,18 @@
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
   <string name="aboutX">Informacje o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer" comment="%1$s is 'Lichess' (note this used to be 'lichess.org')&#10;%2$s is 'really' (which is separate translateable string)&#10;&#10;On the website: Appears in the left sidebar when you are not logged in to an account.&#10;In the mobile app: Always appears at the bottom of the 'Settings' view.">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="termsOfService">Regulamin</string>
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
-  <string name="host">Symultanista</string>
+  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Symultanista</string>
   <string name="hostColorX">Kolor symultanisty: %s</string>
   <string name="yourPendingSimuls">Twoje oczekujące symultany</string>
   <string name="createdSimuls">Nowe symultany</string>
-  <string name="hostANewSimul">Nowa symultana</string>
-  <string name="signUpToHostOrJoinASimul">Dołącz do simultany</string>
+  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Nowa symultana</string>
+  <string name="signUpToHostOrJoinASimul" comment="Appears as a button when you are viewing https://lichess.org/simul without being logged in. Note that this text will be all-uppercase.&#10;&#10;Pressing the button leads to the registration page: https://lichess.org/signup&#10;&#10;If logged out, the button will instead show &quot;Host a new simul&quot;, which is available for translation separately.">Dołącz do simultany</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>
