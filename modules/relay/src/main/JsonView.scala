@@ -79,7 +79,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       Json
         .obj(
           "tour"  -> fullTour(tr.tour),
-          "round" -> withUrl(RelayRound.WithTour(tr.display, tr.tour), withTour = false)
+          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)
         )
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
