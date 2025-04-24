@@ -89,7 +89,7 @@ final class RelayRound(
           rt =>
             negotiate(
               Redirect(routes.RelayRound.edit(id)).flashSuccess,
-              JsonOk(env.relay.jsonView.withUrl(rt, withTour = true))
+              doApiShow(id)
             )
         )
   }
