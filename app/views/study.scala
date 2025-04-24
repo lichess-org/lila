@@ -118,11 +118,8 @@ object embed:
       pgn,
       canGetPgn,
       title = s.name.value,
-      isGamebook
-        .option[(String, Json.JsValueWrapper)](
-          "gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapterId).url)
-        )
-        .toSeq*
+      isGamebook.so:
+        Json.obj("gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapterId).url))
     )
 
   def notFound(using EmbedContext) =
