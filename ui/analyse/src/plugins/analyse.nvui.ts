@@ -47,11 +47,16 @@ import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'lib/game/chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'lib/pubsub';
-import { renderResult } from '../view/components';
+import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
 import renderClocks from '../view/clocks';
 import { renderChat } from 'lib/chat/renderChat';
+
+import type * as studyDeps from '../study/studyDeps';
+import type RelayCtrl from '../study/relay/relayCtrl';
+import { playersView } from '../study/relay/relayPlayers';
+import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -74,7 +79,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 
   return {
-    render(): VNode {
+    render(deps?: typeof studyDeps): VNode {
       notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get(),
@@ -245,7 +250,8 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ].reduce(addBreaks, []),
           ),
           h('h2', 'Chat'),
-          ctrl.chatCtrl && renderChat(ctrl.chatCtrl)
+          ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
+          ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
         ]),
       ]);
     },
@@ -592,6 +598,38 @@ const redirectToSelectedHook = bind('change', (e: InputEvent) => {
   const url = selectedOption.getAttribute('url');
   if (url) window.location.href = url;
 });
+
+function tourDetails(
+  ctrl: AnalyseController,
+  study: studyDeps.StudyCtrl,
+  relay: RelayCtrl,
+  deps: typeof studyDeps,
+): VNode[] {
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: false };
+  const tour = ctx.relay.data.tour;
+  ctx.relay.redraw = ctrl.redraw;
+
+  return [
+    h('h1', 'Tour details'),
+    h('h2', 'Overview'),
+    h('div', tourOverview(tour.info, tour.dates)),
+    h('h2', 'Players'),
+    h(
+      'button',
+      {
+        hook: onInsert((el: HTMLButtonElement) => {
+          const toggle = () => {
+            ctx.relay.tab('players');
+            ctrl.redraw();
+          };
+          onInsertHandler(toggle, el);
+        }),
+      },
+      'Load player list',
+    ),
+    ctx.relay.tab() === 'players' ? h('div', playersView(ctx.relay.players, ctx.relay.data.tour)) : h('div'),
+  ];
+}
 
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;

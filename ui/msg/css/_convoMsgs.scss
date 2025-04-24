@@ -52,6 +52,7 @@
     padding: 0.5em 1em;
     color: $c-font-clear;
     max-width: 70%;
+    white-space-collapse: preserve;
   }
 
   day {
