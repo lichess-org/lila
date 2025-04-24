@@ -9,7 +9,7 @@ val ui      = lila.web.ui.SitePages(helpers)
 object page:
 
   val faq = lila.web.ui.FaqUi(helpers, ui)(
-    standardRankableDeviation = lila.rating.Glicko.standardRankableDeviation,
+    standardRankableDeviation = lila.rating.Glicko.legacyStandardRankableDeviation,
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
 
