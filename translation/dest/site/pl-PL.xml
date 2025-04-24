@@ -192,10 +192,10 @@
     <item quantity="other">%s partii</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="few">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="many">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="other">%1$s ranking na podstawie %2$s partii</item>
+    <item quantity="one">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="few">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="many">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="other">Ranking %1$s na podstawie %2$s partii</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>
@@ -206,7 +206,7 @@
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
-  <string name="rememberMe">Zapamiętaj</string>
+  <string name="rememberMe">Nie wylogowuj mnie</string>
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
@@ -216,7 +216,7 @@
   <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
   <string name="friends">Znajomi</string>
-  <string name="otherPlayers">inni gracze</string>
+  <string name="otherPlayers">innych graczy</string>
   <string name="discussions">Rozmowy</string>
   <string name="today">Dzisiaj</string>
   <string name="yesterday">Wczoraj</string>
@@ -254,7 +254,7 @@
   <string name="changeUsername">Zmień nazwę użytkownika</string>
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
-  <string name="signupUsernameHint">Wybierz przyjazną nazwę użytkownika. Nie możesz jej później zmienić, a niestosowna nazwa spowoduje zamknięcie konta!</string>
+  <string name="signupUsernameHint">Pamiętaj, aby wybrać nazwę użytkownika odpowiednią dla osób w każdym wieku. Nie będziesz mógł jej później zmienić, a nieodpowiednia nazwa użytkownika spowoduje zamknięcie konta!</string>
   <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
@@ -264,7 +264,7 @@
   <string name="forgotPassword">Nie pamiętasz hasła?</string>
   <string name="error.weakPassword">To hasło jest bardzo popularne i zbyt łatwe do odgadnięcia.</string>
   <string name="error.namePassword">Nie używaj nazwy użytkownika jako hasła.</string>
-  <string name="blankedPassword">Użyłeś/aś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess, musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
+  <string name="blankedPassword">Użyłeś tego samego hasła na innej stronie, która padła ofiarą ataku. Aby zapewnić bezpieczeństwo Twojego konta na Lichess, prosimy o ustawienie nowego hasła. Dziękujemy za wyrozumiałość.</string>
   <string name="youAreLeavingLichess">Opuszczasz Lichess</string>
   <string name="neverTypeYourPassword">Nigdy nie wpisuj hasła Lichess na innej stronie!</string>
   <string name="proceedToX">Przejdź do %s</string>
