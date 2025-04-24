@@ -58,10 +58,14 @@ async function writeManifest() {
 
   const clientJs: string[] = [
     'if (!window.site) window.site={};',
-    'if (!window.site.info) window.site.info={};',
-    `window.site.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
-    `window.site.info.message='${commitMessage}';`,
-    `window.site.debug=${env.debug};`,
+    'const s=window.site;',
+    's.info={};',
+    `s.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
+    `s.info.message='${commitMessage}';`,
+    `s.debug=${env.debug};`,
+    's.asset={loadEsm:(m,o)=>import(`/assets/compiled/${m}${s.manifest.js[m]?"."+s.manifest.js[m]:""}.js`)' +
+      '.then(x=>(x.initModule||x.default)(o.init))};',
+    // a light version of loadEsm for embeds. on pages this will be overwritten by site.js
   ];
   if (env.remoteLog) clientJs.push(await jsLogger());
 
@@ -73,16 +77,14 @@ async function writeManifest() {
   const cssLines = Object.entries(manifest.css).map(pairLine).join(',');
   const hashedLines = Object.entries(manifest.hashed).map(pairLine).join(',');
 
-  clientJs.push(`window.site.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
+  clientJs.push(`s.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
   const hashable = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(hashable).digest('hex').slice(0, 8);
 
   const clientManifest =
     hashable +
-    `\nwindow.site.info.date='${
-      new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'
-    }';\n`;
+    `\ns.info.date='${new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'}';\n`;
   const serverManifest = JSON.stringify(
     {
       js: { manifest: { hash }, ...manifest.js, ...manifest.i18n },
