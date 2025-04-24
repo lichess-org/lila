@@ -126,22 +126,22 @@ const players = (ctx: RelayViewContext) => [
   playersView(ctx.relay.players, ctx.relay.data.tour),
 ];
 
-const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
+export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
-    ['dates', dates && showDates(dates), 'objects.spiral-calendar'],
-    ['format', i.format, 'objects.crown'],
-    ['tc', i.tc, 'objects.mantelpiece-clock'],
-    ['location', i.location, 'travel-places.globe-showing-europe-africa'],
-    ['players', i.players, 'activity.sparkles'],
-    ['website', i.website, null, i18n.broadcast.officialWebsite],
-    ['standings', i.standings, null, i18n.broadcast.standings],
+    ['dates', dates && showDates(dates), 'objects.spiral-calendar', 'Dates'],
+    ['format', i.format, 'objects.crown', 'Format'],
+    ['tc', i.tc, 'objects.mantelpiece-clock', 'Time control'],
+    ['location', i.location, 'travel-places.globe-showing-europe-africa', 'Location'],
+    ['players', i.players, 'activity.sparkles', 'Star players'],
+    ['website', i.website, null, null, i18n.broadcast.officialWebsite],
+    ['standings', i.standings, null, null, i18n.broadcast.standings],
   ]
     .map(
-      ([key, value, icon, linkName]) =>
+      ([key, value, icon, textAlternative, linkName]) =>
         key &&
         value &&
         h('div.relay-tour__info__' + key, [
-          icon && h('img', { attrs: { src: site.asset.flairSrc(icon) } }),
+          icon && h('img', { attrs: { src: site.asset.flairSrc(icon), alt: textAlternative! } }),
           linkName
             ? h('a', { attrs: { href: value, target: '_blank', rel: 'nofollow noreferrer' } }, linkName)
             : value,

@@ -381,6 +381,9 @@ $hover-bg: $m-primary_bg--mix-30;
         font-weight: bold;
       }
     }
+    td.player-name {
+      text-align: start;
+    }
     .rp {
       margin-inline-start: 1ch;
     }

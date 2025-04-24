@@ -11,8 +11,10 @@ import type { ExternalEngineInfo } from 'lib/ceval/ceval';
 import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 
+import type * as studyDeps from './study/studyDeps';
+
 export interface NvuiPlugin {
-  render(): VNode;
+  render(deps?: typeof studyDeps): VNode;
 }
 
 export interface AnalyseApi {
