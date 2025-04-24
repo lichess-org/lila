@@ -16,11 +16,8 @@ object GlickoExt:
     def intervalMax = (g.rating + g.deviation * 2).toInt
     def interval    = g.intervalMin -> g.intervalMax
 
-    def rankable(variant: chess.variant.Variant) =
-      g.deviation <= {
-        if variant.standard then Glicko.standardRankableDeviation
-        else Glicko.variantRankableDeviation
-      }
+    def rankable(perfKey: PerfKey) =
+      Glicko.rankableDeviation.get(perfKey).exists(_ >= g.deviation)
 
     def sanityCheck: Boolean =
       g.rating > 0 &&
@@ -43,10 +40,28 @@ object Glicko:
   val minRating: IntRating = IntRating(400)
   val maxRating: IntRating = IntRating(4000)
 
-  val minDeviation              = 45
-  val variantRankableDeviation  = 65
-  val standardRankableDeviation = 75
-  val maxDeviation              = 500d
+  val minDeviation                    = 45
+  val variantRankableDeviation        = 55
+  val legacyStandardRankableDeviation = 50
+  val maxDeviation                    = 500d
+
+  val rankableDeviation: Map[PerfKey, Int] =
+    import PerfKey.*
+    Map(
+      ultraBullet   -> 45,
+      bullet        -> 48,
+      blitz         -> 50,
+      rapid         -> 55,
+      classical     -> 60,
+      chess960      -> variantRankableDeviation,
+      kingOfTheHill -> variantRankableDeviation,
+      antichess     -> variantRankableDeviation,
+      atomic        -> variantRankableDeviation,
+      threeCheck    -> variantRankableDeviation,
+      horde         -> variantRankableDeviation,
+      racingKings   -> variantRankableDeviation,
+      crazyhouse    -> variantRankableDeviation
+    )
 
   // past this, it might not stabilize ever again
   val maxVolatility     = 0.1d
