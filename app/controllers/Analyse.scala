@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import play.api.libs.json.JsArray
+import play.api.libs.json.{ Json, JsArray }
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -109,7 +109,7 @@ final class Analyse(
                     pgn,
                     getPgn = true,
                     title = "Lichess PGN viewer",
-                    "orientation" -> color.name
+                    Json.obj("orientation" -> color.name)
                   )
           case _ =>
             render:

@@ -1,7 +1,7 @@
 package views.analyse
 
 import chess.format.pgn.PgnStr
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 
 import lila.app.UiEnv.{ *, given }
 import lila.round.RoundGame.secondsSinceCreation
@@ -71,10 +71,10 @@ object replay:
 
 object embed:
 
-  def lpv(pgn: PgnStr, getPgn: Boolean, title: String, args: (String, Json.JsValueWrapper)*)(using
+  def lpv(pgn: PgnStr, getPgn: Boolean, title: String, args: JsObject)(using
       ctx: EmbedContext
   ) =
-    val opts = Seq[(String, Json.JsValueWrapper)](
+    val opts = Json.obj(
       "menu" -> Json.obj("getPgn" -> Json.obj("enabled" -> getPgn)),
       "i18n" -> Json.obj(
         "flipTheBoard"         -> trans.site.flipBoard.txt(),
@@ -87,7 +87,7 @@ object embed:
     views.base.embed.minimal(
       title = title,
       cssKeys = List("bits.lpv.embed"),
-      modules = esmInitObj("site.lpvEmbed", opts*)
+      modules = esmInitObj("site.lpvEmbed", opts)
     )(
       div(cls := "is2d")(div(pgn))
     )
