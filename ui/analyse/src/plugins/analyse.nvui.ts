@@ -92,7 +92,6 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
       });
       return h('main.analyse', [
         h('div.nvui', [
-          ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
           studyDetails(ctrl),
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
@@ -249,6 +248,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 .map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
+          ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
         ]),
       ]);
     },
