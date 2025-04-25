@@ -714,12 +714,12 @@
   <string name="timeBeforeTournamentStarts">Време пре него што турнир започне</string>
   <string name="averageCentipawnLoss">Просечан центипијунски губитак</string>
   <string name="accuracy">Прецизност</string>
-  <string name="keyboardShortcuts">Скраћенице на тастатури</string>
+  <string name="keyboardShortcuts">Пречице на тастатури</string>
   <string name="keyMoveBackwardOrForward">иди назад/напред</string>
   <string name="keyGoToStartOrEnd">иди на почетак/крај</string>
   <string name="keyCycleSelectedVariation">Излистај одабрану варијанту</string>
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
-  <string name="keyEnterOrExitVariation">отвори/затвори варијанту</string>
+  <string name="keyEnterOrExitVariation">уђи/изађи из варијације</string>
   <string name="keyRequestComputerAnalysis">Затражите компјутерску анализу, научите из својих грешака</string>
   <string name="keyNextLearnFromYourMistakes">Даље (Учите из својих грешака)</string>
   <string name="keyNextBlunder">Следећа тешка грешка</string>
