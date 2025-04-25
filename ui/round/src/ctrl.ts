@@ -45,6 +45,7 @@ import type {
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, type LichessBooleanStorage } from 'lib/storage';
+import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
@@ -565,6 +566,12 @@ export default class RoundController implements MoveRootCtrl {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
+    if (d.player.ratingDiff && d.clock?.initial !== undefined && d.clock?.increment !== undefined)
+      poolRangeStorage.shiftRange(
+        d.player.user?.username,
+        `${d.clock.initial / 60}+${d.clock.increment}`,
+        d.player.ratingDiff,
+      );
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
