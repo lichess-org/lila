@@ -170,11 +170,9 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                         strong("FEN"),
                         copyMeInput("")(cls := "analyse__underboard__fen")
                       ),
-                      ctx.noBlind.option(
-                        div(
-                          strong("Image"),
-                          imageLinks
-                        )
+                      div(
+                        strong("Image"),
+                        imageLinks
                       ),
                       div(
                         strong("Share"),
