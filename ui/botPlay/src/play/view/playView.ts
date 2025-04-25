@@ -5,7 +5,7 @@ import { stepwiseScroll } from 'lib/view/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { type BotInfo } from 'lib/bot/types';
+import { type BotInfo, Bot } from 'lib/bot/bot';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';
 import { bindMobileMousedown } from 'lib/device';
@@ -62,7 +62,7 @@ const viewResult = (ctrl: PlayCtrl) => {
   const result = end.winner == 'white' ? '1-0' : end.winner == 'black' ? '0-1' : '½-½';
   const statusData: StatusData = {
     winner: end.winner,
-    ply: ctrl.game.sans.length,
+    ply: ctrl.game.moves.length,
     status: end.status,
     fen: end.fen,
     variant: 'standard',
@@ -85,8 +85,9 @@ const viewResult = (ctrl: PlayCtrl) => {
 };
 
 const viewMoves = (ctrl: PlayCtrl) => {
-  const pairs: Array<[any, any]> = [];
-  for (let i = 0; i < ctrl.lastPly(); i += 2) pairs.push([ctrl.game.sans[i], ctrl.game.sans[i + 1]]);
+  const pairs: Array<[San, San]> = [];
+  for (let i = 0; i < ctrl.lastPly(); i += 2)
+    pairs.push([ctrl.game.moves[i].san, ctrl.game.moves[i + 1]?.san]);
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
@@ -164,7 +165,7 @@ const viewOpponent = (bot: BotInfo) =>
     h('div.bot-game__opponent__head', [
       viewOpponentImage(bot),
       h('span.bot-game__opponent__name', bot.name),
-      h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
+      h('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
     ]),
     h('div.bot-game__opponent__description', bot.description),
   ]);

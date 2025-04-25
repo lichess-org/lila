@@ -23,18 +23,22 @@
     "debounce-promise": "^3.1.2",
     "idb-keyval": "^6.2.1",
     "lichess-pgn-viewer": "^2.4.0",
-    "lila-stockfish-web": "0.0.10",
+    "lila-stockfish-web": "0.0.11",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "tablesort": "5.5.0",
-    "zerofish": "0.0.35"
+    "zerofish": "0.0.36"
   },
   "build": {
     "sync": {
       "node_modules/*stockfish*/*.{js,wasm}": "/public/npm",
       "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
-    }
+    },
+    "hash": [
+      "/public/npm/lila-stockfish-web/*",
+      "/public/npm/zerofishEngine.*"
+    ]
   }
 }

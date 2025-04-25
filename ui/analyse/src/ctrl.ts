@@ -77,7 +77,7 @@ export default class AnalyseCtrl {
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
-  chatCtrl: ChatCtrl;
+  chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
 
   // state flags
@@ -204,9 +204,11 @@ export default class AnalyseCtrl {
       this.redraw();
     });
     pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-      redraw();
+      if (this.chessground) {
+        this.chessground.state.addPieceZIndex = is3d;
+        this.chessground.redrawAll();
+        redraw();
+      }
     });
     this.persistence?.merge();
     (window as any).lichess.analysis = api(this);

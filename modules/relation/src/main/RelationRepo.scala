@@ -72,7 +72,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
   def unfollowMany(u1: UserId, u2s: Iterable[UserId]): Funit =
     coll.delete.one($inIds(u2s.map { makeId(u1, _) })).void
 
-  def unfollowAll(u1: UserId): Funit = coll.delete.one($doc("u1" -> u1)).void
+  def removeAllRelationsFrom(u1: UserId): Funit = coll.delete.one($doc("u1" -> u1)).void
 
   def removeAllFollowers(u2: UserId): Funit = coll.delete.one($doc("u2" -> u2, "r" -> Follow)).void
 

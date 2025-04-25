@@ -116,11 +116,15 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
               l.name.is(t.createdBy) && l.perms(Permission.Admin)
         )
         .verifying(
-          "Kid accounts cannot manage permissions",
+          "Kid accounts cannot manage leader permissions",
           d =>
             userApi
               .filterKid(d.filter(_.perms(Permission.Admin)).map(_.name))
               .await(1.second, "team leader kids")
               .isEmpty
+        )
+        .verifying(
+          "There can only be 3 admins",
+          _.count(_.perms(Permission.Admin)) <= 3
         )
     ).fill(t.leaders.map(m => LeaderData(m.user.into(UserStr), m.perms)))

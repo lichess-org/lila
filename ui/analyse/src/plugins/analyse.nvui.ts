@@ -47,10 +47,15 @@ import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'lib/game/chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'lib/pubsub';
-import { renderResult } from '../view/components';
+import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
 import renderClocks from '../view/clocks';
+
+import type * as studyDeps from '../study/studyDeps';
+import type RelayCtrl from '../study/relay/relayCtrl';
+import { playersView } from '../study/relay/relayPlayers';
+import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -73,7 +78,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 
   return {
-    render(): VNode {
+    render(deps?: typeof studyDeps): VNode {
       notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get(),
@@ -142,7 +147,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               h('label', [
                 'Command input',
                 h('input.move.mousetrap', {
-                  attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
+                  attrs: { name: 'move', type: 'text', autocomplete: 'off' },
                 }),
               ]),
             ],
@@ -243,6 +248,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 .map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
+          ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
         ]),
       ]);
     },
@@ -583,9 +589,51 @@ const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
 };
 
+const redirectToSelectedHook = bind('change', (e: InputEvent) => {
+  const target = e.target as HTMLSelectElement;
+  const selectedOption = target.options[target.selectedIndex];
+  const url = selectedOption.getAttribute('url');
+  if (url) window.location.href = url;
+});
+
+function tourDetails(
+  ctrl: AnalyseController,
+  study: studyDeps.StudyCtrl,
+  relay: RelayCtrl,
+  deps: typeof studyDeps,
+): VNode[] {
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: false };
+  const tour = ctx.relay.data.tour;
+  ctx.relay.redraw = ctrl.redraw;
+
+  return [
+    h('h1', 'Tour details'),
+    h('h2', 'Overview'),
+    h('div', tourOverview(tour.info, tour.dates)),
+    h('h2', 'Players'),
+    h(
+      'button',
+      {
+        hook: onInsert((el: HTMLButtonElement) => {
+          const toggle = () => {
+            ctx.relay.tab('players');
+            ctrl.redraw();
+          };
+          onInsertHandler(toggle, el);
+        }),
+      },
+      'Load player list',
+    ),
+    ctx.relay.tab() === 'players' ? h('div', playersView(ctx.relay.players, ctx.relay.data.tour)) : h('div'),
+  ];
+}
+
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
   const relayGroups = study?.relay?.data.group;
+  const relayRounds = study?.relay?.data.rounds;
+  const tour = study?.relay?.data.tour;
+  const hash = window.location.hash;
   return (
     study &&
     h('div.study-details', [
@@ -593,35 +641,81 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
-        h('div.relayGroups', [
-          h('h2', 'Relay groups'),
-          ...relayGroups.tours.map(tour => h('a', { attrs: { href: `/broadcast/-/${tour.id}` } }, tour.name)),
-        ]),
-      h('label.chapters', [
-        h('h2', 'Current chapter:'),
         h(
-          'select',
-          {
-            hook: bind('change', (e: InputEvent) => {
-              const target = e.target as HTMLSelectElement;
-              const selectedOption = target.options[target.selectedIndex];
-              const chapterId = selectedOption.getAttribute('chapterId');
-              study.setChapter(chapterId!);
-            }),
-          },
-          study.chapters.list.all().map((ch, i) =>
+          'div.relay-groups',
+          h('label', [
+            'Current group:',
             h(
-              'option',
+              'select',
               {
-                attrs: {
-                  selected: ch.id === study.currentChapter().id,
-                  chapterId: ch.id,
-                },
+                attrs: { autofocus: hash === '#group-select' },
+                hook: redirectToSelectedHook,
               },
-              `${i + 1}. ${ch.name}`,
+              relayGroups.tours.map(t =>
+                h(
+                  'option',
+                  { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
+                  t.name,
+                ),
+              ),
+            ),
+          ]),
+        ),
+      tour &&
+        relayRounds &&
+        h(
+          'div.relay-rounds',
+          h('label', [
+            'Current round:',
+            h(
+              'select',
+              {
+                attrs: { autofocus: hash === '#round-select' },
+                hook: redirectToSelectedHook,
+              },
+              relayRounds.map(r =>
+                h(
+                  'option',
+                  {
+                    attrs: {
+                      selected: r.id == study.data.id,
+                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
+                    },
+                  },
+                  r.name,
+                ),
+              ),
+            ),
+          ]),
+        ),
+      h('div.chapters', [
+        h('label', [
+          'Current chapter:',
+          h(
+            'select',
+            {
+              attrs: { id: 'chapter-select' },
+              hook: bind('change', (e: InputEvent) => {
+                const target = e.target as HTMLSelectElement;
+                const selectedOption = target.options[target.selectedIndex];
+                const chapterId = selectedOption.getAttribute('chapterId');
+                study.setChapter(chapterId!);
+              }),
+            },
+            study.chapters.list.all().map((ch, i) =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    selected: ch.id === study.currentChapter().id,
+                    chapterId: ch.id,
+                  },
+                },
+                `${i + 1}. ${ch.name}`,
+              ),
             ),
           ),
-        ),
+        ]),
         study.members.canContribute()
           ? h('div.buttons', [
               h(

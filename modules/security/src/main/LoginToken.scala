@@ -14,7 +14,7 @@ final class LoginToken(
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
-  private val tokener = StringToken.userId(tokenerSecret, 10.minutes)
+  private val tokener = StringToken.withLifetime[UserId](tokenerSecret, 10.minutes)
 
   def generate[U: UserIdOf](user: U): Fu[String] = tokener.make(user.id)
 
@@ -24,7 +24,7 @@ final class LoginToken(
       val url                  = s"$baseUrl/auth/token/$token"
       given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       import Mailer.html.*
-      mailer.send(
+      mailer.sendOrFail:
         Mailer.Message(
           to = email,
           subject = trans.logInToLichess.txt(user.username),
@@ -40,7 +40,6 @@ ${trans.common_orPaste.txt()}"""),
             serviceNote
           ).some
         )
-      )
     }
 
   def consume(token: String): Fu[Option[User]] =

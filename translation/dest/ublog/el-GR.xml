@@ -34,7 +34,6 @@
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
   <string name="thisPostIsPublished">Αυτή η ανάρτηση έχει δημοσιευτεί</string>
   <string name="thisIsADraft">Πρόχειρο</string>
-  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
   <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν έχετε αποθηκευμένα πρόχειρα.</string>
   <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>

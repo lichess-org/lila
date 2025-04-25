@@ -205,32 +205,43 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                 form3.submit("Submit")(cls := "button-empty")
               )
             ),
-            span(
-              input(
-                tpe   := "checkbox",
-                id    := "ublog-post-pinned",
-                name  := "pinned",
-                value := "true",
-                post.pinned.has(true).option(checked)
+            div(
+              span(
+                input(
+                  tpe   := "checkbox",
+                  id    := "ublog-post-pinned",
+                  name  := "pinned",
+                  value := "true",
+                  post.pinned.has(true).option(checked)
+                ),
+                label(`for` := "ublog-post-pinned")(" Pin to top")
               ),
-              label(`for` := "ublog-post-pinned")(" Pin to top")
-            ),
-            span(
-              "User tier:",
-              st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
-                (value, name) =>
-                  st.option(st.value := value.toString, (blog.tier == value).option(selected))(name))
-            ),
-            span(
-              "Post adjust:",
-              input(
-                tpe   := "number",
-                name  := "days",
-                min   := -180,
-                max   := 180,
-                value := post.rankAdjustDays.so(_.toString)
+              span(
+                "User tier:",
+                st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
+                  (value, name) =>
+                    st.option(st.value := value.toString, (blog.tier == value).option(selected))(name))
               ),
-              "days"
-            )
+              span(
+                "Post adjust:",
+                input(
+                  tpe   := "number",
+                  name  := "days",
+                  min   := -180,
+                  max   := 180,
+                  value := post.rankAdjustDays.so(_.toString)
+                ),
+                "days"
+              )
+            ),
+            post.automod.map: automod =>
+              span(
+                "Automod:",
+                strong(automod.classification),
+                automod.flagged.map: flagged =>
+                  i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),
+                automod.commercial.map: commercial =>
+                  i(cls := "commercial", title := commercial)("$")
+              )
           )
         )

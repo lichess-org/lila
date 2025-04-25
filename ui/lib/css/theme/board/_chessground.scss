@@ -198,8 +198,7 @@ html:not(.transp) body:not(.simple-board) {
   cg-board piece,
   cg-board square,
   .cg-custom-svgs {
-    filter: brightness(calc(0.3 + 0.0059 * min(120, var(---board-brightness))));
-    //hue-rotate(calc(var(---board-hue) * 3.6deg));
+    filter: brightness(calc(0.35 + 0.0065 * min(120, var(---board-brightness))));
   }
 }
 
@@ -207,7 +206,6 @@ html.transp body:not(.simple-board) cg-board {
   piece,
   square {
     opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
-    //filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
   }
 }
 

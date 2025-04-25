@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Staðfestu lichess.org aðganginn þinn, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Ýttu á slóðina til að virkja Lichess aðganginn þinn:</string>
-  <string name="emailConfirm_ignore">Ef þú skráðir þig ekki á Lichess þá geturðu hunsað þessi skilaboð.</string>
   <string name="passwordReset_subject">Endursettu lichess.org lykilorðið þitt, %s</string>
   <string name="passwordReset_intro">Við fengum beiðni um að endursetja lykilorðið fyrir aðganginn þinn.</string>
   <string name="passwordReset_clickOrIgnore">Ef þú sendir inn þessa beiðni, ýttu þá á slóðina hér fyrir neðan. Ef ekki, þá getur þú hunsað þennan tölvupóst.</string>

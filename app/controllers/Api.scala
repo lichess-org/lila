@@ -39,8 +39,11 @@ final class Api(
   def index = Anon:
     Ok.snip(views.bits.api)
 
+  private val userShowApiRateLimit =
+    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
+
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(name.id) then 1 else 2):
+    userShowApiRateLimit(rateLimited, cost = if env.socket.isOnline.exec(name.id) then 1 else 2):
       userApi
         .extended(
           name,

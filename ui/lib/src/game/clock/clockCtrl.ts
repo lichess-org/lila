@@ -51,11 +51,11 @@ interface EmergSound {
   };
 }
 
-interface SetData {
+export interface SetData {
   white: Seconds;
   black: Seconds;
   ticking: Color | undefined;
-  delay?: Centis;
+  delay?: Centis; // network lag to visually compensate
 }
 
 export class ClockCtrl {
@@ -78,7 +78,7 @@ export class ClockCtrl {
 
   elements: ByColor<ClockElements> = { white: {}, black: {} };
 
-  private tickCallback?: number;
+  private tickTimeout?: Timeout;
 
   constructor(
     data: ClockData,
@@ -138,8 +138,8 @@ export class ClockCtrl {
   hardStopClock = (): void => (this.times.activeColor = undefined);
 
   private scheduleTick = (time: Millis, extraDelay: Millis) => {
-    if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
-    this.tickCallback = setTimeout(
+    if (this.tickTimeout !== undefined) clearTimeout(this.tickTimeout);
+    this.tickTimeout = setTimeout(
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
@@ -149,7 +149,7 @@ export class ClockCtrl {
 
   // Should only be invoked by scheduleTick.
   private tick = (): void => {
-    this.tickCallback = undefined;
+    this.tickTimeout = undefined;
 
     const color = this.times.activeColor;
     if (color === undefined) return;

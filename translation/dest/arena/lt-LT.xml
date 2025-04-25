@@ -87,4 +87,6 @@ Pavyzdžiui, užėmus 3 vietą 100 žaidėjų turnyre = 3%. Užėmus 10-ą viet�
   <string name="tournamentShields">Turnyro trofėjus</string>
   <string name="onlyTitled">Tik tituluoti žaidėjai</string>
   <string name="onlyTitledHelp">Prisijungti į turnyrą būtinas oficialus titulas</string>
+  <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Įsiūčio dažnis</string>
 </resources>

@@ -172,8 +172,8 @@ final private class RelayFetch(
       r.round.sync.log.events.lastOption
         .filterNot(_.isTimeout)
         .flatMap(_.error)
-        .filterNot(_.contains("Cannot parse move"))
-        .filterNot(_.contains("Cannot parse pgn"))
+        .filterNot(_.contains("Error parsing move"))
+        .filterNot(_.contains("Error parsing PGN"))
         .filterNot(_.contains("Found an empty PGN"))
         .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 

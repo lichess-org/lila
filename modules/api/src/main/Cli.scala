@@ -19,15 +19,13 @@ final private[api] class Cli(
 )(using Executor)
     extends lila.common.Cli:
 
-  private val logger = lila.log("cli")
-
   import play.api.data.Forms.*
   val form = play.api.data.Form(single("command" -> nonEmptyText))
 
   def apply(args: List[String]): Fu[String] =
     run(args)
       .map(_ + "\n")
-      .logFailure(logger, _ => args.mkString(" "))
+      .logFailure(lila.log("cli"), _ => args.mkString(" "))
 
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")

@@ -997,8 +997,8 @@ interface I18n {
     emailChange_subject: I18nFormat;
     /** Click the link to enable your Lichess account: */
     emailConfirm_click: string;
-    /** If you did not register with Lichess you can safely ignore this message. */
-    emailConfirm_ignore: string;
+    /** If you did not register with Lichess, you can safely ignore this message. The unconfirmed account and all traces of your email address will be deleted from our system after 48 hours. */
+    emailConfirm_justIgnore: string;
     /** Confirm your lichess.org account, %s */
     emailConfirm_subject: I18nFormat;
     /** Log in to lichess.org, %s */
@@ -2999,6 +2999,8 @@ interface I18n {
     continueFromHere: string;
     /** Contribute */
     contribute: string;
+    /** Copy mainline PGN */
+    copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
     /** Copy variation PGN */
@@ -3957,7 +3959,7 @@ interface I18n {
     signupEmailHint: string;
     /** Sign up to host or join a simul */
     signUpToHostOrJoinASimul: string;
-    /** Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed! */
+    /** Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed! */
     signupUsernameHint: string;
     /** You may add extra initial time to your clock to help you cope with the simul. */
     simulAddExtraTime: string;
@@ -4659,6 +4661,8 @@ interface I18n {
     automatic: string;
     /** Back */
     back: string;
+    /** Black defeat, but White can't win */
+    blackDefeatWhiteCanNotWin: string;
     /** Black is better */
     blackIsBetter: string;
     /** Black is slightly better */
@@ -4735,6 +4739,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
+    /** Double defeat */
+    doubleDefeat: string;
     /** Download game */
     downloadGame: string;
     /** Dubious move */
@@ -4975,6 +4981,8 @@ interface I18n {
     whatWouldYouPlay: string;
     /** Where do you want to study that? */
     whereDoYouWantToStudyThat: string;
+    /** White defeat, but Black can't win */
+    whiteDefeatBlackCanNotWin: string;
     /** White is better */
     whiteIsBetter: string;
     /** White is slightly better */

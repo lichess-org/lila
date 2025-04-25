@@ -517,7 +517,7 @@ object I18nKey:
   object emails:
     val `emailConfirm_subject`: I18nKey = "emails:emailConfirm_subject"
     val `emailConfirm_click`: I18nKey = "emails:emailConfirm_click"
-    val `emailConfirm_ignore`: I18nKey = "emails:emailConfirm_ignore"
+    val `emailConfirm_justIgnore`: I18nKey = "emails:emailConfirm_justIgnore"
     val `passwordReset_subject`: I18nKey = "emails:passwordReset_subject"
     val `passwordReset_intro`: I18nKey = "emails:passwordReset_intro"
     val `passwordReset_clickOrIgnore`: I18nKey = "emails:passwordReset_clickOrIgnore"
@@ -2538,6 +2538,9 @@ object I18nKey:
     val `variantsAreSupportedTitle`: I18nKey = "study:variantsAreSupportedTitle"
     val `variantsAreSupportedText`: I18nKey = "study:variantsAreSupportedText"
     val `chapterConclusionText`: I18nKey = "study:chapterConclusionText"
+    val `doubleDefeat`: I18nKey = "study:doubleDefeat"
+    val `blackDefeatWhiteCanNotWin`: I18nKey = "study:blackDefeatWhiteCanNotWin"
+    val `whiteDefeatBlackCanNotWin`: I18nKey = "study:whiteDefeatBlackCanNotWin"
     val `nbChapters`: I18nKey = "study:nbChapters"
     val `nbGames`: I18nKey = "study:nbGames"
     val `nbMembers`: I18nKey = "study:nbMembers"

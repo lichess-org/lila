@@ -485,13 +485,11 @@
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
   <string name="createdBy">Skapad av</string>
-  <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Fortsätt</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
-  <string name="berserkRate">Berserkfrekvens</string>
   <string name="performance">Prestation</string>
   <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
@@ -750,6 +748,7 @@
   <string name="downloadAnnotated">Hämta med noter</string>
   <string name="downloadRaw">Hämta avskalad</string>
   <string name="downloadImported">Hämta importerad</string>
+  <string name="downloadAllGames">Ladda ner alla partier</string>
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå framåt/bakåt i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Rulla över datorvarianter för att förhandsgranska dem.</string>
@@ -785,6 +784,7 @@
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
+  <string name="allLanguages">Alla språk</string>
   <string name="background">Bakgrund</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
@@ -971,6 +971,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="focusChat">Fokusera chatten</string>
   <string name="showHelpDialog">Visa denna hjälpdialog</string>
   <string name="reopenYourAccount">Öppna ditt konto igen</string>
+  <string name="reopenYourAccountDescription">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
   <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
   <string name="tournamentEntryCode">Inträdeskod till turnering</string>

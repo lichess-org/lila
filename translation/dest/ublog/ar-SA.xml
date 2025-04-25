@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s نشر %2$s</string>
   <string name="thisPostIsPublished">المقال تم نشره</string>
   <string name="thisIsADraft">هذه مسودة</string>
-  <string name="moreBlogPostsBy">مقالات أكثر من قبل %s</string>
   <string name="noPostsInThisBlogYet">لايوجد مقالات في هذه المدونة حالياً.</string>
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
   <string name="latestBlogPosts">أخر منشورات المدونة</string>

@@ -18,13 +18,13 @@ final class EmailChange(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
-    (!email.looksLikeFakeEmail).so:
-      tokener.make(TokenPayload(user.id, email).some).flatMap { token =>
+    email.looksLikeFakeEmail.not.so:
+      tokener.make(TokenPayload(user.id, email)).flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
         val url                  = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
-        mailer.send(
+        mailer.sendOrFail:
           Mailer.Message(
             to = email,
             subject = trans.emailChange_subject.txt(user.username),
@@ -43,12 +43,11 @@ ${trans.common_orPaste.txt()}
               serviceNote
             ).some
           )
-        )
       }
 
   // also returns the previous email address
   def confirm(token: String): Fu[Option[(Me, Option[EmailAddress])]] =
-    tokener.read(token).dmap(_.flatten).flatMapz { case TokenPayload(userId, email) =>
+    tokener.read(token).flatMapz { case TokenPayload(userId, email) =>
       for
         previous <- userRepo.email(userId)
         _        <- userRepo.setEmail(userId, email).recoverDefault
@@ -60,21 +59,19 @@ ${trans.common_orPaste.txt()}
 
   case class TokenPayload(userId: UserId, email: EmailAddress)
 
-  private given Iso.StringIso[Option[TokenPayload]] with
+  private given Iso.StringIso[TokenPayload] with
     private val sep = ' '
     val from = str =>
-      str.split(sep) match
-        case Array(id, email) => EmailAddress.from(email).map { TokenPayload(UserId(id), _) }
-        case _                => none
-    val to = a =>
-      a.so { case TokenPayload(userId, email) =>
-        s"$userId$sep$email"
-      }
+      str
+        .split(sep)
+        .match
+          case Array(id, email) => EmailAddress.from(email).map { TokenPayload(UserId(id), _) }
+          case _                => none
+        .err("Invalid token payload")
+    val to = a => s"${a.userId}$sep${a.email}"
 
-  private val tokener = new StringToken[Option[TokenPayload]](
+  private val tokener = StringToken.withLifetimeAndFutureValue[TokenPayload](
     secret = tokenerSecret,
-    getCurrentValue = p =>
-      p.so { case TokenPayload(userId, _) =>
-        userRepo.email(userId).dmap(_.so(_.value))
-      }
+    lifetime = 10.minutes,
+    getCurrentValue = t => userRepo.email(t.userId).dmap(_.so(_.value))
   )

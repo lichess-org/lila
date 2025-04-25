@@ -60,9 +60,9 @@ export class FilterPane extends Pane {
     if (checked) this.facets[facet].input.checked = checked;
     else checked = this.facets[facet].input.checked;
     if (checked) {
-      this.host.bot.disabled.delete(`${this.id}_${facet}`);
+      this.host.editing().disabled.delete(`${this.id}_${facet}`);
       this.paneValue[facet] ??= [];
-    } else this.host.bot.disabled.add(`${this.id}_${facet}`);
+    } else this.host.editing().disabled.add(`${this.id}_${facet}`);
     return checked;
   };
 
@@ -78,7 +78,8 @@ export class FilterPane extends Pane {
       else if (this.viewing === facet) this.viewing = undefined;
       super.update();
     });
-    input.checked = Boolean(this.paneValue?.[facet]) && !this.host.bot.disabled.has(`${this.id}_${facet}`);
+    input.checked =
+      Boolean(this.paneValue?.[facet]) && !this.host.editing().disabled.has(`${this.id}_${facet}`);
     if (input.checked && !this.viewing) this.viewing = facet;
     el.addEventListener('click', e => {
       if (e.target instanceof HTMLInputElement || !(e.target instanceof HTMLElement)) return;
@@ -122,19 +123,23 @@ export class FilterPane extends Pane {
   }
 
   get viewing(): FilterFacet | undefined {
-    return this.host.bot.viewing?.get(this.id) as FilterFacet | undefined;
+    return this.host.editing().viewing?.get(this.id) as FilterFacet | undefined;
   }
 
   set viewing(f: FilterFacet | undefined) {
-    if (f) this.host.bot.viewing.set(this.id, f);
-    else this.host.bot.viewing.delete(this.id);
+    if (f) this.host.editing().viewing.set(this.id, f);
+    else this.host.editing().viewing.delete(this.id);
   }
 
   private renderGraph() {
     this.graph?.destroy();
     this.graphEl.classList.remove('hidden', 'none');
     const f = this.paneValue;
-    if (!this.viewing || !f?.[this.viewing] || this.host.bot.disabled.has(`${this.id}_${this.viewing}`)) {
+    if (
+      !this.viewing ||
+      !f?.[this.viewing] ||
+      this.host.editing().disabled.has(`${this.id}_${this.viewing}`)
+    ) {
       this.graphEl.classList.add(Object.values(this.facets).some(x => x.input.checked) ? 'hidden' : 'none');
       return;
     }
@@ -170,7 +175,7 @@ export class FilterPane extends Pane {
                   ? 'full moves'
                   : this.viewing === 'time'
                     ? 'think time'
-                    : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
+                    : `outcome expectancy for ${this.host.editing().name.toLowerCase()}`,
             },
           },
           y: {

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="annotatePositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">د !? تڼۍ کلیک وکړئ، یا په ښي خوا کې د حرکت لیست کې ښي کلیک وکړئ. &lt;br&gt;تشریحات ګلیفونه شریک شوي او خوندي شوي دي.</string>
+  <string name="annotatePositionText">د !? تڼۍ کلیک وکړئ، یا په ښي خوا کې د حرکت لیست کې ښي کلیک وکړئ. &lt;br&gt;تشریحات ګلیفونه شریک شوي او خوندي شوي دي.</string>
 </resources>

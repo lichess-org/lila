@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogs uit de gemeenschap</string>
   <string name="friendBlogs">Blogs van vrienden</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess-blog</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Mijn blog</string>
+  <string name="lichessBlog">Lichess-blog</string>
+  <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <string name="blogTopics">Blog onderwerpen</string>
   <plurals name="blogPosts">
@@ -40,7 +40,6 @@
   <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
   <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
   <string name="thisIsADraft">Dit is een concept</string>
-  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
   <string name="noDrafts">Geen concepten om weer te geven.</string>
   <string name="latestBlogPosts">Meest recente blogberichten</string>

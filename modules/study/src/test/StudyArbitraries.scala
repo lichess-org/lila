@@ -77,7 +77,7 @@ object StudyArbitraries:
       shapes   <- Arbitrary.arbitrary[Shapes]
     yield Metas(
       ply,
-      Fen.write(ChessGame(situation, ply = ply)),
+      Fen.write(situation, ply.fullMoveNumber),
       situation.check,
       None,
       None,

@@ -559,13 +559,11 @@
   <string name="losses">Przegrane</string>
   <string name="createdBy">Stworzony przez</string>
   <string name="startingIn" comment="Displayed above a timer">Rozpoczęcie za</string>
-  <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Współczynnik zwycięstw</string>
-  <string name="berserkRate">Berserków</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
   <string name="movesPlayed">Wykonanych ruchów</string>

@@ -521,13 +521,11 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="createdBy">Kreirao</string>
-  <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Nastavi</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Postotak pobjeda</string>
-  <string name="berserkRate">Postotak berserka</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnir završen</string>
   <string name="movesPlayed">Poteza igrano</string>

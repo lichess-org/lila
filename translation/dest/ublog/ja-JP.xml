@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">コミュニティブログ</string>
   <string name="friendBlogs">友達のブログ</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess ブログ</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">自分のブログ</string>
+  <string name="lichessBlog">Lichess ブログ</string>
+  <string name="myBlog">自分のブログ</string>
   <string name="likedBlogs">いいねを押したブログ投稿</string>
   <string name="blogTopics">ブログのトピック</string>
   <plurals name="blogPosts">
@@ -37,7 +37,6 @@
   <string name="xPublishedY">%1$s が %2$s を公開しました</string>
   <string name="thisPostIsPublished">この投稿は公開ずみです</string>
   <string name="thisIsADraft">これは下書きです</string>
-  <string name="moreBlogPostsBy">%s のブログ投稿をもっと見る</string>
   <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
   <string name="latestBlogPosts">最新のブログ投稿</string>

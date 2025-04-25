@@ -82,4 +82,5 @@
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
   <string name="backToLiveMove">実際の手に戻る</string>
   <string name="sinceHideResults">結果を非表示にするよう選択したため、結果が見えないようプレビューボードはすべて空白です。</string>
+  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">現局面</string>
 </resources>

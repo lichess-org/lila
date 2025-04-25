@@ -5,6 +5,7 @@ import chess.format.{ Fen, UciPath }
 
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
+import chess.format.pgn.Tags
 
 final private class ExplorerGameApi(
     explorer: lila.core.game.Explorer,
@@ -56,14 +57,15 @@ final private class ExplorerGameApi(
   private def gameUrl(game: Game) = s"${net.baseUrl}/${game.id}"
 
   private def gameTitle(g: Game): String =
-    val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
-    val white =
-      pgn.flatMap(_.tags(_.White)) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
-    val black =
-      pgn.flatMap(_.tags(_.Black)) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
+    val tags = g.pgnImport.flatMap(pgni => Parser.tags(pgni.pgn).toOption).getOrElse(Tags.empty)
+    gameTitle(g, tags)
+
+  private def gameTitle(g: Game, tags: Tags): String =
+    val white  = tags(_.White) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
+    val black  = tags(_.Black) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
     val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
-      (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match
+      (tags(_.Event), tags.year.map(_.toString)) match
         case (Some(event), Some(year)) if event.contains(year) => event.some
         case (Some(event), Some(year))                         => s"$event, $year".some
         case (eventO, yearO)                                   => eventO.orElse(yearO)

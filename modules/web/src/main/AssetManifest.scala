@@ -20,10 +20,7 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(net: NetConfig, ws: StandaloneWSClient, getFile: GetRelativeFile)(using
-    Executor,
-    Mode
-):
+final class AssetManifest(net: NetConfig, getFile: GetRelativeFile)(using Executor):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
@@ -38,19 +35,14 @@ final class AssetManifest(net: NetConfig, ws: StandaloneWSClient, getFile: GetRe
   def lastUpdate: Instant                   = maps.modified
 
   def update(): Unit =
-    if summon[Mode].isProd || net.externalManifest then
-      fetchManifestJson(filename).foreach:
-        _.foreach: manifestJson =>
-          maps = readMaps(manifestJson)
-    else
-      val pathname = getFile.exec(s"public/compiled/$filename").toPath
-      try
-        val current = Files.getLastModifiedTime(pathname).toInstant
-        if current.isAfter(maps.modified)
-        then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
-      catch
-        case e: Throwable =>
-          logger.warn(s"Error reading $pathname")
+    val pathname = getFile.exec(s"public/compiled/$filename").toPath
+    try
+      val current = Files.getLastModifiedTime(pathname).toInstant
+      if current.isAfter(maps.modified)
+      then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
+    catch
+      case e: Throwable =>
+        logger.warn(s"Error reading $pathname")
 
   private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 
@@ -112,19 +104,5 @@ final class AssetManifest(net: NetConfig, ws: StandaloneWSClient, getFile: GetRe
       .toMap
 
     AssetMaps(js, css, hashed, nowInstant)
-
-  private def fetchManifestJson(filename: String) =
-    val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"
-    ws.url(resource)
-      .get()
-      .map:
-        case res if res.status == 200 => res.body[JsValue].some
-        case res =>
-          logger.error(s"${res.status} fetching $resource")
-          none
-      .recoverWith:
-        case e: Exception =>
-          logger.error(s"fetching $resource", e)
-          fuccess(none)
 
   update()

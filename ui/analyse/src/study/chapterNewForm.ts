@@ -16,6 +16,7 @@ import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'lib/pubsub';
 import { lichessRules } from 'chessops/compat';
+import pgnImport from '@/pgnImport';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -89,11 +90,18 @@ export class StudyChapterNewForm {
     const study = this.root.study!;
     const dd = { ...d, sticky: study.vm.mode.sticky, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
-    else
+    else {
+      try {
+        pgnImport(dd.pgn);
+      } catch (error) {
+        alert('Error parsing PGN: ' + (error as any).message);
+        return;
+      }
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
         throw e;
       });
+    }
     this.isOpen(false);
     this.setChaptersTab();
   };

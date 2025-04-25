@@ -56,7 +56,6 @@ object WebConfig:
     assetBaseUrl = c.get[AssetBaseUrl]("net.asset.base_url"),
     assetBaseUrlInternal = c.get[AssetBaseUrlInternal]("net.asset.base_url_internal"),
     minifiedAssets = c.get[Boolean]("net.asset.minified"),
-    externalManifest = c.get[Boolean]("net.asset.external_manifest"),
     stageBanner = c.get[Boolean]("net.stage.banner"),
     siteName = c.get[String]("net.site.name"),
     socketDomains = c.get[List[String]]("net.socket.domains"),

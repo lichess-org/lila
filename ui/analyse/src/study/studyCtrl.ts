@@ -491,7 +491,7 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      this.relay?.liveboardPlugin.reset();
+      this.relay?.liveboardPlugin?.reset();
       await this.xhrReload();
       componentCallbacks(id);
     }

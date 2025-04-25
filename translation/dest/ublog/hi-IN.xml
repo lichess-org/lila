@@ -16,7 +16,6 @@
   <string name="xPublishedY">%1$s ने प्रकाशित किया %2$s</string>
   <string name="thisPostIsPublished">यह पोस्ट प्रकाशित कर दिया गया</string>
   <string name="thisIsADraft">यह एक ड्राफट है</string>
-  <string name="moreBlogPostsBy">%s के द्वारा अन्य पोस्ट</string>
   <string name="noPostsInThisBlogYet">इस ब्लॉग में कोई पोस्ट नही है, अभी तक।</string>
   <string name="noDrafts">कोई ड्राफट दिखाने के लिए नही है</string>
   <string name="latestBlogPosts">नवीनतम ब्लॉग पोस्ट</string>

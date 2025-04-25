@@ -62,7 +62,6 @@
   <string name="shareAndExport">Împărtășește &amp; exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>
-  <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="copyChapterPgn">Copiază PGN</string>
   <string name="downloadGame">Descarcă partida</string>
@@ -170,4 +169,7 @@
   <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
   <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
   <string name="perPage">%s pe pagină</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Înfrângere dublă</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Negrul pierde, dar Albul nu poate câștiga</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Albul pierde, dar Negrul nu poate câștiga</string>
 </resources>

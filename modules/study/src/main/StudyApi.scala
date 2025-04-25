@@ -218,9 +218,7 @@ final class StudyApi(
           .flatMap:
             case None => fuccess(sendTo(study.id)(_.reloadSri(who.sri)))
             case Some(chapter) if study.position.path != position.path =>
-              for
-                _ <- studyRepo.setPosition(study.id, position)
-                _ <- updateConceal(study, chapter, position)
+              for _ <- studyRepo.setPosition(study.id, position)
               yield sendTo(study.id)(_.setPath(position, who))
             case _ => funit
 
@@ -259,7 +257,6 @@ final class StudyApi(
                   if opts.sticky
                   then studyRepo.setPosition(study.id, newPosition)
                   else studyRepo.updateNow(study)
-                _ <- updateConceal(study, chapter, newPosition)
                 _ = sendTo(study.id):
                   _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
                 isMainline        = newPosition.path.isMainline(chapter.root)
@@ -268,16 +265,6 @@ final class StudyApi(
                 promote(study.id, position.ref + node, toMainline = true)
             }
           }
-
-  private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
-    chapter.conceal.so: conceal =>
-      chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal).so { newConceal =>
-        if newConceal >= chapter.root.lastMainlinePly then
-          for _ <- chapterRepo.removeConceal(chapter.id) yield sendTo(study.id)(_.setConceal(position, none))
-        else
-          for _ <- chapterRepo.setConceal(chapter.id, newConceal)
-          yield sendTo(study.id)(_.setConceal(position, newConceal.some))
-      }
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):

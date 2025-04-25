@@ -1,7 +1,6 @@
 import makeZerofish, { type Zerofish } from 'zerofish';
 import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
 import { Bot } from './bot';
-import { pubsub } from '../pubsub';
 import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
 import * as xhr from '../xhr';
 import { definedMap } from '../algo';
@@ -33,14 +32,12 @@ export class BotLoader {
       this.zerofish ??
         makeZerofish({
           locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
-          nonce: document.body.dataset.nonce,
         }).then(zf => (this.zerofish = zf)),
     ]);
-    for (const b of [...bots]) {
+    for (const b of [...bots].filter(Bot.isValid)) {
       this.bots.set(b.uid, new Bot(b, this));
     }
     this.reset();
-    pubsub.complete('botdev.bots.ready');
     return this;
   }
 

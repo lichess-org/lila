@@ -31,6 +31,7 @@ export const env = new (class {
   clean = false;
   prod = false;
   debug = false;
+  stdin = false;
   install = true;
   logTime = true;
   logCtx = true;
@@ -109,7 +110,12 @@ export const env = new (class {
     }
     this.status[ctx] = code;
     if (this.manifest && taskOk()) {
-      if (this.startTime) this.log(`Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`);
+      if (this.startTime) {
+        const doneMsg = `Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`;
+        this.log(
+          doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean, ${c.grey('<esc>')} to exit` : ''),
+        );
+      }
       updateManifest();
       this.startTime = undefined;
     }

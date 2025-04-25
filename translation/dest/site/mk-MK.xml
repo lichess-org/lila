@@ -472,13 +472,11 @@
   <string name="wins">Победи</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Создадено од</string>
-  <string name="tournamentPairingsAreNowClosed">Спарувањата за турнирот се затворени.</string>
   <string name="standByX">Почекај %s, се спаруваат играчите, подготви се!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Продолжи</string>
   <string name="youArePlaying">Играш!</string>
   <string name="winRate">Стапка на победи</string>
-  <string name="berserkRate">Стапка на лудило</string>
   <string name="performance">Изведби</string>
   <string name="tournamentComplete">Турнирот е завршен</string>
   <string name="movesPlayed">Број на потези</string>

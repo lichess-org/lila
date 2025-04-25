@@ -2,6 +2,7 @@ package lila.mailer
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.Bus
@@ -21,6 +22,12 @@ final class Env(
 
   private val config = appConfig.get[Mailer.Config]("mailer")
 
+  lazy val canSendEmailsSetting = settingStore[Boolean](
+    "canSendEmails",
+    default = true,
+    text = "Lila can send emails. Toggle off when the email service is unavailable.".some
+  ).taggedWith[CanSendEmails]
+
   lazy val mailerSecondaryPermilleSetting = settingStore[Int](
     "mailerSecondaryPermille",
     default = 0,
@@ -29,6 +36,7 @@ final class Env(
 
   lazy val mailer = Mailer(
     config,
+    canSendEmails = canSendEmailsSetting,
     getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
   )
 
@@ -51,3 +59,5 @@ final class Env(
   Bus.sub[CorrespondenceOpponents]:
     case CorrespondenceOpponents(userId, opponents) =>
       automaticEmail.dailyCorrespondenceNotice(userId, opponents)
+
+trait CanSendEmails
