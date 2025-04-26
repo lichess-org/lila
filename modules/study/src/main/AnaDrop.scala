@@ -29,7 +29,7 @@ case class AnaDrop(
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
-          move = Uci.WithSan(uci, drop.san),
+          move = Uci.WithSan(uci, drop.toSanStr),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable.so(game.situation.destinations)),

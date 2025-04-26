@@ -1,6 +1,5 @@
 package lila.game
 
-import chess.MoveOrDrop.{ color, fold }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.variant.Variant

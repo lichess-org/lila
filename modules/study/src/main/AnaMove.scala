@@ -35,7 +35,7 @@ case class AnaMove(
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
-          move = Uci.WithSan(uci, move.san),
+          move = Uci.WithSan(uci, move.toSanStr),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable.so(game.situation.destinations)),
