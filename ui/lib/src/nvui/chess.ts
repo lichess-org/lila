@@ -384,7 +384,7 @@ export function boardCommandsHandler() {
     const $boardLive = $('.boardstatus');
     if (ev.key === 'o' && key) $boardLive.text(key);
     else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
-    else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()}, ${$('.nvui .topc').text()}`);
+    else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
   };
 }
 
