@@ -739,7 +739,7 @@
   <string name="tournamentNotFound">Турнир није пронађен</string>
   <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
   <string name="tournamentMayHaveBeenCanceled">Можда је отказан зато што су играчи напустили турнир пре његовог почетка</string>
-  <string name="returnToTournamentsHomepage">Вратите се на почетну страницу \"турнири\"</string>
+  <string name="returnToTournamentsHomepage">Врати се на почетну страну турнира</string>
   <string name="weeklyPerfTypeRatingDistribution">Месечна %s дитрибуција рејтинга</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s играч ове недеље.</item>
