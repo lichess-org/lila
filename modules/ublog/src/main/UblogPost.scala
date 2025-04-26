@@ -26,7 +26,8 @@ case class UblogPost(
     views: UblogPost.Views,
     similar: Option[List[UblogSimilar]],
     rankAdjustDays: Option[Int],
-    pinned: Option[Boolean]
+    pinned: Option[Boolean],
+    automod: Option[UblogAutomod.Result]
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 

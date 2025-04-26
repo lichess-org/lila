@@ -590,7 +590,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="computer">Máy tính</string>
   <string name="side">Bên</string>
   <string name="clock">Đồng hồ</string>
-  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">Đối thủ</string>
+  <string name="opponent">Đối thủ</string>
   <string name="learnMenu">Học tập</string>
   <string name="studyMenu">Nghiên cứu</string>
   <string name="practice">Luyện tập</string>

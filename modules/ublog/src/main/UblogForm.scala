@@ -88,7 +88,8 @@ object UblogForm:
         views = UblogPost.Views(0),
         similar = none,
         rankAdjustDays = none,
-        pinned = none
+        pinned = none,
+        automod = none
       )
 
     def update(user: User, prev: UblogPost) =

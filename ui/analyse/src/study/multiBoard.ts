@@ -57,6 +57,7 @@ export class MultiBoardCtrl {
 
   setMaxPerPage = (nb: string) => {
     this.maxPerPageStorage.set(nb);
+    this.page = 1;
     this.redraw();
   };
 

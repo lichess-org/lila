@@ -26,7 +26,9 @@ object embed:
         ),
         st.body(
           bodyModifiers,
-          body
+          body,
+          page.ui.inlineJs(ctx.nonce),
+          page.ui.modulesInit(modules, ctx.nonce.some)
         )
       )
     )

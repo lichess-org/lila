@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente escanear este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -629,7 +629,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="computer">Computador</string>
   <string name="side">Cor</string>
   <string name="clock">Relógio</string>
-  <string name="opponent" comment="Appears as a search field on the Advanced Search form, to help find games https://lichess.org/games/search&#10;There are two options available: &quot;Human&quot; or &quot;Computer&quot;">Adversário</string>
+  <string name="opponent">Adversário</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudos</string>
   <string name="practice">Praticar</string>

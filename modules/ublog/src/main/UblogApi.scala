@@ -16,7 +16,8 @@ final class UblogApi(
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.core.irc.IrcApi
+    irc: lila.core.irc.IrcApi,
+    automod: UblogAutomod
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -34,6 +35,7 @@ final class UblogApi(
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog   <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
+    _    = applyAutomod(post).logFailure(logger)
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
   yield post
@@ -50,6 +52,7 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+        applyAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
@@ -165,6 +168,17 @@ final class UblogApi(
       intro = post.intro,
       topic = s"$tierName new posts"
     )
+
+  private def applyAutomod(post: UblogPost): Funit =
+    automod(post)
+      .flatMapz: res =>
+        val doc = $set(
+          "automod" -> res
+        )
+        colls.post.update.one($id(post.id), doc).void
+      .recover: e =>
+        logger.warn(s"automod ${post.id} ${e.getMessage}", e)
+        ()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

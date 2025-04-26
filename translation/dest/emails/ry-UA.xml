@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Подтвердіт свуй lichess.org акаунт, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Клопкніт на одкликованя, обы заробив вам акаунт Lichess:</string>
-  <string name="emailConfirm_ignore">Кідь сьте ся не реґістровали на Lichess, іґноруйте сю уповістку.</string>
   <string name="passwordReset_subject">Звержіт свою паролу на lichess.org, %s</string>
   <string name="passwordReset_intro">Мы достали запрос на зверженя вашої паролы на вашому акаунтови.</string>
   <string name="passwordReset_clickOrIgnore">Кідь вы чинили сись запрос, клопкніт долув. Кідь ньит, просто проіґноруйте.</string>

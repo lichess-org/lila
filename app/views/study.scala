@@ -114,17 +114,12 @@ object embed:
   def apply(s: lila.study.Study, chapterId: StudyChapterId, pgn: PgnStr)(using ctx: EmbedContext) =
     val canGetPgn  = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     val isGamebook = pgn.value.contains("""[ChapterMode "gamebook"]""")
-    views.base.embed.minimal(
+    views.analyse.embed.lpv(
+      pgn,
+      canGetPgn,
       title = s.name.value,
-      cssKeys = List("bits.lpv.embed"),
-      modules = Esm("site.lpvEmbed")
-    )(
-      div(cls := "is2d")(div(pgn)),
-      views.analyse.ui.embed.lpvJs(
-        views.analyse.ui.embed.lpvConfig(orientation = none, getPgn = canGetPgn) ++
-          isGamebook.so:
-            Json.obj("gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapterId).url))
-      )(ctx.nonce.some)
+      isGamebook.so:
+        Json.obj("gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapterId).url))
     )
 
   def notFound(using EmbedContext) =

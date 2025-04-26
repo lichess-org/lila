@@ -2,9 +2,8 @@ package lila.core
 
 import scalalib.newtypes.OpaqueString
 
-import scala.concurrent.ExecutionContext
-
 import lila.core.userId.UserId
+import lila.core.lilaism.Lilaism.StringValue
 
 // has to be an object, not a package,
 // so opaque types don't leak out
@@ -13,6 +12,7 @@ object data:
   case class Strings(value: List[String]) extends AnyVal
   case class UserIds(value: List[UserId]) extends AnyVal
   case class Ints(value: List[Int])       extends AnyVal
+  case class Text(value: String)          extends AnyVal with StringValue
 
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 

@@ -71,7 +71,7 @@ def curl_cli(command, *, url="https://lichess.org/run/cli", token_file=".lila-cl
 
 
 def asset_profile(ssh, *,
-                  deploy_dir="/home/lichess-deploy",
+                  deploy_dir="/home/lichess/deploy",
                   post=curl_cli("change asset version"),
                   stage=False,
                   user="lichess"):
@@ -87,8 +87,8 @@ def asset_profile(ssh, *,
     }
 
 def server_profile(ssh, *,
-                   deploy_dir="/home/lichess-deploy",
-                   post="systemctl restart lichess",
+                   deploy_dir="/home/lichess/deploy",
+                   post="echo 'All set.'",
                    stage=False,
                    user="lichess"):
     return {
@@ -109,8 +109,8 @@ PROFILES = {
     "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "testy-assets": asset_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post=curl_cli("change asset version", url="https://testy.lichess.dev/run/cli", token_file="/home/testy/.testy-cli"), stage=True, user="testy"),
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy"),
-    "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess/deploy"),
-    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess/deploy"),
+    "manta-server": server_profile("root@manta.lichess.ovh", post="systemctl restart lichess"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh"),
 }
 
 

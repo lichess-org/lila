@@ -2,6 +2,7 @@ package lila.plan
 package ui
 
 import java.util.Currency
+import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -408,7 +409,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
       .iife(stripeScript)
-      .js(esmInitObj("bits.plan", "stripePublicKey" -> stripePublicKey))
+      .js(esmInitObj("bits.plan", Json.obj("stripePublicKey" -> stripePublicKey)))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(
           boxTop(

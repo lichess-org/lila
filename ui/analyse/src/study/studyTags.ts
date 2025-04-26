@@ -57,11 +57,26 @@ const inputAttrs: { [name: string]: Attrs } = (() => {
   const elo = { pattern: '\\d{3,4}' };
   const fideId = { pattern: '\\d{2,8}' };
   return {
-    // yyyy.mm.dd - unfortunately https://html5pattern.com/ is down.
     Date: {
       pattern:
-        '(?:17|18|19|20)[0-9]{2}\\.(?:(?:0[1-9]|1[0-2])\\.(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
-      title: 'yyyy.mm.dd',
+        // Match 1700-2099. or ????.
+        '(?:(?:(?:17|18|19|20)[0-9]{2}\\.)|\\?\\?\\?\\?\\.)' +
+        '(?:' +
+        // Match mm.dd 01-12.01-29
+        '(?:(?:0[1-9]|1[0-2])\\.(?:0[1-9]|1[0-9]|2[0-9])|' +
+        // Match all months except February with 30 days
+        '(?:(?!02)(?:0[1-9]|1[0-2])\\.(?:30))|' +
+        // Match months with 31 days
+        '(?:(?:0[13578]|1[02])\\.31))|' +
+        // Unknown month ??.01-31
+        '(?:\\?\\?\\.(?:0[1-9]|1[0-9]|2[0-9]|30|31))|' +
+        // Unknown day 01-12.??
+        '(?:(?:0[1-9]|1[0-2])\\.\\?\\?)|' +
+        // Unknown month and day ??.??
+        '(?:\\?\\?\\.\\?\\?)' +
+        ')',
+      // PGN specification allows for substition of any numeric value with '?'
+      title: 'yyyy.mm.dd or ????.??.??',
     },
     WhiteElo: elo,
     BlackElo: elo,

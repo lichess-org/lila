@@ -99,18 +99,18 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   ". Your statutory rights are also unaffected by our decision."
                 )
               )
+            ,
+            form3.actions(
+              frag(
+                a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
+                form3.submit(
+                  "Delete my account",
+                  icon = Icon.CautionCircle.some,
+                  confirm = "Deleting is definitive, there is no going back. Are you sure?".some
+                )(cls := "button-red")
+              )
+            )
           )
-        ,
-        form3.actions(
-          frag(
-            a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
-            form3.submit(
-              "Delete my account",
-              icon = Icon.CautionCircle.some,
-              confirm = "Deleting is definitive, there is no going back. Are you sure?".some
-            )(cls := "button-red")
-          )
-        )
       )
 
   private def linksHelp()(using Translate) = frag(

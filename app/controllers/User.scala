@@ -74,7 +74,11 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      userShowHtmlRateLimit(rateLimited, cost = if env.socket.isOnline.exec(u.id) then 1 else 2):
+      val cost =
+        if isGrantedOpt(_.UserModView) then 0
+        else if env.socket.isOnline.exec(u.id) then 1
+        else 2
+      userShowHtmlRateLimit(rateLimited, cost = cost):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)

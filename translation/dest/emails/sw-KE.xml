@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Thibitisha akaunti yako ya lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Bonyeza kiungo kuwezesha akaunti yako ya Lichess:</string>
-  <string name="emailConfirm_ignore">Iwapo hukujisajili na Lichess waweza kuupuuza kwa usalama ujumbe huu.</string>
   <string name="passwordReset_subject">Weka upya nenosiri lako la lichess, %s</string>
   <string name="passwordReset_intro">Tulipokea ombi kuweka upya nenosiri la akaunti yako.</string>
   <string name="passwordReset_clickOrIgnore">Kama ulituma hili ombi, bonyeza kiungo hapo chini. Kama hukutuma ombi, waweza kupuuza barua pepe hii.</string>

@@ -65,8 +65,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       const { panes: editor, view } = this.host;
       this.el.classList.toggle('disabled', !enabled);
 
-      if (enabled) this.host.bot.disabled.delete(this.id);
-      else this.host.bot.disabled.add(this.id);
+      if (enabled) this.host.editing().disabled.delete(this.id);
+      else this.host.editing().disabled.add(this.id);
 
       if (this.input && !this.input.value)
         this.input.value = this.getStringProperty(['scratch', 'local', 'server', 'schema']);
@@ -102,8 +102,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
 
   setProperty(value: PropertyValue): void {
     if (value === undefined) {
-      if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
-    } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
+      if (this.paneValue) removeObjectProperty({ obj: this.host.editing(), path: { id: this.id } });
+    } else setObjectProperty({ obj: this.host.editing(), path: { id: this.id }, value });
   }
 
   getProperty(from: PropertySource[] = ['scratch']): PropertyValue {
@@ -112,7 +112,11 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         ? getSchemaDefault(this.id)
         : this.path.reduce(
             (o, key) => o?.[key],
-            src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
+            src === 'scratch'
+              ? this.host.editing()
+              : src === 'local'
+                ? this.host.localBot
+                : this.host.serverBot,
           ),
     );
   }
@@ -163,7 +167,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isDisabled(): boolean {
-    return this.host.bot.disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+    return this.host.editing().disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
   }
 
   protected get children(): Pane[] {

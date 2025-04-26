@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import play.api.libs.json.JsArray
+import play.api.libs.json.{ Json, JsArray }
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -105,7 +105,12 @@ final class Analyse(
               case AcceptsPgn() => Ok(pgn)
               case _ =>
                 Ok.snip:
-                  views.analyse.embed.lpv(pgn, color.some, getPgn = true)
+                  views.analyse.embed.lpv(
+                    pgn,
+                    getPgn = true,
+                    title = "Lichess PGN viewer",
+                    Json.obj("orientation" -> color.name)
+                  )
           case _ =>
             render:
               case AcceptsPgn() => NotFound("*")

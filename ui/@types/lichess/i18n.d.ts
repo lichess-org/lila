@@ -997,8 +997,8 @@ interface I18n {
     emailChange_subject: I18nFormat;
     /** Click the link to enable your Lichess account: */
     emailConfirm_click: string;
-    /** If you did not register with Lichess you can safely ignore this message. */
-    emailConfirm_ignore: string;
+    /** If you did not register with Lichess, you can safely ignore this message. The unconfirmed account and all traces of your email address will be deleted from our system after 48 hours. */
+    emailConfirm_justIgnore: string;
     /** Confirm your lichess.org account, %s */
     emailConfirm_subject: I18nFormat;
     /** Log in to lichess.org, %s */
@@ -2999,6 +2999,8 @@ interface I18n {
     continueFromHere: string;
     /** Contribute */
     contribute: string;
+    /** Copy mainline PGN */
+    copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
     /** Copy variation PGN */

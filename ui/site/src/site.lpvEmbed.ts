@@ -8,7 +8,7 @@ interface OptsWithI18n extends Opts {
   };
 }
 
-(window as any).LpvEmbed = function (opts: Partial<OptsWithI18n>) {
+export function initModule(opts: Partial<OptsWithI18n>) {
   const elem = document.body.firstChild!.firstChild as HTMLElement;
   const lpv = Lpv(elem, {
     initialPly: parseInt(location.hash.slice(1)) || undefined,
@@ -36,4 +36,4 @@ interface OptsWithI18n extends Opts {
       `<a href="${opts.gamebook.url}" target="_blank" class="button button-no-upper lpv__gamebook">${text}</a>`,
     );
   }
-};
+}

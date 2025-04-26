@@ -164,14 +164,38 @@
 }
 
 .ublog-post__mod-tools {
-  @extend %flex-between;
-  justify-content: center;
+  @extend %flex-column;
+  align-items: stretch;
   padding: 1.5em;
   gap: 1.5em;
   border: $border-width $border-style $c-accent;
+  > div {
+    @extend %flex-between;
+    gap: 1.5em;
+  }
   span {
     @extend %flex-center;
-    column-gap: 0.5em;
+    gap: 1em;
+  }
+  .automod {
+    @extend %flex-between;
+  }
+  i {
+    cursor: pointer;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  i::before {
+    font-size: 1.4rem;
+  }
+  i.flagged {
+    color: $c-brag;
+  }
+  i.commercial {
+    color: $c-secondary;
+  }
+  i.offtopic {
+    color: $c-bad;
   }
   legend {
     width: 100%;

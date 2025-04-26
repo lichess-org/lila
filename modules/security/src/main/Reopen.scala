@@ -64,7 +64,7 @@ final class Reopen(
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.reopen.increment()
       val url = s"$baseUrl/account/reopen/login/$token"
-      mailer.send(
+      mailer.sendOrFail:
         Mailer.Message(
           to = email,
           subject = s"Reopen your lichess.org account: ${user.username}",
@@ -80,7 +80,6 @@ ${trans.common_orPaste.txt()}"""),
             serviceNote
           ).some
         )
-      )
     }
 
   def confirm(token: String): Fu[Option[User]] =

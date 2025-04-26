@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">დაადასტურეთ თქვენი lichess.org პროფილი, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">დააკლიკეთ ლინკს, რათა გაააქტიუროთ თქვენი Lichess ანგარიში:</string>
-  <string name="emailConfirm_ignore">თუ Lichess-ზე თქვენ არ დარეგისტრირებულხართ, შეგიძლიათ ამ შეტყობინებას ყურადღება არ მიაქციოთ.</string>
   <string name="passwordReset_subject">შეცვალეთ თქვენი lichess.org პაროლი, %s</string>
   <string name="passwordReset_intro">ჩვენ მივიღეთ თქვენი ანგარიშისთვის პაროლის ცვლილების მოთხოვნა.</string>
   <string name="passwordReset_clickOrIgnore">თუ ეს მოთხოვნა თქვენ გეკუთვნით, მაშინ დააკლიკეთ ქვემოთ მოცემულ ბმულს. თუ არა - ამ შეტყობინებას ყურადღებას ნუ მიაქცევთ.</string>

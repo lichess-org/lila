@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Cunfirmate u vostru contu lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Clicate nantu à a leia per validà u vostru contu Lichess:</string>
-  <string name="emailConfirm_ignore">S\'è ùn site micca arregistratu nantu à Lichess, pudete ignurà u missaghju.</string>
   <string name="passwordReset_subject">Create da torna a vostra parolla d\'intesa di lichess.org, %s</string>
   <string name="passwordReset_intro">Avemu ricivutu una dumanda par creà da torna a parolla d\' intesa di u vostru contu.</string>
   <string name="passwordReset_clickOrIgnore">S\'è vo avete fattu sta dumanda, clicate puru nantu à a leia inghjò. S\' è ùn l\' avete micca fattu, pudete ignurà stu currieru elettronicu.</string>

@@ -137,27 +137,3 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
 
     def analyseModule(mode: String, json: JsObject) =
       PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
-
-  object embed:
-
-    def lpvJs(orientation: Option[Color], getPgn: Boolean)(using Translate): WithNonce[Frag] =
-      lpvJs(lpvConfig(orientation, getPgn))
-
-    def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
-      embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
-          lpvConfig + ("i18n" -> Json.obj(
-            "flipTheBoard"         -> trans.site.flipBoard.txt(),
-            "analysisBoard"        -> trans.site.analysis.txt(),
-            "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
-            "getPgn"               -> trans.study.copyChapterPgn.txt(),
-            "download"             -> trans.site.download.txt()
-          ))
-        )})})""")
-
-    def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
-      .obj(
-        "menu" -> Json.obj(
-          "getPgn" -> Json.obj("enabled" -> getPgn)
-        )
-      )
-      .add("orientation", orientation.map(_.name))

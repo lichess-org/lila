@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Confirma la tuya cuenta de lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Fe clic en o vinclo pa activar la tuya cuenta de Lichess:</string>
-  <string name="emailConfirm_ignore">Si no has ubierto una cuenta en Lichess, puez ignorar tranquilament este mensache.</string>
   <string name="passwordReset_subject">Cambia la tuya clau de lichess.org, %s</string>
   <string name="passwordReset_intro">Hemos recibiu una solicitut pa cambiar la clau d\'a tuya cuenta.</string>
   <string name="passwordReset_clickOrIgnore">Si has feito esta solicitut, fe clic en o vinclo de mas ta abaixo. Si no, puez ignorar este correu.</string>

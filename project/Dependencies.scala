@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.3.0"
+    val version  = "17.3.1"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -104,7 +104,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.6"
+    val version    = "2.7.7"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
