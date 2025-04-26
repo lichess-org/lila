@@ -235,13 +235,16 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               )
             ),
             post.automod.map: automod =>
-              span(
-                "Automod:",
-                strong(automod.classification),
-                automod.flagged.map: flagged =>
-                  i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),
-                automod.commercial.map: commercial =>
-                  i(cls := "commercial", title := commercial)("$")
+              span(cls := "automod")(
+                span("Automod:", strong(automod.classification)),
+                span(
+                  automod.flagged.map: flagged =>
+                    i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),
+                  automod.commercial.map: commercial =>
+                    i(cls := "commercial", title := commercial)("$"),
+                  automod.offtopic.map: offtopic =>
+                    i(cls := "offtopic", dataIcon := Icon.Tag, title := offtopic)
+                )
               )
           )
         )
