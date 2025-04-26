@@ -62,4 +62,4 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
   def modsOnly(value: Boolean)         = add(ModsOnly(value))
   private def add(p: Propagation)      = copy(propagations = p :: propagations)
 
-object Propagate extends scalalib.bus.GivenChannel[Propagate]("timeline")
+object Propagate

@@ -8,11 +8,11 @@ import lila.core.user.Me
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
-  object StreamStart extends bus.GivenChannel[StreamStart]("streamStart")
+  object StreamStart
 
   case class StreamInfo(name: String, lang: String)
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
-  object StreamersOnline extends bus.GivenChannel[StreamersOnline]("streamersOnline")
+  object StreamersOnline
 
 package map:
   case class Tell(id: String, msg: Any)
@@ -26,17 +26,17 @@ package clas:
     case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
-  object ClasBus extends bus.GivenChannel[ClasBus]("clas")
+  object ClasBus
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
-  object StormRun extends bus.GivenChannel[StormRun]("stormRun")
+  object StormRun
 
   case class RacerRun(userId: UserId, score: Int)
-  object RacerRun extends bus.GivenChannel[RacerRun]("racerRun")
+  object RacerRun
 
   case class StreakRun(userId: UserId, score: Int)
-  object StreakRun extends bus.GivenChannel[StreakRun]("streakRun")
+  object StreakRun
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
@@ -54,7 +54,7 @@ package mailer:
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
-  object CorrespondenceOpponents extends bus.GivenChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
+  object CorrespondenceOpponents
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)

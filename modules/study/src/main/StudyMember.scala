@@ -42,4 +42,4 @@ object StudyMembers:
   val empty = StudyMembers(Map.empty)
 
   case class OnChange(study: Study)
-  object OnChange extends scalalib.bus.GivenChannel[OnChange]("study.members")
+  object OnChange
