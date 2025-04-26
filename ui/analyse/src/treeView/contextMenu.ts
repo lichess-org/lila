@@ -67,8 +67,18 @@ function action(
         insert: vnode => {
           const elm = vnode.elm as HTMLElement;
           elm.addEventListener('click', onClick);
-          if (onHover && !isTouchDevice()) elm.addEventListener('mouseover', onHover);
-          if (onLeave) elm.addEventListener('mouseout', onLeave);
+          if (onHover && !isTouchDevice())
+            elm.addEventListener('mouseover', () => {
+              onHover();
+              // If there is a special action for hover, make the menu transparent so that effects
+              // on the move list can be fully seen:
+              document.getElementById('analyse-cm')?.classList.add('transparent');
+            });
+          if (onLeave)
+            elm.addEventListener('mouseout', () => {
+              onLeave();
+              document.getElementById('analyse-cm')?.classList.remove('transparent');
+            });
         },
       },
     },
