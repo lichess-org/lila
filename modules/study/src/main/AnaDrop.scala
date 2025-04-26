@@ -45,7 +45,7 @@ object AnaDrop:
     for
       d    <- o.obj("d")
       role <- d.str("role").flatMap(chess.Role.allByName.get)
-      pos  <- d.str("pos").flatMap { chess.Square.fromKey(_) }
+      pos  <- d.str("pos").flatMap(chess.Square.fromKey)
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
