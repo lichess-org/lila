@@ -8,6 +8,32 @@ const prefixInteger = (num: number, length: number): string =>
 
 const bold = (x: string) => `<b>${x}</b>`;
 
+function formatNvuiClockTime(time: Millis) {
+  const totalSeconds = Math.floor(time / 1000);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const parts: string[] = [];
+  if (days > 0) {
+    parts.push(i18n.site.nbDays(days));
+    if (hours > 0) parts.push(i18n.site.nbHours(hours));
+  } else if (hours > 0) {
+    parts.push(i18n.site.nbHours(hours));
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+  } else {
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+    if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+  }
+
+  if (parts.length === 1) {
+    return parts[0];
+  } else {
+    return parts.join(', ');
+  }
+}
+
 function formatClockTime(time: Millis) {
   const date = new Date(time),
     minutes = prefixInteger(date.getUTCMinutes(), 2),
@@ -39,7 +65,7 @@ export default function (
 ): VNode {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
-      el.innerHTML = formatClockTime(millis);
+      el.innerHTML = site.blindMode ? formatNvuiClockTime(millis) : formatClockTime(millis);
     },
     isPlayer = ctrl.root.data.player.color === color,
     direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;

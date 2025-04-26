@@ -43,16 +43,27 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
+function formatNvuiClockTime(time: Millis) {
+  const totalSeconds = Math.floor(time / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const parts: string[] = [];
+  if (hours > 0) parts.push(i18n.site.nbHours(hours));
+  if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+  if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+
+  if (parts.length === 1) {
+    return parts[0];
+  } else {
+    return parts.join(', ');
+  }
+}
+
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
-  if (nvui)
-    return (
-      (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
-      date.getUTCMinutes() +
-      'M:' +
-      date.getUTCSeconds() +
-      'S'
-    );
+  if (nvui) return formatNvuiClockTime(time);
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
