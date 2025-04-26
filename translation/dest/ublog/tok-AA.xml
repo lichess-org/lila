@@ -24,7 +24,6 @@
   <string name="xPublishedY">jan %1$s li pana e lipu %2$s</string>
   <string name="thisPostIsPublished">sina pana e lipu ni</string>
   <string name="thisIsADraft">sina pana ala e lipu ni</string>
-  <string name="moreBlogPostsBy">lipu ante pi jan %s</string>
   <string name="noPostsInThisBlogYet">lipu li lon ala</string>
   <string name="noDrafts">lipu pi pana ala li lon ala</string>
   <string name="latestBlogPosts">lipu sin</string>

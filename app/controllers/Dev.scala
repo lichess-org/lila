@@ -8,8 +8,10 @@ final class Dev(env: Env) extends LilaController(env):
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.security.proxy2faSetting,
+    env.security.mobileSignupProxy,
     env.oAuth.originBlocklistSetting,
     env.mailer.mailerSecondaryPermilleSetting,
+    env.mailer.canSendEmailsSetting,
     env.irwin.irwinApi.thresholds,
     env.irwin.kaladinApi.thresholds,
     env.report.scoreThresholdsSetting,
@@ -19,7 +21,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.bot.boardReport.domainSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
-    env.round.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.fishnet.openingBookDepth,
     env.web.settings.apiTimeline,
@@ -33,7 +34,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.recap.parallelismSetting,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
-    env.relay.proxyCredentials
+    env.relay.proxyCredentials,
+    env.ublog.automod.promptSetting
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>

@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Yhteisön blogit</string>
   <string name="friendBlogs">Ystävien blogit</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichessin blogi</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Oma blogi</string>
+  <string name="lichessBlog">Lichessin blogi</string>
+  <string name="myBlog">Oma blogi</string>
   <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
   <string name="blogTopics">Blogin aiheet</string>
   <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
@@ -36,7 +36,6 @@
   <string name="xPublishedY">%1$s julkaisi kirjoituksen %2$s</string>
   <string name="thisPostIsPublished">Tämä kirjoitus on julkaistu</string>
   <string name="thisIsADraft">Tämä on luonnos</string>
-  <string name="moreBlogPostsBy">Näytä lisää käyttäjän %s blogikirjoituksia</string>
   <string name="noPostsInThisBlogYet">Tässä blogissa ei ole vielä kirjoituksia.</string>
   <string name="noDrafts">Ei näytettäviä luonnoksia.</string>
   <string name="latestBlogPosts">Uusimmat blogikirjoitukset</string>

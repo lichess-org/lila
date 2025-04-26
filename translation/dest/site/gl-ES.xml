@@ -487,13 +487,11 @@
   <string name="losses">Derrotas</string>
   <string name="createdBy">Creado por</string>
   <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
-  <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo xa están pechados.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás xogando!</string>
   <string name="winRate">Porcentaxe de vitorias</string>
-  <string name="berserkRate">Porcentaxe de berserk</string>
   <string name="performance">Rendemento</string>
   <string name="tournamentComplete">Torneo rematado</string>
   <string name="movesPlayed">Movementos xogados</string>

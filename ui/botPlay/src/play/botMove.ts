@@ -21,7 +21,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
     remaining: Infinity,
     opponentRemaining: Infinity,
     increment: 0,
-    ply: game.sans.length,
+    ply: game.moves.length,
   };
 
   const res = await source.move(moveRequest);

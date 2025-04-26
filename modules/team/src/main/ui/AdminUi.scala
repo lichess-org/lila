@@ -121,7 +121,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
       limiter: (Int, Instant),
       credits: Int
   )(using ctx: Context) =
-    TeamPage(s"${t.name} • ${trans.team.messageAllMembers.txt()}").js(embedJsUnsafeLoadThen(pmAllJs)):
+    TeamPage(s"${t.name} • ${trans.team.messageAllMembers.txt()}").js(esmInitBit("pmAll")):
       main(cls := "page-menu page-small")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -162,11 +162,6 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
           )
         )
       )
-
-  private val pmAllJs = """
-$('.copy-url-button').on('click', function(e) {
-$('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n')
-})"""
 
   private def teamMembersAutoComplete(team: Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)

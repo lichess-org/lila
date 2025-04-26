@@ -488,19 +488,18 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="wins">Fitore</string>
   <string name="losses">Humbje</string>
   <string name="createdBy">Krijuar nga</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Fillon më</string>
-  <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet tani u mbyllën.</string>
+  <string name="startingIn" comment="Displayed above a timer">Fillon më</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
   <string name="resume">Rifillo</string>
   <string name="youArePlaying">Po luani!</string>
   <string name="winRate">Përqindje fitoresh</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Perqindja e berserkeve</string>
   <string name="performance">Sukseshmëri</string>
   <string name="tournamentComplete">Turneu mbaroi</string>
   <string name="movesPlayed">Lëvizje të luajtura</string>
   <string name="whiteWins">I bardhi fiton</string>
   <string name="blackWins">I ziu fiton</string>
+  <string name="drawRate">Norma e tërheqjes</string>
   <string name="draws">Barazime</string>
   <string name="averageOpponent">Kundërshtari mesatar</string>
   <string name="boardEditor">Përpunues fushe</string>
@@ -509,7 +508,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
   <string name="startPosition">Pozicioni fillestar</string>
-  <string name="clearBoard">Spastro fushën</string>
+  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raportojeni %s tek moderatorët</string>
@@ -519,6 +518,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Përpunoni profilin</string>
   <string name="realName">Emër i njëmendtë</string>
+  <string name="setFlair">Vendosni dhuntinë tuaj</string>
+  <string name="flair">Dhunti</string>
+  <string name="youCanHideFlair">Ekziston një cilësim për të fshehur të gjitha aftësitë e përdoruesve në të gjithë faqen.</string>
   <string name="biography">Jetëshkrim</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
@@ -675,8 +677,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
   <string name="hostColorX">Ngjyra e organizatorit: %s</string>
+  <string name="yourPendingSimuls">Simulat tuaja në pritje</string>
   <string name="createdSimuls">Simultane të krijuara së fundi</string>
   <string name="hostANewSimul">Organizoni një simultane të re</string>
+  <string name="signUpToHostOrJoinASimul">Regjistrohu për të pritur ose bashkuar një simul</string>
   <string name="noSimulFound">S’u gjet simultane</string>
   <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
@@ -735,7 +739,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="checkYourEmail">Kontrolloni Email-in tuaj</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ju dërguam një email. Që të aktivizoni llogarinë tuaj, klikoni lidhjen te email-i.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shihni email-in, kontrolloni në vendet e tjera ku mund të jetë, bie fjala dosje të pavlerash, hedhurinash, shoqërore, ose dosje të tjera.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Nëse s’e merrni email-in brenda 5 minutash:</string>
+  <string name="ifYouDoNotGetTheEmail">Nëse s’e merrni email-in brenda 5 minutash:</string>
   <string name="checkAllEmailFolders">Kontrolloni krejt dosjet e të pavlerëve, të padëshiruarve dhe të tjera</string>
   <string name="verifyYourAddress">Verifikoni se %s është adresa juaj email</string>
   <string name="weHaveSentYouAnEmailTo">Kemi dërguar një email te %s. Që të ricaktoni fjalëkalimin tuaj, klikoni mbi lidhjen te email-i.</string>

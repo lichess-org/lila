@@ -281,8 +281,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="drawOfferCanceled">Remis-Agebot zruggzoge</string>
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
   <string name="blackOffersDraw">Schwarz offeriert Remis</string>
-  <string name="whiteDeclinesDraw">Wiss lähnt es Remis ab</string>
-  <string name="blackDeclinesDraw">Schwarz lähnt es Remis ab</string>
+  <string name="whiteDeclinesDraw">Wiss wott keis Remis</string>
+  <string name="blackDeclinesDraw">Schwarz wott keis Remis</string>
   <string name="yourOpponentOffersADraw">Din Gägner offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
   <string name="decline">Ablehnä</string>
@@ -488,19 +488,17 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="wins">Sieg</string>
   <string name="losses">Niederlage</string>
   <string name="createdBy">Erschtellt vo</string>
-  <string name="startingIn" comment="Displayed above a timer on an upcoming tournament. The text is automatically capitalised.&#10;&#10;Note that this string will only appear when there is less than an day until the tournament starts, so that we can show digital time e.g. 3:51:43 (3 hours, 51 minutes, 43 seconds). The time will always be shown digitally and not with words.&#10;&#10;Lichess does not display this text if the tournament is beginning e.g. if a tournament is starting in 3 days the page will simply state &quot;In 3 days&quot;, without the &quot;Starting in&quot; text.">Schtartet in</string>
-  <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
+  <string name="startingIn" comment="Displayed above a timer">Schtartet in</string>
   <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
   <string name="pause">Pausiere</string>
   <string name="resume">wieder ischtige</string>
   <string name="youArePlaying">Dis Schpiel fangt a!</string>
   <string name="winRate">Gwünn Rate</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkrate</string>
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
   <string name="movesPlayed">Gschpillti Züg</string>
-  <string name="whiteWins">Sieg mit Wiss</string>
-  <string name="blackWins">Sieg mit Schwarz</string>
+  <string name="whiteWins">Wiss günnt</string>
+  <string name="blackWins">Schwarz günnt</string>
   <string name="drawRate">Remis-Rate</string>
   <string name="draws">Remis</string>
   <string name="averageOpponent">Durchschnitt - Gägner</string>
@@ -753,7 +751,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir es Mail gschickt: Klick de Link i de Nachricht, um dis Konto z\'aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech witeri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Wänn die E-Mail nöd innerhalb 5 Minute chunnt:</string>
+  <string name="ifYouDoNotGetTheEmail">Wänn die E-Mail nöd innerhalb 5 Minute chunnt:</string>
   <string name="checkAllEmailFolders">Suech im Junk, Spam und andere Ordner</string>
   <string name="verifyYourAddress">Prüef ob %s würkli dini E-Mail-Adrässe isch</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>

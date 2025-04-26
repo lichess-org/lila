@@ -381,6 +381,9 @@ $hover-bg: $m-primary_bg--mix-30;
         font-weight: bold;
       }
     }
+    td.player-name {
+      text-align: start;
+    }
     .rp {
       margin-inline-start: 1ch;
     }
@@ -565,6 +568,9 @@ $hover-bg: $m-primary_bg--mix-30;
 
     &::after {
       transform: translate(-80%, 80%);
+      @include if-rtl {
+        transform: translate(80%, 80%);
+      }
       background-color: $c-brag;
     }
   }
@@ -590,20 +596,16 @@ $hover-bg: $m-primary_bg--mix-30;
     padding: 0.7em 1em;
     font-size: 1.1em;
     color: $c-font;
-    gap: 1ch;
     i {
+      margin-inline-start: auto;
       color: $c-font-dimmer;
     }
     &::before {
       font-size: 1.3em;
     }
-
     &:hover {
       background: $m-primary_bg--mix-30;
-      &,
-      &::before {
-        color: $c-font-clearer;
-      }
+      color: $c-font-clearer;
     }
   }
 }

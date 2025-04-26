@@ -482,13 +482,11 @@
   <string name="wins">জয়</string>
   <string name="losses">পরাজয়</string>
   <string name="createdBy">তৈরি করেছেন</string>
-  <string name="tournamentPairingsAreNowClosed">ক্রীড়া-প্রতিযোগিতা যোগদান এখন বন্ধ হয়ে গেছে.</string>
   <string name="standByX">অপেক্ষিত %s, যোগদান খেলোয়ার, তৈরি হও!</string>
   <string name="pause">বিরতি/Pause</string>
   <string name="resume">পুনরায় শুরু</string>
   <string name="youArePlaying">আপনি খেলতেছেন!</string>
   <string name="winRate">জয়ের অনুপাত</string>
-  <string name="berserkRate">ক্ষিপ্ত অনুপাত</string>
   <string name="performance">সম্পাদন</string>
   <string name="tournamentComplete">ক্রীড়া-প্রতিযোগিতা সম্পন্ন হয়েছে</string>
   <string name="movesPlayed">খেলা সরানো হয়েছে</string>

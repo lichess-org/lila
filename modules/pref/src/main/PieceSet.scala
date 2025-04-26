@@ -43,6 +43,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("california"),              // 12/17
     PieceSet("caliente", Featured.Yes),  // 17/11
     PieceSet("pixel"),                   // 9/23
+    PieceSet("firi"),
     PieceSet("rhosgfx", Featured.Yes),   // 0/0 submitted after poll
     PieceSet("maestro", Featured.Yes),   // 22/5
     PieceSet("fresca", Featured.Yes),    // 15/12

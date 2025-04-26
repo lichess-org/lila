@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="downloadAllGames">ပွဲအားလုံး ဒေါင်းလုပ်ဆွဲပါ</string>
   <string name="downloadGame">ပွဲကို ဒေါင်းလုပ်ဆွဲပါ</string>
   <string name="youCanPasteThisInTheForumToEmbed">Embed လုပ်ရန် အတွက် ဤစာများကို ဖိရမ်တွင် ကူးထည့်နိုင်ပါသည်</string>
   <string name="embedInYourWebsite">မိမိ ဝက်ဗ်ဆိုက် သို့မဟုတ် ဘလော့ဂ်တွင် embed လုပ်ပါ</string>

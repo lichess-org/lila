@@ -30,7 +30,7 @@ export default class RelayCtrl {
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
-  liveboardPlugin: LiveboardPlugin;
+  liveboardPlugin?: LiveboardPlugin;
   readonly baseRedraw: Redraw;
   readonly send: AnalyseSocketSend;
 
@@ -48,8 +48,10 @@ export default class RelayCtrl {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     this.baseRedraw = analyse.redraw;
     this.send = analyse.socket.send;
-    this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
-    analyse.opts.chat.plugin = this.liveboardPlugin;
+    if (analyse.opts.chat) {
+      this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
+      analyse.opts.chat.plugin = this.liveboardPlugin;
+    }
 
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
@@ -107,7 +109,7 @@ export default class RelayCtrl {
     if (this.tourShow()) {
       this.tourShow(false);
     }
-    this.liveboardPlugin.setChapterId(id);
+    this.liveboardPlugin?.setChapterId(id);
     this.redraw();
   };
 

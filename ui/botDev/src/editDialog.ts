@@ -1,7 +1,7 @@
 import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
 import { handOfCards, type HandOfCards } from './handOfCards';
 import { frag } from 'lib';
-import { deepFreeze, definedMap, mapValues } from 'lib/algo';
+import { deepFreeze, definedMap } from 'lib/algo';
 import { buildFromSchema, Panes } from './panes';
 import { deadStrip } from './devUtil';
 import { domDialog, type Dialog, type Action } from 'lib/view/dialog';
@@ -44,15 +44,14 @@ export class EditDialog {
       <div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
-    if (!env.bot.all.length) env.bot.storeBot(EditDialog.default);
-    this.selectBot();
+    this.selectBot(localStorage.getItem('devBot.edit'));
     this.deck = handOfCards({
       viewEl: this.view,
       deckEl: this.view.querySelector('.placeholder') as HTMLElement,
       opaqueSelectedBackground: true,
       fanCenterToWidthRatio: 1 / 3,
       getCardData: () => this.cardData,
-      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
+      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.editing().uid) }],
       select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
     });
   }
@@ -91,11 +90,10 @@ export class EditDialog {
     return asset;
   };
 
-  get bot(): WritableBot {
-    // getter side effects are lovely and wonderful
+  editing(): WritableBot {
     let scratch = this.scratch.get(this.uid);
     if (!scratch) {
-      scratch = Object.defineProperties(structuredClone(this.bots.get(this.uid)), {
+      scratch = Object.defineProperties(structuredClone(this.bots.get(this.uid) ?? {}), {
         disabled: { value: new Set<string>() },
         viewing: { value: new Map<string, string>() },
       }) as WritableBot;
@@ -127,7 +125,7 @@ export class EditDialog {
       { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
       { selector: '[data-bot-action="assets"]', listener: () => this.assetDialog() },
       { selector: '[data-bot-action="push-one"]', listener: () => this.push() },
-      { selector: '[data-bot-action="pull-one"]', listener: () => this.pullBots([this.bot.uid]) },
+      { selector: '[data-bot-action="pull-one"]', listener: () => this.pullBots([this.editing().uid]) },
       { selector: '[data-bot-action="pull-all"]', listener: () => this.pullBots() },
       { selector: '.player', listener: e => this.clickImage(e) },
     ];
@@ -147,10 +145,8 @@ export class EditDialog {
 
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
-    const all = [...mapValues(this.bots), ...mapValues(this.scratch)];
-    return definedMap(Array.from(new Set(all)), b => env.bot.groupedCard(b, this.isDirty)).sort(
-      env.bot.groupedSort(speed),
-    );
+    const all = [...new Map([...this.bots, ...this.scratch]).values()]; // scratches override bots
+    return definedMap(all, b => env.bot.groupedCard(b, this.isDirty)).sort(env.bot.groupedSort(speed));
   }
 
   private async push() {
@@ -163,15 +159,17 @@ export class EditDialog {
   private async save() {
     const behaviorScroll = this.view.querySelector('.behavior')!.scrollTop;
     const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
-    await env.bot.storeBot(deadStrip(this.bot));
+    await env.bot.storeBot(deadStrip(this.editing()));
     this.update();
     this.view.querySelector('.behavior')!.scrollTop = behaviorScroll ?? 0;
     this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
   }
 
-  private selectBot(uid = this.uid ?? env.bot[this.color]?.uid ?? env.bot.firstUid): void {
-    if (!uid) return this.dlg.close();
+  private selectBot(uid: string | null = this.uid): void {
+    if (!this.bots.size) env.bot.storeBot(EditDialog.default);
+    if (!uid || !this.bots.has(uid)) uid = env.bot[this.color]?.uid ?? env.bot.firstUid ?? '#default';
     this.uid = uid;
+    localStorage.setItem('devBot.edit', uid);
     this.makeEditView();
     this.update();
   }
@@ -196,14 +194,14 @@ export class EditDialog {
     const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
     clear.forEach(this.scratch.delete);
     await env.bot.clearStoredBots(clear);
-    this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
+    this.selectBot(this.editing().uid in this.bots ? this.editing().uid : Object.keys(this.bots)[0]);
   };
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
     const newImage = await this.assetDialog('image');
     if (!newImage) return;
-    this.bot.image = newImage;
+    this.editing().image = newImage;
     this.update();
   }
 
@@ -223,7 +221,7 @@ export class EditDialog {
   private onBookImported = (key: string, oldKey?: string) => {
     this.assetDlg?.update();
     if (!oldKey) return;
-    for (const bot of new Set<WritableBot>([this.bot, ...Object.values(this.scratch)])) {
+    for (const bot of new Set<WritableBot>([this.editing(), ...Object.values(this.scratch)])) {
       const existing = bot.books?.find(b => b.key === oldKey);
       if (existing) {
         existing.key = key;
@@ -294,10 +292,10 @@ export class EditDialog {
   }
 
   private async jsonDialog(): Promise<void> {
-    const version = this.bot.version;
+    const version = this.editing().version;
     const view = frag<HTMLElement>($html`
       <div class="dev-view json-dialog">
-        <textarea class="json" autocomplete="false" spellcheck="false">${stringify(deadStrip(this.bot), { indent: 2, maxLength: 80 })}</textarea>
+        <textarea class="json" autocomplete="false" spellcheck="false">${stringify(deadStrip(this.editing()), { indent: 2, maxLength: 80 })}</textarea>
         <div class="actions">
           <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
           <button class="button button-empty button-red" data-action="cancel">cancel</button>

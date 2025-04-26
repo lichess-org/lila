@@ -487,13 +487,11 @@
   <string name="losses">Losses</string>
   <string name="createdBy">Created by</string>
   <string name="startingIn" comment="Displayed above a timer">Starting in</string>
-  <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>
   <string name="resume">Resume</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
-  <string name="berserkRate">Berserk rate</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Tournament complete</string>
   <string name="movesPlayed">Moves played</string>
@@ -744,7 +742,7 @@
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">If you do not get the email within 5 minutes:</string>
+  <string name="ifYouDoNotGetTheEmail">If you do not get the email within 5 minutes:</string>
   <string name="checkAllEmailFolders">Check all junk, spam, and other folders</string>
   <string name="verifyYourAddress">Verify that %s is your email address</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>

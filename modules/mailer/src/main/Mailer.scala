@@ -18,6 +18,7 @@ import lila.core.i18n.Translate
 
 final class Mailer(
     config: Mailer.Config,
+    canSendEmails: lila.memo.SettingStore[Boolean],
     getSecondaryPermille: () => Int
 )(using system: ActorSystem):
 
@@ -27,32 +28,43 @@ final class Mailer(
   private val primaryClient   = SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
 
-  private def randomClient(): (SMTPMailer, Mailer.Smtp) =
-    if ThreadLocalRandom.nextInt(1000) < getSecondaryPermille() then (secondaryClient, config.secondary)
+  private def randomClientFor(recipient: EmailAddress): (SMTPMailer, Mailer.Smtp) =
+    // Stick to one mailer for each recipient, because each mailer may have its
+    // own supression list.
+    if recipient.value.toLowerCase.hashCode % 1000 < getSecondaryPermille() then
+      (secondaryClient, config.secondary)
     else (primaryClient, config.primary)
 
-  def send(msg: Mailer.Message): Funit =
+  def canSend = canSendEmails.get()
+
+  def sendOrFail(msg: Mailer.Message): Funit = send(msg, orFail = true)
+  def sendOrSkip(msg: Mailer.Message): Funit = send(msg, orFail = false)
+
+  def send(msg: Mailer.Message, orFail: Boolean): Funit =
     if msg.to.isNoReply then
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else
       Future:
-        Chronometer.syncMon(_.email.send.time):
-          blocking:
-            val (client, config) = randomClient()
-            val email = Email(
-              subject = msg.subject,
-              from = config.sender,
-              to = Seq(msg.to.value),
-              bodyText = msg.text.some,
-              bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
-            )
-            client.send(email)
-      .recoverWith:
-        case e: EmailException if msg.to.normalize.value != msg.to.value =>
-          logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
-          send(msg.copy(to = msg.to.normalize.into(EmailAddress)))
-      .void
+        val (client, config) = randomClientFor(msg.to)
+        val email = Email(
+          subject = msg.subject,
+          from = config.sender,
+          to = Seq(msg.to.value),
+          bodyText = msg.text.some,
+          bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
+        )
+        blocking:
+          client.send(email)
+      .monSuccess(_.email.send.time)
+        .recoverWith:
+          case e: EmailException if msg.to.normalize.value != msg.to.value =>
+            logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
+            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
+          case e: Exception if !orFail =>
+            logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+            funit
+        .void
 
 object Mailer:
 

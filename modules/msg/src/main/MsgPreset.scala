@@ -30,7 +30,8 @@ Thank you for your understanding."""
       "disrespecting other players",
       "spamming",
       "inappropriate behavior",
-      "incorrect subforum"
+      "incorrect subforum",
+      "LLM (AI) generated content"
     )
 
     def byModerator = compose("A moderator")

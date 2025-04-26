@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">MMT</string>
   <string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong</string>
   <string name="whyIsLichessCalledLichess">Bakit tinawag na Lichess ang Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Ang Lichess ay isang pinaghalong live/light/libre at ahedres. Ibinibigkas ito ng%1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Ang Lichess ay isang pinaghalong live/light/libre at ahedres. Ibinibigkas ito ng %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Pakinggan itong ibinigkas ng isang espesyalista.</string>
   <string name="whyLiveLightLibre">Live, dahil ang mga laro ay linalaro at pinapanood ng totoong oras 24/7, at libre para sa katotohanang ang lichess ay bukas-mapagkukunan at hindi nababalutan ng pagmamay-ari ng basura na nagpapahamak sa iba pang mga website.</string>
@@ -11,7 +11,7 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Ang Lichess ay napapagana ng mga donasyon galing sa mga patron at mga pagsisikap ng isang grupo ng mga volunteers.</string>
   <string name="beingAPatron">pagiging isang patron</string>
   <string name="otherWaysToHelp">mga iba pang paraan para makatulong</string>
-  <string name="areThereWebsitesBasedOnLichess">May mga website bang naka-base sa Lishogi?</string>
+  <string name="areThereWebsitesBasedOnLichess">May mga website bang naka-base sa Lichess?</string>
   <string name="keyboardShortcuts">Anong mga keyboard shortcuts ang meron?</string>
   <string name="fairPlay">Patas na Laro</string>
   <string name="pleaseReadFairPlayPage">Para sa higit pang impormasyon, pakibasa ang aming %s</string>

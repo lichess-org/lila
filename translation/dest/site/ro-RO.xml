@@ -522,13 +522,11 @@
   <string name="wins">Victorii</string>
   <string name="losses">Înfrângeri</string>
   <string name="createdBy">Creat de</string>
-  <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>
   <string name="resume">Continuare</string>
   <string name="youArePlaying">Te joci!</string>
   <string name="winRate">Procent de câștig</string>
-  <string name="berserkRate">Procent jocuri cu timp înjumătățit</string>
   <string name="performance">Performanță</string>
   <string name="tournamentComplete">Turneu încheiat</string>
   <string name="movesPlayed">Mutări jucate</string>
@@ -784,7 +782,7 @@
   <string name="checkYourEmail">Verifică-ți adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Dă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, gunoi, mesaje sociale sau alte foldere.</string>
-  <string name="ifYouDoNotGetTheEmail" comment="Appears in the context of new registrations and lets users ask for a new verification email.">Dacă nu primești emailul în decurs de 5 minute:</string>
+  <string name="ifYouDoNotGetTheEmail">Dacă nu primești emailul în decurs de 5 minute:</string>
   <string name="checkAllEmailFolders">Verifică secțiunile de spam, junk și altele</string>
   <string name="verifyYourAddress">Asigură-te că %s este adresa ta de email</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>

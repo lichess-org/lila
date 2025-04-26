@@ -4,8 +4,8 @@
   .disclosure {
     @extend %button-none;
     position: absolute;
-    bottom: 1em;
     right: 1em;
+    bottom: 1em;
     color: $c-font-dim;
     cursor: pointer;
 
@@ -29,7 +29,7 @@
     .tour__meta__head,
     .disclosure {
       display: flex;
-      margin: 0;
+      bottom: 15%;
     }
   }
 
@@ -44,14 +44,21 @@
 }
 
 .tour__meta {
-  @extend %box-neat-force;
+  @extend %flex-column, %box-neat-force;
+  gap: $block-gap;
   position: relative;
 
   background: $c-bg-box;
-  padding: 1.5rem $block-gap;
+  padding: $block-gap 0;
+
+  .scrollable-content {
+    @extend %flex-column;
+    gap: $block-gap;
+    overflow-y: scroll;
+  }
 
   section {
-    margin-bottom: $block-gap;
+    padding: 0 $block-gap;
 
     &[data-icon] {
       @extend %flex-center-nowrap;
@@ -111,15 +118,11 @@
   .description {
     @extend %break-word;
     height: fit-content;
-    overflow-y: auto;
   }
 
   .tour__prize {
-    @extend %box-radius;
-
-    padding: 1em 2vmin;
+    padding: $block-gap 2vmin;
     background: $c-bg-zebra;
-    margin-bottom: 1em;
     font-size: 0.9em;
   }
 }

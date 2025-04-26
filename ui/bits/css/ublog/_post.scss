@@ -164,14 +164,29 @@
 }
 
 .ublog-post__mod-tools {
-  @extend %flex-between;
-  justify-content: center;
+  @extend %flex-column;
+  align-items: stretch;
   padding: 1.5em;
   gap: 1.5em;
   border: $border-width $border-style $c-accent;
+  > div {
+    @extend %flex-between;
+    gap: 1.5em;
+  }
   span {
     @extend %flex-center;
-    column-gap: 0.5em;
+    gap: 0.5em;
+  }
+  i {
+    cursor: pointer;
+  }
+  i.flagged::before {
+    font-size: 1.3em;
+    color: $c-brag;
+  }
+  i.commercial {
+    font-size: 1.5em;
+    color: $c-secondary;
   }
   legend {
     width: 100%;

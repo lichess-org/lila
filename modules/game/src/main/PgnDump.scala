@@ -28,7 +28,7 @@ final class PgnDump(
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap: pgni =>
-      Parser.full(pgni.pgn).toOption
+      Parser.tags(pgni.pgn).toOption
 
     val tagsFuture =
       if flags.tags then
@@ -82,7 +82,7 @@ final class PgnDump(
   def tags(
       game: Game,
       initialFen: Option[Fen.Full],
-      imported: Option[ParsedPgn],
+      importedTags: Option[Tags],
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
@@ -90,26 +90,26 @@ final class PgnDump(
     users   <- gameLightUsers(game)
     fideIds <- users.traverse(_.so(fideIdOf))
   yield Tags:
-    val importedDate = imported.flatMap(_.tags(_.Date))
+    val importedDate = importedTags.flatMap(_.apply(_.Date))
     List[Option[Tag]](
       Tag(
         _.Event,
-        imported.flatMap(_.tags(_.Event)) | {
+        importedTags.flatMap(_.apply(_.Event)) | {
           if game.sourceIs(_.Import) then "Import" else eventOf(game)
         }
       ).some,
-      Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
+      Tag(_.Site, importedTags.flatMap(_.apply(_.Site)) | gameUrl(game.id)).some,
       Tag(_.GameId, game.id).some,
       Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-      imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
+      importedTags.flatMap(_.apply(_.Round)).map(Tag(_.Round, _)),
       Tag(_.White, player(game.whitePlayer, users.white)).some,
       Tag(_.Black, player(game.blackPlayer, users.black)).some,
       Tag(_.Result, result(game)).some,
       importedDate.isEmpty.option:
-        Tag(_.UTCDate, imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt))
+        Tag(_.UTCDate, importedTags.flatMap(_.apply(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt))
       ,
       importedDate.isEmpty.option:
-        Tag(_.UTCTime, imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt))
+        Tag(_.UTCTime, importedTags.flatMap(_.apply(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt))
       ,
       withRating.option(Tag(_.WhiteElo, rating(game.whitePlayer))),
       withRating.option(Tag(_.BlackElo, rating(game.blackPlayer))),

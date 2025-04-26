@@ -2,7 +2,7 @@ package lila.core
 package game
 
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ ParsedPgn, Pgn, SanStr, Tags }
+import _root_.chess.format.pgn.{ Pgn, SanStr, Tags }
 import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
 import cats.derived.*
@@ -143,7 +143,7 @@ trait PgnDump:
   def tags(
       game: Game,
       initialFen: Option[Fen.Full],
-      imported: Option[ParsedPgn],
+      importedTags: Option[Tags],
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None

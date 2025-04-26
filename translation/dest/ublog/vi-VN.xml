@@ -2,8 +2,8 @@
 <resources>
   <string name="communityBlogs">Các Blog của cộng đồng</string>
   <string name="friendBlogs">Các Blog của bạn bè</string>
-  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Blog của Lichess</string>
-  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Blog của tôi</string>
+  <string name="lichessBlog">Blog của Lichess</string>
+  <string name="myBlog">Blog của tôi</string>
   <string name="likedBlogs">Các bài Blog đã thích</string>
   <string name="blogTopics">Các chủ đề Blog</string>
   <plurals name="blogPosts">
@@ -37,7 +37,6 @@
   <string name="xPublishedY">%1$s đã xuất bản %2$s</string>
   <string name="thisPostIsPublished">Bài viết này đã được xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
-  <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
   <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
   <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
   <string name="latestBlogPosts">Các bài blog mới nhất</string>

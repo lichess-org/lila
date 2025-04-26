@@ -59,12 +59,12 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Všichni SYNCHRONIZOVANÍ členové zůstávají na stejné pozici</string>
   <string name="shareChanges">Sdílet změny s diváky a uložit je na server</string>
   <string name="playing">Probíhající</string>
+  <string name="showResults">Výsledky</string>
   <string name="showEvalBar">Lišta hodnotící pozici</string>
   <string name="next">Další</string>
   <string name="shareAndExport">Sdílení a export</string>
   <string name="cloneStudy">Klonovat</string>
   <string name="studyPgn">PGN studie</string>
-  <string name="downloadAllGames">Stáhnout všechny hry</string>
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="copyChapterPgn">Kopírovat PGN</string>
   <string name="downloadGame">Stáhnout hru</string>
@@ -173,4 +173,5 @@
   <string name="whatWouldYouPlay">Co byste v této pozici hráli?</string>
   <string name="youCompletedThisLesson">Blahopřejeme! Dokončili jste tuto lekci.</string>
   <string name="perPage">%s na stránku</string>
+  <string name="conclusionTitle">Děkujeme za váš čas</string>
 </resources>

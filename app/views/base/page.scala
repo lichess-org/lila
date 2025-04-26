@@ -56,7 +56,7 @@ object page:
           metaThemeColor,
           st.headTitle:
             val prodTitle = p.fullTitle | s"${p.title} • $siteName"
-            if netConfig.isProd then prodTitle
+            if env.mode.isProd then prodTitle
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("lib.theme.all"),

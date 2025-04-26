@@ -149,12 +149,10 @@ Today's date is [current date]""")
       ),
       form3.split(
         form3.checkbox(
-          if form("public").value.isDefined || form.hasErrors
-          then form("public")
-          else form("public").copy(value = "true".some),
+          form("public"),
           frag("Public account"),
           help = frag(
-            "Makes your real name public. Required for coaching, streaming, and prize tournaments."
+            "Makes your real name and FIDE ID public in your profile. Required for coaching."
           ).some,
           half = true
         ),

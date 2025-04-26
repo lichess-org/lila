@@ -24,7 +24,6 @@
   <string name="xPublishedY">%1$s публикува %2$s</string>
   <string name="thisPostIsPublished">Публикацията е публикувана</string>
   <string name="thisIsADraft">Това е чернова</string>
-  <string name="moreBlogPostsBy">Още публикации от %s</string>
   <string name="noPostsInThisBlogYet">Все още няма публикации в този блог.</string>
   <string name="noDrafts">Няма чернови за показване.</string>
   <string name="latestBlogPosts">Последни публикации в блога</string>

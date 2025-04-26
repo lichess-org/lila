@@ -78,7 +78,6 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
-          tour.description.isDefined.option(button(cls := "disclosure")),
           st.section(cls := "tour__meta__head", dataIcon := tour.perfType.icon.toString)(
             div(
               p(
@@ -124,32 +123,41 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
                 if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
                 else trans.team.joinLichessVariantTeam(link)
               ),
-          tour.description.map: d =>
-            st.section(cls := "description")(
-              shieldOwner.map: owner =>
-                p(cls := "defender", dataIcon := Icon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
-              markdownLinksOrRichText(d)
-            ),
-          tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
-          gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
-          tour.noBerserk.option(div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())),
-          tour.noStreak.option(div(cls := "text", dataIcon := Icon.Fire)(trans.arena.noArenaStreaks())),
-          (!tour.isScheduled).option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
-          (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
-            absClientInstant(
-              tour.startsAt
-            )
+          div(cls := "scrollable-content")(
+            tour.description.map: d =>
+              st.section(cls := "description")(
+                shieldOwner.map: owner =>
+                  p(cls := "defender", dataIcon := Icon.Shield)(
+                    trans.arena.defender(),
+                    userIdLink(owner.some)
+                  ),
+                markdownLinksOrRichText(d)
+              ),
+            gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
+            List(
+              tour.noBerserk.option(
+                div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
+              ),
+              tour.noStreak.option(
+                div(cls := "text", dataIcon := Icon.Fire)(trans.arena.noArenaStreaks())
+              ),
+              tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
+              (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
+                .option(absClientInstant(tour.startsAt))
+            ).flatten.some.filter(_.nonEmpty).map(st.section(_)),
+            tour.startingPosition
+              .map: pos =>
+                st.section(a(href := pos.url)(pos.name))
+              .orElse(tour.position.map { fen =>
+                st.section(
+                  trans.site.customPosition(),
+                  separator,
+                  lila.ui.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
+                )
+              })
           ),
-          tour.startingPosition
-            .map: pos =>
-              p(a(href := pos.url)(pos.name))
-            .orElse(tour.position.map { fen =>
-              p(
-                trans.site.customPosition(),
-                separator,
-                lila.ui.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
-              )
-            })
+          tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
+          tour.description.isDefined.option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),

@@ -629,13 +629,11 @@
   <string name="wins">الفوز</string>
   <string name="losses">الخسارة</string>
   <string name="createdBy">أنشأها</string>
-  <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
   <string name="standByX">تأهب يا %s، جارٍ مزاوجة اللاعبين، استعد!</string>
   <string name="pause">الإيقاف المؤقت</string>
   <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
-  <string name="berserkRate">معدل المخاطرة</string>
   <string name="performance">تقييم الأداء</string>
   <string name="tournamentComplete">إكتملت البطولة</string>
   <string name="movesPlayed">نقلات اللعب</string>

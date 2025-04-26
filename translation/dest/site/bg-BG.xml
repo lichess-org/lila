@@ -484,13 +484,11 @@
   <string name="wins">Победи</string>
   <string name="losses">Загуби</string>
   <string name="createdBy">Създадено от</string>
-  <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
-  <string name="berserkRate">Коефициент на Берсерк</string>
   <string name="performance">Производителност</string>
   <string name="tournamentComplete">Турнирът завърши</string>
   <string name="movesPlayed">Изиграни ходове</string>

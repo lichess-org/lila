@@ -487,13 +487,11 @@
   <string name="losses">Derrotes</string>
   <string name="createdBy">Creat per</string>
   <string name="startingIn" comment="Displayed above a timer">Començant en</string>
-  <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>
   <string name="resume">Reprèn</string>
   <string name="youArePlaying">Estàs jugant!</string>
   <string name="winRate">Percentatge de victòries</string>
-  <string name="berserkRate">Taxa de berserk</string>
   <string name="performance">Rendiment</string>
   <string name="tournamentComplete">Torneig completat</string>
   <string name="movesPlayed">Moviments jugats</string>

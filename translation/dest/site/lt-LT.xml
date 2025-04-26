@@ -172,6 +172,7 @@
   <string name="flipBoard">Apsukti lentą</string>
   <string name="threefoldRepetition">Pozicijos pasikartojimas tris kartus</string>
   <string name="claimADraw">Įskaityti lygiąsias</string>
+  <string name="drawClaimed">Priimtos lygiosios</string>
   <string name="offerDraw">Siūlyti lygiąsias</string>
   <string name="draw">Lygiosios</string>
   <plurals name="nbPlayers">
@@ -558,13 +559,12 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="wins">Pergalės</string>
   <string name="losses">Pralaimėjimai</string>
   <string name="createdBy">Sukūrė</string>
-  <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
+  <string name="startingIn" comment="Displayed above a timer">Prasidės po</string>
   <string name="standByX">%s, būkite pasiruošę, suporuojami žaidėjai!</string>
   <string name="pause">Pristabdyti</string>
   <string name="resume">Tęsti</string>
   <string name="youArePlaying">Jūs žaidžiate!</string>
   <string name="winRate">Pergalių proc.</string>
-  <string name="berserkRate">Įsiūčio proc.</string>
   <string name="performance">Pasirodymo lygis</string>
   <string name="tournamentComplete">Turnyras baigtas</string>
   <string name="movesPlayed">Atlikta ėjimų</string>
@@ -825,6 +825,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="checkYourEmail">Pasitikrinkite el. paštą</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Išsiuntėme jums laišką. Spustelėję jame esančią nuorodą aktyvuosite savo paskyrą.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jei nematote laiško, patikrinkite kitas galimas vietas: šlamšto, šiukšlių, socialinius ar kitus aplankus.</string>
+  <string name="ifYouDoNotGetTheEmail">Jei negaunate laiško per 5 minutes:</string>
+  <string name="checkAllEmailFolders">Patikrinktie visus šiukšlių, šlamšto, ir kitus aplankus</string>
+  <string name="verifyYourAddress">Įsitikinkite, kad %s yra jūsų el. pašo adresas</string>
   <string name="weHaveSentYouAnEmailTo">Išsiuntėme laišką į %s. Spustelėję jame esančią nurodą galėsite atstatyti savo slaptažodį.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registruodamiesi sutinkate su mūsų %s.</string>
   <string name="readAboutOur">Skaitykite daugiau apie mūsų %s.</string>
@@ -833,6 +836,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="downloadAnnotated">Siųstis anotuotą</string>
   <string name="downloadRaw">Siųstis neapdorotą</string>
   <string name="downloadImported">Siųstis importuotą</string>
+  <string name="downloadAllGames">Atsisiųsti visas partijas</string>
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Užveskite ant kompiuterio variacijų norėdami jas peržiūrėti.</string>
@@ -856,6 +860,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
   <string name="everybodyGetsAllFeaturesForFree">Kiekvienas gauna visas galimybes už dyką</string>
   <string name="viewTheSolution">Parodyti sprendimą</string>
+  <string name="noChallenges">Jokių iššūkių.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Galima rinktis iš %s kalbos!</item>
     <item quantity="few">Galima rinktis iš %s kalbų!</item>
@@ -870,6 +875,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="anonymous">Anonimas</string>
   <string name="yourScore">Jūsų rezultatas: %s</string>
   <string name="language">Kalba</string>
+  <string name="allLanguages">Visos kalbos</string>
   <string name="background">Fonas</string>
   <string name="light">Šviesus</string>
   <string name="dark">Tamsus</string>
@@ -1062,6 +1068,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="focusChat">Perjungti į pokalbį</string>
   <string name="showHelpDialog">Rodyti šį pagalbos dialogą</string>
   <string name="reopenYourAccount">Atidaryti uždarytą paskyrą</string>
+  <string name="reopenYourAccountDescription">Jei uždarėte savo paskyrą, tačiau vėliau persigalvojote, turite galimybę savo paskyrą atgauti.</string>
   <string name="emailAssociatedToaccount">Elektroninio pašto adresas susietas su paskyra</string>
   <string name="sentEmailWithLink">Меs jums išsiuntėme laišką su nuoroda.</string>
   <string name="tournamentEntryCode">Įėjimo į turnyrą kodas</string>

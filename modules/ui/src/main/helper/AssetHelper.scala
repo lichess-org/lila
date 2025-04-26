@@ -27,8 +27,10 @@ trait AssetHelper:
     Esm(key, embedJsUnsafeLoadThen(s"$load('$key',{init:$json})"))
   def esmInit[A: Writes](key: String, value: A): Esm =
     esmInit(key, safeJsonValue(Json.toJson(value)))
+  def esmInitObj(key: String, args: JsObject): Esm =
+    esmInit(key, safeJsonValue(args))
   def esmInitObj(key: String, args: (String, Json.JsValueWrapper)*): Esm =
-    esmInit(key, safeJsonValue(Json.obj(args*)))
+    esmInitObj(key, Json.obj(args*))
   def esmInitBit(fn: String, args: (String, Json.JsValueWrapper)*): Esm =
     esmInit("bits", safeJsonValue(Json.obj(args*) + ("fn" -> JsString(fn))))
   def esmPage(key: String): Esm =

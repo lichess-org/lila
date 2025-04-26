@@ -488,13 +488,11 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="losses">Verliese</string>
   <string name="createdBy">Geskep deur</string>
   <string name="startingIn" comment="Displayed above a timer">Begin in</string>
-  <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
   <string name="pause">Onderbreek</string>
   <string name="resume">Hervat</string>
   <string name="youArePlaying">Jy speel nou!</string>
   <string name="winRate">Wen koers</string>
-  <string name="berserkRate">Beserk koers</string>
   <string name="performance">Prestasie plasing</string>
   <string name="tournamentComplete">Toernooi afgehandel</string>
   <string name="movesPlayed">Skuiwe gespeel</string>

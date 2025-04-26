@@ -478,13 +478,11 @@
   <string name="wins">Жеңіс</string>
   <string name="losses">Ұтылыс</string>
   <string name="createdBy">Жасаған</string>
-  <string name="tournamentPairingsAreNowClosed">Жарысқа жұпталу аяқталды.</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
   <string name="pause">Кідіру</string>
   <string name="resume">Жалғастыру</string>
   <string name="youArePlaying">Сіз ойындасыз!</string>
   <string name="winRate">Жеңіс үлесі</string>
-  <string name="berserkRate">Берсерк үлесі</string>
   <string name="performance">Жетістік</string>
   <string name="tournamentComplete">Жарыс қорытындысы</string>
   <string name="movesPlayed">Жүрістер саны</string>

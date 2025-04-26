@@ -13,7 +13,6 @@ import lila.core.round.{ Abort, Resign, CurrentlyPlaying }
 import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.game.GameRepo
 import lila.memo.SettingStore
-import lila.rating.RatingFactor
 import lila.round.RoundGame.*
 
 @Module
@@ -92,21 +91,6 @@ final class Env(
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
-
-  lazy val ratingFactorsSetting: SettingStore[RatingFactor.ByKey] =
-    import play.api.data.Form
-    import play.api.data.Forms.{ single, text }
-    import lila.memo.SettingStore.{ Formable, StringReader }
-    import lila.rating.RatingFactor.given
-    given StringReader[RatingFactor.ByKey] = StringReader.fromIso
-    given Formable[RatingFactor.ByKey] =
-      Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
-    settingStore[RatingFactor.ByKey](
-      "ratingFactor",
-      default = Map.empty,
-      text = "Rating gain factor per perf type".some
-    )
-  private val getFactors: () => Map[PerfKey, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>

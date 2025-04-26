@@ -17,8 +17,7 @@ import { prop, type Prop } from '../common';
 import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
 import { alert } from '../view/dialogs';
-
-//export { type ChatOpts, type ChatPlugin } from './interfaces';
+import { isContained } from '@/algo';
 
 export class ChatCtrl {
   data: ChatData;
@@ -157,14 +156,12 @@ export class ChatCtrl {
 
   private onWriteable = (v: boolean): void => {
     this.vm.writeable = v;
-    this.redraw();
   };
 
   private onPermissions = (obj: Permissions): void => {
-    let p: keyof Permissions;
-    for (p in obj) this.opts.permissions[p] = obj[p];
+    if (isContained(this.opts.permissions, obj)) return;
+    Object.assign(this.opts.permissions, obj);
     this.instanciateModeration();
-    this.redraw();
   };
 
   private instanciateModeration = () => {

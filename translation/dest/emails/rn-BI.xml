@@ -2,7 +2,6 @@
 <resources>
   <string name="emailConfirm_subject">Emeza i konte yawe ya lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Fyonda hano kugira wemeze i konte yawe ya lichess:</string>
-  <string name="emailConfirm_ignore">Nimba uta koresheje Lichess mukwiyandikisha, ubu butumwa bwihoze.</string>
   <string name="passwordReset_subject">Subiriza akajambobanga ka konte yawe ya lichess.org, %s</string>
   <string name="passwordReset_intro">Twaronse ubutumwa bwo gusubiriza akajambobanga ka konte yawe.</string>
   <string name="passwordReset_clickOrIgnore">Nimba ariwe warungitse ubwo butumwa, fyonda aho musi. Atar\'uko, ubu butumwa bwihoze.</string>

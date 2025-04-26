@@ -3,7 +3,7 @@ import type { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';
-import { makeCarousel } from 'lib/view/carousel';
+import { makeCarousel } from './view/carousel';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);
 
