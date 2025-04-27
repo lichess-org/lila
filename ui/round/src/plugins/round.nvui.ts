@@ -375,7 +375,7 @@ function anyClock(ctrl: RoundController, position: TopOrBottom): VNode | undefin
 
 const renderMoves = (steps: Step[], style: MoveStyle) =>
   steps.reduce<(string | VNode)[]>((res, s) => {
-    const turn = s.ply & 1 ? `${plyToTurn(s.ply)}:` : '';
+    const turn = s.ply & 1 ? `${plyToTurn(s.ply)}.` : '';
     const san = `${renderSan(s.san, s.uci, style)}, `;
     return res.concat(`${turn} ${san}`).concat(s.ply % 2 === 0 ? h('br') : []);
   }, []);
