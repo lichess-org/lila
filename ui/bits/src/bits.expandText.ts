@@ -1,12 +1,10 @@
-import * as xhr from 'lib/xhr';
-import { currentTheme } from 'lib/device';
-
-type LinkType = 'youtube' | 'twitter';
+type LinkType = 'youtube';
 
 interface Parsed {
   type: LinkType;
   src: string;
 }
+
 interface Candidate {
   element: HTMLAnchorElement;
   parent: HTMLElement;
@@ -14,7 +12,7 @@ interface Candidate {
   src: string;
 }
 
-function toYouTubeEmbedUrl(url: string) {
+function toYouTubeEmbedUrl(url: string): string | undefined {
   const m = url?.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(watch|embed)?(?:\?v=|\/)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
   );
@@ -36,20 +34,9 @@ function toYouTubeEmbedUrl(url: string) {
   return 'https://www.youtube.com/embed/' + videoId + '?' + params;
 }
 
-function toTwitterEmbedUrl(url: string) {
-  const m = url?.match(/(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/([^\/]+\/status\/\d+)/i);
-  return m && `https://twitter.com/${m[1]}`;
-}
-
 site.load.then(() => {
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
-    const tw = toTwitterEmbedUrl(a.href);
-    if (tw)
-      return {
-        type: 'twitter',
-        src: tw,
-      };
     const yt = toYouTubeEmbedUrl(a.href);
     if (yt)
       return {
@@ -73,69 +60,6 @@ site.load.then(() => {
         .on('load', () => setTimeout(() => expandYoutubes(as, wait + 200), wait));
   }
 
-  let twitterLoaded = false;
-  function expandTwitter(a: Candidate) {
-    $(a.element).replaceWith(
-      $(
-        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${
-          a.src
-        }">${a.src}</a></blockquote>`,
-      ),
-    );
-    if (!twitterLoaded) {
-      twitterLoaded = true;
-
-      // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
-      const originalCreateElement = document.createElement;
-      document.createElement = function () {
-        const element = originalCreateElement.apply(this, arguments as any);
-        if (element instanceof HTMLIFrameElement) (element as any).credentialless = true;
-        return element;
-      };
-
-      xhr.script('https://platform.twitter.com/widgets.js');
-    }
-  }
-
-  const themes = [
-    'blue',
-    'blue2',
-    'blue3',
-    'blue-marble',
-    'canvas',
-    'wood',
-    'wood2',
-    'wood3',
-    'wood4',
-    'maple',
-    'maple2',
-    'brown',
-    'leather',
-    'green',
-    'marble',
-    'green-plastic',
-    'grey',
-    'metal',
-    'olive',
-    'newspaper',
-    'purple',
-    'purple-diag',
-    'pink',
-    'ic',
-    'horsey',
-  ];
-
-  function configureSrc(url: string) {
-    if (url.includes('://')) return url; // youtube, img, etc
-    const parsed = new URL(url, window.location.href);
-    const theme = themes.find(theme => document.body.classList.contains(theme));
-    const pieceSet = document.body.dataset.pieceSet;
-    if (theme) parsed.searchParams.append('theme', theme);
-    if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
-    parsed.searchParams.append('bg', document.body.getAttribute('data-theme')!);
-    return parsed.href;
-  }
-
   const as: Candidate[] = Array.from(document.querySelectorAll('.expand-text a'))
     .map((el: HTMLAnchorElement) => {
       const parsed = parseLink(el);
@@ -144,14 +68,12 @@ site.load.then(() => {
         element: el,
         parent: el.parentNode,
         type: parsed.type,
-        src: configureSrc(parsed.src),
+        src: parsed.src,
       };
     })
     .filter(a => a) as Candidate[];
 
   expandYoutubes(as.filter(a => a.type === 'youtube'));
-
-  as.filter(a => a.type === 'twitter').forEach(expandTwitter);
 
   if ($('.lpv--autostart').length) site.asset.loadEsm('bits.lpv');
 });

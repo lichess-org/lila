@@ -39,11 +39,11 @@ case class SendTo(userId: UserId, message: JsObject)
 case class SendToOnlineUser(userId: UserId, message: LazyFu[JsObject])
 object SendTo:
   def apply[A: Writes](userId: UserId, typ: String, data: A): SendTo =
-    SendTo(userId, Json.obj("t" -> typ, "d" -> data))
+    SendTo(userId, makeMessage(typ, data))
 case class SendTos(userIds: Set[UserId], message: JsObject)
 object SendTos:
   def apply[A: Writes](userIds: Set[UserId], typ: String, data: A): SendTos =
-    SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
+    SendTos(userIds, makeMessage(typ, data))
 
 case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
 
