@@ -59,7 +59,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode
 }
 
 const renderClock = (opts: ClockOpts): VNode =>
-  h('div.analyse__clock.' + opts.cls, { class: { active: opts.active } }, clockContent(opts));
+  h('div.analyse__clock.' + opts.cls, { class: { active: opts.active } }, site.blindMode ? clockContentNvui(opts) : clockContent(opts) );
 
 function clockContent(opts: ClockOpts): Array<string | VNode> {
   if (!opts.centis && opts.centis !== 0) return ['-'];
@@ -75,6 +75,27 @@ function clockContent(opts: ClockOpts): Array<string | VNode> {
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
   const pauseNodes = opts.pause ? [iconTag(licon.Pause)] : [];
   return [...pauseNodes, ...timeNodes];
+}
+
+function clockContentNvui(opts: ClockOpts): Array<string | VNode> {
+  if (!opts.centis && opts.centis !== 0) return ['None'];
+  const totalSeconds = Math.floor(opts.centis / 100);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const parts: string[] = [];
+  if (hours > 0) parts.push(i18n.site.nbHours(hours));
+  if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+  if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+
+
+  const pauseStr = opts.pause ? ' - Paused' : '';
+  if (parts.length === 1) {
+    return [parts[0] + pauseStr];
+  } else {
+    return [parts.join(', ') + pauseStr];
+  }
 }
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
