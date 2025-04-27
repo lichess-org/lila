@@ -1,6 +1,5 @@
 package lila.round
 
-import chess.MoveOrDrop.*
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, ErrorStr, MoveMetrics, MoveOrDrop, Status }
 

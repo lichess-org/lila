@@ -26,10 +26,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
     Parser.full(pgn).map { parsed =>
       Reader
         .fullWithSans(parsed, _.map(_.take(maxPlies)))
-        .pipe:
-          case Reader.Result.Complete(replay)          => (replay, none[ErrorStr])
-          case Reader.Result.Incomplete(replay, error) => (replay, error.some)
-        .pipe { case (replay @ Replay(setup, _, state), relayError) =>
+        .pipe { case Reader.Result(replay @ Replay(setup, _, state), replayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
           val variant =
@@ -66,7 +63,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
                   .guessPointsFromStatusAndPosition(status, game.situation.winner)
                   .map(TagResult(status, _))
 
-          ImportResult(game, result, replay.copy(state = game), initialFen, parsed, relayError)
+          ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
         }
     }
 
