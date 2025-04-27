@@ -1,9 +1,12 @@
+@import '../theme/default';
+
 .carousel {
   visibility: hidden;
   overflow-x: hidden;
   width: 100%;
   height: auto;
   gap: $block-gap;
+  position: relative;
 
   .track {
     display: flex;
@@ -13,17 +16,43 @@
   }
 
   .controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
 
     button {
-      background: none;
       border: none;
       padding: 0;
       font-size: 1.5em;
+      pointer-events: auto;
+      height: 100%;
+      width: 7.5%;
+      background: none;
+      @include if-not-light {
+        $gradient-start: rgba($c-bg-page, 0%);
+        $gradient-end: rgba($c-bg-page, 50%);
+        background: linear-gradient(to left, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
+
+        &:last-child {
+          background: linear-gradient(to right, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .controls {
+      opacity: 1;
     }
   }
 }
