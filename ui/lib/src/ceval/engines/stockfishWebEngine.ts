@@ -8,7 +8,7 @@ import {
 import { Protocol } from '../protocol';
 import { objectStorage, type ObjectStorage } from '../../objectStorage';
 import { sharedWasmMemory } from '../util';
-import type StockfishWeb from 'lila-stockfish-web';
+import type StockfishWeb from '@lichess-org/stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
@@ -33,12 +33,14 @@ export class StockfishWebEngine implements CevalEngine {
   }
 
   async boot(): Promise<void> {
-    const [pathVersion, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(site.asset.url(`${root}/${js}`, { pathVersion, documentOrigin: true }));
+    const [root, js] = [this.info.assets.root, this.info.assets.js];
+    const scriptUrl = site.asset.url(`${root}/${js}`, { documentOrigin: true });
+    const makeModule = await import(scriptUrl);
     const module: StockfishWeb = await makeModule.default({
       wasmMemory: sharedWasmMemory(this.info.minMem!),
       onError: (msg: string) => Promise.reject(new Error(msg)),
-      locateFile: (file: string) => site.asset.url(`${root}/${file}`, { pathVersion }),
+      locateFile: (file: string) => site.asset.url(`${root}/${file}`),
+      mainScriptUrlOrBlob: scriptUrl,
     });
     if (this.info.tech === 'NNUE') {
       if (this.info.variants?.length === 1) {

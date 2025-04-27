@@ -128,9 +128,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       views.puzzle.ui.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
-  private def streakJsonAndPuzzle(using Translate) =
-    given Option[Me] = none
-    given Perf       = lila.rating.Perf.default
+  private def streakJsonAndPuzzle(using Context) =
+    given Perf = lila.rating.Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
       env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none).map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some

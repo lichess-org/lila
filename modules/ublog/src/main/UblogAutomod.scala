@@ -16,7 +16,12 @@ private object UblogAutomod:
 
   case class Config(apiKey: Secret, model: String, url: String)
 
-  case class Result(classification: String, flagged: Option[String], commercial: Option[String])
+  case class Result(
+      classification: String,
+      flagged: Option[String],
+      commercial: Option[String],
+      offtopic: Option[String]
+  )
   private given Reads[Result] = Json.reads[Result]
 
   private val classifications = Set("spam", "weak", "quality", "phenomenal")
