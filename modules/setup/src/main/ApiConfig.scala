@@ -19,7 +19,8 @@ final case class ApiConfig(
     position: Option[Fen.Full] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
-    rules: Set[GameRule] = Set.empty
+    rules: Set[GameRule] = Set.empty,
+    onlyIfOpponentFollowsMe: Boolean = false
 ):
 
   def perfType: PerfType = lila.rating.PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
@@ -54,7 +55,8 @@ object ApiConfig extends BaseHumanConfig:
       pos: Option[Fen.Full],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
-      rules: Option[Set[GameRule]]
+      rules: Option[Set[GameRule]],
+      onlyIfOpponentFollowsMe: Option[Boolean] = None
   ) =
     ApiConfig(
       variant = chess.variant.Variant.orDefault(v),
@@ -65,5 +67,6 @@ object ApiConfig extends BaseHumanConfig:
       position = pos,
       message = msg.map(Template.apply),
       keepAliveStream = ~keepAliveStream,
-      rules = ~rules
+      rules = ~rules,
+      onlyIfOpponentFollowsMe = ~onlyIfOpponentFollowsMe
     ).autoVariant
