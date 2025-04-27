@@ -348,20 +348,24 @@ export function renderControls(ctrl: AnalyseCtrl) {
 }
 
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  const render = (result: string, status: string) => [h('div.result', result), h('div.status', status)];
+  const render = (result: string, status: string, termination?: string) => [
+    h('div.result', result),
+    h('div.status', termination ? `${termination} • ${status}` : status),
+  ];
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return render(result, statusView(ctrl.data));
   } else if (ctrl.study && ctrl.study.multiBoard.showResults()) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result')?.replace('1/2', '½');
+    const termination = findTag(ctrl.study.data.chapter.tags, 'termination');
     if (!result || result === '*') return [];
-    if (result === '1-0') return render(result, i18n.site.whiteIsVictorious);
-    if (result === '0-1') return render(result, i18n.site.blackIsVictorious);
-    if (result === '0-0') return render(result, i18n.study.doubleDefeat);
-    if (result === '½-0') return render(result, i18n.study.blackDefeatWhiteCanNotWin);
-    if (result === '0-½') return render(result, i18n.study.whiteDefeatBlackCanNotWin);
-    return render('½-½', i18n.site.draw);
+    if (result === '1-0') return render(result, i18n.site.whiteIsVictorious, termination);
+    if (result === '0-1') return render(result, i18n.site.blackIsVictorious, termination);
+    if (result === '0-0') return render(result, i18n.study.doubleDefeat, termination);
+    if (result === '½-0') return render(result, i18n.study.blackDefeatWhiteCanNotWin, termination);
+    if (result === '0-½') return render(result, i18n.study.whiteDefeatBlackCanNotWin, termination);
+    return render('½-½', i18n.site.draw, termination);
   }
   return [];
 }
