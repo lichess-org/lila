@@ -152,10 +152,10 @@ object BSONHandlers:
               checkCount = if light.variant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
-              else emptyCheckCount
+              else emptyCheckCount,
+              crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
             ),
-            variant = light.variant,
-            crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
+            variant = light.variant
           ),
           color = turnColor
         ),

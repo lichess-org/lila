@@ -62,7 +62,7 @@ object StudyArbitraries:
           move,
           NewBranch(
             id = UciCharPair(move.toUci),
-            move = Uci.WithSan(uci, move.san),
+            move = Uci.WithSan(uci, move.toSanStr),
             comp = false,
             forceVariation = false,
             metas = metas

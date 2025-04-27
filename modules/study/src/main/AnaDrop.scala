@@ -29,7 +29,7 @@ case class AnaDrop(
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
-          move = Uci.WithSan(uci, drop.san),
+          move = Uci.WithSan(uci, drop.toSanStr),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable.so(game.situation.destinations)),
@@ -45,7 +45,7 @@ object AnaDrop:
     for
       d    <- o.obj("d")
       role <- d.str("role").flatMap(chess.Role.allByName.get)
-      pos  <- d.str("pos").flatMap { chess.Square.fromKey(_) }
+      pos  <- d.str("pos").flatMap(chess.Square.fromKey)
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
