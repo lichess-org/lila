@@ -158,7 +158,7 @@ async function parseScss(src: string, processed: Set<string>) {
       : resolve(dirname(src), resolvePartial(cssImport));
 
     if (/node_modules.*\.css/.test(absDep)) continue;
-    else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${cssImport}`;
+    else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
 
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
