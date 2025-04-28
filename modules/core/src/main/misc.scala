@@ -44,8 +44,9 @@ package lpv:
     case PublicPgn(pgn: PgnStr)
     case PrivateStudy
   type LinkRender = (String, String) => Option[scalatags.Text.Frag]
-  case class AllPgnsFromText(text: String, max: Max, promise: Promise[Map[String, LpvEmbed]])
-  case class LpvLinkRenderFromText(text: String, promise: Promise[LinkRender])
+  enum Lpv:
+    case AllPgnsFromText(text: String, max: Max, promise: Promise[Map[String, LpvEmbed]])
+    case LinkRenderFromText(text: String, promise: Promise[LinkRender])
 
 package mailer:
   case class CorrespondenceOpponent(
