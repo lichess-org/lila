@@ -42,20 +42,22 @@ final class Env(
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
-  Bus.subscribeFuns(
-    "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
+  Bus.sub[lila.core.fishnet.NewKey]:
+    case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
-    },
-    "planStart" -> {
+
+  Bus.sub[lila.core.misc.plan.PlanStart]:
       case lila.core.misc.plan.PlanStart(userId) =>
         automaticEmail.onPatronNew(userId)
+
+  Bus.sub[lila.core.misc.plan.PlanGift]:
       case lila.core.misc.plan.PlanGift(from, to, lifetime) =>
         automaticEmail.onPatronGift(from, to, lifetime)
-    },
-    "planExpire" -> { case lila.core.misc.plan.PlanExpire(userId) =>
+        
+  Bus.sub[lila.core.misc.plan.PlanExpire]:
+    case lila.core.misc.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId)
-    }
-  )
+
   Bus.sub[CorrespondenceOpponents]:
     case CorrespondenceOpponents(userId, opponents) =>
       automaticEmail.dailyCorrespondenceNotice(userId, opponents)
