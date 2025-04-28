@@ -47,6 +47,9 @@
           background: linear-gradient(to right, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
         }
       }
+      &:hover {
+        color: $c-primary;
+      }
     }
   }
 
