@@ -63,16 +63,18 @@ final class Env(
   def version(simulId: SimulId) =
     simulSocket.rooms.ask[SocketVersion](simulId.into(RoomId))(GetVersion.apply)
 
-  Bus.subscribeFuns(
-    "finishGame" -> { case lila.core.game.FinishGame(game, _) =>
+  Bus.sub[lila.core.game.FinishGame]:
+    case lila.core.game.FinishGame(game, _) =>
       api.finishGame(game)
-      ()
-    },
-    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
+      () // TODO FIXME really necessary? compiles without
+
+  Bus.sub[lila.core.mod.MarkCheater]:
+    case lila.core.mod.MarkCheater(userId, true) =>
       api.ejectCheater(userId)
-      ()
-    },
-    "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
+      () // TODO FIXME really necessary? compiles without
+
+  Bus.sub[lila.core.round.SimulMoveEvent]:
+    case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
       Bus.pub(
         lila.core.socket.SendTo(
@@ -80,8 +82,6 @@ final class Env(
           lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
         )
       )
-    }
-  )
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     repo.anonymizeHost(del.id)
