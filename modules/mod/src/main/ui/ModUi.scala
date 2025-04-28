@@ -49,7 +49,7 @@ final class ModUi(helpers: Helpers):
               .opt(_.Admin)
               .option:
                 div(cls := "box__top__actions")(
-                  st.form(cls := "search", action := routes.Mod.log)(
+                  st.form(cls := "search", action := routes.Mod.log())(
                     input(
                       st.name     := "mod",
                       value       := query,
@@ -279,7 +279,7 @@ final class ModUi(helpers: Helpers):
 
   def reportMenu(using Context) = menu("report")
 
-  def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag):
+  def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag): me ?=>
     lila.ui.bits.pageMenuSubnav(
       Granter(_.SeeReport)
         .option(a(cls := active.active("report"), href := routes.Report.list)("Reports")),
@@ -291,7 +291,8 @@ final class ModUi(helpers: Helpers):
         .option(a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats")),
       Granter(_.GamifyView)
         .option(a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame")),
-      Granter(_.GamifyView).option(a(cls := active.active("log"), href := routes.Mod.log)("Mod logs")),
+      Granter(_.GamifyView)
+        .option(a(cls := active.active("log"), href := routes.Mod.log(me.username.some))("Mod logs")),
       Granter(_.UserSearch)
         .option(a(cls := active.active("search"), href := routes.Mod.search)("Search users")),
       Granter(_.Admin).option(a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes")),
