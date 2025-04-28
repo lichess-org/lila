@@ -160,7 +160,7 @@ object Rematcher:
     val ply   = prevSituation.fold(Ply.initial)(_.ply)
     val color = prevSituation.fold[Color](White)(_.situation.color)
     ChessGame(
-      situation = newSituation.situationOf(color),
+      situation = newSituation.withColor(color),
       clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply
