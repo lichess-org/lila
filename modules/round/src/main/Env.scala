@@ -92,17 +92,16 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
-  Bus.subscribeFuns(
-    "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
-      onStart.exec(gameId)
-    },
-    "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
+  Bus.sub[lila.core.game.GameStart]: game =>
+    onStart.exec(game.id)
+
+  Bus.sub[RoundSocket.Protocol.In.SelfReport]:
+    case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
-    },
-    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
+
+  Bus.sub[lila.core.mod.MarkCheater]:
+    case lila.core.mod.MarkCheater(userId, true) =>
       roundApi.resignAllGamesOf(userId)
-    }
-  )
 
   lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
