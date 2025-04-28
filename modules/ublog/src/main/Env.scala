@@ -65,7 +65,7 @@ final class Env(
               .map(_.take(keep).toList)
           .map(_ ++ _)
 
-  Bus.subscribeFun("shadowban"):
+  Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>
       api.setShadowban(userId, v) >>
         rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
