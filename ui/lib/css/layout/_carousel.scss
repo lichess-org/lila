@@ -16,18 +16,15 @@
   }
 
   .controls {
+    @extend %flex-between;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    @include transition(opacity);
     pointer-events: none;
 
     button {
