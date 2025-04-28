@@ -3,26 +3,27 @@ import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfa
 import { json, form } from 'lib/xhr';
 import { pubsub } from 'lib/pubsub';
 
-export function loadConvo(userId: string): Promise<MsgData> {
-  return json(`/inbox/${userId}`).then(upgradeData);
+export async function loadConvo(userId: string): Promise<MsgData> {
+  const d = await json(`/inbox/${userId}`);
+  return upgradeData(d);
 }
 
-export function getMore(userId: string, before: Date): Promise<MsgData> {
-  return json(`/inbox/${userId}?before=${before.getTime()}`).then(upgradeData);
+export async function getMore(userId: string, before: Date): Promise<MsgData> {
+  const d = await json(`/inbox/${userId}?before=${before.getTime()}`);
+  return upgradeData(d);
 }
 
-export function loadContacts(): Promise<MsgData> {
-  return json(`/inbox`).then(upgradeData);
+export async function loadContacts(): Promise<MsgData> {
+  const d = await json(`/inbox`);
+  return upgradeData(d);
 }
 
-export function search(q: string): Promise<SearchResult> {
-  return json(`/inbox/search?q=${q}`).then(
-    res =>
-      ({
-        ...res,
-        contacts: res.contacts.map(upgradeContact),
-      }) as SearchResult,
-  );
+export async function search(q: string): Promise<SearchResult> {
+  const res = await json(`/inbox/search?q=${q}`);
+  return {
+    ...res,
+    contacts: res.contacts.map(upgradeContact),
+  } as SearchResult;
 }
 
 export function block(u: string) {
@@ -33,8 +34,9 @@ export function unblock(u: string) {
   return json(`/api/rel/unblock/${u}`, { method: 'post' });
 }
 
-export function del(u: string): Promise<MsgData> {
-  return json(`/inbox/${u}`, { method: 'delete' }).then(upgradeData);
+export async function del(u: string): Promise<MsgData> {
+  const d = await json(`/inbox/${u}`, { method: 'delete' });
+  return upgradeData(d);
 }
 
 export function report(name: string, text: string): Promise<any> {

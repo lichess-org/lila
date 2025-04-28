@@ -66,7 +66,8 @@ object userId:
   object UserStr extends OpaqueString[UserStr]:
     extension (e: UserStr)
       def couldBeUsername: Boolean   = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
-      def validateId: Option[UserId] = Option.when(couldBeUsername)(e.id)
+      def validate: Option[UserStr]  = e.couldBeUsername.option(e)
+      def validateId: Option[UserId] = validate.map(_.id)
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
     // these conversions are using when generating routes containing UserStr
     // so we can give them usernames and userIds
