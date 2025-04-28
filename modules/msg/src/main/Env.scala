@@ -63,10 +63,11 @@ final class Env(
           words.mkString(" ")
         )
 
-  Bus.subscribeFuns(
-    "msgSystemSend" -> { case lila.core.msg.SystemMsg(userId, text) =>
+  Bus.sub[lila.core.msg.SystemMsg]:
+    case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
-    },
+  // TODO FIXME can this be refactored into two different types Read/Send?
+  Bus.subscribeFuns(
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
       msg.get[UserId]("d").foreach { api.setRead(userId, _) }
     },
