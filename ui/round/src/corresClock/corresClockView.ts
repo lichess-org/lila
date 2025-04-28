@@ -2,37 +2,12 @@ import { looseH as h, type VNode } from 'lib/snabbdom';
 import type { TopOrBottom } from 'lib/game/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
+import { formatNvuiClockTime } from 'lib/game/clock/clockView';
 
 const prefixInteger = (num: number, length: number): string =>
   (num / Math.pow(10, length)).toFixed(length).slice(2);
 
 const bold = (x: string) => `<b>${x}</b>`;
-
-function formatNvuiClockTime(time: Millis) {
-  const totalSeconds = Math.floor(time / 1000);
-  const days = Math.floor(totalSeconds / (3600 * 24));
-  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  const parts: string[] = [];
-  if (days > 0) {
-    parts.push(i18n.site.nbDays(days));
-    if (hours > 0) parts.push(i18n.site.nbHours(hours));
-  } else if (hours > 0) {
-    parts.push(i18n.site.nbHours(hours));
-    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
-  } else {
-    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
-    if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
-  }
-
-  if (parts.length === 1) {
-    return parts[0];
-  } else {
-    return parts.join(', ');
-  }
-}
 
 function formatClockTime(time: Millis) {
   const date = new Date(time),

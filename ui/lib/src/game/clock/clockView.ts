@@ -43,16 +43,24 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatNvuiClockTime(time: Millis) {
+export function formatNvuiClockTime(time: Millis): string {
   const totalSeconds = Math.floor(time / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
   const parts: string[] = [];
-  if (hours > 0) parts.push(i18n.site.nbHours(hours));
-  if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
-  if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+  if (days > 0) {
+    parts.push(i18n.site.nbDays(days));
+    if (hours > 0) parts.push(i18n.site.nbHours(hours));
+  } else if (hours > 0) {
+    parts.push(i18n.site.nbHours(hours));
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+  } else {
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+    if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+  }
 
   if (parts.length === 1) {
     return parts[0];
