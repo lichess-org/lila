@@ -94,10 +94,8 @@ trait Positional:
         game.copy(
           chess = game.chess.copy(
             situation = game.situation.copy(
-              board = game.board.copy(
-                history = board.history,
-                variant = FromPosition
-              )
+              history = board.history,
+              variant = FromPosition
             ),
             ply = sit.ply
           )

@@ -153,7 +153,7 @@ object StudyPgnImport:
               comments = comments,
               glyphs = node.value.metas.glyphs,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData,
+              crazyData = game.situation.crazyData,
               children = node.child.fold(Branches.empty):
                 makeBranches(
                   Context(

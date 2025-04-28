@@ -53,7 +53,7 @@ final class ApiMoveStream(
                   queue.offer(
                     toJson(
                       Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
-                      s.board.history.lastMove.map(_.uci),
+                      s.history.lastMove.map(_.uci),
                       clk
                     )
                   )

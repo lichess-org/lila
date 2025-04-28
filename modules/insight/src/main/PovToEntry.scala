@@ -19,7 +19,7 @@ case class RichPov(
     clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
 ):
-  lazy val division = chess.Divider(situations.map(_.board).toList)
+  lazy val division = chess.Divider(situations.toList)
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
@@ -141,7 +141,7 @@ final private class PovToEntry(
           cpl = cpDiffs.lift(i).flatten,
           winPercent = prevInfo.map(_.eval).flatMap(_.score).map(WinPercent.fromScore),
           accuracyPercent = accuracyPercent,
-          material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
+          material = situation.materialImbalance * from.pov.color.fold(1, -1),
           awareness = awareness,
           luck = luck,
           blur = blur,

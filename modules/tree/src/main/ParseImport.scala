@@ -91,7 +91,7 @@ private def isChess960StartPosition(sit: Situation) =
       case _                                                         => false
     }(Rank.Eighth)
 
-  Chess960.valid(sit.board, strict)
+  Chess960.valid(sit, strict)
 
 private def catchOverflow[A](f: () => Either[ErrorStr, A]): Either[ErrorStr, A] =
   try f()
