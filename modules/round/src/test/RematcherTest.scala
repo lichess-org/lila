@@ -9,13 +9,13 @@ import Rematcher.*
 class RematcherTest extends munit.FunSuite:
 
   test("chess960 && shouldRepeatChessPosition"):
-    val originalSituation = Situation(Board(Chess960.pieces(317), Chess960), Color.White)
+    val originalSituation = Situation(Board(Chess960.pieces(317), Chess960, Color.White.some), Color.White)
     val x                 = returnChessGame(Chess960, none, Fen.write(originalSituation).some, true)
     assertEquals(x.situation, originalSituation)
 
   // this test is flaky because we the new generated position could be the same as the original
   test("chess960 && not shouldRepeatChessPosition".flaky):
-    val originalSituation = Situation(Board(Chess960.pieces(317), Chess960), Color.White)
+    val originalSituation = Situation(Board(Chess960.pieces(317), Chess960, Color.White.some), Color.White)
     val x                 = returnChessGame(Chess960, none, Fen.write(originalSituation).some, false)
     assertNotEquals(x.situation, originalSituation)
 

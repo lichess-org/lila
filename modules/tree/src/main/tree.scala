@@ -530,8 +530,7 @@ object Node:
           sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
 
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
-    JsArray:
-      node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
+    JsArray(node.mainlineNodeList.map(minimalNodeJsonWriter.writes))
 
 object Tree:
 

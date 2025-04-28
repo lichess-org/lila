@@ -155,7 +155,8 @@ object BSONHandlers:
               else emptyCheckCount,
               crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
             ),
-            variant = light.variant
+            variant = light.variant,
+            color = turnColor
           ),
           color = turnColor
         ),
