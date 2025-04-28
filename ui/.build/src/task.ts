@@ -169,18 +169,20 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
     const fullglobs = definedUnique(watch.includes.map(({ cwd, path }) => join(cwd, path)));
-    if (!mm.isMatch(fullpath, fullglobs) && fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
+    if (!mm.isMatch(fullpath, fullglobs)) {
       if (event === 'change') continue;
-      try {
-        if (!(await fs.promises.stat(fullpath)).isDirectory()) continue;
-      } catch {
-        fsWatches.get(fullpath)?.watcher.close();
-        fsWatches.delete(fullpath);
-        continue;
+      if (fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
+        try {
+          if (!(await fs.promises.stat(fullpath)).isDirectory()) continue;
+        } catch {
+          fsWatches.get(fullpath)?.watcher.close();
+          fsWatches.delete(fullpath);
+          continue;
+        }
+        addFsWatch(fullpath, watch.key);
+        if (!(await glob(fullglobs, { cwd: undefined, absolute: true })).some(x => x.includes(fullpath)))
+          continue;
       }
-      addFsWatch(fullpath, watch.key);
-      if (!(await glob(fullglobs, { cwd: undefined, absolute: true })).some(x => x.includes(fullpath)))
-        continue;
     }
     if (event === 'rename') watch.debounce.rename = true;
     if (event === 'change' && !mm.isMatch(fullpath, watch.excludes)) watch.debounce.files.add(fullpath);
