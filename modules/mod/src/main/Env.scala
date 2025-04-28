@@ -9,7 +9,7 @@ import lila.core.config.*
 import lila.core.forum.BusForum
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
-import lila.core.mod.BoardApiMark
+import lila.core.mod.{ BoardApiMark, LoginWithWeakPassword, LoginWithBlankedPassword }
 
 @Module
 final class Env(
@@ -111,8 +111,6 @@ final class Env(
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
     },
-    "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
-    "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
     "team" -> {
       case t: lila.core.team.TeamUpdate if t.byMod =>
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
@@ -120,6 +118,12 @@ final class Env(
         logApi.teamKick(t.userId, t.teamName)(using t.me)
     }
   )
+
+  Bus.sub[LoginWithWeakPassword]:
+    case LoginWithWeakPassword(userId) => logApi.loginWithWeakPassword(userId)
+
+  Bus.sub[LoginWithBlankedPassword]:
+    case LoginWithBlankedPassword(userId) => logApi.loginWithBlankedPassword(userId)
 
   Bus.sub[BusForum]:
     case p: BusForum.RemovePost =>

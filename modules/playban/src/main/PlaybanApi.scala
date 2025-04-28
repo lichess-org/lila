@@ -291,7 +291,7 @@ final class PlaybanApi(
           for _ <- messenger.postPreset(record.userId, PlaybanFeedback.sittingAutoPreset)
           yield
             Bus.pub(
-              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name),
+              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name)
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
               userApi

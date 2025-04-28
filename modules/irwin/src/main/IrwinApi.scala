@@ -109,7 +109,7 @@ final class IrwinApi(
             suspect = suspect,
             origin = origin(Origin),
             games = all
-          ),
+          )
         )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =

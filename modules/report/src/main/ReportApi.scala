@@ -70,8 +70,7 @@ final class ReportApi(
           _ <- coll.update.one($id(report.id), report, upsert = true)
           _ <- autoAnalysis(candidate)
         yield
-          if report.is(_.Cheat) then
-            Bus.pub(lila.core.report.CheatReportCreated(report.user))
+          if report.is(_.Cheat) then Bus.pub(lila.core.report.CheatReportCreated(report.user))
           maxScoreCache.invalidateUnit()
       }
 

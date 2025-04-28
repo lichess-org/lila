@@ -689,7 +689,7 @@ final class PlanApi(
               cents = charge.usd.cents,
               percent = m.percent,
               nowInstant
-            ),
+            )
           )
           lila.mon.plan.goal.update(m.goal.cents)
           lila.mon.plan.current.update(m.current.cents)
