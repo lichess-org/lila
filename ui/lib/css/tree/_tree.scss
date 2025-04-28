@@ -105,6 +105,12 @@
         }
       }
     }
+    &.pendingDeletion {
+      background-color: rgba(255, 0, 13, 0.6) !important;
+    }
+    &.pendingCopy {
+      background-color: rgba(0, 255, 47, 0.6) !important;
+    }
   }
 
   &-column move {

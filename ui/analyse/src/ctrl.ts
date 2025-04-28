@@ -117,6 +117,8 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
+  pendingCopyPaths: Set<Tree.Path>;
+  pendingDeletionPaths: Set<Tree.Path>;
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
@@ -160,6 +162,8 @@ export default class AnalyseCtrl {
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
+    this.pendingCopyPaths = new Set<Tree.Path>();
+    this.pendingDeletionPaths = new Set<Tree.Path>();
 
     this.showGround();
     this.onToggleComputer();
@@ -1043,34 +1047,27 @@ export default class AnalyseCtrl {
   };
 
   pluginUpdate = (fen: string) => {
-    // if controller and chessground board state differ, ignore this update. once the chessground
+    // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
-
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  updateClassListsOfMoves = (paths: Tree.Path[], className: string, remove: boolean) => {
-    const moveList = document.querySelector('.areplay');
-    paths.forEach(currPath => {
-      const moveElement = moveList?.querySelector(`move[p="${currPath.replace(/\\/g, '\\\\')}"]`);
-      remove ? moveElement?.classList.remove(className) : moveElement?.classList.add(className);
-    });
-  };
-
-  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) =>
-    this.updateClassListsOfMoves(
-      [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
-      'pending-deletion',
-      unhighlight,
+  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
+    this.pendingDeletionPaths = new Set<Tree.Path>(
+      unhighlight ? [] : [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
     );
+    this.redraw();
+  };
 
   copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
     const paths = [];
-    while (path) {
-      paths.push(path);
-      path = init(path);
-    }
-    this.updateClassListsOfMoves(paths, 'pending-copy', unhighlight);
+    if (!unhighlight)
+      while (path) {
+        paths.push(path);
+        path = init(path);
+      }
+    this.pendingCopyPaths = new Set<Tree.Path>(paths);
+    this.redraw();
   };
 }
