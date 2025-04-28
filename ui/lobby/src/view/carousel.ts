@@ -58,8 +58,9 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
         kids.forEach(k => (k.style.transition = ''));
         const lastChild = track.lastElementChild;
         if (lastChild) {
-          track.prepend(lastChild);
           kids.forEach(k => (k.style.transform = `translateX(-${itemW + gap}px)`));
+          track.prepend(lastChild);
+          void track.offsetWidth; // trigger reflow
           requestAnimationFrame(() => {
             kids.forEach(k => (k.style.transition = `transform ${slideFor}s ease`));
             kids.forEach(k => (k.style.transform = 'translateX(0)'));
