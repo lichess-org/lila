@@ -157,8 +157,7 @@ object BSONHandlers:
             ),
             variant = light.variant,
             color = turnColor
-          ),
-          color = turnColor
+          )
         ),
         sans = decoded.sans,
         clock = r

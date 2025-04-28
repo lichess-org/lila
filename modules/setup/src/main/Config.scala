@@ -90,7 +90,7 @@ trait Positional:
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
     builder(chessGame).dmap { game =>
-      state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
+      state.fold(game) { case sit @ Situation.AndFullMoveNumber(board, _) =>
         game.copy(
           chess = game.chess.copy(
             situation = game.situation.copy(
