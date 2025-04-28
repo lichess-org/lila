@@ -312,6 +312,9 @@ importers:
       '@badrap/result':
         specifier: ^0.2.13
         version: 0.2.13
+      '@lichess-org/stockfish-web':
+        specifier: 0.0.13
+        version: 0.0.13
       '@types/debounce-promise':
         specifier: ^3.1.9
         version: 3.1.9
@@ -324,9 +327,6 @@ importers:
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
-      lila-stockfish-web:
-        specifier: 0.0.11
-        version: 0.0.11
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
@@ -836,6 +836,9 @@ packages:
 
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+
+  '@lichess-org/stockfish-web@0.0.13':
+    resolution: {integrity: sha512-EpcySs+J03xnWDIdY8lz48DSEbDjlxt3lX0I1bv6VgFkW6KkmUZ22aD/BlaNIvyf+mG55KvFhaI5cDSVpMsEqQ==}
 
   '@msgpack/msgpack@2.8.0':
     resolution: {integrity: sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==}
@@ -1693,9 +1696,6 @@ packages:
 
   lichess-pgn-viewer@2.4.0:
     resolution: {integrity: sha512-89cDSzIkpCuFbgrMvsQRYo1ZJLCSPXHwopjIWIWpinCPG9QUVliiMBRhCLA1l0evr0yrrj9ErlWxS9PV41Pepg==}
-
-  lila-stockfish-web@0.0.11:
-    resolution: {integrity: sha512-2n4WbLsQ/WDE79FKP7ciV4C5tXJcY21wT7M+iTDWl/UHbPTLwJ3dPwSbNBdQfRdJbtf/p9fY5XJIzuON12HFmQ==}
 
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
@@ -2591,6 +2591,8 @@ snapshots:
   '@juggle/resize-observer@3.4.0': {}
 
   '@kurkle/color@0.3.4': {}
+
+  '@lichess-org/stockfish-web@0.0.13': {}
 
   '@msgpack/msgpack@2.8.0': {}
 
@@ -3496,8 +3498,6 @@ snapshots:
       chessground: 9.1.1
       chessops: 0.14.2
       snabbdom: 3.6.2
-
-  lila-stockfish-web@0.0.11: {}
 
   lilconfig@3.1.3: {}
 

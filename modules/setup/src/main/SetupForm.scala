@@ -150,7 +150,8 @@ object SetupForm:
         "fen"   -> fenField,
         message,
         "keepAliveStream" -> optional(boolean),
-        rules
+        rules,
+        "onlyIfOpponentFollowsMe" -> optional(boolean)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
