@@ -116,7 +116,6 @@ object Quote:
       "Who is your opponent tonight, tonight I am playing against the black pieces.",
       "Akiba Rubinstein"
     ),
-    Quote("I like the moment when I break a man's ego.", "Bobby Fischer"),
     Quote("Excellence at chess is one mark of a scheming mind.", "Sir Arthur Conan Doyle"),
     Quote("A bad day of chess is better than any good day at work.", "Anonymous"),
     Quote("Chess is the art of analysis.", "Mikhail Botvinnik"),
