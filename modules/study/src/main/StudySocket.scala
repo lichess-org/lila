@@ -245,7 +245,7 @@ final private class StudySocket(
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
-        Bus.ask("isOfficialRelay") { IsOfficialRelay(roomId, _) }.not
+        Bus.safeAsk[Boolean, IsOfficialRelay](IsOfficialRelay(roomId, _)).not
     },
     chatBusChan = _.study
   )
