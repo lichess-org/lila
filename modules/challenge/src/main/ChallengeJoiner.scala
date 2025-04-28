@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ ByColor, Mode, Situation }
+import chess.{ Board, ByColor, Mode, Situation }
 
 import lila.core.user.GameUser
 
@@ -58,7 +58,7 @@ private object ChallengeJoiner:
   ): (chess.Game, Option[Situation.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(situation = Situation(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(situation = Board(variant), clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)

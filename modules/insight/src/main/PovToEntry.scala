@@ -2,7 +2,7 @@ package lila.insight
 
 import chess.format.pgn.SanStr
 import chess.opening.OpeningDb
-import chess.{ Centis, Clock, Ply, Role, Situation, Stats }
+import chess.{ Board, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis }
@@ -13,7 +13,7 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    situations: NonEmptyList[Situation],
+    situations: NonEmptyList[Board],
     clock: Option[Clock.Config],
     movetimes: Option[Vector[Centis]],
     clockStates: Option[Vector[Centis]],

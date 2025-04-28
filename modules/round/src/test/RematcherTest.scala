@@ -35,4 +35,4 @@ class RematcherTest extends munit.FunSuite:
       .filter(_ != Chess960)
       .foreach: variant =>
         val x = returnChessGame(variant, none, none, false)
-        assertEquals(x.situation, Situation(variant))
+        assertEquals(x.situation, Board(variant))

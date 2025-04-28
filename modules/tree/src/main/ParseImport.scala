@@ -67,7 +67,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
         }
     }
 
-private def isChess960StartPosition(sit: Situation) =
+private def isChess960StartPosition(sit: Board) =
   import chess.*
   val strict =
     def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
