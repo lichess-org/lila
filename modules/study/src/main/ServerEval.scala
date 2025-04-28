@@ -178,7 +178,7 @@ object ServerEval:
       then fuTrue
       else
         lila.common.Bus
-          .ask[Int]("getRelayCrowd") { GetRelayCrowd(studyId, _) }
+          .safeAsk[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
           .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =

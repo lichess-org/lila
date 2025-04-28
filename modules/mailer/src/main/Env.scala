@@ -47,13 +47,13 @@ final class Env(
       automaticEmail.onFishnetKey(userId, key)
 
   Bus.sub[lila.core.misc.plan.PlanStart]:
-      case lila.core.misc.plan.PlanStart(userId) =>
-        automaticEmail.onPatronNew(userId)
+    case lila.core.misc.plan.PlanStart(userId) =>
+      automaticEmail.onPatronNew(userId)
 
   Bus.sub[lila.core.misc.plan.PlanGift]:
-      case lila.core.misc.plan.PlanGift(from, to, lifetime) =>
-        automaticEmail.onPatronGift(from, to, lifetime)
-        
+    case lila.core.misc.plan.PlanGift(from, to, lifetime) =>
+      automaticEmail.onPatronGift(from, to, lifetime)
+
   Bus.sub[lila.core.misc.plan.PlanExpire]:
     case lila.core.misc.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId)
