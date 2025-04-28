@@ -36,10 +36,9 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
+  Bus.sub[lila.core.game.FinishGame]:
+    case lila.core.game.FinishGame(game, _) if !game.aborted => write.game(game)
   Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.core.game.FinishGame(game, _) if !game.aborted => write.game(game)
-    },
     "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
       write.puzzle(res)
     }
