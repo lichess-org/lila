@@ -88,7 +88,7 @@ object StudyArbitraries:
       glyphs,
       None,
       clock,
-      situation.board.crazyData
+      situation.crazyData
     )
 
   def genComments(size: Int) =

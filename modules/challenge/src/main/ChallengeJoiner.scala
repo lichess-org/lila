@@ -41,7 +41,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
-        mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
+        mode = if chessGame.situation.variant.fromPosition then Mode.Casual else c.mode,
         source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,

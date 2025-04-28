@@ -29,13 +29,13 @@ object StudyPgnImport:
       case (shapes, _, _, comments) =>
         val root = Root(
           ply = replay.setup.ply,
-          fen = initialFen | game.board.variant.initialFen,
+          fen = initialFen | game.situation.variant.initialFen,
           check = replay.setup.situation.check,
           shapes = shapes,
           comments = comments,
           glyphs = Glyphs.empty,
           clock = clock,
-          crazyData = replay.setup.board.crazyData,
+          crazyData = replay.setup.situation.crazyData,
           children = parsed.tree.fold(Branches.empty):
             makeBranches(Context(replay.setup, ByColor.fill(clock), timeControl), _, annotator)
         )
@@ -45,7 +45,7 @@ object StudyPgnImport:
             status = res.status,
             points = res.points,
             resultText = chess.Outcome.showPoints(res.points.some),
-            statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+            statusText = lila.tree.StatusText(res.status, res.winner, game.situation.variant)
           )
 
         val commented =
@@ -57,7 +57,7 @@ object StudyPgnImport:
 
         Result(
           root = commented,
-          variant = game.board.variant,
+          variant = game.situation.variant,
           tags = PgnTags
             .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
           ending = ending

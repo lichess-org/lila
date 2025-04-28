@@ -96,4 +96,4 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       case x :: xs  => x :: safeInit(xs)
       case _        => Nil
 
-    def fenOf(game: ChessGame) = Fen.writeBoard(game.board)
+    def fenOf(game: ChessGame) = Fen.writeBoard(game.situation)

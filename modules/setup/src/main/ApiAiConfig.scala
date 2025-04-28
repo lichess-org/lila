@@ -42,7 +42,7 @@ final case class ApiAiConfig(
               then newPlayer(c, user)
               else newPlayer.anon(c, level.some),
             mode = chess.Mode.Casual,
-            source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
+            source = if chessGame.situation.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
             pgnImport = None
           )
