@@ -747,7 +747,7 @@
     <item quantity="other">%1$s %2$s играча ове недеље.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Твој %1$s рејтинг је %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Бољи/а си него %1$s од %2$s играча.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Бољи/а си него %1$s од %2$s играча.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
@@ -764,18 +764,18 @@
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузими са белешкама</string>
   <string name="downloadRaw">Преузми без белешки</string>
-  <string name="downloadImported">Увезено преузимање</string>
-  <string name="crosstable">Упоредни преглед</string>
+  <string name="downloadImported">Преузми увезено</string>
+  <string name="crosstable">Таблица сусрета</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
-  <string name="analysisShapesHowTo">Pитисните shif-click или десни клик за цртање кругова и стрелица на плочи.</string>
-  <string name="letOtherPlayersMessageYou">Дозволите другим играчима да вам пошаљу поруку</string>
+  <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
+  <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Поделите своје личне податке</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
-  <string name="kidMode">Дечји начин</string>
+  <string name="kidMode">Дечији режим</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
   <string name="enableKidMode">Омогућите Дечији режим рада</string>
