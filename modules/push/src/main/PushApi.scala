@@ -414,8 +414,9 @@ final private class PushApi(
     ).mkString(" • ")
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
+    // TODO FIXME use .ask after Tell, TellMany etc are migrated
     lila.common.Bus
-      .ask[Boolean]("roundSocket") { p =>
+      .askDynamic[Boolean]("roundSocket") { p =>
         Tell(pov.gameId.value, IsOnGame(pov.color, p))
       }
       .flatMap:

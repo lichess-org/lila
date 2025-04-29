@@ -67,7 +67,8 @@ final class Env(
   private lazy val apiConfig = FishnetApi.Config(offlineMode = config.offlineMode)
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
+    // TODO FIXME use safeask after Exists removed
+    Bus.askDynamic[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 

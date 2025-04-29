@@ -179,37 +179,40 @@ final class RoundSocket(
     )
     .andDo(send(P.Out.boot))
 
-  // TODO FIXME move to pub
-  Bus.subscribeFun(
-    "tvSelect",
-    "roundSocket",
-    "tourStanding",
-    "startGame",
-    "finishGame",
-    "roundUnplayed"
-  ):
+  Bus.sub[TvSelect]:
     case TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId).exec(Protocol.Out.tvSelect(gameId, speed, json))
+
+  // TODO FIXME move to pub
+  Bus.subscribeFun("roundSocket"):
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
-    case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
-    case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
-    case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
-    case TellAll(msg)               => rounds.tellAll(msg)
-    case Exists(gameId, promise)    => promise.success(rounds.exists(GameId(gameId)))
+    case Tell(gameId, msg)         => rounds.tell(GameId(gameId), msg)
+    case TellIfExists(gameId, msg) => rounds.tellIfPresent(GameId(gameId), msg)
+    case TellMany(gameIds, msg)    => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
+    case TellAll(msg)              => rounds.tellAll(msg)
+    case Exists(gameId, promise)   => promise.success(rounds.exists(GameId(gameId)))
+
+  Bus.sub[TourStanding]:
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
+
+  Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
+
+  Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+
+  Bus.sub[lila.core.round.DeleteUnplayed]:
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   // TODO FIXME think how to handle thiss
