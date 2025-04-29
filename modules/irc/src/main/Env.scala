@@ -30,7 +30,6 @@ final class Env(
       api.stop()
       funit // don't wait for zulip aknowledgment to restart lila.
 
-  lila.common.Bus.sub[ChargeEvent]: d =>
-    api.charge(d)
-  lila.common.Bus.sub[Event]: e =>
-    api.publishEvent(e)
+  // type can be inferred but clearer to leave it
+  lila.common.Bus.sub[ChargeEvent](api.charge(_))
+  lila.common.Bus.sub[Event](api.publishEvent(_))
