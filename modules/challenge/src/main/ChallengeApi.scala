@@ -2,6 +2,7 @@ package lila.challenge
 
 import lila.common.Bus
 import lila.core.i18n.LangPicker
+import lila.core.challenge.PositiveEvent
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
 
@@ -55,7 +56,7 @@ final class ChallengeApi(
     for _ <- repo.insertIfMissing(c)
     yield
       uncacheAndNotify(c)
-      Bus.pub(lila.core.challenge.Event.Create(c))
+      Bus.pub(PositiveEvent.Create(c))
 
   def isOpenBy(id: ChallengeId, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
@@ -88,7 +89,7 @@ final class ChallengeApi(
     for _ <- repo.cancel(c)
     yield
       uncacheAndNotify(c)
-      Bus.pub(Event.Cancel(c.cancel))
+      Bus.pub(NegativeEvent.Cancel(c.cancel))
 
   private def offline(c: Challenge) = for _ <- repo.offline(c) yield uncacheAndNotify(c)
 
@@ -104,7 +105,7 @@ final class ChallengeApi(
     for _ <- repo.decline(c, reason)
     yield
       uncacheAndNotify(c)
-      Bus.pub(Event.Decline(c.declineWith(reason)))
+      Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
   private val acceptQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
@@ -151,7 +152,7 @@ final class ChallengeApi(
                   .accept(c)
                   .inject:
                     uncacheAndNotify(c)
-                    Bus.pub(lila.core.challenge.Event.Accept(c, me.map(_.id)))
+                    Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
                     c.rematchOf.foreach: gameId =>
                       import lila.core.misc.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
@@ -173,7 +174,7 @@ final class ChallengeApi(
     _ <- repo.update(challenge)
   yield
     uncacheAndNotify(challenge)
-    Bus.pub(lila.core.challenge.Event.Create(challenge))
+    Bus.pub(lila.core.challenge.PositiveEvent.Create(challenge))
 
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.sequentiallyVoid(remove))

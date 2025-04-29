@@ -5,7 +5,7 @@ import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.challenge.Challenge
+import lila.challenge.{ Challenge, NegativeEvent }
 import lila.common.Bus
 import lila.common.actorBus.*
 import lila.common.Json.given
@@ -93,7 +93,7 @@ final class EventStream(
 
         case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 
-        case lila.core.challenge.Event.Create(c) if isMyChallenge(c) =>
+        case lila.core.challenge.PositiveEvent.Create(c) if isMyChallenge(c) =>
           challengeApi
             .byId(c.id)
             .foreach:
@@ -103,10 +103,10 @@ final class EventStream(
                   .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
                     queue.offer(json.some).void
 
-        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
+        case NegativeEvent.Decline(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeDeclined")(c).some)
 
-        case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
+        case NegativeEvent.Cancel(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeCanceled")(c).some)
 
         // pretend like the rematch is a challenge
