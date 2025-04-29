@@ -57,7 +57,7 @@ final private class TvBroadcast(
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
       gameProxy.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
-        Bus.subscribeActorRefDynamic(self, MoveGameEvent.makeChan(gameId))
+        Bus.subscribeActorRefDynamic(self, List(MoveGameEvent.makeChan(gameId)))
         val pov = Pov.naturalOrientation(game)
         val feat = Featured(
           gameId,

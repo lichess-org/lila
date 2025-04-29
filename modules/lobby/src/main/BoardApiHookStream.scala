@@ -43,7 +43,7 @@ final class BoardApiHookStream(
 
     override def postStop() =
       super.postStop()
-      classifiers.foreach(Bus.subscribeActorRefDynamic(self, _))
+      classifiers.foreach(Bus.unsubscribeActorRefDynamic(self, _))
       lobby ! CancelHook(hook.sri)
       queue.complete()
 

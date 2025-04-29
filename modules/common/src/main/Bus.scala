@@ -21,9 +21,8 @@ object actorBus:
     inline def unsubscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef) =
       Bus.unsub[T](ActorTellable(ref))
 
-    def subscribeActorRefDynamic(ref: ActorRef, to: Channel*): Unit =
-      to.foreach(Bus.subscribe(ActorTellable(ref), _))
-
+    // it's good to have subscribe and unsubscribe not taking channels the same way
+    // to avoid calling one instead of the other
     def subscribeActorRefDynamic(ref: ActorRef, to: Iterable[Channel]) =
       to.foreach(Bus.subscribe(ActorTellable(ref), _))
 
