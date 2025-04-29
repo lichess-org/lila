@@ -72,12 +72,12 @@ function action(
               onHover();
               // If there is a special action for hover, make the menu transparent so that effects
               // on the move list can be fully seen:
-              document.getElementById('analyse-cm')?.classList.add('transparent');
+              $('#' + elementId).addClass('transparent');
             });
           if (onLeave)
             elm.addEventListener('mouseout', () => {
               onLeave();
-              document.getElementById('analyse-cm')?.classList.remove('transparent');
+              $('#' + elementId).removeClass('transparent');
             });
         },
       },
