@@ -3,7 +3,7 @@ package lila.relay
 import akka.stream.scaladsl.*
 import akka.stream.Materializer
 import reactivemongo.akkastream.cursorProducer
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ Tag, PgnStr }
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
@@ -39,7 +39,9 @@ final class RelayPgnStream(
   )
   private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter) = flags.copy(
     site = s"${baseUrl}${rt.path}".some,
-    event = rt.tour.name.value.some
+    updateTags = _ + Tag("BroadcastName", rt.tour.name.value) +
+      Tag("BroadcastURL", s"$baseUrl${rt.path}") +
+      Tag("GameURL", s"$baseUrl${rt.path}/${chapter.id}")
   )
   private val fileR         = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
