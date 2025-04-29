@@ -27,7 +27,7 @@ final private class TvBroadcast(
 
   private var featured = none[Featured]
 
-  //Bus.subscribeActor[lila.core.game.TvSelect](self)
+  // Bus.subscribeActor[lila.core.game.TvSelect](self)
   // TODO FIXME why is it compiling?
   Bus.subscribe(self, "tvSelect")
 

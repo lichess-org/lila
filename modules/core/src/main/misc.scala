@@ -14,6 +14,7 @@ package streamer:
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
   object StreamersOnline
 
+// TODO FIXME, replace all of these with proper typed case class Bus
 package map:
   case class Tell(id: String, msg: Any)
   case class TellIfExists(id: String, msg: Any)

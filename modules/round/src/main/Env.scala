@@ -114,8 +114,7 @@ final class Env(
             Bus.pub(sg)
             game.userIds.foreach: userId =>
               Bus.publish2(sg, s"userStartGame:$userId")
-            // TODO FIXME wrap the game in a specific wrapper to be able to use .pub
-            if game.playableByAi then Bus.publish2(game, "fishnetPlay")
+            if game.playableByAi then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 

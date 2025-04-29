@@ -119,7 +119,7 @@ final private class MovePlayer(
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Unit =
     game.playableByAi.so:
-      if game.ply <= lila.core.fishnet.maxPlies then Bus.pub(game)
+      if game.ply <= lila.core.fishnet.maxPlies then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
       else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
