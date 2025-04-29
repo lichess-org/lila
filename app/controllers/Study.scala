@@ -497,7 +497,6 @@ final class Study(
       comments = getBoolOpt("comments") | true,
       variations = getBoolOpt("variations") | true,
       clocks = getBoolOpt("clocks") | true,
-      source = getBool("source"),
       orientation = getBool("orientation")
     )
 

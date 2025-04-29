@@ -30,8 +30,7 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval
-      .exists(_.done)
+    (flags.comments && chapter.serverEval.exists(_.done))
       .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
       .map(ofChapter(study, flags)(chapter, _))
 
@@ -60,9 +59,6 @@ final class PgnDump(
       ""
     )
 
-  private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
-    s"${net.baseUrl}/study/$studyId/$chapterId"
-
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     flags.updateTags:
       Tags:
@@ -75,8 +71,7 @@ final class PgnDump(
           Tag(_.Result, "*") // required for SCID to import
         ) ::: List(
           Tag("StudyName", study.name),
-          Tag("ChapterName", chapter.name),
-          Tag("ChapterURL", chapterUrl(study.id, chapter.id))
+          Tag("ChapterName", chapter.name)
         ) ::: chapter.root.fen.isInitial.not.so(
           List(
             Tag(_.FEN, chapter.root.fen.value),
@@ -91,7 +86,9 @@ final class PgnDump(
           study.isRelay.not.option:
             Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
           ,
-          flags.source.option(Tag("Source", chapterUrl(study.id, chapter.id))),
+          study.isRelay.not.option:
+            Tag("ChapterURL", s"${net.baseUrl}/study/${study.id}/${chapter.id}")
+          ,
           flags.orientation.option(Tag("Orientation", chapter.setup.orientation.name)),
           chapter.isGamebook.option(Tag("ChapterMode", "gamebook"))
         ).flatten
@@ -102,10 +99,13 @@ final class PgnDump(
             else tag :: tags
           .reverse
 
-  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
+  private def ofChapter(study: Study, flags: WithFlags)(
+      chapter: Chapter,
+      analysis: Option[Analysis]
+  ): PgnStr =
     val tags = makeTags(study, chapter)(using flags)
     val pgn  = rootToPgn(chapter.root, tags)(using flags)
-    annotator.toPgnString(analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _)))
+    annotator.toPgnString(analysis.fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
 
@@ -113,11 +113,11 @@ object PgnDump:
       comments: Boolean,
       variations: Boolean,
       clocks: Boolean,
-      source: Boolean,
       orientation: Boolean,
       updateTags: Update[Tags] = identity
   )
-  val fullFlags = WithFlags(true, true, true, true, true)
+  val fullFlags          = WithFlags(true, true, true, true)
+  val withoutOrientation = fullFlags.copy(orientation = false)
 
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
     rootToPgn(NewRoot(root), tags, comments)

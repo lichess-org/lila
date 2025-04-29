@@ -30,10 +30,9 @@ final class RelayPgnStream(
       .throttle(16, 1.second)
 
   private val flags = PgnDump.WithFlags(
-    comments = false,
+    comments = true, // analysis
     variations = false,
     clocks = true,
-    source = false,
     orientation = false
   )
   private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter) = flags.copy(
@@ -66,7 +65,6 @@ final class RelayPgnStream(
         List(
           Match(dateBetween("startedAt", since.some, since.plusMonths(1).some)),
           Sort(Ascending("startedAt")),
-          Limit(1),
           PipelineOperator:
             $lookup.pipelineFull(
               from = tourRepo.coll.name,

@@ -112,7 +112,6 @@ private object RelayGame:
       comments = false,
       variations = false,
       clocks = true,
-      source = true,
       orientation = false
     )
     Iso[RelayGames, MultiPgn](
