@@ -79,7 +79,7 @@ private object ChallengeJoiner:
     position.fold(game): sp =>
       game.copy(
         chess = game.chess.copy(
-          situation = game.board.copy(history = sp.situation.history),
+          situation = game.situation.copy(history = sp.situation.history),
           ply = sp.ply
         )
       )

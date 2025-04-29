@@ -48,8 +48,6 @@ case class Game(
 
   lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
 
-  def board = chess.situation
-
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
 

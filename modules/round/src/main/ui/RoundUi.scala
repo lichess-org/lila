@@ -101,7 +101,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
 
   def povChessground(pov: Pov)(using ctx: Context): Frag =
     chessground(
-      board = pov.game.board,
+      board = pov.game.situation,
       orient = pov.color,
       lastMove = pov.game.history.lastMove
         .map(_.origDest)
