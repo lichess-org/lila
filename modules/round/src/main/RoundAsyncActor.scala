@@ -198,7 +198,7 @@ final private class RoundAsyncActor(
         player.fishnet(game, hash, uci)
       .mon(_.round.move.time)
 
-    case Abort(playerId) =>
+    case Abort(_, playerId) =>
       handle(playerId): pov =>
         pov.game.abortableByUser.so(finisher.abort(pov))
 

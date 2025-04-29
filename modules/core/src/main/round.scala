@@ -10,7 +10,7 @@ import lila.core.id.{ GameAnyId, GameId, GamePlayerId, SimulId, TourId }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
 
-case class Abort(playerId: GamePlayerId)
+case class Abort(gameId: GameId, playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
 case class BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
 case class Rematch(playerId: GamePlayerId, rematch: Boolean)
@@ -47,7 +47,7 @@ case class RematchCancel(gameId: GameId)
 case class Mlat(millis: Int)
 case class DeleteUnplayed(gameId: GameId)
 
-case object AbortForce
+case class AbortForce(gameId: GameId)
 case object Threefold
 case object ResignAi
 case class DrawForce(playerId: GamePlayerId)

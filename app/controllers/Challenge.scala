@@ -213,7 +213,7 @@ final class Challenge(env: Env) extends LilaController(env):
                     }
                     .flatMap:
                       case Some(pov) if pov.game.abortableByUser =>
-                        lila.common.Bus.pub(Tell(id.value, Abort(pov.playerId)))
+                        lila.common.Bus.pub(Abort(pov.gameId, pov.playerId))
                         jsonOkResult
                       case Some(pov) if pov.game.playable =>
                         Bearer.from(get("opponentToken")) match
@@ -223,13 +223,13 @@ final class Challenge(env: Env) extends LilaController(env):
                               .auth(bearer, required, ctx.req.some)
                               .map:
                                 case Right(access) if pov.opponent.isUser(access.me) =>
-                                  lila.common.Bus.pub(Tell(id.value, AbortForce))
+                                  lila.common.Bus.pub(AbortForce(pov.gameId))
                                   jsonOkResult
                                 case Right(_)  => BadRequest(jsonError("Not the opponent token"))
                                 case Left(err) => BadRequest(jsonError(err.message))
                           case None if api.isOpenBy(id, me) =>
                             if pov.game.abortable then
-                              lila.common.Bus.pub(Tell(id.value, AbortForce))
+                              lila.common.Bus.pub(AbortForce(pov.gameId))
                               jsonOkResult
                             else BadRequest(jsonError("The game can no longer be aborted"))
                           case None => BadRequest(jsonError("Missing opponentToken"))

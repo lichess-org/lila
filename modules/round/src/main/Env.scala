@@ -210,7 +210,7 @@ final class Env(
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
   def resign(pov: Pov): Unit =
-    if pov.game.abortableByUser then roundApi.tell(pov.gameId, Abort(pov.playerId))
+    if pov.game.abortableByUser then roundApi.tell(pov.gameId, Abort(pov.gameId, pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, Resign(pov.playerId))
 
 private trait SelfReportEndGame
