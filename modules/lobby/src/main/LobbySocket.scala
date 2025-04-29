@@ -6,6 +6,7 @@ import scalalib.Maths.boxedNormalDistribution
 import chess.IntRating
 
 import lila.common.Json.given
+import lila.common.Bus
 import lila.core.game.ChangeFeatured
 import lila.core.pool.PoolConfigId
 import lila.core.security.{ UserTrust, UserTrustApi }
@@ -115,7 +116,9 @@ final class LobbySocket(
         )
         hookSubscriberSris += member.sri.value
 
-    lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
+    Bus.subscribe("streams","lobbySocket")
+    lila.subscribeActor[ChangeFeatured](this)
+    lila.subscribeActor[lila.core.pool.Pairings](this)
     scheduler.scheduleOnce(7.seconds)(this ! SendHookRemovals)
     scheduler.scheduleWithFixedDelay(31.seconds, 31.seconds)(() => this ! Cleanup)
 
