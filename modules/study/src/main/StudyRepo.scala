@@ -37,7 +37,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     "members"    -> true
   )
 
-  def byId(id: StudyId) = coll(_.find($id(id), projection.some).one[Study])
+  def byId(id: StudyId)       = coll(_.find($id(id), projection.some).one[Study])
+  def publicById(id: StudyId) = coll(_.find($id(id) ++ selectPublic, projection.some).one[Study])
 
   def byIdWithChapter(
       chapterColl: AsyncColl

@@ -172,7 +172,9 @@ final class RelayRound(
     pgnWithFlags(ts, rs, id)
 
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
-    pgnWithFlags("-", "-", id)
+    id.value.startsWith("____").so(id.value.drop(4).toIntOption) match
+      case Some(year) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullYear(year))
+      case _                                        => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(

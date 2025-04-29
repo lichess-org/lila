@@ -18,10 +18,10 @@ final class PgnDump(
 
   import PgnDump.*
 
-  def chaptersOf(study: Study, flags: WithFlags): Source[PgnStr, ?] =
+  def chaptersOf(study: Study, flags: Chapter => WithFlags): Source[PgnStr, ?] =
     chapterRepo
       .orderedByStudySource(study.id)
-      .mapAsync(1)(ofChapter(study, flags))
+      .mapAsync(1)(chapter => ofChapter(study, flags(chapter))(chapter))
 
   def ofFirstChapter(study: Study, flags: WithFlags): Fu[Option[PgnStr]] =
     chapterRepo
@@ -63,21 +63,21 @@ final class PgnDump(
   private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
-  private def annotatorTag(study: Study) =
-    val path = if study.isRelay then s"broadcast/-/-/${study.id}" else s"@/${ownerName(study)}"
-    Tag(_.Annotator, s"${net.baseUrl}/$path")
+  private def annotatorTag(study: Study, flags: WithFlags): Option[Tag] =
+    (study.isRelay && flags.site.isDefined).not.option:
+      val path = if study.isRelay then s"broadcast/-/-/${study.id}" else s"@/${ownerName(study)}"
+      Tag(_.Annotator, s"${net.baseUrl}/$path")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     Tags:
       val opening = chapter.opening
       val genTags = List(
-        Tag(_.Event, s"${study.name}: ${chapter.name}"),
+        Tag(_.Event, flags.event | s"${study.name}: ${chapter.name}"),
         Tag(_.Site, flags.site | chapterUrl(study.id, chapter.id)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
-        Tag(_.Result, "*"), // required for SCID to import
-        annotatorTag(study)
+        Tag(_.Result, "*") // required for SCID to import
       ) ::: List(
         Tag("StudyName", study.name),
         Tag("ChapterName", chapter.name)
@@ -92,6 +92,7 @@ final class PgnDump(
           Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
         )
       ) :::
+        annotatorTag(study, flags).toList :::
         flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
         flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
         chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
@@ -115,7 +116,8 @@ object PgnDump:
       clocks: Boolean,
       source: Boolean,
       orientation: Boolean,
-      site: Option[String]
+      site: Option[String],
+      event: Option[String] = None
   )
   val fullFlags = WithFlags(true, true, true, true, true, none)
 
