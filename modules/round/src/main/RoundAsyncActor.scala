@@ -331,7 +331,7 @@ final private class RoundAsyncActor(
           val progress = moretimer.give(game, Color.all, 20.seconds)
           proxy.save(progress).inject(progress.events)
 
-    case BotConnected(color, v) =>
+    case BotConnected(_, color, v) =>
       fuccess:
         getPlayer(color).setBotConnected(v)
 

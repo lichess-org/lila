@@ -185,8 +185,7 @@ final class RoundSocket(
 
   // TODO FIXME move to pub
   Bus.subscribeFun("roundSocket"):
-    case Tell(id, e @ BotConnected(color, v)) =>
-      val gameId = GameId(id)
+    case e @ BotConnected(gameId, color, v) =>
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)         => rounds.tell(GameId(gameId), msg)

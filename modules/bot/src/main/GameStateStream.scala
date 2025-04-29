@@ -81,7 +81,7 @@ final class GameStateStream(
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
-      Bus.pub(Tell(init.game.id.value, BotConnected(as, v = true)))
+      Bus.pub(BotConnected(init.game.id, as, v = true))
 
     override def postStop(): Unit =
       super.postStop()
@@ -91,7 +91,7 @@ final class GameStateStream(
       // hang around if game is over
       // so the opponent has a chance to rematch
       context.system.scheduler.scheduleOnce(if gameOver then 10.second else 1.second):
-        Bus.pub(Tell(init.game.id.value, BotConnected(as, v = false)))
+        Bus.pub(BotConnected(init.game.id, as, v = false))
       queue.complete()
       lila.mon.bot.gameStream("stop").increment()
 

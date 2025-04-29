@@ -18,7 +18,7 @@ case class Resign(playerId: GamePlayerId)
 case class Draw(playerId: GamePlayerId, draw: Boolean)
 case class Takeback(playerId: GamePlayerId, takeback: Boolean)
 case class ResignForce(playerId: GamePlayerId)
-case class BotConnected(color: Color, v: Boolean)
+case class BotConnected(gameId: GameId, color: Color, v: Boolean)
 case object QuietFlag
 
 case class MoveEvent(
