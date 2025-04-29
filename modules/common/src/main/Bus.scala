@@ -13,11 +13,19 @@ object actorBus:
 
   extension (bus: scalalib.bus.Bus)
 
-    def subscribe(ref: ActorRef, to: Channel*): Unit =
+    // LOGIC : It is up to the caller to make sure `T`'s channel is relevant to the `tellable`
+    inline def subscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef) =
+      Bus.subTellable[T](ActorTellable(ref))
+
+    // LOGIC : It is up to the caller to make sure `T`'s channel is relevant to the `tellable`
+    inline def unsubscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef) =
+      Bus.unsub[T](ActorTellable(ref))
+
+    def subscribeActorRefDynamic(ref: ActorRef, to: Channel*): Unit =
       to.foreach(Bus.subscribe(ActorTellable(ref), _))
 
-    def subscribe(ref: ActorRef, to: Iterable[Channel]) =
+    def subscribeActorRefDynamic(ref: ActorRef, to: Iterable[Channel]) =
       to.foreach(Bus.subscribe(ActorTellable(ref), _))
 
-    def unsubscribe(ref: ActorRef, from: Channel) =
+    def unsubscribeActorRefDynamic(ref: ActorRef, from: Channel) =
       Bus.unsubscribe(ActorTellable(ref), from)

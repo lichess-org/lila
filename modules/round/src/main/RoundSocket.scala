@@ -179,6 +179,7 @@ final class RoundSocket(
     )
     .andDo(send(P.Out.boot))
 
+  // TODO FIXME move to pub
   Bus.subscribeFun(
     "tvSelect",
     "roundSocket",

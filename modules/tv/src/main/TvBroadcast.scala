@@ -25,9 +25,7 @@ final private class TvBroadcast(
 
   private var featured = none[Featured]
 
-  // Bus.subscribeActor[lila.core.game.TvSelect](self)
-  // TODO FIXME why is it compiling?
-  Bus.subscribe(self, "tvSelect")
+  Bus.subscribeActorRef[lila.core.game.TvSelect](self)
 
   given Executor = context.system.dispatcher
 
@@ -59,7 +57,7 @@ final private class TvBroadcast(
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
       gameProxy.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
-        Bus.subscribe(self, MoveGameEvent.makeChan(gameId))
+        Bus.subscribeActorRefDynamic(self, MoveGameEvent.makeChan(gameId))
         val pov = Pov.naturalOrientation(game)
         val feat = Featured(
           gameId,
@@ -102,7 +100,7 @@ final private class TvBroadcast(
 
   def unsubscribeFromFeaturedId() =
     featured.foreach { previous =>
-      Bus.unsubscribe(self, MoveGameEvent.makeChan(previous.id))
+      Bus.unsubscribeActorRefDynamic(self, MoveGameEvent.makeChan(previous.id))
     }
 
 object TvBroadcast:

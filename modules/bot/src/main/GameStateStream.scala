@@ -63,8 +63,6 @@ final class GameStateStream(
       BoardDrawOffer.makeChan(id),
       BoardTakeback.makeChan(id),
       BoardGone.makeChan(id),
-      "finishGame",
-      "abortGame",
       uniqChan(init.game.pov(as)),
       Chat.chanOf(id.into(ChatId))
     ) :::
@@ -72,7 +70,9 @@ final class GameStateStream(
 
     override def preStart(): Unit =
       super.preStart()
-      Bus.subscribe(self, classifiers)
+      Bus.subscribeActorRef[lila.core.game.FinishGame](self)
+      Bus.subscribeActorRef[lila.core.game.AbortedBy](self)
+      Bus.subscribeActorRefDynamic(self, classifiers)
       jsonView.gameFull(init).foreach { json =>
         // prepend the full game JSON at the start of the stream
         queue.offer(json.some)
@@ -85,7 +85,9 @@ final class GameStateStream(
 
     override def postStop(): Unit =
       super.postStop()
-      classifiers.foreach(Bus.unsubscribe(self, _))
+      classifiers.foreach(Bus.unsubscribeActorRefDynamic(self, _))
+      Bus.unsubscribeActorRef[lila.core.game.FinishGame](self)
+      Bus.unsubscribeActorRef[lila.core.game.AbortedBy](self)
       // hang around if game is over
       // so the opponent has a chance to rematch
       context.system.scheduler.scheduleOnce(if gameOver then 10.second else 1.second):
