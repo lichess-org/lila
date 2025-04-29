@@ -34,11 +34,9 @@ final class RelayPgnStream(
     variations = false,
     clocks = true,
     source = false,
-    orientation = false,
-    site = none
+    orientation = false
   )
   private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter) = flags.copy(
-    site = s"${baseUrl}${rt.path}".some,
     updateTags = _ + Tag("BroadcastName", rt.tour.name.value) +
       Tag("BroadcastURL", s"$baseUrl${rt.path}") +
       Tag("GameURL", s"$baseUrl${rt.path}/${chapter.id}")
@@ -50,14 +48,25 @@ final class RelayPgnStream(
     val date = dateFormatter.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
-  def exportFullYear(year: Int): Source[PgnStr, ?] =
+  def parseExportDate(id: RelayRoundId): Option[Instant] =
+    val regex = """_(\d{4})_(\d{2})""".r
+    id.value match
+      case regex(y, m) =>
+        for
+          year  <- y.toIntOption
+          month <- m.toIntOption
+          date  <- scala.util.Try(instantOf(year, month, 1, 0, 0)).toOption
+        yield date
+      case _ => none
+
+  def exportFullMonth(since: Instant): Source[PgnStr, ?] =
     roundRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
         import framework.*
-        val since = instantOf(year, 1, 1, 0, 0)
         List(
-          Match(dateBetween("startedAt", since.some, since.plusYears(1).some)),
+          Match(dateBetween("startedAt", since.some, since.plusMonths(1).some)),
           Sort(Ascending("startedAt")),
+          Limit(1),
           PipelineOperator:
             $lookup.pipelineFull(
               from = tourRepo.coll.name,

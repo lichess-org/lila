@@ -31,11 +31,11 @@ object Helpers:
   import lila.tree.NewTree.*
 
   def rootToPgn(root: Root): PgnStr = PgnDump
-    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false, none))
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
   def rootToPgn(root: NewRoot): PgnStr = PgnDump
-    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false, none))
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
   extension (root: Root)

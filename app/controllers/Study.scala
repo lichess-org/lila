@@ -498,8 +498,7 @@ final class Study(
       variations = getBoolOpt("variations") | true,
       clocks = getBoolOpt("clocks") | true,
       source = getBool("source"),
-      orientation = getBool("orientation"),
-      site = none
+      orientation = getBool("orientation")
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:

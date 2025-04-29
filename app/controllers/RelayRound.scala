@@ -172,15 +172,15 @@ final class RelayRound(
     pgnWithFlags(ts, rs, id)
 
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
-    id.value.startsWith("____").so(id.value.drop(4).toIntOption) match
-      case Some(year) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullYear(year))
-      case _                                        => pgnWithFlags("-", "-", id)
+    env.relay.pgnStream.parseExportDate(id) match
+      case Some(since) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
+      case _                                         => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(
       id.into(StudyId),
       _.copy(
-        site = s"${env.net.baseUrl}${routes.RelayRound.show(ts, rs, id)}".some,
+        updateTags = _ + Tag("GameURL", s"${env.net.baseUrl}${routes.RelayRound.show(ts, rs, id)}"),
         comments = false,
         variations = false
       )
