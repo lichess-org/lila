@@ -3,7 +3,7 @@ import type AnalyseCtrl from '../ctrl';
 import { defined, notNull } from 'lib';
 import * as licon from 'lib/licon';
 import { iconTag } from 'lib/snabbdom';
-import { formatNvuiClockTime } from 'lib/game/clock/clockView';
+import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 
 interface ClockOpts {
   centis: number | undefined;
@@ -84,7 +84,7 @@ function clockContent(opts: ClockOpts): Array<string | VNode> {
 
 function clockContentNvui(opts: ClockOpts): Array<string | VNode> {
   if (!opts.centis && opts.centis !== 0) return ['None'];
-  return [formatNvuiClockTime(opts.centis * 10)];
+  return [formatClockTimeVerbal(opts.centis * 10)];
 }
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;

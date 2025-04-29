@@ -43,7 +43,7 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-export function formatNvuiClockTime(time: Millis): string {
+export function formatClockTimeVerbal(time: Millis): string {
   const totalSeconds = Math.floor(time / 1000);
   const days = Math.floor(totalSeconds / (3600 * 24));
   const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
@@ -71,7 +71,7 @@ export function formatNvuiClockTime(time: Millis): string {
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
-  if (nvui) return formatNvuiClockTime(time);
+  if (nvui) return formatClockTimeVerbal(time);
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
