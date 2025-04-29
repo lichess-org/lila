@@ -69,39 +69,40 @@ final class PgnDump(
       Tag(_.Annotator, s"${net.baseUrl}/$path")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
-    Tags:
-      val opening = chapter.opening
-      val genTags = List(
-        Tag(_.Event, flags.event | s"${study.name}: ${chapter.name}"),
-        Tag(_.Site, flags.site | chapterUrl(study.id, chapter.id)),
-        Tag(_.Variant, chapter.setup.variant.name.capitalize),
-        Tag(_.ECO, opening.fold("?")(_.eco)),
-        Tag(_.Opening, opening.fold("?")(_.name)),
-        Tag(_.Result, "*") // required for SCID to import
-      ) ::: List(
-        Tag("StudyName", study.name),
-        Tag("ChapterName", chapter.name)
-      ) ::: (!chapter.root.fen.isInitial).so(
-        List(
-          Tag(_.FEN, chapter.root.fen.value),
-          Tag("SetUp", "1")
-        )
-      ) ::: (!chapter.tags.exists(_.Date)).so(
-        List(
-          Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-          Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
-        )
-      ) :::
-        annotatorTag(study, flags).toList :::
-        flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
-        flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
-        chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
-      genTags
-        .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
-          if tags.exists(t => tag.name == t.name)
-          then tags
-          else tag :: tags
-        .reverse
+    flags.updateTags:
+      Tags:
+        val opening = chapter.opening
+        val genTags = List(
+          Tag(_.Event, s"${study.name}: ${chapter.name}"),
+          Tag(_.Site, flags.site | chapterUrl(study.id, chapter.id)),
+          Tag(_.Variant, chapter.setup.variant.name.capitalize),
+          Tag(_.ECO, opening.fold("?")(_.eco)),
+          Tag(_.Opening, opening.fold("?")(_.name)),
+          Tag(_.Result, "*") // required for SCID to import
+        ) ::: List(
+          Tag("StudyName", study.name),
+          Tag("ChapterName", chapter.name)
+        ) ::: (!chapter.root.fen.isInitial).so(
+          List(
+            Tag(_.FEN, chapter.root.fen.value),
+            Tag("SetUp", "1")
+          )
+        ) ::: (!chapter.tags.exists(_.Date)).so(
+          List(
+            Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+            Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
+          )
+        ) :::
+          annotatorTag(study, flags).toList :::
+          flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+          flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
+          chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
+        genTags
+          .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
+            if tags.exists(t => tag.name == t.name)
+            then tags
+            else tag :: tags
+          .reverse
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
     val tags = makeTags(study, chapter)(using flags)
@@ -117,7 +118,7 @@ object PgnDump:
       source: Boolean,
       orientation: Boolean,
       site: Option[String],
-      event: Option[String] = None
+      updateTags: Update[Tags] = identity
   )
   val fullFlags = WithFlags(true, true, true, true, true, none)
 
