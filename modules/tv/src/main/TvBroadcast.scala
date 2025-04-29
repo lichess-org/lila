@@ -21,8 +21,6 @@ final private class TvBroadcast(
 
   import TvBroadcast.*
 
-  private def fool: Unit = self
-
   private var clients = Set.empty[Client]
 
   private var featured = none[Featured]

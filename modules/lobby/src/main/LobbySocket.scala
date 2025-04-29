@@ -116,8 +116,7 @@ final class LobbySocket(
         )
         hookSubscriberSris += member.sri.value
 
-    // TODO FIXME "streams" can be removed as legacy, not `lobbySocket` find associated type
-    // Bus.subscribe("streams","lobbySocket")
+    Bus.subscribeActor[ReloadTimelines](this)
     Bus.subscribeActor[ChangeFeatured](this)
     Bus.subscribeActor[lila.core.pool.Pairings](this)
     scheduler.scheduleOnce(7.seconds)(this ! SendHookRemovals)
