@@ -8,7 +8,7 @@ final private class HookThieve()(using Executor, Scheduler):
 
   def candidates(clock: chess.Clock.Config): Fu[PoolHooks] =
     Bus
-      .ask[PoolHooks]("lobbyActor")(GetCandidates(clock, _))
+      .safeAsk[PoolHooks, GetCandidates](GetCandidates(clock, _))
       .logFailure(logger)
       .recoverDefault(PoolHooks(Vector.empty))
 

@@ -27,3 +27,5 @@ type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 
 trait FishnetRequest:
   def tutor(gameId: GameId): Funit
+
+case class FishnetPlay()

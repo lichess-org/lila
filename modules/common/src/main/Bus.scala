@@ -5,6 +5,7 @@ import scalalib.bus.{ Channel, Tellable }
 
 val Bus = scalalib.bus.Bus(initialCapacity = 4096)
 
+// TODO FIXME migrate to new api and stop using the same method name for so many different input
 object actorBus:
 
   case class ActorTellable(ref: ActorRef) extends Tellable:

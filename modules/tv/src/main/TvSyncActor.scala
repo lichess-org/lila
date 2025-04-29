@@ -17,7 +17,7 @@ final private class TvSyncActor(
 
   import TvSyncActor.*
 
-  Bus.subscribe(this, "startGame")
+  Bus.subscribeActor[lila.core.game.StartGame](this)
 
   private val channelActors: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.values.map { c =>
     c -> ChannelSyncActor(

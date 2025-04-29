@@ -197,7 +197,7 @@ private object LobbySyncActor:
       resyncIdsPeriod: FiniteDuration
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
-    Bus.subscribe(actor, "lobbyActor")
+    Bus.subscribeActor[HookThieve.GetCandidates](actor)
     scheduler.scheduleWithFixedDelay(15.seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",

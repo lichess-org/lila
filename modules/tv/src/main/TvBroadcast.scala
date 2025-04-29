@@ -21,10 +21,14 @@ final private class TvBroadcast(
 
   import TvBroadcast.*
 
+  private def fool: Unit = self
+
   private var clients = Set.empty[Client]
 
   private var featured = none[Featured]
 
+  //Bus.subscribeActor[lila.core.game.TvSelect](self)
+  // TODO FIXME why is it compiling?
   Bus.subscribe(self, "tvSelect")
 
   given Executor = context.system.dispatcher
