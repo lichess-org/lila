@@ -16,7 +16,6 @@ package streamer:
 
 // TODO FIXME, replace all of these with proper typed case class Bus
 package map:
-  case class TellMany(ids: Seq[String], msg: Any)
   case class Exists(id: String, promise: Promise[Boolean])
 
 package clas:

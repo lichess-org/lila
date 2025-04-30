@@ -29,6 +29,7 @@ enum RoundBus:
   case Takeback(playerId: GamePlayerId, takeback: Boolean)
 
 case class Tell(id: GameId, msg: RoundBus)
+case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlag.type)
 
 case class MoveEvent(
     gameId: GameId,

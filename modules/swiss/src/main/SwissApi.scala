@@ -617,7 +617,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.pub(
-                    lila.core.misc.map.TellMany(flagged.map(_.id.value), RoundBus.QuietFlag)
+                    lila.core.round.TellMany(flagged.map(_.id), RoundBus.QuietFlag)
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished

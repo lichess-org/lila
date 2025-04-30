@@ -8,7 +8,7 @@ import scalalib.model.Days
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.common.{ Bus, LilaStream }
 import lila.core.data.Template
-import lila.core.misc.map.TellMany
+import lila.core.round.TellMany
 import lila.core.round.StartClock
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
@@ -80,7 +80,7 @@ final class ChallengeBulkApi(
       )
       .flatMapz: bulk =>
         workQueue(bulk.by):
-          Bus.pub(TellMany(bulk.games.map(_.id.value), StartClock))
+          Bus.pub(TellMany(bulk.games.map(_.id), StartClock))
           coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
