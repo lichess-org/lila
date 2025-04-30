@@ -183,11 +183,13 @@ final class RoundSocket(
     case TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId).exec(Protocol.Out.tvSelect(gameId, speed, json))
 
-  // TODO FIXME move to pub
-  Bus.subscribeFun("roundSocket"):
+
+  Bus.sub[BotConnected]:
     case e @ BotConnected(gameId, color, v) =>
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
+    // TODO FIXME move to pub
+  Bus.subscribeFun("roundSocket"):
     case Tell(gameId, msg)         => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg) => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)    => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)

@@ -245,7 +245,7 @@ final private class RoundAsyncActor(
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
 
-    case AbortForce =>
+    case RoundBus.AbortForce =>
       handle: game =>
         game.playable.so(finisher.abortForce(game))
 

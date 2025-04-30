@@ -11,7 +11,7 @@ import chess.{ IntRating, ByColor }
 
 import lila.common.Bus
 import lila.core.game.LightPov
-import lila.core.round.{ AbortForce, GoBerserk }
+import lila.core.round.{ RoundBus, GoBerserk }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
 import lila.core.chess.Rank
@@ -500,7 +500,7 @@ final class TournamentApi(
             for
               pairing <- pairingRepo.findPlaying(tour.id, userId)
               _ = pairing.foreach: currentPairing =>
-                roundApi.tell(currentPairing.gameId, AbortForce)
+                roundApi.tell(currentPairing.gameId, RoundBus.AbortForce)
               uids <- pairingRepo.opponentsOf(tour.id, userId)
               _    <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
               _    <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))

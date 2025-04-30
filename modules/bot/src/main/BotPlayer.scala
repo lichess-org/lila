@@ -27,7 +27,7 @@ final class BotPlayer(
           val promise = Promise[Unit]()
           if pov.player.isOfferingDraw && offeringDraw.has(false) then declineDraw(pov)
           else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
-          tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
+          Bus.pub(BotPlay(pov.gameId, pov.playerId, uci, promise.some))
           promise.future.recover:
             case _: lila.core.round.GameIsFinishedError if ~offeringDraw => ()
 

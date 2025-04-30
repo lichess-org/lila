@@ -203,7 +203,7 @@ final class Challenge(env: Env) extends LilaController(env):
                 case None =>
                   import lila.core.misc.map.Tell
                   import lila.core.round.Abort
-                  import lila.core.round.AbortForce
+                  import lila.core.round.RoundBus.AbortForce
                   env.game.gameRepo
                     .game(id.into(GameId))
                     .dmap:

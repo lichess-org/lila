@@ -12,7 +12,7 @@ import lila.core.userId.UserId
 
 case class Abort(gameId: GameId, playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
-case class BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
+case class BotPlay(gameId: GameId, playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
 case class Rematch(playerId: GamePlayerId, rematch: Boolean)
 case class Resign(playerId: GamePlayerId)
 case class Draw(playerId: GamePlayerId, draw: Boolean)
@@ -20,6 +20,13 @@ case class Takeback(playerId: GamePlayerId, takeback: Boolean)
 case class ResignForce(playerId: GamePlayerId)
 case class BotConnected(gameId: GameId, color: Color, v: Boolean)
 case object QuietFlag
+
+
+// for messages that also need to be sent via `lila.bus.Bus`
+enum RoundBus:
+  case AbortForce(gameId: GameId)
+
+case class Tell(id: GameId, msg: RoundBus)
 
 case class MoveEvent(
     gameId: GameId,
@@ -47,7 +54,6 @@ case class RematchCancel(gameId: GameId)
 case class Mlat(millis: Int)
 case class DeleteUnplayed(gameId: GameId)
 
-case class AbortForce(gameId: GameId)
 case object Threefold
 case object ResignAi
 case class DrawForce(playerId: GamePlayerId)
