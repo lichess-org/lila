@@ -27,7 +27,7 @@ final private class CorresAlarm(
     if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id))
   }
 
-  Bus.subscribeFun("moveEventCorres") { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
+  Bus.sub[lila.core.round.CorresMoveEvent] { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
     proxyGame(move.gameId).foreach:
       _.foreach: game =>
         game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved).so { clock =>

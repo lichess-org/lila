@@ -23,6 +23,4 @@ final class Env(
 
   def getStudies: lila.core.practice.GetStudies = api.structure.getStudies
 
-  lila.common.Bus.subscribeFun("study") { case lila.study.SaveStudy(study) =>
-    api.structure.onSave(study)
-  }
+  lila.common.Bus.sub[lila.study.SaveStudy](saved => api.structure.onSave(saved.study))

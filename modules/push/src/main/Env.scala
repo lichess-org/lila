@@ -5,6 +5,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 
@@ -48,30 +49,34 @@ final class Env(
   private def logUnit(f: Fu[?]): Unit =
     f.logFailure(logger)
     ()
-  lila.common.Bus.subscribeFun(
-    "finishGame",
-    "moveEventCorres",
-    "challenge",
-    "corresAlarm",
-    "offerEventCorres",
-    "tourSoon",
-    "notifyPush"
-  ):
+  Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) =>
       logUnit { pushApi.finish(game) }
+
+  Bus.sub[lila.core.round.CorresMoveEvent]:
     case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }
+
+  Bus.sub[lila.core.round.CorresTakebackOfferEvent]:
     case lila.core.round.CorresTakebackOfferEvent(gameId) =>
       logUnit { pushApi.takebackOffer(gameId) }
+
+  Bus.sub[lila.core.round.CorresDrawOfferEvent]:
     case lila.core.round.CorresDrawOfferEvent(gameId) =>
       logUnit { pushApi.drawOffer(gameId) }
+
+  Bus.sub[lila.core.challenge.PositiveEvent]:
     case lila.core.challenge.PositiveEvent.Create(c) =>
       logUnit { pushApi.challengeCreate(c) }
     case lila.core.challenge.PositiveEvent.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
+
+  Bus.sub[lila.core.game.CorresAlarmEvent]:
     case lila.core.game.CorresAlarmEvent(userId, pov: Pov, opponent) =>
       logUnit { pushApi.corresAlarm(pov) }
+
+  Bus.sub[lila.core.notify.PushNotification]:
     case lila.core.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
-    case t: lila.core.misc.push.TourSoon =>
-      logUnit { pushApi.tourSoon(t) }
+
+  Bus.sub[lila.core.misc.push.TourSoon](t => logUnit { pushApi.tourSoon(t) })

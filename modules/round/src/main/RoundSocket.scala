@@ -222,8 +222,7 @@ final class RoundSocket(
   Bus.sub[lila.core.round.DeleteUnplayed]:
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
-  // TODO FIXME think how to handle thiss
-  Bus.subscribeFun(BusChan.round.chan, BusChan.global.chan):
+  Bus.subscribeFunDyn(BusChan.round.chan, BusChan.global.chan):
     case lila.core.chat.ChatLine(id, l, json) =>
       val line = lila.chat.RoundLine(l, json, id.value.endsWith("/w"))
       rounds.tellIfPresent(GameId.take(id.value), line)

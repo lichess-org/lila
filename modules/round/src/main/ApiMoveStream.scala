@@ -62,8 +62,8 @@ final class ApiMoveStream(
                 queue.offer(makeGameJson(game))
                 queue.complete()
               else
-                val chans = List(MoveGameEvent.makeChan(game.id), "finishGame")
-                val subEvent = Bus.subscribeFun(chans*):
+                val chan = MoveGameEvent.makeChan(game.id)
+                val subEvent = Bus.subscribeFunDyn(chan):
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some))
                 val subFinish = Bus.sub[FinishGame]:
@@ -74,7 +74,7 @@ final class ApiMoveStream(
                 queue
                   .watchCompletion()
                   .addEffectAnyway:
-                    Bus.unsubscribeDyn(subEvent, chans)
+                    Bus.unsubscribeDyn(subEvent, List(chan))
                     Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
               if delayMoves
