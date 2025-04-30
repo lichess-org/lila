@@ -105,19 +105,18 @@ object protocol:
       yield TellSri(Sri(sri), UserId.from(optional(user)), typ, obj)
     }
 
-    case object WsBoot                                                               extends In
-    case class ConnectUser(userId: UserId)                                           extends In
-    case class ConnectUsers(userIds: Iterable[UserId])                               extends In
-    case class DisconnectUsers(userIds: Iterable[UserId])                            extends In
-    case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
-    case class DisconnectSris(sris: Iterable[Sri])                                   extends In
-    case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
-    case class Lag(userId: UserId, lag: Centis)                                      extends In
-    case class Lags(lags: Map[UserId, Centis])                                       extends In
-    case class TellSri(sri: Sri, userId: Option[UserId], typ: String, msg: JsObject) extends In
-    case class TellUser(userId: UserId, typ: String, msg: JsObject)                  extends In
-    case class ReqResponse(reqId: Int, response: String)                             extends In
-    case class Ping(id: String)                                                      extends In
+    case object WsBoot                                              extends In
+    case class ConnectUser(userId: UserId)                          extends In
+    case class ConnectUsers(userIds: Iterable[UserId])              extends In
+    case class DisconnectUsers(userIds: Iterable[UserId])           extends In
+    case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])   extends In
+    case class DisconnectSris(sris: Iterable[Sri])                  extends In
+    case class NotifiedBatch(userIds: Iterable[UserId])             extends In
+    case class Lag(userId: UserId, lag: Centis)                     extends In
+    case class Lags(lags: Map[UserId, Centis])                      extends In
+    case class TellUser(userId: UserId, typ: String, msg: JsObject) extends In
+    case class ReqResponse(reqId: Int, response: String)            extends In
+    case class Ping(id: String)                                     extends In
 
   object Out:
 
@@ -143,7 +142,6 @@ trait SocketRequester:
   def apply[R]: SocketRequest[R]
 
 object remote:
-  case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
   case class TellSriOut(sri: String, payload: JsValue)
   case class TellSrisOut(sris: Iterable[String], payload: JsValue)
   case class TellUserIn(user: UserId, msg: JsObject)
