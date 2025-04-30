@@ -51,9 +51,8 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using Executor, a
 
     def apply()(using Executor): Source[String, ?] =
       blueprint.mapMaterializedValue: queue =>
-        val sub = Bus.subscribeFun(classifier):
-          case signup: UserSignup => queue.offer(signup)
+        val sub = Bus.sub[UserSignup](queue.offer(_))
         queue
           .watchCompletion()
           .addEffectAnyway:
-            Bus.unsubscribe(sub, classifier)
+            Bus.unsub[UserSignup](sub)
