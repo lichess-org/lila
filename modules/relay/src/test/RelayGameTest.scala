@@ -42,3 +42,21 @@ class RelayGameTest extends munit.FunSuite:
   test("parse clock tags"):
     assertEquals(g2.tags.clocks.white, Centis.ofSeconds(23).some)
     assertEquals(g2.tags.clocks.black, Centis.ofSeconds(41).some)
+
+  test("slices"):
+    val (g1, g2, g3, g4, g5, g6, g7, g8) = (
+      makeGame("1. e4 e5"),
+      makeGame("1. d4 d5"),
+      makeGame("1. c4 c5"),
+      makeGame("1. Nf3 Nf6"),
+      makeGame("1. e4"),
+      makeGame("1. d4"),
+      makeGame("1. a3"),
+      makeGame("1. h3")
+    )
+    val all = Vector(g1, g2, g3, g4, g5, g6, g7, g8)
+    import RelayGame.Slices
+    def slice(str: String) = Slices.filter(Slices.parse(str))(all)
+    assertEquals(slice("1-3"), Vector(g1, g2, g3))
+    assertEquals(slice("4"), Vector(g4))
+    assertEquals(slice("7,8,2-3"), Vector(g2, g3, g7, g8))
