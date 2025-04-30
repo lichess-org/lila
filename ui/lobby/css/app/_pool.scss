@@ -8,7 +8,6 @@
   padding-top: 9px;
   background-color: transparent !important;
   box-shadow: none;
-  overflow: visible !important; // for button shadows
 
   @include fluid-size('font-size', 14px, 25px);
 
