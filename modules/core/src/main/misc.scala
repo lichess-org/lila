@@ -14,10 +14,6 @@ package streamer:
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
   object StreamersOnline
 
-// TODO FIXME, replace all of these with proper typed case class Bus
-package map:
-  case class Exists(id: String, promise: Promise[Boolean])
-
 package clas:
   enum ClasBus:
     case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])

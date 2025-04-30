@@ -54,6 +54,7 @@ case class RematchOffer(gameId: GameId)
 case class RematchCancel(gameId: GameId)
 case class Mlat(millis: Int)
 case class DeleteUnplayed(gameId: GameId)
+case class SocketExists(gameId: GameId, promise: Promise[Boolean])
 
 case object Threefold
 case object ResignAi

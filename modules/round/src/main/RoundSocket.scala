@@ -11,7 +11,6 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.core.game.TvSelect
-import lila.core.misc.map.Exists
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
@@ -200,9 +199,8 @@ final class RoundSocket(
   Bus.sub[FishnetStart.type](rounds.tellAll(_))
   Bus.sub[TellMany]:
     case TellMany(gameIds, msg) => rounds.tellIds(gameIds, msg)
-  // TODO FIXME move to pub
-  Bus.subscribeFun("roundSocket"):
-    case Exists(gameId, promise) => promise.success(rounds.exists(GameId(gameId)))
+  Bus.sub[SocketExists]:
+    case SocketExists(gameId, promise) => promise.success(rounds.exists(gameId))
 
   Bus.sub[TourStanding]:
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
