@@ -10,20 +10,43 @@
     <item quantity="one">%s nanonood</item>
     <item quantity="other">%s mga nanonood</item>
   </plurals>
-  <string name="liveBroadcasts">Mga live na brodkast sa torneo</string>
+  <string name="liveBroadcasts">Mga live na brodkast sa paligsahan</string>
   <string name="broadcastCalendar">Kalendaryo ng brodkast</string>
   <string name="newBroadcast">Bagong live na brodkast</string>
-  <string name="subscribedBroadcasts">Mga nag-subscribe na brodkast</string>
+  <string name="subscribedBroadcasts">Mga na-subscribe na brodkast</string>
   <string name="aboutBroadcasts">Tungkol sa mga brodkast</string>
   <string name="howToUseLichessBroadcasts">Paano gamitin ang mga Lichess Brodkast.</string>
-  <string name="tournamentName">Pangalan ng torneo</string>
+  <string name="theNewRoundHelp">Ang bagong round ay magkakaroon ng parehong mga miyembro at kontribyutor tulad ng nauna.</string>
+  <string name="addRound">Magdagdag ng isang round</string>
+  <string name="upcoming">Paparating</string>
+  <string name="roundName">Pangalan ng Round</string>
+  <string name="roundNumber">Numero ng Round</string>
+  <string name="tournamentName">Pangalan ng paligsahan</string>
+  <string name="tournamentDescription">Maikling paglalarawan ng paligsahan</string>
+  <string name="fullDescription">Buong paglalarawan ng paligsahan</string>
   <string name="currentGameUrl">Kasalukuyang URL ng laro</string>
+  <string name="downloadAllRounds">I-download ang lahat ng mga round</string>
+  <string name="resetRound">I-reset ang round na ito</string>
+  <string name="deleteRound">Tanggalin ang round na ito</string>
+  <string name="definitivelyDeleteRound">Tahasang tanggalin ang round at lahat ng mga laro nito.</string>
+  <string name="editRoundStudy">I-edit ang round ng pag-aaral</string>
+  <string name="deleteTournament">Tanggalin ang paligsahang ito</string>
+  <string name="definitivelyDeleteTournament">Tahasang tanggalin ang buong paligsahan, lahat ng mga round nito at lahat ng mga laro nito.</string>
+  <string name="showScores">Ipakita ang mga puntos ng mga manlalaro batay sa mga resulta ng laro</string>
+  <string name="replacePlayerTags">Opisyonal: palitan ang mga pangalan ng manlalaro, mga marka at mga titulo</string>
+  <string name="fideFederations">Mga FIDE pederasyon</string>
+  <string name="fidePlayers">Mga FIDE manlalaro</string>
+  <string name="fidePlayerNotFound">Hindi nahanap na FIDE manlalaro</string>
+  <string name="fideProfile">FIDE profile</string>
   <string name="federation">Pederasyon</string>
   <string name="ageThisYear">Edad ngayong taon</string>
   <string name="unrated">Hindi namarkahan</string>
+  <string name="recentTournaments">Kamakailang mga paligsahan</string>
   <string name="openLichess">Buksan sa Lichess</string>
   <string name="teams">Mga Koponan</string>
   <string name="boards">Mga Board</string>
+  <string name="subscribeTitle">Mag-subscribe upang maabisuhan kapag nagsimula ang bawat round. Maaari mong i-toggle ang kampana o push notification para sa mga brodkast sa iyong mga kagustuhan sa account.</string>
+  <string name="uploadImage">Mag-upload ng larawan ng paligsahan</string>
   <string name="noBoardsYet">Wala pang mga board. Lilitaw ang mga ito pagkatapos na-upload ang mga laro.</string>
   <string name="startsAfter">Magsisimula pagkatapos ng %s</string>
   <string name="officialWebsite">Opisyal na website</string>
@@ -32,15 +55,17 @@
   <string name="embedThisBroadcast">I-embed ang brodkast na ito sa iyong website</string>
   <string name="embedThisRound">I-embed ang %s sa iyong website</string>
   <string name="ratingDiff">Pagkakaiba ng marka</string>
-  <string name="gamesThisTournament">Mga laro sa torneo na ito</string>
+  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Mga laro sa torneo na ito</string>
   <string name="score">Iskor</string>
-  <string name="allTeams">Lahat ng mga koponan</string>
-  <string name="tournamentFormat">Format ng Torneo</string>
-  <string name="tournamentLocation">Lokasyon ng Torneo</string>
-  <string name="topPlayers">Mga nangungunang manlalaro</string>
-  <string name="timezone">Sona ng oras</string>
-  <string name="optionalDetails">Mga opsiyonal na detalye</string>
+  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Lahat ng mga koponan</string>
+  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Format ng Paligsahan</string>
+  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Lokasyon ng Paligsahan</string>
+  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Mga nangungunang manlalaro</string>
+  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Sona ng oras</string>
+  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Mga opsiyonal na detalye</string>
   <string name="pastBroadcasts">Mga nakaraang brodkast</string>
+  <string name="allBroadcastsByMonth">Tingnan ang lahat ng mga brodkast ayon sa buwan</string>
   <string name="backToLiveMove">Bumalik sa live ng tira</string>
-  <string name="liveboard">Live board</string>
+  <string name="sinceHideResults">Dahil pinili mong itago ang mga resulta, walang laman ang lahat ng preview board upang maiwasan ang mga spoiler.</string>
+  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live board</string>
 </resources>

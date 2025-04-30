@@ -185,4 +185,7 @@
   <string name="studyChaptersText">Štúdia môže obsahovať niekoľko kapitol.&lt;br&gt;Každá kapitola má odlišnú počiatočnú pozíciu a strom ťahov.</string>
   <string name="commentPositionTitle">Komentovať pozíciu</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kliknite na tlačidlo %s alebo kliknite pravým tlačidlom myši na záznam ťahov vpravo.&lt;br&gt;Komentáre sú zdieľané a uložené.</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvojitá prehra</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Čierny porazený, ale biely nedokáže vyhrať</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Biely porazený, ale čierny nedokáže vyhrať</string>
 </resources>
