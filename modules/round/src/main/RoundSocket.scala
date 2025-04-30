@@ -145,7 +145,7 @@ final class RoundSocket(
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
     case hold: Protocol.In.HoldAlert => rounds.tell(hold.fullId.gameId, hold)
-    case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
+    case r: Protocol.In.SelfReport   => Bus.pub(r)
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
