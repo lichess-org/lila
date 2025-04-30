@@ -233,7 +233,7 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>
-        Bus.publish2(OnReinstate(r.chat, r.user), BusChan.global.chan)
+        Bus.publishDyn(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       Speaker
@@ -314,8 +314,8 @@ final class ChatApi(
           flood.allowMessage(FloodSource(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
 
   private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
-    Bus.publish2(msg, busChan(BusChan).chan)
-    Bus.publish2(msg, Chat.chanOf(chatId))
+    Bus.publishDyn(msg, busChan(BusChan).chan)
+    Bus.publishDyn(msg, Chat.chanOf(chatId))
 
   private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
     JsonView(line).map: json =>

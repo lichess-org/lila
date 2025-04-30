@@ -59,7 +59,7 @@ final private class Rematcher(
   def no(pov: Pov): Fu[Events] =
     if isOffering(pov.ref) then
       pov.opponent.userId.foreach: forId =>
-        Bus.publish2(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
+        Bus.publishDyn(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
     else if isOffering(!pov.ref) then
       declined.put(pov.fullId)
@@ -77,7 +77,7 @@ final private class Rematcher(
     rematches.offer(pov.ref).map { _ =>
       messenger.volatile(pov.game, trans.site.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
-        Bus.publish2(lila.core.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
+        Bus.publishDyn(lila.core.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
       List(Event.RematchOffer(by = pov.color.some))
     }
 

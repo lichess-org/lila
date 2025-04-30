@@ -37,7 +37,7 @@ final class EventStream(
     given Lang = me.realLang | lila.core.i18n.defaultLang
 
     // kill previous one if any
-    Bus.publish2(PoisonPill, s"eventStreamFor:${me.userId}")
+    Bus.publishDyn(PoisonPill, s"eventStreamFor:${me.userId}")
 
     blueprint.mapMaterializedValue: queue =>
       gamesInProgress.map { gameJson(_, "gameStart") }.foreach(queue.offer)

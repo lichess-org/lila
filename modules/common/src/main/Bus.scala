@@ -24,7 +24,7 @@ object actorBus:
     // it's good to have subscribe and unsubscribe not taking channels the same way
     // to avoid calling one instead of the other
     def subscribeActorRefDynamic(ref: ActorRef, to: Iterable[Channel]) =
-      to.foreach(Bus.subscribe(ActorTellable(ref), _))
+      to.foreach(Bus.subscribeDyn(ActorTellable(ref), _))
 
     def unsubscribeActorRefDynamic(ref: ActorRef, from: Channel) =
-      Bus.unsubscribe(ActorTellable(ref), from)
+      Bus.unsubscribeDyn(ActorTellable(ref), List(from))

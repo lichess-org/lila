@@ -158,7 +158,7 @@ final private class MovePlayer(
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
     // also used for targeted TvBroadcast subscription
-    Bus.publish2(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent.makeChan(game.id))
+    Bus.publishDyn(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent.makeChan(game.id))
 
     // publish correspondence moves
     if game.isCorrespondence && game.nonAi then

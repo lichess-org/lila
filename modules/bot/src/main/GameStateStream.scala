@@ -31,7 +31,7 @@ final class GameStateStream(
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any
-    Bus.publish2(PoisonPill, uniqChan(init.game.pov(as)))
+    Bus.publishDyn(PoisonPill, uniqChan(init.game.pov(as)))
 
     blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(

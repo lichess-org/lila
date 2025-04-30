@@ -406,7 +406,7 @@ final private class RoundAsyncActor(
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
     if lila.game.Game.mightBeBoardOrBotCompatible(pov.game) then
-      lila.common.Bus.publish2(
+      lila.common.Bus.publishDyn(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)
       )

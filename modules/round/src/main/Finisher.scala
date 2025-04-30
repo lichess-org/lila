@@ -142,7 +142,7 @@ final private class Finisher(
               val finish = FinishGame(newGame | game, users)
               Bus.pub(finish)
               game.userIds.foreach: userId =>
-                Bus.publish2(finish, s"userFinishGame:$userId")
+                Bus.publishDyn(finish, s"userFinishGame:$userId")
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
 

@@ -404,6 +404,6 @@ final class TeamApi(
       .list(max)
 
   // TODO, can be fully replaced by .pub at each callsite
-  private def publish(msg: Any) = Bus.publish2(msg, "team")
+  private def publish(msg: Any) = Bus.publishDyn(msg, "team")
 
   export cached.nbRequests.get as nbRequests

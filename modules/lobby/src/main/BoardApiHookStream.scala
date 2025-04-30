@@ -26,7 +26,7 @@ final class BoardApiHookStream(
         .addEffectAnyway:
           actor ! PoisonPill
 
-  def cancel(sri: Sri) = Bus.publish2(RemoveHook(sri.value), s"hookRemove:${sri}")
+  def cancel(sri: Sri) = Bus.publishDyn(RemoveHook(sri.value), s"hookRemove:${sri}")
 
   def mustPlayAsColor(chosen: TriColor)(using me: Option[Me]): Fu[Option[Color]] =
     (chosen != TriColor.Random).so:
