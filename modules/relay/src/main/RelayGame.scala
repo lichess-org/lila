@@ -138,16 +138,14 @@ private object RelayGame:
   case class Slice(from: Int, to: Int)
 
   object Slices:
-    def filter(slices: List[Slice])(games: RelayGames): RelayGames =
+
+    def filterAndOrder(slices: List[Slice])(games: RelayGames): RelayGames =
       if slices.isEmpty then games
       else
-        games.view.zipWithIndex
-          .filter: (_, i) =>
-            val n = i + 1
-            slices.exists: s =>
-              n >= s.from && n <= s.to
-          .map(_._1)
-          .toVector
+        slices
+          .foldLeft(Vector.empty[Int]): (acc, slice) =>
+            acc ++ (slice.from to slice.to).toVector.filterNot(acc.contains)
+          .flatMap(i => games.lift(i - 1))
 
     // 1-5,12-15,20
     def parse(str: String): List[Slice] = str.trim
