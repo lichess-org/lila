@@ -4,6 +4,7 @@ package round
 import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.{ Color, Move }
 import play.api.libs.json.{ JsArray, JsObject }
+import scalalib.bus.NotBuseable
 
 import lila.core.game.{ Game, Pov }
 import lila.core.id.{ GameAnyId, GameId, GamePlayerId, SimulId, TourId }
@@ -13,8 +14,8 @@ import lila.core.userId.UserId
 case class Berserk(gameId: GameId, userId: UserId)
 
 // for messages that also need to be sent via `lila.bus.Bus`
-// TODO implement `NotBuseable` to avoid these being sent directly, instead of `Tell`
-enum RoundBus:
+// only allowed to be bused via `Tell`, to include a `GameId`
+enum RoundBus extends NotBuseable:
   case Abort(playerId: GamePlayerId)
   case AbortForce
   case BotConnected(color: Color, v: Boolean)

@@ -19,7 +19,7 @@ object actorBus:
 
     // LOGIC : It is up to the caller to make sure `T`'s channel is relevant to the `tellable`
     inline def unsubscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef) =
-      Bus.unsub[T](ActorTellable(ref))
+      Bus.unsubUnchecked[T](ActorTellable(ref))
 
     // it's good to have subscribe and unsubscribe not taking channels the same way
     // to avoid calling one instead of the other
