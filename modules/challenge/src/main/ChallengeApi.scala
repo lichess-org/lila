@@ -154,9 +154,7 @@ final class ChallengeApi(
                     uncacheAndNotify(c)
                     Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
                     c.rematchOf.foreach: gameId =>
-                      import lila.core.misc.map.TellIfExists
-                      import lila.game.actorApi.NotifyRematch
-                      Bus.pub(TellIfExists(gameId.value, NotifyRematch(pov.game)))
+                      Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
                     Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result

@@ -158,7 +158,7 @@ final private class RoundAsyncActor(
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         yield Nil
 
-    case lila.tree.AnalysisProgress(payload) =>
+    case lila.tree.AnalysisProgress(_, payload) =>
       fuccess:
         socketSend.exec:
           RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
@@ -293,7 +293,7 @@ final private class RoundAsyncActor(
           takebackBoard = board.some
           events
 
-    case lila.game.actorApi.NotifyRematch(newGame) =>
+    case lila.game.actorApi.NotifyRematch(_, newGame) =>
       fuccess:
         publish:
           rematcher.redirectEvents(newGame)

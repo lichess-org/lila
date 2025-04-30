@@ -11,7 +11,7 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.core.game.TvSelect
-import lila.core.misc.map.{ Exists, TellAll, TellIfExists, TellMany }
+import lila.core.misc.map.{ Exists, TellAll, TellMany }
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
@@ -188,12 +188,19 @@ final class RoundSocket(
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) => rounds.tell(gameId, msg)
+
+  Bus.sub[lila.tree.AnalysisProgress]:
+    case progress =>
+      rounds.tellIfPresent(progress.gameId, progress)
+
+  Bus.sub[lila.game.actorApi.NotifyRematch]:
+    case rematch =>
+      rounds.tellIfPresent(rematch.rematchOf, rematch)
     // TODO FIXME move to pub
   Bus.subscribeFun("roundSocket"):
-    case TellIfExists(gameId, msg) => rounds.tellIfPresent(GameId(gameId), msg)
-    case TellMany(gameIds, msg)    => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
-    case TellAll(msg)              => rounds.tellAll(msg)
-    case Exists(gameId, promise)   => promise.success(rounds.exists(GameId(gameId)))
+    case TellMany(gameIds, msg)  => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
+    case TellAll(msg)            => rounds.tellAll(msg)
+    case Exists(gameId, promise) => promise.success(rounds.exists(GameId(gameId)))
 
   Bus.sub[TourStanding]:
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
