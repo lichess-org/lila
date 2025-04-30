@@ -24,7 +24,7 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: ^9.1.1
+        specifier: 9.1.1
         version: 9.1.1
       chessops:
         specifier: ^0.14.2
@@ -32,6 +32,9 @@ importers:
       eslint:
         specifier: ^9.24.0
         version: 9.24.0
+      lichess-pgn-viewer:
+        specifier: 2.4.0
+        version: 2.4.0
       lint-staged:
         specifier: ^15.5.0
         version: 15.5.0
@@ -157,9 +160,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -324,9 +324,6 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
@@ -417,9 +414,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
 
   ui/palantir:
     dependencies:
@@ -459,9 +453,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
       swiper:
         specifier: ^11.2.4
         version: 11.2.4
@@ -501,9 +492,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
 
   ui/storm:
     dependencies:
@@ -540,9 +528,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
 
   ui/user:
     dependencies:
@@ -3494,7 +3479,7 @@ snapshots:
 
   lichess-pgn-viewer@2.4.0:
     dependencies:
-      '@types/node': 22.13.4
+      '@types/node': 22.14.1
       chessground: 9.1.1
       chessops: 0.14.2
       snabbdom: 3.6.2
