@@ -196,10 +196,11 @@ final class RoundSocket(
   Bus.sub[lila.game.actorApi.NotifyRematch]:
     case rematch =>
       rounds.tellIfPresent(rematch.rematchOf, rematch)
-    // TODO FIXME move to pub
+
+  Bus.sub[FishnetStart](rounds.tellAll(_))
+  // TODO FIXME move to pub
   Bus.subscribeFun("roundSocket"):
     case TellMany(gameIds, msg)  => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
-    case TellAll(msg)            => rounds.tellAll(msg)
     case Exists(gameId, promise) => promise.success(rounds.exists(GameId(gameId)))
 
   Bus.sub[TourStanding]:

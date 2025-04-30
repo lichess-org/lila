@@ -31,7 +31,7 @@ final class FishnetRedis(
       override def message(chan: String, msg: String): Unit =
         msg.split(' ') match
           // TODO FIXME migrate to new TellAll
-          case Array("start") => Bus.pub(TellAll(FishnetStart))
+          case Array("start") => Bus.pub(FishnetStart)
           case Array(gameId, sign, uci) =>
             Uci(uci).foreach { move =>
               Bus.pub(Tell(GameId(gameId), RoundBus.FishnetPlay(move, sign)))
