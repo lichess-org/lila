@@ -139,9 +139,13 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             withDescription = true,
             withAllowList = true
           )
-          chatOpt <- getBool("chat").so(loadChat(tour, data))
-          jsChat  <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
-        yield data.add("chat", jsChat).some
+          chatOpt       <- getBool("chat").so(loadChat(tour, data))
+          jsChat        <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
+          socketVersion <- getBool("socketVersion").soFu(env.tournament.version(tour.id))
+        yield data
+          .add("chat", jsChat)
+          .add("socketVersion" -> socketVersion)
+          .some
       .map(JsonOk(_))
 
   def standing(id: TourId, page: Int) = Open:
