@@ -41,8 +41,6 @@ object Registry:
   private def register(lang: Lang, translations: MessageMap): Unit =
     all = all + (lang -> translations)
     if lang == defaultLang then default = translations
-    // TODO fixme wrap in caseclass or publish2
-    lila.common.Bus.pub(lang)
 
   private def loadSerialized(lang: Lang): MessageMap = try
     val file       = s"i18n.${lang.code}.ser"
