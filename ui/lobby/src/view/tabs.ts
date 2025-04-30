@@ -17,7 +17,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 
 export default function (ctrl: LobbyController) {
   const nbPlaying = ctrl.data.nbNowPlaying,
-    myTurnPovsNb = ctrl.data.myTurnPovsNb,
+    nbMyTurn = ctrl.data.nbMyTurn,
     active = ctrl.tab,
     isBot = ctrl.me?.isBot;
   return [
@@ -27,7 +27,7 @@ export default function (ctrl: LobbyController) {
     active === 'now_playing' || nbPlaying || isBot
       ? tab(ctrl, 'now_playing', active, [
           ...i18n.site.nbGamesInPlay.asArray(nbPlaying, nbPlaying >= 100 ? '99+' : nbPlaying.toString()),
-          myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 100 ? '99+' : myTurnPovsNb) : null,
+          nbMyTurn > 0 ? h('i.unread', nbMyTurn >= 100 ? '99+' : nbMyTurn) : null,
         ])
       : null,
   ];

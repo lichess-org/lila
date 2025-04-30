@@ -78,7 +78,7 @@ export interface LobbyData {
   seeks: Seek[];
   me?: LobbyMe;
   nbNowPlaying: number;
-  myTurnPovsNb: number;
+  nbMyTurn: number;
   nowPlaying: NowPlaying[];
   ratingMap: Record<Perf, RatingWithProvisional> | null;
   counters: { members: number; rounds: number };
