@@ -16,7 +16,7 @@ package streamer:
 
 // TODO FIXME, replace all of these with proper typed case class Bus
 package map:
-  case class Tell(id: String, msg: Any)
+  // case class Tell(id: String, msg: Any)
   case class TellIfExists(id: String, msg: Any)
   case class TellMany(ids: Seq[String], msg: Any)
   case class TellAll(msg: Any)

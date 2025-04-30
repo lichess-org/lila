@@ -3,7 +3,6 @@ package lila.bot
 import chess.format.Uci
 
 import lila.common.Bus
-import lila.core.misc.map.Tell
 import lila.core.round.*
 import lila.core.shutup.PublicSource
 import lila.game.GameExt.playerCanOfferDraw
@@ -27,7 +26,7 @@ final class BotPlayer(
           val promise = Promise[Unit]()
           if pov.player.isOfferingDraw && offeringDraw.has(false) then declineDraw(pov)
           else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
-          Bus.pub(BotPlay(pov.gameId, pov.playerId, uci, promise.some))
+          tellRound(pov.gameId, RoundBus.BotPlay(pov.playerId, uci, promise.some))
           promise.future.recover:
             case _: lila.core.round.GameIsFinishedError if ~offeringDraw => ()
 
@@ -54,46 +53,47 @@ final class BotPlayer(
           // delay so it feels more natural
           lila.common.LilaFuture.delay(if accept then 100.millis else 1.second):
             fuccess:
-              tellRound(pov.gameId, Rematch(pov.playerId, accept))
+              tellRound(pov.gameId, RoundBus.Rematch(pov.playerId, accept))
           true
         }
 
   // TODO FIXME remove and use dedicated types
-  private def tellRound(id: GameId, msg: Any) =
-    Bus.pub(Tell(id.value, msg))
+  private def tellRound(id: GameId, msg: RoundBus) =
+    Bus.pub(Tell(id, msg))
 
   def abort(pov: Pov): Funit =
     if !pov.game.abortableByUser then clientError("This game can no longer be aborted")
     else
       fuccess:
-        Bus.pub(Abort(pov.gameId, pov.playerId))
+        tellRound(pov.gameId, RoundBus.Abort(pov.playerId))
 
   def resign(pov: Pov): Funit =
     if pov.game.abortableByUser then
       fuccess:
-        Bus.pub(Abort(pov.gameId, pov.playerId))
+        tellRound(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then
       fuccess:
-        tellRound(pov.gameId, Resign(pov.playerId))
+        tellRound(pov.gameId, RoundBus.Resign(pov.playerId))
     else clientError("This game cannot be resigned")
 
   private def declineDraw(pov: Pov): Unit =
-    if pov.game.drawable && pov.opponent.isOfferingDraw then tellRound(pov.gameId, Draw(pov.playerId, false))
+    if pov.game.drawable && pov.opponent.isOfferingDraw then
+      tellRound(pov.gameId, RoundBus.Draw(pov.playerId, false))
 
   private def offerDraw(pov: Pov): Unit =
     if pov.game.drawable && (pov.game.playerCanOfferDraw(pov.color) || pov.opponent.isOfferingDraw) then
-      tellRound(pov.gameId, Draw(pov.playerId, true))
+      tellRound(pov.gameId, RoundBus.Draw(pov.playerId, true))
 
   def setDraw(pov: Pov, v: Boolean): Unit =
     if v then offerDraw(pov) else declineDraw(pov)
 
   def setTakeback(pov: Pov, v: Boolean): Unit =
     if pov.game.playable && pov.game.canTakebackOrAddTime then
-      tellRound(pov.gameId, Takeback(pov.playerId, v))
+      tellRound(pov.gameId, RoundBus.Takeback(pov.playerId, v))
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin.so:
-      tellRound(pov.gameId, ResignForce(pov.playerId))
+      tellRound(pov.gameId, RoundBus.ResignForce(pov.playerId))
       lila.common.LilaFuture.delay(500.millis):
         gameRepo
           .finished(pov.gameId)

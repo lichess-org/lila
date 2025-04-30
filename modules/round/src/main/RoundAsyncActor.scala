@@ -120,7 +120,7 @@ final private class RoundAsyncActor(
         whitePlayer.setOnline(white)
         blackPlayer.setOnline(black)
 
-    case IsOnGame(color, promise) =>
+    case RoundBus.IsOnGame(color, promise) =>
       fuccess:
         promise.success(getPlayer(color).isOnline)
 
@@ -183,7 +183,7 @@ final private class RoundAsyncActor(
           MoveLatMonitor.recordMicros(lap.micros)
       )
 
-    case p: BotPlay =>
+    case p: RoundBus.BotPlay =>
       val res = proxy
         .withPov(p.playerId):
           _.so: pov =>
@@ -193,16 +193,16 @@ final private class RoundAsyncActor(
       p.promise.foreach(_.completeWith(res))
       res
 
-    case FishnetPlay(uci, hash) =>
+    case RoundBus.FishnetPlay(uci, hash) =>
       handle: game =>
         player.fishnet(game, hash, uci)
       .mon(_.round.move.time)
 
-    case Abort(_, playerId) =>
+    case RoundBus.Abort(playerId) =>
       handle(playerId): pov =>
         pov.game.abortableByUser.so(finisher.abort(pov))
 
-    case Resign(playerId) =>
+    case RoundBus.Resign(playerId) =>
       handle(playerId): pov =>
         pov.game.resignable.so(finisher.other(pov.game, _.Resign, Some(!pov.color)))
 
@@ -227,7 +227,7 @@ final private class RoundAsyncActor(
         val progress = pov.game.setBlindfold(pov.color, value)
         (proxy.save(progress) >> gameRepo.setBlindfold(pov, value)).inject(Nil)
 
-    case ResignForce(playerId) =>
+    case RoundBus.ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
           getPlayer(!pov.color).isLongGone.flatMap:
@@ -250,7 +250,7 @@ final private class RoundAsyncActor(
         game.playable.so(finisher.abortForce(game))
 
     // checks if any player can safely (grace) be flagged
-    case QuietFlag =>
+    case RoundBus.QuietFlag =>
       handle: game =>
         game.outoftime(withGrace = true).so(finisher.outOfTime(game))
 
@@ -269,8 +269,8 @@ final private class RoundAsyncActor(
           if game.abortable then finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
-    case Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
-    case DrawClaim(playerId)  => handle(playerId)(drawer.claim)
+    case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
+    case DrawClaim(playerId)           => handle(playerId)(drawer.claim)
     case Cheat(color) =>
       handle: game =>
         (game.playable && !game.sourceIs(_.Import)).so:
@@ -285,9 +285,9 @@ final private class RoundAsyncActor(
             _.foreach: pov =>
               this ! DrawClaim(pov.player.id)
 
-    case Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
+    case RoundBus.Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
 
-    case Takeback(playerId, takeback) =>
+    case RoundBus.Takeback(playerId, takeback) =>
       handle(playerId): pov =>
         takebacker(~takebackBoard)(pov, takeback).map: (events, board) =>
           takebackBoard = board.some
@@ -331,7 +331,7 @@ final private class RoundAsyncActor(
           val progress = moretimer.give(game, Color.all, 20.seconds)
           proxy.save(progress).inject(progress.events)
 
-    case BotConnected(_, color, v) =>
+    case RoundBus.BotConnected(color, v) =>
       fuccess:
         getPlayer(color).setBotConnected(v)
 

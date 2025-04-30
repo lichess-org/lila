@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.core.round.{ Abandon, QuietFlag }
+import lila.core.round.{ Abandon, RoundBus }
 import lila.db.dsl.*
 import lila.game.GameExt.abandoned
 import lila.game.{ GameRepo, Query }
@@ -85,7 +85,7 @@ final private class Titivate(
 
         case game if game.outoftime(withGrace = true) =>
           fuccess:
-            roundApi.tell(game.id, QuietFlag)
+            roundApi.tell(game.id, RoundBus.QuietFlag)
 
         case game if game.abandoned =>
           fuccess:

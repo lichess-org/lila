@@ -11,7 +11,7 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.core.round.QuietFlag
+import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
@@ -617,7 +617,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.pub(
-                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag)
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), RoundBus.QuietFlag)
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished

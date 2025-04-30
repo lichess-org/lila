@@ -4,8 +4,7 @@ import chess.{ Black, Clock, White }
 import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
-import lila.core.misc.map.Tell
-import lila.core.round.FishnetPlay
+import lila.core.round.{ Tell, RoundBus }
 
 final class FishnetPlayer(
     redis: FishnetRedis,
@@ -23,7 +22,7 @@ final class FishnetPlayer(
               uciMemo
                 .sign(game)
                 .map: sign =>
-                  Bus.pub(Tell(game.id.value, FishnetPlay(move, sign)))
+                  Bus.pub(Tell(game.id, RoundBus.FishnetPlay(move, sign)))
             case None => makeWork(game, level).addEffect(redis.request).void
       .recover { case e: Exception =>
         logger.info(e.getMessage)

@@ -11,7 +11,7 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.core.game.TvSelect
-import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.misc.map.{ Exists, TellAll, TellIfExists, TellMany }
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
@@ -108,20 +108,20 @@ final class RoundSocket(
       def forward(f: GamePlayerId => Any) = rounds.tell(fullId.gameId, f(fullId.playerId))
       tpe match
         case "moretime"      => forward(Moretime(_))
-        case "rematch-yes"   => forward(Rematch(_, true))
-        case "rematch-no"    => forward(Rematch(_, false))
-        case "takeback-yes"  => forward(Takeback(_, true))
-        case "takeback-no"   => forward(Takeback(_, false))
-        case "draw-yes"      => forward(Draw(_, true))
-        case "draw-no"       => forward(Draw(_, false))
+        case "rematch-yes"   => forward(RoundBus.Rematch(_, true))
+        case "rematch-no"    => forward(RoundBus.Rematch(_, false))
+        case "takeback-yes"  => forward(RoundBus.Takeback(_, true))
+        case "takeback-no"   => forward(RoundBus.Takeback(_, false))
+        case "draw-yes"      => forward(RoundBus.Draw(_, true))
+        case "draw-no"       => forward(RoundBus.Draw(_, false))
         case "draw-claim"    => forward(DrawClaim(_))
-        case "resign"        => forward(Resign(_))
-        case "resign-force"  => forward(ResignForce(_))
+        case "resign"        => forward(RoundBus.Resign(_))
+        case "resign-force"  => forward(RoundBus.ResignForce(_))
         case "blindfold-yes" => forward(Blindfold(_, true))
         case "blindfold-no"  => forward(Blindfold(_, false))
         case "draw-force"    => forward(DrawForce(_))
-        case "abort"         => forward(Abort(fullId.gameId, _))
-        case "outoftime"     => forward(_ => QuietFlag) // mobile app BC
+        case "abort"         => forward(RoundBus.Abort(_))
+        case "outoftime"     => forward(_ => RoundBus.QuietFlag) // mobile app BC
         case t               => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
@@ -183,14 +183,13 @@ final class RoundSocket(
     case TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId).exec(Protocol.Out.tvSelect(gameId, speed, json))
 
-
-  Bus.sub[BotConnected]:
-    case e @ BotConnected(gameId, color, v) =>
+  Bus.sub[Tell]:
+    case Tell(gameId, e @ RoundBus.BotConnected(color, v)) =>
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
+    case Tell(gameId, msg) => rounds.tell(gameId, msg)
     // TODO FIXME move to pub
   Bus.subscribeFun("roundSocket"):
-    case Tell(gameId, msg)         => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg) => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)    => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
     case TellAll(msg)              => rounds.tellAll(msg)

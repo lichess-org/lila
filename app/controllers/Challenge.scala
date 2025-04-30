@@ -201,9 +201,7 @@ final class Challenge(env: Env) extends LilaController(env):
               .flatMap:
                 case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
                 case None =>
-                  import lila.core.misc.map.Tell
-                  import lila.core.round.Abort
-                  import lila.core.round.RoundBus.AbortForce
+                  import lila.core.round.{ Tell, RoundBus }
                   env.game.gameRepo
                     .game(id.into(GameId))
                     .dmap:
@@ -213,7 +211,7 @@ final class Challenge(env: Env) extends LilaController(env):
                     }
                     .flatMap:
                       case Some(pov) if pov.game.abortableByUser =>
-                        lila.common.Bus.pub(Abort(pov.gameId, pov.playerId))
+                        lila.common.Bus.pub(Tell(pov.gameId, RoundBus.Abort(pov.playerId)))
                         jsonOkResult
                       case Some(pov) if pov.game.playable =>
                         Bearer.from(get("opponentToken")) match
@@ -223,13 +221,13 @@ final class Challenge(env: Env) extends LilaController(env):
                               .auth(bearer, required, ctx.req.some)
                               .map:
                                 case Right(access) if pov.opponent.isUser(access.me) =>
-                                  lila.common.Bus.pub(AbortForce(pov.gameId))
+                                  lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
                                   jsonOkResult
                                 case Right(_)  => BadRequest(jsonError("Not the opponent token"))
                                 case Left(err) => BadRequest(jsonError(err.message))
                           case None if api.isOpenBy(id, me) =>
                             if pov.game.abortable then
-                              lila.common.Bus.pub(AbortForce(pov.gameId))
+                              lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
                               jsonOkResult
                             else BadRequest(jsonError("The game can no longer be aborted"))
                           case None => BadRequest(jsonError("Missing opponentToken"))
