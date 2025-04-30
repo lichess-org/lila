@@ -101,11 +101,3 @@ export function shallowSort(obj: { [key: string]: any }): { [key: string]: any }
   for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
   return sorted;
 }
-
-export function reduceWhitespace(text: string): string {
-  return text.trim().replace(/\s+/g, ' ');
-}
-
-export function trimLines(s: string): string[] {
-  return s.split(/[\n\r\f]+/).filter(x => x.trim());
-}

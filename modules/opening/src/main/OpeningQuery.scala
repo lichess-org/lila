@@ -1,6 +1,5 @@
 package lila.opening
 
-import chess.MoveOrDrop.*
 import chess.Replay
 import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
 import chess.format.{ Fen, Uci }

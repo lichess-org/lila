@@ -113,7 +113,7 @@ object Event:
     ): Move = Move(
       orig = move.orig,
       dest = move.dest,
-      san = move.san,
+      san = move.toSanStr,
       fen = Fen.writeBoard(situation.board),
       check = situation.check,
       threefold = situation.threefoldRepetition,
@@ -160,7 +160,7 @@ object Event:
     ): Drop = Drop(
       role = drop.piece.role,
       pos = drop.square,
-      san = drop.san,
+      san = drop.toSanStr,
       fen = Fen.writeBoard(situation.board),
       check = situation.check,
       threefold = situation.threefoldRepetition,

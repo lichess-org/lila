@@ -165,6 +165,10 @@
   <string name="whatWouldYouPlay">Cosa giocheresti in questa posizione?</string>
   <string name="youCompletedThisLesson">Congratulazioni! Hai completato questa lezione.</string>
   <string name="perPage">%s per pagina</string>
+  <string name="getTheTour">Hai bisogno di aiuto? Fai un tour!</string>
   <string name="welcomeToLichessStudyTitle">Benvenuto allo Studio!</string>
+  <string name="welcomeToLichessStudyText">Questa è una scacchiera di analisi condivisa.&lt;br&gt;&lt;br&gt;Usala per analizzare e annotare le partite,&lt;br&gt;discutere delle posizioni con gli amici,&lt;br&gt;e, naturalmente, per le lezioni di scacchi!&lt;br&gt;&lt;br&gt;È uno strumento potente, prendiamoci un po\' di tempo per vedere come funziona.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Condivisa e salvata</string>
+  <string name="sharedAndSavedText">Altri membri possono vedere le tue mosse in tempo reale!&lt;br&gt;Inoltre, tutto è salvato per sempre.</string>
   <string name="fromPgnGameTitle">Preso da una partita PGN</string>
 </resources>

@@ -7,7 +7,8 @@ import lila.core.user.RoleDbKey
 final private[security] class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
-    verifyMail: VerifyMail
+    verifyMail: VerifyMail,
+    gc: GarbageCollector
 )(using ec: Executor)
     extends lila.common.Cli:
 
@@ -36,6 +37,15 @@ final private[security] class Cli(
           .validateDomain(dom)
           .map: r =>
             s"$r ${r.error | ""}"
+
+    case "garbage" :: "collect" :: uid :: Nil =>
+      UserStr
+        .read(uid)
+        .so(userRepo.enabledById)
+        .map:
+          _.fold("No such user"): u =>
+            gc.waitThenCollect(u, "manual GC", quickly = false)
+            "GC scheduled"
 
   private def WithDomain(e: String)(f: Domain.Lower => Fu[String]) =
     EmailAddress

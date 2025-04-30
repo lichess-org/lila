@@ -119,7 +119,7 @@ final class JsonView(
           .add("verdicts" -> verdicts.map(verdictsFor(_, tour.perfType)))
           .add("schedule" -> tour.scheduleData.map(scheduleJson))
           .add("private" -> tour.isPrivate)
-          .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id.value)))
+          .add("quote" -> quoteOf(tour))
           .add("defender" -> shieldOwner)
           .add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
             Json.obj("name" -> tour.name, "url" -> url)
@@ -147,6 +147,9 @@ final class JsonView(
             JsString({
               if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
             }.replace("{id}", tour.id.value)))
+
+  private def quoteOf(tour: Tournament) =
+    tour.isCreated.option(lila.quote.Quote.one(s"${tour.id} ${tour.name}"))
 
   def clearCache(tour: Tournament): Unit =
     standingApi.clearCache(tour)
