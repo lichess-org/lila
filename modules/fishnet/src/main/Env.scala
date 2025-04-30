@@ -101,7 +101,7 @@ final class Env(
           .flatMap:
             if _ then
               api.createClient(UserStr(name).id).map { client =>
-                Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+                Bus.pub(lila.core.fishnet.NewKey(client.userId, client.key.value))
                 s"Created key: ${client.key.value} for: $name"
               }
             else fuccess("User missing, closed, or banned")

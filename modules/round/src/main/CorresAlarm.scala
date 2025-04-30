@@ -65,7 +65,7 @@ final private class CorresAlarm(
                   lila.game.Namer
                     .playerText(pov.opponent)(using lightUser.async)
                     .foreach: opponent =>
-                      Bus.publish(lila.core.game.CorresAlarmEvent(userId, pov, opponent), "notify")
+                      Bus.pub(lila.core.game.CorresAlarmEvent(userId, pov, opponent))
             }
           )
         case (alarm, None) => deleteAlarm(alarm._id)

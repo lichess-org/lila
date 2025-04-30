@@ -59,7 +59,7 @@ final class BotPlayer(
         }
 
   private def tellRound(id: GameId, msg: Any) =
-    Bus.publish(Tell(id.value, msg), "roundSocket")
+    Bus.pub(Tell(id.value, msg))
 
   def abort(pov: Pov): Funit =
     if !pov.game.abortableByUser then clientError("This game can no longer be aborted")
@@ -104,5 +104,5 @@ final class BotPlayer(
 
   def berserk(game: Game)(using me: Me): Boolean =
     game.berserkable.so:
-      Bus.publish(Berserk(game.id, me), "berserk")
+      Bus.pub(Berserk(game.id, me))
       true

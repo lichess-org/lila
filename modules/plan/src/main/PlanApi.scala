@@ -529,7 +529,7 @@ final class PlanApi(
       _.exists(_.isLifetime)
 
   def setLifetime(user: User): Funit =
-    if user.plan.isEmpty then Bus.publish(lila.core.misc.plan.MonthInc(user.id, 0), "plan")
+    if user.plan.isEmpty then Bus.pub(lila.core.misc.plan.MonthInc(user.id, 0))
     for
       _ <- userApi.setPlan(user, user.plan.enable.some)
       _ <- mongo.patron.update
@@ -683,14 +683,13 @@ final class PlanApi(
     } >>
       monthlyGoalApi.get
         .map: m =>
-          Bus.publish(
+          Bus.pub(
             lila.core.misc.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,
               nowInstant
             ),
-            "plan"
           )
           lila.mon.plan.goal.update(m.goal.cents)
           lila.mon.plan.current.update(m.current.cents)

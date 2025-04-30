@@ -28,7 +28,7 @@ final private class RelaySync(
     appends <- plan.append.toList.sequentially: game =>
       createChapter(rt, study, game)
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
-    _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
+    _      = lila.common.Bus.publish2(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
     // because studies always have a chapter,
     // broadcasts without game have an empty initial chapter.

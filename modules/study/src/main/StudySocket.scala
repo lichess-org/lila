@@ -113,7 +113,7 @@ final private class StudySocket(
             .foreach: username =>
               applyWho: w =>
                 api.kick(studyId, username.id, w.myId)
-                Bus.publish(Kick(studyId, username.id, w.myId), "kickStudy")
+                Bus.pub(Kick(studyId, username.id, w.myId))
 
         case "leave" =>
           who.foreach: w =>
@@ -234,7 +234,7 @@ final private class StudySocket(
 
         case "relaySync" =>
           applyWho: w =>
-            Bus.publish(RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
+            Bus.pub(RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w))
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 

@@ -112,10 +112,11 @@ final class Env(
           for _ <- lightUserApi.preloadMany(game.userIds)
           yield
             val sg = lila.core.game.StartGame(game)
-            Bus.publish(sg, "startGame")
+            Bus.pub(sg)
             game.userIds.foreach: userId =>
-              Bus.publish(sg, s"userStartGame:$userId")
-            if game.playableByAi then Bus.publish(game, "fishnetPlay")
+              Bus.publish2(sg, s"userStartGame:$userId")
+            // TODO FIXME wrap the game in a specific wrapper to be able to use .pub
+            if game.playableByAi then Bus.publish2(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 

@@ -84,7 +84,7 @@ final private class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.core.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
+      Bus.pub(lila.core.game.TvSelect(game.id, game.speed, channel.key, data))
       if channel == Tv.Channel.Best then
         lila.common.Bus
           .ask[Html]("renderer")(RenderFeaturedJs(game, _))
@@ -100,7 +100,7 @@ final private class TvSyncActor(
                 )
               )
             )
-            Bus.publish(event, "changeFeaturedGame")
+            Bus.pub(event)
 
 private object TvSyncActor:
 

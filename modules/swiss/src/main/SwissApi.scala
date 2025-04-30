@@ -478,7 +478,7 @@ final class SwissApi(
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
-          Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
+          Bus.pub(SwissFinish(swiss.id, ranking))
 
   def kill(swiss: Swiss): Funit = for _ <-
       if swiss.isStarted then
@@ -616,9 +616,8 @@ final class SwissApi(
                 lila.mon.swiss.games("flagged").record(flagged.size)
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
-                  Bus.publish(
-                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
-                    "roundSocket"
+                  Bus.pub(
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag)
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished

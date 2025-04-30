@@ -92,7 +92,7 @@ final private class Titivate(
             roundApi.tell(game.id, Abandon)
 
         case game if unplayed(game) =>
-          lila.common.Bus.publish(lila.core.round.DeleteUnplayed(game.id), "roundUnplayed")
+          lila.common.Bus.pub(lila.core.round.DeleteUnplayed(game.id))
           chatApi.remove(game.id.into(ChatId))
           gameRepo.remove(game.id)
 

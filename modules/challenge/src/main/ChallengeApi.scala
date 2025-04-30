@@ -55,7 +55,7 @@ final class ChallengeApi(
     for _ <- repo.insertIfMissing(c)
     yield
       uncacheAndNotify(c)
-      Bus.publish(lila.core.challenge.Event.Create(c), "challenge")
+      Bus.pub(lila.core.challenge.Event.Create(c))
 
   def isOpenBy(id: ChallengeId, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
@@ -88,7 +88,7 @@ final class ChallengeApi(
     for _ <- repo.cancel(c)
     yield
       uncacheAndNotify(c)
-      Bus.publish(Event.Cancel(c.cancel), "challenge")
+      Bus.pub(Event.Cancel(c.cancel))
 
   private def offline(c: Challenge) = for _ <- repo.offline(c) yield uncacheAndNotify(c)
 
@@ -104,7 +104,7 @@ final class ChallengeApi(
     for _ <- repo.decline(c, reason)
     yield
       uncacheAndNotify(c)
-      Bus.publish(Event.Decline(c.declineWith(reason)), "challenge")
+      Bus.pub(Event.Decline(c.declineWith(reason)))
 
   private val acceptQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
@@ -151,12 +151,11 @@ final class ChallengeApi(
                   .accept(c)
                   .inject:
                     uncacheAndNotify(c)
-                    Bus.publish(lila.core.challenge.Event.Accept(c, me.map(_.id)), "challenge")
+                    Bus.pub(lila.core.challenge.Event.Accept(c, me.map(_.id)))
                     c.rematchOf.foreach: gameId =>
                       import lila.core.misc.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
-                      lila.common.Bus
-                        .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")
+                      Bus.pub(TellIfExists(gameId.value, NotifyRematch(pov.game)))
                     Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result
@@ -174,7 +173,7 @@ final class ChallengeApi(
     _ <- repo.update(challenge)
   yield
     uncacheAndNotify(challenge)
-    Bus.publish(lila.core.challenge.Event.Create(challenge), "challenge")
+    Bus.pub(lila.core.challenge.Event.Create(challenge))
 
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.sequentiallyVoid(remove))
@@ -215,9 +214,8 @@ final class ChallengeApi(
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang
-        Bus.publish(
-          SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all))),
-          "socketUsers"
+        Bus.pub(
+          SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all)))
         )
 
   // work around circular dependency

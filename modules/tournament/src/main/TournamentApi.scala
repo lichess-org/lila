@@ -758,9 +758,8 @@ final class TournamentApi(
     private val debouncer = Debouncer[Unit](scheduler.scheduleOnce(15.seconds, _), 1): _ =>
       given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
-        Bus.publish(
-          lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
-          "sendToFlag"
+        Bus.pub(
+          lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json))
         )
       }
     def apply() = debouncer.push(())
@@ -777,9 +776,8 @@ final class TournamentApi(
       tournamentTop(tourId).map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
-          Bus.publish(
-            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
-            "tourStanding"
+          Bus.pub(
+            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync))
           )
           lastPublished.put(tourId, top.hashCode)
       }

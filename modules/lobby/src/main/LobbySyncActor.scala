@@ -182,7 +182,7 @@ final private class LobbySyncActor(
       publishRemoveHook(hook)
 
   private def publishRemoveHook(hook: Hook): Unit =
-    Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
+    Bus.publish2(RemoveHook(hook.id), s"hookRemove:${hook.id}")
 
 private object LobbySyncActor:
 

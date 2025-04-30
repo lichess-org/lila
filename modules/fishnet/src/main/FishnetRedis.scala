@@ -30,10 +30,10 @@ final class FishnetRedis(
     new RedisPubSubAdapter[String, String]:
       override def message(chan: String, msg: String): Unit =
         msg.split(' ') match
-          case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
+          case Array("start") => Bus.pub(TellAll(FishnetStart))
           case Array(gameId, sign, uci) =>
             Uci(uci).foreach { move =>
-              Bus.publish(Tell(gameId, FishnetPlay(move, sign)), "roundSocket")
+              Bus.pub(Tell(gameId, FishnetPlay(move, sign)))
             }
           case _ =>
 

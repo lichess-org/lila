@@ -134,7 +134,7 @@ final class RoundSocket(
       messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId)
-    case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
+    case Protocol.In.Berserk(gameId, userId) => Bus.pub(Berserk(gameId, userId))
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines.foreach:
         case (gameId, Some(on)) =>

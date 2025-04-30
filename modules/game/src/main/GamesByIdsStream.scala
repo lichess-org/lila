@@ -37,7 +37,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
       .map(GameStream.gameWithInitialFenWriter.writes)
 
   def addGameIds(streamId: String, gameIds: Set[GameId]) =
-    Bus.publish(WatchGames(gameIds), streamChan(streamId))
+    Bus.publish2(WatchGames(gameIds), streamChan(streamId))
 
   private case class WatchGames(ids: Set[GameId])
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"

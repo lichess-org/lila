@@ -330,7 +330,7 @@ final class TeamApi(
           yield ()
         else
           for _ <- teamRepo.enable(team)
-          yield Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
+          yield Bus.pub(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
@@ -403,6 +403,7 @@ final class TeamApi(
       .cursor[Team](ReadPref.sec)
       .list(max)
 
-  private def publish(msg: Any) = Bus.publish(msg, "team")
+  // TODO, can be fully replaced by .pub at each callsite
+  private def publish(msg: Any) = Bus.publish2(msg, "team")
 
   export cached.nbRequests.get as nbRequests

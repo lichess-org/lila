@@ -206,17 +206,16 @@ final class ChatApi(
             line.foreach: l =>
               publishLine(chat.id, l, busChan)
             if isMod || isRelayMod then
-              lila.common.Bus.publish(
+              Bus.pub(
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
                   reason = reason,
                   text = text
-                ),
-                "chatTimeout"
+                )
               )
               if isNew then
-                lila.common.Bus.publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
+                Bus.pub(lila.core.security.DeletePublicChats(user.id))
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
@@ -235,7 +234,7 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>
-        Bus.publish(OnReinstate(r.chat, r.user), BusChan.global.chan)
+        Bus.publish2(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       Speaker
@@ -316,8 +315,8 @@ final class ChatApi(
           flood.allowMessage(FloodSource(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
 
   private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
-    Bus.publish(msg, busChan(BusChan).chan)
-    Bus.publish(msg, Chat.chanOf(chatId))
+    Bus.publish2(msg, busChan(BusChan).chan)
+    Bus.publish2(msg, Chat.chanOf(chatId))
 
   private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
     JsonView(line).map: json =>

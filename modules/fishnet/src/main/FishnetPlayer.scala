@@ -23,7 +23,7 @@ final class FishnetPlayer(
               uciMemo
                 .sign(game)
                 .map: sign =>
-                  Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
+                  Bus.pub(Tell(game.id.value, FishnetPlay(move, sign)))
             case None => makeWork(game, level).addEffect(redis.request).void
       .recover { case e: Exception =>
         logger.info(e.getMessage)

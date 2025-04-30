@@ -156,15 +156,14 @@ final private[puzzle] class PuzzleFinisher(
                             .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
                             .void
                     _ = if prevRound.isEmpty then
-                      Bus.publish(
+                      Bus.pub(
                         Puzzle
                           .UserResult(
                             puzzle.id,
                             me.userId,
                             win,
                             perf.intRating -> userPerf.intRating
-                          ),
-                        "finishPuzzle"
+                          )
                       )
                   yield (round -> userPerf).some
 

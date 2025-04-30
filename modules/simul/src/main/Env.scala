@@ -74,12 +74,11 @@ final class Env(
     },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
-      Bus.publish(
+      Bus.pub(
         lila.core.socket.SendTo(
           opponentUserId,
           lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
-        ),
-        "socketUsers"
+        )
       )
     }
   )

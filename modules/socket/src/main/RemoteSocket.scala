@@ -42,14 +42,14 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.core.notify.NotifiedBatch(userIds), "notify")
+      Bus.pub(lila.core.notify.NotifiedBatch(userIds))
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         userLag.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellUser(userId, typ, msg) =>
-      Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
+      Bus.publish2(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send.exec(Out.pong(id))
     case In.WsBoot =>

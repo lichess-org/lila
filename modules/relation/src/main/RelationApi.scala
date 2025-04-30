@@ -139,7 +139,7 @@ final class RelationApi(
             yield
               countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
               lila.common.Bus.pub(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
-              Bus.publish(lila.core.relation.Follow(u1, u2), "relation")
+              Bus.pub(lila.core.relation.Follow(u1, u2))
               lila.mon.relation.follow.increment()
         }
       }
@@ -165,10 +165,9 @@ final class RelationApi(
           _ <- limitBlock(u1)
           _ <- unfollow(u2, u1)
         yield
-          Bus.publish(lila.core.relation.Block(u1, u2), "relation")
-          Bus.publish(
-            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)),
-            "socketUsers"
+          Bus.pub(lila.core.relation.Block(u1, u2))
+          Bus.pub(
+            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1))
           )
           lila.mon.relation.block.increment()
     })
@@ -178,7 +177,7 @@ final class RelationApi(
       for _ <- repo.unfollow(u1, u2)
       yield
         countFollowingCache.update(u1, _ - 1)
-        Bus.publish(lila.core.relation.UnFollow(u1, u2), "relation")
+        Bus.pub(lila.core.relation.UnFollow(u1, u2))
         lila.mon.relation.unfollow.increment()
     })
 
@@ -186,10 +185,9 @@ final class RelationApi(
     (u1 != u2).so(fetchBlocks(u1, u2).flatMapz {
       for _ <- repo.unblock(u1, u2)
       yield
-        Bus.publish(lila.core.relation.UnBlock(u1, u2), "relation")
-        Bus.publish(
-          lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
-          "socketUsers"
+        Bus.pub(lila.core.relation.UnBlock(u1, u2))
+        Bus.pub(
+          lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1))
         )
         lila.mon.relation.unblock.increment()
     })

@@ -80,7 +80,7 @@ final class ChallengeBulkApi(
       )
       .flatMapz: bulk =>
         workQueue(bulk.by):
-          Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+          Bus.pub(TellMany(bulk.games.map(_.id.value), StartClock))
           coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
