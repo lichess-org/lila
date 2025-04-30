@@ -96,8 +96,8 @@ final class Mod(
     }
   }(reportC.onModAction)
 
-  def kid(username: UserStr) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
-    api.setKid(me.id.into(ModId), username).dmap(some)
+  def kid(username: UserStr, v: Boolean) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
+    api.setKid(me.id.into(ModId), username, lila.core.user.KidMode(v)).dmap(some)
   }(actionResult(username))
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>

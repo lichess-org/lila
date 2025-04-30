@@ -564,7 +564,7 @@ POST  /mod/:username/troll/:v          controllers.Mod.troll(username: UserStr, 
 POST  /mod/:username/isolate/:v        controllers.Mod.isolate(username: UserStr, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: UserStr)
 POST  /mod/:username/warn              controllers.Mod.warn(username: UserStr, subject)
-POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr)
+POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr, v: Boolean)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: UserStr)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: UserStr)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: UserStr)
