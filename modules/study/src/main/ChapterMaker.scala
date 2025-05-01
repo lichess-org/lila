@@ -100,7 +100,7 @@ final private class ChapterMaker(
             fen = Fen.write(sit),
             check = sit.situation.check,
             clock = none,
-            crazyData = sit.situation.board.crazyData,
+            crazyData = sit.situation.crazyData,
             children = Branches.empty
           ) -> true
         case None => Root.default(variant) -> false

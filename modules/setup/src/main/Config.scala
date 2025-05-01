@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ Clock, Game as ChessGame, Situation, Speed }
+import chess.{ Clock, Game as ChessGame, Board, Situation, Speed }
 import scalalib.model.Days
 
 import lila.lobby.TriColor
@@ -28,7 +28,7 @@ private[setup] trait Config:
   def hasClock = timeMode == TimeMode.RealTime
 
   def makeGame(v: Variant): ChessGame =
-    ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
+    ChessGame(situation = Board(v), clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -90,14 +90,12 @@ trait Positional:
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
     builder(chessGame).dmap { game =>
-      state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
+      state.fold(game) { case sit @ Situation.AndFullMoveNumber(board, _) =>
         game.copy(
           chess = game.chess.copy(
             situation = game.situation.copy(
-              board = game.board.copy(
-                history = board.history,
-                variant = FromPosition
-              )
+              history = board.history,
+              variant = FromPosition
             ),
             ply = sit.ply
           )

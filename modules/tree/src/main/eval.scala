@@ -2,7 +2,7 @@ package lila.tree
 
 import cats.data.NonEmptyList
 import chess.format.Uci
-import chess.Situation
+import chess.Board
 import chess.eval.{ Eval as Ev, * }
 
 case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
@@ -47,4 +47,4 @@ case class Pv(score: Score, moves: Moves)
 case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth, by: UserId)
 
 object CloudEval:
-  type GetSinglePvEval = Situation => Fu[Option[CloudEval]]
+  type GetSinglePvEval = Board => Fu[Option[CloudEval]]

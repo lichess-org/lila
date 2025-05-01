@@ -270,7 +270,7 @@ final class GameUi(helpers: Helpers):
       chessgroundMini(
         if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
         then Fen.Board("8/8/8/8/8/8/8/8")
-        else Fen.writeBoard(pov.game.board),
+        else Fen.writeBoard(pov.game.situation),
         if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
         pov.game.history.lastMove
       )

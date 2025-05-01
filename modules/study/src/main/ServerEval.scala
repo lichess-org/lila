@@ -148,7 +148,7 @@ object ServerEval:
         move = m,
         fen = Fen.write(g),
         check = g.situation.check,
-        crazyData = g.situation.board.crazyData,
+        crazyData = g.situation.crazyData,
         clock = none,
         forceVariation = false
       )

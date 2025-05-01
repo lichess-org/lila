@@ -53,7 +53,7 @@ object Metas:
       fen = Fen.write(sit),
       check = sit.situation.check,
       clock = none,
-      crazyData = sit.situation.board.crazyData
+      crazyData = sit.situation.crazyData
     )
 
 case class NewBranch(

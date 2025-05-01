@@ -302,7 +302,7 @@ object RoundSocket:
           case _               => 1
       } / {
         import chess.variant.*
-        (pov.game.chess.board.materialImbalance, pov.game.variant) match
+        (pov.game.chess.situation.materialImbalance, pov.game.variant) match
           case (_, Antichess | Crazyhouse | Horde)                                   => 1
           case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
           case _                                                                     => 1

@@ -30,7 +30,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
   private def addPhase(puzzle: Puzzle): Funit =
     puzzle.situationAfterInitialMove match
       case Some(sit) =>
-        val theme = Divider(List(sit.board)) match
+        val theme = Divider(List(sit)) match
           case Division(None, Some(_), _) => PuzzleTheme.endgame
           case Division(Some(_), None, _) => PuzzleTheme.middlegame
           case _                          => PuzzleTheme.opening

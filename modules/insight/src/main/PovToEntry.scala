@@ -2,7 +2,7 @@ package lila.insight
 
 import chess.format.pgn.SanStr
 import chess.opening.OpeningDb
-import chess.{ Centis, Clock, Ply, Role, Situation, Stats }
+import chess.{ Board, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis }
@@ -13,13 +13,13 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    situations: NonEmptyList[Situation],
+    situations: NonEmptyList[Board],
     clock: Option[Clock.Config],
     movetimes: Option[Vector[Centis]],
     clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
 ):
-  lazy val division = chess.Divider(situations.map(_.board).toList)
+  lazy val division = chess.Divider(situations.toList)
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
@@ -141,7 +141,7 @@ final private class PovToEntry(
           cpl = cpDiffs.lift(i).flatten,
           winPercent = prevInfo.map(_.eval).flatMap(_.score).map(WinPercent.fromScore),
           accuracyPercent = accuracyPercent,
-          material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
+          material = situation.materialImbalance * from.pov.color.fold(1, -1),
           awareness = awareness,
           luck = luck,
           blur = blur,
