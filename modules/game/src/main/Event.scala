@@ -14,7 +14,7 @@ import chess.{
   Move as ChessMove,
   Ply,
   PromotableRole,
-  Board,
+  Position,
   Square,
   Status
 }
@@ -106,7 +106,7 @@ object Event:
   object Move:
     def apply(
         move: ChessMove,
-        board: Board,
+        board: Position,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
@@ -153,7 +153,7 @@ object Event:
   object Drop:
     def apply(
         drop: ChessDrop,
-        board: Board,
+        board: Position,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]

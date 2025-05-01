@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
-import chess.{ Board, ByColor, FullMoveNumber }
+import chess.{ Position, ByColor, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
 
@@ -74,9 +74,9 @@ final class UserAnalysis(
     makePov:
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Board.AndFullMoveNumber(Board(variant), FullMoveNumber.initial)
+      } | Position.AndFullMoveNumber(Position(variant), FullMoveNumber.initial)
 
-  private[controllers] def makePov(from: Board.AndFullMoveNumber): Pov =
+  private[controllers] def makePov(from: Position.AndFullMoveNumber): Pov =
     Pov(
       lila.core.game
         .newGame(

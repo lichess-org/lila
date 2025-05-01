@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.format.pgn.SanStr
-import chess.{ Board, MoveOrDrop, Ply, Replay }
+import chess.{ Position, MoveOrDrop, Ply, Replay }
 
 import lila.analyse.{ Analysis, Info }
 import lila.core.lilaism.LilaException
@@ -34,7 +34,7 @@ private object UciToSan:
           case ((sit, moves), uci) => validateMove(moves, sit, ply, uci)
       yield moves._2.reverse.map(_.toSanStr)
 
-    def validateMove(acc: List[MoveOrDrop], sit: Board, ply: Ply, uci: Uci) =
+    def validateMove(acc: List[MoveOrDrop], sit: Position, ply: Ply, uci: Uci) =
       uci(sit).bimap(e => s"ply $ply $e", move => move.boardAfter -> (move :: acc))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):

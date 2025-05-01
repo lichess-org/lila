@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
+import chess.{ Position, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
 import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus
@@ -152,15 +152,15 @@ object Rematcher:
       initialFen: Option[Fen.Full],
       shouldRepeatChess960Position: Boolean
   ): ChessGame =
-    val prevBoard = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
-    val newBoard = variant match
-      case Chess960 if shouldRepeatChess960Position => prevBoard.fold(Board(Chess960))(_.board)
-      case Chess960                                 => Board(Chess960)
-      case variant                                  => prevBoard.fold(Board(variant))(_.board)
-    val ply   = prevBoard.fold(Ply.initial)(_.ply)
-    val color = prevBoard.fold[Color](White)(_.board.color)
+    val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
+    val newPosition = variant match
+      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.board)
+      case Chess960                                 => Position(Chess960)
+      case variant                                  => prevPosition.fold(Position(variant))(_.board)
+    val ply   = prevPosition.fold(Ply.initial)(_.ply)
+    val color = prevPosition.fold[Color](White)(_.board.color)
     ChessGame(
-      board = newBoard.withColor(color),
+      board = newPosition.withColor(color),
       clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply
