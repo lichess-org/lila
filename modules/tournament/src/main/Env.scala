@@ -138,7 +138,7 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
-    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
+    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isRecentPlayer(tourId, userId)
 
   def cli =
     new lila.common.Cli:

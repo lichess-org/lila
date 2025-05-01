@@ -33,8 +33,8 @@ importers:
         specifier: ^9.24.0
         version: 9.24.0
       lichess-pgn-viewer:
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.4.5
+        version: 2.4.5
       lint-staged:
         specifier: ^15.5.0
         version: 15.5.0
@@ -1679,8 +1679,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lichess-pgn-viewer@2.4.0:
-    resolution: {integrity: sha512-89cDSzIkpCuFbgrMvsQRYo1ZJLCSPXHwopjIWIWpinCPG9QUVliiMBRhCLA1l0evr0yrrj9ErlWxS9PV41Pepg==}
+  lichess-pgn-viewer@2.4.5:
+    resolution: {integrity: sha512-u3pP7q9KPQz/dpXqp65gGznczCDstKrASI1Y8OrrzdSpokrFpC8S/Y0WBBETro1qWUJr71xcJmRCkMjH+2cKow==}
 
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
@@ -2025,10 +2025,6 @@ packages:
   snabbdom@3.5.1:
     resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
     engines: {node: '>=8.3.0'}
-
-  snabbdom@3.6.2:
-    resolution: {integrity: sha512-ig5qOnCDbugFntKi6c7Xlib8bA6xiJVk8O+WdFrV3wxbMqeHO0hXFQC4nAhPVWfZfi8255lcZkNhtIBINCc4+Q==}
-    engines: {node: '>=12.17.0'}
 
   sortablejs@1.15.6:
     resolution: {integrity: sha512-aNfiuwMEpfBM/CN6LY0ibyhxPfPbyFeBTYJKCvzkJ2GkUpazIt3H+QIPAMHwqQ7tMKaHz1Qj+rJJCqljnf4p3A==}
@@ -3477,12 +3473,12 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lichess-pgn-viewer@2.4.0:
+  lichess-pgn-viewer@2.4.5:
     dependencies:
       '@types/node': 22.14.1
       chessground: 9.1.1
       chessops: 0.14.2
-      snabbdom: 3.6.2
+      snabbdom: 3.5.1
 
   lilconfig@3.1.3: {}
 
@@ -3841,8 +3837,6 @@ snapshots:
       is-fullwidth-code-point: 5.0.0
 
   snabbdom@3.5.1: {}
-
-  snabbdom@3.6.2: {}
 
   sortablejs@1.15.6: {}
 
