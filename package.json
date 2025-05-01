@@ -36,7 +36,7 @@
     "chessground": "9.1.1",
     "chessops": "^0.14.2",
     "eslint": "^9.24.0",
-    "lichess-pgn-viewer": "2.4.0",
+    "lichess-pgn-viewer": "2.4.4",
     "lint-staged": "^15.5.0",
     "onchange": "^7.1.0",
     "prettier": "^3.5.3",

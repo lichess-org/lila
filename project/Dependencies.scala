@@ -23,11 +23,11 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.33.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.5.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.0.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
-  val munit       = "org.scalameta"              %% "munit"         % "1.1.0" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.1.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.19.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.1"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
