@@ -152,9 +152,9 @@
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s играч на вези</item>
-    <item quantity="few">%s играча на вези</item>
-    <item quantity="other">%s играча на вези</item>
+    <item quantity="one">%s играч</item>
+    <item quantity="few">%s играча</item>
+    <item quantity="other">%s играча</item>
   </plurals>
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
@@ -274,7 +274,7 @@
   <string name="blackTimeOut">Време истекло црном</string>
   <string name="drawOfferSent">Понуда за реми послата</string>
   <string name="drawOfferAccepted">Понуда за реми прихваћена</string>
-  <string name="drawOfferCanceled">Предлог за реми је повучен</string>
+  <string name="drawOfferCanceled">Понуда за реми повучена</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
   <string name="blackOffersDraw">Црни нуди реми</string>
   <string name="whiteDeclinesDraw">Бели одбија реми</string>
@@ -299,7 +299,7 @@
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш послата</string>
   <string name="rematchOfferAccepted">Понуда за реванш прихваћена</string>
-  <string name="rematchOfferCanceled">Понуда за реванш је отказана</string>
+  <string name="rematchOfferCanceled">Понуда за реванш повучена</string>
   <string name="rematchOfferDeclined">Понуда за реванш одбијена</string>
   <string name="cancelRematchOffer">Откажи понуду за реванш</string>
   <string name="viewRematch">Погледај реванш</string>
@@ -343,9 +343,9 @@
   <string name="exportGames">Извези партије</string>
   <string name="ratingRange">Распон рејтинга</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Додај %s секунд</item>
-    <item quantity="few">Додај %s секунде</item>
-    <item quantity="other">Додај %s секунди</item>
+    <item quantity="one">Дај %s секунд</item>
+    <item quantity="few">Дај %s секунде</item>
+    <item quantity="other">Дај %s секунди</item>
   </plurals>
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
@@ -474,7 +474,7 @@
   <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">Листа</string>
   <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">Графикон</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Мање од %s минут</item>
+    <item quantity="one">Мање од %s минуте</item>
     <item quantity="few">Мање од %s минута</item>
     <item quantity="other">Мање од %s минута</item>
   </plurals>
@@ -627,14 +627,14 @@
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и необавезне.</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Највише: %s карактер</item>
-    <item quantity="few">Највише: %s карактера</item>
-    <item quantity="other">Највише: %s карактера</item>
+    <item quantity="one">Максимално: %s карактер.</item>
+    <item quantity="few">Максимално: %s карактера.</item>
+    <item quantity="other">Максимално: %s карактера.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s блокиран</item>
-    <item quantity="few">%s блокиранa</item>
-    <item quantity="other">%s блокираних</item>
+    <item quantity="one">%s блокирање</item>
+    <item quantity="few">%s блокирања</item>
+    <item quantity="other">%s блокирања</item>
   </plurals>
   <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
   <string name="human">Особа</string>
@@ -784,7 +784,7 @@
   <string name="sessions">Сесије</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
   <string name="playChessEverywhere">Играј шах свуда</string>
-  <string name="everybodyGetsAllFeaturesForFree">Сви добијају све функције бесплатно</string>
+  <string name="everybodyGetsAllFeaturesForFree">Сви добијају све могућности за бесплатно</string>
   <string name="viewTheSolution">Погледај решење</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно у %s језику!</item>
