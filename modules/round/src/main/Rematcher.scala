@@ -143,7 +143,7 @@ final private class Rematcher(
     spectatorRedirect :: ownerRedirects.toList
 
 object Rematcher:
-  // returns a new chess game with the same Situation as the previous game
+  // returns a new chess game with the same Board as the previous game
   // except for Chess960, where if shouldRepeatChess960Position is true,
   // the same position is returned otherwise a new random position is returned
   def returnChessGame(
@@ -152,15 +152,15 @@ object Rematcher:
       initialFen: Option[Fen.Full],
       shouldRepeatChess960Position: Boolean
   ): ChessGame =
-    val prevSituation = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
-    val newSituation = variant match
-      case Chess960 if shouldRepeatChess960Position => prevSituation.fold(Board(Chess960))(_.situation)
+    val prevBoard = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
+    val newBoard = variant match
+      case Chess960 if shouldRepeatChess960Position => prevBoard.fold(Board(Chess960))(_.board)
       case Chess960                                 => Board(Chess960)
-      case variant                                  => prevSituation.fold(Board(variant))(_.situation)
-    val ply   = prevSituation.fold(Ply.initial)(_.ply)
-    val color = prevSituation.fold[Color](White)(_.situation.color)
+      case variant                                  => prevBoard.fold(Board(variant))(_.board)
+    val ply   = prevBoard.fold(Ply.initial)(_.ply)
+    val color = prevBoard.fold[Color](White)(_.board.color)
     ChessGame(
-      situation = newSituation.withColor(color),
+      board = newBoard.withColor(color),
       clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply

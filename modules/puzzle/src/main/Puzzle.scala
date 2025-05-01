@@ -17,17 +17,17 @@ case class Puzzle(
   // ply after "initial move" when we start solving
   def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
-  lazy val situationAfterInitialMove: Option[chess.Board] =
+  lazy val boardAfterInitialMove: Option[chess.Board] =
     for
       sit1 <- Fen.read(fen)
-      sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
+      sit2 <- sit1.move(line.head).toOption.map(_.boardAfter)
     yield sit2
 
   lazy val initialGame: chess.Game =
     chess.Game(none, fenAfterInitialMove.some).withTurns(initialPly + 1)
 
   lazy val fenAfterInitialMove: Fen.Full =
-    situationAfterInitialMove.map(Fen.write).err(s"Can't apply puzzle $id first move")
+    boardAfterInitialMove.map(Fen.write).err(s"Can't apply puzzle $id first move")
 
   def color = !fen.colorOrWhite
 

@@ -25,7 +25,7 @@ object RageSit:
   def imbalanceInc(game: Game, loser: Color) = Update.Inc:
     {
       import chess.variant.*
-      (game.chess.situation.materialImbalance, game.variant) match
+      (game.chess.board.materialImbalance, game.variant) match
         case (_, Crazyhouse | Horde | Antichess) => 0
         case (a, _) if a >= 4                    => 1
         case (a, _) if a <= -4                   => -1
