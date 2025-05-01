@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Board, ByColor, Mode }
+import chess.{ Position, ByColor, Mode }
 
 import lila.core.user.GameUser
 
@@ -55,17 +55,17 @@ private object ChallengeJoiner:
       variant: Variant,
       tc: Challenge.TimeControl,
       initialFen: Option[Fen.Full]
-  ): (chess.Game, Option[Board.AndFullMoveNumber]) =
+  ): (chess.Game, Option[Position.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(board = Board(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(board = Position(variant), clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)
       .flatMap:
         Fen.readWithMoveNumber(variant, _)
 
-    baseState.fold(makeChess(variant) -> none[Board.AndFullMoveNumber]): sp =>
+    baseState.fold(makeChess(variant) -> none[Position.AndFullMoveNumber]): sp =>
       val game = chess.Game(
         board = sp.board,
         ply = sp.ply,
@@ -75,7 +75,7 @@ private object ChallengeJoiner:
       if variant.fromPosition && Fen.write(game).isInitial then makeChess(chess.variant.Standard) -> none
       else game                                                                                   -> baseState
 
-  def addGameHistory(position: Option[Board.AndFullMoveNumber])(game: Game): Game =
+  def addGameHistory(position: Option[Position.AndFullMoveNumber])(game: Game): Game =
     position.fold(game): sp =>
       game.copy(
         chess = game.chess.copy(

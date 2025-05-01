@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 
-case class ValidFen(fen: Fen.Full, board: chess.Board):
+case class ValidFen(fen: Fen.Full, board: chess.Position):
 
   def color = board.color
 

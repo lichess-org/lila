@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.bitboard.Board as BBoard
+import chess.bitboard.Board
 import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
@@ -126,7 +126,7 @@ object BSONHandlers:
             .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
-            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
+            board = Board.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -140,7 +140,7 @@ object BSONHandlers:
           )
 
       val chessGame = ChessGame(
-        board = chess.Board(
+        board = chess.Position(
           board = decoded.board,
           history = ChessHistory(
             lastMove = decoded.lastMove,

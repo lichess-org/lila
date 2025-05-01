@@ -17,7 +17,7 @@ case class Puzzle(
   // ply after "initial move" when we start solving
   def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
-  lazy val boardAfterInitialMove: Option[chess.Board] =
+  lazy val boardAfterInitialMove: Option[chess.Position] =
     for
       sit1 <- Fen.read(fen)
       sit2 <- sit1.move(line.head).toOption.map(_.boardAfter)
