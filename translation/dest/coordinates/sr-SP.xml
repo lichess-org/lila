@@ -8,5 +8,9 @@
   <string name="mostChessCourses">Већина шаховских курсева и вежби интензивно користе алгебарску нотацију.</string>
   <string name="talkToYourChessFriends">Олакшава вам причање о шаху са вашим пријатељима, јер обоје разумете \"језик шаха\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Можете ефективније анализирати партије ако можете брзо препознати координате.</string>
+  <string name="showCoordinates">Прикажи координате</string>
+  <string name="showCoordsOnAllSquares">Координате на сваком пољу</string>
+  <string name="showPieces">Прикажи фигуре</string>
   <string name="startTraining">Започни тренинг</string>
+  <string name="findSquare">Пронађи поље</string>
 </resources>
