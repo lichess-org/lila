@@ -1,11 +1,10 @@
 package lila.tree
-import chess.bitboard.Bitboard
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.json.Json.given
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Check, HasId, Mergeable, Node as ChessNode, Ply, Position, Square, Tree, Variation }
+import chess.{ Bitboard, Check, HasId, Mergeable, Node as ChessNode, Ply, Position, Square, Tree, Variation }
 import monocle.syntax.all.*
 import play.api.libs.json.*
 import scalalib.json.Json.{ *, given }
