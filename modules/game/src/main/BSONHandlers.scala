@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.bitboard.Board
 import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
+  Board,
   ByColor,
   CheckCount,
   Clock,
@@ -64,7 +64,7 @@ object BSONHandlers:
       val (white, black) = r.str("p").view.flatMap(chess.Piece.fromChar).to(List).partition(_.is(chess.White))
       Crazyhouse.Data(
         pockets = ByColor(white, black).map(pieces => Pocket(pieces.map(_.role))),
-        promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
+        promoted = chess.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =

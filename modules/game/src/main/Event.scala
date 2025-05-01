@@ -1,11 +1,11 @@
 package lila.game
 
-import chess.bitboard.Bitboard
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
 import chess.rating.IntRatingDiff
 import chess.{
+  Bitboard,
   Centis,
   Check,
   Clock as ChessClock,
