@@ -35,7 +35,7 @@ case class AnaDrop(
           dests = Some(movable.so(game.situation.destinations)),
           opening = OpeningDb.findByFullFen(fen),
           drops = if movable then game.situation.drops else Some(Nil),
-          crazyData = game.situation.board.crazyData
+          crazyData = game.situation.crazyData
         )
 
 object AnaDrop:

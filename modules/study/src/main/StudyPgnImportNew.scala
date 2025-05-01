@@ -33,7 +33,7 @@ object StudyPgnImportNew:
             NewRoot(
               Metas(
                 ply = replay.setup.ply,
-                fen = initialFen | game.board.variant.initialFen,
+                fen = initialFen | game.situation.variant.initialFen,
                 check = replay.setup.situation.check,
                 dests = None,
                 drops = None,
@@ -43,7 +43,7 @@ object StudyPgnImportNew:
                 gamebook = None,
                 glyphs = Glyphs.empty,
                 opening = None,
-                crazyData = replay.setup.situation.board.crazyData,
+                crazyData = replay.setup.situation.crazyData,
                 clock = clock
               ),
               parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
@@ -54,7 +54,7 @@ object StudyPgnImportNew:
               status = res.status,
               points = res.points,
               resultText = chess.Outcome.showPoints(res.points.some),
-              statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+              statusText = lila.tree.StatusText(res.status, res.winner, game.situation.variant)
             )
 
           val commented =
@@ -67,7 +67,7 @@ object StudyPgnImportNew:
               }
           Result(
             root = commented,
-            variant = game.board.variant,
+            variant = game.situation.variant,
             tags = PgnTags
               .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
             end = gameEnd
@@ -121,7 +121,7 @@ object StudyPgnImportNew:
               glyphs = data.metas.glyphs,
               opening = None,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData
+              crazyData = game.situation.crazyData
             )
           )
 

@@ -14,7 +14,7 @@ import chess.{
   Move as ChessMove,
   Ply,
   PromotableRole,
-  Situation,
+  Board,
   Square,
   Status
 }
@@ -106,7 +106,7 @@ object Event:
   object Move:
     def apply(
         move: ChessMove,
-        situation: Situation,
+        situation: Board,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
@@ -114,7 +114,7 @@ object Event:
       orig = move.orig,
       dest = move.dest,
       san = move.toSanStr,
-      fen = Fen.writeBoard(situation.board),
+      fen = Fen.writeBoard(situation),
       check = situation.check,
       threefold = situation.threefoldRepetition,
       fiftyMoves = situation.variant.fiftyMoves(situation.history),
@@ -153,7 +153,7 @@ object Event:
   object Drop:
     def apply(
         drop: ChessDrop,
-        situation: Situation,
+        situation: Board,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
@@ -161,7 +161,7 @@ object Event:
       role = drop.piece.role,
       pos = drop.square,
       san = drop.toSanStr,
-      fen = Fen.writeBoard(situation.board),
+      fen = Fen.writeBoard(situation),
       check = situation.check,
       threefold = situation.threefoldRepetition,
       state = state,

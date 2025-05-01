@@ -93,7 +93,7 @@ final private class GameJson(
               .valueOr: err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")
               .lastOption
-            uciMove <- situation.board.history.lastMove
+            uciMove <- situation.history.lastMove
           yield Json.obj(
             "fen" -> Fen.write(situation).value,
             "ply" -> (plies + 1),

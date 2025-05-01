@@ -2,7 +2,7 @@ package lila.round
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.{ ByColor, Centis, Ply, Replay, Situation }
+import chess.{ ByColor, Centis, Ply, Replay }
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -53,7 +53,7 @@ final class ApiMoveStream(
                   queue.offer(
                     toJson(
                       Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
-                      s.board.history.lastMove.map(_.uci),
+                      s.history.lastMove.map(_.uci),
                       clk
                     )
                   )

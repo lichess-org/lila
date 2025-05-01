@@ -73,5 +73,5 @@ ${trans.common_orPaste.txt()}
   private val tokener = StringToken.withLifetimeAndFutureValue[TokenPayload](
     secret = tokenerSecret,
     lifetime = 10.minutes,
-    getCurrentValue = t => userRepo.email(t.userId).dmap(_.so(_.value))
+    getCurrentValue = t => userRepo.email(t.userId).dmap(_.fold("none")(_.value))
   )

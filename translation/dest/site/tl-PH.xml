@@ -481,7 +481,7 @@
   <string name="endgamePositions">Posisyon ng Endgame</string>
   <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
-  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Linisin ang board</string>
+  <string name="clearBoard">Linisin ang board</string>
   <string name="loadPosition">I-load ang posisyon</string>
   <string name="isPrivate">Pribado</string>
   <string name="reportXToModerators">I-report %s sa mga moderator</string>

@@ -70,7 +70,7 @@ object StepBuilder:
         check = init.situation.check,
         dests = None,
         drops = None,
-        crazyData = init.situation.board.crazyData
+        crazyData = init.situation.crazyData
       )
       val moveSteps = games.map: (g, m) =>
         Step(
@@ -80,7 +80,7 @@ object StepBuilder:
           check = g.situation.check,
           dests = None,
           drops = None,
-          crazyData = g.situation.board.crazyData
+          crazyData = g.situation.crazyData
         )
       (initStep :: moveSteps).map(_.toJson)
 

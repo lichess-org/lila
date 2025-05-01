@@ -9,6 +9,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.web.AnnounceApi
+import lila.core.user.KidMode
 
 final class Account(
     env: Env,
@@ -307,7 +308,7 @@ final class Account(
             ),
           _ =>
             for
-              _ <- env.user.repo.setKid(me, getBool("v"))
+              _ <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
               res <- negotiate(
                 Redirect(routes.Account.kid).flashSuccess,
                 jsonOkResult
@@ -317,7 +318,7 @@ final class Account(
   }
 
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me ?=>
-    getBoolOpt("v") match
+    getBoolOptAs[KidMode]("v") match
       case None    => BadRequest(jsonError("Missing v parameter"))
       case Some(v) => env.user.repo.setKid(me, v).inject(jsonOkResult)
   }

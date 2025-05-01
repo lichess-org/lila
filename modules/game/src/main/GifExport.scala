@@ -3,7 +3,7 @@ package lila.game
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
-import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
+import chess.{ Board, Centis, Color, Game as ChessGame, Replay }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
@@ -69,7 +69,7 @@ final class GifExport(
       )
 
   def thumbnail(
-      situation: Situation,
+      situation: Board,
       white: Option[String] = None,
       black: Option[String] = None,
       orientation: Color,
@@ -143,7 +143,7 @@ final class GifExport(
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
         framesRec(tail, arr :+ frame(game.situation, uci, delay))
 
-  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
+  private def frame(situation: Board, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
         "fen"      -> (Fen.write(situation)),

@@ -163,10 +163,10 @@ object GameExt:
           updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
 
       val events = moveOrDrop.fold(
-        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+        Event.Move(_, game.situation, state, clockEvent, updated.situation.crazyData),
+        Event.Drop(_, game.situation, state, clockEvent, updated.situation.crazyData)
       ) :: {
-        (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
+        (updated.situation.variant.threeCheck && game.situation.check.yes).so(List:
           Event.CheckCount(
             white = updated.history.checkCount.white,
             black = updated.history.checkCount.black
@@ -202,7 +202,7 @@ object GameExt:
       else 0
 
     def drawReason =
-      if g.variant.isInsufficientMaterial(g.board) then DrawReason.InsufficientMaterial.some
+      if g.variant.isInsufficientMaterial(g.situation) then DrawReason.InsufficientMaterial.some
       else if g.variant.fiftyMoves(g.history) then DrawReason.FiftyMoves.some
       else if g.history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
       else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some

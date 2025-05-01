@@ -182,7 +182,7 @@ object user:
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
     def langOf(id: UserId): Fu[Option[String]]
-    def isKid[U: UserIdOf](id: U): Fu[Boolean]
+    def isKid[U: UserIdOf](id: U): Fu[KidMode]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
     def filterExists(ids: Set[UserId]): Fu[List[UserId]]

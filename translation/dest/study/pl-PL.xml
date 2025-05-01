@@ -51,7 +51,7 @@
   <string name="newTag">Nowy znacznik</string>
   <string name="commentThisPosition">Skomentuj tę pozycję</string>
   <string name="commentThisMove">Skomentuj ten ruch</string>
-  <string name="annotateWithGlyphs">Dodaj adnotacje symbolami</string>
+  <string name="annotateWithGlyphs">Oceń ruch symbolem</string>
   <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
   <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
@@ -172,20 +172,39 @@
   <string name="playAgain">Odtwórz ponownie</string>
   <string name="whatWouldYouPlay">Co byś zagrał w tej pozycji?</string>
   <string name="youCompletedThisLesson">Gratulacje! Ukończono tę lekcję.</string>
-  <string name="perPage">%s na stronie</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s na stronie</string>
   <string name="getTheTour">Potrzebujesz pomocy? Zapoznaj się z przewodnikiem!</string>
   <string name="welcomeToLichessStudyTitle">Witaj w opracowaniach Lichess!</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Udostępnione i zapisane</string>
+  <string name="welcomeToLichessStudyText">To jest wspólna tablica analizy.&lt;br&gt;&lt;br&gt;Używaj jej do analizowania i opisywania partii,&lt;br&gt;omawiania pozycji ze znajomymi, &lt;br&gt; a także oczywiście do lekcji szachów!&lt;br&gt;&lt;br&gt;To potężne narzędzie — poświęćmy więc chwilę, aby zobaczyć, jak działa.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Udostępnione i zapisane</string>
+  <string name="sharedAndSavedText">Inni uczestnicy mogą widzieć Twoje ruchy w czasie rzeczywistym!&lt;br&gt;Co więcej, wszystko jest zapisywane na zawsze.</string>
   <string name="studyMembersTitle">Twórcy opracowania</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Obserwatorzy mogą oglądać opracowanie i rozmawiać na czacie.&lt;br&gt;&lt;br&gt;%2$s Współautorzy mogą wykonywać ruchy i aktualizować opracowanie.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Kliknij przycisk %s.&lt;br&gt;Następnie zdecyduj, kto może współtworzyć, a kto nie.</string>
   <string name="studyChaptersTitle">Rozdziały opracowania</string>
+  <string name="studyChaptersText">Opracowanie może zawierać kilka rozdziałów.&lt;br&gt;Każdy rozdział ma swoją unikalną pozycję początkową i drzewo posunięć.</string>
   <string name="commentPositionTitle">Komentarz do pozycji</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kliknij przycisk %s lub kliknij prawym przyciskiem myszy na liście ruchów po prawej stronie.&lt;br&gt;Komentarze są udostępniane i zapisywane.</string>
+  <string name="annotatePositionTitle">Dodaj adnotację do pozycji</string>
+  <string name="annotatePositionText">Kliknij przycisk !? lub kliknij prawym przyciskiem myszy na liście ruchów po prawej stronie.&lt;br&gt;Symbole adnotacji są udostepniane i zapisywane.</string>
   <string name="conclusionTitle">Dziękujemy za poświęcony czas</string>
+  <string name="conclusionText">Swoje &lt;a href=\'/study/mine/hot\'&gt;poprzednie opracowania&lt;/a&gt; możesz znaleźć na stronie swojego profilu.&lt;br&gt;Dostępny jest również &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;wpis na blogu o opracowaniach&lt;/a&gt;.&lt;br&gt;Zaawansowani użytkownicy mogą nacisnąć „?”, aby zobaczyć skróty klawiszowe.&lt;br&gt;Miłej zabawy!</string>
   <string name="createChapterTitle">Stwórzmy rozdział opracowania</string>
   <string name="createChapterText">Opracowanie może mieć kilka rozdziałów.&lt;br&gt;Każdy rozdział ma odrębne drzewo posunięć,&lt;br&gt;i może być tworzony na różne sposoby.</string>
   <string name="fromInitialPositionTitle">Z pozycji początkowej</string>
+  <string name="fromInitialPositionText">Układ szachownicy dla nowej partii.&lt;br&gt;Dobry do eksploracji debiutów.</string>
   <string name="customPositionTitle">Z własnej niestandardowej pozycji</string>
+  <string name="customPositionText">Ustaw szachownicę po swojemu.&lt;br&gt;Dobre do eksploracji końcówek.</string>
   <string name="loadExistingLichessGameTitle">Załaduj istniejącą partię lichess</string>
+  <string name="loadExistingLichessGameText">Wklej adres URL partii Lichess&lt;br&gt;(na przykład lichess.org/7fHIU0XI), &lt;br&gt;aby załadować ruchy do rozdziału.</string>
   <string name="fromFenStringTitle">Z zapisu FEN pozycji</string>
+  <string name="fromFenStringText">Wklej pozycję w formacie FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w, &lt;/i&gt;&lt;br&gt;aby rozpocząć rozdział od tej pozycji.</string>
   <string name="fromPgnGameTitle">Z zapisu PGN partii</string>
+  <string name="fromPgnGameText">Wklej partię w formacie PGN, &lt;br&gt;aby załadować ruchy, komentarze i warianty do rozdziału.</string>
   <string name="variantsAreSupportedTitle">Opracowania wspierają warianty</string>
+  <string name="variantsAreSupportedText">Tak, możesz studiować crazyhouse&lt;br&gt;i wszystkie inne warianty dostępne na Lichess!</string>
+  <string name="chapterConclusionText">Rozdziały są zapisywane na zawsze.&lt;br&gt;Miłej zabawy przy organizowaniu swojej szachowej zawartości!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Podwójna przegrana</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Przegrana czarnych, ale białe nie mogą wygrać</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Przegrana białych, ale czarne nie mogą wygrać</string>
 </resources>

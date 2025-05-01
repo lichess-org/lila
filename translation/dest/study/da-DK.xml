@@ -178,6 +178,7 @@
   <string name="commentPositionTitle">Kommenter på en stilling</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klik på %s-knappen, eller højreklik på træklisten til højre.&lt;br&gt;Kommentarer deles og gemmes.</string>
   <string name="annotatePositionTitle">Annoter en stilling</string>
+  <string name="annotatePositionText">Klik på !? knappen, eller lav et højreklik på træklisten i højre side.&lt;br&gt;Annoteringsglyffer deles og gemmes.</string>
   <string name="conclusionTitle">Tak for din tid</string>
   <string name="conclusionText">Du kan finde dine &lt;a href=\'/study/mine/hot\'&gt;tidligere studier&lt;/a&gt; fra din profilside.&lt;br&gt;Der er også et &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blogindlæg om studier&lt;/a&gt;.&lt;br&gt;Superbrugere vil måske at trykke på \"?\" for at se tastaturgenveje.&lt;br&gt;God fornøjelse!</string>
   <string name="createChapterTitle">Lad os oprette et studiekapitel</string>
@@ -195,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Studier understøtter varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle lichess-varianter!</string>
   <string name="chapterConclusionText">Kapitler gemmes for evigt.&lt;br&gt;God fornøjelse med at organisere dit skakindhold!</string>
-  <string name="doubleDefeat" comment="Indicates that one side was defeated but the other is unable to win. For example, White was defeated but Black cannot win.">Dobbelt nederlag</string>
-  <string name="blackDefeatWhiteCanNotWin">Sort nederlag, men hvid kan ikke vinde</string>
-  <string name="whiteDefeatBlackCanNotWin">Hvidt nederlag, men sort kan ikke vinde</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt nederlag</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Sort nederlag, men hvid kan ikke vinde</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvidt nederlag, men sort kan ikke vinde</string>
 </resources>

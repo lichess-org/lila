@@ -126,7 +126,7 @@ final class JsonView(
       .add("correspondence" -> game.correspondenceClock)
       .add("takebackable" -> takebackable)
       .add("moretimeable" -> moretimeable)
-      .add("crazyhouse" -> pov.game.board.crazyData)
+      .add("crazyhouse" -> pov.game.situation.crazyData)
       .add("possibleMoves" -> possibleMoves(pov))
       .add("possibleDrops" -> possibleDrops(pov))
       .add("expiration" -> game.expirable.option:

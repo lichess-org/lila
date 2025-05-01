@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ ByColor, Mode, Situation }
+import chess.{ Board, ByColor, Mode, Situation }
 
 import lila.core.user.GameUser
 
@@ -41,7 +41,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
-        mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
+        mode = if chessGame.situation.variant.fromPosition then Mode.Casual else c.mode,
         source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
@@ -58,7 +58,7 @@ private object ChallengeJoiner:
   ): (chess.Game, Option[Situation.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(situation = Situation(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(situation = Board(variant), clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)
@@ -79,9 +79,7 @@ private object ChallengeJoiner:
     position.fold(game): sp =>
       game.copy(
         chess = game.chess.copy(
-          situation = game.situation.copy(
-            board = game.board.copy(history = sp.situation.board.history)
-          ),
+          situation = game.situation.copy(history = sp.situation.history),
           ply = sp.ply
         )
       )

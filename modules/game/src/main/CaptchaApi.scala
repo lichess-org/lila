@@ -74,7 +74,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       game.situation.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
-            (move.after.situationOf(!game.player)).checkMate
+            (move.after.withColor(!game.player)).checkMate
         .to(List)
         .map: move =>
           s"${move.orig.key} ${move.dest.key}"
@@ -96,4 +96,4 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       case x :: xs  => x :: safeInit(xs)
       case _        => Nil
 
-    def fenOf(game: ChessGame) = Fen.writeBoard(game.board)
+    def fenOf(game: ChessGame) = Fen.writeBoard(game.situation)
