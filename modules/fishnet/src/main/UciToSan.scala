@@ -26,16 +26,16 @@ private object UciToSan:
 
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
-        situation <-
-          if ply == replay.setup.startedAtPly + 1 then Right(replay.setup.situation)
-          else replay.moveAtPly(ply).map(_.situationBefore).toRight("No move found")
+        board <-
+          if ply == replay.setup.startedAtPly + 1 then Right(replay.setup.board)
+          else replay.moveAtPly(ply).map(_.boardBefore).toRight("No move found")
         ucis <- variation.traverse(Uci.apply).toRight(s"Invalid UCI moves $variation")
-        moves <- ucis.foldM(situation -> List.empty[MoveOrDrop]):
+        moves <- ucis.foldM(board -> List.empty[MoveOrDrop]):
           case ((sit, moves), uci) => validateMove(moves, sit, ply, uci)
       yield moves._2.reverse.map(_.toSanStr)
 
     def validateMove(acc: List[MoveOrDrop], sit: Board, ply: Ply, uci: Uci) =
-      uci(sit).bimap(e => s"ply $ply $e", move => move.situationAfter -> (move :: acc))
+      uci(sit).bimap(e => s"ply $ply $e", move => move.boardAfter -> (move :: acc))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)

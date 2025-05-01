@@ -8,7 +8,7 @@ import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.round.*
 import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
-import lila.round.RoundAsyncActor.TakebackSituation
+import lila.round.RoundAsyncActor.TakebackBoard
 import lila.round.RoundGame.playableByAi
 
 final private class Takebacker(
@@ -20,10 +20,10 @@ final private class Takebacker(
 
   private given play.api.i18n.Lang = defaultLang
 
-  def apply(
-      situation: TakebackSituation
-  )(pov: Pov, confirm: Boolean)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
-    if confirm then yes(situation)(pov) else no(situation)(pov)
+  def apply(board: TakebackBoard)(pov: Pov, confirm: Boolean)(using
+      proxy: GameProxy
+  ): Fu[(Events, TakebackBoard)] =
+    if confirm then yes(board)(pov) else no(board)(pov)
 
   private def canProposeTakeback(pov: Pov) =
     import pov.game.{ pov as _, * }
@@ -32,9 +32,7 @@ final private class Takebacker(
     !player(pov.color).isProposingTakeback &&
     !opponent(pov.color).isProposingTakeback
 
-  def yes(
-      situation: TakebackSituation
-  )(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+  def yes(board: TakebackBoard)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackBoard)] =
     IfAllowed(pov.game, Preload.none):
       pov match
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
@@ -45,18 +43,18 @@ final private class Takebacker(
               then single(game)
               else double(game)
             _ = publishTakeback(pov)
-          yield events -> situation.reset
+          yield events -> board.reset
         case Pov(game, _) if pov.game.playableByAi =>
           for
             events <- single(game)
             _ = publishTakeback(pov)
-          yield events -> situation
+          yield events -> board
         case Pov(game, _) if pov.opponent.isAi =>
           for
             events <- double(game)
             _ = publishTakeback(pov)
-          yield events -> situation
-        case pov if canProposeTakeback(pov) && situation.offerable =>
+          yield events -> board
+        case pov if canProposeTakeback(pov) && board.offerable =>
           messenger.volatile(pov.game, trans.site.takebackPropositionSent.txt())
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
@@ -64,10 +62,10 @@ final private class Takebacker(
             _ <- proxy.save(progress)
             _      = publishTakebackOffer(progress.game)
             events = List(Event.TakebackOffers(pov.color.white, pov.color.black))
-          yield events -> situation
+          yield events -> board
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
 
-  def no(situation: TakebackSituation)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+  def no(board: TakebackBoard)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackBoard)] =
     pov match
       case Pov(game, color) if pov.player.isProposingTakeback =>
         messenger.volatile(game, trans.site.takebackPropositionCanceled.txt())
@@ -77,7 +75,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _      = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> situation.decline
+        yield events -> board.decline
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
         messenger.volatile(game, trans.site.takebackPropositionDeclined.txt())
         val progress = Progress(game).map: g =>
@@ -86,7 +84,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _      = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> situation.decline
+        yield events -> board.decline
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =

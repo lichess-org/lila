@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Board, ByColor, Mode, Situation }
+import chess.{ Board, ByColor, Mode }
 
 import lila.core.user.GameUser
 
@@ -41,7 +41,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
-        mode = if chessGame.situation.variant.fromPosition then Mode.Casual else c.mode,
+        mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
         source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
@@ -55,19 +55,19 @@ private object ChallengeJoiner:
       variant: Variant,
       tc: Challenge.TimeControl,
       initialFen: Option[Fen.Full]
-  ): (chess.Game, Option[Situation.AndFullMoveNumber]) =
+  ): (chess.Game, Option[Board.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(situation = Board(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(board = Board(variant), clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)
       .flatMap:
         Fen.readWithMoveNumber(variant, _)
 
-    baseState.fold(makeChess(variant) -> none[Situation.AndFullMoveNumber]): sp =>
+    baseState.fold(makeChess(variant) -> none[Board.AndFullMoveNumber]): sp =>
       val game = chess.Game(
-        situation = sp.situation,
+        board = sp.board,
         ply = sp.ply,
         startedAtPly = sp.ply,
         clock = tc.realTime.map(_.toClock)
@@ -75,11 +75,11 @@ private object ChallengeJoiner:
       if variant.fromPosition && Fen.write(game).isInitial then makeChess(chess.variant.Standard) -> none
       else game                                                                                   -> baseState
 
-  def addGameHistory(position: Option[Situation.AndFullMoveNumber])(game: Game): Game =
+  def addGameHistory(position: Option[Board.AndFullMoveNumber])(game: Game): Game =
     position.fold(game): sp =>
       game.copy(
         chess = game.chess.copy(
-          situation = game.situation.copy(history = sp.situation.history),
+          board = game.board.copy(history = sp.board.history),
           ply = sp.ply
         )
       )

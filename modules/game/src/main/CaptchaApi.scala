@@ -66,12 +66,12 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       for
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations.map: (from, dests) =>
+        moves = rewinded.board.destinations.map: (from, dests) =>
           from.key -> dests.map(_.key).mkString
       yield Captcha(game.id, fenOf(rewinded), rewinded.player, solutions, moves = moves)
 
     def solve(game: ChessGame): Option[Solutions] =
-      game.situation.moves.view
+      game.board.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
             (move.after.withColor(!game.player)).checkMate
@@ -96,4 +96,4 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       case x :: xs  => x :: safeInit(xs)
       case _        => Nil
 
-    def fenOf(game: ChessGame) = Fen.writeBoard(game.situation)
+    def fenOf(game: ChessGame) = Fen.writeBoard(game.board)
