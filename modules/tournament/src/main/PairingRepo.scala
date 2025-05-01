@@ -141,6 +141,9 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def findPlaying(tourId: TourId, userId: UserId): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
+  def isRecentPlayer(tourId: TourId, userId: UserId): Fu[Boolean] =
+    coll.exists(selectTourUser(tourId, userId) ++ $doc("d" -> $gte(nowInstant.minusHours(1))))
+
   def isPlaying(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
 
