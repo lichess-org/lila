@@ -121,5 +121,6 @@ object UblogForm:
     tuple(
       "pinned" -> boolean,
       tierMapping,
-      "days" -> optional(number(min = -180, max = 180))
+      "days"       -> optional(number(min = -180, max = 180)),
+      "assessment" -> optional(text.verifying(a => UblogAutomod.classifications.contains(a)))
     )

@@ -199,8 +199,15 @@ final class UblogApi(
   def setTierIfBlogExists(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
 
-  def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
-    colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+  def setModAdjust(id: UblogPostId, adjust: Int, pinned: Boolean, assess: Option[String]): Funit =
+    colls.post.update
+      .one(
+        $id(id),
+        $set("rankAdjustDays" -> adjust, "pinned" -> pinned) ++ assess.fold($doc())(c =>
+          $set("automod.classification" -> c)
+        )
+      )
+      .void
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
 

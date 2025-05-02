@@ -24,7 +24,7 @@ private object UblogAutomod:
   )
   private given Reads[Result] = Json.reads[Result]
 
-  private val classifications = Set("spam", "weak", "quality", "phenomenal")
+  private[ublog] val classifications = List("spam", "weak", "good", "great")
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
@@ -80,7 +80,8 @@ final class UblogAutomod(
             resultStr <- (best \ "message" \ "content").asOpt[String]
             trimmed = resultStr.slice(resultStr.indexOf('{'), resultStr.lastIndexOf('}') + 1)
             result <- Json.parse(trimmed).asOpt[Result]
-            if classifications.contains(result.classification)
+            if (classifications ++ List("quality", "phenomenal")).contains(result.classification)
+          // temporarily permit "quality" and "phenomenal" as the prompt is versioned outside of this git
           yield result) match
             case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
             case Some(res) =>

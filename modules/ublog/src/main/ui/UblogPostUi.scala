@@ -193,7 +193,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
     ublogRank
       .computeRank(blog, post)
       .map: rank =>
-        postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
+        postForm(cls := "ublog-post__meta", action := routes.Ublog.modAdjust(post.id))(
           fieldset(cls := "ublog-post__mod-tools")(
             legend(
               span(
@@ -235,8 +235,21 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               )
             ),
             post.automod.map: automod =>
+              val current = automod.classification match
+                case "quality"    => "good"
+                case "phenomenal" => "great"
+                case other        => other // delete once ublog_post collection is fully migrated
               span(cls := "automod")(
-                span("Automod:", strong(automod.classification)),
+                span(
+                  "Assessment:",
+                  st.select(name := "assessment", cls := "form-control")(
+                    UblogAutomod.classifications.toList.map: assessment =>
+                      st.option(
+                        st.value := assessment,
+                        (assessment == current).option(selected)
+                      )(assessment)
+                  )
+                ),
                 span(
                   automod.flagged.map: flagged =>
                     i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),

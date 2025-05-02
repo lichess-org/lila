@@ -83,7 +83,7 @@ POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
 POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
-POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.rankAdjust(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modAdjust(id: UblogPostId)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
 # User
