@@ -62,11 +62,7 @@ export function formatClockTimeVerbal(time: Millis): string {
     if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
   }
 
-  if (parts.length === 1) {
-    return parts[0];
-  } else {
-    return parts.join(', ');
-  }
+  return parts.join(', ');
 }
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
