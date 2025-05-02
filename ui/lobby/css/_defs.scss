@@ -24,7 +24,6 @@
   }
 
   @include mq-at-least-col3 {
-    height: 600px;
-    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
+    min-height: 600px;
   }
 }
