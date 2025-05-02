@@ -93,7 +93,7 @@ final class UblogApi(
     val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog
         .primitiveOne[UblogRank.Tier]($id(blogId.full), "tier")
-        .dmap(_.exists(_ >= UblogRank.Tier.VISIBLE))
+        .dmap(_.exists(_ >= UblogRank.Tier.UNLISTED))
     canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
@@ -199,8 +199,15 @@ final class UblogApi(
   def setTierIfBlogExists(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
 
-  def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
-    colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+  def setModAdjust(id: UblogPostId, adjust: Int, pinned: Boolean, assess: Option[String]): Funit =
+    colls.post.update
+      .one(
+        $id(id),
+        $set("rankAdjustDays" -> adjust, "pinned" -> pinned) ++ assess.fold($doc())(c =>
+          $set("automod.classification" -> c)
+        )
+      )
+      .void
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
 

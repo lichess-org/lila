@@ -187,11 +187,12 @@
   }
   i::before {
     font-size: 1.4rem;
+    vertical-align: -2px;
   }
   i.flagged {
     color: $c-brag;
   }
-  i.commercial {
+  i.green {
     color: $c-secondary;
   }
   i.offtopic {
