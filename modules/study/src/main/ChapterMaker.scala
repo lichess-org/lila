@@ -94,13 +94,13 @@ final private class ChapterMaker(
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
-        case Some(sit) =>
+        case Some(game) =>
           Root(
-            ply = sit.ply,
-            fen = Fen.write(sit),
-            check = sit.board.check,
+            ply = game.ply,
+            fen = Fen.write(game),
+            check = game.position.check,
             clock = none,
-            crazyData = sit.board.crazyData,
+            crazyData = game.position.crazyData,
             children = Branches.empty
           ) -> true
         case None => Root.default(variant) -> false

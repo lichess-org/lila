@@ -28,7 +28,7 @@ private[setup] trait Config:
   def hasClock = timeMode == TimeMode.RealTime
 
   def makeGame(v: Variant): ChessGame =
-    ChessGame(board = Position(v), clock = makeClock.map(_.toClock))
+    ChessGame(position = Position(v), clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -61,7 +61,7 @@ trait WithColor:
   // creator player color
   def color: TriColor
 
-  lazy val creatorColor = color.resolve()
+  lazy val creatorColor: Color = color.resolve()
 
 trait Positional:
   self: Config =>
@@ -82,7 +82,7 @@ trait Positional:
     val (chessGame, state) = baseState.fold(makeGame -> none[Position.AndFullMoveNumber]):
       case sit @ Position.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
-          board = s,
+          position = s,
           ply = sit.ply,
           startedAtPly = sit.ply,
           clock = makeClock.map(_.toClock)
@@ -90,11 +90,11 @@ trait Positional:
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
     builder(chessGame).dmap { game =>
-      state.fold(game) { case sit @ Position.AndFullMoveNumber(board, _) =>
+      state.fold(game) { case sit @ Position.AndFullMoveNumber(position, _) =>
         game.copy(
           chess = game.chess.copy(
-            board = game.board.copy(
-              history = board.history,
+            position = game.position.copy(
+              history = position.history,
               variant = FromPosition
             ),
             ply = sit.ply

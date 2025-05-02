@@ -8,9 +8,9 @@ import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans
   val uci: Vector[Uci] = replay.moves.view.map(_.toUci).reverse.toVector
-  def position         = replay.state.board
+  def position         = replay.state.position
   def variant          = chess.variant.Standard
-  val fen              = Fen.writeOpening(replay.state.board)
+  val fen              = Fen.writeOpening(replay.state.position)
   val exactOpening     = OpeningDb.findByStandardFen(fen)
   val family           = exactOpening.map(_.family)
   def pgnString        = PgnMovesStr(sans.mkString(" "))

@@ -34,19 +34,19 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
               if fromPosition then FromPosition
               else Standard
             } match
-              case Chess960 if !isChess960StartPosition(setup.board) =>
+              case Chess960 if !isChess960StartPosition(setup.position) =>
                 FromPosition
               case FromPosition if parsed.tags.fen.isEmpty => Standard
               case Standard if fromPosition                => FromPosition
               case v                                       => v
-          val game = state.copy(board = state.board.withVariant(variant))
+          val game = state.copy(position = state.position.withVariant(variant))
           val initialFen = parsed.tags.fen
             .flatMap(Fen.readWithMoveNumber(variant, _))
             .map(Fen.write)
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match
             case Some("normal") =>
-              game.board.status |
+              game.position.status |
                 (if parsed.tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.Resign)
             case Some("abandoned")                        => Status.Aborted
             case Some("time forfeit")                     => Status.Outoftime
@@ -58,21 +58,20 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             .map(points => TagResult(status, points))
             .filter(_.status > Status.Started)
             .orElse:
-              game.board.status.flatMap: status =>
+              game.position.status.flatMap: status =>
                 Outcome
-                  .guessPointsFromStatusAndPosition(status, game.board.winner)
+                  .guessPointsFromStatusAndPosition(status, game.position.winner)
                   .map(TagResult(status, _))
 
           ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
         }
     }
 
-private def isChess960StartPosition(sit: Position) =
+private def isChess960StartPosition(position: Position) =
   import chess.*
   val strict =
     def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
-      File.all.forall: file =>
-        f(sit.board(file, rank))
+      File.all.forall(file => f(position.board.pieceAt(file, rank)))
     rankMatches {
       case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
       case _                                                         => false
@@ -91,7 +90,7 @@ private def isChess960StartPosition(sit: Position) =
       case _                                                         => false
     }(Rank.Eighth)
 
-  Chess960.valid(sit, strict)
+  Chess960.valid(position, strict)
 
 private def catchOverflow[A](f: () => Either[ErrorStr, A]): Either[ErrorStr, A] =
   try f()

@@ -27,7 +27,7 @@ private object UciToSan:
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
         board <-
-          if ply == replay.setup.startedAtPly + 1 then Right(replay.setup.board)
+          if ply == replay.setup.startedAtPly + 1 then Right(replay.setup.position)
           else replay.moveAtPly(ply).map(_.boardBefore).toRight("No move found")
         ucis <- variation.traverse(Uci.apply).toRight(s"Invalid UCI moves $variation")
         moves <- ucis.foldM(board -> List.empty[MoveOrDrop]):
