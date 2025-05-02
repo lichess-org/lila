@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.*
-import chess.bitboard.Bitboard
 import chess.variant.Crazyhouse
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*

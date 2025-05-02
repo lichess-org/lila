@@ -21,5 +21,5 @@ final class Divider(using Executor) extends lila.core.game.Divider:
 
   def noCache(sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]) =
     chess.Replay
-      .situations(sans = sans, initialFen = initialFen, variant = variant)
+      .boards(sans = sans, initialFen = initialFen, variant = variant)
       .fold(_ => Division.empty, chess.Divider.apply)
