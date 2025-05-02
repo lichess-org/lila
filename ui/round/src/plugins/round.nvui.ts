@@ -107,6 +107,14 @@ export function initModule(): NvuiPlugin {
           // make sure consecutive moves are different so that they get re-read
           renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
         ),
+        clocks.some(c => !!c) &&
+          h('div.clocks', [
+            h('h2', 'Your clock'),
+            h('div.botc', clocks[0]),
+            h('h2', 'Opponent clock'),
+            h('div.topc', clocks[1]),
+          ]),
+        notify.render(),
         ctrl.isPlaying() &&
           h('div.move-input', [
             h('h2', 'Move form'),
@@ -138,20 +146,6 @@ export function initModule(): NvuiPlugin {
               ],
             ),
           ]),
-        clocks.some(c => !!c) &&
-          h('div.clocks', [
-            h('h2', 'Your clock'),
-            h('div.botc', clocks[0]),
-            h('h2', 'Opponent clock'),
-            h('div.topc', clocks[1]),
-          ]),
-        notify.render(),
-        h('h2', 'Actions'),
-        ...(ctrl.data.player.spectator
-          ? renderTableWatch(ctrl)
-          : playable(ctrl.data)
-            ? renderTablePlay(ctrl)
-            : renderTableEnd(ctrl)),
         h('h2', i18n.site.board),
         h(
           'div.board',
@@ -195,6 +189,12 @@ export function initModule(): NvuiPlugin {
           ),
         ),
         h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+        h('h2', 'Actions'),
+        ...(ctrl.data.player.spectator
+          ? renderTableWatch(ctrl)
+          : playable(ctrl.data)
+            ? renderTablePlay(ctrl)
+            : renderTableEnd(ctrl)),
         h('h2', 'Settings'),
         h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', 'Board settings'),
