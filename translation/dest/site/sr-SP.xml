@@ -351,9 +351,9 @@
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
-  <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
-  <string name="takebackPropositionDeclined">Предлог повлачења потеза је одбијен</string>
-  <string name="takebackPropositionAccepted">Предлог повлачења потеза је прихваћен</string>
+  <string name="takebackPropositionSent">Враћање потеза послато</string>
+  <string name="takebackPropositionDeclined">Враћање потеза одбијено</string>
+  <string name="takebackPropositionAccepted">Враћање потеза прихваћено</string>
   <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
@@ -813,7 +813,7 @@
   <string name="size">Величина</string>
   <string name="brightness">Осветљеност</string>
   <string name="hue">Нијанса</string>
-  <string name="boardReset">Ресетуј боје</string>
+  <string name="boardReset">Ресетуј боје на подразумевано</string>
   <string name="pieceSet">Скуп фигура</string>
   <string name="embedInYourWebsite">Угради у свој сајт</string>
   <string name="usernameAlreadyUsed">Ово корисничко име је у употреби, изаберите неко друго.</string>
@@ -828,7 +828,7 @@
   <string name="invalidFen">Неважећи FEN</string>
   <string name="custom">Прилагођено</string>
   <string name="notifications">Обавештења</string>
-  <string name="notificationsX">Нотификације: %1$s</string>
+  <string name="notificationsX">Нотификација: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд да одиграте први потез</item>
