@@ -261,7 +261,7 @@ export default class SetupController {
   propsToFormData = (color: Color | 'random'): FormData =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
-      fen: this.fen(),
+      fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
       timeMode: keyToId(this.timeMode(), timeModes).toString(),
       time: this.time().toString(),
       time_range: this.timeV().toString(),
@@ -302,6 +302,7 @@ export default class SetupController {
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;
+    console.log(this.propsToFormData(color));
     try {
       response = await xhr.textRaw(xhr.url(urlPath, urlParams), {
         method: 'post',
