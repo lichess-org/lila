@@ -128,7 +128,7 @@
   <string name="goodMove">Добар потез</string>
   <string name="mistake">Грешка</string>
   <string name="blunder">Груба грешка</string>
-  <string name="equalPosition">Равноправна позиција</string>
+  <string name="equalPosition">Једнака позиција</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Нејасна позиција</string>
   <string name="whiteIsSlightlyBetter">Бели је благо бољи</string>
   <string name="blackIsSlightlyBetter">Црни је благо бољи</string>
