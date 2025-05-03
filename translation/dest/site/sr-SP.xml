@@ -354,7 +354,7 @@
   <string name="takebackPropositionSent">Враћање потеза послато</string>
   <string name="takebackPropositionDeclined">Враћање потеза одбијено</string>
   <string name="takebackPropositionAccepted">Враћање потеза прихваћено</string>
-  <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
+  <string name="takebackPropositionCanceled">Враћање потеза отказано</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
@@ -636,7 +636,7 @@
     <item quantity="few">%s блокирања</item>
     <item quantity="other">%s блокирања</item>
   </plurals>
-  <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
+  <string name="listBlockedPlayers">Прикажи играче које си блокирао/ла</string>
   <string name="human">Особа</string>
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
@@ -772,12 +772,12 @@
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
-  <string name="shareYourInsightsData">Поделите своје личне податке</string>
+  <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
   <string name="kidMode">Дечији режим</string>
-  <string name="kidModeIsEnabled">Дечији мод је укључен.</string>
+  <string name="kidModeIsEnabled">Дечији режим је укључен.</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
   <string name="enableKidMode">Омогућите Дечији режим рада</string>
@@ -840,7 +840,7 @@
   <string name="bestWasX">Најбољи је %s</string>
   <string name="youBrowsedAway">Отишли сте са овог екрана</string>
   <string name="resumePractice">Настави тренинг</string>
-  <string name="drawByFiftyMoves">Партија је ремизирана правилом о педесет потеза.</string>
+  <string name="drawByFiftyMoves">Партија је ремизирана правилом педесет потеза.</string>
   <string name="theGameIsADraw">Партија је нерешена.</string>
   <string name="computerThinking">Компјутер мисли ...</string>
   <string name="seeBestMove">Погледајте најбољи потез</string>
@@ -888,7 +888,7 @@
     <item quantity="few">и сачувај %s пре-потезне линије</item>
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Примили сте приватну поруку од Личеса.</string>
+  <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
   <string name="why">Зашто?</string>
@@ -936,7 +936,7 @@
   <string name="congratsYouWon">Честитамо на победи!</string>
   <string name="gameVsX">Партија против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
-  <string name="lostAgainstTOSViolator">Изубили сте рејтинг поене од играча који је прекршио правила коришћења Личеса.</string>
+  <string name="lostAgainstTOSViolator">Изубио/ла си рејтинг бодове од некога ко је прекршио Lichess-ове услове коришћења услуге</string>
   <string name="refundXpointsTimeControlY">Враћено: %1$s %2$s рејтингових поена.</string>
   <string name="timeAlmostUp">Време ускоро изтиче!</string>
   <string name="download">Преузми</string>
@@ -978,5 +978,5 @@
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
-  <string name="stats">Статистика</string>
+  <string name="stats">Статистике</string>
 </resources>
