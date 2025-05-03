@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
+  <string name="orLetYourOpponentScanQrCode">Не болмаса, қарсылас осы QR кодты скандаушы болсын</string>
   <string name="waiting">Тосып тұрмыз</string>
   <string name="yourTurn">Сіз жүресіз</string>
   <string name="aiNameLevelAiLevel">%1$s деңгейі: %2$s</string>
@@ -69,6 +70,8 @@
   <string name="promoteVariation">Тармақты көтеру</string>
   <string name="makeMainLine">Негізгі жол ету</string>
   <string name="deleteFromHere">Мына жерден жою</string>
+  <string name="collapseVariations">Тармақтарды жабу</string>
+  <string name="expandVariations">Тармақтарды ашу</string>
   <string name="forceVariation">Тармақты дамыту</string>
   <string name="copyVariationPgn">Тармақтың PGN көшіру</string>
   <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Негізгі тарихтың PGN көшіру</string>
@@ -154,6 +157,7 @@
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
+  <string name="drawClaimed">Теңдік</string>
   <string name="offerDraw">Тепе-теңдік сұрау</string>
   <string name="draw">Тепе-теңдік</string>
   <plurals name="nbPlayers">
@@ -188,6 +192,7 @@
   <string name="latestForumPosts">Форумдағы кейінгі жазбалар</string>
   <string name="players">Ойыншылар</string>
   <string name="friends">Достарыңыз</string>
+  <string name="otherPlayers">басқа ойыншылар</string>
   <string name="discussions">Сұхбаттар</string>
   <string name="today">Бүгін</string>
   <string name="yesterday">Кеше</string>
@@ -267,6 +272,7 @@
     <item quantity="one">Сізбен %s ойын</item>
     <item quantity="other">Сізбен %s ойын</item>
   </plurals>
+  <string name="ok">Иә</string>
   <string name="cancel">Болдыртпау</string>
   <string name="whiteTimeOut">Ақтың уақыты бітті</string>
   <string name="blackTimeOut">Қараның уақыты бітті</string>
@@ -286,6 +292,7 @@
   <string name="abortGame">Ойынды тоқтату</string>
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
+  <string name="customPosition">Жеке орналасым</string>
   <string name="unlimited">Шектеусіз</string>
   <string name="mode">Бағалау</string>
   <string name="casual">Жай</string>
@@ -416,6 +423,7 @@
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
   <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
+  <string name="importGameDataPrivacyWarning">Бұл PGN - жалпыға жария болады. Жеке болуын қаласаңыз, Зерттеу арқылы салуыңыз керек.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>
@@ -428,6 +436,7 @@
   <string name="blackCheckmatesInOneMove">Қара бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Байланыс қайта орнауда</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Желіден тыс</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s дос желіде</item>
     <item quantity="other">%s дос желіде</item>
@@ -479,6 +488,7 @@
   <string name="wins">Жеңіс</string>
   <string name="losses">Ұтылыс</string>
   <string name="createdBy">Жасаған</string>
+  <string name="startingIn" comment="Displayed above a timer">Басталуы</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
   <string name="pause">Кідіру</string>
   <string name="resume">Жалғастыру</string>
@@ -489,6 +499,7 @@
   <string name="movesPlayed">Жүрістер саны</string>
   <string name="whiteWins">Ақтардың жеңісі</string>
   <string name="blackWins">Қаралардың жеңісі</string>
+  <string name="drawRate">Теңдік үлесі</string>
   <string name="draws">Тепе-теңдік</string>
   <string name="averageOpponent">Орташа қарсылас</string>
   <string name="boardEditor">Еркін тақта</string>
@@ -506,7 +517,12 @@
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="profile">Төлқұжат</string>
   <string name="editProfile">Төлқұжатты өзгерту</string>
+  <string name="realName">Шын атыңыз</string>
+  <string name="setFlair">Кейіпті таңдап алыңыз</string>
+  <string name="flair">Кейпіңіз</string>
+  <string name="youCanHideFlair">Керек десеңіз, бүкіл ойыншылардың Кейпін жасыру амалы бар.</string>
   <string name="biography">Өмірбаян</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ел мен аймағыңыз</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
@@ -525,12 +541,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Жүрістен кейін келесі ойынға бірден өту</string>
   <string name="autoSwitch">Авто қосу</string>
   <string name="puzzles">Жұмбақтар</string>
+  <string name="onlineBots">Желідегі боттар</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
   <string name="descPrivate">Құпия сипаттама</string>
   <string name="descPrivateHelp">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
+  <string name="website">Сайт</string>
+  <string name="mobile">Телефон</string>
   <string name="help">Көмек:</string>
   <string name="createANewTopic">Жаңа тақырып құру</string>
   <string name="topics">Тақырып</string>
@@ -743,6 +762,7 @@
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
   <string name="viewTheSolution">Жауабты қарау</string>
+  <string name="noChallenges">Шақыру жоқ.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тілде нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
@@ -755,6 +775,7 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
+  <string name="allLanguages">Барлық тілдер</string>
   <string name="background">Фон</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
@@ -941,6 +962,7 @@
   <string name="focusChat">Нысаналы сұхбат</string>
   <string name="showHelpDialog">Осы көмекші терезені көрсету</string>
   <string name="reopenYourAccount">Тіркелгіні қайта ашу</string>
+  <string name="reopenYourAccountDescription">Тіркелгіңіз жабылғаннан кейін оны қайта ашқыңыз келсе, сізде бір қайталанбас амал бар.</string>
   <string name="emailAssociatedToaccount">Тіркелгіге байлаулы поштаңыз</string>
   <string name="sentEmailWithLink">Біз сілтемесі бар хат жібереміз.</string>
   <string name="tournamentEntryCode">Жарысқа кіру құпиясөзі</string>
