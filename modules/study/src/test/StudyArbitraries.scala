@@ -4,7 +4,17 @@ import chess.ChessTreeArbitraries.*
 import chess.CoreArbitraries.{ *, given }
 import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.{ Centis, ChessTreeArbitraries, FromMove, Game as ChessGame, Move, Ply, Board, Square, WithMove }
+import chess.{
+  Centis,
+  ChessTreeArbitraries,
+  FromMove,
+  Game as ChessGame,
+  Move,
+  Ply,
+  Position,
+  Square,
+  WithMove
+}
 import org.scalacheck.{ Arbitrary, Gen }
 
 import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
@@ -12,10 +22,10 @@ import lila.tree.{ Metas, NewBranch, NewRoot, NewTree, Clock }
 
 object StudyArbitraries:
 
-  given Arbitrary[NewRoot] = Arbitrary(genRoot(Board(chess.variant.Standard)))
+  given Arbitrary[NewRoot] = Arbitrary(genRoot(Position(chess.variant.Standard)))
   type RootWithPath = (NewRoot, UciPath)
-  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Board(chess.variant.Standard)))
-  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Board(chess.variant.Standard)))
+  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Position(chess.variant.Standard)))
+  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Position(chess.variant.Standard)))
 
   given Arbitrary[Clock] = Arbitrary:
     for
@@ -23,14 +33,14 @@ object StudyArbitraries:
       trust  <- Arbitrary.arbitrary[Option[Boolean]]
     yield Clock(centis, trust)
 
-  def genRoot(seed: Board): Gen[NewRoot] =
+  def genRoot(seed: Position): Gen[NewRoot] =
     for
       tree  <- genTree(seed)
       metas <- genMetas(seed, Ply.initial)
       pgn = NewRoot(metas, tree)
     yield pgn
 
-  def genRootWithPath(seed: Board): Gen[(NewRoot, UciPath)] =
+  def genRootWithPath(seed: Position): Gen[(NewRoot, UciPath)] =
     for
       tree <- genNodeWithPath(seed)
       pgnTree = tree._1.map(_.map(_.data))
@@ -39,14 +49,14 @@ object StudyArbitraries:
       path = tree._2.map(_.id)
     yield (pgn, UciPath.fromIds(path))
 
-  def genTree(seed: Board): Gen[Option[NewTree]] =
+  def genTree(seed: Position): Gen[Option[NewTree]] =
     genNode(seed).map(_.map(_.map(_.data)))
 
   given FromMove[NewBranch] with
     extension (move: Move)
       def next(branch: Option[NewBranch]): Gen[WithMove[NewBranch]] =
         for
-          metas <- genMetas(move.situationAfter, branch.fold(Ply.initial)(_.ply))
+          metas <- genMetas(move.boardAfter, branch.fold(Ply.initial)(_.ply))
           uci = move.toUci
         yield WithMove[NewBranch](
           move,
@@ -59,7 +69,7 @@ object StudyArbitraries:
           )
         )
 
-  def genMetas(situation: Board, ply: Ply): Gen[Metas] =
+  def genMetas(board: Position, ply: Ply): Gen[Metas] =
     for
       comments <- genComments(5)
       glyphs   <- Arbitrary.arbitrary[Glyphs]
@@ -67,8 +77,8 @@ object StudyArbitraries:
       shapes   <- Arbitrary.arbitrary[Shapes]
     yield Metas(
       ply,
-      Fen.write(situation, ply.fullMoveNumber),
-      situation.check,
+      Fen.write(board, ply.fullMoveNumber),
+      board.check,
       None,
       None,
       None,
@@ -78,7 +88,7 @@ object StudyArbitraries:
       glyphs,
       None,
       clock,
-      situation.crazyData
+      board.crazyData
     )
 
   def genComments(size: Int) =

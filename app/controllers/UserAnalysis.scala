@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
-import chess.{ Board, ByColor, FullMoveNumber, Situation }
+import chess.{ Position, ByColor, FullMoveNumber }
 import play.api.libs.json.Json
 import play.api.mvc.*
 
@@ -74,14 +74,14 @@ final class UserAnalysis(
     makePov:
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Situation.AndFullMoveNumber(Board(variant), FullMoveNumber.initial)
+      } | Position.AndFullMoveNumber(Position(variant), FullMoveNumber.initial)
 
-  private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
+  private[controllers] def makePov(from: Position.AndFullMoveNumber): Pov =
     Pov(
       lila.core.game
         .newGame(
           chess = chess.Game(
-            situation = from.situation,
+            board = from.board,
             ply = from.ply
           ),
           players = ByColor(lila.game.Player.make(_, none)),
@@ -90,7 +90,7 @@ final class UserAnalysis(
           pgnImport = None
         )
         .withId(lila.game.Game.syntheticId),
-      from.situation.color
+      from.board.color
     )
 
   // correspondence premove aka forecast

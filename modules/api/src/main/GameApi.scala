@@ -182,7 +182,7 @@ final private[api] class GameApi(
         "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).so {
           chess.Replay
-            .situations(sans = g.sans, initialFen = initialFen, variant = g.variant)
+            .boards(sans = g.sans, initialFen = initialFen, variant = g.variant)
             .toOption
             .map(boards => JsArray(boards.map(chess.format.Fen.writeBoard).map(Json.toJson)))
         }: Option[JsArray]),

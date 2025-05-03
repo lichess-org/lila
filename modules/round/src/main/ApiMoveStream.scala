@@ -43,7 +43,7 @@ final class ApiMoveStream(
                   Vector(clk.config.initTime) ++ clkHistory.black
                 )
               val clockOffset = game.startColor.fold(0, 1)
-              Replay.situations(game.sans, initialFen, game.variant).foreach {
+              Replay.boards(game.sans, initialFen, game.variant).foreach {
                 _.zipWithIndex.foreach: (s, index) =>
                   val clk = for
                     c     <- clocks
