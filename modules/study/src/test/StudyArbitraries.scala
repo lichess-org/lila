@@ -56,7 +56,7 @@ object StudyArbitraries:
     extension (move: Move)
       def next(branch: Option[NewBranch]): Gen[WithMove[NewBranch]] =
         for
-          metas <- genMetas(move.boardAfter, branch.fold(Ply.initial)(_.ply))
+          metas <- genMetas(move.finalizeAfter, branch.fold(Ply.initial)(_.ply))
           uci = move.toUci
         yield WithMove[NewBranch](
           move,

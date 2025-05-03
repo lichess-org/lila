@@ -19,9 +19,9 @@ case class Puzzle(
 
   lazy val boardAfterInitialMove: Option[chess.Position] =
     for
-      sit1 <- Fen.read(fen)
-      sit2 <- sit1.move(line.head).toOption.map(_.boardAfter)
-    yield sit2
+      p1 <- Fen.read(fen)
+      p2 <- p1.move(line.head).toOption.map(_.finalizeAfter)
+    yield p2
 
   lazy val initialGame: chess.Game =
     chess.Game(none, fenAfterInitialMove.some).withTurns(initialPly + 1)

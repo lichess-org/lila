@@ -50,7 +50,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       init <- puzzle.boardAfterInitialMove
       if !puzzle.hasTheme(PuzzleTheme.mateIn1)
       move  <- puzzle.line.tail.headOption
-      first <- init.move(move).toOption.map(_.boardAfter)
+      first <- init.move(move).toOption.map(_.finalizeAfter)
     yield first.check
   }.exists(_.yes)
     .so:
