@@ -65,13 +65,12 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | Opera             | 66+     | Reasonable support                                |
 | Safari            | 11.1+   | Reasonable support                                |
 
-Older browsers (including any version of Internet Explorer) will not work.
-For your own sake, please upgrade. Security and performance, think about it!
+If you try to run the software on older browsers such as Internet Explorer, then you should reconsider your choice because you won't get better performance, security and optimization. Thank you for understanding.
 
 ## License
 
 Lila is licensed under the GNU Affero General Public License 3 or any later
-version at your choice. See [copying](https://github.com/lichess-org/lila/blob/master/COPYING.md) for
+version at your choice. Check ["COPYING.MD"](https://github.com/lichess-org/lila/blob/master/COPYING.md) file for
 details.
 
 ## Production architecture (as of July 2022)
