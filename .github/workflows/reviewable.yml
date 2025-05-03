@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Ensure maintainers can modify PR
-        if: github.event.pull_request.head.repo.fork
+        if: github.event.pull_request.head.repo.full_name != github.repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
