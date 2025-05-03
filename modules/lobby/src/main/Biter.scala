@@ -25,7 +25,7 @@ final private class Biter(
     for
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner, joiner)
+      ownerColor <- assignCreatorColor(owner, joiner, hook.color)
       game <- idGenerator.withUniqueId:
         makeGame(
           hook,
@@ -42,7 +42,7 @@ final private class Biter(
         .gamePlayersLoggedIn(ByColor(lobbyUser.id, seek.user.id), seek.perfType)
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner.some, joiner.some)
+      ownerColor <- assignCreatorColor(owner.some, joiner.some, TriColor.Random)
       game <- idGenerator.withUniqueId:
         makeGame(
           seek,
@@ -51,8 +51,15 @@ final private class Biter(
       _ <- gameRepo.insertDenormalized(game)
     yield JoinSeek(joiner.id, seek, game, ownerColor)
 
-  private def assignCreatorColor(creatorUser: Option[WithPerf], joinerUser: Option[WithPerf]): Fu[Color] =
-    userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { Color.fromWhite(_) }
+  private def assignCreatorColor(
+      creator: Option[WithPerf],
+      joiner: Option[WithPerf],
+      color: TriColor
+  ): Fu[Color] =
+    color match
+      case TriColor.Random => userApi.firstGetsWhite(creator.map(_.id), joiner.map(_.id)).map(Color.fromWhite)
+      case TriColor.White  => fuccess(chess.White)
+      case TriColor.Black  => fuccess(chess.Black)
 
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(
