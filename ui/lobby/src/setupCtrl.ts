@@ -302,7 +302,6 @@ export default class SetupController {
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;
-    console.log(this.propsToFormData(color));
     try {
       response = await xhr.textRaw(xhr.url(urlPath, urlParams), {
         method: 'post',
