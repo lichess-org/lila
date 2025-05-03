@@ -42,7 +42,7 @@
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
   <string name="history">Прошле арене</string>
-  <string name="newTeamBattle">Нова тимска битка</string>
+  <string name="newTeamBattle">Нова Борба Тимова</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>
 </resources>
