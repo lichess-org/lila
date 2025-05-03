@@ -5,12 +5,17 @@ import { initMiniBoard } from 'lib/view/miniBoard';
 
 export const fenInput = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
-  if (setupCtrl.variant() !== 'fromPosition') return null;
+  const variant = setupCtrl.variant();
+  if (!['fromPosition', 'chess960'].includes(variant)) return null;
   const fen = setupCtrl.fen();
   return h('div.fen.optional-config', [
     h('div.fen__form', [
       h('input#fen-input', {
-        attrs: { placeholder: i18n.site.pasteTheFenStringHere, value: fen },
+        attrs: {
+          placeholder:
+            variant === 'chess960' ? 'Chess960 start position (FEN)' : i18n.site.pasteTheFenStringHere,
+          value: fen,
+        },
         on: {
           input: (e: InputEvent) => {
             setupCtrl.fen((e.target as HTMLInputElement).value.replace(/_/g, ' ').trim());
@@ -24,7 +29,10 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: {
           'data-icon': licon.Pencil,
           title: i18n.site.boardEditor,
-          href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
+          href:
+            variant === 'chess960'
+              ? `/analysis/chess960/${fen}`
+              : '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
         },
       }),
     ]),
