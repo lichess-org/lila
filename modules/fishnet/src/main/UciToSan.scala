@@ -28,7 +28,7 @@ private object UciToSan:
       for
         board <-
           if ply == replay.setup.startedAtPly + 1 then Right(replay.setup.position)
-          else replay.moveAtPly(ply).map(_.boardBefore).toRight("No move found")
+          else replay.moveAtPly(ply).map(_.before).toRight("No move found")
         ucis <- variation.traverse(Uci.apply).toRight(s"Invalid UCI moves $variation")
         moves <- ucis.foldM(board -> List.empty[MoveOrDrop]):
           case ((sit, moves), uci) => validateMove(moves, sit, ply, uci)
