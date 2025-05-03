@@ -226,7 +226,7 @@
   <string name="rightOn">Баш тако!</string>
   <string name="stageXComplete">Ниво %s завршен</string>
   <string name="next">Следеће</string>
-  <string name="nextX">Следеће: %s</string>
+  <string name="nextX">Следећа: %s</string>
   <string name="backToMenu">Повратак на мени</string>
   <string name="puzzleFailed">Проблем неуспешно решен!</string>
   <string name="retry">Покушајте поново</string>
