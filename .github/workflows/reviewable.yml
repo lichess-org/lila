@@ -22,5 +22,5 @@ jobs:
             echo "❌ Maintainers cannot modify the PR"
             gh pr review ${{ github.event.pull_request.number }} \
               --request-changes \
-              --body "Please allow edits from maintainers on your pull request.\n\nSee how to enable them [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork#enabling-repository-maintainer-permissions-on-existing-pull-requests)"
+              --body "Please allow edits from maintainers on your pull request. See how to enable them [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork#enabling-repository-maintainer-permissions-on-existing-pull-requests)"
           fi
