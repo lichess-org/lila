@@ -35,7 +35,7 @@ private object UciToSan:
       yield moves._2.reverse.map(_.toSanStr)
 
     def validateMove(acc: List[MoveOrDrop], pos: Position, ply: Ply, uci: Uci) =
-      uci(pos).bimap(e => s"ply $ply $e", move => move.finalizeAfter -> (move :: acc))
+      uci(pos).bimap(e => s"ply $ply $e", move => move.after -> (move :: acc))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)

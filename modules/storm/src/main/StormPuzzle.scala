@@ -17,7 +17,7 @@ case class StormPuzzle(
   lazy val fenAfterInitialMove: Fen.Full = {
     for
       p1 <- Fen.read(fen)
-      p2 <- p1.move(line.head).toOption.map(_.finalizeAfter)
+      p2 <- p1.move(line.head).toOption.map(_.after)
     yield Fen.write(p2)
   }.err(s"Can't apply puzzle $id first move")
 

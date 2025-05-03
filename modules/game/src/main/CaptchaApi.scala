@@ -74,7 +74,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       game.position.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
-            move.finalizeAfter.checkMate
+            move.after.checkMate
         .to(List)
         .map: move =>
           s"${move.orig.key} ${move.dest.key}"

@@ -20,7 +20,7 @@ case class Puzzle(
   lazy val boardAfterInitialMove: Option[chess.Position] =
     for
       p1 <- Fen.read(fen)
-      p2 <- p1.move(line.head).toOption.map(_.finalizeAfter)
+      p2 <- p1.move(line.head).toOption.map(_.after)
     yield p2
 
   lazy val initialGame: chess.Game =
