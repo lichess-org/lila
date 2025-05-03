@@ -58,8 +58,9 @@ final private class Biter(
   ): Fu[Color] =
     color match
       case TriColor.Random => userApi.firstGetsWhite(creator.map(_.id), joiner.map(_.id)).map(Color.fromWhite)
-      case TriColor.White  => fuccess(chess.White)
-      case TriColor.Black  => fuccess(chess.Black)
+      case fixed =>
+        creator.map(_.id).foreach(userApi.incColor(_, fixed.resolve()))
+        fuccess(fixed.resolve())
 
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(
