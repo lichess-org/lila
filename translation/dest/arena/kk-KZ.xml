@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Алаң</string>
   <string name="arenaTournaments">Жарыс алаңы</string>
   <string name="isItRated">Бұл бағалана ма?</string>
   <string name="willBeNotified">Жарыс басталғаны туралы сізге хабар келеді. Оған дейін браузердің басқа бетінде ойнай берсеңіз болады.</string>
@@ -61,4 +62,14 @@
   <string name="averagePerformance">Орташа жетістік</string>
   <string name="averageScore">Орташа ұпай</string>
   <string name="myTournaments">Менің жарыстарым</string>
+  <string name="editTournament">Жарысты өңдеу</string>
+  <string name="editTeamBattle">Топтар күресін өңдеу</string>
+  <string name="defender">Қорғаушы</string>
+  <string name="pickYourTeam">Тобыңызды таңдаңыз</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Осы күресте қай топқа мүшесіз?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Қатысу үшін осы топтардың біріне қосылуыңыз керек!</string>
+  <string name="created">Құрылды</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Кейінгі ойындар</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Үздік нәтиже</string>
+  <string name="tournamentStats">Жарыс статистикасы</string>
 </resources>
