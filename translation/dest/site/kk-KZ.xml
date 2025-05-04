@@ -719,6 +719,8 @@
   <string name="cyclePreviousOrNextVariation">Алдынғы/келесі тармаққа өту</string>
   <string name="toggleGlyphAnnotations">Жүріс ескертпелерін көрсету</string>
   <string name="togglePositionAnnotations">Орналасым ескертпелерін көрсету</string>
+  <string name="variationArrowsInfo">Жүріс тізімін қолданбай-ақ аралаудың бір амалы - тармақ нұсқағыштар.</string>
+  <string name="playSelectedMove">тандалған жүрісті ойнату</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
   <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Личестің ресми жарыстарына қатысам десеңіз не жаңадан жарысты құрастыру – таңдау сізде. Буллит, Блиц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз.</string>
@@ -742,6 +744,9 @@
   <string name="checkYourEmail">Поштаңызды қараңыз</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге электронды хат жібердік. Хаттағы сілтемеге бассаңыз, тіркелгіңіз расталады.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
+  <string name="ifYouDoNotGetTheEmail">Егер 5 минутта поштаңызға хат келмесе:</string>
+  <string name="checkAllEmailFolders">Спам, себет, басқа да қалталарды қарап шығыңыз</string>
+  <string name="verifyYourAddress">%s дұрыс жазылғанын тексеріңіз</string>
   <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
@@ -750,6 +755,7 @@
   <string name="downloadAnnotated">Өңделген күйде алу</string>
   <string name="downloadRaw">Шикі түрде алу</string>
   <string name="downloadImported">Жүктеп салынғанды алу</string>
+  <string name="downloadAllGames">Барлық ойындарды жүктеп алу</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, тақта үстінен тінтуір доңғалағын айналдырып жүріс жасай аласыз.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Компьютерлік тармақты көру үшін үстіне меңзер апарыңыз.</string>
