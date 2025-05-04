@@ -132,7 +132,7 @@ object protocol:
     def boolean(v: Boolean): String         = if v then "+" else "-"
     def optional(str: Option[String])       = str.getOrElse("-")
     def color(c: Color): String             = c.fold("w", "b")
-    def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
+    def color(c: Option[Color]): String     = optional(c.map(color))
 
 object userLag:
   type GetLagRating = UserId => Option[Int]
@@ -143,7 +143,6 @@ trait SocketRequester:
   def apply[R]: SocketRequest[R]
 
 object remote:
-  case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
   case class TellSriOut(sri: String, payload: JsValue)
   case class TellSrisOut(sris: Iterable[String], payload: JsValue)
   case class TellUserIn(user: UserId, msg: JsObject)

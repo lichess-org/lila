@@ -1,11 +1,11 @@
 package lila.game
 
-import chess.bitboard.Bitboard
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
 import chess.rating.IntRatingDiff
 import chess.{
+  Bitboard,
   Centis,
   Check,
   Clock as ChessClock,
@@ -14,7 +14,7 @@ import chess.{
   Move as ChessMove,
   Ply,
   PromotableRole,
-  Situation,
+  Position,
   Square,
   Status
 }
@@ -106,7 +106,7 @@ object Event:
   object Move:
     def apply(
         move: ChessMove,
-        situation: Situation,
+        board: Position,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
@@ -114,17 +114,17 @@ object Event:
       orig = move.orig,
       dest = move.dest,
       san = move.toSanStr,
-      fen = Fen.writeBoard(situation.board),
-      check = situation.check,
-      threefold = situation.threefoldRepetition,
-      fiftyMoves = situation.variant.fiftyMoves(situation.history),
+      fen = Fen.writeBoard(board),
+      check = board.check,
+      threefold = board.threefoldRepetition,
+      fiftyMoves = board.variant.fiftyMoves(board.history),
       promotion = move.promotion.map { Promotion(_, move.dest) },
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
       castle = move.castle.map(Castling(_, move.color)),
       state = state,
       clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
+      possibleMoves = board.destinations,
+      possibleDrops = board.drops,
       crazyData = crazyData
     )
 
@@ -153,7 +153,7 @@ object Event:
   object Drop:
     def apply(
         drop: ChessDrop,
-        situation: Situation,
+        board: Position,
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
@@ -161,13 +161,13 @@ object Event:
       role = drop.piece.role,
       pos = drop.square,
       san = drop.toSanStr,
-      fen = Fen.writeBoard(situation.board),
-      check = situation.check,
-      threefold = situation.threefoldRepetition,
+      fen = Fen.writeBoard(board),
+      check = board.check,
+      threefold = board.threefoldRepetition,
       state = state,
       clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
+      possibleMoves = board.destinations,
+      possibleDrops = board.drops,
       crazyData = crazyData
     )
 

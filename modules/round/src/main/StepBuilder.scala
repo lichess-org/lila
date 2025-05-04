@@ -67,20 +67,20 @@ object StepBuilder:
         ply = init.ply,
         move = none,
         fen = Fen.write(init),
-        check = init.situation.check,
+        check = init.board.check,
         dests = None,
         drops = None,
-        crazyData = init.situation.board.crazyData
+        crazyData = init.board.crazyData
       )
       val moveSteps = games.map: (g, m) =>
         Step(
           ply = g.ply,
           move = m.some,
           fen = Fen.write(g),
-          check = g.situation.check,
+          check = g.board.check,
           dests = None,
           drops = None,
-          crazyData = g.situation.board.crazyData
+          crazyData = g.board.crazyData
         )
       (initStep :: moveSteps).map(_.toJson)
 

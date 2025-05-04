@@ -74,6 +74,7 @@
   <string name="expandVariations">Laajenna muunnelmat</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopioi päämuunnelma PGN:nä</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
@@ -611,7 +612,7 @@
   <string name="victoryVsYInZ">%1$s %3$s-pelissä %2$s vastaan</string>
   <string name="defeatVsYInZ">%1$s vastustajalta %2$s pelissä %3$s</string>
   <string name="drawVsYInZ">%1$s vastustajaa %2$s vastaan pelissä %3$s</string>
-  <string name="timeline">Tapahtunutta aikajärjestyksessä</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Tapahtunutta aikajärjestyksessä</string>
   <string name="starting">Alkamassa:</string>
   <string name="allInformationIsPublicAndOptional">Kaikki informaatio on julkista ja vapaaehtoista.</string>
   <string name="biographyDescription">Kerro itsestäsi, parhaista asioista shakissa tai suosikkiavauksistasi, -peleistäsi, -pelaajistasi…</string>

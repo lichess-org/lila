@@ -58,18 +58,17 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
             isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
 
+  private def loadChat(tour: Tour, json: JsObject)(using Context): Fu[Option[lila.chat.UserChat.Mine]] =
+    canHaveChat(tour, json.some).soFu:
+      env.chat.api.userChat.cached
+        .findMine(tour.id.into(ChatId))
+        .map(_.copy(locked = !env.api.chatFreshness.of(tour)))
+
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
   def show(id: TourId) = Open:
     val page = getInt("page")
     cachedTour(id).flatMap: tourOption =>
-      def loadChat(tour: Tour, json: JsObject): Fu[Option[lila.chat.UserChat.Mine]] =
-        canHaveChat(tour, json.some).soFu(
-          env.chat.api.userChat.cached
-            .findMine(tour.id.into(ChatId))
-            .map:
-              _.copy(locked = !env.api.chatFreshness.of(tour))
-        )
       negotiate(
         html = tourOption
           .fold(tournamentNotFound): tour =>
@@ -116,12 +115,38 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 withDescription = true,
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
-              chatOpt <- (!partial).so(loadChat(tour, json))
+              chatOpt <- partial.not.so(loadChat(tour, json))
               jsChat <- chatOpt.soFu: c =>
                 lila.chat.JsonView.mobile(c.chat)
             yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
       )
+
+  def apiShow(id: TourId) = AnonOrScoped(): _ ?=>
+    env.tournament.tournamentRepo
+      .byId(id)
+      .flatMapz: tour =>
+        val page           = (getInt("page") | 1).atLeast(1).atMost(200)
+        given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
+        for
+          data <- env.tournament.jsonView(
+            tour = tour,
+            page = page.some,
+            playerInfoExt = none,
+            socketVersion = none,
+            partial = false,
+            withScores = true,
+            withDescription = true,
+            withAllowList = true
+          )
+          chatOpt       <- getBool("chat").so(loadChat(tour, data))
+          jsChat        <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
+          socketVersion <- getBool("socketVersion").soFu(env.tournament.version(tour.id))
+        yield data
+          .add("chat", jsChat)
+          .add("socketVersion" -> socketVersion)
+          .some
+      .map(JsonOk(_))
 
   def standing(id: TourId, page: Int) = Open:
     Found(cachedTour(id)): tour =>

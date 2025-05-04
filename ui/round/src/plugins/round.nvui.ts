@@ -291,7 +291,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'clock',
     help: i18n.keyboardMove.readOutClocks,
-    cb: notify => notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text()),
+    cb: notify => notify($('.nvui .botc').text() + ' - ' + $('.nvui .topc').text()),
     alt: 'c',
   },
   {

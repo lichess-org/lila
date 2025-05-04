@@ -34,19 +34,19 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
               if fromPosition then FromPosition
               else Standard
             } match
-              case Chess960 if !isChess960StartPosition(setup.situation) =>
+              case Chess960 if !isChess960StartPosition(setup.board) =>
                 FromPosition
               case FromPosition if parsed.tags.fen.isEmpty => Standard
               case Standard if fromPosition                => FromPosition
               case v                                       => v
-          val game = state.copy(situation = state.situation.withVariant(variant))
+          val game = state.copy(board = state.board.withVariant(variant))
           val initialFen = parsed.tags.fen
             .flatMap(Fen.readWithMoveNumber(variant, _))
             .map(Fen.write)
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match
             case Some("normal") =>
-              game.situation.status |
+              game.board.status |
                 (if parsed.tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.Resign)
             case Some("abandoned")                        => Status.Aborted
             case Some("time forfeit")                     => Status.Outoftime
@@ -58,16 +58,16 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             .map(points => TagResult(status, points))
             .filter(_.status > Status.Started)
             .orElse:
-              game.situation.status.flatMap: status =>
+              game.board.status.flatMap: status =>
                 Outcome
-                  .guessPointsFromStatusAndPosition(status, game.situation.winner)
+                  .guessPointsFromStatusAndPosition(status, game.board.winner)
                   .map(TagResult(status, _))
 
           ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
         }
     }
 
-private def isChess960StartPosition(sit: Situation) =
+private def isChess960StartPosition(sit: Position) =
   import chess.*
   val strict =
     def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =

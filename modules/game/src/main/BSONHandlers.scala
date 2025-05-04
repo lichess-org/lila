@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.bitboard.Board as BBoard
 import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
+  Board,
   ByColor,
   CheckCount,
   Clock,
@@ -64,7 +64,7 @@ object BSONHandlers:
       val (white, black) = r.str("p").view.flatMap(chess.Piece.fromChar).to(List).partition(_.is(chess.White))
       Crazyhouse.Data(
         pockets = ByColor(white, black).map(pieces => Pocket(pieces.map(_.role))),
-        promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
+        promoted = chess.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
@@ -126,7 +126,7 @@ object BSONHandlers:
             .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
-            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
+            board = Board.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -140,23 +140,21 @@ object BSONHandlers:
           )
 
       val chessGame = ChessGame(
-        situation = chess.Situation(
-          chess.Board(
-            board = decoded.board,
-            history = ChessHistory(
-              lastMove = decoded.lastMove,
-              castles = decoded.castles,
-              halfMoveClock = decoded.halfMoveClock,
-              positionHashes = decoded.positionHashes,
-              unmovedRooks = decoded.unmovedRooks,
-              checkCount = if light.variant.threeCheck then
-                val counts = r.intsD(F.checkCount)
-                CheckCount(~counts.headOption, ~counts.lastOption)
-              else emptyCheckCount,
-              crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
-            ),
-            variant = light.variant
+        board = chess.Position(
+          board = decoded.board,
+          history = ChessHistory(
+            lastMove = decoded.lastMove,
+            castles = decoded.castles,
+            halfMoveClock = decoded.halfMoveClock,
+            positionHashes = decoded.positionHashes,
+            unmovedRooks = decoded.unmovedRooks,
+            checkCount = if light.variant.threeCheck then
+              val counts = r.intsD(F.checkCount)
+              CheckCount(~counts.headOption, ~counts.lastOption)
+            else emptyCheckCount,
+            crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
           ),
+          variant = light.variant,
           color = turnColor
         ),
         sans = decoded.sans,

@@ -564,7 +564,7 @@ POST  /mod/:username/troll/:v          controllers.Mod.troll(username: UserStr, 
 POST  /mod/:username/isolate/:v        controllers.Mod.isolate(username: UserStr, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: UserStr)
 POST  /mod/:username/warn              controllers.Mod.warn(username: UserStr, subject)
-POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr)
+POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr, v: Boolean)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: UserStr)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: UserStr)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: UserStr)
@@ -701,7 +701,7 @@ GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, p
 GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
 GET   /api/game/:id                    controllers.Api.game(id: GameId)
 GET   /api/tournament                  controllers.Api.currentTournaments
-GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id: TourId)
+GET   /api/tournament/$id<\w{8}>            controllers.Tournament.apiShow(id: TourId)
 GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
 GET   /api/tournament/$id<\w{8}>/results    controllers.Api.tournamentResults(id: TourId)
 GET   /api/tournament/$id<\w{8}>/teams      controllers.Api.tournamentTeams(id: TourId)

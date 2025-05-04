@@ -145,14 +145,14 @@ object GameExt:
           }
         },
         loadClockHistory = _ => newClockHistory,
-        status = game.situation.status | g.status,
+        status = game.board.status | g.status,
         movedAt = nowInstant
       )
 
       val state = Event.State(
         turns = game.ply,
         status = (g.status != updated.status).option(updated.status),
-        winner = game.situation.winner,
+        winner = game.board.winner,
         whiteOffersDraw = g.whitePlayer.isOfferingDraw,
         blackOffersDraw = g.blackPlayer.isOfferingDraw
       )
@@ -163,10 +163,10 @@ object GameExt:
           updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
 
       val events = moveOrDrop.fold(
-        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+        Event.Move(_, game.board, state, clockEvent, updated.board.crazyData),
+        Event.Drop(_, game.board, state, clockEvent, updated.board.crazyData)
       ) :: {
-        (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
+        (updated.board.variant.threeCheck && game.board.check.yes).so(List:
           Event.CheckCount(
             white = updated.history.checkCount.white,
             black = updated.history.checkCount.black

@@ -37,5 +37,13 @@ trait RequestGetter:
   protected def getBool(name: String)(using RequestHeader): Boolean =
     getInt(name).exists(trueish) || get(name).exists(trueish)
 
+  protected def getBoolAs[A](name: String)(using req: RequestHeader, yn: SameRuntime[Boolean, A]): A =
+    yn(getBool(name))
+
   protected def getBoolOpt(name: String)(using RequestHeader): Option[Boolean] =
     getInt(name).map(trueish).orElse(get(name).map(trueish))
+
+  protected def getBoolOptAs[A](
+      name: String
+  )(using req: RequestHeader, yn: SameRuntime[Boolean, A]): Option[A] =
+    getBoolOpt(name).map(yn.apply)

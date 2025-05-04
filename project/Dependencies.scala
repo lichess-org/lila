@@ -20,14 +20,14 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.33.1"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.34.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.5.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.0.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
-  val munit       = "org.scalameta"              %% "munit"         % "1.1.0" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.1.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.19.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.1"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.3.2"
+    val version  = "17.5.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version

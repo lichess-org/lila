@@ -11,7 +11,7 @@ import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.net.ApiVersion
 import lila.core.security.HashedPassword
-import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey }
+import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 
@@ -155,6 +155,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         $inc(F.colorIt -> color.fold(1, -1))
       )
 
+  def mustPlayAsColor(userId: UserId): Fu[Option[Color]] =
+    coll
+      .primitiveOne[Int]($id(userId), F.colorIt)
+      .map:
+        _.flatMap: i =>
+          if i > 2 then Color.black.some
+          else if i < -2 then Color.white.some
+          else none
+
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
@@ -278,9 +287,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setPrizeban  = setMark(UserMark.prizeban)
   def setAlt       = setMark(UserMark.alt)
 
-  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
+  def setKid(user: User, v: KidMode) = coll.updateField($id(user.id), F.kid, v).void
 
-  def isKid[U: UserIdOf](u: U) = coll.exists($id(u.id) ++ $doc(F.kid -> true))
+  def isKid[U: UserIdOf](u: U): Fu[KidMode] = KidMode.from:
+    coll.exists($id(u.id) ++ $doc(F.kid -> true))
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 

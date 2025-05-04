@@ -70,7 +70,7 @@ object Arbitraries:
       castle        <- Gen.option(Arbitrary.arbitrary[Event.Castling])
       state         <- Arbitrary.arbitrary[Event.State]
       clock         <- Gen.option(Arbitrary.arbitrary[Event.ClockEvent])
-      possibleMoves <- Arbitrary.arbitrary[Map[Square, chess.bitboard.Bitboard]]
+      possibleMoves <- Arbitrary.arbitrary[Map[Square, Bitboard]]
       possibleDrops <- Gen.option(Gen.listOfN(8, Gen.oneOf(Square.all)))
       crazyData     <- Gen.option(Arbitrary.arbitrary[Crazyhouse.Data])
     yield Event.Move(

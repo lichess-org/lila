@@ -8,8 +8,6 @@ final class Quote(val text: String, val author: String)
 
 object Quote:
 
-  def one = all(Random.nextInt(all.size))
-
   def one(seed: String) = all(Random(seed.hashCode).nextInt(all.size))
 
   // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
