@@ -43,11 +43,11 @@
     <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
     <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
-  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
+  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za remis lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Zachowuj się miło na czacie!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do Twojej partii.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do twojej partii.</string>
   <string name="whiteResigned">Białe poddały się</string>
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
@@ -815,7 +815,7 @@
     <item quantity="other">%1$s graczy (%2$s) w tym tygodniu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Grasz lepiej niż %1$s graczy (%2$s).</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Grasz lepiej niż %1$s graczy (%2$s).</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s gra lepiej niż %2$s graczy %3$s.</string>
   <string name="betterThanPercentPlayers">Jesteś lepszy niż %1$s z %2$s graczy</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
