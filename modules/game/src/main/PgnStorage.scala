@@ -50,14 +50,18 @@ private object PgnStorage:
     private def chessBoard(b: JavaBoard): Board =
       Board(
         occupied = Bitboard(b.occupied),
-        white = Bitboard(b.white),
-        black = Bitboard(b.black),
-        pawns = Bitboard(b.pawns),
-        knights = Bitboard(b.knights),
-        bishops = Bitboard(b.bishops),
-        rooks = Bitboard(b.rooks),
-        queens = Bitboard(b.queens),
-        kings = Bitboard(b.kings)
+        ByColor(
+          white = Bitboard(b.white),
+          black = Bitboard(b.black)
+        ),
+        ByRole(
+          pawn = Bitboard(b.pawns),
+          knight = Bitboard(b.knights),
+          bishop = Bitboard(b.bishops),
+          rook = Bitboard(b.rooks),
+          queen = Bitboard(b.queens),
+          king = Bitboard(b.kings)
+        )
       )
 
   case class Decoded(
