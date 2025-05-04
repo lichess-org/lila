@@ -1,0 +1,26 @@
+name: Reviewable
+
+on: [pull_request_target]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure maintainers can modify PR
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          can_modify=$(gh pr view ${{ github.event.pull_request.number }} --json maintainerCanModify --jq '.maintainerCanModify')
+          if [ "$can_modify" = "true" ]; then
+            echo "✅ Maintainers can modify the PR"
+          else
+            echo "❌ Maintainers cannot modify the PR"
+            gh pr review ${{ github.event.pull_request.number }} \
+              --request-changes \
+              --body "Please allow edits from maintainers on your pull request. See how to enable them [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork#enabling-repository-maintainer-permissions-on-existing-pull-requests)"
+          fi
