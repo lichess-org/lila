@@ -211,7 +211,7 @@ object JsonView:
           move = Uci.WithSan(move.toUci, game.sans.last),
           metas = Metas(
             fen = Fen.write(game),
-            check = game.situation.check,
+            check = game.board.check,
             ply = game.ply,
             crazyData = none
           )

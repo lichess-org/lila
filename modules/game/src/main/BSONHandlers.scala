@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.bitboard.Board as BBoard
 import chess.format.Fen
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
+  Board,
   ByColor,
   CheckCount,
   Clock,
@@ -64,7 +64,7 @@ object BSONHandlers:
       val (white, black) = r.str("p").view.flatMap(chess.Piece.fromChar).to(List).partition(_.is(chess.White))
       Crazyhouse.Data(
         pockets = ByColor(white, black).map(pieces => Pocket(pieces.map(_.role))),
-        promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
+        promoted = chess.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
@@ -126,7 +126,7 @@ object BSONHandlers:
             .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
-            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
+            board = Board.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -140,7 +140,7 @@ object BSONHandlers:
           )
 
       val chessGame = ChessGame(
-        situation = chess.Board(
+        board = chess.Position(
           board = decoded.board,
           history = ChessHistory(
             lastMove = decoded.lastMove,
@@ -227,7 +227,7 @@ object BSONHandlers:
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
         F.blackClockHistory -> clockHistory(Color.Black, o.clockHistory, o.chess.clock, o.flagged),
         F.rated             -> w.boolO(o.mode.rated),
-        F.variant           -> o.situation.variant.exotic.option(w(o.situation.variant.id)),
+        F.variant           -> o.board.variant.exotic.option(w(o.board.variant.id)),
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
@@ -245,12 +245,12 @@ object BSONHandlers:
           val f = PgnStorage.OldBin
           $doc(
             F.oldPgn         -> f.encode(o.sans.take(maxPlies.value)),
-            F.binaryPieces   -> BinaryFormat.piece.write(o.situation.pieces),
+            F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes.value,
             F.unmovedRooks   -> o.history.unmovedRooks,
             F.castleLastMove -> CastleLastMove(castles = o.history.castles, lastMove = o.history.lastMove),
             F.checkCount     -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
-            F.crazyData      -> o.situation.crazyData
+            F.crazyData      -> o.board.crazyData
           )
       }
     val emptyCheckCount = CheckCount(0, 0)

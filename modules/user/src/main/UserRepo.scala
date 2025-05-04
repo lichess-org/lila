@@ -155,6 +155,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         $inc(F.colorIt -> color.fold(1, -1))
       )
 
+  def mustPlayAsColor(userId: UserId): Fu[Option[Color]] =
+    coll
+      .primitiveOne[Int]($id(userId), F.colorIt)
+      .map:
+        _.flatMap: i =>
+          if i > 2 then Color.black.some
+          else if i < -2 then Color.white.some
+          else none
+
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 

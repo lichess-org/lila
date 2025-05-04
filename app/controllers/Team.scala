@@ -426,14 +426,15 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.pmAll)(
         Left(_),
         msg =>
-          if env.teamInfo.pmAll.dedup(team.id, msg) then
+          val normalized = msg.replaceAll("\r\n?", "\n")
+          if env.teamInfo.pmAll.dedup(team.id, normalized) then
             Right:
               env.teamInfo.pmAll.limiter[Result](
                 team.id,
                 if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
               ) {
                 val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$msg
+                val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""
                 env.msg.api

@@ -279,7 +279,7 @@ final class JsonView(
     Json
       .obj(
         "id"          -> game.id,
-        "fen"         -> chess.format.Fen.writeBoardAndColor(game.situation),
+        "fen"         -> chess.format.Fen.writeBoardAndColor(game.board),
         "orientation" -> game.naturalOrientation.name,
         "color"    -> game.naturalOrientation.name, // app BC https://github.com/lichess-org/lila/issues/7195
         "lastMove" -> (game.lastMoveKeys | ""),

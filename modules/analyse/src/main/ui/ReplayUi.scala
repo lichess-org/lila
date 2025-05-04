@@ -70,7 +70,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
         cdnUrl(
           routes.Export
             .fenThumbnail(
-              Fen.write(pov.game.situation).value,
+              Fen.write(pov.game.board).value,
               pov.color.some,
               None,
               pov.game.variant.key.some,
