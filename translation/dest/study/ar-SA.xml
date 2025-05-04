@@ -65,6 +65,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="playing">يلعب الان</string>
+  <string name="showResults">النتائج</string>
   <string name="showEvalBar">شرائط التقييم</string>
   <string name="next">التالي</string>
   <string name="shareAndExport">مشاركة و تصدير</string>
@@ -179,4 +180,7 @@
   <string name="playAgain">اللعب مجددا</string>
   <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
   <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s في كل صفحة</string>
+  <string name="welcomeToLichessStudyTitle">مرحبًا بك في Lichess study  !</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">تم المشاركة والحفظ</string>
 </resources>
