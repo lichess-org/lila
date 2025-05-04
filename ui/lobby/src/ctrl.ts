@@ -75,19 +75,19 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
-      const minutesPerSide = urlParams.get('minutesPerSide');
-      const increment = urlParams.get('increment');
+      const minutesPerSide = parseInt(urlParams.get('minutesPerSide'));
+      const increment = parseInt(urlParams.get('increment'));
       const variant = urlParams.get('variant');
       const time = urlParams.get('time');
 
       if (variant) forceOptions.variant = variant as VariantKey;
 
-      if (minutesPerSide) {
-        forceOptions.time = parseInt(minutesPerSide);
+      if (Number.isInteger(minutesPerSide)) {
+        forceOptions.time = minutesPerSide;
       }
 
-      if (increment) {
-        forceOptions.increment = parseInt(increment);
+      if (Number.isInteger(increment)) {
+        forceOptions.increment = increment;
       }
 
       if (time === 'realTime') {
