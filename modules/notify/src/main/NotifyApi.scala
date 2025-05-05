@@ -183,12 +183,12 @@ final class NotifyApi(
 
   private def shouldSkip(note: Notification): Fu[Boolean] = note.content match
     case MentionedInThread(_, _, topicId, _, _) =>
-      userApi.isKid(note.to) >>|
+      userApi.isKid(note.to).dmap(_.yes) >>|
         repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
     case InvitedToStudy(_, _, studyId) =>
-      userApi.isKid(note.to) >>|
+      userApi.isKid(note.to).dmap(_.yes) >>|
         repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
     case PrivateMessage(sender, _) =>
       repo.hasRecentPrivateMessageFrom(note.to, sender)
     case _: CorresAlarm => fuFalse
-    case _              => userApi.isKid(note.to)
+    case _              => userApi.isKid(note.to).dmap(_.yes)

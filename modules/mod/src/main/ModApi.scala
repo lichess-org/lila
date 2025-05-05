@@ -5,7 +5,7 @@ import chess.PlayerTitle
 import lila.common.Bus
 import lila.core.perm.Permission
 import lila.core.report.SuspectId
-import lila.core.user.{ UserMark, UserMarks }
+import lila.core.user.{ UserMark, UserMarks, KidMode }
 import lila.report.{ Room, Suspect }
 import lila.user.{ LightUserApi, UserRepo }
 
@@ -126,13 +126,12 @@ final class ModApi(
           Bus.pub(lila.core.security.ReopenAccount(user))
           logApi.reopenAccount(user.id)
 
-  def setKid(mod: ModId, username: UserStr): Funit =
+  def setKid(mod: ModId, username: UserStr, v: KidMode): Funit =
     withUser(username): user =>
-      userRepo
-        .isKid(user.id)
-        .flatMap: isKid =>
-          (!isKid).so:
-            userRepo.setKid(user, true) >> logApi.setKidMode(mod, user.id)
+      for
+        prev <- userRepo.isKid(user.id)
+        _    <- (v != prev).so(userRepo.setKid(user, v))
+      yield if v != prev then logApi.setKidMode(mod, user.id, v)
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>

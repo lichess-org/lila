@@ -42,7 +42,7 @@ case class Game(
     metadata: GameMetadata
 ):
 
-  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor, history, board, variant }
+  export chess.{ board, ply, clock, sans, startedAtPly, player as turnColor, history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }
 

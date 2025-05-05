@@ -73,6 +73,7 @@
   <string name="expandVariations">Mở rộng các biến</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
+  <string name="copyMainLinePgn">Sao chép PGN chính</string>
   <string name="move">Nước cờ</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Thắng theo luật biến thể</string>

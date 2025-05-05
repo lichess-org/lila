@@ -428,7 +428,7 @@ final class Study(
           )
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader, Option[Me]) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, flags(requestPgnFlags)).throttle(20, 1.second))
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, _ => flags(requestPgnFlags)).throttle(20, 1.second))
       .asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn")
       .as(pgnContentType)
       .withDateHeaders(lastModified(study.updatedAt))
@@ -475,7 +475,7 @@ final class Study(
     val isMe   = ctx.me.exists(_.is(userId))
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
-      .flatMapConcat(env.study.pgnDump.chaptersOf(_, requestPgnFlags))
+      .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
       .throttle(16, 1.second)
       .withAttributes:
         akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
@@ -497,9 +497,7 @@ final class Study(
       comments = getBoolOpt("comments") | true,
       variations = getBoolOpt("variations") | true,
       clocks = getBoolOpt("clocks") | true,
-      source = getBool("source"),
-      orientation = getBool("orientation"),
-      site = none
+      orientation = getBool("orientation")
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:

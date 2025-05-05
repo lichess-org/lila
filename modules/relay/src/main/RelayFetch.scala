@@ -86,7 +86,7 @@ final private class RelayFetch(
           _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
-        sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
+        sliced           = RelayGame.Slices.filterAndOrder(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
         _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))

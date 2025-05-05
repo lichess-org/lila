@@ -74,6 +74,7 @@
   <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Copia linea principale PGN</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Sconfitta per variante</string>
   <string name="variantWin">Vittoria per variante</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Ruota la scacchiera</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="claimADraw">Reclama patta</string>
+  <string name="drawClaimed">Patta rivendicata</string>
   <string name="offerDraw">Offri patta</string>
   <string name="draw">Patta</string>
   <plurals name="nbPlayers">
@@ -434,7 +436,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
   <string name="retry">Riprova</string>
   <string name="reconnecting">Riconnessione</string>
-  <string name="noNetwork">Non in linea</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Non in linea</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amico online</item>
     <item quantity="other">%s amici online</item>
@@ -486,6 +488,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
   <string name="createdBy">Creato da</string>
+  <string name="startingIn" comment="Displayed above a timer">Inizio tra</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Riprendi</string>
@@ -610,7 +613,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
-  <string name="timeline">Resoconto attività</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Resoconto attività</string>
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, partite, giocatori preferiti…</string>
@@ -672,12 +675,12 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="termsOfService">Termini di servizio</string>
   <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
-  <string name="host">Simultaneista</string>
+  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
   <string name="yourPendingSimuls">Le tue simultanee in attesa</string>
   <string name="createdSimuls">Simultanee recenti</string>
-  <string name="hostANewSimul">Crea una nuova simultanea</string>
-  <string name="signUpToHostOrJoinASimul">Registrati per organizzare, o unirti a, un\'esibizione simultanea</string>
+  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Crea una nuova simultanea</string>
+  <string name="signUpToHostOrJoinASimul" comment="Appears as a button when you are viewing https://lichess.org/simul without being logged in. Note that this text will be all-uppercase.&#10;&#10;Pressing the button leads to the registration page: https://lichess.org/signup&#10;&#10;If logged out, the button will instead show &quot;Host a new simul&quot;, which is available for translation separately.">Registrati per organizzare, o unirti a, un\'esibizione simultanea</string>
   <string name="noSimulFound">Simultanea non trovata</string>
   <string name="noSimulExplanation">Questa esibizione simultanea non esiste.</string>
   <string name="returnToSimulHomepage">Ritorna alla pagina delle simultanee</string>
@@ -741,6 +744,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
+  <string name="ifYouDoNotGetTheEmail">Se non ricevi la email tra 5 minuti:</string>
+  <string name="checkAllEmailFolders">Controlla la posta indesiderata e altre cartelle</string>
+  <string name="verifyYourAddress">Verifica che %s sia il tuo indirizzo email</string>
   <string name="weHaveSentYouAnEmailTo">Abbiamo inviato un\'email all\'indirizzo %s. Clicca sul link nell\'email per reimpostare la password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrandoti, accetti i nostri %s</string>
   <string name="readAboutOur">Leggi la nostra %s.</string>
@@ -749,6 +755,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="downloadAnnotated">Scarica PGN annotato</string>
   <string name="downloadRaw">Scarica PGN senza annotazioni</string>
   <string name="downloadImported">Download importato</string>
+  <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scorri sulle varianti del computer per vederle in anteprima.</string>
@@ -772,6 +779,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
   <string name="viewTheSolution">Visualizza la soluzione</string>
+  <string name="noChallenges">Nessuna sfida.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s lingue!</item>
     <item quantity="other">Disponibile in %s lingue!</item>
@@ -784,6 +792,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="anonymous">Anonimo</string>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
+  <string name="allLanguages">Tutte le lingue</string>
   <string name="background">Sfondo</string>
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
@@ -970,6 +979,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
   <string name="reopenYourAccount">Riapri il tuo account</string>
+  <string name="reopenYourAccountDescription">Se hai chiuso il tuo account, ma hai cambiato idea, hai la possibilità di recuperare il tuo account.</string>
   <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
   <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
   <string name="tournamentEntryCode">Codice di accesso al torneo</string>

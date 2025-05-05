@@ -44,6 +44,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     filterEngines,
     firstGetsWhite,
     incColor,
+    mustPlayAsColor,
     userIdsWithRoles,
     containsDisabled,
     containsEngine,

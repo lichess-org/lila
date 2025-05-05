@@ -1,4 +1,4 @@
-import { updateElements } from './clockView';
+import { updateElements, formatClockTimeVerbal } from './clockView';
 import { ShowClockTenths } from '../../prefs';
 import { reducedMotion } from '../../device';
 
@@ -182,21 +182,14 @@ export class ClockCtrl {
   isRunning = (): boolean => this.times.activeColor !== undefined;
 
   speak = (): void => {
-    const msgs = ['white', 'black'].map(color => {
-      const time = this.millisOf(color as Color);
-      const date = new Date(time);
-      const msg =
-        (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
-        ' ' +
-        simplePlural(date.getUTCMinutes(), 'minute') +
-        ' ' +
-        simplePlural(date.getUTCSeconds(), 'second');
-      return `${color} ${msg}`;
+    const msgs = [
+      { key: 'white', i18nName: i18n.site.white },
+      { key: 'black', i18nName: i18n.site.black },
+    ].map(color => {
+      const time = this.millisOf(color.key as Color);
+      const msg = formatClockTimeVerbal(time);
+      return `${color.i18nName} - ${msg}`;
     });
-    site.sound.say(msgs.join('. '), false, true);
+    site.sound.say(msgs.join('. '), false, true, true);
   };
-}
-
-function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb !== 1 ? 's' : ''}`;
 }

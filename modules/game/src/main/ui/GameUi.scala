@@ -44,7 +44,7 @@ final class GameUi(helpers: Helpers):
       val fen =
         if me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
         then chess.format.BoardAndColorFen("8/8/8/8/8/8/8/8 w")
-        else Fen.writeBoardAndColor(pov.game.situation)
+        else Fen.writeBoardAndColor(pov.game.board)
       dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
     private def renderMini(

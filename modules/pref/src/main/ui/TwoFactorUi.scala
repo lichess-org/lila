@@ -30,8 +30,8 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
                 fragList(
                   List(
                     a(href := "https://2fas.com/")("2FAS"),
-                    a(href := "https://authenticatorpro.jmh.me/")("Authenticator Pro"),
-                    a(href := "https://getaegis.app/")("Aegis Authenticator")
+                    a(href := "https://getaegis.app/")("Aegis Authenticator"),
+                    a(href := "https://stratumauth.com/")("Stratum")
                   )
                 )
               ),

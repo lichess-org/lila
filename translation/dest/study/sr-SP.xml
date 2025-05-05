@@ -128,4 +128,21 @@
   <string name="goodMove">Добар потез</string>
   <string name="mistake">Грешка</string>
   <string name="blunder">Груба грешка</string>
+  <string name="equalPosition">Једнака позиција</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Нејасна позиција</string>
+  <string name="whiteIsSlightlyBetter">Бели је благо бољи</string>
+  <string name="blackIsSlightlyBetter">Црни је благо бољи</string>
+  <string name="whiteIsBetter">Бели је бољи</string>
+  <string name="blackIsBetter">Црни је бољи</string>
+  <string name="whiteIsWinning">Бели побеђује</string>
+  <string name="blackIsWinning">Црни побеђује</string>
+  <string name="initiative">Иницијатива</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Напад</string>
+  <string name="topics">Теме</string>
+  <string name="myTopics">Моје теме</string>
+  <string name="popularTopics">Популарне теме</string>
+  <string name="studyMembersTitle">Чланови студије</string>
+  <string name="studyChaptersTitle">Поглавља студије</string>
+  <string name="fromPgnGameTitle">Из PGN партије</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Дупли пораз</string>
 </resources>

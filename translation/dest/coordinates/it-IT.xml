@@ -18,4 +18,5 @@
   <string name="startTraining">Inizia l\'allenamento</string>
   <string name="findSquare">Trova la casella</string>
   <string name="nameSquare">Identifica la casa</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Fai pratica solo con alcune righe &amp; colonne</string>
 </resources>

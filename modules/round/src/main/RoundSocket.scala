@@ -14,7 +14,6 @@ import lila.core.game.TvSelect
 import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.net.IpAddress
 import lila.core.round.*
-import lila.core.socket.remote.TellSriIn
 import lila.core.socket.{ protocol as P, * }
 import lila.core.user.FlairGet
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -148,8 +147,6 @@ final class RoundSocket(
       logger.warn(s"Unhandled round socket message: $tpe")
     case hold: Protocol.In.HoldAlert => rounds.tell(hold.fullId.gameId, hold)
     case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
-    case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
-      Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)

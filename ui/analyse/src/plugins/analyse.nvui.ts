@@ -216,6 +216,15 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                     notify.set('PGN copied into clipboard.');
                   });
                 });
+                root.find('.copy-fen').on('click', function (this: HTMLElement) {
+                  const inputFen = document.querySelector(
+                    '.analyse__underboard__fen input',
+                  ) as HTMLInputElement;
+                  const fen = inputFen.value;
+                  navigator.clipboard.writeText(fen).then(() => {
+                    notify.set('FEN copied into clipboard.');
+                  });
+                });
               },
             },
           }),

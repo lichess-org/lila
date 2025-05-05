@@ -91,7 +91,7 @@ object BSONHandlers:
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(
-        promoted = chess.bitboard.Bitboard(r.getsD[Square]("o")),
+        promoted = chess.Bitboard(r.getsD[Square]("o")),
         pockets = ByColor(
           white = readPocket(r.strD("w")),
           black = readPocket(r.strD("b"))
