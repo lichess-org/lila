@@ -135,10 +135,10 @@ final class Env(
   def version(tourId: TourId): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId.into(RoomId))(GetVersion.apply)
 
-  // is that user playing a game of this tournament
-  // or hanging out in the tournament lobby (joined or not)
+  // has that user recently played a game of this tournament
+  // or is hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
-    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
+    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isRecentPlayer(tourId, userId)
 
   def cli =
     new lila.common.Cli:

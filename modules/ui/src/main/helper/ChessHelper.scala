@@ -1,7 +1,7 @@
 package lila.ui
 
 import chess.format.{ Fen, Uci }
-import chess.{ Board, Color, Square }
+import chess.{ Position, Color, Square }
 
 import lila.core.pref.Pref
 import lila.ui.*
@@ -31,7 +31,7 @@ trait ChessHelper:
     )(cgWrapContent)
 
   def chessground(
-      board: Board,
+      board: Position,
       orient: Color,
       lastMove: List[Square] = Nil,
       blindfold: Boolean,

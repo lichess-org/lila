@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Bekræft din lichess.org-konto, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klik på linket for at aktivere din Lichess-konto:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Hvis du ikke har registreret dig hos Lichess, kan du roligt ignorere denne besked. Den ubekræftede konto og alle spor af din e-mail-adresse vil blive slettet fra vores system efter 48 timer.</string>
   <string name="passwordReset_subject">Nulstil din adgangskode til lichess.org, %s</string>
   <string name="passwordReset_intro">Vi har modtaget en anmodning om at nulstille adgangskoden til din konto.</string>
   <string name="passwordReset_clickOrIgnore">Hvis du har foretaget denne anmodning, skal du klikke på linket nedenfor. Hvis ikke, kan du ignorere denne e-mail.</string>

@@ -74,6 +74,7 @@
   <string name="expandVariations">Ipakita ang mga baryasyon</string>
   <string name="forceVariation">Itaguyod ang pagkakaiba</string>
   <string name="copyVariationPgn">Kopyahin ang PGN ng baryasyon</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopyahin ang pangunahing linya ng PGN</string>
   <string name="move">Galaw</string>
   <string name="variantLoss">Pagkakaiba ng pagkatalo</string>
   <string name="variantWin">Kakaibang pagkapanalo</string>
@@ -184,7 +185,7 @@
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
   <string name="computersAreNotAllowedToPlay">Mga kompyuter at tinulungan ng kompyuter na mga manlalaro ay hindi pwedeng maglaro. Huwag ng humingi ng tulong sa mga makina ng chess, mga database, at galing sa ibang manlalaro habang naglalaro. Pakitandaan din na ang paggawa ng maraming akawnt ay hindi pinapayagan na maaring magresulta sa pagbabawal na pumasok muli.</string>
-  <string name="games">Mga Laro</string>
+  <string name="games" comment="Appears in many areas, including:&#10;&#10;* Users' profile pages (https://lichess.org/@/thibault) alongside the total number of games they have played&#10;* Broadcast pages (https://lichess.org/broadcast)&#10;* Page of an individual player's tournament results: https://lichess.org/@/thibault/tournaments/recent&#10;* Pages of classes, showing how many games a student has played over a given period&#10;* Tournament creation: https://lichess.org/tournament/new&#10;* Simul creation: https://lichess.org/simul/new">Mga Laro</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s naipaskil sa paksa %2$s</string>
   <string name="latestForumPosts">Pinakabagong mga naipaskil sa forum</string>
@@ -238,7 +239,7 @@
   <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Gagamitin nila ito sa pagnanakaw ng iyong account.</string>
   <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Gagamitin nila iyon para nakawin ang iyong account.</string>
   <string name="emailForSignupHelp">Kung nabigo ang lahat, ipadala sa amin ang email na ito:</string>
-  <string name="rank">Ranggo</string>
+  <string name="rank" comment="rank&#10;&#10;This is your current rank among all lichess players for that rating category. Appears next to that rating on your profile.&#10;&#10;It shows up e.g. as Rank: 1,423. This would mean you are the 1423rd best player on lichess for that rating category (e.g. Blitz chess, Crazyhouse, etc).&#10;&#10;May also appears as a column heading on a table of tournament results e.g. https://lichess.org/@/thibault/tournaments/recent">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Umiiba ang ranggo mo bawat minuto</item>
@@ -409,7 +410,7 @@
   <string name="blackCheckmatesInOneMove">Magmamate ang Itim sa isang tira</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
-  <string name="noNetwork">Offline</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s kaibigan sa online</item>
     <item quantity="other">%s mga kaibigan sa online</item>
@@ -436,8 +437,8 @@
   <string name="memberSince">Miyembro mula pa noong</string>
   <string name="lastSeenActive">Aktibo %s</string>
   <string name="player">Manlalaro</string>
-  <string name="list">Listahan</string>
-  <string name="graph">Graph</string>
+  <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">Listahan</string>
+  <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">Graph</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Mas maliit ng %s minuto</item>
     <item quantity="other">Mas maliit ng %s mga minuto</item>
@@ -457,7 +458,7 @@
   <string name="makePrivateTournament">Gawing pribado ang paligsahan, at higpitan ang access sa pamamagitan ng isang password</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
-  <string name="points">Punto</string>
+  <string name="points" comment="Appears as a column heading on pages with a table of a player's tournament results. Shows how many points that player earned in the tournament. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/recent">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
   <string name="createdBy">Ginawa ni</string>
@@ -481,7 +482,7 @@
   <string name="endgamePositions">Posisyon ng Endgame</string>
   <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
-  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Linisin ang board</string>
+  <string name="clearBoard">Linisin ang board</string>
   <string name="loadPosition">I-load ang posisyon</string>
   <string name="isPrivate">Pribado</string>
   <string name="reportXToModerators">I-report %s sa mga moderator</string>
@@ -581,7 +582,7 @@
   <string name="victoryVsYInZ">%1$s vs %2$s sa %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s sa %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s sa %3$s</string>
-  <string name="timeline">Timeline</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Timeline</string>
   <string name="starting">Nagsisimula:</string>
   <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
   <string name="biographyDescription">Sabihin mo ako tungkol sa iyo, ano ang gusto mo sa chess, paboritong mga pagbukas, mga laro, mga manlalaro…</string>
@@ -637,16 +638,16 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Patungkol</string>
   <string name="aboutX">Tungkol sa %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ay isang malaya(%2$s), libre, walang ads, open source chess server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer" comment="%1$s is 'Lichess' (note this used to be 'lichess.org')&#10;%2$s is 'really' (which is separate translateable string)&#10;&#10;On the website: Appears in the left sidebar when you are not logged in to an account.&#10;In the mobile app: Always appears at the bottom of the 'Settings' view.">%1$s ay isang malaya(%2$s), libre, walang ads, open source chess server.</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
   <string name="sourceCode">Pinagkukunan ng Code</string>
   <string name="simultaneousExhibitions">Magkasabay na mga eksibisyon</string>
-  <string name="host">Host</string>
+  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Host</string>
   <string name="hostColorX">Kulay ng Host: %s</string>
   <string name="createdSimuls">Bagong ginawang mga simul</string>
-  <string name="hostANewSimul">Maghost ng bagong simul</string>
+  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Maghost ng bagong simul</string>
   <string name="noSimulFound">Hindi makita ang simul</string>
   <string name="noSimulExplanation">Ang pagsasabay na eksibisyong ito ay hindi umiiral.</string>
   <string name="returnToSimulHomepage">Bumalik sa pahina ng home ng simul</string>
@@ -689,7 +690,7 @@
     <item quantity="other">%1$s%2$s mga manlalaro sa linggo.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ay mas magaling sa %2$s ng %3$s manlalaro.</string>
   <string name="betterThanPercentPlayers">Mas magaling kaysa sa %1$s ng mga manlalaro sa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
@@ -718,8 +719,10 @@
   <string name="withFriends">Kasama ang mga kaibigan</string>
   <string name="withEverybody">Kasama ang lahat</string>
   <string name="kidMode">Batang mode</string>
+  <string name="kidModeIsEnabled">Naka-enable ang batang mode.</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ang iyong account ay pinamamahalaan. Tanungin ang iyong guro sa chess tungkol sa pag-angat ng batang mode.</string>
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
@@ -747,6 +750,7 @@
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
+  <string name="board">Board</string>
   <string name="size">Laki</string>
   <string name="brightness">Liwanag</string>
   <string name="pieceSet">Itakda ang piraso</string>
@@ -843,9 +847,9 @@
   <string name="edit">I-edit</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Mabilisan</string>
-  <string name="classical">Klasiko</string>
-  <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
-  <string name="bulletDesc">Lubhang mabibilis na mga laro: mas mababa sa tatlong minuto</string>
+  <string name="classical">Klasikal</string>
+  <string name="ultraBulletDesc">Napakabilis na mga laro: mas mababa sa 30 segundo</string>
+  <string name="bulletDesc">Sobrang bilis na mga laro: mas mababa sa 3 minuto</string>
   <string name="blitzDesc">Mabibilis na mga laro: tatlo hanggang walong minuto</string>
   <string name="rapidDesc">Mabilisang mga laro: walo hanggang dalawmpu\'t limang minuto</string>
   <string name="classicalDesc">Klasikong mga laro: dalawampu\'t limang minuto at higit pa</string>

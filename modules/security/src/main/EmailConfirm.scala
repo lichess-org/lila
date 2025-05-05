@@ -45,16 +45,20 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(using Lang): Funit =
-    email.looksLikeFakeEmail.not.so:
-      tokener.make(user.id).flatMap { token =>
-        lila.mon.email.send.confirmation.increment()
-        val url = s"$baseUrl/signup/confirm/$token"
-        lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
-        mailer.sendOrFail:
-          Mailer.Message(
-            to = email,
-            subject = trans.emailConfirm_subject.txt(user.username),
-            text = Mailer.txt.addServiceNote(s"""
+    if email.looksLikeFakeEmail then
+      lila.log("auth").info(s"Not sending confirmation to fake email $email of ${user.username}")
+      fuccess(())
+    else
+      email.looksLikeFakeEmail.not.so:
+        tokener.make(user.id).flatMap { token =>
+          lila.mon.email.send.confirmation.increment()
+          val url = s"$baseUrl/signup/confirm/$token"
+          lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
+          mailer.sendOrFail:
+            Mailer.Message(
+              to = email,
+              subject = trans.emailConfirm_subject.txt(user.username),
+              text = Mailer.txt.addServiceNote(s"""
 ${trans.emailConfirm_click.txt()}
 
 $url
@@ -63,14 +67,14 @@ ${trans.common_orPaste.txt()}
 
 ${trans.emailConfirm_justIgnore.txt("https://lichess.org")}
 """),
-            htmlBody = emailMessage(
-              pDesc(trans.emailConfirm_click()),
-              potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-              small(trans.emailConfirm_justIgnore()),
-              serviceNote
-            ).some
-          )
-      }
+              htmlBody = emailMessage(
+                pDesc(trans.emailConfirm_click()),
+                potentialAction(metaName("Activate account"), Mailer.html.url(url)),
+                small(trans.emailConfirm_justIgnore()),
+                serviceNote
+              ).some
+            )
+        }
 
   import EmailConfirm.Result.*
 

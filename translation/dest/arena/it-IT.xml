@@ -90,4 +90,6 @@ Per esempio, essere classificato in 3ª posizione in un torneo di 100 giocatori 
   <string name="tournamentShields">Scudi torneo</string>
   <string name="onlyTitled">Solo giocatori intitolati</string>
   <string name="onlyTitledHelp">Richiedi un titolo ufficiale per partecipare al torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Gli abbinamenti del torneo sono ora chiusi.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Percentuale Berserk</string>
 </resources>

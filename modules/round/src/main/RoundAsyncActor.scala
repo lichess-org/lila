@@ -26,7 +26,7 @@ final private class RoundAsyncActor(
   import RoundAsyncActor.*
   import dependencies.*
 
-  private var takebackSituation: Option[TakebackSituation] = None
+  private var takebackBoard: Option[TakebackBoard] = None
 
   private var mightBeSimul = true // until proven otherwise
 
@@ -234,7 +234,7 @@ final private class RoundAsyncActor(
             if _ then
               finisher.rageQuit(
                 pov.game,
-                Some(pov.color).ifFalse(pov.game.situation.opponentHasInsufficientMaterial)
+                Some(pov.color).ifFalse(pov.game.board.opponentHasInsufficientMaterial)
               )
             else fuccess(List(Event.Reload))
 
@@ -289,8 +289,8 @@ final private class RoundAsyncActor(
 
     case Takeback(playerId, takeback) =>
       handle(playerId): pov =>
-        takebacker(~takebackSituation)(pov, takeback).map: (events, situation) =>
-          takebackSituation = situation.some
+        takebacker(~takebackBoard)(pov, takeback).map: (events, board) =>
+          takebackBoard = board.some
           events
 
     case lila.game.actorApi.NotifyRematch(newGame) =>
@@ -464,18 +464,18 @@ object RoundAsyncActor:
 
   private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
 
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
+  private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 
-    def decline = TakebackSituation(nbDeclined + 1, nowInstant.some)
+    def decline = TakebackBoard(nbDeclined + 1, nowInstant.some)
 
     def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
 
     def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
 
-    def reset = takebackSituationZero.zero
+    def reset = takebackBoardZero.zero
 
-  private[round] given takebackSituationZero: Zero[TakebackSituation] =
-    Zero(TakebackSituation(0, none))
+  private[round] given takebackBoardZero: Zero[TakebackBoard] =
+    Zero(TakebackBoard(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

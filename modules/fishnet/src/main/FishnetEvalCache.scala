@@ -37,7 +37,7 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, CloudEval)]] =
     chess.Replay
-      .situationsFromUci(
+      .boardsFromUci(
         game.uciList.take(maxPlies - 1),
         game.initialFen,
         game.variant

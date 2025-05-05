@@ -384,7 +384,7 @@ export function boardCommandsHandler() {
     const $boardLive = $('.boardstatus');
     if (ev.key === 'o' && key) $boardLive.text(key);
     else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
-    else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()}, ${$('.nvui .topc').text()}`);
+    else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
   };
 }
 
@@ -483,7 +483,7 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
     if (!node.san || !node.uci) return;
     path += node.id;
     const content: VNodeChildren = [
-      node.ply & 1 ? plyToTurn(node.ply) + ' ' : null,
+      node.ply & 1 ? plyToTurn(node.ply) + '. ' : null,
       renderSan(node.san, node.uci, style),
     ];
     res.push(h('move', { attrs: { p: path }, class: { active: path === currentPath } }, content));

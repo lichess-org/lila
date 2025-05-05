@@ -8,7 +8,7 @@ import {
 import { Protocol } from '../protocol';
 import { objectStorage, type ObjectStorage } from '../../objectStorage';
 import { sharedWasmMemory } from '../util';
-import type StockfishWeb from 'lila-stockfish-web';
+import type StockfishWeb from '@lichess-org/stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;

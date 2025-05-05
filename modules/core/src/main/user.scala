@@ -182,7 +182,7 @@ object user:
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
     def langOf(id: UserId): Fu[Option[String]]
-    def isKid[U: UserIdOf](id: U): Fu[Boolean]
+    def isKid[U: UserIdOf](id: U): Fu[KidMode]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
     def filterExists(ids: Set[UserId]): Fu[List[UserId]]
@@ -210,6 +210,7 @@ object user:
     def incColor(userId: UserId, color: Color): Unit
     def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
+    def mustPlayAsColor(userId: UserId): Fu[Option[Color]]
     def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]
     def gamePlayersLoggedIn(
         ids: ByColor[UserId],

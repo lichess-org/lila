@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Aktibatu zure lichess.org-eko kontua, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Egin klik zure Lichess kontua aktibatzeko:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Ez baduzu Lichessen izena eman, mezu hau guztiz baztertu dezakezu. Egiaztatu gabeko kontua eta zure eposta helbidearen informazioa 48 orduko epean ezabatuko da gure sistematik.</string>
   <string name="passwordReset_subject">Berrezarri lichess.org-eko zure pasahitza, %s</string>
   <string name="passwordReset_intro">Zure kontuaren pasahitza berrezartzeko eskaera jaso dugu.</string>
   <string name="passwordReset_clickOrIgnore">Eskaera zuk egin baduzu, egin klik lotura honetan. Ez bada horrela izan, ez egin kasu mezu honi.</string>

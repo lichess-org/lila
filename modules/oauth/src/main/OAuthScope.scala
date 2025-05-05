@@ -25,6 +25,7 @@ object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
   extension (e: EndpointScopes)
     def isEmpty                                 = e.isEmpty
     def compatible(token: TokenScopes): Boolean = e.exists(token.has)
+    def show                                    = e.map(_.key).mkString(" || ")
 
 object OAuthScope:
 

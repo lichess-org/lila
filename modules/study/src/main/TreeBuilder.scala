@@ -6,13 +6,13 @@ import lila.tree.{ Branches, NewRoot, Root }
 
 object TreeBuilder:
 
-  private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
+  private val initialStandardDests = chess.Game(chess.variant.Standard).board.destinations
 
   def apply(root: NewRoot, variant: Variant) =
     val dests =
       if variant.standard && root.fen.isInitial then initialStandardDests
       else
-        val sit = chess.Game(variant.some, root.fen.some).situation
+        val sit = chess.Game(variant.some, root.fen.some).board
         sit.playable(false).so(sit.destinations)
     root
       .focus(_.metas)
@@ -22,6 +22,6 @@ object TreeBuilder:
     val dests =
       if variant.standard && root.fen.isInitial then initialStandardDests
       else
-        val sit = chess.Game(variant.some, root.fen.some).situation
+        val sit = chess.Game(variant.some, root.fen.some).board
         sit.playable(false).so(sit.destinations)
     root.copy(dests = dests.some)

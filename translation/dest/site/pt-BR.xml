@@ -74,6 +74,7 @@
   <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Variante forçada</string>
   <string name="copyVariationPgn">Copiar PGN da variante</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Copiar PGN da linha principal</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota da variante</string>
   <string name="variantWin">Vitória da variante</string>
@@ -611,7 +612,7 @@
   <string name="victoryVsYInZ">%1$s vs %2$s em %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s em %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s em %3$s</string>
-  <string name="timeline">Linha do tempo</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="biographyDescription">Fale sobre você, seus interesses, o que você gosta no xadrez, suas aberturas favoritas, jogadores...</string>
