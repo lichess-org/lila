@@ -126,7 +126,7 @@ final private class Takebacker(
     yield events
 
   private def saveAndNotify(p1: Progress, pov: Pov)(using proxy: GameProxy): Fu[Events] =
-    val p2 = p1 + Event.Reload
+    val p2       = p1 + Event.Reload
     val accepter = if pov.opponent.isProposingTakeback then pov.color else !pov.color
     messenger.system(p2.game, accepter.name.capitalize + ' ' + trans.site.acceptsTakeback.txt())
     proxy.save(p2).inject(p2.events)
