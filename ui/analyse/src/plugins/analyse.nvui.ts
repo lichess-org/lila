@@ -51,6 +51,7 @@ import { renderResult, viewContext, type RelayViewContext } from '../view/compon
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
 import renderClocks from '../view/clocks';
+import { renderChat } from 'lib/chat/renderChat';
 
 import type * as studyDeps from '../study/studyDeps';
 import type RelayCtrl from '../study/relay/relayCtrl';
@@ -257,6 +258,8 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 .map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
+          h('h2', 'Chat'),
+          ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
           ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
         ]),
       ]);
