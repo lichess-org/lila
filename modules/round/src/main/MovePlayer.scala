@@ -1,6 +1,5 @@
 package lila.round
 
-import chess.MoveOrDrop.*
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, ErrorStr, MoveMetrics, MoveOrDrop, Status }
 
@@ -185,7 +184,7 @@ final private class MovePlayer(
 
   private def moveFinish(game: Game)(using GameProxy): Fu[Events] =
     game.status match
-      case Status.Mate       => finisher.other(game, _.Mate, game.situation.winner)
-      case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.situation.winner)
+      case Status.Mate                               => finisher.other(game, _.Mate, game.board.winner)
+      case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.board.winner)
       case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
       case _                                         => fuccess(Nil)

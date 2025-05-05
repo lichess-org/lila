@@ -9,7 +9,8 @@ import lila.common.actorBus.*
 import lila.core.socket.Sri
 
 final class BoardApiHookStream(
-    lobby: LobbySyncActor
+    lobby: LobbySyncActor,
+    userApi: lila.core.user.UserApi
 )(using ec: Executor, system: ActorSystem):
 
   private case object SetOnline
@@ -26,6 +27,10 @@ final class BoardApiHookStream(
           actor ! PoisonPill
 
   def cancel(sri: Sri) = Bus.publish(RemoveHook(sri.value), s"hookRemove:${sri}")
+
+  def mustPlayAsColor(chosen: TriColor)(using me: Option[Me]): Fu[Option[Color]] =
+    (chosen != TriColor.Random).so:
+      me.map(_.userId).so(userApi.mustPlayAsColor).map(_.filter(_ != chosen.resolve()))
 
   private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]): Actor = new:
 

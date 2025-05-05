@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">Жарыс алаңы</string>
   <string name="isItRated">Бұл бағалана ма?</string>
-  <string name="willBeNotified">Жарыс басталғаны туралы сізге хабар келеді. Браузердің басқа бетінде ойнай берсеңіз болады.</string>
+  <string name="willBeNotified">Жарыс басталғаны туралы сізге хабар келеді. Оған дейін браузердің басқа бетінде ойнай берсеңіз болады.</string>
   <string name="isRated">Бұл бағаланатын жарыс, сіздің рейтингіңізге әсер етеді.</string>
   <string name="isNotRated">Бұл жарыс бағалы *емес*, сіздің рейтингіңізге әсер *етпейді*.</string>
   <string name="someRated">Жарыстардың кейбірі бағалы, яғни рейтингке әсер етеді.</string>

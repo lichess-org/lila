@@ -43,16 +43,31 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
+export function formatClockTimeVerbal(time: Millis): string {
+  const totalSeconds = Math.floor(time / 1000);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const parts: string[] = [];
+  if (days > 0) {
+    parts.push(i18n.site.nbDays(days));
+    if (hours > 0) parts.push(i18n.site.nbHours(hours));
+  } else if (hours > 0) {
+    parts.push(i18n.site.nbHours(hours));
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+  } else {
+    if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
+    if (seconds > 0 || parts.length === 0) parts.push(i18n.site.nbSeconds(seconds));
+  }
+
+  return parts.join(', ');
+}
+
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
-  if (nvui)
-    return (
-      (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
-      date.getUTCMinutes() +
-      'M:' +
-      date.getUTCSeconds() +
-      'S'
-    );
+  if (nvui) return formatClockTimeVerbal(time);
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());

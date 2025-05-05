@@ -8,8 +8,6 @@ final class Quote(val text: String, val author: String)
 
 object Quote:
 
-  def one = all(Random.nextInt(all.size))
-
   def one(seed: String) = all(Random(seed.hashCode).nextInt(all.size))
 
   // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
@@ -86,7 +84,6 @@ object Quote:
     Quote("Without error there can be no brilliancy.", "Emanuel Lasker"),
     Quote("Chess is like war on a board.", "Bobby Fischer"),
     Quote("Chess is played with the mind and not with the hands!", "Renaud and Kahn"),
-    Quote("Chess is mental torture.", "Garry Kasparov"),
     Quote("Many have become chess masters, no one has become the master of chess.", "Siegbert Tarrasch"),
     Quote(
       "The most important feature of the chess position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece's activity is the pawn structure.",
@@ -117,7 +114,6 @@ object Quote:
       "Who is your opponent tonight, tonight I am playing against the black pieces.",
       "Akiba Rubinstein"
     ),
-    Quote("I like the moment when I break a man's ego.", "Bobby Fischer"),
     Quote("Excellence at chess is one mark of a scheming mind.", "Sir Arthur Conan Doyle"),
     Quote("A bad day of chess is better than any good day at work.", "Anonymous"),
     Quote("Chess is the art of analysis.", "Mikhail Botvinnik"),

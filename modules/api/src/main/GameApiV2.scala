@@ -344,7 +344,7 @@ final class GameApiV2(
         "increment" -> clock.incrementSeconds,
         "totalTime" -> clock.estimateTotalSeconds
       ))
-    .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.situation)))
+    .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.board)))
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
     .add("bookmarked" -> bookmarked)

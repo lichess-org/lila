@@ -167,7 +167,7 @@
   <string name="perPage">%s per page</string>
   <string name="getTheTour">Need help? Get the tour!</string>
   <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
-  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
+  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyze and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
   <string name="sharedAndSavedText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
   <string name="studyMembersTitle">Study members</string>
@@ -196,4 +196,7 @@
   <string name="variantsAreSupportedTitle">Studies support variants</string>
   <string name="variantsAreSupportedText">Yes, you can study crazyhouse&lt;br&gt;and all lichess variants!</string>
   <string name="chapterConclusionText">Chapters are saved forever.&lt;br&gt;Have fun organizing your chess content!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Double defeat</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Black defeat, but White can\'t win</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">White defeat, but Black can\'t win</string>
 </resources>

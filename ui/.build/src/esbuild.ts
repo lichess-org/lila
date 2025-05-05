@@ -4,7 +4,7 @@ import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { task, stopTask } from './task.ts';
-import { definedMap, reduceWhitespace } from './algo.ts';
+import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
@@ -159,7 +159,7 @@ const plugins = [
         loader: 'ts',
         contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
           /\$html`([^`]*)`/g,
-          (_, s) => `\`${reduceWhitespace(s)}\``,
+          (_, s) => `\`${s.trim().replace(/\s+/g, ' ')}\``,
         ),
       }));
     },

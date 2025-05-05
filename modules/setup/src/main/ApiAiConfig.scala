@@ -32,7 +32,7 @@ final case class ApiAiConfig(
 
   private def game(user: GameUser)(using idGenerator: IdGenerator, newPlayer: NewPlayer): Fu[Game] =
     fenGame: chessGame =>
-      lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
+      lila.rating.PerfType(chessGame.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       idGenerator.withUniqueId:
         lila.core.game
           .newGame(

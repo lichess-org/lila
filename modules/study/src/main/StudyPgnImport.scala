@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.MoveOrDrop.*
 import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
@@ -31,7 +30,7 @@ object StudyPgnImport:
         val root = Root(
           ply = replay.setup.ply,
           fen = initialFen | game.board.variant.initialFen,
-          check = replay.setup.situation.check,
+          check = replay.setup.board.check,
           shapes = shapes,
           comments = comments,
           glyphs = Glyphs.empty,
@@ -130,7 +129,7 @@ object StudyPgnImport:
   ): Option[Branch] =
     try
       node.value
-        .san(context.currentGame.situation)
+        .san(context.currentGame.board)
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
@@ -149,12 +148,12 @@ object StudyPgnImport:
               ply = game.ply,
               move = Uci.WithSan(uci, sanStr),
               fen = Fen.write(game),
-              check = game.situation.check,
+              check = game.board.check,
               shapes = shapes,
               comments = comments,
               glyphs = node.value.metas.glyphs,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData,
+              crazyData = game.board.crazyData,
               children = node.child.fold(Branches.empty):
                 makeBranches(
                   Context(
