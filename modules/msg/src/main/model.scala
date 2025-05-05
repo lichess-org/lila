@@ -2,6 +2,7 @@ package lila.msg
 
 import lila.core.LightUser
 import lila.core.relation.Relations
+import lila.core.user.KidMode
 
 case class MsgConvo(
     contact: LightUser,
@@ -18,4 +19,4 @@ case class ModMsgConvo(
     truncated: Boolean
 )
 
-case class ContactDetailsForMods(kid: Boolean, openInbox: Boolean)
+case class ContactDetailsForMods(kid: KidMode, openInbox: Boolean)

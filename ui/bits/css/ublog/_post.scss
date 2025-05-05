@@ -175,18 +175,27 @@
   }
   span {
     @extend %flex-center;
-    gap: 0.5em;
+    gap: 1em;
+  }
+  .automod {
+    @extend %flex-between;
   }
   i {
     cursor: pointer;
+    font-size: 1.6rem;
+    font-weight: 700;
   }
-  i.flagged::before {
-    font-size: 1.3em;
+  i::before {
+    font-size: 1.4rem;
+  }
+  i.flagged {
     color: $c-brag;
   }
   i.commercial {
-    font-size: 1.5em;
     color: $c-secondary;
+  }
+  i.offtopic {
+    color: $c-bad;
   }
   legend {
     width: 100%;

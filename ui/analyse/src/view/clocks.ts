@@ -2,7 +2,8 @@ import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { defined, notNull } from 'lib';
 import * as licon from 'lib/licon';
-import { iconTag } from 'lib/snabbdom';
+import { iconTag, MaybeVNode, MaybeVNodes } from 'lib/snabbdom';
+import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 
 interface ClockOpts {
   centis: number | undefined;
@@ -59,9 +60,13 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode
 }
 
 const renderClock = (opts: ClockOpts): VNode =>
-  h('div.analyse__clock.' + opts.cls, { class: { active: opts.active } }, clockContent(opts));
+  h(
+    'div.analyse__clock.' + opts.cls,
+    { class: { active: opts.active } },
+    site.blindMode ? [clockContentNvui(opts)] : clockContent(opts),
+  );
 
-function clockContent(opts: ClockOpts): Array<string | VNode> {
+function clockContent(opts: ClockOpts): MaybeVNodes {
   if (!opts.centis && opts.centis !== 0) return ['-'];
   const date = new Date(opts.centis * 10),
     millis = date.getUTCMilliseconds(),
@@ -75,6 +80,10 @@ function clockContent(opts: ClockOpts): Array<string | VNode> {
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
   const pauseNodes = opts.pause ? [iconTag(licon.Pause)] : [];
   return [...pauseNodes, ...timeNodes];
+}
+
+function clockContentNvui(opts: ClockOpts): MaybeVNode {
+  return !opts.centis && opts.centis !== 0 ? 'None' : formatClockTimeVerbal(opts.centis * 10);
 }
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;

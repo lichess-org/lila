@@ -44,15 +44,12 @@ final class GameProxyRepo(
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId).dmap { _.flatMap { _.playerIdPov(playerRef.playerId) } }
 
-  def urgentGames[U: UserIdOf](user: U): Fu[List[Pov]] =
-    gameRepo
-      .urgentPovsUnsorted(user)
-      .flatMap:
-        _.parallel: pov =>
-          gameIfPresent(pov.gameId).dmap { _.fold(pov)(pov.withGame) }
-        .map: povs =>
-          try povs.sortWith(lila.game.Pov.priority)
-          catch
-            case e: IllegalArgumentException =>
-              lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
-              povs.sortBy(-_.game.movedAt.toSeconds)
+  def urgentGames[U: UserIdOf](user: U): Fu[List[Pov]] = for
+    inDb <- gameRepo.urgentPovsUnsorted(user)
+    povs <- inDb.parallel: pov =>
+      gameIfPresent(pov.gameId).dmap(_.fold(pov)(pov.withGame))
+  yield try povs.sortWith(lila.game.Pov.priority)
+  catch
+    case e: IllegalArgumentException =>
+      lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
+      povs.sortBy(-_.game.movedAt.toSeconds)

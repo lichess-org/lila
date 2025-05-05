@@ -38,7 +38,7 @@ final class OAuthServer(
       .orFailWith(NoSuchToken)
       .flatMap:
         case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
-          fufail(MissingScope(at.scopes))
+          fufail(MissingScope(accepted, at.scopes))
         case at =>
           userApi
             .me(at.userId)
@@ -107,8 +107,9 @@ object OAuthServer:
   sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
   case object NoSuchToken                              extends AuthError("No such token")
-  case class MissingScope(scopes: TokenScopes)         extends AuthError("Missing scope")
-  case object NoSuchUser                               extends AuthError("No such user")
+  case class MissingScope(accepted: EndpointScopes, available: TokenScopes)
+      extends AuthError(s"Missing scope: ${accepted.show}")
+  case object NoSuchUser           extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked        extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")

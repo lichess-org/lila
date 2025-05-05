@@ -134,7 +134,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         ,
         Granter.opt(_.SetKidMode).option {
           postForm(
-            action := routes.Mod.kid(u.username),
+            action := routes.Mod.kid(u.username, !u.kid.value),
             title  := "Activate kid mode if not already the case",
             cls    := "xhr"
           ):

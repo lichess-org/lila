@@ -2,6 +2,7 @@ import { looseH as h, type VNode } from 'lib/snabbdom';
 import type { TopOrBottom } from 'lib/game/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
+import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 
 const prefixInteger = (num: number, length: number): string =>
   (num / Math.pow(10, length)).toFixed(length).slice(2);
@@ -39,7 +40,7 @@ export default function (
 ): VNode {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
-      el.innerHTML = formatClockTime(millis);
+      el.innerHTML = site.blindMode ? formatClockTimeVerbal(millis) : formatClockTime(millis);
     },
     isPlayer = ctrl.root.data.player.color === color,
     direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;

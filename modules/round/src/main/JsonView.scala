@@ -323,13 +323,13 @@ final class JsonView(
   private def possibleMoves(pov: Pov): Option[JsValue] =
     pov.game
       .playableBy(pov.player)
-      .option(lila.game.Event.PossibleMoves.json(pov.game.situation.destinations))
+      .option(lila.game.Event.PossibleMoves.json(pov.game.board.destinations))
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
     (pov.game
       .playableBy(pov.player))
       .so:
-        pov.game.situation.drops.map: drops =>
+        pov.game.board.drops.map: drops =>
           JsString(drops.map(_.key).mkString)
 
   private def animationMillis(pov: Pov, pref: Pref) =

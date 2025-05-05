@@ -28,9 +28,9 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         .void
 
   private def addPhase(puzzle: Puzzle): Funit =
-    puzzle.situationAfterInitialMove match
+    puzzle.boardAfterInitialMove match
       case Some(sit) =>
-        val theme = Divider(List(sit.board)) match
+        val theme = Divider(List(sit)) match
           case Division(None, Some(_), _) => PuzzleTheme.endgame
           case Division(Some(_), None, _) => PuzzleTheme.middlegame
           case _                          => PuzzleTheme.opening
@@ -47,10 +47,10 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
 
   private def checkFirstTheme(puzzle: Puzzle): Funit = {
     for
-      init <- puzzle.situationAfterInitialMove
+      init <- puzzle.boardAfterInitialMove
       if !puzzle.hasTheme(PuzzleTheme.mateIn1)
       move  <- puzzle.line.tail.headOption
-      first <- init.move(move).toOption.map(_.situationAfter)
+      first <- init.move(move).toOption.map(_.boardAfter)
     yield first.check
   }.exists(_.yes)
     .so:

@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
@@ -35,7 +34,7 @@ object StudyPgnImportNew:
               Metas(
                 ply = replay.setup.ply,
                 fen = initialFen | game.board.variant.initialFen,
-                check = replay.setup.situation.check,
+                check = replay.setup.board.check,
                 dests = None,
                 drops = None,
                 eval = None,
@@ -44,7 +43,7 @@ object StudyPgnImportNew:
                 gamebook = None,
                 glyphs = Glyphs.empty,
                 opening = None,
-                crazyData = replay.setup.situation.board.crazyData,
+                crazyData = replay.setup.board.crazyData,
                 clock = clock
               ),
               parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
@@ -89,7 +88,7 @@ object StudyPgnImportNew:
       annotator: Option[Comment.Author]
   ): (Context, Option[NewBranch]) =
     data
-      .san(context.currentGame.situation)
+      .san(context.currentGame.board)
       .map(moveOrDrop =>
         val game                           = moveOrDrop.applyGame(context.currentGame)
         val uci                            = moveOrDrop.toUci
@@ -112,7 +111,7 @@ object StudyPgnImportNew:
             Metas(
               ply = game.ply,
               fen = Fen.write(game),
-              check = game.situation.check,
+              check = game.board.check,
               dests = None,
               drops = None,
               eval = None,
@@ -122,7 +121,7 @@ object StudyPgnImportNew:
               glyphs = data.metas.glyphs,
               opening = None,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData
+              crazyData = game.board.crazyData
             )
           )
 

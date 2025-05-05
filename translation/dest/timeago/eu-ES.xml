@@ -2,32 +2,32 @@
 <resources>
   <string name="justNow">orain</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">segundo %sen</item>
-    <item quantity="other">%s segundotan</item>
+    <item quantity="one">segundo %s barru</item>
+    <item quantity="other">%s segundo barru</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">minutu %sen</item>
     <item quantity="other">%s minututan</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">ordu %sen</item>
-    <item quantity="other">%s ordutan</item>
+    <item quantity="one">ordu %s barru</item>
+    <item quantity="other">%s ordu barru</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">egun %sen</item>
-    <item quantity="other">%s egunetan</item>
+    <item quantity="one">egun %s barru</item>
+    <item quantity="other">%s egun barru</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">aste %sen</item>
-    <item quantity="other">%s egunetan</item>
+    <item quantity="one">aste %s barru</item>
+    <item quantity="other">%s egun barru</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">hilabete %sen</item>
-    <item quantity="other">%s hilabetetan</item>
+    <item quantity="one">hilabete %s barru</item>
+    <item quantity="other">%s hilabete barru</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">urte %sen</item>
-    <item quantity="other">%s urtetan</item>
+    <item quantity="one">urte %s barru</item>
+    <item quantity="other">%s urte barru</item>
   </plurals>
   <string name="rightNow">orain</string>
   <plurals name="nbMinutesAgo">

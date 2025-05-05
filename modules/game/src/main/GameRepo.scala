@@ -223,7 +223,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
     coll
-      .list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5)
+      .list[Game](Query.nowPlaying(user.id), maxPlaying.value + 5)
       .dmap:
         _.flatMap { Pov(_, user) }
 

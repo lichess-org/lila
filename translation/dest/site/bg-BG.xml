@@ -156,6 +156,7 @@
   <string name="flipBoard">Завърти дъската</string>
   <string name="threefoldRepetition">Тройно повторение</string>
   <string name="claimADraw">Обяви реми</string>
+  <string name="drawClaimed">Обявено е реми</string>
   <string name="offerDraw">Предложи реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
@@ -184,7 +185,7 @@
   <string name="youNeedAnAccountToDoThat">Трябва Ви регистрация, за да направите това</string>
   <string name="signUp">Регистрирайте се</string>
   <string name="computersAreNotAllowedToPlay">Не е позволено използването на компютърна помощ. Моля, не си помагайте с програми за шах, архиви или други играчи по време на игра. Също, създаването на множество регистрации е силно непрепоръчително и ще се накаже с бан.</string>
-  <string name="games">Игри</string>
+  <string name="games" comment="Appears in many areas, including:&#10;&#10;* Users' profile pages (https://lichess.org/@/thibault) alongside the total number of games they have played&#10;* Broadcast pages (https://lichess.org/broadcast)&#10;* Page of an individual player's tournament results: https://lichess.org/@/thibault/tournaments/recent&#10;* Pages of classes, showing how many games a student has played over a given period&#10;* Tournament creation: https://lichess.org/tournament/new&#10;* Simul creation: https://lichess.org/simul/new">Игри</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s написа по темата %2$s</string>
   <string name="latestForumPosts">Последни съобщения във форума</string>
@@ -255,7 +256,7 @@
   <string name="accountConfirmationEmailNotNeeded">Не е необходимо да получавате имейл за потвърждение.</string>
   <string name="accountClosed">Регистрацията %s е закрита.</string>
   <string name="accountRegisteredWithoutEmail">Акаунтът %s е регистриран без имейл.</string>
-  <string name="rank">Класация</string>
+  <string name="rank" comment="rank&#10;&#10;This is your current rank among all lichess players for that rating category. Appears next to that rating on your profile.&#10;&#10;It shows up e.g. as Rank: 1,423. This would mean you are the 1423rd best player on lichess for that rating category (e.g. Blitz chess, Crazyhouse, etc).&#10;&#10;May also appears as a column heading on a table of tournament results e.g. https://lichess.org/@/thibault/tournaments/recent">Класация</string>
   <string name="rankX">Класация: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Класирането се обновява всяка минута</item>
@@ -432,7 +433,7 @@
   <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
-  <string name="noNetwork">Офлайн</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Офлайн</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s приятел онлайн</item>
     <item quantity="other">%s приятели онлайн</item>
@@ -459,8 +460,8 @@
   <string name="memberSince">Член от</string>
   <string name="lastSeenActive">Последно влизане %s</string>
   <string name="player">Играч</string>
-  <string name="list">Списък</string>
-  <string name="graph">Графика</string>
+  <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">Списък</string>
+  <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">Графика</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">По-малко от %s минута</item>
     <item quantity="other">По-малко от %s минути</item>
@@ -480,10 +481,11 @@
   <string name="makePrivateTournament">Ограничи достъпа до турнира с парола</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
-  <string name="points">Точки</string>
+  <string name="points" comment="Appears as a column heading on pages with a table of a player's tournament results. Shows how many points that player earned in the tournament. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/recent">Точки</string>
   <string name="wins">Победи</string>
   <string name="losses">Загуби</string>
   <string name="createdBy">Създадено от</string>
+  <string name="startingIn" comment="Displayed above a timer">Започва след</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Възобновяване</string>
@@ -604,7 +606,7 @@
   <string name="victoryVsYInZ">%1$s срещу %2$s в %3$s</string>
   <string name="defeatVsYInZ">%1$s срещу %2$s в %3$s</string>
   <string name="drawVsYInZ">%1$s срещу %2$s в %3$s</string>
-  <string name="timeline">Уведомления</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Уведомления</string>
   <string name="starting">Начало:</string>
   <string name="allInformationIsPublicAndOptional">Всички данни са обществени и са по избор.</string>
   <string name="biographyDescription">Разкажете за себе си, какво харесвате в шахмата, вашите любими дебюти, игри, играчи…</string>
@@ -660,16 +662,16 @@
   <string name="webmasters">Уебмайстори</string>
   <string name="about">Относно</string>
   <string name="aboutX">Относно %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s е шахматен сървър който е безплатен (%2$s), свободен, без реклами и с отворен код.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer" comment="%1$s is 'Lichess' (note this used to be 'lichess.org')&#10;%2$s is 'really' (which is separate translateable string)&#10;&#10;On the website: Appears in the left sidebar when you are not logged in to an account.&#10;In the mobile app: Always appears at the bottom of the 'Settings' view.">%1$s е шахматен сървър който е безплатен (%2$s), свободен, без реклами и с отворен код.</string>
   <string name="really">наистина</string>
   <string name="contribute">Принос</string>
   <string name="termsOfService">Условия</string>
   <string name="sourceCode">Изходен код</string>
   <string name="simultaneousExhibitions">Сеанси</string>
-  <string name="host">Домакин</string>
+  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Домакин</string>
   <string name="hostColorX">Домакин: %s</string>
   <string name="createdSimuls">Нови сеанси</string>
-  <string name="hostANewSimul">Бъди домакин на сеанс</string>
+  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Бъди домакин на сеанс</string>
   <string name="noSimulFound">Сеансът не е намерен</string>
   <string name="noSimulExplanation">Този сеанс не съществува.</string>
   <string name="returnToSimulHomepage">Връщане към Главната страница</string>
@@ -718,7 +720,7 @@
     <item quantity="other">%1$s %2$s играчи тази седмица.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Вашият %1$s рейтинг е %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Вие сте по-добър от %1$s от %2$s играчите.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s в по-добър от %2$s от %3$s играчите.</string>
   <string name="betterThanPercentPlayers">По-добър от %1$s от %2$s играчите</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
@@ -728,6 +730,9 @@
   <string name="checkYourEmail">Проверете имейла си</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви имейл. Натиснете върху връзката в имейла, за да задействате регистрацията си.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате имейла, проверете и на другите места където може бъде, като например кошче, спам, социални или други папки.</string>
+  <string name="ifYouDoNotGetTheEmail">Ако не получите потвърждението до 5 минути:</string>
+  <string name="checkAllEmailFolders">Проверете папката \"Спам\" и други подобни папки</string>
+  <string name="verifyYourAddress">Уверете се, че %s е вашият адрес</string>
   <string name="weHaveSentYouAnEmailTo">Изпратихме имейл на %s. Натиснете връзката в имейла, за да промените паролата на Вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="readAboutOur">Прочетете за нашата %s.</string>
@@ -736,6 +741,7 @@
   <string name="downloadAnnotated">Свали анотирана</string>
   <string name="downloadRaw">Свали необработена</string>
   <string name="downloadImported">Свали добавена</string>
+  <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="crosstable">Таблица</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
@@ -759,6 +765,7 @@
   <string name="playChessEverywhere">Играй шах навсякъде</string>
   <string name="everybodyGetsAllFeaturesForFree">Всеки взима всички възможности безплатно</string>
   <string name="viewTheSolution">Виж решението</string>
+  <string name="noChallenges">Няма предизвикателства.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Преведена на %s езика!</item>
     <item quantity="other">Преведена на %s езика!</item>
@@ -771,6 +778,7 @@
   <string name="anonymous">Анонимен</string>
   <string name="yourScore">Резултатът ви: %s</string>
   <string name="language">Език</string>
+  <string name="allLanguages">Всички езици</string>
   <string name="background">Фон</string>
   <string name="light">Светъл</string>
   <string name="dark">Тъмен</string>
@@ -954,6 +962,7 @@
   <string name="focusChat">Фокусирай текста</string>
   <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
   <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
+  <string name="reopenYourAccountDescription">Ако сте затворили акаунта си, но си промените решението, получавате един шанс да си върнете акаунта.</string>
   <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
   <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
   <string name="tournamentEntryCode">Код за участие в турнира</string>

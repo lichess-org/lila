@@ -466,6 +466,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
+  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Izvan mreže</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s prijatelj online</item>
     <item quantity="few">%s prijatelja online</item>
@@ -646,7 +647,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="victoryVsYInZ">%1$s vs %2$s u %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s u %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s u %3$s</string>
-  <string name="timeline">Vremenska crta</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
@@ -711,11 +712,12 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="termsOfService">Uvjeti pružanja usluge</string>
   <string name="sourceCode">Izvorni kod</string>
   <string name="simultaneousExhibitions">Simultanke</string>
-  <string name="host">Domaćin</string>
+  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Domaćin</string>
   <string name="hostColorX">Boja domaćina: %s</string>
   <string name="yourPendingSimuls">Vaše simultanke u čekanju</string>
   <string name="createdSimuls">Novokreirane simultanke</string>
-  <string name="hostANewSimul">Kreiraj novu simultanku</string>
+  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Kreiraj novu simultanku</string>
+  <string name="signUpToHostOrJoinASimul" comment="Appears as a button when you are viewing https://lichess.org/simul without being logged in. Note that this text will be all-uppercase.&#10;&#10;Pressing the button leads to the registration page: https://lichess.org/signup&#10;&#10;If logged out, the button will instead show &quot;Host a new simul&quot;, which is available for translation separately.">Registrirajte se kako bi organizirali ili sudjelovali u simultanki</string>
   <string name="noSimulFound">Simultanka nije pronađena</string>
   <string name="noSimulExplanation">Ova simultanka ne postoji.</string>
   <string name="returnToSimulHomepage">Vrati se na stranicu sa simultankama</string>

@@ -44,8 +44,10 @@ object email:
       def isSendable = !e.isNoReply && !e.isBlank
 
       def looksLikeFakeEmail =
-        e.domain.map(_.lower).exists(EmailAddress.gmailDomains.contains) &&
-          e.username.count('.' == _) >= 4
+        e.domain.map(_.lower).exists(EmailAddress.gmailDomains.contains) && {
+          val dots = e.username.count('.' == _)
+          dots >= 3 || (dots == 2 && """\d\.\d""".r.unanchored.matches(e.username))
+        }
 
       def eliminateDomainAlias: EmailAddress =
         e.nameAndDomain.fold(e): (name, domain) =>

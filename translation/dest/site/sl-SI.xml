@@ -76,6 +76,7 @@
   <string name="expandVariations">Razširite različice</string>
   <string name="forceVariation">Vsili varianto</string>
   <string name="copyVariationPgn">Kopiraj različico PGN</string>
+  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopiraj glavni PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -684,7 +685,7 @@
   <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
-  <string name="timeline">Časovni trak</string>
+  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Časovni trak</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>
   <string name="biographyDescription">Povej o sebi, kaj ti je všeč pri šahu, najljubše otvoritve, partije, igralci…</string>
