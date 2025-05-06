@@ -110,7 +110,7 @@ object Chronometer:
     def result =
       lap.flatMap { l =>
         Future.fromTry(l.result)
-      }(scala.concurrent.ExecutionContext.parasitic)
+      }(using scala.concurrent.ExecutionContext.parasitic)
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanosRel
@@ -121,7 +121,7 @@ object Chronometer:
     FuLapTry:
       f.transformWith { r =>
         fuccess(LapTry(r, nowNanosRel - start))
-      }(scala.concurrent.ExecutionContext.parasitic)
+      }(using scala.concurrent.ExecutionContext.parasitic)
 
   def sync[A](f: => A): Lap[A] =
     val start = nowNanosRel

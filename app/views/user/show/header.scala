@@ -245,7 +245,7 @@ object header:
                     div(cls := "teams col2")(
                       info.teamIds.nonEmpty.option(strong(trans.team.teams())),
                       info.teamIds
-                        .sorted(stringOrdering)
+                        .sorted(using stringOrdering)
                         .map: t =>
                           teamLink(t, withIcon = false)
                     )

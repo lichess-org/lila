@@ -32,7 +32,7 @@ final class Env(
     channelBroadcasts
       .get(channel)
       .map: actor =>
-        (actor ? TvBroadcast.Connect(bc)).mapTo(ctag)
+        (actor ? TvBroadcast.Connect(bc)).mapTo(using ctag)
 
   system.scheduler.scheduleWithFixedDelay(12.seconds, 3.seconds): () =>
     tvSyncActor ! TvSyncActor.Select

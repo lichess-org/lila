@@ -26,7 +26,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using Executor, ActorSystem, akka.stream.Materializer, lila.core.config.RateLimit):
 
-  private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
+  private val config = appConfig.get[RelationConfig]("relation")(using AutoConfig.loader)
 
   export config.maxFollow
 

@@ -53,10 +53,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "showRatingDiffs" -> boolean,
       "teamTable"       -> boolean,
       "players" -> optional(
-        of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
+        of(using formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
       ),
       "teams" -> optional(
-        of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
+        of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
       "spotlight"    -> optional(spotlightMapping),
       "grouping"     -> RelayGroup.form.mapping,

@@ -22,7 +22,7 @@ final class Env(
     client: SearchClient
 )(using Executor, lila.core.i18n.Translator):
 
-  private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
+  private val config = appConfig.get[GameSearchConfig]("gameSearch")(using AutoConfig.loader)
 
   lazy val api = wire[GameSearchApi]
 
