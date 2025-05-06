@@ -651,6 +651,7 @@ final class PlanApi(
     _ <- monitorCharge(charge, country)
   yield recentChargeUserIdsCache.invalidateUnit()
 
+  // format: off
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit =
     lila.mon.plan.charge
       .countryCents(
@@ -686,6 +687,7 @@ final class PlanApi(
           else if charge.isPayPalCheckout then lila.mon.plan.paypalCheckout.amount.record(charge.usd.cents)
           else if charge.isStripe then lila.mon.plan.stripe.record(charge.usd.cents)
         .void
+  // format: on
 
   private def setDbUserPlan(user: User): Funit =
     for _ <- userApi.setPlan(user, user.plan.some) yield lightUserApi.invalidate(user.id)

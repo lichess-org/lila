@@ -41,7 +41,7 @@ final class Env(
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
-  private val config                         = appConfig.get[StreamerConfig]("streamer")(using AutoConfig.loader)
+  private val config = appConfig.get[StreamerConfig]("streamer")(using AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
