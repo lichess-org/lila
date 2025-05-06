@@ -40,14 +40,13 @@ final class PlanApi(
     yield ()
 
   def switch(user: User, money: Money): Fu[StripeSubscription] =
-    stripe.userCustomer(user).flatMap {
+    stripe.userCustomer(user).flatMap:
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match
           case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
           case Some(sub) if sub.item.price.money == money => fuccess(sub)
           case Some(sub)                                  => stripeClient.updateSubscription(sub, money)
-    }
 
   def cancel(user: User): Funit =
     cancelIfAny(user).flatMap:
@@ -62,18 +61,16 @@ final class PlanApi(
         .map: _ =>
           logger.info(s"Canceled subscription of ${user.username}")
     yield true
-    stripe.userCustomer(user).flatMap {
+    stripe.userCustomer(user).flatMap:
       case Some(customer) =>
         customer.firstSubscription match
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) =>
             stripeClient.cancelSubscription(sub) >> onCancel
       case None =>
-        payPal.userSubscription(user).flatMap {
+        payPal.userSubscription(user).flatMap:
           case None      => fuccess(false)
           case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
-        }
-    }
 
   object stripe:
 
@@ -136,7 +133,7 @@ final class PlanApi(
       stripeClient
         .getNextInvoice(customer.id)
         .zip(customer.firstSubscription.so(stripeClient.getPaymentMethod))
-        .map {
+        .map:
           case (Some(nextInvoice), paymentMethod) =>
             customer.firstSubscription match
               case Some(sub) => CustomerInfo.Monthly(sub, nextInvoice, paymentMethod).some
@@ -144,7 +141,6 @@ final class PlanApi(
                 logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
                 none
           case (None, _) => CustomerInfo.OneTime(customer).some
-        }
 
     private def saveCustomer(user: User, customerId: StripeCustomerId): Funit =
       userPatron(user).flatMap { patronOpt =>
@@ -155,9 +151,8 @@ final class PlanApi(
       }
 
     def userCustomerId(user: User): Fu[Option[StripeCustomerId]] =
-      userPatron(user).map {
+      userPatron(user).map:
         _.flatMap { _.stripe.map(_.customerId) }
-      }
 
     def userCustomer(user: User): Fu[Option[StripeCustomer]] =
       userCustomerId(user).flatMapz(stripeClient.getCustomer)
@@ -316,9 +311,8 @@ final class PlanApi(
     yield ()
 
     def userSubscriptionId(user: User): Fu[Option[PayPalSubscriptionId]] =
-      userPatron(user).map {
+      userPatron(user).map:
         _.flatMap { _.payPalCheckout.flatMap(_.subscriptionId) }
-      }
 
     def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
       userSubscriptionId(user).flatMapz(payPalClient.getSubscription)
@@ -438,7 +432,7 @@ final class PlanApi(
 
     private def addSubscriptionCharge(charge: Charge, user: User, country: Option[Country]) = for
       _ <- addCharge(charge, country)
-      _ <- userPatron(user).flatMap {
+      _ <- userPatron(user).flatMap:
         case None =>
           mongo.patron.insert.one(
             Patron(
@@ -459,7 +453,6 @@ final class PlanApi(
             .expireInOneMonth
           mongo.patron.update.one($id(patron.id), p2) >>
             setDbUserPlanOnCharge(user, patron.canLevelUp)
-      }
       isLifetime <- pricingApi.isLifetime(charge.money)
       _          <- isLifetime.so(setLifetime(user))
     yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
@@ -476,7 +469,7 @@ final class PlanApi(
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 
   def sync(user: User): Fu[PlanApi.SyncResult] =
-    userPatron(user).flatMap {
+    userPatron(user).flatMap:
 
       case None if user.plan.active =>
         logger.warn(s"${user.username} sync: disable plan of non-patron")
@@ -488,7 +481,7 @@ final class PlanApi(
         (patron.stripe, patron.payPalCheckout, patron.payPal) match
 
           case (Some(stripe), _, _) =>
-            stripeClient.getCustomer(stripe.customerId).flatMap {
+            stripeClient.getCustomer(stripe.customerId).flatMap:
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
                 mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
@@ -496,10 +489,9 @@ final class PlanApi(
                 logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
                 setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
               case customer => fuccess(Synced(patron.some, customer, none))
-            }
 
           case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>
-            payPalClient.getSubscription(subId).flatMap {
+            payPalClient.getSubscription(subId).flatMap:
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
                 mongo.patron.update.one($id(patron.id), patron.removePayPalCheckout) >> sync(user)
@@ -507,7 +499,6 @@ final class PlanApi(
                 logger.warn(s"${user.username} sync: enable plan of customer with a payPal subscription")
                 setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
               case subscription => fuccess(Synced(patron.some, none, subscription))
-            }
 
           case (_, _, Some(_)) =>
             if !user.plan.active then
@@ -522,12 +513,10 @@ final class PlanApi(
             setDbUserPlan(user.mapPlan(_.disable)).inject(ReloadUser)
 
           case _ => fuccess(Synced(patron.some, none, none))
-    }
 
   def isLifetime(user: User): Fu[Boolean] =
-    userPatron(user).map {
+    userPatron(user).map:
       _.exists(_.isLifetime)
-    }
 
   def setLifetime(user: User): Funit =
     if user.plan.isEmpty then Bus.publish(lila.core.misc.plan.MonthInc(user.id, 0), "plan")
@@ -652,11 +641,9 @@ final class PlanApi(
 
   private[plan] def onEmailChange(userId: UserId, email: EmailAddress): Funit =
     userApi.enabledById(userId).flatMapz { user =>
-      stripe.userCustomer(user).flatMap {
-        _.filterNot(_.email.has(email.value)).so {
+      stripe.userCustomer(user).flatMap:
+        _.filterNot(_.email.has(email.value)).so:
           stripeClient.setCustomerEmail(_, email)
-        }
-      }
     }
 
   private def addCharge(charge: Charge, country: Option[Country]): Funit = for
@@ -676,10 +663,9 @@ final class PlanApi(
     charge.userId.so { userId =>
       mongo.charge
         .countSel($doc("userId" -> userId))
-        .map {
+        .map:
           case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
           case _ =>
-        }
         .void
     } >>
       monthlyGoalApi.get

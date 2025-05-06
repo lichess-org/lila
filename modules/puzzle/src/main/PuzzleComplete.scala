@@ -23,7 +23,7 @@ final class PuzzleComplete(
   )(using Perf, Translate): Fu[JsObject] =
     data.streakPuzzleId.match
       case Some(streakNextId) =>
-        api.puzzle.find(streakNextId).flatMap {
+        api.puzzle.find(streakNextId).flatMap:
           case None => fuccess(Json.obj("streakComplete" -> true))
           case Some(puzzle) =>
             for
@@ -36,7 +36,6 @@ final class PuzzleComplete(
             jsonView.analysis(puzzle, angle).map { nextJson =>
               Json.obj("next" -> nextJson)
             }
-        }
       case None =>
         lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
         ctx.me match
