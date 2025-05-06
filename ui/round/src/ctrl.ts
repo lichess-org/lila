@@ -936,6 +936,10 @@ export default class RoundController implements MoveRootCtrl {
       }
       if (!d.local) wakeLock.request();
 
+      if (d.game.speed === 'correspondence') {
+        setTimeout(() => wakeLock.release(), 10 * 60 * 1000);
+      }
+
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
           alert('Play enhancement extensions are no longer allowed!');
