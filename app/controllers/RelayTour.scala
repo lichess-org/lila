@@ -224,6 +224,16 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         res            <- JsonOk(env.relay.jsonView.top(active, past))
       yield res
 
+  def apiSearch(page: Int, q: String) = Anon:
+    Reasonable(page, Max(20)):
+      q.trim.take(100).some.filter(_.nonEmpty) match
+        case Some(query) =>
+          for
+            tour <- env.relay.pager.search(query, page)
+            res  <- JsonOk(env.relay.jsonView.search(tour))
+          yield res
+        case None => JsonBadRequest("Search query cannot be empty")
+
   def player(tourId: RelayTourId, id: String) = Anon:
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
