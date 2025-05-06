@@ -30,7 +30,7 @@ object Duel:
     }
 
   private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)
-  private[tournament] val gameIdOrdering              = Ordering.by[Duel, GameId](_.gameId)(stringOrdering)
+  private[tournament] val gameIdOrdering              = Ordering.by[Duel, GameId](_.gameId)(using stringOrdering)
   private[tournament] def emptyGameId(gameId: GameId) = Duel(gameId, null, null, IntRating(0))
 
 final private class DuelStore:
@@ -60,7 +60,7 @@ final private class DuelStore:
       )
     do
       byTourId.compute(tour.id):
-        _.fold(TreeSet(tb)(gameIdOrdering))(_ + tb).some
+        _.fold(TreeSet(tb)(using gameIdOrdering))(_ + tb).some
 
   def remove(game: Game): Unit =
     game.tournamentId.foreach: tourId =>

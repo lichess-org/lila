@@ -51,11 +51,7 @@ final private class Titivate(
             .toMat(LilaStream.sinkCount)(Keep.right)
             .run()
             .addEffect(lila.mon.round.titivate.game.record(_))
-            .>> {
-              gameRepo
-                .countSec(_.checkableOld)
-                .dmap(lila.mon.round.titivate.old.record(_))
-            }
+            .>>(gameRepo.countSec(_.checkableOld).dmap(lila.mon.round.titivate.old.record(_)))
             .monSuccess(_.round.titivate.time)
             .logFailure(logBranch)
             .addEffectAnyway(scheduleNext())
