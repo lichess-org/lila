@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>
   <string name="intermezzo">Междинен ход</string>
   <string name="intermezzoDescription">Вместо да се играе очаквания ход, първо се прави друг (междинен) ход, който представлява заплаха за опонента и трябва да бъде предотвратена.</string>
+  <string name="vukovicMate">Мат на Вукович</string>
+  <string name="vukovicMateDescription">Топ и кон се комбинират да матират краля. Топът, защитен от още една фигура, поставя мат, докато конят блокира полетата за отстрпление на краля.</string>
   <string name="knightEndgame">Конски ендшпил</string>
   <string name="knightEndgameDescription">Ендшпил само с коне и пешки.</string>
   <string name="long">Дълга задача</string>

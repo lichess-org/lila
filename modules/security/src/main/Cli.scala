@@ -25,11 +25,10 @@ final private[security] class Cli(
 
     case "disposable" :: "reload" :: emailOrDomain :: Nil =>
       WithDomain(emailOrDomain): dom =>
-        verifyMail.invalidate(dom) >>
-          emailValidator
-            .validateDomain(dom)
-            .map: r =>
-              s"reloaded: $r ${r.error | ""}"
+        for
+          _ <- verifyMail.invalidate(dom)
+          r <- emailValidator.validateDomain(dom)
+        yield s"reloaded: $r ${r.error | ""}"
 
     case "disposable" :: "test" :: emailOrDomain :: Nil =>
       WithDomain(emailOrDomain): dom =>

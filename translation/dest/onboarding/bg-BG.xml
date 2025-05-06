@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Влезте като %s</string>
   <string name="welcome">Добре дошли!</string>
   <string name="welcomeToLichess">Добре дошли в lichess.org!</string>
   <string name="thisIsYourProfilePage">Това е страницата на Вашия профил.</string>
