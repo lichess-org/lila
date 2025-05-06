@@ -40,13 +40,15 @@ final class PlanApi(
     yield ()
 
   def switch(user: User, money: Money): Fu[StripeSubscription] =
-    stripe.userCustomer(user).flatMap:
-      case None => fufail(s"Can't switch non-existent customer ${user.id}")
-      case Some(customer) =>
-        customer.firstSubscription match
-          case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) if sub.item.price.money == money => fuccess(sub)
-          case Some(sub)                                  => stripeClient.updateSubscription(sub, money)
+    stripe
+      .userCustomer(user)
+      .flatMap:
+        case None => fufail(s"Can't switch non-existent customer ${user.id}")
+        case Some(customer) =>
+          customer.firstSubscription match
+            case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
+            case Some(sub) if sub.item.price.money == money => fuccess(sub)
+            case Some(sub)                                  => stripeClient.updateSubscription(sub, money)
 
   def cancel(user: User): Funit =
     cancelIfAny(user).flatMap:
@@ -61,16 +63,20 @@ final class PlanApi(
         .map: _ =>
           logger.info(s"Canceled subscription of ${user.username}")
     yield true
-    stripe.userCustomer(user).flatMap:
-      case Some(customer) =>
-        customer.firstSubscription match
-          case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
-          case Some(sub) =>
-            stripeClient.cancelSubscription(sub) >> onCancel
-      case None =>
-        payPal.userSubscription(user).flatMap:
-          case None      => fuccess(false)
-          case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
+    stripe
+      .userCustomer(user)
+      .flatMap:
+        case Some(customer) =>
+          customer.firstSubscription match
+            case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
+            case Some(sub) =>
+              stripeClient.cancelSubscription(sub) >> onCancel
+        case None =>
+          payPal
+            .userSubscription(user)
+            .flatMap:
+              case None      => fuccess(false)
+              case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
 
   object stripe:
 
@@ -481,24 +487,28 @@ final class PlanApi(
         (patron.stripe, patron.payPalCheckout, patron.payPal) match
 
           case (Some(stripe), _, _) =>
-            stripeClient.getCustomer(stripe.customerId).flatMap:
-              case None =>
-                logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
-                mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
-              case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
-                logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
-                setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
-              case customer => fuccess(Synced(patron.some, customer, none))
+            stripeClient
+              .getCustomer(stripe.customerId)
+              .flatMap:
+                case None =>
+                  logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
+                  mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
+                case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
+                  logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
+                  setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
+                case customer => fuccess(Synced(patron.some, customer, none))
 
           case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>
-            payPalClient.getSubscription(subId).flatMap:
-              case None =>
-                logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
-                mongo.patron.update.one($id(patron.id), patron.removePayPalCheckout) >> sync(user)
-              case Some(subscription) if subscription.isActive && !user.plan.active =>
-                logger.warn(s"${user.username} sync: enable plan of customer with a payPal subscription")
-                setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
-              case subscription => fuccess(Synced(patron.some, none, subscription))
+            payPalClient
+              .getSubscription(subId)
+              .flatMap:
+                case None =>
+                  logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
+                  mongo.patron.update.one($id(patron.id), patron.removePayPalCheckout) >> sync(user)
+                case Some(subscription) if subscription.isActive && !user.plan.active =>
+                  logger.warn(s"${user.username} sync: enable plan of customer with a payPal subscription")
+                  setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
+                case subscription => fuccess(Synced(patron.some, none, subscription))
 
           case (_, _, Some(_)) =>
             if !user.plan.active then
@@ -641,9 +651,11 @@ final class PlanApi(
 
   private[plan] def onEmailChange(userId: UserId, email: EmailAddress): Funit =
     userApi.enabledById(userId).flatMapz { user =>
-      stripe.userCustomer(user).flatMap:
-        _.filterNot(_.email.has(email.value)).so:
-          stripeClient.setCustomerEmail(_, email)
+      stripe
+        .userCustomer(user)
+        .flatMap:
+          _.filterNot(_.email.has(email.value)).so:
+            stripeClient.setCustomerEmail(_, email)
     }
 
   private def addCharge(charge: Charge, country: Option[Country]): Funit = for
@@ -651,7 +663,6 @@ final class PlanApi(
     _ <- monitorCharge(charge, country)
   yield recentChargeUserIdsCache.invalidateUnit()
 
-  // format: off
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit =
     lila.mon.plan.charge
       .countryCents(
@@ -664,9 +675,10 @@ final class PlanApi(
     charge.userId.so { userId =>
       mongo.charge
         .countSel($doc("userId" -> userId))
-        .map:
+        .map {
           case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
           case _ =>
+        }
         .void
     } >>
       monthlyGoalApi.get
@@ -687,7 +699,6 @@ final class PlanApi(
           else if charge.isPayPalCheckout then lila.mon.plan.paypalCheckout.amount.record(charge.usd.cents)
           else if charge.isStripe then lila.mon.plan.stripe.record(charge.usd.cents)
         .void
-  // format: on
 
   private def setDbUserPlan(user: User): Funit =
     for _ <- userApi.setPlan(user, user.plan.some) yield lightUserApi.invalidate(user.id)
