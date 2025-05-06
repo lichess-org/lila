@@ -27,7 +27,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):
 
-  private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
+  private val config = appConfig.get[ChatConfig]("chat")(using AutoConfig.loader)
   import config.*
 
   lazy val timeout = ChatTimeout(

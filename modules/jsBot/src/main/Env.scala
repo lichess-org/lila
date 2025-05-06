@@ -19,7 +19,7 @@ final class Env(
     getFile: GetRelativeFile
 )(using Executor, akka.stream.Materializer):
 
-  private val config: JsBotConfig = appConfig.get[JsBotConfig]("jsBot")(AutoConfig.loader)
+  private val config: JsBotConfig = appConfig.get[JsBotConfig]("jsBot")(using AutoConfig.loader)
 
   val repo = JsBotRepo(db(CollName("jsbot")), db(CollName("jsbot_asset")))
 
