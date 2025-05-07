@@ -810,6 +810,7 @@
   <string name="usernamePrefixInvalid">The username must start with a letter.</string>
   <string name="usernameSuffixInvalid">The username must end with a letter or a number.</string>
   <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens. Consecutive underscores and hyphens are not allowed.</string>
+  <string name="usernamePatternInvalid">The username must follow the pattern of letters and numbers, separated by at most one underscore or hyphen.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
