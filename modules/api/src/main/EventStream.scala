@@ -62,13 +62,13 @@ final class EventStream(
 
       override def preStart(): Unit =
         super.preStart()
-        Bus.subscribeActorRefDynamic(self, classifiers)
+        Bus.subscribeActorRefDyn(self, classifiers)
         Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
 
       override def postStop() =
         super.postStop()
-        classifiers.foreach(Bus.unsubscribeActorRefDynamic(self, _))
+        classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
         Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
         queue.complete()

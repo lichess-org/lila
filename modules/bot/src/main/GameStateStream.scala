@@ -71,7 +71,7 @@ final class GameStateStream(
       super.preStart()
       Bus.subscribeActorRef[lila.core.game.FinishGame](self)
       Bus.subscribeActorRef[lila.core.game.AbortedBy](self)
-      Bus.subscribeActorRefDynamic(self, classifiers)
+      Bus.subscribeActorRefDyn(self, classifiers)
       jsonView.gameFull(init).foreach { json =>
         // prepend the full game JSON at the start of the stream
         queue.offer(json.some)
@@ -84,7 +84,7 @@ final class GameStateStream(
 
     override def postStop(): Unit =
       super.postStop()
-      classifiers.foreach(Bus.unsubscribeActorRefDynamic(self, _))
+      classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
       Bus.unsubscribeActorRef[lila.core.game.FinishGame](self)
       Bus.unsubscribeActorRef[lila.core.game.AbortedBy](self)
       // hang around if game is over
