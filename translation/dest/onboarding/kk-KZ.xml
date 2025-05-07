@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s атынан кіру</string>
   <string name="welcome">Қош келдіңіз!</string>
   <string name="welcomeToLichess">Личес-ке қош келдіңіз!</string>
   <string name="thisIsYourProfilePage">Бұл сіздің төлқұжатыңыз.</string>

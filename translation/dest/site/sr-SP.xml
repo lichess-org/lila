@@ -403,7 +403,7 @@
   <string name="mustBeInTeam">Морате бити у тиму %s</string>
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Назад на партију</string>
-  <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
+  <string name="siteDescription">Бесплатан интернетски шах сервер. Играј шах у чистом окружењу. Без регистрације, без реклама, без потребних додатака. Играј шах са рачунаром, пријатељима или насумичним противницима.</string>
   <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
@@ -700,7 +700,7 @@
   <string name="aboutSimulImage">Од 50 противника, Фишер је победио 47 партија, ремизирао 2, и изгубио 1.</string>
   <string name="aboutSimulRealLife">Концепт је преузет из догађаја у стварном свету. У стварном животу, то обухвата кретање домаћина симултанке од стола до стола како би одиграо један потез.</string>
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
-  <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
+  <string name="aboutSimulSettings">Симултанке су увек нерангиране. Реванши, враћања потеза и додавања времена су искључени.</string>
   <string name="create">Направи</string>
   <string name="whenCreateSimul">Када направиш Симултанку, можеш играти против неколико играча одједном.</string>
   <string name="simulVariantsHint">Ако одабереш неколико варијанти, сваки играч има могућност да бира коју да игра.</string>
@@ -734,11 +734,11 @@
   <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
   <string name="playSelectedMove">игра изабрани потез</string>
   <string name="newTournament">Нови турнир</string>
-  <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
+  <string name="tournamentHomeTitle">Шаховски турнири са разним временским контролама и варијантама</string>
   <string name="tournamentHomeDescription">Играј брзе шаховске турнире! Придружи се званичном организованом турниру или направи свој. Метак-шах, Блиц, Класични, Шах960, Краљ брда, Три шаха и више доступних опција за неограничену шаховску забаву.</string>
   <string name="tournamentNotFound">Турнир није пронађен</string>
   <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
-  <string name="tournamentMayHaveBeenCanceled">Можда је отказан зато што су играчи напустили турнир пре његовог почетка</string>
+  <string name="tournamentMayHaveBeenCanceled">Турнир је можда био отказан ако су сви играчи изашли пре него што је почео.</string>
   <string name="returnToTournamentsHomepage">Врати се на почетну страну турнира</string>
   <string name="weeklyPerfTypeRatingDistribution">Недељна %s рејтинг дистрибуција</string>
   <plurals name="nbPerfTypePlayersThisWeek">
