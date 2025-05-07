@@ -64,7 +64,7 @@ final class TeamApi(
       _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
     yield
       cached.invalidateTeamIds(me.id)
-      publish(TeamCreate(team.data))
+      Bus.pub(TeamCreate(team.data))
       lila.common.Bus.pub(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
       team
 
@@ -92,7 +92,7 @@ final class TeamApi(
     yield
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
-      publish(TeamUpdate(team.data, byMod = !isLeader))
+      Bus.pub(TeamUpdate(team.data, byMod = !isLeader))
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
@@ -218,7 +218,7 @@ final class TeamApi(
       yield
         cached.invalidateTeamIds(me)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
-        publish(JoinTeam(id = team.id, userId = me))
+        Bus.pub(JoinTeam(id = team.id, userId = me))
   }.recover(lila.db.ignoreDuplicateKey)
 
   private[team] def addMembers(team: Team, userIds: List[UserId]): Funit =
@@ -247,7 +247,7 @@ final class TeamApi(
     _ <- (res.n == 1).so:
       teamRepo.incMembers(team.id, -1)
   yield
-    publish(LeaveTeam(teamId = team.id, userId = userId))
+    Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
     cached.invalidateTeamIds(userId)
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
@@ -281,7 +281,7 @@ final class TeamApi(
       for
         _ <- requestRepo.coll.insert.one(request)
         _ <- quit(team, userId)
-      yield publish(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
+      yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
   yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
@@ -402,8 +402,5 @@ final class TeamApi(
       .sort($sort.desc("nbMembers"))
       .cursor[Team](ReadPref.sec)
       .list(max)
-
-  // TODO, can be fully replaced by .pub at each callsite
-  private def publish(msg: Any) = Bus.publishDyn(msg, "team")
 
   export cached.nbRequests.get as nbRequests
