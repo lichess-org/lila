@@ -39,7 +39,7 @@ final class Env(
     shutdown: akka.actor.CoordinatedShutdown
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer, lila.core.config.RateLimit):
 
-  private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
+  private val config = appConfig.get[FishnetConfig]("fishnet")(using AutoConfig.loader)
 
   private lazy val analysisColl = db(config.analysisColl)
 

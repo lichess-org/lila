@@ -17,7 +17,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.13.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val compression = "org.lichess"                  %% "compression"                     % "3.0"
-  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
+  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.3.0"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.34.0"
@@ -25,7 +25,7 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.0.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.1.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
   val munit       = "org.scalameta"              %% "munit"         % "1.1.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.19.0"
@@ -51,7 +51,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.7.0"
+    val version  = "11.8.1"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
