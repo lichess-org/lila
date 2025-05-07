@@ -148,8 +148,8 @@ final class UserLoginsApi(
           for
             doc  <- docs
             user <- doc.getAsOpt[User]("user")
-            ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
-            fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
+            ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(using collectionReader)
+            fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(using collectionReader)
           yield OtherUser(user, ips.intersect(ipSet), fps.intersect(fpSet))
     )
 
