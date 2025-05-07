@@ -57,7 +57,6 @@ final class BotPlayer(
           true
         }
 
-  // TODO FIXME remove and use dedicated types
   private def tellRound(id: GameId, msg: RoundBus) =
     Bus.pub(Tell(id, msg))
 
