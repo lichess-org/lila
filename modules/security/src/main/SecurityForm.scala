@@ -72,7 +72,7 @@ final class SecurityForm(
         ),
         Constraints.pattern(
           regex = lila.user.nameRules.newUsernameLetters,
-          error = "usernameCharsInvalid"
+          error = "usernamePatternInvalid"
         )
       )
       .into[UserName]
