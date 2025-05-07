@@ -82,8 +82,8 @@ object Form:
   val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
   val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val cleanText: Mapping[String]            = of(using cleanTextFormatter)
-  val cleanTextWithSymbols: Mapping[String] = of(using cleanTextFormatterWithSymbols)
+  val cleanText: Mapping[String]            = of(cleanTextFormatter)
+  val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
   val nonEmptyOrSpace = V.Constraint[String]: t =>
     if t.linesIterator.exists(_.stripLineEnd.exists(!_.isWhitespace)) then V.Valid
@@ -164,7 +164,7 @@ object Form:
   def typeIn[A: Formatter](choices: Set[A]) =
     of[A].verifying(mustBeOneOf(choices), choices.contains)
 
-  def tolerantBoolean = of[Boolean](using formatter.tolerantBooleanFormatter)
+  def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
   def hasKey[A](choices: Options[A], key: A) =
     choices.map(_._1).toList contains key
@@ -319,10 +319,9 @@ object Form:
   extension [A](f: PlayForm[A]) def fillOption(o: Option[A]) = o.fold(f)(f.fill)
 
   object strings:
-    def separator(sep: String) = of[List[String]](using
+    def separator(sep: String) = of[List[String]]:
       formatter
         .stringFormatter[List[String]](_.mkString(sep), _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
-    )
 
   private val dateHumanFormatter =
     import java.time.format.*
@@ -336,7 +335,7 @@ object Form:
   object ISODate:
     val pattern                      = "yyyy-MM-dd"
     val format: Formatter[LocalDate] = localDateFormat(pattern)
-    val mapping: Mapping[LocalDate]  = of[LocalDate](using format)
+    val mapping: Mapping[LocalDate]  = of[LocalDate](format)
   object ISODateTime:
     val format: Formatter[LocalDateTime] = new:
       val formatter                        = isoInstantFormatter
@@ -344,14 +343,14 @@ object Form:
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
       def unbind(key: String, value: LocalDateTime) = Map(key -> formatter.print(value))
-    val mapping: Mapping[LocalDateTime] = of[LocalDateTime](using format)
+    val mapping: Mapping[LocalDateTime] = of[LocalDateTime](format)
   private object ISOInstant:
     val format: Formatter[Instant] = ISODateTime.format.transform(_.instant, _.dateTime)
-    val mapping: Mapping[Instant]  = of[Instant](using format)
+    val mapping: Mapping[Instant]  = of[Instant](format)
   object PrettyDateTime:
     val pattern                          = "yyyy-MM-dd HH:mm"
     val format: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
-    val mapping: Mapping[LocalDateTime]  = of[LocalDateTime](using format)
+    val mapping: Mapping[LocalDateTime]  = of[LocalDateTime](format)
   object Timestamp:
     val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) = {
@@ -362,19 +361,19 @@ object Form:
         yield instant
       }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: Instant) = stringFormat.unbind(key, value.toMillis.toString)
-    val mapping: Mapping[Instant] = of[Instant](using format)
+    val mapping: Mapping[Instant] = of[Instant](format)
   object ISODateOrTimestamp:
     val format: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
         ISODate.format.bind(key, data).orElse(Timestamp.format.bind(key, data).map(_.date))
       def unbind(key: String, value: LocalDate) = ISODate.format.unbind(key, value)
-    val mapping = of[LocalDate](using format)
+    val mapping = of[LocalDate](format)
   object ISOInstantOrTimestamp:
     val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.format.bind(key, data).orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
-    val mapping: Mapping[Instant] = of[Instant](using format)
+    val mapping: Mapping[Instant] = of[Instant](format)
   final class LocalDateTimeOrTimestamp(zone: ZoneId):
     val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
     def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
@@ -385,7 +384,7 @@ object Form:
           .orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) =
         Map(key -> value.atZone(zone).toLocalDateTime.format(localFormatter))
-    val mapping: Mapping[Instant] = of[Instant](using format)
+    val mapping: Mapping[Instant] = of[Instant](format)
 
   object SingleChange:
     case class Change[Model, A](field: String, mapping: Mapping[A], update: A => Model => Model):

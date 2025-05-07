@@ -20,7 +20,7 @@ final class PuzzleBits(helpers: Helpers):
     .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(
-        "dynamic" -> dynamic.sorted(using stringOrdering).mkString(" "),
+        "dynamic" -> dynamic.sorted(stringOrdering).mkString(" "),
         "static"  -> static.mkString(" ")
       )
 

@@ -33,7 +33,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  private val config = appConfig.get[ForumConfig]("forum")(using AutoConfig.loader)
+  private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
   lazy val categRepo = new ForumCategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new ForumTopicRepo(db(CollName("f_topic")))

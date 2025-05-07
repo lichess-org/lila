@@ -40,7 +40,7 @@ trait LilaLibraryExtensions extends CoreExports:
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
     def soFu[B](f: => Future[B]): Future[Option[B]] =
-      if self then f.map(Some(_))(using scala.concurrent.ExecutionContext.parasitic)
+      if self then f.map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
       else Future.successful(None)
 
   extension (config: Config)
@@ -140,15 +140,15 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (fua: Fu[Boolean])
 
     infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fub else fuFalse }(using EC.parasitic)
+      fua.flatMap { if _ then fub else fuFalse }(EC.parasitic)
 
     infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fuTrue else fub }(using EC.parasitic)
+      fua.flatMap { if _ then fuTrue else fub }(EC.parasitic)
 
     infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if _ then fub else fuccess(zero.zero) }(using EC.parasitic)
+      fua.flatMap { if _ then fub else fuccess(zero.zero) }(EC.parasitic)
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if _ then fb else zero.zero }(using EC.parasitic)
+      fua.map { if _ then fb else zero.zero }(EC.parasitic)
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
-    inline def not = fua.map { !_ }(using EC.parasitic)
+    inline def not = fua.map { !_ }(EC.parasitic)

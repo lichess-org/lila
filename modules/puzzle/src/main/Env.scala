@@ -31,7 +31,7 @@ final class Env(
     mode: play.api.Mode
 ):
 
-  private val config = appConfig.get[PuzzleConfig]("puzzle")(using AutoConfig.loader)
+  private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
   private val db = mongo.asyncDb("puzzle", config.mongoUri)
 

@@ -38,7 +38,7 @@ final class Env(
     Materializer,
     play.api.Mode
 ):
-  private val config = appConfig.get[GameConfig]("game")(using AutoConfig.loader)
+  private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
   val gameRepo = GameRepo(db(config.gameColl))
 

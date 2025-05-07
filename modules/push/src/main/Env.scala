@@ -30,7 +30,7 @@ final class Env(
     getLightUser: lila.core.LightUser.GetterFallback
 )(using Executor, Scheduler):
 
-  private val config = appConfig.get[PushConfig]("push")(using AutoConfig.loader)
+  private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 
   def vapidPublicKey = config.web.vapidPublicKey
 
