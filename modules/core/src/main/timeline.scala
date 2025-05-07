@@ -1,6 +1,8 @@
 package lila.core
 package timeline
 
+import scalalib.bus.NotBuseable
+
 import lila.core.id.*
 import lila.core.perf.PerfKey
 import lila.core.study.data.StudyName
@@ -43,7 +45,7 @@ case class UblogPostLike(userId: UserId, id: UblogPostId, title: String) extends
 case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
   def userIds = List(id)
 
-enum Propagation:
+enum Propagation extends NotBuseable:
   case Users(users: List[UserId])
   case Followers(user: UserId)
   case Friends(user: UserId)
