@@ -34,7 +34,7 @@ trait CtrlErrors extends ControllerHelpers:
             errors.map: e =>
               JsString(I18nKey(e.message).txt(e.args*))
         .toMap
-    json.validate(using jsonGlobalErrorRenamer).getOrElse(json)
+    json.validate(jsonGlobalErrorRenamer).getOrElse(json)
 
   /* This is what we want
    * { "error" -> { "key" -> "value" } }

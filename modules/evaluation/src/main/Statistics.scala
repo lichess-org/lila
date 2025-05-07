@@ -53,7 +53,7 @@ object Statistics:
     moveTimes(pov).so:
       _.iterator
         .sliding(14)
-        .map(_.toList.sorted(using intOrdering).drop(1).dropRight(1))
+        .map(_.toList.sorted(intOrdering).drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)
         .flatMap(moveTimeCoefVariationNoDrop)
         .some

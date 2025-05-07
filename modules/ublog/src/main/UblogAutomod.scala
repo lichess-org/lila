@@ -43,7 +43,7 @@ final class UblogAutomod(
   private val cfg =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
-    appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
+    appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 

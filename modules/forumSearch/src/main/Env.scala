@@ -12,7 +12,7 @@ private class ForumSearchConfig(@ConfigName("paginator.max_per_page") val maxPer
 
 final class Env(appConfig: Configuration, client: SearchClient)(using Executor):
 
-  private val config = appConfig.get[ForumSearchConfig]("forumSearch")(using AutoConfig.loader)
+  private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 

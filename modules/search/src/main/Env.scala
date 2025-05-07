@@ -16,7 +16,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using Executor):
 
-  private val config = appConfig.get[SearchConfig]("search")(using AutoConfig.loader)
+  private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
   val client: SearchClient =
     val _client =
