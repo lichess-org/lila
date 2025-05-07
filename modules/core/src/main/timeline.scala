@@ -8,6 +8,7 @@ import lila.core.userId.UserId
 
 case class ReloadTimelines(userIds: List[UserId])
 
+// the `channel` is not referring to `scalalib.Bus` but in regards to the mongodb collection
 sealed abstract class Atom(val channel: String, val okForKid: Boolean):
   def userIds: List[UserId]
 case class Follow(u1: UserId, u2: UserId) extends Atom("follow", true):
