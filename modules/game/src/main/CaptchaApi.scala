@@ -82,11 +82,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
 
     def rewind(moves: Vector[SanStr]): Option[ChessGame] =
       pgn.Reader
-        .movesWithSans(
-          moves,
-          sans => Sans(safeInit(sans.value)),
-          tags = Tags.empty
-        )
+        .moves(moves, sans => Sans(safeInit(sans.value)), tags = Tags.empty)
         .flatMap(_.valid)
         .map(_.state)
         .toOption

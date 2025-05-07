@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.Replay
-import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
+import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr, Reader }
 import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
@@ -67,10 +67,11 @@ object OpeningQuery:
         openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
   }.map(_.pgn).flatMap { fromPgn(_, config) }
 
-  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for
-    parsed <- chess.format.pgn.Reader.full(pgn.into(PgnStr)).toOption
-    replay <- parsed.valid.toOption
-  yield OpeningQuery(replay, config)
+  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
+    for
+      parsed <- Reader.mainline(pgn.into(PgnStr)).toOption
+      replay <- parsed.valid.toOption
+    yield OpeningQuery(replay, config)
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"
