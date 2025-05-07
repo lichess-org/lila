@@ -61,7 +61,7 @@ final class Env(
 
   private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
 
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private val config = appConfig.get[RoundConfig]("round")(using AutoConfig.loader)
 
   private val defaultGoneWeight = fuccess(1f)
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
