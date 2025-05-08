@@ -21,13 +21,16 @@ final private class TournamentBusHandler(
         _      <- winnersApi.clearAfterMarking(userId)
       yield ()
   Bus.sub[lila.core.mod.MarkBooster](booster => ejectFromEnterable(booster.userId))
+  
   Bus.sub[lila.core.round.Berserk]:
     case lila.core.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
+
   Bus.sub[lila.core.playban.Playban]:
     case lila.core.playban.Playban(userId, _, true) => api.pausePlaybanned(userId)
+
   Bus.sub[lila.core.team.KickFromTeam]:
     case lila.core.team.KickFromTeam(teamId, _, userId) => api.kickFromTeam(teamId, userId)
-    // TODO check if pub-ed
+
   Bus.sub[lila.core.playban.SittingDetected]:
     case lila.core.playban.SittingDetected(tourId, userId) =>
       api.withdraw(tourId, userId, isPause = false, isStalling = true)
