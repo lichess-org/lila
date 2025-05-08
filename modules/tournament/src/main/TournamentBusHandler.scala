@@ -21,7 +21,7 @@ final private class TournamentBusHandler(
         _      <- winnersApi.clearAfterMarking(userId)
       yield ()
   Bus.sub[lila.core.mod.MarkBooster](booster => ejectFromEnterable(booster.userId))
-  
+
   Bus.sub[lila.core.round.Berserk]:
     case lila.core.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
 
