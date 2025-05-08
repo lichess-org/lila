@@ -176,6 +176,11 @@ export function initModule(): NvuiPlugin {
                     ctrl.data.game.variant.key,
                     ctrl.data.steps,
                   )(e);
+                else if (e.key === 'i') {
+                  e.preventDefault();
+                  const $moveBox = $('input.move');
+                  $moveBox.get(0)?.focus();
+                }
               });
             }),
           },
@@ -268,6 +273,7 @@ function createSubmitHandler(
 }
 
 type Command =
+  | 'board'
   | 'clock'
   | 'last'
   | 'abort'
@@ -288,6 +294,22 @@ type InputCommand = {
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'board',
+    help: 'Focus on board. Default coordinate is e4. Add the coordinates if needed. Example: board a1 or b a1 will take you to a1.',
+    cb: (_notify, _ctrl, _style, input) => {
+      const words = input.split(" ");
+      const inputFile = words[1]?.charAt(0);
+      const inputRank = words[1]?.charAt(1);
+      console.log(inputFile)
+      console.log(inputRank)
+      const file = inputFile ? inputFile : 'e';
+      const rank = inputRank ? inputRank : '4';
+      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      if (button) button.focus();
+    },
+    alt: 'b',
+  },
   {
     cmd: 'clock',
     help: i18n.keyboardMove.readOutClocks,
