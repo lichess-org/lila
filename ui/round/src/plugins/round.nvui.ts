@@ -301,8 +301,6 @@ const inputCommands: InputCommand[] = [
       const words = input.split(' ');
       const inputFile = words[1]?.charAt(0);
       const inputRank = words[1]?.charAt(1);
-      console.log(inputFile);
-      console.log(inputRank);
       const file = inputFile ? inputFile : 'e';
       const rank = inputRank ? inputRank : '4';
       const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
