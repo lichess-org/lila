@@ -50,7 +50,6 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellUser(userId, typ, msg) =>
       TellUserIn.make(userId, msg, typ).foreach(Bus.pub[TellUserIn](_))
-      // Bus.publishDyn(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send.exec(Out.pong(id))
     case In.WsBoot =>
