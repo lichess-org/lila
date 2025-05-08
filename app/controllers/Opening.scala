@@ -15,7 +15,7 @@ final class Opening(env: Env) extends LilaController(env):
     OpeningAccessControl(env.security.ip2proxy, limit.openingStatsProxy)
 
   def index(q: Option[String] = None) = Open:
-    val searchQuery = ~q
+    val searchQuery = (~q).replaceAll("""(?<=\d)\.(?=[a-zA-Z])""", ". ")
     if searchQuery.nonEmpty then
       val results = env.opening.search(searchQuery)
       if HTTPRequest.isXhr(ctx.req)
