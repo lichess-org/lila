@@ -673,7 +673,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Време проведено играјући: %s</string>
   <string name="watchGames">Гледај партије</string>
-  <string name="tpTimeSpentOnTV">Време на TV: %s</string>
+  <string name="tpTimeSpentOnTV">Време приказа на ТВ-у: %s</string>
   <string name="watch">Гледај</string>
   <string name="videoLibrary">Видео библиотека</string>
   <string name="streamersMenu">Стримери</string>
@@ -699,7 +699,7 @@
   <string name="aboutSimul">Симултанке обухватају суочавање једонг играча против неколико играча одједном.</string>
   <string name="aboutSimulImage">Од 50 противника, Фишер је победио 47 партија, ремизирао 2, и изгубио 1.</string>
   <string name="aboutSimulRealLife">Концепт је преузет из догађаја у стварном свету. У стварном животу, то обухвата кретање домаћина симултанке од стола до стола како би одиграо један потез.</string>
-  <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
+  <string name="aboutSimulRules">Када симултанка започне, сваки играч почиње партију са домаћином. Симултанка се завршава када су све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек нерангиране. Реванши, враћања потеза и додавања времена су искључени.</string>
   <string name="create">Направи</string>
   <string name="whenCreateSimul">Када направиш Симултанку, можеш играти против неколико играча одједном.</string>
