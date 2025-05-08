@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Spostamento di un pezzo tra due pezzi avversari per lasciare uno o entrambi i pezzi nemici senza difesa, come ad esempio un cavallo difeso tra due torri.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Esecuzione, prima della mossa più naturale, di un\'altra mossa che pone una minaccia più immediata, alla quale l\'avversario deve necessariamente reagire. Conosciuto anche come \"Zwischenzug\" o \"Mossa intermedia\".</string>
+  <string name="killBoxMate">Matto della scatola assassina</string>
+  <string name="killBoxMateDescription">Una Torre è vicina al Re nemico e supportata da una Regina che blocca i quadrati di fuga del Re. La Torre e la Regina catturano il Re nemico in una \"scatola assassina\" 3 x 3.</string>
+  <string name="vukovicMate">Scacco matto Vukovic</string>
+  <string name="vukovicMateDescription">Una Torre e un Cavallo collaborano per fare scacco al Re. La Torre mette in scacco supportata da un terzo pezzo, e il Cavallo viene usato per bloccare i quadrati di fuga del Re.</string>
   <string name="knightEndgame">Finale di cavallo</string>
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
   <string name="long">Problema lungo</string>

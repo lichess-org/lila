@@ -340,7 +340,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         )
       )
 
-  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+  private val rtlCache = scala.collection.mutable.HashMap.empty[Lang, Boolean]
 
   private def isRTL(lang: Lang): Boolean =
     rtlCache.getOrElseUpdate(
