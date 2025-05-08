@@ -73,9 +73,6 @@ final class PracticeApi(
         yield PracticeStructure.make(conf, chapters)
     def get     = cache.getUnit
     def clear() = cache.invalidateUnit()
-    def onSave(study: Study) =
-      get.foreach: structure =>
-        if structure.hasStudy(study.id) then clear()
 
     val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
 

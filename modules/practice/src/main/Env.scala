@@ -22,5 +22,3 @@ final class Env(
   lazy val api: PracticeApi = wire[PracticeApi]
 
   def getStudies: lila.core.practice.GetStudies = api.structure.getStudies
-
-  lila.common.Bus.sub[lila.study.SaveStudy](saved => api.structure.onSave(saved.study))
