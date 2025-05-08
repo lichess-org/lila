@@ -30,8 +30,6 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using Executor, a
 
   object events:
 
-    private val classifier = "userSignup"
-
     private val blueprint =
       Source
         .queue[UserSignup](32, akka.stream.OverflowStrategy.dropHead)
