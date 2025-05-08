@@ -165,7 +165,6 @@ final class RelationApi(
           _ <- limitBlock(u1)
           _ <- unfollow(u2, u1)
         yield
-          Bus.pub(lila.core.relation.Block(u1, u2))
           Bus.pub(
             lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1))
           )
@@ -185,7 +184,6 @@ final class RelationApi(
     (u1 != u2).so(fetchBlocks(u1, u2).flatMapz {
       for _ <- repo.unblock(u1, u2)
       yield
-        Bus.pub(lila.core.relation.UnBlock(u1, u2))
         Bus.pub(
           lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1))
         )
