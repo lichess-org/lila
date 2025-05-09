@@ -22,6 +22,7 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
+  <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
@@ -998,4 +999,7 @@ Leave empty to start games from the normal initial position.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibility</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Enable blind mode</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Disable blind mode</string>
 </resources>
