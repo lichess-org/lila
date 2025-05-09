@@ -22,6 +22,7 @@
   <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
   <string name="youPlayTheWhitePieces">你执白棋</string>
@@ -953,4 +954,7 @@
   <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="nothingToSeeHere">此刻没有什么可看的。</string>
   <string name="stats">统计信息</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">无障碍</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">打开视障模式</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">关闭视障模式</string>
 </resources>
