@@ -6,7 +6,7 @@ object blindLobby:
 
   def apply(games: List[Pov])(using Context) =
     div(
-      h2(games.size, " ongoing games"),
+      h2(trans.swiss.ongoingGames(games.size)),
       games.nonEmpty.option(ongoingGames(games)),
       div(cls := "lobby__app")
     )
