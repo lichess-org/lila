@@ -74,7 +74,7 @@
   <string name="expandVariations">Varianten weergeven</string>
   <string name="forceVariation">Forceer variatie</string>
   <string name="copyVariationPgn">Kopieer variatie PGN</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopieer hoofdlijn PGN</string>
+  <string name="copyMainLinePgn">Kopieer hoofdlijn PGN</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -612,7 +612,7 @@
   <string name="victoryVsYInZ">%1$s vs. %2$s in %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs. %2$s in %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Tijdslijn</string>
+  <string name="timeline">Tijdslijn</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
   <string name="biographyDescription">Vertel over jezelf, wat je aantrekt in schaken, je favoriete openingen, partijen, spelers…</string>
