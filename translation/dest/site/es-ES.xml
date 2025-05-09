@@ -22,6 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
+  <string name="createTheGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
@@ -999,4 +1000,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
+  <string name="accessibility">Accesibilidad</string>
 </resources>
