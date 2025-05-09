@@ -22,6 +22,7 @@
   <string name="asBlack">mit Schwarz</string>
   <string name="randomColor">Zufällige Farbe</string>
   <string name="createAGame">Neue Partie</string>
+  <string name="createTheGame">Neue Partie erstellen</string>
   <string name="whiteIsVictorious">Weiß gewinnt</string>
   <string name="blackIsVictorious">Schwarz gewinnt</string>
   <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
@@ -999,4 +1000,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
   <string name="stats">Statistiken</string>
+  <string name="accessibility">Barrierefreiheit</string>
+  <string name="enableBlindMode">Blindenmodus aktivieren</string>
+  <string name="disableBlindMode">Blindenmodus deaktivieren</string>
 </resources>
