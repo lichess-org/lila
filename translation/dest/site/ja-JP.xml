@@ -73,7 +73,7 @@
   <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">主手順の PGN をコピー</string>
+  <string name="copyMainLinePgn">主手順の PGN をコピー</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -576,7 +576,7 @@
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
   <string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
   <string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">タイムライン</string>
+  <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
   <string name="biographyDescription">自己紹介（チェスの好きな点、お気に入りの戦法、ゲーム、選手など）</string>
