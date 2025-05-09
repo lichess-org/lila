@@ -74,7 +74,7 @@
   <string name="expandVariations">Shfaqi variantet</string>
   <string name="forceVariation">Detyro variant</string>
   <string name="copyVariationPgn">Kopjo PGN varianti</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopjo PGN rrjedhe lëvizjesh</string>
+  <string name="copyMainLinePgn">Kopjo PGN rrjedhe lëvizjesh</string>
   <string name="move">Lëvizje</string>
   <string name="variantLoss">Varianti humb</string>
   <string name="variantWin">Varianti fiton</string>
@@ -614,7 +614,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="victoryVsYInZ">%1$s vs %2$s në %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s në %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s në %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Rrjedhë kohore</string>
+  <string name="timeline">Rrjedhë kohore</string>
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Krejt informacioni është publik dhe opsional.</string>
   <string name="biographyDescription">Tregoni për veten, interesat tuaja, ç’ju pëlqen tek shahu, hapjet tuaja të preferuara, lojtarët…</string>
