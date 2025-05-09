@@ -22,7 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Cor aleatoria</string>
   <string name="createAGame">Crear unha partida</string>
-  <string name="createTheGame">Crear a partida</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Crear a partida</string>
   <string name="whiteIsVictorious">As brancas gañan</string>
   <string name="blackIsVictorious">As negras gañan</string>
   <string name="youPlayTheWhitePieces">Xogas coas brancas</string>
@@ -999,4 +999,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
   <string name="stats">Estatísticas</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accesibilidade</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activar o modo de accesibilidade web</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desactivar o modo de accesibilidade web</string>
 </resources>
