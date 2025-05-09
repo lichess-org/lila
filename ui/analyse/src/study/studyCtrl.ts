@@ -112,7 +112,7 @@ export default class StudyCtrl {
     readonly ctrl: AnalyseCtrl,
     tagTypes: TagTypes,
     practiceData?: StudyPracticeData,
-    private readonly relayData?: RelayData,
+    relayData?: RelayData,
   ) {
     this.data = data;
     this.notif = new NotifCtrl(ctrl.redraw);
@@ -159,19 +159,7 @@ export default class StudyCtrl {
     this.multiCloudEval = ctrl.ceval.possible
       ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
       : undefined;
-    if (relayData) {
-      this.relay = new RelayCtrl(
-        this.data.id,
-        relayData,
-        ctrl,
-        this.members,
-        this.chapters.list,
-        this.multiCloudEval,
-        () => this.data.federations,
-        this.chapterSelect,
-        this.updateHistoryAndAddressBar,
-      );
-    }
+    if (relayData) this.relay = new RelayCtrl(this, relayData);
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
       defined(this.relay),
@@ -588,7 +576,7 @@ export default class StudyCtrl {
   };
   toggleWrite = () => {
     this.vm.mode.write = !this.vm.mode.write && this.members.canContribute();
-    if (this.relayData) this.relayRecProp(this.vm.mode.write);
+    if (this.relay) this.relayRecProp(this.vm.mode.write);
     else this.nonRelayRecMapProp(this.data.id, this.vm.mode.write);
     this.xhrReload();
   };
@@ -754,7 +742,7 @@ export default class StudyCtrl {
       if (d.s && !this.vm.mode.sticky) this.vm.behind++;
       if (d.s) this.data.position = d.p;
       if (d.w?.s === site.sri) {
-        this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
+        this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
       }
       this.xhrReload(true);
