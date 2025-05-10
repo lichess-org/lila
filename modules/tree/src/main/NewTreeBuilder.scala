@@ -37,12 +37,12 @@ object NewTreeBuilder:
         val metas = Metas(
           ply = init.ply,
           fen = fen,
-          check = init.board.check,
+          check = init.position.check,
           opening = openingOf(fen),
           clock = withFlags.clocks.so(
             game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
           ),
-          crazyData = init.board.crazyData,
+          crazyData = init.position.crazyData,
           eval = infos.lift(0).map(TreeBuilder.makeEval)
         )
 
@@ -58,10 +58,10 @@ object NewTreeBuilder:
             metas = Metas(
               ply = g.ply,
               fen = fen,
-              check = g.board.check,
+              check = g.position.check,
               opening = openingOf(fen),
               clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)).map(Clock(_)),
-              crazyData = g.board.crazyData,
+              crazyData = g.position.crazyData,
               eval = info.map(TreeBuilder.makeEval),
               glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
               comments = Node.Comments(
@@ -117,9 +117,9 @@ object NewTreeBuilder:
         metas = Metas(
           ply = g.ply,
           fen = fen,
-          check = g.board.check,
+          check = g.position.check,
           opening = openingOf(fen),
-          crazyData = g.board.crazyData,
+          crazyData = g.position.crazyData,
           eval = none
         )
       )

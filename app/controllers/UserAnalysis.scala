@@ -81,7 +81,7 @@ final class UserAnalysis(
       lila.core.game
         .newGame(
           chess = chess.Game(
-            board = from.board,
+            position = from.position,
             ply = from.ply
           ),
           players = ByColor(lila.game.Player.make(_, none)),
@@ -90,7 +90,7 @@ final class UserAnalysis(
           pgnImport = None
         )
         .withId(lila.game.Game.syntheticId),
-      from.board.color
+      from.position.color
     )
 
   // correspondence premove aka forecast

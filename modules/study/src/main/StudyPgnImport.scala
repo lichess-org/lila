@@ -29,13 +29,13 @@ object StudyPgnImport:
       case (shapes, _, _, comments) =>
         val root = Root(
           ply = replay.setup.ply,
-          fen = initialFen | game.board.variant.initialFen,
-          check = replay.setup.board.check,
+          fen = initialFen | game.position.variant.initialFen,
+          check = replay.setup.position.check,
           shapes = shapes,
           comments = comments,
           glyphs = Glyphs.empty,
           clock = clock,
-          crazyData = replay.setup.board.crazyData,
+          crazyData = replay.setup.position.crazyData,
           children = parsed.tree.fold(Branches.empty):
             makeBranches(Context(replay.setup, ByColor.fill(clock), timeControl), _, annotator)
         )
@@ -45,7 +45,7 @@ object StudyPgnImport:
             status = res.status,
             points = res.points,
             resultText = chess.Outcome.showPoints(res.points.some),
-            statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+            statusText = lila.tree.StatusText(res.status, res.winner, game.position.variant)
           )
 
         val commented =
@@ -57,7 +57,7 @@ object StudyPgnImport:
 
         Result(
           root = commented,
-          variant = game.board.variant,
+          variant = game.position.variant,
           tags = PgnTags
             .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
           ending = ending
@@ -129,7 +129,7 @@ object StudyPgnImport:
   ): Option[Branch] =
     try
       node.value
-        .san(context.currentGame.board)
+        .san(context.currentGame.position)
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
@@ -148,12 +148,12 @@ object StudyPgnImport:
               ply = game.ply,
               move = Uci.WithSan(uci, sanStr),
               fen = Fen.write(game),
-              check = game.board.check,
+              check = game.position.check,
               shapes = shapes,
               comments = comments,
               glyphs = node.value.metas.glyphs,
               clock = computedClock,
-              crazyData = game.board.crazyData,
+              crazyData = game.position.crazyData,
               children = node.child.fold(Branches.empty):
                 makeBranches(
                   Context(

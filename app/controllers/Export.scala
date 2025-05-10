@@ -37,7 +37,7 @@ final class Export(env: Env) extends LilaController(env):
     exportImageOf(env.puzzle.api.puzzle.find(id)): puzzle =>
       env.game.gifExport
         .thumbnail(
-          board = puzzle.boardAfterInitialMove.err(s"invalid puzzle ${puzzle.id}"),
+          position = puzzle.boardAfterInitialMove.err(s"invalid puzzle ${puzzle.id}"),
           lastMove = puzzle.line.head.some,
           orientation = puzzle.color,
           theme = Theme(theme).name,
@@ -54,10 +54,10 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) = Anon:
-    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Full.clean(fen)))): board =>
+    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Full.clean(fen)))): position =>
       env.game.gifExport
         .thumbnail(
-          board = board,
+          position = position,
           lastMove = lastMove,
           orientation = color | Color.white,
           theme = Theme(theme).name,

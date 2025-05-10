@@ -50,9 +50,9 @@ object Metas:
     Metas(
       ply = sit.ply,
       fen = Fen.write(sit),
-      check = sit.board.check,
+      check = sit.position.check,
       clock = none,
-      crazyData = sit.board.crazyData
+      crazyData = sit.position.crazyData
     )
 
 case class NewBranch(

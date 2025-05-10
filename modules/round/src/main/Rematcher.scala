@@ -154,13 +154,13 @@ object Rematcher:
   ): ChessGame =
     val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
     val newPosition = variant match
-      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.board)
+      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.position)
       case Chess960                                 => Position(Chess960)
-      case variant                                  => prevPosition.fold(Position(variant))(_.board)
+      case variant                                  => prevPosition.fold(Position(variant))(_.position)
     val ply   = prevPosition.fold(Ply.initial)(_.ply)
-    val color = prevPosition.fold[Color](White)(_.board.color)
+    val color = prevPosition.fold[Color](White)(_.position.color)
     ChessGame(
-      board = newPosition.withColor(color),
+      position = newPosition.withColor(color),
       clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply

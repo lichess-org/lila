@@ -24,18 +24,18 @@ case class AnaDrop(
       .drop(role, pos)
       .map: (game, drop) =>
         val uci     = Uci(drop)
-        val movable = !game.board.end
+        val movable = !game.position.end
         val fen     = chess.format.Fen.write(game)
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
           move = Uci.WithSan(uci, drop.toSanStr),
           fen = fen,
-          check = game.board.check,
-          dests = Some(movable.so(game.board.destinations)),
+          check = game.position.check,
+          dests = Some(movable.so(game.position.destinations)),
           opening = OpeningDb.findByFullFen(fen),
-          drops = if movable then game.board.drops else Some(Nil),
-          crazyData = game.board.crazyData
+          drops = if movable then game.position.drops else Some(Nil),
+          crazyData = game.position.crazyData
         )
 
 object AnaDrop:

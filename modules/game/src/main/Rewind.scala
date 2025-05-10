@@ -12,7 +12,7 @@ object Rewind:
 
   def apply(game: CoreGame, initialFen: Option[Fen.Full]): Either[ErrorStr, Progress] =
     chessPgn.Reader
-      .movesWithSans(
+      .moves(
         sans = game.sans,
         op = sans => chessPgn.Sans(sans.value.dropRight(1)),
         tags = createTags(initialFen, game)
