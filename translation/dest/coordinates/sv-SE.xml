@@ -13,8 +13,10 @@
   <string name="youHaveThirtySeconds">Du har 30 sekunder på dig att korrekt namnge så många rutor som möjligt!</string>
   <string name="goAsLongAsYouWant">Fortsätt så länge du vill, det finns ingen tidsbegränsning!</string>
   <string name="showCoordinates">Visa koordinater</string>
+  <string name="showCoordsOnAllSquares">Koordinater på varje ruta</string>
   <string name="showPieces">Visa pjäser</string>
   <string name="startTraining">Starta träningen</string>
   <string name="findSquare">Hitta ruta</string>
   <string name="nameSquare">Namnge ruta</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Öva bara på linjer &amp; rader</string>
 </resources>
