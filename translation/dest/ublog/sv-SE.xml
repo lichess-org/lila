@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Olämpligt innehåll kan göra att ditt konto stängs.</string>
   <string name="blogTips">Våra enkla tips för att skriva bra blogginlägg</string>
   <string name="discussThisBlogPostInTheForum">Diskutera detta blogginlägg i forumet</string>
+  <string name="youBlockedByBlogAuthor">Du är blockerad av bloggägaren.</string>
 </resources>
