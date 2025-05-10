@@ -9,8 +9,6 @@ import lila.game.GameExt.moveTimes
 
 final class IrwinStream:
 
-  private val channel = "irwin"
-
   private val keepAliveMsg = "{\"keepAlive\":true}\n"
 
   private val blueprint =
@@ -23,14 +21,14 @@ final class IrwinStream:
 
   def apply()(using Executor): Source[String, ?] =
     blueprint.mapMaterializedValue { queue =>
-      val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
+      val sub = Bus.sub[IrwinRequest](req =>
         lila.mon.mod.irwin.streamEventType("request").increment()
         queue.offer(req)
-      }
+      )
       queue
         .watchCompletion()
         .addEffectAnyway:
-          Bus.unsubscribe(sub, channel)
+          Bus.unsub[IrwinRequest](sub)
     }
 
   private def requestJson(req: IrwinRequest) =

@@ -123,7 +123,7 @@ final class StudyApi(
     case StudyForm.importGame.As.NewStudy =>
       create(data, user, withRatings).addEffect:
         _.so: sc =>
-          Bus.publish(hub.StartStudy(sc.study.id), "startStudy")
+          Bus.pub(hub.StartStudy(sc.study.id))
     case StudyForm.importGame.As.ChapterOf(studyId) =>
       byId(studyId)
         .flatMap:
@@ -765,7 +765,7 @@ final class StudyApi(
       for
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
-      yield Bus.publish(lila.core.study.RemoveStudy(study.id), "study")
+      yield Bus.pub(lila.core.study.RemoveStudy(study.id))
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_.so(delete))

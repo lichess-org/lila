@@ -26,7 +26,7 @@ final class BoardApiHookStream(
         .addEffectAnyway:
           actor ! PoisonPill
 
-  def cancel(sri: Sri) = Bus.publish(RemoveHook(sri.value), s"hookRemove:${sri}")
+  def cancel(sri: Sri) = Bus.publishDyn(RemoveHook(sri.value), s"hookRemove:${sri}")
 
   def mustPlayAsColor(chosen: TriColor)(using me: Option[Me]): Fu[Option[Color]] =
     (chosen != TriColor.Random).so:
@@ -38,12 +38,12 @@ final class BoardApiHookStream(
 
     override def preStart(): Unit =
       super.preStart()
-      Bus.subscribe(self, classifiers)
+      Bus.subscribeActorRefDyn(self, classifiers)
       lobby ! AddHook(hook)
 
     override def postStop() =
       super.postStop()
-      classifiers.foreach(Bus.unsubscribe(self, _))
+      classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
       lobby ! CancelHook(hook.sri)
       queue.complete()
 

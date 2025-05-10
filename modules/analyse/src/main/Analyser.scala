@@ -4,7 +4,6 @@ import monocle.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.core.misc.map.TellIfExists
 import lila.tree.{ Analysis, ExportOptions, Tree }
 
 final class Analyser(
@@ -27,7 +26,7 @@ final class Analyser(
             _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
-          yield Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
+          yield Bus.pub(actorApi.AnalysisReady(game, analysis))
         }
       case _ =>
         analysisRepo.save(analysis) >>
@@ -39,18 +38,16 @@ final class Analyser(
     analysis.id match
       case Analysis.Id.Game(id) =>
         gameRepo.gameWithInitialFen(id).mapz { g =>
-          Bus.publish(
-            TellIfExists(
-              id.value,
-              lila.tree.AnalysisProgress: () =>
-                makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
-            ),
-            "roundSocket"
+          Bus.pub(
+            lila.tree.AnalysisProgress(
+              id,
+              () => makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
+            )
           )
         }
       case _ =>
         fuccess:
-          Bus.publish(lila.tree.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+          Bus.pub(lila.tree.StudyAnalysisProgress(analysis, complete))
 
   private def makeProgressPayload(
       analysis: Analysis,

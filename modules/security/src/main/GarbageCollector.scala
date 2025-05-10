@@ -62,9 +62,8 @@ final class GarbageCollector(
       _ <-
         val printOpt = spy.prints.headOption
         logger.debug(s"apply ${data.user.username} print=$printOpt")
-        Bus.publish(
-          UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
-          "userSignup"
+        Bus.pub(
+          UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp)
         )
         printOpt.filter(_.banned).map(_.fp.value) match
           case Some(print) =>
@@ -99,7 +98,7 @@ final class GarbageCollector(
         noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")
         if armed then
           for _ <- waitForCollection(user.id, nowInstant.plus(wait))
-          do Bus.publish(lila.core.security.GarbageCollect(user.id), "garbageCollect")
+          do Bus.pub(lila.core.security.GarbageCollect(user.id))
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collect")))

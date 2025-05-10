@@ -3,7 +3,6 @@ package lila.study
 import chess.format.UciPath
 import lila.tree.Branch
 
-case class SaveStudy(study: Study)
 case class SetTag(chapterId: StudyChapterId, name: String, value: String):
   def tag = chess.format.pgn.Tag(name, lila.common.String.fullCleanUp(value).take(140))
 case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, insert: Boolean):

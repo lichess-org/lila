@@ -62,10 +62,11 @@ final class ApiMoveStream(
                 queue.offer(makeGameJson(game))
                 queue.complete()
               else
-                val chans = List(MoveGameEvent.makeChan(game.id), "finishGame")
-                val sub = Bus.subscribeFun(chans*):
+                val chan = MoveGameEvent.makeChan(game.id)
+                val subEvent = Bus.subscribeFunDyn(chan):
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some))
+                val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
                     queue.offer(makeGameJson(g))
                     (1 to buffer.size).foreach { _ => queue.offer(Json.obj()) } // push buffer content out
@@ -73,7 +74,8 @@ final class ApiMoveStream(
                 queue
                   .watchCompletion()
                   .addEffectAnyway:
-                    Bus.unsubscribe(sub, chans)
+                    Bus.unsubscribeDyn(subEvent, List(chan))
+                    Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
               if delayMoves
               then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)

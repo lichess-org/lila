@@ -74,7 +74,7 @@ final class Env(
   scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
     expiration.run
 
-  lila.common.Bus.subscribeFun("email"):
+  lila.common.Bus.sub[lila.core.user.ChangeEmail]:
     case lila.core.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
   def cli = new lila.common.Cli:

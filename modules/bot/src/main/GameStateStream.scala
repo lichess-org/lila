@@ -11,8 +11,7 @@ import lila.chat.{ Chat, UserLine }
 import lila.common.{ Bus, HTTPRequest }
 import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
-import lila.core.misc.map.Tell
-import lila.core.round.{ BotConnected, QuietFlag }
+import lila.core.round.{ Tell, RoundBus }
 import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
 
 final class GameStateStream(
@@ -32,7 +31,7 @@ final class GameStateStream(
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any
-    Bus.publish(PoisonPill, uniqChan(init.game.pov(as)))
+    Bus.publishDyn(PoisonPill, uniqChan(init.game.pov(as)))
 
     blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(
@@ -63,8 +62,6 @@ final class GameStateStream(
       BoardDrawOffer.makeChan(id),
       BoardTakeback.makeChan(id),
       BoardGone.makeChan(id),
-      "finishGame",
-      "abortGame",
       uniqChan(init.game.pov(as)),
       Chat.chanOf(id.into(ChatId))
     ) :::
@@ -72,7 +69,9 @@ final class GameStateStream(
 
     override def preStart(): Unit =
       super.preStart()
-      Bus.subscribe(self, classifiers)
+      Bus.subscribeActorRef[lila.core.game.FinishGame](self)
+      Bus.subscribeActorRef[lila.core.game.AbortedBy](self)
+      Bus.subscribeActorRefDyn(self, classifiers)
       jsonView.gameFull(init).foreach { json =>
         // prepend the full game JSON at the start of the stream
         queue.offer(json.some)
@@ -81,15 +80,17 @@ final class GameStateStream(
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
-      Bus.publish(Tell(init.game.id.value, BotConnected(as, v = true)), "roundSocket")
+      Bus.pub(Tell(init.game.id, RoundBus.BotConnected(as, v = true)))
 
     override def postStop(): Unit =
       super.postStop()
-      classifiers.foreach(Bus.unsubscribe(self, _))
+      classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
+      Bus.unsubscribeActorRef[lila.core.game.FinishGame](self)
+      Bus.unsubscribeActorRef[lila.core.game.AbortedBy](self)
       // hang around if game is over
       // so the opponent has a chance to rematch
       context.system.scheduler.scheduleOnce(if gameOver then 10.second else 1.second):
-        Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
+        Bus.pub(Tell(init.game.id, RoundBus.BotConnected(as, v = false)))
       queue.complete()
       lila.mon.bot.gameStream("stop").increment()
 
@@ -110,7 +111,7 @@ final class GameStateStream(
             // gotta send a message to check if the client has disconnected
             queue.offer(None)
             self ! SetOnline
-            Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
+            Bus.pub(Tell(id, RoundBus.QuietFlag))
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void

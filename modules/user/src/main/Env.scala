@@ -6,6 +6,8 @@ import com.softwaremill.tagging.*
 import lila.core.config.*
 import lila.core.userId
 
+import lila.common.Bus
+
 @Module
 final class Env(
     db: lila.db.Db,
@@ -52,19 +54,19 @@ final class Env(
 
   val flagApi: lila.core.user.FlagApi = Flags
 
-  lila.common.Bus.subscribeFuns(
-    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
+  Bus.sub[lila.core.mod.MarkCheater]:
+    case lila.core.mod.MarkCheater(userId, true) =>
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
-    },
-    "adjustBooster" -> { case lila.core.mod.MarkBooster(userId) =>
-      rankingApi.remove(userId)
-      repo.setRoles(userId, Nil)
-    },
-    "kickFromRankings" -> { case lila.core.mod.KickFromRankings(userId) =>
-      rankingApi.remove(userId)
-    }
-  )
 
-  lila.common.Bus.sub[lila.core.misc.puzzle.StreakRun]:
+  Bus.sub[lila.core.mod.MarkBooster]:
+    case lila.core.mod.MarkBooster(userId) =>
+      rankingApi.remove(userId)
+      repo.setRoles(userId, Nil)
+
+  Bus.sub[lila.core.mod.KickFromRankings]:
+    case lila.core.mod.KickFromRankings(userId) =>
+      rankingApi.remove(userId)
+
+  Bus.sub[lila.core.misc.puzzle.StreakRun]:
     case r => api.addPuzRun("streak", r.userId, r.score)

@@ -46,7 +46,7 @@ final class UblogApi(
         .so: rank =>
           colls.post.updateField($id(post.id), "rank", rank).void
     yield
-      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      lila.common.Bus.pub(UblogPost.Create(post))
       if blog.visible then
         lila.common.Bus.pub:
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))

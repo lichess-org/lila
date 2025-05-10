@@ -75,8 +75,8 @@ final class Env(
   scheduler.scheduleWithFixedDelay(20.seconds, 2897.millis): () =>
     bulk.tick
 
-  lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+  lila.common.Bus.sub[lila.core.round.DeleteUnplayed]: unplayed =>
+    api.removeByGameId(unplayed.gameId)
 
 private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))

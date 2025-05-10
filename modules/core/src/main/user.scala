@@ -164,7 +164,7 @@ object user:
 
   case class UserDelete(user: User):
     export user.id
-  object UserDelete extends scalalib.bus.GivenChannel[UserDelete]("userDelete"):
+  object UserDelete:
     val delay = scalalib.model.Days(7)
 
   trait UserApi:

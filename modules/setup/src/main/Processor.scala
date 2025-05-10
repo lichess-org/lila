@@ -35,7 +35,7 @@ final private[setup] class Processor(
     config.hook(sri, me, sid, blocking) match
       case Left(hook) =>
         fuccess:
-          Bus.publish(AddHook(hook), "lobbyActor")
+          Bus.pub(AddHook(hook))
           Created(hook.id)
       case Right(Some(seek)) => me.fold(fuccess(Refused))(u => createSeekIfAllowed(seek, u.id))
       case _                 => fuccess(Refused)
@@ -46,7 +46,7 @@ final private[setup] class Processor(
       if lila.core.game.maxPlaying <= nbPlaying
       then Refused
       else
-        Bus.publish(AddSeek(seek), "lobbyActor")
+        Bus.pub(AddSeek(seek))
         Created(seek.id)
     }
 

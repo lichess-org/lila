@@ -18,7 +18,7 @@ final class Env(
 
   lazy val ratingChartApi = wire[RatingChartApi]
 
-  lila.common.Bus.subscribeFun("perfsUpdate"):
+  lila.common.Bus.sub[lila.core.game.PerfsUpdate]:
     case lila.core.game.PerfsUpdate(game, bothPerfs) =>
       bothPerfs.mapList: uwp =>
         api.add(uwp.user, game, uwp.perfs)

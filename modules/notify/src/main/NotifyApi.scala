@@ -146,7 +146,7 @@ final class NotifyApi(
 
   private def bellOne(note: Notification): Funit =
     for _ <- insertNotification(note)
-    yield Bus.publish(
+    yield Bus.pub(
       SendToOnlineUser(
         note.to,
         LazyFu: () =>
@@ -158,8 +158,7 @@ final class NotifyApi(
             "t" -> "notifications",
             "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
           )
-      ),
-      "socketUsers"
+      )
     )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
@@ -170,16 +169,15 @@ final class NotifyApi(
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells.foreach(unreadCountCache.invalidate) // or maybe update only if getIfPresent?
     for _ <- repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
-    yield Bus.publish(
-      SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
-      "socketUsers"
+    yield Bus.pub(
+      SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true))
     )
 
   private def pushOne(to: NotifyAllows, content: NotificationContent) =
     pushMany(Seq(to), content)
 
   private def pushMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
-    Bus.publish(PushNotification(recips, content), "notifyPush")
+    Bus.pub(PushNotification(recips, content))
 
   private def shouldSkip(note: Notification): Fu[Boolean] = note.content match
     case MentionedInThread(_, _, topicId, _, _) =>

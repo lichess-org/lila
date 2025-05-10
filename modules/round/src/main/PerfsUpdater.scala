@@ -51,7 +51,7 @@ final class PerfsUpdater(
       def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
       prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
     val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
-    lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
+    lila.common.Bus.pub(lila.core.game.PerfsUpdate(game, newUsers))
     (ratingDiffs, newUsers, perfKey)
 
   private def computeGlicko(gameId: GameId, prevPlayers: ByColor[Player], outcome: chess.Outcome) =

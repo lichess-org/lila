@@ -145,4 +145,11 @@ trait SocketRequester:
 object remote:
   case class TellSriOut(sri: String, payload: JsValue)
   case class TellSrisOut(sris: Iterable[String], payload: JsValue)
-  case class TellUserIn(user: UserId, msg: JsObject)
+  enum TellUserIn:
+    case Read(user: UserId, msg: JsObject)
+    case Send(user: UserId, msg: JsObject)
+  object TellUserIn:
+    def make(userId: UserId, msg: JsObject, typ: String): Option[TellUserIn] = typ match
+      case "msgRead" => Some(Read(userId, msg))
+      case "msgSend" => Some(Send(userId, msg))
+      case _         => None

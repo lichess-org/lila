@@ -23,4 +23,4 @@ final class OnlineApiUsers(
   def get: Set[UserId] = cache.keySet
 
   private def publish(userId: UserId, isOnline: Boolean) =
-    Bus.publish(ApiUserIsOnline(userId, isOnline), "onlineApiUsers")
+    Bus.pub(ApiUserIsOnline(userId, isOnline))

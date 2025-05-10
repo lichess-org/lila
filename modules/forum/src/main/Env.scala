@@ -62,7 +62,7 @@ final class Env(
 
   lazy val access = wire[ForumAccess]
 
-  lila.common.Bus.subscribeFun("team", "gdprErase"):
+  lila.common.Bus.sub[lila.core.team.TeamCreate]:
     case lila.core.team.TeamCreate(t) => categApi.makeTeam(t.id, t.name, t.userId)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>

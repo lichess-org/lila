@@ -11,7 +11,7 @@ import chess.{ IntRating, ByColor }
 
 import lila.common.Bus
 import lila.core.game.LightPov
-import lila.core.round.{ AbortForce, GoBerserk }
+import lila.core.round.{ RoundBus, GoBerserk }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
 import lila.core.chess.Rank
@@ -500,7 +500,7 @@ final class TournamentApi(
             for
               pairing <- pairingRepo.findPlaying(tour.id, userId)
               _ = pairing.foreach: currentPairing =>
-                roundApi.tell(currentPairing.gameId, AbortForce)
+                roundApi.tell(currentPairing.gameId, RoundBus.AbortForce)
               uids <- pairingRepo.opponentsOf(tour.id, userId)
               _    <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
               _    <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
@@ -758,9 +758,8 @@ final class TournamentApi(
     private val debouncer = Debouncer[Unit](scheduler.scheduleOnce(15.seconds, _), 1): _ =>
       given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
-        Bus.publish(
-          lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
-          "sendToFlag"
+        Bus.pub(
+          lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json))
         )
       }
     def apply() = debouncer.push(())
@@ -777,9 +776,8 @@ final class TournamentApi(
       tournamentTop(tourId).map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
-          Bus.publish(
-            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
-            "tourStanding"
+          Bus.pub(
+            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync))
           )
           lastPublished.put(tourId, top.hashCode)
       }

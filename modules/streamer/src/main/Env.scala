@@ -4,6 +4,7 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
+import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.{ *, given }
 import lila.core.config.*
@@ -80,11 +81,13 @@ final class Env(
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
-  lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
+  Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
-    case lila.core.mod.MarkBooster(userId)       => api.demote(userId)
-    case lila.core.mod.Shadowban(userId, true)   => api.demote(userId)
-    case lila.core.mod.Shadowban(userId, false)  => api.unignore(userId)
+  Bus.sub[lila.core.mod.MarkBooster]:
+    case lila.core.mod.MarkBooster(userId) => api.demote(userId)
+  Bus.sub[lila.core.mod.Shadowban]:
+    case lila.core.mod.Shadowban(userId, true)  => api.demote(userId)
+    case lila.core.mod.Shadowban(userId, false) => api.unignore(userId)
 
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>
     api.autoDemoteFakes

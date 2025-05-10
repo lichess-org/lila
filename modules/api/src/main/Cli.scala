@@ -33,7 +33,7 @@ final private[api] class Cli(
       manifest.update()
       import lila.core.net.AssetVersion
       val current = AssetVersion.change()
-      Bus.publish(AssetVersion.Changed(current), "assetVersion")
+      Bus.pub(AssetVersion.Changed(current))
       fuccess(s"Changed to ${AssetVersion.current}")
     case "announce" :: words => lila.web.AnnounceApi.cli(words)
     case "threads" :: Nil =>

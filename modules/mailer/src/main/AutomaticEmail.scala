@@ -220,7 +220,7 @@ $disableSettingNotice $disableLink"""
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>
-      lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
+      lila.common.Bus.pub(SystemMsg(user.id, txt))
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body).pipe: body =>

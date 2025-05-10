@@ -73,9 +73,6 @@ final class PracticeApi(
         yield PracticeStructure.make(conf, chapters)
     def get     = cache.getUnit
     def clear() = cache.invalidateUnit()
-    def onSave(study: Study) =
-      get.foreach: structure =>
-        if structure.hasStudy(study.id) then clear()
 
     val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
 
@@ -97,7 +94,7 @@ final class PracticeApi(
       _       <- save(prog.withNbMoves(chapterId, score))
       studyId <- studyApi.studyIdOf(chapterId)
     yield studyId.so: studyId =>
-      Bus.publish(lila.core.practice.OnComplete(user.id, studyId, chapterId), "finishPractice")
+      Bus.pub(lila.core.practice.OnComplete(user.id, studyId, chapterId))
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void

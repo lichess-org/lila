@@ -1,5 +1,7 @@
 package lila.tournament
 
+import lila.common.Bus
+
 final private class TournamentBusHandler(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
@@ -8,17 +10,8 @@ final private class TournamentBusHandler(
     tournamentRepo: TournamentRepo
 )(using Executor):
 
-  lila.common.Bus.subscribeFun(
-    "finishGame",
-    "adjustCheater",
-    "adjustBooster",
-    "playban",
-    "team",
-    "berserk"
-  ):
-
-    case lila.core.game.FinishGame(game, _) => api.finishGame(game)
-
+  Bus.sub[lila.core.game.FinishGame](finished => api.finishGame(finished.game))
+  Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) =>
       for
         _      <- ejectFromEnterable(userId)
@@ -27,11 +20,18 @@ final private class TournamentBusHandler(
         _      <- shieldApi.clearAfterMarking(userId)
         _      <- winnersApi.clearAfterMarking(userId)
       yield ()
+  Bus.sub[lila.core.mod.MarkBooster](booster => ejectFromEnterable(booster.userId))
 
-    case lila.core.mod.MarkBooster(userId)              => ejectFromEnterable(userId)
-    case lila.core.round.Berserk(gameId, userId)        => api.berserk(gameId, userId)
-    case lila.core.playban.Playban(userId, _, true)     => api.pausePlaybanned(userId)
+  Bus.sub[lila.core.round.Berserk]:
+    case lila.core.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
+
+  Bus.sub[lila.core.playban.Playban]:
+    case lila.core.playban.Playban(userId, _, true) => api.pausePlaybanned(userId)
+
+  Bus.sub[lila.core.team.KickFromTeam]:
     case lila.core.team.KickFromTeam(teamId, _, userId) => api.kickFromTeam(teamId, userId)
+
+  Bus.sub[lila.core.playban.SittingDetected]:
     case lila.core.playban.SittingDetected(tourId, userId) =>
       api.withdraw(tourId, userId, isPause = false, isStalling = true)
 

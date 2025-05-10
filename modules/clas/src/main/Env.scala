@@ -41,7 +41,7 @@ final class Env(
   def hasClas(using me: Me) =
     lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
-  lila.common.Bus.subscribeFun("finishGame"):
+  lila.common.Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) => progressApi.onFinishGame(game)
 
   lila.common.Bus.sub[ClasBus]:

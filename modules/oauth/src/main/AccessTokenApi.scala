@@ -245,7 +245,7 @@ final class AccessTokenApi(
 
   private def onRevoke(id: AccessToken.Id): Unit =
     accessTokenCache.put(id, fuccess(none))
-    lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
+    lila.common.Bus.pub(TokenRevoke(id.value))
 
 object AccessTokenApi:
   case class Client(origin: String, usedAt: Option[Instant], scopes: List[OAuthScope])

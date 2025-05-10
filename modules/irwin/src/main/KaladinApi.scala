@@ -214,6 +214,6 @@ final class KaladinApi(
   private def getSuspect(suspectId: UserId) =
     userApi.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
 
-  lila.common.Bus.subscribeFun("cheatReport") { case lila.core.report.CheatReportCreated(userId) =>
-    getSuspect(userId).flatMap(autoRequest(KaladinUser.Requester.Report))
-  }
+  lila.common.Bus.sub[lila.core.report.CheatReportCreated](cheatReport =>
+    getSuspect(cheatReport.userId).flatMap(autoRequest(KaladinUser.Requester.Report))
+  )

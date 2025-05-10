@@ -38,7 +38,7 @@ final class Env(
   if mode.isProd then scheduler.scheduleOnce(5.seconds)(influxEvent.start())
   private lazy val pagerDuty = wire[PagerDuty]
 
-  lila.common.Bus.subscribeFun("announce"):
+  lila.common.Bus.sub[lila.core.socket.Announce]:
     case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
       pagerDuty.lilaRestart(date)
 

@@ -2,7 +2,7 @@ package lila.ublog
 
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
 import lila.core.config
-import lila.core.misc.lpv.{ AllPgnsFromText, LpvEmbed }
+import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
 import lila.memo.CacheApi
 
 final class UblogMarkup(
@@ -43,7 +43,7 @@ final class UblogMarkup(
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (id, markdown, max) =>
         Bus
-          .ask("lpv")(AllPgnsFromText(markdown.value, max, _))
+          .safeAsk(LpvBus.AllPgnsFromText(markdown.value, max, _))
           .andThen { case scala.util.Success(pgns) =>
             pgnCache.putAll(pgns)
           }

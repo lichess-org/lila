@@ -4,22 +4,33 @@ package round
 import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.{ Color, Move }
 import play.api.libs.json.{ JsArray, JsObject }
+import scalalib.bus.NotBuseable
 
 import lila.core.game.{ Game, Pov }
 import lila.core.id.{ GameAnyId, GameId, GamePlayerId, SimulId, TourId }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
 
-case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
-case class BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
-case class Rematch(playerId: GamePlayerId, rematch: Boolean)
-case class Resign(playerId: GamePlayerId)
-case class Draw(playerId: GamePlayerId, draw: Boolean)
-case class Takeback(playerId: GamePlayerId, takeback: Boolean)
-case class ResignForce(playerId: GamePlayerId)
-case class BotConnected(color: Color, v: Boolean)
-case object QuietFlag
+
+// for messages that also need to be sent via `lila.bus.Bus`
+// only allowed to be bused via `Tell`, to include a `GameId`
+enum RoundBus extends NotBuseable:
+  case Abort(playerId: GamePlayerId)
+  case AbortForce
+  case BotConnected(color: Color, v: Boolean)
+  case BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
+  case Draw(playerId: GamePlayerId, draw: Boolean)
+  case FishnetPlay(uci: Uci, sign: String)
+  case IsOnGame(color: Color, promise: Promise[Boolean])
+  case QuietFlag
+  case Rematch(playerId: GamePlayerId, rematch: Boolean)
+  case Resign(playerId: GamePlayerId)
+  case ResignForce(playerId: GamePlayerId)
+  case Takeback(playerId: GamePlayerId, takeback: Boolean)
+
+case class Tell(id: GameId, msg: RoundBus)
+case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlag.type)
 
 case class MoveEvent(
     gameId: GameId,
@@ -37,17 +48,15 @@ case class CorresTakebackOfferEvent(gameId: GameId)
 case class CorresDrawOfferEvent(gameId: GameId)
 case class BoardDrawEvent(gameId: GameId)
 case class SimulMoveEvent(move: MoveEvent, simulId: SimulId, opponentUserId: UserId)
-case class IsOnGame(color: Color, promise: Promise[Boolean])
 case class TourStandingOld(data: JsArray)
 case class TourStanding(tourId: TourId, data: JsArray)
-case class FishnetPlay(uci: Uci, sign: String)
 case object FishnetStart
 case class RematchOffer(gameId: GameId)
 case class RematchCancel(gameId: GameId)
 case class Mlat(millis: Int)
 case class DeleteUnplayed(gameId: GameId)
+case class SocketExists(gameId: GameId, promise: Promise[Boolean])
 
-case object AbortForce
 case object Threefold
 case object ResignAi
 case class DrawForce(playerId: GamePlayerId)

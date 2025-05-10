@@ -3,7 +3,7 @@ package lila.swiss
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.LilaScheduler
+import lila.common.{ Bus, LilaScheduler }
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 import lila.db.dsl.Coll
@@ -92,12 +92,16 @@ final class Env(
 
   wire[SwissNotify]
 
-  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
-    case lila.core.game.FinishGame(game, _)                    => api.finishGame(game)
-    case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
+  Bus.sub[lila.core.game.FinishGame]:
+    case lila.core.game.FinishGame(game, _) => api.finishGame(game)
+  Bus.sub[lila.core.team.LeaveTeam]:
+    case lila.core.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId)
+  Bus.sub[lila.core.team.KickFromTeam]:
     case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
-    case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)
-    case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
+  Bus.sub[lila.core.mod.MarkCheater]:
+    case lila.core.mod.MarkCheater(userId, true) => api.kickLame(userId)
+  Bus.sub[lila.core.mod.MarkBooster]:
+    case lila.core.mod.MarkBooster(userId) => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1.seconds), _.AtMost(20.seconds), _.Delay(20.seconds)):
     api.startPendingRounds.logFailure(logger)

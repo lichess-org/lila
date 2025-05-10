@@ -147,7 +147,7 @@ final class SimulApi(
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
               }
             .flatMap: s =>
-              Bus.publish(lila.core.simul.OnStart(s), "startSimul")
+              Bus.pub(lila.core.simul.OnStart(s))
               for _ <- update(s) yield currentHostIdsCache.invalidateUnit()
       }
 
@@ -186,7 +186,7 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
-    Bus.publish(
+    Bus.pub(
       lila.core.socket.SendTo(
         simul.hostId,
         lila.core.socket.makeMessage(
@@ -196,8 +196,7 @@ final class SimulApi(
             "name" -> simul.name
           )
         )
-      ),
-      "socketUsers"
+      )
     )
 
   def ejectCheater(userId: UserId): Unit =
@@ -316,5 +315,5 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer =
       Debouncer[Unit](scheduler.scheduleOnce(5.seconds, _), 1): _ =>
-        Bus.publish(siteMessage, "sendToFlag")
+        Bus.pub(siteMessage)
     def apply() = debouncer.push(())

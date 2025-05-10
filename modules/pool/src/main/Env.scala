@@ -14,7 +14,7 @@ final class Env(
 
   private val hookThieve = wire[HookThieve]
 
-  val onStart = (gameId: GameId) => lila.common.Bus.publish(lila.core.game.GameStart(gameId), "gameStartId")
+  val onStart = (gameId: GameId) => lila.common.Bus.pub(lila.core.game.GameStart(gameId))
 
   private val gameStarter = wire[GameStarter]
 

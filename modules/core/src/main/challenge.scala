@@ -48,6 +48,8 @@ object Challenge:
     case Anonymous(secret: String)
     case Open
 
-object Event:
-  case class Create(c: Challenge)
-  case class Accept(c: Challenge, joinerId: Option[UserId])
+// name is weird, but `Decline` and `Cancel`
+// would be a pain to move in core
+enum PositiveEvent:
+  case Create(c: Challenge)
+  case Accept(c: Challenge, joinerId: Option[UserId])

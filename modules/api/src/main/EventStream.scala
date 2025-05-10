@@ -5,7 +5,7 @@ import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.challenge.Challenge
+import lila.challenge.{ Challenge, NegativeEvent }
 import lila.common.Bus
 import lila.common.actorBus.*
 import lila.common.Json.given
@@ -37,7 +37,7 @@ final class EventStream(
     given Lang = me.realLang | lila.core.i18n.defaultLang
 
     // kill previous one if any
-    Bus.publish(PoisonPill, s"eventStreamFor:${me.userId}")
+    Bus.publishDyn(PoisonPill, s"eventStreamFor:${me.userId}")
 
     blueprint.mapMaterializedValue: queue =>
       gamesInProgress.map { gameJson(_, "gameStart") }.foreach(queue.offer)
@@ -54,8 +54,7 @@ final class EventStream(
         s"userStartGame:${me.userId}",
         s"userFinishGame:${me.userId}",
         s"rematchFor:${me.userId}",
-        s"eventStreamFor:${me.userId}",
-        "challenge"
+        s"eventStreamFor:${me.userId}"
       )
 
       var lastSetSeenAt = me.seenAt | me.createdAt
@@ -63,11 +62,15 @@ final class EventStream(
 
       override def preStart(): Unit =
         super.preStart()
-        Bus.subscribe(self, classifiers)
+        Bus.subscribeActorRefDyn(self, classifiers)
+        Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
+        Bus.subscribeActorRef[NegativeEvent](self)
 
       override def postStop() =
         super.postStop()
-        classifiers.foreach(Bus.unsubscribe(self, _))
+        classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
+        Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
+        Bus.subscribeActorRef[NegativeEvent](self)
         queue.complete()
         online = false
 
@@ -93,7 +96,7 @@ final class EventStream(
 
         case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 
-        case lila.core.challenge.Event.Create(c) if isMyChallenge(c) =>
+        case lila.core.challenge.PositiveEvent.Create(c) if isMyChallenge(c) =>
           challengeApi
             .byId(c.id)
             .foreach:
@@ -103,10 +106,10 @@ final class EventStream(
                   .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
                     queue.offer(json.some).void
 
-        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
+        case NegativeEvent.Decline(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeDeclined")(c).some)
 
-        case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
+        case NegativeEvent.Cancel(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeCanceled")(c).some)
 
         // pretend like the rematch is a challenge

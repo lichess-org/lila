@@ -47,5 +47,5 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.inquiries.expire
 
-  lila.common.Bus.subscribeFun("playban"):
+  lila.common.Bus.sub[lila.core.playban.Playban]:
     case lila.core.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)

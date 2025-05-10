@@ -370,7 +370,7 @@ final class Study(
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
-    Bus.publish(BecomeStudyAdmin(id, me), "adminStudy")
+    Bus.pub(BecomeStudyAdmin(id, me))
     env.study.api
       .becomeAdmin(id, me)
       .inject:

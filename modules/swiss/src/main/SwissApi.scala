@@ -11,7 +11,7 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.core.round.QuietFlag
+import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
@@ -332,7 +332,7 @@ final class SwissApi(
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
-      .ask[List[TeamId]]("teamJoinedBy")(lila.core.team.TeamIdsJoinedBy(userId, _))
+      .safeAsk[List[TeamId], lila.core.team.TeamIdsJoinedBy](lila.core.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
@@ -478,7 +478,7 @@ final class SwissApi(
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
-          Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
+          Bus.pub(SwissFinish(swiss.id, ranking))
 
   def kill(swiss: Swiss): Funit = for _ <-
       if swiss.isStarted then
@@ -616,9 +616,8 @@ final class SwissApi(
                 lila.mon.swiss.games("flagged").record(flagged.size)
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
-                  Bus.publish(
-                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
-                    "roundSocket"
+                  Bus.pub(
+                    lila.core.round.TellMany(flagged.map(_.id), RoundBus.QuietFlag)
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished

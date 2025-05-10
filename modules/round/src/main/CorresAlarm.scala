@@ -23,11 +23,11 @@ final private class CorresAlarm(
 
   private given BSONDocumentHandler[Alarm] = Macros.handler
 
-  Bus.subscribeFun("finishGame") { case lila.core.game.FinishGame(game, _) =>
+  Bus.sub[lila.core.game.FinishGame] { case lila.core.game.FinishGame(game, _) =>
     if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id))
   }
 
-  Bus.subscribeFun("moveEventCorres") { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
+  Bus.sub[lila.core.round.CorresMoveEvent] { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
     proxyGame(move.gameId).foreach:
       _.foreach: game =>
         game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved).so { clock =>
@@ -65,7 +65,7 @@ final private class CorresAlarm(
                   lila.game.Namer
                     .playerText(pov.opponent)(using lightUser.async)
                     .foreach: opponent =>
-                      Bus.publish(lila.core.game.CorresAlarmEvent(userId, pov, opponent), "notify")
+                      Bus.pub(lila.core.game.CorresAlarmEvent(userId, pov, opponent))
             }
           )
         case (alarm, None) => deleteAlarm(alarm._id)

@@ -57,7 +57,7 @@ final private class SandbagWatch(
 
   private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
     messageOnceEvery(userId).so:
-      lila.common.Bus.publish(lila.core.mod.AutoWarning(userId, preset.name), "autoWarning")
+      lila.common.Bus.pub(lila.core.mod.AutoWarning(userId, preset.name))
       messenger.postPreset(userId, preset).void
 
   private def withWinnerAndLoser(game: Game)(f: (UserId, UserId) => Funit): Funit =

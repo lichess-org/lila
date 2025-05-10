@@ -16,6 +16,6 @@ enum Direction:
   case In  // I can accept this challenge
   case Out // I created this challenge
 
-object Event:
-  case class Decline(c: Challenge)
-  case class Cancel(c: Challenge)
+enum NegativeEvent:
+  case Decline(c: Challenge)
+  case Cancel(c: Challenge)

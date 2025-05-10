@@ -63,21 +63,19 @@ final class Env(
           words.mkString(" ")
         )
 
-  Bus.subscribeFuns(
-    "msgSystemSend" -> { case lila.core.msg.SystemMsg(userId, text) =>
+  Bus.sub[lila.core.msg.SystemMsg]:
+    case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
-    },
-    "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
+
+  Bus.sub[TellUserIn]:
+    case TellUserIn.Read(userId, msg) =>
       msg.get[UserId]("d").foreach { api.setRead(userId, _) }
-    },
-    "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
+    case TellUserIn.Send(userId, msg) =>
       for
         obj  <- msg.obj("d")
         dest <- obj.get[UserId]("dest")
         text <- obj.str("text")
       yield api.post(userId, dest, text)
-    }
-  )
 
   import play.api.data.Forms.*
   val textForm = play.api.data.Form(single("text" -> nonEmptyText))
