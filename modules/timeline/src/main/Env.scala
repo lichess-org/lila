@@ -23,7 +23,7 @@ final class Env(
     teamApi: lila.core.team.TeamApi
 )(using Executor):
 
-  private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
+  private val config = appConfig.get[TimelineConfig]("timeline")(using AutoConfig.loader)
 
   lazy val entryApi = EntryApi(
     coll = db(config.entryColl),

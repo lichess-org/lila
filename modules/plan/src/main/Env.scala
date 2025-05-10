@@ -32,7 +32,7 @@ final class Env(
     ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
-  private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
+  private val config = appConfig.get[PlanConfig]("plan")(using AutoConfig.loader)
 
   val stripePublicKey = config.stripe.publicKey
   val payPalPublicKey = config.payPal.publicKey

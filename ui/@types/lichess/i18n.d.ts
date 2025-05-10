@@ -2733,6 +2733,8 @@ interface I18n {
     accept: string;
     /** %s accepts takeback */
     acceptsTakeback: I18nFormat;
+    /** Accessibility */
+    accessibility: string;
     /** You can login right now as %s. */
     accountCanLogin: I18nFormat;
     /** The account %s is closed. */
@@ -3029,6 +3031,8 @@ interface I18n {
     createdBy: string;
     /** Newly created simuls */
     createdSimuls: string;
+    /** Create the game */
+    createTheGame: string;
     /** Create the topic */
     createTheTopic: string;
     /** Crosstable */
@@ -3077,6 +3081,8 @@ interface I18n {
     description: string;
     /** Device theme */
     deviceTheme: string;
+    /** Disable blind mode */
+    disableBlindMode: string;
     /** Disable Kid mode */
     disableKidMode: string;
     /** Conversations */
@@ -3153,6 +3159,8 @@ interface I18n {
     emptyTournamentName: string;
     /** Enable */
     enable: string;
+    /** Enable blind mode */
+    enableBlindMode: string;
     /** Enable Kid mode */
     enableKidMode: string;
     /** Endgame */
