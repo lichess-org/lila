@@ -55,7 +55,7 @@ final private class Takebacker(
             _ = publishTakeback(pov)
           yield events -> board
         case pov if canProposeTakeback(pov) && board.offerable =>
-          messenger.volatile(pov.game, pov.color.name.capitalize + ' ' + trans.site.proposesTakeback.txt())
+          messenger.volatile(pov.game, trans.site.proposesTakeback.txt(pov.color.name.capitalize))
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
           for
@@ -68,7 +68,7 @@ final private class Takebacker(
   def no(board: TakebackBoard)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackBoard)] =
     pov match
       case Pov(game, color) if pov.player.isProposingTakeback =>
-        messenger.volatile(game, pov.color.name.capitalize + ' ' + trans.site.cancelsTakeback.txt())
+        messenger.volatile(game, trans.site.cancelsTakeback.txt(pov.color.name.capitalize))
         val progress = Progress(game).map: g =>
           g.updatePlayer(color, _.removeTakebackProposition)
         for
@@ -77,7 +77,7 @@ final private class Takebacker(
           events = List(Event.TakebackOffers(white = false, black = false))
         yield events -> board.decline
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
-        messenger.volatile(game, pov.color.name.capitalize + ' ' + trans.site.declinesTakeback.txt())
+        messenger.volatile(game, trans.site.declinesTakeback.txt(pov.color.name.capitalize))
         val progress = Progress(game).map: g =>
           g.updatePlayer(!color, _.removeTakebackProposition)
         for
@@ -128,7 +128,7 @@ final private class Takebacker(
   private def saveAndNotify(p1: Progress, pov: Pov)(using proxy: GameProxy): Fu[Events] =
     val p2       = p1 + Event.Reload
     val accepter = if pov.opponent.isProposingTakeback then pov.color else !pov.color
-    messenger.system(p2.game, accepter.name.capitalize + ' ' + trans.site.acceptsTakeback.txt())
+    messenger.system(p2.game, trans.site.acceptsTakeback.txt(accepter.name.capitalize))
     proxy.save(p2).inject(p2.events)
 
   private def publishTakebackOffer(game: Game): Unit =
