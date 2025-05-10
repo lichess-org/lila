@@ -116,7 +116,7 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="lateJoinUntil">Ja, tills över hälften av rundorna har startat</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Ja men kan minska antalet rundor</string>
-  <string name="streaksAndBerserk">Vinstserier och Berserk</string>
+  <string name="streaksAndBerserk">Vinstserier och Bärsärk</string>
   <string name="similarToOTB">Liknar OTB-turneringar</string>
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
   <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
