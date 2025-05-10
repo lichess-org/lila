@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="inGameOnly">ในเกมเท่านั้น</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">ไม่โชว์ในเกม</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 10 วินาที</string>
@@ -48,7 +49,7 @@
   <string name="castleByMovingTwoSquares">เดินคิงสองช่อง</string>
   <string name="castleByMovingOntoTheRook">เดินคิงไปยังเรือ</string>
   <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
-  <string name="inputMovesWithVoice">เดนหมากโดยใข้เสียงของคุณ</string>
+  <string name="inputMovesWithVoice">เดินหมากโดยใข้เสียงของคุณ</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">ลูกศรสแน็ปเพื่อการเดินที่ถูกต้อง</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">ส่งคำว่า \"Good game, well played\" เมี่อแพ้หรือเสมอ</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
@@ -67,5 +68,5 @@
   <string name="notifyWeb">บราวเซอร์</string>
   <string name="notifyDevice">อุปกรณ์</string>
   <string name="bellNotificationSound">เสียงกระดิ่งแจ้งเตือน</string>
-  <string name="blindfold" comment="As in Blindfold chess">หมากล่องหล</string>
+  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">หมากล่องหล</string>
 </resources>

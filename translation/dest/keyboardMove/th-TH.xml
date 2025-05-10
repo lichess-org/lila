@@ -17,5 +17,6 @@
   <string name="includingAXToIndicateACapture">รวม \"x\" เพื่อระบุว่าการจับภาพนั้นเป็นทางเลือก</string>
   <string name="bothTheLetterOAndTheDigitZero">สามารถใช้ทั้งตัว o และเลข 0 เพื่อแสดงถึงการเข้าเข้าป้อม</string>
   <string name="ifItIsLegalToCastleBothWays">ถ้าสามารถเข้าป้อมได้ทั้ง 2 ฝั่งโปรดใช้ enter ในการเข้าป้อมฝั่งคิง</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">การใช้ตัวพิมพ์ใหญ่จะมีผลเฉพาะในเวลาที่เกิดการสับสนระหว่างบิชอปและเบี้ยช่องบี</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">ในการเดินก่อน คุณแค่ทำการคิดตาเดินก่อนที่คุณจะเดิน</string>
 </resources>

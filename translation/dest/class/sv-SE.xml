@@ -57,6 +57,8 @@ Här är länken för att komma till klassen.</string>
     <item quantity="one">En väntande inbjudan</item>
     <item quantity="other">%s väntande inbjudningar</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Väntar</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Tackat nej</string>
   <string name="onlyVisibleToTeachers">Endast synlig för klasslärarna</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Hanterad</string>
@@ -113,4 +115,6 @@ Här är länken för att komma till klassen.</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">En inbjudan har skickats till %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s har redan en väntande inbjudan</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s är ett barnkonto och kan inte ta emot ditt meddelande. Du måste ge dem en inbjudningslänk manuellt: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytta till %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Flytta till en annan klass</string>
 </resources>

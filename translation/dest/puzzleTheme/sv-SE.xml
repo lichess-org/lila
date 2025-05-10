@@ -3,7 +3,7 @@
   <string name="advancedPawn">Avancerande bonde</string>
   <string name="advancedPawnDescription">En bonde som promoverar eller hotar att promovera är nyckeln till taktiken.</string>
   <string name="advantage">Fördel</string>
-  <string name="advantageDescription">Ta chansen att få en avgörande fördel. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Ta chansen att få ett avgörande övertag. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
   <string name="anastasiaMateDescription">En springare samarbetar med ett torn eller en dam för att fånga motståndarkungen mellan kanten på brädet och en vänlig pjäs.</string>
   <string name="arabianMate">Arabisk matt</string>
@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
   <string name="intermezzo">Mellandrag</string>
   <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"zwischenzug\" eller \"intermezzo\".</string>
+  <string name="killBoxMate">Dödsbox-matt</string>
+  <string name="killBoxMateDescription">Ett torn ligger bredvid motståndarens kung och understöds av en dam som också stänger kungens flyktrutor. Tornet och damen fångar fiendens kung i en 3 gånger 3-kvadrat, \"dödsbox\".</string>
+  <string name="vukovicMate">Vukovic matt</string>
+  <string name="vukovicMateDescription">Ett torn och en springare samarbetar för att fånga kungen. Tornen ger matt med stöd av en tredje pjäs, och springaren används för att blockera kungens flyktrutor.</string>
   <string name="knightEndgame">Springareslutspel</string>
   <string name="knightEndgameDescription">Ett slutspel med bara springare och bönder.</string>
   <string name="long">Långa schackproblem</string>

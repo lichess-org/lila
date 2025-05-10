@@ -56,6 +56,20 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="joinLichessVariantTeam">Gå med i det officiella %s -laget för nyheter och evenemang</string>
   <string name="teamPage">Lagsida</string>
   <string name="thisTeamBattleIsOver">Denna turnering är slut, och lagen kan inte längre uppdateras.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Lista de lag som kommer att tävla.</string>
+  <string name="oneTeamPerLine">Ett lag per rad. Använd automatisk komplettering.</string>
+  <string name="oneTeamPerLineHelp">Du kan kopiera och klistra in listan från en turnering till en annan!
+
+Du kan inte ta bort ett lag om en spelare redan har gått med i turneringen med det.</string>
+  <string name="numberOfLeadsPerTeam">Antal ledare per lag. Summan av deras poäng blir lagets poäng.</string>
   <string name="numberOfLeadsPerTeamHelp">Du borde verkligen inte ändra detta värde efter att turneringen har börjat!</string>
   <string name="innerTeam">Inre lag</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Tävling med %s lag</item>
+    <item quantity="other">Tävling med %s lag</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">En ledare per lag</item>
+    <item quantity="other">%s ledare per lag</item>
+  </plurals>
 </resources>

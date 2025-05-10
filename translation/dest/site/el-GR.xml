@@ -185,7 +185,7 @@
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
   <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
-  <string name="games" comment="Appears in many areas, including:&#10;&#10;* Users' profile pages (https://lichess.org/@/thibault) alongside the total number of games they have played&#10;* Broadcast pages (https://lichess.org/broadcast)&#10;* Page of an individual player's tournament results: https://lichess.org/@/thibault/tournaments/recent&#10;* Pages of classes, showing how many games a student has played over a given period&#10;* Tournament creation: https://lichess.org/tournament/new&#10;* Simul creation: https://lichess.org/simul/new">Παιχνίδια</string>
+  <string name="games">Παιχνίδια</string>
   <string name="forum">Φόρουμ</string>
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
   <string name="latestForumPosts">Τελευταίες δημοσιεύσεις στο φόρουμ</string>
@@ -256,7 +256,7 @@
   <string name="accountConfirmationEmailNotNeeded">Δεν χρειάζεστε ένα email επιβεβαίωσης.</string>
   <string name="accountClosed">Ο λογαριασμός %s έχει κλείσει.</string>
   <string name="accountRegisteredWithoutEmail">Ο λογαριασμός %s καταχωρήθηκε χωρίς email.</string>
-  <string name="rank" comment="rank&#10;&#10;This is your current rank among all lichess players for that rating category. Appears next to that rating on your profile.&#10;&#10;It shows up e.g. as Rank: 1,423. This would mean you are the 1423rd best player on lichess for that rating category (e.g. Blitz chess, Crazyhouse, etc).&#10;&#10;May also appears as a column heading on a table of tournament results e.g. https://lichess.org/@/thibault/tournaments/recent">Κατάταξη</string>
+  <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Η κατάταξη ενημερώνεται κάθε λεπτό</item>
@@ -435,7 +435,7 @@
   <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
   <string name="retry">Επανάληψη</string>
   <string name="reconnecting">Επανασύνδεση</string>
-  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">Εκτός σύνδεσης</string>
+  <string name="noNetwork">Εκτός σύνδεσης</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s φίλος συνδεδεμένος</item>
     <item quantity="other">%s φίλοι συνδεδεμένοι</item>
@@ -462,8 +462,8 @@
   <string name="memberSince">Μέλος από τις</string>
   <string name="lastSeenActive">Τελευταία είσοδος %s</string>
   <string name="player">Παίκτης</string>
-  <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">Κατάλογος</string>
-  <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">Διάγραμμα</string>
+  <string name="list">Κατάλογος</string>
+  <string name="graph">Διάγραμμα</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Λιγότερο από %s λεπτό</item>
     <item quantity="other">Λιγότερο από %s λεπτά</item>
@@ -483,7 +483,7 @@
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
-  <string name="points" comment="Appears as a column heading on pages with a table of a player's tournament results. Shows how many points that player earned in the tournament. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/recent">Πόντοι</string>
+  <string name="points">Πόντοι</string>
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
@@ -612,7 +612,7 @@
   <string name="victoryVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
   <string name="defeatVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
   <string name="drawVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Χρονολόγιο</string>
+  <string name="timeline">Χρονολόγιο</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
@@ -668,18 +668,18 @@
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer" comment="%1$s is 'Lichess' (note this used to be 'lichess.org')&#10;%2$s is 'really' (which is separate translateable string)&#10;&#10;On the website: Appears in the left sidebar when you are not logged in to an account.&#10;In the mobile app: Always appears at the bottom of the 'Settings' view.">Το %1$s είναι (%2$s) δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα υπηρεσία για διαδικτυακό σκάκι.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα υπηρεσία για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Σιμουλτανέ</string>
-  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Διοργανωτής</string>
+  <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
   <string name="yourPendingSimuls">Τα εκκρεμείς σας σιμουλτανέ</string>
   <string name="createdSimuls">Πρόσφατα σιμουλτανέ</string>
-  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">Διοργάνωση νέου σιμουλτανέ</string>
-  <string name="signUpToHostOrJoinASimul" comment="Appears as a button when you are viewing https://lichess.org/simul without being logged in. Note that this text will be all-uppercase.&#10;&#10;Pressing the button leads to the registration page: https://lichess.org/signup&#10;&#10;If logged out, the button will instead show &quot;Host a new simul&quot;, which is available for translation separately.">Εγγραφείτε για να φιλοξενήσετε ή να συμμετάσχετε σε ένα σιμουλτανέ</string>
+  <string name="hostANewSimul">Διοργάνωση νέου σιμουλτανέ</string>
+  <string name="signUpToHostOrJoinASimul">Εγγραφείτε για να φιλοξενήσετε ή να συμμετάσχετε σε ένα σιμουλτανέ</string>
   <string name="noSimulFound">Το σιμουλτανέ δε βρέθηκε</string>
   <string name="noSimulExplanation">Αυτό το σιμουλτανέ δεν υπάρχει.</string>
   <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα σιμουλτανέ</string>
@@ -733,7 +733,7 @@
     <item quantity="other">%1$s παίκτες %2$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Ο/Η %1$s είναι καλύτερος/η από το %2$s των %3$s παικτών.</string>
   <string name="betterThanPercentPlayers">Είστε καλύτεροι από %1$s των παικτών %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>

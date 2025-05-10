@@ -22,6 +22,7 @@
   <string name="asBlack">som sort</string>
   <string name="randomColor">Tilfældig farve</string>
   <string name="createAGame">Opret et parti</string>
+  <string name="createTheGame">Opret partiet</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
@@ -74,7 +75,7 @@
   <string name="expandVariations">Udvid variationer</string>
   <string name="forceVariation">Gennemtving variation</string>
   <string name="copyVariationPgn">Kopiér variant-PGN</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopiér hovedlinje-PGN</string>
+  <string name="copyMainLinePgn">Kopiér hovedlinje-PGN</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
   <string name="variantWin">Variant sejr</string>
@@ -612,7 +613,7 @@
   <string name="victoryVsYInZ">%1$s over %2$s i %3$s</string>
   <string name="defeatVsYInZ">%1$s til %2$s i %3$s</string>
   <string name="drawVsYInZ">%1$s med %2$s i %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Tidslinje</string>
+  <string name="timeline">Tidslinje</string>
   <string name="starting">Begynder:</string>
   <string name="allInformationIsPublicAndOptional">Al information er offentlig og valgfri.</string>
   <string name="biographyDescription">Fortæl om dig selv, dine interesser, hvad kan du lide ved skak, dine favoritåbninger, spillere, ...</string>
@@ -999,4 +1000,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
   <string name="stats">Statistik</string>
+  <string name="accessibility">Tilgængelighed</string>
+  <string name="enableBlindMode">Aktiver blindtilstand</string>
+  <string name="disableBlindMode">Deaktiver blindtilstand</string>
 </resources>

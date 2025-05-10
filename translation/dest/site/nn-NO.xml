@@ -22,6 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Vilkårleg farge</string>
   <string name="createAGame">Start eit parti</string>
+  <string name="createTheGame">Lag eit nytt parti</string>
   <string name="whiteIsVictorious">Kvit vann partiet</string>
   <string name="blackIsVictorious">Svart vann partiet</string>
   <string name="youPlayTheWhitePieces">Du spelar med dei kvite brikkene</string>
@@ -999,4 +1000,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
   <string name="stats">Statistikk</string>
+  <string name="accessibility">Tilgjengelegheit</string>
+  <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
+  <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
 </resources>
