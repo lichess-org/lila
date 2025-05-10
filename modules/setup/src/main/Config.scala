@@ -79,7 +79,7 @@ trait Positional:
       .ifTrue(variant.fromPosition)
       .flatMap:
         Fen.readWithMoveNumber(FromPosition, _)
-    val (chessGame, state) = baseState.fold(makeGame -> none[Position.AndFullMoveNumber]):
+    val (chessGame, state) = baseState.fold(makeGame -> none):
       case sit @ Position.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
           position = s,
