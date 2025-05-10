@@ -999,4 +999,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="nothingToSeeHere">Hier is momenteel niets te zien.</string>
   <string name="stats">Statistieken</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Toegankelijkheid</string>
 </resources>
