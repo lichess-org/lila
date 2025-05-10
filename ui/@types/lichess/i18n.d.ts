@@ -2731,6 +2731,8 @@ interface I18n {
     aboutX: I18nFormat;
     /** Accept */
     accept: string;
+    /** %s accepts takeback */
+    acceptsTakeback: I18nFormat;
     /** Accessibility */
     accessibility: string;
     /** You can login right now as %s. */
@@ -2897,6 +2899,8 @@ interface I18n {
     cancelRematchOffer: string;
     /** Cancel the simul */
     cancelSimul: string;
+    /** %s cancels takeback */
+    cancelsTakeback: I18nFormat;
     /** Cancel the tournament */
     cancelTournament: string;
     /** Please solve the chess captcha. */
@@ -3055,6 +3059,8 @@ interface I18n {
     daysPerTurn: string;
     /** Decline */
     decline: string;
+    /** %s declines takeback */
+    declinesTakeback: I18nFormat;
     /** Defeat */
     defeat: string;
     /** %1$s vs %2$s in %3$s */
@@ -3793,6 +3799,8 @@ interface I18n {
     promoteVariation: string;
     /** Propose a takeback */
     proposeATakeback: string;
+    /** %s proposes takeback */
+    proposesTakeback: I18nFormat;
     /** Chess tactics trainer */
     puzzleDesc: string;
     /** Puzzles */
@@ -4053,12 +4061,6 @@ interface I18n {
     switchSides: string;
     /** Takeback */
     takeback: string;
-    /** Takeback accepted */
-    takebackPropositionAccepted: string;
-    /** Takeback cancelled */
-    takebackPropositionCanceled: string;
-    /** Takeback declined */
-    takebackPropositionDeclined: string;
     /** Takeback sent */
     takebackPropositionSent: string;
     /** Please be nice in the chat! */
