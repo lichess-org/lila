@@ -2,8 +2,14 @@
 <resources>
   <string name="communityBlogs">Gemenskapens bloggar</string>
   <string name="friendBlogs">Vänners bloggar</string>
+  <string name="lichessBlog">Lichess blogg</string>
+  <string name="myBlog">Min blogg</string>
   <string name="likedBlogs">Gillade blogginlägg</string>
   <string name="blogTopics">Bloggämnen</string>
+  <plurals name="blogPosts">
+    <item quantity="one">Ett blogginlägg</item>
+    <item quantity="other">%s blogginlägg</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichess officiella blogg</string>
   <string name="continueReadingPost">Fortsätt läsa detta inlägg</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogginlägg i %s</string>
@@ -21,6 +27,8 @@
   <string name="createBlogDiscussionHelp">Ett forumämne kommer att skapas för personer att kommentera ditt inlägg</string>
   <string name="publishOnYourBlog">Publicera på din blogg</string>
   <string name="publishHelp">Om markerad, kommer inlägget att visas på din blogg. Om inte, kommer det att vara dolt, bland dina utkast</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fastnålat inlägg</string>
+  <string name="stickyPostHelp">Markera om detta inlägg ska visas först av din profils senaste inlägg och på din blogg.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicerade ett blogginlägg</item>
     <item quantity="other">Publicerade %s blogginlägg</item>
