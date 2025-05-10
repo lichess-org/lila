@@ -4,7 +4,7 @@ import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
 import { make as makeStores, type Stores } from './store';
 import * as xhr from './xhr';
-import * as poolRangeStorage from './poolRangeStorage';
+import * as poolRangeStorage from 'lib/poolRangeStorage';
 import type {
   LobbyOpts,
   LobbyData,
@@ -239,7 +239,7 @@ export default class LobbyController {
   };
 
   enterPool = (member: PoolMember) => {
-    poolRangeStorage.set(this.me, member);
+    poolRangeStorage.set(this.me?.username, member.id, member.range);
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
@@ -305,7 +305,7 @@ export default class LobbyController {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
         member: any = { id: match![1], blocking: match![2] },
-        range = poolRangeStorage.get(this.me, member.id);
+        range = poolRangeStorage.get(this.me?.username, member.id);
       if (range) member.range = range;
       if (match) {
         this.setTab('pools');
