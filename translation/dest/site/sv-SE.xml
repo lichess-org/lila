@@ -22,6 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
   <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
@@ -992,4 +993,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="nothingToSeeHere">Här finns ingenting att se för tillfället.</string>
   <string name="stats">Statistik</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Tillgänglighet</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Aktivera blind-läge</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Inaktivera blind-läge</string>
 </resources>
