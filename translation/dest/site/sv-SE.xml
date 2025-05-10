@@ -75,6 +75,7 @@
   <string name="expandVariations">Visa varianter</string>
   <string name="forceVariation">Visa som variant</string>
   <string name="copyVariationPgn">Kopiera variations-PGN</string>
+  <string name="copyMainLinePgn">Kopiera huvudvariantens PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -157,6 +158,7 @@
   <string name="flipBoard">Vänd brädet</string>
   <string name="threefoldRepetition">Trefaldig upprepning</string>
   <string name="claimADraw">Begär remi</string>
+  <string name="drawClaimed">Remi begärt</string>
   <string name="offerDraw">Föreslå remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
@@ -486,6 +488,7 @@
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
   <string name="createdBy">Skapad av</string>
+  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Fortsätt</string>
@@ -741,6 +744,9 @@
   <string name="checkYourEmail">Kontrollera din e-post</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
+  <string name="ifYouDoNotGetTheEmail">Om du inte får e-postmeddelandet inom 5 minuter:</string>
+  <string name="checkAllEmailFolders">Kontrollera skräpposten och andra mappar</string>
+  <string name="verifyYourAddress">Kontrollera att %s är din e-postadress</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
   <string name="readAboutOur">Läs om vår %s.</string>
@@ -773,6 +779,7 @@
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
   <string name="viewTheSolution">Visa lösningen</string>
+  <string name="noChallenges">Inga utmaningar.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tillgänglig på %s olika språk!</item>
     <item quantity="other">Tillgänglig på %s olika språk!</item>
