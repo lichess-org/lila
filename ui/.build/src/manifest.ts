@@ -96,12 +96,12 @@ async function writeManifest() {
   );
   await Promise.all([
     fs.promises.writeFile(join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
-    fs.promises.writeFile(join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`), serverManifest),
+    fs.promises.writeFile(join(env.jsOutDir, `manifest.json`), serverManifest),
   ]);
   manifest.dirty = false;
   const serverHash = crypto.createHash('sha256').update(serverManifest).digest('hex').slice(0, 8);
   env.log(
-    `'${c.cyan(`public/compiled/manifest.${hash}.js`)}', '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' ${c.grey(serverHash)}`,
+    `'${c.cyan(`public/compiled/manifest.${hash}.js`)}', '${c.cyan(`public/compiled/manifest.json`)}' ${c.grey(serverHash)}`,
     'manifest',
   );
 }

@@ -41,7 +41,6 @@ object embed:
     page.ui.dataTheme        := ctx.bg,
     page.ui.dataPieceSet     := ctx.pieceSet.name,
     page.ui.dataBoard        := ctx.boardClass,
-    page.ui.dataDev,
     page.ui.dataSocketDomains,
     style := page.boardStyle(zoomable = false)
   )

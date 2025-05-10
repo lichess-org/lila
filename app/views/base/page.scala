@@ -111,7 +111,6 @@ object page:
               "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
-          dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser     := ctx.userId,
