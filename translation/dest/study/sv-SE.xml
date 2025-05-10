@@ -176,6 +176,27 @@
   <string name="studyChaptersTitle">Studie kapitel</string>
   <string name="studyChaptersText">En studie kan innehålla flera kapitel.&lt;br&gt;Varje kapitel har en ursprunglig position och en uppsättning drag.</string>
   <string name="commentPositionTitle">Kommentera en position</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klicka på knappen %s eller högerklicka på draglistan till höger.&lt;br&gt;Kommentarer delas och sparas.</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klicka på knappen %s eller högerklicka på drag-listan till höger.&lt;br&gt;Kommentarer delas och sparas.</string>
   <string name="annotatePositionTitle">Annotera en position</string>
+  <string name="annotatePositionText">Klicka på knappen !?, eller högerklicka på drag-listan till höger.&lt;br&gt;Kommentarer delas och sparas.</string>
+  <string name="conclusionTitle">Tack för din tid</string>
+  <string name="conclusionText">Du hittar dina &lt;a href=\'/study/mine/hot\'&gt;tidigare studier&lt;/a&gt; på din profilsida.&lt;br&gt;Det finns också ett &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blogginlägg om studier&lt;/a&gt;.&lt;br&gt;Erfarna användare kanske vill trycka på \"?\" för att se kortkommandon.&lt;br&gt;Ha så kul!</string>
+  <string name="createChapterTitle">Låt oss skapa ett studiekapitel</string>
+  <string name="createChapterText">En studie kan ha flera kapitel.&lt;br&gt;Varje kapitel har ett distinkt drag-träd,&lt;br&gt;och kan skapas på olika sätt.</string>
+  <string name="fromInitialPositionTitle">Från ursprunglig position</string>
+  <string name="fromInitialPositionText">Bara en bräduppställning för ett nytt parti.&lt;br&gt;Passar för att utforska öppningar.</string>
+  <string name="customPositionTitle">Från position</string>
+  <string name="customPositionText">Ställ in brädet sim di vill ha det.&lt;br&gt;Passar för att utforska slutspel.</string>
+  <string name="loadExistingLichessGameTitle">Ladda ett befintligt lichess-parti</string>
+  <string name="loadExistingLichessGameText">Klistra in en länk till ett lichess-parti&lt;br&gt;(som till exempel lichess.org/7fHIU0XI)&lt;br&gt;för att hämta partiets drag till kapitlet.</string>
+  <string name="fromFenStringTitle">Från en FEN-sträng</string>
+  <string name="fromFenStringText">Klistra in en position i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;för att starta kapitlet från en position.</string>
+  <string name="fromPgnGameTitle">Från ett PGN-parti</string>
+  <string name="fromPgnGameText">Klistra in ett spel i PGN-format.&lt;br&gt;för att hämta drag, kommentarer och variationer till kapitlet.</string>
+  <string name="variantsAreSupportedTitle">Studier stödjer varianter</string>
+  <string name="variantsAreSupportedText">Ja, du kan studera crazyhouse&lt;br&gt;och alla varianter som finns på Lichess!</string>
+  <string name="chapterConclusionText">Kapitel sparas för evigt.&lt;br&gt;Ha kul med att organisera ditt schackinnehåll!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dubbel förlust</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svart förlorar, men vit kan inte vinna</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Vitt förlorar, men svart kan inte vinna</string>
 </resources>
