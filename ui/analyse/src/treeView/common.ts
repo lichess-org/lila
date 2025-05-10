@@ -86,6 +86,8 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
     good: glyphIds.includes(1),
     brilliant: glyphIds.includes(3),
     interesting: glyphIds.includes(5),
+    pendingDeletion: ctx.ctrl.pendingDeletionPaths.has(path),
+    pendingCopy: ctx.ctrl.pendingCopyPaths.has(path),
   };
 }
 

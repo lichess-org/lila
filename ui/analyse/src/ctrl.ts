@@ -48,6 +48,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { init } from 'lib/tree/path';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -116,6 +117,8 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
+  pendingCopyPaths: Set<Tree.Path>;
+  pendingDeletionPaths: Set<Tree.Path>;
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
@@ -159,6 +162,8 @@ export default class AnalyseCtrl {
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
+    this.pendingCopyPaths = new Set<Tree.Path>();
+    this.pendingDeletionPaths = new Set<Tree.Path>();
 
     this.showGround();
     this.onToggleComputer();
@@ -618,6 +623,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
+    this.deletionHighlightFromHere(path, true);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1041,10 +1047,27 @@ export default class AnalyseCtrl {
   };
 
   pluginUpdate = (fen: string) => {
-    // if controller and chessground board state differ, ignore this update. once the chessground
+    // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
-
     this.keyboardMove?.update({ fen, canMove: true });
+  };
+
+  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
+    this.pendingDeletionPaths = new Set<Tree.Path>(
+      unhighlight ? [] : [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
+    );
+    this.redraw();
+  };
+
+  copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
+    const paths = [];
+    if (!unhighlight)
+      while (path) {
+        paths.push(path);
+        path = init(path);
+      }
+    this.pendingCopyPaths = new Set<Tree.Path>(paths);
+    this.redraw();
   };
 }
