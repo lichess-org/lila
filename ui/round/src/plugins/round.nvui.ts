@@ -296,7 +296,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
-    help: 'Focus on board. Default coordinate is e4. Add the coordinates if needed. Example: board a1 or b a1 will take you to a1.',
+    help: 'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
     cb: (_notify, _ctrl, _style, input) => {
       const words = input.split(' ');
       const inputFile = words[1]?.charAt(0);
