@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Schweizisk</string>
   <string name="swissTournaments">Schweizer-turneringar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Visa rundan</item>
@@ -37,6 +38,16 @@
   <string name="roundInterval">Intervall mellan rundor</string>
   <string name="forbiddenPairings">Förbjudna parningar</string>
   <string name="forbiddenPairingsHelp">Användarnamn på spelare som inte får spela tillsammans (syskon till exempel). Två användarnamn per rad, åtskilda av ett mellanslag.</string>
+  <string name="manualPairings">Manuell matchning i nästa runda</string>
+  <string name="manualPairingsHelp">Ange alla matchningar i följande omgång manuellt, två spelare per rad. Exempel:
+SpelareA SpelareB
+SpelareC SpelareD
+För att ge en frirunda (1 poäng) till en spelare istället för en matchning, lägg till en rad såhär:
+SpelareE 1
+Saknade spelare kommer att anses vara frånvarande och få noll poäng.
+Lämna detta fält tomt för att låta lichess skapa matchningar automatiskt.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Måste ha spelat sitt senaste schweiziska parti</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Låt bara spelare ansluta om de har spelat sitt senaste schweiziska parti. Om de misslyckades med att dyka upp i en schweizisk turnering nyligen så kommer de inte att kunna komma in. Detta resulterar i en bättre spelupplevelse för de som faktiskt dyker upp.</string>
   <string name="newSwiss">Ny Schweizer-turnering</string>
   <string name="swissVsArenaQ">När ska man använda schweiziska turneringar istället för arenor?</string>
   <string name="swissVsArenaA">I en schweizer-turnering spelar alla deltagare samma antal partier och kan bara spela varandra en gång.
@@ -111,4 +122,7 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
   <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
   <string name="playYourGames">Spela dina partier</string>
+  <string name="byes">Frirundor</string>
+  <string name="absences">Frånvaro</string>
+  <string name="tieBreak">Tiebreak</string>
 </resources>
