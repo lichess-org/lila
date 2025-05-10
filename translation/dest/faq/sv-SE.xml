@@ -168,6 +168,7 @@ Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du utt
 3. Klicka på Cookies och webbplatsbehörigheter
 4. Bläddra ner och klicka på Media autouppspelning
 5. Lägg till lichess.org på tillåtet</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hindra mig själv från att spela?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">fristående psykiskt hälsotillstånd</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Vi får regelbundet meddelanden från användare som ber oss om hjälp att hindra dem från att spela för mycket.
 
