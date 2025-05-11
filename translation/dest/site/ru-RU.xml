@@ -752,6 +752,7 @@
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="termsOfService">Пользовательское соглашение</string>
+  <string name="titleVerification">Подтверждение титула</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">Сеансёр</string>
