@@ -107,6 +107,14 @@ export function initModule(): NvuiPlugin {
           // make sure consecutive moves are different so that they get re-read
           renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
         ),
+        clocks.some(c => !!c) &&
+          h('div.clocks', [
+            h('h2', 'Your clock'),
+            h('div.botc', clocks[0]),
+            h('h2', 'Opponent clock'),
+            h('div.topc', clocks[1]),
+          ]),
+        notify.render(),
         ctrl.isPlaying() &&
           h('div.move-input', [
             h('h2', 'Move form'),
@@ -138,20 +146,6 @@ export function initModule(): NvuiPlugin {
               ],
             ),
           ]),
-        clocks.some(c => !!c) &&
-          h('div.clocks', [
-            h('h2', 'Your clock'),
-            h('div.botc', clocks[0]),
-            h('h2', 'Opponent clock'),
-            h('div.topc', clocks[1]),
-          ]),
-        notify.render(),
-        h('h2', 'Actions'),
-        ...(ctrl.data.player.spectator
-          ? renderTableWatch(ctrl)
-          : playable(ctrl.data)
-            ? renderTablePlay(ctrl)
-            : renderTableEnd(ctrl)),
         h('h2', i18n.site.board),
         h(
           'div.board',
@@ -182,6 +176,11 @@ export function initModule(): NvuiPlugin {
                     ctrl.data.game.variant.key,
                     ctrl.data.steps,
                   )(e);
+                else if (e.key === 'i') {
+                  e.preventDefault();
+                  const $moveBox = $('input.move');
+                  $moveBox.get(0)?.focus();
+                }
               });
             }),
           },
@@ -195,6 +194,12 @@ export function initModule(): NvuiPlugin {
           ),
         ),
         h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+        h('h2', 'Actions'),
+        ...(ctrl.data.player.spectator
+          ? renderTableWatch(ctrl)
+          : playable(ctrl.data)
+            ? renderTablePlay(ctrl)
+            : renderTableEnd(ctrl)),
         h('h2', 'Settings'),
         h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', 'Board settings'),
@@ -268,6 +273,7 @@ function createSubmitHandler(
 }
 
 type Command =
+  | 'board'
   | 'clock'
   | 'last'
   | 'abort'
@@ -288,6 +294,20 @@ type InputCommand = {
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'board',
+    help: 'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
+    cb: (_notify, _ctrl, _style, input) => {
+      const words = input.split(' ');
+      const inputFile = words[1]?.charAt(0);
+      const inputRank = words[1]?.charAt(1);
+      const file = inputFile ? inputFile : 'e';
+      const rank = inputRank ? inputRank : '4';
+      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      if (button) button.focus();
+    },
+    alt: 'b',
+  },
   {
     cmd: 'clock',
     help: i18n.keyboardMove.readOutClocks,

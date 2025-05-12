@@ -43,11 +43,11 @@
     <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
     <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
-  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
+  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za remis lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Zachowuj się miło na czacie!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do Twojej partii.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do twojej partii.</string>
   <string name="whiteResigned">Białe poddały się</string>
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
@@ -93,7 +93,7 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
-  <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
+  <string name="masterDbExplanation">Turniejowe partie graczy FIDE %1$s+ rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s posunięciu</item>
     <item quantity="few">Mat w %s posunięciach</item>
@@ -129,15 +129,15 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
-  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
+  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i zachowuje kontrolę komputera</string>
   <string name="blunder">Błąd</string>
   <string name="mistake">Pomyłka</string>
   <string name="inaccuracy">Niedokładność</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s błąd</item>
-    <item quantity="few">%s błędy</item>
-    <item quantity="many">%s błędów</item>
-    <item quantity="other">%s błędów</item>
+    <item quantity="few">%s Błędy</item>
+    <item quantity="many">%s Błędów</item>
+    <item quantity="other">%s Błędów</item>
   </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Błąd</item>
@@ -147,9 +147,9 @@
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s pomyłka</item>
-    <item quantity="few">%s pomyłki</item>
-    <item quantity="many">%s pomyłek</item>
-    <item quantity="other">%s pomyłek</item>
+    <item quantity="few">%s Pomyłki</item>
+    <item quantity="many">%s Pomyłek</item>
+    <item quantity="other">%s Pomyłek</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s pomyłka</item>
@@ -159,9 +159,9 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s niedokładność</item>
-    <item quantity="few">%s niedokładności</item>
-    <item quantity="many">%s niedokładności</item>
-    <item quantity="other">%s niedokładności</item>
+    <item quantity="few">%s Niedokładności</item>
+    <item quantity="many">%s Niedokładności</item>
+    <item quantity="other">%s Niedokładności</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s niedokładność</item>
@@ -276,7 +276,7 @@
   <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
-  <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
   <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
@@ -815,7 +815,7 @@
     <item quantity="other">%1$s graczy (%2$s) w tym tygodniu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Grasz lepiej niż %1$s graczy (%2$s).</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Grasz lepiej niż %1$s graczy (%2$s).</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s gra lepiej niż %2$s graczy %3$s.</string>
   <string name="betterThanPercentPlayers">Jesteś lepszy niż %1$s z %2$s graczy</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>

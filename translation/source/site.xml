@@ -22,6 +22,7 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
+  <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
@@ -998,4 +999,7 @@ Leave empty to start games from the normal initial position.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
+  <string name="accessibility">Accessibility</string>
+  <string name="enableBlindMode">Enable blind mode</string>
+  <string name="disableBlindMode">Disable blind mode</string>
 </resources>

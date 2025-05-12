@@ -487,6 +487,7 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
+  <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
   <string name="resume">Συνέχεια</string>
@@ -732,7 +733,7 @@
     <item quantity="other">%1$s παίκτες %2$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers" comment="%1$s renders to a percentage figure e.g. &quot;50%&quot;&#10;%2$s is the variant, e.g. &quot;Blitz&quot;&#10;&#10;Example final text:&#10;&quot;You are better than 67% of Bullet players.&quot;">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Ο/Η %1$s είναι καλύτερος/η από το %2$s των %3$s παικτών.</string>
   <string name="betterThanPercentPlayers">Είστε καλύτεροι από %1$s των παικτών %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>
