@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">Oppure lascia che il tuo avversario scansioni questo codice QR</string>
+  <string name="orLetYourOpponentScanQrCode">Oppure fai scansionare questo codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">come nero</string>
   <string name="randomColor">Colore casuale</string>
   <string name="createAGame">Crea una partita</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Inizia una partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
@@ -51,7 +52,7 @@
   <string name="whiteLeftTheGame">Il Bianco ha lasciato la partita</string>
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
   <string name="whiteDidntMove">Il bianco non si è mosso</string>
-  <string name="blackDidntMove">Il nero non si è mosso</string>
+  <string name="blackDidntMove">Il nero non ha mosso</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
@@ -1000,4 +1001,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilità</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Attiva \"modalità non vedenti\"</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Disattiva \"modalità non vedenti\"</string>
 </resources>
