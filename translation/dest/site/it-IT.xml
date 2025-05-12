@@ -183,7 +183,7 @@
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
   <string name="signIn">Accedi</string>
-  <string name="rememberMe">Ricordati di me</string>
+  <string name="rememberMe">Resta collegato</string>
   <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
   <string name="computersAreNotAllowedToPlay">Non è permesso giocare né a giocatori che si fanno aiutare dai computer né a computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli perché un uso eccessivo di account porterà alla cancellazione dal sito.</string>
