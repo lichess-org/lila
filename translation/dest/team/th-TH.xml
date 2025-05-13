@@ -50,6 +50,10 @@
   <string name="joinLichessVariantTeam">เข้าร่วมทีม %s เพื่อดูข่าวและเหตุการณ์สำคัญ</string>
   <string name="teamPage">หน้าหลักของทีม</string>
   <string name="thisTeamBattleIsOver">ทัวร์นาเมนต์นี้สิ้นสุดแล้ว และไม่สามารถอัปเดตทีมได้อีกต่อไป</string>
+  <string name="innerTeam">ทีมอินเนอร์</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="other">การแข่งขันของ %s ทีม</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="other">%s ผู้นำต่อทีม</item>
   </plurals>
