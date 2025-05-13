@@ -78,7 +78,7 @@ final private class MovePlayer(
     else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
       if pov.opponent.isOfferingDraw then round ! RoundBus.Draw(pov.player.id, false)
-      if pov.player.isProposingTakeback then round ! RoundBus.Takeback(pov.player.id, false)
+      if pov.opponent.isProposingTakeback then round ! RoundBus.Takeback(pov.player.id, false)
       if progress.game.forecastable then
         moveOrDrop.move.foreach { move =>
           round ! ForecastPlay(move)
