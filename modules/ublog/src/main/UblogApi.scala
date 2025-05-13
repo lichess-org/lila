@@ -46,7 +46,7 @@ final class UblogApi(
         .so: rank =>
           colls.post.updateField($id(post.id), "rank", rank).void
     yield
-      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      lila.common.Bus.pub(UblogPost.Create(post))
       if blog.visible then
         lila.common.Bus.pub:
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
@@ -172,16 +172,8 @@ final class UblogApi(
   private def applyAutomod(post: UblogPost): Funit =
     automod(post)
       .flatMapz: res =>
-        val adjust = res.classification match
-          case "phenomenal" => 4
-          case "quality"    => 0
-          case "weak"       => -10
-          case "spam"       => -30
-          case _            => -10
-
         val doc = $set(
           "automod" -> res
-          // "rankAdjustDays" -> adjust
         )
         colls.post.update.one($id(post.id), doc).void
       .recover: e =>

@@ -2,7 +2,7 @@ package lila.round
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.{ ByColor, Centis, Ply, Replay, Situation }
+import chess.{ ByColor, Centis, Ply, Replay }
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -43,7 +43,7 @@ final class ApiMoveStream(
                   Vector(clk.config.initTime) ++ clkHistory.black
                 )
               val clockOffset = game.startColor.fold(0, 1)
-              Replay.situations(game.sans, initialFen, game.variant).foreach {
+              Replay.boards(game.sans, initialFen, game.variant).foreach {
                 _.zipWithIndex.foreach: (s, index) =>
                   val clk = for
                     c     <- clocks
@@ -53,7 +53,7 @@ final class ApiMoveStream(
                   queue.offer(
                     toJson(
                       Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
-                      s.board.history.lastMove.map(_.uci),
+                      s.history.lastMove.map(_.uci),
                       clk
                     )
                   )
@@ -62,10 +62,11 @@ final class ApiMoveStream(
                 queue.offer(makeGameJson(game))
                 queue.complete()
               else
-                val chans = List(MoveGameEvent.makeChan(game.id), "finishGame")
-                val sub = Bus.subscribeFun(chans*):
+                val chan = MoveGameEvent.makeChan(game.id)
+                val subEvent = Bus.subscribeFunDyn(chan):
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some))
+                val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
                     queue.offer(makeGameJson(g))
                     (1 to buffer.size).foreach { _ => queue.offer(Json.obj()) } // push buffer content out
@@ -73,7 +74,8 @@ final class ApiMoveStream(
                 queue
                   .watchCompletion()
                   .addEffectAnyway:
-                    Bus.unsubscribe(sub, chans)
+                    Bus.unsubscribeDyn(subEvent, List(chan))
+                    Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
               if delayMoves
               then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)

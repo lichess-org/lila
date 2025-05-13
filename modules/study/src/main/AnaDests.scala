@@ -19,8 +19,8 @@ case class AnaDests(
   val dests: String =
     if isInitial then AnaDests.initialDests
     else
-      val sit = chess.Game(variant.some, fen.some).situation
-      sit.playable(false).so(destString(sit.destinations))
+      val position = chess.Game(variant.some, fen.some).position
+      position.playable(false).so(destString(position.destinations))
 
   def json = Json
     .obj(

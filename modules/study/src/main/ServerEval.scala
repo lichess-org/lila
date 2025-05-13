@@ -147,8 +147,8 @@ object ServerEval:
         ply = g.ply,
         move = m,
         fen = Fen.write(g),
-        check = g.situation.check,
-        crazyData = g.situation.board.crazyData,
+        check = g.position.check,
+        crazyData = g.position.crazyData,
         clock = none,
         forceVariation = false
       )
@@ -178,7 +178,7 @@ object ServerEval:
       then fuTrue
       else
         lila.common.Bus
-          .ask[Int]("getRelayCrowd") { GetRelayCrowd(studyId, _) }
+          .safeAsk[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
           .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =

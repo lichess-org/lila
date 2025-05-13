@@ -1,5 +1,6 @@
 package lila.challenge
 
+import lila.core.challenge.PositiveEvent
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
@@ -18,14 +19,17 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
             api.ping(challenge.id)
           def completeWith(msg: String) =
             for _ <- queue.offer(Json.obj("done" -> msg)) yield queue.complete()
-          val sub = Bus.subscribeFun("challenge"):
-            case lila.core.challenge.Event.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
-            case Event.Cancel(c) if c.id == challenge.id                        => completeWith("canceled")
-            case Event.Decline(c) if c.id == challenge.id                       => completeWith("declined")
+          val subPositive = Bus.sub[PositiveEvent]:
+            case PositiveEvent.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
+
+          val subNegative = Bus.sub[NegativeEvent]:
+            case NegativeEvent.Decline(c) if c.id == challenge.id => completeWith("declined")
+            case NegativeEvent.Cancel(c) if c.id == challenge.id  => completeWith("canceled")
 
           queue
             .watchCompletion()
             .addEffectAnyway:
               keepAliveInterval.cancel()
-              Bus.unsubscribe(sub, "challenge")
+              Bus.unsub[PositiveEvent](subPositive)
+              Bus.unsub[NegativeEvent](subNegative)
     )

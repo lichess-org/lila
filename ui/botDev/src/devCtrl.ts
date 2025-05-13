@@ -142,7 +142,7 @@ export class DevCtrl implements GameObserver {
 
   getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
     if (!uid) return { r: 1500, rd: 350 };
-    const bot = env.bot.get(uid);
+    const bot = env.bot.info(uid);
     if (bot instanceof RateBot) return { r: bot.ratings[speed], rd: 0.01 };
     else return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
   }

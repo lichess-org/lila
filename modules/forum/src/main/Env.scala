@@ -33,7 +33,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
+  private val config = appConfig.get[ForumConfig]("forum")(using AutoConfig.loader)
 
   lazy val categRepo = new ForumCategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new ForumTopicRepo(db(CollName("f_topic")))
@@ -62,7 +62,7 @@ final class Env(
 
   lazy val access = wire[ForumAccess]
 
-  lila.common.Bus.subscribeFun("team", "gdprErase"):
+  lila.common.Bus.sub[lila.core.team.TeamCreate]:
     case lila.core.team.TeamCreate(t) => categApi.makeTeam(t.id, t.name, t.userId)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>

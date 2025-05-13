@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Kumpirmahin ang iyong Lichess account, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Pindutin ang link upang paganahin ang iyong Lichess account:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Kung hindi ka nagparehistro sa Lichess, maaari mong ligtas na balewalain ang mensaheng ito. Ang hindi nakumpirmang account at lahat ng bakas ng iyong email address ay tatanggalin mula sa aming sistema pagkatapos ng 48 oras.</string>
   <string name="passwordReset_subject">I-reset ang iyong Lichess password, %s</string>
   <string name="passwordReset_intro">Kami ay nakatanggap ng iyong request upang i-reset ang password para sa iyong account.</string>
   <string name="passwordReset_clickOrIgnore">Kung ginawa mo ang request na ito, pindutin ang link sa ibaba. Kung hindi, maaari mo nang i-ignore ang email na ito.</string>

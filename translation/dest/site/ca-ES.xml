@@ -22,6 +22,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Bàndol aleatori</string>
   <string name="createAGame">Crea una partida</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Crea la partida</string>
   <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Guanyen les negres</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Expandir variacions</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="copyVariationPgn">Copia el PGN de la variació</string>
+  <string name="copyMainLinePgn">Copiar el PGN de la línia principal</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -998,4 +1000,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
   <string name="stats">Estadístiques</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilitat</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activar el mode cec</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desactivar el mode cec</string>
 </resources>

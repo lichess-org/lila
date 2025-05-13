@@ -39,11 +39,11 @@ case class SendTo(userId: UserId, message: JsObject)
 case class SendToOnlineUser(userId: UserId, message: LazyFu[JsObject])
 object SendTo:
   def apply[A: Writes](userId: UserId, typ: String, data: A): SendTo =
-    SendTo(userId, Json.obj("t" -> typ, "d" -> data))
+    SendTo(userId, makeMessage(typ, data))
 case class SendTos(userIds: Set[UserId], message: JsObject)
 object SendTos:
   def apply[A: Writes](userIds: Set[UserId], typ: String, data: A): SendTos =
-    SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
+    SendTos(userIds, makeMessage(typ, data))
 
 case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
 
@@ -132,7 +132,7 @@ object protocol:
     def boolean(v: Boolean): String         = if v then "+" else "-"
     def optional(str: Option[String])       = str.getOrElse("-")
     def color(c: Color): String             = c.fold("w", "b")
-    def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
+    def color(c: Option[Color]): String     = optional(c.map(color))
 
 object userLag:
   type GetLagRating = UserId => Option[Int]
@@ -143,7 +143,13 @@ trait SocketRequester:
   def apply[R]: SocketRequest[R]
 
 object remote:
-  case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
   case class TellSriOut(sri: String, payload: JsValue)
   case class TellSrisOut(sris: Iterable[String], payload: JsValue)
-  case class TellUserIn(user: UserId, msg: JsObject)
+  enum TellUserIn:
+    case Read(user: UserId, msg: JsObject)
+    case Send(user: UserId, msg: JsObject)
+  object TellUserIn:
+    def make(userId: UserId, msg: JsObject, typ: String): Option[TellUserIn] = typ match
+      case "msgRead" => Some(Read(userId, msg))
+      case "msgSend" => Some(Send(userId, msg))
+      case _         => None

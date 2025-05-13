@@ -22,6 +22,7 @@
   <string name="asBlack">黒番</string>
   <string name="randomColor">ランダム</string>
   <string name="createAGame">対局を作成する</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">対局を作成</string>
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
   <string name="youPlayTheWhitePieces">あなたは白です</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
+  <string name="copyMainLinePgn">主手順の PGN をコピー</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -954,4 +956,7 @@
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="nothingToSeeHere">今は何もありません。</string>
   <string name="stats">統計</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">アクセシビリティ</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">視覚障害モードをオンに</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">視覚障害モードをオフに</string>
 </resources>

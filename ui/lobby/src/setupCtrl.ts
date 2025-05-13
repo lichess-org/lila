@@ -97,9 +97,9 @@ export default class SetupController {
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time || storeProps.time, timeVToTime, 100)!);
+    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time ?? storeProps.time, timeVToTime, 100)!);
     this.incrementV = this.propWithApply(
-      sliderInitVal(forceOptions?.increment || storeProps.increment, incrementVToIncrement, 100)!,
+      sliderInitVal(forceOptions?.increment ?? storeProps.increment, incrementVToIncrement, 100)!,
     );
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
@@ -261,7 +261,7 @@ export default class SetupController {
   propsToFormData = (color: Color | 'random'): FormData =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
-      fen: this.fen(),
+      fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
       timeMode: keyToId(this.timeMode(), timeModes).toString(),
       time: this.time().toString(),
       time_range: this.timeV().toString(),

@@ -13,8 +13,10 @@
   <string name="youHaveThirtySeconds">คุณมีเวลา 30 วินาที ในการกดช่องบนกระดานให้ได้มากที่สุด</string>
   <string name="goAsLongAsYouWant">ทำนานแค่ไหนก็ได้ ไม่มีการจำกัดเวลา</string>
   <string name="showCoordinates">แสดงพิกัดบนช่อง</string>
+  <string name="showCoordsOnAllSquares">แสดงพิกัดบนทุกช่องของกระดาน</string>
   <string name="showPieces">แสดงตัวหมาก</string>
   <string name="startTraining">เริ่มฝึกฝน</string>
   <string name="findSquare">หาช่อง</string>
   <string name="nameSquare">ชื่อของช่อง</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">ฝึกซ้อมแค่ไฟล์&amp;ลำดับ</string>
 </resources>

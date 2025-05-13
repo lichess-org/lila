@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.report.{ Mod, Report, Suspect }
 import lila.user.UserRepo
 import lila.core.chat.TimeoutReason
+import lila.core.user.KidMode
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -71,8 +72,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def fullCommExport(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, Modlog.fullCommsExport)
 
-  def setKidMode(mod: ModId, kid: UserId) = add:
-    Modlog(mod, kid.some, Modlog.setKidMode)
+  def setKidMode(mod: ModId, kid: UserId, v: KidMode) = add:
+    Modlog(mod, kid.some, if v.yes then Modlog.setKidMode else Modlog.unsetKidMode)
 
   def blankPassword(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.blankPassword)
@@ -373,8 +374,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
           Some(domain.Cheat)
         case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
         case M.troll | M.untroll | M.isolate | M.unisolate | M.chatTimeout | M.closeTopic | M.openTopic |
-            M.disableTeam | M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod |
-            M.blogTier | M.blogPostEdit =>
+            M.disableTeam | M.enableTeam | M.setKidMode | M.unsetKidMode | M.deletePost | M.postAsAnonMod |
+            M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(domain.Comm)
         case _ => Some(domain.Other)
       import Permission.*

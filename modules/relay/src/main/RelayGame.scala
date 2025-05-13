@@ -76,16 +76,17 @@ private object RelayGame:
 
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
     val fixedTags = removeBrokenPlayerNames:
-      Tags:
-        // remove wrong ongoing result tag if the board has a mate on it
-        if res.ending.isDefined && res.tags(_.Result).has("*") then
-          res.tags.value.filter(_ != Tag(_.Result, "*"))
-        // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-        else
-          res.tags.value.map: tag =>
-            if tag.name == Tag.Result
-            then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-            else tag
+      removeDateTag:
+        Tags:
+          // remove wrong ongoing result tag if the board has a mate on it
+          if res.ending.isDefined && res.tags(_.Result).has("*") then
+            res.tags.value.filter(_ != Tag(_.Result, "*"))
+          // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+          else
+            res.tags.value.map: tag =>
+              if tag.name == Tag.Result
+              then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+              else tag
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
@@ -104,6 +105,10 @@ private object RelayGame:
       }
   )
 
+  // trust the chapter date, not the source date
+  private def removeDateTag(tags: Tags) =
+    tags.copy(value = tags.value.filterNot(_.name == Tag.Date))
+
   import scalalib.Iso
   import chess.format.pgn.InitialComments
   val iso: Iso[RelayGames, MultiPgn] =
@@ -112,9 +117,7 @@ private object RelayGame:
       comments = false,
       variations = false,
       clocks = true,
-      source = true,
-      orientation = false,
-      site = none
+      orientation = false
     )
     Iso[RelayGames, MultiPgn](
       gs =>
@@ -135,16 +138,14 @@ private object RelayGame:
   case class Slice(from: Int, to: Int)
 
   object Slices:
-    def filter(slices: List[Slice])(games: RelayGames): RelayGames =
+
+    def filterAndOrder(slices: List[Slice])(games: RelayGames): RelayGames =
       if slices.isEmpty then games
       else
-        games.view.zipWithIndex
-          .filter: (_, i) =>
-            val n = i + 1
-            slices.exists: s =>
-              n >= s.from && n <= s.to
-          .map(_._1)
-          .toVector
+        slices
+          .foldLeft(Vector.empty[Int]): (acc, slice) =>
+            acc ++ (slice.from to slice.to).toVector.filterNot(acc.contains)
+          .flatMap(i => games.lift(i - 1))
 
     // 1-5,12-15,20
     def parse(str: String): List[Slice] = str.trim

@@ -113,7 +113,7 @@ final class JsonView(
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
-        "fen"      -> chess.format.Fen.writeBoardAndColor(g.situation),
+        "fen"      -> chess.format.Fen.writeBoardAndColor(g.position),
         "lastMove" -> (g.lastMoveKeys.orZero: String),
         "orient"   -> g.player(hostId).map(_.color)
       )

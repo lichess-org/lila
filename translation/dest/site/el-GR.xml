@@ -487,6 +487,7 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
+  <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
   <string name="resume">Συνέχεια</string>
@@ -667,7 +668,7 @@
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">Ο %1$s είναι (%2$s) δωρεάν, ελεύθερος, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα υπηρεσία για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -789,7 +790,7 @@
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
-  <string name="allLanguages">Όλες οι γλώσσες</string>
+  <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>

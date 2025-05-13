@@ -22,6 +22,7 @@
   <string name="asBlack">czarnymi</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Utwórz nową grę</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
   <string name="blackIsVictorious">Zwycięstwo czarnych</string>
   <string name="youPlayTheWhitePieces">Grasz białymi</string>
@@ -43,11 +44,11 @@
     <item quantity="many">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
     <item quantity="other">Przeciwnik opuścił grę. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
-  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
+  <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za remis lub poczekać.</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Zachowuj się miło na czacie!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do Twojej partii.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do twojej partii.</string>
   <string name="whiteResigned">Białe poddały się</string>
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
@@ -76,6 +77,7 @@
   <string name="expandVariations">Rozwiń warianty</string>
   <string name="forceVariation">Zamień w wariant</string>
   <string name="copyVariationPgn">Skopiuj wariant PGN</string>
+  <string name="copyMainLinePgn">Skopiuj główną linię PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
@@ -92,7 +94,7 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
-  <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
+  <string name="masterDbExplanation">Turniejowe partie graczy FIDE %1$s+ rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s posunięciu</item>
     <item quantity="few">Mat w %s posunięciach</item>
@@ -128,15 +130,15 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
-  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
+  <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i zachowuje kontrolę komputera</string>
   <string name="blunder">Błąd</string>
   <string name="mistake">Pomyłka</string>
   <string name="inaccuracy">Niedokładność</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s błąd</item>
-    <item quantity="few">%s błędy</item>
-    <item quantity="many">%s błędów</item>
-    <item quantity="other">%s błędów</item>
+    <item quantity="few">%s Błędy</item>
+    <item quantity="many">%s Błędów</item>
+    <item quantity="other">%s Błędów</item>
   </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Błąd</item>
@@ -146,9 +148,9 @@
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s pomyłka</item>
-    <item quantity="few">%s pomyłki</item>
-    <item quantity="many">%s pomyłek</item>
-    <item quantity="other">%s pomyłek</item>
+    <item quantity="few">%s Pomyłki</item>
+    <item quantity="many">%s Pomyłek</item>
+    <item quantity="other">%s Pomyłek</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s pomyłka</item>
@@ -158,9 +160,9 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s niedokładność</item>
-    <item quantity="few">%s niedokładności</item>
-    <item quantity="many">%s niedokładności</item>
-    <item quantity="other">%s niedokładności</item>
+    <item quantity="few">%s Niedokładności</item>
+    <item quantity="many">%s Niedokładności</item>
+    <item quantity="other">%s Niedokładności</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s niedokładność</item>
@@ -191,10 +193,10 @@
     <item quantity="other">%s partii</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="few">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="many">%1$s ranking na podstawie %2$s partii</item>
-    <item quantity="other">%1$s ranking na podstawie %2$s partii</item>
+    <item quantity="one">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="few">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="many">Ranking %1$s na podstawie %2$s partii</item>
+    <item quantity="other">Ranking %1$s na podstawie %2$s partii</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>
@@ -205,7 +207,7 @@
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
-  <string name="rememberMe">Zapamiętaj</string>
+  <string name="rememberMe">Nie wylogowuj mnie</string>
   <string name="youNeedAnAccountToDoThat">Do tego potrzebne jest konto</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Partie graczy komputerowych lub grających z jego pomocą są zabronione. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
@@ -215,7 +217,7 @@
   <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
   <string name="friends">Znajomi</string>
-  <string name="otherPlayers">inni gracze</string>
+  <string name="otherPlayers">innych graczy</string>
   <string name="discussions">Rozmowy</string>
   <string name="today">Dzisiaj</string>
   <string name="yesterday">Wczoraj</string>
@@ -253,7 +255,7 @@
   <string name="changeUsername">Zmień nazwę użytkownika</string>
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
-  <string name="signupUsernameHint">Wybierz przyjazną nazwę użytkownika. Nie możesz jej później zmienić, a niestosowna nazwa spowoduje zamknięcie konta!</string>
+  <string name="signupUsernameHint">Pamiętaj, aby wybrać nazwę użytkownika odpowiednią dla osób w każdym wieku. Nie będziesz mógł jej później zmienić, a nieodpowiednia nazwa użytkownika spowoduje zamknięcie konta!</string>
   <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
@@ -263,7 +265,7 @@
   <string name="forgotPassword">Nie pamiętasz hasła?</string>
   <string name="error.weakPassword">To hasło jest bardzo popularne i zbyt łatwe do odgadnięcia.</string>
   <string name="error.namePassword">Nie używaj nazwy użytkownika jako hasła.</string>
-  <string name="blankedPassword">Użyłeś/aś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess, musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
+  <string name="blankedPassword">Użyłeś tego samego hasła na innej stronie, która padła ofiarą ataku. Aby zapewnić bezpieczeństwo Twojego konta na Lichess, prosimy o ustawienie nowego hasła. Dziękujemy za wyrozumiałość.</string>
   <string name="youAreLeavingLichess">Opuszczasz Lichess</string>
   <string name="neverTypeYourPassword">Nigdy nie wpisuj hasła Lichess na innej stronie!</string>
   <string name="proceedToX">Przejdź do %s</string>
@@ -275,7 +277,7 @@
   <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
-  <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
   <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
@@ -1088,4 +1090,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
   <string name="stats">Statystyki</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Ułatwienia dostępu</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Włącz tryb gry \"na ślepo\"</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Wyłącz tryb gry \"na ślepo\"</string>
 </resources>

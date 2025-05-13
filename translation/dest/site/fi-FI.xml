@@ -74,6 +74,7 @@
   <string name="expandVariations">Laajenna muunnelmat</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
+  <string name="copyMainLinePgn">Kopioi päämuunnelma PGN:nä</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>

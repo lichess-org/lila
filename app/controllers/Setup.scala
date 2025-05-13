@@ -49,7 +49,7 @@ final class Setup(
                   negotiate(
                     // 403 tells setupCtrl.ts to close the setup modal
                     forbiddenJson(message), // TODO test
-                    BadRequest(jsonError(message))
+                    JsonBadRequest(message)
                   )
                 case None =>
                   import lila.challenge.Challenge.*
@@ -82,7 +82,7 @@ final class Setup(
                           else
                             negotiate(
                               Redirect(routes.Lobby.home),
-                              BadRequest(jsonError("Challenge not created"))
+                              JsonBadRequest("Challenge not created")
                             )
             yield result
         )
@@ -94,7 +94,7 @@ final class Setup(
           "ok"   -> true,
           "hook" -> Json.obj("id" -> id)
         )
-    case HookResult.Refused => BadRequest(jsonError("Game was not created"))
+    case HookResult.Refused => JsonBadRequest(("Game was not created"))
 
   def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile): ctx ?=>
     NoBot:
@@ -151,27 +151,31 @@ final class Setup(
             me       <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
-            res <- config
-              .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
-              .match
-                case Left(hook) =>
-                  limit.setupPost(req.ipAddress, rateLimited):
-                    limit
-                      .boardApiConcurrency(author.map(_.id))(
-                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(jsOptToNdJson)
-                      .toFuccess
-                case Right(Some(seek)) =>
-                  author match
-                    case Left(_) =>
-                      BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
-                    case Right(me) =>
-                      env.setup.processor.createSeekIfAllowed(seek, me.id).map {
-                        case HookResult.Refused =>
-                          BadRequest(Json.obj("error" -> "Already playing too many games"))
-                        case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                      }
-                case Right(None) => notFoundJson().toFuccess
+            ua     = HTTPRequest.userAgent(req).fold("?")(_.value)
+            _      = lila.mon.lobby.hook.apiCreate(ua = ua, color = config.color.name).increment()
+            forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
+            res <- forcedColor.match
+              case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
+              case None =>
+                config
+                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
+                  .match
+                    case Left(hook) =>
+                      limit.setupPost(req.ipAddress, rateLimited):
+                        limit
+                          .boardApiConcurrency(author.map(_.id))(
+                            env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                          )(jsOptToNdJson)
+                          .toFuccess
+                    case Right(Some(seek)) =>
+                      author match
+                        case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
+                        case Right(me) =>
+                          env.setup.processor.createSeekIfAllowed(seek, me.id).map {
+                            case HookResult.Refused     => JsonBadRequest("Already playing too many games")
+                            case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                          }
+                    case Right(None) => notFoundJson().toFuccess
           yield res
       )
   }
@@ -193,7 +197,7 @@ final class Setup(
           case None =>
             reqSri match
               case Some(sri) => f(Left(sri), reqSri)
-              case None      => BadRequest(jsonError("Authentication required"))
+              case None      => JsonBadRequest("Authentication required")
 
   def filterForm = Open:
     Ok.snip(views.setup.filter(forms.filter))

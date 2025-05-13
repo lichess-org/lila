@@ -11,8 +11,6 @@ enum Relation(val isFollow: Boolean) derives Eq:
 
 case class Relations(in: Option[Relation], out: Option[Relation])
 
-case class Block(u1: UserId, u2: UserId)
-case class UnBlock(u1: UserId, u2: UserId)
 case class Follow(u1: UserId, u2: UserId)
 case class UnFollow(u1: UserId, u2: UserId)
 

@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
@@ -34,8 +33,8 @@ object StudyPgnImportNew:
             NewRoot(
               Metas(
                 ply = replay.setup.ply,
-                fen = initialFen | game.board.variant.initialFen,
-                check = replay.setup.situation.check,
+                fen = initialFen | game.position.variant.initialFen,
+                check = replay.setup.position.check,
                 dests = None,
                 drops = None,
                 eval = None,
@@ -44,7 +43,7 @@ object StudyPgnImportNew:
                 gamebook = None,
                 glyphs = Glyphs.empty,
                 opening = None,
-                crazyData = replay.setup.situation.board.crazyData,
+                crazyData = replay.setup.position.crazyData,
                 clock = clock
               ),
               parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
@@ -55,7 +54,7 @@ object StudyPgnImportNew:
               status = res.status,
               points = res.points,
               resultText = chess.Outcome.showPoints(res.points.some),
-              statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+              statusText = lila.tree.StatusText(res.status, res.winner, game.position.variant)
             )
 
           val commented =
@@ -68,7 +67,7 @@ object StudyPgnImportNew:
               }
           Result(
             root = commented,
-            variant = game.board.variant,
+            variant = game.position.variant,
             tags = PgnTags
               .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
             end = gameEnd
@@ -89,7 +88,7 @@ object StudyPgnImportNew:
       annotator: Option[Comment.Author]
   ): (Context, Option[NewBranch]) =
     data
-      .san(context.currentGame.situation)
+      .san(context.currentGame.position)
       .map(moveOrDrop =>
         val game                           = moveOrDrop.applyGame(context.currentGame)
         val uci                            = moveOrDrop.toUci
@@ -112,7 +111,7 @@ object StudyPgnImportNew:
             Metas(
               ply = game.ply,
               fen = Fen.write(game),
-              check = game.situation.check,
+              check = game.position.check,
               dests = None,
               drops = None,
               eval = None,
@@ -122,7 +121,7 @@ object StudyPgnImportNew:
               glyphs = data.metas.glyphs,
               opening = None,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData
+              crazyData = game.position.crazyData
             )
           )
 

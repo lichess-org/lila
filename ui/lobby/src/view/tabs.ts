@@ -17,7 +17,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 
 export default function (ctrl: LobbyController) {
   const nbPlaying = ctrl.data.nbNowPlaying,
-    myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length,
+    nbMyTurn = ctrl.data.nbMyTurn,
     active = ctrl.tab,
     isBot = ctrl.me?.isBot;
   return [
@@ -26,8 +26,8 @@ export default function (ctrl: LobbyController) {
     isBot ? undefined : tab(ctrl, 'seeks', active, [i18n.site.correspondence]),
     active === 'now_playing' || nbPlaying || isBot
       ? tab(ctrl, 'now_playing', active, [
-          ...i18n.site.nbGamesInPlay.asArray(nbPlaying, nbPlaying >= 100 ? '100+' : nbPlaying.toString()),
-          myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
+          ...i18n.site.nbGamesInPlay.asArray(nbPlaying, nbPlaying >= 100 ? '99+' : nbPlaying.toString()),
+          nbMyTurn > 0 ? h('i.unread', nbMyTurn >= 100 ? '99+' : nbMyTurn) : null,
         ])
       : null,
   ];
