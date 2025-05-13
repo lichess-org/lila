@@ -66,12 +66,10 @@ final class Env(
   Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) =>
       api.finishGame(game)
-      () // TODO FIXME really necessary? compiles without
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) =>
       api.ejectCheater(userId)
-      () // TODO FIXME really necessary? compiles without
 
   Bus.sub[lila.core.round.SimulMoveEvent]:
     case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
