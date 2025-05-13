@@ -164,8 +164,6 @@ object user:
 
   case class UserDelete(user: User):
     export user.id
-  object UserDelete:
-    val delay = scalalib.model.Days(7)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]

@@ -64,5 +64,3 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
   def exceptUser(id: UserId)           = add(ExceptUser(id))
   def modsOnly(value: Boolean)         = add(ModsOnly(value))
   private def add(p: Propagation)      = copy(propagations = p :: propagations)
-
-object Propagate

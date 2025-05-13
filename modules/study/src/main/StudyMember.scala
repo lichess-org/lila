@@ -42,4 +42,3 @@ object StudyMembers:
   val empty = StudyMembers(Map.empty)
 
   case class OnChange(study: Study)
-  object OnChange

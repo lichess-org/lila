@@ -10,8 +10,6 @@ enum BusForum:
   case CreatePost(post: ForumPostMini)
   case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
 
-object BusForum
-
 trait ForumPost:
   val id: ForumPostId
   val text: String
