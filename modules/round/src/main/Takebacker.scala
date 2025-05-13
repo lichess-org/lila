@@ -57,8 +57,7 @@ final private class Takebacker(
         case pov if canProposeTakeback(pov) && board.offerable =>
           messenger.volatile(
             pov.game,
-            (if pov.color == Color.white then trans.site.whiteProposesTakeback.txt()
-             else trans.site.blackProposesTakeback.txt())
+            pov.color.fold(trans.site.whiteProposesTakeback, trans.site.blackProposesTakeback).txt()
           )
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
@@ -74,8 +73,7 @@ final private class Takebacker(
       case Pov(game, color) if pov.player.isProposingTakeback =>
         messenger.volatile(
           game,
-          (if pov.color == Color.white then trans.site.whiteCancelsTakeback.txt()
-           else trans.site.blackCancelsTakeback.txt())
+          pov.color.fold(trans.site.whiteCancelsTakeback, trans.site.blackCancelsTakeback).txt()
         )
         val progress = Progress(game).map: g =>
           g.updatePlayer(color, _.removeTakebackProposition)
@@ -87,8 +85,7 @@ final private class Takebacker(
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
         messenger.volatile(
           game,
-          (if pov.color == Color.white then trans.site.whiteDeclinesTakeback.txt()
-           else trans.site.blackDeclinesTakeback.txt())
+          pov.color.fold(trans.site.whiteDeclinesTakeback, trans.site.blackDeclinesTakeback).txt()
         )
         val progress = Progress(game).map: g =>
           g.updatePlayer(!color, _.removeTakebackProposition)
@@ -142,8 +139,7 @@ final private class Takebacker(
     val accepter = if pov.opponent.isProposingTakeback then pov.color else !pov.color
     messenger.system(
       p2.game,
-      (if accepter == Color.white then trans.site.whiteAcceptsTakeback.txt()
-       else trans.site.blackAcceptsTakeback.txt())
+      accepter.fold(trans.site.whiteAcceptsTakeback, trans.site.blackAcceptsTakeback).txt()
     )
     proxy.save(p2).inject(p2.events)
 
