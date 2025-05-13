@@ -13,7 +13,6 @@ case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
 
 case class ReopenAccount(user: User)
-object ReopenAccount
 
 case class DeletePublicChats(userId: UserId)
 

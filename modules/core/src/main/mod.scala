@@ -30,4 +30,3 @@ case class SelfReportMark(userId: UserId, name: String, gameId: GameFullId)
 case class BoardApiMark(userId: UserId, name: String)
 case class LoginWithWeakPassword(userId: UserId)
 case class LoginWithBlankedPassword(userId: UserId)
-object BoardApiMark

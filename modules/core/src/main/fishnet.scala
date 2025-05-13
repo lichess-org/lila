@@ -21,7 +21,6 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
-object Bus
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 

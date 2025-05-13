@@ -8,28 +8,22 @@ import lila.core.user.Me
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
-  object StreamStart
 
   case class StreamInfo(name: String, lang: String)
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
-  object StreamersOnline
 
 package clas:
   enum ClasBus:
     case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
-  object ClasBus
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
-  object StormRun
 
   case class RacerRun(userId: UserId, score: Int)
-  object RacerRun
 
   case class StreakRun(userId: UserId, score: Int)
-  object StreakRun
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
@@ -48,7 +42,6 @@ package mailer:
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
-  object CorrespondenceOpponents
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
