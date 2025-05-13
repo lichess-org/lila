@@ -167,7 +167,7 @@ final class MsgApi(
               import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
-                Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
+                Bus.pub(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))))
               if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
               PostResult.Success
       yield res

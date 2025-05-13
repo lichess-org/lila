@@ -149,7 +149,7 @@ final private class Takebacker(
 
   private def publishTakebackOffer(game: Game): Unit =
     if lila.game.Game.mightBeBoardOrBotCompatible(game) then
-      Bus.publish(
+      Bus.publishDyn(
         lila.game.actorApi.BoardTakebackOffer(game),
         lila.game.actorApi.BoardTakebackOffer.makeChan(game.id)
       )
@@ -158,7 +158,7 @@ final private class Takebacker(
     if lila.game.Game.mightBeBoardOrBotCompatible(prevPov.game) then
       proxy.withPov(prevPov.color): p =>
         fuccess:
-          Bus.publish(
+          Bus.publishDyn(
             lila.game.actorApi.BoardTakeback(p.game),
             lila.game.actorApi.BoardTakeback.makeChan(prevPov.gameId)
           )

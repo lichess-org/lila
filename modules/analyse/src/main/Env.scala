@@ -27,5 +27,5 @@ final class Env(
 
   val jsonView = JsonView
 
-  lila.common.Bus.subscribeFun("oauth"):
-    case lila.core.misc.oauth.TokenRevoke(id) => externalEngine.onTokenRevoke(id)
+  lila.common.Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
+    externalEngine.onTokenRevoke(token.id)

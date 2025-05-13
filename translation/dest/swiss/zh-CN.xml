@@ -109,7 +109,7 @@
   <string name="lateJoinUntil">是的，直到一半以上的回合开始为止。</string>
   <string name="pause">暂停</string>
   <string name="pauseSwiss">可以，但是可能会减少回合数量</string>
-  <string name="streaksAndBerserk">允许连胜和神速</string>
+  <string name="streaksAndBerserk">允许连胜和狂暴</string>
   <string name="similarToOTB">和 OTB 锦标赛相似</string>
   <string name="unlimitedAndFree">无限制并免费</string>
   <string name="predefinedUsers">仅允许预定义的用户加入</string>

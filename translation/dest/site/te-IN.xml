@@ -76,7 +76,7 @@
   <string name="expandVariations">వేరియేషన్స్నీ ఎక్సపండ్ చేయ్  </string>
   <string name="forceVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
   <string name="copyVariationPgn">PGNని కాపీ చేయండి</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">ప్రధాన లైన్ pgn ని కాపీ చేయండి</string>
+  <string name="copyMainLinePgn">ప్రధాన లైన్ pgn ని కాపీ చేయండి</string>
   <string name="move">జరుపు లేదా ఎత్తు వెయ్యండి</string>
   <string name="variantLoss">శాఖ ఓటమి</string>
   <string name="variantWin">శాఖ గెలుపు</string>
@@ -188,7 +188,7 @@
   <string name="youNeedAnAccountToDoThat">అది చెయ్యడానికి ఒక ఖాతా అవసరం</string>
   <string name="signUp">దరఖాస్తు</string>
   <string name="computersAreNotAllowedToPlay">కంప్యూటర్ గానీ కంప్యూటర్ ఆధారిత ఆటగాళలను కానీ మేము అనుమతించం. దయచేసి చేస్ ఎంజన్ల, డేటా బేసుల లేక ఇతర ఆటగాళల సహకారం పొందకండి. ఒకటి కంటె ఎక్కువ అకౌంట్లు వాడటం నిషేదం. ఎక్కువ అకౌంట్లు సృష్టించడం లేక వాడటం వంటి మరియు పైనా చెప్పిన పనులు చేస్తే తమ అకౌంట్ నిషేదించబడగలదని గమనించవలసిందిగా కోరుతున్నాం.</string>
-  <string name="games" comment="Appears in many areas, including:&#10;&#10;* Users' profile pages (https://lichess.org/@/thibault) alongside the total number of games they have played&#10;* Broadcast pages (https://lichess.org/broadcast)&#10;* Page of an individual player's tournament results: https://lichess.org/@/thibault/tournaments/recent&#10;* Pages of classes, showing how many games a student has played over a given period&#10;* Tournament creation: https://lichess.org/tournament/new&#10;* Simul creation: https://lichess.org/simul/new">ఆటలు</string>
+  <string name="games">ఆటలు</string>
   <string name="forum">సమావేశ ప్రదేశం</string>
   <string name="xPostedInForumY">%2$s అనే టాపికు పై %1$s పోస్టు చేశారు</string>
   <string name="latestForumPosts">తాజా సమావేశ ప్రదేశ అంశాలు</string>
@@ -260,7 +260,7 @@
   <string name="accountConfirmationEmailNotNeeded">మీకు ధృవీకరణ ఈమెయిల్ అవసరం లేదు.</string>
   <string name="accountClosed">%s అకౌంట్ క్లోజ్ అయ్యింది.</string>
   <string name="accountRegisteredWithoutEmail">%s అకౌంట్ ఈమెయిల్ లేకుండా రిజిస్టర్ అయ్యింది.</string>
-  <string name="rank" comment="rank&#10;&#10;This is your current rank among all lichess players for that rating category. Appears next to that rating on your profile.&#10;&#10;It shows up e.g. as Rank: 1,423. This would mean you are the 1423rd best player on lichess for that rating category (e.g. Blitz chess, Crazyhouse, etc).&#10;&#10;May also appears as a column heading on a table of tournament results e.g. https://lichess.org/@/thibault/tournaments/recent">స్థానం</string>
+  <string name="rank">స్థానం</string>
   <string name="rankX">స్థానం: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">ప్రతి నిమిషం స్థానం నవీకరణ చెందుతుంది</item>
@@ -439,7 +439,7 @@
   <string name="blackCheckmatesInOneMove">ఒక కదలికలో చెక్‌మేట్‌కి నలుపు</string>
   <string name="retry">మళ్లీ ప్రయత్నించండి</string>
   <string name="reconnecting">మళ్లీ కనెక్ట్ అవుతోంది</string>
-  <string name="noNetwork" comment="Appears on the bottom-left of the browser window on the website when you have lost connection, and no more efforts to reconnect are taking place. When the browser has lost connection but is still trying to reconnect, a message saying &quot;Reconnecting&quot; will appears instead.">ఆఫ్లైన్</string>
+  <string name="noNetwork">ఆఫ్లైన్</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s స్నేహితుడు ఆన్లైన్ </item>
     <item quantity="other">%s స్నేహితులు ఆన్లైన్</item>
@@ -466,8 +466,8 @@
   <string name="memberSince">అప్పటి నుండి సభ్యుడు</string>
   <string name="lastSeenActive">సక్రియం %s</string>
   <string name="player">ఆటగాడు</string>
-  <string name="list" comment="'List' is the default viewing mode of the Lobby on the home page.">జాబితా</string>
-  <string name="graph" comment="'Graph' is an alternate viewing mode for the lobby on the home page (the default is 'List' mode).">గ్రాఫ్</string>
+  <string name="list">జాబితా</string>
+  <string name="graph">గ్రాఫ్</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
     <item quantity="other">%s నిమిషాల కన్నా తక్కువ</item>
@@ -487,7 +487,7 @@
   <string name="makePrivateTournament">టోర్నమెంట్‌ను ప్రైవేట్‌గా చేయండి మరియు పాస్‌వర్డ్‌తో ప్రాప్యతను పరిమితం చేయండి</string>
   <string name="join">చేరండి</string>
   <string name="withdraw">ఉపసంహరించుకోండి</string>
-  <string name="points" comment="Appears as a column heading on pages with a table of a player's tournament results. Shows how many points that player earned in the tournament. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/recent">పాయింట్లు</string>
+  <string name="points">పాయింట్లు</string>
   <string name="wins">విజయాలు</string>
   <string name="losses">నష్టాలు</string>
   <string name="createdBy">సృష్టికర్త</string>
@@ -614,16 +614,16 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">మా గురించి</string>
   <string name="aboutX">%s గురించి</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer" comment="%1$s is 'Lichess' (note this used to be 'lichess.org')&#10;%2$s is 'really' (which is separate translateable string)&#10;&#10;On the website: Appears in the left sidebar when you are not logged in to an account.&#10;In the mobile app: Always appears at the bottom of the 'Settings' view.">%1$s అనేది ఉచితమైన (%2$s), స్వేచ్ఛమైన, ప్రకటనలు లేని, ఓపెన్ సోర్స్ చెస్ సర్వర్.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s అనేది ఉచితమైన (%2$s), స్వేచ్ఛమైన, ప్రకటనలు లేని, ఓపెన్ సోర్స్ చెస్ సర్వర్.</string>
   <string name="really">నిజంగా</string>
   <string name="contribute">సహకరించండి</string>
   <string name="termsOfService">సేవా నిబంధనలు</string>
   <string name="sourceCode">సోర్స్ కోడ్</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
-  <string name="host" comment="This is for the column heading on https://lichess.org/simul - says who the host of the simul is.">హోస్ట్</string>
+  <string name="host">హోస్ట్</string>
   <string name="hostColorX">హోస్ట్ రంగు: %s</string>
   <string name="createdSimuls">కొత్తగా సృష్టించబడిన simuls</string>
-  <string name="hostANewSimul" comment="Appears as a button when you are viewing https://lichess.org/simul while logged in. Note that this text will be all-uppercase.&#10;&#10;If logged out, the button will instead show &quot;Sign up to host or join a simul&quot;, which is available for translation separately.">కొత్త simul చేయండి</string>
+  <string name="hostANewSimul">కొత్త simul చేయండి</string>
   <string name="noSimulFound">Simul కనుబడలేదు</string>
   <string name="noSimulExplanation">ఈ simultaneous exhibition లేదు.</string>
   <string name="returnToSimulHomepage">Simul హోమ్‌పేజీకి తిరిగి వెళ్ళు</string>

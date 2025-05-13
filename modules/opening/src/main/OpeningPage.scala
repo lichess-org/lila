@@ -83,7 +83,7 @@ def makeOpeningPage(
                 uci  <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
-                fen     = Fen.writeOpening(move.boardAfter)
+                fen     = Fen.writeOpening(move.after)
                 opening = OpeningDb.findByStandardFen(fen)
               yield OpeningNext(
                 m.san,

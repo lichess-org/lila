@@ -22,7 +22,7 @@ private final class TimelineApi(
         .foreach: users =>
           if users.nonEmpty then
             for _ <- insertEntry(users, data)
-            yield lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
+            yield lila.common.Bus.pub(ReloadTimelines(users))
           lila.mon.timeline.notification.increment(users.size)
 
   private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =

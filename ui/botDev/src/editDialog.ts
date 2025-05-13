@@ -131,7 +131,7 @@ export class EditDialog {
     ];
   }
 
-  private isDirty = (other: BotInfo | undefined = env.bot.get(this.uid)): boolean => {
+  private isDirty = (other: BotInfo | undefined = env.bot.info(this.uid)): boolean => {
     return (
       other !== undefined &&
       this.scratch.has(other.uid) &&

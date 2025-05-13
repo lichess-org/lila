@@ -31,10 +31,7 @@ class AnnotatorTest extends munit.FunSuite:
   val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")
   val playedGame: chess.Game =
     chess.format.pgn.Reader
-      .fullWithSans(
-        Parser.full(pgnStr).toOption.get,
-        identity
-      )
+      .full(Parser.full(pgnStr).toOption.get, identity)
       .valid
       .toOption
       .get
