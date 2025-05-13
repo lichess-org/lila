@@ -5,6 +5,8 @@ import _root_.chess.{ ByColor, Clock }
 import _root_.chess.IntRating
 import alleycats.Zero
 
+import scalalib.bus.NotBuseable
+
 import lila.core.id.GameFullId
 import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
@@ -41,13 +43,14 @@ case class Pairings(pairings: List[Pairing])
 
 object HookThieve:
 
-  case class GetCandidates(clock: Clock.Config, promise: Promise[PoolHooks])
-  case class StolenHookIds(ids: Vector[String])
+  enum HookBus:
+    case GetCandidates(clock: Clock.Config, promise: Promise[PoolHooks])
+    case StolenHookIds(ids: Vector[String])
 
-  case class PoolHook(hookId: String, member: PoolMember):
+  case class PoolHook(hookId: String, member: PoolMember) extends NotBuseable:
     def is(m: PoolMember) = member.userId == m.userId
 
-  case class PoolHooks(hooks: Vector[PoolHook])
+  case class PoolHooks(hooks: Vector[PoolHook]) extends NotBuseable
 
 case class Joiner(
     sri: Sri,

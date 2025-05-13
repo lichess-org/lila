@@ -27,7 +27,7 @@ final private class GameStarter(
         for
           (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
           pairings     <- couples.zip(ids).parallel(one(pool, perfs).tupled)
-        yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
+        yield lila.common.Bus.pub(Pairings(pairings.flatten.toList))
 
   private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(
       couple: MatchMaking.Couple,

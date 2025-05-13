@@ -22,6 +22,7 @@
   <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Creează jocul</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
   <string name="blackIsVictorious">Negrul a câștigat</string>
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
@@ -1042,4 +1043,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
   <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
   <string name="stats">Statistici</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accesibilitate</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activează modul fără vedere</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Dezactivează modul fără vedere</string>
 </resources>

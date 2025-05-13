@@ -6,6 +6,8 @@ import com.softwaremill.macwire.*
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
+import lila.common.Bus
+
 @Module
 final class Env(
     captcha: lila.core.captcha.CaptchaApi,
@@ -57,20 +59,18 @@ final class Env(
           _ <- api.addMembers(team, userIds)
         yield s"Added ${userIds.size} members to team ${team.name}"
 
-  lila.common.Bus.subscribeFuns(
-    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
+  lila.common.Bus.sub[lila.core.mod.Shadowban]:
+    case lila.core.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
-    },
-    "teamIsLeader" -> {
-      case lila.core.team.IsLeader(teamId, userId, promise) =>
-        promise.completeWith(api.isLeader(teamId, userId))
-      case lila.core.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
-        promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
-    },
-    "teamJoinedBy" -> { case lila.core.team.TeamIdsJoinedBy(userId, promise) =>
+
+  lila.common.Bus.sub[lila.core.team.IsLeaderWithCommPerm]:
+    case lila.core.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+      promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
+
+  lila.common.Bus.sub[lila.core.team.TeamIdsJoinedBy]:
+    case lila.core.team.TeamIdsJoinedBy(userId, promise) =>
       promise.completeWith(cached.teamIdsList(userId))
-    },
-    "teamIsLeaderOf" -> { case lila.core.team.IsLeaderOf(leaderId, memberId, promise) =>
+
+  lila.common.Bus.sub[lila.core.team.IsLeaderOf]:
+    case lila.core.team.IsLeaderOf(leaderId, memberId, promise) =>
       promise.completeWith(api.isLeaderOf(leaderId, memberId))
-    }
-  )

@@ -1,6 +1,8 @@
 package lila.core
 package timeline
 
+import scalalib.bus.NotBuseable
+
 import lila.core.id.*
 import lila.core.perf.PerfKey
 import lila.core.study.data.StudyName
@@ -8,6 +10,7 @@ import lila.core.userId.UserId
 
 case class ReloadTimelines(userIds: List[UserId])
 
+// the `channel` is not referring to `scalalib.Bus` but in regards to the mongodb collection
 sealed abstract class Atom(val channel: String, val okForKid: Boolean):
   def userIds: List[UserId]
 case class Follow(u1: UserId, u2: UserId) extends Atom("follow", true):
@@ -42,7 +45,7 @@ case class UblogPostLike(userId: UserId, id: UblogPostId, title: String) extends
 case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
   def userIds = List(id)
 
-enum Propagation:
+enum Propagation extends NotBuseable:
   case Users(users: List[UserId])
   case Followers(user: UserId)
   case Friends(user: UserId)
@@ -61,5 +64,3 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
   def exceptUser(id: UserId)           = add(ExceptUser(id))
   def modsOnly(value: Boolean)         = add(ModsOnly(value))
   private def add(p: Propagation)      = copy(propagations = p :: propagations)
-
-object Propagate extends scalalib.bus.GivenChannel[Propagate]("timeline")

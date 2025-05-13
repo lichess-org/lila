@@ -8,10 +8,10 @@ final private class HookThieve()(using Executor, Scheduler):
 
   def candidates(clock: chess.Clock.Config): Fu[PoolHooks] =
     Bus
-      .ask[PoolHooks]("lobbyActor")(GetCandidates(clock, _))
+      .safeAsk[PoolHooks, HookBus](HookBus.GetCandidates(clock, _))
       .logFailure(logger)
       .recoverDefault(PoolHooks(Vector.empty))
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) =
     lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)
-    if poolHooks.nonEmpty then Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), "lobbyActor")
+    if poolHooks.nonEmpty then Bus.pub(HookBus.StolenHookIds(poolHooks.map(_.hookId)))
