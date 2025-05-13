@@ -59,14 +59,12 @@ final class Env(
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
 
-  Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) =>
-      rankingApi.remove(userId)
-      repo.setRoles(userId, Nil)
+  Bus.sub[lila.core.mod.MarkBooster]: m =>
+    rankingApi.remove(m.userId)
+    repo.setRoles(m.userId, Nil)
 
-  Bus.sub[lila.core.mod.KickFromRankings]:
-    case lila.core.mod.KickFromRankings(userId) =>
-      rankingApi.remove(userId)
+  Bus.sub[lila.core.mod.KickFromRankings]: k =>
+    rankingApi.remove(k.userId)
 
-  Bus.sub[lila.core.misc.puzzle.StreakRun]:
-    case r => api.addPuzRun("streak", r.userId, r.score)
+  Bus.sub[lila.core.misc.puzzle.StreakRun]: r =>
+    api.addPuzRun("streak", r.userId, r.score)

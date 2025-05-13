@@ -213,9 +213,7 @@ final class ChallengeApi(
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang
-        Bus.pub(
-          SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all)))
-        )
+        Bus.pub(SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all))))
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket]               = None

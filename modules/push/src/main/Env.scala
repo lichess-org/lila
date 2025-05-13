@@ -49,21 +49,19 @@ final class Env(
   private def logUnit(f: Fu[?]): Unit =
     f.logFailure(logger)
     ()
-  Bus.sub[lila.core.game.FinishGame]:
-    case lila.core.game.FinishGame(game, _) =>
-      logUnit { pushApi.finish(game) }
+
+  Bus.sub[lila.core.game.FinishGame]: f =>
+    logUnit { pushApi.finish(f.game) }
 
   Bus.sub[lila.core.round.CorresMoveEvent]:
     case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }
 
-  Bus.sub[lila.core.round.CorresTakebackOfferEvent]:
-    case lila.core.round.CorresTakebackOfferEvent(gameId) =>
-      logUnit { pushApi.takebackOffer(gameId) }
+  Bus.sub[lila.core.round.CorresTakebackOfferEvent]: e =>
+    logUnit { pushApi.takebackOffer(e.gameId) }
 
-  Bus.sub[lila.core.round.CorresDrawOfferEvent]:
-    case lila.core.round.CorresDrawOfferEvent(gameId) =>
-      logUnit { pushApi.drawOffer(gameId) }
+  Bus.sub[lila.core.round.CorresDrawOfferEvent]: e =>
+    logUnit { pushApi.drawOffer(e.gameId) }
 
   Bus.sub[lila.core.challenge.PositiveEvent]:
     case lila.core.challenge.PositiveEvent.Create(c) =>
@@ -79,4 +77,5 @@ final class Env(
     case lila.core.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
 
-  Bus.sub[lila.core.misc.push.TourSoon](t => logUnit { pushApi.tourSoon(t) })
+  Bus.sub[lila.core.misc.push.TourSoon]: t =>
+    logUnit { pushApi.tourSoon(t) }

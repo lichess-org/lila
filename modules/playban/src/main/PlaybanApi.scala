@@ -266,9 +266,7 @@ final class PlaybanApi(
       .so: ban =>
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
-        Bus.pub(
-          lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena))
-        )
+        Bus.pub(lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)))
         coll
           .findAndUpdateSimplified[UserRecord](
             selector = $id(record.userId),
@@ -290,9 +288,7 @@ final class PlaybanApi(
         (delta < 0 && record.rageSit.isVeryBad).so:
           for _ <- messenger.postPreset(record.userId, PlaybanFeedback.sittingAutoPreset)
           yield
-            Bus.pub(
-              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name)
-            )
+            Bus.pub(lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name))
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
               userApi
                 .byId(record.userId)

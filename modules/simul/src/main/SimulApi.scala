@@ -186,7 +186,7 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
-    Bus.pub(
+    Bus.pub:
       lila.core.socket.SendTo(
         simul.hostId,
         lila.core.socket.makeMessage(
@@ -197,7 +197,6 @@ final class SimulApi(
           )
         )
       )
-    )
 
   def ejectCheater(userId: UserId): Unit =
     repo.allNotFinished.foreach:

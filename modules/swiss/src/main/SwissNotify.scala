@@ -29,7 +29,6 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
             mongo.player
               .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))
               .map: userIds =>
-                lila.common.Bus.pub(
+                lila.common.Bus.pub:
                   TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true)
-                )
         }

@@ -74,12 +74,11 @@ final class Env(
   Bus.sub[lila.core.round.SimulMoveEvent]:
     case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
-      Bus.pub(
+      Bus.pub:
         lila.core.socket.SendTo(
           opponentUserId,
           lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
         )
-      )
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     repo.anonymizeHost(del.id)

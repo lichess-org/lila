@@ -111,9 +111,8 @@ final class Env(
   Bus.sub[lila.core.security.GarbageCollect]:
     case lila.core.security.GarbageCollect(userId) =>
       accountTermination.garbageCollect(userId)
-  Bus.sub[lila.core.playban.RageSitClose]:
-    case lila.core.playban.RageSitClose(userId) =>
-      accountTermination.lichessDisable(userId)
+  Bus.sub[lila.core.playban.RageSitClose]: close =>
+    accountTermination.lichessDisable(close.userId)
 
   lila.i18n.Registry.asyncLoadLanguages()
 

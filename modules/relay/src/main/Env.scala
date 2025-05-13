@@ -144,9 +144,8 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
-  Bus.sub[lila.core.study.RemoveStudy]:
-    case lila.core.study.RemoveStudy(studyId) =>
-      api.onStudyRemove(studyId)
+  Bus.sub[lila.core.study.RemoveStudy]: s =>
+    api.onStudyRemove(s.studyId)
 
   Bus.sub[lila.study.RelayToggle]:
     case lila.study.RelayToggle(id, v, who) =>

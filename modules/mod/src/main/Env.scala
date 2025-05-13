@@ -84,27 +84,23 @@ final class Env(
       if game.status == chess.Status.Cheat then
         game.loserUserId.foreach: userId =>
           logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
-            (count >= 3).so {
+            (count >= 3).so:
               if game.hasClock then
                 api.autoMark(
                   SuspectId(userId),
                   s"Cheat detected during game, ${count} times"
                 )(using UserId.lichessAsMe)
               else reportApi.autoCheatDetectedReport(userId, count)
-            }
           }
 
-  Bus.sub[lila.analyse.actorApi.AnalysisReady]:
-    case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
-      assessApi.onAnalysisReady(game, analysis)
+  Bus.sub[lila.analyse.actorApi.AnalysisReady]: a =>
+    assessApi.onAnalysisReady(a.game, a.analysis)
 
-  Bus.sub[lila.core.security.DeletePublicChats]:
-    case lila.core.security.DeletePublicChats(u) =>
-      publicChat.deleteAll(u)
+  Bus.sub[lila.core.security.DeletePublicChats]: del =>
+    publicChat.deleteAll(del.userId)
 
-  Bus.sub[lila.core.mod.AutoWarning]:
-    case lila.core.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
+  Bus.sub[lila.core.mod.AutoWarning]: warn =>
+    logApi.modMessage(warn.userId, warn.subject)(using UserId.lichessAsMe)
 
   Bus.sub[lila.core.mod.SelfReportMark]:
     case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>

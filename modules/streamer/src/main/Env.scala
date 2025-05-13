@@ -83,8 +83,8 @@ final class Env(
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
-  Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) => api.demote(userId)
+  Bus.sub[lila.core.mod.MarkBooster]: m =>
+    api.demote(m.userId)
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true)  => api.demote(userId)
     case lila.core.mod.Shadowban(userId, false) => api.unignore(userId)

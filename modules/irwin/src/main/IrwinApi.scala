@@ -104,13 +104,8 @@ final class IrwinApi(
           all = analyzed.map { (game, analysis) =>
             game -> analysis.some
           } ::: more.map(_ -> none)
-        yield Bus.pub(
-          IrwinRequest(
-            suspect = suspect,
-            origin = origin(Origin),
-            games = all
-          )
-        )
+        yield Bus.pub:
+          IrwinRequest(suspect = suspect, origin = origin(Origin), games = all)
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
       suspects.sequentiallyVoid(insert(_, _.Tournament))
