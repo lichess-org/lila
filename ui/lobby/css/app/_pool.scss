@@ -67,38 +67,17 @@
       background-position: 180% 0;
     }
     100% {
-      background-position: -180% 0;
-    }
-  }
-
-  @keyframes range-color-cycle {
-    0%,
-    25% {
-      background-image: linear-gradient(90deg, transparent, #42a5f5, transparent);
-    }
-    25%,
-    50% {
-      background-image: linear-gradient(90deg, transparent, #f44336, transparent);
-    }
-    50%,
-    75% {
-      background-image: linear-gradient(90deg, transparent, #fdd835, transparent);
-    }
-    75%,
-    100% {
-      background-image: linear-gradient(90deg, transparent, #4caf50, transparent);
+      background-position: -90% 0;
     }
   }
 
   .range {
     background-size: 200% 100%;
     background-repeat: no-repeat;
-    -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation:
-      range-sweep 3s linear infinite,
-      range-color-cycle 12s steps(1) infinite;
+    background-image: linear-gradient(90deg, transparent, $c-brag, transparent);
+    animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
     margin: 0.2em 0 1.3em 0;
   }
 }
