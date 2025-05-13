@@ -17,7 +17,7 @@ final private class TvSyncActor(
 
   import TvSyncActor.*
 
-  Bus.subscribe(this, "startGame")
+  Bus.subscribeActor[lila.core.game.StartGame](this)
 
   private val channelActors: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.values.map { c =>
     c -> ChannelSyncActor(
@@ -84,23 +84,24 @@ final private class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.core.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
+      Bus.pub(lila.core.game.TvSelect(game.id, game.speed, channel.key, data))
       if channel == Tv.Channel.Best then
         lila.common.Bus
-          .ask[Html]("renderer")(RenderFeaturedJs(game, _))
+          .safeAsk[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
           .foreach: html =>
             val pov = Pov.naturalOrientation(game)
-            val event = lila.core.game.ChangeFeatured(
-              makeMessage(
-                "featured",
-                Json.obj(
-                  "html"  -> html,
-                  "color" -> pov.color.name,
-                  "id"    -> game.id
+            Bus.pub(
+              lila.core.game.ChangeFeatured(
+                makeMessage(
+                  "featured",
+                  Json.obj(
+                    "html"  -> html,
+                    "color" -> pov.color.name,
+                    "id"    -> game.id
+                  )
                 )
               )
             )
-            Bus.publish(event, "changeFeaturedGame")
 
 private object TvSyncActor:
 

@@ -537,5 +537,5 @@ final class RelayApi(
           import lila.common.Json.given
           import lila.core.socket.makeMessage
           val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
-          lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")
+          lila.common.Bus.pub(SendTos(userIds, payload))
         }

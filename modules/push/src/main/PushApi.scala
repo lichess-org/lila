@@ -8,10 +8,9 @@ import lila.common.LilaFuture
 import lila.common.String.shorten
 import lila.core.LightUser
 import lila.core.challenge.Challenge
-import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
-import lila.core.round.{ IsOnGame, MoveEvent }
+import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
 
 final private class PushApi(
@@ -415,8 +414,8 @@ final private class PushApi(
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus
-      .ask[Boolean]("roundSocket") { p =>
-        Tell(pov.gameId.value, IsOnGame(pov.color, p))
+      .safeAsk[Boolean, Tell] { p =>
+        Tell(pov.gameId, RoundBus.IsOnGame(pov.color, p))
       }
       .flatMap:
         if _ then funit

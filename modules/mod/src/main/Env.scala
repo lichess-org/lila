@@ -9,7 +9,7 @@ import lila.core.config.*
 import lila.core.forum.BusForum
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
-import lila.core.mod.BoardApiMark
+import lila.core.mod.{ BoardApiMark, LoginWithWeakPassword, LoginWithBlankedPassword }
 
 @Module
 final class Env(
@@ -74,52 +74,60 @@ final class Env(
 
   private lazy val sandbagWatch = wire[SandbagWatch]
 
-  Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.core.game.FinishGame(game, users) if !game.aborted =>
-        users
-          .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
-          .mapN: (whiteUser, blackUser) =>
-            sandbagWatch(game)
-            assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
-        if game.status == chess.Status.Cheat then
-          game.loserUserId.foreach: userId =>
-            logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
-              (count >= 3).so {
-                if game.hasClock then
-                  api.autoMark(
-                    SuspectId(userId),
-                    s"Cheat detected during game, ${count} times"
-                  )(using UserId.lichessAsMe)
-                else reportApi.autoCheatDetectedReport(userId, count)
-              }
+  Bus.sub[lila.core.game.FinishGame]:
+    case lila.core.game.FinishGame(game, users) if !game.aborted =>
+      users
+        .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
+        .mapN: (whiteUser, blackUser) =>
+          sandbagWatch(game)
+          assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
+      if game.status == chess.Status.Cheat then
+        game.loserUserId.foreach: userId =>
+          logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
+            (count >= 3).so {
+              if game.hasClock then
+                api.autoMark(
+                  SuspectId(userId),
+                  s"Cheat detected during game, ${count} times"
+                )(using UserId.lichessAsMe)
+              else reportApi.autoCheatDetectedReport(userId, count)
             }
-    },
-    "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
+          }
+
+  Bus.sub[lila.analyse.actorApi.AnalysisReady]:
+    case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
-    },
-    "deletePublicChats" -> { case lila.core.security.DeletePublicChats(u) =>
+
+  Bus.sub[lila.core.security.DeletePublicChats]:
+    case lila.core.security.DeletePublicChats(u) =>
       publicChat.deleteAll(u)
-    },
-    "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
+
+  Bus.sub[lila.core.mod.AutoWarning]:
+    case lila.core.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
-    },
-    "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>
+
+  Bus.sub[lila.core.mod.SelfReportMark]:
+    case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>
       val msg = s"Self report: ${name} on https://lichess.org/${gameId}"
       api.autoMark(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
-    },
-    "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
+
+  Bus.sub[lila.core.mod.ChatTimeout]:
+    case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
-    },
-    "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
-    "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
-    "team" -> {
-      case t: lila.core.team.TeamUpdate if t.byMod =>
-        logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
-      case t: lila.core.team.KickFromTeam =>
-        logApi.teamKick(t.userId, t.teamName)(using t.me)
-    }
-  )
+
+  Bus.sub[lila.core.team.TeamUpdate]:
+    case t: lila.core.team.TeamUpdate if t.byMod =>
+      logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
+
+  Bus.sub[lila.core.team.KickFromTeam]:
+    case t: lila.core.team.KickFromTeam =>
+      logApi.teamKick(t.userId, t.teamName)(using t.me)
+
+  Bus.sub[LoginWithWeakPassword]:
+    case LoginWithWeakPassword(userId) => logApi.loginWithWeakPassword(userId)
+
+  Bus.sub[LoginWithBlankedPassword]:
+    case LoginWithBlankedPassword(userId) => logApi.loginWithBlankedPassword(userId)
 
   Bus.sub[BusForum]:
     case p: BusForum.RemovePost =>

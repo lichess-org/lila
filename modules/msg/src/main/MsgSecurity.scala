@@ -184,7 +184,7 @@ final private class MsgSecurity(
     Bus.safeAsk[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: Contacts) =
-    Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
+    Bus.safeAsk[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
 
 private object MsgSecurity:
 

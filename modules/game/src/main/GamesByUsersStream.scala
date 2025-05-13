@@ -20,13 +20,15 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
           def matches(game: Game) = game.userIds match
             case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
             case _                        => false
-          val sub = Bus.subscribeFun(chans*):
-            case StartGame(game) if matches(game)     => queue.offer(game)
+          val subStart = Bus.sub[StartGame]:
+            case StartGame(game) if matches(game) => queue.offer(game)
+          val subFinish = Bus.sub[FinishGame]:
             case FinishGame(game, _) if matches(game) => queue.offer(game)
           queue
             .watchCompletion()
             .addEffectAnyway:
-              Bus.unsubscribe(sub, chans)
+              Bus.unsub[StartGame](subStart)
+              Bus.unsub[FinishGame](subFinish)
         }
       initialGames
         .concat(startStream)

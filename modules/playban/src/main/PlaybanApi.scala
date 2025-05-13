@@ -113,7 +113,7 @@ final class PlaybanApi(
     game.tournamentId.so: tourId =>
       rageSitCache.get(userId).map { rageSit =>
         if rageSit.isBad
-        then Bus.publish(lila.core.playban.SittingDetected(tourId, userId), "playban")
+        then Bus.pub(lila.core.playban.SittingDetected(tourId, userId))
       }
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
@@ -266,9 +266,8 @@ final class PlaybanApi(
       .so: ban =>
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
-        Bus.publish(
-          lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
-          "playban"
+        Bus.pub(
+          lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena))
         )
         coll
           .findAndUpdateSimplified[UserRecord](
@@ -291,14 +290,13 @@ final class PlaybanApi(
         (delta < 0 && record.rageSit.isVeryBad).so:
           for _ <- messenger.postPreset(record.userId, PlaybanFeedback.sittingAutoPreset)
           yield
-            Bus.publish(
-              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name),
-              "autoWarning"
+            Bus.pub(
+              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name)
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
               userApi
                 .byId(record.userId)
                 .flatMapz: user =>
                   for _ <- noteApi.lichessWrite(user, "Closed for ragesit recidive")
-                  yield Bus.publish(lila.core.playban.RageSitClose(user.id), "rageSitClose")
+                  yield Bus.pub(lila.core.playban.RageSitClose(user.id))
       case _ => funit

@@ -42,62 +42,78 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.core.notify.NotifiedBatch(userIds), "notify")
+      Bus.pub(lila.core.notify.NotifiedBatch(userIds))
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         userLag.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellUser(userId, typ, msg) =>
-      Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
+      TellUserIn.make(userId, msg, typ).foreach(Bus.pub[TellUserIn](_))
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send.exec(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds.set(initialUserIds)
 
-  Bus.subscribeFun(
-    "socketUsers",
-    "announce",
-    "mlat",
-    "sendToFlag",
-    "remoteSocketOut",
-    "accountClose",
-    "shadowban",
-    "impersonate",
-    "relation",
-    "onlineApiUsers"
-  ):
+  Bus.sub[SendTos]:
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds.intersect(onlineUserIds.get)
       if connectedUsers.nonEmpty then send.exec(Out.tellUsers(connectedUsers, payload))
+
+  Bus.sub[SendTo]:
     case SendTo(userId, payload) =>
       if onlineUserIds.get.contains(userId) then send.exec(Out.tellUser(userId, payload))
+
+  Bus.sub[SendToOnlineUser]:
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
         makePayload.value.foreach: payload =>
           send.exec(Out.tellUser(userId, payload))
+
+  Bus.sub[Announce]:
     case Announce(_, _, json) =>
       send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
+
+  Bus.sub[Mlat]:
     case Mlat(millis) =>
       send.exec(Out.mlat(millis))
+
+  Bus.sub[SendToFlag]:
     case SendToFlag(flag, payload) =>
       send.exec(Out.tellFlag(flag, payload))
+
+  Bus.sub[TellSriOut]:
     case TellSriOut(sri, payload) =>
       send.exec(Out.tellSri(Sri(sri), payload))
+
+  Bus.sub[TellSrisOut]:
     case TellSrisOut(sris, payload) =>
       send.exec(Out.tellSris(Sri.from(sris), payload))
+
+  Bus.sub[CloseAccount]:
     case CloseAccount(userId) =>
       send.exec(Out.disconnectUser(userId))
+
+  Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>
       send.exec(Out.setTroll(userId, v))
+
+  Bus.sub[lila.core.mod.Impersonate]:
     case lila.core.mod.Impersonate(userId, modId) =>
       send.exec(Out.impersonate(userId, modId))
+
+  Bus.sub[ApiUserIsOnline]:
     case ApiUserIsOnline(userId, value) =>
       send.exec(Out.apiUserOnline(userId, value))
       if value then onlineUserIds.getAndUpdate(_ + userId)
-    case Follow(u1, u2)   => send.exec(Out.follow(u1, u2))
+
+  Bus.sub[Follow]:
+    case Follow(u1, u2) => send.exec(Out.follow(u1, u2))
+
+  Bus.sub[UnFollow]:
     case UnFollow(u1, u2) => send.exec(Out.unfollow(u1, u2))
+
   Bus.sub[StreamersOnline]:
     case StreamersOnline(streamers) =>
       send.exec(Out.streamersOnline(streamers))

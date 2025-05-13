@@ -9,6 +9,8 @@ import scalalib.paginator.Paginator
 import scala.util.matching.Regex
 
 import lila.core.config.*
+
+import lila.common.Bus
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
 import lila.relay.RelayTour.WithLastRound
@@ -142,31 +144,33 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
-  lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.core.study.RemoveStudy(studyId) =>
+  Bus.sub[lila.core.study.RemoveStudy]:
+    case lila.core.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
-    },
-    "relayToggle" -> { case lila.study.RelayToggle(id, v, who) =>
+
+  Bus.sub[lila.study.RelayToggle]:
+    case lila.study.RelayToggle(id, v, who) =>
       studyApi
         .isContributor(id, who.u)
         .foreach:
           _.so(api.requestPlay(id.into(RelayRoundId), v, s"manual toggle by ${who.u}"))
-    },
-    "kickStudy" -> { case lila.study.Kick(studyId, userId, who) =>
-      roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
-    },
-    "adminStudy" -> { case lila.study.BecomeStudyAdmin(studyId, me) =>
-      api.becomeStudyAdmin(studyId, me)
-    },
-    "isOfficialRelay" -> { case lila.study.IsOfficialRelay(studyId, promise) =>
-      promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
-    }
-  )
 
-  lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
+  Bus.sub[lila.study.Kick]:
+    case lila.study.Kick(studyId, userId, who) =>
+      roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
+
+  Bus.sub[lila.study.BecomeStudyAdmin]:
+    case lila.study.BecomeStudyAdmin(studyId, me) =>
+      api.becomeStudyAdmin(studyId, me)
+
+  Bus.sub[lila.study.IsOfficialRelay]:
+    case lila.study.IsOfficialRelay(studyId, promise) =>
+      promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
+
+  Bus.sub[lila.study.StudyMembers.OnChange]: change =>
     studyPropagation.onStudyMembersChange(change.study)
 
-  lila.common.Bus.subscribeFun("getRelayCrowd"):
+  Bus.sub[lila.core.study.GetRelayCrowd]:
     case lila.core.study.GetRelayCrowd(studyId, promise) =>
       roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 

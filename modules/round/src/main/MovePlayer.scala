@@ -77,8 +77,8 @@ final private class MovePlayer(
     if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
     else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
-      if pov.opponent.isOfferingDraw then round ! Draw(pov.player.id, false)
-      if pov.player.isProposingTakeback then round ! Takeback(pov.player.id, false)
+      if pov.opponent.isOfferingDraw then round ! RoundBus.Draw(pov.player.id, false)
+      if pov.player.isProposingTakeback then round ! RoundBus.Takeback(pov.player.id, false)
       if progress.game.forecastable then
         moveOrDrop.move.foreach { move =>
           round ! ForecastPlay(move)
@@ -119,7 +119,7 @@ final private class MovePlayer(
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Unit =
     game.playableByAi.so:
-      if game.ply <= lila.core.fishnet.maxPlies then Bus.publish(game, "fishnetPlay")
+      if game.ply <= lila.core.fishnet.maxPlies then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
       else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
@@ -158,28 +158,26 @@ final private class MovePlayer(
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
     // also used for targeted TvBroadcast subscription
-    Bus.publish(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent.makeChan(game.id))
+    Bus.publishDyn(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent.makeChan(game.id))
 
     // publish correspondence moves
     if game.isCorrespondence && game.nonAi then
-      Bus.publish(
+      Bus.pub(
         CorresMoveEvent(
           move = moveEvent,
           playerUserId = game.player(color).userId,
           mobilePushable = game.mobilePushable,
           alarmable = game.alarmable,
           unlimited = game.isUnlimited
-        ),
-        "moveEventCorres"
+        )
       )
 
     // publish simul moves
     for
       simulId        <- game.simulId
       opponentUserId <- game.player(!color).userId
-    yield Bus.publish(
-      SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
-      "moveEventSimul"
+    yield Bus.pub(
+      SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId)
     )
 
   private def moveFinish(game: Game)(using GameProxy): Fu[Events] =

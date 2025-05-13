@@ -127,10 +127,10 @@ final private class LobbySyncActor(
     case HookSub(member, true) =>
       socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
 
-    case HookThieve.GetCandidates(clock, promise) =>
+    case HookThieve.HookBus.GetCandidates(clock, promise) =>
       promise.success(HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
 
-    case HookThieve.StolenHookIds(ids) =>
+    case HookThieve.HookBus.StolenHookIds(ids) =>
       hookRepo.byIds(ids.toSet).foreach(remove)
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
@@ -182,7 +182,7 @@ final private class LobbySyncActor(
       publishRemoveHook(hook)
 
   private def publishRemoveHook(hook: Hook): Unit =
-    Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
+    Bus.publishDyn(RemoveHook(hook.id), s"hookRemove:${hook.id}")
 
 private object LobbySyncActor:
 
@@ -197,7 +197,7 @@ private object LobbySyncActor:
       resyncIdsPeriod: FiniteDuration
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
-    Bus.subscribe(actor, "lobbyActor")
+    Bus.subscribeActor[HookThieve.HookBus](actor)
     scheduler.scheduleWithFixedDelay(15.seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",

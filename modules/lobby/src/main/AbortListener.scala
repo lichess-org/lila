@@ -8,10 +8,10 @@ final private class AbortListener(
     lobbyActor: LobbySyncActor
 )(using Executor):
 
-  lila.common.Bus.subscribeFun("abortGame"):
+  lila.common.Bus.sub[AbortedBy]:
     case AbortedBy(pov) => onAbort(pov)
 
-  lila.common.Bus.subscribeFun("finishGame"):
+  lila.common.Bus.sub[FinishGame]:
     // this includes aborted games too
     case FinishGame(game, _) if game.hasFewerMovesThanExpected => onEarlyFinish(game)
 
