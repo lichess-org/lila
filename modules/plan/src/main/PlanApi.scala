@@ -683,14 +683,13 @@ final class PlanApi(
     } >>
       monthlyGoalApi.get
         .map: m =>
-          Bus.pub(
+          Bus.pub:
             lila.core.misc.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,
               nowInstant
             )
-          )
           lila.mon.plan.goal.update(m.goal.cents)
           lila.mon.plan.current.update(m.current.cents)
           lila.mon.plan.percent.update(m.percent)

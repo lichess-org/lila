@@ -19,5 +19,5 @@ final class Env(
 
   def exists: lila.core.misc.BookmarkExists = api.exists
 
-  lila.common.Bus.sub[lila.core.round.DeleteUnplayed]:
-    case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+  lila.common.Bus.sub[lila.core.round.DeleteUnplayed]: del =>
+    api.removeByGameId(del.gameId)

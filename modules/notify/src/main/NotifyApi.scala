@@ -146,7 +146,7 @@ final class NotifyApi(
 
   private def bellOne(note: Notification): Funit =
     for _ <- insertNotification(note)
-    yield Bus.pub(
+    yield Bus.pub:
       SendToOnlineUser(
         note.to,
         LazyFu: () =>
@@ -159,7 +159,6 @@ final class NotifyApi(
             "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
           )
       )
-    )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
     val expiresIn = content match

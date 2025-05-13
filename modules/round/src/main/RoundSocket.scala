@@ -188,13 +188,11 @@ final class RoundSocket(
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) => rounds.tell(gameId, msg)
 
-  Bus.sub[lila.tree.AnalysisProgress]:
-    case progress =>
-      rounds.tellIfPresent(progress.gameId, progress)
+  Bus.sub[lila.tree.AnalysisProgress]: progress =>
+    rounds.tellIfPresent(progress.gameId, progress)
 
-  Bus.sub[lila.game.actorApi.NotifyRematch]:
-    case rematch =>
-      rounds.tellIfPresent(rematch.rematchOf, rematch)
+  Bus.sub[lila.game.actorApi.NotifyRematch]: rematch =>
+    rounds.tellIfPresent(rematch.rematchOf, rematch)
 
   Bus.sub[FishnetStart.type](rounds.tellAll(_))
   Bus.sub[TellMany]:

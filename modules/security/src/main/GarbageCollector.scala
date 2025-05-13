@@ -62,9 +62,7 @@ final class GarbageCollector(
       _ <-
         val printOpt = spy.prints.headOption
         logger.debug(s"apply ${data.user.username} print=$printOpt")
-        Bus.pub(
-          UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp)
-        )
+        Bus.pub(UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp))
         printOpt.filter(_.banned).map(_.fp.value) match
           case Some(print) =>
             waitThenCollect(user, msg = s"Print ban: `${print.value}`", quickly = quickly)

@@ -89,19 +89,16 @@ final private class TvSyncActor(
         lila.common.Bus
           .safeAsk[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
           .foreach: html =>
-            val pov = Pov.naturalOrientation(game)
-            Bus.pub(
-              lila.core.game.ChangeFeatured(
+            Bus.pub:
+              lila.core.game.ChangeFeatured:
                 makeMessage(
                   "featured",
                   Json.obj(
                     "html"  -> html,
-                    "color" -> pov.color.name,
+                    "color" -> game.naturalOrientation.name,
                     "id"    -> game.id
                   )
                 )
-              )
-            )
 
 private object TvSyncActor:
 

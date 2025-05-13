@@ -123,5 +123,5 @@ final class Env(
       analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.Bus.StudyChapterRequest => analyser.study(req)
 
-  Bus.sub[lila.core.fishnet.FishnetMoveRequest]:
-    case lila.core.fishnet.FishnetMoveRequest(game) => player(game)
+  Bus.sub[lila.core.fishnet.FishnetMoveRequest]: req =>
+    player(req.game)

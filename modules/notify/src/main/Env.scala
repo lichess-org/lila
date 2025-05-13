@@ -33,8 +33,8 @@ final class Env(
   val getAllows = GetNotifyAllows(api.prefs.allows)
 
   // api actor
-  Bus.sub[lila.core.notify.NotifiedBatch]:
-    case lila.core.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
+  Bus.sub[lila.core.notify.NotifiedBatch]: batch =>
+    api.markAllRead(batch.userIds)
   Bus.sub[lila.core.game.CorresAlarmEvent]:
     case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
       api.notifyOne(userId, NotificationContent.CorresAlarm(pov.game.id, opponent))

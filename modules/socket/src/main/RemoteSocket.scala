@@ -75,9 +75,8 @@ final class RemoteSocket(
     case Announce(_, _, json) =>
       send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
 
-  Bus.sub[Mlat]:
-    case Mlat(millis) =>
-      send.exec(Out.mlat(millis))
+  Bus.sub[Mlat]: lat =>
+    send.exec(Out.mlat(lat.millis))
 
   Bus.sub[SendToFlag]:
     case SendToFlag(flag, payload) =>
@@ -91,9 +90,8 @@ final class RemoteSocket(
     case TellSrisOut(sris, payload) =>
       send.exec(Out.tellSris(Sri.from(sris), payload))
 
-  Bus.sub[CloseAccount]:
-    case CloseAccount(userId) =>
-      send.exec(Out.disconnectUser(userId))
+  Bus.sub[CloseAccount]: a =>
+    send.exec(Out.disconnectUser(a.userId))
 
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>
@@ -114,9 +112,8 @@ final class RemoteSocket(
   Bus.sub[UnFollow]:
     case UnFollow(u1, u2) => send.exec(Out.unfollow(u1, u2))
 
-  Bus.sub[StreamersOnline]:
-    case StreamersOnline(streamers) =>
-      send.exec(Out.streamersOnline(streamers))
+  Bus.sub[StreamersOnline]: s =>
+    send.exec(Out.streamersOnline(s.streamers))
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
     def apply(msg: String)               = if !stopping then super.sendTo(channel, msg)

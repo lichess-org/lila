@@ -162,7 +162,7 @@ final private class MovePlayer(
 
     // publish correspondence moves
     if game.isCorrespondence && game.nonAi then
-      Bus.pub(
+      Bus.pub:
         CorresMoveEvent(
           move = moveEvent,
           playerUserId = game.player(color).userId,
@@ -170,15 +170,13 @@ final private class MovePlayer(
           alarmable = game.alarmable,
           unlimited = game.isUnlimited
         )
-      )
 
     // publish simul moves
     for
       simulId        <- game.simulId
       opponentUserId <- game.player(!color).userId
-    yield Bus.pub(
-      SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId)
-    )
+      event = SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId)
+    yield Bus.pub(event)
 
   private def moveFinish(game: Game)(using GameProxy): Fu[Events] =
     game.status match
