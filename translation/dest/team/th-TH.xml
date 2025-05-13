@@ -35,6 +35,9 @@
   <string name="swissTournamentOverview">ทัวร์นาเมนต์สวิสที่สมาชิกในทีมคุณเท่านั้นที่จะเข้าร่วมได้</string>
   <string name="messageAllMembers">ข้อความให้สมาชิกทุกคน</string>
   <string name="messageAllMembersOverview">ส่งข้อความส่วนตัวให้ผู้เล่นทุกคนในทีม</string>
+  <string name="messageAllMembersLongDescription">ส่งข้อความส่วนตัวถึงสมาชิกทุกคนในทีม
+คุณสามารถใช้สิ่งนี้เพื่อเรียกผู้เล่นให้เข้าร่วมการแข่งขันหรือการต่อสู้แบบทีม
+ผู้เล่นที่ไม่ชอบรับข้อความของคุณอาจออกจากทีมได้</string>
   <string name="teamsIlead">ทีมที่ฉันเป็นผู้นำ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">คุณอาจต้องการเชื่อมโยงหนึ่งในทัวร์นาเมนต์ที่กำลังจะมาถึงหรือไม่?</string>
   <string name="leadersChat">ผู้นำของแชท</string>
@@ -50,6 +53,13 @@
   <string name="joinLichessVariantTeam">เข้าร่วมทีม %s เพื่อดูข่าวและเหตุการณ์สำคัญ</string>
   <string name="teamPage">หน้าหลักของทีม</string>
   <string name="thisTeamBattleIsOver">ทัวร์นาเมนต์นี้สิ้นสุดแล้ว และไม่สามารถอัปเดตทีมได้อีกต่อไป</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">รายชื่อทีมที่จะเข้าแข่งขันในการดวลครั้งนี้</string>
+  <string name="oneTeamPerLine">หนึ่งทีมต่อหนึ่งแถว ใช้ระบบเติมข้อความอัตโนมัติ</string>
+  <string name="oneTeamPerLineHelp">คุณสามารถคัดลอกและวางรายการนี้จากทัวร์นาเมนต์หนึ่งไปยังอีกทัวร์นาเมนต์หนึ่งได้
+
+คุณไม่สามารถลบทีมได้หากผู้เล่นได้เข้าร่วมทัวร์นาเมนต์กับทีมนั้นไปแล้ว</string>
+  <string name="numberOfLeadsPerTeam">จำนวนผู้นำต่อทีม ผลรวมคะแนนของพวกเขาคือคะแนนของทีม</string>
+  <string name="numberOfLeadsPerTeamHelp">คุณไม่ควรที่จะเปลี่ยนค่านี้หลังจากที่ทัวร์นาเมนต์เริ่มแล้ว</string>
   <string name="innerTeam">ทีมอินเนอร์</string>
   <plurals name="battleOfNbTeams">
     <item quantity="other">การแข่งขันของ %s ทีม</item>
