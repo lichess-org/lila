@@ -19,15 +19,12 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
           doneMemo.put(tour.id)
           cached.ranking(tour).map { ranking =>
             if ranking.ranking.nonEmpty then
-              Bus
-                .publish(
-                  TourSoon(
-                    tourId = tour.id.value,
-                    tourName = tour.name,
-                    ranking.ranking.keys,
-                    swiss = false
-                  ),
-                  "tourSoon"
+              Bus.pub:
+                TourSoon(
+                  tourId = tour.id.value,
+                  tourName = tour.name,
+                  ranking.ranking.keys,
+                  swiss = false
                 )
               lila.mon.tournament.notifier.tournaments.increment(ranking.playerIndex.size)
           }

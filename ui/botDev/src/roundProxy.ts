@@ -107,7 +107,7 @@ export class RoundProxy implements RoundProxyType {
 }
 
 function player(color: Color): RoundData['player'] {
-  const bot = env.bot.get(env.game.idOf(color));
+  const bot = env.bot.info(env.game.idOf(color));
   return {
     color,
     user: {

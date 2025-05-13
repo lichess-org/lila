@@ -228,7 +228,7 @@ function progress() {
           }),
         }),
       ...playersWithResults(env.dev.log).map(p => {
-        const bot = env.bot.get(p)!;
+        const bot = env.bot.info(p)!;
         return h(
           'div',
           `${bot?.name ?? p} ${ratingText(p, env.game.speed)} ${resultsString(env.dev.log, p)}`,

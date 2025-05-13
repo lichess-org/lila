@@ -139,7 +139,7 @@ $feedback
 
 $baseUrl/verify-title
 """
-    lila.common.Bus.publish(SystemMsg(to, pm), "msgSystemSend")
+    lila.common.Bus.pub(SystemMsg(to, pm))
 
   object image:
     def rel(req: TitleRequest, tag: String) =

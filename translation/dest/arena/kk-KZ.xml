@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Алаң</string>
   <string name="arenaTournaments">Жарыс алаңы</string>
   <string name="isItRated">Бұл бағалана ма?</string>
   <string name="willBeNotified">Жарыс басталғаны туралы сізге хабар келеді. Оған дейін браузердің басқа бетінде ойнай берсеңіз болады.</string>
@@ -61,4 +62,28 @@
   <string name="averagePerformance">Орташа жетістік</string>
   <string name="averageScore">Орташа ұпай</string>
   <string name="myTournaments">Менің жарыстарым</string>
+  <string name="editTournament">Жарысты өңдеу</string>
+  <string name="editTeamBattle">Топтар күресін өңдеу</string>
+  <string name="defender">Қорғаушы</string>
+  <string name="pickYourTeam">Тобыңызды таңдаңыз</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Осы күресте қай топқа мүшесіз?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Қатысу үшін осы топтардың біріне қосылуыңыз керек!</string>
+  <string name="created">Құрылды</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Кейінгі ойындар</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Үздік нәтиже</string>
+  <string name="tournamentStats">Жарыс статистикасы</string>
+  <string name="rankAvgHelp">Орын орташасы деген орныңыздың пайыздық мөлшері. Азы жақсы.
+Мысалы, 100 ойыншы қатысқан жарыста орныңыз 3-інші болса, орын орташасы 3%-ға тең. 1000 ойыншының арасында 10-ыншы болсаңыз, 1%-ға тең.</string>
+  <string name="medians">медианалар</string>
+  <string name="allAveragesAreX">Бұл беттегі барлық орташалар - %s.</string>
+  <string name="total">Барлығы</string>
+  <string name="pointsAvg">Орташа ұпай</string>
+  <string name="pointsSum">Барлық ұпай</string>
+  <string name="rankAvg">Орын орташасы</string>
+  <string name="tournamentWinners">Жарыс жеңімпаздары</string>
+  <string name="tournamentShields">Жарыс қалқандары</string>
+  <string name="onlyTitled">Тек атақты ойыншылар</string>
+  <string name="onlyTitledHelp">Атақ болса ғана, қосылуға рұқсат</string>
+  <string name="tournamentPairingsAreNowClosed">Жарыстағы жұптасу аяқталды.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Берсерк үлесі</string>
 </resources>

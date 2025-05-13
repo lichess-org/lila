@@ -14,12 +14,12 @@ object AnnounceApi:
   def cli(words: List[String]): Fu[String] = words match
     case "cancel" :: Nil =>
       current = none
-      Bus.publish(cancel, "announce")
+      Bus.pub(cancel)
       fuccess("Removed announce")
     case sentence =>
       set(sentence.mkString(" ")) match
         case Some(announce) =>
-          Bus.publish(announce, "announce")
+          Bus.pub(announce)
           fuccess(announce.json.toString)
         case None =>
           fuccess:

@@ -7,7 +7,6 @@ import play.api.Configuration
 
 import lila.common.Bus
 import lila.common.config.*
-import lila.core.misc.mailer.CorrespondenceOpponents
 
 @Module
 final class Env(
@@ -42,22 +41,21 @@ final class Env(
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
-  Bus.subscribeFuns(
-    "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
+  Bus.sub[lila.core.fishnet.NewKey]:
+    case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
-    },
-    "planStart" -> {
-      case lila.core.misc.plan.PlanStart(userId) =>
-        automaticEmail.onPatronNew(userId)
-      case lila.core.misc.plan.PlanGift(from, to, lifetime) =>
-        automaticEmail.onPatronGift(from, to, lifetime)
-    },
-    "planExpire" -> { case lila.core.misc.plan.PlanExpire(userId) =>
-      automaticEmail.onPatronStop(userId)
-    }
-  )
-  Bus.sub[CorrespondenceOpponents]:
-    case CorrespondenceOpponents(userId, opponents) =>
-      automaticEmail.dailyCorrespondenceNotice(userId, opponents)
+
+  Bus.sub[lila.core.misc.plan.PlanStart]: plan =>
+    automaticEmail.onPatronNew(plan.userId)
+
+  Bus.sub[lila.core.misc.plan.PlanGift]:
+    case lila.core.misc.plan.PlanGift(from, to, lifetime) =>
+      automaticEmail.onPatronGift(from, to, lifetime)
+
+  Bus.sub[lila.core.misc.plan.PlanExpire]: plan =>
+    automaticEmail.onPatronStop(plan.userId)
+
+  Bus.sub[lila.core.misc.mailer.CorrespondenceOpponents]: game =>
+    automaticEmail.dailyCorrespondenceNotice(game.userId, game.opponents)
 
 trait CanSendEmails

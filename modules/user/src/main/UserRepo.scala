@@ -400,7 +400,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     yield ()
 
     def findNextScheduled: Fu[Option[(User, UserDelete)]] =
-      val requestedAt = nowInstant.minusDays(lila.core.user.UserDelete.delay.value)
+      val requestedAt = nowInstant.minusDays(7)
       coll
         .find:
           $doc( // hits the delete.requested_1 index
@@ -431,7 +431,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .map: _ =>
-        lila.common.Bus.publish(lila.core.user.ChangeEmail(id, email), "email")
+        lila.common.Bus.pub(lila.core.user.ChangeEmail(id, email))
 
   private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail).orElse(doc.getAsOpt[EmailAddress](F.email))
