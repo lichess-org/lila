@@ -112,9 +112,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def blindModeForm(using ctx: Context) = raw:
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
-      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
-        if ctx.blind then "Disable" else "Enable"
-      } blind mode</button></form>"""
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">${trans.site.accessibility
+        .txt()} - ${
+        if ctx.blind then trans.site.disableBlindMode.txt() else trans.site.enableBlindMode.txt()
+      } </button></form>"""
 
   def zenZone(using Translate) = spaceless:
     s"""

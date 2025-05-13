@@ -114,7 +114,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       o.noCloseButton ||
         h(
           'div.close-button-anchor',
-          h('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': 'Close' } }),
+          h('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
         ),
       h(
         `div.${o.noScrollable ? 'not-' : ''}scrollable`,

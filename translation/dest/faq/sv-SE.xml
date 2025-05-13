@@ -101,7 +101,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nej, användarnamn kan inte ändras av tekniska och praktiska skäl. Användarnamn förekommer i för många platser: databaser, exporter, loggar, och människors minne. Du kan justera versalerna en gång.</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
-  <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>
+  <string name="wayOfBerserkExplanation">För att få den, utmanade Hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>
   <string name="aHourlyBulletTournament">en tim-Bullet turnering</string>
   <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict streamade och under de senaste 2 timmarna hade han försökt att besegra A.I. nivå 8 i ett 1+0 parti, utan framgång. Thibault berättade för honom att om han lyckades göra det på stream, skulle han få en unik trofé. En timme senare krossade han Stockfish och löftet hedrades.</string>
   <string name="lichessRatings">Lichess rating</string>
@@ -168,6 +168,7 @@ Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du utt
 3. Klicka på Cookies och webbplatsbehörigheter
 4. Bläddra ner och klicka på Media autouppspelning
 5. Lägg till lichess.org på tillåtet</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hindra mig själv från att spela?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">fristående psykiskt hälsotillstånd</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Vi får regelbundet meddelanden från användare som ber oss om hjälp att hindra dem från att spela för mycket.
 
