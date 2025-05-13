@@ -73,7 +73,7 @@ final private class TvBroadcast(
                 .add("rating" -> p.rating)
                 .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
           ),
-          fen = Fen.write(game.board)
+          fen = Fen.write(game.position)
         )
         clients.foreach: client =>
           client.queue.offer:

@@ -58,7 +58,7 @@ final class GifExport(
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
     lightUserApi.preloadMany(game.userIds) >>
       thumbnail(
-        board = game.chess.board,
+        position = game.chess.position,
         white = Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync).some,
         black = Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync).some,
         orientation = game.naturalOrientation,
@@ -69,7 +69,7 @@ final class GifExport(
       )
 
   def thumbnail(
-      board: Position,
+      position: Position,
       white: Option[String] = None,
       black: Option[String] = None,
       orientation: Color,
@@ -82,7 +82,7 @@ final class GifExport(
       .withMethod("GET")
       .withQueryStringParameters(
         List(
-          "fen"         -> Fen.write(board).value,
+          "fen"         -> Fen.write(position).value,
           "orientation" -> orientation.name,
           "theme"       -> theme,
           "piece"       -> piece
@@ -90,7 +90,7 @@ final class GifExport(
           white.map { "white" -> _ },
           black.map { "black" -> _ },
           lastMove.map { lm => "lastMove" -> lm.uci },
-          board.checkSquare.map { "check" -> _.key }
+          position.checkSquare.map { "check" -> _.key }
         ).flatten*
       )
       .stream()
@@ -141,13 +141,13 @@ final class GifExport(
       case ((game, uci), scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
-        framesRec(tail, arr :+ frame(game.board, uci, delay))
+        framesRec(tail, arr :+ frame(game.position, uci, delay))
 
-  private def frame(board: Position, uci: Option[Uci], delay: Option[Centis]) =
+  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
-        "fen"      -> (Fen.write(board)),
+        "fen"      -> (Fen.write(position)),
         "lastMove" -> uci.map(_.uci)
       )
-      .add("check", board.checkSquare.map(_.key))
+      .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))

@@ -49,7 +49,7 @@ final class FishnetPlayer(
       yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
-    if game.board.playable(true) then
+    if game.position.playable(true) then
       if game.ply <= lila.core.fishnet.maxPlies then
         gameRepo.initialFen(game).zip(uciMemo.get(game)).map { case (initialFen, moves) =>
           Work.Move(

@@ -234,7 +234,7 @@ final private class RoundAsyncActor(
             if _ then
               finisher.rageQuit(
                 pov.game,
-                Some(pov.color).ifFalse(pov.game.board.opponentHasInsufficientMaterial)
+                Some(pov.color).ifFalse(pov.game.position.opponentHasInsufficientMaterial)
               )
             else fuccess(List(Event.Reload))
 
