@@ -384,9 +384,6 @@
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
   <string name="takebackPropositionSent">Прапанова скасаваць ход даслана</string>
-  <string name="takebackPropositionDeclined">Прапанова скасаваць ход адхілена</string>
-  <string name="takebackPropositionAccepted">Прапанова скасаваць ход прынята</string>
-  <string name="takebackPropositionCanceled">Прапанова скасаваная</string>
   <string name="yourOpponentProposesATakeback">Супернік прапануе скасаваць ход</string>
   <string name="bookmarkThisGame">Дадаць гэтую гульню ў закладкі</string>
   <string name="tournament">Турнір</string>
