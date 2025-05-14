@@ -1,6 +1,8 @@
 package lila.memo
 
 import reactivemongo.api.bson.*
+import scalalib.actor.AsyncActorSequencers
+import scalalib.future.FutureAfter
 
 import lila.db.dsl.{ *, given }
 
@@ -13,7 +15,7 @@ final class MongoRateLimit[K](
     coll: Coll,
     enforce: Boolean,
     log: Boolean
-):
+)(using Executor, FutureAfter):
   import MongoRateLimit.{ *, given }
   import RateLimit.Cost
 
@@ -21,6 +23,14 @@ final class MongoRateLimit[K](
 
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
+
+  private lazy val sequencer = AsyncActorSequencers[K](
+    maxSize = Max(credits),
+    expiration = 1.minute,
+    timeout = 10.seconds,
+    name = s"$name.sequencer",
+    lila.log.asyncActorMonitor.highCardinality
+  )
 
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
 
@@ -31,27 +41,28 @@ final class MongoRateLimit[K](
         case Some(v) => v
         case _       => Entry(k.toString(), 0, makeClearAt)
 
-  def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
+  def apply[A <: Matchable](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
   )(default: => A)(using Executor): Fu[A] =
     if cost < 1 then op
     else
-      val dbKey = makeDbKey(k)
-      coll
-        .one[Entry]($id(dbKey))
-        .flatMap:
-          case None =>
-            coll.insert.one(Entry(dbKey, cost, makeClearAt)) >> op
-          case Some(Entry(_, spent, clearAt)) if spent < credits =>
-            coll.update.one($id(dbKey), Entry(dbKey, spent + cost, clearAt), upsert = true) >> op
-          case Some(Entry(_, _, clearAt)) if clearAt.isBeforeNow =>
-            coll.update.one($id(dbKey), Entry(dbKey, cost, makeClearAt), upsert = true) >> op
-          case _ if enforce =>
-            if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
-            monitor.increment()
-            fuccess(default)
-          case _ =>
-            op
+      sequencer(k):
+        val dbKey = makeDbKey(k)
+        coll
+          .one[Entry]($id(dbKey))
+          .flatMap:
+            case None =>
+              coll.insert.one(Entry(dbKey, cost, makeClearAt)) >> op
+            case Some(Entry(_, spent, clearAt)) if spent < credits =>
+              coll.update.one($id(dbKey), Entry(dbKey, spent + cost, clearAt), upsert = true) >> op
+            case Some(Entry(_, _, clearAt)) if clearAt.isBeforeNow =>
+              coll.update.one($id(dbKey), Entry(dbKey, cost, makeClearAt), upsert = true) >> op
+            case _ if enforce =>
+              if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
+              monitor.increment()
+              fuccess(default)
+            case _ =>
+              op
 
 object MongoRateLimit:
   case class Entry(_id: String, v: Int, e: Instant):
@@ -69,7 +80,7 @@ final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig):
       keyToString: K => String = (k: K) => k.toString,
       enforce: Boolean = true,
       log: Boolean = true
-  ) = new MongoRateLimit[K](
+  )(using Executor, FutureAfter) = new MongoRateLimit[K](
     credits = credits,
     duration = duration,
     name = name,
