@@ -22,6 +22,7 @@
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
+  <string name="createTheGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
@@ -954,4 +955,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
 Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Hỗ trợ tiếp cận</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Bật chế độ mù</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Tắt chế độ mù</string>
 </resources>

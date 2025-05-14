@@ -46,7 +46,7 @@ object PlayServer:
         application,
         stopHook = () => funit,
         application.actorSystem
-      )(application.materializer)
+      )(using application.materializer)
 
       process.addShutdownHook:
         // Only run server stop if the shutdown reason is not defined. That means the

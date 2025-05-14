@@ -11,7 +11,6 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.core.game.TvSelect
-import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
@@ -108,20 +107,20 @@ final class RoundSocket(
       def forward(f: GamePlayerId => Any) = rounds.tell(fullId.gameId, f(fullId.playerId))
       tpe match
         case "moretime"      => forward(Moretime(_))
-        case "rematch-yes"   => forward(Rematch(_, true))
-        case "rematch-no"    => forward(Rematch(_, false))
-        case "takeback-yes"  => forward(Takeback(_, true))
-        case "takeback-no"   => forward(Takeback(_, false))
-        case "draw-yes"      => forward(Draw(_, true))
-        case "draw-no"       => forward(Draw(_, false))
+        case "rematch-yes"   => forward(RoundBus.Rematch(_, true))
+        case "rematch-no"    => forward(RoundBus.Rematch(_, false))
+        case "takeback-yes"  => forward(RoundBus.Takeback(_, true))
+        case "takeback-no"   => forward(RoundBus.Takeback(_, false))
+        case "draw-yes"      => forward(RoundBus.Draw(_, true))
+        case "draw-no"       => forward(RoundBus.Draw(_, false))
         case "draw-claim"    => forward(DrawClaim(_))
-        case "resign"        => forward(Resign(_))
-        case "resign-force"  => forward(ResignForce(_))
+        case "resign"        => forward(RoundBus.Resign(_))
+        case "resign-force"  => forward(RoundBus.ResignForce(_))
         case "blindfold-yes" => forward(Blindfold(_, true))
         case "blindfold-no"  => forward(Blindfold(_, false))
         case "draw-force"    => forward(DrawForce(_))
-        case "abort"         => forward(Abort(_))
-        case "outoftime"     => forward(_ => QuietFlag) // mobile app BC
+        case "abort"         => forward(RoundBus.Abort(_))
+        case "outoftime"     => forward(_ => RoundBus.QuietFlag) // mobile app BC
         case t               => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
@@ -134,7 +133,7 @@ final class RoundSocket(
       messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId)
-    case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
+    case Protocol.In.Berserk(gameId, userId) => Bus.pub(Berserk(gameId, userId))
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines.foreach:
         case (gameId, Some(on)) =>
@@ -146,7 +145,7 @@ final class RoundSocket(
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
     case hold: Protocol.In.HoldAlert => rounds.tell(hold.fullId.gameId, hold)
-    case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
+    case r: Protocol.In.SelfReport   => Bus.pub(r)
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
@@ -179,39 +178,49 @@ final class RoundSocket(
     )
     .andDo(send(P.Out.boot))
 
-  Bus.subscribeFun(
-    "tvSelect",
-    "roundSocket",
-    "tourStanding",
-    "startGame",
-    "finishGame",
-    "roundUnplayed"
-  ):
+  Bus.sub[TvSelect]:
     case TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId).exec(Protocol.Out.tvSelect(gameId, speed, json))
-    case Tell(id, e @ BotConnected(color, v)) =>
-      val gameId = GameId(id)
+
+  Bus.sub[Tell]:
+    case Tell(gameId, e @ RoundBus.BotConnected(color, v)) =>
       rounds.tell(gameId, e)
       sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
-    case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
-    case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
-    case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
-    case TellAll(msg)               => rounds.tellAll(msg)
-    case Exists(gameId, promise)    => promise.success(rounds.exists(GameId(gameId)))
+    case Tell(gameId, msg) => rounds.tell(gameId, msg)
+
+  Bus.sub[lila.tree.AnalysisProgress]: progress =>
+    rounds.tellIfPresent(progress.gameId, progress)
+
+  Bus.sub[lila.game.actorApi.NotifyRematch]: rematch =>
+    rounds.tellIfPresent(rematch.rematchOf, rematch)
+
+  Bus.sub[FishnetStart.type](rounds.tellAll(_))
+  Bus.sub[TellMany]:
+    case TellMany(gameIds, msg) => rounds.tellIds(gameIds, msg)
+  Bus.sub[SocketExists]:
+    case SocketExists(gameId, promise) => promise.success(rounds.exists(gameId))
+
+  Bus.sub[TourStanding]:
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
+
+  Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
+
+  Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+
+  Bus.sub[lila.core.round.DeleteUnplayed]:
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
-  Bus.subscribeFun(BusChan.round.chan, BusChan.global.chan):
+  Bus.subscribeFunDyn(BusChan.round.chan, BusChan.global.chan):
     case lila.core.chat.ChatLine(id, l, json) =>
       val line = lila.chat.RoundLine(l, json, id.value.endsWith("/w"))
       rounds.tellIfPresent(GameId.take(id.value), line)
@@ -302,7 +311,7 @@ object RoundSocket:
           case _               => 1
       } / {
         import chess.variant.*
-        (pov.game.chess.board.materialImbalance, pov.game.variant) match
+        (pov.game.chess.position.materialImbalance, pov.game.variant) match
           case (_, Antichess | Crazyhouse | Horde)                                   => 1
           case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
           case _                                                                     => 1

@@ -9,7 +9,7 @@ import scala.util.matching.Regex
 import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
-import lila.core.round.{ Abort, Resign, CurrentlyPlaying }
+import lila.core.round.{ RoundBus, CurrentlyPlaying }
 import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.game.GameRepo
 import lila.memo.SettingStore
@@ -61,7 +61,7 @@ final class Env(
 
   private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
 
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private val config = appConfig.get[RoundConfig]("round")(using AutoConfig.loader)
 
   private val defaultGoneWeight = fuccess(1f)
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
@@ -92,17 +92,16 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
-  Bus.subscribeFuns(
-    "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
-      onStart.exec(gameId)
-    },
-    "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
+  Bus.sub[lila.core.game.GameStart]: game =>
+    onStart.exec(game.id)
+
+  Bus.sub[RoundSocket.Protocol.In.SelfReport]:
+    case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
-    },
-    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
+
+  Bus.sub[lila.core.mod.MarkCheater]:
+    case lila.core.mod.MarkCheater(userId, true) =>
       roundApi.resignAllGamesOf(userId)
-    }
-  )
 
   lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
@@ -112,10 +111,10 @@ final class Env(
           for _ <- lightUserApi.preloadMany(game.userIds)
           yield
             val sg = lila.core.game.StartGame(game)
-            Bus.publish(sg, "startGame")
+            Bus.pub(sg)
             game.userIds.foreach: userId =>
-              Bus.publish(sg, s"userStartGame:$userId")
-            if game.playableByAi then Bus.publish(game, "fishnetPlay")
+              Bus.publishDyn(sg, s"userStartGame:$userId")
+            if game.playableByAi then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -200,7 +199,7 @@ final class Env(
       gameRepo
         .allPlaying(userId)
         .map:
-          _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
+          _.foreach { pov => roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId)) }
 
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
 
@@ -211,8 +210,8 @@ final class Env(
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
   def resign(pov: Pov): Unit =
-    if pov.game.abortableByUser then roundApi.tell(pov.gameId, Abort(pov.playerId))
-    else if pov.game.resignable then roundApi.tell(pov.gameId, Resign(pov.playerId))
+    if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
+    else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
 
 private trait SelfReportEndGame
 private trait SelfReportMarkUser

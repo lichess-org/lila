@@ -152,6 +152,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       "past"     -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
     )
 
+  def search(tours: Paginator[WithLastRound])(using Config) =
+    paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
+
 object JsonView:
 
   case class Config(html: Boolean)

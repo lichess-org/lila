@@ -39,7 +39,7 @@ final class Env(
     shutdown: akka.actor.CoordinatedShutdown
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer, lila.core.config.RateLimit):
 
-  private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
+  private val config = appConfig.get[FishnetConfig]("fishnet")(using AutoConfig.loader)
 
   private lazy val analysisColl = db(config.analysisColl)
 
@@ -67,7 +67,7 @@ final class Env(
   private lazy val apiConfig = FishnetApi.Config(offlineMode = config.offlineMode)
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
+    Bus.safeAsk[Boolean, lila.core.round.SocketExists](lila.core.round.SocketExists(id, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -101,7 +101,7 @@ final class Env(
           .flatMap:
             if _ then
               api.createClient(UserStr(name).id).map { client =>
-                Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+                Bus.pub(lila.core.fishnet.NewKey(client.userId, client.key.value))
                 s"Created key: ${client.key.value} for: $name"
               }
             else fuccess("User missing, closed, or banned")
@@ -111,15 +111,17 @@ final class Env(
         repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
-  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
+  Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
-    case lila.core.mod.MarkBooster(userId)       => disable(userId.value)
-    case lila.core.mod.Shadowban(userId, true)   => disable(userId.value)
+  Bus.sub[lila.core.mod.MarkBooster]:
+    case lila.core.mod.MarkBooster(userId) => disable(userId.value)
+  Bus.sub[lila.core.mod.Shadowban]:
+    case lila.core.mod.Shadowban(userId, true) => disable(userId.value)
 
   Bus.sub[lila.core.fishnet.Bus]:
     case lila.core.fishnet.Bus.GameRequest(id) =>
       analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.Bus.StudyChapterRequest => analyser.study(req)
 
-  Bus.subscribeFun("fishnetPlay"):
-    case game: Game => player(game)
+  Bus.sub[lila.core.fishnet.FishnetMoveRequest]: req =>
+    player(req.game)

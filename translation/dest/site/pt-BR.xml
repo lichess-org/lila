@@ -22,6 +22,7 @@
   <string name="asBlack">de pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
   <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
@@ -74,7 +75,7 @@
   <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Variante forçada</string>
   <string name="copyVariationPgn">Copiar PGN da variante</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Copiar PGN da linha principal</string>
+  <string name="copyMainLinePgn">Copiar PGN da linha principal</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota da variante</string>
   <string name="variantWin">Vitória da variante</string>
@@ -612,7 +613,7 @@
   <string name="victoryVsYInZ">%1$s vs %2$s em %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s em %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s em %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Linha do tempo</string>
+  <string name="timeline">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="biographyDescription">Fale sobre você, seus interesses, o que você gosta no xadrez, suas aberturas favoritas, jogadores...</string>
@@ -998,4 +999,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Acessibilidade</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Habilitar modo às cegas</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desabilitar modo às cegas</string>
 </resources>

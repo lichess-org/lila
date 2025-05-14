@@ -52,10 +52,6 @@ export const env = new (class {
     );
   }
 
-  get manifestFile(): string {
-    return join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
-  }
-
   *tasks<T extends 'sync' | 'hash' | 'bundle'>(
     t: T,
   ): Generator<[Package, Package[T] extends Array<infer U> ? U : never]> {

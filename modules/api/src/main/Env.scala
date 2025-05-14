@@ -6,7 +6,7 @@ import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
-import lila.core.misc.lpv.*
+import lila.core.misc.lpv.Lpv
 
 @Module
 final class Env(
@@ -99,24 +99,20 @@ final class Env(
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
 
-  Bus.subscribeFuns(
-    "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
+  Bus.sub[GetLinkCheck]:
+    case GetLinkCheck(line, source, promise) =>
       promise.completeWith(linkCheck(line, source))
-    },
-    "chatFreshness" -> { case IsChatFresh(source, promise) =>
+  Bus.sub[IsChatFresh]:
+    case IsChatFresh(source, promise) =>
       promise.completeWith(chatFreshness.of(source))
-    },
-    "lpv" -> {
-      case AllPgnsFromText(text, max, p)  => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
-      case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
-    },
-    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
+  Bus.sub[Lpv]:
+    case Lpv.AllPgnsFromText(text, max, p) => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
+    case Lpv.LinkRenderFromText(text, p)   => p.completeWith(textLpvExpand.linkRenderFromText(text))
+  Bus.sub[lila.core.security.GarbageCollect]:
+    case lila.core.security.GarbageCollect(userId) =>
       accountTermination.garbageCollect(userId)
-    },
-    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) =>
-      accountTermination.lichessDisable(userId)
-    }
-  )
+  Bus.sub[lila.core.playban.RageSitClose]: close =>
+    accountTermination.lichessDisable(close.userId)
 
   lila.i18n.Registry.asyncLoadLanguages()
 

@@ -64,5 +64,5 @@ final class SelfReport(
                   val delay = (2 + delayBase + ThreadLocalRandom.nextInt(delayBase * 60)).minutes
                   scheduler.scheduleOnce(delay):
                     lila.common.Bus
-                      .publish(lila.core.mod.SelfReportMark(u.id, name, fullId), "selfReportMark")
+                      .pub(lila.core.mod.SelfReportMark(u.id, name, fullId))
     }

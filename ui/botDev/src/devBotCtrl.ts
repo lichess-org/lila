@@ -69,11 +69,11 @@ export class DevBotCtrl extends BotLoader {
   }
 
   get white(): BotInfo | undefined {
-    return this.get(this.uids.white);
+    return this.info(this.uids.white);
   }
 
   get black(): BotInfo | undefined {
-    return this.get(this.uids.black);
+    return this.info(this.uids.black);
   }
 
   get isBusy(): boolean {
@@ -118,7 +118,7 @@ export class DevBotCtrl extends BotLoader {
     await this.store.remove(bot.uid);
   }
 
-  get(uid: string | undefined): BotInfo | undefined {
+  info(uid: string | undefined): BotInfo | undefined {
     if (uid === undefined) return undefined;
     return this.bots.get(uid) ?? this.rateBots[Number(uid.slice(1))];
   }
@@ -149,7 +149,7 @@ export class DevBotCtrl extends BotLoader {
         if (a.classList.includes(c) && !b.classList.includes(c)) return -1;
         if (!a.classList.includes(c) && b.classList.includes(c)) return 1;
       }
-      const [ab, bb] = [this.get(domIdToUid(a.domId)), this.get(domIdToUid(b.domId))];
+      const [ab, bb] = [this.info(domIdToUid(a.domId)), this.info(domIdToUid(b.domId))];
       return Bot.rating(ab, speed) - Bot.rating(bb, speed) || a.label.localeCompare(b.label);
     };
   }
