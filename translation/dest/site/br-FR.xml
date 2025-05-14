@@ -402,9 +402,6 @@
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
-  <string name="takebackPropositionDeclined">Nac\'het eo bet nullañ ar fiñvadenn ziwezhañ</string>
-  <string name="takebackPropositionAccepted">Asantet eo bet nullañ ar fiñvadenn ziwezhañ</string>
-  <string name="takebackPropositionCanceled">Ar c\'hinnig nullañ ar fiñvadenn ziwezhañ zo bet nullet</string>
   <string name="yourOpponentProposesATakeback">Kinnig a ra oc\'h enebour e vefe nullet ho fiñvadenn ziwezhañ</string>
   <string name="bookmarkThisGame">Miret ar c\'hrogad-mañ er roll-istor</string>
   <string name="tournament">Tournamant</string>
