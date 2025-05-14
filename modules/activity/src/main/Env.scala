@@ -36,48 +36,39 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.core.game.FinishGame(game, _) if !game.aborted => write.game(game)
-    },
-    "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
-      write.puzzle(res)
-    }
-  )
+  Bus.sub[lila.core.game.FinishGame]:
+    case lila.core.game.FinishGame(game, _) if !game.aborted => write.game(game)
+
+  Bus.sub[lila.puzzle.Puzzle.UserResult](write.puzzle(_))
+
   Bus.sub[StreakRun]:
-    case StreakRun(userId, score) =>
-      write.streak(userId, score)
+    case StreakRun(userId, score) => write.streak(userId, score)
 
   Bus.sub[StormRun]:
-    case StormRun(userId, score) =>
-      write.storm(userId, score)
+    case StormRun(userId, score) => write.storm(userId, score)
 
   Bus.sub[RacerRun]:
-    case RacerRun(userId, score) =>
-      write.racer(userId, score)
+    case RacerRun(userId, score) => write.racer(userId, score)
 
-  Bus.subscribeFun(
-    "ublogPost",
-    "finishPractice",
-    "team",
-    "startSimul",
-    "moveEventCorres",
-    "plan",
-    "relation",
-    "startStudy",
-    "swissFinish"
-  ):
-    case lila.core.ublog.UblogPost.Create(post)       => write.ublogPost(post)
-    case prog: lila.core.practice.OnComplete          => write.practice(prog)
-    case lila.core.simul.OnStart(simul)               => write.simul(simul)
+  Bus.sub[lila.core.ublog.UblogPost.Create]: create =>
+    write.ublogPost(create.post)
+  Bus.sub[lila.core.practice.OnComplete](write.practice(_))
+  Bus.sub[lila.core.simul.OnStart]: start =>
+    write.simul(start.simul)
+  Bus.sub[CorresMoveEvent]:
     case CorresMoveEvent(move, Some(userId), _, _, _) => write.corresMove(move.gameId, userId)
+  Bus.sub[lila.core.misc.plan.MonthInc]:
     case lila.core.misc.plan.MonthInc(userId, months) => write.plan(userId, months)
-    case lila.core.relation.Follow(from, to)          => write.follow(from, to)
-    case lila.core.study.StartStudy(id)               =>
-      // wait some time in case the study turns private
-      scheduler.scheduleOnce(5.minutes)(write.study(id))
-    case lila.core.team.TeamCreate(t)                  => write.team(t.id, t.userId)
-    case lila.core.team.JoinTeam(id, userId)           => write.team(id, userId)
+  Bus.sub[lila.core.relation.Follow]:
+    case lila.core.relation.Follow(from, to) => write.follow(from, to)
+  Bus.sub[lila.core.study.StartStudy]: start =>
+    // wait some time in case the study turns private
+    scheduler.scheduleOnce(5.minutes)(write.study(start.studyId))
+  Bus.sub[lila.core.team.TeamCreate]:
+    case lila.core.team.TeamCreate(t) => write.team(t.id, t.userId)
+  Bus.sub[lila.core.team.JoinTeam]:
+    case lila.core.team.JoinTeam(id, userId) => write.team(id, userId)
+  Bus.sub[lila.core.swiss.SwissFinish]:
     case lila.core.swiss.SwissFinish(swissId, ranking) => write.swiss(swissId, ranking)
 
   Bus.sub[StreamStart]:

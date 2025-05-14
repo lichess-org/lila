@@ -41,7 +41,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
-        mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
+        mode = if chessGame.position.variant.fromPosition then Mode.Casual else c.mode,
         source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
@@ -58,7 +58,7 @@ private object ChallengeJoiner:
   ): (chess.Game, Option[Position.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(board = Position(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(position = Position(variant), clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)
@@ -67,7 +67,7 @@ private object ChallengeJoiner:
 
     baseState.fold(makeChess(variant) -> none[Position.AndFullMoveNumber]): sp =>
       val game = chess.Game(
-        board = sp.board,
+        position = sp.position,
         ply = sp.ply,
         startedAtPly = sp.ply,
         clock = tc.realTime.map(_.toClock)
@@ -79,7 +79,7 @@ private object ChallengeJoiner:
     position.fold(game): sp =>
       game.copy(
         chess = game.chess.copy(
-          board = game.board.copy(history = sp.board.history),
+          position = game.position.copy(history = sp.position.history),
           ply = sp.ply
         )
       )

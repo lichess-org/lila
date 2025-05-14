@@ -40,7 +40,7 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.engine, v)))
         _ <- logApi.engine(sus, v)
       yield
-        Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        Bus.pub(lila.core.mod.MarkCheater(sus.user.id, v))
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
@@ -66,7 +66,7 @@ final class ModApi(
         _ <- logApi.booster(sus, v)
       yield
         if v then
-          Bus.publish(lila.core.mod.MarkBooster(sus.user.id), "adjustBooster")
+          Bus.pub(lila.core.mod.MarkBooster(sus.user.id))
           notifier.reporters(me.modId, sus)
         sus
 
@@ -81,7 +81,7 @@ final class ModApi(
           for _ <- userRepo.updateTroll(sus.user)
           yield
             logApi.troll(sus)
-            Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
+            Bus.pub(lila.core.mod.Shadowban(sus.user.id, value))
         _ = if value then notifier.reporters(me.modId, sus)
       yield sus
 
@@ -188,7 +188,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.rankban != v).so:
-      if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.pub(lila.core.mod.KickFromRankings(sus.user.id))
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
 
   def setArenaBan(sus: Suspect, v: Boolean)(using MyId): Funit =

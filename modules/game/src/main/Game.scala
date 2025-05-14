@@ -145,14 +145,14 @@ object GameExt:
           }
         },
         loadClockHistory = _ => newClockHistory,
-        status = game.board.status | g.status,
+        status = game.position.status | g.status,
         movedAt = nowInstant
       )
 
       val state = Event.State(
         turns = game.ply,
         status = (g.status != updated.status).option(updated.status),
-        winner = game.board.winner,
+        winner = game.position.winner,
         whiteOffersDraw = g.whitePlayer.isOfferingDraw,
         blackOffersDraw = g.blackPlayer.isOfferingDraw
       )
@@ -163,10 +163,10 @@ object GameExt:
           updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
 
       val events = moveOrDrop.fold(
-        Event.Move(_, game.board, state, clockEvent, updated.board.crazyData),
-        Event.Drop(_, game.board, state, clockEvent, updated.board.crazyData)
+        Event.Move(_, game.position, state, clockEvent, updated.position.crazyData),
+        Event.Drop(_, game.position, state, clockEvent, updated.position.crazyData)
       ) :: {
-        (updated.board.variant.threeCheck && game.board.check.yes).so(List:
+        (updated.position.variant.threeCheck && game.position.check.yes).so(List:
           Event.CheckCount(
             white = updated.history.checkCount.white,
             black = updated.history.checkCount.black
@@ -202,7 +202,7 @@ object GameExt:
       else 0
 
     def drawReason =
-      if g.variant.isInsufficientMaterial(g.board) then DrawReason.InsufficientMaterial.some
+      if g.variant.isInsufficientMaterial(g.position) then DrawReason.InsufficientMaterial.some
       else if g.variant.fiftyMoves(g.history) then DrawReason.FiftyMoves.some
       else if g.history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
       else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some

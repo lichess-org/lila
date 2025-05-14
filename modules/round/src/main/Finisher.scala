@@ -31,7 +31,7 @@ final private class Finisher(
       events <- apply(pov.game, _.Aborted, None)
       _ = getSocketStatus(pov.game).foreach: ss =>
         playban.abort(pov, ss.colorsOnGame)
-      _ = Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
+      _ = Bus.pub(AbortedBy(pov.copy(game = pov.game.abort)))
     yield events
 
   def abortForce(game: Game)(using GameProxy): Fu[Events] =
@@ -52,7 +52,7 @@ final private class Finisher(
     else if game.player(!game.player.color).isOfferingDraw then
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
-      val winner = Some(!game.player.color).ifFalse(game.board.opponentHasInsufficientMaterial)
+      val winner = Some(!game.player.color).ifFalse(game.position.opponentHasInsufficientMaterial)
       for
         events <- apply(game, _.Outoftime, winner)
         _ = winner.foreach: w =>
@@ -140,9 +140,9 @@ final private class Finisher(
             gameRepo.game(game.id).foreach { newGame =>
               newGame.foreach(proxy.setFinishedGame)
               val finish = FinishGame(newGame | game, users)
-              Bus.publish(finish, "finishGame")
+              Bus.pub(finish)
               game.userIds.foreach: userId =>
-                Bus.publish(finish, s"userFinishGame:$userId")
+                Bus.publishDyn(finish, s"userFinishGame:$userId")
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
 

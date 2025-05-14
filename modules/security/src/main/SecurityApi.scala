@@ -10,6 +10,7 @@ import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
+import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
@@ -100,10 +101,10 @@ final class SecurityApi(
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
-        lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
+        lila.common.Bus.pub(LoginWithBlankedPassword(c.user.id))
         BlankedPassword
       else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
-        lila.common.Bus.publish(c.user, "loginWithWeakPassword")
+        lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
         WeakPassword
       else result
 

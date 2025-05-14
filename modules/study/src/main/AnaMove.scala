@@ -30,19 +30,19 @@ case class AnaMove(
       .Game(variant.some, fen.some)(orig, dest, promotion)
       .map: (game, move) =>
         val uci     = Uci(move)
-        val movable = game.board.playable(false)
+        val movable = game.position.playable(false)
         val fen     = chess.format.Fen.write(game)
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
           move = Uci.WithSan(uci, move.toSanStr),
           fen = fen,
-          check = game.board.check,
-          dests = Some(movable.so(game.board.destinations)),
+          check = game.position.check,
+          dests = Some(movable.so(game.position.destinations)),
           opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant))
             .so(OpeningDb.findByFullFen(fen)),
-          drops = if movable then game.board.drops else Some(Nil),
-          crazyData = game.board.crazyData
+          drops = if movable then game.position.drops else Some(Nil),
+          crazyData = game.position.crazyData
         )
 
 object AnaMove:

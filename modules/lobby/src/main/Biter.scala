@@ -65,7 +65,7 @@ final private class Biter(
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(
       chess = ChessGame(
-        board = Position(hook.realVariant),
+        position = Position(hook.realVariant),
         clock = hook.clock.toClock.some
       ),
       players = users.mapWithColor(newPlayer.apply),
@@ -78,7 +78,7 @@ final private class Biter(
   private def makeGame(seek: Seek, users: GameUsers) = lila.core.game
     .newGame(
       chess = ChessGame(
-        board = Position(seek.realVariant),
+        position = Position(seek.realVariant),
         clock = none
       ),
       players = users.mapWithColor(newPlayer.apply),

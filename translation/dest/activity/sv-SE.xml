@@ -34,6 +34,10 @@
     <item quantity="one">Avslutade %s korrespondensparti</item>
     <item quantity="other">Avslutade %s korrespondenspartier</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Avslutade %1$s %2$s korrespondensparti</item>
+    <item quantity="other">Avslutade %1$s %2$s korrespondenspartier</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Började följa %s spelare</item>
     <item quantity="other">Började följa %s spelare</item>

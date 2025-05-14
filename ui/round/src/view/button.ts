@@ -114,12 +114,12 @@ export function standard(
   return h(
     'button.fbt.' + socketMsg,
     {
-      attrs: { disabled: !enabled(), title: hintFn() },
+      attrs: ctrl.nvui ? { disabled: !enabled() } : { disabled: !enabled(), title: hintFn() },
       hook: bind('click', () => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', ctrl.nvui ? [hintFn()] : justIcon(icon))],
+    ctrl.nvui ? [hintFn()] : [h('span', justIcon(icon))],
   );
 }
 

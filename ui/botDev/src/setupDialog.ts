@@ -162,7 +162,7 @@ class SetupDialog {
   };
 
   private select(selection?: string) {
-    const bot = env.bot.get(selection);
+    const bot = env.bot.info(selection);
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);

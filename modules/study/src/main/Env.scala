@@ -107,7 +107,7 @@ final class Env(
         s"$count done"
     }
 
-  lila.common.Bus.subscribeFun("studyAnalysisProgress"):
+  lila.common.Bus.sub[lila.tree.StudyAnalysisProgress]:
     case lila.tree.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>

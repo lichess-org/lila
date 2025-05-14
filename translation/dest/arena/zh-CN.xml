@@ -11,14 +11,14 @@
   <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2分，平局1分，输局不得分。如果你连胜两局将开始双倍积分，以火焰图标表示。接下来的对局将继续获得双倍积分，直到你输棋为止。也就是说，在双倍积分的情况下赢局值4分，平局2分。输局仍然不得分。 
 
 例如两场胜利紧接着一场平局得6分： 2 + 2 + (2 x 1)。</string>
-  <string name="berserk">神速锦标赛</string>
-  <string name="berserkAnswer">如果棋手在棋局开始时点击“神速”按钮，将会损失一半的时间，但战胜该局将多得1分。
+  <string name="berserk">狂暴锦标赛</string>
+  <string name="berserkAnswer">如果棋手在棋局开始时点击“狂暴”按钮，将会损失一半的时间，但战胜该局将多得1分。
 
-如果棋局时限有加秒，那么启动神速会导致神速方加秒被取消。(唯一的例外是1+2, 在这个情况下启动神速会把神速方的时限变为1+0)。
+如果棋局时限有加秒，那么启动狂暴会导致神速方加秒被取消。(唯一的例外是1+2, 在这个情况下启动神速会把神速方的时限变为1+0)。
 
-在无基础局时的棋局 (如0+1、0+2等) ，神速功能被禁用。
+在无基础局时的棋局 (如0+1、0+2等) ，狂暴功能被禁用。
 
-只有走过7步棋以上的棋局会有神速加分。</string>
+只有走过7步棋以上的棋局会有狂暴加分。</string>
   <string name="howIsTheWinnerDecided">赢家是如何决定的？</string>
   <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定时间限制结束时积分最多的玩家将被宣布为获胜者。
 
@@ -47,12 +47,12 @@
   <string name="newTeamBattle">新团队战</string>
   <string name="customStartDate">自定义开始日期</string>
   <string name="customStartDateHelp">在你的本地时区，这将覆盖 \"距比赛开始时间\" 选项</string>
-  <string name="allowBerserk">允许神速模式</string>
+  <string name="allowBerserk">允许狂暴模式</string>
   <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
   <string name="allowChatHelp">允许玩家在聊天室中讨论</string>
   <string name="arenaStreaks">连胜奖励</string>
   <string name="arenaStreaksHelp">连胜两场后，获得4分而不是2分。</string>
-  <string name="noBerserkAllowed">禁止“神速”模式</string>
+  <string name="noBerserkAllowed">禁止“狂暴”模式</string>
   <string name="noArenaStreaks">取消连胜积分奖励</string>
   <string name="averagePerformance">平均表现</string>
   <string name="averageScore">平均分数</string>
@@ -64,8 +64,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">你将代表哪个团队出战？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入这些团队之一才能参与！</string>
   <string name="created">创建于</string>
-  <string name="recentlyPlayed">最近结束</string>
-  <string name="bestResults">最佳结果</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">最近结束</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">最佳结果</string>
   <string name="tournamentStats">锦标赛统计</string>
   <string name="rankAvgHelp">等级平均值是您排名的百分比。较低的排名越好。
 
@@ -81,5 +81,5 @@
   <string name="onlyTitled">仅限有头衔玩家</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
   <string name="tournamentPairingsAreNowClosed">竞技场配对已关闭。</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">神速赛比例</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">狂暴局比例</string>
 </resources>

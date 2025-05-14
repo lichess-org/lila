@@ -170,9 +170,7 @@ final private class PovToEntry(
   private def queenTrade(from: RichPov) = QueenTrade:
     from.division.end.map(_.value).fold(from.boards.last.some)(from.boards.toList.lift) match
       case Some(board) =>
-        Color.all.forall { color =>
-          !board.isOccupied(chess.Piece(color, chess.Queen))
-        }
+        Color.all.forall(color => !board.contains(color, chess.Queen))
       case _ =>
         logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
         false

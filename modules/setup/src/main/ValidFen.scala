@@ -10,6 +10,6 @@ object ValidFen:
   def apply(strict: Boolean)(fen: Fen.Full): Option[ValidFen] =
     for
       parsed <- chess.format.Fen.readWithMoveNumber(fen)
-      if parsed.board.playable(strict)
+      if parsed.position.playable(strict)
       validated = chess.format.Fen.write(parsed)
-    yield ValidFen(validated, parsed.board)
+    yield ValidFen(validated, parsed.position)

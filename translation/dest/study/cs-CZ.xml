@@ -172,6 +172,33 @@
   <string name="playAgain">Hrát znovu</string>
   <string name="whatWouldYouPlay">Co byste v této pozici hráli?</string>
   <string name="youCompletedThisLesson">Blahopřejeme! Dokončili jste tuto lekci.</string>
-  <string name="perPage">%s na stránku</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s na stránku</string>
+  <string name="getTheTour">Potřebujete pomoc? Pojďme na prohlídku!</string>
+  <string name="welcomeToLichessStudyTitle">Vítejte v Lichess studiích!</string>
+  <string name="welcomeToLichessStudyText">To je společná analytická deska.&lt;br&gt;&lt;br&gt;Použijte ji k analýze a anotování her,&lt;br&gt;diskutování o pozicích s přáteli,&lt;br&gt;a samozřejmě pro šachové lekce!&lt;br&gt;&lt;br&gt;Je to výkonný nástroj, podívejme se, jak to funguje.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Sdíleno a uloženo</string>
+  <string name="sharedAndSavedText">Ostatní členové mohou vidět vaše tahy v reálném čase!&lt;br&gt;Navíc vše je navždy uloženo.</string>
+  <string name="studyMembersTitle">Členové studie</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klikněte na %s tlačítko.&lt;br&gt;Pak se rozhodněte, kdo může přispět.</string>
+  <string name="studyChaptersTitle">Studijní kapitoly</string>
+  <string name="commentPositionTitle">Komentář k pozici</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikněte na tlačítko %s nebo klikněte pravým tlačítkem myši na seznam tahů vpravo.&lt;br&gt;Komentáře jsou sdíleny a uloženy.</string>
+  <string name="annotatePositionTitle">Anotovat pozici</string>
   <string name="conclusionTitle">Děkujeme za váš čas</string>
+  <string name="createChapterTitle">Pojďme vytvořit kapitolu studie</string>
+  <string name="fromInitialPositionTitle">Z počáteční pozice</string>
+  <string name="fromInitialPositionText">Jen deska pro novou hru.&lt;br&gt;Vhodná k prozkoumávání zahájení.</string>
+  <string name="customPositionTitle">Vlastní pozice</string>
+  <string name="loadExistingLichessGameTitle">Načíst existující lichess hru</string>
+  <string name="loadExistingLichessGameText">Vložte lichess game URL&lt;br&gt;(jako lichess.org/7fHIU0XI)&lt;br&gt;pro načtení hry pohyby v kapitole.</string>
+  <string name="fromFenStringTitle">Z FEN</string>
+  <string name="fromFenStringText">Vložte pozici do FEN formátu&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;a začněte kapitolu z pozice.</string>
+  <string name="fromPgnGameTitle">Ze hry PGN</string>
+  <string name="fromPgnGameText">Vložte hru ve formátu PGN.&lt;br&gt;pro načtení pohybů, komentářů a variací v kapitole.</string>
+  <string name="variantsAreSupportedTitle">Studie podporují varianty</string>
+  <string name="variantsAreSupportedText">Ano, můžete studovat crazyhouse&lt;br&gt;a všechny lichess varianty!</string>
+  <string name="chapterConclusionText">Kapitoly jsou navždy uloženy.&lt;br&gt;Hodně zábavy s organizováním vašeho šachového obsahu!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvojitá prohra</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Černý prohrál, ale bílý nemůže vyhrát</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bílý prohrál, ale černý nemůže vyhrát</string>
 </resources>
