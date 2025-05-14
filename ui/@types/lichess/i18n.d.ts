@@ -2829,12 +2829,18 @@ interface I18n {
     biographyDescription: string;
     /** Black */
     black: string;
+    /** Black accepts takeback */
+    blackAcceptsTakeback: string;
+    /** Black cancels takeback */
+    blackCancelsTakeback: string;
     /** Black O-O */
     blackCastlingKingside: string;
     /** Black to checkmate in one move */
     blackCheckmatesInOneMove: string;
     /** Black declines draw */
     blackDeclinesDraw: string;
+    /** Black declines takeback */
+    blackDeclinesTakeback: string;
     /** Black didn't move */
     blackDidntMove: string;
     /** Black is victorious */
@@ -2845,6 +2851,8 @@ interface I18n {
     blackOffersDraw: string;
     /** Black to play */
     blackPlays: string;
+    /** Black proposes takeback */
+    blackProposesTakeback: string;
     /** Black resigned */
     blackResigned: string;
     /** Black time out */
@@ -4053,12 +4061,6 @@ interface I18n {
     switchSides: string;
     /** Takeback */
     takeback: string;
-    /** Takeback accepted */
-    takebackPropositionAccepted: string;
-    /** Takeback cancelled */
-    takebackPropositionCanceled: string;
-    /** Takeback declined */
-    takebackPropositionDeclined: string;
     /** Takeback sent */
     takebackPropositionSent: string;
     /** Please be nice in the chat! */
@@ -4293,12 +4295,18 @@ interface I18n {
     whenCreateSimul: string;
     /** White */
     white: string;
+    /** White accepts takeback */
+    whiteAcceptsTakeback: string;
+    /** White cancels takeback */
+    whiteCancelsTakeback: string;
     /** White O-O */
     whiteCastlingKingside: string;
     /** White to checkmate in one move */
     whiteCheckmatesInOneMove: string;
     /** White declines draw */
     whiteDeclinesDraw: string;
+    /** White declines takeback */
+    whiteDeclinesTakeback: string;
     /** White didn't move */
     whiteDidntMove: string;
     /** White / Draw / Black */
@@ -4311,6 +4319,8 @@ interface I18n {
     whiteOffersDraw: string;
     /** White to play */
     whitePlays: string;
+    /** White proposes takeback */
+    whiteProposesTakeback: string;
     /** White resigned */
     whiteResigned: string;
     /** White time out */
