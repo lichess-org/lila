@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
+  <string name="whiteProposesTakeback">Las blancas proponen deshacer la jugada</string>
+  <string name="blackProposesTakeback">Las negras proponen deshacer la jugada</string>
   <string name="takebackPropositionSent">Propuesta de deshacer jugada enviada</string>
+  <string name="whiteDeclinesTakeback">Las blancas rechazan deshacer la jugada</string>
+  <string name="blackDeclinesTakeback">Las negras rechazan deshacer la jugada</string>
+  <string name="whiteAcceptsTakeback">Las blancas aceptan deshacer la jugada</string>
+  <string name="blackAcceptsTakeback">Las negras aceptan deshacer la jugada</string>
+  <string name="whiteCancelsTakeback">Las blancas cancelan deshacer la jugada</string>
+  <string name="blackCancelsTakeback">Las negras cancelan deshacer la jugada</string>
   <string name="yourOpponentProposesATakeback">Tu oponente propone deshacer la jugada</string>
   <string name="bookmarkThisGame">Marcar este juego como favorito</string>
   <string name="tournament">Torneo</string>
@@ -670,6 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
@@ -998,6 +1007,6 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
   <string name="accessibility">Accesibilidad</string>
-  <string name="enableBlindMode">Activar modo A ciegas</string>
-  <string name="disableBlindMode">Desactivar modo A ciegas</string>
+  <string name="enableBlindMode">Activar modo para no videntes</string>
+  <string name="disableBlindMode">Desactivar modo para no videntes</string>
 </resources>
