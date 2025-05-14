@@ -90,23 +90,11 @@ final private class LinkCheck(
 
 private object LinkCheck:
 
-  sealed trait FullSource:
-    def owners: Set[UserId]
-    def teamId: Option[TeamId]
-
-  object FullSource:
-    case class TournamentSource(value: Tournament) extends FullSource:
-      def owners = Set(value.createdBy)
-      def teamId = value.conditions.teamMember.map(_.teamId)
-    case class SimulSource(value: Simul) extends FullSource:
-      def owners = Set(value.hostId)
-      def teamId = value.conditions.teamMember.map(_.teamId)
-    case class SwissSource(value: Swiss) extends FullSource:
-      def owners = Set(value.createdBy)
-      def teamId = value.teamId.some
-    case class TeamSource(value: Team.IdAndLeaderIds) extends FullSource:
-      def owners = value.leaderIds
-      def teamId = value.id.some
-    case class StudySource(value: Study) extends FullSource:
-      def owners = value.members.idSet
-      def teamId = none
+  enum FullSource(val owners: Set[UserId], val teamId: Option[TeamId]):
+    case TournamentSource(value: Tournament)
+        extends FullSource(Set(value.createdBy), value.conditions.teamMember.map(_.teamId))
+    case SimulSource(value: Simul)
+        extends FullSource(Set(value.hostId), value.conditions.teamMember.map(_.teamId))
+    case SwissSource(value: Swiss)              extends FullSource(Set(value.createdBy), value.teamId.some)
+    case TeamSource(value: Team.IdAndLeaderIds) extends FullSource(value.leaderIds, value.id.some)
+    case StudySource(value: Study)              extends FullSource(value.members.idSet, none)

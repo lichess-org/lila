@@ -52,7 +52,7 @@ final private[round] class Drawer(
           Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
-        if pov.game.board.withColor(color).opponentHasInsufficientMaterial then
+        if pov.game.position.withColor(color).opponentHasInsufficientMaterial then
           finisher.other(pov.game, _.Draw, None)
         else
           val progress = Progress(g).map(offerDraw(color))
@@ -94,12 +94,11 @@ final private[round] class Drawer(
 
   private def publishDrawOffer(game: Game): Unit = if game.nonAi then
     if game.isCorrespondence then
-      Bus.publish(
-        lila.core.round.CorresDrawOfferEvent(game.id),
-        "offerEventCorres"
+      Bus.pub(
+        lila.core.round.CorresDrawOfferEvent(game.id)
       )
     if lila.game.Game.mightBeBoardOrBotCompatible(game) then
-      Bus.publish(
+      Bus.publishDyn(
         lila.game.actorApi.BoardDrawOffer(game),
         lila.game.actorApi.BoardDrawOffer.makeChan(game.id)
       )

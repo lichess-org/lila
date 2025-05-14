@@ -22,6 +22,7 @@
   <string name="asBlack">mit Schwarz</string>
   <string name="randomColor">Zufällige Farbe</string>
   <string name="createAGame">Neue Partie</string>
+  <string name="createTheGame">Neue Partie erstellen</string>
   <string name="whiteIsVictorious">Weiß gewinnt</string>
   <string name="blackIsVictorious">Schwarz gewinnt</string>
   <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
@@ -74,7 +75,7 @@
   <string name="expandVariations">Varianten ausklappen</string>
   <string name="forceVariation">Variante erzwingen</string>
   <string name="copyVariationPgn">PGN-Variante kopieren</string>
-  <string name="copyMainLinePgn" comment="Appears in game-analysis when you right-click on a specific move. Copies all moves up to that move, without variations (hence 'main line').">Kopiere PGN der Hauptvariante</string>
+  <string name="copyMainLinePgn">Kopiere PGN der Hauptvariante</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verloren</string>
   <string name="variantWin">Variante gewonnen</string>
@@ -612,7 +613,7 @@
   <string name="victoryVsYInZ">%1$s gegen %2$s in %3$s</string>
   <string name="defeatVsYInZ">%1$s gegen %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s gegen %2$s in %3$s</string>
-  <string name="timeline" comment="Heading of https://lichess.org/timeline&#10;&#10;The timeline normally appears on the homepage and could alternatively be called an 'activity feed' for people you follow. It features forum posts, tournaments played and similar events from people you follow.">Verlauf</string>
+  <string name="timeline">Verlauf</string>
   <string name="starting">Beginnt:</string>
   <string name="allInformationIsPublicAndOptional">Alle Informationen sind öffentlich und freiwillig.</string>
   <string name="biographyDescription">Erzähl über dich, was du an Schach magst, deine Lieblingseröffnungen, Partien, Spieler, …</string>
@@ -999,4 +1000,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
   <string name="stats">Statistiken</string>
+  <string name="accessibility">Barrierefreiheit</string>
+  <string name="enableBlindMode">Blindenmodus aktivieren</string>
+  <string name="disableBlindMode">Blindenmodus deaktivieren</string>
 </resources>

@@ -6,8 +6,7 @@ import io.lettuce.core.*
 import io.lettuce.core.pubsub.*
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.misc.map.{ Tell, TellAll }
-import lila.core.round.{ FishnetPlay, FishnetStart }
+import lila.core.round.{ TellMany, Tell, RoundBus, FishnetStart }
 
 final class FishnetRedis(
     client: RedisClient,
@@ -30,10 +29,10 @@ final class FishnetRedis(
     new RedisPubSubAdapter[String, String]:
       override def message(chan: String, msg: String): Unit =
         msg.split(' ') match
-          case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
+          case Array("start") => Bus.pub(FishnetStart)
           case Array(gameId, sign, uci) =>
             Uci(uci).foreach { move =>
-              Bus.publish(Tell(gameId, FishnetPlay(move, sign)), "roundSocket")
+              Bus.pub(Tell(GameId(gameId), RoundBus.FishnetPlay(move, sign)))
             }
           case _ =>
 

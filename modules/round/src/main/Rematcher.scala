@@ -59,7 +59,7 @@ final private class Rematcher(
   def no(pov: Pov): Fu[Events] =
     if isOffering(pov.ref) then
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
+        Bus.publishDyn(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
     else if isOffering(!pov.ref) then
       declined.put(pov.fullId)
@@ -77,7 +77,7 @@ final private class Rematcher(
     rematches.offer(pov.ref).map { _ =>
       messenger.volatile(pov.game, trans.site.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.core.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
+        Bus.publishDyn(lila.core.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
       List(Event.RematchOffer(by = pov.color.some))
     }
 
@@ -154,13 +154,13 @@ object Rematcher:
   ): ChessGame =
     val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
     val newPosition = variant match
-      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.board)
+      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.position)
       case Chess960                                 => Position(Chess960)
-      case variant                                  => prevPosition.fold(Position(variant))(_.board)
+      case variant                                  => prevPosition.fold(Position(variant))(_.position)
     val ply   = prevPosition.fold(Ply.initial)(_.ply)
-    val color = prevPosition.fold[Color](White)(_.board.color)
+    val color = prevPosition.fold[Color](White)(_.position.color)
     ChessGame(
-      board = newPosition.withColor(color),
+      position = newPosition.withColor(color),
       clock = clock.map(c => Clock(c.config)),
       ply = ply,
       startedAtPly = ply

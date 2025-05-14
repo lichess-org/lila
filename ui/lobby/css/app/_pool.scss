@@ -61,4 +61,23 @@
     line-height: 1.6em;
     letter-spacing: 0.1em;
   }
+
+  @keyframes range-sweep {
+    0% {
+      background-position: 180% 0;
+    }
+    100% {
+      background-position: -90% 0;
+    }
+  }
+
+  .range {
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(90deg, transparent, $c-brag, transparent);
+    animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
+    margin: 0.2em 0 1.3em 0;
+  }
 }

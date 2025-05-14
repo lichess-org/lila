@@ -12,12 +12,12 @@
 
 Ett exempel, två vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena-Bärsärk</string>
-  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
+  <string name="berserkAnswer">När en spelare klickar på Bärsärk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Bärsärk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
 (1+2 är ett undantag, vilket blir 1+0)
 
-Berserk är ej möjligt för partier med 0 i initialtid (0+1, 0+2).
+Bärsärk är ej möjligt för partier med noll i starttid (0+1, 0+2).
 
-Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
+Bärsärk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="howIsTheWinnerDecided">Hur avgörs vem som vunnit turneringen?</string>
   <string name="howIsTheWinnerDecidedAnswer">Den/de spelare som har flest poäng när turneringstiden går ut utropas till turneringsvinnare.</string>
   <string name="howDoesPairingWork">Hur fungerar lottningen?</string>
@@ -55,11 +55,28 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="averageScore">Medelpoäng</string>
   <string name="myTournaments">Mina turneringar</string>
   <string name="editTournament">Redigera turnering</string>
+  <string name="editTeamBattle">Redigera lagtävling</string>
   <string name="defender">Försvarare</string>
+  <string name="pickYourTeam">Välj ditt lag</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Vilket lag ska du representera i denna tävling?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Du måste gå med i ett av dessa lag för att delta!</string>
   <string name="created">Skapad</string>
-  <string name="bestResults">Bästa resultat</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Senast spelade</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Bästa resultat</string>
   <string name="tournamentStats">Turneringsstatistik</string>
+  <string name="rankAvgHelp">Rankningsgenomsnittet är en procentsats baserad på din rankning. Lägre är bättre.
+
+Till exempel: Rankad 3 i en turnering på 100 spelare = 3%. Rankad 10 i en turnering på 1000 spelare = 1%.</string>
   <string name="medians">medianer</string>
+  <string name="allAveragesAreX">Alla medelvärden på denna sida är %s.</string>
+  <string name="total">Summa</string>
+  <string name="pointsAvg">Genomsnittlig poäng</string>
+  <string name="pointsSum">Poängsumma</string>
+  <string name="rankAvg">Genomsnittlig rankning</string>
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="tournamentShields">Turneringssköldar</string>
+  <string name="onlyTitled">Endast för spelare med schacktitlar</string>
+  <string name="onlyTitledHelp">Kräv en officiell schacktitel för att delta i turneringen</string>
+  <string name="tournamentPairingsAreNowClosed">Turneringsmatchningarna är nu avslutade.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Bärsärk-frekvens</string>
 </resources>

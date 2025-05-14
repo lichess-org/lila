@@ -41,10 +41,11 @@ export function render(ctrl: LobbyController) {
         },
         [
           h('div.clock', `${pool.lim}+${pool.inc}`),
-          active && member.range && ctrl.opts.showRatings
-            ? h('div.range', member.range.replace('-', '–'))
+          active
+            ? member.range && ctrl.opts.showRatings
+              ? h('div.range', member.range.replace('-', '–'))
+              : spinner()
             : h('div.perf', pool.perf),
-          active ? spinner() : null,
         ],
       );
     })
