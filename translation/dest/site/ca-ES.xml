@@ -22,7 +22,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Bàndol aleatori</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Crea la partida</string>
+  <string name="createTheGame">Crea la partida</string>
   <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Guanyen les negres</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
@@ -351,9 +351,6 @@
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>
-  <string name="takebackPropositionDeclined">La proposta de desfer la jugada s\'ha rebutjat</string>
-  <string name="takebackPropositionAccepted">La proposta de desfer la jugada s\'ha acceptat</string>
-  <string name="takebackPropositionCanceled">La proposta de desfer la jugada s\'ha cancel·lat</string>
   <string name="yourOpponentProposesATakeback">El teu adversari proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
   <string name="tournament">Torneig</string>
@@ -1000,7 +997,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
   <string name="stats">Estadístiques</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilitat</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activar el mode cec</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desactivar el mode cec</string>
+  <string name="accessibility">Accessibilitat</string>
+  <string name="enableBlindMode">Activar el mode cec</string>
+  <string name="disableBlindMode">Desactivar el mode cec</string>
 </resources>
