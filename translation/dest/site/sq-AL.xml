@@ -358,6 +358,7 @@
   <string name="whiteAcceptsTakeback">I bardhi pranon prapakthim</string>
   <string name="blackAcceptsTakeback">I ziu pranon prapakthim</string>
   <string name="whiteCancelsTakeback">I bardhi anulon prapakthim</string>
+  <string name="blackCancelsTakeback">I ziu anulon prapakthim</string>
   <string name="yourOpponentProposesATakeback">Kundërshtari juaj propozon kthim lëvizjeje mbrapsht</string>
   <string name="bookmarkThisGame">Faqeruani këtë lojë</string>
   <string name="tournament">Turne</string>
