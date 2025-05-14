@@ -256,9 +256,6 @@
   <string name="takeback">Yzyna al</string>
   <string name="proposeATakeback">Yza alma hödürle</string>
   <string name="takebackPropositionSent">Yza alma iberildi</string>
-  <string name="takebackPropositionDeclined">Yza alma ret edildi</string>
-  <string name="takebackPropositionAccepted">Yza alma kabul edildi</string>
-  <string name="takebackPropositionCanceled">Yza alma goýbolsun edildi</string>
   <string name="yourOpponentProposesATakeback">Garşydaşyňyz yza alma hödürleýär</string>
   <string name="bookmarkThisGame">Bu oýuny halanlaryma goş</string>
   <string name="tournament">Bäsleşik</string>
