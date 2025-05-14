@@ -40,18 +40,18 @@ final private class Takebacker(
             events <-
               if pov.opponent.proposeTakebackAt == pov.game.ply &&
                 color == pov.opponent.proposeTakebackAt.turn
-              then single(game, pov)
-              else double(game, pov)
+              then single(pov)
+              else double(pov)
             _ = publishTakeback(pov)
           yield events -> board.reset
         case Pov(game, _) if pov.game.playableByAi =>
           for
-            events <- single(game, pov)
+            events <- single(pov)
             _ = publishTakeback(pov)
           yield events -> board
         case Pov(game, _) if pov.opponent.isAi =>
           for
-            events <- double(game, pov)
+            events <- double(pov)
             _ = publishTakeback(pov)
           yield events -> board
         case pov if canProposeTakeback(pov) && board.offerable =>
@@ -117,20 +117,20 @@ final private class Takebacker(
         if _ then f
         else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
 
-  private def single(game: Game, pov: Pov)(using GameProxy): Fu[Events] =
+  private def single(pov: Pov)(using GameProxy): Fu[Events] =
     for
-      fen      <- gameRepo.initialFen(game)
-      progress <- Rewind(game, fen).toFuture
-      _        <- fuccess(uciMemo.drop(game, 1))
+      fen      <- gameRepo.initialFen(pov.game)
+      progress <- Rewind(pov.game, fen).toFuture
+      _        <- fuccess(uciMemo.drop(pov.game, 1))
       events   <- saveAndNotify(progress, pov)
     yield events
 
-  private def double(game: Game, pov: Pov)(using GameProxy): Fu[Events] =
+  private def double(pov: Pov)(using GameProxy): Fu[Events] =
     for
-      fen    <- gameRepo.initialFen(game)
-      prog1  <- Rewind(game, fen).toFuture
+      fen    <- gameRepo.initialFen(pov.game)
+      prog1  <- Rewind(pov.game, fen).toFuture
       prog2  <- Rewind(prog1.game, fen).toFuture.dmap(progress => prog1.withGame(progress.game))
-      _      <- fuccess(uciMemo.drop(game, 2))
+      _      <- fuccess(uciMemo.drop(pov.game, 2))
       events <- saveAndNotify(prog2, pov)
     yield events
 
