@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
+  <string name="whiteProposesTakeback">Weiß schlägt eine Zugrücknahme vor</string>
+  <string name="blackProposesTakeback">Schwarz schlägt eine Zugrücknahme vor</string>
   <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
+  <string name="whiteDeclinesTakeback">Weiß lehnt eine Zugrücknahme ab</string>
+  <string name="blackDeclinesTakeback">Schwarz lehnt eine Zugrücknahme ab</string>
+  <string name="whiteAcceptsTakeback">Weiß akzeptiert die Zugrücknahme</string>
+  <string name="blackAcceptsTakeback">Schwarz akzeptiert die Zugrücknahme</string>
+  <string name="whiteCancelsTakeback">Weiß nimmt die Zugrücknahme-Anfrage zurück</string>
+  <string name="blackCancelsTakeback">Schwarz nimmt die Zugrücknahme-Anfrage zurück</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
   <string name="tournament">Turnier</string>
@@ -670,6 +678,7 @@
   <string name="really">wirklich</string>
   <string name="contribute">Mitmachen</string>
   <string name="termsOfService">AGB</string>
+  <string name="titleVerification">Titel-Verifizierung</string>
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
