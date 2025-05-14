@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Arbre d\'ouvertures &amp; tables de finales</string>
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
+  <string name="whiteProposesTakeback">Les Blancs offrent de reprendre le coup.</string>
+  <string name="blackProposesTakeback">Les Noirs offrent de reprendre le coup.</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
+  <string name="whiteDeclinesTakeback">Les Blancs refusent de reprendre le coup.</string>
+  <string name="blackDeclinesTakeback">Les Noirs refusent de reprendre le coup.</string>
+  <string name="whiteAcceptsTakeback">Les Blancs acceptent de reprendre le coup.</string>
+  <string name="blackAcceptsTakeback">Les Noirs acceptent de reprendre le coup.</string>
+  <string name="whiteCancelsTakeback">Les Blancs retirent l\'offre de reprendre le coup.</string>
+  <string name="blackCancelsTakeback">Les Noirs retirent l\'offre de reprendre le coup.</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
   <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
   <string name="tournament">Tournoi</string>
@@ -670,6 +678,7 @@
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Vérification du titre</string>
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
