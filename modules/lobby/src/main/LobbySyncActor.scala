@@ -32,7 +32,7 @@ final private class LobbySyncActor(
     // solve circular reference
     case SetSocket(actor) => socket = actor
 
-    case msg @ AddHook(hook) =>
+    case msg @ SetupBus.AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
       hookRepo.bySri(hook.sri).foreach(remove)
       hook.sid.so: sid =>
@@ -45,7 +45,7 @@ final private class LobbySyncActor(
           hookRepo.save(msg.hook)
           socket ! msg
 
-    case msg @ AddSeek(seek) =>
+    case msg @ SetupBus.AddSeek(seek) =>
       lila.mon.lobby.seek.create.increment()
       findCompatible(seek).foreach:
         case Some(s) => this ! BiteSeek(s.id, seek.user)
@@ -198,6 +198,7 @@ private object LobbySyncActor:
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
     Bus.subscribeActor[HookThieve.HookBus](actor)
+    Bus.subscribeActor[SetupBus](actor)
     scheduler.scheduleWithFixedDelay(15.seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",
