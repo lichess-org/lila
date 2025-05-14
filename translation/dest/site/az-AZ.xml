@@ -342,9 +342,6 @@
   <string name="takeback">Dala qaytarma</string>
   <string name="proposeATakeback">Dala qaytarma təklif et</string>
   <string name="takebackPropositionSent">Dala qaytarma təklifi göndərildi</string>
-  <string name="takebackPropositionDeclined">Dala qaytarma rədd edildi</string>
-  <string name="takebackPropositionAccepted">Dala qaytarma təklifi qəbul olundu</string>
-  <string name="takebackPropositionCanceled">Dala qaytarma təklifi ləğv edildi</string>
   <string name="yourOpponentProposesATakeback">Rəqibiniz dala qaytarma təklifi edir</string>
   <string name="bookmarkThisGame">Bu oyunu yadda saxla</string>
   <string name="tournament">Turnir</string>
