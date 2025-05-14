@@ -357,9 +357,6 @@
   <string name="takeback">Вернути ход</string>
   <string name="proposeATakeback">Попросити вернути ход</string>
   <string name="takebackPropositionSent">Верненя хода загнато</string>
-  <string name="takebackPropositionDeclined">Верненя хода одхылено</string>
-  <string name="takebackPropositionAccepted">Верненя хода приято</string>
-  <string name="takebackPropositionCanceled">Верненя хода одмінено</string>
   <string name="yourOpponentProposesATakeback">Ваш противник просит вас вернути ход</string>
   <string name="bookmarkThisGame">Одмітити бавку</string>
   <string name="tournament">Турнір</string>
