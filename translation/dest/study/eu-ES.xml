@@ -164,5 +164,7 @@
   <string name="playAgain">Jokatu berriz</string>
   <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
-  <string name="perPage">%s orrialde bakoitzean</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s orrialde bakoitzean</string>
+  <string name="getTheTour">Laguntzarik behar? Etorri gurekin!</string>
+  <string name="conclusionTitle">Eskerrik asko zure denboragatik</string>
 </resources>
