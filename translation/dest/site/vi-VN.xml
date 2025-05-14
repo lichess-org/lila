@@ -327,9 +327,6 @@
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
-  <string name="takebackPropositionDeclined">Đề nghị lùi một nước bị từ chối</string>
-  <string name="takebackPropositionAccepted">Đề nghị lùi một nước được chấp thuận</string>
-  <string name="takebackPropositionCanceled">Hủy đề nghị lùi một nước</string>
   <string name="yourOpponentProposesATakeback">Đối thủ của bạn đề nghị lùi một nước</string>
   <string name="bookmarkThisGame">Đánh dấu ván này</string>
   <string name="tournament">Giải đấu</string>
@@ -955,7 +952,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
 Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Hỗ trợ tiếp cận</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Bật chế độ mù</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Tắt chế độ mù</string>
+  <string name="accessibility">Hỗ trợ tiếp cận</string>
+  <string name="enableBlindMode">Bật chế độ mù</string>
+  <string name="disableBlindMode">Tắt chế độ mù</string>
 </resources>
