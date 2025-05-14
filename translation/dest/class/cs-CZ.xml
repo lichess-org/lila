@@ -59,6 +59,8 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s čekajících pozvánek</item>
     <item quantity="other">%s čekajících pozvánek</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Čekající</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Zamítnuto</string>
   <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
   <string name="lastActiveDate">Aktivní</string>
   <string name="managed">Spravovaný</string>

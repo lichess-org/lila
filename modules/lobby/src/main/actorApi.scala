@@ -2,7 +2,7 @@ package lila.lobby
 
 import lila.core.socket.{ Sri, Sris }
 
-private case class SaveSeek(msg: AddSeek)
+private case class SaveSeek(msg: SetupBus.AddSeek)
 private case class RemoveHook(hookId: String)
 private case class RemoveSeek(seekId: String)
 private case class RemoveHooks(hooks: Set[Hook])
@@ -21,5 +21,6 @@ private case class HookIds(ids: Iterable[String])
 
 private case class GetSrisP(promise: Promise[Sris])
 
-case class AddHook(hook: Hook)
-case class AddSeek(seek: Seek)
+enum SetupBus:
+  case AddHook(hook: Hook)
+  case AddSeek(seek: Seek)

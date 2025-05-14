@@ -67,7 +67,7 @@ final class LobbySocket(
 
       case ReloadTimelines(users) => send.exec(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
 
-      case AddHook(hook) =>
+      case SetupBus.AddHook(hook) =>
         send.exec(
           P.Out.tellSris(
             hookSubscriberSris
@@ -102,7 +102,7 @@ final class LobbySocket(
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids.mkString("")))
 
-      case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
+      case SetupBus.AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
 
       case ChangeFeatured(msg) => tellActive(msg)
 

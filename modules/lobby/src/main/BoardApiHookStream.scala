@@ -39,7 +39,7 @@ final class BoardApiHookStream(
     override def preStart(): Unit =
       super.preStart()
       Bus.subscribeActorRefDyn(self, classifiers)
-      lobby ! AddHook(hook)
+      lobby ! SetupBus.AddHook(hook)
 
     override def postStop() =
       super.postStop()

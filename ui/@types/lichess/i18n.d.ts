@@ -4109,6 +4109,8 @@ interface I18n {
     timeline: string;
     /** Time to process a move on Lichess's server */
     timeToProcessAMoveOnLichessServer: string;
+    /** Title verification */
+    titleVerification: string;
     /** Today */
     today: string;
     /** Toggle all computer analysis */
