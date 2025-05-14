@@ -1,4 +1,4 @@
-import { type Prop, type Toggle, propWithEffect, toggle } from 'lib';
+import { type Prop, type Toggle, escapeHtml, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, onInsert } from 'lib/snabbdom';
 import { snabDialog } from 'lib/view/dialog';
@@ -75,8 +75,9 @@ export function view(ctrl: SearchCtrl) {
                 hook: highlightRegex
                   ? {
                       insert(vnode: VNode) {
+                        if (c.name != escapeHtml(c.name)) return;
                         const el = vnode.elm as HTMLElement;
-                        el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
+                        el.innerHTML = c.name.replace(highlightRegex, `<high>$&</high>`);
                       },
                     }
                   : {},
