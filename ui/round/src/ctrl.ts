@@ -566,7 +566,12 @@ export default class RoundController implements MoveRootCtrl {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (d.player.ratingDiff && d.clock?.initial !== undefined && d.clock?.increment !== undefined)
+    if (
+      d.game.variant.key == 'standard' &&
+      d.player.ratingDiff &&
+      defined(d.clock?.initial) &&
+      defined(d.clock?.increment)
+    )
       poolRangeStorage.shiftRange(
         d.player.user?.username,
         `${d.clock.initial / 60}+${d.clock.increment}`,
