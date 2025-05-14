@@ -323,9 +323,6 @@
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
   <string name="takebackPropositionSent">Penawaran untuk langkah batal terkirim</string>
-  <string name="takebackPropositionDeclined">Penawaran untuk langkah batal ditolak</string>
-  <string name="takebackPropositionAccepted">Penawaran untuk langkah batal diterima</string>
-  <string name="takebackPropositionCanceled">Penawaran untuk langkah batal dibatalkan</string>
   <string name="yourOpponentProposesATakeback">Musuh anda menawarkan langkah batal</string>
   <string name="bookmarkThisGame">Tandai permainan ini</string>
   <string name="tournament">Turnamen</string>
