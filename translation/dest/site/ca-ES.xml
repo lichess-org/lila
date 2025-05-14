@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
+  <string name="whiteProposesTakeback">El blanc proposa desfer la jugada</string>
+  <string name="blackProposesTakeback">El negre proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>
+  <string name="whiteDeclinesTakeback">El blanc refusa la proposta de desfer la jugada</string>
+  <string name="blackDeclinesTakeback">El negre refusa la proposta de desfer la jugada</string>
+  <string name="whiteAcceptsTakeback">El blanc accepta la proposta de desfer la jugada</string>
+  <string name="blackAcceptsTakeback">El negre accepta la proposta de desfer la jugada</string>
+  <string name="whiteCancelsTakeback">El blanc cancel·la la proposta de desfer la jugada</string>
+  <string name="blackCancelsTakeback">El negre cancel·la la proposta de desfer la jugada</string>
   <string name="yourOpponentProposesATakeback">El teu adversari proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
   <string name="tournament">Torneig</string>
@@ -670,6 +678,7 @@
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="termsOfService">Condicions del servei</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificació del títol</string>
   <string name="sourceCode">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
