@@ -65,8 +65,8 @@ private object OpeningSearch:
         opening.eco.value.toLowerCase ++
         opening.pgn.value.split(' ').take(6).toSet
 
-  private case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
-  private def makeQuery(userInput: String) =
+  case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
+  def makeQuery(userInput: String): Query =
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
       clean
