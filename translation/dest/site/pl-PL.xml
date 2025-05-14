@@ -22,7 +22,7 @@
   <string name="asBlack">czarnymi</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Utwórz nową grę</string>
+  <string name="createTheGame">Utwórz nową grę</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
   <string name="blackIsVictorious">Zwycięstwo czarnych</string>
   <string name="youPlayTheWhitePieces">Grasz białymi</string>
@@ -399,9 +399,6 @@
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
-  <string name="takebackPropositionDeclined">Odrzucono prośbę o cofnięcie ruchu</string>
-  <string name="takebackPropositionAccepted">Ruch został wycofany</string>
-  <string name="takebackPropositionCanceled">Wycofano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="tournament">Turniej</string>
@@ -1090,7 +1087,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
   <string name="stats">Statystyki</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Ułatwienia dostępu</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Włącz tryb gry \"na ślepo\"</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Wyłącz tryb gry \"na ślepo\"</string>
+  <string name="accessibility">Ułatwienia dostępu</string>
+  <string name="enableBlindMode">Włącz tryb gry \"na ślepo\"</string>
+  <string name="disableBlindMode">Wyłącz tryb gry \"na ślepo\"</string>
 </resources>
