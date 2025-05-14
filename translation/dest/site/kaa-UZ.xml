@@ -230,9 +230,6 @@
     <item quantity="other">%s pat</item>
   </plurals>
   <string name="takebackPropositionSent">Júristi qaytarıw sorawı jiberildi</string>
-  <string name="takebackPropositionDeclined">Júristi qaytarıw sorawı biykarlandı</string>
-  <string name="takebackPropositionAccepted">Júristi qaytarıw sorawı qabıllandı</string>
-  <string name="takebackPropositionCanceled">Júristi qaytarıw sorawı biykarlandı</string>
   <string name="yourOpponentProposesATakeback">Siziń qarsılasıńız júristi qaytarıwdı soramaqta</string>
   <string name="tournament">Jarıs</string>
   <string name="tournaments">Jarıslar</string>
