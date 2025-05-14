@@ -258,9 +258,6 @@
   <string name="takeback">Buyela</string>
   <string name="proposeATakeback">Phakamisa ukubuyisa</string>
   <string name="takebackPropositionSent">Ukubuya kuthunyelwe</string>
-  <string name="takebackPropositionDeclined">Ukubuyisa kwenqatshiwe</string>
-  <string name="takebackPropositionAccepted">Ukubuyisela emuva kwamukelwe</string>
-  <string name="takebackPropositionCanceled">Ukubuyisela kukhanseliwe</string>
   <string name="yourOpponentProposesATakeback">Umphikisi wakho uphakamisa ukubuyiswa</string>
   <string name="bookmarkThisGame">Beka uphawu lokubekisa lo mdlalo</string>
   <string name="tournament">Umqhudelwano</string>
