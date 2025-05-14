@@ -1,14 +1,57 @@
+@import '../theme/default';
+
 .carousel {
   visibility: hidden;
   overflow-x: hidden;
   width: 100%;
   height: auto;
   gap: $block-gap;
+  position: relative;
 
   .track {
     display: flex;
     flex-flow: row nowrap;
     width: fit-content;
     align-items: stretch;
+  }
+
+  .controls {
+    @extend %flex-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    @include transition(opacity);
+    pointer-events: none;
+
+    button {
+      @extend %button-none;
+      padding: 0;
+      font-size: 2em;
+      pointer-events: auto;
+      height: 100%;
+      width: 7.5%;
+      @include if-not-light {
+        $gradient-start: rgba($c-bg-page, 0%);
+        $gradient-end: rgba($c-bg-page, 50%);
+        background: linear-gradient(to left, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
+
+        &:last-child {
+          background: linear-gradient(to right, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
+        }
+      }
+      &:hover {
+        color: $c-primary;
+      }
+    }
+  }
+
+  &:hover {
+    .controls {
+      opacity: 1;
+    }
   }
 }
