@@ -350,7 +350,14 @@
   <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
   <string name="takeback">Kthim lëvizjeje mbrapsht</string>
   <string name="proposeATakeback">Propozoni një kthim lëvizjeje mbrapsht</string>
+  <string name="whiteProposesTakeback">I bardhi propozon prapakthim</string>
+  <string name="blackProposesTakeback">I ziu propozon prapakthim</string>
   <string name="takebackPropositionSent">Kërkesa për kthim lëvizjeje mbrapsht u dërgua</string>
+  <string name="whiteDeclinesTakeback">I bardhi hedh poshtë prapakthim</string>
+  <string name="blackDeclinesTakeback">I ziu hedh poshtë prapakthim</string>
+  <string name="whiteAcceptsTakeback">I bardhi pranon prapakthim</string>
+  <string name="blackAcceptsTakeback">I ziu pranon prapakthim</string>
+  <string name="whiteCancelsTakeback">I bardhi anulon prapakthim</string>
   <string name="yourOpponentProposesATakeback">Kundërshtari juaj propozon kthim lëvizjeje mbrapsht</string>
   <string name="bookmarkThisGame">Faqeruani këtë lojë</string>
   <string name="tournament">Turne</string>
@@ -672,6 +679,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="really">për vërtetë</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="termsOfService">Kushte Shërbimi</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verifikim titulli</string>
   <string name="sourceCode">Kod Burim</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
