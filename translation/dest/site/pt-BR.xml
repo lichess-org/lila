@@ -350,7 +350,13 @@
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
+  <string name="whiteProposesTakeback">Brancas propõem voltar jogada</string>
+  <string name="blackProposesTakeback">Pretas propõem voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
+  <string name="whiteDeclinesTakeback">Brancas recusam voltar jogada</string>
+  <string name="blackDeclinesTakeback">Pretas recusam voltar jogada</string>
+  <string name="whiteAcceptsTakeback">Brancas aceitam voltar jogada</string>
+  <string name="blackAcceptsTakeback">Pretas aceitam voltar jogada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
