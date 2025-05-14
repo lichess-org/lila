@@ -350,9 +350,6 @@
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Pyydä siirron peruutusta</string>
   <string name="takebackPropositionSent">Siirron peruutusta pyydetty</string>
-  <string name="takebackPropositionDeclined">Siirron peruutuspyyntö torjuttu</string>
-  <string name="takebackPropositionAccepted">Siirron peruutuspyyntö hyväksytty</string>
-  <string name="takebackPropositionCanceled">Siirron peruutuspyyntö vedetty pois</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
   <string name="tournament">Turnaus</string>
