@@ -22,7 +22,7 @@
   <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Создать новую игру</string>
+  <string name="createTheGame">Создать новую игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
@@ -399,9 +399,6 @@
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение вернуть ход отправлено</string>
-  <string name="takebackPropositionDeclined">Предложение вернуть ход отклонено</string>
-  <string name="takebackPropositionAccepted">Предложение вернуть ход принято</string>
-  <string name="takebackPropositionCanceled">Предложение вернуть ход отменено</string>
   <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
   <string name="bookmarkThisGame">Отметить эту игру</string>
   <string name="tournament">Турнир</string>
@@ -1090,7 +1087,7 @@
 Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="nothingToSeeHere">Здесь ничего нет пока.</string>
   <string name="stats">Статистика</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Специальные возможности</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Включить слепой режим</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Выключить слепой режим</string>
+  <string name="accessibility">Специальные возможности</string>
+  <string name="enableBlindMode">Включить слепой режим</string>
+  <string name="disableBlindMode">Выключить слепой режим</string>
 </resources>
