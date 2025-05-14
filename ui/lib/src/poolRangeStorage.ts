@@ -1,3 +1,5 @@
+import { defined } from './common';
+import type { GameData } from './game/interfaces';
 import { storage } from './storage';
 
 const makeKey = (username: string | undefined, poolId: string) =>
@@ -9,12 +11,23 @@ export const set = (username: string | undefined, poolId: string, range: string 
   else storage.remove(key);
 };
 
-export const shiftRange = (username: string, poolId: string, delta: number): void => {
-  const currRange = get(username, poolId);
-  if (!currRange) return;
-  const [min, max] = currRange.split('-').map(Number);
-  set(username, poolId, `${min + delta}-${max + delta}`);
-};
-
 export const get = (username: string | undefined, poolId: string): string | null =>
   storage.get(makeKey(username, poolId));
+
+export const shiftRangeAfter = (game: GameData): void => {
+  const username = game.player.user?.username,
+    delta = game.player.ratingDiff;
+  if (
+    game.game.variant.key == 'standard' &&
+    username &&
+    delta &&
+    defined(game.clock?.initial) &&
+    defined(game.clock?.increment)
+  ) {
+    const poolId = `${game.clock.initial / 60}+${game.clock.increment}`;
+    const currRange = get(username, poolId);
+    if (!currRange) return;
+    const [min, max] = currRange.split('-').map(Number);
+    set(username, poolId, `${min + delta}-${max + delta}`);
+  }
+};

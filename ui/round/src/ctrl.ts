@@ -566,19 +566,8 @@ export default class RoundController implements MoveRootCtrl {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (
-      d.game.variant.key == 'standard' &&
-      d.player.user &&
-      d.player.ratingDiff &&
-      defined(d.clock?.initial) &&
-      defined(d.clock?.increment)
-    )
-      poolRangeStorage.shiftRange(
-        d.player.user?.username,
-        `${d.clock.initial / 60}+${d.clock.increment}`,
-        d.player.ratingDiff,
-      );
     if (!d.player.spectator && d.game.turns > 1) {
+      poolRangeStorage.shiftRangeAfter(d);
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
