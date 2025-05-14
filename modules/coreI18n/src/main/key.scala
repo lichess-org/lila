@@ -1908,6 +1908,7 @@ object I18nKey:
     val `really`: I18nKey = "really"
     val `contribute`: I18nKey = "contribute"
     val `termsOfService`: I18nKey = "termsOfService"
+    val `titleVerification`: I18nKey = "titleVerification"
     val `sourceCode`: I18nKey = "sourceCode"
     val `simultaneousExhibitions`: I18nKey = "simultaneousExhibitions"
     val `host`: I18nKey = "host"
