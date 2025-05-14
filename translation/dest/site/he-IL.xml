@@ -397,9 +397,6 @@
   <string name="takeback">החזרת מהלך</string>
   <string name="proposeATakeback">הצע החזרת המהלך האחרון</string>
   <string name="takebackPropositionSent">הצעה להחזרת המהלך האחרון נשלחה</string>
-  <string name="takebackPropositionDeclined">הצעה להחזרת המהלך האחרון נדחתה</string>
-  <string name="takebackPropositionAccepted">הצעה להחזרת המהלך האחרון התקבלה</string>
-  <string name="takebackPropositionCanceled">הצעה להחזרת המהלך האחרון בוטלה</string>
   <string name="yourOpponentProposesATakeback">יריבך מציע/ה להחזיר את המהלך האחרון</string>
   <string name="bookmarkThisGame">הוסף משחק זה למועדפים</string>
   <string name="tournament">טורניר</string>
