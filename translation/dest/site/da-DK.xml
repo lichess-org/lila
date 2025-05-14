@@ -351,9 +351,6 @@
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Anmod om omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
-  <string name="takebackPropositionDeclined">Anmodning om omtræk afslået</string>
-  <string name="takebackPropositionAccepted">Anmodning om omtræk accepteret</string>
-  <string name="takebackPropositionCanceled">Anmodning om omtræk annulleret</string>
   <string name="yourOpponentProposesATakeback">Din modstander anmoder om omtræk</string>
   <string name="bookmarkThisGame">Bogmærk dette spil</string>
   <string name="tournament">Turnering</string>
