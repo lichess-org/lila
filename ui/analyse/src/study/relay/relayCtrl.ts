@@ -1,15 +1,11 @@
-import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '@/study/interfaces';
-import type { StudyMemberCtrl } from '@/study/studyMembers';
-import type { AnalyseSocketSend } from '@/socket';
+import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
+import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
-import type { StudyChapters } from '@/study/studyChapters';
-import type { MultiCloudEval } from '@/study/multiCloudEval';
+import type StudyCtrl from '@/study/studyCtrl';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
-import type AnalyseCtrl from '@/ctrl';
 import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
 
@@ -31,43 +27,33 @@ export default class RelayCtrl {
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
   liveboardPlugin?: LiveboardPlugin;
-  readonly baseRedraw: Redraw;
-  readonly send: AnalyseSocketSend;
 
   constructor(
-    readonly id: RoundId,
+    private study: StudyCtrl,
     public data: RelayData,
-    analyse: AnalyseCtrl,
-    readonly members: StudyMemberCtrl,
-    readonly chapters: StudyChapters,
-    private readonly multiCloudEval: MultiCloudEval | undefined,
-    private readonly federations: () => Federations | undefined,
-    chapterSelect: ChapterSelect,
-    private readonly updateHistoryAndAddressBar: () => void,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
-    this.baseRedraw = analyse.redraw;
-    this.send = analyse.socket.send;
-    if (analyse.opts.chat) {
-      this.liveboardPlugin = new LiveboardPlugin(analyse, this.tourShow, chapterSelect.get());
-      analyse.opts.chat.plugin = this.liveboardPlugin;
+    if (study.ctrl.opts.chat) {
+      const showLiveboard = () => this.tourShow() || !study.multiBoard.showResults();
+      this.liveboardPlugin = new LiveboardPlugin(study.ctrl, showLiveboard, study.chapterSelect.get());
+      study.ctrl.opts.chat.plugin = this.liveboardPlugin;
     }
 
     const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
-      : this.chapters.looksNew()
+      : this.study.chapters.list.looksNew()
         ? 'overview'
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, this.redraw)
+      ? new RelayTeams(study.data.id, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
-      analyse.isEmbed,
-      this.federations,
+      study.ctrl.isEmbed,
+      () => study.data.federations,
       this.redraw,
     );
     this.stats = new RelayStats(this.currentRound(), this.redraw);
@@ -90,12 +76,12 @@ export default class RelayCtrl {
       this.streams = s;
       this.redraw();
     });
-    setInterval(this.baseRedraw, 1000);
+    setInterval(study.ctrl.redraw, 1000);
   }
 
   redraw = () => {
-    this.baseRedraw();
-    this.updateHistoryAndAddressBar();
+    this.study.ctrl.redraw();
+    this.study.updateHistoryAndAddressBar();
   };
 
   openTab = (t: RelayTab) => {
@@ -113,17 +99,17 @@ export default class RelayCtrl {
     this.redraw();
   };
 
-  lastMoveAt = (id: ChapterId): number | undefined => this.chapters.get(id)?.lastMoveAt;
+  lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;
 
   setSync = (v: boolean) => {
-    this.send('relaySync', v);
+    this.study.ctrl.socket.send('relaySync', v);
     this.redraw();
   };
 
   loading = () => !this.cooldown && this.data.sync?.ongoing;
 
   setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
-    const cp = this.chapters.get(msg.p.chapterId);
+    const cp = this.study.chapters.list.get(msg.p.chapterId);
     if (cp?.players)
       ['white', 'black'].forEach((color: Color, i) => {
         const clock = clocks[i];
@@ -132,7 +118,7 @@ export default class RelayCtrl {
   };
 
   roundById = (id: string) => this.data.rounds.find(r => r.id === id);
-  currentRound = () => this.roundById(this.id)!;
+  currentRound = () => this.roundById(this.study.data.id)!;
   roundName = () => this.currentRound().name;
 
   fullRoundName = () => `${this.data.tour.name} - ${this.roundName()}`;
@@ -195,7 +181,7 @@ export default class RelayCtrl {
 
   socketHandler = (t: string, d: any): boolean => {
     const handler = (this.socketHandlers as SocketHandlers)[t];
-    if (handler && d.id === this.id) {
+    if (handler && d.id === this.study.data.id) {
       handler(d);
       return true;
     }
