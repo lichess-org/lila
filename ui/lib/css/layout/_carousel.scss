@@ -28,13 +28,12 @@
     pointer-events: none;
 
     button {
-      border: none;
+      @extend %button-none;
       padding: 0;
       font-size: 2em;
       pointer-events: auto;
       height: 100%;
       width: 7.5%;
-      background: none;
       @include if-not-light {
         $gradient-start: rgba($c-bg-page, 0%);
         $gradient-end: rgba($c-bg-page, 50%);
