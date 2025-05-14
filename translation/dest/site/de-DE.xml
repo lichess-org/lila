@@ -351,9 +351,6 @@
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
-  <string name="takebackPropositionDeclined">Zugrücknahme abgelehnt</string>
-  <string name="takebackPropositionAccepted">Zugrücknahme angenommen</string>
-  <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
   <string name="tournament">Turnier</string>
