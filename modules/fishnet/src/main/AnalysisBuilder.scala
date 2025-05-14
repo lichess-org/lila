@@ -8,6 +8,7 @@ import lila.tree.{ Analysis, Eval, Info }
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
+import chess.Position
 
 final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
@@ -25,15 +26,17 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
        * to prevent the mobile app from thinking it's complete
        * https://github.com/lichess-org/lichobile/issues/722
        */
-      val cached = if isPartial then cachedFull - 0 else cachedFull
-      def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
-      chess
-        .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
+      val cached   = if isPartial then cachedFull - 0 else cachedFull
+      def debug    = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
+      val position = Position.AndFullMoveNumber(work.game.variant, work.game.initialFen)
+      position
+        .playPositions(work.game.uciList)
         .fold(
           err => fufail(err.value),
-          replay =>
+          positions =>
             val (analysis, errors) = UciToSan(
-              replay,
+              positions,
+              position.ply,
               Analysis(
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
