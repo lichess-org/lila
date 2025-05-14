@@ -22,6 +22,7 @@
   <string name="asBlack">beltzekin</string>
   <string name="randomColor">Ausazko kolorea</string>
   <string name="createAGame">Partida bat sortu</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Sortu partida</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
   <string name="blackIsVictorious">Beltza irabazle</string>
   <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Erakutsi aldaerak</string>
   <string name="forceVariation">Aldaera derrigortu</string>
   <string name="copyVariationPgn">Kopiatu ingurabidearen PGNa</string>
+  <string name="copyMainLinePgn">Kopiatu linea nagusiaren PGNa</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -997,4 +999,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="nothingToSeeHere">Hemen ez dago ezer zuretzat.</string>
   <string name="stats">Estatistikak</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Irisgarritasuna</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Aktibatu modu-itsua</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desaktibatu modu-itsua</string>
 </resources>

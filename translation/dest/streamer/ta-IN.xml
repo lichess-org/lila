@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">லிசெஸ் தொடரோடி பக்கம் உங்கள் தொடரோட்ட மேடையினால் வழங்கப்பட்ட மொழிவழி உங்கள் பார்வையாளர்களைக் குறிவைக்கிறது. நீங்கள் தொடரோட்ட பயன்படுத்தும் செயலிகள் அல்லது சேவையில் உங்கள் சதுரங்க தொடரோட்டத்திற்கான சரியான இயல்புநிலை மொழியை அமைக்கவும்.</string>
   <string name="twitchUsername">உங்கள் Twitch பயனர்பெயர் அல்லது URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch அல்லது YouTube தேவை</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch மற்றும் YouTube மாற்றங்கள் சரிபார்க்கப்பட வேண்டும்.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch மற்றும் YouTube மாற்றங்கள் சரிபார்க்கப்பட வேண்டும்.
   
   மதிப்பாய்வு செயல்பாட்டில் இருக்கும்போது உங்கள் தொடரோடிகள் முத்திரை மற்றும் பட்டியல் இடைநிறுத்தப்படும். இதற்கு 72 மணிநேரம் ஆகலாம்.</string>
   <string name="youTubeChannelId">உங்கள் YouTube அலைவரிசை ID</string>

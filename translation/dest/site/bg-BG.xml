@@ -156,6 +156,7 @@
   <string name="flipBoard">Завърти дъската</string>
   <string name="threefoldRepetition">Тройно повторение</string>
   <string name="claimADraw">Обяви реми</string>
+  <string name="drawClaimed">Обявено е реми</string>
   <string name="offerDraw">Предложи реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
@@ -484,6 +485,7 @@
   <string name="wins">Победи</string>
   <string name="losses">Загуби</string>
   <string name="createdBy">Създадено от</string>
+  <string name="startingIn" comment="Displayed above a timer">Започва след</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Възобновяване</string>
@@ -728,6 +730,9 @@
   <string name="checkYourEmail">Проверете имейла си</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви имейл. Натиснете върху връзката в имейла, за да задействате регистрацията си.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате имейла, проверете и на другите места където може бъде, като например кошче, спам, социални или други папки.</string>
+  <string name="ifYouDoNotGetTheEmail">Ако не получите потвърждението до 5 минути:</string>
+  <string name="checkAllEmailFolders">Проверете папката \"Спам\" и други подобни папки</string>
+  <string name="verifyYourAddress">Уверете се, че %s е вашият адрес</string>
   <string name="weHaveSentYouAnEmailTo">Изпратихме имейл на %s. Натиснете връзката в имейла, за да промените паролата на Вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="readAboutOur">Прочетете за нашата %s.</string>
@@ -736,6 +741,7 @@
   <string name="downloadAnnotated">Свали анотирана</string>
   <string name="downloadRaw">Свали необработена</string>
   <string name="downloadImported">Свали добавена</string>
+  <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="crosstable">Таблица</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
@@ -759,6 +765,7 @@
   <string name="playChessEverywhere">Играй шах навсякъде</string>
   <string name="everybodyGetsAllFeaturesForFree">Всеки взима всички възможности безплатно</string>
   <string name="viewTheSolution">Виж решението</string>
+  <string name="noChallenges">Няма предизвикателства.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Преведена на %s езика!</item>
     <item quantity="other">Преведена на %s езика!</item>
@@ -771,6 +778,7 @@
   <string name="anonymous">Анонимен</string>
   <string name="yourScore">Резултатът ви: %s</string>
   <string name="language">Език</string>
+  <string name="allLanguages">Всички езици</string>
   <string name="background">Фон</string>
   <string name="light">Светъл</string>
   <string name="dark">Тъмен</string>
@@ -954,6 +962,7 @@
   <string name="focusChat">Фокусирай текста</string>
   <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
   <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
+  <string name="reopenYourAccountDescription">Ако сте затворили акаунта си, но си промените решението, получавате един шанс да си върнете акаунта.</string>
   <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
   <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
   <string name="tournamentEntryCode">Код за участие в турнира</string>

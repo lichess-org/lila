@@ -16,7 +16,12 @@ private object UblogAutomod:
 
   case class Config(apiKey: Secret, model: String, url: String)
 
-  case class Result(classification: String, flagged: Option[String], commercial: Option[String])
+  case class Result(
+      classification: String,
+      flagged: Option[String],
+      commercial: Option[String],
+      offtopic: Option[String]
+  )
   private given Reads[Result] = Json.reads[Result]
 
   private val classifications = Set("spam", "weak", "quality", "phenomenal")
@@ -38,7 +43,7 @@ final class UblogAutomod(
   private val cfg =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
-    appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
+    appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 

@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">Oppure lascia che il tuo avversario scansioni questo codice QR</string>
+  <string name="orLetYourOpponentScanQrCode">Oppure fai scansionare questo codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">come nero</string>
   <string name="randomColor">Colore casuale</string>
   <string name="createAGame">Crea una partita</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Inizia una partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
@@ -51,7 +52,7 @@
   <string name="whiteLeftTheGame">Il Bianco ha lasciato la partita</string>
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
   <string name="whiteDidntMove">Il bianco non si è mosso</string>
-  <string name="blackDidntMove">Il nero non si è mosso</string>
+  <string name="blackDidntMove">Il nero non ha mosso</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>
+  <string name="copyMainLinePgn">Copia linea principale PGN</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Sconfitta per variante</string>
   <string name="variantWin">Vittoria per variante</string>
@@ -156,6 +158,7 @@
   <string name="flipBoard">Ruota la scacchiera</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="claimADraw">Reclama patta</string>
+  <string name="drawClaimed">Patta rivendicata</string>
   <string name="offerDraw">Offri patta</string>
   <string name="draw">Patta</string>
   <plurals name="nbPlayers">
@@ -180,7 +183,7 @@
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
   <string name="signIn">Accedi</string>
-  <string name="rememberMe">Ricordati di me</string>
+  <string name="rememberMe">Resta collegato</string>
   <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
   <string name="computersAreNotAllowedToPlay">Non è permesso giocare né a giocatori che si fanno aiutare dai computer né a computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli perché un uso eccessivo di account porterà alla cancellazione dal sito.</string>
@@ -486,6 +489,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
   <string name="createdBy">Creato da</string>
+  <string name="startingIn" comment="Displayed above a timer">Inizio tra</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Riprendi</string>
@@ -741,6 +745,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
+  <string name="ifYouDoNotGetTheEmail">Se non ricevi la email tra 5 minuti:</string>
+  <string name="checkAllEmailFolders">Controlla la posta indesiderata e altre cartelle</string>
+  <string name="verifyYourAddress">Verifica che %s sia il tuo indirizzo email</string>
   <string name="weHaveSentYouAnEmailTo">Abbiamo inviato un\'email all\'indirizzo %s. Clicca sul link nell\'email per reimpostare la password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrandoti, accetti i nostri %s</string>
   <string name="readAboutOur">Leggi la nostra %s.</string>
@@ -749,6 +756,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="downloadAnnotated">Scarica PGN annotato</string>
   <string name="downloadRaw">Scarica PGN senza annotazioni</string>
   <string name="downloadImported">Download importato</string>
+  <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scorri sulle varianti del computer per vederle in anteprima.</string>
@@ -772,6 +780,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
   <string name="viewTheSolution">Visualizza la soluzione</string>
+  <string name="noChallenges">Nessuna sfida.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s lingue!</item>
     <item quantity="other">Disponibile in %s lingue!</item>
@@ -784,6 +793,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="anonymous">Anonimo</string>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
+  <string name="allLanguages">Tutte le lingue</string>
   <string name="background">Sfondo</string>
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
@@ -970,6 +980,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
   <string name="reopenYourAccount">Riapri il tuo account</string>
+  <string name="reopenYourAccountDescription">Se hai chiuso il tuo account, ma hai cambiato idea, hai la possibilità di recuperare il tuo account.</string>
   <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
   <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
   <string name="tournamentEntryCode">Codice di accesso al torneo</string>
@@ -990,4 +1001,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilità</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Attiva \"modalità non vedenti\"</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Disattiva \"modalità non vedenti\"</string>
 </resources>

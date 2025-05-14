@@ -6,8 +6,17 @@
     <item quantity="one">%s көрсетілім</item>
     <item quantity="other">%s көрсетілім</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s көрермен</item>
+    <item quantity="other">%s көрермен</item>
+  </plurals>
   <string name="liveBroadcasts">Жарыстың тікелей көрсетілімдері</string>
+  <string name="broadcastCalendar">Көрсетілім күнтізбесі</string>
   <string name="newBroadcast">Жаңа тікелей көрсетілім</string>
+  <string name="subscribedBroadcasts">Көрсетілім жазылымдары</string>
+  <string name="aboutBroadcasts">Көрсетілім деген не?</string>
+  <string name="howToUseLichessBroadcasts">Личес Көрсетілімді қолдану жолы.</string>
+  <string name="theNewRoundHelp">Жаңа айналымда өткендегі сол мүше мен қолдаушылар болады.</string>
   <string name="addRound">Айналым қосу</string>
   <string name="ongoing">Болып жатқан</string>
   <string name="upcoming">Келе жатқан</string>
@@ -17,6 +26,7 @@
   <string name="tournamentDescription">Жарыстың қысқа сипаттамасы</string>
   <string name="fullDescription">Оқиғаның толық сипаттамасы</string>
   <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
+  <string name="sourceSingleUrl">PGN мекенжайы</string>
   <string name="sourceUrlHelp">PGN жаңартуларын алу үшін Личес тексеретін сілтеме. Ол интернетте баршалыққа ашық болуы керек.</string>
   <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
   <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
@@ -29,4 +39,5 @@
   <string name="deleteTournament">Бұл жарысты жою</string>
   <string name="definitivelyDeleteTournament">Жарысты айналым мен ойындарымен бірге толығымен жою.</string>
   <string name="fideProfile">FIDE төлқұжаты</string>
+  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Мықтылар</string>
 </resources>

@@ -113,7 +113,7 @@ final private class StudySocket(
             .foreach: username =>
               applyWho: w =>
                 api.kick(studyId, username.id, w.myId)
-                Bus.publish(Kick(studyId, username.id, w.myId), "kickStudy")
+                Bus.pub(Kick(studyId, username.id, w.myId))
 
         case "leave" =>
           who.foreach: w =>
@@ -234,7 +234,7 @@ final private class StudySocket(
 
         case "relaySync" =>
           applyWho: w =>
-            Bus.publish(RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
+            Bus.pub(RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w))
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 
@@ -245,7 +245,7 @@ final private class StudySocket(
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
-        Bus.ask("isOfficialRelay") { IsOfficialRelay(roomId, _) }.not
+        Bus.safeAsk[Boolean, IsOfficialRelay](IsOfficialRelay(roomId, _)).not
     },
     chatBusChan = _.study
   )

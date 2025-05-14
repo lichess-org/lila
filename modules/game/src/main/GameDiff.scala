@@ -62,7 +62,7 @@ object GameDiff:
     else
       val f = PgnStorage.OldBin
       dTry(oldPgn, _.sans, writeBytes.compose(f.encode))
-      dTry(binaryPieces, _.board.pieces, writeBytes.compose(BinaryFormat.piece.write))
+      dTry(binaryPieces, _.position.pieces, writeBytes.compose(BinaryFormat.piece.write))
       d(positionHashes, _.history.positionHashes, ph => w.bytes(ph.value))
       dTry(unmovedRooks, _.history.unmovedRooks, writeBytes.compose(BinaryFormat.unmovedRooks.write))
       dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveHandler.writeTry)
@@ -76,7 +76,7 @@ object GameDiff:
       if a.variant.crazyhouse then
         dOpt(
           crazyData,
-          _.board.crazyData,
+          _.position.crazyData,
           (o: Option[chess.variant.Crazyhouse.Data]) => o.map(BSONHandlers.crazyhouseDataHandler.write)
         )
     d(turns, _.ply, ply => w.int(ply.value))

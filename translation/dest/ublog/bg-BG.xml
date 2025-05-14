@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessBlog">Lichess блог</string>
+  <string name="myBlog">Моят блог</string>
   <string name="xBlog">Блогът на %s</string>
   <string name="newPost">Нова публикация</string>
   <string name="editYourBlogPost">Редактирайте Вашата публикация</string>

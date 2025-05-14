@@ -2,7 +2,7 @@ package lila.insight
 
 import chess.format.pgn.SanStr
 import chess.opening.OpeningDb
-import chess.{ Centis, Clock, Ply, Role, Situation, Stats }
+import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis }
@@ -13,13 +13,13 @@ case class RichPov(
     pov: Pov,
     provisional: Boolean,
     analysis: Option[lila.analyse.Analysis],
-    situations: NonEmptyList[Situation],
+    boards: NonEmptyList[Position],
     clock: Option[Clock.Config],
     movetimes: Option[Vector[Centis]],
     clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
 ):
-  lazy val division = chess.Divider(situations.map(_.board).toList)
+  lazy val division = chess.Divider(boards.toList)
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
@@ -46,7 +46,7 @@ final private class PovToEntry(
           .zip(game.metadata.analysed.so(analysisRepo.byId(Analysis.Id(game.id))))
           .map { (fen, an) =>
             chess.Replay
-              .situations(
+              .boards(
                 sans = game.sans,
                 initialFen = fen.orElse {
                   (!pov.game.variant.standardInitialPosition).option(pov.game.variant.initialFen)
@@ -55,12 +55,12 @@ final private class PovToEntry(
               )
               .toOption
               .flatMap(_.toNel)
-              .map: situations =>
+              .map: boards =>
                 RichPov(
                   pov = pov,
                   provisional = provisional,
                   analysis = an,
-                  situations = situations,
+                  boards = boards,
                   clock = game.clock.map(_.config),
                   movetimes = game.clock
                     .flatMap(_ => lila.game.GameExt.computeMoveTimes(game, pov.color))
@@ -90,21 +90,21 @@ final private class PovToEntry(
       }
     }
     val roles = from.pov.game.sansOf(from.pov.color).map(sanToRole)
-    val situations =
+    val boards =
       val pivot = if from.pov.color == from.pov.game.startColor then 0 else 1
-      from.situations.toList.zipWithIndex.collect:
+      from.boards.toList.zipWithIndex.collect:
         case (e, i) if (i % 2) == pivot => e
     val blurs =
       val bools = from.pov.player.blurs.booleans
       bools ++ Array.fill(roles.size - bools.length)(false)
     val timeCvs = from.movetimes.map(slidingMoveTimesCvs)
     roles.toList
-      .zip(situations)
+      .zip(boards)
       .zip(blurs)
       .zip(timeCvs | Vector.fill(roles.size)(none))
       .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
-      .mapWithIndex { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
+      .mapWithIndex { case ((((((role, board), blur), timeCv), clock), movetime), i) =>
         val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos.lift(i)
         val awareness = from.advices
@@ -127,7 +127,7 @@ final private class PovToEntry(
           accs
             .lift(i)
             .orElse:
-              if i == situations.size - 1 then // last eval missing if checkmate
+              if i == boards.size - 1 then // last eval missing if checkmate
                 (~from.pov.win && from.pov.game.status.is(_.Mate)).option(AccuracyPercent.perfect)
               else none // evals can be missing in super long games (300 plies, used to be 200)
         }
@@ -141,7 +141,7 @@ final private class PovToEntry(
           cpl = cpDiffs.lift(i).flatten,
           winPercent = prevInfo.map(_.eval).flatMap(_.score).map(WinPercent.fromScore),
           accuracyPercent = accuracyPercent,
-          material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
+          material = board.materialImbalance * from.pov.color.fold(1, -1),
           awareness = awareness,
           luck = luck,
           blur = blur,
@@ -168,11 +168,9 @@ final private class PovToEntry(
     s.stdDev.map { _ / s.mean }
 
   private def queenTrade(from: RichPov) = QueenTrade:
-    from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
-      case Some(situation) =>
-        Color.all.forall { color =>
-          !situation.board.isOccupied(chess.Piece(color, chess.Queen))
-        }
+    from.division.end.map(_.value).fold(from.boards.last.some)(from.boards.toList.lift) match
+      case Some(board) =>
+        Color.all.forall(color => !board.contains(color, chess.Queen))
       case _ =>
         logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
         false
@@ -214,7 +212,7 @@ final private class PovToEntry(
   private def findOpening(from: RichPov): Option[SimpleOpening] =
     from.pov.game.variant.standard.so(
       OpeningDb
-        .searchInSituations(from.situations.toList)
+        .searchInBoards(from.boards.toList)
         .map(_.opening)
         .flatMap(SimpleOpening.apply)
     )

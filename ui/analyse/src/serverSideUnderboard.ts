@@ -42,6 +42,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   };
 
+  pubsub.on('analysis.change', (fen: FEN, _) => {
+    const nextInputHash = `${fen}${ctrl.bottomColor()}`;
+    if (fen && nextInputHash !== lastInputHash) {
+      inputFen.value = fen;
+      if (!site.blindMode) updateGifLinks(fen);
+      lastInputHash = nextInputHash;
+    }
+  });
+
   if (!site.blindMode) {
     pubsub.on('board.change', () => updateGifLinks(inputFen.value));
     pubsub.on('analysis.comp.toggle', (v: boolean) => {
@@ -49,14 +58,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
-      }
-    });
-    pubsub.on('analysis.change', (fen: FEN, _) => {
-      const nextInputHash = `${fen}${ctrl.bottomColor()}`;
-      if (fen && nextInputHash !== lastInputHash) {
-        inputFen.value = fen;
-        updateGifLinks(fen);
-        lastInputHash = nextInputHash;
       }
     });
     pubsub.on('analysis.server.progress', (d: AnalyseData) => {

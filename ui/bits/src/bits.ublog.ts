@@ -1,5 +1,7 @@
 import * as xhr from 'lib/xhr';
 import { throttlePromiseDelay } from 'lib/async';
+import { info } from 'lib/view/dialogs';
+import { isTouchDevice } from 'lib/device';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -43,4 +45,9 @@ site.load.then(() => {
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();
   });
+  if (isTouchDevice()) {
+    document
+      .querySelectorAll<HTMLElement>('automod i')
+      .forEach(el => el.addEventListener('click', () => info(el.title)));
+  }
 });

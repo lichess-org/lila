@@ -5,7 +5,7 @@ import chess.PlayerTitle
 import lila.common.Bus
 import lila.core.perm.Permission
 import lila.core.report.SuspectId
-import lila.core.user.{ UserMark, UserMarks }
+import lila.core.user.{ UserMark, UserMarks, KidMode }
 import lila.report.{ Room, Suspect }
 import lila.user.{ LightUserApi, UserRepo }
 
@@ -40,7 +40,7 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.engine, v)))
         _ <- logApi.engine(sus, v)
       yield
-        Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        Bus.pub(lila.core.mod.MarkCheater(sus.user.id, v))
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
@@ -66,7 +66,7 @@ final class ModApi(
         _ <- logApi.booster(sus, v)
       yield
         if v then
-          Bus.publish(lila.core.mod.MarkBooster(sus.user.id), "adjustBooster")
+          Bus.pub(lila.core.mod.MarkBooster(sus.user.id))
           notifier.reporters(me.modId, sus)
         sus
 
@@ -81,7 +81,7 @@ final class ModApi(
           for _ <- userRepo.updateTroll(sus.user)
           yield
             logApi.troll(sus)
-            Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
+            Bus.pub(lila.core.mod.Shadowban(sus.user.id, value))
         _ = if value then notifier.reporters(me.modId, sus)
       yield sus
 
@@ -126,13 +126,12 @@ final class ModApi(
           Bus.pub(lila.core.security.ReopenAccount(user))
           logApi.reopenAccount(user.id)
 
-  def setKid(mod: ModId, username: UserStr): Funit =
+  def setKid(mod: ModId, username: UserStr, v: KidMode): Funit =
     withUser(username): user =>
-      userRepo
-        .isKid(user.id)
-        .flatMap: isKid =>
-          (!isKid).so:
-            userRepo.setKid(user, true) >> logApi.setKidMode(mod, user.id)
+      for
+        prev <- userRepo.isKid(user.id)
+        _    <- (v != prev).so(userRepo.setKid(user, v))
+      yield if v != prev then logApi.setKidMode(mod, user.id, v)
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>
@@ -189,7 +188,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.rankban != v).so:
-      if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.pub(lila.core.mod.KickFromRankings(sus.user.id))
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
 
   def setArenaBan(sus: Suspect, v: Boolean)(using MyId): Funit =

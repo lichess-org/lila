@@ -1,12 +1,11 @@
 package lila.tree
 
 import alleycats.Zero
-import chess.bitboard.Bitboard
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Check, Ply, Square }
+import chess.{ Bitboard, Centis, Check, Ply, Square }
 import play.api.libs.json.*
 import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
@@ -530,8 +529,7 @@ object Node:
           sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
 
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
-    JsArray:
-      node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
+    JsArray(node.mainlineNodeList.map(minimalNodeJsonWriter.writes))
 
 object Tree:
 

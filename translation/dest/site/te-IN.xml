@@ -76,6 +76,7 @@
   <string name="expandVariations">వేరియేషన్స్నీ ఎక్సపండ్ చేయ్  </string>
   <string name="forceVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
   <string name="copyVariationPgn">PGNని కాపీ చేయండి</string>
+  <string name="copyMainLinePgn">ప్రధాన లైన్ pgn ని కాపీ చేయండి</string>
   <string name="move">జరుపు లేదా ఎత్తు వెయ్యండి</string>
   <string name="variantLoss">శాఖ ఓటమి</string>
   <string name="variantWin">శాఖ గెలుపు</string>
@@ -158,6 +159,7 @@
   <string name="flipBoard">పటమును బోర్లించు</string>
   <string name="threefoldRepetition">మూడు రెట్లు పునరావృతం</string>
   <string name="claimADraw">అనిశ్చిత ఫలితం అని ప్రకటించుకోండి</string>
+  <string name="drawClaimed">డ్రా క్లెయిమ్ చేయబడింది</string>
   <string name="offerDraw">అనిశ్చిత ఫలితం అని ప్రతిపాదించండి</string>
   <string name="draw">అనిశ్చిత ఫలితం</string>
   <plurals name="nbPlayers">
@@ -489,6 +491,7 @@
   <string name="wins">విజయాలు</string>
   <string name="losses">నష్టాలు</string>
   <string name="createdBy">సృష్టికర్త</string>
+  <string name="startingIn" comment="Displayed above a timer">డ్రా క్లెయిమ్ చేయబడింది</string>
   <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
   <string name="pause">విరామం</string>
   <string name="resume">రెస్యూమ్</string>
@@ -517,11 +520,17 @@
   <string name="ifNoneLeaveEmpty">ఏదీ లేకుంటే, ఖాళీగా వదిలివేయండి</string>
   <string name="profile">ప్రొఫైల్</string>
   <string name="editProfile">ప్రొఫైల్ మార్చాలి</string>
+  <string name="realName">అసలు పేరు</string>
+  <string name="setFlair">మీ నైపుణ్యాన్ని సెట్ చేయండి</string>
+  <string name="flair">ఫ్లెయిర్</string>
+  <string name="youCanHideFlair">సైట్ అంతటా వినియోగదారుల నైపుణ్యాలన్నింటినీ దాచడానికి ఒక సెట్టింగ్ ఉంది.</string>
   <string name="biography">జీవిత చరిత్ర</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">దేశం లేదా ప్రాంతం</string>
   <string name="thankYou">ధన్యవాదాలు!</string>
   <string name="socialMediaLinks">సోషల్ మీడియా లింక్‌లు</string>
   <string name="oneUrlPerLine">పంక్తికి ఒక URL.</string>
   <string name="inlineNotation">Inline notation</string>
+  <string name="makeAStudy">భద్రపరచడం మరియు పంచుకోవడం కోసం, ఒక అధ్యయనం చేయడాన్ని పరిగణించండి.</string>
   <string name="previouslyOnLichessTV">గతంలో Lichess TVలో</string>
   <string name="onlinePlayers">ఆన్‌లైన్ ప్లేయర్‌లు</string>
   <string name="activePlayers">Active ఆటగాళ్ళు</string>

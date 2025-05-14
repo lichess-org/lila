@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
 import clr from 'tinycolor2';
-import { clamp, isEquivalent, trimLines } from './algo.ts';
-import { c, env, errorMark } from './env.ts';
+import { clamp, isEquivalent } from './algo.ts';
+import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable } from './parse.ts';
@@ -158,7 +158,7 @@ async function parseScss(src: string, processed: Set<string>) {
       : resolve(dirname(src), resolvePartial(cssImport));
 
     if (/node_modules.*\.css/.test(absDep)) continue;
-    else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${cssImport}`;
+    else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
 
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));

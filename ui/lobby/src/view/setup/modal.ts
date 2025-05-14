@@ -16,6 +16,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
   return snabDialog({
+    attrs: { dialog: { role: 'dialog', 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
     onClose: () => {
@@ -34,7 +35,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
 
 const views = {
   hook: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', i18n.site.createAGame),
+    h('h2#lobby-setup-modal-title', i18n.site.createAGame),
     h('div.setup-content', [
       variantPicker(ctrl),
       timePickerAndSliders(ctrl),
@@ -44,7 +45,7 @@ const views = {
     ]),
   ],
   friend: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', i18n.site.playWithAFriend),
+    h('h2#lobby-setup-modal-title', i18n.site.playWithAFriend),
     h('div.setup-content', [
       ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
       variantPicker(ctrl),
@@ -55,7 +56,7 @@ const views = {
     ]),
   ],
   ai: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', i18n.site.playWithTheMachine),
+    h('h2#lobby-setup-modal-title', i18n.site.playWithTheMachine),
     h('div.setup-content', [
       variantPicker(ctrl),
       fenInput(ctrl),

@@ -23,7 +23,7 @@ final class Env(
     teamApi: lila.core.team.TeamApi
 )(using Executor):
 
-  private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
+  private val config = appConfig.get[TimelineConfig]("timeline")(using AutoConfig.loader)
 
   lazy val entryApi = EntryApi(
     coll = db(config.entryColl),
@@ -50,7 +50,7 @@ final class Env(
 
   private val api = wire[TimelineApi]
 
-  lila.common.Bus.subscribeFun("shadowban"):
+  lila.common.Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => entryApi.removeRecentFollowsBy(userId)
 
   lila.common.Bus.sub[lila.core.timeline.Propagate](api(_))

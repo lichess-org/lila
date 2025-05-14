@@ -27,8 +27,6 @@ case class PracticeStructure(sections: List[PracticeSection]):
 
   def findSection(id: StudyId): Option[PracticeSection] = sectionsByStudyIds.get(id)
 
-  def hasStudy(id: StudyId) = studiesByIds contains id
-
 case class PracticeSection(
     id: String,
     hide: Boolean,

@@ -44,7 +44,7 @@ final class JsonView(rematches: Rematches):
         "player" -> game.turnColor,
         "fen"    -> Fen.write(game.chess)
       )
-      .add("check" -> game.situation.checkSquare.map(_.key))
+      .add("check" -> game.position.checkSquare.map(_.key))
       .add("lastMove" -> game.lastMoveKeys)
 
   def apiAiNewGame(pov: Pov, initialFen: Option[Fen.Full]): JsObject =

@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ Clock, Game as ChessGame, Situation, Speed }
+import chess.{ Clock, Game as ChessGame, Position, Speed }
 import scalalib.model.Days
 
 import lila.lobby.TriColor
@@ -28,7 +28,7 @@ private[setup] trait Config:
   def hasClock = timeMode == TimeMode.RealTime
 
   def makeGame(v: Variant): ChessGame =
-    ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
+    ChessGame(position = Position(v), clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -61,7 +61,7 @@ trait WithColor:
   // creator player color
   def color: TriColor
 
-  lazy val creatorColor = color.resolve()
+  lazy val creatorColor: Color = color.resolve()
 
 trait Positional:
   self: Config =>
@@ -79,10 +79,10 @@ trait Positional:
       .ifTrue(variant.fromPosition)
       .flatMap:
         Fen.readWithMoveNumber(FromPosition, _)
-    val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]):
-      case sit @ Situation.AndFullMoveNumber(s, _) =>
+    val (chessGame, state) = baseState.fold(makeGame -> none):
+      case sit @ Position.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
-          situation = s,
+          position = s,
           ply = sit.ply,
           startedAtPly = sit.ply,
           clock = makeClock.map(_.toClock)
@@ -90,14 +90,12 @@ trait Positional:
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
     builder(chessGame).dmap { game =>
-      state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
+      state.fold(game) { case sit @ Position.AndFullMoveNumber(position, _) =>
         game.copy(
           chess = game.chess.copy(
-            situation = game.situation.copy(
-              board = game.board.copy(
-                history = board.history,
-                variant = FromPosition
-              )
+            position = game.position.copy(
+              history = position.history,
+              variant = FromPosition
             ),
             ply = sit.ply
           )

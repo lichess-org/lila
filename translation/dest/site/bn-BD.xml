@@ -560,6 +560,7 @@
   <string name="cheat">চিটিং করছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
+  <string name="reportProcessedFasterInEnglish">ইংরেজিতে লেখা হলে আপনার রিপোর্ট দ্রুত প্রক্রিয়া করা হবে।</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="importedByX">খেলাটি এনেছেন %s</string>

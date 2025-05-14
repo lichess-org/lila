@@ -75,7 +75,7 @@ export class GameCtrl {
 
   nameOf(color: Color): string {
     if (!this[color] && this[co.opposite(color)]) return env.username;
-    return this[color] ? (env.bot.get(this[color])?.name ?? this[color]) : i18n.site[color];
+    return this[color] ? (env.bot.info(this[color])?.name ?? this[color]) : i18n.site[color];
   }
 
   idOf(color: Color): string {
@@ -222,7 +222,7 @@ export class GameCtrl {
     if (moveCtx.silent) return;
     const justPlayed = this.live.awaiting;
     const botInfo = env.bot[justPlayed] ?? env.bot[co.opposite(justPlayed)];
-    if (!botInfo) return;
+    if (!botInfo || !env.bot.bots.get(botInfo.uid)) return;
     const { san } = moveCtx;
     const sounds: SoundEvent[] = [];
     const prefix = env.bot[justPlayed] ? 'bot' : 'player';

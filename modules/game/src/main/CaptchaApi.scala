@@ -66,15 +66,15 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       for
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations.map: (from, dests) =>
+        moves = rewinded.position.destinations.map: (from, dests) =>
           from.key -> dests.map(_.key).mkString
       yield Captcha(game.id, fenOf(rewinded), rewinded.player, solutions, moves = moves)
 
     def solve(game: ChessGame): Option[Solutions] =
-      game.situation.moves.view
+      game.position.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
-            (move.after.situationOf(!game.player)).checkMate
+            move.after.checkMate
         .to(List)
         .map: move =>
           s"${move.orig.key} ${move.dest.key}"
@@ -82,11 +82,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
 
     def rewind(moves: Vector[SanStr]): Option[ChessGame] =
       pgn.Reader
-        .movesWithSans(
-          moves,
-          sans => Sans(safeInit(sans.value)),
-          tags = Tags.empty
-        )
+        .moves(moves, sans => Sans(safeInit(sans.value)), tags = Tags.empty)
         .flatMap(_.valid)
         .map(_.state)
         .toOption
@@ -96,4 +92,4 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       case x :: xs  => x :: safeInit(xs)
       case _        => Nil
 
-    def fenOf(game: ChessGame) = Fen.writeBoard(game.board)
+    def fenOf(game: ChessGame): BoardFen = Fen.writeBoard(game.position)

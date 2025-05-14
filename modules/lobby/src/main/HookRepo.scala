@@ -35,7 +35,7 @@ final private class HookRepo:
 
   def byId(id: ID) = hooks.get1(id)
 
-  def byIds(ids: Set[ID]) = ids.flatten(hooks.get1)
+  def byIds(ids: Set[ID]) = ids.flatten(using hooks.get1)
 
   def bySri(sri: Sri) = hooks.get2(sri)
 

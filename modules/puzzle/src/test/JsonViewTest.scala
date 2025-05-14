@@ -52,7 +52,7 @@ class JsonViewTest extends munit.FunSuite:
           ply = game.ply,
           move = Uci.WithSan(move.toUci, game.sans.last),
           fen = chess.format.Fen.write(game),
-          check = game.situation.check,
+          check = game.position.check,
           crazyData = none
         )
         (game, branch :: branches)

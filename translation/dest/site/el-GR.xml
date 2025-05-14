@@ -399,7 +399,7 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="xJoinedTeamY">Ο/Η %1$s έγινε μέλος της ομάδα %2$s</string>
+  <string name="xJoinedTeamY">Ο χρήστης %1$s έγινε μέλος της ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="startedStreaming">ξεκίνησε να μεταδίδει</string>
   <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
@@ -449,7 +449,7 @@
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
-  <string name="xStartedFollowingY">Ο %1$s άρχισε να ακολουθεί τον %2$s</string>
+  <string name="xStartedFollowingY">Ο χρήστης %1$s άρχισε να ακολουθεί τον %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ακόλουθος</item>
     <item quantity="other">%s ακόλουθοι</item>
@@ -487,6 +487,7 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
+  <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
   <string name="resume">Συνέχεια</string>
@@ -667,7 +668,7 @@
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">Ο %1$s είναι (%2$s) δωρεάν, ελεύθερος, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα υπηρεσία για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -789,7 +790,7 @@
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
-  <string name="allLanguages">Όλες οι γλώσσες</string>
+  <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>

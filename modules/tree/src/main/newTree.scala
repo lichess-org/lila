@@ -1,11 +1,10 @@
 package lila.tree
-import chess.bitboard.Bitboard
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.json.Json.given
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Check, HasId, Mergeable, Node as ChessNode, Ply, Situation, Square, Tree, Variation }
+import chess.{ Bitboard, Check, HasId, Mergeable, Node as ChessNode, Ply, Position, Square, Tree, Variation }
 import monocle.syntax.all.*
 import play.api.libs.json.*
 import scalalib.json.Json.{ *, given }
@@ -47,13 +46,13 @@ object Metas:
       check = Check.No,
       crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
-  def apply(sit: Situation.AndFullMoveNumber): Metas =
+  def apply(sit: Position.AndFullMoveNumber): Metas =
     Metas(
       ply = sit.ply,
       fen = Fen.write(sit),
-      check = sit.situation.check,
+      check = sit.position.check,
       clock = none,
-      crazyData = sit.situation.board.crazyData
+      crazyData = sit.position.crazyData
     )
 
 case class NewBranch(
@@ -288,9 +287,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   override def toString = s"$tree"
 
 object NewRoot:
-  def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
-  def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
-  def apply(root: Root): NewRoot                       = NewRoot(NewTree.fromNode(root), NewTree(root))
+  def default(variant: Variant)                       = NewRoot(Metas.default(variant), None)
+  def apply(sit: Position.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
+  def apply(root: Root): NewRoot                      = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import NewTree.*
   import lila.tree.evals.jsonWrites

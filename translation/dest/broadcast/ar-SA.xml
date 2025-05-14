@@ -5,23 +5,23 @@
   <plurals name="nbBroadcasts">
     <item quantity="zero">%s بث</item>
     <item quantity="one">%s بث</item>
-    <item quantity="two">بثين</item>
-    <item quantity="few">%s بثوث</item>
-    <item quantity="many">%s بثوث</item>
-    <item quantity="other">%s بثوث</item>
+    <item quantity="two">%s بث</item>
+    <item quantity="few">%s بث</item>
+    <item quantity="many">%s بث</item>
+    <item quantity="other">%s بث</item>
   </plurals>
   <string name="liveBroadcasts">بث البطولة المباشرة</string>
   <string name="broadcastCalendar">تقويم البث</string>
   <string name="newBroadcast">بث مباشر جديد</string>
   <string name="subscribedBroadcasts">البث المُشترك به</string>
   <string name="aboutBroadcasts">حول البثوث</string>
-  <string name="howToUseLichessBroadcasts">كيفية استخدام بث ليتشيس.</string>
-  <string name="theNewRoundHelp">ستضم الجولة الجديدة الأعضاء والمساهمين عينهم الذين اشتركوا في الجولة السابق.</string>
+  <string name="howToUseLichessBroadcasts">كيفية استخدام بث Lichess.</string>
+  <string name="theNewRoundHelp">ستضم الجولة الجديدة الأعضاء والمساهمين عينهم الذين اشتركوا في الجولة السابقة.</string>
   <string name="addRound">إضافة جولة</string>
   <string name="ongoing">الجارية</string>
   <string name="upcoming">القادمة</string>
   <string name="roundName">اسم الجولة</string>
-  <string name="roundNumber">رقم الجولة (الشوط)</string>
+  <string name="roundNumber">رَقَم الجولة </string>
   <string name="tournamentName">اسم البطولة</string>
   <string name="tournamentDescription">وصف موجز للبطولة</string>
   <string name="fullDescription">الوصف الكامل</string>
@@ -51,4 +51,17 @@
   <string name="ageThisYear">العمر هذا العام</string>
   <string name="unrated">غير مقيم</string>
   <string name="recentTournaments">البطولات الأخيرة</string>
+  <string name="openLichess">افتح في lichess</string>
+  <string name="teams">الفِرق</string>
+  <string name="subscribeTitle">اشترك ليتم إعلامك عند بداية كل جولة. يمكنك تفعيل الجرس أو  الإشعارات للبث في إعدادات حسابك.</string>
+  <string name="uploadImage">رفع صورة البطولة</string>
+  <string name="noBoardsYet">لا توجد لوحات الآن. ستظهر بمجرد رفع المباريات.</string>
+  <string name="startsAfter">تبدأ بعد%s</string>
+  <string name="startVerySoon">سيبدأ البث قريبا.</string>
+  <string name="notYetStarted">البث لم يبدأ بعد.</string>
+  <string name="officialWebsite">الموقع الرسمي</string>
+  <string name="standings">الترتيب</string>
+  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">الترتيب الرسمي</string>
+  <string name="backToLiveMove">العودة إلى الحرقات المباشرة</string>
+  <string name="sinceHideResults">بما أنك اخترت إخفاء النتائج، فإن جميع لوحات المعاينة فارغة لتجنب الحرق.</string>
 </resources>

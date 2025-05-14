@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ ByColor, Game as ChessGame, Situation }
+import chess.{ Position, ByColor, Game as ChessGame }
 
 import lila.core.socket.Sri
 import lila.core.user.{ GameUsers, WithPerf }
@@ -25,7 +25,7 @@ final private class Biter(
     for
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner, joiner)
+      ownerColor <- assignCreatorColor(owner, joiner, hook.color)
       game <- idGenerator.withUniqueId:
         makeGame(
           hook,
@@ -42,7 +42,7 @@ final private class Biter(
         .gamePlayersLoggedIn(ByColor(lobbyUser.id, seek.user.id), seek.perfType)
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner.some, joiner.some)
+      ownerColor <- assignCreatorColor(owner.some, joiner.some, TriColor.Random)
       game <- idGenerator.withUniqueId:
         makeGame(
           seek,
@@ -51,13 +51,21 @@ final private class Biter(
       _ <- gameRepo.insertDenormalized(game)
     yield JoinSeek(joiner.id, seek, game, ownerColor)
 
-  private def assignCreatorColor(creatorUser: Option[WithPerf], joinerUser: Option[WithPerf]): Fu[Color] =
-    userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { Color.fromWhite(_) }
+  private def assignCreatorColor(
+      creator: Option[WithPerf],
+      joiner: Option[WithPerf],
+      color: TriColor
+  ): Fu[Color] =
+    color match
+      case TriColor.Random => userApi.firstGetsWhite(creator.map(_.id), joiner.map(_.id)).map(Color.fromWhite)
+      case fixed =>
+        creator.map(_.id).foreach(userApi.incColor(_, fixed.resolve()))
+        fuccess(fixed.resolve())
 
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(
       chess = ChessGame(
-        situation = Situation(hook.realVariant),
+        position = Position(hook.realVariant),
         clock = hook.clock.toClock.some
       ),
       players = users.mapWithColor(newPlayer.apply),
@@ -70,7 +78,7 @@ final private class Biter(
   private def makeGame(seek: Seek, users: GameUsers) = lila.core.game
     .newGame(
       chess = ChessGame(
-        situation = Situation(seek.realVariant),
+        position = Position(seek.realVariant),
         clock = none
       ),
       players = users.mapWithColor(newPlayer.apply),

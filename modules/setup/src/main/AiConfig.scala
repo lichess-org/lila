@@ -28,7 +28,7 @@ case class AiConfig(
 
   private def game(user: GameUser)(using idGenerator: IdGenerator, newPlayer: NewPlayer): Fu[Game] =
     fenGame: chessGame =>
-      lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
+      lila.rating.PerfType(chessGame.position.variant, chess.Speed(chessGame.clock.map(_.config)))
       idGenerator.withUniqueId:
         lila.core.game
           .newGame(
@@ -38,7 +38,7 @@ case class AiConfig(
               then newPlayer(c, user)
               else newPlayer.anon(c, level.some),
             mode = chess.Mode.Casual,
-            source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
+            source = if chessGame.position.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
             pgnImport = None
           )

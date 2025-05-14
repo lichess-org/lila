@@ -348,12 +348,16 @@ export function renderControls(ctrl: AnalyseCtrl) {
 }
 
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  const render = (result: string, status: string) => [h('div.result', result), h('div.status', status)];
+  const termination = () => ctrl.study && findTag(ctrl.study.data.chapter.tags, 'termination');
+  const render = (result: string, status: string) => [
+    h('div.result', result),
+    h('div.status', [termination() && `${termination()} • `, status]),
+  ];
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return render(result, statusView(ctrl.data));
-  } else if (ctrl.study && ctrl.study.multiBoard.showResults()) {
+  } else if (ctrl.study?.multiBoard.showResults()) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result')?.replace('1/2', '½');
     if (!result || result === '*') return [];
     if (result === '1-0') return render(result, i18n.site.whiteIsVictorious);

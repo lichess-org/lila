@@ -8,10 +8,9 @@ final class PlayingUsers(using Executor):
 
   def apply(userId: UserId): Boolean = playing.get(userId)
 
-  Bus.subscribeFun("startGame", "finishGame"):
-
+  Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty).foreach(playing.removeAll)
-
+  Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty).foreach(playing.putAll)

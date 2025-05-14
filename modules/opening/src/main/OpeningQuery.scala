@@ -1,17 +1,16 @@
 package lila.opening
 
-import chess.MoveOrDrop.*
 import chess.Replay
-import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
+import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr, Reader }
 import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans
   val uci: Vector[Uci] = replay.moves.view.map(_.toUci).reverse.toVector
-  def position         = replay.state.situation
+  def position         = replay.state.position
   def variant          = chess.variant.Standard
-  val fen              = Fen.writeOpening(replay.state.situation)
+  val fen              = Fen.writeOpening(replay.state.position)
   val exactOpening     = OpeningDb.findByStandardFen(fen)
   val family           = exactOpening.map(_.family)
   def pgnString        = PgnMovesStr(sans.mkString(" "))
@@ -68,10 +67,11 @@ object OpeningQuery:
         openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
   }.map(_.pgn).flatMap { fromPgn(_, config) }
 
-  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for
-    parsed <- chess.format.pgn.Reader.full(pgn.into(PgnStr)).toOption
-    replay <- parsed.valid.toOption
-  yield OpeningQuery(replay, config)
+  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
+    for
+      parsed <- Reader.mainline(pgn.into(PgnStr)).toOption
+      replay <- parsed.valid.toOption
+    yield OpeningQuery(replay, config)
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"

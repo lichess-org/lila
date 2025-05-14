@@ -20,11 +20,10 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(net: NetConfig, getFile: GetRelativeFile)(using Executor):
+final class AssetManifest(getFile: GetRelativeFile)(using Executor):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
-  private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
-  private val logger   = lila.log("assetManifest")
+  private val logger = lila.log("assetManifest")
 
   def css(key: String): String             = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
@@ -35,7 +34,7 @@ final class AssetManifest(net: NetConfig, getFile: GetRelativeFile)(using Execut
   def lastUpdate: Instant                   = maps.modified
 
   def update(): Unit =
-    val pathname = getFile.exec(s"public/compiled/$filename").toPath
+    val pathname = getFile.exec(s"public/compiled/manifest.json").toPath
     try
       val current = Files.getLastModifiedTime(pathname).toInstant
       if current.isAfter(maps.modified)

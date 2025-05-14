@@ -22,6 +22,7 @@
   <string name="asBlack">kot črni</string>
   <string name="randomColor">Naključna stran</string>
   <string name="createAGame">Nova igra</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Ustvari igro</string>
   <string name="whiteIsVictorious">Beli je zmagal</string>
   <string name="blackIsVictorious">Črni je zmagal</string>
   <string name="youPlayTheWhitePieces">Igrate z belimi figurami</string>
@@ -76,6 +77,7 @@
   <string name="expandVariations">Razširite različice</string>
   <string name="forceVariation">Vsili varianto</string>
   <string name="copyVariationPgn">Kopiraj različico PGN</string>
+  <string name="copyMainLinePgn">Kopiraj glavni PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -1086,4 +1088,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
 Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Dostopnost</string>
+  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Vključite slepi način</string>
+  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Izključite slepi način</string>
 </resources>

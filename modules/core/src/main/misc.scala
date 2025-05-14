@@ -8,35 +8,22 @@ import lila.core.user.Me
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
-  object StreamStart extends bus.GivenChannel[StreamStart]("streamStart")
 
   case class StreamInfo(name: String, lang: String)
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
-  object StreamersOnline extends bus.GivenChannel[StreamersOnline]("streamersOnline")
-
-package map:
-  case class Tell(id: String, msg: Any)
-  case class TellIfExists(id: String, msg: Any)
-  case class TellMany(ids: Seq[String], msg: Any)
-  case class TellAll(msg: Any)
-  case class Exists(id: String, promise: Promise[Boolean])
 
 package clas:
   enum ClasBus:
     case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
-  object ClasBus extends bus.GivenChannel[ClasBus]("clas")
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
-  object StormRun extends bus.GivenChannel[StormRun]("stormRun")
 
   case class RacerRun(userId: UserId, score: Int)
-  object RacerRun extends bus.GivenChannel[RacerRun]("racerRun")
 
   case class StreakRun(userId: UserId, score: Int)
-  object StreakRun extends bus.GivenChannel[StreakRun]("streakRun")
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
@@ -44,8 +31,9 @@ package lpv:
     case PublicPgn(pgn: PgnStr)
     case PrivateStudy
   type LinkRender = (String, String) => Option[scalatags.Text.Frag]
-  case class AllPgnsFromText(text: String, max: Max, promise: Promise[Map[String, LpvEmbed]])
-  case class LpvLinkRenderFromText(text: String, promise: Promise[LinkRender])
+  enum Lpv:
+    case AllPgnsFromText(text: String, max: Max, promise: Promise[Map[String, LpvEmbed]])
+    case LinkRenderFromText(text: String, promise: Promise[LinkRender])
 
 package mailer:
   case class CorrespondenceOpponent(
@@ -54,7 +42,6 @@ package mailer:
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
-  object CorrespondenceOpponents extends bus.GivenChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)

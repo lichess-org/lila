@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">സുഹൃത്തിനോടൊപ്പം കളിക്കുക</string>
   <string name="playWithTheMachine">ഗണനികയിനെതിരെ മത്സരിക്കുക</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ കണ്ണി നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
   <string name="orLetYourOpponentScanQrCode">അല്ലെങ്കിൽ താങ്ങളുടെ എതിരാളിയേ ഈ QR കേഡ് സ്കാൻ ചെയാൻ പറയുക</string>
@@ -12,7 +12,7 @@
   <string name="level">തരം</string>
   <string name="strength">ശക്തി</string>
   <string name="toggleTheChat">സംഭാഷണം തുടങ്ങുകയോ നിര്തുകയോ ചെയ്യുന്നതിന്</string>
-  <string name="chat">സംഭാഷണം</string>
+  <string name="chat">സല്ലപിക്കുക</string>
   <string name="resign">കീഴടങ്ങുക</string>
   <string name="checkmate">അടിയറവു്</string>
   <string name="stalemate">സമനില</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">കറുപ്പായി</string>
   <string name="randomColor">ഏതെങ്കിലും നിറം</string>
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
+  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
   <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
@@ -38,8 +39,8 @@
   <string name="whitePlays">വെള്ളയുടെ നീക്കം</string>
   <string name="blackPlays">കറുപ്പിന്റെ നീക്കം</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">നിങ്ങളുടെ എതിരാളി കളി ഉപേക്ഷിച്ചു. നിങ്ങള്‍ക്ക് %s സെക്ക൯റ്റിൽ ജയം അവകാശപ്പെടാം.</item>
-    <item quantity="other">നിങ്ങളുടെ എതിരാളി കളി ഉപേക്ഷിച്ചു. നിങ്ങള്‍ക്ക് %s സെക്ക൯കളില്‍ ജയം അവകാശപ്പെടാം.</item>
+    <item quantity="one">താങ്ങളുടെ എതിരാളി കളി വിട്ടുകളഞ്ഞു. താങ്ങൾക്കു് %s സക്കണ്ടുകൾ കഴിഞ്ഞിട്ടു് വെല്ലൽ വിളംബരിക്കാം.</item>
+    <item quantity="other">താങ്ങളുടെ എതിരാളി കളി വിട്ടുകളഞ്ഞു. താങ്ങൾക്കു് %s സക്കണ്ടു് കഴിഞ്ഞിട്ടു് വെല്ലൽ വിളംബരിക്കാം.</item>
   </plurals>
   <string name="opponentLeftChoices">എതിരാളി പോയിരിക്കാം. നിങ്ങൾക്ക് വിജയിക്കുകയോ സമനില കൊടുക്കുകയോ കാത്തിരിക്കുകയോ ചെയ്യാം.</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>

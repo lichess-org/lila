@@ -466,6 +466,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
+  <string name="noNetwork">Izvan mreže</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s prijatelj online</item>
     <item quantity="few">%s prijatelja online</item>
@@ -716,6 +717,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="yourPendingSimuls">Vaše simultanke u čekanju</string>
   <string name="createdSimuls">Novokreirane simultanke</string>
   <string name="hostANewSimul">Kreiraj novu simultanku</string>
+  <string name="signUpToHostOrJoinASimul">Registrirajte se kako bi organizirali ili sudjelovali u simultanki</string>
   <string name="noSimulFound">Simultanka nije pronađena</string>
   <string name="noSimulExplanation">Ova simultanka ne postoji.</string>
   <string name="returnToSimulHomepage">Vrati se na stranicu sa simultankama</string>
