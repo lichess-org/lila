@@ -51,8 +51,7 @@ trait AssetFullHelper:
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev =
-      (!netConfig.minifiedAssets).so("http://localhost:8666")
-        :: (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
+      (!ctx.req.secure).so(List("http://127.0.0.1:3000", "http://localhost:8666"))
     lila.web.ContentSecurityPolicy.page(
       netConfig.assetDomain,
       netConfig.assetDomain.value :: sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev

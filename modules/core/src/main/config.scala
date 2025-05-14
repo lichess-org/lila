@@ -56,7 +56,6 @@ object config:
       assetDomain: AssetDomain,
       assetBaseUrl: AssetBaseUrl,
       assetBaseUrlInternal: AssetBaseUrlInternal,
-      minifiedAssets: Boolean,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],
