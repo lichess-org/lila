@@ -568,6 +568,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (
       d.game.variant.key == 'standard' &&
+      d.player.user &&
       d.player.ratingDiff &&
       defined(d.clock?.initial) &&
       defined(d.clock?.increment)

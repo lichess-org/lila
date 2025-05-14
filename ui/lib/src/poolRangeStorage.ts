@@ -9,7 +9,7 @@ export const set = (username: string | undefined, poolId: string, range: string 
   else storage.remove(key);
 };
 
-export const shiftRange = (username: string | undefined, poolId: string, delta: number): void => {
+export const shiftRange = (username: string, poolId: string, delta: number): void => {
   const currRange = get(username, poolId);
   if (!currRange) return;
   const [min, max] = currRange.split('-').map(Number);
