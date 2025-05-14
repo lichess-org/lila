@@ -327,9 +327,6 @@
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
   <string name="takebackPropositionSent">การขอเดินใหม่ ถูกส่ง</string>
-  <string name="takebackPropositionDeclined">การขอเดินใหม่ ถูกปฏิเสธ</string>
-  <string name="takebackPropositionAccepted">การขอเดินใหม่ ถูกยอมรับ</string>
-  <string name="takebackPropositionCanceled">การขอเดินใหม่ ถูกยกเลิก</string>
   <string name="yourOpponentProposesATakeback">คู่แข่งของคุณขอเดินใหม่</string>
   <string name="bookmarkThisGame">หมายเกมนี้ไว้</string>
   <string name="tournament">ทัวร์นาเมนต์</string>
