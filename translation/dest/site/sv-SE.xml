@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Fråga om du får göra om draget</string>
+  <string name="whiteProposesTakeback">Vit föreslår att ta tillbaka</string>
+  <string name="blackProposesTakeback">Svart föreslår att ta tillbaka</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
+  <string name="whiteDeclinesTakeback">Vit nekar att ta tillbaka</string>
+  <string name="blackDeclinesTakeback">Svart nekar att ta tillbaka</string>
+  <string name="whiteAcceptsTakeback">Vit godtar att ta tillbaka</string>
+  <string name="blackAcceptsTakeback">Svart godtar att ta tillbaka</string>
+  <string name="whiteCancelsTakeback">Vit avbryter att ta tillbaka</string>
+  <string name="blackCancelsTakeback">Svart avbryter att ta tillbaka</string>
   <string name="yourOpponentProposesATakeback">Din motståndare vill göra om det senaste draget</string>
   <string name="bookmarkThisGame">Bokmärk detta parti</string>
   <string name="tournament">Turnering</string>
@@ -670,6 +678,7 @@
   <string name="really">på riktigt</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
+  <string name="titleVerification">Verifiering av schacktitel</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
