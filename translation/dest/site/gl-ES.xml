@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
+  <string name="whiteProposesTakeback">As brancas propoñen rectificar a xogada</string>
+  <string name="blackProposesTakeback">As negras propoñen rectificar a xogada</string>
   <string name="takebackPropositionSent">Proposta de cambio enviada</string>
+  <string name="whiteDeclinesTakeback">As brancas rexeitan a proposta de cambio de xogada</string>
+  <string name="blackDeclinesTakeback">As negras rexeitan a proposta de cambio de xogada</string>
+  <string name="whiteAcceptsTakeback">As brancas aceptan a proposta de cambio de xogada</string>
+  <string name="blackAcceptsTakeback">As negras aceptan a proposta de cambio de xogada</string>
+  <string name="whiteCancelsTakeback">As brancas cancelan o cambio de xogada</string>
+  <string name="blackCancelsTakeback">As negras cancelan o cambio de xogada</string>
   <string name="yourOpponentProposesATakeback">O teu rival propón rectificar a xogada</string>
   <string name="bookmarkThisGame">Marcar esta partida coma favorita</string>
   <string name="tournament">Torneo</string>
@@ -670,6 +678,7 @@
   <string name="really">de verdade</string>
   <string name="contribute">Contribuír</string>
   <string name="termsOfService">Termos do Servizo</string>
+  <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código Fonte</string>
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
