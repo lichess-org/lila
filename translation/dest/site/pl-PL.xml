@@ -398,7 +398,15 @@
   <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
+  <string name="whiteProposesTakeback">Białe proponują cofnięcie ruchu</string>
+  <string name="blackProposesTakeback">Czarne proponują cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
+  <string name="whiteDeclinesTakeback">Białe odmawiają cofnięcia ruchu</string>
+  <string name="blackDeclinesTakeback">Czarne odmawiają cofnięcia ruchu</string>
+  <string name="whiteAcceptsTakeback">Białe akceptują cofnięcie ruchu</string>
+  <string name="blackAcceptsTakeback">Czarne akceptują cofnięcie ruchu</string>
+  <string name="whiteCancelsTakeback">Białe anulują propozycję cofnięcia ruchu</string>
+  <string name="blackCancelsTakeback">Czarne anulują propozycję cofnięcia ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="tournament">Turniej</string>
@@ -750,6 +758,7 @@
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="termsOfService">Regulamin</string>
+  <string name="titleVerification">Weryfikacja tytułu</string>
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
