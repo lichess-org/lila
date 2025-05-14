@@ -324,9 +324,6 @@
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기 요청</string>
   <string name="takebackPropositionSent">무르기 요청 전송됨</string>
-  <string name="takebackPropositionDeclined">무르기 요청 거절됨</string>
-  <string name="takebackPropositionAccepted">무르기 요청 승낙됨</string>
-  <string name="takebackPropositionCanceled">무르기 요청 취소됨</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
   <string name="bookmarkThisGame">이 대국을 즐겨찾기에 추가하기</string>
   <string name="tournament">토너먼트</string>
