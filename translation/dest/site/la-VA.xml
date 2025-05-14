@@ -294,9 +294,6 @@
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
   <string name="takebackPropositionSent">Missa est motus reversionis conditio</string>
-  <string name="takebackPropositionDeclined">Recusata est motus reversionis conditio</string>
-  <string name="takebackPropositionAccepted">Accepta est motus reversionis conditio</string>
-  <string name="takebackPropositionCanceled">Sublata est motus reversionis conditio</string>
   <string name="yourOpponentProposesATakeback">Motus reversionem adversarius offert</string>
   <string name="bookmarkThisGame">Lusionem bookmarkare</string>
   <string name="tournament">Certamen</string>
