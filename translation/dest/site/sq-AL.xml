@@ -22,7 +22,7 @@
   <string name="asBlack">me gurë të zinj</string>
   <string name="randomColor">Ngjyrë e rastësishme</string>
   <string name="createAGame">Krijo një lojë</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Krijoni lojën</string>
+  <string name="createTheGame">Krijoni lojën</string>
   <string name="whiteIsVictorious">I bardhi është fitues</string>
   <string name="blackIsVictorious">I ziu është fitues</string>
   <string name="youPlayTheWhitePieces">Ju luani me të bardhët</string>
@@ -351,9 +351,6 @@
   <string name="takeback">Kthim lëvizjeje mbrapsht</string>
   <string name="proposeATakeback">Propozoni një kthim lëvizjeje mbrapsht</string>
   <string name="takebackPropositionSent">Kërkesa për kthim lëvizjeje mbrapsht u dërgua</string>
-  <string name="takebackPropositionDeclined">Kërkesa për kthim lëvizjeje mbrapsht u hodh poshtë</string>
-  <string name="takebackPropositionAccepted">Kërkesa për kthim lëvizjeje mbrapsht u pranua</string>
-  <string name="takebackPropositionCanceled">Kërkesa për kthim lëvizjeje mbrapsht u anulua</string>
   <string name="yourOpponentProposesATakeback">Kundërshtari juaj propozon kthim lëvizjeje mbrapsht</string>
   <string name="bookmarkThisGame">Faqeruani këtë lojë</string>
   <string name="tournament">Turne</string>
@@ -994,7 +991,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
   <string name="stats">Statistika</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Përdorim nga persona me aftësi të kufizuara</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Aktivizo mënyrën për të verbër</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Çaktivizo mënyrën për të verbër</string>
+  <string name="accessibility">Përdorim nga persona me aftësi të kufizuara</string>
+  <string name="enableBlindMode">Aktivizo mënyrën për të verbër</string>
+  <string name="disableBlindMode">Çaktivizo mënyrën për të verbër</string>
 </resources>
