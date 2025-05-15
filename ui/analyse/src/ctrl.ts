@@ -15,7 +15,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback } from 'lib';
+import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
@@ -116,6 +116,8 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
+  pendingCopyPath: Prop<Tree.Path | null>;
+  pendingDeletionPath: Prop<Tree.Path | null>;
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
@@ -156,6 +158,9 @@ export default class AnalyseCtrl {
     this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.initCeval();
+
+    this.pendingCopyPath = propWithEffect(null, this.redraw);
+    this.pendingDeletionPath = propWithEffect(null, this.redraw);
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -618,6 +623,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
+    this.pendingDeletionPath(null);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1041,10 +1047,9 @@ export default class AnalyseCtrl {
   };
 
   pluginUpdate = (fen: string) => {
-    // if controller and chessground board state differ, ignore this update. once the chessground
+    // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
-
     this.keyboardMove?.update({ fen, canMove: true });
   };
 }

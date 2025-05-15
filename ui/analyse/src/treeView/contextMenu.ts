@@ -1,9 +1,10 @@
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, looseH as h } from 'lib/snabbdom';
+import { type VNode, onInsert, looseH as h } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
 import { renderVariationPgn } from '../pgnExport';
+import { isTouchDevice } from 'lib/device';
 
 export interface Opts {
   path: Tree.Path;
@@ -51,14 +52,45 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
       : (menu.style.top = coords.y + 'px');
 }
 
-function action(icon: string, text: string, handler: () => void): VNode {
-  return h('a', { attrs: { 'data-icon': icon }, hook: bind('click', handler) }, text);
+function action(
+  icon: string,
+  text: string,
+  onClick: () => void,
+  onHover?: () => void,
+  onLeave?: () => void,
+): VNode {
+  return h(
+    'a',
+    {
+      attrs: { 'data-icon': icon },
+      hook: {
+        insert: vnode => {
+          const elm = vnode.elm as HTMLElement;
+          elm.addEventListener('click', onClick);
+          if (onHover && !isTouchDevice())
+            elm.addEventListener('mouseover', () => {
+              onHover();
+              // If there is a special action for hover, make the menu transparent so that effects
+              // on the move list can be fully seen:
+              $('#' + elementId).addClass('transparent');
+            });
+          if (onLeave)
+            elm.addEventListener('mouseout', () => {
+              onLeave();
+              $('#' + elementId).removeClass('transparent');
+            });
+        },
+      },
+    },
+    text,
+  );
 }
 
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
-    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path);
+    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
+    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
   return h(
     'div#' + elementId + '.visible',
     {
@@ -78,7 +110,13 @@ function view(opts: Opts, coords: Coords): VNode {
 
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
 
-      action(licon.Trash, i18n.site.deleteFromHere, () => ctrl.deleteNode(opts.path)),
+      action(
+        licon.Trash,
+        i18n.site.deleteFromHere,
+        () => ctrl.deleteNode(opts.path),
+        () => ctrl.pendingDeletionPath(opts.path),
+        () => ctrl.pendingDeletionPath(null),
+      ),
 
       action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
 
@@ -89,10 +127,15 @@ function view(opts: Opts, coords: Coords): VNode {
       onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
-      action(licon.Clipboard, onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn, () =>
-        navigator.clipboard.writeText(
-          renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path), onMainline),
-        ),
+      action(
+        licon.Clipboard,
+        onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
+        () =>
+          navigator.clipboard.writeText(
+            renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
+          ),
+        () => ctrl.pendingCopyPath(extendedPath),
+        () => ctrl.pendingCopyPath(null),
       ),
     ],
   );

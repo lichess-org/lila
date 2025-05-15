@@ -63,11 +63,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderVariationPgn(game: Game, nodeList: Tree.Node[], isMainline: boolean): string {
-  nodeList = [...nodeList];
-  let newNode;
-  while ((newNode = nodeList.slice(-1)[0]?.children[0]) && !(isMainline && newNode.forceVariation))
-    nodeList.push(newNode);
+export function renderVariationPgn(game: Game, nodeList: Tree.Node[]): string {
   const filteredNodeList = nodeList.filter(node => node.san);
   if (filteredNodeList.length === 0) return '';
 
