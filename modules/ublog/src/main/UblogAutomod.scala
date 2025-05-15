@@ -84,7 +84,7 @@ final class UblogAutomod(
             if (classifications ++ List("quality", "phenomenal")).contains(result.classification)
           // temporarily permit "quality" and "phenomenal" as the prompt is versioned outside of this git
           yield result) match
-            case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
+            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
