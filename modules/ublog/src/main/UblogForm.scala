@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, into, stringIn, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
 
@@ -121,5 +121,6 @@ object UblogForm:
     tuple(
       "pinned" -> boolean,
       tierMapping,
-      "days" -> optional(number(min = -180, max = 180))
+      "days"       -> optional(number(min = -180, max = 180)),
+      "assessment" -> optional(stringIn(UblogAutomod.classifications.toSet))
     )

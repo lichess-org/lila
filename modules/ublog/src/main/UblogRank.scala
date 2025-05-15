@@ -14,12 +14,12 @@ object UblogRank:
 
   opaque type Tier = Int
   object Tier extends RelaxedOpaqueInt[Tier]:
-    val HIDDEN: Tier  = 0 // not visible
-    val VISIBLE: Tier = 1 // not listed in community page
-    val LOW: Tier     = 2 // from here, ranking boost
-    val NORMAL: Tier  = 3
-    val HIGH: Tier    = 4
-    val BEST: Tier    = 5
+    val HIDDEN: Tier   = 0 // not visible
+    val UNLISTED: Tier = 1 // not listed in community page
+    val LOW: Tier      = 2 // from here, ranking boost
+    val NORMAL: Tier   = 3
+    val HIGH: Tier     = 4
+    val BEST: Tier     = 5
 
     def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
@@ -33,12 +33,12 @@ object UblogRank:
       else Tier.LOW
 
     val options = List(
-      HIDDEN  -> "Hidden",
-      VISIBLE -> "Unlisted",
-      LOW     -> "Low",
-      NORMAL  -> "Normal",
-      HIGH    -> "High",
-      BEST    -> "Best"
+      HIDDEN   -> "Hidden",
+      UNLISTED -> "Unlisted",
+      LOW      -> "Low",
+      NORMAL   -> "Normal",
+      HIGH     -> "High",
+      BEST     -> "Best"
     )
     object tierDays:
       val LOW  = -4
@@ -47,12 +47,12 @@ object UblogRank:
       val map  = Map(Tier.LOW -> LOW, Tier.HIGH -> HIGH, Tier.BEST -> BEST)
 
     val verboseOptions = List(
-      HIDDEN  -> "Hidden",
-      VISIBLE -> "Unlisted",
-      LOW     -> s"Low (${tierDays.LOW} day penalty)",
-      NORMAL  -> "Normal",
-      HIGH    -> s"High (${tierDays.HIGH} day bonus)",
-      BEST    -> s"Best (${tierDays.BEST} day bonus)"
+      HIDDEN   -> "Hidden",
+      UNLISTED -> "Unlisted",
+      LOW      -> s"Low (${tierDays.LOW} day penalty)",
+      NORMAL   -> "Normal",
+      HIGH     -> s"High (${tierDays.HIGH} day bonus)",
+      BEST     -> s"Best (${tierDays.BEST} day bonus)"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier => n
