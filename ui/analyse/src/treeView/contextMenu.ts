@@ -114,8 +114,8 @@ function view(opts: Opts, coords: Coords): VNode {
         licon.Trash,
         i18n.site.deleteFromHere,
         () => ctrl.deleteNode(opts.path),
-        () => ctrl.deleteFromHereHighlight(opts.path),
-        () => ctrl.deleteFromHereHighlight(undefined),
+        () => ctrl.pendingDeletionPath(opts.path),
+        () => ctrl.pendingDeletionPath(null),
       ),
 
       action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),

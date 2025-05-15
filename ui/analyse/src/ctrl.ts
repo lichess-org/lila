@@ -117,7 +117,7 @@ export default class AnalyseCtrl {
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
   pendingCopyPath: Prop<Tree.Path | null>;
-  pendingDeletionPaths: Set<Tree.Path> = new Set<Tree.Path>();
+  pendingDeletionPath: Prop<Tree.Path | null>;
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
@@ -160,6 +160,7 @@ export default class AnalyseCtrl {
     this.initCeval();
 
     this.pendingCopyPath = propWithEffect(null, this.redraw);
+    this.pendingDeletionPath = propWithEffect(null, this.redraw);
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -622,7 +623,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
-    this.deleteFromHereHighlight(undefined);
+    this.pendingDeletionPath(null);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1050,12 +1051,5 @@ export default class AnalyseCtrl {
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
     this.keyboardMove?.update({ fen, canMove: true });
-  };
-
-  deleteFromHereHighlight = (path: Tree.Path | undefined) => {
-    this.pendingDeletionPaths = new Set<Tree.Path>(
-      path ? [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)] : [],
-    );
-    this.redraw();
   };
 }
