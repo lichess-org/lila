@@ -88,25 +88,26 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                 modZone.map: (modFrag, same) =>
                   frag(
                     modFrag,
-                    br,
-                    strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-                      "Streamers with same Twitch or YouTube",
-                      same.isEmpty.option(": nothing to show.")
-                    ),
-                    same.nonEmpty.option(
-                      table(cls := "slist")(
-                        same.map: s =>
-                          tr(
-                            td(userIdLink(s.userId.some)),
-                            td(s.name),
-                            td(s.twitch.map(t => a(href := s"https://twitch.tv/${t.userId}")(t.userId))),
-                            td(
-                              s.youTube.map(t =>
-                                a(href := s"https://youtube.com/channel/${t.channelId}")(t.channelId)
-                              )
-                            ),
-                            td(momentFromNow(s.createdAt))
-                          )
+                    div(cls := "status")(
+                      strong(cls := "text", dataIcon := Icon.CautionTriangle)(
+                        "Streamers with same Twitch or YouTube",
+                        same.isEmpty.option(": nothing to show.")
+                      ),
+                      same.nonEmpty.option(
+                        table(cls := "slist")(
+                          same.map: s =>
+                            tr(
+                              td(userIdLink(s.userId.some)),
+                              td(s.name),
+                              td(s.twitch.map(t => a(href := s"https://twitch.tv/${t.userId}")(t.userId))),
+                              td(
+                                s.youTube.map(t =>
+                                  a(href := s"https://youtube.com/channel/${t.channelId}")(t.channelId)
+                                )
+                              ),
+                              td(momentFromNow(s.createdAt))
+                            )
+                        )
                       )
                     )
                   ),
