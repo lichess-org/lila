@@ -315,9 +315,6 @@
   <string name="takeback">Cymryd yn ôl</string>
   <string name="proposeATakeback">Awgrymu cymryd yn ôl</string>
   <string name="takebackPropositionSent">Anfonwyd awgrymiad cymryd yn ôl</string>
-  <string name="takebackPropositionDeclined">Gwrthodwyd awgrymiad cymryd yn ôl</string>
-  <string name="takebackPropositionAccepted">Derbynwyd awgrymiad cymryd yn ôl</string>
-  <string name="takebackPropositionCanceled">Canslwyd awgrymiad cymryd yn ôl</string>
   <string name="yourOpponentProposesATakeback">Awgrymodd eich gwrthwynebydd gymryd symudiad yn ôl</string>
   <string name="bookmarkThisGame">Gosod nod i\'r gêm hon</string>
   <string name="tournament">Cystadleuaeth</string>

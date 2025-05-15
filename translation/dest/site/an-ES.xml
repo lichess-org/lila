@@ -348,9 +348,6 @@
   <string name="takeback">Desfer chugada</string>
   <string name="proposeATakeback">Proposar desfer chugada</string>
   <string name="takebackPropositionSent">Propuesta de desfer chugada ninviada</string>
-  <string name="takebackPropositionDeclined">Propuesta de desfer chugada refusada</string>
-  <string name="takebackPropositionAccepted">Propuesta de desfer chugada acceptada</string>
-  <string name="takebackPropositionCanceled">Propuesta de desfer chugada cancelada</string>
   <string name="yourOpponentProposesATakeback">Lo tuyo oponent proposa de desfer la chugada</string>
   <string name="bookmarkThisGame">Marcar este chuego como favorito</string>
   <string name="tournament">Torneyo</string>

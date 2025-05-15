@@ -262,9 +262,6 @@
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
   <string name="takebackPropositionSent">Proposition de retorno inviate</string>
-  <string name="takebackPropositionDeclined">Proposition de retorno declinate</string>
-  <string name="takebackPropositionAccepted">Proposition de retorno acceptate</string>
-  <string name="takebackPropositionCanceled">Proposition de retorno cancellate</string>
   <string name="yourOpponentProposesATakeback">Tu adversario propone un retorno del ultime movimento</string>
   <string name="bookmarkThisGame">Adder iste joco al favorites</string>
   <string name="tournament">Torneo</string>

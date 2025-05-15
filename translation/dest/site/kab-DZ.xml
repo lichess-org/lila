@@ -164,9 +164,6 @@
   <string name="takeback">Semmet tiyita</string>
   <string name="proposeATakeback">Sumer usemmet n tiyita</string>
   <string name="takebackPropositionSent">Asemmet n tiyita isumer</string>
-  <string name="takebackPropositionDeclined">Asemmet n tiyita yugwi</string>
-  <string name="takebackPropositionAccepted">Asemmet n tiyita iqbel</string>
-  <string name="takebackPropositionCanceled">Asemmet n tiyita isemet</string>
   <string name="yourOpponentProposesATakeback">Afna inek i t‑summer</string>
   <string name="bookmarkThisGame">Err timlilit agi di amenyaf</string>
   <string name="tournament">Timzizelt</string>

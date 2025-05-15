@@ -22,7 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Crea una partida</string>
+  <string name="createTheGame">Crea una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
@@ -350,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
+  <string name="whiteProposesTakeback">Las blancas proponen deshacer la jugada</string>
+  <string name="blackProposesTakeback">Las negras proponen deshacer la jugada</string>
   <string name="takebackPropositionSent">Propuesta de deshacer jugada enviada</string>
-  <string name="takebackPropositionDeclined">Propuesta de deshacer jugada rechazada</string>
-  <string name="takebackPropositionAccepted">Propuesta de deshacer jugada aceptada</string>
-  <string name="takebackPropositionCanceled">Propuesta de deshacer jugada cancelada</string>
+  <string name="whiteDeclinesTakeback">Las blancas rechazan deshacer la jugada</string>
+  <string name="blackDeclinesTakeback">Las negras rechazan deshacer la jugada</string>
+  <string name="whiteAcceptsTakeback">Las blancas aceptan deshacer la jugada</string>
+  <string name="blackAcceptsTakeback">Las negras aceptan deshacer la jugada</string>
+  <string name="whiteCancelsTakeback">Las blancas cancelan deshacer la jugada</string>
+  <string name="blackCancelsTakeback">Las negras cancelan deshacer la jugada</string>
   <string name="yourOpponentProposesATakeback">Tu oponente propone deshacer la jugada</string>
   <string name="bookmarkThisGame">Marcar este juego como favorito</string>
   <string name="tournament">Torneo</string>
@@ -673,6 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
@@ -1000,7 +1006,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accesibilidad</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activar modo A ciegas</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desactivar modo A ciegas</string>
+  <string name="accessibility">Accesibilidad</string>
+  <string name="enableBlindMode">Activar modo para no videntes</string>
+  <string name="disableBlindMode">Desactivar modo para no videntes</string>
 </resources>

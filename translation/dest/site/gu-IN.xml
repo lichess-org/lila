@@ -310,9 +310,6 @@
   <string name="takeback">ચાલ પાછી લો</string>
   <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
   <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
-  <string name="takebackPropositionDeclined">ચાલ પાછી લેવાનો પ્રસ્તાવ નકારાયો</string>
-  <string name="takebackPropositionAccepted">ચાલ પાછી લેવાનો પ્રસ્તાવ સ્વીકારાયો</string>
-  <string name="takebackPropositionCanceled">ચાલ પાછી લેવાનો પ્રસ્તાવ રદ કરો</string>
   <string name="yourOpponentProposesATakeback">તમારા પ્રતિદ્વંદીએ ચાલ પાછી લેવાનો પ્રસ્તાવ કર્યો</string>
   <string name="bookmarkThisGame">આ રમત સ્મૃતિમાં સાચવો</string>
   <string name="tournament">પ્રતિયોગિતા</string>

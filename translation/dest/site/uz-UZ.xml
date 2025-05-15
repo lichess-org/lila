@@ -348,9 +348,6 @@
   <string name="takeback">Ortga yurish</string>
   <string name="proposeATakeback">Ortga qaytishni taklif qilish</string>
   <string name="takebackPropositionSent">Ortga qaytish jo\'natildi</string>
-  <string name="takebackPropositionDeclined">Ortga qaytish inkor qilindi</string>
-  <string name="takebackPropositionAccepted">Ortga qaytish qabul qilindi</string>
-  <string name="takebackPropositionCanceled">Ortga qaytish bekor qilindi</string>
   <string name="yourOpponentProposesATakeback">Sizning sherigingiz ortga qaytishni taklif qilayabdi</string>
   <string name="bookmarkThisGame">Ushbu o\'yinni xatcho\'pga qo\'shish</string>
   <string name="tournament">Turnir</string>

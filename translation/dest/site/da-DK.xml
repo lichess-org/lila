@@ -350,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Anmod om omtræk</string>
+  <string name="whiteProposesTakeback">Hvid foreslår at tage træk tilbage</string>
+  <string name="blackProposesTakeback">Sort foreslår at tage træk tilbage</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
-  <string name="takebackPropositionDeclined">Anmodning om omtræk afslået</string>
-  <string name="takebackPropositionAccepted">Anmodning om omtræk accepteret</string>
-  <string name="takebackPropositionCanceled">Anmodning om omtræk annulleret</string>
+  <string name="whiteDeclinesTakeback">Hvid afviser at tage trækket tilbage</string>
+  <string name="blackDeclinesTakeback">Sort afviser at tage trækket tilbage</string>
+  <string name="whiteAcceptsTakeback">Hvid accepterer at tage trækket tilbage</string>
+  <string name="blackAcceptsTakeback">Sort accepterer at tage trækket tilbage</string>
+  <string name="whiteCancelsTakeback">Hvid annulerer tilbagetagelse af træk</string>
+  <string name="blackCancelsTakeback">Sort annulerer tilbagetagelse af træk</string>
   <string name="yourOpponentProposesATakeback">Din modstander anmoder om omtræk</string>
   <string name="bookmarkThisGame">Bogmærk dette spil</string>
   <string name="tournament">Turnering</string>
@@ -673,6 +678,7 @@
   <string name="really">det er sandt</string>
   <string name="contribute">Bidrag</string>
   <string name="termsOfService">Servicevilkår</string>
+  <string name="titleVerification">Bekræftelse af titel</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanskak</string>
   <string name="host">Bliv vært</string>

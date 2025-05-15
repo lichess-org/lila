@@ -348,9 +348,6 @@
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
-  <string name="takebackPropositionDeclined">Reprena propono estis malakceptita</string>
-  <string name="takebackPropositionAccepted">Reprena propono estis akceptita</string>
-  <string name="takebackPropositionCanceled">Reprena propono estis nuligita</string>
   <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas nuligi la movon</string>
   <string name="bookmarkThisGame">Paĝmarki ĉi tiun ludon</string>
   <string name="tournament">Turniro</string>

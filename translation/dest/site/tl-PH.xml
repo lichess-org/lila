@@ -332,9 +332,6 @@
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
   <string name="takebackPropositionSent">Pagkuha muli ay naipadala na</string>
-  <string name="takebackPropositionDeclined">Tinanggihan ang pagkuha muli</string>
-  <string name="takebackPropositionAccepted">Tinanggap ang pagkuha muli</string>
-  <string name="takebackPropositionCanceled">Kinansela ang pagkuha muli</string>
   <string name="yourOpponentProposesATakeback">An iyong kalaban ay nagmungkahi ng isang pagkuha muli</string>
   <string name="bookmarkThisGame">Namarkahan na ng laro</string>
   <string name="tournament">Paligsahan</string>

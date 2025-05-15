@@ -349,9 +349,6 @@
   <string name="takeback">Desfaer xugada</string>
   <string name="proposeATakeback">Proponer desfaer xugada</string>
   <string name="takebackPropositionSent">Propuesta de desfaer xugada unviada</string>
-  <string name="takebackPropositionDeclined">Propuesta de desfaer xugada refugada</string>
-  <string name="takebackPropositionAccepted">Propuesta de desfaer xugada aceptada</string>
-  <string name="takebackPropositionCanceled">Propuesta de desfacer xugada encaboxada</string>
   <string name="yourOpponentProposesATakeback">El to oponente propón desfacer la xugada</string>
   <string name="bookmarkThisGame">Marcar esti xuegu como favoritu</string>
   <string name="tournament">Tornéu</string>

@@ -51,7 +51,7 @@ final class TeamInfoApi(
     simulApi: SimulApi,
     requestRepo: TeamRequestRepo,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import TeamInfo.*
 

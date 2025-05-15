@@ -22,7 +22,7 @@
   <string name="asBlack">als Schwarz</string>
   <string name="randomColor">Farb zuefällig</string>
   <string name="createAGame">Erschtell e Partie</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Mach s\'Schpiel</string>
+  <string name="createTheGame">Mach s\'Schpiel</string>
   <string name="whiteIsVictorious">Wiss günnt</string>
   <string name="blackIsVictorious">Schwarz günnt</string>
   <string name="youPlayTheWhitePieces">Du schpillsch mit Wiss</string>
@@ -352,9 +352,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
-  <string name="takebackPropositionDeclined">Zugsrücknahm abglehnt</string>
-  <string name="takebackPropositionAccepted">Zugsrücknahm akzeptiert</string>
-  <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
   <string name="bookmarkThisGame">Das Schpiel mit eme Läsezeiche markiere</string>
   <string name="tournament">Turnier</string>
@@ -1010,7 +1007,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="nothingToSeeHere">Da gits im monumäntan nüt z\'gseh.</string>
   <string name="stats">Schtatistike</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Erreichbarkeit</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Blindmodus aktiviere</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Blindmodus deaktiviere</string>
+  <string name="accessibility">Erreichbarkeit</string>
+  <string name="enableBlindMode">Blindmodus aktiviere</string>
+  <string name="disableBlindMode">Blindmodus deaktiviere</string>
 </resources>

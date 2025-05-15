@@ -235,9 +235,6 @@
   <string name="takeback">Averina ny fihetsehana farany teo</string>
   <string name="proposeATakeback">Angataho ny famerenana ny fihetsehana farany teo</string>
   <string name="takebackPropositionSent">Lasa ny famerenana ny fihetsehana farany teo</string>
-  <string name="takebackPropositionDeclined">Lavo ny famerenana ny fihetsehana farany teo</string>
-  <string name="takebackPropositionAccepted">Ekena ny famerenana ny fihetsehana farany teo</string>
-  <string name="takebackPropositionCanceled">Najanona ny famerenana ny fihetsehana farany teo</string>
   <string name="yourOpponentProposesATakeback">Mangataka ny famerenana ny fihetsehana farany teo ny mpifanandrina</string>
   <string name="bookmarkThisGame">Tadidio ity lalao ity</string>
   <string name="tournament">Fifaninanana</string>

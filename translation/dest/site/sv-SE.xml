@@ -22,7 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Skapa ett parti</string>
+  <string name="createTheGame">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
   <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
@@ -350,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Fråga om du får göra om draget</string>
+  <string name="whiteProposesTakeback">Vit föreslår att ta tillbaka</string>
+  <string name="blackProposesTakeback">Svart föreslår att ta tillbaka</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
-  <string name="takebackPropositionDeclined">Förslag att göra om draget nekat</string>
-  <string name="takebackPropositionAccepted">Förslag att göra om draget godkänt</string>
-  <string name="takebackPropositionCanceled">Förslag att göra om draget har dragits tillbaka</string>
+  <string name="whiteDeclinesTakeback">Vit nekar att ta tillbaka</string>
+  <string name="blackDeclinesTakeback">Svart nekar att ta tillbaka</string>
+  <string name="whiteAcceptsTakeback">Vit godtar att ta tillbaka</string>
+  <string name="blackAcceptsTakeback">Svart godtar att ta tillbaka</string>
+  <string name="whiteCancelsTakeback">Vit avbryter att ta tillbaka</string>
+  <string name="blackCancelsTakeback">Svart avbryter att ta tillbaka</string>
   <string name="yourOpponentProposesATakeback">Din motståndare vill göra om det senaste draget</string>
   <string name="bookmarkThisGame">Bokmärk detta parti</string>
   <string name="tournament">Turnering</string>
@@ -673,6 +678,7 @@
   <string name="really">på riktigt</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
+  <string name="titleVerification">Verifiering av schacktitel</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
@@ -1000,7 +1006,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="nothingToSeeHere">Här finns ingenting att se för tillfället.</string>
   <string name="stats">Statistik</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Tillgänglighet</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Aktivera blind-läge</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Inaktivera blind-läge</string>
+  <string name="accessibility">Tillgänglighet</string>
+  <string name="enableBlindMode">Aktivera blind-läge</string>
+  <string name="disableBlindMode">Inaktivera blind-läge</string>
 </resources>

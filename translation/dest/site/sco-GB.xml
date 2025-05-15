@@ -22,7 +22,7 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random team</string>
   <string name="createAGame">Creaut a spiel</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Create a gemm</string>
+  <string name="createTheGame">Create a gemm</string>
   <string name="whiteIsVictorious">White beirs the gree</string>
   <string name="blackIsVictorious">Black beirs the gree</string>
   <string name="youPlayTheWhitePieces">Ye hae the white pieces</string>
@@ -351,9 +351,6 @@
   <string name="takeback">Back-tak</string>
   <string name="proposeATakeback">Bid a back-tak</string>
   <string name="takebackPropositionSent">Back-tak sent</string>
-  <string name="takebackPropositionDeclined">Back-tak refuised</string>
-  <string name="takebackPropositionAccepted">Back-tak acceptit</string>
-  <string name="takebackPropositionCanceled">Back-tak bid backlins-takkit</string>
   <string name="yourOpponentProposesATakeback">Yer opponent bids a back-takk</string>
   <string name="bookmarkThisGame">Kenmark this gemm</string>
   <string name="tournament">Tournament</string>
