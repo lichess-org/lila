@@ -203,9 +203,8 @@ final class UblogApi(
     colls.post.update
       .one(
         $id(id),
-        $set("rankAdjustDays" -> adjust, "pinned" -> pinned) ++ assess.fold($doc())(c =>
-          $set("automod.classification" -> c)
-        )
+        $set("rankAdjustDays" -> adjust, "pinned" -> pinned) ++
+          assess.so(c => $set("automod.classification" -> c))
       )
       .void
 
