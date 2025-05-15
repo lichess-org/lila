@@ -52,12 +52,12 @@ case class Challenge(
     case _                             => none
   def unlimited = timeControl == TimeControl.Unlimited
 
-  def openDest = destUser.isEmpty
-  def online   = status == Status.Created
-  def active   = online || status == Status.Offline
+  def openDest  = destUser.isEmpty
+  def online    = status == Status.Created
+  def active    = online || status == Status.Offline
   def cancelled = status == Status.Cancelled
-  def declined = status == Status.Declined
-  def accepted = status == Status.Accepted
+  def declined  = status == Status.Declined
+  def accepted  = status == Status.Accepted
 
   def setChallenger(u: GameUser, secret: Option[String]) =
     copy(
@@ -101,11 +101,11 @@ object Challenge:
   enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
 
-    case Created  extends Status(10)
-    case Offline  extends Status(15)
+    case Created   extends Status(10)
+    case Offline   extends Status(15)
     case Cancelled extends Status(20)
-    case Declined extends Status(30)
-    case Accepted extends Status(40)
+    case Declined  extends Status(30)
+    case Accepted  extends Status(40)
 
   object Status:
     val byId = values.mapBy(_.id)
