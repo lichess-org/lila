@@ -105,10 +105,10 @@
         }
       }
     }
-    &.pendingDeletion {
+    &.pending-deletion {
       background-color: $m-bad_bg--mix-50 !important;
     }
-    &.pendingCopy {
+    &.pending-copy {
       background-color: $m-good_bg--mix-50 !important;
     }
   }

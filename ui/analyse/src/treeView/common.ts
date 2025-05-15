@@ -86,8 +86,8 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
     good: glyphIds.includes(1),
     brilliant: glyphIds.includes(3),
     interesting: glyphIds.includes(5),
-    pendingDeletion: path.startsWith(ctx.ctrl.pendingDeletionPath() || ' '),
-    pendingCopy: !!ctx.ctrl.pendingCopyPath()?.startsWith(path),
+    'pending-deletion': path.startsWith(ctx.ctrl.pendingDeletionPath() || ' '),
+    'pending-copy': !!ctx.ctrl.pendingCopyPath()?.startsWith(path),
   };
 }
 
