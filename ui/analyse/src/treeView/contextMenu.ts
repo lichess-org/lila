@@ -114,8 +114,8 @@ function view(opts: Opts, coords: Coords): VNode {
         licon.Trash,
         i18n.site.deleteFromHere,
         () => ctrl.deleteNode(opts.path),
-        () => ctrl.deletionHighlightFromHere(opts.path, false),
-        () => ctrl.deletionHighlightFromHere(opts.path, true),
+        () => ctrl.deletionHighlightFromHere(opts.path),
+        () => ctrl.deletionHighlightFromHere(undefined),
       ),
 
       action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
@@ -134,8 +134,8 @@ function view(opts: Opts, coords: Coords): VNode {
           navigator.clipboard.writeText(
             renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
           ),
-        () => ctrl.copyVariationHighlight(extendedPath, false),
-        () => ctrl.copyVariationHighlight(extendedPath, true),
+        () => ctrl.copyVariationHighlight(extendedPath),
+        () => ctrl.copyVariationHighlight(undefined),
       ),
     ],
   );

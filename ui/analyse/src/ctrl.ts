@@ -623,7 +623,7 @@ export default class AnalyseCtrl {
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
-    this.deletionHighlightFromHere(path, true);
+    this.deletionHighlightFromHere(undefined);
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
@@ -1053,16 +1053,16 @@ export default class AnalyseCtrl {
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  deletionHighlightFromHere = (path: Tree.Path, unhighlight: boolean) => {
+  deletionHighlightFromHere = (path: Tree.Path | undefined) => {
     this.pendingDeletionPaths = new Set<Tree.Path>(
-      unhighlight ? [] : [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)],
+      path ? [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)] : [],
     );
     this.redraw();
   };
 
-  copyVariationHighlight = (path: Tree.Path, unhighlight: boolean) => {
+  copyVariationHighlight = (path: Tree.Path | undefined) => {
     const paths = [];
-    if (!unhighlight)
+    if (path)
       while (path) {
         paths.push(path);
         path = init(path);
