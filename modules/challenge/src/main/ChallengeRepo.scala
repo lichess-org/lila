@@ -117,7 +117,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     coll.updateField($id(id), "seenAt", nowInstant).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_.plusHours(3)))
-  def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_.plusHours(3)))
+  def cancel(challenge: Challenge)  = setStatus(challenge, Status.Cancelled, Some(_.plusHours(3)))
   def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
     setStatus(challenge, Status.Declined, Some(_.plusHours(3))) >> {
       (reason != Challenge.DeclineReason.default)

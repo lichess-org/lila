@@ -23,7 +23,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.tournamentNotFound()),
         p(trans.site.tournamentDoesNotExist()),
-        p(trans.site.tournamentMayHaveBeenCanceled()),
+        p(trans.site.tournamentMayHaveBeenCancelled()),
         br,
         br,
         a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())

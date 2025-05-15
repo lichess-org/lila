@@ -16,7 +16,7 @@ import lila.db.dsl.{ *, given }
 | email                     | kept for reopening, no reuse[^1] | deleted, no reuse[^1] |
 | profile data              | hidden                           | deleted               |
 | sessions and oauth tokens | closed                           | deleted               |
-| patron subscription       | canceled                         | canceled              |
+| patron subscription       | cancelled                        | cancelled             |
 | blog posts                | unlisted                         | deleted               |
 | public studies            | unlisted                         | anonymized            |
 | private studies           | hidden                           | deleted               |

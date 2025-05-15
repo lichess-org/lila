@@ -6,7 +6,7 @@ export interface ChallengeOpts {
   pulse(): void;
 }
 
-type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
+type ChallengeStatus = 'created' | 'offline' | 'cancelled' | 'declined' | 'accepted';
 export type ChallengeDirection = 'in' | 'out';
 
 export interface ChallengeUser {

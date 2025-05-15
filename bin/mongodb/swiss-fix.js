@@ -12,7 +12,7 @@ db.swiss
         $set: {
           finishedAt: new Date(),
           'settings.n': s.round,
-          canceled: new Date(),
+          cancelled: new Date(),
         },
         $unset: {
           nextRoundAt: 1,

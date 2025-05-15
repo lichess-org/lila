@@ -4,7 +4,7 @@
   <string name="challengeToPlay">发起挑战</string>
   <string name="challengeDeclined">拒绝挑战</string>
   <string name="challengeAccepted">接受挑战</string>
-  <string name="challengeCanceled">挑战已取消</string>
+  <string name="challengeCancelled">挑战已取消</string>
   <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">发起挑战前请先注册</string>
   <string name="youCannotChallengeX">你不能挑战 %s</string>
   <string name="xDoesNotAcceptChallenges">%s 不接受挑战</string>

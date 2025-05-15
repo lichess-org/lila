@@ -205,9 +205,9 @@ final class ChallengeUi(helpers: Helpers):
               ):
                 trans.site.joinTheGame()
             )
-          case Status.Canceled =>
+          case Status.Cancelled =>
             div(cls := "follow-up")(
-              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
+              h1(cls := "box__top")(trans.challenge.challengeCancelled()),
               details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
@@ -285,9 +285,9 @@ final class ChallengeUi(helpers: Helpers):
                 trans.site.joinTheGame()
               )
             )
-          case Status.Canceled =>
+          case Status.Cancelled =>
             div(cls := "follow-up")(
-              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
+              h1(cls := "box__top")(trans.challenge.challengeCancelled()),
               details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )

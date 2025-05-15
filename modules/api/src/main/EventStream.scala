@@ -110,7 +110,7 @@ final class EventStream(
           queue.offer(challengeJson("challengeDeclined")(c).some)
 
         case NegativeEvent.Cancel(c) if isMyChallenge(c) =>
-          queue.offer(challengeJson("challengeCanceled")(c).some)
+          queue.offer(challengeJson("challengeCancelled")(c).some)
 
         // pretend like the rematch is a challenge
         case lila.core.round.RematchOffer(gameId) =>
@@ -128,10 +128,10 @@ final class EventStream(
             .map(_.nextId)
             .foreach: nextId =>
               challengeMaker
-                .showCanceledRematchFor(gameId, me, nextId)
+                .showCancelledRematchFor(gameId, me, nextId)
                 .foreach:
                   _.foreach: c =>
-                    val json = challengeJson("challengeCanceled")(c) ++ challengeCompat(c)
+                    val json = challengeJson("challengeCancelled")(c) ++ challengeCompat(c)
                     queue.offer(json.some)
 
       private def isMyChallenge(c: lila.core.challenge.Challenge) =

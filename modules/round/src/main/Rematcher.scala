@@ -60,7 +60,7 @@ final private class Rematcher(
     if isOffering(pov.ref) then
       pov.opponent.userId.foreach: forId =>
         Bus.publishDyn(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
-      messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
+      messenger.volatile(pov.game, trans.site.rematchOfferCancelled.txt())
     else if isOffering(!pov.ref) then
       declined.put(pov.fullId)
       messenger.volatile(pov.game, trans.site.rematchOfferDeclined.txt())

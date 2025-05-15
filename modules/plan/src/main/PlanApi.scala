@@ -61,7 +61,7 @@ final class PlanApi(
       _ <- mongo.patron.update
         .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
         .map: _ =>
-          logger.info(s"Canceled subscription of ${user.username}")
+          logger.info(s"Cancelled subscription of ${user.username}")
     yield true
     stripe
       .userCustomer(user)

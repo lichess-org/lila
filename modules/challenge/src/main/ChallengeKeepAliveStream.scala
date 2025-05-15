@@ -24,7 +24,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
 
           val subNegative = Bus.sub[NegativeEvent]:
             case NegativeEvent.Decline(c) if c.id == challenge.id => completeWith("declined")
-            case NegativeEvent.Cancel(c) if c.id == challenge.id  => completeWith("canceled")
+            case NegativeEvent.Cancel(c) if c.id == challenge.id  => completeWith("cancelled")
 
           queue
             .watchCompletion()

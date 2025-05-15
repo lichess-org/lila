@@ -121,8 +121,8 @@ final class ChallengeApi(
   )(using me: Option[Me]): Fu[Either[String, Option[Pov]]] =
     acceptQueue:
       def withPerf = me.map(_.value).soFu(userApi.withPerf(_, c.perfType))
-      if c.canceled
-      then fuccess(Left("The challenge has been canceled."))
+      if c.cancelled
+      then fuccess(Left("The challenge has been cancelled."))
       else if c.declined
       then fuccess(Left("The challenge has been declined."))
       else if me.exists(_.isBot) && !c.clock.map(_.config).forall(lila.core.game.isBotCompatible)

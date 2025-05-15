@@ -55,7 +55,7 @@ case class Challenge(
   def openDest = destUser.isEmpty
   def online   = status == Status.Created
   def active   = online || status == Status.Offline
-  def canceled = status == Status.Canceled
+  def cancelled = status == Status.Cancelled
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
@@ -83,7 +83,7 @@ case class Challenge(
     declineReason = reason.some
   )
 
-  def cancel = copy(status = Status.Canceled)
+  def cancel = copy(status = Status.Cancelled)
 
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
@@ -103,7 +103,7 @@ object Challenge:
 
     case Created  extends Status(10)
     case Offline  extends Status(15)
-    case Canceled extends Status(20)
+    case Cancelled extends Status(20)
     case Declined extends Status(30)
     case Accepted extends Status(40)
 

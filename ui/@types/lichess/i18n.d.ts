@@ -392,7 +392,7 @@ interface I18n {
     /** Challenge accepted! */
     challengeAccepted: string;
     /** Challenge cancelled. */
-    challengeCanceled: string;
+    challengeCancelled: string;
     /** Challenge declined. */
     challengeDeclined: string;
     /** Challenges: %1$s */
@@ -3118,7 +3118,7 @@ interface I18n {
     /** Draw offer accepted */
     drawOfferAccepted: string;
     /** Draw offer cancelled */
-    drawOfferCanceled: string;
+    drawOfferCancelled: string;
     /** Draw offer sent */
     drawOfferSent: string;
     /** Draw rate */
@@ -3866,7 +3866,7 @@ interface I18n {
     /** Rematch offer accepted */
     rematchOfferAccepted: string;
     /** Rematch offer cancelled */
-    rematchOfferCanceled: string;
+    rematchOfferCancelled: string;
     /** Rematch offer declined */
     rematchOfferDeclined: string;
     /** Rematch offer sent */
@@ -4158,7 +4158,7 @@ interface I18n {
     /** Chess tournaments featuring various time controls and variants */
     tournamentHomeTitle: string;
     /** The tournament may have been cancelled if all players left before it started. */
-    tournamentMayHaveBeenCanceled: string;
+    tournamentMayHaveBeenCancelled: string;
     /** Tournament not found */
     tournamentNotFound: string;
     /** Tournament points */
