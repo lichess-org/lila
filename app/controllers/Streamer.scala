@@ -117,7 +117,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                         nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
                           s"${routes.Streamer.edit.url}?u=$id"
                   else
-                    val next = if sws.streamer.is(me) then "" else s"?u=${sws.user.id}"
+                    val next = sws.streamer.isnt(me).so(s"?u=${sws.user.id}")
                     Redirect(s"${routes.Streamer.edit.url}$next")
                 case _ =>
                   Redirect(routes.Streamer.edit)
