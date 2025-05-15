@@ -308,9 +308,6 @@
   <string name="takeback">Нүүдэл буцаалт</string>
   <string name="proposeATakeback">Нүүдэл буцаах хүсэлт илгээх</string>
   <string name="takebackPropositionSent">Нүүдэл буцаах хүсэлт илгээгдсэн</string>
-  <string name="takebackPropositionDeclined">Нүүдэл буцаах хүсэлтийг зөвшөөрсөнгүй</string>
-  <string name="takebackPropositionAccepted">Нүүдэл буцаах хүсэлтийг зөвшөөрлөө</string>
-  <string name="takebackPropositionCanceled">Нүүдэл буцаах хүсэлтээ цуцаллаа</string>
   <string name="yourOpponentProposesATakeback">Таны өрсөлдөгч нүүдэл буцаах хүсэлт илгээлээ</string>
   <string name="bookmarkThisGame">Энэ өргийг хадгалаж авах</string>
   <string name="tournament">Тэмцээн</string>

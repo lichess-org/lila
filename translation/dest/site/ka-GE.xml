@@ -341,9 +341,6 @@
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
   <string name="takebackPropositionSent">სვლის დაბრუნება შეთავაზებული</string>
-  <string name="takebackPropositionDeclined">სვლის დაბრუნება უარყოფილია</string>
-  <string name="takebackPropositionAccepted">სვლის დაბრუნება მიღებულია</string>
-  <string name="takebackPropositionCanceled">სვლის დაბრუნების შეთავაზება გაუქმებულია</string>
   <string name="yourOpponentProposesATakeback">მეტოქე სვლის უკან დაბრუნებას გთხოვთ</string>
   <string name="bookmarkThisGame">მონიშნე ეს თამაში</string>
   <string name="tournament">ტურნირი</string>

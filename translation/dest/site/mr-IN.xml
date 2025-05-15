@@ -348,9 +348,6 @@
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
   <string name="takebackPropositionSent">चाल मागे घेण्याची विनंती पाठवली</string>
-  <string name="takebackPropositionDeclined">चाल मागे घेण्याची विनंती नाकारली</string>
-  <string name="takebackPropositionAccepted">चाल मागे घेण्याची विनंती स्वीकारली</string>
-  <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">खेळाला चिन्हीत करा</string>
   <string name="tournament">क्रीडासत्र</string>

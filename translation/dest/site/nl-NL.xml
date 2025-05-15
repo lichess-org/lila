@@ -349,10 +349,15 @@
   <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
+  <string name="whiteProposesTakeback">Wit stelt terugnemen voor</string>
+  <string name="blackProposesTakeback">Zwart stelt terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
-  <string name="takebackPropositionDeclined">Terugname-voorstel geweigerd</string>
-  <string name="takebackPropositionAccepted">Terugname-voorstel geaccepteerd</string>
-  <string name="takebackPropositionCanceled">Terugname-voorstel geannuleerd</string>
+  <string name="whiteDeclinesTakeback">Wit weigert terugnemen</string>
+  <string name="blackDeclinesTakeback">Zwart weigert terugnemen</string>
+  <string name="whiteAcceptsTakeback">Wit accepteert terugnemen</string>
+  <string name="blackAcceptsTakeback">Zwart accepteert terugnemen</string>
+  <string name="whiteCancelsTakeback">Wit annuleert terugnemen</string>
+  <string name="blackCancelsTakeback">Zwart annuleert terugnemen</string>
   <string name="yourOpponentProposesATakeback">Uw tegenstander stelt een terugname voor</string>
   <string name="bookmarkThisGame">Voeg deze partij toe aan uw favorieten</string>
   <string name="tournament">Toernooi</string>
@@ -672,6 +677,7 @@
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Titel verifiëren</string>
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
@@ -999,5 +1005,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="nothingToSeeHere">Hier is momenteel niets te zien.</string>
   <string name="stats">Statistieken</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Toegankelijkheid</string>
+  <string name="accessibility">Toegankelijkheid</string>
 </resources>

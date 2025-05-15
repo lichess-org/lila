@@ -349,9 +349,6 @@
   <string name="takeback">Terug-vat</string>
   <string name="proposeATakeback">Stel terug-vat voor</string>
   <string name="takebackPropositionSent">Terug-vat aanbod gestuur</string>
-  <string name="takebackPropositionDeclined">Terug-vat aanbod afgewys</string>
-  <string name="takebackPropositionAccepted">Terug-vat aanvaar</string>
-  <string name="takebackPropositionCanceled">Terug-vat aanbod gekanselleer</string>
   <string name="yourOpponentProposesATakeback">Jou teenstander stel \'n terug-vat voor</string>
   <string name="bookmarkThisGame">Boekmerk die spel</string>
   <string name="tournament">Toernooi</string>

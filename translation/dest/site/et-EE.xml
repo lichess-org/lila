@@ -333,9 +333,6 @@
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
   <string name="takebackPropositionSent">Tagasivõtu ettepanek esitatud</string>
-  <string name="takebackPropositionDeclined">Tagasivõtu ettepanekust keeldumine</string>
-  <string name="takebackPropositionAccepted">Tagasivõtu ettepanek vastuvõetud</string>
-  <string name="takebackPropositionCanceled">Tagasivõtu ettepanek tühistatud</string>
   <string name="yourOpponentProposesATakeback">Vastane teeb ettepaneku tagasivõtuks</string>
   <string name="bookmarkThisGame">Lisa see mäng järjehoidjasse</string>
   <string name="tournament">Turniir</string>

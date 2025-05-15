@@ -22,7 +22,7 @@
   <string name="asBlack">come nero</string>
   <string name="randomColor">Colore casuale</string>
   <string name="createAGame">Crea una partita</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Inizia una partita</string>
+  <string name="createTheGame">Inizia una partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
@@ -351,9 +351,6 @@
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
-  <string name="takebackPropositionDeclined">Richiesta di ritiro mossa rifiutata</string>
-  <string name="takebackPropositionAccepted">Richiesta di ritiro mossa accettata</string>
-  <string name="takebackPropositionCanceled">Richiesta di ritiro mossa annullata</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>
@@ -1001,7 +998,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilità</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Attiva \"modalità non vedenti\"</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Disattiva \"modalità non vedenti\"</string>
+  <string name="accessibility">Accessibilità</string>
+  <string name="enableBlindMode">Attiva \"modalità non vedenti\"</string>
+  <string name="disableBlindMode">Disattiva \"modalità non vedenti\"</string>
 </resources>

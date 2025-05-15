@@ -126,9 +126,6 @@
   <string name="takeback">Tarraing air ais</string>
   <string name="proposeATakeback">Tairg tarraing air ais</string>
   <string name="takebackPropositionSent">Tairgse tarraing air ais air a cur</string>
-  <string name="takebackPropositionDeclined">Tairgse tarraing air ais air a diùltadh</string>
-  <string name="takebackPropositionAccepted">Air gabhail ri tairgse tarraing air ais</string>
-  <string name="takebackPropositionCanceled">Chaidh sgur dhe thairgse tarraing air ais</string>
   <string name="yourOpponentProposesATakeback">Tha an nàmhaid a’ tairgse tarraing air ais</string>
   <string name="bookmarkThisGame">Cruthaich comharra-lìn airson a’ gheama seo.</string>
   <string name="tournament">Fèill-chluich</string>

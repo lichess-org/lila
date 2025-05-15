@@ -22,7 +22,7 @@
   <string name="asBlack">കറുപ്പായി</string>
   <string name="randomColor">ഏതെങ്കിലും നിറം</string>
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">കളി തുടങ്ങുക</string>
+  <string name="createTheGame">കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
   <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
@@ -348,9 +348,6 @@
   <string name="takeback">തിരിച്ചെടുക്കുക</string>
   <string name="proposeATakeback">തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുക</string>
   <string name="takebackPropositionSent">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം അയച്ചു</string>
-  <string name="takebackPropositionDeclined">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം നിരസിക്കപ്പെട്ടു</string>
-  <string name="takebackPropositionAccepted">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം സ്വീകരിക്കപ്പെട്ടു</string>
-  <string name="takebackPropositionCanceled">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം റദ്ദാക്കപ്പെട്ടു</string>
   <string name="yourOpponentProposesATakeback">നിങ്ങളുടെ എതിരാളി തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുന്നു</string>
   <string name="bookmarkThisGame">ഈ മത്സരം ബുക്ക്‌മാര്‍ക്ക് ചെയ്യുക</string>
   <string name="tournament">ടൂര്‍ണമെന്‍റ് (മത്സര പരമ്പര)</string>

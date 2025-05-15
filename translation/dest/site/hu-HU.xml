@@ -345,9 +345,6 @@
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
   <string name="takebackPropositionSent">Visszalépés elküldve</string>
-  <string name="takebackPropositionDeclined">Visszalépés elutasítva</string>
-  <string name="takebackPropositionAccepted">Visszalépés elfogadva</string>
-  <string name="takebackPropositionCanceled">Visszalépés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
   <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
   <string name="tournament">Verseny</string>

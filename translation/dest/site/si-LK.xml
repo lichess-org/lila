@@ -342,9 +342,6 @@
   <string name="takeback">ආපසු ගැනීම</string>
   <string name="proposeATakeback">ආපසු ගැනීමක් යෝජනා කරන්න</string>
   <string name="takebackPropositionSent">ආපසු ගැනීම යවන ලදී</string>
-  <string name="takebackPropositionDeclined">ආපසු ගැනීම ප්‍රතික්ෂේප විය</string>
-  <string name="takebackPropositionAccepted">ආපසු ගැනීම පිළිගනු ලැබේ</string>
-  <string name="takebackPropositionCanceled">ආපසු ගැනීම අවලංගු කරන ලදී</string>
   <string name="yourOpponentProposesATakeback">ඔබේ විරුද්ධවාදියා ආපසු හැරීමක් යෝජනා කරයි</string>
   <string name="bookmarkThisGame">මෙම ක්‍රීඩාව පිටු සලකුණු කරන්න</string>
   <string name="tournament">තරඟාවලිය</string>

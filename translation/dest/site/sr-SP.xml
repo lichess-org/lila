@@ -352,9 +352,6 @@
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
   <string name="takebackPropositionSent">Враћање потеза послато</string>
-  <string name="takebackPropositionDeclined">Враћање потеза одбијено</string>
-  <string name="takebackPropositionAccepted">Враћање потеза прихваћено</string>
-  <string name="takebackPropositionCanceled">Враћање потеза отказано</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>

@@ -314,9 +314,6 @@
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
   <string name="takebackPropositionSent">Tawaran ambil semula dihantar</string>
-  <string name="takebackPropositionDeclined">Tawaran ambil semula ditolak</string>
-  <string name="takebackPropositionAccepted">Tawaran ambil semula diterima</string>
-  <string name="takebackPropositionCanceled">Tawaran ambil semula dibatalkan</string>
   <string name="yourOpponentProposesATakeback">Lawan anda mencadangkan untuk ambil semula</string>
   <string name="bookmarkThisGame">Tanda buku permainan ini</string>
   <string name="tournament">Pertandingan</string>

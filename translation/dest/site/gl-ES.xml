@@ -22,7 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Cor aleatoria</string>
   <string name="createAGame">Crear unha partida</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Crear a partida</string>
+  <string name="createTheGame">Crear a partida</string>
   <string name="whiteIsVictorious">As brancas gañan</string>
   <string name="blackIsVictorious">As negras gañan</string>
   <string name="youPlayTheWhitePieces">Xogas coas brancas</string>
@@ -350,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
+  <string name="whiteProposesTakeback">As brancas propoñen rectificar a xogada</string>
+  <string name="blackProposesTakeback">As negras propoñen rectificar a xogada</string>
   <string name="takebackPropositionSent">Proposta de cambio enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de cambio rexeitada</string>
-  <string name="takebackPropositionAccepted">Proposta de cambio aceptada</string>
-  <string name="takebackPropositionCanceled">Proposta de cambio cancelada</string>
+  <string name="whiteDeclinesTakeback">As brancas rexeitan a proposta de cambio de xogada</string>
+  <string name="blackDeclinesTakeback">As negras rexeitan a proposta de cambio de xogada</string>
+  <string name="whiteAcceptsTakeback">As brancas aceptan a proposta de cambio de xogada</string>
+  <string name="blackAcceptsTakeback">As negras aceptan a proposta de cambio de xogada</string>
+  <string name="whiteCancelsTakeback">As brancas cancelan o cambio de xogada</string>
+  <string name="blackCancelsTakeback">As negras cancelan o cambio de xogada</string>
   <string name="yourOpponentProposesATakeback">O teu rival propón rectificar a xogada</string>
   <string name="bookmarkThisGame">Marcar esta partida coma favorita</string>
   <string name="tournament">Torneo</string>
@@ -673,6 +678,7 @@
   <string name="really">de verdade</string>
   <string name="contribute">Contribuír</string>
   <string name="termsOfService">Termos do Servizo</string>
+  <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código Fonte</string>
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
@@ -999,7 +1005,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
   <string name="stats">Estatísticas</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accesibilidade</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activar o modo de accesibilidade web</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desactivar o modo de accesibilidade web</string>
+  <string name="accessibility">Accesibilidade</string>
+  <string name="enableBlindMode">Activar o modo de accesibilidade web</string>
+  <string name="disableBlindMode">Desactivar o modo de accesibilidade web</string>
 </resources>

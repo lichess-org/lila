@@ -398,9 +398,6 @@
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
-  <string name="takebackPropositionDeclined">Ponuka na návrat odmietnutá</string>
-  <string name="takebackPropositionAccepted">Ponuka na návrat prijatá</string>
-  <string name="takebackPropositionCanceled">Ponuka na návrat zrušená</string>
   <string name="yourOpponentProposesATakeback">Váš súper navrhuje vrátiť ťah</string>
   <string name="bookmarkThisGame">Označiť túto hru</string>
   <string name="tournament">Turnaj</string>

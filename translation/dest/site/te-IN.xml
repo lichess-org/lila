@@ -353,9 +353,6 @@
   <string name="takeback">వెనక్కి తీసుకో</string>
   <string name="proposeATakeback">టేక్‌బ్యాక్‌ను ప్రతిపాదించండి</string>
   <string name="takebackPropositionSent">టేక్‌బ్యాక్ పంపబడింది</string>
-  <string name="takebackPropositionDeclined">టేక్‌బ్యాక్ క్షీణించింది</string>
-  <string name="takebackPropositionAccepted">టేక్‌బ్యాక్ అంగీకరించబడింది</string>
-  <string name="takebackPropositionCanceled">టేక్‌బ్యాక్ రద్దు చేయబడింది</string>
   <string name="yourOpponentProposesATakeback">మీ ప్రత్యర్థి టేక్‌బ్యాక్‌ను ప్రతిపాదించాడు</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
   <string name="tournament">టోర్నమెంట్</string>

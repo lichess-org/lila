@@ -348,9 +348,6 @@
   <string name="takeback">Hamleyi geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklif edildi</string>
-  <string name="takebackPropositionDeclined">Hamleyi geri alma teklifi reddedildi</string>
-  <string name="takebackPropositionAccepted">Hamleyi geri alma teklifi kabul edildi</string>
-  <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi</string>
   <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri almayı teklif etti</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
   <string name="tournament">Turnuva</string>

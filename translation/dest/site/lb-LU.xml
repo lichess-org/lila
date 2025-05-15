@@ -348,9 +348,6 @@
   <string name="takeback">Zeréckhuelen</string>
   <string name="proposeATakeback">Zeréckhuelen virschloen</string>
   <string name="takebackPropositionSent">Zeréckhuelen geschéckt</string>
-  <string name="takebackPropositionDeclined">Zeréckhuelen ofgeleent</string>
-  <string name="takebackPropositionAccepted">Zeréckhuelen ugeholl</string>
-  <string name="takebackPropositionCanceled">Zeréckhuelen annuléiert</string>
   <string name="yourOpponentProposesATakeback">Däin Géigner schléit en Zeréckhuelen fir</string>
   <string name="bookmarkThisGame">Dës Partie als Lieszeeche späicheren</string>
   <string name="tournament">Turnéier</string>
