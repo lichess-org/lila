@@ -764,7 +764,7 @@
   <string name="downloadImported">Преузми увезено</string>
   <string name="downloadAllGames">Преузми све партије</string>
   <string name="crosstable">Таблица сусрета</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Скролуј преко табле да се помераш кроз партију.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
