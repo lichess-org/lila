@@ -134,8 +134,8 @@ function view(opts: Opts, coords: Coords): VNode {
           navigator.clipboard.writeText(
             renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
           ),
-        () => ctrl.copyVariationHighlight(extendedPath),
-        () => ctrl.copyVariationHighlight(undefined),
+        () => ctrl.pendingCopyPath(extendedPath),
+        () => ctrl.pendingCopyPath(null),
       ),
     ],
   );

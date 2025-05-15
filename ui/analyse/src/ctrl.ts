@@ -15,7 +15,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback } from 'lib';
+import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
@@ -48,7 +48,6 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
-import { init } from 'lib/tree/path';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -117,8 +116,8 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
-  pendingCopyPaths: Set<Tree.Path>;
-  pendingDeletionPaths: Set<Tree.Path>;
+  pendingCopyPath: Prop<Tree.Path | null>;
+  pendingDeletionPaths: Set<Tree.Path> = new Set<Tree.Path>();
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
@@ -160,10 +159,10 @@ export default class AnalyseCtrl {
 
     this.initCeval();
 
+    this.pendingCopyPath = propWithEffect(null, this.redraw);
+
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
-    this.pendingCopyPaths = new Set<Tree.Path>();
-    this.pendingDeletionPaths = new Set<Tree.Path>();
 
     this.showGround();
     this.onToggleComputer();
@@ -1057,17 +1056,6 @@ export default class AnalyseCtrl {
     this.pendingDeletionPaths = new Set<Tree.Path>(
       path ? [path, ...this.tree.getPathsOfDescendants(this.tree.nodeAtPath(path), path)] : [],
     );
-    this.redraw();
-  };
-
-  copyVariationHighlight = (path: Tree.Path | undefined) => {
-    const paths = [];
-    if (path)
-      while (path) {
-        paths.push(path);
-        path = init(path);
-      }
-    this.pendingCopyPaths = new Set<Tree.Path>(paths);
     this.redraw();
   };
 }
