@@ -70,7 +70,7 @@ private object OpeningSearch:
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
       clean
-        .filterNot(_ == '.')
+        .replace('.', ' ')
         .split(' ')
         .toList
         .map(_.trim)

@@ -27,4 +27,4 @@ class OpeningSearchTest extends munit.FunSuite:
     assertEquals(makeQuery("1. e4 e5 2. d4").numberedPgn, "1. e4 e5 2. d4")
 
   test("makeQuery works without spaces"):
-    assertEquals(makeQuery("1.e4 e5 2.d4"), makeQuery("1. e4 e5 2. d4"))
+    assertEquals(makeQuery("1.e4 e5 2.d4").numberedPgn, makeQuery("1. e4 e5 2. d4").numberedPgn)
