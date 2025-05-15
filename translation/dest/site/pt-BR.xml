@@ -22,7 +22,7 @@
   <string name="asBlack">de pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Criar uma partida</string>
+  <string name="createTheGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
   <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
@@ -350,10 +350,13 @@
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
+  <string name="whiteProposesTakeback">Brancas propõem voltar jogada</string>
+  <string name="blackProposesTakeback">Pretas propõem voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de voltar jogada recusada</string>
-  <string name="takebackPropositionAccepted">Proposta de voltar jogada aceita</string>
-  <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
+  <string name="whiteDeclinesTakeback">Brancas recusam voltar jogada</string>
+  <string name="blackDeclinesTakeback">Pretas recusam voltar jogada</string>
+  <string name="whiteAcceptsTakeback">Brancas aceitam voltar jogada</string>
+  <string name="blackAcceptsTakeback">Pretas aceitam voltar jogada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
@@ -999,7 +1002,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Acessibilidade</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Habilitar modo às cegas</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Desabilitar modo às cegas</string>
+  <string name="accessibility">Acessibilidade</string>
+  <string name="enableBlindMode">Habilitar modo às cegas</string>
+  <string name="disableBlindMode">Desabilitar modo às cegas</string>
 </resources>

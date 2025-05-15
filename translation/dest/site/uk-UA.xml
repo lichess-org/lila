@@ -22,7 +22,7 @@
   <string name="asBlack">за чорних</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Створити гру</string>
+  <string name="createTheGame">Створити гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Чорні перемогли</string>
   <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
@@ -398,9 +398,6 @@
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
-  <string name="takebackPropositionDeclined">Пропозицію повернути хід відхилено</string>
-  <string name="takebackPropositionAccepted">Пропозицію повернути хід прийнято</string>
-  <string name="takebackPropositionCanceled">Пропозицію повернути хід скасовано</string>
   <string name="yourOpponentProposesATakeback">Ваш суперник пропонує повернути хід</string>
   <string name="bookmarkThisGame">Додати гру в закладки</string>
   <string name="tournament">Турнір</string>
@@ -1088,7 +1085,7 @@
 Усі витрати на обслуговування, розробку й контент фінансуються виключно пожертвуваннями користувачів.</string>
   <string name="nothingToSeeHere">Поки тут нічого немає.</string>
   <string name="stats">Статистика</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Доступність</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Увімкнути режим для незрячих</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Вимкнути режим для незрячих</string>
+  <string name="accessibility">Доступність</string>
+  <string name="enableBlindMode">Увімкнути режим для незрячих</string>
+  <string name="disableBlindMode">Вимкнути режим для незрячих</string>
 </resources>

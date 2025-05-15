@@ -284,9 +284,6 @@
   <string name="takeback">Set werom</string>
   <string name="proposeATakeback">Stel in weromset foar</string>
   <string name="takebackPropositionSent">Weromset fertjoerd</string>
-  <string name="takebackPropositionDeclined">Weromset wegere</string>
-  <string name="takebackPropositionAccepted">Weromset akseptearre</string>
-  <string name="takebackPropositionCanceled">Weromset annulearre</string>
   <string name="yourOpponentProposesATakeback">Dyn tsjinstander stelt in weromset foar</string>
   <string name="bookmarkThisGame">Blêdwizerje dizze partij</string>
   <string name="tournament">Toernoai</string>

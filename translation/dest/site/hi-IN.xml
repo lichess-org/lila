@@ -344,9 +344,6 @@
   <string name="takeback">चाल को वापस लें</string>
   <string name="proposeATakeback">चाल को वापस लेने की प्रस्ताव को भेजें</string>
   <string name="takebackPropositionSent">चाल को वापस लेने के प्रस्ताव को भेज दिया गया है</string>
-  <string name="takebackPropositionDeclined">चाल को वापस लेने के प्रस्ताव को अस्वीकार कर दिया गया है</string>
-  <string name="takebackPropositionAccepted">चाल को वापस लेने के प्रस्ताव को स्वीकार कर लिया गया है</string>
-  <string name="takebackPropositionCanceled">चाल को वापस लेने के प्रस्ताव को रद्द कर दिया गया है</string>
   <string name="yourOpponentProposesATakeback">आपके प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
   <string name="bookmarkThisGame">इस खेल की स्मृति (बुकमार्क) बनाएं</string>
   <string name="tournament">प्रतियोगिता</string>

@@ -302,9 +302,6 @@
   <string name="takeback">Tak aftur</string>
   <string name="proposeATakeback">Ber fram ynski um afturtøku</string>
   <string name="takebackPropositionSent">Boð um afturtøku sent</string>
-  <string name="takebackPropositionDeclined">Afturtøka havnað</string>
-  <string name="takebackPropositionAccepted">Afturtøka góðtikin</string>
-  <string name="takebackPropositionCanceled">Afturtøka avlýst</string>
   <string name="yourOpponentProposesATakeback">Mótleikarin ber fram ynski um afturtøku</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>

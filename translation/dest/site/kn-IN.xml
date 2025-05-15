@@ -341,9 +341,6 @@
   <string name="takeback">ನಡೆ ಹಿಂದಕ್ಕೆ ಪಡೆ</string>
   <string name="proposeATakeback">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡು</string>
   <string name="takebackPropositionSent">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
-  <string name="takebackPropositionDeclined">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
-  <string name="takebackPropositionAccepted">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
-  <string name="takebackPropositionCanceled">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ರದ್ದುಪಡಿಸಲಾಗಿದೆ</string>
   <string name="yourOpponentProposesATakeback">ನಿಮ್ಮ ಎದುರಾಳಿ, ಅವರ ನಡೆ ಹಿಂಪಡೆದುಕೊಳ್ಳಲು ಅನುಮತಿ ಕೇಳುತ್ತಿದ್ದಾರೆ</string>
   <string name="bookmarkThisGame">ಈ ಆಟವನ್ನು ಗುರುತುಸಂಗ್ರಹಕ್ಕೆ ಸೇರಿಸು</string>
   <string name="tournament">ಪಂದ್ಯಾವಳಿ</string>

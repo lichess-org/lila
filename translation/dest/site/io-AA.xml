@@ -107,9 +107,6 @@
   <string name="takeback">Ripreno</string>
   <string name="proposeATakeback">Propozar ripreno</string>
   <string name="takebackPropositionSent">Riprenopropozo sendita</string>
-  <string name="takebackPropositionDeclined">Riprenopropozo refuzita</string>
-  <string name="takebackPropositionAccepted">Riprenopropozo aceptita</string>
-  <string name="takebackPropositionCanceled">Riprenopropozo abrogita</string>
   <string name="yourOpponentProposesATakeback">Vua adverso propozas ripreno</string>
   <string name="bookmarkThisGame">Paginomarkizar ica ludo</string>
   <string name="tournament">Turniro</string>

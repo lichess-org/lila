@@ -320,9 +320,6 @@
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
   <string name="takebackPropositionSent">चाल फिर्ताको प्रस्ताव पठाइयो</string>
-  <string name="takebackPropositionDeclined">चाल फिर्ताको प्रस्ताव अस्वीकार गरियो</string>
-  <string name="takebackPropositionAccepted">चाल फिर्ताको प्रस्ताव स्वीकार गरियो</string>
-  <string name="takebackPropositionCanceled">चाल फिर्ता गर्ने प्रस्ताव रद्द गरियो</string>
   <string name="yourOpponentProposesATakeback">तपाइको प्रतिद्वन्दीबाट चाल फिर्ताको प्रस्ताव आएको छ</string>
   <string name="bookmarkThisGame">यो खेललाई चिन्ह लगाऔं</string>
   <string name="tournament">प्रतियोगिता</string>

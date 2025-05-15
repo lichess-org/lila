@@ -286,9 +286,6 @@
   <string name="takeback">Цыд фæстæмæ райсын</string>
   <string name="proposeATakeback">Ракурын цыд фæстæмæ райсын</string>
   <string name="takebackPropositionSent">Цыд фæстæмæ райсын æнхъарæн æрвыст у</string>
-  <string name="takebackPropositionDeclined">Цыд фæстæмæ райсын æнхъарæн райст нæ уыди</string>
-  <string name="takebackPropositionAccepted">Цыд фæстæмæ райсын æнхъарæн райст уыди</string>
-  <string name="takebackPropositionCanceled">Цыд фæстæмæ райсын æнхъарæн аивд уыди</string>
   <string name="yourOpponentProposesATakeback">Дæ ныхмæлæууæг куры йæ цыд фæстæмæ раттын</string>
   <string name="bookmarkThisGame">Фæнысан кæнын ацы хъазт</string>
   <string name="tournament">Турнир</string>

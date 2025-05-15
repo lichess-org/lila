@@ -348,9 +348,6 @@
   <string name="takeback">برگردان</string>
   <string name="proposeATakeback">پیشنهاد برگردان</string>
   <string name="takebackPropositionSent">برگردان فرستاده شد</string>
-  <string name="takebackPropositionDeclined">برگردان رد شد</string>
-  <string name="takebackPropositionAccepted">برگردان پذیرفته شد</string>
-  <string name="takebackPropositionCanceled">برگردان لغو شد</string>
   <string name="yourOpponentProposesATakeback">حریف‌تان پیشنهاد «برگرداندن» می‌دهد</string>
   <string name="bookmarkThisGame">نشانک‌گذاری</string>
   <string name="tournament">مسابقه</string>

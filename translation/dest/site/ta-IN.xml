@@ -349,9 +349,6 @@
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
   <string name="takebackPropositionSent">மீட்சிக் கோரிக்கை அனுப்பியுள்ளது</string>
-  <string name="takebackPropositionDeclined">மீட்சிக் கோரிக்கை நிராகரிக்கப்பட்டது</string>
-  <string name="takebackPropositionAccepted">மீட்சிக் கோரிக்கை ஏற்க்கப்பட்டது</string>
-  <string name="takebackPropositionCanceled">மீட்சிக் கோரிக்கை கழிக்கப்பட்டது</string>
   <string name="yourOpponentProposesATakeback">நும் எதிராளி மீட்சி கோருகிறார்</string>
   <string name="bookmarkThisGame">இந்த ஆட்டத்துக்கு நினைவுக்குறிப்பு உண்டாக்கு</string>
   <string name="tournament">பந்தயம்</string>

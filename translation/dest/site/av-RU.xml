@@ -342,9 +342,6 @@
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="proposeATakeback">Тlадбуссинабизе биччаян абизе</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
-  <string name="takebackPropositionDeclined">ТӀадбуссинабизе биччачӀо</string>
-  <string name="takebackPropositionAccepted">ТӀадбуссинабизе биччана</string>
-  <string name="takebackPropositionCanceled">ТӀадбуссинаби гьабичӀого тана</string>
   <string name="yourOpponentProposesATakeback">Дур дандияс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьеб хӀаялда аскӀоб гӀуж базе</string>
   <string name="tournament">Турнир</string>

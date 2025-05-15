@@ -371,9 +371,6 @@
   <string name="takeback">Gājiena atsaukšana</string>
   <string name="proposeATakeback">Piedāvāt gājiena atsaukšanu</string>
   <string name="takebackPropositionSent">Piedāvāta gājiena atsaukšana</string>
-  <string name="takebackPropositionDeclined">Gājiena atsaukšana atteikta</string>
-  <string name="takebackPropositionAccepted">Gājiena atsaukšana pieņemta</string>
-  <string name="takebackPropositionCanceled">Gājiena atsaukšanas piedāvājums atcelts</string>
   <string name="yourOpponentProposesATakeback">Jūsu pretinieks piedāvā atsaukt gājienu</string>
   <string name="bookmarkThisGame">Atzīmēt šo spēli</string>
   <string name="tournament">Turnīrs</string>

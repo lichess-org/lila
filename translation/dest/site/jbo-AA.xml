@@ -266,9 +266,6 @@
   <string name="takeback">kelka\'u xruti</string>
   <string name="proposeATakeback">kelka\'u xruti stidi</string>
   <string name="takebackPropositionSent">lo kelka\'u xruti se stidi cu se benji</string>
-  <string name="takebackPropositionDeclined">lo kelka\'u xruti se stidi cu se tolcru</string>
-  <string name="takebackPropositionAccepted">lo kelka\'u xruti se stidi cu se curmi</string>
-  <string name="takebackPropositionCanceled">co\'u kelka\'u xruti stidi</string>
   <string name="yourOpponentProposesATakeback">lo do kelkansa cu kelka\'u xruti stidi</string>
   <string name="bookmarkThisGame">gau tcita ti poi selkei</string>
   <string name="tournament">grinunjvi</string>

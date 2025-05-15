@@ -22,7 +22,7 @@
   <string name="asBlack">avec les noirs</string>
   <string name="randomColor">Couleur aléatoire</string>
   <string name="createAGame">Créer une partie</string>
-  <string name="createTheGame" comment="Acts as a label to explain what the buttons that create a game do.&#10;&#10;This is not a visible piece of text. A blind user will hear this from the speaker when they are selecting one of the buttons that lets them select a side in a game they are creating.">Créer la partie</string>
+  <string name="createTheGame">Créer la partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
   <string name="blackIsVictorious">Victoire des Noirs</string>
   <string name="youPlayTheWhitePieces">Vous jouez avec les blancs</string>
@@ -350,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Arbre d\'ouvertures &amp; tables de finales</string>
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
+  <string name="whiteProposesTakeback">Les Blancs offrent de reprendre le coup.</string>
+  <string name="blackProposesTakeback">Les Noirs offrent de reprendre le coup.</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
-  <string name="takebackPropositionDeclined">Annulation du coup déclinée</string>
-  <string name="takebackPropositionAccepted">Annulation du coup acceptée</string>
-  <string name="takebackPropositionCanceled">Annulation du coup annulée</string>
+  <string name="whiteDeclinesTakeback">Les Blancs refusent de reprendre le coup.</string>
+  <string name="blackDeclinesTakeback">Les Noirs refusent de reprendre le coup.</string>
+  <string name="whiteAcceptsTakeback">Les Blancs acceptent de reprendre le coup.</string>
+  <string name="blackAcceptsTakeback">Les Noirs acceptent de reprendre le coup.</string>
+  <string name="whiteCancelsTakeback">Les Blancs retirent l\'offre de reprendre le coup.</string>
+  <string name="blackCancelsTakeback">Les Noirs retirent l\'offre de reprendre le coup.</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
   <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
   <string name="tournament">Tournoi</string>
@@ -673,6 +678,7 @@
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Vérification du titre</string>
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
@@ -1000,7 +1006,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
   <string name="nothingToSeeHere">Rien à voir ici pour le moment.</string>
   <string name="stats">Statistiques</string>
-  <string name="accessibility" comment="Accessibility in this case is the practice of making websites like lichess.org, inclusive for people, even if they have disabilities like vision or hearing impairment.">Accessibilité</string>
-  <string name="enableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Activer le mode pour non-voyant</string>
-  <string name="disableBlindMode" comment="Blind mode is for blind users and it changes the way the entire website is navigated. It is distinct from blindfold mode, which is intended as a challenge for sighted players.">Désactiver le mode pour non-voyant</string>
+  <string name="accessibility">Accessibilité</string>
+  <string name="enableBlindMode">Activer le mode pour non-voyant</string>
+  <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
 </resources>

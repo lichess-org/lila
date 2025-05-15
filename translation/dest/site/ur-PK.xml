@@ -291,9 +291,6 @@
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
   <string name="takebackPropositionSent">چال واپس لینے کی درخواست بھیج دی گئی ہے</string>
-  <string name="takebackPropositionDeclined">چال واپس لینے کی درخواست مسترد کردی گئی ہے</string>
-  <string name="takebackPropositionAccepted">چال واپس لینے کی درخواست قبول کر لی گئی ہے</string>
-  <string name="takebackPropositionCanceled">چال واپس لینے کی درخواست خارج کردی گئی ہے</string>
   <string name="yourOpponentProposesATakeback">حریف چال واپس لینا چاہتا ہے</string>
   <string name="bookmarkThisGame">اس مقابلے کو یاد رکھیں</string>
   <string name="tournament">مسابقہ</string>

@@ -348,9 +348,6 @@
   <string name="takeback">Върни ход</string>
   <string name="proposeATakeback">Предложи връщане на ход</string>
   <string name="takebackPropositionSent">Предложение за връщане на ход изпратено</string>
-  <string name="takebackPropositionDeclined">Предложение за връщане на ход отказано</string>
-  <string name="takebackPropositionAccepted">Предложение за връщане на ход прието</string>
-  <string name="takebackPropositionCanceled">Предложението за връщане отхвърлено</string>
   <string name="yourOpponentProposesATakeback">Вашият противник предлага връщане</string>
   <string name="bookmarkThisGame">Отбележи тази игра</string>
   <string name="tournament">Турнир</string>
