@@ -350,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Åpningsutforsker og tabellbase</string>
   <string name="takeback">Angre</string>
   <string name="proposeATakeback">Foreslå å angre</string>
+  <string name="whiteProposesTakeback">Hvit foreslår å ta tilbake trekket</string>
+  <string name="blackProposesTakeback">Svart foreslår å ta tilbake trekket</string>
   <string name="takebackPropositionSent">Angreforslag sendt</string>
+  <string name="whiteDeclinesTakeback">Hvit avslår å ta tilbake trekket</string>
+  <string name="blackDeclinesTakeback">Svart avslår å ta tilbake trekket</string>
+  <string name="whiteAcceptsTakeback">Hvit godtar å ta tilbake trekket</string>
+  <string name="blackAcceptsTakeback">Svart godtar å ta tilbake trekket</string>
+  <string name="whiteCancelsTakeback">Hvit avbryter forespørselen om å ta tilbake trekket</string>
+  <string name="blackCancelsTakeback">Svart avbryter forespørselen om å ta tilbake trekket</string>
   <string name="yourOpponentProposesATakeback">Din motstander foreslår å angre</string>
   <string name="bookmarkThisGame">Bokmerk dette partiet</string>
   <string name="tournament">Turnering</string>
@@ -670,6 +678,7 @@
   <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Tjenestevilkår</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Tittelverifisering</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanoppvisninger</string>
   <string name="host">Vert</string>
