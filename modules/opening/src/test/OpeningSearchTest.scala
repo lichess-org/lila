@@ -22,5 +22,9 @@ class OpeningSearchTest extends munit.FunSuite:
   test("progressive"):
     assertEquals(search("Sicil").headOption.map(_.name), OpeningName("Sicilian Defense").some)
 
-  test("makeQuery"):
-    assertEquals(makeQuery("1.e4 e5"), makeQuery("1. e4 e5"))
+  test("makeQuery numbered"):
+    assertEquals(makeQuery("e4 e5 d4").numberedPgn, "1. e4 e5 2. d4")
+    assertEquals(makeQuery("1. e4 e5 2. d4").numberedPgn, "1. e4 e5 2. d4")
+
+  test("makeQuery works without spaces"):
+    assertEquals(makeQuery("1.e4 e5 2.d4"), makeQuery("1. e4 e5 2. d4"))

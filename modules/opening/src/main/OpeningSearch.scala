@@ -70,15 +70,16 @@ private object OpeningSearch:
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
       clean
+        .filterNot(_ == '.')
         .split(' ')
         .toList
         .map(_.trim)
         .filter(_.nonEmpty)
+        .filterNot(_.forall(_.isDigit))
         .grouped(2)
         .toList
-        .mapWithIndex { (moves, index) =>
+        .mapWithIndex: (moves, index) =>
           s"${index + 1}. ${moves.mkString(" ")}"
-        }
         .mkString(" ")
     Query(clean, numberedPgn, tokenize(clean))
   private case class Entry(opening: Opening, tokens: Set[Token])
