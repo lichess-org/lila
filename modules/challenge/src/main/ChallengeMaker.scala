@@ -16,7 +16,7 @@ final class ChallengeMaker(
     collectDataFor(gameId, dest).flatMapz: data =>
       makeRematch(Pov(data.game, data.challenger), data.orig, data.dest).dmap(some)
 
-  def showCanceledRematchFor(gameId: GameId, dest: User, nextId: GameId): Fu[Option[Challenge]] =
+  def showCancelledRematchFor(gameId: GameId, dest: User, nextId: GameId): Fu[Option[Challenge]] =
     collectDataFor(gameId, dest).flatMapz: data =>
       toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId).dmap(some)
 
