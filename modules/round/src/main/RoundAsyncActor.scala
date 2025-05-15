@@ -26,7 +26,7 @@ final private class RoundAsyncActor(
   import RoundAsyncActor.*
   import dependencies.*
 
-  private var takebackSituation: Option[TakebackSituation] = None
+  private var takebackBoard: Option[TakebackBoard] = None
 
   private var mightBeSimul = true // until proven otherwise
 
@@ -120,7 +120,7 @@ final private class RoundAsyncActor(
         whitePlayer.setOnline(white)
         blackPlayer.setOnline(black)
 
-    case IsOnGame(color, promise) =>
+    case RoundBus.IsOnGame(color, promise) =>
       fuccess:
         promise.success(getPlayer(color).isOnline)
 
@@ -158,7 +158,7 @@ final private class RoundAsyncActor(
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         yield Nil
 
-    case lila.tree.AnalysisProgress(payload) =>
+    case lila.tree.AnalysisProgress(_, payload) =>
       fuccess:
         socketSend.exec:
           RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
@@ -183,7 +183,7 @@ final private class RoundAsyncActor(
           MoveLatMonitor.recordMicros(lap.micros)
       )
 
-    case p: BotPlay =>
+    case p: RoundBus.BotPlay =>
       val res = proxy
         .withPov(p.playerId):
           _.so: pov =>
@@ -193,16 +193,16 @@ final private class RoundAsyncActor(
       p.promise.foreach(_.completeWith(res))
       res
 
-    case FishnetPlay(uci, hash) =>
+    case RoundBus.FishnetPlay(uci, hash) =>
       handle: game =>
         player.fishnet(game, hash, uci)
       .mon(_.round.move.time)
 
-    case Abort(playerId) =>
+    case RoundBus.Abort(playerId) =>
       handle(playerId): pov =>
         pov.game.abortableByUser.so(finisher.abort(pov))
 
-    case Resign(playerId) =>
+    case RoundBus.Resign(playerId) =>
       handle(playerId): pov =>
         pov.game.resignable.so(finisher.other(pov.game, _.Resign, Some(!pov.color)))
 
@@ -227,14 +227,14 @@ final private class RoundAsyncActor(
         val progress = pov.game.setBlindfold(pov.color, value)
         (proxy.save(progress) >> gameRepo.setBlindfold(pov, value)).inject(Nil)
 
-    case ResignForce(playerId) =>
+    case RoundBus.ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
           getPlayer(!pov.color).isLongGone.flatMap:
             if _ then
               finisher.rageQuit(
                 pov.game,
-                Some(pov.color).ifFalse(pov.game.situation.opponentHasInsufficientMaterial)
+                Some(pov.color).ifFalse(pov.game.position.opponentHasInsufficientMaterial)
               )
             else fuccess(List(Event.Reload))
 
@@ -245,12 +245,12 @@ final private class RoundAsyncActor(
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
 
-    case AbortForce =>
+    case RoundBus.AbortForce =>
       handle: game =>
         game.playable.so(finisher.abortForce(game))
 
     // checks if any player can safely (grace) be flagged
-    case QuietFlag =>
+    case RoundBus.QuietFlag =>
       handle: game =>
         game.outoftime(withGrace = true).so(finisher.outOfTime(game))
 
@@ -269,8 +269,8 @@ final private class RoundAsyncActor(
           if game.abortable then finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
-    case Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
-    case DrawClaim(playerId)  => handle(playerId)(drawer.claim)
+    case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
+    case DrawClaim(playerId)           => handle(playerId)(drawer.claim)
     case Cheat(color) =>
       handle: game =>
         (game.playable && !game.sourceIs(_.Import)).so:
@@ -285,15 +285,15 @@ final private class RoundAsyncActor(
             _.foreach: pov =>
               this ! DrawClaim(pov.player.id)
 
-    case Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
+    case RoundBus.Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
 
-    case Takeback(playerId, takeback) =>
+    case RoundBus.Takeback(playerId, takeback) =>
       handle(playerId): pov =>
-        takebacker(~takebackSituation)(pov, takeback).map: (events, situation) =>
-          takebackSituation = situation.some
+        takebacker(~takebackBoard)(pov, takeback).map: (events, board) =>
+          takebackBoard = board.some
           events
 
-    case lila.game.actorApi.NotifyRematch(newGame) =>
+    case lila.game.actorApi.NotifyRematch(_, newGame) =>
       fuccess:
         publish:
           rematcher.redirectEvents(newGame)
@@ -331,7 +331,7 @@ final private class RoundAsyncActor(
           val progress = moretimer.give(game, Color.all, 20.seconds)
           proxy.save(progress).inject(progress.events)
 
-    case BotConnected(color, v) =>
+    case RoundBus.BotConnected(color, v) =>
       fuccess:
         getPlayer(color).setBotConnected(v)
 
@@ -406,7 +406,7 @@ final private class RoundAsyncActor(
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
     if lila.game.Game.mightBeBoardOrBotCompatible(pov.game) then
-      lila.common.Bus.publish(
+      lila.common.Bus.publishDyn(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)
       )
@@ -464,18 +464,18 @@ object RoundAsyncActor:
 
   private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
 
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
+  private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 
-    def decline = TakebackSituation(nbDeclined + 1, nowInstant.some)
+    def decline = TakebackBoard(nbDeclined + 1, nowInstant.some)
 
     def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
 
     def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
 
-    def reset = takebackSituationZero.zero
+    def reset = takebackBoardZero.zero
 
-  private[round] given takebackSituationZero: Zero[TakebackSituation] =
-    Zero(TakebackSituation(0, none))
+  private[round] given takebackBoardZero: Zero[TakebackBoard] =
+    Zero(TakebackBoard(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

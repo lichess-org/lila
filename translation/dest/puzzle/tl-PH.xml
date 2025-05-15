@@ -4,6 +4,7 @@
   <string name="puzzleThemes">Mga Tema ng Palaisipan</string>
   <string name="recommended">Inirerekomenda</string>
   <string name="phases">Mga Yugto</string>
+  <string name="motifs">Mga Motif</string>
   <string name="advanced">Nauna</string>
   <string name="lengths">Mga Haba</string>
   <string name="mates">Mga Mate</string>
@@ -15,6 +16,7 @@
   <string name="yourPuzzleRatingWillNotChange">Ang iyong palaisipang marka ay hindi magbabago. Tandaan na ang mga palaisipan ay hindi isang kompetisyon. Ang iyong marka ay tumutulong sa pagpili ng pinakamahusay na mga palaisipan para sa iyong antas na kasanayan.</string>
   <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
   <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>
+  <string name="toGetPersonalizedPuzzles">Para makakuha ng mga personalized na palaisipan:</string>
   <string name="puzzleId">Palaisipang %s</string>
   <string name="puzzleOfTheDay">Palaisipan ngayong araw</string>
   <string name="dailyPuzzle">Arawang Palaisipan</string>
@@ -24,7 +26,10 @@
   <string name="keepGoing">Ipagpatuloy…</string>
   <string name="puzzleSuccess">Tagumpay!</string>
   <string name="puzzleComplete">Tapos na ang palaisipan!</string>
+  <string name="byOpenings">Sa mga pagbubukas</string>
+  <string name="puzzlesByOpenings">Mga Palaisipan sa mga pagbubukas</string>
   <string name="openingsYouPlayedTheMost">Mga pagbubukas na pinakamadalas mong nilaro sa mga namarkahang laro</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang \"Find in page\" sa menu ng browser para mahanap ang iyong paboritong pagbubukas!</string>
   <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
   <string name="notTheMove">Hindi iyan ang tira!</string>
   <string name="trySomethingElse">Subukan mo iba.</string>
@@ -40,8 +45,16 @@
   <string name="normal">Pangkaraniwan</string>
   <string name="easier">Mas madali</string>
   <string name="easiest">Pinakamadali</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Isang puntos sa ibaba ng iyong palaisipan marka</item>
+    <item quantity="other">%s puntos sa ibaba ng iyong palaisipan marka</item>
+  </plurals>
   <string name="harder">Mas mahirap</string>
   <string name="hardest">Pinakamahirap</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Isang puntos sa itaas ng iyong palaisipan marka</item>
+    <item quantity="other">%s puntos sa itaas ng iyong palaisipan marka</item>
+  </plurals>
   <string name="example">Halimbawa</string>
   <string name="addAnotherTheme">Magdagdag pa ng isang tema</string>
   <string name="nextPuzzle">Susunod na palaisipan</string>
@@ -73,4 +86,5 @@ Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na m
   <string name="percentSolved">%s nalutas</string>
   <string name="noPuzzlesToShow">Walang maipapakita, maglaro ka muna ng mga palaisipan!</string>
   <string name="improvementAreasDescription">Sanayin ang mga ito upang mapabilis ang iyong pag-unlad!</string>
+  <string name="strengthDescription">Pinakamahusay ka sa mga temang nito</string>
 </resources>

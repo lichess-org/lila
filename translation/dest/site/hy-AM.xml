@@ -348,9 +348,6 @@
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
   <string name="takebackPropositionSent">Քայլը հետ վերցնելու առաջարկն ուղարկված է</string>
-  <string name="takebackPropositionDeclined">Քայլը հետ վերցնելու առաջարկը մերժված է</string>
-  <string name="takebackPropositionAccepted">Քայլը հետ վերցնելու առաջարկն ընդունված է</string>
-  <string name="takebackPropositionCanceled">Քայլը հետ վերցնելու առաջարկը կասեցված է</string>
   <string name="yourOpponentProposesATakeback">Ձեր հակառակորդը առաջարկում է քայլը հետ վերցնել</string>
   <string name="bookmarkThisGame">Էջանշել այս խաղը</string>
   <string name="tournament">Մրցաշար</string>

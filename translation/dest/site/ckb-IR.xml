@@ -345,9 +345,6 @@
   <string name="takeback">وەرگرتنەوە</string>
   <string name="proposeATakeback">پێشنیاری وەرگرتنەوە بکە</string>
   <string name="takebackPropositionSent">پێشنیاری وەرگرتنەوەکە ناردرا</string>
-  <string name="takebackPropositionDeclined">پێشنیاری وەرگرتناوەکە رەتکرایەوە</string>
-  <string name="takebackPropositionAccepted">پێشنیاری وەرگرتناوەکە قبوڵکرا</string>
-  <string name="takebackPropositionCanceled">پێشنیاری وەرگرتناوەکە قبوڵ نەکرا</string>
   <string name="yourOpponentProposesATakeback">رکابەرەکەت پێشنیاری وەرگرتنەوە دەکات</string>
   <string name="bookmarkThisGame">ئەم یارییە بخە لیستی خوازراوەکان</string>
   <string name="tournament">پاڵەوانیەتی</string>

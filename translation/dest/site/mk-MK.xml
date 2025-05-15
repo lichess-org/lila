@@ -336,9 +336,6 @@
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>
   <string name="takebackPropositionSent">Предлог за повлекување на потегот е пратен</string>
-  <string name="takebackPropositionDeclined">Одбиен е предлогот за повлекување на потегот</string>
-  <string name="takebackPropositionAccepted">Предлогот за повлекување на потегот е прифатен</string>
-  <string name="takebackPropositionCanceled">Предлогот за повлекување на потегот е откажан</string>
   <string name="yourOpponentProposesATakeback">Вашиот противник ви предложува повлекување на потегот</string>
   <string name="bookmarkThisGame">Обележете ја оваа игра</string>
   <string name="tournament">Турнир</string>

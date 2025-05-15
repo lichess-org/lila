@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.*
-import chess.bitboard.{ Bitboard, Board as BBoard }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 
@@ -48,22 +47,26 @@ private object PgnStorage:
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
 
-    private def chessBoard(b: JavaBoard): BBoard =
-      BBoard(
+    private def chessBoard(b: JavaBoard): Board =
+      Board(
         occupied = Bitboard(b.occupied),
-        white = Bitboard(b.white),
-        black = Bitboard(b.black),
-        pawns = Bitboard(b.pawns),
-        knights = Bitboard(b.knights),
-        bishops = Bitboard(b.bishops),
-        rooks = Bitboard(b.rooks),
-        queens = Bitboard(b.queens),
-        kings = Bitboard(b.kings)
+        ByColor(
+          white = Bitboard(b.white),
+          black = Bitboard(b.black)
+        ),
+        ByRole(
+          pawn = Bitboard(b.pawns),
+          knight = Bitboard(b.knights),
+          bishop = Bitboard(b.bishops),
+          rook = Bitboard(b.rooks),
+          queen = Bitboard(b.queens),
+          king = Bitboard(b.kings)
+        )
       )
 
   case class Decoded(
       sans: Vector[SanStr],
-      board: BBoard,
+      board: Board,
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],

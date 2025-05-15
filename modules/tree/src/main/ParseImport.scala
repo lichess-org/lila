@@ -25,11 +25,8 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
   catchOverflow: () =>
     Parser.full(pgn).map { parsed =>
       Reader
-        .fullWithSans(parsed, _.map(_.take(maxPlies)))
-        .pipe:
-          case Reader.Result.Complete(replay)          => (replay, none[ErrorStr])
-          case Reader.Result.Incomplete(replay, error) => (replay, error.some)
-        .pipe { case (replay @ Replay(setup, _, state), relayError) =>
+        .full(parsed, _.map(_.take(maxPlies)))
+        .pipe { case Reader.Result(replay @ Replay(setup, _, state), replayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
           val variant =
@@ -37,19 +34,19 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
               if fromPosition then FromPosition
               else Standard
             } match
-              case Chess960 if !isChess960StartPosition(setup.situation) =>
+              case Chess960 if !isChess960StartPosition(setup.position) =>
                 FromPosition
               case FromPosition if parsed.tags.fen.isEmpty => Standard
               case Standard if fromPosition                => FromPosition
               case v                                       => v
-          val game = state.copy(situation = state.situation.withVariant(variant))
+          val game = state.copy(position = state.position.withVariant(variant))
           val initialFen = parsed.tags.fen
             .flatMap(Fen.readWithMoveNumber(variant, _))
             .map(Fen.write)
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match
             case Some("normal") =>
-              game.situation.status |
+              game.position.status |
                 (if parsed.tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.Resign)
             case Some("abandoned")                        => Status.Aborted
             case Some("time forfeit")                     => Status.Outoftime
@@ -61,21 +58,20 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             .map(points => TagResult(status, points))
             .filter(_.status > Status.Started)
             .orElse:
-              game.situation.status.flatMap: status =>
+              game.position.status.flatMap: status =>
                 Outcome
-                  .guessPointsFromStatusAndPosition(status, game.situation.winner)
+                  .guessPointsFromStatusAndPosition(status, game.position.winner)
                   .map(TagResult(status, _))
 
-          ImportResult(game, result, replay.copy(state = game), initialFen, parsed, relayError)
+          ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
         }
     }
 
-private def isChess960StartPosition(sit: Situation) =
+private def isChess960StartPosition(position: Position) =
   import chess.*
   val strict =
     def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
-      File.all.forall: file =>
-        f(sit.board(file, rank))
+      File.all.forall(file => f(position.board.pieceAt(file, rank)))
     rankMatches {
       case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
       case _                                                         => false
@@ -94,7 +90,7 @@ private def isChess960StartPosition(sit: Situation) =
       case _                                                         => false
     }(Rank.Eighth)
 
-  Chess960.valid(sit, strict)
+  Chess960.valid(position, strict)
 
 private def catchOverflow[A](f: () => Either[ErrorStr, A]): Either[ErrorStr, A] =
   try f()

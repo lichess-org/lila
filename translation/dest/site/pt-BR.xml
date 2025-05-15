@@ -22,6 +22,7 @@
   <string name="asBlack">de pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
+  <string name="createTheGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
   <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Variante forçada</string>
   <string name="copyVariationPgn">Copiar PGN da variante</string>
+  <string name="copyMainLinePgn">Copiar PGN da linha principal</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota da variante</string>
   <string name="variantWin">Vitória da variante</string>
@@ -348,10 +350,13 @@
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
+  <string name="whiteProposesTakeback">Brancas propõem voltar jogada</string>
+  <string name="blackProposesTakeback">Pretas propõem voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de voltar jogada recusada</string>
-  <string name="takebackPropositionAccepted">Proposta de voltar jogada aceita</string>
-  <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
+  <string name="whiteDeclinesTakeback">Brancas recusam voltar jogada</string>
+  <string name="blackDeclinesTakeback">Pretas recusam voltar jogada</string>
+  <string name="whiteAcceptsTakeback">Brancas aceitam voltar jogada</string>
+  <string name="blackAcceptsTakeback">Pretas aceitam voltar jogada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
@@ -997,4 +1002,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
+  <string name="accessibility">Acessibilidade</string>
+  <string name="enableBlindMode">Habilitar modo às cegas</string>
+  <string name="disableBlindMode">Desabilitar modo às cegas</string>
 </resources>

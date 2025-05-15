@@ -345,9 +345,6 @@
   <string name="takeback">চাল ফিরিয়ে নিন</string>
   <string name="proposeATakeback">চাল ফিরিয়ে নেবার সুযোগ দিন</string>
   <string name="takebackPropositionSent">চাল ফিরিয়ে সুযোগ পাঠানো হয়েছে</string>
-  <string name="takebackPropositionDeclined">চাল ফিরিয়ে নেবার সুযোগ প্রত্যাখ্যাত হয়েছে</string>
-  <string name="takebackPropositionAccepted">চাল ফিরিয়ে নেবার সুযোগ গৃহীত হয়েছে</string>
-  <string name="takebackPropositionCanceled">চাল ফিরিয়ে নেবার সুযোগ বাতিল করা হয়েছে</string>
   <string name="yourOpponentProposesATakeback">আপনার প্রতিপক্ষ চাল ফিরিয়ে নেবার সুযোগ দিতে চান</string>
   <string name="bookmarkThisGame">এই খেলাটি বুকমার্ক করুন</string>
   <string name="tournament">টুর্নামেন্ট</string>
@@ -560,6 +557,7 @@
   <string name="cheat">চিটিং করছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
+  <string name="reportProcessedFasterInEnglish">ইংরেজিতে লেখা হলে আপনার রিপোর্ট দ্রুত প্রক্রিয়া করা হবে।</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="importedByX">খেলাটি এনেছেন %s</string>

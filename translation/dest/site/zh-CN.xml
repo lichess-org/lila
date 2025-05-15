@@ -22,6 +22,7 @@
   <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
+  <string name="createTheGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
   <string name="youPlayTheWhitePieces">你执白棋</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">展开变着</string>
   <string name="forceVariation">强制作为变着</string>
   <string name="copyVariationPgn">复制变着的PGN</string>
+  <string name="copyMainLinePgn">复制主线的PGN</string>
   <string name="move">着法</string>
   <string name="variantLoss">变体输棋</string>
   <string name="variantWin">变体胜利</string>
@@ -325,9 +327,6 @@
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">请求悔棋</string>
   <string name="takebackPropositionSent">悔棋请求已发送</string>
-  <string name="takebackPropositionDeclined">悔棋请求被拒绝</string>
-  <string name="takebackPropositionAccepted">同意悔棋</string>
-  <string name="takebackPropositionCanceled">悔棋请求已取消</string>
   <string name="yourOpponentProposesATakeback">对手请求悔棋</string>
   <string name="bookmarkThisGame">收藏此棋局</string>
   <string name="tournament">锦标赛</string>
@@ -952,4 +951,7 @@
   <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="nothingToSeeHere">此刻没有什么可看的。</string>
   <string name="stats">统计信息</string>
+  <string name="accessibility">无障碍</string>
+  <string name="enableBlindMode">打开视障模式</string>
+  <string name="disableBlindMode">关闭视障模式</string>
 </resources>

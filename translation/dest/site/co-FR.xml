@@ -309,9 +309,6 @@
   <string name="takeback">Ripiglià u colpu</string>
   <string name="proposeATakeback">Prupone di ripiglià u colpu</string>
   <string name="takebackPropositionSent">Pruposta mandata di ripiglià u colpu</string>
-  <string name="takebackPropositionDeclined">Ripigliata di u colpu scartata</string>
-  <string name="takebackPropositionAccepted">Ripigliata di u colpu accettata</string>
-  <string name="takebackPropositionCanceled">Ripigliata di u colpu annullata</string>
   <string name="yourOpponentProposesATakeback">U vostru avversariu vi prupone di ripiglià u colpu</string>
   <string name="bookmarkThisGame">Ramintà si di a partita</string>
   <string name="tournament">Ghjustra</string>

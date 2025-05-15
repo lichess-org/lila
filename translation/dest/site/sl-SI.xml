@@ -22,6 +22,7 @@
   <string name="asBlack">kot črni</string>
   <string name="randomColor">Naključna stran</string>
   <string name="createAGame">Nova igra</string>
+  <string name="createTheGame">Ustvari igro</string>
   <string name="whiteIsVictorious">Beli je zmagal</string>
   <string name="blackIsVictorious">Črni je zmagal</string>
   <string name="youPlayTheWhitePieces">Igrate z belimi figurami</string>
@@ -76,6 +77,7 @@
   <string name="expandVariations">Razširite različice</string>
   <string name="forceVariation">Vsili varianto</string>
   <string name="copyVariationPgn">Kopiraj različico PGN</string>
+  <string name="copyMainLinePgn">Kopiraj glavni PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -396,9 +398,6 @@
   <string name="takeback">Popravek poteze</string>
   <string name="proposeATakeback">Zaprosi za popravek poteze</string>
   <string name="takebackPropositionSent">Prošnja za popravek poteze poslana</string>
-  <string name="takebackPropositionDeclined">Prošnja za popravek poteze zavrnjena</string>
-  <string name="takebackPropositionAccepted">Prošnja za popravek poteze sprejeta</string>
-  <string name="takebackPropositionCanceled">Prošnja za popravek poteze preklicana</string>
   <string name="yourOpponentProposesATakeback">Nasprotnik prosi za popravek poteze</string>
   <string name="bookmarkThisGame">Označi partijo</string>
   <string name="tournament">Turnir</string>
@@ -1086,4 +1085,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
 Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility">Dostopnost</string>
+  <string name="enableBlindMode">Vključite slepi način</string>
+  <string name="disableBlindMode">Izključite slepi način</string>
 </resources>

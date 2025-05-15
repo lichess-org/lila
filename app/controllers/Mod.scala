@@ -96,8 +96,8 @@ final class Mod(
     }
   }(reportC.onModAction)
 
-  def kid(username: UserStr) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
-    api.setKid(me.id.into(ModId), username).dmap(some)
+  def kid(username: UserStr, v: Boolean) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
+    api.setKid(me.id.into(ModId), username, lila.core.user.KidMode(v)).dmap(some)
   }(actionResult(username))
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
@@ -227,12 +227,12 @@ final class Mod(
       api.allMods.map(views.mod.userTable.mods(_))
   }
 
-  def log = Secure(_.GamifyView) { ctx ?=> me ?=>
+  def log(modReq: Option[UserStr]) = Secure(_.GamifyView) { ctx ?=> me ?=>
     val whichMod: Option[UserStr] =
-      if isGranted(_.Admin) then getUserStr("mod")
+      if isGranted(_.Admin) then modReq
       else me.userId.into(UserStr).some
     Ok.async:
-      whichMod.match
+      whichMod.flatMap(_.validate) match
         case None =>
           // strictly speaking redundant because it should never be
           // empty for non-admins, but feels safer to keep

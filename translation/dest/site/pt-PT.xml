@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente escanear este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">com as pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
+  <string name="createTheGame">Criar partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Forçar variante</string>
   <string name="copyVariationPgn">Copiar variação PGN</string>
+  <string name="copyMainLinePgn">Copiar linha principal do PGN</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -349,9 +351,6 @@
   <string name="takeback">Voltar uma jogada atrás</string>
   <string name="proposeATakeback">Propor voltar uma jogada atrás</string>
   <string name="takebackPropositionSent">Proposta de voltar uma jogada atrás enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de voltar uma jogada atrás recusada</string>
-  <string name="takebackPropositionAccepted">Proposta de voltar uma jogada atrás aceite</string>
-  <string name="takebackPropositionCanceled">Proposta de voltar uma jogada atrás cancelada</string>
   <string name="yourOpponentProposesATakeback">O teu adversário propõe voltar uma jogada atrás</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
@@ -934,7 +933,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="congratsYouWon">Parabéns! Ganhaste!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
+  <string name="lostAgainstTOSViolator">Perdeste pontos de classificação para alguém que violou as regras do Lichess</string>
   <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
@@ -999,4 +998,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
+  <string name="accessibility">Acessibilidade</string>
+  <string name="enableBlindMode">Ativar o modo cego</string>
+  <string name="disableBlindMode">Desativar o modo cego</string>
 </resources>

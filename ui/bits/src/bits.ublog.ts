@@ -1,5 +1,6 @@
 import * as xhr from 'lib/xhr';
 import { throttlePromiseDelay } from 'lib/async';
+import { info } from 'lib/view/dialogs';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -43,4 +44,7 @@ site.load.then(() => {
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();
   });
+  document
+    .querySelectorAll<HTMLElement>('.automod *[title]')
+    .forEach(el => el.addEventListener('click', () => info(el.title)));
 });

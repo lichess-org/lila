@@ -22,6 +22,7 @@
   <string name="asBlack">me gurë të zinj</string>
   <string name="randomColor">Ngjyrë e rastësishme</string>
   <string name="createAGame">Krijo një lojë</string>
+  <string name="createTheGame">Krijoni lojën</string>
   <string name="whiteIsVictorious">I bardhi është fitues</string>
   <string name="blackIsVictorious">I ziu është fitues</string>
   <string name="youPlayTheWhitePieces">Ju luani me të bardhët</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Shfaqi variantet</string>
   <string name="forceVariation">Detyro variant</string>
   <string name="copyVariationPgn">Kopjo PGN varianti</string>
+  <string name="copyMainLinePgn">Kopjo PGN rrjedhe lëvizjesh</string>
   <string name="move">Lëvizje</string>
   <string name="variantLoss">Varianti humb</string>
   <string name="variantWin">Varianti fiton</string>
@@ -348,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
   <string name="takeback">Kthim lëvizjeje mbrapsht</string>
   <string name="proposeATakeback">Propozoni një kthim lëvizjeje mbrapsht</string>
+  <string name="whiteProposesTakeback">I bardhi propozon prapakthim</string>
+  <string name="blackProposesTakeback">I ziu propozon prapakthim</string>
   <string name="takebackPropositionSent">Kërkesa për kthim lëvizjeje mbrapsht u dërgua</string>
-  <string name="takebackPropositionDeclined">Kërkesa për kthim lëvizjeje mbrapsht u hodh poshtë</string>
-  <string name="takebackPropositionAccepted">Kërkesa për kthim lëvizjeje mbrapsht u pranua</string>
-  <string name="takebackPropositionCanceled">Kërkesa për kthim lëvizjeje mbrapsht u anulua</string>
+  <string name="whiteDeclinesTakeback">I bardhi hedh poshtë prapakthim</string>
+  <string name="blackDeclinesTakeback">I ziu hedh poshtë prapakthim</string>
+  <string name="whiteAcceptsTakeback">I bardhi pranon prapakthim</string>
+  <string name="blackAcceptsTakeback">I ziu pranon prapakthim</string>
+  <string name="whiteCancelsTakeback">I bardhi anulon prapakthim</string>
+  <string name="blackCancelsTakeback">I ziu anulon prapakthim</string>
   <string name="yourOpponentProposesATakeback">Kundërshtari juaj propozon kthim lëvizjeje mbrapsht</string>
   <string name="bookmarkThisGame">Faqeruani këtë lojë</string>
   <string name="tournament">Turne</string>
@@ -508,7 +515,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
   <string name="startPosition">Pozicioni fillestar</string>
-  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Spastro fushën</string>
+  <string name="clearBoard">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raportojeni %s tek moderatorët</string>
@@ -673,6 +680,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="really">për vërtetë</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="termsOfService">Kushte Shërbimi</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verifikim titulli</string>
   <string name="sourceCode">Kod Burim</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
@@ -992,4 +1000,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility">Përdorim nga persona me aftësi të kufizuara</string>
+  <string name="enableBlindMode">Aktivizo mënyrën për të verbër</string>
+  <string name="disableBlindMode">Çaktivizo mënyrën për të verbër</string>
 </resources>

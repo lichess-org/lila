@@ -22,6 +22,7 @@
   <string name="asBlack">เป็นฝ่ายดำ</string>
   <string name="randomColor">สุ่มฝั่ง</string>
   <string name="createAGame">สร้างเกม</string>
+  <string name="createTheGame">สร้างเกม</string>
   <string name="whiteIsVictorious">ขาวชนะ</string>
   <string name="blackIsVictorious">ดำชนะ</string>
   <string name="youPlayTheWhitePieces">คุณเล่นหมากสีขาว</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">ขยายตาเดินอื่นๆ</string>
   <string name="forceVariation">ทำให้เป็นการผันแปร</string>
   <string name="copyVariationPgn">คัดลอก PGN แขนงต่างๆ</string>
+  <string name="copyMainLinePgn">คัดลอกตาเดินหลัก</string>
   <string name="move">ตาเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
@@ -148,6 +150,7 @@
   <string name="flipBoard">หมุนกระดาน</string>
   <string name="threefoldRepetition">เดินซ้ำสามรอบ</string>
   <string name="claimADraw">ถือสิทธิ์เสมอ</string>
+  <string name="drawClaimed">ขอเสมอ</string>
   <string name="offerDraw">เสนอว่าเสมอ</string>
   <string name="draw">เสมอ</string>
   <plurals name="nbPlayers">
@@ -252,6 +255,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s เกมเล่นกับคุณ</item>
   </plurals>
+  <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
   <string name="whiteTimeOut">ขาวหมดเวลา</string>
   <string name="blackTimeOut">ดำหมดเวลา</string>
@@ -323,9 +327,6 @@
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
   <string name="takebackPropositionSent">การขอเดินใหม่ ถูกส่ง</string>
-  <string name="takebackPropositionDeclined">การขอเดินใหม่ ถูกปฏิเสธ</string>
-  <string name="takebackPropositionAccepted">การขอเดินใหม่ ถูกยอมรับ</string>
-  <string name="takebackPropositionCanceled">การขอเดินใหม่ ถูกยกเลิก</string>
   <string name="yourOpponentProposesATakeback">คู่แข่งของคุณขอเดินใหม่</string>
   <string name="bookmarkThisGame">หมายเกมนี้ไว้</string>
   <string name="tournament">ทัวร์นาเมนต์</string>
@@ -448,6 +449,7 @@
   <string name="wins">ชนะ</string>
   <string name="losses">แพ้</string>
   <string name="createdBy">สร้างโดย</string>
+  <string name="startingIn" comment="Displayed above a timer">จะเริ่มใน</string>
   <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
   <string name="pause">พัก</string>
   <string name="resume">เล่นต่อ</string>
@@ -698,6 +700,9 @@
   <string name="checkYourEmail">ตรวจสอบอีเมลของคุณ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">เราได้ส่งอีเมลให้คุณแล้ว คลิกลิงค์ในอีเมลนั้นเพื่อให้บัญชีของคุณพร้อมใช้งาน</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
+  <string name="ifYouDoNotGetTheEmail">หากคุณยังไม่ได้รับอีเมลภายใน 5 นาที:</string>
+  <string name="checkAllEmailFolders">ตรวจสอบโฟลเดอร์ขยะ สแปม และโฟลเดอร์อื่น ๆ ทั้งหมด</string>
+  <string name="verifyYourAddress">ยืนยันว่า %s คือที่อยู่อีเมลของคุณ</string>
   <string name="weHaveSentYouAnEmailTo">เราได้ส่งอีเมลไปที่ %s แล้ว คลิกลิงค์ในอีเมลเพื่อตั้งรหัสผ่านใหม่</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
   <string name="readAboutOur">อ่านเกี่ยวกับ %s ของเรา</string>
@@ -706,6 +711,7 @@
   <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
+  <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
   <string name="crosstable">ตารางผลแข่ง</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="scrollOverComputerVariationsToPreviewThem">เลื่อนไปเหนือตัวแปรคอมพิวเตอร์เพื่อดูตัวอย่างพวกมัน</string>
@@ -729,6 +735,7 @@
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
   <string name="viewTheSolution">ดูเฉลย</string>
+  <string name="noChallenges">ไม่มีการท้าดวล</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">รองรับถึง %s ภาษา!</item>
   </plurals>
@@ -740,6 +747,7 @@
   <string name="anonymous">นิรนาม</string>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
+  <string name="allLanguages">ภาษาทั้งหมด</string>
   <string name="background">พื้นหลัง</string>
   <string name="light">สว่าง</string>
   <string name="dark">มืด</string>
@@ -922,6 +930,7 @@
   <string name="focusChat">โฟกัสที่แชท</string>
   <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
   <string name="reopenYourAccount">เปิดบัญชีของคุณอีกครั้ง</string>
+  <string name="reopenYourAccountDescription">หากคุณปิดบัญชีของคุณแล้วแต่เกิดเปลี่ยนใจอยากเปิดบัญชีใหม่ คุณมีโอกาสที่จะได้รับบัญชีของคุณคืนมา</string>
   <string name="emailAssociatedToaccount">ที่อยู่อีเมลถูกผูกกับบัญชี</string>
   <string name="sentEmailWithLink">เราได้ส่งอีเมลให้คุณพร้อมลิงก์แล้ว</string>
   <string name="tournamentEntryCode">รหัสการเข้าทัวร์นาเมนต์</string>
@@ -941,4 +950,8 @@
   <string name="lichessPatronInfo">Lichess เป็นมูลนิธิ และเป็นซอฟต์แวร์โอเพนซอร์สที่ฟรีอย่างสิ้นเชิง
 ค่าบริการ การพัฒนา และเนี้อหาของ Lichess ได้รับทุนสนับสนุนจากการบริจาคเงินของผู้ใช้เว็บไซต์อย่างเดียว</string>
   <string name="nothingToSeeHere">ไม่มีอะไรให้ดูในขณะนี้</string>
+  <string name="stats">สถิติ</string>
+  <string name="accessibility">การเข้าถึง</string>
+  <string name="enableBlindMode">โหมดแบบไม่เห็นหมาก</string>
+  <string name="disableBlindMode">โหมดแบบเห็นหมาก</string>
 </resources>

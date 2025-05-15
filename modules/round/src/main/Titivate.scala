@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.core.round.{ Abandon, QuietFlag }
+import lila.core.round.{ Abandon, RoundBus }
 import lila.db.dsl.*
 import lila.game.GameExt.abandoned
 import lila.game.{ GameRepo, Query }
@@ -51,11 +51,7 @@ final private class Titivate(
             .toMat(LilaStream.sinkCount)(Keep.right)
             .run()
             .addEffect(lila.mon.round.titivate.game.record(_))
-            .>> {
-              gameRepo
-                .countSec(_.checkableOld)
-                .dmap(lila.mon.round.titivate.old.record(_))
-            }
+            .>>(gameRepo.countSec(_.checkableOld).dmap(lila.mon.round.titivate.old.record(_)))
             .monSuccess(_.round.titivate.time)
             .logFailure(logBranch)
             .addEffectAnyway(scheduleNext())
@@ -89,14 +85,14 @@ final private class Titivate(
 
         case game if game.outoftime(withGrace = true) =>
           fuccess:
-            roundApi.tell(game.id, QuietFlag)
+            roundApi.tell(game.id, RoundBus.QuietFlag)
 
         case game if game.abandoned =>
           fuccess:
             roundApi.tell(game.id, Abandon)
 
         case game if unplayed(game) =>
-          lila.common.Bus.publish(lila.core.round.DeleteUnplayed(game.id), "roundUnplayed")
+          lila.common.Bus.pub(lila.core.round.DeleteUnplayed(game.id))
           chatApi.remove(game.id.into(ChatId))
           gameRepo.remove(game.id)
 

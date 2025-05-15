@@ -22,6 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
+  <string name="createTheGame">Crea una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Abrir variantes</string>
   <string name="forceVariation">Convertir en variante</string>
   <string name="copyVariationPgn">Copiar PGN de la variante</string>
+  <string name="copyMainLinePgn">Copiar PGN de la variante principal</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -233,7 +235,7 @@
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
   <string name="error.weakPassword">Esta contraseña es extremadamente común y muy fácil de adivinar.</string>
   <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
-  <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio y ese sitio se ha visto comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por tu comprensión.</string>
+  <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio y ese sitio ha sido comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por su comprensión.</string>
   <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
   <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
   <string name="proceedToX">Ir a %s</string>
@@ -348,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
+  <string name="whiteProposesTakeback">Las blancas proponen deshacer la jugada</string>
+  <string name="blackProposesTakeback">Las negras proponen deshacer la jugada</string>
   <string name="takebackPropositionSent">Propuesta de deshacer jugada enviada</string>
-  <string name="takebackPropositionDeclined">Propuesta de deshacer jugada rechazada</string>
-  <string name="takebackPropositionAccepted">Propuesta de deshacer jugada aceptada</string>
-  <string name="takebackPropositionCanceled">Propuesta de deshacer jugada cancelada</string>
+  <string name="whiteDeclinesTakeback">Las blancas rechazan deshacer la jugada</string>
+  <string name="blackDeclinesTakeback">Las negras rechazan deshacer la jugada</string>
+  <string name="whiteAcceptsTakeback">Las blancas aceptan deshacer la jugada</string>
+  <string name="blackAcceptsTakeback">Las negras aceptan deshacer la jugada</string>
+  <string name="whiteCancelsTakeback">Las blancas cancelan deshacer la jugada</string>
+  <string name="blackCancelsTakeback">Las negras cancelan deshacer la jugada</string>
   <string name="yourOpponentProposesATakeback">Tu oponente propone deshacer la jugada</string>
   <string name="bookmarkThisGame">Marcar este juego como favorito</string>
   <string name="tournament">Torneo</string>
@@ -671,6 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
@@ -998,4 +1006,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
+  <string name="accessibility">Accesibilidad</string>
+  <string name="enableBlindMode">Activar modo para no videntes</string>
+  <string name="disableBlindMode">Desactivar modo para no videntes</string>
 </resources>

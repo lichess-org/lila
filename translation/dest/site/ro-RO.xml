@@ -22,6 +22,7 @@
   <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
+  <string name="createTheGame">Creează jocul</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
   <string name="blackIsVictorious">Negrul a câștigat</string>
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
@@ -373,9 +374,6 @@
   <string name="takeback">Revocare</string>
   <string name="proposeATakeback">Propune revocarea mutării</string>
   <string name="takebackPropositionSent">Propunere de revocare trimisă</string>
-  <string name="takebackPropositionDeclined">Propunerea de revocare respinsă</string>
-  <string name="takebackPropositionAccepted">Propunerea de revocare acceptată</string>
-  <string name="takebackPropositionCanceled">Propunerea de revocare anulată</string>
   <string name="yourOpponentProposesATakeback">Adversarul tău propune revocarea unei mutări</string>
   <string name="bookmarkThisGame">Marcați această partidă</string>
   <string name="tournament">Turneu</string>
@@ -1042,4 +1040,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
   <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
   <string name="stats">Statistici</string>
+  <string name="accessibility">Accesibilitate</string>
+  <string name="enableBlindMode">Activează modul fără vedere</string>
+  <string name="disableBlindMode">Dezactivează modul fără vedere</string>
 </resources>

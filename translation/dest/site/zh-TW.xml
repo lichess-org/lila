@@ -324,9 +324,6 @@
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
   <string name="takebackPropositionSent">悔棋請求已發送</string>
-  <string name="takebackPropositionDeclined">悔棋請求被拒絕</string>
-  <string name="takebackPropositionAccepted">悔棋請求被接受</string>
-  <string name="takebackPropositionCanceled">悔棋請求已取消</string>
   <string name="yourOpponentProposesATakeback">對手請求悔棋</string>
   <string name="bookmarkThisGame">收藏該棋局</string>
   <string name="tournament">錦標賽</string>

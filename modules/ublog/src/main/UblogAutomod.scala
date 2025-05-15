@@ -16,10 +16,16 @@ private object UblogAutomod:
 
   case class Config(apiKey: Secret, model: String, url: String)
 
-  case class Result(classification: String, flagged: Option[String], commercial: Option[String])
+  case class Result(
+      classification: String,
+      flagged: Option[String],
+      commercial: Option[String],
+      offtopic: Option[String],
+      evergreen: Option[Boolean]
+  )
   private given Reads[Result] = Json.reads[Result]
 
-  private val classifications = Set("spam", "weak", "quality", "phenomenal")
+  private[ublog] val classifications = List("spam", "weak", "good", "great")
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
@@ -38,12 +44,12 @@ final class UblogAutomod(
   private val cfg =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
-    appConfig.get[UblogAutomod.Config]("ublog.automod")(AutoConfig.loader)
+    appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
   private[ublog] def apply(post: UblogPost): Fu[Option[Result]] = post.live.so:
-    val text = post.allText.take(10_000) // post body can have up to 100_000 chars which would be expensive
+    val text = post.allText.take(40_000) // roughly 10k tokens
     dedup(s"${post.id}:$text").so(fetchText(text))
 
   private def fetchText(userText: String): Fu[Option[Result]] =
@@ -75,9 +81,10 @@ final class UblogAutomod(
             resultStr <- (best \ "message" \ "content").asOpt[String]
             trimmed = resultStr.slice(resultStr.indexOf('{'), resultStr.lastIndexOf('}') + 1)
             result <- Json.parse(trimmed).asOpt[Result]
-            if classifications.contains(result.classification)
+            if (classifications ++ List("quality", "phenomenal")).contains(result.classification)
+          // temporarily permit "quality" and "phenomenal" as the prompt is versioned outside of this git
           yield result) match
-            case None => fufail(s"${rsp.status} ${rsp.body.take(200)}")
+            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()

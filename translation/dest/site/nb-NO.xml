@@ -22,6 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Tilfeldig side</string>
   <string name="createAGame">Start et parti</string>
+  <string name="createTheGame">Opprett partiet</string>
   <string name="whiteIsVictorious">Hvit har vunnet</string>
   <string name="blackIsVictorious">Sort har vunnet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvite brikkene</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Vis varianter</string>
   <string name="forceVariation">Vis som variant</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
+  <string name="copyMainLinePgn">Kopier PGN for hovedvariant</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
@@ -349,9 +351,6 @@
   <string name="takeback">Angre</string>
   <string name="proposeATakeback">Foreslå å angre</string>
   <string name="takebackPropositionSent">Angreforslag sendt</string>
-  <string name="takebackPropositionDeclined">Angreforslag avslått</string>
-  <string name="takebackPropositionAccepted">Angreforslag godtatt</string>
-  <string name="takebackPropositionCanceled">Angreforslag trukket tilbake</string>
   <string name="yourOpponentProposesATakeback">Din motstander foreslår å angre</string>
   <string name="bookmarkThisGame">Bokmerk dette partiet</string>
   <string name="tournament">Turnering</string>
@@ -998,4 +997,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
   <string name="nothingToSeeHere">Ingenting her for nå.</string>
   <string name="stats">Statistikk</string>
+  <string name="accessibility">Tilgjengelighet</string>
+  <string name="enableBlindMode">Aktiver blindemodus</string>
+  <string name="disableBlindMode">Deaktiver blindemodus</string>
 </resources>

@@ -1,4 +1,5 @@
 import { frag, requestIdleCallback } from 'lib';
+import { LessThan, GreaterThan } from 'lib/licon';
 
 type CarouselOpts = {
   selector: string;
@@ -18,6 +19,11 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
     track.append(...el.children);
     el.innerHTML = '';
     el.append(track);
+    const controls = frag<HTMLElement>('<div class="controls"></div>');
+    const prevButton = frag<HTMLElement>(`<button class="prev" data-icon="${LessThan}"></button>`);
+    const nextButton = frag<HTMLElement>(`<button class="next" data-icon="${GreaterThan}"></button>`);
+    controls.append(prevButton, nextButton);
+    el.append(controls);
     el.style.visibility = 'visible';
 
     onResize();
@@ -33,23 +39,29 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
       kids.forEach(k => (k.style.width = `${itemW}px`));
       kids.forEach(k => (k.style.marginRight = `${gap}px`));
 
-      const rotateInner = () => {
+      const rotateForwards = () => {
         kids.forEach(k => (k.style.transition = `transform ${slideFor}s ease`));
         kids.forEach(k => (k.style.transform = `translateX(-${itemW + gap}px)`));
         setTimeout(() => {
           track.append(track.firstChild!);
-          fix();
+          fix(false);
         }, slideFor * 1000);
       };
-
-      const fix = () => {
+      prevButton.onclick = () => {
+        track.prepend(track.lastChild!);
+        fix();
+      };
+      nextButton.onclick = () => {
+        track.append(track.firstChild!);
+        fix();
+      };
+      const fix = (killTimer = true) => {
         kids.forEach(k => (k.style.transition = ''));
         kids.forEach(k => (k.style.transform = ''));
+        if (killTimer) clearInterval(timer);
       };
       fix();
-
-      clearInterval(timer);
-      if (kids.length > visible) timer = setInterval(rotateInner, pauseFor * 1000);
+      if (kids.length > visible) timer = setInterval(rotateForwards, pauseFor * 1000);
     }
   });
 }

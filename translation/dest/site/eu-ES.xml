@@ -22,6 +22,7 @@
   <string name="asBlack">beltzekin</string>
   <string name="randomColor">Ausazko kolorea</string>
   <string name="createAGame">Partida bat sortu</string>
+  <string name="createTheGame">Sortu partida</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
   <string name="blackIsVictorious">Beltza irabazle</string>
   <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Erakutsi aldaerak</string>
   <string name="forceVariation">Aldaera derrigortu</string>
   <string name="copyVariationPgn">Kopiatu ingurabidearen PGNa</string>
+  <string name="copyMainLinePgn">Kopiatu linea nagusiaren PGNa</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -349,9 +351,6 @@
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
   <string name="takebackPropositionSent">Jokaldia atzera egiteko eskaria bidali da</string>
-  <string name="takebackPropositionDeclined">Jokaldia atzera egiteko eskaria ezeztatu da</string>
-  <string name="takebackPropositionAccepted">Jokaldia atzera egiteko eskaria onartu da</string>
-  <string name="takebackPropositionCanceled">Jokaldia atzera egiteko eskaria ezeztatu da</string>
   <string name="yourOpponentProposesATakeback">Zure aurkariak jokaldia atzera egiteko eskatu dizu</string>
   <string name="bookmarkThisGame">Partida hau nabarmendu</string>
   <string name="tournament">Txapelketa</string>
@@ -997,4 +996,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="nothingToSeeHere">Hemen ez dago ezer zuretzat.</string>
   <string name="stats">Estatistikak</string>
+  <string name="accessibility">Irisgarritasuna</string>
+  <string name="enableBlindMode">Aktibatu modu-itsua</string>
+  <string name="disableBlindMode">Desaktibatu modu-itsua</string>
 </resources>

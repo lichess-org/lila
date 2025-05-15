@@ -21,9 +21,10 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
-object Bus extends scalalib.bus.GivenChannel[Bus]("fishnet")
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 
 trait FishnetRequest:
   def tutor(gameId: GameId): Funit
+
+case class FishnetMoveRequest(game: lila.core.game.Game)

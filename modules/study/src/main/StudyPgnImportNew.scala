@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
@@ -29,13 +28,13 @@ object StudyPgnImportNew:
         case (shapes, _, _, comments) =>
           val tc    = parsedPgn.tags.timeControl
           val clock = tc.map(_.limit).map(Clock(_, true.some))
-          val setup = Context(replay.setup, ByColor.fill(clock), tc)
+          val setup = Context(replay.setup.position, ByColor.fill(clock), tc, replay.setup.ply)
           val root: NewRoot =
             NewRoot(
               Metas(
                 ply = replay.setup.ply,
-                fen = initialFen | game.board.variant.initialFen,
-                check = replay.setup.situation.check,
+                fen = initialFen | replay.setup.position.variant.initialFen,
+                check = replay.setup.position.check,
                 dests = None,
                 drops = None,
                 eval = None,
@@ -44,7 +43,7 @@ object StudyPgnImportNew:
                 gamebook = None,
                 glyphs = Glyphs.empty,
                 opening = None,
-                crazyData = replay.setup.situation.board.crazyData,
+                crazyData = replay.setup.position.crazyData,
                 clock = clock
               ),
               parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
@@ -55,7 +54,7 @@ object StudyPgnImportNew:
               status = res.status,
               points = res.points,
               resultText = chess.Outcome.showPoints(res.points.some),
-              statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+              statusText = lila.tree.StatusText(res.status, res.winner, replay.state.position.variant)
             )
 
           val commented =
@@ -68,7 +67,7 @@ object StudyPgnImportNew:
               }
           Result(
             root = commented,
-            variant = game.board.variant,
+            variant = game.position.variant,
             tags = PgnTags
               .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
             end = gameEnd
@@ -89,19 +88,20 @@ object StudyPgnImportNew:
       annotator: Option[Comment.Author]
   ): (Context, Option[NewBranch]) =
     data
-      .san(context.currentGame.situation)
+      .san(context.currentPosition)
       .map(moveOrDrop =>
-        val game                           = moveOrDrop.applyGame(context.currentGame)
+        val game                           = moveOrDrop.after
+        val currentPly                     = context.ply.next
         val uci                            = moveOrDrop.toUci
         val id                             = UciCharPair(uci)
         val sanStr                         = moveOrDrop.toSanStr
         val (shapes, clock, emt, comments) = StudyPgnImport.parseComments(data.metas.comments, annotator)
-        val mover                          = !game.ply.turn
+        val mover                          = !game.color
         val computedClock: Option[Clock] = clock
           .map(Clock(_, trust = true.some))
           .orElse:
             (context.clocks(mover), emt)
-              .mapN(StudyPgnImport.guessNewClockState(_, game.ply, context.timeControl, _))
+              .mapN(StudyPgnImport.guessNewClockState(_, currentPly, context.timeControl, _))
           .filter(_.positive)
         val newBranch =
           NewBranch(
@@ -110,9 +110,9 @@ object StudyPgnImportNew:
             comp = false,
             forceVariation = false,
             Metas(
-              ply = game.ply,
-              fen = Fen.write(game),
-              check = game.situation.check,
+              ply = currentPly,
+              fen = Fen.write(game, currentPly.fullMoveNumber),
+              check = game.check,
               dests = None,
               drops = None,
               eval = None,
@@ -122,11 +122,11 @@ object StudyPgnImportNew:
               glyphs = data.metas.glyphs,
               opening = None,
               clock = computedClock,
-              crazyData = game.situation.board.crazyData
+              crazyData = game.crazyData
             )
           )
 
-        (Context(game, context.clocks, context.timeControl), newBranch.some)
+        (Context(game, context.clocks, context.timeControl, currentPly), newBranch.some)
       )
       .toOption
       .match

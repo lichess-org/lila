@@ -29,7 +29,7 @@ final class Env(
     mode: play.api.Mode
 )(using Executor):
 
-  private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
+  private val config = appConfig.get[VideoConfig]("video")(using AutoConfig.loader)
 
   lazy val api = VideoApi(
     cacheApi = cacheApi,

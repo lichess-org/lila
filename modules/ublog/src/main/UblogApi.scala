@@ -46,7 +46,7 @@ final class UblogApi(
         .so: rank =>
           colls.post.updateField($id(post.id), "rank", rank).void
     yield
-      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      lila.common.Bus.pub(UblogPost.Create(post))
       if blog.visible then
         lila.common.Bus.pub:
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
@@ -93,7 +93,7 @@ final class UblogApi(
     val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog
         .primitiveOne[UblogRank.Tier]($id(blogId.full), "tier")
-        .dmap(_.exists(_ >= UblogRank.Tier.VISIBLE))
+        .dmap(_.exists(_ >= UblogRank.Tier.UNLISTED))
     canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
@@ -172,16 +172,8 @@ final class UblogApi(
   private def applyAutomod(post: UblogPost): Funit =
     automod(post)
       .flatMapz: res =>
-        val adjust = res.classification match
-          case "phenomenal" => 4
-          case "quality"    => 0
-          case "weak"       => -10
-          case "spam"       => -30
-          case _            => -10
-
         val doc = $set(
           "automod" -> res
-          // "rankAdjustDays" -> adjust
         )
         colls.post.update.one($id(post.id), doc).void
       .recover: e =>
@@ -207,8 +199,14 @@ final class UblogApi(
   def setTierIfBlogExists(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
 
-  def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
-    colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+  def setModAdjust(id: UblogPostId, adjust: Int, pinned: Boolean, assess: Option[String]): Funit =
+    colls.post.update
+      .one(
+        $id(id),
+        $set("rankAdjustDays" -> adjust, "pinned" -> pinned) ++
+          assess.so(c => $set("automod.classification" -> c))
+      )
+      .void
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
 

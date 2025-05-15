@@ -10,6 +10,7 @@ import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.core.user.KidMode
 
 final class ClasApi(
     colls: ClasColls,
@@ -245,25 +246,25 @@ final class ClasApi(
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id.value).increment()
-      userRepo
-        .create(
-          name = data.username,
-          passwordHash = authenticator.passEnc(password),
-          email = email,
-          blind = false,
-          mobileApiVersion = none,
-          mustConfirmEmail = false,
-          lang = teacher.lang
-        )
-        .orFail(s"No user could be created for ${data.username}")
-        .flatMap { user =>
-          studentCache.addStudent(user.id)
-          val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
-          (userRepo.setKid(user, v = true) >>
-            perfsRepo.setManagedUserInitialPerfs(user.id) >>
-            coll.insert.one(student) >>
-            sendWelcomeMessage(teacher.id, user, clas)).inject(Student.WithPassword(student, password))
-        }
+      for
+        user <- userRepo
+          .create(
+            name = data.username,
+            passwordHash = authenticator.passEnc(password),
+            email = email,
+            blind = false,
+            mobileApiVersion = none,
+            mustConfirmEmail = false,
+            lang = teacher.lang
+          )
+          .orFail(s"No user could be created for ${data.username}")
+        _       = studentCache.addStudent(user.id)
+        student = Student.make(user, clas, teacher.id, data.realName, managed = true)
+        _ <- userRepo.setKid(user, KidMode.Yes)
+        _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
+        _ <- coll.insert.one(student)
+        _ <- sendWelcomeMessage(teacher.id, user, clas)
+      yield Student.WithPassword(student, password)
 
     def move(s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
       _ <- closeAccount(s)

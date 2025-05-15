@@ -74,6 +74,7 @@
   <string name="expandVariations">Varianten weergeven</string>
   <string name="forceVariation">Forceer variatie</string>
   <string name="copyVariationPgn">Kopieer variatie PGN</string>
+  <string name="copyMainLinePgn">Kopieer hoofdlijn PGN</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -348,10 +349,15 @@
   <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
+  <string name="whiteProposesTakeback">Wit stelt terugnemen voor</string>
+  <string name="blackProposesTakeback">Zwart stelt terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
-  <string name="takebackPropositionDeclined">Terugname-voorstel geweigerd</string>
-  <string name="takebackPropositionAccepted">Terugname-voorstel geaccepteerd</string>
-  <string name="takebackPropositionCanceled">Terugname-voorstel geannuleerd</string>
+  <string name="whiteDeclinesTakeback">Wit weigert terugnemen</string>
+  <string name="blackDeclinesTakeback">Zwart weigert terugnemen</string>
+  <string name="whiteAcceptsTakeback">Wit accepteert terugnemen</string>
+  <string name="blackAcceptsTakeback">Zwart accepteert terugnemen</string>
+  <string name="whiteCancelsTakeback">Wit annuleert terugnemen</string>
+  <string name="blackCancelsTakeback">Zwart annuleert terugnemen</string>
   <string name="yourOpponentProposesATakeback">Uw tegenstander stelt een terugname voor</string>
   <string name="bookmarkThisGame">Voeg deze partij toe aan uw favorieten</string>
   <string name="tournament">Toernooi</string>
@@ -671,6 +677,7 @@
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Titel verifiëren</string>
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
@@ -743,6 +750,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
   <string name="ifYouDoNotGetTheEmail">Als u de e-mail niet binnen 5 minuten ontvangt:</string>
+  <string name="checkAllEmailFolders">Controleer ongewenste email, spam en andere mappen</string>
   <string name="verifyYourAddress">Controleer of %s je e-mailadres is</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
@@ -997,4 +1005,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="nothingToSeeHere">Hier is momenteel niets te zien.</string>
   <string name="stats">Statistieken</string>
+  <string name="accessibility">Toegankelijkheid</string>
 </resources>

@@ -22,6 +22,7 @@
   <string name="asBlack">som sort</string>
   <string name="randomColor">Tilfældig farve</string>
   <string name="createAGame">Opret et parti</string>
+  <string name="createTheGame">Opret partiet</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Udvid variationer</string>
   <string name="forceVariation">Gennemtving variation</string>
   <string name="copyVariationPgn">Kopiér variant-PGN</string>
+  <string name="copyMainLinePgn">Kopiér hovedlinje-PGN</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
   <string name="variantWin">Variant sejr</string>
@@ -348,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Anmod om omtræk</string>
+  <string name="whiteProposesTakeback">Hvid foreslår at tage træk tilbage</string>
+  <string name="blackProposesTakeback">Sort foreslår at tage træk tilbage</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
-  <string name="takebackPropositionDeclined">Anmodning om omtræk afslået</string>
-  <string name="takebackPropositionAccepted">Anmodning om omtræk accepteret</string>
-  <string name="takebackPropositionCanceled">Anmodning om omtræk annulleret</string>
+  <string name="whiteDeclinesTakeback">Hvid afviser at tage trækket tilbage</string>
+  <string name="blackDeclinesTakeback">Sort afviser at tage trækket tilbage</string>
+  <string name="whiteAcceptsTakeback">Hvid accepterer at tage trækket tilbage</string>
+  <string name="blackAcceptsTakeback">Sort accepterer at tage trækket tilbage</string>
+  <string name="whiteCancelsTakeback">Hvid annulerer tilbagetagelse af træk</string>
+  <string name="blackCancelsTakeback">Sort annulerer tilbagetagelse af træk</string>
   <string name="yourOpponentProposesATakeback">Din modstander anmoder om omtræk</string>
   <string name="bookmarkThisGame">Bogmærk dette spil</string>
   <string name="tournament">Turnering</string>
@@ -671,6 +678,7 @@
   <string name="really">det er sandt</string>
   <string name="contribute">Bidrag</string>
   <string name="termsOfService">Servicevilkår</string>
+  <string name="titleVerification">Bekræftelse af titel</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanskak</string>
   <string name="host">Bliv vært</string>
@@ -998,4 +1006,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
   <string name="stats">Statistik</string>
+  <string name="accessibility">Tilgængelighed</string>
+  <string name="enableBlindMode">Aktiver blindtilstand</string>
+  <string name="disableBlindMode">Deaktiver blindtilstand</string>
 </resources>

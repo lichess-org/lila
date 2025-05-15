@@ -74,6 +74,7 @@
   <string name="expandVariations">Ipakita ang mga baryasyon</string>
   <string name="forceVariation">Itaguyod ang pagkakaiba</string>
   <string name="copyVariationPgn">Kopyahin ang PGN ng baryasyon</string>
+  <string name="copyMainLinePgn">Kopyahin ang pangunahing linya ng PGN</string>
   <string name="move">Galaw</string>
   <string name="variantLoss">Pagkakaiba ng pagkatalo</string>
   <string name="variantWin">Kakaibang pagkapanalo</string>
@@ -331,9 +332,6 @@
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
   <string name="takebackPropositionSent">Pagkuha muli ay naipadala na</string>
-  <string name="takebackPropositionDeclined">Tinanggihan ang pagkuha muli</string>
-  <string name="takebackPropositionAccepted">Tinanggap ang pagkuha muli</string>
-  <string name="takebackPropositionCanceled">Kinansela ang pagkuha muli</string>
   <string name="yourOpponentProposesATakeback">An iyong kalaban ay nagmungkahi ng isang pagkuha muli</string>
   <string name="bookmarkThisGame">Namarkahan na ng laro</string>
   <string name="tournament">Paligsahan</string>
@@ -481,7 +479,7 @@
   <string name="endgamePositions">Posisyon ng Endgame</string>
   <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
-  <string name="clearBoard" comment="Appears as an action in the Board Editor: https://lichess.org/editor&#10;&#10;Using this button will completely clear the board, removing all pieces from it.">Linisin ang board</string>
+  <string name="clearBoard">Linisin ang board</string>
   <string name="loadPosition">I-load ang posisyon</string>
   <string name="isPrivate">Pribado</string>
   <string name="reportXToModerators">I-report %s sa mga moderator</string>
@@ -718,8 +716,10 @@
   <string name="withFriends">Kasama ang mga kaibigan</string>
   <string name="withEverybody">Kasama ang lahat</string>
   <string name="kidMode">Batang mode</string>
+  <string name="kidModeIsEnabled">Naka-enable ang batang mode.</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ang iyong account ay pinamamahalaan. Tanungin ang iyong guro sa chess tungkol sa pag-angat ng batang mode.</string>
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
@@ -747,6 +747,7 @@
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
+  <string name="board">Board</string>
   <string name="size">Laki</string>
   <string name="brightness">Liwanag</string>
   <string name="pieceSet">Itakda ang piraso</string>
@@ -843,9 +844,9 @@
   <string name="edit">I-edit</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Mabilisan</string>
-  <string name="classical">Klasiko</string>
-  <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
-  <string name="bulletDesc">Lubhang mabibilis na mga laro: mas mababa sa tatlong minuto</string>
+  <string name="classical">Klasikal</string>
+  <string name="ultraBulletDesc">Napakabilis na mga laro: mas mababa sa 30 segundo</string>
+  <string name="bulletDesc">Sobrang bilis na mga laro: mas mababa sa 3 minuto</string>
   <string name="blitzDesc">Mabibilis na mga laro: tatlo hanggang walong minuto</string>
   <string name="rapidDesc">Mabilisang mga laro: walo hanggang dalawmpu\'t limang minuto</string>
   <string name="classicalDesc">Klasikong mga laro: dalawampu\'t limang minuto at higit pa</string>

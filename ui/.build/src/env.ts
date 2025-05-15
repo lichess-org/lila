@@ -2,7 +2,7 @@ import type { Package } from './parse.ts';
 import fs from 'node:fs';
 import ps from 'node:process';
 import { join, resolve, dirname } from 'node:path';
-import { definedUnique, isEquivalent, trimLines } from './algo.ts';
+import { definedUnique, isEquivalent } from './algo.ts';
 import { updateManifest } from './manifest.ts';
 import { taskOk } from './task.ts';
 
@@ -50,10 +50,6 @@ export const env = new (class {
       isEquivalent(this.building, [...this.packages.values()]) &&
       (['tsc', 'esbuild', 'sass', 'i18n'] as const).map(b => this.status[b]).every(x => x === 0)
     );
-  }
-
-  get manifestFile(): string {
-    return join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
   }
 
   *tasks<T extends 'sync' | 'hash' | 'bundle'>(
@@ -143,6 +139,10 @@ export const env = new (class {
     return true;
   }
 })();
+
+export function trimLines(s: string): string[] {
+  return s.split(/[\n\r\f]+/).filter(x => x.trim());
+}
 
 export type Context = 'sass' | 'tsc' | 'esbuild' | 'sync' | 'hash' | 'i18n' | 'web';
 

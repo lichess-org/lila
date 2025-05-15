@@ -27,6 +27,7 @@ export const boardCommands = (): VNode[] => [
     'p',
     [
       'Use these commands when focused on the board itself.',
+      'i: go to move input form.',
       'o: announce current position.',
       "c: announce last move's captured piece.",
       'l: announce last move.',

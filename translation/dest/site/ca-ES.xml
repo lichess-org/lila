@@ -22,6 +22,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Bàndol aleatori</string>
   <string name="createAGame">Crea una partida</string>
+  <string name="createTheGame">Crea la partida</string>
   <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Guanyen les negres</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Expandir variacions</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="copyVariationPgn">Copia el PGN de la variació</string>
+  <string name="copyMainLinePgn">Copiar el PGN de la línia principal</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -348,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
+  <string name="whiteProposesTakeback">El blanc proposa desfer la jugada</string>
+  <string name="blackProposesTakeback">El negre proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>
-  <string name="takebackPropositionDeclined">La proposta de desfer la jugada s\'ha rebutjat</string>
-  <string name="takebackPropositionAccepted">La proposta de desfer la jugada s\'ha acceptat</string>
-  <string name="takebackPropositionCanceled">La proposta de desfer la jugada s\'ha cancel·lat</string>
+  <string name="whiteDeclinesTakeback">El blanc refusa la proposta de desfer la jugada</string>
+  <string name="blackDeclinesTakeback">El negre refusa la proposta de desfer la jugada</string>
+  <string name="whiteAcceptsTakeback">El blanc accepta la proposta de desfer la jugada</string>
+  <string name="blackAcceptsTakeback">El negre accepta la proposta de desfer la jugada</string>
+  <string name="whiteCancelsTakeback">El blanc cancel·la la proposta de desfer la jugada</string>
+  <string name="blackCancelsTakeback">El negre cancel·la la proposta de desfer la jugada</string>
   <string name="yourOpponentProposesATakeback">El teu adversari proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
   <string name="tournament">Torneig</string>
@@ -671,6 +678,7 @@
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="termsOfService">Condicions del servei</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificació del títol</string>
   <string name="sourceCode">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
@@ -998,4 +1006,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
   <string name="stats">Estadístiques</string>
+  <string name="accessibility">Accessibilitat</string>
+  <string name="enableBlindMode">Activar el mode cec</string>
+  <string name="disableBlindMode">Desactivar el mode cec</string>
 </resources>

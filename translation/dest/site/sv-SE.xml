@@ -22,6 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
+  <string name="createTheGame">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
   <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Visa varianter</string>
   <string name="forceVariation">Visa som variant</string>
   <string name="copyVariationPgn">Kopiera variations-PGN</string>
+  <string name="copyMainLinePgn">Kopiera huvudvariantens PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -156,6 +158,7 @@
   <string name="flipBoard">Vänd brädet</string>
   <string name="threefoldRepetition">Trefaldig upprepning</string>
   <string name="claimADraw">Begär remi</string>
+  <string name="drawClaimed">Remi begärt</string>
   <string name="offerDraw">Föreslå remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
@@ -347,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Fråga om du får göra om draget</string>
+  <string name="whiteProposesTakeback">Vit föreslår att ta tillbaka</string>
+  <string name="blackProposesTakeback">Svart föreslår att ta tillbaka</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
-  <string name="takebackPropositionDeclined">Förslag att göra om draget nekat</string>
-  <string name="takebackPropositionAccepted">Förslag att göra om draget godkänt</string>
-  <string name="takebackPropositionCanceled">Förslag att göra om draget har dragits tillbaka</string>
+  <string name="whiteDeclinesTakeback">Vit nekar att ta tillbaka</string>
+  <string name="blackDeclinesTakeback">Svart nekar att ta tillbaka</string>
+  <string name="whiteAcceptsTakeback">Vit godtar att ta tillbaka</string>
+  <string name="blackAcceptsTakeback">Svart godtar att ta tillbaka</string>
+  <string name="whiteCancelsTakeback">Vit avbryter att ta tillbaka</string>
+  <string name="blackCancelsTakeback">Svart avbryter att ta tillbaka</string>
   <string name="yourOpponentProposesATakeback">Din motståndare vill göra om det senaste draget</string>
   <string name="bookmarkThisGame">Bokmärk detta parti</string>
   <string name="tournament">Turnering</string>
@@ -485,6 +493,7 @@
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
   <string name="createdBy">Skapad av</string>
+  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Fortsätt</string>
@@ -669,6 +678,7 @@
   <string name="really">på riktigt</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
+  <string name="titleVerification">Verifiering av schacktitel</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
@@ -740,6 +750,9 @@
   <string name="checkYourEmail">Kontrollera din e-post</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
+  <string name="ifYouDoNotGetTheEmail">Om du inte får e-postmeddelandet inom 5 minuter:</string>
+  <string name="checkAllEmailFolders">Kontrollera skräpposten och andra mappar</string>
+  <string name="verifyYourAddress">Kontrollera att %s är din e-postadress</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
   <string name="readAboutOur">Läs om vår %s.</string>
@@ -772,6 +785,7 @@
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
   <string name="viewTheSolution">Visa lösningen</string>
+  <string name="noChallenges">Inga utmaningar.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tillgänglig på %s olika språk!</item>
     <item quantity="other">Tillgänglig på %s olika språk!</item>
@@ -992,4 +1006,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="nothingToSeeHere">Här finns ingenting att se för tillfället.</string>
   <string name="stats">Statistik</string>
+  <string name="accessibility">Tillgänglighet</string>
+  <string name="enableBlindMode">Aktivera blind-läge</string>
+  <string name="disableBlindMode">Inaktivera blind-läge</string>
 </resources>

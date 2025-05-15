@@ -193,9 +193,6 @@
   <string name="takeback">Тавӑрасси</string>
   <string name="proposeATakeback">Тавӑрасси ыйт</string>
   <string name="takebackPropositionSent">Тавӑрасси ыйтнине йанӑ</string>
-  <string name="takebackPropositionDeclined">Тавӑрасси ыйтнине сирнӗ</string>
-  <string name="takebackPropositionAccepted">Тавӑрасси ыйтнине йышӑннӑ</string>
-  <string name="takebackPropositionCanceled">Тавӑрасси ыйтнине пӑрахӑҫланӑ</string>
   <string name="yourOpponentProposesATakeback">Ӑмӑртуҫу тавӑрассишӗн тӑрать</string>
   <string name="bookmarkThisGame">Вӑййине картса хур</string>
   <string name="tournament">Турнир</string>

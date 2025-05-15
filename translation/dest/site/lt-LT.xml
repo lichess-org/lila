@@ -397,9 +397,6 @@
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>
-  <string name="takebackPropositionDeclined">Ėjimo atšaukimo prašymas atmestas</string>
-  <string name="takebackPropositionAccepted">Ėjimo atšaukimo prašymas priimtas</string>
-  <string name="takebackPropositionCanceled">Ėjimo atšaukimo prašymas atšauktas</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
   <string name="bookmarkThisGame">Pasižymėti šią partiją</string>
   <string name="tournament">Turnyras</string>

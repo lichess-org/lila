@@ -22,6 +22,7 @@
   <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
+  <string name="createTheGame">Создать новую игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
@@ -76,6 +77,7 @@
   <string name="expandVariations">Развернуть варианты</string>
   <string name="forceVariation">Сделать вариантом</string>
   <string name="copyVariationPgn">Скопировать вариант в формате PGN</string>
+  <string name="copyMainLinePgn">Копировать PGN основной линии</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -397,9 +399,6 @@
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение вернуть ход отправлено</string>
-  <string name="takebackPropositionDeclined">Предложение вернуть ход отклонено</string>
-  <string name="takebackPropositionAccepted">Предложение вернуть ход принято</string>
-  <string name="takebackPropositionCanceled">Предложение вернуть ход отменено</string>
   <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
   <string name="bookmarkThisGame">Отметить эту игру</string>
   <string name="tournament">Турнир</string>
@@ -1088,4 +1087,7 @@
 Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="nothingToSeeHere">Здесь ничего нет пока.</string>
   <string name="stats">Статистика</string>
+  <string name="accessibility">Специальные возможности</string>
+  <string name="enableBlindMode">Включить слепой режим</string>
+  <string name="disableBlindMode">Выключить слепой режим</string>
 </resources>

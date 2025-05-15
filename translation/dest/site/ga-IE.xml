@@ -404,9 +404,6 @@
   <string name="takeback">Aisthógáil</string>
   <string name="proposeATakeback">Aisthógáil a mholadh</string>
   <string name="takebackPropositionSent">Aisthógáil seolta</string>
-  <string name="takebackPropositionDeclined">Aisthógáil diúltaithe</string>
-  <string name="takebackPropositionAccepted">Aisthógáil deimhnithe</string>
-  <string name="takebackPropositionCanceled">Cuireadh an iarratas aisthógáil ar ceal</string>
   <string name="yourOpponentProposesATakeback">Molann do chéile comhraic aisthógáil</string>
   <string name="bookmarkThisGame">Cuir leabharmharc leis an chluiche seo</string>
   <string name="tournament">Comórtas</string>

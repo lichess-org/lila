@@ -22,6 +22,7 @@
   <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
+  <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
@@ -349,10 +350,15 @@
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
+  <string name="whiteProposesTakeback">White proposes takeback</string>
+  <string name="blackProposesTakeback">Black proposes takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
-  <string name="takebackPropositionDeclined">Takeback declined</string>
-  <string name="takebackPropositionAccepted">Takeback accepted</string>
-  <string name="takebackPropositionCanceled">Takeback cancelled</string>
+  <string name="whiteDeclinesTakeback">White declines takeback</string>
+  <string name="blackDeclinesTakeback">Black declines takeback</string>
+  <string name="whiteAcceptsTakeback">White accepts takeback</string>
+  <string name="blackAcceptsTakeback">Black accepts takeback</string>
+  <string name="whiteCancelsTakeback">White cancels takeback</string>
+  <string name="blackCancelsTakeback">Black cancels takeback</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="tournament">Tournament</string>
@@ -672,6 +678,7 @@
   <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="termsOfService">Terms of Service</string>
+  <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
@@ -998,4 +1005,7 @@ Leave empty to start games from the normal initial position.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
+  <string name="accessibility">Accessibility</string>
+  <string name="enableBlindMode">Enable blind mode</string>
+  <string name="disableBlindMode">Disable blind mode</string>
 </resources>

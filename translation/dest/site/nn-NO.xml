@@ -22,6 +22,7 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Vilkårleg farge</string>
   <string name="createAGame">Start eit parti</string>
+  <string name="createTheGame">Lag eit nytt parti</string>
   <string name="whiteIsVictorious">Kvit vann partiet</string>
   <string name="blackIsVictorious">Svart vann partiet</string>
   <string name="youPlayTheWhitePieces">Du spelar med dei kvite brikkene</string>
@@ -348,10 +349,15 @@
   <string name="openingExplorerAndTablebase">Opningsutforskar &amp; tabellbase</string>
   <string name="takeback">Gjer om trekket</string>
   <string name="proposeATakeback">Framlegg om å gjera om trekket</string>
+  <string name="whiteProposesTakeback">Kvit foreslår å ta tilbake eit trekk</string>
+  <string name="blackProposesTakeback">Svart foreslår å ta tilbake eit trekk</string>
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>
-  <string name="takebackPropositionDeclined">Framlegget om å gjera om trekket blei avslått</string>
-  <string name="takebackPropositionAccepted">Framlegget om å gjera om trekket blei godteke</string>
-  <string name="takebackPropositionCanceled">Framlegget om å gjera om trekket blei avbrote</string>
+  <string name="whiteDeclinesTakeback">Kvit avviser å ta tilbake trekket</string>
+  <string name="blackDeclinesTakeback">Svart avviser å ta tilbake trekket</string>
+  <string name="whiteAcceptsTakeback">Kvit aksepterer å ta tilbake trekket</string>
+  <string name="blackAcceptsTakeback">Svart aksepterer å ta tilbake trekket</string>
+  <string name="whiteCancelsTakeback">Kvit avbryt forslaget om å ta tilbake trekket</string>
+  <string name="blackCancelsTakeback">Svart avbryt forslaget om å ta tilbake trekket</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
   <string name="tournament">Turnering</string>
@@ -672,6 +678,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="really">verkeleg</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Brukarvilkår</string>
+  <string name="titleVerification">Verifisering av tittel</string>
   <string name="sourceCode">Kjeldekode</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
@@ -999,4 +1006,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
   <string name="stats">Statistikk</string>
+  <string name="accessibility">Tilgjengelegheit</string>
+  <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
+  <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
 </resources>

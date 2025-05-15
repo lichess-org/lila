@@ -29,6 +29,7 @@ final class LobbyApi(
                 "seeks"        -> seeks.map(_.render),
                 "nowPlaying"   -> displayedPovs.map(nowPlaying),
                 "nbNowPlaying" -> povs.size,
+                "nbMyTurn"     -> povs.count(_.isMyTurn),
                 "counters" -> Json.obj(
                   "members" -> lobbySocket.counters.members,
                   "rounds"  -> lobbySocket.counters.rounds

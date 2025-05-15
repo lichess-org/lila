@@ -1,0 +1,7 @@
+name: Reviewable
+
+on: [pull_request_target]
+
+jobs:
+  review:
+    uses: lichess-org/.github/.github/workflows/reviewable.yml@main

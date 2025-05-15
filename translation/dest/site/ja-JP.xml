@@ -22,6 +22,7 @@
   <string name="asBlack">黒番</string>
   <string name="randomColor">ランダム</string>
   <string name="createAGame">対局を作成する</string>
+  <string name="createTheGame">対局を作成</string>
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
   <string name="youPlayTheWhitePieces">あなたは白です</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
+  <string name="copyMainLinePgn">主手順の PGN をコピー</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -325,9 +327,6 @@
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
-  <string name="takebackPropositionDeclined">待ったを拒否</string>
-  <string name="takebackPropositionAccepted">待ったを認める</string>
-  <string name="takebackPropositionCanceled">待ったのお願いをキャンセル</string>
   <string name="yourOpponentProposesATakeback">対局相手が待ったをしていいか聞いています</string>
   <string name="bookmarkThisGame">この対局をブックマークする</string>
   <string name="tournament">トーナメント</string>
@@ -954,4 +953,7 @@
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="nothingToSeeHere">今は何もありません。</string>
   <string name="stats">統計</string>
+  <string name="accessibility">アクセシビリティ</string>
+  <string name="enableBlindMode">視覚障害モードをオンに</string>
+  <string name="disableBlindMode">視覚障害モードをオフに</string>
 </resources>

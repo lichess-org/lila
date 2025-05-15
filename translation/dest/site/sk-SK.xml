@@ -70,12 +70,13 @@
   <string name="inLocalBrowser">vo Vašom prehliadači</string>
   <string name="toggleLocalEvaluation">Prepnúť na analýzu vo Vašom prehliadači</string>
   <string name="promoteVariation">Povýšiť variant</string>
-  <string name="makeMainLine">Povýšiť na hlavnú variantu</string>
+  <string name="makeMainLine">Povýšiť na hlavný variant</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
   <string name="collapseVariations">Skryť varianty</string>
   <string name="expandVariations">Ukázať varianty</string>
-  <string name="forceVariation">Povýšiť variant</string>
+  <string name="forceVariation">Vynútiť variant</string>
   <string name="copyVariationPgn">Kopírovať PGN variantu</string>
+  <string name="copyMainLinePgn">Kopírovať PNG hlavného variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
@@ -397,9 +398,6 @@
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
-  <string name="takebackPropositionDeclined">Ponuka na návrat odmietnutá</string>
-  <string name="takebackPropositionAccepted">Ponuka na návrat prijatá</string>
-  <string name="takebackPropositionCanceled">Ponuka na návrat zrušená</string>
   <string name="yourOpponentProposesATakeback">Váš súper navrhuje vrátiť ťah</string>
   <string name="bookmarkThisGame">Označiť túto hru</string>
   <string name="tournament">Turnaj</string>
@@ -558,6 +556,7 @@
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
   <string name="createdBy">Vytvorené</string>
+  <string name="startingIn" comment="Displayed above a timer">Začína o</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="pause">Pozastaviť</string>
   <string name="resume">Pokračovať</string>

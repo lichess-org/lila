@@ -22,6 +22,7 @@
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
+  <string name="createTheGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">Mở rộng các biến</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
+  <string name="copyMainLinePgn">Sao chép PGN chính</string>
   <string name="move">Nước cờ</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Thắng theo luật biến thể</string>
@@ -325,9 +327,6 @@
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
-  <string name="takebackPropositionDeclined">Đề nghị lùi một nước bị từ chối</string>
-  <string name="takebackPropositionAccepted">Đề nghị lùi một nước được chấp thuận</string>
-  <string name="takebackPropositionCanceled">Hủy đề nghị lùi một nước</string>
   <string name="yourOpponentProposesATakeback">Đối thủ của bạn đề nghị lùi một nước</string>
   <string name="bookmarkThisGame">Đánh dấu ván này</string>
   <string name="tournament">Giải đấu</string>
@@ -953,4 +952,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
 Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
+  <string name="accessibility">Hỗ trợ tiếp cận</string>
+  <string name="enableBlindMode">Bật chế độ mù</string>
+  <string name="disableBlindMode">Tắt chế độ mù</string>
 </resources>
