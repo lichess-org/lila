@@ -45,6 +45,6 @@ site.load.then(() => {
     (this.parentNode as HTMLFormElement).submit();
   });
   document
-    .querySelectorAll<HTMLElement>('.automod i')
+    .querySelectorAll<HTMLElement>('.automod *[title]')
     .forEach(el => el.addEventListener('click', () => info(el.title)));
 });

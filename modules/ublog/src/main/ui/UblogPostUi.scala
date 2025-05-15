@@ -252,7 +252,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                 ),
                 span(
                   automod.evergreen.collect:
-                    case true => i(cls := "green", dataIcon := Icon.Evergreen, title := "Evergreen content"),
+                    case true => iconFlair(Flair("nature.evergreen-tree"))(title := "Evergreen content"),
                   automod.flagged.map: flagged =>
                     i(cls := "flagged", dataIcon := Icon.CautionTriangle, title := flagged),
                   automod.commercial.map: commercial =>
