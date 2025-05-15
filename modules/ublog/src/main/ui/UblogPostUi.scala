@@ -243,7 +243,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                 span(
                   "Assessment:",
                   st.select(name := "assessment", cls := "form-control")(
-                    UblogAutomod.classifications.toList.map: assessment =>
+                    UblogAutomod.classifications.map: assessment =>
                       st.option(
                         st.value := assessment,
                         (assessment == current).option(selected)

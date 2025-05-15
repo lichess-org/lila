@@ -75,7 +75,7 @@ final class UblogAutomod(
         .post(body)
         .flatMap: rsp =>
           (for
-            choices <- (Json.parse(rsp.body.pp) \ "choices").asOpt[List[JsObject]]
+            choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
             if rsp.status == 200
             best      <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
