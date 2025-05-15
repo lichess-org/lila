@@ -52,7 +52,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.tournamentNotFound()),
         p(trans.site.tournamentDoesNotExist()),
-        p(trans.site.tournamentMayHaveBeenCanceled()),
+        p(trans.site.tournamentMayHaveBeenCancelled()),
         br,
         br,
         a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
