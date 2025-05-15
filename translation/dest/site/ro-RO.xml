@@ -373,7 +373,15 @@
   <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
   <string name="takeback">Revocare</string>
   <string name="proposeATakeback">Propune revocarea mutării</string>
+  <string name="whiteProposesTakeback">Albul propune retragere</string>
+  <string name="blackProposesTakeback">Negrul propune retragere</string>
   <string name="takebackPropositionSent">Propunere de revocare trimisă</string>
+  <string name="whiteDeclinesTakeback">Albul refuză retragerea</string>
+  <string name="blackDeclinesTakeback">Negrul refuză retragerea</string>
+  <string name="whiteAcceptsTakeback">Albul acceptă retragerea</string>
+  <string name="blackAcceptsTakeback">Negrul acceptă retragerea</string>
+  <string name="whiteCancelsTakeback">Albul anulează cererea de retragere</string>
+  <string name="blackCancelsTakeback">Negrul anulează cererea de retragere</string>
   <string name="yourOpponentProposesATakeback">Adversarul tău propune revocarea unei mutări</string>
   <string name="bookmarkThisGame">Marcați această partidă</string>
   <string name="tournament">Turneu</string>
@@ -708,6 +716,7 @@
   <string name="really">pe bune</string>
   <string name="contribute">Contribuie</string>
   <string name="termsOfService">Termeni și condiții</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificarea titlului</string>
   <string name="sourceCode">Cod sursă</string>
   <string name="simultaneousExhibitions">Simultane de șah</string>
   <string name="host">Gazdă</string>
