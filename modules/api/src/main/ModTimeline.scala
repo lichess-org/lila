@@ -144,7 +144,6 @@ final class ModTimelineApi(
     noteApi: NoteApi,
     reportApi: ReportApi,
     playBanApi: PlaybanApi,
-    shutupApi: lila.shutup.ShutupApi,
     userRepo: lila.user.UserRepo
 )(using Executor)(using scheduler: Scheduler):
 

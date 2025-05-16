@@ -450,7 +450,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
               .map:
                 views.auth.tokenLoginConfirmation(user, _, get("referrer"))
 
-  def loginWithTokenPost(token: String, referrer: Option[String]) =
+  def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
     Open:
       if ctx.isAuth
       then Redirect(getReferrer)

@@ -5,10 +5,8 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
-import lila.core.i18n.{ Language, Translate }
+import lila.core.i18n.Language
 import lila.core.id.PuzzleId
-import lila.core.net.ApiVersion
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -325,7 +323,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiReplay(days: Days, themeKey: String) = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     replayOf(days, themeKey).map:
       _.fold(notFoundJson("No puzzles to replay")):
-        case ((puzzle, replay), angle) =>
+        case ((_, replay), angle) =>
           import lila.puzzle.JsonView.given
           JsonOk(Json.obj("replay" -> replay, "angle" -> angle))
   }

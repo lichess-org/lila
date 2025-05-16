@@ -107,7 +107,7 @@ object AutoConfig:
         paramInfosExp = _ => List(TypeRepr.of[Config]),
         resultTypeExp = _ => TypeRepr.of[T]
       ),
-      rhsFn = (sym: quotes.reflect.Symbol, paramRefs: List[Tree]) =>
+      rhsFn = (_, paramRefs: List[Tree]) =>
         val x = paramRefs.head.asExprOf[Config]
 
         build(x).asTerm

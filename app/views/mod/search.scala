@@ -79,7 +79,6 @@ object search:
   def ip(
       address: IpAddress,
       users: List[lila.user.WithPerfsAndEmails],
-      uas: List[String],
       data: IpTrust.IpData,
       blocked: Boolean
   )(using ctx: Context, renderIp: RenderIp, mod: Me) =

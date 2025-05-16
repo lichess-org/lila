@@ -1,12 +1,10 @@
 package lila.ui
 
 import play.api.data.*
-import scalatags.text.Builder
-
-import lila.ui.ScalatagsTemplate.*
 import scala.util.Try
 import play.api.i18n.Lang
 import scalalib.data.SimpleMemo
+import lila.ui.ScalatagsTemplate.*
 
 trait FormHelper:
   self: I18nHelper & AssetHelper =>

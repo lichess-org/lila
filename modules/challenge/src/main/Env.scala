@@ -33,7 +33,6 @@ final class Env(
     Executor,
     akka.stream.Materializer,
     lila.game.IdGenerator,
-    play.api.Mode,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):

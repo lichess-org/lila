@@ -120,7 +120,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
       )
   }
 
-  private def onApproved(req: TitleRequest)(using Context, Me) =
+  private def onApproved(req: TitleRequest)(using Me) =
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
       _    <- modC.doSetTitle(user.id, req.data.title.some)

@@ -76,7 +76,7 @@ final class JsBot(env: Env) extends LilaController(env):
               .storeAsset(tpe, key, file)
               .flatMap:
                 case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(assets) =>
+                case Right(_) =>
                   for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
                   yield JsonOk(Json.obj("key" -> key, "name" -> name))
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))

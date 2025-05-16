@@ -168,7 +168,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private[controllers] def delayMovesFromReq(using RequestHeader) =
     !get("key").exists(env.web.settings.noDelaySecret.get().value.contains)
 
-  private[controllers] def gameContentType(config: GameApiV2.Config)(using RequestHeader) =
+  private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match
       case GameApiV2.Format.PGN => pgnContentType
       case GameApiV2.Format.JSON =>

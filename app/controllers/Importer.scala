@@ -4,7 +4,7 @@ import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
 import play.api.mvc.*
 
-import scala.util.{ Either, Left, Right }
+import scala.util.{ Left, Right }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest

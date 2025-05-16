@@ -14,7 +14,7 @@ private[controllers] trait ForumController:
   protected def CategGrantWrite[A <: Result](
       categId: ForumCategId,
       tryingToPostAsMod: Boolean = false
-  )(a: => Fu[A])(using Context, Me): Fu[Result] =
+  )(a: => Fu[A])(using Context): Fu[Result] =
     access
       .isGrantedWrite(categId, tryingToPostAsMod)
       .flatMap:

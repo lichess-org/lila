@@ -1,5 +1,6 @@
 package controllers
 
+import scala.annotation.nowarn
 import play.api.libs.json.*
 
 import lila.app.{ *, given }
@@ -24,12 +25,16 @@ final class Practice(
       json = api.get(ctx.me).map(lila.practice.JsonView.api).map(JsonOk)
     )
 
-  def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
+  def show(
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
+      studyId: StudyId
+  ) = Open:
     Found(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
 
   def showChapter(
-      sectionId: String,
-      studySlug: String,
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
   ) = Open:

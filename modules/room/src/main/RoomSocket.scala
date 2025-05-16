@@ -8,7 +8,6 @@ import lila.core.chat.{ BusChan, ChatApi, TimeoutScope }
 import lila.core.shutup.PublicSource
 import lila.core.socket.*
 import lila.core.socket.protocol as P
-import lila.core.user.FlairGet
 import lila.log.Logger
 
 object RoomSocket:
@@ -90,7 +89,7 @@ object RoomSocket:
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairGet, Executor) =
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
     lila.common.Bus.subscribeFunDyn(busChan(BusChan).chan, BusChan.global.chan):
       case lila.core.chat.ChatLine(id, line, json) if line.userIdMaybe.isDefined =>
         rooms.tellIfPresent(id.into(RoomId), NotifyVersion("message", json, line.troll))

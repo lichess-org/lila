@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.i18n.Lang
 
-import java.time.{ Month, Year, YearMonth }
+import java.time.YearMonth
 
 import chess.format.Fen
 

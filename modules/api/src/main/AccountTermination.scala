@@ -113,12 +113,12 @@ final class AccountTermination(
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
-    userRepo.delete.findNextScheduled.flatMapz: (user, del) =>
+    userRepo.delete.findNextScheduled.flatMapz: user =>
       if user.enabled.yes
       then userRepo.delete.schedule(user.id, none).inject(none)
-      else doDeleteNow(user, del).inject(user.some)
+      else doDeleteNow(user).inject(user.some)
 
-  private def doDeleteNow(u: User, del: UserDelete): Funit = for
+  private def doDeleteNow(u: User): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     tos = u.marks.dirty || playbanned
     _   = logger.info(s"Deleting user ${u.username} tos=$tos")

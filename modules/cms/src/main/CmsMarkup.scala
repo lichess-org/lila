@@ -4,7 +4,7 @@ import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi }
 import lila.core.id.CmsPageId
 import lila.memo.CacheApi
 
-final class CmsMarkup(cacheApi: CacheApi)(using Executor, play.api.Mode):
+final class CmsMarkup(cacheApi: CacheApi):
 
   private val renderer = MarkdownRender(
     autoLink = true,

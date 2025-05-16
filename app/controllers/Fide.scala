@@ -1,10 +1,9 @@
 package controllers
 
 import play.api.mvc.*
-import scalalib.paginator.Paginator
 
 import lila.app.{ *, given }
-import lila.fide.{ Federation, FidePlayer }
+import lila.fide.Federation
 import lila.fide.FideJson.given
 
 final class Fide(env: Env) extends LilaController(env):

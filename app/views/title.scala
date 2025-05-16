@@ -17,12 +17,12 @@ object mod:
     views.report.ui.list.layout("title", scores, pending)(views.mod.ui.reportMenu):
       modUi.queue(reqs)
 
-  def show(req: TitleRequest, similar: List[TitleRequest], data: ModData)(using Context)(using me: Me) =
+  def show(req: TitleRequest, similar: List[TitleRequest], data: ModData)(using Context) =
     val modZone =
       given RenderIp = data.renderIp
       frag(
         div(cls := "mod-zone mod-zone-full none"),
-        views.user.mod.otherUsers(data.mod, data.user, data.logins, appeals = Nil)(
+        views.user.mod.otherUsers(data.user, data.logins, appeals = Nil)(
           cls := "mod-zone communication__logins"
         )
       )

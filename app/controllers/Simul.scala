@@ -107,16 +107,15 @@ final class Simul(env: Env) extends LilaController(env):
 
   def create = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
-      env.team.api
-        .lightsOf(me)
-        .flatMap: teams =>
-          bindForm(forms.create(teams))(
-            err => BadRequest.page(views.simul.form.create(err, teams)),
-            setup =>
-              env.simul.api.create(setup, teams).map { simul =>
-                Redirect(routes.Simul.show(simul.id))
-              }
-          )
+      for
+        teams <- env.team.api.lightsOf(me)
+        res <- bindForm(forms.create(teams))(
+          err => BadRequest.page(views.simul.form.create(err, teams)),
+          setup =>
+            for simul <- env.simul.api.create(setup)
+            yield Redirect(routes.Simul.show(simul.id))
+        )
+      yield res
   }
 
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me ?=>
@@ -159,12 +158,12 @@ final class Simul(env: Env) extends LilaController(env):
               f =>
                 bindForm(f)(
                   err => errPage(Left(err)),
-                  data => env.simul.api.update(simul, data).inject(redirect)
+                  data => for _ <- env.simul.api.update(simul, data) yield redirect
                 ),
               f =>
                 bindForm(f)(
                   err => errPage(Right(err)),
-                  data => env.simul.api.update(simul, data, teams).inject(redirect)
+                  data => for _ <- env.simul.api.update(simul, data) yield redirect
                 )
             )
   }

@@ -34,7 +34,7 @@ trait UserHelper:
   def renderRating(perf: Perf): Frag = frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")
 
   // UserPerfs selects the best perf
-  def userRating(user: User, perf: Perf | UserPerfs): Frag = perf match
+  def userRating(perf: Perf | UserPerfs): Frag = perf match
     case p: Perf      => renderRating(p)
     case p: UserPerfs => ratingApi.bestRated(p).map(_.perf).so(renderRating)
 
@@ -93,9 +93,7 @@ trait UserHelper:
   def lightUserSpan(
       user: LightUser,
       cssClass: Option[String] = None,
-      withOnline: Boolean = true,
-      withTitle: Boolean = true,
-      params: String = ""
+      withOnline: Boolean = true
   )(using Translate): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline),
@@ -146,7 +144,7 @@ trait UserHelper:
     withTitle.option(titleTag(user.title)),
     name | user.username,
     userFlair(user),
-    withPerfRating.map(userRating(user, _))
+    withPerfRating.map(userRating)
   )
 
   def userIdNameLink(

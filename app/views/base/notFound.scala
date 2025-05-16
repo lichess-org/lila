@@ -2,7 +2,7 @@ package views.base
 
 import lila.app.UiEnv.{ *, given }
 
-def notFound(msg: Option[String])(using Context) =
+def notFound(msg: Option[String]) =
   Page(msg | "Page not found").css("bits.not-found"):
     main(cls := "not-found page-small box box-pad")(
       header(

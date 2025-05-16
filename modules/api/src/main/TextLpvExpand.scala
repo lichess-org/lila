@@ -60,10 +60,10 @@ final class TextLpvExpand(
         case ((0, replacements), _) => 0 -> replacements
         case ((counter, replacements), candidate) =>
           val (cost, replacement) = candidate match
-            case regex.gamePgnRe(url, id)    => 1 -> getPgn(GameId(id)).map(id -> _)
-            case regex.chapterPgnRe(url, id) => 1 -> getChapterPgn(StudyChapterId(id)).map(id -> _)
-            case regex.studyPgnRe(url, id)   => 1 -> getStudyPgn(StudyId(id)).map(id -> _)
-            case link                        => 0 -> fuccess(link -> none)
+            case regex.gamePgnRe(_, id)    => 1 -> getPgn(GameId(id)).map(id -> _)
+            case regex.chapterPgnRe(_, id) => 1 -> getChapterPgn(StudyChapterId(id)).map(id -> _)
+            case regex.studyPgnRe(_, id)   => 1 -> getStudyPgn(StudyId(id)).map(id -> _)
+            case link                      => 0 -> fuccess(link -> none)
           (counter - cost) -> (replacement :: replacements)
       ._2
       .parallel
@@ -91,7 +91,6 @@ final class TextLpvExpand(
     _.expireAfterWrite(10.minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
-    given Translate = summon[Translator].toDefault
     gameRepo
       .gameWithInitialFen(id)
       .flatMapz: g =>

@@ -1,13 +1,12 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.shutup.{ PublicLine, PublicSource }
+import lila.core.shutup.PublicLine
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
 
 def communication(
-    mod: Me,
     timeline: lila.api.ModTimeline,
     players: List[(Pov, lila.chat.MixedChat)],
     convos: List[lila.msg.ModMsgConvo],
@@ -25,10 +24,8 @@ def communication(
         commUi.commsHeader(u, priv),
         isGranted(_.UserModView).option:
           frag(
-            div(cls := "mod-zone mod-zone-full none"),
-            views.user.mod.otherUsers(mod, u, logins, appeals)(
-              cls := "mod-zone communication__logins"
-            )
+            div(cls                                           := "mod-zone mod-zone-full none"),
+            views.user.mod.otherUsers(u, logins, appeals)(cls := "mod-zone communication__logins")
           )
         ,
         views.mod.timeline.renderComm(timeline),

@@ -93,7 +93,7 @@ final class Main(
     pageHit
     Ok.page(views.site.page.faq.apply)
 
-  def temporarilyDisabled(path: String) = Open:
+  def temporarilyDisabled(@annotation.nowarn path: String) = Open:
     pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
@@ -125,11 +125,11 @@ final class Main(
           Ok(data)
     else NotFound("Invalid prometheus key")
 
-  def legacyQaQuestion(id: Int, _slug: String) = Anon:
+  def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:
     MovedPermanently:
       StaticContent.legacyQaQuestion(id)
 
-  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(@annotation.nowarn v: String, path: String, file: String) = assetsC.at(path, file)
 
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
   def externalLink(tag: String) = Open:

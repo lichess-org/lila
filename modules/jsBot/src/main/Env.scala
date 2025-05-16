@@ -3,7 +3,7 @@ package lila.jsBot
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
+import lila.common.autoconfig.*
 import lila.core.config.*
 import lila.common.config.GetRelativeFile
 

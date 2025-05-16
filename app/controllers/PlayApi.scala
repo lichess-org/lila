@@ -8,7 +8,7 @@ import lila.core.id.GameAnyId
 import lila.core.perf.UserWithPerfs
 
 // both bot & board APIs
-final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaController(env):
+final class PlayApi(env: Env) extends LilaController(env):
 
   // bot endpoints
 

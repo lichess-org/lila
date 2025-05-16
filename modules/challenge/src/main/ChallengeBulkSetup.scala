@@ -16,7 +16,7 @@ import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 
-final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm)(using lila.core.config.RateLimit):
+final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
   import ChallengeBulkSetup.*
 

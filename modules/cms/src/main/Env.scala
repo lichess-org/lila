@@ -2,7 +2,7 @@ package lila.cms
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.{ AssetBaseUrl, BaseUrl, CollName }
+import lila.core.config.CollName
 import lila.core.id.CmsPageKey
 import lila.memo.CacheApi
 import lila.cms.CmsPage.Render
@@ -11,11 +11,9 @@ import lila.cms.CmsPage.Render
 final class Env(
     db: lila.db.Db,
     cacheApi: CacheApi,
-    baseUrl: BaseUrl,
-    assetBaseUrl: AssetBaseUrl,
     langList: lila.core.i18n.LangList,
     langPicker: lila.core.i18n.LangPicker
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor):
 
   private val coll = db(CollName("cms_page"))
 

@@ -12,7 +12,6 @@ import lila.common.Json.given
 import lila.common.Bus
 import lila.core.perf.UserWithPerfs
 import lila.core.socket.SendToFlag
-import lila.core.team.LightTeam
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition
@@ -51,7 +50,7 @@ final class SimulApi(
     _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 
-  def create(setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] = for
+  def create(setup: SimulForm.Setup)(using me: Me): Fu[Simul] = for
     host <- userApi.withPerfs(me.value)
     simul = Simul.make(
       name = setup.name,
@@ -71,7 +70,7 @@ final class SimulApi(
     Bus.pub(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
-  def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
+  def update(prev: Simul, setup: SimulForm.Setup)(using me: Me): Fu[Simul] =
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
@@ -84,7 +83,7 @@ final class SimulApi(
       featurable = some(~setup.featured && canBeFeatured(me)),
       conditions = setup.conditions
     )
-    update(simul).inject(simul)
+    for _ <- update(simul) yield simul
 
   def update(prev: Simul, setup: SimulForm.LockedSetup): Fu[Simul] =
     val simul = prev.copy(

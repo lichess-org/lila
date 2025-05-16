@@ -10,7 +10,7 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.tree.{ Branch, Clock }
+import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
 final class StudyApi(
@@ -217,7 +217,7 @@ final class StudyApi(
               c.root.pathExists(position.path) && study.position.chapterId == c.id
           .flatMap:
             case None => fuccess(sendTo(study.id)(_.reloadSri(who.sri)))
-            case Some(chapter) if study.position.path != position.path =>
+            case Some(_) if study.position.path != position.path =>
               for _ <- studyRepo.setPosition(study.id, position)
               yield sendTo(study.id)(_.setPath(position, who))
             case _ => funit

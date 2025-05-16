@@ -8,7 +8,7 @@ import lila.core.i18n.Translate
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
 import lila.core.user.KidMode
-import lila.oauth.{ OAuthScope, TokenScopes }
+import lila.oauth.TokenScopes
 import lila.pref.Pref
 import lila.ui.Nonce
 

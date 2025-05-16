@@ -6,7 +6,6 @@ import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.paginator.Paginator
-import scalatags.Text.Frag
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -400,7 +399,7 @@ final class User(
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data       <- loginsTableData(user, userLogins, nbOthers)
-        yield (views.user.mod.otherUsers(me, user, data, appeals), data)
+        yield (views.user.mod.otherUsers(user, data, appeals), data)
 
         val identification = isGranted(_.ViewPrintNoIP).so:
           for

@@ -6,7 +6,6 @@ import chess.format.pgn.Pgn
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
-import lila.core.i18n.Translate
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
 import lila.web.RealPlayers
@@ -28,7 +27,7 @@ final class PgnDump(
       flags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  )(using Translate): Fu[Pgn] =
+  ): Fu[Pgn] =
     dumper(game, initialFen, flags, teams)
       .flatMap: pgn =>
         if flags.tags then
@@ -45,8 +44,8 @@ final class PgnDump(
       .map: pgn =>
         realPlayers.fold(pgn)(_.update(game.userIdPair, pgn))
 
-  def formatter(flags: WithFlags)(using
-      Translate
+  def formatter(
+      flags: WithFlags
   ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
     String
   ] =

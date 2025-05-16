@@ -1,5 +1,6 @@
 package lila.i18n
 
+import scala.annotation.nowarn
 import play.api.i18n.Lang
 import scalalib.model.Language
 
@@ -119,7 +120,7 @@ private object I18nQuantity:
       else if c == 2 then Two
       else Other
 
-    def none(c: Count) = Other
+    def none(@nowarn c: Count) = Other
 
   import selectors.*
 

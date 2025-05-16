@@ -3,11 +3,8 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import java.util.Currency
-
 import lila.app.{ *, given }
 import lila.plan.{
-  CreateStripeSession,
   CustomerInfo,
   Freq,
   Money,

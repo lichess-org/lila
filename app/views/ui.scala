@@ -5,7 +5,7 @@ export lila.web.ui.bits
 
 val captcha = lila.web.ui.CaptchaUi(helpers)
 
-val chat = lila.chat.ChatUi(helpers)
+val chat = lila.chat.ChatUi
 
 val boardEditor = lila.web.ui.BoardEditorUi(helpers)
 

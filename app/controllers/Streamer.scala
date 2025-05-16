@@ -132,7 +132,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           limit.imageUpload(ctx.ip, rateLimited):
             api
               .uploadPicture(s.streamer, pic, me)
-              .recoverWith { case e: Exception =>
+              .recoverWith { case _: Exception =>
                 Redirect(routes.Streamer.edit).flashFailure
               }
               .inject(Ok)

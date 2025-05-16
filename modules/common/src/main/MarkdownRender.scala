@@ -308,7 +308,7 @@ object MarkdownRender:
           override def getNodeRenderingHandlers() = Set(
             NodeRenderingHandler(
               classOf[TableBlock],
-              (node: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
+              (_: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
                 html.withAttr().attr("class", "slist-wrapper").tag("div")
                 context.delegateRender();
                 html.tag("/div")

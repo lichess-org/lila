@@ -65,7 +65,6 @@ final class Coach(env: Env) extends LilaController(env):
             .uploadPicture(c, pic)
             .inject(Redirect(routes.Coach.edit))
             .recoverWith:
-              case e: lila.core.lilaism.LilaException =>
-                Redirect(routes.Coach.edit)
+              case _: lila.core.lilaism.LilaException => Redirect(routes.Coach.edit)
         case None => Redirect(routes.Coach.edit)
   }

@@ -290,7 +290,7 @@ final class GameApiV2(
       config: Config,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  )(using Translate): Fu[JsObject] = for
+  ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     flags = config.flags
     pgn <-

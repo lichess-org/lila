@@ -10,8 +10,8 @@ import lila.report.Suspect
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
-  private def modForm(using Context)  = AppealModel.modForm
-  private def userForm(using Context) = AppealModel.form
+  private def modForm  = AppealModel.modForm
+  private def userForm = AppealModel.form
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)

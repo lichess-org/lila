@@ -7,7 +7,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Bitboard, Check, HasId, Mergeable, Node as ChessNode, Ply, Position, Square, Tree, Variation }
 import monocle.syntax.all.*
 import play.api.libs.json.*
-import scalalib.json.Json.{ *, given }
+import scalalib.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
@@ -174,7 +174,6 @@ object NewTree:
   // def fromNodeToBranch(node: Node): NewBranch = ???
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
-  import NewTree.*
 
   export metas.{
     ply,
@@ -291,7 +290,6 @@ object NewRoot:
   def apply(sit: Position.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
   def apply(root: Root): NewRoot                      = NewRoot(NewTree.fromNode(root), NewTree(root))
 
-  import NewTree.*
   import lila.tree.evals.jsonWrites
   import Node.given
 

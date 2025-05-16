@@ -50,14 +50,10 @@ final private class FishnetOpeningBook(
           none
         }
         .monTry: res =>
-          _.fishnet
-            .openingBook(
-              level = level,
-              variant = game.variant.key.value,
-              ply = game.ply.value,
-              hit = res.toOption.exists(_.isDefined),
-              success = res.isSuccess
-            )
+          _.fishnet.openingBook(
+            variant = game.variant.key.value,
+            hit = res.toOption.exists(_.isDefined)
+          )
 
 object FishnetOpeningBook:
 

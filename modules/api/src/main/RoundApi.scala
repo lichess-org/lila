@@ -36,7 +36,7 @@ final private[api] class RoundApi(
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.core.LightUser.GetterSync,
     userLag: lila.socket.UserLagCache
-)(using Executor, lila.core.i18n.Translator):
+)(using Executor):
 
   def player(
       pov: Pov,

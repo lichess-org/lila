@@ -29,14 +29,7 @@ private final class BoardReport(settingStore: SettingStore.Builder)(using
     if domainSetting.get().matches(domain)
   yield found(me, game, rating, ref)
 
-  private def refererHost(using ctx: Context): Option[String] = for
-    ref <- HTTPRequest.referer(ctx.req)
-    url <- lila.common.url.parse(ref).toOption
-  yield url.host.toString
-
-  private def found(me: Me, game: Game, rating: IntRating, ref: String)(using
-      ctx: Context
-  ): Unit =
+  private def found(me: Me, game: Game, rating: IntRating, ref: String): Unit =
     val delayBase =
       if rating > IntRating(2500) then 0
       else if rating > IntRating(2300) then 1

@@ -151,9 +151,8 @@ final class Study(
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
-        pag    <- env.study.pager.byTopic(topic, order, page)
-        _      <- preloadMembers(pag)
-        topics <- ctx.userId.soFu(env.study.topicApi.userTopics)
+        pag <- env.study.pager.byTopic(topic, order, page)
+        _   <- preloadMembers(pag)
         res <- negotiate(
           Ok.async:
             ctx.userId
@@ -330,7 +329,7 @@ final class Study(
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
+      env.study.api.deleteChapter(study.id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -427,7 +426,7 @@ final class Study(
             privateForbiddenFu(study)
           )
 
-  private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader, Option[Me]) =
+  private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, _ => flags(requestPgnFlags)).throttle(20, 1.second))
       .asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn")
       .as(pgnContentType)

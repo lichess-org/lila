@@ -7,7 +7,6 @@ import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
 import lila.core.net.Bearer
-import lila.core.socket.SocketVersion
 import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
@@ -30,7 +29,7 @@ final class Challenge(env: Env) extends LilaController(env):
     }
   }
 
-  def show(id: ChallengeId, _color: Option[Color]) = Open:
+  def show(id: ChallengeId, @annotation.nowarn color: Option[Color]) = Open:
     showId(id)
 
   def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=> _ ?=>

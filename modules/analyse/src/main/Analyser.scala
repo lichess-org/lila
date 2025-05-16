@@ -4,7 +4,7 @@ import monocle.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.tree.{ Analysis, ExportOptions, Tree }
+import lila.tree.{ Analysis, Tree }
 
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
@@ -60,7 +60,6 @@ final class Analyser(
         game,
         analysis.some,
         initialFen,
-        ExportOptions.default,
         logChessError = lila.log("analyser").warn
       )
     )

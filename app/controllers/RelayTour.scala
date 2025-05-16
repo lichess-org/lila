@@ -1,11 +1,11 @@
 package controllers
 
+import scala.annotation.nowarn
 import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
 import lila.core.id.RelayTourId
-import lila.core.net.IpAddress
 import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel }
 import lila.relay.ui.FormNavigation
 
@@ -168,7 +168,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               "Tournament cloned and set to private for now. See the tier selector."
   }
 
-  def show(slug: String, id: RelayTourId) = Open:
+  def show(@nowarn slug: String, id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
       env.relay.listing.defaultRoundToLink
         .get(tour.id)
@@ -181,7 +181,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
                 else emptyBroadcastPage(tour)
           case Some(round) => Redirect(round.withTour(tour).path)
 
-  def embedShow(slug: String, id: RelayTourId) = Anon:
+  def embedShow(@nowarn slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
       FoundEmbed(env.relay.api.tourById(id)): tour =>
         env.relay.listing.defaultRoundToLink

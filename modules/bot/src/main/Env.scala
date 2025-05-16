@@ -13,7 +13,7 @@ final class Env(
     spam: lila.core.security.SpamApi,
     isOnline: IsOnline,
     settingStore: lila.memo.SettingStore.Builder
-)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode, lila.core.i18n.Translator):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   lazy val jsonView = wire[BotJsonView]
 

@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
-import lila.core.user.FlairGet
 
 @Module
 final class Env(
@@ -35,11 +34,9 @@ final class Env(
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(using
-    FlairGet,
     Executor,
     Scheduler,
     akka.stream.Materializer,
-    play.api.Mode,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):

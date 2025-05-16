@@ -297,7 +297,6 @@ final class Mod(
                 .byUserIds(user.id :: logins.userLogins.otherUserIds)
                 .map: appeals =>
                   views.mod.communication(
-                    me,
                     timeline,
                     povs
                       .zip(chats)
@@ -438,10 +437,9 @@ final class Mod(
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
         withEmails <- env.user.api.withPerfsAndEmails(users)
-        uas        <- env.security.api.ipUas(address)
         data       <- env.security.ipTrust.data(address)
         blocked = env.security.firewall.blocksIp(address)
-        page <- renderPage(views.mod.search.ip(address, withEmails, uas, data, blocked))
+        page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))
       yield Ok(page)
     }
   }

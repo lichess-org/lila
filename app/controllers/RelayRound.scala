@@ -86,7 +86,7 @@ final class RelayRound(
               jsonFormError(err)
             )
           },
-          rt =>
+          _ =>
             negotiate(
               Redirect(routes.RelayRound.edit(id)).flashSuccess,
               doApiShow(id)
@@ -116,10 +116,11 @@ final class RelayRound(
         json = doApiShow(id)
       )
 
-  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
-    doApiShow(id)
+  def apiShow(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId) =
+    AnonOrScoped(_.Study.Read, _.Web.Mobile):
+      doApiShow(id)
 
-  def embedShow(ts: String, rs: String, id: RelayRoundId): EssentialAction =
+  def embedShow(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId): EssentialAction =
     Anon:
       InEmbedContext:
         FoundEmbed(env.relay.api.byIdWithTour(id))(embedShow)

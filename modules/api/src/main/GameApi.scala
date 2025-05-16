@@ -13,7 +13,6 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
 import lila.game.Game.BSONFields as G
-import lila.game.{ CrosstableApi, Game }
 
 final private[api] class GameApi(
     net: NetConfig,
@@ -21,7 +20,7 @@ final private[api] class GameApi(
     gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
-    crosstableApi: CrosstableApi
+    crosstableApi: lila.game.CrosstableApi
 )(using Executor):
 
   import GameApi.WithFlags

@@ -8,7 +8,6 @@ import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
-import lila.clas.ClasInvite
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
 
@@ -482,7 +481,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def studentMovePost(id: ClasId, username: UserStr, to: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    WithClassAndStudents(id): (clas, students) =>
+    WithClassAndStudents(id): (clas, _) =>
       WithStudent(clas, username): s =>
         WithClass(to): toClas =>
           for _ <- env.clas.api.student.move(s, toClas)

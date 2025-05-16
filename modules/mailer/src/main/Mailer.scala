@@ -3,14 +3,12 @@ package lila.mailer
 import akka.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
-import scalalib.ThreadLocalRandom
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
 import org.apache.commons.mail.EmailException
 
 import scala.concurrent.blocking
 
-import lila.common.Chronometer
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -58,7 +56,7 @@ final class Mailer(
           client.send(email)
       .monSuccess(_.email.send.time)
         .recoverWith:
-          case e: EmailException if msg.to.normalize.value != msg.to.value =>
+          case _: EmailException if msg.to.normalize.value != msg.to.value =>
             logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
             send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
           case e: Exception if !orFail =>

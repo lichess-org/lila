@@ -7,7 +7,6 @@ import play.api.libs.json.*
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.{ *, given }
 
 final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   import helpers.{ *, given }
@@ -125,7 +124,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
 
     val dataPanel = attr("data-panel")
 
-    def page(title: String)(using Context): Page =
+    def page(title: String): Page =
       Page(title)
         .flag(_.zoom)
         .flag(_.noRobots)

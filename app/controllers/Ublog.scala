@@ -1,5 +1,6 @@
 package controllers
 
+import scala.annotation.nowarn
 import play.api.i18n.Lang
 import play.api.mvc.Result
 
@@ -106,13 +107,13 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username, _.edit): (user, blog) =>
+      WithBlogOf(username, _.edit): (user, _) =>
         Ok.page(views.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
   }
 
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username, _.edit): (user, blog) =>
+      WithBlogOf(username, _.edit): (user, _) =>
         bindForm(env.ublog.form.create)(
           err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
           data =>
@@ -324,7 +325,7 @@ final class Ublog(env: Env) extends LilaController(env):
                 .map: posts =>
                   Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
-  def historicalBlogPost(id: String, slug: String) = Open:
+  def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
       Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 

@@ -19,7 +19,7 @@ object mod:
       a(href := routes.Clas.show(managed.clas.id))(managed.clas.name)
     )
 
-  def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
+  def boardTokens(tokens: List[lila.oauth.AccessToken]): Frag =
     if tokens.isEmpty then emptyFrag
     else
       mzSection("boardTokens")(
@@ -70,7 +70,7 @@ object mod:
       )
     )
 
-  def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
+  def otherUsers(u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
       ctx: Context,
       renderIp: lila.mod.IpRender.RenderIp
   ): Tag =

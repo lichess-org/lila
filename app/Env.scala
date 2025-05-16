@@ -3,7 +3,7 @@ package lila.app
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ ConfigLoader, Configuration, Environment, Mode }
+import play.api.{ Configuration, Environment, Mode }
 
 import lila.core.config.*
 import lila.common.config.GetRelativeFile

@@ -1,7 +1,6 @@
 package lila.plan
 
 import play.api.ConfigLoader
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient

@@ -3,7 +3,6 @@ package views.tv
 import play.api.libs.json.*
 
 import lila.app.UiEnv.{ *, given }
-import lila.game.GameExt.perfType
 
 val ui = lila.tv.ui.TvUi(helpers)(views.game.ui, views.tournament.ui.tournamentLink(_))
 

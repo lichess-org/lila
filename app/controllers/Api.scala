@@ -11,14 +11,9 @@ import lila.common.Json.given
 import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
-import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
 
-final class Api(
-    env: Env,
-    gameC: => Game,
-    userC: => User
-) extends LilaController(env):
+final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   import Api.*
   import env.api.{ userApi, gameApi }
@@ -28,8 +23,6 @@ final class Api(
       "current" -> Mobile.Api.currentVersion.value,
       "olds"    -> Json.arr()
     )
-
-  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")

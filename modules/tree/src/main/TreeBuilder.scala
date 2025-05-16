@@ -4,7 +4,7 @@ import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
-import chess.{ Centis, Color, Ply }
+import chess.{ Centis, Ply }
 
 object TreeBuilder:
 

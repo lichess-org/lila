@@ -1,6 +1,6 @@
 package lila.ublog
 
-import com.typesafe.config.{ Config, ConfigFactory }
+import com.typesafe.config.Config
 import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
 import play.api.libs.ws.*

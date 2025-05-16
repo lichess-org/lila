@@ -1,11 +1,11 @@
 package lila.core
 package game
 
-import _root_.chess.Color.{ Black, White }
+import _root_.chess.Color.White
 import _root_.chess.format.Uci
 import _root_.chess.format.pgn.SanStr
 import _root_.chess.opening.{ Opening, OpeningDb }
-import _root_.chess.variant.{ FromPosition, Standard, Variant }
+import _root_.chess.variant.{ Standard, Variant }
 import _root_.chess.{
   ByColor,
   Centis,

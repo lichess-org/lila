@@ -9,7 +9,7 @@ import chess.{ Bitboard, Centis, Check, Ply, Square }
 import play.api.libs.json.*
 import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
-import scalalib.json.Json.{ *, given }
+import scalalib.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
@@ -537,7 +537,6 @@ object Tree:
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
-      options: ExportOptions,
       logChessError: TreeBuilder.LogChessError
   ): JsValue =
     Node.minimalNodeJsonWriter.writes:
@@ -557,7 +556,6 @@ object Tree:
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
-      options: ExportOptions,
       logChessError: TreeBuilder.LogChessError
   ): JsValue =
     NewRoot.minimalNodeJsonWriter.writes:

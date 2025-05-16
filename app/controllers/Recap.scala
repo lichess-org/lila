@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.*
-import lila.recap.Recap as RecapModel
 import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):

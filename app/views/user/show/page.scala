@@ -79,11 +79,11 @@ object page:
       ++ withSearch.so(Esm("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(Esm("mod.user"))
 
-  private def pageModule(info: UserInfo)(using Context): Option[PageModule] =
+  private def pageModule(info: UserInfo): Option[PageModule] =
     info.ratingChart.map: rc =>
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
-  def deleted(canCreate: Boolean)(using Context) =
+  def deleted(canCreate: Boolean) =
     Page("No such player"):
       main(cls := "page-small box box-pad page")(
         h1(cls := "box__top")("No such player"),
