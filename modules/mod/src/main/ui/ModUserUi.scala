@@ -136,7 +136,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           postForm(
             action := routes.Mod.kid(u.username, !u.kid.value),
             title  := "Activate kid mode if not already the case",
-            cls    := "xhr"
+            cls    := "xhr confirm"
           ):
             submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.yes.option("active"))("Kid")
         },
