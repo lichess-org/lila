@@ -33,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
+import { bind, noTrans, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -360,7 +360,7 @@ function onSubmit(
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
-  help: string;
+  help: string | VNode;
   cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
   invalid?: (ctrl: AnalyseController) => boolean;
 };
@@ -386,33 +386,33 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'eval',
-    help: "announce last move's computer evaluation",
+    help: noTrans("announce last move's computer evaluation"),
     cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
   },
   {
     cmd: 'best',
-    help: 'announce the top engine move',
+    help: noTrans('announce the top engine move'),
     cb: (ctrl, notify, style) => notify(renderBestMove(ctrl, style)),
   },
   {
     cmd: 'prev',
-    help: 'return to the previous move',
+    help: noTrans('return to the previous move'),
     cb: ctrl => doAndRedraw(ctrl, prev),
   },
   { cmd: 'next', help: 'go to the next move', cb: ctrl => doAndRedraw(ctrl, next) },
   {
     cmd: 'prev line',
-    help: 'switch to the previous variation',
+    help: noTrans('switch to the previous variation'),
     cb: ctrl => doAndRedraw(ctrl, jumpPrevLine),
   },
   {
     cmd: 'next line',
-    help: 'switch to the next variation',
+    help: noTrans('switch to the next variation'),
     cb: ctrl => doAndRedraw(ctrl, jumpNextLine),
   },
   {
     cmd: 'pocket',
-    help: 'Read out pockets for white or black. Example: "pocket black"',
+    help: noTrans('Read out pockets for white or black. Example: "pocket black"'),
     cb: (ctrl, notify, _, input) => {
       const pockets = ctrl.node.crazy?.pockets;
       const color = input.split(' ')?.[1]?.trim();

@@ -1,16 +1,25 @@
 import { type VNode, type VNodeChildren, h } from 'snabbdom';
 import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
 import type { Pieces } from 'chessground/types';
+import { noTrans } from '@/snabbdom';
 
-export const commands = {
+interface Command {
+  help: string | VNode;
+  apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined;
+}
+type Commands = {
+  [name: string]: Command;
+};
+
+export const commands: Commands = {
   piece: {
-    help: 'Read locations of a piece type. Example: p N, p k.',
+    help: noTrans('Read locations of a piece type. Example: p N, p k.'),
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
       return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
-    help: 'Read pieces on a rank or file. Example: s a, s 1.',
+    help: noTrans('Read pieces on a rank or file. Example: s a, s 1.'),
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
@@ -26,18 +35,18 @@ export const boardCommands = (): VNode[] => [
   h(
     'p',
     [
-      'Use these commands when focused on the board itself.',
-      'i: go to move input form.',
-      'o: announce current position.',
-      "c: announce last move's captured piece.",
-      'l: announce last move.',
+      noTrans('Use these commands when focused on the board itself.'),
+      noTrans('i: go to move input form.'),
+      noTrans('o: announce current position.'),
+      noTrans("c: announce last move's captured piece."),
+      noTrans('l: announce last move.'),
       `t: ${i18n.keyboardMove.readOutClocks}`,
-      'm: announce possible moves for the selected piece.',
-      'shift+m: announce possible moves for the selected pieces which capture..',
-      'arrow keys: move left, right, up or down.',
-      'kqrbnp/KQRBNP: move forward/backward to a piece.',
-      '1-8: move to rank 1-8.',
-      'Shift+1-8: move to file a-h.',
+      noTrans('m: announce possible moves for the selected piece.'),
+      noTrans('shift+m: announce possible moves for the selected pieces which capture..'),
+      noTrans('arrow keys: move left, right, up or down.'),
+      noTrans('kqrbnp/KQRBNP: move forward/backward to a piece.'),
+      noTrans('1-8: move to rank 1-8.'),
+      noTrans('Shift+1-8: move to file a-h.'),
       `Shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
       `Alt+Shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
     ].reduce(addBreaks, []),

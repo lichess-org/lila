@@ -127,7 +127,7 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
     'div.pieces',
     COLORS.map(color =>
       h(`div.${color}-pieces`, [
-        h('h3', `${color} pieces`),
+        h('h3', i18n.site[color]),
         ROLES.slice()
           .reverse()
           .reduce<{ role: Role; keys: Key[] }[]>(

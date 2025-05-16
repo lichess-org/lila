@@ -1,4 +1,4 @@
-import { type VNode, looseH as h, onInsert } from 'lib/snabbdom';
+import { type VNode, looseH as h, noTrans, onInsert } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -33,7 +33,7 @@ import {
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { commands, boardCommands } from 'lib/nvui/command';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
@@ -85,22 +85,22 @@ export function initModule(): NvuiPlugin {
       }
       return h('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
         h('h1', gameText(ctrl)),
-        h('h2', 'Game info'),
+        h('h2', noTrans('Game info')),
         ...['white', 'black'].map((color: Color) =>
-          h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
+          h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf}`),
-        d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-        h('h2', 'Moves'),
+        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], noTrans(d.game.perf)]),
+        d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
+        h('h2', noTrans('Moves')),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
-        h('h2', 'Pieces'),
+        h('h2', noTrans('Pieces')),
         h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
         pockets && h('div.pockets', renderPockets(pockets)),
-        h('h2', 'Game status'),
+        h('h2', noTrans('Game status')),
         h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
           ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
         ]),
-        h('h2', 'Last move'),
+        h('h2', noTrans('Last move')),
         h(
           'p.lastMove',
           { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
@@ -117,7 +117,7 @@ export function initModule(): NvuiPlugin {
         notify.render(),
         ctrl.isPlaying() &&
           h('div.move-input', [
-            h('h2', 'Move form'),
+            h('h2', noTrans('Move form')),
             h(
               'form#move-form',
               {
@@ -193,35 +193,34 @@ export function initModule(): NvuiPlugin {
           ),
         ),
         h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        h('h2', 'Actions'),
+        h('h2', noTrans('Actions')),
         ...(ctrl.data.player.spectator
           ? renderTableWatch(ctrl)
           : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-        h('h2', 'Settings'),
-        h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-        h('h3', 'Board settings'),
-        h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-        h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-        h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-        h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-        h('h2', `${i18n.keyboardMove.keyboardInputCommands}`),
-        h(
-          'p',
-          [
-            'Type these commands in the move input.',
-            ...inputCommands
-              .filter(c => !c.invalid?.(ctrl))
-              .map(cmd => `${cmd.cmd}${cmd.alt ? ` or ${cmd.alt}` : ''}: ${cmd.help}`),
-          ].reduce(addBreaks, []),
-        ),
-        ...boardCommands(),
-        h('h2', 'Promotion'),
+        h('h2', noTrans('Settings')),
+        h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
+        h('h3', noTrans('Board settings')),
+        h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
+        h('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
+        h('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
+        h('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
+        h('h2', i18n.keyboardMove.keyboardInputCommands),
         h('p', [
-          'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
+          noTrans('Type these commands in the move input.'),
+          ...inputCommands
+            .filter(c => !c.invalid?.(ctrl))
+            .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
+        ]),
+        ...boardCommands(),
+        h('h2', noTrans('Promotion')),
+        h('p', [
+          noTrans(
+            'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
+          ),
           h('br'),
-          'Omission results in promotion to queen',
+          noTrans('Omission results in promotion to queen'),
         ]),
       ]);
     },
@@ -286,7 +285,7 @@ type Command =
 
 type InputCommand = {
   cmd: Command;
-  help: string;
+  help: string | VNode;
   cb: (notify: (txt: string) => void, ctrl: RoundController, style: MoveStyle, input: string) => void;
   alt?: string;
   invalid?: (ctrl: RoundController) => boolean;
@@ -295,7 +294,9 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
-    help: 'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
+    help: noTrans(
+      'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
+    ),
     cb: (_notify, _ctrl, _style, input) => {
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
@@ -313,7 +314,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'last',
-    help: 'Read last move.',
+    help: noTrans('Read last move.'),
     cb: notify => notify($('.lastMove').text()),
     alt: 'l',
   },

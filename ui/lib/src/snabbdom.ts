@@ -78,3 +78,5 @@ export function looseH(sel: string, dataOrKids?: VNodeData | VNodeKids, kids?: V
     return snabH(sel, filterKids(dataOrKids as VNodeKids));
   else return snabH(sel, dataOrKids as VNodeData);
 }
+
+export const noTrans: (s: string) => VNode = s => snabH('span', { attrs: { lang: 'en' } }, s);
