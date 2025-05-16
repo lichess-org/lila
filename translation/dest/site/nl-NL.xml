@@ -22,6 +22,7 @@
   <string name="asBlack">met zwart</string>
   <string name="randomColor">Willekeurige kleur</string>
   <string name="createAGame">Start een nieuwe partij</string>
+  <string name="createTheGame">Start een partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
   <string name="blackIsVictorious">Zwart heeft gewonnen</string>
   <string name="youPlayTheWhitePieces">Je speelt met wit</string>
@@ -1006,4 +1007,6 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="nothingToSeeHere">Hier is momenteel niets te zien.</string>
   <string name="stats">Statistieken</string>
   <string name="accessibility">Toegankelijkheid</string>
+  <string name="enableBlindMode">Modus voor blinden inschakelen</string>
+  <string name="disableBlindMode">Modus voor blinden uitschakelen</string>
 </resources>
