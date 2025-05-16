@@ -73,13 +73,14 @@ final class Env(
 
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
-    export cached.nbPlaying
+    override def nbPlaying(userId: UserId): Fu[Int] = cached.nbPlaying(userId)
     export GameExt.{ computeMoveTimes, analysable }
     export AnonCookie.json as anonCookieJson
 
   given newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply
-    export Player.makeAnon as anon
+    override def anon(color: Color, aiLevel: Option[Int] = None) =
+      Player.makeAnon(color, aiLevel)
 
   val namer: lila.core.game.Namer = Namer
 
