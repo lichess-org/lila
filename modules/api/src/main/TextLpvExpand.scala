@@ -5,7 +5,6 @@ import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.core.config.NetDomain
-import lila.core.i18n.{ Translate, Translator }
 import lila.core.misc.lpv.*
 import lila.memo.CacheApi
 
@@ -17,7 +16,7 @@ final class TextLpvExpand(
     studyPgnDump: lila.study.PgnDump,
     cacheApi: CacheApi,
     net: lila.core.config.NetConfig
-)(using Executor, Translator):
+)(using Executor):
 
   def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)
   def getChapterPgn(id: StudyChapterId) = chapterPgnCache.get(id)

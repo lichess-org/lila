@@ -42,7 +42,7 @@ final class GameApiV2(
 
   import GameApiV2.*
 
-  def exportOne(game: Game, config: OneConfig)(using Translate): Fu[String] =
+  def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport.ifTrue(config.imported) match
       case Some(imported) => fuccess(imported.pgn.value)
       case None =>
@@ -149,7 +149,7 @@ final class GameApiV2(
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
 
-  def exportByIds(config: ByIdsConfig)(using Translate): Source[String, ?] =
+  def exportByIds(config: ByIdsConfig): Source[String, ?] =
     Source.futureSource:
       config.playerFile.so(realPlayerApi.apply).map { realPlayers =>
         gameRepo
@@ -164,9 +164,7 @@ final class GameApiV2(
           .via(preparationFlow(config, realPlayers))
       }
 
-  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId])(using
-      Translate
-  ): Source[String, ?] =
+  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId]): Source[String, ?] =
     pairingRepo
       .sortedCursor(
         tournamentId = config.tour.id,
@@ -251,7 +249,7 @@ final class GameApiV2(
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
-  private def preparationFlow(config: Config, realPlayers: Option[RealPlayers] = none)(using Translate) =
+  private def preparationFlow(config: Config, realPlayers: Option[RealPlayers] = none) =
     Flow[Game]
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
@@ -267,12 +265,12 @@ final class GameApiV2(
           .dmap:
             (game, initialFen, _)
 
-  private def formatterFor(config: Config)(using Translate) =
+  private def formatterFor(config: Config) =
     config.format match
       case Format.PGN  => pgnDump.formatter(config.flags)
       case Format.JSON => jsonFormatter(config)
 
-  private def jsonFormatter(config: Config)(using Translate) =
+  private def jsonFormatter(config: Config) =
     (
         game: Game,
         initialFen: Option[Fen.Full],
