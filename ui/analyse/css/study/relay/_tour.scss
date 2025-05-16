@@ -381,8 +381,11 @@ $hover-bg: $m-primary_bg--mix-30;
         font-weight: bold;
       }
     }
-    .rp {
+    .rp,
+    .rp--same {
       margin-inline-start: 1ch;
+      display: inline-block;
+      width: 5ch;
     }
   }
 

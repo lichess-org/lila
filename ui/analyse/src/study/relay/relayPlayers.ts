@@ -387,7 +387,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
       ? h('good.rp', '+' + rd)
       : rd < 0
         ? h('bad.rp', '−' + -rd)
-        : h('span', ' ==');
+        : h('span.rp--same', ' ==');
 };
 
 const tableAugment = (el: HTMLTableElement) => {
