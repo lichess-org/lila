@@ -750,6 +750,7 @@
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="termsOfService">Пользовательское соглашение</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Подтверждение титула</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>
