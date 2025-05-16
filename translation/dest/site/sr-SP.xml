@@ -622,7 +622,7 @@
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и необавезне.</string>
-  <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
+  <string name="biographyDescription">Говори о себи, твојим интересовањима, шта ти се свиђа у шаху, твојим омиљеним отварањима, играчима, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максимално: %s карактер.</item>
     <item quantity="few">Максимално: %s карактера.</item>
@@ -702,8 +702,8 @@
   <string name="whenCreateSimul">Када направиш Симултанку, можеш играти против неколико играча одједном.</string>
   <string name="simulVariantsHint">Ако одабереш неколико варијанти, сваки играч има могућност да бира коју да игра.</string>
   <string name="simulClockHint">На начин Фишеровог Сата. Што више играча играш, више времена ти може бити потребно.</string>
-  <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>
-  <string name="simulHostExtraTime">Додатно време домаћина</string>
+  <string name="simulAddExtraTime">Можеш ставити додатно почетно време на свој сат како би ти помогло да се снађеш у симултанци.</string>
+  <string name="simulHostExtraTime">Додатно почетно време сата домаћина</string>
   <string name="simulAddExtraTimePerPlayer">Додај почетно време на свом сату за сваког играча који учествује у симултанци.</string>
   <string name="simulHostExtraTimePerPlayer">Додатно време домаћину за сваког играча против којег игра</string>
   <string name="lichessTournaments">Lichess турнири</string>
@@ -791,7 +791,7 @@
     <item quantity="few">Доступно у %s језика!</item>
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
-  <string name="xHostsY">%1$s домаћини %2$s</string>
+  <string name="xHostsY">%1$s организује %2$s</string>
   <string name="xJoinsY">%1$s учествује у %2$s</string>
   <string name="xLikesY">%1$s каже да му се свиђа %2$s</string>
   <string name="quickPairing">Брзо упаривање</string>
