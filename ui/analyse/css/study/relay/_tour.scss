@@ -373,16 +373,13 @@ $hover-bg: $m-primary_bg--mix-30;
         }
       }
     }
-    td {
+    td + td {
       font-family: monospace;
       text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
       }
-    }
-    td.player-name {
-      text-align: start;
     }
     .rp {
       margin-inline-start: 1ch;
