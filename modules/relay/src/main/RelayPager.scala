@@ -10,7 +10,6 @@ import reactivemongo.api.bson.*
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
-    roundRepo: RelayRoundRepo,
     colls: RelayColls,
     cacheApi: CacheApi
 )(using Executor):
@@ -153,9 +152,9 @@ final class RelayPager(
   private def forSelector(
       selector: Bdoc,
       page: Int,
-      onlyKeepGroupFirst: Boolean = true,
+      onlyKeepGroupFirst: Boolean,
       addFields: Option[Bdoc] = None,
-      sortFields: List[String] = List("tier", "syncedAt", "createdAt")
+      sortFields: List[String]
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:

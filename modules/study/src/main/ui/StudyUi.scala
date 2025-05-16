@@ -37,8 +37,7 @@ final class StudyUi(helpers: Helpers):
   def create(
       data: lila.study.StudyForm.importGame.Data,
       owner: List[(IdName, Int)],
-      contrib: List[(IdName, Int)],
-      backUrl: Option[String]
+      contrib: List[(IdName, Int)]
   )(using Context) =
     div(cls := "study-create")(
       postForm(action := routes.Study.create)(

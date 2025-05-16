@@ -52,7 +52,6 @@ final private class SwissDirector(
                   )
                 )
                 .void
-            date = nowInstant
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
               mongo.player.update

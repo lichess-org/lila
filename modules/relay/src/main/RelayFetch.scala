@@ -30,7 +30,7 @@ final private class RelayFetch(
     playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
-)(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
+)(using Executor, Scheduler)(using mode: play.api.Mode):
 
   import RelayFetch.*
 

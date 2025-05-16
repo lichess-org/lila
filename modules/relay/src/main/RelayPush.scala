@@ -3,8 +3,8 @@ package lila.relay
 import akka.actor.*
 import akka.pattern.after
 import play.api.mvc.RequestHeader
-import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
-import chess.{ ErrorStr, Game, Replay, Square, TournamentClock }
+import chess.format.pgn.{ PgnStr, San, Std, Tags }
+import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
 import lila.tree.ImportResult
 

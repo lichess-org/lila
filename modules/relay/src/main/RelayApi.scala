@@ -37,7 +37,7 @@ final class RelayApi(
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi
-)(using Executor, akka.stream.Materializer, play.api.Mode):
+)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given

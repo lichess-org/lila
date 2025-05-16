@@ -2,7 +2,6 @@ package lila.relay
 
 import chess.format.pgn.{ Tag, Tags }
 import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
-import play.api.data.Forms.*
 import akka.stream.scaladsl.Sink
 
 import lila.core.socket.Sri

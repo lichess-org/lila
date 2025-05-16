@@ -1,20 +1,10 @@
 package lila.study
 
 import chess.ChessTreeArbitraries.*
-import chess.CoreArbitraries.{ *, given }
+import chess.CoreArbitraries.given
 import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.{
-  Centis,
-  ChessTreeArbitraries,
-  FromMove,
-  Game as ChessGame,
-  Move,
-  Ply,
-  Position,
-  Square,
-  WithMove
-}
+import chess.{ Centis, FromMove, Move, Ply, Position, Square, WithMove }
 import org.scalacheck.{ Arbitrary, Gen }
 
 import lila.tree.Node.{ Comment, Comments, Shape, Shapes }

@@ -19,7 +19,7 @@ def show(
     isLocalMod: Boolean
 )(using ctx: Context): Page =
   val streamersFrag = views.streamer.bits.contextual(streamers)
-  showUi(s, team, verdicts, data, renderChat(chat, isLocalMod), streamersFrag, isLocalMod)
+  showUi(s, team, verdicts, data, renderChat(chat, isLocalMod), streamersFrag)
 
 private def renderChat(c: Option[lila.chat.UserChat.Mine], isLocalMod: Boolean)(using
     Context

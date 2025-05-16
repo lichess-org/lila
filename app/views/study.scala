@@ -38,7 +38,7 @@ def create(
       icon = Some(Icon.StudyBoard),
       back = backUrl
     )
-    .css("analyse.study.create")(ui.create(data, owner, contrib, backUrl))
+    .css("analyse.study.create")(ui.create(data, owner, contrib))
 
 def show(
     s: lila.study.Study,

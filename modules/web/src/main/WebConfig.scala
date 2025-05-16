@@ -1,6 +1,5 @@
 package lila.web
 
-import play.api.mvc.RequestHeader
 import play.api.{ Configuration, ConfigLoader }
 
 import lila.common.config.given
@@ -20,7 +19,7 @@ object WebConfig:
   object blindCookie:
     val name   = "mBzamRgfXgRBSnXB"
     val maxAge = 365.days
-    def make(lilaCookie: LilaCookie)(enable: Boolean)(using RequestHeader) = lilaCookie.cookie(
+    def make(lilaCookie: LilaCookie)(enable: Boolean) = lilaCookie.cookie(
       name,
       enable.so("1"),
       maxAge = maxAge.toSeconds.toInt.some,

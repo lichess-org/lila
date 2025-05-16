@@ -57,7 +57,7 @@ trait AssetFullHelper:
       netConfig.assetDomain.value :: sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
     )
 
-  def embedCsp(using ctx: Context): ContentSecurityPolicy =
+  def embedCsp: ContentSecurityPolicy =
     lila.web.ContentSecurityPolicy.embed(netConfig.assetDomain)
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =

@@ -104,7 +104,7 @@ private object SwissScoring:
                 else playerPairings.get(round)
               }
         val (tieBreak, perfSum) = pairingsAndByes.foldLeft(0f -> 0f):
-          case ((tieBreak, perfSum), (round, Some(pairing: SwissPairing))) =>
+          case ((tieBreak, perfSum), (_, Some(pairing: SwissPairing))) =>
             val opponent       = playerMap.get(pairing.opponentOf(player.userId))
             val opponentPoints = opponent.so(_.points.value)
             val result         = pairing.resultFor(player.userId)
@@ -125,7 +125,7 @@ private object SwissScoring:
               playerSheet.pointsAfterRound(round - 1) + SwissSheet.pointsFor(virtualOpponentOutcomes)
             val newTieBreak = tieBreak + pointsOfVirtualOpponent.value
             newTieBreak -> perfSum
-          case ((tieBreak, perfSum), (round, None)) =>
+          case ((tieBreak, perfSum), (_, None)) =>
             tieBreak -> perfSum
 
         player

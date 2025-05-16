@@ -41,7 +41,7 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using
     scheduler: Scheduler
 ):
   lazy val roundForm = wire[RelayRoundForm]

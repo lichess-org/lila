@@ -2,7 +2,7 @@ package lila.study
 import chess.variant.Variant
 import monocle.syntax.all.*
 
-import lila.tree.{ Branches, NewRoot, Root }
+import lila.tree.{ NewRoot, Root }
 
 object TreeBuilder:
 

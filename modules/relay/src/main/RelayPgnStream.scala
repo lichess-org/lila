@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import chess.format.pgn.{ Tag, PgnStr }
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.study.{ ChapterRepo, PgnDump, StudyRepo, Chapter }
 import lila.relay.BSONHandlers.given
 

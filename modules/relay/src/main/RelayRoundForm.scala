@@ -232,7 +232,7 @@ object RelayRoundForm:
       .map(RelayRound.Starts.At(_))
       .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
 
-    def update(official: Boolean)(relay: RelayRound)(using Me, Mode) =
+    def update(official: Boolean)(relay: RelayRound)(using Me) =
       val sync = makeSync(relay.sync.some)
       relay.copy(
         name = name,
@@ -257,7 +257,7 @@ object RelayRoundForm:
         log = SyncLog.empty
       )
 
-    def make(tour: RelayTour)(using Me, Mode) =
+    def make(tour: RelayTour)(using Me) =
       RelayRound(
         id = RelayRound.makeId,
         tourId = tour.id,

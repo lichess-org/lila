@@ -66,7 +66,6 @@ final class RelayRound(
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
-    given play.api.Mode = env.mode
     env.relay.api
       .formNavigation(id)
       .flatMapz: (round, nav) =>

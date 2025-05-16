@@ -267,7 +267,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     case EmailConfirm.Result.NotFound =>
       lila.mon.user.register.confirmEmailResult(false).increment()
       notFound
-    case EmailConfirm.Result.NeedsConfirm(user) => Ok.page(views.auth.signupConfirm(user, token, none))
+    case EmailConfirm.Result.NeedsConfirm(user) => Ok.page(views.auth.signupConfirm(user, token))
     case EmailConfirm.Result.AlreadyConfirmed(user) =>
       if ctx.is(user) then Redirect(routes.User.show(user.username))
       else Redirect(routes.Auth.login)

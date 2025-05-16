@@ -8,10 +8,7 @@ import lila.db.dsl.{ *, given }
 import BsonHandlers.given
 
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
-  import SwissSheet.*
-
-  def points = SwissSheet.pointsFor(outcomes)
-
+  def points                                    = SwissSheet.pointsFor(outcomes)
   def pointsAfterRound(round: SwissRoundNumber) = SwissSheet.pointsFor(outcomes.take(round.value))
 
 private object SwissSheet:

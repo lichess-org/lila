@@ -249,7 +249,7 @@ final class SitePages(helpers: Helpers):
           )
         )
 
-  def dailyPuzzleSlackApp(using Context) =
+  def dailyPuzzleSlackApp =
     Page("Daily Chess Puzzle by Lichess (Slack App)")
       .css("bits.page"):
         main(cls := "page page-small box box-pad")(
@@ -312,7 +312,7 @@ final class SitePages(helpers: Helpers):
           )
         )
 
-  def getFishnet()(using Context) =
+  def getFishnet =
     Page("fishnet API key request")
       .csp(_.withGoogleForm):
         main:
@@ -323,7 +323,7 @@ final class SitePages(helpers: Helpers):
             frame.credentialless
           )(spinner)
 
-  def errorPage(using Context) =
+  def errorPage =
     Page("Internal server error"):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")("Something went wrong on this page"),

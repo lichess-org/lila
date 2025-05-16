@@ -73,7 +73,7 @@ final class Main(
 
   def getFishnet = Open:
     pageHit
-    Ok.page(views.site.ui.getFishnet())
+    Ok.page(views.site.ui.getFishnet)
 
   def costs = Anon:
     pageHit

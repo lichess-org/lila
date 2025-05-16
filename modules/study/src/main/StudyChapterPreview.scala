@@ -3,7 +3,7 @@ package lila.study
 import scala.collection.immutable.SeqMap
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
-import chess.{ ByColor, Centis, Color, FideId, Outcome }
+import chess.{ ByColor, Color, FideId, Outcome }
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
@@ -96,7 +96,7 @@ final class ChapterPreviewApi(
             player.copy(fed = player.fideId.flatMap(federations.get))
       )
 
-  def fromChapter(chapter: Chapter)(using Federation.ByFideIds) =
+  def fromChapter(chapter: Chapter) =
     import chapter.*
     ChapterPreview(
       id = id,

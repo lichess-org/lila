@@ -7,7 +7,6 @@ import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 
-import lila.db.dsl.*
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi

@@ -122,8 +122,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
-      .js(infiniteScrollEsmInit)
-      .wrap: body =>
+      .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu(active, order, topics.so(_.value)),
           main(cls := "page-menu__content study-index box")(

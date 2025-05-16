@@ -1,13 +1,13 @@
 package lila.study
 
-import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
+import chess.format.pgn.{ Glyphs, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
 import monocle.syntax.all.*
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree, Clock }
+import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, Clock }
 
 // This code is still unused
 object StudyPgnImportNew:

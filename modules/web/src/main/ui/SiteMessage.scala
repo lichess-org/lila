@@ -8,7 +8,7 @@ import ScalatagsTemplate.{ *, given }
 final class SiteMessage(helpers: Helpers):
   import helpers.{ *, given }
 
-  def apply(title: String, back: Option[String] = None, icon: Option[Icon] = None)(using Context) =
+  def apply(title: String, back: Option[String] = None, icon: Option[Icon] = None) =
     Page(title).wrap: body =>
       main(cls := "box box-pad")(
         boxTop(
@@ -21,16 +21,16 @@ final class SiteMessage(helpers: Helpers):
         p(body)
       )
 
-  def noBot(using Context) = apply("No bot area"):
+  def noBot = apply("No bot area"):
     frag("Sorry, bot accounts are not allowed here.")
 
-  def noEngine(using Context) = apply("No engine area"):
+  def noEngine = apply("No engine area"):
     "Sorry, engine assisted players are not allowed here."
 
-  def noBooster(using Context) = apply("No booster area"):
+  def noBooster = apply("No booster area"):
     "Sorry, boosters and sandbaggers are not allowed here."
 
-  def noLame(using Context)(using me: Me) =
+  def noLame(using me: Me) =
     if me.marks.boost then noBooster
     if me.marks.engine then noEngine
     else // ?
@@ -42,7 +42,7 @@ final class SiteMessage(helpers: Helpers):
 
   def blacklistedSnippet(using Context) = lila.ui.Snippet(frag(blacklistedMessage))
 
-  def streamingMod(using Context) = apply("Disabled while streaming"):
+  def streamingMod = apply("Disabled while streaming"):
     frag(
       "This moderation feature is disabled while streaming, ",
       "to avoid leaking sensible information."
@@ -65,22 +65,21 @@ final class SiteMessage(helpers: Helpers):
         " has to play at least one rated game."
       )
 
-  def teamCreateLimit(using Context) = apply("Cannot create a team"):
+  def teamCreateLimit = apply("Cannot create a team"):
     "You have already created a team this week."
 
-  def teamJoinLimit(using Context) = apply("Cannot join the team"):
+  def teamJoinLimit = apply("Cannot join the team"):
     "You have already joined too many teams."
 
-  def authFailed(using Context) = apply("403 - Access denied!"):
+  def authFailed = apply("403 - Access denied!"):
     "You tried to visit a page you're not authorized to access."
 
-  def serverError(msg: String)(using Context) = apply("Something went wrong")(msg)
+  def serverError(msg: String) = apply("Something went wrong")(msg)
 
-  def temporarilyDisabled(using Context) = apply("Temporarily disabled"):
+  def temporarilyDisabled = apply("Temporarily disabled"):
     "Sorry, this feature is temporarily disabled while we figure out a way to bring it back."
 
-  def rateLimited(msg: String = "Too many requests")(using Context) = apply(msg):
+  def rateLimited(msg: String = "Too many requests") = apply(msg):
     "Your device or network has sent too many requests in a short amount of time. Please try again later."
 
-  def notYet(text: String)(using Context) =
-    apply("Not yet available")(text)
+  def notYet(text: String) = apply("Not yet available")(text)

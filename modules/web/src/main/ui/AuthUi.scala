@@ -165,7 +165,7 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signupConfirm(user: User, token: String, referrer: Option[String])(using Context) =
+  def signupConfirm(user: User, token: String)(using Context) =
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
@@ -291,7 +291,7 @@ final class AuthUi(helpers: Helpers):
       a(href := routes.Auth.checkYourEmail)("Need help?")
     )
 
-  def pubOrTor(using Context) =
+  def pubOrTor =
     Page("Public proxy"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),

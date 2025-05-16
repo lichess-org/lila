@@ -8,13 +8,12 @@ import lila.db.dsl.{ *, given }
 
 final class RelayListing(
     colls: RelayColls,
-    tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
     cacheApi: lila.memo.CacheApi,
     groupCrowd: RelayGroupCrowdSumCache
 )(using Executor):
 
-  import BSONHandlers.{ *, given }
+  import BSONHandlers.given
 
   def spotlight: List[RelayCard] = spotlightCache
 

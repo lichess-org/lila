@@ -25,8 +25,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
       verdicts: WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[(JsObject, Frag)],
-      streamers: Frag,
-      isLocalMod: Boolean
+      streamers: Frag
   )(using ctx: Context): Page =
     val isDirector       = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished

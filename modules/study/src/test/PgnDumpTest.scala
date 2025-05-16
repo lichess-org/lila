@@ -6,8 +6,6 @@ import chess.{ Check, Ply, variant }
 
 import lila.tree.{ Branch, Branches, Root }
 
-import Node.*
-
 class PgnDumpTest extends munit.FunSuite:
 
   given Conversion[Int, Ply] = Ply(_)

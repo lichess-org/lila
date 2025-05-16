@@ -1,7 +1,6 @@
 package lila.relay
 
-import chess.{ Outcome, Color, Centis }
-import chess.Outcome.GamePoints
+import chess.Outcome
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnDump }
