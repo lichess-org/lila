@@ -326,7 +326,15 @@
   <string name="openingExplorerAndTablebase">オープニング探索 &amp; テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
+  <string name="whiteProposesTakeback">白が待ったを提案</string>
+  <string name="blackProposesTakeback">黒が待ったを提案</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
+  <string name="whiteDeclinesTakeback">白が待ったを拒否</string>
+  <string name="blackDeclinesTakeback">黒が待ったを拒否</string>
+  <string name="whiteAcceptsTakeback">白が待ったを承認</string>
+  <string name="blackAcceptsTakeback">黒が待ったを承認</string>
+  <string name="whiteCancelsTakeback">白が待ったをキャンセル</string>
+  <string name="blackCancelsTakeback">黒が待ったをキャンセル</string>
   <string name="yourOpponentProposesATakeback">対局相手が待ったをしていいか聞いています</string>
   <string name="bookmarkThisGame">この対局をブックマークする</string>
   <string name="tournament">トーナメント</string>
@@ -631,6 +639,7 @@
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">実戦タイトルの検証</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
