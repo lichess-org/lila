@@ -1,6 +1,5 @@
 package lila.user
 
-import play.api.Environment
 import lila.core.user.{ FlairGet, FlairGetMap }
 
 object FlairApi:

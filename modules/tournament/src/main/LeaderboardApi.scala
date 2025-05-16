@@ -88,7 +88,7 @@ final class LeaderboardApi(
       sort: framework.SortOrder,
       withPerformance: Boolean,
       nb: Int,
-      offset: Int = 0
+      offset: Int
   ): NonEmptyList[framework.PipelineOperator] =
     import framework.*
     NonEmptyList

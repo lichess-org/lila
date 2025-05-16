@@ -20,7 +20,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, Scheduler, play.api.Mode, akka.stream.Materializer):
+)(using Executor, Scheduler):
 
   private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
 

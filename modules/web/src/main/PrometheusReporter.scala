@@ -24,7 +24,6 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
   @volatile private var _preparedScrapeData: String =
     "# The kamon-prometheus module didn't receive any data just yet.\n"
 
-  @volatile private var _config           = initialConfig
   @volatile private var _reporterSettings = readSettings(initialConfig.getConfig(configPath))
 
   override def stop(): Unit =
@@ -37,7 +36,6 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   override def reconfigure(newConfig: Config): Unit =
     _reporterSettings = readSettings(newConfig.getConfig(configPath))
-    _config = newConfig
 
   override def reportPeriodSnapshot(snapshot: PeriodSnapshot): Unit =
     _snapshotAccumulator.add(snapshot)

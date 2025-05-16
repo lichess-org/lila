@@ -1,7 +1,6 @@
 package lila.tournament
 package crud
 
-import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
 

@@ -14,7 +14,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
 ):
   import helpers.{ *, given }
 
-  private def FormPage(title: String)(using Context) =
+  private def FormPage(title: String) =
     Page(title).css("bits.ublog.form", "bits.tagify").js(Esm("bits.ublogForm"))
 
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using Context) =

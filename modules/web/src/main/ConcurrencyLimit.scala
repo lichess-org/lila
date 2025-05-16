@@ -20,17 +20,16 @@ final class ConcurrencyLimit[K](
   private val monitor = lila.mon.security.concurrencyLimit(key)
 
   def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
-    storage.get(k) match
-      case c @ _ if c >= maxConcurrency =>
-        logger.info(s"$k $msg")
-        monitor.increment()
-        none
-      case c @ _ =>
-        storage.inc(k)
-        some:
-          _.watchTermination(): (_, done) =>
-            done.onComplete: _ =>
-              storage.dec(k)
+    if storage.get(k) >= maxConcurrency then
+      logger.info(s"$k $msg")
+      monitor.increment()
+      none
+    else
+      storage.inc(k)
+      some:
+        _.watchTermination(): (_, done) =>
+          done.onComplete: _ =>
+            storage.dec(k)
 
   def apply[T](k: K, msg: => String = "")(
       makeSource: => Source[T, ?]
@@ -71,11 +70,10 @@ final class FutureConcurrencyLimit[K](
   private lazy val monitor = lila.mon.security.concurrencyLimit(key)
 
   def apply[A](k: K, limited: => Fu[A])(op: => Fu[A]): Fu[A] =
-    storage.get(k) match
-      case c @ _ if c >= maxConcurrency =>
-        monitor.increment()
-        limited
-      case c @ _ =>
-        storage.inc(k)
-        op.addEffectAnyway:
-          storage.dec(k)
+    if storage.get(k) >= maxConcurrency then
+      monitor.increment()
+      limited
+    else
+      storage.inc(k)
+      op.addEffectAnyway:
+        storage.dec(k)

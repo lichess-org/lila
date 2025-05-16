@@ -36,7 +36,7 @@ def mini(
   def userMarks = views.mod.user.userMarks(u.user, None)
   val flag      = u.profileOrDefault.flagInfo
   val perfs     = u.perfs.best8Perfs
-  show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks)
+  show.ui.mini(u, playing, blocked, ping, rel, crosstable, flag, perfs, userMarks)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
 def perfStatPage(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using

@@ -27,7 +27,6 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       u: UserWithPerfs,
       playing: Option[Frag],
       blocked: Boolean,
-      followable: Boolean,
       ping: Option[Int],
       rel: Frag,
       crosstable: UserId => Option[Frag],

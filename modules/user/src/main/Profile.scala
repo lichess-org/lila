@@ -3,8 +3,6 @@ import lila.core.user.{ Flag, Profile }
 
 object Profile:
 
-  import lila.core.user.Profile.*
-
   extension (p: Profile)
     def flagInfo: Option[Flag] = p.flag.flatMap(Flags.info)
 

@@ -139,7 +139,7 @@ final class Challenge(env: Env) extends LilaController(env):
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
-  )(using Context): Fu[Result] =
+  ): Fu[Result] =
     cond
       .so:
         env.game.gameRepo.game(c.id.into(GameId)).map2 { game =>

@@ -1,7 +1,6 @@
 package lila.tournament
 package crud
 
-import chess.Mode
 import scalalib.paginator.Paginator
 
 import lila.db.dsl.*

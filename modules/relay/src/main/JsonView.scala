@@ -12,7 +12,7 @@ import lila.study.ChapterPreview
 import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl)(using Executor):
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl):
 
   import JsonView.{ Config, given }
 

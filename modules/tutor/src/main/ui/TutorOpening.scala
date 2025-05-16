@@ -8,9 +8,7 @@ import ScalatagsTemplate.{ *, given }
 final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   import helpers.{ *, given }
 
-  def openingMenu(perfReport: TutorPerfReport, report: TutorOpeningFamily, as: Color, user: User)(using
-      Context
-  ) =
+  def openingMenu(perfReport: TutorPerfReport, report: TutorOpeningFamily, as: Color, user: User) =
     frag(
       perfReport.openings(as).families.map { family =>
         a(

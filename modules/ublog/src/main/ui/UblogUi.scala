@@ -1,12 +1,10 @@
 package lila.ublog
 package ui
 
+import java.time.YearMonth
 import scalalib.paginator.Paginator
-
 import scalalib.model.Language
 import lila.ui.*
-
-import java.time.{ Year, YearMonth }
 
 import ScalatagsTemplate.{ *, given }
 

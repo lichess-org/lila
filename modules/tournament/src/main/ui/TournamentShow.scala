@@ -11,7 +11,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: GatheringUi)(
+final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]
 )(using NetDomain):
   import helpers.{ *, given }
@@ -164,7 +164,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         chat
       )
 
-    private def sideBotsWarning(tour: Tournament)(using ctx: Context) =
+    private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
           img(src := staticAssetUrl("images/icons/bot.png")),

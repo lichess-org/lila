@@ -13,7 +13,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
 
   private val titleSuffix = "• Free Chess Videos"
 
-  private def page(title: String, control: UserControl)(using Context) =
+  private def page(title: String, control: UserControl) =
     Page(title)
       .css("bits.video")
       .js(infiniteScrollEsmInit)
@@ -24,7 +24,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           div(cls := "page-menu__content box")(body)
         )
 
-  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using Context) =
+  def show(video: Video, similar: Seq[VideoView], control: UserControl) =
     page(s"${video.title} $titleSuffix", control)
       .graph(
         OpenGraph(
@@ -122,7 +122,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           )
         )
 
-  private def menu(control: UserControl)(using Context) =
+  private def menu(control: UserControl) =
     st.aside(cls := "page-menu__menu")(
       lila.ui.bits.subnav(
         control.tags.map: t =>
@@ -162,7 +162,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
     )
 
-  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using Context) =
+  def author(name: String, videos: Paginator[VideoView], control: UserControl) =
     page(s"$name $titleSuffix", control):
       frag(
         boxTop(
@@ -185,7 +185,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def notFound(control: UserControl)(using Context) =
+  def notFound(control: UserControl) =
     page("Video not found", control):
       boxTop(
         h1(
@@ -199,11 +199,10 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
 
   def searchForm(query: Option[String])(using Context) =
-    form(cls := "search", method := "GET", action := routes.Video.index)(
+    form(cls := "search", method := "GET", action := routes.Video.index):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
-    )
 
-  def tags(ts: List[TagNb], control: UserControl)(using Context) =
+  def tags(ts: List[TagNb], control: UserControl) =
     page(s"Tags $titleSuffix", control):
       frag(
         boxTop(

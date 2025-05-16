@@ -1,13 +1,8 @@
 package lila.web
 
-import play.api.Mode
-import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
-import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.StandaloneWSClient
-
 import java.nio.file.Files
+import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
 
-import lila.core.config.NetConfig
 import lila.common.config.GetRelativeFile
 
 case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
@@ -20,7 +15,7 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(getFile: GetRelativeFile)(using Executor):
+final class AssetManifest(getFile: GetRelativeFile):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   private val logger = lila.log("assetManifest")
@@ -39,9 +34,7 @@ final class AssetManifest(getFile: GetRelativeFile)(using Executor):
       val current = Files.getLastModifiedTime(pathname).toInstant
       if current.isAfter(maps.modified)
       then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
-    catch
-      case e: Throwable =>
-        logger.warn(s"Error reading $pathname")
+    catch case e: Throwable => logger.warn(s"Error reading $pathname", e)
 
   private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 

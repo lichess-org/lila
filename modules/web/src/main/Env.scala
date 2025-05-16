@@ -1,14 +1,12 @@
 package lila.web
 
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final class Env(
     appConfig: play.api.Configuration,
     cacheApi: lila.memo.CacheApi,
-    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     net: lila.core.config.NetConfig,

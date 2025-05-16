@@ -17,7 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline,
     onlineIds: lila.core.socket.OnlineIds
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler):
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
   val repo      = UserRepo(db(CollName("user4")))
