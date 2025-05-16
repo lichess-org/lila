@@ -12,7 +12,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi,
     lightUserGetter: LightUser.GetterSyncFallback
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   lazy val api = wire[RacerApi]
 

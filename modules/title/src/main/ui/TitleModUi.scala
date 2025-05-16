@@ -149,5 +149,5 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
             )
         )
 
-  private def showStatus(status: TitleRequest.Status)(using Context) =
+  private def showStatus(status: TitleRequest.Status) =
     span(cls := s"title__status title__status--${status.name}")(status.name)

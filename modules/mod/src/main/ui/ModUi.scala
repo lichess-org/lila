@@ -160,10 +160,7 @@ final class ModUi(helpers: Helpers):
         )
       )
 
-  def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
-      Context,
-      Me
-  ) =
+  def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using Context) =
     Page("Email confirmation")
       .css("mod.misc")
       .js(Esm("mod.emailConfirmation")):

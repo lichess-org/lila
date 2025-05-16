@@ -58,4 +58,4 @@ object Spotlight:
     tour.conditions.minRating.forall { c =>
       c(tour.perfType).accepted
     } &&
-    tour.conditions.maxRating.forall(_.maybe(tour.perfType))
+    tour.conditions.maxRating.forall(_.maybe)

@@ -1,6 +1,6 @@
 package lila.fide
 
-final class FederationApi(repo: FideRepo)(using Executor):
+final class FederationApi(repo: FideRepo):
 
   export repo.federation.fetch
 

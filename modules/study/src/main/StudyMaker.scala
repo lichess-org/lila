@@ -10,7 +10,7 @@ final private class StudyMaker(
     namer: lila.core.game.Namer,
     chapterMaker: ChapterMaker,
     pgnDump: lila.core.game.PgnDump
-)(using Executor, lila.core.i18n.Translator):
+)(using Executor):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId

@@ -49,7 +49,7 @@ final class GameUi(helpers: Helpers):
 
     private def renderMini(
         pov: Pov,
-        link: Option[String] = None,
+        link: Option[String],
         showRatings: Boolean = true
     )(using Translate, Option[Me]): Tag =
       import pov.game
@@ -345,7 +345,7 @@ final class GameUi(helpers: Helpers):
                       frag(br, _)
                   )
 
-    private def opening(g: Game)(using Context) =
+    private def opening(g: Game) =
       div(cls := "opening")(
         g.fromPosition.not.so(g.opening).map { opening =>
           strong(opening.opening.name)

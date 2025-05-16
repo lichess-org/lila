@@ -18,8 +18,6 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
 
   private val listUrl = "http://ratings.fide.com/download/players_list.zip"
 
-  import FidePlayer.*
-
   // the file is big. We want to stream the http response into the zip reader,
   // and stream the zip output into the database as it's being extracted.
   // Don't load the whole thing in memory.

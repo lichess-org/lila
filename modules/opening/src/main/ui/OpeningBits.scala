@@ -11,7 +11,7 @@ import ScalatagsTemplate.{ *, given }
 final class OpeningBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def pageModule(page: Option[OpeningPage])(using Context) =
+  def pageModule(page: Option[OpeningPage]) =
     PageModule(
       "opening",
       page.fold(JsNull): p =>

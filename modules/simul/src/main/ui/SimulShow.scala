@@ -10,7 +10,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
+final class SimulShow(helpers: Helpers, gathering: GatheringUi):
   import helpers.{ *, given }
 
   def apply(

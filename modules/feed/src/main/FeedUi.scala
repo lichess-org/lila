@@ -102,7 +102,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
         )
       )
 
-  def atom(ups: List[Feed.Update])(using Translate) =
+  def atom(ups: List[Feed.Update]) =
     atomUi.feed(
       elems = ups,
       htmlCall = routes.Feed.index(1),

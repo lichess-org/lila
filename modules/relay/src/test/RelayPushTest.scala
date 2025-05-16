@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
+import chess.format.pgn.PgnStr
 import RelayPush.*
 
 class RelayPushTest extends munit.FunSuite:

@@ -16,7 +16,7 @@ final class HistoryApi(
 )(using Executor)
     extends lila.core.history.HistoryApi:
 
-  import History.{ given, * }
+  import History.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     withColl(_.delete.one($id(del.id)).void)

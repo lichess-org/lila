@@ -5,7 +5,6 @@ import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
 import lila.core.game.Namer
-import lila.core.i18n.Translator
 import lila.core.id.GameFullId
 import lila.tree.{ Branches, Root }
 
@@ -17,7 +16,7 @@ final private class ChapterMaker(
     pgnFetch: PgnFetch,
     pgnDump: lila.core.game.PgnDump,
     namer: lila.core.game.Namer
-)(using Executor, Translator):
+)(using Executor):
 
   import ChapterMaker.*
 

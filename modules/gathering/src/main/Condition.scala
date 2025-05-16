@@ -1,5 +1,6 @@
 package lila.gathering
 
+import scala.annotation.nowarn
 import scalalib.model.Days
 import chess.IntRating
 
@@ -33,14 +34,14 @@ object Condition:
 
   case object Titled extends Condition with FlatCond:
     def name(pt: PerfType)(using Translate) = trans.arena.onlyTitled.txt()
-    def apply(pt: PerfType)(using me: Me, perf: Perf) =
+    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf) =
       if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
   case class Bots(allowed: Boolean) extends Condition with FlatCond:
-    def name(pt: PerfType)(using Translate) =
+    @nowarn def name(pt: PerfType)(using Translate) =
       if allowed then "Bot players are allowed"
       else "Bot players are not allowed"
-    def apply(pt: PerfType)(using me: Me, perf: Perf) =
+    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf) =
       if me.isBot && !allowed then Refused(name(pt)(using _)) else Accepted
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
@@ -56,7 +57,7 @@ object Condition:
       trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
   case class AccountAge(days: Days) extends Condition:
-    def name(perf: PerfType)(using Translate): String =
+    @nowarn def name(perf: PerfType)(using Translate): String =
       if days < 30 then s"${days.value} days old account"
       else if days < 365 then s"${days.value / 30} months old account"
       else s"${days.value / 365} years old account"
@@ -74,7 +75,7 @@ object Condition:
 
     def apply(
         pt: PerfType
-    )(using perf: Perf, getMaxRating: GetMaxRating)(using Me, Executor): Fu[Verdict] =
+    )(using perf: Perf, getMaxRating: GetMaxRating)(using Executor): Fu[Verdict] =
       if perf.provisional.yes
       then
         fuccess(Refused: t =>
@@ -93,14 +94,14 @@ object Condition:
               given Translate = t
               trans.site.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans, r)
 
-    def maybe(pt: PerfType)(using me: Me, perf: Perf): Boolean =
+    def maybe(using perf: Perf): Boolean =
       perf.provisional.no && perf.intRating <= rating
 
     def name(pt: PerfType)(using Translate) = trans.site.ratedLessThanInPerf.txt(rating, pt.trans)
 
   case class MinRating(rating: IntRating) extends Condition with RatingCondition with FlatCond:
 
-    def apply(pt: PerfType)(using me: Me, perf: Perf) =
+    def apply(pt: PerfType)(using @nowarn me: Me, perf: Perf) =
       if perf.provisional.yes then
         Refused: t =>
           given Translate = t
@@ -127,7 +128,7 @@ object Condition:
     private lazy val segments: Set[String] = value.linesIterator.map(_.trim.toLowerCase).toSet
     private val titled                     = "%titled"
     private def allowAnyTitledUser         = segments contains titled
-    def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
+    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
       else if allowAnyTitledUser && me.title.isDefined then Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }

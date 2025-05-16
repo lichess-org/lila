@@ -81,7 +81,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   private def page(key: String, menu: String) = Open:
     pageHit
     FoundPage(env.cms.renderKey(key)): p =>
-      views.relay.tour.page(p.title, views.cms.render(p), menu)
+      views.relay.tour.page(p.title, menu):
+        views.cms.render(p)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:

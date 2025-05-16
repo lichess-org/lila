@@ -22,7 +22,6 @@ private object PgnStorage:
   case object Huffman:
 
     import org.lichess.compression.game.{ Encoder, Board as JavaBoard }
-    import scala.jdk.CollectionConverters.*
 
     def encode(sans: Vector[SanStr]) =
       ByteArray:

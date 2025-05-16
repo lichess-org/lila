@@ -9,8 +9,6 @@ import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
-  private val chans = List("startGame", "finishGame")
-
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     if userIds.sizeIs < 2 then Source.empty
     else

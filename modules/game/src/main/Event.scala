@@ -23,7 +23,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.{ Event, Game }
 
-import JsonView.{ *, given }
+import JsonView.given
 
 object Event:
 

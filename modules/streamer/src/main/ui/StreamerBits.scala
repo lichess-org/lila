@@ -1,6 +1,6 @@
 package lila.streamer
 package ui
-import lila.core.id.{ CmsPageKey, ImageId }
+import lila.core.id.CmsPageKey
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }

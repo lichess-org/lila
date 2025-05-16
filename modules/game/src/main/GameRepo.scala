@@ -40,14 +40,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
     import lila.game.LightGame.projection
 
-    def game(gameId: GameId): Fu[Option[LightGame]] =
-      coll.byId[LightGame](gameId.value, projection)
-
-    def pov(gameId: GameId, color: Color): Fu[Option[LightPov]] =
-      game(gameId).dmap2 { LightPov(_, color) }
-
-    def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
-
     def gamesFromPrimary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
       coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some)(_.id)
 

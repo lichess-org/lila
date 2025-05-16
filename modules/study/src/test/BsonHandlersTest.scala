@@ -9,7 +9,6 @@ import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
 import lila.study.BSONHandlers.given
 import lila.tree.{ NewRoot, Root }
-import cats.syntax.all.*
 
 // in lila.study to have access to PgnImport
 class BsonHandlersTest extends munit.FunSuite:

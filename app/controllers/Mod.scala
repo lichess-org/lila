@@ -405,7 +405,7 @@ final class Mod(
       yield Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled")
   }
 
-  protected[controllers] def searchTerm(query: String)(using Context, Me) =
+  protected[controllers] def searchTerm(query: String)(using Context) =
     IpAddress.from(query) match
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
       case None =>

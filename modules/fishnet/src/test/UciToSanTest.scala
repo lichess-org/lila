@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.pgn.{ Reader, SanStr }
+import chess.format.pgn.SanStr
 import chess.{ Ply, Replay }
 import chess.eval.*
 import chess.eval.Eval.*

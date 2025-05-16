@@ -10,7 +10,7 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
 import lila.core.round.{ RoundBus, CurrentlyPlaying }
-import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.core.user.FlairGetMap
 import lila.game.GameRepo
 import lila.memo.SettingStore
 import lila.round.RoundGame.*
@@ -50,7 +50,6 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
-    FlairGet,
     FlairGetMap,
     Executor,
     akka.stream.Materializer,
@@ -187,6 +186,7 @@ final class Env(
   val apiMoveStream = wire[ApiMoveStream]
 
   // core APIs
+  @annotation.nowarn
   val gameProxy: lila.core.game.GameProxy = new:
     export proxyRepo.{ game, pov, gameIfPresent, updateIfPresent, flushIfPresent, upgradeIfPresent }
   val roundJson: lila.core.round.RoundJson = new:

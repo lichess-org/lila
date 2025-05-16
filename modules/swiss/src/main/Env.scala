@@ -32,7 +32,6 @@ final class Env(
     akka.stream.Materializer,
     lila.core.game.IdGenerator,
     play.api.Mode,
-    lila.core.user.FlairGet,
     lila.core.i18n.Translator
 ):
 

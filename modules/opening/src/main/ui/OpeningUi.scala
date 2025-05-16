@@ -1,6 +1,6 @@
 package lila.opening
 package ui
-import chess.opening.{ Opening, OpeningKey }
+import chess.opening.Opening
 
 import lila.ui.*
 
@@ -169,7 +169,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           resultsList(results)
         )
 
-  private def searchForm(q: String, focus: Boolean = false) =
+  private def searchForm(q: String, focus: Boolean) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",

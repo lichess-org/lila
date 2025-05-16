@@ -5,7 +5,6 @@ import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.i18n.Translate
 import lila.core.notify.*
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
@@ -100,4 +99,4 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
 
   given OWrites[Notification.AndUnread] = Json.writes
 
-  def apply(notify: Notification.AndUnread)(using Translate) = Json.toJsObject(notify)
+  def apply(notify: Notification.AndUnread) = Json.toJsObject(notify)

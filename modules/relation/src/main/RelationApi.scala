@@ -21,7 +21,7 @@ final class RelationApi(
     cacheApi: lila.memo.CacheApi,
     userApi: UserApi,
     config: RelationConfig
-)(using Executor, lila.core.config.RateLimit)
+)(using Executor)
     extends lila.core.relation.RelationApi(repo.coll):
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =

@@ -129,17 +129,15 @@ final class PuzzleApi(
           val update =
             if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes) then
               fuccess($unset(F.themes, F.puzzle).some)
+            else if vote.isEmpty then fuccess($set(F.themes -> newThemes).some)
             else
-              vote match
-                case None => fuccess($set(F.themes -> newThemes).some)
-                case Some(v) =>
-                  trustApi.theme(user).map2 { weight =>
-                    $set(
-                      F.themes -> newThemes,
-                      F.puzzle -> id,
-                      F.weight -> weight
-                    )
-                  }
+              trustApi.theme(user).map2 { weight =>
+                $set(
+                  F.themes -> newThemes,
+                  F.puzzle -> id,
+                  F.weight -> weight
+                )
+              }
           update.flatMapz: up =>
             lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
             colls

@@ -6,7 +6,7 @@ import io.lettuce.core.*
 import io.lettuce.core.pubsub.*
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.round.{ TellMany, Tell, RoundBus, FishnetStart }
+import lila.core.round.{ Tell, RoundBus, FishnetStart }
 
 final class FishnetRedis(
     client: RedisClient,

@@ -13,7 +13,7 @@ object simul:
     views.setup.setupCheckboxes,
     views.setup.translatedVariantChoicesWithVariantsById
   )
-  val showUi = lila.simul.ui.SimulShow(helpers, ui, views.gathering)
+  val showUi = lila.simul.ui.SimulShow(helpers, views.gathering)
 
   def show(
       sim: lila.simul.Simul,

@@ -41,7 +41,7 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
       users: List[WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
-  )(using Context, Me) =
+  )(using Context) =
     users.nonEmpty.option(
       table(cls := "slist slist-pad mod-user-table")(
         thead(

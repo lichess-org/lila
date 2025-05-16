@@ -56,7 +56,7 @@ final class PerfStatApi(
                 _              = lightUserApi.preloadUser(u.user)
                 _ <- lightUserApi.preloadMany(perfStat.userIds)
               yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
-      case pk => fuccess(none)
+      case _ => fuccess(none)
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =
     wrd.map: distrib =>

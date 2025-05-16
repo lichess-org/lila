@@ -8,7 +8,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     gameApi: lila.core.game.GameApi
-)(using Executor, akka.stream.Materializer, lila.core.game.IdGenerator, lila.core.game.NewPlayer):
+)(using Executor, lila.core.game.IdGenerator, lila.core.game.NewPlayer):
 
   val forms = SetupForm
 

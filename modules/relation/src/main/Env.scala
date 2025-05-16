@@ -23,7 +23,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     prefApi: lila.core.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit):
+)(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[RelationConfig]("relation")(using AutoConfig.loader)
 

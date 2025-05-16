@@ -11,7 +11,6 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
   def show(
-      categ: ForumCateg,
       topic: ForumTopic,
       postWithFrag: ForumPost.WithFrag,
       url: String,

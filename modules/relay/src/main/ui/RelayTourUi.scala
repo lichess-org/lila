@@ -1,7 +1,7 @@
 package lila.relay
 package ui
 
-import java.time.{ Month, YearMonth }
+import java.time.YearMonth
 import scalalib.paginator.Paginator
 
 import lila.core.LightUser
@@ -76,7 +76,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             )
       )
 
-  private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
+  private def listLayout(title: String, menu: Tag)(body: Modifier*) =
     Page(title)
       .css("bits.relay.index")
       .js(infiniteScrollEsmInit):
@@ -159,7 +159,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
       )
 
-  def page(title: String, pageBody: Frag, active: String)(using Context): Page =
+  def page(title: String, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
       .js(Esm("bits.expandText"))
@@ -168,7 +168,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           pageMenu(active),
           div(cls := "page-menu__content box box-pad page")(
             boxTop(ui.broadcastH1(title)),
-            div(cls := "body expand-text")(pageBody)
+            div(cls := "body expand-text")(body)
           )
         )
 
@@ -278,7 +278,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
       )
 
-    def empty(t: RelayTour)(using Context) =
+    def empty(t: RelayTour) =
       link(t, routes.RelayTour.show(t.slug, t.id).url, false)(
         image(t),
         span(cls := "relay-card__body")(

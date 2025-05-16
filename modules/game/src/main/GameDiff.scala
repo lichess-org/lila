@@ -49,8 +49,7 @@ object GameDiff:
       for
         clk     <- g.clock
         history <- g.clockHistory
-        curColor = g.turnColor
-        times    = history(color)
+        times = history(color)
       yield (clk.limit, times, g.flagged.has(color))
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =

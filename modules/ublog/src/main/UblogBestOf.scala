@@ -5,8 +5,6 @@ import java.time.{ Year, YearMonth, ZoneOffset, LocalTime }
 
 import scala.util.Try
 
-import reactivemongo.api.bson.BSONNull
-
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
@@ -52,7 +50,7 @@ object UblogBestOf:
 
 final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheApi)(using Executor):
 
-  import UblogBsonHandlers.{ *, given }
+  import UblogBsonHandlers.given
 
   private val cache = cacheApi[(Int, Int), List[UblogBestOf.WithPosts]](16, "ublog.bestOf"):
     _.expireAfterWrite(1.hour).buildAsyncFuture(runMonstrousAggregation)

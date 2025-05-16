@@ -22,7 +22,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
 ):
   import TeamForm.Fields
 
-  def create(using Me) = Form:
+  def create = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -37,7 +37,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2.seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(team: Team)(using Me) = Form(
+  def edit(team: Team) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -49,7 +49,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
       Fields.hideMembers,
       "flair" -> flairApi.formField()
     )(TeamEdit.apply)(unapply)
-  ).fill(
+  ).fill:
     TeamEdit(
       password = team.password,
       intro = team.intro,
@@ -61,7 +61,6 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
       hideMembers = team.hideMembers.has(true),
       flair = team.flair
     )
-  )
 
   def request(team: Team) = Form(
     mapping(
@@ -91,7 +90,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
     single:
       "userId" -> lila.common.Form.username.historicalField
 
-  def createWithCaptcha(using Me) = create -> captcha.any
+  def createWithCaptcha = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))

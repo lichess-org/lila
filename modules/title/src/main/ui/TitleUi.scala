@@ -12,7 +12,7 @@ import ScalatagsTemplate.{ *, given }
 final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
 
-  def index(page: Page, intro: Frag)(using Context) =
+  def index(page: Page, intro: Frag) =
     page.css("bits.page"):
       frag(
         intro,
@@ -85,7 +85,7 @@ Today's date is [current date]""")
       )
     )
 
-  private def showStatus(req: TitleRequest)(using Context) =
+  private def showStatus(req: TitleRequest) =
     import TitleRequest.Status
     div(cls := "title__status-full")(
       statusFlair(req),
@@ -105,7 +105,7 @@ Today's date is [current date]""")
       )
     )
 
-  def statusFlair(req: TitleRequest)(using Context) = iconFlair:
+  def statusFlair(req: TitleRequest) = iconFlair:
     Flair:
       req.status.name match
         case "approved" => "activity.sparkles"
@@ -175,7 +175,7 @@ Today's date is [current date]""")
       )(form3.textarea(_)(rows := 4))
     )
 
-  private def imageByTag(t: TitleRequest, tag: String, name: Frag, help: Frag)(using ctx: Context) =
+  private def imageByTag(t: TitleRequest, tag: String, name: Frag, help: Frag) =
     val image = t.focusImage(tag).get
     div(cls := "title-image-edit", data("post-url") := routes.TitleVerify.image(t.id, tag))(
       h2(name),

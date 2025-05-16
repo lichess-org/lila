@@ -131,7 +131,7 @@ final class ModInquiryUi(helpers: Helpers)(
       )
     )
 
-  private def links(in: Inquiry)(using Context, Me) = div(cls := "links")(
+  private def links(in: Inquiry)(using Me) = div(cls := "links")(
     Granter(_.MarkBooster).option:
       val searchUrl = routes.User.games(in.user.username, "search")
       div(cls := "dropper view-games")(
@@ -164,7 +164,7 @@ final class ModInquiryUi(helpers: Helpers)(
     in.report.isAppeal.option(a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal"))
   )
 
-  private def markButtons(in: Inquiry, presets: Map[Permission, List[ModPreset]])(using Context, Me) = frag(
+  private def markButtons(in: Inquiry, presets: Map[Permission, List[ModPreset]])(using Me) = frag(
     Granter(_.MarkEngine).option:
       val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
       div(cls := "dropper engine buttons")(
@@ -216,7 +216,7 @@ final class ModInquiryUi(helpers: Helpers)(
       )
   )
 
-  private def dropperButtons(in: Inquiry)(using Context, Me) =
+  private def dropperButtons(in: Inquiry)(using Me) =
     div(cls := "dropper more buttons")(
       iconTag(Icon.MoreTriangle),
       div(
@@ -250,7 +250,7 @@ final class ModInquiryUi(helpers: Helpers)(
       )
     )
 
-  private def closeInquiry(in: Inquiry)(using Context, Me) =
+  private def closeInquiry(in: Inquiry) =
     div(cls := "actions close")(
       span(cls := "switcher", title := "Automatically open next report")(
         span(cls := "switch")(form3.cmnToggle("auto-next", "auto-next", checked = true))
@@ -318,7 +318,7 @@ final class ModInquiryUi(helpers: Helpers)(
     dataIcon := icon.left.toOption
   )(icon.toOption.map(str => frag(i(str), " ")))
 
-  private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Context, Me) =
+  private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Me) =
     (Granter(_.ModMessage) && presets.nonEmpty).option:
       frag(
         div(cls := "separator"),

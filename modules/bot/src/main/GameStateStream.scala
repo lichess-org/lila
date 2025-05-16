@@ -55,6 +55,7 @@ final class GameStateStream(
 
     val id = init.game.id
 
+    @annotation.nowarn
     var gameOver = false
 
     private val classifiers = List(

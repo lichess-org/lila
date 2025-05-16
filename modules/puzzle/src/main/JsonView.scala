@@ -7,7 +7,7 @@ import scalalib.model.Days
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.i18n.{ Translate, Translator }
+import lila.core.i18n.Translate
 import lila.tree.{ Metas, NewBranch, NewTree }
 import lila.core.net.ApiVersion
 import lila.ui.Context
@@ -16,7 +16,7 @@ final class JsonView(
     gameJson: GameJson,
     gameRepo: lila.core.game.GameRepo,
     myEngines: lila.core.misc.analysis.MyEnginesAsJson
-)(using Executor, Translator):
+)(using Executor):
 
   import JsonView.{ *, given }
 
@@ -257,7 +257,7 @@ object JsonView:
               )
   )
 
-  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Translate): JsObject =
+  def openings(all: PuzzleOpeningCollection): JsObject =
     Json.obj(
       "openings" ->
         all

@@ -112,7 +112,6 @@ object Player:
 
   def playerWrite(p: Player) =
     import BSONFields.*
-    import Blurs.{ *, given }
     $doc(
       aiLevel           -> p.aiLevel,
       isOfferingDraw    -> p.isOfferingDraw.option(true),

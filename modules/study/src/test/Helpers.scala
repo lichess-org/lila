@@ -17,7 +17,7 @@ trait LilaTest extends munit.FunSuite with EitherAssertions:
     assert(scalalib.Maths.isCloseTo(a, b, delta), s"$a is not close to $b by $delta")
 
   extension [A](a: A)
-    def matchZero[B: Zero](f: PartialFunction[A, B])(using munit.Location): B =
+    def matchZero[B: Zero](f: PartialFunction[A, B]): B =
       f.lift(a) | Zero[B].zero
 
 trait EitherAssertions extends munit.Assertions:
@@ -25,10 +25,9 @@ trait EitherAssertions extends munit.Assertions:
   extension [E, A](v: Either[E, A])
     def assertRight(f: A => Any)(using munit.Location): Any = v match
       case Right(r) => f(r)
-      case Left(e)  => fail(s"Expected Right but received $v")
+      case Left(_)  => fail(s"Expected Right but received $v")
 
 object Helpers:
-  import lila.tree.NewTree.*
 
   def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.withoutOrientation)

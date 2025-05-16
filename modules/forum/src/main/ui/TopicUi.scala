@@ -118,7 +118,6 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           div(cls := "forum-topic__posts")(
             posts.currentPageResults.map: p =>
               postUi.show(
-                categ,
                 topic,
                 p,
                 s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.number}",

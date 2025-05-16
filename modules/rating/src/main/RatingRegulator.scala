@@ -1,9 +1,7 @@
 package lila.rating
 
-import reactivemongo.api.bson.BSONHandler
 import chess.ByColor
 import chess.rating.glicko.Glicko
-import scalalib.Iso
 
 object RatingRegulator:
 

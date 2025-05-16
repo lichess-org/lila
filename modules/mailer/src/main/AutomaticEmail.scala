@@ -41,8 +41,8 @@ The Lichess team"""
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
-      import lila.core.i18n.I18nKey
-      s"""${I18nKey.onboarding.welcome.txt()}\n${I18nKey.site.lichessPatronInfo.txt()}"""
+      import lila.core.i18n.I18nKey as trans
+      s"""${trans.onboarding.welcome.txt()}\n${trans.site.lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for

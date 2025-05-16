@@ -26,10 +26,6 @@ class AutoConfigTest extends munit.FunSuite:
     case class Foo(str: String, int: Option[Int])
     given ConfigLoader[Foo] = AutoConfig.loader
 
-    given [A](using valueLoader: ConfigLoader[A]): ConfigLoader[Option[A]] = (config, path) =>
-      if !config.hasPath(path) || config.getIsNull(path) then None
-      else Some(valueLoader.load(config, path))
-
     assertEquals(
       parse("""
     |foo = {

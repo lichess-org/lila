@@ -1,9 +1,9 @@
 package lila.round
 
-import chess.{ ByColor, Color }
+import chess.ByColor
+import scalalib.data.Preload
 
 import lila.common.Bus
-import scalalib.data.Preload
 import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.round.*
 import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }

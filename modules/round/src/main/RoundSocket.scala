@@ -14,7 +14,6 @@ import lila.core.game.TvSelect
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
-import lila.core.user.FlairGet
 import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final class RoundSocket(
@@ -27,7 +26,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using Executor, FlairGet)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   import RoundSocket.*
 

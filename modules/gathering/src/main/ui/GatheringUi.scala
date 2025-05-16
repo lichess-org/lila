@@ -109,7 +109,7 @@ final class GatheringFormUi(helpers: Helpers):
       half = true
     )
 
-  def bots(field: Field, disabledAfterStart: Boolean)(using Translate) =
+  def bots(field: Field, disabledAfterStart: Boolean) =
     form3.checkbox(
       field,
       "Allow bot accounts",

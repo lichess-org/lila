@@ -1,9 +1,10 @@
 package lila.db
 
+import scala.annotation.nowarn
+import scala.util.{ Failure, NotGiven, Success, Try }
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.util.{ Failure, NotGiven, Success, Try }
 import scalalib.model.Percent
 
 import lila.common.Iso.{ *, given }
@@ -22,7 +23,7 @@ trait Handlers:
   given opaqueWriter[T, A](using
       rs: SameRuntime[T, A],
       writer: BSONWriter[A]
-  )(using NotGiven[NoBSONWriter[T]]): BSONWriter[T] with
+  )(using @nowarn ng: NotGiven[NoBSONWriter[T]]): BSONWriter[T] with
     def writeTry(t: T) = writer.writeTry(rs(t))
 
   // free reader for all types with TotalWrapper
@@ -30,7 +31,7 @@ trait Handlers:
   given opaqueReader[T, A](using
       sr: SameRuntime[A, T],
       reader: BSONReader[A]
-  )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
+  )(using @nowarn ng: NotGiven[NoBSONReader[T]]): BSONReader[T] with
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
   given NoDbHandler[Blurs] with {}

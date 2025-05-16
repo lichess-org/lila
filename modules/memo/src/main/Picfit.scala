@@ -29,12 +29,10 @@ object PicfitImage:
   given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
-    Executor,
-    lila.core.config.RateLimit
+    Executor
 ):
 
   import PicfitApi.*
-  import PicfitImage.*
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =

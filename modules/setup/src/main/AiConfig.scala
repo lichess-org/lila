@@ -5,7 +5,7 @@ import chess.variant.Variant
 import chess.{ ByColor, Clock }
 import scalalib.model.Days
 
-import lila.core.game.{ IdGenerator, NewPlayer, Player, Source }
+import lila.core.game.{ IdGenerator, NewPlayer, Source }
 import lila.core.user.GameUser
 import lila.lobby.TriColor
 

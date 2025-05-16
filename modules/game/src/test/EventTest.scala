@@ -5,7 +5,7 @@ import chess.variant.Crazyhouse
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
 import chess.CoreArbitraries.given
-import JsonView.{ *, given }
+import JsonView.given
 import lila.common.Json.given
 
 class EventTest extends munit.ScalaCheckSuite:

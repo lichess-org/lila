@@ -47,7 +47,7 @@ object LilaRouter:
   private def strQueryString[A](
       parse: String => Option[A],
       error: => String,
-      write: A => String = (_: A).toString
+      write: A => String
   ): QueryStringBindable[A] = new:
     def bind(key: String, params: Map[String, Seq[String]]) =
       params

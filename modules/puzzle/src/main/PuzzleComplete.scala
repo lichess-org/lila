@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import play.api.data.Form
 import play.api.libs.json.{ Json, JsObject }
 
 import lila.ui.Context

@@ -3,7 +3,6 @@ package lila.opening
 import play.api.mvc.RequestHeader
 
 import lila.core.game.{ GameRepo, PgnDump }
-import lila.core.i18n.{ Translate, Translator }
 import lila.core.net.Crawler
 import lila.memo.CacheApi
 
@@ -14,7 +13,7 @@ final class OpeningApi(
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
-)(using Executor, Translator):
+)(using Executor):
 
   import OpeningQuery.Query
 
@@ -52,7 +51,6 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler
   )(using accessControl: OpeningAccessControl): Fu[Option[OpeningPage]] =
-    given Translate = summon[Translator].toDefault
     for
       wiki      <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)

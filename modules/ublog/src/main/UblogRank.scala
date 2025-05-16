@@ -4,7 +4,6 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import chess.IntRating
 import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.timeline.{ Propagate, UblogPostLike }

@@ -43,7 +43,7 @@ final class SwissJson(
       reqPage: Option[Int] = None, // None = focus on me
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
-  )(using lang: Lang): Fu[JsObject] = {
+  ): Fu[JsObject] = {
     for
       myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage.orElse(myInfo.map(_.page)).getOrElse(1)

@@ -9,10 +9,8 @@ import lila.core.net.Crawler
 final class OpeningAccessControl(proxyApi: Ip2ProxyApi, proxyLimiter: RateLimiter[UserId])(using
     req: RequestHeader,
     me: Option[Me]
-)(using
-    lila.core.config.RateLimit,
-    Executor
-):
+)(using Executor):
+
   def canLoadExpensiveStats(wikiMarkup: Boolean, crawler: Crawler): Fu[Boolean] =
     if crawler.yes && !wikiMarkup
     then fuccess(false) // nothing for crawlers to index if we don't have our own text

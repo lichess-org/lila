@@ -180,7 +180,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         .flatMap(_.headOption)
         .getOrElse(lila.rating.UserPerfs.default(u.id))
 
-    def readFirst[U: UserIdOf](root: Bdoc, pk: PerfKey): Perf = (for
+    def readFirst(root: Bdoc, pk: PerfKey): Perf = (for
       perfs <- root.getAsOpt[List[Bdoc]]("perfs")
       perfs <- perfs.headOption
       perf  <- perfs.getAsOpt[Perf](pk.value)

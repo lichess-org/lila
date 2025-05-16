@@ -31,4 +31,4 @@ Please visit $baseUrl/account/email to set your account email address. That way,
               .enabledById(userId)
               .flatMap:
                 _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
-                  api.systemPost(userId, emailReminderMsg).inject(false)
+                  for _ <- api.systemPost(user.id, emailReminderMsg) yield false

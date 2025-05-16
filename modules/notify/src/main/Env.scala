@@ -1,10 +1,7 @@
 package lila.notify
 
-import akka.actor.*
-import akka.stream.Materializer
 import com.softwaremill.macwire.*
 import lila.common.Bus
-import lila.common.config.*
 import lila.db.dsl.Coll
 import lila.core.config.CollName
 import lila.core.notify.{ NotificationContent, GetNotifyAllows }
@@ -16,9 +13,8 @@ final class Env(
     userApi: lila.core.user.UserApi,
     getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
-    subsRepo: lila.core.relation.SubscriptionRepo,
-    langPicker: lila.core.i18n.LangPicker
-)(using Executor, ActorSystem, Materializer, lila.core.i18n.Translator):
+    subsRepo: lila.core.relation.SubscriptionRepo
+)(using Executor, akka.stream.Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 

@@ -37,7 +37,6 @@ final class Env(
     Executor,
     Scheduler,
     akka.stream.Materializer,
-    lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):
 

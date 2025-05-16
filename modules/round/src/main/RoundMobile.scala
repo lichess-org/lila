@@ -9,7 +9,6 @@ import lila.core.LightUser
 import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
-import lila.core.tournament.Tournament
 
 object RoundMobile:
 

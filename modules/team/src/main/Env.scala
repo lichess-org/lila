@@ -1,12 +1,9 @@
 package lila.team
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
-
-import lila.common.Bus
 
 @Module
 final class Env(
@@ -20,7 +17,7 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
     db: lila.db.Db
-)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.core.user.FlairGet):
+)(using Executor, akka.stream.Materializer):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
   lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))

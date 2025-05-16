@@ -301,7 +301,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
-  def teacher(u: User)(nb: Int)(using Context): Frag =
+  def teacher(u: User)(nb: Int): Frag =
     if nb == 0 then emptyFrag
     else
       mzSection("teacher")(
@@ -507,7 +507,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
-  )(using Context, Me) =
+  )(using Context) =
     users.nonEmpty.option(
       table(cls := "slist slist-pad mod-user-table")(
         thead(

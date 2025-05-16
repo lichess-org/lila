@@ -1,7 +1,6 @@
 package lila.mod
 package ui
 
-import lila.chat.{ ChatTimeout, UserChat }
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }

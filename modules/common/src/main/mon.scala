@@ -565,7 +565,7 @@ object mon:
       def in(platform: String) = counter("push.register").withTag("platform", platform)
       val out                  = counter("push.register.out").withoutTags()
     object send:
-      private def send(tpe: String)(platform: String, success: Boolean, count: Int = 1): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean, count: Int): Unit =
         counter("push.send")
           .withTags:
             tags(

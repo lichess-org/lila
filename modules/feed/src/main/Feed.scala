@@ -79,7 +79,7 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
 
-  def form(from: Option[Update])(using MyId): Form[UpdateData] =
+  def form(from: Option[Update]): Form[UpdateData] =
     import play.api.data.*
     import play.api.data.Forms.*
     import lila.common.Form.*

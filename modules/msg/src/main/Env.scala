@@ -27,7 +27,6 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api
 )(using
     Executor,
-    akka.actor.ActorSystem,
     Scheduler,
     akka.stream.Materializer,
     lila.core.i18n.Translator,

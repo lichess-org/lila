@@ -10,7 +10,7 @@ import lila.core.security.UserSignup
 import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
 
-final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using Executor, akka.stream.Materializer):
+final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream.Materializer):
 
   def markedSince(since: Instant): Source[UserId, ?] =
     logRepo.coll

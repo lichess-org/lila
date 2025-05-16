@@ -31,7 +31,7 @@ final class RacerUi(helpers: Helpers):
           )
         )
 
-  def show(data: JsObject)(using Context) =
+  def show(data: JsObject) =
     Page("Puzzle Racer")
       .css("racer")
       .i18n(_.storm)

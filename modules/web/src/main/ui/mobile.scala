@@ -5,8 +5,8 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
-  import helpers.{ *, given }
+def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
+  import helpers.*
 
   val appleStoreButton = raw:
     s"""

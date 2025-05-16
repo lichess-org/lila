@@ -18,8 +18,11 @@ case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:
   import play.api.mvc.*
-  def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using
-      RequestHeader
+  def cookie(
+      name: String,
+      value: String,
+      maxAge: Option[Int] = None,
+      httpOnly: Option[Boolean] = None
   ): Cookie
 
 object LilaCookie:

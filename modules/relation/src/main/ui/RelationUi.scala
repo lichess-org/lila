@@ -158,7 +158,7 @@ final class RelationUi(helpers: Helpers):
             else tr(td(trans.site.none()))
       )
 
-  private def page(title: String)(using Context) =
+  private def page(title: String) =
     Page(title)
       .css("bits.relation")
       .js(infiniteScrollEsmInit)

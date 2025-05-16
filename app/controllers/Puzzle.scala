@@ -204,21 +204,20 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def openings(order: String) = Open:
     env.puzzle.opening.collection.flatMap: collection =>
-      ctx.me
-        .so: me =>
+      negotiate(
+        html = ctx.me.so: me =>
           env.insight.api
             .insightUser(me)
             .map:
               _.some.filterNot(_.isEmpty).so { insightUser =>
                 collection.makeMine(insightUser.families, insightUser.openings).some
               }
-        .flatMap: mine =>
-          negotiate(
-            html = Ok.page:
-              views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
-            ,
-            json = Ok(lila.puzzle.JsonView.openings(collection, mine))
-          )
+            .flatMap: mine =>
+              Ok.page:
+                views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+        ,
+        json = Ok(lila.puzzle.JsonView.openings(collection))
+      )
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
   def showLang(language: Language, angleOrId: String) =

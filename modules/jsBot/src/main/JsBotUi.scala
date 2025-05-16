@@ -5,15 +5,15 @@ import play.api.libs.json.{ Json, JsObject }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 final class JsBotUi(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   def play(
       bots: List[BotJson],
       prefs: JsObject
-  )(using ctx: Context): Page =
+  ): Page =
     val data = Json.obj("pref" -> prefs, "bots" -> bots)
     Page("Lichess bots")
       .css("botPlay")

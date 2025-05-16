@@ -134,7 +134,6 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     )
 
   private def iconFile(theme: PuzzleTheme.Key): String =
-    import PuzzleTheme.*
     if theme.value.startsWith("mateIn") then "mate"
     else theme.value
 

@@ -13,7 +13,7 @@ import lila.mod.ModUserSearchResult
 
 object search:
 
-  def apply(form: Form[?], res: Option[ModUserSearchResult])(using Context, Me) =
+  def apply(form: Form[?], res: Option[ModUserSearchResult])(using Context) =
     Page("Search users")
       .css("mod.misc")
       .js(Esm("mod.search")):
@@ -42,7 +42,7 @@ object search:
       users: List[WithPerfsAndEmails],
       uas: List[String],
       blocked: Boolean
-  )(using Context, Me) =
+  )(using Context) =
     Page("Fingerprint")
       .css("mod.misc")
       .js(Esm("mod.search")):
@@ -81,7 +81,7 @@ object search:
       users: List[lila.user.WithPerfsAndEmails],
       data: IpTrust.IpData,
       blocked: Boolean
-  )(using ctx: Context, renderIp: RenderIp, mod: Me) =
+  )(using ctx: Context, renderIp: RenderIp) =
     Page("IP address")
       .css("mod.misc")
       .js(Esm("mod.search")):
@@ -116,7 +116,7 @@ object search:
           )
         )
 
-  def clas(c: lila.clas.Clas, users: List[WithPerfsAndEmails])(using Context, Me) =
+  def clas(c: lila.clas.Clas, users: List[WithPerfsAndEmails])(using Context) =
     views.clas.ui.search.clas(c, userTable(users))
 
   export views.clas.ui.search.teacher

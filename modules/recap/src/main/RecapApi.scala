@@ -5,7 +5,6 @@ import play.api.libs.json.JsObject
 import lila.core.lilaism.LilaException
 
 final class RecapApi(
-    colls: RecapColls,
     repo: RecapRepo,
     recapJson: RecapJson,
     queue: lila.memo.ParallelMongoQueue[UserId]

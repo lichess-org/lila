@@ -2,7 +2,6 @@ package lila.game
 
 import lila.core.game.Blurs
 import lila.game.Blurs.{ *, given }
-import lila.db.dsl.*
 import reactivemongo.api.bson.*
 
 class BlurTest extends munit.FunSuite:

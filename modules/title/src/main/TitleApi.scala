@@ -69,7 +69,7 @@ final class TitleApi(
     val req = TitleRequest.make(me.userId, data)
     coll.insert.one(req).inject(req)
 
-  def update(req: TitleRequest, data: FormData)(using me: Me): Fu[TitleRequest] =
+  def update(req: TitleRequest, data: FormData): Fu[TitleRequest] =
     val newReq = req.update(data)
     coll.update.one($id(req.id), newReq).inject(newReq)
 
@@ -86,7 +86,7 @@ final class TitleApi(
       .cursor[TitleRequest]()
       .list(nb)
 
-  def process(req: TitleRequest, data: TitleForm.ProcessData)(using me: Me): Fu[TitleRequest] =
+  def process(req: TitleRequest, data: TitleForm.ProcessData): Fu[TitleRequest] =
     val newReq = req.pushStatus(data.status)
     newReq.status match
       case Status.feedback(feedback) => sendFeedback(req.userId, feedback)

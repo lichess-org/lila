@@ -50,7 +50,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
                   )
                 ,
                 tbody:
-                  TeamSecurity.Permission.values.toList.mapWithIndex: (perm, pi) =>
+                  TeamSecurity.Permission.values.toList.map: perm =>
                     tr(
                       th(
                         strong(perm.name),
@@ -166,6 +166,6 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
   private def teamMembersAutoComplete(team: Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)
 
-  private def adminTop(t: Team, title: Frag)(using Translate) =
+  private def adminTop(t: Team, title: Frag) =
     boxTop:
       h1(a(href := routes.Team.show(t.slug))(t.name), " • ", title)

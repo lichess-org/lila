@@ -2,7 +2,6 @@ package lila.recap
 
 import play.api.libs.json.*
 import lila.common.Json.{ *, given }
-import chess.ByColor
 import lila.common.SimpleOpening
 import lila.common.LilaOpeningFamily
 import lila.core.game.Source

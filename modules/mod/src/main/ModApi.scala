@@ -50,11 +50,10 @@ final class ModApi(
       sus       <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
-        reportApi.getMyMod.flatMapz: mod =>
-          lila.mon.cheat.autoMark.increment()
-          setEngine(sus, v = true) >>
-            noteApi.lichessWrite(sus.user, note) >>
-            reportApi.autoProcess(sus, Set(Room.Cheat, Room.Print))
+        lila.mon.cheat.autoMark.increment()
+        setEngine(sus, v = true) >>
+          noteApi.lichessWrite(sus.user, note) >>
+          reportApi.autoProcess(sus, Set(Room.Cheat, Room.Print))
     yield ()
 
   def setBoost(prev: Suspect, v: Boolean)(using me: Me): Fu[Suspect] =

@@ -16,8 +16,7 @@ import lila.rating.PerfType
 import lila.user.BSONHandlers.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
-    Executor,
-    akka.stream.Materializer
+    Executor
 ) extends lila.core.user.UserApi:
 
   export userRepo.{

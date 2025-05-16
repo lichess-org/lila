@@ -7,7 +7,6 @@ import scalalib.actor.AsyncActor
 
 import lila.core.round.*
 import lila.core.socket.{ GetVersion, SocketSend, SocketVersion, makeMessage, userLag }
-import lila.core.user.FlairGet
 import lila.game.GameExt.*
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -19,7 +18,7 @@ final private class RoundAsyncActor(
     socketSend: SocketSend,
     putUserLag: userLag.Put,
     private var version: SocketVersion
-)(using Executor, FlairGet)(using proxy: GameProxy)
+)(using Executor)(using proxy: GameProxy)
     extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol
@@ -143,7 +142,7 @@ final private class RoundAsyncActor(
       fuccess:
         publish(List(line match
           case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)))
+          case _: lila.chat.PlayerLine => Event.PlayerMessage(json)))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>

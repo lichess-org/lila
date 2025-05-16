@@ -25,7 +25,7 @@ final class TournamentModeration(playerRepo: PlayerRepo, userRepo: UserRepo)(usi
   private def aggregate(
       tourId: TourId,
       playerSelect: Option[Bdoc] = none,
-      ordering: Option[AggregationFramework => AggregationFramework.SortOrder] = none
+      ordering: Option[AggregationFramework => AggregationFramework.SortOrder]
   ): Fu[List[Player.WithUser]] =
     playerRepo.coll
       .aggregateList(maxDocs = max.value, _.sec): framework =>

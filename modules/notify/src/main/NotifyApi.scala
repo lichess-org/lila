@@ -10,7 +10,6 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.socket.SendTos
 import lila.memo.CacheApi.*
-import lila.core.i18n.{ Translator, LangPicker }
 import lila.core.notify.{ NotificationPref as _, * }
 import lila.core.notify.NotificationContent.*
 import lila.core.socket.SendToOnlineUser
@@ -21,14 +20,12 @@ final class NotifyApi(
     colls: NotifyColls,
     userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
-    maxPerPage: MaxPerPage,
-    langPicker: LangPicker
-)(using Executor, Translator)
+    maxPerPage: MaxPerPage
+)(using Executor)
     extends lila.core.notify.NotifyApi(colls.pref):
 
   import Notification.*
   import BSONHandlers.given
-  import jsonHandlers.*
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
@@ -150,13 +147,10 @@ final class NotifyApi(
       SendToOnlineUser(
         note.to,
         LazyFu: () =>
-          for
-            notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-            langStr       <- userApi.langOf(note.to)
-            lang = langPicker.byStrOrDefault(langStr)
+          for notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
           yield Json.obj(
             "t" -> "notifications",
-            "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
+            "d" -> jsonHandlers(notifications)
           )
       )
 

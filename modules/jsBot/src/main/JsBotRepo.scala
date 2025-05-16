@@ -1,11 +1,8 @@
 package lila.jsBot
 
-import reactivemongo.api.Cursor
 import reactivemongo.api.bson.*
-import lila.common.Json.given
-import lila.db.JSON
-import play.api.libs.json.*
 
+import lila.db.JSON
 import lila.db.dsl.{ *, given }
 
 final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):

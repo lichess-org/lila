@@ -30,7 +30,7 @@ final private class ForumTopicApi(
 
   import BSONHandlers.given
 
-  def lastPage(topic: ForumTopic)(using NetDomain): Int =
+  def lastPage(topic: ForumTopic): Int =
     topic.nbPosts / config.postMaxPerPage.value + 1
 
   def showLastPage(categId: ForumCategId, slug: String)(using NetDomain)(using me: Option[Me]) =
@@ -217,7 +217,7 @@ final private class ForumTopicApi(
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
 
-  def relocate(fromTopic: ForumTopic, to: ForumCategId)(using Me): Fu[ForumTopic] =
+  def relocate(fromTopic: ForumTopic, to: ForumCategId): Fu[ForumTopic] =
     val topic = fromTopic.copy(
       slug = s"${fromTopic.slug}-${scalalib.ThreadLocalRandom.nextString(4)}"
     )

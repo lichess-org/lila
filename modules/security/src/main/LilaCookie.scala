@@ -38,8 +38,11 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
       if remember then none else 0.some
     )
 
-  def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using
-      req: RequestHeader
+  def cookie(
+      name: String,
+      value: String,
+      maxAge: Option[Int] = None,
+      httpOnly: Option[Boolean] = None
   ): Cookie =
     Cookie(
       name,

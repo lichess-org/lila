@@ -91,9 +91,7 @@ object SimulForm:
             conditions = simul.conditions
           )
         )
-    else
-      Left:
-        lockedForm(simul).fill(LockedSetup(simul.name, simul.text))
+    else Left(lockedForm.fill(LockedSetup(simul.name, simul.text)))
 
   private def baseForm(teams: List[LightTeam])(using host: Me) =
     Form(
@@ -143,7 +141,7 @@ object SimulForm:
 
     def realPosition = position.filterNot(_.isInitial)
 
-  def lockedForm(simul: Simul)(using Me) = Form:
+  def lockedForm(using Me) = Form:
     mapping(
       "name" -> nameType,
       "text" -> cleanText

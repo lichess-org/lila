@@ -32,12 +32,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     getTourName: => lila.core.tournament.GetTourName,
     fideIdOf: lila.core.user.PublicFideIdOf
-)(using scheduler: Scheduler)(using
-    lila.core.i18n.Translator,
-    Executor,
-    Materializer,
-    play.api.Mode
-):
+)(using scheduler: Scheduler)(using Executor, Materializer):
   private val config = appConfig.get[GameConfig]("game")(using AutoConfig.loader)
 
   val gameRepo = GameRepo(db(config.gameColl))
@@ -81,7 +76,6 @@ final class Env(
     export cached.nbPlaying
     export GameExt.{ computeMoveTimes, analysable }
     export AnonCookie.json as anonCookieJson
-    export AnonCookie.name as anonCookieName
 
   given newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply

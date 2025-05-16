@@ -8,7 +8,6 @@ import java.time.{ LocalDate, YearMonth }
 
 final class RelayCalendar(
     tourRepo: RelayTourRepo,
-    roundRepo: RelayRoundRepo,
     colls: RelayColls,
     cacheApi: CacheApi
 )(using Executor):

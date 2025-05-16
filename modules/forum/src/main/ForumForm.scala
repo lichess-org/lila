@@ -9,7 +9,7 @@ import lila.common.Form.{ cleanText, into }
 final private[forum] class ForumForm(
     promotion: lila.core.security.PromotionApi,
     val captcha: lila.core.captcha.CaptchaApi
-)(using Executor):
+):
 
   import ForumForm.*
 

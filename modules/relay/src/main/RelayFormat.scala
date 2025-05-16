@@ -14,7 +14,6 @@ final private class RelayFormatApi(
 )(using Executor):
 
   import RelayFormat.*
-  import HttpClient.*
 
   private val cache = cacheApi[(URL, CanProxy), RelayFormat](64, "relay.format"):
     _.expireAfterWrite(5.minutes).buildAsyncFuture: (url, proxy) =>
@@ -53,7 +52,7 @@ final private class RelayFormatApi(
       .so: id =>
         roundRepo.exists(id).map(_.option(RelayFormat.Round(id)))
 
-  private def looksLikePgn(body: String)(using CanProxy): Boolean =
+  private def looksLikePgn(body: String): Boolean =
     lila.study.MultiPgn
       .split(PgnStr(body), Max(1))
       .value

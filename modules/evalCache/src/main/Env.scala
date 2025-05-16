@@ -10,7 +10,7 @@ import lila.core.config.CollName
 final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   private lazy val coll = yoloDb(CollName("eval_cache2")).failingSilently()
 

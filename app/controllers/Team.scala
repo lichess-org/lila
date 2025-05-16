@@ -199,8 +199,8 @@ final class Team(env: Env) extends LilaController(env):
 
   private def leadersPage(
       team: TeamModel.WithLeaders,
-      addLeader: Option[Form[UserStr]] = None,
-      permissions: Option[Form[List[TeamSecurity.LeaderData]]] = None
+      addLeader: Option[Form[UserStr]],
+      permissions: Option[Form[List[TeamSecurity.LeaderData]]]
   )(using Context, Me) = views.team.admin.leaders(
     team,
     addLeader | env.team.security.form.addLeader(team),

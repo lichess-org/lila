@@ -4,14 +4,12 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
 
 @Module
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls,
-    cacheApi: CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):

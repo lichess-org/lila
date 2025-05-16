@@ -403,7 +403,7 @@ final class ReportApi(
   def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
     allReportsAbout(user, nb, $doc("room" -> Room.Comm.key))
 
-  def by(user: User, nb: Max)(using Me): Fu[List[Report]] =
+  def by(user: User, nb: Max): Fu[List[Report]] =
     coll
       .find($doc("atoms.by" -> user.id))
       .sort(sortLastAtomAt)

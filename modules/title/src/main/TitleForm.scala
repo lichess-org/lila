@@ -1,6 +1,5 @@
 package lila.title
 
-import chess.FideId
 import play.api.data.*
 import play.api.data.Forms.*
 

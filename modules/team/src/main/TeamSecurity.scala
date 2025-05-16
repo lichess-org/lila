@@ -49,7 +49,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
       logger.info(s"valid setLeaders ${t.id} by ${by.userId}: ${tableStr(data)}")
       changes.toList
 
-  def addLeader(team: Team.WithLeaders, name: UserStr)(using by: Me): Funit =
+  def addLeader(team: Team.WithLeaders, name: UserStr): Funit =
     memberRepo.setPerms(team.id, name.id, Set(Permission.Public))
 
   object form:

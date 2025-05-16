@@ -24,8 +24,6 @@ import lila.tree.{
   TreeBuilder
 }
 
-import JsonApi.*
-
 final class TreeBuilderTest extends munit.FunSuite:
 
   test("tree builder test"):
@@ -43,8 +41,6 @@ final class TreeBuilderTest extends munit.FunSuite:
 object TreeBuilderTest:
 
   case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String):
-
-    import TreeBuilderTest.*
 
     given Executor = scala.concurrent.ExecutionContextOpportunistic
     val annotator  = Annotator(NetDomain("l.org"))
@@ -88,7 +84,6 @@ object TreeBuilderTest:
         puzzles         <- List(true, false)
         nvui            <- List(true, false)
         lichobileCompat <- List(true, false)
-        blurs           <- List(true, false)
       yield ExportOptions(
         opening,
         movetimes,

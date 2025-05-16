@@ -184,7 +184,7 @@ final class LobbySocket(
         do lobby ! CancelSeek(id, user)
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o.boolean("d")))
     // entering a pool
-    case ("poolIn", o) if member.bot =>
+    case ("poolIn", _) if member.bot =>
       logger.warn(s"Bot ${member.user.so(_.username.value)} can't enter a pool")
     case ("poolIn", o) =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o"):
@@ -206,7 +206,7 @@ final class LobbySocket(
               PoolConfigId(id),
               lila.core.pool.Joiner(
                 sri = member.sri,
-                rating = toJoinRating(user, glicko, trust),
+                rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
                 lame = user.lame,
@@ -281,7 +281,7 @@ private object LobbySocket:
     def userId = user.map(_.id)
     def isAuth = userId.isDefined
 
-  def toJoinRating(user: LobbyUser, g: Option[chess.rating.glicko.Glicko], trust: UserTrust) =
+  def toJoinRating(g: Option[chess.rating.glicko.Glicko], trust: UserTrust) =
     val glicko = g | Glicko.pairingDefault
     glicko.establishedIntRating | IntRating:
       if trust.yes

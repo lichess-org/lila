@@ -243,7 +243,7 @@ object RemoteSocket:
             reqId.toIntOption.map { ReqResponse(_, response) }
           }
         case RawMsg("ping", raw) => Ping(raw.args).some
-        case RawMsg("boot", raw) => WsBoot.some
+        case RawMsg("boot", _)   => WsBoot.some
 
     object Out:
       export lila.core.socket.protocol.Out.*

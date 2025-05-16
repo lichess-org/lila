@@ -83,8 +83,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         player.playerList(
           players,
           np => routes.Fide.federation(fed.slug, np),
-          withFlag = false,
-          title = "Players"
+          withFlag = false
         )
       )
 
@@ -154,8 +153,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def playerList(
         players: Paginator[FidePlayer],
         url: Int => Call,
-        withFlag: Boolean = true,
-        title: String = "Name"
+        withFlag: Boolean = true
     )(using Context) =
       table(cls := "slist slist-pad")(
         thead:

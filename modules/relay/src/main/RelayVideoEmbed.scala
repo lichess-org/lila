@@ -29,7 +29,7 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
       case Some(name) => UserStr.read(name).fold(Auto)(u => Stream(u.id))
       case _          => fromCookie
 
-  def write(embed: RelayVideoEmbed)(using RequestHeader) = baker.cookie(
+  def write(embed: RelayVideoEmbed) = baker.cookie(
     name = cookieName,
     value = embed.toString,
     maxAge = some(60 * 60 * 3), // 3h

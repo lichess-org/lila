@@ -63,7 +63,6 @@ object PlayerAssessment:
   def makeBasics(pov: Pov, holdAlerts: Option[HoldAlert]): PlayerAssessment.Basics =
     import Statistics.*
     import pov.{ color, game }
-    import lila.game.GameExt.*
 
     Basics(
       moveTimes = intAvgSd(lila.game.GameExt.computeMoveTimes(game, color).orZero.map(_.roundTenths)),

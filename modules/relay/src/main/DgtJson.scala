@@ -23,7 +23,6 @@ private object DgtJson:
       black: Option[PairingPlayer],
       result: Option[String]
   ):
-    import chess.format.pgn.*
     def tags(round: Int, game: Int, date: Option[String]) = Tags:
       List(
         white.flatMap(_.fullName).map { Tag(_.White, _) },

@@ -11,7 +11,6 @@ import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.i18n.Translate
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.{ WithFlags, applyDelay }
@@ -107,7 +106,7 @@ final class GameApiV2(
       "_"
     )
 
-  def exportByUser(config: ByUserConfig)(using Translate): Source[String, ?] =
+  def exportByUser(config: ByUserConfig): Source[String, ?] =
     Source.futureSource:
       config.playerFile
         .so(realPlayerApi.apply)
@@ -211,7 +210,7 @@ final class GameApiV2(
                 s"${Json.stringify(json)}\n"
       }
 
-  def exportBySwiss(config: BySwissConfig)(using Translate): Source[String, ?] =
+  def exportBySwiss(config: BySwissConfig): Source[String, ?] =
     swissApi
       .gameIdSource(
         swissId = config.swissId,
@@ -230,7 +229,7 @@ final class GameApiV2(
       .throttle(20, 1.second)
       .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
-  def exportUserBookmarks(config: BookmarkConfig)(using Translate): Source[String, ?] =
+  def exportUserBookmarks(config: BookmarkConfig): Source[String, ?] =
     import lila.game.BSONHandlers.gameHandler
     bookmarkApi.coll
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>

@@ -55,7 +55,7 @@ final class UblogApi(
         applyAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
-  def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
+  def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =

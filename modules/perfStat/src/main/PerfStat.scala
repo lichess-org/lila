@@ -176,7 +176,6 @@ object RatingAt:
         RatingAt(_, pov.game.movedAt, pov.gameId)
       .orElse(cur)
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: Instant, gameId: GameId)
 
 case class Results(results: List[Result]):
