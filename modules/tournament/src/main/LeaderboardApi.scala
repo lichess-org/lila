@@ -80,6 +80,7 @@ final class LeaderboardApi(
         aggregateByPlayer(userId, fw, fw.Descending("d"), withPerformance, nb, offset = 0).toList
       .documentSource()
       .mapConcat(readTourEntry)
+      .throttle(perSecond.value, 1.second)
 
   private def aggregateByPlayer(
       userId: UserId,
