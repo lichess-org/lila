@@ -9,11 +9,11 @@
   <plurals name="blogPosts">
     <item quantity="other">%s 篇博客文章</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess官方博客</string>
+  <string name="lichessOfficialBlog">Lichess 官方博客</string>
   <string name="continueReadingPost">继续阅读这篇文章</string>
-  <string name="lichessBlogPostsFromXYear">Lichess博客 于 %s 年发布的文章</string>
+  <string name="lichessBlogPostsFromXYear">Lichess 博客于 %s 年发布的文章</string>
   <string name="previousBlogPosts">之前发布的文章</string>
-  <string name="xBlog">%s的博客</string>
+  <string name="xBlog">%s 的博客</string>
   <string name="newPost">新文章</string>
   <string name="editYourBlogPost">编辑你的博客文章</string>
   <string name="saveDraft">保存草稿</string>
@@ -47,7 +47,7 @@
   <string name="imageAlt">图片备选文字</string>
   <string name="imageCredit">图片引自</string>
   <string name="deleteBlog">确定删除该博客</string>
-  <string name="safeToUseImages">使用来自下列网站的图像是安全的： </string>
+  <string name="safeToUseImages">使用来自下列网站的图像是安全的：</string>
   <string name="selectPostTopics">选择帖子的主题</string>
   <string name="useImagesYouMadeYourself">你也可以使用你自己制作的图像，你拍摄的照片，Lichess 的屏幕截图... 任何不是他人版权所有的东西。</string>
   <string name="safeAndRespectfulContent">请发布安全和表示尊重的内容。不要复制他人的内容。</string>
