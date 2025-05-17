@@ -32,7 +32,7 @@
   },
   "build": {
     "sync": {
-      "node_modules/stockfish*/*.{js,wasm}": "/public/npm",
+      "node_modules/**/stockfish*/*.{js,wasm}": "/public/npm",
       "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
     },
     "hash": [
