@@ -84,7 +84,7 @@ final class Env(
   lazy val api: TournamentApi = wire[TournamentApi]
 
   lazy val coreApi: lila.core.tournament.TournamentApi = new:
-    export cached.tourCache.byId as getCached
+    override def getCached(id: TourId) = cached.tourCache.byId(id)
     export api.{ allCurrentLeadersInStandard, fetchModable }
     export api.gameView.getGameRanks
 
