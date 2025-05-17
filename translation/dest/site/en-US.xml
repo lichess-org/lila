@@ -350,7 +350,14 @@
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
+  <string name="whiteProposesTakeback">White proposes takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
+  <string name="whiteDeclinesTakeback">White declines takeback</string>
+  <string name="blackDeclinesTakeback">Black declines takeback</string>
+  <string name="whiteAcceptsTakeback">White accepts takeback</string>
+  <string name="blackAcceptsTakeback">Black accepts takeback</string>
+  <string name="whiteCancelsTakeback">White cancels takeback</string>
+  <string name="blackCancelsTakeback">Black cancels takeback</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="tournament">Tournament</string>
@@ -670,6 +677,7 @@
   <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="termsOfService">Terms of Service</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Title verification</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>

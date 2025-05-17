@@ -398,7 +398,15 @@
   <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
+  <string name="whiteProposesTakeback">Белые просят вернуть ход</string>
+  <string name="blackProposesTakeback">Чёрные просят вернуть ход</string>
   <string name="takebackPropositionSent">Предложение вернуть ход отправлено</string>
+  <string name="whiteDeclinesTakeback">Белые отказались вернуть ход</string>
+  <string name="blackDeclinesTakeback">Чёрные отказались вернуть ход</string>
+  <string name="whiteAcceptsTakeback">Белые принимают возврат хода</string>
+  <string name="blackAcceptsTakeback">Чёрные принимают возврат хода</string>
+  <string name="whiteCancelsTakeback">Белые отменили просьбу вернуть ход</string>
+  <string name="blackCancelsTakeback">Чёрные отменили просьбу вернуть ход</string>
   <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
   <string name="bookmarkThisGame">Отметить эту игру</string>
   <string name="tournament">Турнир</string>
@@ -750,6 +758,7 @@
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="termsOfService">Пользовательское соглашение</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Подтверждение титула</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>

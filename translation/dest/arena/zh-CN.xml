@@ -12,13 +12,13 @@
 
 例如两场胜利紧接着一场平局得6分： 2 + 2 + (2 x 1)。</string>
   <string name="berserk">狂暴锦标赛</string>
-  <string name="berserkAnswer">如果棋手在棋局开始时点击“狂暴”按钮，将会损失一半的时间，但战胜该局将多得1分。
+  <string name="berserkAnswer">如果棋手在棋局开始时点击“狂暴”按钮，将会损失一半的时间，但战胜该局将多得 1 分。
 
-如果棋局时限有加秒，那么启动狂暴会导致神速方加秒被取消。(唯一的例外是1+2, 在这个情况下启动神速会把神速方的时限变为1+0)。
+如果棋局时限有加秒，那么启动狂暴会导致神速方加秒被取消。(唯一的例外是 1+2, 在这个情况下启动神速会把神速方的时限变为 1+0)。
 
-在无基础局时的棋局 (如0+1、0+2等) ，狂暴功能被禁用。
+在无基础局时的棋局 (如 0+1、0+2 等) ，狂暴功能被禁用。
 
-只有走过7步棋以上的棋局会有狂暴加分。</string>
+只有走过 7 步棋以上的棋局会有狂暴加分。</string>
   <string name="howIsTheWinnerDecided">赢家是如何决定的？</string>
   <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定时间限制结束时积分最多的玩家将被宣布为获胜者。
 
@@ -42,11 +42,11 @@
   <string name="minimumGameLength">最少棋局步数</string>
   <string name="history">竞技场历史</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="other">查看所有%s团队</item>
+    <item quantity="other">查看所有 %s 团队</item>
   </plurals>
   <string name="newTeamBattle">新团队战</string>
   <string name="customStartDate">自定义开始日期</string>
-  <string name="customStartDateHelp">在你的本地时区，这将覆盖 \"距比赛开始时间\" 选项</string>
+  <string name="customStartDateHelp">在你的本地时区，这将覆盖 “距比赛开始时间” 选项</string>
   <string name="allowBerserk">允许狂暴模式</string>
   <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
   <string name="allowChatHelp">允许玩家在聊天室中讨论</string>
@@ -69,7 +69,7 @@
   <string name="tournamentStats">锦标赛统计</string>
   <string name="rankAvgHelp">等级平均值是您排名的百分比。较低的排名越好。
 
-例如，在100个玩家的锦标赛中排名第三名 = 3%。在1000个玩家的锦标赛中排名第10名 = 1%。</string>
+例如，在 100 个玩家的锦标赛中排名第三名 = 3%。在 1000 个玩家的锦标赛中排名第 10 名 = 1%。</string>
   <string name="medians">中位数</string>
   <string name="allAveragesAreX">此页面上的所有平均值是 %s。</string>
   <string name="total">总计</string>

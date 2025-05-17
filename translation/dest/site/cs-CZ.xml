@@ -398,7 +398,15 @@
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
+  <string name="whiteProposesTakeback">Bílý navrhuje remízu</string>
+  <string name="blackProposesTakeback">Černý navrhuje remízu</string>
   <string name="takebackPropositionSent">Návrh na vrácení tahu byl odeslán</string>
+  <string name="whiteDeclinesTakeback">Bílý odmítá remízu</string>
+  <string name="blackDeclinesTakeback">Černý odmítá remízu</string>
+  <string name="whiteAcceptsTakeback">Bílý přijímá remízu</string>
+  <string name="blackAcceptsTakeback">Černý přijímá remízu</string>
+  <string name="whiteCancelsTakeback">Bílý ruší remízu</string>
+  <string name="blackCancelsTakeback">Černý ruší remízu</string>
   <string name="yourOpponentProposesATakeback">Soupeř navrhuje vrácení tahu</string>
   <string name="bookmarkThisGame">Přidat tuto partii do záložek</string>
   <string name="tournament">Turnaj</string>
@@ -750,6 +758,7 @@
   <string name="really">opravdu</string>
   <string name="contribute">Přispějte</string>
   <string name="termsOfService">Podmínky používání</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Ověření titulu</string>
   <string name="sourceCode">Zdrojový kod</string>
   <string name="simultaneousExhibitions">Simultánky</string>
   <string name="host">Host</string>

@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">捐赠</string>
   <string name="donateAsX">以 %s 的名义捐赠</string>
-  <string name="lichessPatron">Lichess赞助者账号</string>
+  <string name="lichessPatron">Lichess 赞助者账号</string>
   <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">自 %s 以来的赞助者</string>
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
@@ -67,7 +67,7 @@
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="decideHowMuch">决定 Lichess 对你来说值得多少：</string>
   <string name="stopPayments">撤销你的信用卡并停止支付：</string>
-  <string name="stopPaymentsPayPal">取消PayPal订阅并停止付款：</string>
+  <string name="stopPaymentsPayPal">取消 PayPal 订阅并停止付款：</string>
   <string name="noLongerSupport">不再赞助 Lichess</string>
   <string name="viewOthers">查看其他 Lichess 赞助者</string>
   <string name="date">日期</string>

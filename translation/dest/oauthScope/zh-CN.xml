@@ -10,7 +10,7 @@
   <string name="copyTokenNow">请确保你已复制个人访问令牌。令牌将不再显示。</string>
   <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">读取首选项</string>
   <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">写入首选项</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">阅读电子邮件地址</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">阅读邮箱地址</string>
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">读取收到的挑战</string>
   <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">发送、接受和拒绝挑战</string>
   <string name="challengeBulk">为其他玩家一次创建许多游戏</string>

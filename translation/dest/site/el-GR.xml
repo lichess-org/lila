@@ -434,7 +434,7 @@
   <string name="reconnecting">Επανασύνδεση</string>
   <string name="noNetwork">Εκτός σύνδεσης</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s φίλος συνδεδεμένος</item>
+    <item quantity="one">%s φίλος/η συνδεδεμένος/η</item>
     <item quantity="other">%s φίλοι συνδεδεμένοι</item>
   </plurals>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>

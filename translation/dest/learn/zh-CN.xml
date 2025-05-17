@@ -18,7 +18,7 @@
 获得的分数越高！</string>
   <string name="useTwoRooks">使用双车，
 加快速度！</string>
-  <string name="rookComplete">恭喜！你已成功掌握了车</string>
+  <string name="rookComplete">恭喜！你已成功掌握了车。</string>
   <string name="theBishop">象</string>
   <string name="itMovesDiagonally">它沿斜线方向移动</string>
   <string name="bishopIntro">接着我们学习如何操纵象！</string>
@@ -37,8 +37,8 @@
   <string name="lastOne">最后一关！</string>
   <string name="kingComplete">你会掌控统帅者了！</string>
   <string name="theKnight">马</string>
-  <string name="itMovesInAnLShape">它以L字形方式移动</string>
-  <string name="knightIntro">给你一个挑战。马是个……棘手的棋子</string>
+  <string name="itMovesInAnLShape">它以 L 字形方式移动</string>
+  <string name="knightIntro">给你一个挑战，马是个... 棘手的棋子。</string>
   <string name="knightsHaveAFancyWay">马以华丽的方式四处跳动！</string>
   <string name="knightsCanJumpOverObstacles">马能跳过障碍！
 逃脱并征服星星们！</string>
@@ -48,7 +48,7 @@
   <string name="pawnIntro">兵是弱小的，但它们内含很多潜力</string>
   <string name="pawnsMoveOneSquareOnly">兵只移动一格，
 但是它们到达棋盘的另一侧时变成更强大的棋子！</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">多数时候，升变为王后是最好的选择
+  <string name="mostOfTheTimePromotingToAQueenIsBest">多数时候，升变为王后是最好的选择。
 但有时候，升变为马也能派上用场！</string>
   <string name="pawnsMoveForward">兵向前直行，
 但斜着吃子！</string>
@@ -157,11 +157,11 @@
   <string name="pieceValue">子力价值</string>
   <string name="evaluatePieceStrength">对子力进行估值</string>
   <string name="pieceValueIntro">活动范围大的棋子价值较高！
-后=9
-车=5
-象=3
-马=3
-兵=1
+后 = 9
+车 = 5
+象 = 3
+马 = 3
+兵 = 1
 王是无价的，如果你的王被将死你就输了这盘棋！</string>
   <string name="queenOverBishop">请吃掉价值大的棋子！
 后 &gt; 象</string>
@@ -171,11 +171,11 @@
 确保你走的棋步是合规的！</string>
   <string name="takeThePieceWithTheHighestValue">请吃掉价值高的棋子！</string>
   <string name="pieceValueComplete">恭喜！你已经知道了子力的价值！
-后=9
-车=5
-象=3
-马=3
-兵=1</string>
+后 = 9
+车 = 5
+象 = 3
+马 = 3
+兵 = 1</string>
   <string name="checkInTwo">二步将</string>
   <string name="twoMovesToGiveCheck">走两步棋并将军对方</string>
   <string name="checkInTwoIntro">请找到正确的两步棋以将军对手！</string>
