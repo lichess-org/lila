@@ -20,6 +20,7 @@ import lila.study.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import com.fasterxml.jackson.core.JsonParseException
+import lila.ui.Page
 
 final class Study(
     env: Env,
@@ -77,76 +78,41 @@ final class Study(
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
     Found(meOrFetch(username)): owner =>
-      env.study.pager
-        .byOwner(owner, order, page)
-        .flatMap: pag =>
-          preloadMembers(pag) >> negotiate(
-            Ok.page(views.study.list.byOwner(pag, order, owner)),
-            apiStudies(pag)
-          )
+      for
+        pag <- env.study.pager.byOwner(owner, order, page)
+        _   <- preloadMembers(pag)
+        res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner)), apiStudies(pag))
+      yield res
 
-  def mine(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    for
-      pag <- env.study.pager.mine(order, page)
-      _   <- preloadMembers(pag)
-      res <- negotiate(
-        env.study.topicApi.userTopics(me).flatMap { topics =>
-          Ok.page(views.study.list.mine(pag, order, topics))
-        },
-        apiStudies(pag)
-      )
-    yield res
-  }
+  def mine = MyStudyPager(
+    env.study.pager.mine,
+    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mine(pag, order, _))
+  )
 
-  def minePublic(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    for
-      pag <- env.study.pager.minePublic(order, page)
-      _   <- preloadMembers(pag)
-      res <- negotiate(
-        Ok.page(views.study.list.minePublic(pag, order)),
-        apiStudies(pag)
-      )
-    yield res
-  }
+  def minePublic = MyStudyPager(env.study.pager.minePublic, views.study.list.minePublic)
 
-  def minePrivate(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    for
-      pag <- env.study.pager.minePrivate(order, page)
-      _   <- preloadMembers(pag)
-      res <- negotiate(
-        Ok.page(views.study.list.minePrivate(pag, order)),
-        apiStudies(pag)
-      )
-    yield res
+  def minePrivate = MyStudyPager(env.study.pager.minePrivate, views.study.list.minePrivate)
 
-  }
+  def mineMember = MyStudyPager(
+    env.study.pager.mineMember,
+    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mineMember(pag, order, _))
+  )
 
-  def mineMember(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    for
-      pag <- env.study.pager.mineMember(order, page)
-      _   <- preloadMembers(pag)
-      res <- negotiate(
-        Ok.async:
-          env.study.topicApi
-            .userTopics(me)
-            .map:
-              views.study.list.mineMember(pag, order, _)
-        ,
-        apiStudies(pag)
-      )
-    yield res
-  }
+  def mineLikes = MyStudyPager(env.study.pager.mineLikes, views.study.list.mineLikes)
 
-  def mineLikes(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    for
-      pag <- env.study.pager.mineLikes(order, page)
-      _   <- preloadMembers(pag)
-      res <- negotiate(
-        Ok.page(views.study.list.mineLikes(pag, order)),
-        apiStudies(pag)
-      )
-    yield res
-  }
+  private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
+
+  private def MyStudyPager(
+      makePager: (Order, Int) => Me ?=> Fu[StudyPager],
+      render: (StudyPager, Order) => Context ?=> Me ?=> Fu[Page]
+  ) = (order: Order, page: Int) =>
+    AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
+      for
+        pager <- makePager(order, page)
+        _     <- preloadMembers(pager)
+        res   <- negotiate(Ok.async(render(pager, order)), apiStudies(pager))
+      yield res
+    }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
@@ -440,9 +406,9 @@ final class Study(
       doChapterPgn(
         id,
         chapterId,
-        fuccess(studyNotFoundText),
-        _ => fuccess(privateUnauthorizedText),
-        _ => fuccess(privateForbiddenText)
+        fuccess(NotFound("Study or chapter not found")),
+        _ => fuccess(Unauthorized("This study is now private")),
+        _ => fuccess(Forbidden("This study is now private"))
       )
 
   private def doChapterPgn(
@@ -543,22 +509,17 @@ final class Study(
     FoundPage(env.cms.renderKey("studies-staff-picks")):
       views.study.staffPicks
 
-  def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(
     Unauthorized.page(views.study.privateStudy(study)),
     privateUnauthorizedJson
   )
 
-  def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
     Forbidden.page(views.study.privateStudy(study)),
     privateForbiddenJson
   )
-
-  def studyNotFoundText = NotFound("Study or chapter not found")
-  def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))
 
   def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
