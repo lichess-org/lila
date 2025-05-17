@@ -792,12 +792,12 @@
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
   <string name="xHostsY">%1$s организује %2$s</string>
-  <string name="xJoinsY">%1$s учествује у %2$s</string>
-  <string name="xLikesY">%1$s каже да му се свиђа %2$s</string>
+  <string name="xJoinsY">%1$s се придружио/ла %2$s</string>
+  <string name="xLikesY">%1$s каже да му/јој се свиђа %2$s</string>
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Непознати играч</string>
-  <string name="yourScore">Ваш резултат: %s</string>
+  <string name="yourScore">Твој скор: %s</string>
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>
   <string name="background">Позадина</string>
