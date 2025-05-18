@@ -84,7 +84,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             div(cls := "puzzle-themes")(
               all.themes.take(2).map(themeCategory),
               h2(id := "openings")(
-                "By game opening",
+                trans.puzzle.byGameOpening.txt(),
                 a(href := routes.Puzzle.openings())(trans.site.more(), " »")
               ),
               opening.listOf(all.openings.families.take(12)),
