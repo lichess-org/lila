@@ -519,7 +519,7 @@ final class Study(
     privateForbiddenJson
   )
 
-  private def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
+  def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     def withUserSelection =
