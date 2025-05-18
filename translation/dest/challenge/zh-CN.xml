@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesX">挑战: %1$s</string>
+  <string name="challengesX">挑战：%1$s</string>
   <string name="challengeToPlay">发起挑战</string>
   <string name="challengeDeclined">拒绝挑战</string>
   <string name="challengeAccepted">接受挑战</string>
@@ -10,7 +10,7 @@
   <string name="xDoesNotAcceptChallenges">%s 不接受挑战</string>
   <string name="yourXRatingIsTooFarFromY">你的 %1$s 等级分与 %2$s 相差太远</string>
   <string name="cannotChallengeDueToProvisionalXRating">你的 %s 等级分不够稳定，不能进行挑战。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑战。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s 只接受好友的挑战。</string>
   <string name="declineGeneric">我目前不接受挑战。</string>
   <string name="declineLater">这不是我合适的时机，请稍后再试。</string>
   <string name="declineTooFast">这次时限对我来说太快了，请再次用较慢的对局来挑战。</string>

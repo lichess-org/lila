@@ -6,10 +6,10 @@
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">对所有人100%免费，永远没有广告或跟踪者</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">对所有人 100% 免费，永远没有广告或跟踪者</string>
   <string name="applyToBeLichessTeacher">申请成为 Lichess 教师</string>
   <string name="noClassesYet">尚无班级。</string>
-  <string name="teachersX">教师： %s</string>
+  <string name="teachersX">教师：%s</string>
   <string name="newClass">创建班级</string>
   <string name="closeClass">关闭班级</string>
   <string name="removedByX">已被 %s 删除</string>
@@ -26,7 +26,7 @@
   <string name="addLichessUsernames">添加 Lichess 用户名邀请他们成为教师。每行一个。</string>
   <string name="resetPassword">重置密码</string>
   <string name="makeSureToCopy">请确保你已牢记密码。密码不会再显示！</string>
-  <string name="passwordX">密码： %s</string>
+  <string name="passwordX">密码：%s</string>
   <string name="generateANewPassword">为学生生成一个新密码</string>
   <string name="invitedToXByY">%1$s 被 %2$s 邀请</string>
   <string name="realName">真实姓名</string>
@@ -104,7 +104,7 @@
   <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">你拒绝了此邀请</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">或</string>
   <string name="createMultipleAccounts">一次创建多个 Lichess 账户</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以%s通过学生名称列表创建多个 Lichess 账户。</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以 %s 通过学生名称列表创建多个 Lichess 账户。</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表单</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">请注意，一个班级最多可以有 %1$s 名学生。如需管理更多学生，%2$s。</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">创建更多班级</string>

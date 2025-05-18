@@ -3,7 +3,7 @@
   <string name="team">团队</string>
   <string name="teams">团队</string>
   <plurals name="nbMembers">
-    <item quantity="other">%s位成员</item>
+    <item quantity="other">%s 位成员</item>
   </plurals>
   <string name="allTeams">所有团队</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">领导团队</string>
@@ -65,6 +65,6 @@
     <item quantity="other">%s 个团队的战斗</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="other">每个团队%s个队长</item>
+    <item quantity="other">每个团队 %s 个队长</item>
   </plurals>
 </resources>
