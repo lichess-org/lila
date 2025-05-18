@@ -442,8 +442,6 @@ final class Study(
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
       .throttle(16, 1.second)
-      .withAttributes:
-        akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")
@@ -521,7 +519,7 @@ final class Study(
     privateForbiddenJson
   )
 
-  def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
+  private def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     def withUserSelection =
