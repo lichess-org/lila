@@ -50,7 +50,7 @@ export default function table(ctrl: LobbyController) {
       'div.lobby__counters',
       () =>
         h('div.lobby__counters', [
-          site.blindMode ? h('h2', 'Counters') : null,
+          site.blindMode ? h('h2', i18n.site.counters) : null,
           h(
             'a',
             { attrs: site.blindMode ? {} : { href: '/player' } },

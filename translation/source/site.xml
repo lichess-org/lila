@@ -310,6 +310,8 @@
   <string name="viewRematch">View rematch</string>
   <string name="confirmMove">Confirm move</string>
   <string name="play">Play</string>
+  <string name="counters">Counters</string>
+  <string name="inTheSpotlight">In the spotlight</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
   <string name="loginToChat">Sign in to chat</string>

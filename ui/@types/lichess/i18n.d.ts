@@ -1738,6 +1738,26 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  nvui: {
+    /** Actions */
+    actions: string;
+    /** Game info */
+    gameInfo: string;
+    /** Game status */
+    gameStatus: string;
+    /** Input form */
+    inputForm: string;
+    /** Last move */
+    lastMove: string;
+    /** Move list */
+    moveList: string;
+    /** Opponent clock */
+    opponentClock: string;
+    /** Pieces */
+    pieces: string;
+    /** Your clock */
+    yourClock: string;
+  };
   oauthScope: {
     /** You already have played games! */
     alreadyHavePlayedGames: string;
@@ -3019,6 +3039,8 @@ interface I18n {
     correspondence: string;
     /** Correspondence games: one or several days per move */
     correspondenceDesc: string;
+    /** Counters */
+    counters: string;
     /** Country or region */
     countryRegion: string;
     /** CPUs */
@@ -3349,6 +3371,8 @@ interface I18n {
     insufficientMaterial: string;
     /** in the FAQ */
     inTheFAQ: string;
+    /** In the spotlight */
+    inTheSpotlight: string;
     /** Invalid authentication code */
     invalidAuthenticationCode: string;
     /** Invalid FEN */
