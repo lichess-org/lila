@@ -30,7 +30,6 @@ Idagdag ang mga iskor ng bawat kalaban na matalo ang manlalaro at kalahating pun
   <string name="pairingsQ">Paano madedesisyonan ang mga pagpares?</string>
   <string name="dutchSystem">sistema ng Dutch</string>
   <string name="FIDEHandbook">FIDE handbook</string>
-  <string name="pairingsA">Gamit ang %1$s, </string>
   <string name="moreRoundsThanPlayersQ">Anong mangyayari kung ang torneo ay may mas maraming round kaysa sa mga manlalaro?</string>
   <string name="restrictedToTeamsQ">Bakit ito limitado sa mga koponan?</string>
   <string name="numberOfByesQ">Ilang mga bye ang makakuha ng isang manlalaro?</string>
