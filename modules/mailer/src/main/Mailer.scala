@@ -18,7 +18,7 @@ final class Mailer(
     config: Mailer.Config,
     canSendEmails: lila.memo.SettingStore[Boolean],
     getSecondaryPermille: () => Int
-)(using system: ActorSystem):
+)(using system: ActorSystem, scheduler: Scheduler):
 
   private given blockingExecutor: Executor =
     system.dispatchers.lookup("blocking-smtp-dispatcher")
@@ -35,11 +35,14 @@ final class Mailer(
 
   def canSend = canSendEmails.get()
 
-  def sendOrFail(msg: Mailer.Message): Funit = send(msg, orFail = true)
-  def sendOrSkip(msg: Mailer.Message): Funit = send(msg, orFail = false)
+  def sendOrFail(msg: Mailer.Message): Funit = send(msg, orFail = true, retry = Mailer.Retry(3))
+  def sendOrSkip(msg: Mailer.Message): Funit = send(msg, orFail = false, retry = Mailer.Retry(0))
 
-  def send(msg: Mailer.Message, orFail: Boolean): Funit =
-    if msg.to.isNoReply then
+  private def send(msg: Mailer.Message, orFail: Boolean, retry: Mailer.Retry): Funit =
+    if !canSend then
+      logger.warn("Can't send any emails due to live setting")
+      funit
+    else if msg.to.isNoReply then
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else
@@ -58,15 +61,25 @@ final class Mailer(
         .recoverWith:
           case _: EmailException if msg.to.normalize.value != msg.to.value =>
             logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
-            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail)
-          case e: Exception if !orFail =>
-            logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
-            funit
+            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail, retry)
+          case e: Exception =>
+            retry.again match
+              case None if orFail => throw e
+              case None =>
+                logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+                funit
+              case Some(nextTry) =>
+                logger.info(s"Will retry to send email to ${msg.to} after: ${e.getMessage}")
+                scheduler.scheduleOnce(nextTry.delay)(send(msg, orFail, nextTry))
+                funit
         .void
 
 object Mailer:
 
   private val timeout = 5.seconds
+
+  case class Retry(times: Int, delay: FiniteDuration = 20.seconds):
+    def again = Option.when(times > 0)(Retry(times - 1, delay * 2))
 
   case class Smtp(
       mock: Boolean,
