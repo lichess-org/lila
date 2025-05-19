@@ -19,13 +19,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def index(username: UserStr, page: Int) = Open:
     NotForKidsUnlessOfficial(username):
       FoundPage(meOrFetch(username)): user =>
-        env.ublog.api
-          .getUserBlog(user)
-          .flatMap: blog =>
-            canViewBlogOf(user, blog)
-              .so(env.ublog.paginator.byUser(user, true, page))
-              .map:
-                views.ublog.ui.blogPage(user, blog, _)
+        for
+          blog  <- env.ublog.api.getUserBlog(user)
+          posts <- canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))
+        yield views.ublog.ui.blogPage(user, blog, posts)
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
@@ -38,17 +35,15 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if slug == post.slug && post.isUserBlog(username)
-      then handlePost(post)
-      else
-        val url = urlOfPost(post).url
-        if url != ctx.req.path then Redirect(urlOfPost(post)) else handlePost(post)
+      if slug == post.slug && post.isUserBlog(username) then handlePost(post)
+      else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))
+      else handlePost(post)
 
   private def handlePost(post: UblogPost)(using Context) =
     val createdBy = post.created.by
     NotForKidsUnlessOfficial(createdBy):
       WithBlogOf(createdBy): (user, blog) =>
-        canViewPost(user, blog)(post).so:
+        (canViewBlogOf(user, blog) && post.canView).so:
           for
             otherPosts     <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
@@ -87,10 +82,10 @@ final class Ublog(env: Env) extends LilaController(env):
       u: U
   )(f: (UserModel, UblogBlog) => Fu[Result])(using Context): Fu[Result] =
     Found(meOrFetch(u)): user =>
-      env.ublog.api
-        .getUserBlog(user)
-        .flatMap: blog =>
-          f(user, blog)
+      for
+        blog <- env.ublog.api.getUserBlog(user)
+        res  <- f(user, blog)
+      yield res
 
   private def WithBlogOf[U: UserIdOf](u: U, allows: UblogBlog.Allows => Boolean)(
       f: (UserModel, UblogBlog) => Fu[Result]
@@ -168,10 +163,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> _ ?=>
     NoBot:
       NotForKids:
-        env.ublog.rank
-          .like(id, v)
-          .map: likes =>
-            Ok(likes.value)
+        env.ublog.rank.like(id, v).map(Ok(_))
   }
 
   def redirect(id: UblogPostId) = Open:
@@ -271,29 +263,23 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       Reasonable(page, Max(50)):
         Ok.async:
-          env.ublog.paginator
-            .liveByLiked(page)
-            .map:
-              views.ublog.ui.liked(_)
+          env.ublog.paginator.liveByLiked(page).map(views.ublog.ui.liked)
   }
 
   def topics = Open:
     NotForKids:
       Ok.async:
-        env.ublog.topic.withPosts.map:
-          views.ublog.ui.topics(_)
+        env.ublog.topic.withPosts.map(views.ublog.ui.topics)
 
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
       Reasonable(page, Max(50)):
-        lila.ublog.UblogTopic
-          .fromUrl(str)
-          .so: top =>
-            Ok.async:
-              env.ublog.paginator
-                .liveByTopic(top, page, byDate)
-                .map:
-                  views.ublog.ui.topic(top, _, byDate)
+        Found(lila.ublog.UblogTopic.fromUrl(str)): top =>
+          Ok.async:
+            env.ublog.paginator
+              .liveByTopic(top, page, byDate)
+              .map:
+                views.ublog.ui.topic(top, _, byDate)
 
   def bestOfYear(page: Int) = Open:
     NotForKids:
@@ -303,27 +289,18 @@ final class Ublog(env: Env) extends LilaController(env):
   def bestOfMonth(year: Int, month: Int, page: Int) = Open:
     NotForKids:
       Reasonable(page, Max(20)):
-        UblogBestOf
-          .readYearMonth(year, month)
-          .so: yearMonth =>
-            Ok.async:
-              env.ublog.paginator
-                .liveByMonth(yearMonth, page)
-                .map:
-                  views.ublog.ui.month(yearMonth, _)
+        Found(UblogBestOf.readYearMonth(year, month)): yearMonth =>
+          Ok.async:
+            env.ublog.paginator
+              .liveByMonth(yearMonth, page)
+              .map(views.ublog.ui.month(yearMonth, _))
 
   def userAtom(username: UserStr) = Anon:
-    env.user.repo
-      .enabledById(username)
-      .flatMap:
-        _.fold(notFound): user =>
-          env.ublog.api
-            .getUserBlog(user)
-            .flatMap: blog =>
-              isBlogVisible(user, blog)
-                .so(env.ublog.paginator.byUser(user, true, 1))
-                .map: posts =>
-                  Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
+    Found(env.user.repo.enabledById(username)): user =>
+      for
+        blog  <- env.ublog.api.getUserBlog(user)
+        posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
+      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
@@ -331,11 +308,8 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
-  def NotForKidsUnlessOfficial(username: UserStr)(f: => Fu[Result])(using Context): Fu[Result] =
+  private def NotForKidsUnlessOfficial(username: UserStr)(f: => Fu[Result])(using Context): Fu[Result] =
     if username.is(UserId.lichess) then f else NotForKids(f)
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
-
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using Context) =
-    canViewBlogOf(user, blog) && post.canView
