@@ -147,7 +147,7 @@ object StudyPgnImport:
             val computedClock: Option[Clock] = clock
               .map(Clock(_, trust = true.some))
               .orElse:
-                (context.clocks(mover), emt).mapN(guessNewClockState(_, currentPly, context.timeControl, _))
+                (context.clocks(mover), emt).mapN(guessNewClockState(_, context.timeControl, _))
               .filter(_.positive)
             Branch(
               id = UciCharPair(uci),
@@ -180,11 +180,10 @@ object StudyPgnImport:
 
   private[study] def guessNewClockState(
       prev: Clock,
-      ply: Ply,
       tc: Option[TournamentClock],
       emt: Centis
   ): Clock =
-    Clock(prev.centis - emt + ~tc.map(_.incrementAtPly(ply)), trust = false.some)
+    Clock(prev.centis - emt + tc.so(_.increment), trust = false.some)
 
   /*
    * Fix bad PGN like this one found on reddit:

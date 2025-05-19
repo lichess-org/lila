@@ -10,6 +10,7 @@ object Dependencies {
     else
       ("linux", "epoll")
 
+  val jitpack   = "jitpack".at("https://jitpack.io")
   val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
@@ -42,20 +43,20 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.6.1"
-    val core     = "org.lichess" %% "scalachess"           % version
-    val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
-    val playJson = "org.lichess" %% "scalachess-play-json" % version
-    val rating   = "org.lichess" %% "scalachess-rating"    % version
+    val version  = "17.6.3"
+    val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
+    val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
+    val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
+    val rating   = "com.github.lichess-org.scalachess" %% "scalachess-rating"    % version
     def bundle   = Seq(core, testKit, playJson, rating)
   }
 
   object scalalib {
-    val version  = "11.8.3"
-    val core     = "org.lichess" %% "scalalib-core"      % version
-    val model    = "org.lichess" %% "scalalib-model"     % version
-    val playJson = "org.lichess" %% "scalalib-play-json" % version
-    val lila     = "org.lichess" %% "scalalib-lila"      % version
+    val version  = "11.8.6"
+    val core     = "com.github.lichess-org.scalalib" %% "scalalib-core"      % version
+    val model    = "com.github.lichess-org.scalalib" %% "scalalib-model"     % version
+    val playJson = "com.github.lichess-org.scalalib" %% "scalalib-play-json" % version
+    val lila     = "com.github.lichess-org.scalalib" %% "scalalib-lila"      % version
     def bundle   = Seq(core, model, playJson, lila)
   }
 
