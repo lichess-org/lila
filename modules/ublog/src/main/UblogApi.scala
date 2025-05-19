@@ -200,10 +200,9 @@ final class UblogApi(
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
 
   def setModAdjust(id: UblogPostId, adjust: Int, pinned: Boolean, assess: Option[String]): Funit =
-    val update =
-      assess.fold($set("rankAdjustDays" -> adjust, "pinned" -> pinned)): c =>
-        $set("rankAdjustDays" -> adjust, "pinned" -> pinned, "automod.classification" -> c)
-
+    val update = $set:
+      $doc("rankAdjustDays" -> adjust, "pinned" -> pinned) ++
+        assess.so(a => $doc("automod.classification" -> a))
     colls.post.update.one($id(id), update).void
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
