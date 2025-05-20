@@ -46,47 +46,48 @@ export default function table(ctrl: LobbyController) {
     ),
     renderSetupModal(ctrl),
     // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
-    thunk(
-      'div.lobby__counters',
-      () =>
-        h('div.lobby__counters', [
-          site.blindMode ? h('h2', 'Counters') : null,
-          h(
-            'a',
-            { attrs: site.blindMode ? {} : { href: '/player' } },
-            i18n.site.nbPlayers.asArray(
-              members,
+    site.blindMode
+      ? undefined
+      : thunk(
+          'div.lobby__counters',
+          () =>
+            h('div.lobby__counters', [
               h(
-                'strong',
-                {
-                  attrs: { 'data-count': members },
-                  hook: onInsert<HTMLAnchorElement>(elm => {
-                    ctrl.spreadPlayersNumber = ctrl.initNumberSpreader(elm, 10, members);
-                  }),
-                },
-                numberFormat(members),
+                'a',
+                { attrs: site.blindMode ? {} : { href: '/player' } },
+                i18n.site.nbPlayers.asArray(
+                  members,
+                  h(
+                    'strong',
+                    {
+                      attrs: { 'data-count': members },
+                      hook: onInsert<HTMLAnchorElement>(elm => {
+                        ctrl.spreadPlayersNumber = ctrl.initNumberSpreader(elm, 10, members);
+                      }),
+                    },
+                    numberFormat(members),
+                  ),
+                ),
               ),
-            ),
-          ),
-          h(
-            'a',
-            site.blindMode ? {} : { attrs: { href: '/games' } },
-            i18n.site.nbGamesInPlay.asArray(
-              rounds,
               h(
-                'strong',
-                {
-                  attrs: { 'data-count': rounds },
-                  hook: onInsert<HTMLAnchorElement>(elm => {
-                    ctrl.spreadGamesNumber = ctrl.initNumberSpreader(elm, 8, rounds);
-                  }),
-                },
-                numberFormat(rounds),
+                'a',
+                site.blindMode ? {} : { attrs: { href: '/games' } },
+                i18n.site.nbGamesInPlay.asArray(
+                  rounds,
+                  h(
+                    'strong',
+                    {
+                      attrs: { 'data-count': rounds },
+                      hook: onInsert<HTMLAnchorElement>(elm => {
+                        ctrl.spreadGamesNumber = ctrl.initNumberSpreader(elm, 8, rounds);
+                      }),
+                    },
+                    numberFormat(rounds),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ]),
-      [],
-    ),
+            ]),
+          [],
+        ),
   ]);
 }

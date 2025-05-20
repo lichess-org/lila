@@ -90,7 +90,7 @@ final class UserLoginsApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp".$exists(true)))
+    store.coll.secondary.exists($doc("user" -> u.id, "fp".$exists(true)))
 
   private def fetchOtherUsers(
       user: User,
@@ -157,7 +157,7 @@ final class UserLoginsApi(
     for
       (ips, fps) <- nextValues("ip", userId).zip(nextValues("fp", userId))
       users <- (ips.nonEmpty && fps.nonEmpty).so(
-        store.coll.secondaryPreferred.distinctEasy[UserId, Set](
+        store.coll.secondary.distinctEasy[UserId, Set](
           "user",
           $doc(
             "ip".$in(ips),
@@ -169,7 +169,7 @@ final class UserLoginsApi(
     yield users
 
   private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
-    store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
+    store.coll.secondary.distinctEasy[String, Set](field, $doc("user" -> userId))
 
 object UserLogins:
 

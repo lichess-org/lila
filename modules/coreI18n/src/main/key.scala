@@ -899,6 +899,18 @@ object I18nKey:
     val `puzzleFailed`: I18nKey = "learn:puzzleFailed"
     val `retry`: I18nKey = "learn:retry"
 
+  object nvui:
+    val `featuredEvents`: I18nKey = "nvui:featuredEvents"
+    val `moveList`: I18nKey = "nvui:moveList"
+    val `gameInfo`: I18nKey = "nvui:gameInfo"
+    val `pieces`: I18nKey = "nvui:pieces"
+    val `gameStatus`: I18nKey = "nvui:gameStatus"
+    val `lastMove`: I18nKey = "nvui:lastMove"
+    val `inputForm`: I18nKey = "nvui:inputForm"
+    val `actions`: I18nKey = "nvui:actions"
+    val `yourClock`: I18nKey = "nvui:yourClock"
+    val `opponentClock`: I18nKey = "nvui:opponentClock"
+
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
     val `tokenGrantsPermission`: I18nKey = "oauthScope:tokenGrantsPermission"

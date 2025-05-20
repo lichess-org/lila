@@ -342,7 +342,7 @@ final class SwissApi(
         import framework.*
         Match($doc("teamId".$in(teamIds), "featurable" -> true)) -> List(
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               as = "player",
               from = mongo.player.name,
               local = "_id",

@@ -31,7 +31,7 @@ final class CoachPager(
     def selector = listableSelector ++ lang.so { l => $doc("languages" -> l.code) }
 
     val adapter = new AdapterLike[Coach.WithUser]:
-      def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
+      def nbResults: Fu[Int] = coll.secondary.countSel(selector)
 
       def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
         coll

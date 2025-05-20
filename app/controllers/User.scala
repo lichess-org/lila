@@ -324,12 +324,12 @@ final class User(
     val familyUserIds = user.id :: userLogins.otherUserIds
     for
       ((notes, bans), othersWithEmail) <-
-        (isGrantedOpt(_.ModNote)
+        isGrantedOpt(_.ModNote)
           .so(
             env.user.noteApi
               .byUsersForMod(familyUserIds)
               .logTimeIfGt(s"${user.username} noteApi.forMod", 2.seconds)
-          ))
+          )
           .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
@@ -337,10 +337,7 @@ final class User(
       others = othersWithEmail.withUsers(otherUsers)
     yield UserLogins.TableData(userLogins, others, notes, bans, max)
 
-  protected[controllers] def renderModZone(username: UserStr)(using
-      ctx: Context,
-      me: Me
-  ): Fu[Result] =
+  protected[controllers] def renderModZone(username: UserStr)(using ctx: Context, me: Me): Fu[Result] =
     env.report.api.inquiries
       .ofModId(me)
       .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
