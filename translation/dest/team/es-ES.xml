@@ -44,6 +44,9 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quieres incluir un enlace a alguno de estos próximos torneos?</string>
   <string name="leadersChat">Chat de líderes</string>
+  <string name="introduction">Introducción</string>
+  <string name="teamIntroductionHelp">Breve descripción visible en el listado de equipos. Hasta 200 caracteres.</string>
+  <string name="teamDescriptionHelp">Descripción completa visible en la página del equipo.</string>
   <string name="closeTeam">Dar de baja el equipo</string>
   <string name="closeTeamDescription">Da de baja el equipo definitivamente.</string>
   <string name="entryCode">Código de entrada al equipo</string>
