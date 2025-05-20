@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Activités annoncées</string>
+  <string name="moveList">Liste des coups</string>
+  <string name="gameInfo">Infos sur la partie</string>
+  <string name="pieces">Pièces</string>
+  <string name="gameStatus">État de la partie</string>
+  <string name="lastMove">Dernier coup</string>
+  <string name="inputForm">Formulaire</string>
+  <string name="actions">Actions</string>
+  <string name="yourClock">Votre horloge</string>
+  <string name="opponentClock">Horloge de l\'adversaire</string>
+</resources>
