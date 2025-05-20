@@ -261,7 +261,7 @@ final class PlanApi(
         if key != payPalIpnKey.value then
           logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
           funit
-        else if !pricing.valid(money) then
+        else if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${ipn.userId} $money ${ipn.txnId}")
           funit
         else
@@ -340,7 +340,7 @@ final class PlanApi(
       isLifetime <- pricingApi.isLifetime(money)
       giftTo     <- order.giftTo.so(userApi.byId)
       _ <-
-        if !pricing.valid(money) then
+        if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
           funit
         else
@@ -399,7 +399,7 @@ final class PlanApi(
       pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
       usd     <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       _ <-
-        if !pricing.valid(money) then
+        if !pricing.valid(money, isGift = false) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
           funit
         else
