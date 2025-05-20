@@ -41,6 +41,9 @@
   <string name="teamsIlead">リーダーを務めるチーム</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
   <string name="leadersChat">リーダー・チャット</string>
+  <string name="introduction">紹介</string>
+  <string name="teamIntroductionHelp">チームリストに表示される簡単な説明です。最大200文字。</string>
+  <string name="teamDescriptionHelp">チームページに表示される詳細な説明です。</string>
   <string name="closeTeam">チームを解散</string>
   <string name="closeTeamDescription">チームを永久に閉鎖します。</string>
   <string name="entryCode">チーム参加コード</string>
