@@ -81,8 +81,8 @@
 
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
   <plurals name="fromXGamesFound">
-    <item name="one">One puzzle found in games by %2$s</item>
-    <item name="other">%1$s puzzles found in games by %2$s</item>
+    <item quantity="one">One puzzle found in games by %2$s</item>
+    <item quantity="other">%1$s puzzles found in games by %2$s</item>
   </plurals>
   <string name="puzzleDashboardDescription">Train, analyse, improve</string>
   <plurals name="nbPlayed">
