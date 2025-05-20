@@ -22,6 +22,7 @@
   <string name="asBlack">وەک ڕەش</string>
   <string name="randomColor">لایەکی هەرەمەکی</string>
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
+  <string name="createTheGame">یارییەکی تازە دروست بکە</string>
   <string name="whiteIsVictorious">سپی براوەیە</string>
   <string name="blackIsVictorious">رەش براوەیە</string>
   <string name="youPlayTheWhitePieces">یاری بە داشە سپیەکان دەکەیت</string>
@@ -190,6 +191,7 @@
   <string name="latestForumPosts">دواین پۆستەکانی مەکۆ</string>
   <string name="players">یاریزانەکان</string>
   <string name="friends">هاوڕێکان</string>
+  <string name="otherPlayers">یاریزانەکانی تر</string>
   <string name="discussions">گفتوگۆکان</string>
   <string name="today">ئەمڕۆ</string>
   <string name="yesterday">دوێنێ</string>
@@ -269,6 +271,7 @@
     <item quantity="one">%s یاری لەگەڵ تۆ</item>
     <item quantity="other">%s یارییەکان لەگەڵ تۆ</item>
   </plurals>
+  <string name="ok">باشە</string>
   <string name="cancel">رەتکردنەوە</string>
   <string name="whiteTimeOut">سپی کاتی تەواوبوو</string>
   <string name="blackTimeOut">رەش کاتی تەواو بوو</string>
