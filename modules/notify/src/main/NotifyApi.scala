@@ -52,7 +52,7 @@ final class NotifyApi(
 
     def getAllows(userIds: Iterable[UserId], event: PrefEvent): Fu[List[NotifyAllows]] =
       userIds.nonEmpty.so:
-        colls.pref.tempPrimary
+        colls.pref.secondary
           .find($inIds(userIds), $doc(event.key -> true).some)
           .cursor[Bdoc]()
           .listAll()

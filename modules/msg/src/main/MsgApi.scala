@@ -227,7 +227,7 @@ final class MsgApi(
           UnwindField("users"),
           Match($doc("users".$ne(user.id))),
           PipelineOperator:
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = colls.msg,
               as = "msgs",
               local = "_id",
@@ -302,7 +302,7 @@ final class MsgApi(
     "lastMsg.text" -> $doc("$not" -> $doc("$regex" -> "^Welcome!"))
   )
   def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] =
-    colls.thread.secondaryPreferred.exists:
+    colls.thread.secondary.exists:
       $id(MsgThread.id(userId, UserId.lichess)) ++ hasUnreadLichessMessageSelect
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =

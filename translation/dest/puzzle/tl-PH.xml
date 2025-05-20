@@ -13,6 +13,8 @@
   <string name="specialMoves">Di-pangkaraniwan na tira</string>
   <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
   <string name="voteToLoadNextOne">Bumoto ka upang mapunta ka sa susunod na palaisipan!</string>
+  <string name="upVote">I-up vote ang palaisipan</string>
+  <string name="downVote">I-down vote ang palaisipan</string>
   <string name="yourPuzzleRatingWillNotChange">Ang iyong palaisipang marka ay hindi magbabago. Tandaan na ang mga palaisipan ay hindi isang kompetisyon. Ang iyong marka ay tumutulong sa pagpili ng pinakamahusay na mga palaisipan para sa iyong antas na kasanayan.</string>
   <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
   <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>

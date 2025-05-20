@@ -307,18 +307,6 @@ trait dsl:
           "pipeline" -> pipe
         )
       )
-    // mongodb 4
-    def pipelineBC(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineFull(
-        from,
-        as,
-        $doc("local" -> s"$$$local"),
-        $doc("$match" -> $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))) :: pipe
-      )
-    def pipelineBC(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineBC(from.name, as, local, foreign, pipe)
-    def pipelineBC(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineBC(from.name.value, as, local, foreign, pipe)
 
     // mongodb 5+ Correlated Subqueries Using Concise Syntax
     // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
@@ -387,15 +375,7 @@ object dsl extends dsl with Handlers:
 
   extension (coll: Coll)(using @annotation.nowarn ex: Executor)
 
-    def secondaryPreferred = coll.withReadPreference(ReadPref.sec)
-    def secondary          = coll.withReadPreference(ReadPref.secOnly)
-
-    // #TODO FIXME
-    // should be secondaryPreferred
-    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    def tempPrimary = coll.withReadPreference(ReadPref.pri)
-
-    def ext = this
+    def secondary = coll.withReadPreference(ReadPref.sec)
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]
