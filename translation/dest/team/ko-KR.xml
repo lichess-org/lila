@@ -39,6 +39,9 @@
   <string name="teamsIlead">내가 이끄는 팀</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
   <string name="leadersChat">지도자 \'대화</string>
+  <string name="introduction">소개</string>
+  <string name="teamIntroductionHelp">팀 리스트에 표시되는 간단한 설명입니다. 최대 200글자입니다.</string>
+  <string name="teamDescriptionHelp">팀 페이지에 표시되는 전체 설명입니다.</string>
   <string name="closeTeam">팀 폐쇄</string>
   <string name="closeTeamDescription">영구히 팀 폐쇄</string>
   <string name="entryCode">팀 가입 코드</string>
