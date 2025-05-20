@@ -121,10 +121,10 @@ trait DateHelper:
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
 
-  def daysFromNow(date: LocalDate): String =
+  def daysFromNow(date: LocalDate)(using Translate): String =
     val today = nowInstant.date
-    if date == today then "Today"
-    else if date == today.minusDays(1) then "Yesterday"
+    if date == today then trans.site.today()
+    else if date == today.minusDays(1) then trans.site.yesterday()
     else momentFromNowServerText(date.atStartOfDay.instant)
 
   def timeRemaining(instant: Instant): Tag =
