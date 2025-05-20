@@ -1226,7 +1226,6 @@ object I18nKey:
     val `fromXGames`: I18nKey = "puzzle:fromXGames"
     val `searchPuzzles`: I18nKey = "puzzle:searchPuzzles"
     val `fromMyGamesNone`: I18nKey = "puzzle:fromMyGamesNone"
-    val `fromXGamesFound`: I18nKey = "puzzle:fromXGamesFound"
     val `puzzleDashboardDescription`: I18nKey = "puzzle:puzzleDashboardDescription"
     val `percentSolved`: I18nKey = "puzzle:percentSolved"
     val `noPuzzlesToShow`: I18nKey = "puzzle:noPuzzlesToShow"
@@ -1235,6 +1234,7 @@ object I18nKey:
     val `playedXTimes`: I18nKey = "puzzle:playedXTimes"
     val `nbPointsBelowYourPuzzleRating`: I18nKey = "puzzle:nbPointsBelowYourPuzzleRating"
     val `nbPointsAboveYourPuzzleRating`: I18nKey = "puzzle:nbPointsAboveYourPuzzleRating"
+    val `fromXGamesFound`: I18nKey = "puzzle:fromXGamesFound"
     val `nbPlayed`: I18nKey = "puzzle:nbPlayed"
     val `nbToReplay`: I18nKey = "puzzle:nbToReplay"
 
