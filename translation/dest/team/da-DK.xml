@@ -44,6 +44,9 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="teamsIlead">Hold jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Måske du bør linke til en af disse kommende turneringer?</string>
   <string name="leadersChat">Holdleder-chat</string>
+  <string name="introduction">Introduktion</string>
+  <string name="teamIntroductionHelp">Kort beskrivelse, som er synlig i holdlister. Op til 200 tegn.</string>
+  <string name="teamDescriptionHelp">Fuld beskrivelse, som er synlig på holdsiden.</string>
   <string name="closeTeam">Luk hold</string>
   <string name="closeTeamDescription">Luk holdet for evigt.</string>
   <string name="entryCode">Holdadgangskode</string>
