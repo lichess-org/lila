@@ -162,12 +162,12 @@
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
-    <item quantity="other">%s партије</item>
+    <item quantity="other">%s партија</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s обележена игра</item>
-    <item quantity="few">%s обележених игара</item>
-    <item quantity="other">%s обележених игара</item>
+    <item quantity="one">%s обележена партија</item>
+    <item quantity="few">%s обележене партије</item>
+    <item quantity="other">%s обележених партија</item>
   </plurals>
   <string name="viewInFullSize">Погледај у пуној величини</string>
   <string name="logOut">Одјави се</string>
@@ -201,7 +201,7 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s сат</item>
-    <item quantity="few">%s сати</item>
+    <item quantity="few">%s сата</item>
     <item quantity="other">%s сати</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -432,7 +432,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ово је шаховска капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликај на таблу да направиш свој потез и докажи да си људско биће.</string>
-  <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
+  <string name="captcha.fail">Молимо Вас да решите шаховску капчу.</string>
   <string name="notACheckmate">Није шах-мат</string>
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
