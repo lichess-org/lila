@@ -44,6 +44,9 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>
+  <string name="introduction">Introdución</string>
+  <string name="teamIntroductionHelp">Breve descrición visible na relación de equipos. Ata 200 caracteres.</string>
+  <string name="teamDescriptionHelp">Descrición completa visible na páxina do equipo.</string>
   <string name="closeTeam">Pechar o equipo</string>
   <string name="closeTeamDescription">Pecha o equipo para sempre.</string>
   <string name="entryCode">Código de entrada no equipo</string>
