@@ -1738,6 +1738,28 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  nvui: {
+    /** Actions */
+    actions: string;
+    /** Featured events */
+    featuredEvents: string;
+    /** Game info */
+    gameInfo: string;
+    /** Game status */
+    gameStatus: string;
+    /** Input form */
+    inputForm: string;
+    /** Last move */
+    lastMove: string;
+    /** Move list */
+    moveList: string;
+    /** Opponent clock */
+    opponentClock: string;
+    /** Pieces */
+    pieces: string;
+    /** Your clock */
+    yourClock: string;
+  };
   oauthScope: {
     /** You already have played games! */
     alreadyHavePlayedGames: string;
