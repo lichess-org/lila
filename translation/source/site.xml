@@ -548,10 +548,7 @@
   <string name="puzzles">Puzzles</string>
   <string name="onlineBots">Online bots</string>
   <string name="name">Name</string>
-  <string name="introduction">Introduction</string>
-  <string name="teamIntroductionHelp">Brief description visible in team listings. Up to 200 chars.</string>
   <string name="description">Description</string>
-  <string name="teamDescriptionHelp">Full description visible on the team page.</string>
   <string name="descPrivate">Private description</string>
   <string name="descPrivateHelp">Text that only the team members will see. If set, replaces the public description for team members.</string>
   <string name="no">No</string>
