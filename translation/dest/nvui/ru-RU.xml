@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Рекомендуемые события</string>
   <string name="moveList">Список ходов</string>
   <string name="gameInfo">Информация об игре</string>
   <string name="pieces">Фигуры</string>
   <string name="gameStatus">Статус игры</string>
   <string name="lastMove">Последний ход</string>
   <string name="actions">Действия</string>
+  <string name="yourClock">Ваши часы</string>
+  <string name="opponentClock">Часы противника</string>
 </resources>
