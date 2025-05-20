@@ -1165,7 +1165,6 @@ object I18nKey:
     val `puzzleThemes`: I18nKey = "puzzle:puzzleThemes"
     val `recommended`: I18nKey = "puzzle:recommended"
     val `phases`: I18nKey = "puzzle:phases"
-    val `byGameOpening`: I18nKey = "puzzle:byGameOpening"
     val `motifs`: I18nKey = "puzzle:motifs"
     val `advanced`: I18nKey = "puzzle:advanced"
     val `lengths`: I18nKey = "puzzle:lengths"
