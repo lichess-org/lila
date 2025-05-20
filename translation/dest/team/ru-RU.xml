@@ -50,6 +50,8 @@
   <string name="teamsIlead">Клубы под моим руководством</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
   <string name="leadersChat">Чат руководителей</string>
+  <string name="teamIntroductionHelp">Краткое описание, видимое в командных списках. До 200 символов.</string>
+  <string name="teamDescriptionHelp">Полное описание, видимое на странице команды.</string>
   <string name="closeTeam">Расформировать клуб</string>
   <string name="closeTeamDescription">Закрывает клуб навсегда.</string>
   <string name="entryCode">Код для вступления в клуб</string>
