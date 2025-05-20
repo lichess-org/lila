@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Suositellut tapahtumat</string>
+  <string name="moveList">Siirtoluettelo</string>
+  <string name="gameInfo">Pelin tiedot</string>
+  <string name="pieces">Nappulat</string>
+  <string name="gameStatus">Pelin tila</string>
+  <string name="lastMove">Viimeisin siirto</string>
+  <string name="actions">Toiminnot</string>
+  <string name="yourClock">Sinun kellosi</string>
+  <string name="opponentClock">Vastustajan kello</string>
+</resources>
