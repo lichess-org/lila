@@ -1741,6 +1741,8 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Featured events */
+    featuredEvents: string;
     /** Game info */
     gameInfo: string;
     /** Game status */
@@ -3039,8 +3041,6 @@ interface I18n {
     correspondence: string;
     /** Correspondence games: one or several days per move */
     correspondenceDesc: string;
-    /** Counters */
-    counters: string;
     /** Country or region */
     countryRegion: string;
     /** CPUs */
@@ -3371,8 +3371,6 @@ interface I18n {
     insufficientMaterial: string;
     /** in the FAQ */
     inTheFAQ: string;
-    /** In the spotlight */
-    inTheSpotlight: string;
     /** Invalid authentication code */
     invalidAuthenticationCode: string;
     /** Invalid FEN */
