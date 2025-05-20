@@ -267,7 +267,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     )
 
   def timeoutPersonalExport(userId: UserId): Fu[List[Modlog]] =
-    coll.tempPrimary
+    coll.secondaryPreferred
       .find(
         $doc(
           "user"   -> userId,
@@ -316,7 +316,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(200)
 
   def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
-    coll.tempPrimary
+    coll.secondaryPreferred
       .find(
         $doc(
           "user".$in(users.filter(_.marks.value.nonEmpty).map(_.id)),

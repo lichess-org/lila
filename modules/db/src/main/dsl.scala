@@ -376,12 +376,6 @@ object dsl extends dsl with Handlers:
   extension (coll: Coll)(using @annotation.nowarn ex: Executor)
 
     def secondaryPreferred = coll.withReadPreference(ReadPref.sec)
-    def secondary          = coll.withReadPreference(ReadPref.secOnly)
-
-    // #TODO FIXME
-    // should be secondaryPreferred
-    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    def tempPrimary = coll.withReadPreference(ReadPref.pri)
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]
