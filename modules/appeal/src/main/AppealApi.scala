@@ -103,7 +103,7 @@ final class AppealApi(
           Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb * 20),
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "_id",

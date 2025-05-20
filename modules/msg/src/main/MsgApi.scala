@@ -227,7 +227,7 @@ final class MsgApi(
           UnwindField("users"),
           Match($doc("users".$ne(user.id))),
           PipelineOperator:
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = colls.msg,
               as = "msgs",
               local = "_id",

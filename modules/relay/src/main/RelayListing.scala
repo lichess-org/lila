@@ -160,7 +160,7 @@ final class RelayListing(
     $doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)
 
   private val tourRoundPipeline: Bdoc =
-    $lookup.pipelineBC(
+    $lookup.pipeline(
       from = colls.round,
       as = "rounds",
       local = "_id",
