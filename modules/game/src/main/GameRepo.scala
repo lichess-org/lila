@@ -23,7 +23,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
-  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
+  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondary.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
@@ -483,7 +483,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       initialFen(game).dmap { game -> _ }
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll.countSel(query(Query))
-  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred.countSel(query(Query))
+  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))
 
   private[game] def favoriteOpponents(
       userId: UserId,
@@ -535,7 +535,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     List(u1, u2)
       .forall(_.count.game > 0)
       .so(
-        coll.secondaryPreferred.list[Game](
+        coll.secondary.list[Game](
           $doc(
             F.playerUids.$all(List(u1.id, u2.id)),
             F.createdAt.$gt(since)

@@ -72,7 +72,7 @@ final class PrefApi(
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
 
   private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
-    coll.secondaryPreferred.distinctEasy[UserId, Set](
+    coll.secondary.distinctEasy[UserId, Set](
       "_id",
       $inIds(userIds) ++ $doc("follow" -> false)
     )
@@ -85,7 +85,7 @@ final class PrefApi(
       userIds.map(followables.contains)
 
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
-    coll.secondaryPreferred.distinctEasy[UserId, Set](
+    coll.secondary.distinctEasy[UserId, Set](
       "_id",
       $inIds(userIds) ++ $doc("mention" -> false)
     )

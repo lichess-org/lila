@@ -66,17 +66,17 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll.find(enabledSelect).cursor[TeamData]()
 
   private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =
-    coll.secondaryPreferred.primitiveOne[Access]($id(id), "forum")
+    coll.secondary.primitiveOne[Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so(
-      coll.secondaryPreferred
+      coll.secondary
         .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
     )
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so:
-      coll.secondaryPreferred
+      coll.secondary
         .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
   def onUserDelete(userId: UserId): Funit = for

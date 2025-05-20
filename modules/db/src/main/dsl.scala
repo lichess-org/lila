@@ -375,7 +375,7 @@ object dsl extends dsl with Handlers:
 
   extension (coll: Coll)(using @annotation.nowarn ex: Executor)
 
-    def secondaryPreferred = coll.withReadPreference(ReadPref.sec)
+    def secondary = coll.withReadPreference(ReadPref.sec)
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]

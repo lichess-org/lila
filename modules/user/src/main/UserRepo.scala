@@ -524,19 +524,19 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean] =
     userIds.nonEmpty.so:
-      coll.secondaryPreferred.exists($inIds(userIds) ++ disabledSelect)
+      coll.secondary.exists($inIds(userIds) ++ disabledSelect)
 
   def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("_id", $doc("roles".$in(roles)))
 
   def countEngines(userIds: List[UserId]): Fu[Int] =
-    coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
+    coll.secondary.countSel($inIds(userIds) ++ engineSelect(true))
 
   def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ engineSelect(true), _.sec)
 
   def countLameOrTroll(userIds: List[UserId]): Fu[Int] =
-    coll.secondaryPreferred.countSel($inIds(userIds) ++ lameOrTroll)
+    coll.secondary.countSel($inIds(userIds) ++ lameOrTroll)
 
   def containsEngine(userIds: List[UserId]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
