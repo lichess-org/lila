@@ -37,7 +37,7 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
     <item quantity="other">Se a partida remata en táboas durante os primeiros %s movementos, non se concederán puntos a ningún dos xogadores.</item>
   </plurals>
   <string name="thisIsPrivate">Este é un torneo privado</string>
-  <string name="shareUrl">Comparte esta URL para que a xente se una: %s</string>
+  <string name="shareUrl">Comparte este URL para que a xente se una: %s</string>
   <string name="drawStreakStandard">Secuencias de táboas: Cando un xogador fai varias táboas consecutivas na Arena, só a primeira delas recibe un punto, así como as que duren máis de %s movementos en partidas estándar. Só podes romper unha secuencia de táboas mediante unha vitoria, non serven nin unha derrota nin unhas táboas.</string>
   <string name="drawStreakVariants">A duración mínima que permite recibir puntos nas partidas empatadas difire segundo a variante. A seguinte táboa amosa o limiar para cada variante.</string>
   <string name="variant">Variante</string>
@@ -67,8 +67,8 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="whichTeamWillYouRepresentInThisBattle">A que equipo representarás nesta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Tes que unirte a algún destes equipos para participar!</string>
   <string name="created">Creado</string>
-  <string name="recentlyPlayed">Xogado recentemente</string>
-  <string name="bestResults">Mellores resultados</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Xogado recentemente</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Mellores resultados</string>
   <string name="tournamentStats">Estatísticas do torneo</string>
   <string name="rankAvgHelp">A clasificación media é unha porcentaxe da túa clasificación. Canto máis baixa, mellor.
 
@@ -84,5 +84,5 @@ Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun
   <string name="onlyTitled">Só xogadores titulados</string>
   <string name="onlyTitledHelp">Esixir un título oficial para unirse ó torneo</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados.</string>
-  <string name="berserkRate">Porcentaxe de Berserk</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Porcentaxe de Berserk</string>
 </resources>
