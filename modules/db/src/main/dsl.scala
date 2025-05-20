@@ -383,8 +383,6 @@ object dsl extends dsl with Handlers:
     // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
     def tempPrimary = coll.withReadPreference(ReadPref.pri)
 
-    def ext = this
-
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]
 
