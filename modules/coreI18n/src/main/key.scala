@@ -900,6 +900,7 @@ object I18nKey:
     val `retry`: I18nKey = "learn:retry"
 
   object nvui:
+    val `featuredEvents`: I18nKey = "nvui:featuredEvents"
     val `moveList`: I18nKey = "nvui:moveList"
     val `gameInfo`: I18nKey = "nvui:gameInfo"
     val `pieces`: I18nKey = "nvui:pieces"
@@ -1644,7 +1645,6 @@ object I18nKey:
     val `viewRematch`: I18nKey = "viewRematch"
     val `confirmMove`: I18nKey = "confirmMove"
     val `play`: I18nKey = "play"
-    val `inTheSpotlight`: I18nKey = "inTheSpotlight"
     val `inbox`: I18nKey = "inbox"
     val `chatRoom`: I18nKey = "chatRoom"
     val `loginToChat`: I18nKey = "loginToChat"

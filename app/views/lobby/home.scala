@@ -64,7 +64,7 @@ object home:
               if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
           ,
           div(cls := "lobby__side")(
-            ctx.blind.option(h2(trans.site.inTheSpotlight())),
+            ctx.blind.option(h2(trans.nvui.featuredEvents())),
             ctx.kid.no.option(
               st.section(cls := "lobby__streams")(
                 views.streamer.bits.liveStreams(streams),

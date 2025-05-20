@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Featured events</string>
   <string name="moveList">Move list</string>
   <string name="gameInfo">Game info</string>
   <string name="pieces">Pieces</string>
