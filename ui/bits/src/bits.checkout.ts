@@ -21,7 +21,13 @@ const getFreq = (): string => getVal('group.freq input:checked');
 const getDest = (): string => getVal('group.dest input:checked');
 const showErrorThenReload = (error: string) => alert(error).then(() => location.assign('/patron'));
 
-export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
+export function initModule({
+  stripePublicKey,
+  pricing,
+}: {
+  stripePublicKey: string;
+  pricing: Pricing;
+}): void {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
