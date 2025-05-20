@@ -64,7 +64,7 @@
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar esta URL no foro ou no teu blog de Lichess para incrustala</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes pegalo no foro ou no teu blog de Lichess para incrustalo</string>
   <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
@@ -95,7 +95,7 @@
   <string name="startFromInitialPosition">Comezar desde a posición inicial</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Comezar dende unha posición personalizada</string>
-  <string name="loadAGameByUrl">Cargar as partidas dende unha URL</string>
+  <string name="loadAGameByUrl">Cargar as partidas dende un URL</string>
   <string name="loadAPositionFromFen">Cargar unha posición dende o FEN</string>
   <string name="loadAGameFromPgn">Cargar as partidas dende o PGN</string>
   <string name="automatic">Automática</string>
@@ -188,7 +188,7 @@
   <string name="customPositionTitle">Posición á medida</string>
   <string name="customPositionText">Dispón o taboleiro ó teu xeito.&lt;br&gt;Adecuada pra explorar os finais.</string>
   <string name="loadExistingLichessGameTitle">Cargar unha partida existente do Lichess</string>
-  <string name="loadExistingLichessGameText">Pega a URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
+  <string name="loadExistingLichessGameText">Pega o URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
   <string name="fromFenStringTitle">A partires dunha cadea FEN</string>
   <string name="fromFenStringText">Pega a posición no formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para comezar o capítulo dende unha posición determinada.</string>
   <string name="fromPgnGameTitle">Dende o PGN dunha partida</string>
