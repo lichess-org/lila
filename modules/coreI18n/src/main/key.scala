@@ -1557,6 +1557,7 @@ object I18nKey:
     val `friends`: I18nKey = "friends"
     val `otherPlayers`: I18nKey = "otherPlayers"
     val `discussions`: I18nKey = "discussions"
+    val `rightNow`: I18nKey = "rightNow"
     val `today`: I18nKey = "today"
     val `yesterday`: I18nKey = "yesterday"
     val `minutesPerSide`: I18nKey = "minutesPerSide"
