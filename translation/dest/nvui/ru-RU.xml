@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Список ходов</string>
+  <string name="gameInfo">Информация об игре</string>
+  <string name="pieces">Фигуры</string>
+  <string name="gameStatus">Статус игры</string>
+  <string name="lastMove">Последний ход</string>
+  <string name="actions">Действия</string>
+</resources>
