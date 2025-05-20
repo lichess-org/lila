@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Eventos destacados</string>
+  <string name="moveList">Lista de xogadas</string>
+  <string name="gameInfo">Información da partida</string>
+  <string name="pieces">Pezas</string>
+  <string name="gameStatus">Estado da partida</string>
+  <string name="lastMove">Última xogada</string>
+  <string name="inputForm">Formulario de entrada</string>
+  <string name="actions">Accións</string>
+  <string name="yourClock">O teu reloxo</string>
+  <string name="opponentClock">O reloxo do rival</string>
+</resources>
