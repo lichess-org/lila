@@ -1540,6 +1540,8 @@ object I18nKey:
     val `fiftyMovesWithoutProgress`: I18nKey = "fiftyMovesWithoutProgress"
     val `currentGames`: I18nKey = "currentGames"
     val `joinedX`: I18nKey = "joinedX"
+    val `userPlayedXGamesSinceY`: I18nKey = "userPlayedXGamesSinceY"
+    val `currentXRatingY`: I18nKey = "currentXRatingY"
     val `viewInFullSize`: I18nKey = "viewInFullSize"
     val `logOut`: I18nKey = "logOut"
     val `signIn`: I18nKey = "signIn"
