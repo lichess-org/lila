@@ -44,6 +44,9 @@ Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</stri
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="leadersChat">Xat de capitans</string>
+  <string name="introduction">Introducció</string>
+  <string name="teamIntroductionHelp">Descripció curta visible al llistat d\'equips. Fins a 200 caràcters.</string>
+  <string name="teamDescriptionHelp">Descripció completa visible a la pàgina de l\'equip.</string>
   <string name="closeTeam">Eliminar equip</string>
   <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
   <string name="entryCode">Clau d\'entrada a l\'equip</string>
