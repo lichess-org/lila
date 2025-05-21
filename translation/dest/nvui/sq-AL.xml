@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Veprimtari të zgjedhura</string>
+  <string name="moveList">Listë lëvizjesh</string>
+  <string name="gameInfo">Hollësi loje</string>
+  <string name="pieces">Gurë</string>
+  <string name="gameStatus">Gjendje loje</string>
+  <string name="lastMove">Lëvizja e fundit</string>
+  <string name="actions">Veprime</string>
+  <string name="yourClock">Sahati juaj</string>
+  <string name="opponentClock">Sahati i kundërshtarit</string>
+</resources>
