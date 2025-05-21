@@ -172,10 +172,7 @@ final class UblogApi(
   private def applyAutomod(post: UblogPost): Funit =
     automod(post)
       .flatMapz: res =>
-        val doc = $set(
-          "automod" -> res
-        )
-        colls.post.update.one($id(post.id), doc).void
+        colls.post.update.one($id(post.id), $set("automod" -> res)).void
       .recover: e =>
         logger.warn(s"automod ${post.id} ${e.getMessage}", e)
         ()
