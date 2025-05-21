@@ -136,7 +136,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           postForm(
             action := routes.Mod.kid(u.username, !u.kid.value),
             title  := "Activate kid mode if not already the case",
-            cls    := "xhr yes-no-confirm"
+            cls    := "xhr"
           ):
             submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.yes.option("active"))("Kid")
         },
@@ -213,7 +213,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       ),
       Granter
         .opt(_.ModMessage)
-        .option(
+        .option {
           postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
             st.select(
               st.option(value := "")("Send PM"),
@@ -221,7 +221,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 st.option(st.value := preset.name, title := preset.text)(preset.name)
             )
           )
-        ),
+        },
       Granter.opt(_.SetTitle).option {
         postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
@@ -233,7 +233,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       },
       Granter
         .opt(_.SetEmail)
-        .so(
+        .so:
           frag(
             postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
               st.input(
@@ -250,11 +250,19 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             postForm(
               action := routes.Mod.blankPassword(u.username),
               title  := "Blank the password",
-              cls    := "yes-no-confirm"
+              cls    := "btn-rack"
             ):
-              submitButton(cls := List("btn-rack__btn" -> true))("Blank password")
+              submitButton(cls := "btn-rack__btn yes-no-confirm")("Blank password")
           )
-        )
+      ,
+      Granter.opt(_.FreePatron).option {
+        postForm(
+          action := routes.Mod.freePatron(u.username),
+          title  := "Give free Patron wings for a month",
+          cls    := "btn-rack"
+        ):
+          submitButton(cls := "btn-rack__btn yes-no-confirm")("Free Patron")
+      }
     )
 
   private def gdprEraseForm(u: User)(using Context) =

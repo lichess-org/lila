@@ -63,6 +63,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case Presets      extends Permission("PRESET", "Edit mod presets")
   case ModLog       extends Permission("MOD_LOG", "See mod log")
   case SeeInsight   extends Permission("SEE_INSIGHT", "View player insights")
+  case FreePatron   extends Permission("FREE_PATRON", List(UserModView), "Give free patron")
   case PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
   case PuzzleCurator         extends Permission("PUZZLE_CURATOR", "Classify puzzles")
   case OpeningWiki           extends Permission("OPENING_WIKI", "Opening wiki")
@@ -203,6 +204,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           CloseAccount,
           SetTitle,
           SetEmail,
+          FreePatron,
           ManageTeam,
           ManageTournament,
           ManageSimul,
