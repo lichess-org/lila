@@ -44,6 +44,9 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="teamsIlead">Equipas que eu lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Talvez queiras enviar um link de algum destes futuros torneios.</string>
   <string name="leadersChat">Chat dos líderes</string>
+  <string name="introduction">Introdução</string>
+  <string name="teamIntroductionHelp">Breve descrição visível na listagem das equipas. Até 200 caracteres.</string>
+  <string name="teamDescriptionHelp">Descrição completa visível na página da equipa.</string>
   <string name="closeTeam">Encerrar equipa</string>
   <string name="closeTeamDescription">Encerrar a equipa para sempre.</string>
   <string name="entryCode">Código da equipa</string>
