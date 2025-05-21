@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">Featured events</string>
-  <string name="moveList">Move list</string>
+  <string name="moveList" comment="List of all the moves of the game">Move list</string>
   <string name="gameInfo">Game info</string>
   <string name="pieces">Pieces</string>
   <string name="gameStatus">Game status</string>
-  <string name="lastMove">Last move</string>
-  <string name="inputForm">Input form</string>
-  <string name="actions">Actions</string>
+  <string name="lastMove" comment="Last move played">Last move</string>
+  <string name="inputForm" comment="Form to input moves and commands">Input form</string>
+  <string name="actions" comment="What is under actions is contextual. For example, while playing, actions may be resign, offer draw, etc">Actions</string>
   <string name="yourClock">Your clock</string>
   <string name="opponentClock">Opponent clock</string>
 </resources>
