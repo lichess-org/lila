@@ -18,7 +18,7 @@ final class UblogApi(
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod
-)(using Executor, Scheduler)
+)(using Executor)(using scheduler: Scheduler)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
@@ -168,7 +168,7 @@ final class UblogApi(
       topic = s"$tierName new posts"
     )
 
-  private def triggerAutomod(post: UblogPost)(using scheduler: Scheduler) =
+  private def triggerAutomod(post: UblogPost) =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     if post.live then attempt()
 

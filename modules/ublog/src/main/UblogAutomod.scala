@@ -18,15 +18,6 @@ import lila.core.config.Secret
 
 private object UblogAutomod:
 
-  case class Config(apiKey: Secret, model: String, url: String)
-
-  case class FuzzyResult(
-      classification: String,
-      flagged: Option[JsValue],
-      commercial: Option[JsValue],
-      offtopic: Option[JsValue],
-      evergreen: Option[Boolean]
-  )
   case class Result(
       classification: String,
       flagged: Option[String],
@@ -34,6 +25,16 @@ private object UblogAutomod:
       offtopic: Option[String],
       evergreen: Option[Boolean],
       hash: Option[String] = none
+  )
+
+  private case class Config(apiKey: Secret, model: String, url: String)
+
+  private case class FuzzyResult(
+      classification: String,
+      flagged: Option[JsValue],
+      commercial: Option[JsValue],
+      offtopic: Option[JsValue],
+      evergreen: Option[Boolean]
   )
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
@@ -53,7 +54,7 @@ final class UblogAutomod(
     default = Text("")
   )
 
-  private val cfg =
+  private val cfg: UblogAutomod.Config =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
@@ -117,16 +118,15 @@ final class UblogAutomod(
         offtopic = fix(res.offtopic)
       )
       fixed.classification match
-        case "great" => fixed.some
-        case "good"  => fixed.some
-        case "weak"  => fixed.copy(evergreen = none).some
-        case "spam"  => fixed.copy(evergreen = none, offtopic = none, commercial = none).some
-        case _       => none
+        case "great" | "good" => fixed.some
+        case "weak"           => fixed.copy(evergreen = none).some
+        case "spam"           => fixed.copy(evergreen = none, offtopic = none, commercial = none).some
+        case _                => none
     }
 
   private def fix(field: Option[JsValue]): Option[String] = // LLM make poopy
     val bad = Set("none", "reason", "false", "")
     field match
-      case Some(s: JsString)  => s.value.trim().toLowerCase().some.filterNot(bad)
-      case Some(b: JsBoolean) => b.toString.some.filterNot(bad)
-      case _                  => none
+      case Some(JsString(value)) => value.trim().toLowerCase().some.filterNot(bad)
+      case Some(JsBoolean(true)) => "true".some
+      case _                     => none
