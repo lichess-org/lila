@@ -44,6 +44,9 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="teamsIlead">Lag jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
   <string name="leadersChat">Ledersamtale</string>
+  <string name="introduction">Introduksjon</string>
+  <string name="teamIntroductionHelp">Kort beskrivelse som vises i lagoversikten. Opptil 200 tegn.</string>
+  <string name="teamDescriptionHelp">Full beskrivelse som vises på lagsiden.</string>
   <string name="closeTeam">Legg ned laget</string>
   <string name="closeTeamDescription">Legger ned laget for alltid.</string>
   <string name="entryCode">Lagadgangskode</string>
