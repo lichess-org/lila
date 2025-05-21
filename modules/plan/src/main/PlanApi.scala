@@ -190,7 +190,8 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        session <- canUse(data.ip, data.checkout.freq).flatMap { can =>
+        can <- canUse(data.ip, data.checkout.freq)
+        session <-
           if can.yes then
             data.checkout.freq match
               case Freq.Onetime => stripeClient.createOneTimeSession(data)
@@ -198,7 +199,6 @@ final class PlanApi(
           else
             logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
             fufail(StripeClient.CantUseException)
-        }
       yield StripeJson.toClient(session)
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
