@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.DefaultBodyReadables.readableAsString
+import com.roundeights.hasher.Algo
 
 import lila.memo.SettingStore
 import lila.core.data.Text
@@ -68,12 +69,6 @@ final class UblogAutomod(
   private def fetchText(userText: String): Fu[Option[Result]] =
     val prompt = promptSetting.get().value
     (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
-      val hash = java.security.MessageDigest
-        .getInstance("SHA-256")
-        .digest(userText.getBytes("UTF-8"))
-        .map("%02x".format(_))
-        .mkString
-        .take(12)
       val body = Json.obj(
         "model" -> cfg.model,
         // "response_format" -> "json", // not universally supported it seems
@@ -104,6 +99,7 @@ final class UblogAutomod(
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
+              val hash = Algo.sha256(userText).hex.take(12) // matches ublog-automod.mjs hash
               fuccess(res.copy(hash = hash.some).some)
         .monSuccess(_.ublog.automod.request)
 
