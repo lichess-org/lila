@@ -115,7 +115,8 @@ export default class RacerCtrl implements PuzCtrl {
 
   isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name === this.data.player.name);
 
-  raceFull = () => this.data.players.length >= 10;
+  // Must be changed with val maxPlayers in RacerRace.scala
+  raceFull = () => this.data.players.length >= 20;
 
   status = (): RaceStatus => (this.run.clock.started() ? (this.run.clock.flag() ? 'post' : 'racing') : 'pre');
 

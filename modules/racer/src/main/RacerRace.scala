@@ -49,7 +49,7 @@ case class RacerRace(
 object RacerRace:
 
   val duration   = 90
-  val maxPlayers = 10
+  val maxPlayers = 20
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
