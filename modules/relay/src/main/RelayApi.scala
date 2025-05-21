@@ -513,7 +513,7 @@ final class RelayApi(
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
 
-  private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
+  private def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id).flatMapz(f)
 
   private[relay] def onStudyRemove(studyId: StudyId) =

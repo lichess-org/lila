@@ -161,9 +161,7 @@ final private class RelayFetch(
         _.withSync:
           _.copy(
             nextAt = nowInstant.plusSeconds {
-              seconds.atLeast {
-                if round.sync.log.justTimedOut then 10 else 2
-              }.value
+              seconds.atLeast(if round.sync.log.justTimedOut then 10 else 2).value
             }.some
           )
 

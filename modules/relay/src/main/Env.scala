@@ -173,7 +173,7 @@ final class Env(
     case lila.core.study.GetRelayCrowd(studyId, promise) =>
       roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 
-private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
+private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
   val tour  = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))
