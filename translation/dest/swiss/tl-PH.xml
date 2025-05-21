@@ -1,2 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swiss">Swiss</string>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s round</item>
+    <item quantity="other">%s mga round</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Isang round bawat araw</item>
+    <item quantity="other">Isang round tuwing %s araw</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Manu-manong sinisimulan ang mga round</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo sa gitna na mga round</item>
+    <item quantity="other">%s segundo sa gitna na mga round</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto sa gitna na mga round</item>
+    <item quantity="other">%s minuto sa gitna na mga round</item>
+  </plurals>
+  <string name="nextRound">Susunod na round</string>
+  <string name="tournStartDate">Petsa ng nagsisimula ng torneo</string>
+  <string name="numberOfRounds">Bilang ng mga round</string>
+  <string name="newSwiss">Bagong Swiss torneo</string>
+  <string name="pointsCalculationQ">Paano kinakalkula ang mga puntos?</string>
+  <string name="tiebreaksCalculationQ">Paano kinakalkula ang mga tie break?</string>
+  <string name="sonnebornBergerScore">iskor ng Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Gamit ang %s.
+Idagdag ang mga iskor ng bawat kalaban na matalo ang manlalaro at kalahating puntos ng bawat kalaban na-tabla ang manlalaro.</string>
+  <string name="pairingsQ">Paano madedesisyonan ang mga pagpares?</string>
+  <string name="dutchSystem">sistema ng Dutch</string>
+  <string name="FIDEHandbook">FIDE handbook</string>
+  <string name="pairingsA">Gamit ang %1$s, ipinatupad ng %2$s, alinsunod sa %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Anong mangyayari kung ang torneo ay may mas maraming round kaysa sa mga manlalaro?</string>
+  <string name="restrictedToTeamsQ">Bakit ito limitado sa mga koponan?</string>
+  <string name="numberOfByesQ">Ilang mga bye ang makakuha ng isang manlalaro?</string>
+  <string name="earlyDrawsQ">Anong mangyayari sa mga maagang tabla?</string>
+  <string name="whatIfOneDoesntPlayQ">Anong mangyayari kung ang isang manlalaro ay hindi naglalaro?</string>
+  <string name="protectionAgainstNoShowQ">Ano ang ginagawa patungkol sa mga no-show?</string>
+  <string name="lateJoinQ">Maaari bang malate sumali ang mga manlalaro?</string>
+  <string name="roundRobinQ">Paano naman ang Round Robin?</string>
+  <string name="otherSystemsQ">Paano ang iba pang sistema ng torneo?</string>
+  <string name="joinOrCreateTeam">Sumali o gumawa ng isang koponan</string>
+  <string name="nowPlaying">Naglalaro ngayon</string>
+  <string name="tournDuration">Tagal ng torneo</string>
+  <string name="numberOfGames">Bilang ng mga laro</string>
+  <string name="pairingSystem">Sistema ng pagpares</string>
+  <string name="pairingWaitTime">Oras ng paghihintay ng pagpares</string>
+  <string name="pairingWaitTimeArena">Mabilis: hindi naghihintay ng lahat ng mga manlalaro</string>
+  <string name="pairingWaitTimeSwiss">Mabagal: naghihintay ng lahat ng mga manlalaro</string>
+  <string name="identicalPairing">Magkaparehong pagpares</string>
+  <string name="identicalForbidden">Bawal</string>
+  <string name="lateJoin">Malate sumali</string>
+  <string name="pauseSwiss">Oo pero puwedeng mabawasan ang bilang ng mga round</string>
+  <string name="streaksAndBerserk">Mga Streak at Berserk</string>
+  <string name="similarToOTB">Katulad sa mga torneo ng OTB</string>
+  <string name="unlimitedAndFree">Walang limitasyon at libre</string>
+  <string name="playYourGames">Maglaro ng iyong mga laro</string>
+  <string name="byes">Mga Bye</string>
+  <string name="absences">Mga Kawalan</string>
+  <string name="tieBreak">Tie Break</string>
+</resources>

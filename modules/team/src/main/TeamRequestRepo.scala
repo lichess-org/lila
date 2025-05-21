@@ -50,4 +50,4 @@ final class TeamRequestRepo(val coll: Coll)(using Executor):
   def removeByUser(userId: UserId) = coll.delete.one($doc("user" -> userId))
 
   def countPendingForTeams(teams: Iterable[TeamId]): Fu[Int] =
-    teams.nonEmpty.so(coll.secondaryPreferred.countSel($doc("team".$in(teams), "declined".$ne(true))))
+    teams.nonEmpty.so(coll.secondary.countSel($doc("team".$in(teams), "declined".$ne(true))))

@@ -25,7 +25,7 @@ export function initModule(data: RadarData) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
 
-  if (!d?.datasets.length) return;
+  if (!d?.datasets.length || !canvas) return;
 
   d.datasets[0] = {
     ...d.datasets[0],

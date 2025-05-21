@@ -255,8 +255,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               'Type these commands in the command input.',
               ...inputCommands
                 .filter(c => !c.invalid?.(ctrl))
-                .map(command => `${command.cmd}: ${command.help}`),
-            ].reduce(addBreaks, []),
+                .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
+            ].reduce<VNodeChildren[]>(
+              (acc, curr, i) => (i % 2 != 0 ? addBreaks(acc, curr) : acc.concat(curr)),
+              [],
+            ),
           ),
           h('h2', 'Chat'),
           ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
@@ -360,7 +363,7 @@ function onSubmit(
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
-  help: string | VNode;
+  help: VNode;
   cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
   invalid?: (ctrl: AnalyseController) => boolean;
 };
@@ -399,7 +402,7 @@ const inputCommands: InputCommand[] = [
     help: noTrans('return to the previous move'),
     cb: ctrl => doAndRedraw(ctrl, prev),
   },
-  { cmd: 'next', help: 'go to the next move', cb: ctrl => doAndRedraw(ctrl, next) },
+  { cmd: 'next', help: noTrans('go to the next move'), cb: ctrl => doAndRedraw(ctrl, next) },
   {
     cmd: 'prev line',
     help: noTrans('switch to the previous variation'),

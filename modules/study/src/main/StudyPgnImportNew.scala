@@ -101,7 +101,7 @@ object StudyPgnImportNew:
           .map(Clock(_, trust = true.some))
           .orElse:
             (context.clocks(mover), emt)
-              .mapN(StudyPgnImport.guessNewClockState(_, currentPly, context.timeControl, _))
+              .mapN(StudyPgnImport.guessNewClockState(_, context.timeControl, _))
           .filter(_.positive)
         val newBranch =
           NewBranch(

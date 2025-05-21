@@ -1738,6 +1738,28 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  nvui: {
+    /** Actions */
+    actions: string;
+    /** Featured events */
+    featuredEvents: string;
+    /** Game info */
+    gameInfo: string;
+    /** Game status */
+    gameStatus: string;
+    /** Input form */
+    inputForm: string;
+    /** Last move */
+    lastMove: string;
+    /** Move list */
+    moveList: string;
+    /** Opponent clock */
+    opponentClock: string;
+    /** Pieces */
+    pieces: string;
+    /** Your clock */
+    yourClock: string;
+  };
   oauthScope: {
     /** You already have played games! */
     alreadyHavePlayedGames: string;
@@ -5227,6 +5249,8 @@ interface I18n {
     incorrectEntryCode: string;
     /** Inner team */
     innerTeam: string;
+    /** Introduction */
+    introduction: string;
     /** Join the official %s team for news and events */
     joinLichessVariantTeam: I18nFormat;
     /** Join team */
@@ -5285,6 +5309,10 @@ interface I18n {
     teamBattle: string;
     /** A battle of multiple teams, each player scores points for their team */
     teamBattleOverview: string;
+    /** Full description visible on the team page. */
+    teamDescriptionHelp: string;
+    /** Brief description visible in team listings. Up to 200 chars. */
+    teamIntroductionHelp: string;
     /** Team leaders */
     teamLeaders: I18nPlural;
     /** Team page */

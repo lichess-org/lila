@@ -26,7 +26,7 @@ final class Adapter[A: BSONDocumentReader](
 )(using Executor)
     extends AdapterLike[A]:
 
-  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
+  def nbResults: Fu[Int] = collection.secondary.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
     collection

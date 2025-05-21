@@ -79,7 +79,7 @@ final class SwissFeature(
           Sort(Descending("nbPlayers")),
           Limit(nb * 50),
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = "team",
               as = "team",
               local = "teamId",

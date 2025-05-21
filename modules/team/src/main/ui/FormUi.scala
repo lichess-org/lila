@@ -98,15 +98,15 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(
       form("intro"),
-      "Introduction",
-      help = frag("Brief description visible in team listings. Up to 200 chars.").some
+      trans.team.introduction(),
+      help = frag(trans.team.teamIntroductionHelp()).some
     )(
       form3.textarea(_)(rows := 2)
     )(cls := form("intro").value.isEmpty.option("accent")),
     form3.group(
       form("description"),
       trans.site.description(),
-      help = frag("Full description visible on the team page.", br, markdownAvailable).some
+      help = frag(trans.team.teamDescriptionHelp(), br, markdownAvailable).some
     )(
       form3.textarea(_)(rows := 10)
     ),

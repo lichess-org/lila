@@ -17,7 +17,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
         import framework.*
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "u",

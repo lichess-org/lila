@@ -84,6 +84,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def loginWithWeakPassword(user: UserId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.weakPassword)
 
+  def giftPatronMonth(mod: ModId, user: UserId) = add:
+    Modlog(mod, user.some, Modlog.giftPatronMonth)
+
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
 
@@ -198,7 +201,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     coll.exists($doc("user" -> user, "details".$regex(s"-${Permission.Teacher.toString}")))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
-    coll.secondaryPreferred.exists:
+    coll.secondary.exists:
       $doc(
         "user" -> user,
         "mod"  -> me.userId,
@@ -267,7 +270,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     )
 
   def timeoutPersonalExport(userId: UserId): Fu[List[Modlog]] =
-    coll.tempPrimary
+    coll.secondary
       .find(
         $doc(
           "user"   -> userId,
@@ -279,10 +282,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
-    coll.secondaryPreferred.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
+    coll.secondary.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel:
+    coll.secondary.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
@@ -290,7 +293,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel:
+    coll.secondary.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
@@ -302,21 +305,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
 
   def recentHuman =
-    coll.secondaryPreferred
+    coll.secondary
       .find($doc("mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin))))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
 
   def recentBy(mod: Mod) =
-    coll.secondaryPreferred
+    coll.secondary
       .find($doc("mod" -> mod.id))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
 
   def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
-    coll.tempPrimary
+    coll.secondary
       .find(
         $doc(
           "user".$in(users.filter(_.marks.value.nonEmpty).map(_.id)),

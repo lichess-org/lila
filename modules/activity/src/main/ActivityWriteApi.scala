@@ -88,7 +88,7 @@ final class ActivityWriteApi(
 
   def unfollowAll(from: User, following: Set[UserId]) =
     withColl: coll =>
-      coll.secondaryPreferred
+      coll.secondary
         .distinctEasy[UserId, Set]("f.o.ids", regexId(from.id))
         .flatMap: extra =>
           val all = following ++ extra

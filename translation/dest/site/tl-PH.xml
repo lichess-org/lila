@@ -22,6 +22,7 @@
   <string name="asBlack">bilang itim</string>
   <string name="randomColor">Ibat-ibang panig</string>
   <string name="createAGame">Gumawa ng laro</string>
+  <string name="createTheGame">Gumawa ang laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
   <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting piyesa</string>
@@ -238,6 +239,8 @@
   <string name="proceedToX">Magpatuloy sa %s</string>
   <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Gagamitin nila ito sa pagnanakaw ng iyong account.</string>
   <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Gagamitin nila iyon para nakawin ang iyong account.</string>
+  <string name="emailConfirmHelp">Tulong sa pagkumpirma ng email</string>
+  <string name="whatSignupUsername">Anong username ang ginamit mo para mag-sign up?</string>
   <string name="emailForSignupHelp">Kung nabigo ang lahat, ipadala sa amin ang email na ito:</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
@@ -546,6 +549,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Mga Talaan</string>
   <string name="typePrivateNotesHere">I-type ang mga pribadong talaan dito</string>
+  <string name="noNoteYet">Wala pang tala</string>
   <string name="invalidUsernameOrPassword">Maling username o password</string>
   <string name="incorrectPassword">Maling password</string>
   <string name="invalidAuthenticationCode">Ang pagpapatunay ng code ay imbalido</string>
@@ -639,6 +643,7 @@
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Mapatunayan ng Titulo</string>
   <string name="sourceCode">Pinagkukunan ng Code</string>
   <string name="simultaneousExhibitions">Magkasabay na mga eksibisyon</string>
   <string name="host">Host</string>
@@ -669,11 +674,13 @@
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
   <string name="keyShowOrHideComments">ipakita/itago ang mga komento</string>
   <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
+  <string name="keyNextLearnFromYourMistakes">Sunod (Matuto sa iyong pagkakamali)</string>
   <string name="keyNextBlunder">Susunod na malaking pagkakamali</string>
   <string name="keyNextMistake">Susunod na pagkakamali</string>
   <string name="keyNextInaccuracy">Susunod na di-pagkakatama</string>
   <string name="keyPreviousBranch">Nakaraang sangay</string>
   <string name="keyNextBranch">Susunod na sangay</string>
+  <string name="playSelectedMove">laruin ang napiling galaw</string>
   <string name="newTournament">Bagong torneo</string>
   <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
   <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
@@ -705,6 +712,7 @@
   <string name="downloadAnnotated">I-download ang na-annotate</string>
   <string name="downloadRaw">I-download ang raw</string>
   <string name="downloadImported">Naluwas na mga nadownload</string>
+  <string name="downloadAllGames">I-download lahat ng mga laro</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pwede kang magscroll sa ibabaw ng board upang gumalaw sa laro.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mag-scroll sa mga pagkakaiba-iba ng computer upang i-preview ang mga ito.</string>
@@ -746,9 +754,11 @@
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema ng Device</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
   <string name="board">Board</string>
   <string name="size">Laki</string>
+  <string name="opacity">Opacity</string>
   <string name="brightness">Liwanag</string>
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
@@ -764,6 +774,7 @@
   <string name="invalidFen">Maling FEN</string>
   <string name="custom">Pinasadya</string>
   <string name="notifications">Mga Notipikasyon</string>
+  <string name="notificationsX">Mga Notification: %1$s</string>
   <string name="perfRatingX">Marka: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo na gawin ang unang galaw</item>
@@ -842,6 +853,7 @@
   <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Mabilisan</string>
   <string name="classical">Klasikal</string>
@@ -937,4 +949,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="showMeEverything">Ipakita ang lahat sa akin</string>
   <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
 Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
+  <string name="enableBlindMode">Paganahin ang bulag mode</string>
+  <string name="disableBlindMode">Huwag paganahin ang bulag mode</string>
 </resources>

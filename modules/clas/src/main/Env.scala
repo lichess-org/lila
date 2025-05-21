@@ -19,6 +19,7 @@ final class Env(
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     hcaptcha: lila.core.security.Hcaptcha,
+    settingStore: lila.memo.SettingStore.Builder,
     baseUrl: BaseUrl
 )(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
 

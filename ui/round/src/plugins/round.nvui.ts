@@ -85,22 +85,22 @@ export function initModule(): NvuiPlugin {
       }
       return h('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
         h('h1', gameText(ctrl)),
-        h('h2', noTrans('Game info')),
+        h('h2', i18n.nvui.gameInfo),
         ...['white', 'black'].map((color: Color) =>
           h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
         h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], noTrans(d.game.perf)]),
         d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
-        h('h2', noTrans('Moves')),
+        h('h2', i18n.nvui.moveList),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
-        h('h2', noTrans('Pieces')),
+        h('h2', i18n.nvui.pieces),
         h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
         pockets && h('div.pockets', renderPockets(pockets)),
-        h('h2', noTrans('Game status')),
+        h('h2', i18n.nvui.gameStatus),
         h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
           ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
         ]),
-        h('h2', noTrans('Last move')),
+        h('h2', i18n.nvui.lastMove),
         h(
           'p.lastMove',
           { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
@@ -109,15 +109,15 @@ export function initModule(): NvuiPlugin {
         ),
         clocks.some(c => !!c) &&
           h('div.clocks', [
-            h('h2', 'Your clock'),
+            h('h2', i18n.nvui.yourClock),
             h('div.botc', clocks[0]),
-            h('h2', 'Opponent clock'),
+            h('h2', i18n.nvui.opponentClock),
             h('div.topc', clocks[1]),
           ]),
         notify.render(),
         ctrl.isPlaying() &&
           h('div.move-input', [
-            h('h2', noTrans('Move form')),
+            h('h2', i18n.nvui.inputForm),
             h(
               'form#move-form',
               {
@@ -193,13 +193,13 @@ export function initModule(): NvuiPlugin {
           ),
         ),
         h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        h('h2', noTrans('Actions')),
+        h('h2', i18n.nvui.actions),
         ...(ctrl.data.player.spectator
           ? renderTableWatch(ctrl)
           : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-        h('h2', noTrans('Settings')),
+        h('h2', i18n.settings.settings),
         h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', noTrans('Board settings')),
         h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),

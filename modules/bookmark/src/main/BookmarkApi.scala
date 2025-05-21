@@ -22,7 +22,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
     user.so: u =>
       val candidateIds = games.collect { case g if g.bookmarks > 0 => g.id }
       candidateIds.nonEmpty.so:
-        coll.secondaryPreferred
+        coll.secondary
           .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ $doc("g".$in(candidateIds)))
 
   def removeByGameId(gameId: GameId): Funit =

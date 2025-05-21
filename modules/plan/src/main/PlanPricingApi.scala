@@ -4,7 +4,7 @@ import java.util.Currency
 import play.api.libs.json.*
 import lila.memo.CacheApi
 
-case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
+case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money, giftMin: Money):
 
   val default = suggestions.lift(1).orElse(suggestions.headOption).getOrElse(min)
 
@@ -14,8 +14,10 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def payPalSupportsCurrency = CurrencyApi.payPalCurrencies.contains(currency)
   def stripeSupportsCurrency = CurrencyApi.stripeCurrencies.contains(currency)
 
-  def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
-  def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
+  def valid(money: Money, isGift: Boolean): Boolean =
+    money.currency == currency && valid(money.amount, isGift)
+  private def valid(amount: BigDecimal, isGift: Boolean): Boolean =
+    (if isGift then giftMin else min).amount <= amount && amount <= max.amount
 
 final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using Executor):
 
@@ -25,14 +27,16 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
     suggestions = List(5, 10, 20, 50).map(usd => Money(usd, USD)),
     min = Money(1, USD),
     max = Money(10000, USD),
-    lifetime = Money(250, USD)
+    lifetime = Money(250, USD),
+    giftMin = Money(2, USD)
   )
 
   val eurPricing = PlanPricing(
     suggestions = List(5, 10, 20, 50).map(eur => Money(eur, EUR)),
     min = Money(1, EUR),
     max = Money(10000, EUR),
-    lifetime = Money(250, EUR)
+    lifetime = Money(250, EUR),
+    giftMin = Money(2, EUR)
   )
 
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
@@ -44,7 +48,8 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
         min            <- convertAndRound(usdPricing.min, currency)
         max            <- convertAndRound(usdPricing.max, currency)
         lifetime       <- convertAndRound(usdPricing.lifetime, currency)
-      yield (allSuggestions.sequence, min, max, lifetime).mapN(PlanPricing.apply)
+        giftMin        <- convertAndRound(usdPricing.giftMin, currency)
+      yield (allSuggestions.sequence, min, max, lifetime, giftMin).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
@@ -91,6 +96,7 @@ object PlanPricingApi:
       "min"         -> p.min.amount,
       "max"         -> p.max.amount,
       "lifetime"    -> p.lifetime.amount,
+      "giftMin"     -> p.giftMin.amount,
       "default"     -> p.default.amount,
       "suggestions" -> p.suggestions.map(_.amount)
     )
