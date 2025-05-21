@@ -545,18 +545,18 @@ final class PlanApi(
     yield lightUserApi.invalidate(user.id)
 
   def freeMonth(user: User): Funit =
-    mongo.patron.update
-      .one(
-        $id(user.id),
-        $set(
-          "lastLevelUp" -> nowInstant,
-          "lifetime"    -> false,
-          "free"        -> Patron.Free(nowInstant, by = none),
-          "expiresAt"   -> nowInstant.plusMonths(1)
-        ),
-        upsert = true
-      )
-      .void >> setDbUserPlanOnCharge(user, levelUp = false)
+    for _ <- mongo.patron.update
+        .one(
+          $id(user.id),
+          $set(
+            "lastLevelUp" -> nowInstant,
+            "lifetime"    -> false,
+            "free"        -> Patron.Free(nowInstant, by = none),
+            "expiresAt"   -> nowInstant.plusMonths(1)
+          ),
+          upsert = true
+        )
+    yield setDbUserPlanOnCharge(user, levelUp = false)
 
   def gift(from: User, to: User, money: Money): Funit =
     for
