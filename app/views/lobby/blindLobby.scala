@@ -17,7 +17,11 @@ object blindLobby:
         frag(
           h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
           ul(myTurn.map(renderGame)),
-          h3(trans.site.waitingForOpponent(), " : ", trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)),
+          h3(
+            trans.site.waitingForOpponent(),
+            " : ",
+            trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
+          ),
           ul(opTurn.map(renderGame))
         )
 
