@@ -196,6 +196,7 @@ async function mergeAndExit() {
         ops.length = 0;
       }
     }
+    if (ops.length > 0) await db.collection('ublog_post').bulkWrite(ops, { ordered: false });
     code = 0;
   } catch (e) {
     msg = `merge error: ${JSON.stringify(e)}`;
