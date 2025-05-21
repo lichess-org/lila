@@ -44,6 +44,9 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="teamsIlead">Grupper eg er leiar av</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>
+  <string name="introduction">Innleiing</string>
+  <string name="teamIntroductionHelp">Kort beskriving som er synleg i laglistene. Opptil 200 tegn.</string>
+  <string name="teamDescriptionHelp">Full beskriving som er synleg på laget si side.</string>
   <string name="closeTeam">Steng ned laget</string>
   <string name="closeTeamDescription">Steng laget for all framtid.</string>
   <string name="entryCode">Lagtilgangskode</string>
