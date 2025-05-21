@@ -18,7 +18,7 @@ final class UblogApi(
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod
-)(using Executor)
+)(using Executor)(using scheduler: Scheduler)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
@@ -35,7 +35,7 @@ final class UblogApi(
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog   <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
-    _    = applyAutomod(post).logFailure(logger)
+    _    = triggerAutomod(post)
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
   yield post
@@ -52,7 +52,6 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-        applyAutomod(post).logFailure(logger)
         sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
@@ -169,13 +168,17 @@ final class UblogApi(
       topic = s"$tierName new posts"
     )
 
-  private def applyAutomod(post: UblogPost): Funit =
-    automod(post)
-      .flatMapz: res =>
-        colls.post.update.one($id(post.id), $set("automod" -> res)).void
-      .recover: e =>
-        logger.warn(s"automod ${post.id} ${e.getMessage}", e)
-        ()
+  private def triggerAutomod(post: UblogPost) =
+    val retries = 5 // 30s, 1m, 2m, 4m, 8m
+    if post.live then attempt()
+
+    def attempt(n: Int = 0): Unit =
+      automod(post)
+        .flatMapz: res =>
+          colls.post.update.one($id(post.id), $set("automod" -> res)).void
+        .recover: e =>
+          if n < retries then scheduler.scheduleOnce((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
+          else logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
