@@ -540,9 +540,9 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Опрезно, партија је рангирана али нема шаховског сата!</string>
   <string name="success">Успешно</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s партија се игра</item>
-    <item quantity="few">%s партије се играју</item>
-    <item quantity="other">%s партија се игра</item>
+    <item quantity="one">%s партија у игри</item>
+    <item quantity="few">%s партије у игри</item>
+    <item quantity="other">%s партија у игри</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
   <string name="autoSwitch">Аутоматско пребацивање</string>
@@ -664,9 +664,9 @@
   <string name="whiteCastlingKingside">Бели O-O</string>
   <string name="blackCastlingKingside">Црни O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s коментар на форуму</item>
-    <item quantity="few">%s коментара на форуму</item>
-    <item quantity="other">%s коментара на форуму</item>
+    <item quantity="one">%s објава на форуму</item>
+    <item quantity="few">%s објаве на форуму</item>
+    <item quantity="other">%s објава на форуму</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Време проведено играјући: %s</string>
   <string name="watchGames">Гледај партије</string>
