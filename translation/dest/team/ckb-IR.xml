@@ -44,6 +44,7 @@
   <string name="teamsIlead">ئەو تیمانەی کە من سەرکردایەتی دەکەم</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">لەوانەیە بتەوێت یەکێک لەم پاڵەوانێتییەکانی داهاتوو بەیەکەوە ببەستیتەوە?</string>
   <string name="leadersChat">بەڕێوبەری گفتوگۆ</string>
+  <string name="introduction">پێشەکی</string>
   <string name="closeTeam">داخستنی تیم</string>
   <string name="closeTeamDescription">داخستنی تیم بۆ ھەمیشە.</string>
   <string name="entryCode">وشەی نھێنی چونەژورەوەی تیم</string>
@@ -54,4 +55,5 @@
   <string name="declinedRequests">رەتکردنەوەی داواکردن</string>
   <string name="joinLichessVariantTeam">بەشداری تیمی فەرمی %s بکە بۆ زانینی هەواڵ و ڕووداوەکان</string>
   <string name="teamPage">پەڕەی تیم</string>
+  <string name="innerTeam">تیمە ناوخۆییەکان</string>
 </resources>
