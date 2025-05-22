@@ -64,6 +64,7 @@ let [client, processed, errors] = [undefined, 0, 0];
 
 const args = parseArgs();
 
+console.log(`Connecting to mongodb://${args.host}/${args.db}`);
 client = new MongoClient(`mongodb://${args.host}/${args.db}`);
 const db = client.db();
 
@@ -210,7 +211,7 @@ function parseArgs() {
   const args = { ppm: 500, host: '127.0.0.1', db: 'lichess', ids: [] };
   process.argv.slice(2).forEach(arg => {
     if (arg === '--help' || arg === '-h') exit(usage, 0);
-    else if (arg.startsWith('--host=')) args.host = arg.slice(6);
+    else if (arg.startsWith('--host=')) args.host = arg.slice(7);
     else if (arg.startsWith('--db=')) args.db = arg.slice(5);
     else if (arg === '--force') args.force = true;
     else if (arg.startsWith('--from=')) args.from = arg.slice(7);
