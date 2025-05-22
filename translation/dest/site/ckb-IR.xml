@@ -75,6 +75,7 @@
   <string name="expandVariations">درێژکردنەوەی لایەنەکانی دیکە</string>
   <string name="forceVariation">هێزی جۆراوجۆر</string>
   <string name="copyVariationPgn">کۆپی گۆڕانکاری PGN</string>
+  <string name="copyMainLinePgn">لەبەرگرتنەوەی PGNی زنجیرە جووڵەی سەرەکی</string>
   <string name="move">جوڵە</string>
   <string name="variantLoss">دۆران بەشێوەیەکی تایبەت</string>
   <string name="variantWin">براوەی هەمەجۆر</string>
@@ -157,6 +158,7 @@
   <string name="flipBoard">هەڵگێڕانەوەی تەختە</string>
   <string name="threefoldRepetition">سێبارە کردنەوە</string>
   <string name="claimADraw">داوای یەکسانبوون بکە</string>
+  <string name="drawClaimed">یەکسانبوون قبووڵکرا</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
   <plurals name="nbPlayers">
@@ -291,6 +293,7 @@
   <string name="abortGame">هەڵوەشاندنەوەی یاری</string>
   <string name="gameAborted">یارییەکە هەڵوەشایەوە</string>
   <string name="standard">ئاسایی</string>
+  <string name="customPosition">شوێنی ڕاسپێراو</string>
   <string name="unlimited">بێسنوور</string>
   <string name="mode">بار</string>
   <string name="casual">بێ هەڵسەنگاندن</string>
@@ -347,7 +350,15 @@
   <string name="openingExplorerAndTablebase">پشکنەری دەستپێکەکان &amp; بنکەی خشتەکان</string>
   <string name="takeback">وەرگرتنەوە</string>
   <string name="proposeATakeback">پێشنیاری وەرگرتنەوە بکە</string>
+  <string name="whiteProposesTakeback">سپی داوای گەڕاندنەوەی جووڵە دەکات</string>
+  <string name="blackProposesTakeback">ڕەش داوای گەڕاندنەوەی جووڵە دەکات</string>
   <string name="takebackPropositionSent">پێشنیاری وەرگرتنەوەکە ناردرا</string>
+  <string name="whiteDeclinesTakeback">سپی گەڕاندنەوەی جووڵەی ڕەتکردەوە</string>
+  <string name="blackDeclinesTakeback">ڕەش گەڕاندنەوەی جووڵەی ڕەتکردەوە</string>
+  <string name="whiteAcceptsTakeback">سپی گەڕاندنەوەی جووڵەی قبووڵکرد</string>
+  <string name="blackAcceptsTakeback">ڕەش گەڕاندنەوەی جووڵەی قبووڵکرد</string>
+  <string name="whiteCancelsTakeback">سپی گەڕاندنەوەی جووڵەی ھەڵوەشاندەوە</string>
+  <string name="blackCancelsTakeback">ڕەش گەڕاندنەوەی جووڵەی ھەڵوەشاندەوە</string>
   <string name="yourOpponentProposesATakeback">رکابەرەکەت پێشنیاری وەرگرتنەوە دەکات</string>
   <string name="bookmarkThisGame">ئەم یارییە بخە لیستی خوازراوەکان</string>
   <string name="tournament">پاڵەوانیەتی</string>
@@ -417,6 +428,7 @@
   <string name="importGame">یارییەکان هەناردەبکە</string>
   <string name="importGameExplanation">دوای پەیستکردنی PGN لینکێکت دەست دەکەوێت، دەتوانی لە وێبگەرەکان بەکاری بێنیت بۆ شیکاریکردنی یارییەکە، گفتوگۆکردن و بەشداریپێکردن.</string>
   <string name="importGameCaveat">گۆڕانکارییەکان دەسڕدرێنەوە. بۆ پاراستنی، لە ڕێگەی PGN توێژینەوەکە هاوردە بکە.</string>
+  <string name="importGameDataPrivacyWarning">ئەم PGNە گشتییە و ھەموو کەس دەستی پێی دەگات. بۆ ھاوردەکردنی یارییەک بە شێوەی کەسی، خوێندن بەکاربھێنە.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s یاری هاوردەکراو</item>
     <item quantity="other">%s یارییە هاوردەکراوەکان</item>
@@ -510,6 +522,7 @@
   <string name="ifNoneLeaveEmpty">ئەگەر نییە، بە بەتاڵی جێیبێڵە</string>
   <string name="profile">پڕۆفایل</string>
   <string name="editProfile">دەستکاریکردنی پڕۆفایل</string>
+  <string name="realName">ناوی ڕاستی</string>
   <string name="setFlair">توانای خۆت دابنێ</string>
   <string name="flair">بەهرە</string>
   <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>
