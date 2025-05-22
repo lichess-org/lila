@@ -57,6 +57,19 @@ export function initModule(): NvuiPlugin {
   });
   pubsub.on('round.suggestion', notify.set);
 
+  i18n.nvui = i18n.nvui || {
+    featuredEvents: 'Featured events',
+    moveList: 'Move list',
+    gameInfo: 'Game info',
+    pieces: 'Pieces',
+    gameStatus: 'Game status',
+    lastMove: 'Last move',
+    inputForm: 'Input form',
+    actions: 'Actions',
+    yourClock: 'Your clock',
+    opponentClock: 'Opponent clock',
+  };
+
   return {
     premoveInput: '',
     playPremove(ctrl: RoundController) {
@@ -199,7 +212,7 @@ export function initModule(): NvuiPlugin {
           : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-        h('h2', 'Settings'),
+        h('h2', i18n.site.advancedSettings),
         h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', noTrans('Board settings')),
         h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),

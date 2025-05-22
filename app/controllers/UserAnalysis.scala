@@ -117,11 +117,9 @@ final class UserAnalysis(
         )
       }
 
-  private def mobileAnalysis(pov: Pov)(using
-      ctx: Context
-  ): Fu[Result] = for
+  private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfKey)
+    users      <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)

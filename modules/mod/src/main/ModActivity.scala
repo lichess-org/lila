@@ -34,7 +34,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
-      .aggregateList(maxDocs = maxDocs, _.priTemp): framework =>
+      .aggregateList(maxDocs = maxDocs, _.sec): framework =>
         import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))

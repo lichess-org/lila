@@ -407,7 +407,7 @@ final class ReportApi(
     coll
       .find($doc("atoms.by" -> user.id))
       .sort(sortLastAtomAt)
-      .cursor[Report](ReadPref.priTemp)
+      .cursor[Report](ReadPref.sec)
       .list(nb.value)
 
   def personalExport(user: User): Fu[List[Report.Atom]] =

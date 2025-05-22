@@ -113,7 +113,7 @@ final private class Finisher(
   )(using proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
-    val game   = prog.game
+    import prog.game
     if game.nonAi && game.isCorrespondence then Color.all.foreach(notifier.gameEnd(prog.game))
     lila.mon.game
       .finish(
@@ -125,26 +125,26 @@ final private class Finisher(
       )
       .increment()
     recordLagStats(game)
-    proxy.save(prog) >>
-      gameRepo.finish(
+    for
+      _ <- proxy.save(prog)
+      _ <- gameRepo.finish(
         id = game.id,
         winnerColor = winnerC,
         winnerId = winnerC.flatMap(game.player(_).userId),
         status = prog.game.status
-      ) >>
-      userApi
-        .pairWithPerfs(game.userIdPair)
-        .flatMap: users =>
-          updateCountAndPerfs(game, users).map: ratingDiffs =>
-            message.foreach { messenger(game, _) }
-            gameRepo.game(game.id).foreach { newGame =>
-              newGame.foreach(proxy.setFinishedGame)
-              val finish = FinishGame(newGame | game, users)
-              Bus.pub(finish)
-              game.userIds.foreach: userId =>
-                Bus.publishDyn(finish, s"userFinishGame:$userId")
-            }
-            List(lila.game.Event.EndData(game, ratingDiffs))
+      )
+      users       <- userApi.pairWithPerfs(game.userIdPair)
+      ratingDiffs <- updateCountAndPerfs(game, users)
+    yield
+      message.foreach { messenger(game, _) }
+      gameRepo.game(game.id).foreach { newGame =>
+        newGame.foreach(proxy.setFinishedGame)
+        val finish = FinishGame(newGame | game, users)
+        Bus.pub(finish)
+        game.userIds.foreach: userId =>
+          Bus.publishDyn(finish, s"userFinishGame:$userId")
+      }
+      List(lila.game.Event.EndData(game, ratingDiffs))
 
   private def updateCountAndPerfs(
       game: Game,

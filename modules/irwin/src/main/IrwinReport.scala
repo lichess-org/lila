@@ -49,11 +49,10 @@ object IrwinReport:
       s"Rank: ${rank.fold("-")(_.toString)}, ambiguity: $ambiguity, odds: $odds, loss: $loss"
 
   case class WithPovs(report: IrwinReport, povs: Map[GameId, Pov]):
-
-    def withPovs: List[GameReport.WithPov] =
-      report.games.flatMap { gameReport =>
-        povs.get(gameReport.gameId).map { GameReport.WithPov(gameReport, _) }
-      }
+    def withPovs: List[GameReport.WithPov] = for
+      gameReport <- report.games
+      pov        <- povs.get(gameReport.gameId)
+    yield GameReport.WithPov(gameReport, pov)
 
   case class Dashboard(recent: List[IrwinReport]):
 
