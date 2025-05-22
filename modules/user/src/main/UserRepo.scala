@@ -48,7 +48,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
-    coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
+    coll.list[User](enabledSelect ++ $inIds(ids), _.sec)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
     if id.isGhost
@@ -476,7 +476,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         $inIds(ids),
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
-      .cursor[Bdoc](ReadPref.priTemp)
+      .cursor[Bdoc](ReadPref.sec)
       .listAll()
       .map: docs =>
         for

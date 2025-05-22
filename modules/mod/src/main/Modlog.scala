@@ -92,6 +92,7 @@ case class Modlog(
     case Modlog.weakPassword        => "log in with weak password"
     case Modlog.blankPassword       => "blank password"
     case Modlog.blankedPassword     => "log in with blanked password"
+    case Modlog.giftPatronMonth     => "gift patron month"
     case a                          => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -231,6 +232,7 @@ object Modlog:
   val weakPassword        = "weakPassword"
   val blankPassword       = "blankPassword"
   val blankedPassword     = "blankedPassword"
+  val giftPatronMonth     = "giftPatronMonth"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = (e.index.has("team")).so(~e.details) match

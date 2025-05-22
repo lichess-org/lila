@@ -60,7 +60,7 @@ final class RelayPgnStream(
 
   def exportFullMonth(since: Instant): Source[PgnStr, ?] =
     roundRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match(dateBetween("startedAt", since.some, since.plusMonths(1).some)),
