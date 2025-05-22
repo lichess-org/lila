@@ -76,9 +76,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def apply(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
       cache.get(userIds.toPair -> perf)
 
-    def noCache(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
-      fetch(userIds.toPair, perf)
-
     def loggedIn(
         ids: ByColor[UserId],
         perf: PerfKey,
@@ -86,17 +83,21 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     ): Fu[Option[ByColor[WithPerf]]] =
       val users =
         if useCache then apply(ids.map(some), perf)
-        else fetch(ids.map(some).toPair, perf)
+        else fetch(_.pri)(ids.map(some).toPair, perf)
       users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
-    private[UserApi] val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
-      _.expireAfterWrite(3.seconds).buildAsyncFuture(fetch)
+    def analysis(game: Game): Fu[GameUsers] = fetch(_.sec)(game.userIdPair.toPair, game.perfKey)
 
-    private def fetch(userIds: PairOf[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
+    private[UserApi] val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
+      _.expireAfterWrite(3.seconds).buildAsyncFuture(fetch(_.pri))
+
+    private[UserApi] def fetch(
+        readPref: ReadPref
+    )(userIds: PairOf[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
       val (x, y) = userIds
-      listWithPerf(List(x, y).flatten, perf, _.pri).map: users =>
+      listWithPerf(List(x, y).flatten, perf, readPref).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
   def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType): Funit =
@@ -126,7 +127,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
-        .aggregateList(Int.MaxValue, _.autoTemp(ids)): framework =>
+        .aggregateList(Int.MaxValue): framework =>
           import framework.*
           Match($inIds(ids)) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
