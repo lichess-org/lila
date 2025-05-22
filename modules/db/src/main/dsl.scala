@@ -26,16 +26,9 @@ trait dsl:
 
   type ReadPref = ReadPref.type => ReadPreference
   object ReadPref:
-    val pri: ReadPreference     = ReadPreference.primary
-    val sec: ReadPreference     = ReadPreference.secondaryPreferred
-    val secOnly: ReadPreference = ReadPreference.secondary
-    // #TODO FIXME
-    // should be sec
-    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    val priTemp: ReadPreference                    = ReadPreference.primary
-    def autoTemp(nb: Int): ReadPreference          = if nb > 100 then priTemp else sec
-    def autoTemp(ids: Iterable[?]): ReadPreference = if ids.sizeIs > 100 then priTemp else sec
-    given Conversion[ReadPref, ReadPreference]     = _(ReadPref)
+    val pri: ReadPreference                    = ReadPreference.primary
+    val sec: ReadPreference                    = ReadPreference.secondaryPreferred
+    given Conversion[ReadPref, ReadPreference] = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument
@@ -307,18 +300,6 @@ trait dsl:
           "pipeline" -> pipe
         )
       )
-    // mongodb 4
-    def pipelineBC(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineFull(
-        from,
-        as,
-        $doc("local" -> s"$$$local"),
-        $doc("$match" -> $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))) :: pipe
-      )
-    def pipelineBC(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineBC(from.name, as, local, foreign, pipe)
-    def pipelineBC(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipelineBC(from.name.value, as, local, foreign, pipe)
 
     // mongodb 5+ Correlated Subqueries Using Concise Syntax
     // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
@@ -387,15 +368,7 @@ object dsl extends dsl with Handlers:
 
   extension (coll: Coll)(using @annotation.nowarn ex: Executor)
 
-    def secondaryPreferred = coll.withReadPreference(ReadPref.sec)
-    def secondary          = coll.withReadPreference(ReadPref.secOnly)
-
-    // #TODO FIXME
-    // should be secondaryPreferred
-    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    def tempPrimary = coll.withReadPreference(ReadPref.pri)
-
-    def ext = this
+    def secondary = coll.withReadPreference(ReadPref.sec)
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]

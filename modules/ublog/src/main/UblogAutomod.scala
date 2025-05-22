@@ -6,24 +6,38 @@ import play.api.libs.json.*
 import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.DefaultBodyReadables.readableAsString
+import com.roundeights.hasher.Algo
 
 import lila.memo.SettingStore
 import lila.core.data.Text
 import lila.memo.SettingStore.Text.given
 import lila.core.config.Secret
 
-private object UblogAutomod:
+// see also:
+//   file://./../../../../bin/ublog-automod.mjs
+//   file://./../../../../../sysadmin/prompts/ublog-system-prompt.txt
 
-  case class Config(apiKey: Secret, model: String, url: String)
+private object UblogAutomod:
 
   case class Result(
       classification: String,
       flagged: Option[String],
       commercial: Option[String],
       offtopic: Option[String],
+      evergreen: Option[Boolean],
+      hash: Option[String] = none
+  )
+
+  private case class Config(apiKey: Secret, model: String, url: String)
+
+  private case class FuzzyResult(
+      classification: String,
+      flagged: Option[JsValue],
+      commercial: Option[JsValue],
+      offtopic: Option[JsValue],
       evergreen: Option[Boolean]
   )
-  private given Reads[Result] = Json.reads[Result]
+  private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
   private[ublog] val classifications = List("spam", "weak", "good", "great")
 
@@ -41,7 +55,7 @@ final class UblogAutomod(
     default = Text("")
   )
 
-  private val cfg =
+  private val cfg: UblogAutomod.Config =
     import lila.common.config.given
     import lila.common.autoconfig.AutoConfig
     appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
@@ -79,14 +93,36 @@ final class UblogAutomod(
             if rsp.status == 200
             best      <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
-            trimmed = resultStr.slice(resultStr.indexOf('{'), resultStr.lastIndexOf('}') + 1)
-            result <- Json.parse(trimmed).asOpt[Result]
-            if (classifications ++ List("quality", "phenomenal")).contains(result.classification)
-          // temporarily permit "quality" and "phenomenal" as the prompt is versioned outside of this git
+            result    <- normalize(resultStr)
           yield result) match
             case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
-              fuccess(res.some)
+              val hash = Algo.sha256(userText).hex.take(12) // matches ublog-automod.mjs hash
+              fuccess(res.copy(hash = hash.some).some)
         .monSuccess(_.ublog.automod.request)
+
+  private def normalize(msg: String): Option[Result] = // keep in sync with bin/ublog-automod.mjs
+    val trimmed = msg.slice(msg.lastIndexOf('{'), msg.lastIndexOf('}') + 1)
+    Json.parse(trimmed).asOpt[FuzzyResult].flatMap { res =>
+      val fixed = Result(
+        classification = res.classification,
+        evergreen = res.evergreen,
+        flagged = fix(res.flagged),
+        commercial = fix(res.commercial),
+        offtopic = fix(res.offtopic)
+      )
+      fixed.classification match
+        case "great" | "good" => fixed.some
+        case "weak"           => fixed.copy(evergreen = none).some
+        case "spam"           => fixed.copy(evergreen = none, offtopic = none, commercial = none).some
+        case _                => none
+    }
+
+  private def fix(field: Option[JsValue]): Option[String] = // LLM make poopy
+    val bad = Set("none", "reason", "false", "")
+    field match
+      case Some(JsString(value)) => value.trim().toLowerCase().some.filterNot(bad)
+      case Some(JsBoolean(true)) => "true".some
+      case _                     => none

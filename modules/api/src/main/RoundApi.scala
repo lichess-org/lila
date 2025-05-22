@@ -140,7 +140,7 @@ final private[api] class RoundApi(
           .compose(withBookmark(bookmarked))
           .compose(withTree(pov, analysis, initialFen, withFlags))
           .compose(withAnalysis(pov.game, analysis))
-          .compose(withForecast(pov, owner, fco))
+          .compose(withForecast(pov, fco))
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
     .flatMap(externalEngineApi.withExternalEngines)
@@ -156,7 +156,7 @@ final private[api] class RoundApi(
     owner
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
-        withForecast(pov, owner, fco):
+        withForecast(pov, fco):
           withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)):
             jsonView.userAnalysisJson(
               pov,
@@ -220,8 +220,8 @@ final private[api] class RoundApi(
         }
     )
 
-  private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
-    if pov.game.forecastable && owner then
+  private def withForecast(pov: Pov, fco: Option[Forecast])(json: JsObject) =
+    if pov.game.forecastable then
       json + (
         "forecast" -> {
           if pov.forecastable then

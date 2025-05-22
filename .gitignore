@@ -6,6 +6,7 @@
 /.pnpm-store/
 /bin/git-hooks/post-*
 /bin/git-hooks/pre-push
+/bin/ublog-automod
 /project/.bloop/
 /conf/application.conf
 /conf/version.conf

@@ -80,11 +80,6 @@ final class Main(
     Redirect:
       "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
-  def verifyTitle = Anon:
-    pageHit
-    Redirect:
-      "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
-
   def contact = Open:
     pageHit
     Ok.page(views.site.page.contact)

@@ -119,7 +119,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   private[tournament] def countByTourIdAndUserIds(tourId: TourId): Fu[Map[UserId, Int]] =
     val max = 10_000
     coll
-      .aggregateList(maxDocs = max, _.priTemp): framework =>
+      .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
           Project($doc("u" -> true, "_id" -> false)),
@@ -199,7 +199,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       tournamentId: TourId,
       userId: Option[UserId],
       batchSize: Int = 0,
-      readPref: ReadPref = _.priTemp
+      readPref: ReadPref = _.sec
   ): AkkaStreamCursor[Pairing] =
     coll
       .find(selectTour(tournamentId) ++ userId.so(selectUser))

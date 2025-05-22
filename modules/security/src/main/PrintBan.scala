@@ -23,7 +23,7 @@ final class PrintBan(coll: Coll)(using Executor):
         .void
     else coll.delete.one($id(hash.value)).void
 
-  coll.secondaryPreferred.distinctEasy[String, Set]("_id", $empty).map { hashes =>
+  coll.secondary.distinctEasy[String, Set]("_id", $empty).map { hashes =>
     current = hashes
     lila.mon.security.firewall.prints.update(hashes.size)
   }

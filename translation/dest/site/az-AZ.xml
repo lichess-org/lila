@@ -21,6 +21,7 @@
   <string name="asBlack">qara olaraq</string>
   <string name="randomColor">Təsadüfi rəng</string>
   <string name="createAGame">Bir oyun yarat</string>
+  <string name="createTheGame">Oyun yaradın</string>
   <string name="whiteIsVictorious">Ağlar qalib gəldi</string>
   <string name="blackIsVictorious">Qaralar qalib gəldi</string>
   <string name="youPlayTheWhitePieces">Ağlarla oynayırsınız</string>
@@ -69,6 +70,7 @@
   <string name="promoteVariation">Variasiyanı irəli çək</string>
   <string name="makeMainLine">Ana davam yolu et</string>
   <string name="deleteFromHere">Buradan sil</string>
+  <string name="collapseVariations">Variasiyaları yığışdırın</string>
   <string name="forceVariation">Əsas variasiya et</string>
   <string name="copyVariationPgn">PGN variasiyasını kopyalayın</string>
   <string name="move">Gediş</string>
@@ -266,6 +268,7 @@
     <item quantity="one">%s sizinlə oynadığı oyun sayı</item>
     <item quantity="other">%s sizinlə oynadığı oyun sayı</item>
   </plurals>
+  <string name="ok">Oldu</string>
   <string name="cancel">Ləğv et</string>
   <string name="whiteTimeOut">Ağların vaxtı bitdi</string>
   <string name="blackTimeOut">Qaraların vaxtı bitdi</string>

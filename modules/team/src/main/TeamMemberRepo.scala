@@ -12,7 +12,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
 
   // expensive with thousands of members!
   def userIdsByTeam(teamId: TeamId): Fu[List[UserId]] =
-    coll.secondaryPreferred.distinctEasy[UserId, List]("user", $doc("team" -> teamId))
+    coll.secondary.distinctEasy[UserId, List]("user", $doc("team" -> teamId))
 
   def removeByTeam(teamId: TeamId): Funit =
     coll.delete.one(teamQuery(teamId)).void
@@ -83,14 +83,14 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
     )
 
   def leadsOneOf(userId: UserId, teamIds: Seq[TeamId]): Fu[Boolean] =
-    teamIds.nonEmpty.so(coll.secondaryPreferred.exists(selectIds(teamIds, userId) ++ selectAnyPerm))
+    teamIds.nonEmpty.so(coll.secondary.exists(selectIds(teamIds, userId) ++ selectAnyPerm))
 
   def teamsLedBy[U: UserIdOf](leader: U, perm: Option[Permission.Selector]): Fu[Seq[TeamId]] =
-    coll.secondaryPreferred
+    coll.secondary
       .primitive[TeamId](selectUser(leader) ++ perm.fold(selectAnyPerm)(selectPerm), "team")
 
   def filterLedBy(teamIds: Seq[TeamId], leader: UserId): Fu[Set[TeamId]] =
-    coll.secondaryPreferred
+    coll.secondary
       .primitive[TeamId](selectIds(teamIds, leader) ++ selectAnyPerm, "team")
       .dmap(_.toSet)
 

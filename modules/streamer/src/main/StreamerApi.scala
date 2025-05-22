@@ -222,13 +222,13 @@ final class StreamerApi(
 
     val listedIds = cacheApi.unit[Set[Streamer.Id]]:
       _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
-        coll.secondaryPreferred.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
+        coll.secondary.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
 
     def isListed(id: Streamer.Id): Fu[Boolean] = listedIds.getUnit.dmap(_ contains id)
 
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
       _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
-        coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
+        coll.secondary.distinctEasy[Streamer.Id, Set](
           "_id",
           selectListedApproved ++ $doc("liveAt".$exists(false))
         )

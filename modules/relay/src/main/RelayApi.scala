@@ -488,7 +488,7 @@ final class RelayApi(
       )
       .flatMap:
         _.sequentiallyVoid: relay =>
-          val earlyMinutes = Math.min(60, 30 + relay.sync.delay.so(_.value / 60))
+          val earlyMinutes = Math.min(90, 60 + relay.sync.delay.so(_.value / 60))
           relay.startsAtTime
             .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
             .so:
@@ -513,7 +513,7 @@ final class RelayApi(
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
 
-  private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
+  private def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id).flatMapz(f)
 
   private[relay] def onStudyRemove(studyId: StudyId) =

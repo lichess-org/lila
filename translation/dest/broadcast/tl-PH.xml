@@ -25,6 +25,8 @@
   <string name="tournamentName">Pangalan ng paligsahan</string>
   <string name="tournamentDescription">Maikling paglalarawan ng torneo</string>
   <string name="fullDescription">Buong paglalarawan ng torneo</string>
+  <string name="fullDescriptionHelp">Opsyonal na mahabang paglalarawan ng torneo. Puwede magagamit ang %1$s. Dapat mas mababa sa %2$s character ang haba.</string>
+  <string name="sourceSingleUrl">Pinagmulan ng URL para sa PGN</string>
   <string name="currentGameUrl">Kasalukuyang URL ng laro</string>
   <string name="downloadAllRounds">I-download ang lahat ng mga round</string>
   <string name="resetRound">I-reset ang round na ito</string>
@@ -50,7 +52,10 @@
   <string name="uploadImage">Mag-upload ng larawan ng torneo</string>
   <string name="noBoardsYet">Wala pang mga board. Lilitaw ang mga ito pagkatapos na-upload ang mga laro.</string>
   <string name="startsAfter">Magsisimula pagkatapos ng %s</string>
+  <string name="notYetStarted">Hindi pa nagsisimula ang brodkast.</string>
   <string name="officialWebsite">Opisyal na website</string>
+  <string name="standings">Mga Standing</string>
+  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Opisyal na mga Standing</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Higit pang mga opsyon sa %s</string>
   <string name="webmastersPage">pahina ng mga webmaster</string>
   <string name="embedThisBroadcast">I-embed ang brodkast na ito sa iyong website</string>

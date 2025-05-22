@@ -31,7 +31,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
       .i18n(_.puzzle, _.puzzleTheme, _.storm)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
@@ -84,7 +84,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             div(cls := "puzzle-themes")(
               all.themes.take(2).map(themeCategory),
               h2(id := "openings")(
-                "By game opening",
+                trans.puzzle.byOpenings.txt(),
                 a(href := routes.Puzzle.openings())(trans.site.more(), " »")
               ),
               opening.listOf(all.openings.families.take(12)),

@@ -190,7 +190,8 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        session <- canUse(data.ip, data.checkout.freq).flatMap { can =>
+        can <- canUse(data.ip, data.checkout.freq)
+        session <-
           if can.yes then
             data.checkout.freq match
               case Freq.Onetime => stripeClient.createOneTimeSession(data)
@@ -198,7 +199,6 @@ final class PlanApi(
           else
             logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
             fufail(StripeClient.CantUseException)
-        }
       yield StripeJson.toClient(session)
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
@@ -261,7 +261,7 @@ final class PlanApi(
         if key != payPalIpnKey.value then
           logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
           funit
-        else if !pricing.valid(money) then
+        else if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${ipn.userId} $money ${ipn.txnId}")
           funit
         else
@@ -340,7 +340,7 @@ final class PlanApi(
       isLifetime <- pricingApi.isLifetime(money)
       giftTo     <- order.giftTo.so(userApi.byId)
       _ <-
-        if !pricing.valid(money) then
+        if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
           funit
         else
@@ -399,7 +399,7 @@ final class PlanApi(
       pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
       usd     <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       _ <-
-        if !pricing.valid(money) then
+        if !pricing.valid(money, isGift = false) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
           funit
         else
@@ -545,18 +545,18 @@ final class PlanApi(
     yield lightUserApi.invalidate(user.id)
 
   def freeMonth(user: User): Funit =
-    mongo.patron.update
-      .one(
-        $id(user.id),
-        $set(
-          "lastLevelUp" -> nowInstant,
-          "lifetime"    -> false,
-          "free"        -> Patron.Free(nowInstant, by = none),
-          "expiresAt"   -> nowInstant.plusMonths(1)
-        ),
-        upsert = true
-      )
-      .void >> setDbUserPlanOnCharge(user, levelUp = false)
+    for _ <- mongo.patron.update
+        .one(
+          $id(user.id),
+          $set(
+            "lastLevelUp" -> nowInstant,
+            "lifetime"    -> false,
+            "free"        -> Patron.Free(nowInstant, by = none),
+            "expiresAt"   -> nowInstant.plusMonths(1)
+          ),
+          upsert = true
+        )
+    yield setDbUserPlanOnCharge(user, levelUp = false)
 
   def gift(from: User, to: User, money: Money): Funit =
     for

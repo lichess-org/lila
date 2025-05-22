@@ -134,7 +134,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
-      .cursor[UserSession](ReadPref.priTemp)
+      .cursor[UserSession](ReadPref.sec)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     lila.security.FingerHash.from(fp) match
@@ -217,12 +217,12 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
-    coll.secondaryPreferred.exists:
+    coll.secondary.exists:
       $doc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     lila.security.FingerHash.from(fp).so { hash =>
-      coll.secondaryPreferred.exists:
+      coll.secondary.exists:
         $doc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
     }
 

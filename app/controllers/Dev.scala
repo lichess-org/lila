@@ -77,7 +77,7 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   private def runCommand(command: String)(using Me): Fu[String] =
-    env.mod.logApi.cli(command) >>
-      env.api.cli(command.split(" ").toList)
-
-end Dev
+    for
+      _   <- env.mod.logApi.cli(command)
+      res <- env.api.cli(command.split(" ").toList)
+    yield res

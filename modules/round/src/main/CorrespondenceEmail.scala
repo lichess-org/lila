@@ -30,14 +30,14 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def opponentStream =
     notifyApi.prefColl
-      .aggregateWith(readPreference = ReadPref.priTemp): framework =>
+      .aggregateWith(readPreference = ReadPref.sec): framework =>
         import framework.*
         // hit partial index
         List(
           Match($doc("correspondenceEmail" -> true)),
           Project($id(true)),
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = userRepo.coll,
               as = "user",
               local = "_id",

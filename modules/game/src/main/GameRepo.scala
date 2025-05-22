@@ -23,18 +23,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
-  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
+  def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondary.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
-  // #TODO FIXME
-  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
-    coll.byOrderedIds[Game, GameId](gameIds, readPref = _.priTemp)(_.id)
-
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] = gameIds.nonEmpty.so:
-    coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
+    coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.sec)(_.id)
 
   val light: lila.core.game.GameLightRepo = new:
 
@@ -74,7 +69,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
       user: U,
-      readPref: ReadPref = _.priTemp
+      readPref: ReadPref = _.sec
   ): Fu[List[Pov]] =
     coll
       .byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id)
@@ -90,7 +85,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll
       .find(select)
       .sort(Query.sortCreated)
-      .cursor[Game](ReadPref.priTemp)
+      .cursor[Game](ReadPref.sec)
 
   def ongoingByUserIdsCursor(userIds: Set[UserId]) =
     coll
@@ -116,7 +111,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ++ Query.clockHistory(true)
       )
       .sort($sort.asc(F.createdAt))
-      .cursor[Game](ReadPref.priTemp)
+      .cursor[Game](ReadPref.sec)
       .list(nb)
 
   def extraGamesForIrwin(userId: UserId, nb: Int): Fu[List[Game]] =
@@ -136,7 +131,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
-      .cursor[Game](ReadPref.priTemp)
+      .cursor[Game](ReadPref.sec)
       .list(max.value)
 
   def cursor(
@@ -147,10 +142,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def docCursor(
       selector: Bdoc,
-      project: Option[Bdoc] = none,
-      readPref: ReadPref = _.priTemp
+      project: Option[Bdoc] = none
   ): AkkaStreamCursor[Bdoc] =
-    coll.find(selector, project).cursor[Bdoc](readPref)
+    coll.find(selector, project).cursor[Bdoc](ReadPref.sec)
 
   def sortedCursor(
       selector: Bdoc,
@@ -159,7 +153,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       hint: Option[Bdoc] = none
   ): AkkaStreamCursor[Game] =
     val query = coll.find(selector).sort(sort).batchSize(batchSize)
-    hint.map(coll.hint).foldLeft(query)(_.hint(_)).cursor[Game](ReadPref.priTemp)
+    hint.map(coll.hint).foldLeft(query)(_.hint(_)).cursor[Game](ReadPref.sec)
 
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game] =
     sortedCursor(
@@ -483,7 +477,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       initialFen(game).dmap { game -> _ }
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll.countSel(query(Query))
-  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred.countSel(query(Query))
+  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))
 
   private[game] def favoriteOpponents(
       userId: UserId,
@@ -535,7 +529,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     List(u1, u2)
       .forall(_.count.game > 0)
       .so(
-        coll.secondaryPreferred.list[Game](
+        coll.secondary.list[Game](
           $doc(
             F.playerUids.$all(List(u1.id, u2.id)),
             F.createdAt.$gt(since)
