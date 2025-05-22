@@ -216,7 +216,7 @@ final class UblogApi(
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
+    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.sec)
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(UblogRank.Tier.HIDDEN)

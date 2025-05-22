@@ -69,7 +69,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
-      .cursor[ForumPost](ReadPref.priTemp)
+      .cursor[ForumPost](ReadPref.sec)
 
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))

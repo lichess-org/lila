@@ -30,7 +30,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def opponentStream =
     notifyApi.prefColl
-      .aggregateWith(readPreference = ReadPref.priTemp): framework =>
+      .aggregateWith(readPreference = ReadPref.sec): framework =>
         import framework.*
         // hit partial index
         List(

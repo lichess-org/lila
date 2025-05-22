@@ -100,7 +100,7 @@ final class UserLoginsApi(
   ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty.so(
       store.coll
-        .aggregateList(max, _.priTemp): framework =>
+        .aggregateList(max, _.sec): framework =>
           import framework.*
           import FingerHash.given
           Match(

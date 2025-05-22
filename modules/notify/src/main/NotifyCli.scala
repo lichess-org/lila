@@ -53,5 +53,5 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
         ),
         proj
       )
-      .cursor[Bdoc](ReadPref.priTemp)
+      .cursor[Bdoc](ReadPref.sec)
       .documentSource()
