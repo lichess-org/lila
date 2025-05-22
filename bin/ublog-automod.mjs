@@ -64,8 +64,9 @@ let [client, processed, errors] = [undefined, 0, 0];
 
 const args = parseArgs();
 
-console.log(`Connecting to mongodb://${args.host}/${args.db}`);
-client = new MongoClient(`mongodb://${args.host}/${args.db}`);
+const url = `mongodb://${args.host}/${args.db}?directConnection=true&serverSelectionTimeoutMS=2000&appName=ublog-automod`;
+console.log(url);
+client = new MongoClient(url);
 const db = client.db();
 
 if (args.merge) await mergeAndExit();
