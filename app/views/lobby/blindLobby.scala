@@ -15,9 +15,13 @@ object blindLobby:
     games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
-          h3("My turn: ", myTurn.size, " games"),
+          h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
           ul(myTurn.map(renderGame)),
-          h3("Opponent turn: ", opTurn.size, " games"),
+          h3(
+            trans.site.waitingForOpponent(),
+            " : ",
+            trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
+          ),
           ul(opTurn.map(renderGame))
         )
 

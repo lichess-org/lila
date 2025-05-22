@@ -338,7 +338,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       owner: User,
       status: List[Status],
       batchSize: Int,
-      readPref: ReadPref = _.priTemp
+      readPref: ReadPref = _.sec
   ): AkkaStreamCursor[Tournament] =
     coll
       .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty.so($doc("status".$in(status)))))

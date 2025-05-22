@@ -84,6 +84,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def loginWithWeakPassword(user: UserId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.weakPassword)
 
+  def giftPatronMonth(mod: ModId, user: UserId) = add:
+    Modlog(mod, user.some, Modlog.giftPatronMonth)
+
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
 

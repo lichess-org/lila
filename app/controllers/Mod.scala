@@ -461,6 +461,14 @@ final class Mod(
     yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
   }
 
+  def freePatron(username: UserStr) = Secure(_.FreePatron) { _ ?=> me ?=>
+    Found(env.user.repo.enabledById(username)): dest =>
+      for
+        _ <- env.plan.api.freeMonth(dest)
+        _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
+      yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
+  }
+
   def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
       env.chat.api.userChat

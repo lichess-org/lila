@@ -200,7 +200,7 @@ final class SwissApi(
       swissId: SwissId,
       player: Option[UserId],
       batchSize: Int = 0,
-      readPref: ReadPref = _.priTemp
+      readPref: ReadPref = _.sec
   ): Source[GameId, ?] =
     SwissPairing.fields: f =>
       mongo.pairing
@@ -681,7 +681,7 @@ final class SwissApi(
         .find($doc(f.swissId -> swiss.id))
         .sort($sort.desc(f.score))
         .batchSize(perSecond.value)
-        .cursor[SwissPlayer](ReadPref.priTemp)
+        .cursor[SwissPlayer](ReadPref.sec)
         .documentSource(nb)
         .throttle(perSecond.value, 1.second)
         .zipWithIndex
@@ -700,7 +700,7 @@ final class SwissApi(
       multi = true
     )
     playerIds = ids.map(SwissPlayer.makeId(_, u))
-    players <- mongo.player.list[SwissPlayer]($inIds(playerIds), _.priTemp)
+    players <- mongo.player.list[SwissPlayer]($inIds(playerIds), _.sec)
     // here we use a single ghost ID for all swiss players and pairings,
     // because the mapping of swiss player to swiss pairings must be preserved
     ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")

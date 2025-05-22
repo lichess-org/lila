@@ -117,11 +117,9 @@ final class UserAnalysis(
         )
       }
 
-  private def mobileAnalysis(pov: Pov)(using
-      ctx: Context
-  ): Fu[Result] = for
+  private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfKey)
+    users      <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)
@@ -158,15 +156,14 @@ final class UserAnalysis(
           .fold(
             err => BadRequest(err.toString),
             forecasts =>
-              (env.round.forecastApi.save(pov, forecasts) >>
-                env.round.forecastApi.loadForDisplay(pov))
-                .map {
-                  _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                }
-                .recover {
-                  case Forecast.OutOfSync             => forecastReload
-                  case _: lila.core.round.ClientError => forecastReload
-                }
+              val fu = for
+                _   <- env.round.forecastApi.save(pov, forecasts)
+                res <- env.round.forecastApi.loadForDisplay(pov)
+              yield res.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
+              fu.recover {
+                case Forecast.OutOfSync             => forecastReload
+                case _: lila.core.round.ClientError => forecastReload
+              }
           )
   }
 
@@ -181,9 +178,11 @@ final class UserAnalysis(
             .fold(
               err => BadRequest(err.toString),
               forecasts =>
-                val wait = 50 + (Forecast.maxPlies(forecasts).min(10)) * 50
-                (env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
-                  lila.common.LilaFuture.sleep(wait.millis)).inject(forecastReload)
+                for
+                  _ <- env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault
+                  wait = (1 + Forecast.maxPlies(forecasts).min(10)) * 50
+                  _ <- lila.common.LilaFuture.sleep(wait.millis)
+                yield forecastReload
             )
     }
 

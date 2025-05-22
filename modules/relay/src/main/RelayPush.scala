@@ -105,13 +105,13 @@ object RelayPush:
     lila.tree
       .parseImport(pgnBody)
       .fold(
-        err => Failure(Tags.empty, oneline(err)).asLeft,
+        err => Failure(Tags.empty, err.value).asLeft,
         result =>
           val mainline = result.parsed.mainline
           result.replayError.fold(result.asRight): err =>
             mainline.lastOption match
               case Some(mv: Std) if isFatal(mv, result.replay, mainline) =>
-                Failure(result.parsed.tags, oneline(err)).asLeft
+                Failure(result.parsed.tags, err.value).asLeft
               case _ => result.asRight
       )
 
@@ -120,5 +120,3 @@ object RelayPush:
     replay.moves.size < parsed.size - 1
     || mv.role != chess.King
     || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)
-
-  private def oneline(err: ErrorStr) = err.value.linesIterator.nextOption.getOrElse("error")
