@@ -50,6 +50,9 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="leadersChat">Czat liderów</string>
+  <string name="introduction">Wprowadzanie</string>
+  <string name="teamIntroductionHelp">Krótki opis widoczny na liście klubów. Do 200 znaków.</string>
+  <string name="teamDescriptionHelp">Pełny opis widoczny na stronie klubu.</string>
   <string name="closeTeam">Zamknij klub</string>
   <string name="closeTeamDescription">Zamyka klub na zawsze.</string>
   <string name="entryCode">Klubowy kod dostępu</string>
