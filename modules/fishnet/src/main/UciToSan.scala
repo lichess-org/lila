@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Uci
 import chess.format.pgn.SanStr
-import chess.{ Position, MoveOrDrop, Ply }
+import chess.{ Position, Ply }
 
 import lila.analyse.{ Analysis, Info }
 import lila.core.lilaism.LilaException

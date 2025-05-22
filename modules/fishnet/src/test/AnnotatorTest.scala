@@ -57,7 +57,7 @@ object AnnotatorTest:
       (output, expected)
 
   def gameWithMoves(sans: List[SanStr], fen: FullFen, variant: Variant): (chess.Game, String) =
-    val init = chess.Game(variant.some, fen.some)
+    val init                          = chess.Game(variant.some, fen.some)
     val (state = game, moves = moves) = init.playWhileValid(sans, Ply.initial)(_.move.toUci.uci).toOption.get
     game -> moves.mkString(" ")
 
