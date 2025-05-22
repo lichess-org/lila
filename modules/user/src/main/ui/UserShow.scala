@@ -135,7 +135,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
     val name        = user.titleUsername
     val nbGames     = user.count.game
     val createdAt   = showEnglishDate(user.createdAt)
-    val playedGames = trans.site.userPlayedXGamesSinceY.txt(name, nbGames.toString, createdAt)
+    val playedGames = trans.site.userPlayedXGamesSinceY.plural(nbGames, name, nbGames.localize, createdAt)
     val currentRating = user.perfs.bestRatedPerf.so: p =>
       trans.site.currentXRatingY.txt(p.key.perfTrans, p.perf.intRating.toString)
     s"$playedGames$currentRating"
