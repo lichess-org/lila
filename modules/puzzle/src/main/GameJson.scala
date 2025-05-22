@@ -87,9 +87,14 @@ final private class GameJson(
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
           for
-            pgnMove  <- pgnMoves.lastOption
-            position <- chess.Position.init(game.variant, chess.White).forward(pgnMoves).toOption
-            uciMove  <- position.history.lastMove
+            pgnMove <- pgnMoves.lastOption
+            position =
+              chess.Position
+                .init(game.variant, chess.White)
+                .forward(pgnMoves)
+                .valueOr: err =>
+                  sys.error(s"GameJson.generateBc ${game.id} $err")
+            uciMove <- position.history.lastMove
           yield Json.obj(
             "fen" -> Fen.write(position).value,
             "ply" -> (plies + 1),

@@ -14,7 +14,7 @@ private object UciToSan:
 
   type WithErrors[A] = (A, List[Exception])
 
-  def apply(positions: List[Position], startedPly: Ply, analysis: Analysis): WithErrors[Analysis] =
+  def apply(positions: List[Position], startedAt: Ply, analysis: Analysis): WithErrors[Analysis] =
 
     val pliesWithAdviceAndVariation: Set[Ply] = analysis.advices.view.collect {
       case a if a.info.hasVariation => a.ply
@@ -26,7 +26,7 @@ private object UciToSan:
 
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
-        position <- positions.lift(ply.value - startedPly.value - 1).toRight(s"No move found at ply $ply")
+        position <- positions.lift(ply.value - startedAt.value - 1).toRight(s"No move found at ply $ply")
         ucis     <- variation.traverse(Uci.apply).toRight(s"Invalid UCI moves $variation")
         moves    <- position.play(ucis, ply)(_.move.toSanStr).leftMap(_.toString)
       yield moves
