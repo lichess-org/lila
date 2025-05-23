@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import java.time.format.{ DateTimeFormatter, FormatStyle, TextStyle }
 import java.time.{ Duration, LocalDate, Month, YearMonth }
 
-import lila.core.i18n.{ maxLangs, Translate }
+import lila.core.i18n.{ maxLangs, Translate, I18nKey }
 import lila.ui.ScalatagsTemplate.*
 import scalalib.model.Seconds
 
@@ -121,10 +121,10 @@ trait DateHelper:
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
 
-  def daysFromNow(date: LocalDate): String =
+  def daysFromNow(date: LocalDate)(using Translate): String =
     val today = nowInstant.date
-    if date == today then "Today"
-    else if date == today.minusDays(1) then "Yesterday"
+    if date == today then I18nKey.site.today.txt()
+    else if date == today.minusDays(1) then I18nKey.site.yesterday.txt()
     else momentFromNowServerText(date.atStartOfDay.instant)
 
   def timeRemaining(instant: Instant): Tag =
