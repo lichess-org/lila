@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">注目のイベント</string>
+  <string name="moveList" comment="List of the moves of the game">指し手リスト</string>
+  <string name="gameInfo">ゲーム情報</string>
+  <string name="pieces">駒</string>
+  <string name="gameStatus">ゲームの状態</string>
+  <string name="lastMove">最終手</string>
+  <string name="inputForm" comment="Form to input moves and commands">入力フォーム</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">操作</string>
+  <string name="yourClock">自分の時計</string>
+  <string name="opponentClock">相手の時計</string>
+</resources>
