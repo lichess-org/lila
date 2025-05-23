@@ -132,12 +132,11 @@ final class UserShow(helpers: Helpers, bits: UserBits):
 
   def describeUser(user: lila.core.perf.UserWithPerfs)(using Translate) =
     import lila.rating.UserPerfsExt.bestRatedPerf
-    val name        = user.titleUsername
-    val nbGames     = user.count.game
-    val createdAt   = showEnglishDate(user.createdAt)
-    val playedGames = trans.site.userPlayedXGamesSinceY.plural(nbGames, name, nbGames.localize, createdAt)
+    val name      = user.titleUsername
+    val nbGames   = user.count.game
+    val createdAt = showEnglishDate(user.createdAt)
     val currentRating = user.perfs.bestRatedPerf.so: p =>
-      trans.site.currentXRatingY.txt(p.key.perfTrans, p.perf.intRating.toString)
-    s"$playedGames$currentRating"
+      s" Current ${p.key.perfTrans} rating: ${p.perf.intRating}."
+    s"$name played $nbGames games since $createdAt.$currentRating"
 
   val dataUsername = attr("data-username")
