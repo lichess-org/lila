@@ -222,18 +222,18 @@ export default class EditorCtrl {
   }
 
   startPosition = (): boolean => {
-    const modFen = makeFen(defaultPosition(this.rules).toSetup()).split(' ')
-    modFen[1] = this.turn.split('')[0]
+    const modFen = makeFen(defaultPosition(this.rules).toSetup()).split(' ');
+    modFen[1] = this.turn.split('')[0];
 
-    return this.setFen(modFen.join(' '))
-  }
+    return this.setFen(modFen.join(' '));
+  };
 
   clearBoard = (): boolean => {
     const parts = EMPTY_FEN.split(' ');
     parts[1] = this.turn.split('')[0];
-    
-    return this.setFen(parts.join(' ')) 
-  }
+
+    return this.setFen(parts.join(' '));
+  };
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
