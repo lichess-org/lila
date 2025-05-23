@@ -247,7 +247,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                     frag(
                       p(
                         strong(
-                          trans.puzzle.fromXGamesFound
+                          trans.puzzle.puzzlesFoundInUserGames
                             .plural(pager.nbResults, pager.nbResults.localize, userLink(u))
                         )
                       ),

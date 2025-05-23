@@ -80,7 +80,7 @@
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
 
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
-  <plurals name="fromXGamesFound">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">One puzzle found in games by %2$s</item>
     <item quantity="other">%1$s puzzles found in games by %2$s</item>
   </plurals>

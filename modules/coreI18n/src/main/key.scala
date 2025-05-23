@@ -1234,7 +1234,7 @@ object I18nKey:
     val `playedXTimes`: I18nKey = "puzzle:playedXTimes"
     val `nbPointsBelowYourPuzzleRating`: I18nKey = "puzzle:nbPointsBelowYourPuzzleRating"
     val `nbPointsAboveYourPuzzleRating`: I18nKey = "puzzle:nbPointsAboveYourPuzzleRating"
-    val `fromXGamesFound`: I18nKey = "puzzle:fromXGamesFound"
+    val `puzzlesFoundInUserGames`: I18nKey = "puzzle:puzzlesFoundInUserGames"
     val `nbPlayed`: I18nKey = "puzzle:nbPlayed"
     val `nbToReplay`: I18nKey = "puzzle:nbToReplay"
 
