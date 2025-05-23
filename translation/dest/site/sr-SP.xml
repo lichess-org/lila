@@ -494,10 +494,10 @@
   <string name="wins">Победе</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Направио/ла</string>
-  <string name="standByX">Стрпи се %s, упарујемо играче, будите спремни!</string>
+  <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>
   <string name="resume">Настаби</string>
-  <string name="youArePlaying">Играш на турниру!</string>
+  <string name="youArePlaying">Играш!</string>
   <string name="winRate">Проценат победа</string>
   <string name="performance">Перформанса</string>
   <string name="tournamentComplete">Турнир завршен</string>
@@ -517,7 +517,7 @@
   <string name="loadPosition">Учитај позицију</string>
   <string name="isPrivate">Приватни</string>
   <string name="reportXToModerators">Пријави %s модераторима</string>
-  <string name="profileCompletion">Комплетност профила: %s</string>
+  <string name="profileCompletion">Попуњеност профила: %s</string>
   <string name="xRating">%s рејтинг</string>
   <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
   <string name="profile">Профил</string>
