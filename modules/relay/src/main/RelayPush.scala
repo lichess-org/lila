@@ -38,16 +38,15 @@ final class RelayPush(
         val games  = parsed.collect { case Right(g) => g }.toVector
         val response: List[Either[Failure, Success]] =
           parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
-        val andSyncTargets = games.nonEmpty
 
         rt.round.sync.delayMinusLag
           .ifTrue(games.exists(_.root.children.nonEmpty))
           .match
             case None =>
-              for _ <- push(rt, games, andSyncTargets) yield response
+              for _ <- push(rt, games) yield response
             case Some(delay) =>
               scheduler.scheduleOnce(delay.value.seconds):
-                push(rt, games, andSyncTargets)
+                push(rt, games)
               fuccess(response)
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
@@ -62,7 +61,7 @@ final class RelayPush(
       errors = results.count(_.isLeft)
     )
 
-  private def push(prev: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
+  private def push(prev: RelayRound.WithTour, rawGames: Vector[RelayGame]) =
     workQueue(prev.round.id):
       for
         rt          <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
@@ -85,7 +84,7 @@ final class RelayPush(
           val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
           val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
           r3.copy(finishedAt = finishedAt)
-        _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
+        _ <- games.nonEmpty.so(api.syncTargetsOfSource(round))
       yield ()
 
   private def pgnToGames(pgnBody: PgnStr, tc: Option[TournamentClock]): List[Either[Failure, RelayGame]] =
