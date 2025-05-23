@@ -595,7 +595,7 @@
   <string name="newPasswordsDontMatch">De nye passordene er ikke like</string>
   <string name="newPasswordStrength">Passordstyrke</string>
   <string name="clockInitialTime">Starttid på klokken</string>
-  <string name="clockIncrement">Inkrement</string>
+  <string name="clockIncrement">Klokketillegg</string>
   <string name="privacy">Personvern</string>
   <string name="privacyPolicy">personvernerklæringen</string>
   <string name="letOtherPlayersFollowYou">La andre spillere følge deg</string>

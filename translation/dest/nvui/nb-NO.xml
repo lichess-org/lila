@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Fremhevede arrangementer</string>
+  <string name="moveList">Trekkliste</string>
+  <string name="gameInfo">Partiinfo</string>
+  <string name="pieces">Brikker</string>
+  <string name="gameStatus">Partistatus</string>
+  <string name="lastMove">Siste trekk</string>
+  <string name="inputForm">Innskjema</string>
+  <string name="actions">Handlinger</string>
+  <string name="yourClock">Ditt ur</string>
+  <string name="opponentClock">Motstanders ur</string>
+</resources>
