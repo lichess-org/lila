@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">رێکخستن</string>
-  <string name="closeAccount">داخستنی هەژمارەکەت</string>
-  <string name="managedAccountCannotBeClosed">هەژمارەکەت بەڕێوەدەبدرێت، و ناتوانرێت دابخرێت.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">تۆ رێگەت پێنادرێت چیتر بەم ناوە هەژمارێکی نوێ بکەیتەوە، تەنانەت ئەگەر گۆڕانکاری لە گەورە و بچووکی پیتەکانیش بکەی.</string>
+  <string name="settings">رێکخستنەکان</string>
+  <string name="closeAccount">داخستنی ھەژمارەکەت</string>
+  <string name="managedAccountCannotBeClosed">ھەژمارەکەت بەڕێوەدەبدرێت، و ناتواندرێت دابخرێت.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">لەمەودوا ئەم ناوە بەردەست نابێت بۆ تۆمارکردنی ھەژمار.</string>
   <string name="cancelKeepAccount">ھەڵیبوەشێنەرەوە و ھەژمارەکەم بھێڵەوە</string>
   <string name="closeAccountAreYouSure">دڵنیایت کە دەتەوێت ھەژمارەکەت دابخەیت؟</string>
   <string name="thisAccountIsClosed">ئەم هەژمارە داخرا.</string>
