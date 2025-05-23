@@ -50,6 +50,9 @@ Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť va
   <string name="teamsIlead">Družstvá ktoré vediem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možno budete chcieť prepojiť jeden z týchto blížiacich sa turnajov?</string>
   <string name="leadersChat">Diskusia vedúcich</string>
+  <string name="introduction">Úvod</string>
+  <string name="teamIntroductionHelp">Stručný popis viditeľný v zoznamoch tímov. Maximálne 200 znakov.</string>
+  <string name="teamDescriptionHelp">Úplný popis je viditeľný na stránke tímu.</string>
   <string name="closeTeam">Zrušiť družstvo</string>
   <string name="closeTeamDescription">Zruší družstvo natrvalo.</string>
   <string name="entryCode">Vstupný kód družstva</string>
