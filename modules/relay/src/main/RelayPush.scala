@@ -1,7 +1,5 @@
 package lila.relay
 
-import akka.actor.*
-import akka.pattern.after
 import play.api.mvc.RequestHeader
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
@@ -19,7 +17,7 @@ final class RelayPush(
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
-)(using ActorSystem, Executor, Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
@@ -47,7 +45,8 @@ final class RelayPush(
         .match
           case None => push(rt, games, andSyncTargets).inject(response)
           case Some(delay) =>
-            after(delay.value.seconds)(push(rt, games, andSyncTargets))
+            scheduler.scheduleOnce(delay.value.seconds):
+              push(rt, games, andSyncTargets)
             fuccess(response)
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
