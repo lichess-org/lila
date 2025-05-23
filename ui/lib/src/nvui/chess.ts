@@ -17,6 +17,7 @@ const prefixStyles = ['letter', 'name', 'none'] as const;
 type PrefixStyle = (typeof prefixStyles)[number];
 type PositionStyle = 'before' | 'after' | 'none';
 type BoardStyle = 'plain' | 'table';
+type PageStyle = 'board-actions' | 'actions-board';
 
 interface RoundStep {
   uci?: Uci;
@@ -44,6 +45,16 @@ const anna: { [file in Files]: string } = {
   h: 'hector',
 };
 
+export function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
+  });
+}
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
     choices: [
