@@ -1223,7 +1223,6 @@ object I18nKey:
     val `newStreak`: I18nKey = "puzzle:newStreak"
     val `fromMyGames`: I18nKey = "puzzle:fromMyGames"
     val `lookupOfPlayer`: I18nKey = "puzzle:lookupOfPlayer"
-    val `fromXGames`: I18nKey = "puzzle:fromXGames"
     val `searchPuzzles`: I18nKey = "puzzle:searchPuzzles"
     val `fromMyGamesNone`: I18nKey = "puzzle:fromMyGamesNone"
     val `puzzleDashboardDescription`: I18nKey = "puzzle:puzzleDashboardDescription"

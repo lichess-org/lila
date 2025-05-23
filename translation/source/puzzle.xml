@@ -75,7 +75,6 @@
   <string name="newStreak">New streak</string>
   <string name="fromMyGames">From my games</string>
   <string name="lookupOfPlayer">Lookup puzzles from a player's games</string>
-  <string name="fromXGames">Puzzles from %s' games</string>
   <string name="searchPuzzles">Search puzzles</string>
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
 
