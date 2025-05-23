@@ -2,31 +2,33 @@
 <resources>
   <string name="preferences">ھەڵبژاردنەکان</string>
   <string name="display">نیشاندان</string>
-  <string name="privacy">پاراستنی نهێنی(نیشان نەدان)</string>
+  <string name="privacy">تایبەتێتی</string>
   <string name="notifications">ئاگادارکردنەوەکان</string>
-  <string name="pieceAnimation">جوڵەی پارچەکان بەشێوەی ئەنیمەیشن</string>
-  <string name="materialDifference">جیاوازی نێوان تۆ و بەرامبەرەکەت لە ڕووی پارچەوە</string>
-  <string name="boardHighlights">جیاکردنەوەی تایبەتمەندیەکانی بۆردەکە (دوا جوڵە و کش)</string>
-  <string name="pieceDestinations">شوێنی مەبەستی پارچە (جوڵە دروستەکان و جوڵە کردن بێ ئەوەی چاوەڕێی بەرامبەرەکەت بکەی)</string>
+  <string name="pieceAnimation">جووڵەی پارچەکان بەشێوەی ئەنیمەیشن</string>
+  <string name="materialDifference">جیاوازیی نێوان تۆ و بەرامبەرەکەت لە ڕووی پارچەوە</string>
+  <string name="boardHighlights">جیاکردنەوەی تایبەتمەندیەکانی بۆردەکە (دوا جووڵە و کش)</string>
+  <string name="pieceDestinations">شوێنی مەبەستی پارچە (جووڵە دروستەکان و جووڵەکردن بێ ئەوەی چاوەڕێی بەرامبەرەکەت بکەیت)</string>
   <string name="boardCoordinates">ڕێکخەری بۆرد (A-H، 1-8)</string>
-  <string name="moveListWhilePlaying">لیستی جوڵە لەکاتی یاریکردندا</string>
-  <string name="pgnPieceNotation">نووسینی جوڵە</string>
+  <string name="moveListWhilePlaying">لیستی جووڵە لەکاتی یاریکردندا</string>
+  <string name="pgnPieceNotation">نووسینی جووڵە</string>
   <string name="chessPieceSymbol">هێمای پارچەی شەترەنج</string>
-  <string name="pgnLetter">پیتی (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">دۆخی zen</string>
-  <string name="showPlayerRatings">مستەوای یاریزانەکان پیشان بدە</string>
-  <string name="explainShowPlayerRatings">ئەمەش ڕێگە بە شاردنەوەی هەموو ئیلۆکان دەدات لە ماڵپەڕەکە، بۆ ئەوەی یارمەتیت بدات لە سەرنجدان لەسەر شەترەنج، یارییەکان هێشتا دەتوانرێت هەڵسەنگاندنیان بۆ بکرێت، ئەمە تەنها پەیوەندی بەوە ھەیە کە چی دەبینی.</string>
-  <string name="displayBoardResizeHandle">گۆڕینی قەبارەی بۆرد پیشان بدە</string>
-  <string name="onlyOnInitialPosition">تەنها لەسەر شوێنی سەرەتایی</string>
+  <string name="pgnLetter">پیت (K، Q، R، B، N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">دۆخی زێن</string>
+  <string name="showPlayerRatings">ھەڵسەنگاندنی یاریزانەکان پیشان بدە</string>
+  <string name="showFlairs">ئیمۆجیی یاریزان پیشان بدە</string>
+  <string name="explainShowPlayerRatings">ئەمە ھەموو ھەڵسەنگاندنەکان دەشارێتەوە لە لیچێس، تاکوو یارمەتیت بدات لە سەرنجدان لەسەر شەتڕەنج. یارییە ھەڵسەنگاندنەکان ھێشتا کار دەکەنە سەر ھەڵسەنگاندنەکەت، ئەمە تەنیا ڕووکەشە.</string>
+  <string name="displayBoardResizeHandle">دەسکی گۆڕینی قەبارەی بۆرد پیشان بدە</string>
+  <string name="onlyOnInitialPosition">تەنها لە شوێنی سەرەتایی</string>
   <string name="inGameOnly">تەنیا لەناو یاری</string>
-  <string name="chessClock">کاتژمێری شەترەنج</string>
-  <string name="tenthsOfSeconds">بەشی دووەم</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کات دەمێنێتەوە &lt; ١٠ چرکە</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">بێجگە لەنێو یاری</string>
+  <string name="chessClock">کاتژمێری شەتڕەنج</string>
+  <string name="tenthsOfSeconds">دەیەکی چرکە</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کاتی ماوە کەمتر بێت لە ١٠ چرکە</string>
   <string name="horizontalGreenProgressBars">ئەو هێڵە ئاسۆییەکانەی کە کاتێک جوڵە دەکەی بەرەو پێش ڕەنگی سەوز دەبێت</string>
-  <string name="soundWhenTimeGetsCritical">ھەبوونی دەنگ کاتێک کات گرینگتر دەبێت</string>
+  <string name="soundWhenTimeGetsCritical">ھەبوونی دەنگ کاتێک کات نزیک دەبێتەوە لە تەواوبوون</string>
   <string name="giveMoreTime">کاتێکی زیاتر ببەخشە</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">هەڵسوکەوتی یاری</string>
-  <string name="howDoYouMovePieces">چۆن پارچەکان دەجوڵێنیت?</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">ھەڵسوکەوتی یاری</string>
+  <string name="howDoYouMovePieces">چۆن پارچەکان دەجووڵێنیت؟</string>
   <string name="clickTwoSquares">کلیک کرد دووجار لەسەر چوارگۆشەکە</string>
   <string name="dragPiece">پارچەیەک ڕابکێشە</string>
   <string name="bothClicksAndDrag">هەردووكيان</string>
