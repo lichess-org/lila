@@ -53,7 +53,7 @@ final class TournamentShieldApi(
             "status"        -> (Status.finished: Status)
           )
         .sort($sort.asc("startsAt"))
-        .cursor[Tournament](ReadPref.priTemp)
+        .cursor[Tournament](ReadPref.sec)
         .listAll()
         .map: tours =>
           for

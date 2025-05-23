@@ -1,7 +1,7 @@
 import * as xhr from 'lib/xhr';
 import { spinnerHtml } from 'lib/view/controls';
 import { contactEmail } from './bits';
-import { alert, prompt } from 'lib/view/dialogs';
+import { prompt } from 'lib/view/dialogs';
 import { myUserId } from 'lib';
 
 export interface Pricing {
@@ -10,6 +10,7 @@ export interface Pricing {
   min: number;
   max: number;
   lifetime: number;
+  giftMin: number;
 }
 
 const $checkout = $('div.plan_checkout');
@@ -19,9 +20,18 @@ const getVal = (selector: string): string => {
 };
 const getFreq = (): string => getVal('group.freq input:checked');
 const getDest = (): string => getVal('group.dest input:checked');
-const showErrorThenReload = (error: string) => alert(error).then(() => location.assign('/patron'));
+const showErrorThenReload = (error: string) => {
+  alert(error);
+  location.assign('/patron');
+};
 
-export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
+export function initModule({
+  stripePublicKey,
+  pricing,
+}: {
+  stripePublicKey: string;
+  pricing: Pricing;
+}): void {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -74,7 +84,9 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
       $checkout.find('input.default').trigger('click');
       return false;
     }
-    amount = Math.max(pricing.min, Math.min(pricing.max, amount));
+    const isGift = !!$checkout.find('.gift input').val();
+    const min = isGift ? pricing.giftMin : pricing.min;
+    amount = Math.max(min, Math.min(pricing.max, amount));
     $(this).text(`${pricing.currency} ${amount}`);
     ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
@@ -102,7 +114,19 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
         freq === 'lifetime'
           ? pricing.lifetime
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
-    if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
+    const isGift = !!$checkout.find('.gift input').val();
+    const min = isGift ? pricing.giftMin : pricing.min;
+    if (amount < min && isGift) {
+      alert(`Minimum gift amount is ${pricing.currency} ${pricing.giftMin}`);
+      return undefined;
+    } else if (amount < min && !isGift) {
+      alert(`Minimum amount is ${pricing.currency} ${pricing.giftMin}`);
+      return undefined;
+    } else if (amount > pricing.max) {
+      alert(`Maximum amount is ${pricing.currency} ${pricing.max}`);
+      return undefined;
+    }
+    return amount;
   };
 
   const $currencyForm = $('form.currency');

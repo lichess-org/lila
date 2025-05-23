@@ -91,9 +91,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPref: ReadPref =
-      if swiss.finishedAt.exists(_.isBefore(nowInstant.minusSeconds(10)))
-      then _.priTemp
-      else _.pri
+      if swiss.finishedAt.exists(_.isBefore(nowInstant.minusSeconds(10))) then _.sec else _.pri
     SwissPlayer
       .fields: f =>
         mongo.player.find($doc(f.swissId -> swiss.id)).sort(sort)

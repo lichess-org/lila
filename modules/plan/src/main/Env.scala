@@ -60,7 +60,7 @@ final class Env(
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
-  private lazy val monthlyGoalApi = new MonthlyGoalApi(
+  private lazy val monthlyGoalApi = MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
     chargeColl = mongo.charge
   )
@@ -69,7 +69,7 @@ final class Env(
 
   lazy val webhook = wire[PlanWebhook]
 
-  private lazy val expiration = new Expiration(userApi, mongo.patron, notifier)
+  private lazy val expiration = Expiration(userApi, mongo.patron, notifier)
 
   scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
     expiration.run
@@ -77,7 +77,7 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.ChangeEmail]:
     case lila.core.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
-  def cli = new lila.common.Cli:
+  def cli: lila.common.Cli = new:
     def process =
       case "patron" :: "lifetime" :: user :: Nil =>
         userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")

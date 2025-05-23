@@ -307,7 +307,7 @@ final class MsgApi(
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread
-      .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match($doc("users" -> userId)),
@@ -367,7 +367,7 @@ final class MsgApi(
   // include responses from the other user
   def modFullCommsExport(userId: UserId): Source[(MsgThread.Id, NonEmptyList[Msg]), ?] =
     colls.thread
-      .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match($doc("users" -> userId)),

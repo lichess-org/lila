@@ -7,7 +7,7 @@ object Permission:
 
   import lila.core.perm.Permission.*
 
-  lazy val categorized: List[(String, List[Permission])] = List(
+  def categorized: List[(String, List[Permission])] = List(
     "Comm mod" -> List(
       ViewPrivateComms,
       Shadowban,
@@ -36,7 +36,8 @@ object Permission:
       GdprErase,
       SetTitle,
       TitleRequest,
-      SetEmail
+      SetEmail,
+      FreePatron
     ),
     "Misc mod" -> List(
       SeeReport,

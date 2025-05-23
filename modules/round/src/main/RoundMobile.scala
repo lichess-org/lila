@@ -9,6 +9,7 @@ import lila.core.LightUser
 import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
+import lila.round.Forecast.given
 
 object RoundMobile:
 
@@ -16,13 +17,15 @@ object RoundMobile:
       val socketStatus: Option[SocketStatus],
       val chat: Boolean,
       val prefs: Boolean,
-      val bookmark: Boolean
+      val bookmark: Boolean,
+      val forecast: Boolean
   ):
     // full round for every-day use
-    case Online(socket: SocketStatus) extends UseCase(socket.some, chat = true, prefs = true, bookmark = true)
+    case Online(socket: SocketStatus)
+        extends UseCase(socket.some, chat = true, prefs = true, bookmark = true, forecast = true)
     // correspondence game sent through firebase data
     // https://github.com/lichess-org/mobile/blob/main/lib/src/model/correspondence/offline_correspondence_game.dart
-    case Offline extends UseCase(none, chat = false, prefs = false, bookmark = false)
+    case Offline extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = false)
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,
@@ -32,6 +35,7 @@ final class RoundMobile(
     prefApi: lila.pref.PrefApi,
     takebacker: Takebacker,
     moretimer: Moretimer,
+    forecastApi: ForecastApi,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi,
     bookmarkExists: lila.core.misc.BookmarkExists,
@@ -65,6 +69,7 @@ final class RoundMobile(
       chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
       chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
       bookmarked   <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
+      forecast     <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
       tournament   <- tourInfo(game)
     yield
       def playerJson(color: Color) =
@@ -108,6 +113,7 @@ final class RoundMobile(
         )
         .add("bookmarked", bookmarked)
         .add("tournament", tournament)
+        .add("forecast" -> forecast)
 
   private def tourInfo(game: Game): Fu[Option[JsObject]] =
     game.tournamentId
