@@ -30,12 +30,8 @@ class AnnotatorTest extends munit.FunSuite:
 
   val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")
   val playedGame: chess.Game =
-    chess.format.pgn.Reader
-      .full(Parser.full(pgnStr).toOption.get, identity)
-      .valid
-      .toOption
-      .get
-      .state
+    val parsed = Parser.full(pgnStr).toOption.get
+    parsed.toGame.forward(parsed.mainline).toOption.get
 
   import lila.core.i18n.*
   given Translator         = TranslatorStub

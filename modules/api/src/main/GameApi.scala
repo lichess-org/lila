@@ -180,8 +180,8 @@ final private[api] class GameApi(
         "moves"    -> withFlags.moves.option(g.sans.mkString(" ")),
         "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).so {
-          chess.Replay
-            .boards(sans = g.sans, initialFen = initialFen, variant = g.variant)
+          g.position
+            .playPositions(g.sans)
             .toOption
             .map(boards => JsArray(boards.map(chess.format.Fen.writeBoard).map(Json.toJson)))
         }: Option[JsArray]),

@@ -250,11 +250,9 @@ final class SimulApi(
     game1 = lila.core.game.newGame(
       chess = chess
         .Game(
-          variantOption = Some:
-            if simul.position.isEmpty
-            then pairing.player.variant
-            else chess.variant.FromPosition
-          ,
+          if simul.position.isEmpty
+          then pairing.player.variant
+          else chess.variant.FromPosition,
           fen = simul.position
         )
         .copy(clock = clock.start.some),

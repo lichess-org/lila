@@ -19,7 +19,7 @@ case class RichPov(
     clockStates: Option[Vector[Centis]],
     advices: Map[Ply, Advice]
 ):
-  lazy val division = chess.Divider(boards.toList)
+  lazy val division = chess.Divider(boards.toList.map(_.board))
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
@@ -45,14 +45,12 @@ final private class PovToEntry(
           .initialFen(game)
           .zip(game.metadata.analysed.so(analysisRepo.byId(Analysis.Id(game.id))))
           .map { (fen, an) =>
-            chess.Replay
-              .boards(
-                sans = game.sans,
-                initialFen = fen.orElse {
-                  (!pov.game.variant.standardInitialPosition).option(pov.game.variant.initialFen)
-                },
-                variant = game.variant
+            chess
+              .Position(
+                game.variant,
+                fen.orElse((!pov.game.variant.standardInitialPosition).option(pov.game.variant.initialFen))
               )
+              .playPositions(game.sans)
               .toOption
               .flatMap(_.toNel)
               .map: boards =>

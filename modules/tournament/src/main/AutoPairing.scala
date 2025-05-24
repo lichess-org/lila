@@ -22,11 +22,9 @@ final class AutoPairing(
       .newGame(
         chess = chess
           .Game(
-            variantOption = Some {
-              if tour.position.isEmpty then tour.variant
-              else chess.variant.FromPosition
-            },
-            fen = fen
+            if tour.position.isEmpty then tour.variant
+            else chess.variant.FromPosition,
+            fen
           )
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),

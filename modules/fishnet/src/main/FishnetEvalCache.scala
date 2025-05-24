@@ -36,17 +36,14 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
       }.toMap
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, CloudEval)]] =
-    chess.Replay
-      .boardsFromUci(
-        game.uciList.take(maxPlies - 1),
-        game.initialFen,
-        game.variant
-      )
+    chess
+      .Position(game.variant, game.initialFen)
+      .playPositions(game.uciList.take(maxPlies - 1))
       .fold(
         _ => fuccess(Nil),
         _.zipWithIndex
           .parallel: (sit, index) =>
-            getSinglePvEval(sit).dmap2 { index -> _ }
+            getSinglePvEval(sit).dmap2(index -> _)
           .map(_.flatten)
       )
 

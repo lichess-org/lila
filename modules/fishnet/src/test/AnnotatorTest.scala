@@ -57,10 +57,9 @@ object AnnotatorTest:
       (output, expected)
 
   def gameWithMoves(sans: List[SanStr], fen: FullFen, variant: Variant): (chess.Game, String) =
-    val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
-    val game       = xs.last._1
-    val moves      = xs.map(_._2.uci.uci).mkString(" ")
-    game -> moves
+    val (state = game, moves = moves) =
+      chess.Game(variant, fen.some).playWhileValid(sans, Ply.initial)(_.move.toUci.uci).toOption.get
+    game -> moves.mkString(" ")
 
   def parse(
       builder: AnalysisBuilder,
