@@ -46,7 +46,7 @@ Allow: /game/export/gif/thumbnail/
     )
 
   val mobileAndroidUrl = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
-  val mobileIosUrl     = "https://apps.apple.com/us/app/lichess/id1662361230"
+  val mobileIosUrl     = "https://apps.apple.com/app/lichess/id1662361230"
 
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
