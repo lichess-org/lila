@@ -55,7 +55,7 @@
   <string name="blackDidntMove">Црни се није померијо</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
   <string name="computerAnalysis">Рачунарска анализа</string>
-  <string name="computerAnalysisAvailable">Рачунарска анализа је доступна</string>
+  <string name="computerAnalysisAvailable">Рачунарска анализа доступна</string>
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
   <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
@@ -519,7 +519,7 @@
   <string name="reportXToModerators">Пријави %s модераторима</string>
   <string name="profileCompletion">Попуњеност профила: %s</string>
   <string name="xRating">%s рејтинг</string>
-  <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
+  <string name="ifNoneLeaveEmpty">Ако немаш, остави празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уреди профил</string>
   <string name="realName">Право име</string>
@@ -601,7 +601,7 @@
   <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
-  <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
+  <string name="letOtherPlayersInviteYouToStudy">Допусти другим играчима да те позову у студију</string>
   <string name="sound">Звук</string>
   <string name="none">Ниједна</string>
   <string name="fast">Брза</string>
@@ -770,7 +770,7 @@
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
-  <string name="withNobody">Нисаким</string>
+  <string name="withNobody">Ни са ким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
   <string name="kidMode">Дечији режим</string>
