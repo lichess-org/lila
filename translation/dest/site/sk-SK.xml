@@ -22,6 +22,7 @@
   <string name="asBlack">ako čierny</string>
   <string name="randomColor">Náhodná farba figúr</string>
   <string name="createAGame">Vytvoriť partiu</string>
+  <string name="createTheGame">Vytvoriť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
   <string name="blackIsVictorious">Čierny zvíťazil</string>
   <string name="youPlayTheWhitePieces">Hráte za bieleho</string>
@@ -397,7 +398,15 @@
   <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
+  <string name="whiteProposesTakeback">Biely žiada o vrátenie ťahu</string>
+  <string name="blackProposesTakeback">Čierny žiada o vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
+  <string name="whiteDeclinesTakeback">Biely odmieta vrátenie ťahu</string>
+  <string name="blackDeclinesTakeback">Čierny odmieta vrátenie ťahu</string>
+  <string name="whiteAcceptsTakeback">Biely prijíma vrátenie ťahu</string>
+  <string name="blackAcceptsTakeback">Čierny prijíma vrátenie ťahu</string>
+  <string name="whiteCancelsTakeback">Biely zrušil vrátenie ťahu</string>
+  <string name="blackCancelsTakeback">Čierny zrušil vrátenie ťahu</string>
   <string name="yourOpponentProposesATakeback">Váš súper navrhuje vrátiť ťah</string>
   <string name="bookmarkThisGame">Označiť túto hru</string>
   <string name="tournament">Turnaj</string>
@@ -749,6 +758,7 @@
   <string name="really">naozaj</string>
   <string name="contribute">Prispieť</string>
   <string name="termsOfService">Podmienky služby</string>
+  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Overenie titulu</string>
   <string name="sourceCode">Zdrojový kód</string>
   <string name="simultaneousExhibitions">Simultánne exhibície</string>
   <string name="host">Hostiteľ</string>
@@ -1085,4 +1095,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
   <string name="stats">Štatistiky</string>
+  <string name="accessibility">Dostupnosť</string>
+  <string name="enableBlindMode">Povoliť režim naslepo</string>
+  <string name="disableBlindMode">Zrušiť režim naslepo</string>
 </resources>
