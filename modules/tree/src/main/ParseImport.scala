@@ -1,7 +1,7 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
+import chess.format.pgn.{ ParsedPgn, Parser, PgnStr }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
 
@@ -24,9 +24,9 @@ private val maxPlies = 600
 val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
   catchOverflow: () =>
     Parser.full(pgn).map { parsed =>
-      Reader
-        .makeReplay(parsed.toGame, Sans(parsed.mainline.take(maxPlies)))
-        .pipe { case Reader.Result(replay @ Replay(setup, _, state), replayError) =>
+      Replay
+        .makeReplay(parsed.toGame, parsed.mainline.take(maxPlies))
+        .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
           val variant =
