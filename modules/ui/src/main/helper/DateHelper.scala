@@ -78,14 +78,14 @@ trait DateHelper:
       absClientInstantEmpty(instant)(nbsp)
     else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
 
-  def momentFromNowWithPreload(instant: Instant): Frag =
+  def momentFromNowWithPreload(instant: Instant)(using Translate): Frag =
     momentFromNowWithPreload(instant, false, false)
 
   def momentFromNowWithPreload(
       instant: Instant,
       alwaysRelative: Boolean = false,
       once: Boolean = false
-  ): Frag =
+  )(using Translate): Frag =
     momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
 
   def absClientInstant(instant: Instant)(using Translate): Tag =
@@ -102,7 +102,7 @@ trait DateHelper:
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(instant: Instant): String =
+  def momentFromNowServerText(instant: Instant)(using Translate): String =
     val inFuture          = false
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
     val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
@@ -113,7 +113,7 @@ trait DateHelper:
     lazy val months       = days / 30
     lazy val years        = days / 365
     val preposition       = if inFuture then " from now" else " ago"
-    if minutes == 0 then "right now"
+    if minutes == 0 then I18nKey.timeago.rightNow.txt()
     else if hours == 0 then s"${pluralize("minute", minutes)}$preposition"
     else if days < 2 then s"${pluralize("hour", hours)}$preposition"
     else if weeks == 0 then s"${pluralize("day", days)}$preposition"
