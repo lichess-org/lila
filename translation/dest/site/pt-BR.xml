@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -39,7 +39,7 @@
   <string name="whitePlays">Brancas jogam</string>
   <string name="blackPlays">Pretas jogam</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
+    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O seu oponente deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>

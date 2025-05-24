@@ -351,6 +351,7 @@
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
   <string name="whiteProposesTakeback">White proposes takeback</string>
+  <string name="blackProposesTakeback">Black proposes takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
   <string name="whiteDeclinesTakeback">White declines takeback</string>
   <string name="blackDeclinesTakeback">Black declines takeback</string>

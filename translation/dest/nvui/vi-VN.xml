@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Sự kiện nổi bật</string>
+  <string name="moveList">Danh sách nước cờ</string>
+  <string name="gameInfo">Thông tin ván cờ</string>
+  <string name="pieces">Quân cờ</string>
+  <string name="gameStatus">Trạng thái ván cờ</string>
+  <string name="lastMove">Nước đi cuối cùng</string>
+</resources>
