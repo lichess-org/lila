@@ -25,7 +25,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
   catchOverflow: () =>
     Parser.full(pgn).map { parsed =>
       Reader
-        .full(parsed, _.map(_.take(maxPlies)))
+        .makeReplay(parsed.toGame, Sans(parsed.mainline.take(maxPlies)))
         .pipe { case Reader.Result(replay @ Replay(setup, _, state), replayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
