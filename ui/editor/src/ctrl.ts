@@ -221,12 +221,7 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = (): boolean => {
-    const modFen = makeFen(defaultPosition(this.rules).toSetup()).split(' ');
-    modFen[1] = this.turn.split('')[0];
-
-    return this.setFen(modFen.join(' '));
-  };
+  startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
   clearBoard = (): boolean => {
     const parts = EMPTY_FEN.split(' ');
