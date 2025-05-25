@@ -47,6 +47,9 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="teamsIlead">Echipe pe care le-am condus</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Ai vrea să legi unul dintre aceste turnee viitoare?</string>
   <string name="leadersChat">Chat-ul liderilor</string>
+  <string name="introduction">Introducere</string>
+  <string name="teamIntroductionHelp">Scurtă descriere vizibilă în listei de echipe. Până la 200 de caractere.</string>
+  <string name="teamDescriptionHelp">Descrierea completă vizibilă pe pagina echipei.</string>
   <string name="closeTeam">Închide echipa</string>
   <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
   <string name="entryCode">Cod de intrare în echipă</string>
