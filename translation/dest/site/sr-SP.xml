@@ -777,8 +777,8 @@
   <string name="kidModeIsEnabled">Дечији режим је укључен.</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
-  <string name="enableKidMode">Омогућите Дечији режим рада</string>
-  <string name="disableKidMode">Онемогућите Дечији режим рада</string>
+  <string name="enableKidMode">Омогући Дечији режим</string>
+  <string name="disableKidMode">Онемогући Дечији режим</string>
   <string name="security">Сигурност</string>
   <string name="sessions">Сесије</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
