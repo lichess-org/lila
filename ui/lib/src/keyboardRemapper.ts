@@ -23,10 +23,33 @@ export class KeyboardRemapper {
   }
 }
 
+const alphabet: string[] = Array.from(
+  { length: 26 },
+  (_, i) => String.fromCharCode(97 + i), // 'a' is char code 97
+);
+
+const digits: string[] = Array.from(
+  { length: 10 },
+  (_, i) => String.fromCharCode(48 + i), // '0' is char code 48
+);
+
+const qwertyMapLowerCaseLetters: Mapping[] = alphabet.map(
+  (letter: string) => <Mapping>{ key: letter, code: 'Key' + letter.toUpperCase(), shiftKey: false },
+);
+
+const qwertyMapUpperCaseLetters: Mapping[] = alphabet.map(
+  (letter: string) =>
+    <Mapping>{ key: letter.toUpperCase(), code: 'Key' + letter.toUpperCase(), shiftKey: true },
+);
+
+const qwertyMapDigits: Mapping[] = digits.map(
+  (letter: string) => <Mapping>{ key: letter, code: 'Digit' + letter.toUpperCase(), shiftKey: false },
+);
+
 const qwertyMappings: Mapping[] = [
-  ...qwertyMapUpperCaseLetters(),
-  ...qwertyMapLowerCaseLetters(),
-  ...qwertyMapDigits(),
+  ...qwertyMapUpperCaseLetters,
+  ...qwertyMapLowerCaseLetters,
+  ...qwertyMapDigits,
   {
     key: '?',
     code: 'Slash',
@@ -53,32 +76,3 @@ const qwertyMappings: Mapping[] = [
     shiftKey: true,
   },
 ];
-
-const alphabet: string[] = Array.from(
-  { length: 26 },
-  (_, i) => String.fromCharCode(97 + i), // 'a' is char code 97
-);
-
-function qwertyMapLowerCaseLetters(): Mapping[] {
-  return alphabet.map(
-    (letter: string) => <Mapping>{ key: letter, code: 'Key' + letter.toUpperCase(), shiftKey: false },
-  );
-}
-
-function qwertyMapUpperCaseLetters(): Mapping[] {
-  return alphabet.map(
-    (letter: string) =>
-      <Mapping>{ key: letter.toUpperCase(), code: 'Key' + letter.toUpperCase(), shiftKey: true },
-  );
-}
-
-const digits: string[] = Array.from(
-  { length: 10 },
-  (_, i) => String.fromCharCode(48 + i), // '0' is char code 48
-);
-
-function qwertyMapDigits(): Mapping[] {
-  return digits.map(
-    (letter: string) => <Mapping>{ key: letter, code: 'Digit' + letter.toUpperCase(), shiftKey: false },
-  );
-}
