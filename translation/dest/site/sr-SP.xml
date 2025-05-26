@@ -307,7 +307,7 @@
   <string name="play">Играј</string>
   <string name="inbox">Сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
-  <string name="loginToChat">Пријави се за ћаскање</string>
+  <string name="loginToChat">Пријави се да ћаскаш</string>
   <string name="youHaveBeenTimedOut">Тајм-аутован/а си.</string>
   <string name="spectatorRoom">Соба за гледаоце</string>
   <string name="composeMessage">Састави поруку</string>
