@@ -214,6 +214,7 @@ GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
+GET   /embed/analysis                  controllers.UserAnalysis.embed
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)

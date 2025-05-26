@@ -134,5 +134,13 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)
 
-    def analyseModule(mode: String, json: JsObject) =
+    def analyseModule(mode: "userAnalysis" | "replay", json: JsObject) =
       PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
+
+    val embedUserAnalysisBody = div(id := "main-wrap", cls := "is2d")(
+      main(cls := "analyse")(
+        div(cls := "analyse__board main-board")(chessgroundBoard),
+        div(cls := "analyse__tools"),
+        div(cls := "analyse__controls")
+      )
+    )

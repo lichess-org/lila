@@ -70,6 +70,15 @@ final class UserAnalysis(
           views.analyse.ui.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
 
+  def embed = Anon:
+    InEmbedContext:
+      val pov         = makePov(none, Standard)
+      val orientation = get("color").flatMap(Color.fromName) | pov.color
+      env.api.roundApi
+        .userAnalysisJson(pov, ctx.pref, initialFen = none, orientation, owner = false)
+        .map: data =>
+          Ok(views.analyse.embed.userAnalysis(data)).enforceCrossSiteIsolation
+
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
     makePov:
       fen.filter(_.value.nonEmpty).flatMap {
