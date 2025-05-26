@@ -17,7 +17,8 @@ body {
     overflow-y: hidden;
 
     #main-wrap {
-      padding: $block-gap;
+      // piece diff needs 20px atop the board
+      padding: 22px $block-gap 0 $block-gap;
     }
   }
 }
