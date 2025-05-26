@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Tablas de mutuo acuerdo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
+  <string name="joinedX">Entró a %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
@@ -678,7 +679,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificación de título</string>
+  <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
