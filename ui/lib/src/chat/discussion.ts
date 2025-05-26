@@ -45,6 +45,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 
             el.addEventListener('scroll', () => {
               if (el.scrollTop < scrollState.lastScrollTop) scrollState.pinToBottom = false;
+              else if (el.scrollTop + el.clientHeight > el.scrollHeight - 10) scrollState.pinToBottom = true;
               scrollState.lastScrollTop = el.scrollTop;
             });
 
@@ -52,9 +53,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLElement;
-
-            if (el.scrollTop + el.clientHeight > el.scrollHeight - 32) scrollState.pinToBottom = true;
-            else if (!scrollState.pinToBottom) return;
+            if (!scrollState.pinToBottom) return;
 
             if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
             else if (el.scrollTop + el.clientHeight < el.scrollHeight)
