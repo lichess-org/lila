@@ -678,7 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificação de título</string>
+  <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
