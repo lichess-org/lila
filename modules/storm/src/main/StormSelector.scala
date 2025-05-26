@@ -62,13 +62,9 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
           import framework.*
           Facet(
             ratingBuckets.map: (rating, nbPuzzles) =>
+              val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
-                Match:
-                  $doc(
-                    "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
-                    "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
-                  )
-                ,
+                Match($doc("min".$lte(target), "max".$gte(target))),
                 Sample(setsPerAggregation),
                 Project($doc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
