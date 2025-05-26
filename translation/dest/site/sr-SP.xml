@@ -307,8 +307,8 @@
   <string name="play">Играј</string>
   <string name="inbox">Сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
-  <string name="loginToChat">Улогуј се за ћаскање</string>
-  <string name="youHaveBeenTimedOut">Стављени сте на тајм-аут.</string>
+  <string name="loginToChat">Пријави се за ћаскање</string>
+  <string name="youHaveBeenTimedOut">Тајм-аутован/а си.</string>
   <string name="spectatorRoom">Соба за гледаоце</string>
   <string name="composeMessage">Састави поруку</string>
   <string name="subject">Наслов</string>
@@ -775,8 +775,8 @@
   <string name="withEverybody">Са свима</string>
   <string name="kidMode">Дечији режим</string>
   <string name="kidModeIsEnabled">Дечији режим је укључен.</string>
-  <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
+  <string name="kidModeExplanation">Ово је о сигурности. У дечијем режиму, све комуникације на сајту су искључене. Омогућите ово за Вашу децу и школске ученике како бисте их заштитили од других интернет корисника.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем режиму, Lichess-ов лого добија %s икону да бисте знали да су Ваша деца сигурна.</string>
   <string name="enableKidMode">Омогући Дечији режим</string>
   <string name="disableKidMode">Онемогући Дечији режим</string>
   <string name="security">Сигурност</string>
