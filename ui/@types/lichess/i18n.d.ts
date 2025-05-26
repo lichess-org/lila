@@ -3951,8 +3951,6 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
-    /** right now */
-    rightNow: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
     /** Save */
