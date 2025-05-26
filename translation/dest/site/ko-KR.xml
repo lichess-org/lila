@@ -638,7 +638,7 @@
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
   <string name="termsOfService">이용 약관</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">칭호 인증</string>
+  <string name="titleVerification">칭호 인증</string>
   <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">다면기</string>
   <string name="host">주최자</string>
