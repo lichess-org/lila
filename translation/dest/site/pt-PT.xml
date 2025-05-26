@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas a decorrer</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Registou-se %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
