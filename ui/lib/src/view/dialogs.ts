@@ -4,10 +4,14 @@ import { escapeHtml } from '../common';
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: escapeHtmlAddBreaks(msg),
+    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+    <span><button class="button">${i18n.site.ok}</button></span>`,
     class: 'alert',
     modal: true,
+    noCloseButton: true,
+    noClickAway: true,
     show: true,
+    actions: { selector: 'button', result: 'ok' },
   });
 }
 
