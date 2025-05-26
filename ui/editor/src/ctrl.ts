@@ -225,7 +225,7 @@ export default class EditorCtrl {
 
   clearBoard = (): boolean => {
     const parts = EMPTY_FEN.split(' ');
-    parts[1] = this.turn.split('')[0];
+    parts[1] = this.turn[0];
 
     return this.setFen(parts.join(' '));
   };
