@@ -678,7 +678,7 @@
   <string name="really">باوەڕپێکراوە</string>
   <string name="contribute">بەشداریکردن</string>
   <string name="termsOfService">مه‌رجه‌کانی خزمه‌تگوزاری</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">سەلماندنی پاڵەوانێتی</string>
+  <string name="titleVerification">سەلماندنی پاڵەوانێتی</string>
   <string name="sourceCode">سەرچاوەی کۆدەکان</string>
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
