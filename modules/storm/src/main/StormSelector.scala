@@ -1,25 +1,30 @@
 package lila.storm
 
 import chess.IntRating
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
+import lila.common.BatchProvider
 
 /* The difficulty of storm should remain constant!
  * Be very careful when adjusting the selector.
  * Use the grafana average rating per slice chart.
  */
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor, Scheduler):
 
   import StormBsonHandlers.given
   import lila.puzzle.PuzzlePath.sep
 
-  def apply: Fu[List[StormPuzzle]] = current.get {}
+  private type PuzzleSet = List[StormPuzzle]
 
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key
-  private val tier         = lila.puzzle.PuzzleTier.good.key
-  private val maxDeviation = 85
+  def apply: Fu[PuzzleSet] = current.get {}
+
+  private val theme              = lila.puzzle.PuzzleTheme.mix.key
+  private val tier               = lila.puzzle.PuzzleTier.good.key
+  private val maxDeviation       = 85
+  private val setsPerAggregation = 20
 
   /* for path boundaries:
    * 800,  900,  1000, 1100, 1200, 1270, 1340, 1410, 1480, 1550, 1620,
@@ -27,7 +32,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
    */
   private val ratingBuckets =
     List(
-      1000 -> 7,
+      1050 -> 7,
       1150 -> 7,
       1300 -> 8,
       1450 -> 9,
@@ -39,85 +44,96 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       2349 -> 19,
       2499 -> 21
     )
-  private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
-    acc + nb
-  }
+  private val setSize = ratingBuckets.map(_._2).sum
 
-  private val current = cacheApi.unit[List[StormPuzzle]]:
-    _.refreshAfterWrite(6.seconds).buildAsyncFuture: _ =>
-      colls
-        .path:
-          _.aggregateList(poolSize): framework =>
-            import framework.*
-            val fenColorRegex = $doc:
-              "$regexMatch" -> $doc(
-                "input" -> "$fen",
-                "regex" -> { if scala.util.Random.nextBoolean() then " w " else " b " }
+  private val batchProvider =
+    BatchProvider[PuzzleSet]("stormSelector", timeout = 6.seconds)(() => aggregateMultipleSets)
+
+  private val current = cacheApi.unit[PuzzleSet]:
+    _.refreshAfterWrite(6.seconds).buildAsyncFuture(_ => batchProvider.one)
+
+  private var aggregationColor = chess.Color.White
+
+  private def aggregateMultipleSets: Fu[List[PuzzleSet]] =
+    aggregationColor = !aggregationColor
+    colls
+      .path:
+        _.aggregateList(setSize * setsPerAggregation): framework =>
+          import framework.*
+          Facet(
+            ratingBuckets.map: (rating, nbPuzzles) =>
+              rating.toString -> List(
+                Match:
+                  $doc(
+                    "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
+                    "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
+                  )
+                ,
+                Sample(setsPerAggregation),
+                Project($doc("_id" -> false, "ids" -> true)),
+                UnwindField("ids"),
+                // ensure we have enough after filtering deviation & color
+                Sample(nbPuzzles * setsPerAggregation * 7),
+                PipelineOperator(withPuzzlePipeline(aggregationColor)),
+                UnwindField("puzzle"),
+                Sample(nbPuzzles * setsPerAggregation),
+                ReplaceRootField("puzzle")
               )
-            Facet(
-              ratingBuckets.map: (rating, nbPuzzles) =>
-                rating.toString -> List(
-                  Match:
-                    $doc(
-                      "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
-                      "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
-                    )
-                  ,
-                  Sample(1),
-                  Project($doc("_id" -> false, "ids" -> true)),
-                  UnwindField("ids"),
-                  // ensure we have enough after filtering deviation & color
-                  Sample(nbPuzzles * 7),
-                  PipelineOperator:
-                    $lookup.pipelineFull(
-                      from = colls.puzzle.name.value,
-                      as = "puzzle",
-                      let = $doc("id" -> "$ids"),
-                      pipe = List(
-                        $doc:
-                          "$match" -> $expr:
-                            $and(
-                              $doc("$eq"  -> $arr("$_id", "$$id")),
-                              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                              fenColorRegex
-                            )
-                        ,
-                        $doc:
-                          "$project" -> $doc(
-                            "fen"    -> true,
-                            "line"   -> true,
-                            "rating" -> $doc("$toInt" -> "$glicko.r")
-                          )
-                      )
-                    )
-                  ,
-                  UnwindField("puzzle"),
-                  Sample(nbPuzzles),
-                  ReplaceRootField("puzzle")
-                )
-            ) -> List(
-              Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
-              UnwindField("all"),
-              ReplaceRootField("all"),
-              Sort(Ascending("rating")),
-              Limit(poolSize)
-            )
-          .map:
-            _.flatMap(puzzleReader.readOpt)
-        .mon(_.storm.selector.time)
-        .addEffect: puzzles =>
-          monitor(puzzles.toVector, poolSize)
+          ) -> List(
+            Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
+            UnwindField("all"),
+            ReplaceRootField("all"),
+            Sort(Ascending("rating")),
+            Limit(setSize * setsPerAggregation)
+          )
+        .map:
+          _.flatMap(puzzleReader.readOpt)
+        .map:
+          _.grouped(setsPerAggregation).toList.map(ThreadLocalRandom.shuffle).transpose
+      .logTimeIfGt("storm selector", 3.seconds)
+      .mon(_.storm.selector.time)
+      .addEffect:
+        _.foreach: puzzles =>
+          monitor(puzzles.toVector)
 
-  private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit =
+  private def withPuzzlePipeline(color: chess.Color) =
+    $lookup.pipelineFull(
+      from = colls.puzzle.name.value,
+      as = "puzzle",
+      let = $doc("id" -> "$ids"),
+      pipe = List(
+        $doc:
+          "$match" -> $expr:
+            $and(
+              $doc("$eq"  -> $arr("$_id", "$$id")),
+              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+              $doc(
+                "$regexMatch" -> $doc(
+                  "input" -> "$fen",
+                  "regex" -> { if color.white then " w " else " b " }
+                )
+              )
+            )
+        ,
+        $doc:
+          "$project" -> $doc(
+            "fen"    -> true,
+            "line"   -> true,
+            "rating" -> $doc("$toInt" -> "$glicko.r")
+          )
+      )
+    )
+
+  private def monitor(puzzles: Vector[StormPuzzle]): Unit =
     val nb = puzzles.size
     lila.mon.storm.selector.count.record(nb)
-    if nb < poolSize * 0.9 then logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
+    if nb < setSize * 0.9 then logger.warn(s"Selector wanted $setSize puzzles, only got $nb")
     if nb > 1 then
       val rest = puzzles.toVector.drop(1)
       scalalib.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt)
       }
-      (0 to poolSize by 10).foreach { i =>
+      (0 to setSize by 10).foreach { i =>
         val slice = rest.drop(i).take(10)
         scalalib.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)

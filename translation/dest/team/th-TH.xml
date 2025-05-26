@@ -10,7 +10,7 @@
   <string name="newTeam">ทีมใหม่</string>
   <string name="myTeams">ทีมของฉัน</string>
   <string name="noTeamFound">ไม่พบทีมใด</string>
-  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">เข้าร่วมทีม</string>
+  <string name="joinTeam">เข้าร่วมทีม</string>
   <string name="onlyLeaderLeavesTeam">โปรดเพิ่มผู้นำทีมใหม่ก่อนออกไปหรือยุบทีม</string>
   <string name="quitTeam">ออกจากทีม</string>
   <string name="manuallyReviewAdmissionRequests">ตรวจสอบคำขอรับเข้าด้วยตนเอง</string>
@@ -53,7 +53,7 @@
   <string name="joinLichessVariantTeam">เข้าร่วมทีม %s เพื่อดูข่าวและเหตุการณ์สำคัญ</string>
   <string name="teamPage">หน้าหลักของทีม</string>
   <string name="thisTeamBattleIsOver">ทัวร์นาเมนต์นี้สิ้นสุดแล้ว และไม่สามารถอัปเดตทีมได้อีกต่อไป</string>
-  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">รายชื่อทีมที่จะเข้าแข่งขันในการดวลครั้งนี้</string>
+  <string name="listTheTeamsThatWillCompete">รายชื่อทีมที่จะเข้าแข่งขันในการดวลครั้งนี้</string>
   <string name="oneTeamPerLine">หนึ่งทีมต่อหนึ่งแถว ใช้ระบบเติมข้อความอัตโนมัติ</string>
   <string name="oneTeamPerLineHelp">คุณสามารถคัดลอกและวางรายการนี้จากทัวร์นาเมนต์หนึ่งไปยังอีกทัวร์นาเมนต์หนึ่งได้
 

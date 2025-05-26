@@ -64,7 +64,7 @@
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar esta URL no foro ou no teu blog de Lichess para incrustala</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes pegalo no foro ou no teu blog de Lichess para incrustalo</string>
   <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
@@ -95,7 +95,7 @@
   <string name="startFromInitialPosition">Comezar desde a posición inicial</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Comezar dende unha posición personalizada</string>
-  <string name="loadAGameByUrl">Cargar as partidas dende unha URL</string>
+  <string name="loadAGameByUrl">Cargar as partidas dende un URL</string>
   <string name="loadAPositionFromFen">Cargar unha posición dende o FEN</string>
   <string name="loadAGameFromPgn">Cargar as partidas dende o PGN</string>
   <string name="automatic">Automática</string>
@@ -164,11 +164,11 @@
   <string name="playAgain">Xogar de novo</string>
   <string name="whatWouldYouPlay">Que xogarías nesta posición?</string>
   <string name="youCompletedThisLesson">Parabéns! Completaches esta lección.</string>
-  <string name="perPage">%s por páxina</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s por páxina</string>
   <string name="getTheTour">Precisas axuda? Comeza a andaina!</string>
   <string name="welcomeToLichessStudyTitle">Benvido ós Estudos de Lichess!</string>
   <string name="welcomeToLichessStudyText">Isto é un taboleiro de análise compartida.&lt;br&gt;&lt;br&gt;Úsao para analizar e anotar as partidas,&lt;br&gt;discutir as posicións cos amigos,&lt;br&gt;e por suposto para as leccións de xadrez!&lt;br&gt;&lt;br&gt;É unha ferramenta moi potente: imos pararnos un anaco para ver como funciona.</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartido e salvado</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Compartido e salvado</string>
   <string name="sharedAndSavedText">Os outros membros poden ver os teus movementos en tempo real!&lt;br&gt;Ademais, grávase todo permanentemente.</string>
   <string name="studyMembersTitle">Membros do estudo</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Os espectadores poden ver o estudo e falar na sala de conversa.&lt;br&gt;&lt;br&gt;%2$s Os colaboradores poden realizar xogadas e actualizar o estudo.</string>
@@ -176,7 +176,7 @@
   <string name="studyChaptersTitle">Capítulos do estudo</string>
   <string name="studyChaptersText">Un estudo pode conter varios capítulos.&lt;br&gt;Cada capítulo ten a súa correspondente posición inicial e lista de xogadas.</string>
   <string name="commentPositionTitle">Comentar unha posición</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Preme o botón %s, ou fai clic co botón dereito do rato na lista de xogadas.&lt;br&gt;Os comentarios compártense e sálvanse.</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Preme o botón %s ou fai clic co botón dereito do rato na lista de xogadas.&lt;br&gt;Os comentarios compártense e sálvanse.</string>
   <string name="annotatePositionTitle">Anotar unha posición</string>
   <string name="annotatePositionText">Preme no botón !? ou fai clic co botón dereito do rato na lista de xogadas.&lt;br&gt;Os símbolos na notación compártense e sálvanse.</string>
   <string name="conclusionTitle">Grazas polo teu tempo</string>
@@ -188,7 +188,7 @@
   <string name="customPositionTitle">Posición á medida</string>
   <string name="customPositionText">Dispón o taboleiro ó teu xeito.&lt;br&gt;Adecuada pra explorar os finais.</string>
   <string name="loadExistingLichessGameTitle">Cargar unha partida existente do Lichess</string>
-  <string name="loadExistingLichessGameText">Pega a URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
+  <string name="loadExistingLichessGameText">Pega o URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
   <string name="fromFenStringTitle">A partires dunha cadea FEN</string>
   <string name="fromFenStringText">Pega a posición no formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para comezar o capítulo dende unha posición determinada.</string>
   <string name="fromPgnGameTitle">Dende o PGN dunha partida</string>

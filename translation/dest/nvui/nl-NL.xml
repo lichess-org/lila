@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Uitgelichte evenementen</string>
+  <string name="moveList">Zettenlijst</string>
+  <string name="gameInfo">Partij-info</string>
+  <string name="pieces">Stukken</string>
+  <string name="gameStatus">Partij-status</string>
+  <string name="lastMove">Laatste zet</string>
+  <string name="inputForm">Invoerformulier</string>
+  <string name="actions">Acties</string>
+  <string name="yourClock">Jouw klok</string>
+  <string name="opponentClock">Klok tegenstander</string>
+</resources>

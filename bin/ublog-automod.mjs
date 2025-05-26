@@ -164,7 +164,7 @@ async function assess(post) {
 // ===========================================================================================================
 
 function normalize(original) {
-  const copy = { ...original };
+  const copy = {};
   for (const [key, v] of Object.entries(original)) {
     if (typeof v === 'string' && ['', 'none', 'reason'].includes(v.trim().toLowerCase())) continue;
     else if (typeof v !== 'string' && key !== 'evergreen') continue;
