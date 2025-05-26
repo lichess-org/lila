@@ -31,8 +31,8 @@
   <string name="byOpenings">Por aperturas</string>
   <string name="puzzlesByOpenings">Ejercicios por aperturas</string>
   <string name="openingsYouPlayedTheMost">Aperturas que más has jugado en partidas por puntos</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">¡Usa \"Encontrar en la página\" en el menú del navegador para encontrar tu apertura favorita!</string>
-  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">¡Usa Ctrl+f para encontrar tu apertura favorita!</string>
+  <string name="useFindInPage">¡Usa \"Encontrar en la página\" en el menú del navegador para encontrar tu apertura favorita!</string>
+  <string name="useCtrlF">¡Usa Ctrl+f para encontrar tu apertura favorita!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
   <string name="trySomethingElse">Prueba algo distinto.</string>
   <string name="ratingX">Puntuación: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Puntos fuertes</string>
   <string name="history">Historial de ejercicios</string>
   <string name="solved">resuelto</string>
-  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">fallido</string>
+  <string name="failed">fallido</string>
   <string name="streakDescription">Resuelve ejercicios cada vez más difíciles para conseguir la racha más larga posible. No hay tiempo, así que tómatelo con calma. Un movimiento erróneo y ¡se acabó!, aunque puedes omitir un movimiento en cada sesión.</string>
   <string name="yourStreakX">Tu racha: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
@@ -74,11 +74,13 @@
   <string name="newStreak">Nueva racha</string>
   <string name="fromMyGames">De mis partidas</string>
   <string name="lookupOfPlayer">Buscar ejercicios de las partidas de un jugador</string>
-  <string name="fromXGames">Ejercicios de las partidas de %s</string>
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
-  <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Un rompecabezas encontrado en los juegos de %2$s</item>
+    <item quantity="other">%1$s ejercicios encontrados en las partidas de %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Entrena, analiza, mejora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s ejercicio</item>
