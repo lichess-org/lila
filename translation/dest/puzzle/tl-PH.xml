@@ -31,8 +31,8 @@
   <string name="byOpenings">Sa mga pagbubukas</string>
   <string name="puzzlesByOpenings">Mga Palaisipan sa mga pagbubukas</string>
   <string name="openingsYouPlayedTheMost">Mga pagbubukas na pinakamadalas mong nilaro sa mga namarkahang laro</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang \"Find in page\" sa menu ng browser para mahanap ang iyong paboritong pagbubukas!</string>
-  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
+  <string name="useFindInPage">Gamitin ang \"Find in page\" sa menu ng browser para mahanap ang iyong paboritong pagbubukas!</string>
+  <string name="useCtrlF">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
   <string name="notTheMove">Hindi iyan ang tira!</string>
   <string name="trySomethingElse">Subukan mo iba.</string>
   <string name="ratingX">Marka: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Mga Kalakasan</string>
   <string name="history">Kasaysayang ng palaisipan</string>
   <string name="solved">lutas na</string>
-  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">mali</string>
+  <string name="failed">mali</string>
   <string name="streakDescription">Isolba mo ng progresibo ang mga mas mahirap pang mga palaisipan at makagawa ka ng win streak. Wala itong oras, kaya huwag kang magmadali. Isang maling galaw, at tapos na ang laro! Pero pwede mong laktawan ng isang galaw kada sesyon.</string>
   <string name="yourStreakX">Ang iyong streak: %s</string>
   <string name="streakSkipExplanation">Laktawan mo ang galaw para mapreserba ang iyong streak! Gumagana lamang ng isang beses kada takbo.</string>
@@ -74,12 +74,10 @@
   <string name="newStreak">Bagong streak</string>
   <string name="fromMyGames">Mula sa aking mga laro</string>
   <string name="lookupOfPlayer">Maghanap ng mga palaisipan mula sa mga laro ng manlalaro</string>
-  <string name="fromXGames">Mga palaisipan mula sa %s\' mga laro</string>
   <string name="searchPuzzles">Maghanap ng mga palaisipan</string>
   <string name="fromMyGamesNone">Wala kang mga palaisipan sa database, pero mahal na mahal ka parin ng Lichess.
 
 Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na madagdag ang iyong mga palaisipan!</string>
-  <string name="fromXGamesFound">%1$s mga palaisipan natagpuan sa mga laro ni %2$s</string>
   <string name="puzzleDashboardDescription">Magsanay, pagsusuri, magpabuti</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s nalaro</item>
