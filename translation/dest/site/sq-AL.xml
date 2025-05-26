@@ -680,7 +680,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="really">për vërtetë</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="termsOfService">Kushte Shërbimi</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verifikim titulli</string>
+  <string name="titleVerification">Verifikim titulli</string>
   <string name="sourceCode">Kod Burim</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
