@@ -639,7 +639,7 @@
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">実戦タイトルの検証</string>
+  <string name="titleVerification">実戦タイトルの検証</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
