@@ -61,14 +61,14 @@ const alphabet: string[] = Array.from(
 
 function qwertyMapLowerCaseLetters(): Mapping[] {
   return alphabet.map(
-    (letter: string) => <Mapping>{ key: letter, code: 'Key' + letter.toLocaleUpperCase(), shiftKey: false },
+    (letter: string) => <Mapping>{ key: letter, code: 'Key' + letter.toUpperCase(), shiftKey: false },
   );
 }
 
 function qwertyMapUpperCaseLetters(): Mapping[] {
   return alphabet.map(
     (letter: string) =>
-      <Mapping>{ key: letter.toUpperCase(), code: 'Key' + letter.toLocaleUpperCase(), shiftKey: true },
+      <Mapping>{ key: letter.toUpperCase(), code: 'Key' + letter.toUpperCase(), shiftKey: true },
   );
 }
 
@@ -79,6 +79,6 @@ const digits: string[] = Array.from(
 
 function qwertyMapDigits(): Mapping[] {
   return digits.map(
-    (letter: string) => <Mapping>{ key: letter, code: 'Digit' + letter.toLocaleUpperCase(), shiftKey: false },
+    (letter: string) => <Mapping>{ key: letter, code: 'Digit' + letter.toUpperCase(), shiftKey: false },
   );
 }
