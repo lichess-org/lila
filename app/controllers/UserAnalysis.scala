@@ -17,25 +17,21 @@ final class UserAnalysis(
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  def index = load("", Standard)
+  def index = load(none, Standard)
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load("", Variant.orDefault(Variant.LilaKey(key)))
+      case Array(key) => load(none, Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
-          case Some(variant) if variant != Standard            => load(fen, variant)
-          case _ if Fen.Full.clean(fen) == Standard.initialFen => load("", Standard)
-          case Some(Standard)                                  => load(fen, FromPosition)
-          case _                                               => load(arg, FromPosition)
-      case _ => load("", Standard)
+          case Some(variant) if variant != Standard            => load(fen.some, variant)
+          case _ if Fen.Full.clean(fen) == Standard.initialFen => load(none, Standard)
+          case Some(Standard)                                  => load(fen.some, FromPosition)
+          case _                                               => load(arg.some, FromPosition)
+      case _ => load(none, Standard)
 
-  def load(urlFen: String, variant: Variant) = Open:
-    val inputFen: Option[Fen.Full] = lila.common.String
-      .decodeUriPath(urlFen)
-      .filter(_.trim.nonEmpty)
-      .orElse(get("fen"))
-      .map(Fen.Full.clean)
+  private def load(urlFen: Option[String], variant: Variant) = Open:
+    val inputFen: Option[Fen.Full] = urlFen.orElse(get("fen")).flatMap(readFen)
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
@@ -69,6 +65,21 @@ final class UserAnalysis(
         .map: data =>
           views.analyse.ui.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
+
+  def embed = Anon:
+    InEmbedContext:
+      val pov         = makePov(none, Standard)
+      val orientation = get("color").flatMap(Color.fromName) | pov.color
+      val fen         = get("fen").flatMap(readFen)
+      env.api.roundApi
+        .userAnalysisJson(pov, ctx.pref, fen, orientation, owner = false)
+        .map: data =>
+          Ok(views.analyse.embed.userAnalysis(data)).enforceCrossSiteIsolation
+
+  def readFen(from: String): Option[Fen.Full] = lila.common.String
+    .decodeUriPath(from)
+    .filter(_.trim.nonEmpty)
+    .map(Fen.Full.clean)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
     makePov:

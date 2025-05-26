@@ -1,7 +1,5 @@
 package lila.relay
 
-import akka.actor.*
-import akka.pattern.after
 import play.api.mvc.RequestHeader
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
@@ -19,7 +17,7 @@ final class RelayPush(
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
-)(using ActorSystem, Executor, Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
@@ -33,22 +31,23 @@ final class RelayPush(
     push(rt, pgn).addEffect(monitor(rt))
 
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Results] =
-    if rt.round.sync.hasUpstream
-    then fuccess(List(Left(Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to."))))
-    else
-      val parsed = pgnToGames(pgn, rt.tour.info.clock)
-      val games  = parsed.collect { case Right(g) => g }.toVector
-      val response: List[Either[Failure, Success]] =
-        parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
-      val andSyncTargets = games.nonEmpty
+    cantHaveUpstream(rt.round) match
+      case Some(failure) => fuccess(List(Left(failure)))
+      case None =>
+        val parsed = pgnToGames(pgn, rt.tour.info.clock)
+        val games  = parsed.collect { case Right(g) => g }.toVector
+        val response: List[Either[Failure, Success]] =
+          parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
 
-      rt.round.sync.delayMinusLag
-        .ifTrue(games.exists(_.root.children.nonEmpty))
-        .match
-          case None => push(rt, games, andSyncTargets).inject(response)
-          case Some(delay) =>
-            after(delay.value.seconds)(push(rt, games, andSyncTargets))
-            fuccess(response)
+        rt.round.sync.delayMinusLag
+          .ifTrue(games.exists(_.root.children.nonEmpty))
+          .match
+            case None =>
+              for _ <- push(rt, games) yield response
+            case Some(delay) =>
+              scheduler.scheduleOnce(delay.value.seconds):
+                push(rt, games)
+              fuccess(response)
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
     val ua = HTTPRequest.userAgent(req)
@@ -62,9 +61,11 @@ final class RelayPush(
       errors = results.count(_.isLeft)
     )
 
-  private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
-    workQueue(rt.round.id):
+  private def push(prev: RelayRound.WithTour, rawGames: Vector[RelayGame]) =
+    workQueue(prev.round.id):
       for
+        rt          <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
+        _           <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
         withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         games = rt.tour.teams.fold(withFide)(_.update(withFide))
@@ -83,7 +84,7 @@ final class RelayPush(
           val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
           val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
           r3.copy(finishedAt = finishedAt)
-        _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
+        _ <- games.nonEmpty.so(api.syncTargetsOfSource(round))
       yield ()
 
   private def pgnToGames(pgnBody: PgnStr, tc: Option[TournamentClock]): List[Either[Failure, RelayGame]] =
@@ -93,6 +94,10 @@ final class RelayPush(
       .map: pgn =>
         validate(pgn).map: importResult =>
           RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
+
+  private def cantHaveUpstream(round: RelayRound): Option[Failure] =
+    round.sync.hasUpstream.option:
+      Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to.")
 
 object RelayPush:
 

@@ -2289,10 +2289,6 @@ interface I18n {
     fromMyGames: string;
     /** You have no puzzles in the database, but Lichess still loves you very much. */
     fromMyGamesNone: string;
-    /** Puzzles from %s' games */
-    fromXGames: I18nFormat;
-    /** %1$s puzzles found in %2$s games */
-    fromXGamesFound: I18nFormat;
     /** Goals */
     goals: string;
     /** Good move */
@@ -2363,6 +2359,8 @@ interface I18n {
     puzzles: string;
     /** Puzzles by openings */
     puzzlesByOpenings: string;
+    /** %1$s puzzles found in games by %2$s */
+    puzzlesFoundInUserGames: I18nPlural;
     /** Success! */
     puzzleSuccess: string;
     /** Puzzle Themes */
@@ -3389,6 +3387,8 @@ interface I18n {
     itsYourTurn: string;
     /** Join */
     join: string;
+    /** Joined %s */
+    joinedX: I18nFormat;
     /** Join the game */
     joinTheGame: string;
     /** Join the %1$s, to post in this forum */

@@ -1,6 +1,5 @@
 package lila.relay
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
@@ -41,9 +40,8 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using
-    scheduler: Scheduler
-):
+)(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
+
   lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]

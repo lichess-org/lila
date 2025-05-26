@@ -223,7 +223,12 @@ export default class EditorCtrl {
 
   startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
-  clearBoard = (): boolean => this.setFen(EMPTY_FEN);
+  clearBoard = (): boolean => {
+    const parts = EMPTY_FEN.split(' ');
+    parts[1] = this.turn[0];
+
+    return this.setFen(parts.join(' '));
+  };
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
