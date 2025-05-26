@@ -386,9 +386,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll
-      .find(
-        Query.mate ++ Query.variantStandard
-      )
+      .find(Query.mate ++ Query.variantStandard)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
