@@ -643,7 +643,7 @@
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Mapatunayan ng Titulo</string>
+  <string name="titleVerification">Mapatunayan ng Titulo</string>
   <string name="sourceCode">Pinagkukunan ng Code</string>
   <string name="simultaneousExhibitions">Magkasabay na mga eksibisyon</string>
   <string name="host">Host</string>
