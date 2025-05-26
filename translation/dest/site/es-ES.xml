@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Tablas de mutuo acuerdo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
-  <string name="joinedX">Entró a %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Se unió hace %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
