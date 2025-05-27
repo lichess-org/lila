@@ -1,4 +1,5 @@
 import { Chess } from 'chessops';
+import { Move as ChessMove } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';
@@ -7,7 +8,8 @@ import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtr
 import { type BotId } from 'lib/bot/types';
 import { DateMillis } from './interfaces';
 import { Board } from './chess';
-import { parseSan } from 'chessops/san';
+import { makeSan, parseSan } from 'chessops/san';
+import { normalizeMove } from 'chessops/chess';
 
 export interface Move {
   san: San;
@@ -32,7 +34,7 @@ export class Game {
     public moves: Move[] = [],
   ) {
     this.id = randomId();
-    this.end = undefined;
+    this.recomputeEndFromLastBoard();
   }
 
   ply = (): Ply => this.moves.length;
@@ -63,9 +65,25 @@ export class Game {
     };
   };
 
-  takePlies = (plies: Ply): Game => {
-    if (plies >= this.ply()) return this;
-    const moves = this.moves.slice(0, plies);
+  rewindToPly = (ply: Ply): void => {
+    this.moves = this.moves.slice(0, ply);
+  };
+
+  playMoveAtPly = (chessMove: ChessMove, ply: Ply): Move => {
+    this.rewindToPly(ply);
+    const chess = this.lastBoard().chess;
+    const move: Move = {
+      san: makeSan(chess, normalizeMove(chess, chessMove)),
+      at: Date.now(),
+    };
+    this.moves.push(move);
+    this.recomputeEndFromLastBoard();
+    return move;
+  };
+
+  copyAtPly = (ply: Ply): Game => {
+    if (ply >= this.ply()) return this;
+    const moves = this.moves.slice(0, ply);
     return new Game(this.botId, this.pov, this.clockConfig, this.initialFen, moves);
   };
 
@@ -93,7 +111,7 @@ export class Game {
       if (!move) {
         // Illegal move
         console.warn('Illegal move', node.san);
-        this.moves = this.takePlies(board.onPly).moves;
+        this.rewindToPly(board.onPly);
         break;
       }
       board.chess.play(move);
@@ -101,6 +119,10 @@ export class Game {
       board.lastMove = move;
     }
     return board;
+  };
+
+  private recomputeEndFromLastBoard = (): void => {
+    this.end = makeEndOf(this.lastBoard().chess);
   };
 }
 
