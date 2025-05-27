@@ -3,7 +3,7 @@ package lila.game
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
-import chess.{ Position, Centis, Color, Game as ChessGame, Replay }
+import chess.{ Position, Centis, Color }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
@@ -118,30 +118,22 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Full]) =
-    Replay.gameMoveWhileValid(
-      game.sans,
-      initialFen | game.variant.initialFen,
-      game.variant
-    ) match
-      case (init, games, _) =>
-        val steps = (init, None) :: (games.map { case (g, Uci.WithSan(uci, _)) =>
-          (g, uci.some)
-        })
-        framesRec(
-          steps.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(steps.length, None)),
-          Json.arr()
-        )
+  private def frames(game: Game, initialFen: Option[Fen.Full]): JsArray =
+    val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
+    framesRec(
+      positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
+      Json.arr()
+    )
 
   @annotation.tailrec
-  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(games: List[(Position, Option[Centis])], arr: JsArray): JsArray =
     games match
       case Nil =>
         arr
-      case ((game, uci), scaledMoveTime) :: tail =>
+      case (position, scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
-        framesRec(tail, arr :+ frame(game.position, uci, delay))
+        framesRec(tail, arr :+ frame(position, position.history.lastMove, delay))
 
   private def frame(position: Position, uci: Option[Uci], delay: Option[Centis]) =
     Json
