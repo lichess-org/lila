@@ -7,7 +7,7 @@ import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game, Move, computeClockState, isClockTicking } from '../game';
+import { makeEndOf, Game, Move, computeClockState, isClockTicking, turnOf } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -143,9 +143,10 @@ export default class PlayCtrl {
   };
 
   private safelyRequestBotMove = async () => {
-    if (!this.isOnLastPly() || this.game.pov == this.board.chess.turn || this.board.chess.isEnd()) return;
+    if (this.game.end) return;
+    if (turnOf(this.game) == this.game.pov) return;
     const source = await this.opts.bridge;
-    const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
+    const sign = () => this.game.pov + this.game.moves.map(m => m.san).join('');
     const before = sign();
     const move = await requestBotMove(source, this.game);
     if (sign() == before) this.addMove(move);

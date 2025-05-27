@@ -43,8 +43,11 @@ export const makeEndOf = (chess: Chess): GameEnd | undefined => {
   };
 };
 
+export const plyOf = (game: Game): Ply => game.moves.length;
+export const turnOf = (game: Game): Color => (plyOf(game) % 2 ? 'black' : 'white');
+
 export const isClockTicking = (game: Game): Color | undefined =>
-  game.end || game.moves.length < 2 ? undefined : game.moves.length % 2 ? 'black' : 'white';
+  game.end || game.moves.length < 2 ? undefined : turnOf(game);
 
 export const computeClockState = (game: Game): ClockState | undefined => {
   const config = game.clockConfig;
