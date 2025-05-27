@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">Hòa theo thỏa thuận hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Các ván cờ đang diễn ra</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Đã tham gia %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Tham gia hôm %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -330,10 +330,10 @@
   <string name="whiteProposesTakeback">Trắng yêu cầu đi lại</string>
   <string name="blackProposesTakeback">Đen yêu cầu đi lại</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
-  <string name="whiteDeclinesTakeback">Trắng không cho đi lại</string>
-  <string name="blackDeclinesTakeback">Đen không cho đi lại</string>
-  <string name="whiteAcceptsTakeback">Trắng cho phép đi lại</string>
-  <string name="blackAcceptsTakeback">Đen cho phép đi lại</string>
+  <string name="whiteDeclinesTakeback">Trắng từ chối đi lại</string>
+  <string name="blackDeclinesTakeback">Đen từ chối đi lại</string>
+  <string name="whiteAcceptsTakeback">Trắng chấp nhận đi lại</string>
+  <string name="blackAcceptsTakeback">Đen chấp nhận đi lại</string>
   <string name="whiteCancelsTakeback">Trắng huỷ đi lại</string>
   <string name="blackCancelsTakeback">Đen huỷ đi lại</string>
   <string name="yourOpponentProposesATakeback">Đối thủ của bạn đề nghị lùi một nước</string>
