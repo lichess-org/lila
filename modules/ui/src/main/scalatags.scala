@@ -31,6 +31,8 @@ trait ScalatagsAttrs:
   val enterkeyhint           = attr("enterkeyhint")
   def attrData(name: String) = attr(s"data-$name")
   def aria(key: String)      = attr(s"aria-$key")
+  // https://accessibleweb.com/question-answer/when-should-i-use-a-null-or-empty-alt-tag/
+  val emptyAlt = alt := ""
 
   object frame:
     val scrolling       = attr("scrolling")
@@ -65,6 +67,7 @@ trait ScalatagsSnippets:
   val summary                              = tag("summary")
   val abbr                                 = tag("abbr")
   val boxTop                               = div(cls := "box__top")
+  val decorativeImg                        = img(emptyAlt)
 
   def rawHtml(html: Html) = raw(html.value)
 
