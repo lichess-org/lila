@@ -8,7 +8,7 @@ import { playView } from './play/view/playView';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view/dialogs';
 import { opposite } from 'chessops';
-import { type Game, makeGame } from './game';
+import { Game } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
 
@@ -36,7 +36,7 @@ export class BotCtrl {
 
   private newGame = (bot: BotInfo, pov: Color) =>
     this.resumeGameAndRedraw(
-      makeGame(bot.uid, pov, {
+      new Game(bot.uid, pov, {
         initial: 300,
         increment: 2,
         moretime: 0,

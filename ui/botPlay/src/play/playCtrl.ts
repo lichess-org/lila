@@ -2,12 +2,12 @@ import { Move as ChessMove, opposite, parseSquare } from 'chessops';
 import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { type BotInfo } from 'lib/bot/types';
-import { addMove, Board, makeBoardAt } from '../chess';
+import { addMove, Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game, Move, computeClockState, isClockTicking, turnOf } from '../game';
+import { makeEndOf, Game, Move } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -39,12 +39,12 @@ export default class PlayCtrl {
   autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
-    this.board = makeBoardAt(opts.game);
+    this.board = opts.game.lastBoard();
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.opts.redraw);
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
 
-    const clk = computeClockState(this.game);
+    const clk = this.game.computeClockState();
     if (clk) {
       const clockData = {
         ...this.game.clockConfig!,
@@ -100,12 +100,12 @@ export default class PlayCtrl {
   };
 
   onFlag = () => {
-    const ticking = isClockTicking(this.game);
+    const ticking = this.game.isClockTicking();
     if (ticking) {
       this.game.end = {
         winner: opposite(ticking),
         status: 'outoftime',
-        fen: makeFen(makeBoardAt(this.game).chess.toSetup()),
+        fen: makeFen(this.game.lastBoard().chess.toSetup()),
       };
       this.recomputeAndSetClock();
       this.opts.redraw();
@@ -115,7 +115,7 @@ export default class PlayCtrl {
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
     if (newPly === this.board.onPly) return;
-    this.board = makeBoardAt(this.opts.game, newPly);
+    this.board = this.opts.game.takePlies(newPly).lastBoard();
     this.withGround(cg => cg.set(updateGround(this.board)));
     this.opts.redraw();
     this.autoScroll();
@@ -144,7 +144,7 @@ export default class PlayCtrl {
 
   private safelyRequestBotMove = async () => {
     if (this.game.end) return;
-    if (turnOf(this.game) == this.game.pov) return;
+    if (this.game.turn() == this.game.pov) return;
     const source = await this.opts.bridge;
     const sign = () => this.game.pov + this.game.moves.map(m => m.san).join('');
     const before = sign();
@@ -163,7 +163,7 @@ export default class PlayCtrl {
   });
 
   private recomputeAndSetClock = () => {
-    const clk = computeClockState(this.game);
+    const clk = this.game.computeClockState();
     if (this.clock && clk) this.clock.setClock(clk);
   };
 

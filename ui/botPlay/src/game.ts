@@ -1,38 +1,108 @@
 import { Chess } from 'chessops';
-import { makeFen } from 'chessops/fen';
+import { makeFen, parseFen } from 'chessops/fen';
+import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';
 import { StatusName } from 'lib/game/game';
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
 import { type BotId } from 'lib/bot/types';
 import { DateMillis } from './interfaces';
+import { Board } from './chess';
+import { parseSan } from 'chessops/san';
 
 export interface Move {
   san: San;
   at: DateMillis;
 }
 
-export interface Game {
-  id: string;
-  botId: BotId;
-  pov: Color;
-  clockConfig?: ClockConfig;
-  initialFen?: FEN;
-  moves: Move[];
-  end?: GameEnd;
-}
 interface GameEnd {
   winner?: Color;
   status: StatusName;
   fen: FEN;
 }
 
-export const makeGame = (botId: BotId, pov: Color, clockConfig?: ClockConfig, moves: Move[] = []): Game => ({
-  id: randomId(),
-  botId,
-  pov,
-  clockConfig,
-  moves,
-});
+export class Game {
+  id: string;
+  end?: GameEnd;
+
+  constructor(
+    readonly botId: BotId,
+    readonly pov: Color,
+    readonly clockConfig?: ClockConfig,
+    readonly initialFen?: FEN,
+    public moves: Move[] = [],
+  ) {
+    this.id = randomId();
+    this.end = undefined;
+  }
+
+  ply = (): Ply => this.moves.length;
+  turn = (): Color => (this.ply() % 2 ? 'black' : 'white');
+
+  isClockTicking = (): Color | undefined => (this.end || this.moves.length < 2 ? undefined : this.turn());
+
+  computeClockState = (): ClockState | undefined => {
+    const config = this.clockConfig;
+    if (!config) return;
+    const state = {
+      white: config.initial,
+      black: config.initial,
+    };
+    let lastMoveAt: DateMillis | undefined;
+    this.moves.forEach(({ at }, i) => {
+      const color = i % 2 ? 'black' : 'white';
+      if (lastMoveAt && i > 1) {
+        state[color] = Math.max(0, state[color] - (at - lastMoveAt) / 1000 + config.increment);
+      }
+      lastMoveAt = at;
+    });
+    const ticking = this.isClockTicking();
+    if (ticking && lastMoveAt && this.moves.length > 1) state[ticking] -= (Date.now() - lastMoveAt) / 1000;
+    return {
+      ...state,
+      ticking,
+    };
+  };
+
+  takePlies = (plies: Ply): Game => {
+    if (plies >= this.ply()) return this;
+    const moves = this.moves.slice(0, plies);
+    return new Game(this.botId, this.pov, this.clockConfig, this.initialFen, moves);
+  };
+
+  toPgn = (): [PgnGame<PgnNodeData>, Chess] => {
+    const headers = new Map<string, string>();
+    if (this.initialFen) headers.set('FEN', this.initialFen);
+    const pgn = parsePgn(this.moves.map(m => m.san).join(' '), () => headers)[0] || defaultGame();
+    const chess: Chess = this.initialFen
+      ? parseFen(this.initialFen)
+          .chain(setup => Chess.fromSetup(setup))
+          .unwrap(
+            i => i,
+            _ => Chess.default(),
+          )
+      : Chess.default();
+    return [pgn, chess];
+  };
+
+  lastBoard = (): Board => {
+    const [pgn, chess] = this.toPgn();
+    const board: Board = { onPly: 0, chess };
+    if (!pgn) return board;
+    for (const node of pgn.moves.mainline()) {
+      const move = parseSan(board.chess, node.san);
+      if (!move) {
+        // Illegal move
+        console.warn('Illegal move', node.san);
+        this.moves = this.takePlies(board.onPly).moves;
+        break;
+      }
+      board.chess.play(move);
+      board.onPly++;
+      board.lastMove = move;
+    }
+    return board;
+  };
+}
 
 export const makeEndOf = (chess: Chess): GameEnd | undefined => {
   if (!chess.isEnd()) return;
@@ -40,34 +110,5 @@ export const makeEndOf = (chess: Chess): GameEnd | undefined => {
     winner: chess.outcome()?.winner,
     status: chess.isCheckmate() ? 'mate' : chess.isStalemate() ? 'stalemate' : 'draw',
     fen: makeFen(chess.toSetup()),
-  };
-};
-
-export const plyOf = (game: Game): Ply => game.moves.length;
-export const turnOf = (game: Game): Color => (plyOf(game) % 2 ? 'black' : 'white');
-
-export const isClockTicking = (game: Game): Color | undefined =>
-  game.end || game.moves.length < 2 ? undefined : turnOf(game);
-
-export const computeClockState = (game: Game): ClockState | undefined => {
-  const config = game.clockConfig;
-  if (!config) return;
-  const state = {
-    white: config.initial,
-    black: config.initial,
-  };
-  let lastMoveAt: DateMillis | undefined;
-  game.moves.forEach(({ at }, i) => {
-    const color = i % 2 ? 'black' : 'white';
-    if (lastMoveAt && i > 1) {
-      state[color] = Math.max(0, state[color] - (at - lastMoveAt) / 1000 + config.increment);
-    }
-    lastMoveAt = at;
-  });
-  const ticking = isClockTicking(game);
-  if (ticking && lastMoveAt && game.moves.length > 1) state[ticking] -= (Date.now() - lastMoveAt) / 1000;
-  return {
-    ...state,
-    ticking,
   };
 };
