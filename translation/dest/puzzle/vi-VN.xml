@@ -75,6 +75,9 @@
   <string name="fromMyGamesNone">Bạn không có câu đố nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
 
 Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đố từ ván cờ của riêng bạn!</string>
+  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+    <item quantity="other">Đã tìm thấy %1$s câu đố trong các ván đấu của %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Rèn luyện, phân tích, cải thiện</string>
   <plurals name="nbPlayed">
     <item quantity="other">Đã giải %s</item>
