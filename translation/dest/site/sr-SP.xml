@@ -501,7 +501,7 @@
   <string name="winRate">Проценат победа</string>
   <string name="performance">Перформанса</string>
   <string name="tournamentComplete">Турнир завршен</string>
-  <string name="movesPlayed">Одиграно потеза</string>
+  <string name="movesPlayed">Потеза одиграно</string>
   <string name="whiteWins">Победе као бели</string>
   <string name="blackWins">Победе као црни</string>
   <string name="drawRate">Проценат ремија</string>
