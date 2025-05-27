@@ -37,7 +37,7 @@ final private class GameJson(
         val (id, plies) = readKey(key)
         generate(id, plies, false)
 
-  private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson"):
+  private val bcCache = cacheApi[String, JsObject](1024, "puzzle.bc.gameJson"):
     _.expireAfterAccess(5.minutes)
       .maximumSize(1024)
       .buildAsyncFuture: key =>
