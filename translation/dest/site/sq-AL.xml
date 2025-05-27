@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Barazim me marrëveshje</string>
   <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Erdhi %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
