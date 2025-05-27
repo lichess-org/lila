@@ -58,7 +58,7 @@ trait AssetHelper:
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
-  def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
+  def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 

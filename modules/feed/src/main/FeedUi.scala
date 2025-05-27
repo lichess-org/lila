@@ -179,7 +179,6 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
     )
 
   private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
-    img(
-      src := flairSrc(flair.getOrElse(Flair("symbols.white-star"))),
+    iconFlair(flair.getOrElse(Flair("symbols.white-star")))(
       cls := customClass.getOrElse(s"daily-feed__update__marker ${flair.nonEmpty.so(" nobg")}")
     )
