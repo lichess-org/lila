@@ -80,6 +80,17 @@ final class UserShow(helpers: Helpers, bits: UserBits):
                     cls      := "btn-rack__btn",
                     title    := trans.challenge.challengeToPlay.txt(),
                     href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+                  ),
+                  a(
+                    dataIcon := Icon.CautionTriangle,
+                    cls      := "btn-rack__btn",
+                    title    := trans.site.reportXToModerators.txt(u.username),
+                    href := addQueryParams(
+                      routes.Report.form.url,
+                      Map(
+                        "username" -> u.username.value
+                      )
+                    )
                   )
                 )
               ),
