@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
   <string name="fiftyMovesWithoutProgress">진전 없이 50수 소모</string>
   <string name="currentGames">진행 중인 대국들</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s 전에 가입함</string>
   <plurals name="nbGames">
     <item quantity="other">게임 %s개</item>
   </plurals>
@@ -962,4 +963,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
   <string name="accessibility">접근성</string>
+  <string name="enableBlindMode">시각장애 모드 활성화하기</string>
+  <string name="disableBlindMode">시각장애 모드 비활성화하기</string>
 </resources>
