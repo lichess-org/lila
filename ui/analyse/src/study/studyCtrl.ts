@@ -86,6 +86,7 @@ export default class StudyCtrl {
   relayRecProp = prop(false);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+  arrowHistory: Tree.Shape[][] = [];
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -271,6 +272,25 @@ export default class StudyCtrl {
 
   isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
+  private updateShapes = (shapes: Tree.Shape[]) => {
+    this.ctrl.tree.setShapes(shapes, this.ctrl.path);
+    this.makeChange(
+      'shapes',
+      this.addChapterId({
+        path: this.ctrl.path,
+        shapes: shapes,
+      }),
+    );
+  };
+
+  undoShapeChange = () => {
+    if (!this.vm.mode.write) return;
+    const last = this.arrowHistory.pop();
+    if (!last) return;
+    this.updateShapes(last);
+    this.ctrl.withCg(cg => cg.setShapes(last.slice() as DrawShape[]));
+  };
+
   makeChange = (...args: StudySocketSendParams): boolean => {
     if (this.isWriting()) {
       this.send(...args);
@@ -413,14 +433,8 @@ export default class StudyCtrl {
   mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (this.vm.mode.write) {
-        this.ctrl.tree.setShapes(shapes, this.ctrl.path);
-        this.makeChange(
-          'shapes',
-          this.addChapterId({
-            path: this.ctrl.path,
-            shapes,
-          }),
-        );
+        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+        this.updateShapes(shapes);
       }
       this.gamebookPlay?.onShapeChange(shapes);
     };
@@ -543,6 +557,7 @@ export default class StudyCtrl {
     this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
 
   setPath = (path: Tree.Path, node: Tree.Node) => {
+    this.arrowHistory = [];
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };

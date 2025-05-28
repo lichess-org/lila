@@ -218,7 +218,7 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {
       return updateAt(path, function (node: Tree.Node) {
-        node.shapes = shapes;
+        node.shapes = shapes.slice();
       });
     },
     setCommentAt,
