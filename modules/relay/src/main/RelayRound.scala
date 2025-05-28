@@ -22,8 +22,9 @@ case class RelayRound(
      * sync.nextAt is used for actually synchronising */
     finishedAt: Option[Instant],
     createdAt: Instant,
-    crowd: Option[Crowd]
+    crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
+    customScoring: Option[RelayRound.CustomScoring] = none
 ):
   inline def studyId = id.into(StudyId)
 
@@ -83,6 +84,20 @@ object RelayRound:
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]
+
+  opaque type CustomPoints = Float
+  object CustomPoints extends OpaqueFloat[CustomPoints]
+
+  case class CustomScoring(wWin: CustomPoints, wDraw: CustomPoints, bWin: CustomPoints, bDraw: CustomPoints)
+
+  object CustomScoring:
+    def withDefaults =
+      CustomScoring(
+        wWin = 1f,
+        wDraw = 0.5f,
+        bWin = 1f,
+        bDraw = 0.5f
+      )
 
   enum Starts:
     case At(at: Instant)

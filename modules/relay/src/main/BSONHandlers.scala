@@ -67,6 +67,7 @@ object BSONHandlers:
 
   given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
 
+  given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
   given BSONDocumentHandler[RelayPinnedStream]   = Macros.handler

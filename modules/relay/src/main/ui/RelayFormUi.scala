@@ -347,6 +347,26 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
           )
         ),
+        nav.tour.showScores.option(
+          form3.fieldset(
+            "Custom scoring",
+            toggle = nav.round.exists(r => r.customScoring.isDefined).some
+          )(
+            Color.all.map: color =>
+              form3.split:
+                List("Win", "Draw").map: result =>
+                  form3.group(
+                    form(s"customScoring.${color.name.head.toLower}${result}"),
+                    s"Points for a ${result.toLowerCase} as ${color.name}"
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
+            ,
+            p(
+              "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
+            )
+          )
+        ),
         Granter
           .opt(_.StudyAdmin)
           .option(

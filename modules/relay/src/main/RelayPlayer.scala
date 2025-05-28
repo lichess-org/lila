@@ -13,6 +13,8 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
+import lila.db.dsl.{ *, given }
+import BSONHandlers.given
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -32,9 +34,20 @@ object RelayPlayer:
       id: StudyChapterId,
       opponent: StudyPlayer.WithFed,
       color: Color,
-      points: Option[Outcome.GamePoints]
+      points: Option[Outcome.GamePoints],
+      customScoring: Option[RelayRound.CustomScoring] = None
   ):
     def playerPoints = points.map(_(color))
+    def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap(cs =>
+      val points = playerPoints
+      (points, color) match
+        case (Some(p), Color.White) if p == Outcome.Points.One  => cs.wWin.some
+        case (Some(p), Color.Black) if p == Outcome.Points.One  => cs.bWin.some
+        case (Some(p), Color.White) if p == Outcome.Points.Half => cs.wDraw.some
+        case (Some(p), Color.Black) if p == Outcome.Points.Half => cs.bDraw.some
+        case _ => points.map(p => RelayRound.CustomPoints(p.value))
+    )
+
     // only rate draws and victories, not exotic results
     def isRated = points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
@@ -44,10 +57,11 @@ object RelayPlayer:
     yield Elo.Game(pp, opRating.into(Elo))
 
   object json:
-    given Writes[Outcome]            = Json.writes
-    given Writes[Outcome.Points]     = writeAs(_.show)
-    given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[RelayPlayer.Game]   = Json.writes
+    given Writes[Outcome]                  = Json.writes
+    given Writes[Outcome.Points]           = writeAs(_.show)
+    given Writes[Outcome.GamePoints]       = writeAs(points => Outcome.showPoints(points.some))
+    given Writes[RelayRound.CustomScoring] = Json.writes
+    given Writes[RelayPlayer.Game]         = Json.writes
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
@@ -70,9 +84,12 @@ object RelayPlayer:
             "round"    -> g.round,
             "id"       -> g.id,
             "opponent" -> g.opponent,
-            "color"    -> g.color,
-            "points"   -> g.playerPoints
+            "color"    -> g.color
           )
+          .add(
+            "points" -> g.playerPoints
+          )
+          .add("customPoints" -> g.customPlayerPoints)
           .add("ratingDiff" -> rd)
       Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
@@ -127,28 +144,40 @@ private final class RelayPlayerApi(
           roundIds     <- roundRepo.idsByTourOrdered(tourId)
           studyPlayers <- fetchStudyPlayers(roundIds)
           rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-          players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
+          players <- rounds.toList.foldLeftM(SeqMap.empty: RelayPlayers) {
             case (players, (studyId, chapters)) =>
               val roundId = studyId.into(RelayRoundId)
-              chapters.foldLeft(players):
-                case (players, (chapterId, tags)) =>
-                  StudyPlayer
-                    .fromTags(tags)
-                    .flatMap:
-                      _.traverse: p =>
-                        p.id.flatMap: id =>
-                          studyPlayers.get(id).map(id -> _)
-                    .fold(players): gamePlayers =>
-                      gamePlayers.zipColor.foldLeft(players):
-                        case (players, (color, (playerId, player))) =>
-                          val (_, opponent) = gamePlayers(!color)
-                          val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.points)
-                          players.updated(
-                            playerId,
-                            players
-                              .getOrElse(playerId, RelayPlayer(player, None, None, None, Vector.empty))
-                              .withGame(game)
-                          )
+              roundRepo.coll
+                .byId[RelayRound](roundId)
+                .flatMapz: relayRound =>
+                  val updatedPlayers = chapters.foldLeft(players) { case (players, (chapterId, tags)) =>
+                    StudyPlayer
+                      .fromTags(tags)
+                      .flatMap:
+                        _.traverse: p =>
+                          p.id.flatMap: id =>
+                            studyPlayers.get(id).map(id -> _)
+                      .fold(players): gamePlayers =>
+                        gamePlayers.zipColor.foldLeft(players):
+                          case (players, (color, (playerId, player))) =>
+                            val (_, opponent) = gamePlayers(!color)
+                            val game = RelayPlayer.Game(
+                              roundId,
+                              chapterId,
+                              opponent,
+                              color,
+                              tags.points,
+                              relayRound.customScoring
+                            )
+                            players.updated(
+                              playerId,
+                              players
+                                .getOrElse(playerId, RelayPlayer(player, None, None, None, Vector.empty))
+                                .withGame(game)
+                            )
+                  }
+                  fuccess(updatedPlayers)
+          }
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
@@ -172,7 +201,7 @@ private final class RelayPlayerApi(
       .mapValues: p =>
         p.copy(
           score = p.games
-            .foldMap(_.playerPoints.so(_.value))
+            .foldMap(_.customPlayerPoints.so(_.value))
             .some,
           performance = Elo.computePerformanceRating(p.eloGames).map(_.into(IntRating))
         )
