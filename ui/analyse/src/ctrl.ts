@@ -330,7 +330,7 @@ export default class AnalyseCtrl {
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) cg.setShapes(this.node.shapes as DrawShape[]);
+      if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
     });
   }
 
@@ -395,7 +395,7 @@ export default class AnalyseCtrl {
     }
 
     this.setAutoShapes();
-    if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice() as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
   };
 
