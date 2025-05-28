@@ -66,6 +66,10 @@ final class RelayRoundForm(using mode: Mode):
           bd => RelayRound.CustomPoints(bd.setScale(2, BigDecimal.RoundingMode.HALF_DOWN).toFloat),
           p => BigDecimal.decimal(p.value.toDouble).setScale(2, BigDecimal.RoundingMode.HALF_DOWN)
         )
+        .verifying(
+          "Must be between 0 and 10",
+          p => p.value >= 0 && p.value <= 10
+        )
     )
     mapping(
       "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
