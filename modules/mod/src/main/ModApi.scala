@@ -26,12 +26,13 @@ final class ModApi(
       if v then sel(UserMark) :: a.value
       else a.value.filter(sel(UserMark) !=)
 
-  def setAlt(prev: Suspect, v: Boolean)(using me: MyId): Funit =
+  def setAlt(prev: Suspect, v: Boolean)(using me: MyId): Fu[Suspect] =
     for
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.alt, v)))
       _ <- logApi.alt(sus, v)
-    yield if v then notifier.reporters(me.modId, sus)
+      _ = if v then notifier.reporters(me.modId, sus)
+    yield sus
 
   def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     (prev.user.marks.engine != v).so:

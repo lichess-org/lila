@@ -27,11 +27,11 @@ final class Mod(
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def alt(username: UserStr, v: Boolean) = OAuthModBody(_.CloseAccount) { me ?=>
-    withSuspect(username): sus =>
+    withSuspect(username): prev =>
       for
-        _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
-        _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
+        sus <- api.setAlt(prev, v)
+        _   <- (v && prev.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
+        _   <- (!v && prev.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
 
@@ -39,10 +39,11 @@ final class Mod(
     import akka.stream.scaladsl.*
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
-        withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(
-            env.api.accountTermination.disable(sus.user, forever = false)
-          ))
+        withSuspect(username): prev =>
+          for
+            sus <- api.setAlt(prev, true)
+            _   <- prev.user.enabled.yes.so(env.api.accountTermination.disable(sus.user, forever = false))
+          yield ()
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
