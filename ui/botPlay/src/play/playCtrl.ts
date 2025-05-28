@@ -44,7 +44,7 @@ export default class PlayCtrl {
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
 
-    const clk = this.game.computeClockState();
+    const clk = this.game.clockState();
     if (clk) {
       const clockData = {
         ...this.game.clockConfig!,
@@ -158,7 +158,7 @@ export default class PlayCtrl {
   });
 
   private recomputeAndSetClock = () => {
-    const clk = this.game.computeClockState();
+    const clk = this.game.clockState();
     if (this.clock && clk) this.clock.setClock(clk);
   };
 

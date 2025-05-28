@@ -9,6 +9,7 @@ import { DateMillis } from './interfaces';
 import { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
+import { computeClockState } from './clock';
 
 export interface Move {
   san: San;
@@ -42,28 +43,8 @@ export class Game {
 
   isClockTicking = (): Color | undefined => (this.end || this.moves.length < 2 ? undefined : this.turn());
 
-  computeClockState = (): ClockState | undefined => {
-    const config = this.clockConfig;
-    if (!config) return;
-    const state = {
-      white: config.initial,
-      black: config.initial,
-    };
-    let lastMoveAt: DateMillis | undefined;
-    this.moves.forEach(({ at }, i) => {
-      const color = i % 2 ? 'black' : 'white';
-      if (lastMoveAt && i > 1) {
-        state[color] = Math.max(0, state[color] - (at - lastMoveAt) / 1000 + config.increment);
-      }
-      lastMoveAt = at;
-    });
-    const ticking = this.isClockTicking();
-    if (ticking && lastMoveAt && this.moves.length > 1) state[ticking] -= (Date.now() - lastMoveAt) / 1000;
-    return {
-      ...state,
-      ticking,
-    };
-  };
+  clockState = (): ClockState | undefined =>
+    this.clockConfig && computeClockState(this.clockConfig, this.moves, this.isClockTicking());
 
   rewindToPly = (ply: Ply): void => {
     this.moves = this.moves.slice(0, ply);
