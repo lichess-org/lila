@@ -172,4 +172,7 @@
   <string name="sharedAndSavedText">ئەندامەکانی تر دەتوانن ڕاستەوخۆ جووڵەکانت ببینن!&lt;br&gt;ھەموو شتێکیش بۆ ھەمیشەیی پاشەکەوت دەکرێت.</string>
   <string name="studyMembersTitle">ئەندامانی خوێندن</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s بینەر دەتوانێت خوێندنەکە ببنێت و لەڕێی چاتەوە قسە بکات.&lt;br&gt;&lt;br&gt;&lt;br&gt;%2$s بەشداران دەتوانن جووڵە بکەن و خوێندنەکە نوێ بکەنەوە.</string>
+  <string name="studyChaptersTitle">بەشەکانی خوێندن</string>
+  <string name="studyChaptersText">خوێندنێک دەکرێت چەند بەشێک لەخۆ بگرێت. &lt;br&gt;ھەر بەشێک شوێنێکی جیا و زنجیرە جووڵەی ھەیە.</string>
+  <string name="commentPositionTitle">لێدوان لەسەر ئەو شوێنە</string>
 </resources>
