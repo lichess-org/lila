@@ -1,5 +1,4 @@
-import { Chess } from 'chessops';
-import { Move as ChessMove } from 'chessops';
+import { Chess, Move as ChessMove } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';

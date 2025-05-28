@@ -53,7 +53,7 @@ final class OAuthServer(
                       u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
                     }
                   .foreach: req =>
-                    logger.debug:
+                    logger.info:
                       s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
                 if blocked then fufail(OriginBlocked)
                 else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
