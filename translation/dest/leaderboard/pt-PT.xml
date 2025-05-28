@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="friendsLeaderboardTitle">Classificação de Amigos</string>
+    <string name="friendsLeaderboardDescription">Classificação dos seus amigos no Lichess</string>
+    <string name="noFriendsToCompare">Você ainda não tem amigos para comparar</string>
+    <string name="noFriendsInfo1">Para ver classificações comparativas com os seus amigos, você precisa seguir outros usuários no Lichess.</string>
+    <string name="noFriendsInfo2">Visite perfis de jogadores e clique no botão seguir para adicioná-los à sua classificação.</string>
+    <string name="explorePopularPlayers">Explorar jogadores populares</string>
+   <plurals name="howYouCompareAgainstFriends">
+        <item quantity="one">Veja como você se compara com o seu único amigo</item>
+        <item quantity="other">Veja como você se compara com os seus %s amigos</item>
+    </plurals>
+    <string name="seeLeaderboardWithFriends">Ver Classificação com Amigos</string>
+</resources>

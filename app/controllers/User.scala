@@ -243,6 +243,26 @@ final class User(
         _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       yield pag
 
+  def friendsLeaderboard(username: UserStr, page: Int) = Open:
+    Reasonable(page, Max(20)):
+      EnabledUser(username): user =>
+        for
+          friendIds <- env.relation.api.fetchFollowing(user.id)
+          allIds = if friendIds.isEmpty then friendIds else friendIds + user.id
+          leaderboards <- env.user.rankingApi.fetchLeaderboardFriends(20, fuccess(allIds))
+          res <- negotiate(
+            html =
+              if ctx.is(user) || isGrantedOpt(_.CloseAccount) then
+                renderPage(views.user.friendsLeaderboard(leaderboards, allIds))
+                  .map(Ok(_).withCanonical(routes.User.friendsLeaderboard(username)))
+              else Found(ctx.me)(me => Redirect(routes.User.friendsLeaderboard(me.username))),
+            json =
+              given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+              import lila.user.JsonView.leaderboardsWrites
+              fuccess(JsonOk(leaderboards))
+          )
+        yield res
+
   def list = Open:
     env.user.cached.top10.get {}.flatMap { leaderboards =>
       negotiate(

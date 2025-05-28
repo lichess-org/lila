@@ -35,7 +35,7 @@ GET   /tv/channels                     controllers.Main.movedPermanently(to = "/
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)
 GET   /tv/:chanKey/frame               controllers.Tv.frame(chanKey)
 GET   /tv/:chanKey/feed                controllers.Tv.feed(chanKey)
-GET   /tv/$gameId<\w{8}>/:color/sides controllers.Tv.sides(gameId: GameId, color: Color)
+GET   /tv/$gameId<\w{8}>/:color/sides  controllers.Tv.sides(gameId: GameId, color: Color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
 GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId: GameId, exclude: List[GameId])
@@ -53,8 +53,10 @@ POST  /api/rel/unblock/:userId         controllers.Relation.unblock(userId: User
 # lichobile BC
 POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user: UserStr)
 POST  /rel/follow/:user                controllers.Relation.followBc(user: UserStr)
+
 # end lichobile BC
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
+GET   /@/:username/following/leaderboard controllers.User.friendsLeaderboard(username: UserStr, page: Int ?= 1)
 GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 

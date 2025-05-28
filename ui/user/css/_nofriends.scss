@@ -1,0 +1,47 @@
+.page-menu.full-screen-force {
+  position: relative;
+  min-height: calc(100vh - 150px);
+
+  .community__empty {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -45%);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+
+    h2 {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 2.5rem;
+      color: $c-font;
+      line-height: 1.3;
+    }
+
+    p {
+      margin: 0 auto 3rem;
+      max-width: 550px;
+      font-size: 1.1em;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .actions {
+      margin-top: 3rem;
+
+      .button {
+        font-size: 1.2em;
+        text-transform: uppercase;
+        padding: 1em 2em;
+        font-weight: bold;
+        display: inline-block;
+
+        &:hover {
+          background: lighten($c-lead, 5%);
+          color: #fff;
+        }
+      }
+    }
+  }
+}

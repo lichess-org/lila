@@ -2868,3 +2868,12 @@ object I18nKey:
     val `turnOffVoiceRecognition`: I18nKey = "voiceCommands:turnOffVoiceRecognition"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
 
+  object leaderboard:
+    val `friendsLeaderboardTitle`: I18nKey = "leaderboard:friendsLeaderboardTitle"
+    val `friendsLeaderboardDescription`: I18nKey = "leaderboard:friendsLeaderboardDescription"
+    val `noFriendsToCompare`: I18nKey = "leaderboard:noFriendsToCompare"
+    val `noFriendsInfo1`: I18nKey = "leaderboard:noFriendsInfo1"
+    val `noFriendsInfo2`: I18nKey = "leaderboard:noFriendsInfo2"
+    val `explorePopularPlayers`: I18nKey = "leaderboard:explorePopularPlayers"
+    val `howYouCompareAgainstFriends`: I18nKey = "leaderboard:howYouCompareAgainstFriends"
+    val `seeLeaderboardWithFriends`: I18nKey = "leaderboard:seeLeaderboardWithFriends"
