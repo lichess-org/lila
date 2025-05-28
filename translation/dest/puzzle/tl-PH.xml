@@ -78,10 +78,18 @@
   <string name="fromMyGamesNone">Wala kang mga palaisipan sa database, pero mahal na mahal ka parin ng Lichess.
 
 Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na madagdag ang iyong mga palaisipan!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Isang palaisipan natagpuan sa mga laro ni %2$s</item>
+    <item quantity="other">%1$s mga palaisipan natagpuan sa mga laro ni %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Magsanay, pagsusuri, magpabuti</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s nalaro</item>
     <item quantity="other">%s nalaro</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s para i-replay</item>
+    <item quantity="other">%s para i-replay</item>
   </plurals>
   <string name="percentSolved">%s nalutas</string>
   <string name="noPuzzlesToShow">Walang maipapakita, maglaro ka muna ng mga palaisipan!</string>
