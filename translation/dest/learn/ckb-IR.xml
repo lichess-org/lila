@@ -37,9 +37,9 @@
   <string name="lastOne">دوایین دانە!</string>
   <string name="kingComplete">ئێستا دەتوانیت فەرماندەیی فەرماندە بکەیت!</string>
   <string name="theKnight">ئەسپ</string>
-  <string name="itMovesInAnLShape">لەسەر شێوەی پیتی L ـی ئینگلیزی جوڵە دەکات</string>
-  <string name="knightIntro">لێرەوە ئەوە بزانە. ئەسپ... پارچەیەکی تەڵەکەبازە.</string>
-  <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی فەنتازییان هەیە
+  <string name="itMovesInAnLShape">لەسەر شێوەی پیتی Lی ئینگلیزی دەجووڵێت</string>
+  <string name="knightIntro">ئەمەیان کەمێک قورسە. ئەسپ... پارچەیەکی تەڵەکەبازە.</string>
+  <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی سەیروسەمەرەیان ھەیە
  لە بازدان بەدەوری خۆیاندا!</string>
   <string name="knightsCanJumpOverObstacles">ئەسپەکان دەتوانن بەسەر بەربەستەکاندا باز بدەن!
  هەڵهاتن و سەرکەوتن بەسەر ئەستێرەکاندا!</string>
