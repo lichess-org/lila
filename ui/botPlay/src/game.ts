@@ -1,4 +1,4 @@
-import { Chess, Move as ChessMove } from 'chessops';
+import { Chess, Move as ChessMove, opposite } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';
@@ -35,7 +35,7 @@ export class Game {
     id?: string,
   ) {
     this.id = id || 'b-' + randomId(10);
-    this.recomputeEndFromLastBoard();
+    this.computeEnd();
   }
 
   ply = (): Ply => this.moves.length;
@@ -58,7 +58,7 @@ export class Game {
       at: Date.now(),
     };
     this.moves.push(move);
-    this.recomputeEndFromLastBoard();
+    this.computeEnd();
     return move;
   };
 
@@ -102,12 +102,23 @@ export class Game {
     return board;
   };
 
-  private recomputeEndFromLastBoard = (): void => {
-    this.end = makeEndOf(this.lastBoard().chess);
+  computeEnd = (): void => {
+    const chess = this.lastBoard().chess;
+    this.end = endOnTheBoard(chess);
+    if (this.end) return;
+    const clock = this.clockState();
+    if (!clock) return;
+    const flag = (color: Color): GameEnd => ({
+      winner: opposite(color),
+      status: 'outoftime',
+      fen: makeFen(chess.toSetup()),
+    });
+    if (clock?.white <= 0) this.end = flag('white');
+    else if (clock?.black <= 0) this.end = flag('black');
   };
 }
 
-export const makeEndOf = (chess: Chess): GameEnd | undefined => {
+const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
   if (!chess.isEnd()) return;
   return {
     winner: chess.outcome()?.winner,

@@ -23,7 +23,8 @@ export const computeClockState = (
     }
     lastMoveAt = at;
   });
-  if (ticking && lastMoveAt && moves.length > 1) state[ticking] -= (Date.now() - lastMoveAt) / 1000;
+  if (ticking && lastMoveAt && moves.length > 1)
+    state[ticking] = Math.max(0, state[ticking] - (Date.now() - lastMoveAt) / 1000);
   return {
     ...state,
     ticking,

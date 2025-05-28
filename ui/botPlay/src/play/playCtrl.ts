@@ -6,7 +6,6 @@ import { Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
-import { makeFen } from 'chessops/fen';
 import { Game, Move } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
@@ -84,13 +83,8 @@ export default class PlayCtrl {
   };
 
   onFlag = () => {
-    const ticking = this.game.isClockTicking();
-    if (ticking) {
-      this.game.end = {
-        winner: opposite(ticking),
-        status: 'outoftime',
-        fen: makeFen(this.game.lastBoard().chess.toSetup()),
-      };
+    this.game.computeEnd();
+    if (this.game.end?.status == 'outoftime') {
       this.recomputeAndSetClock();
       this.opts.redraw();
     }
