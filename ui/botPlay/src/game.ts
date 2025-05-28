@@ -32,8 +32,9 @@ export class Game {
     readonly clockConfig?: ClockConfig,
     readonly initialFen?: FEN,
     public moves: Move[] = [],
+    id?: string,
   ) {
-    this.id = randomId();
+    this.id = id || 'b-' + randomId(10);
     this.recomputeEndFromLastBoard();
   }
 
