@@ -80,4 +80,6 @@
   <string name="nowOneMonth">ئێستا تۆ بۆ ماوەی مانگێک بەخشەری Lichessیت!</string>
   <string name="downgradeNextMonth">دوای تەواوبوونی ماوەی یەک مانگ، پارەکە جارێکی تر نوی ناکرێتەوە،هەژماری Lichess ـەکەت دەگەڕێتەوە بۆ هەژمارێکی ئاسایی.</string>
   <string name="changeCurrency">گۆڕینی دراو</string>
+  <string name="paymentDetails">وردەکارییەکانی پارەدان</string>
+  <string name="updatePaymentMethod">شێوازی پارەدان نوێ بکەرەوە</string>
 </resources>
