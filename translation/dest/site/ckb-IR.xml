@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
   <string name="currentGames">یارییەکانی ئێستا</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s بەشدار بووە</string>
   <plurals name="nbGames">
     <item quantity="one">%s یاری</item>
     <item quantity="other">%s یاریەکان</item>
@@ -683,6 +684,7 @@
   <string name="simultaneousExhibitions">پێشاندانی هاوکات</string>
   <string name="host">پێشکەشکار</string>
   <string name="hostColorX">رەنگی مێواندارەکە: %s</string>
+  <string name="yourPendingSimuls">پیشاندانە ھاوکاتە ھەڵواسراوەکانت</string>
   <string name="createdSimuls">نوێترینەکان</string>
   <string name="hostANewSimul">هاوکاتێکی نوێ دروستبکە</string>
   <string name="signUpToHostOrJoinASimul">ناوت تۆمار بکە بۆ میوانداریکردن \"هۆست\" یان بەشداریکردن لە سیموڵ simuls</string>
@@ -778,6 +780,7 @@
   <string name="playChessEverywhere">یاری شەترنج بکە لە هەموو شوێنێک</string>
   <string name="everybodyGetsAllFeaturesForFree">هەموو کەسێک هەموو تایبەتمەندییەکانی بە خۆڕایی دەست دەکەوێت</string>
   <string name="viewTheSolution">سەیری شیکردنەوەکە بکە</string>
+  <string name="noChallenges">ھیچ بەرەنگارییەک نییە.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">بە %s زمان بەردەستە!</item>
     <item quantity="other">بە %s زمان بەردەستە!</item>
