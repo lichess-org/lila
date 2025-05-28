@@ -6,6 +6,7 @@
     <item quantity="other">%s پەخش دەکرێت</item>
   </plurals>
   <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
+  <string name="broadcastCalendar">ڕۆژژمێری پەخش</string>
   <string name="newBroadcast">پەخشێکی تازە</string>
   <string name="subscribedBroadcasts">پەخشی بەشداربووان</string>
   <string name="aboutBroadcasts">دەربارەی پەخش</string>
@@ -20,6 +21,7 @@
   <string name="tournamentDescription">باسی پاڵەوانێتیەکە بکە</string>
   <string name="fullDescription">بە گشتی باسی پالەوانێتیەکە بکە</string>
   <string name="fullDescriptionHelp">وەسفێکی درێژی ھەڵبژاردنی پاڵەوانێتییەکە. %1$s بەردەستە. درێژی دەبێت کەمتر بێت لە کاراکتەرەکانی %2$s.</string>
+  <string name="sourceSingleUrl">بەستەری سەرچاوەی PGN</string>
   <string name="sourceUrlHelp">URL مافی لی چێسە بۆ بەردەست خستنی تازەکردنەوە PGN پێویستە بۆ ھەموان بەردەست بێت لەسەر ئەنتەرنێت</string>
   <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
   <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>
