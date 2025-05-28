@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Remis ved overenskomst</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Ble med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
