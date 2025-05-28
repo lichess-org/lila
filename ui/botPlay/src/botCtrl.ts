@@ -5,24 +5,22 @@ import { type BotInfo } from 'lib/bot/types';
 import { BotLoader } from 'lib/bot/botLoader';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
-import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view/dialogs';
 import { opposite } from 'chessops';
-import { type Game, makeGame } from './game';
+import { Game } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
+import { loadCurrentGame, saveCurrentGame } from './storage';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
   playCtrl?: PlayCtrl;
 
-  private currentGame = storedJsonProp<Game | null>('bot.current-game', () => null);
-
   constructor(
     readonly opts: BotOpts,
     readonly redraw: () => void,
   ) {
-    this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
+    this.setupCtrl = new SetupCtrl(opts, loadCurrentGame, this.resume, this.newGame, redraw);
     debugCli(this.resumeGameAndRedraw);
     addZenSupport();
 
@@ -30,18 +28,14 @@ export class BotCtrl {
   }
 
   private resume = () => {
-    const game = this.currentGame();
+    const game = loadCurrentGame();
     if (game) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo, pov: Color) =>
-    this.resumeGameAndRedraw(
-      makeGame(bot.uid, pov, {
-        initial: 300,
-        increment: 2,
-        moretime: 0,
-      }),
-    );
+  private newGame = (bot: BotInfo, pov: Color) => {
+    const clock = { initial: 300, increment: 2, moretime: 0 };
+    this.resumeGameAndRedraw(new Game(bot.uid, pov, clock));
+  };
 
   private resumeGame = (game: Game) => {
     const bot = this.opts.bots.find(b => b.uid === game.botId);
@@ -56,14 +50,14 @@ export class BotCtrl {
         bot,
         bridge: this.makeLocalBridge(bot),
         redraw: this.redraw,
-        save: g => this.currentGame(g),
+        save: saveCurrentGame,
         close: this.closeGame,
         rematch: () => this.newGame(bot, opposite(game.pov)),
       });
     } catch (e) {
       console.error('Failed to resume game', e);
       alert('Failed to resume game. Please start a new one.');
-      this.currentGame(null);
+      saveCurrentGame(null);
       return;
     }
   };

@@ -4,7 +4,7 @@ import type { Pieces } from 'chessground/types';
 import { noTrans } from '../snabbdom';
 
 interface Command {
-  help: string | VNode;
+  help: VNode;
   apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined;
 }
 type Commands = {
@@ -53,4 +53,5 @@ export const boardCommands = (): VNode[] => [
   ),
 ];
 
-export const addBreaks = (acc: VNodeChildren[], str: string): VNodeChildren[] => acc.concat([h('br'), str]);
+export const addBreaks = (acc: VNodeChildren[], strOrVNode: string | VNode): VNodeChildren[] =>
+  acc.concat([h('br'), strOrVNode]);

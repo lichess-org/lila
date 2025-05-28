@@ -190,7 +190,8 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        session <- canUse(data.ip, data.checkout.freq).flatMap { can =>
+        can <- canUse(data.ip, data.checkout.freq)
+        session <-
           if can.yes then
             data.checkout.freq match
               case Freq.Onetime => stripeClient.createOneTimeSession(data)
@@ -198,7 +199,6 @@ final class PlanApi(
           else
             logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
             fufail(StripeClient.CantUseException)
-        }
       yield StripeJson.toClient(session)
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
@@ -545,18 +545,18 @@ final class PlanApi(
     yield lightUserApi.invalidate(user.id)
 
   def freeMonth(user: User): Funit =
-    mongo.patron.update
-      .one(
-        $id(user.id),
-        $set(
-          "lastLevelUp" -> nowInstant,
-          "lifetime"    -> false,
-          "free"        -> Patron.Free(nowInstant, by = none),
-          "expiresAt"   -> nowInstant.plusMonths(1)
-        ),
-        upsert = true
-      )
-      .void >> setDbUserPlanOnCharge(user, levelUp = false)
+    for _ <- mongo.patron.update
+        .one(
+          $id(user.id),
+          $set(
+            "lastLevelUp" -> nowInstant,
+            "lifetime"    -> false,
+            "free"        -> Patron.Free(nowInstant, by = none),
+            "expiresAt"   -> nowInstant.plusMonths(1)
+          ),
+          upsert = true
+        )
+    yield setDbUserPlanOnCharge(user, levelUp = false)
 
   def gift(from: User, to: User, money: Money): Funit =
     for

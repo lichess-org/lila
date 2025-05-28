@@ -1,13 +1,13 @@
-import { Move as ChessMove, opposite, parseSquare } from 'chessops';
+import { opposite, parseSquare } from 'chessops';
 import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { type BotInfo } from 'lib/bot/types';
-import { addMove, Board, makeBoardAt } from '../chess';
+import { Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { makeEndOf, Game, Move, computeClockState, isClockTicking } from '../game';
+import { Game, Move } from '../game';
 import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -39,12 +39,12 @@ export default class PlayCtrl {
   autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
-    this.board = makeBoardAt(opts.game);
+    this.board = opts.game.lastBoard();
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.opts.redraw);
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
 
-    const clk = computeClockState(this.game);
+    const clk = this.game.computeClockState();
     if (clk) {
       const clockData = {
         ...this.game.clockConfig!,
@@ -60,9 +60,7 @@ export default class PlayCtrl {
 
   isPlaying = () => !this.game.end;
 
-  lastPly = () => this.game.moves.length;
-
-  isOnLastPly = () => this.board.onPly === this.lastPly();
+  isOnLastPly = () => this.board.onPly === this.game.ply();
 
   colorAt = (position: TopOrBottom) => (position === 'bottom' ? this.game.pov : opposite(this.game.pov));
 
@@ -80,32 +78,18 @@ export default class PlayCtrl {
     }
   };
 
-  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    if (!this.isOnLastPly()) {
-      // allow branching out from anywhere
-      this.game.moves = this.game.moves.slice(0, this.board.onPly);
-    }
-    const move = normalizeMove(this.board.chess, {
-      from: parseSquare(orig)!,
-      to: parseSquare(dest)!,
-      promotion,
-    });
-    this.addMove(move);
-    this.safelyRequestBotMove();
-  };
-
   onPieceSelect = () => {
     // fast-forward to last position when attempting to move out of turn
     if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
 
   onFlag = () => {
-    const ticking = isClockTicking(this.game);
+    const ticking = this.game.isClockTicking();
     if (ticking) {
       this.game.end = {
         winner: opposite(ticking),
         status: 'outoftime',
-        fen: makeFen(makeBoardAt(this.game).chess.toSetup()),
+        fen: makeFen(this.game.lastBoard().chess.toSetup()),
       };
       this.recomputeAndSetClock();
       this.opts.redraw();
@@ -113,9 +97,9 @@ export default class PlayCtrl {
   };
 
   goTo = (ply: Ply) => {
-    const newPly = Math.max(0, Math.min(this.lastPly(), ply));
+    const newPly = Math.max(0, Math.min(this.game.ply(), ply));
     if (newPly === this.board.onPly) return;
-    this.board = makeBoardAt(this.opts.game, newPly);
+    this.board = this.opts.game.copyAtPly(newPly).lastBoard();
     this.withGround(cg => cg.set(updateGround(this.board)));
     this.opts.redraw();
     this.autoScroll();
@@ -124,32 +108,44 @@ export default class PlayCtrl {
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
 
-  goToLast = () => this.goTo(this.lastPly());
+  goToLast = () => this.goTo(this.game.ply());
 
-  private addMove = (chessMove: ChessMove) => {
-    const move: Move = {
-      san: addMove(this.board, chessMove),
-      at: Date.now(),
-    };
-    this.game.moves = [...this.game.moves.slice(0, this.board.onPly), move];
-    this.game.end = makeEndOf(this.board.chess);
-    this.withGround(cg => cg.set(updateGround(this.board)));
-    this.recomputeAndSetClock();
-    this.opts.redraw();
-    this.opts.save(this.game);
-    this.autoScroll();
-    playMoveSounds(this, move);
-    this.withGround(cg => cg.playPremove());
+  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+    const chessMove = normalizeMove(this.board.chess, {
+      from: parseSquare(orig)!,
+      to: parseSquare(dest)!,
+      promotion,
+    });
+    const move = this.game.playMoveAtPly(chessMove, this.board.onPly);
+    this.afterMove(move);
+    this.goTo(this.game.ply());
+    this.safelyRequestBotMove();
   };
 
   private safelyRequestBotMove = async () => {
-    if (!this.isOnLastPly() || this.game.pov == this.board.chess.turn || this.board.chess.isEnd()) return;
     const source = await this.opts.bridge;
-    const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
+    if (this.game.end) return;
+    if (this.game.turn() == this.game.pov) return;
+    const sign = () => this.game.pov + this.game.moves.map(m => m.san).join('');
     const before = sign();
-    const move = await requestBotMove(source, this.game);
-    if (sign() == before) this.addMove(move);
-    else console.warn('Bot move ignored due to board state mismatch');
+    const chessMove = await requestBotMove(source, this.game);
+    if (sign() != before) return console.warn('Bot move ignored due to board state mismatch');
+    const onLastPly = this.isOnLastPly();
+    const move = this.game.playMoveAtPly(chessMove, this.game.ply());
+    this.afterMove(move);
+    if (onLastPly) {
+      this.goTo(this.game.ply());
+      this.withGround(cg => cg.playPremove());
+    } else {
+      this.opts.redraw();
+      this.autoScroll();
+    }
+  };
+
+  private afterMove = (move: Move): void => {
+    playMoveSounds(this, move);
+    this.opts.save(this.game);
+    this.recomputeAndSetClock();
   };
 
   private makeClockOpts: () => ClockOpts = () => ({
@@ -162,7 +158,7 @@ export default class PlayCtrl {
   });
 
   private recomputeAndSetClock = () => {
-    const clk = computeClockState(this.game);
+    const clk = this.game.computeClockState();
     if (this.clock && clk) this.clock.setClock(clk);
   };
 

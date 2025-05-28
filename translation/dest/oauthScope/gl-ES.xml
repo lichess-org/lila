@@ -46,9 +46,9 @@
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Último uso %s</string>
   <string name="alreadyHavePlayedGames">Xa xogaches as túas partidas!</string>
   <string name="attentionOfDevelopers">Nota reservada ós desenvolvedores:</string>
-  <string name="possibleToPrefill">É posible cubrir de antemán este formulario mediante o axuste dos parámetros de consulta da URL.</string>
+  <string name="possibleToPrefill">É posible cubrir de antemán este formulario mediante o axuste dos parámetros de consulta do URL.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Por exemplo: %s</string>
   <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">marca os ámbitos %1$s e %2$s, e establece a descrición do token.</string>
   <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Os códigos de ámbito poden atoparse no código HTML do formulario.</string>
-  <string name="givingPrefilledUrls">Dar de antemán estas URL ós teus usuarios axudará a que obteñan os ámbitos axeitados dos tokens.</string>
+  <string name="givingPrefilledUrls">Dar de antemán estes URL ós teus usuarios axudará a que obteñan os ámbitos axeitados dos tokens.</string>
 </resources>

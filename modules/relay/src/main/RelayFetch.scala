@@ -161,9 +161,7 @@ final private class RelayFetch(
         _.withSync:
           _.copy(
             nextAt = nowInstant.plusSeconds {
-              seconds.atLeast {
-                if round.sync.log.justTimedOut then 10 else 2
-              }.value
+              seconds.atLeast(if round.sync.log.justTimedOut then 10 else 2).value
             }.some
           )
 
@@ -193,7 +191,9 @@ final private class RelayFetch(
     } * {
       if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < Crowd(10)) then 2 else 1
     } * {
-      if round.hasStarted then 1 else 2
+      if round.hasStarted then 1
+      else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2
+      else 3
     }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(

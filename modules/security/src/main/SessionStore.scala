@@ -134,7 +134,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
-      .cursor[UserSession](ReadPref.priTemp)
+      .cursor[UserSession](ReadPref.sec)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     lila.security.FingerHash.from(fp) match

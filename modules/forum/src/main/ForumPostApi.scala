@@ -241,5 +241,3 @@ final class ForumPostApi(
         edit
       )
     }
-
-  export postRepo.nonGhostCursor

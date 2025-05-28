@@ -41,7 +41,7 @@ final class AssessApi(
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort.desc("date"))
-      .cursor[PlayerAssessment](ReadPref.priTemp)
+      .cursor[PlayerAssessment](ReadPref.sec)
       .list(nb)
 
   private def getPlayerAggregateAssessment(
@@ -59,7 +59,7 @@ final class AssessApi(
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
     gameRepo
-      .gamesTemporarilyFromPrimary(pag.playerAssessments.map(_.gameId))
+      .gamesFromSecondary(pag.playerAssessments.map(_.gameId))
       .map:
         PlayerAggregateAssessment.WithGames(pag, _)
 

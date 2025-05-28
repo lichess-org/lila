@@ -323,7 +323,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   private[tournament] def sortedCursor(
       tournamentId: TourId,
       batchSize: Int,
-      readPref: ReadPref = _.priTemp
+      readPref: ReadPref = _.sec
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))

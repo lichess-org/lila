@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Draw by mutual agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
+  <string name="joinedX">Joined %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>

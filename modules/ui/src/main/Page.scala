@@ -45,8 +45,8 @@ case class Page(
   def iife(iifeFrag: Frag): Page             = js(_ => iifeFrag)
   def iife(iifeFrag: Option[Frag]): Page     = iifeFrag.foldLeft(this)(_.iife(_))
   def i18n(mods: I18nModule.Selector*): Page = copy(i18nModules = i18nModules ::: mods.toList)
-  def i18nOpt(cond: Boolean, mod: => I18nModule.Selector) =
-    if cond then copy(i18nModules = i18nModules.appended(mod)) else this
+  def i18nOpt(cond: Boolean, mods: => I18nModule.Selector*): Page =
+    if cond then copy(i18nModules = i18nModules.appendedAll(mods)) else this
   def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
   def flag(f: PageFlags.type => PageFlags, v: Boolean = true): Page =

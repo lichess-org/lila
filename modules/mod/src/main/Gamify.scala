@@ -104,7 +104,7 @@ final class Gamify(
 
   private def actionLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     logRepo.coll
-      .aggregateList(maxDocs = 100, _.priTemp): framework =>
+      .aggregateList(maxDocs = 100, _.sec): framework =>
         import framework.*
         Match(
           $doc(
@@ -122,7 +122,7 @@ final class Gamify(
 
   private def reportLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     reportApi.coll
-      .aggregateList(maxDocs = Int.MaxValue, _.priTemp): framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(

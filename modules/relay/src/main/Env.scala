@@ -1,6 +1,5 @@
 package lila.relay
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
@@ -41,9 +40,8 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using
-    scheduler: Scheduler
-):
+)(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
+
   lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]
@@ -173,7 +171,7 @@ final class Env(
     case lila.core.study.GetRelayCrowd(studyId, promise) =>
       roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 
-private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
+private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
   val tour  = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))

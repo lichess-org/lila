@@ -86,7 +86,7 @@ const viewResult = (ctrl: PlayCtrl) => {
 
 const viewMoves = (ctrl: PlayCtrl) => {
   const pairs: Array<[San, San]> = [];
-  for (let i = 0; i < ctrl.lastPly(); i += 2)
+  for (let i = 0; i < ctrl.game.ply(); i += 2)
     pairs.push([ctrl.game.moves[i].san, ctrl.game.moves[i + 1]?.san]);
 
   const els: LooseVNodes = [];
@@ -132,9 +132,9 @@ const viewNavigation = (ctrl: PlayCtrl) => {
       [licon.JumpFirst, 0],
       [licon.JumpPrev, ctrl.board.onPly - 1],
       [licon.JumpNext, ctrl.board.onPly + 1],
-      [licon.JumpLast, ctrl.lastPly()],
+      [licon.JumpLast, ctrl.game.ply()],
     ].map((b: [string, number], i) => {
-      const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.lastPly();
+      const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return h('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
@@ -199,5 +199,5 @@ const materialDiffs = (ctrl: PlayCtrl) =>
     ctrl.board.chess,
     false,
     [],
-    ctrl.lastPly(),
+    ctrl.game.ply(),
   );
