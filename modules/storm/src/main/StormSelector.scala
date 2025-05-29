@@ -56,23 +56,24 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
 
   private def aggregateMultipleSets: Fu[List[PuzzleSet]] =
     aggregationColor = !aggregationColor
+    val nbSets = if lila.common.Uptime.startedSinceMinutes(3) then setsPerAggregation else 2
     colls
       .path:
-        _.aggregateList(setSize * setsPerAggregation): framework =>
+        _.aggregateList(setSize * nbSets): framework =>
           import framework.*
           Facet(
             ratingBuckets.map: (rating, nbPuzzles) =>
               val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
                 Match($doc("min".$lte(target), "max".$gte(target))),
-                Sample(setsPerAggregation),
+                Sample(nbSets),
                 Project($doc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
                 // ensure we have enough after filtering deviation & color
-                Sample(nbPuzzles * setsPerAggregation * 7),
+                Sample(nbPuzzles * nbSets * 7),
                 PipelineOperator(withPuzzlePipeline(aggregationColor)),
                 UnwindField("puzzle"),
-                Sample(nbPuzzles * setsPerAggregation),
+                Sample(nbPuzzles * nbSets),
                 ReplaceRootField("puzzle")
               )
           ) -> List(
@@ -80,12 +81,12 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             UnwindField("all"),
             ReplaceRootField("all"),
             Sort(Ascending("rating")),
-            Limit(setSize * setsPerAggregation)
+            Limit(setSize * nbSets)
           )
         .map:
           _.flatMap(puzzleReader.readOpt)
         .map:
-          _.grouped(setsPerAggregation).toList.map(ThreadLocalRandom.shuffle).transpose
+          _.grouped(nbSets).toList.map(ThreadLocalRandom.shuffle).transpose
       .logTimeIfGt("storm selector", 3.seconds)
       .mon(_.storm.selector.time)
       .addEffect:
