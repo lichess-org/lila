@@ -152,7 +152,9 @@ final class Setup(
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
             ua     = HTTPRequest.userAgent(req).fold("?")(_.value)
-            _      = lila.mon.lobby.hook.apiCreate(ua = ua, color = config.color.name).increment()
+            _ = lila.mon.lobby.hook
+              .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
+              .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
             res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
