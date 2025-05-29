@@ -41,16 +41,12 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
           _.aggregateList(poolSize): framework =>
             import framework.*
             Facet(
-              buckets.map { (rating, nbPuzzles) =>
+              buckets.map: (rating, nbPuzzles) =>
                 val (tier, samples, deviation) =
                   if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
+                val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
                 rating.toString -> List(
-                  Match(
-                    $doc(
-                      "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
-                      "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
-                    )
-                  ),
+                  Match($doc("min".$lte(target), "max".$gte(target))),
                   Sample(samples),
                   Project($doc("_id" -> false, "ids" -> true)),
                   UnwindField("ids"),
@@ -69,7 +65,6 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   Sample(nbPuzzles),
                   ReplaceRootField("puzzle")
                 )
-              }
             ) -> List(
               Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
               UnwindField("all"),
