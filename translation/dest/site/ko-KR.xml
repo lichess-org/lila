@@ -46,10 +46,10 @@
   <string name="forceDraw">무승부 선언</string>
   <string name="talkInChat">건전한 채팅을 해주세요!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">이 URL로 가장 먼저 들어온 사람과 체스를 두게 됩니다.</string>
-  <string name="whiteResigned">백이 기권하였습니다</string>
-  <string name="blackResigned">흑이 기권하였습니다</string>
-  <string name="whiteLeftTheGame">백이 게임을 나갔습니다</string>
-  <string name="blackLeftTheGame">흑이 게임을 나갔습니다</string>
+  <string name="whiteResigned">백 기권</string>
+  <string name="blackResigned">흑 기권</string>
+  <string name="whiteLeftTheGame">백 게임 퇴장</string>
+  <string name="blackLeftTheGame">흑 게임 퇴장</string>
   <string name="whiteDidntMove">백이 수를 두지 않음</string>
   <string name="blackDidntMove">흑이 수를 두지 않음</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
