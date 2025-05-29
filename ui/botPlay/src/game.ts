@@ -102,10 +102,10 @@ export class Game {
     return board;
   };
 
-  computeEnd = (): void => {
+  computeEnd = (): GameEnd | undefined => {
     const chess = this.lastBoard().chess;
     this.end = endOnTheBoard(chess);
-    if (this.end) return;
+    if (this.end) return this.end;
     const clock = this.clockState();
     if (!clock) return;
     const flag = (color: Color): GameEnd => ({
@@ -115,6 +115,7 @@ export class Game {
     });
     if (clock?.white <= 0) this.end = flag('white');
     else if (clock?.black <= 0) this.end = flag('black');
+    return this.end;
   };
 }
 

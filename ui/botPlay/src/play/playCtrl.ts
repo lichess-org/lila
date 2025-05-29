@@ -118,12 +118,13 @@ export default class PlayCtrl {
 
   private safelyRequestBotMove = async () => {
     const source = await this.opts.bridge;
-    if (this.game.end) return;
+    if (this.game.computeEnd()) return;
     if (this.game.turn() == this.game.pov) return;
     const sign = () => this.game.pov + this.game.moves.map(m => m.san).join('');
     const before = sign();
     const chessMove = await requestBotMove(source, this.game);
     if (sign() != before) return console.warn('Bot move ignored due to board state mismatch');
+    if (this.game.computeEnd()) return;
     const onLastPly = this.isOnLastPly();
     const move = this.game.playMoveAtPly(chessMove, this.game.ply());
     this.afterMove(move);
