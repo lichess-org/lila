@@ -910,6 +910,7 @@ object I18nKey:
     val `actions`: I18nKey = "nvui:actions"
     val `yourClock`: I18nKey = "nvui:yourClock"
     val `opponentClock`: I18nKey = "nvui:opponentClock"
+    val `gameStart`: I18nKey = "nvui:gameStart"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

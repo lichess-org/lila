@@ -199,7 +199,7 @@ export function initModule(): NvuiPlugin {
           : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-        h('h2', i18n.settings.settings),
+        h('h2', i18n.site.advancedSettings),
         h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', noTrans('Board settings')),
         h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),

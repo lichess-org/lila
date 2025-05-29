@@ -10,4 +10,5 @@
   <string name="actions">Actions</string>
   <string name="yourClock">Your clock</string>
   <string name="opponentClock">Opponent clock</string>
+  <string name="gameStart">Game start</string>
 </resources>

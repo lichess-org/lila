@@ -228,7 +228,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               },
             },
           }),
-          h('h2', 'Settings'),
+          h('h2', i18n.site.advancedSettings),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),

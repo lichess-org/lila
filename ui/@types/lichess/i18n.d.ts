@@ -1745,6 +1745,8 @@ interface I18n {
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
+    /** Game start */
+    gameStart: string;
     /** Game status */
     gameStatus: string;
     /** Input form */

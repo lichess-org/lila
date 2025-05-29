@@ -108,7 +108,7 @@ const renderPieceStr = (ch: string, pieceStyle: PieceStyle, c: Color, prefixStyl
 
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
-    ? 'Game start'
+    ? i18n.nvui.gameStart
     : style === 'uci'
       ? (uci ?? '')
       : style === 'san'
