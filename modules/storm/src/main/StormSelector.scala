@@ -47,10 +47,10 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
   private val setSize = ratingBuckets.map(_._2).sum
 
   private val batchProvider =
-    BatchProvider[PuzzleSet]("stormSelector", timeout = 6.seconds)(() => aggregateMultipleSets)
+    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds)(() => aggregateMultipleSets)
 
   private val current = cacheApi.unit[PuzzleSet]:
-    _.refreshAfterWrite(6.seconds).buildAsyncFuture(_ => batchProvider.one)
+    _.refreshAfterWrite(7.seconds).buildAsyncFuture(_ => batchProvider.one)
 
   private var aggregationColor = chess.Color.White
 
