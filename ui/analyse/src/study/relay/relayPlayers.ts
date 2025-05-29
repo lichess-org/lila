@@ -227,7 +227,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         h('tr', [
           h('th', i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
-          withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
+          withScores ? h('th', defaultSort, i18n.broadcast.score) : undefined,
+          h('th', i18n.site.games),
         ]),
       ),
       h(
@@ -254,9 +255,10 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
               ? h(
                   'td',
                   sortByBoth((player.score || 0) * 10, player.rating),
-                  `${player.score}/${player.played}`,
+                  `${player.score}`,
                 )
-              : h('td', sortByBoth(player.played, player.rating), `${player.played}`),
+              : undefined,
+              h('td', sortByBoth(player.played, player.rating), `${player.played}`),
           ]),
         ),
       ),
@@ -323,7 +325,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         playerFed(p.fed),
         ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
       ]),
-      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}/${p.played}`) : undefined,
+      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}`) : undefined,
     ]),
   ]);
 
