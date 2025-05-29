@@ -17,7 +17,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
    * 1690, 1760, 1830, 1900, 2000, 2100, 2200, 2350, 2500, 2650, 2800
    */
   private val buckets = List(
-    1000 -> 3,
+    1050 -> 3,
     1150 -> 4,
     1300 -> 5,
     1450 -> 6,
