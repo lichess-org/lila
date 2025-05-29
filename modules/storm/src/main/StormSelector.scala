@@ -59,7 +59,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     val nbSets = if lila.common.Uptime.startedSinceMinutes(3) then setsPerAggregation else 2
     colls
       .path:
-        _.aggregateList(setSize * nbSets): framework =>
+        _.aggregateList(setSize * nbSets, _.sec): framework =>
           import framework.*
           Facet(
             ratingBuckets.map: (rating, nbPuzzles) =>
