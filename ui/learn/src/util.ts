@@ -1,8 +1,8 @@
 import type { SquareName } from 'chessops';
 import type { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
-import type { DrawShape } from 'chessground/draw';
-import type { BrushColor } from 'chessground/types';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { BrushColor } from '@lichess-org/chessground/types';
 
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';

@@ -1,4 +1,4 @@
-import type { DrawBrush, DrawShape } from 'chessground/draw';
+import type { DrawBrush, DrawShape } from '@lichess-org/chessground/draw';
 
 export const brushes: Map<string, DrawBrush> = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],

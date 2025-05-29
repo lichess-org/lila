@@ -32,7 +32,7 @@ import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storag
 import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
 import { last } from 'lib/tree/ops';
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import type { ParentCtrl } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';

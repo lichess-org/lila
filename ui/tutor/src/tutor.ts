@@ -1,4 +1,4 @@
-import Lpv from 'lichess-pgn-viewer';
+import Lpv from '@lichess-org/pgn-viewer';
 
 site.load.then(() => {
   $('.tutor-card--link').on('click', function (this: HTMLElement) {
