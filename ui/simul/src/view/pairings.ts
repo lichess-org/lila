@@ -3,7 +3,7 @@ import { onInsert } from 'lib/snabbdom';
 import { renderClock } from 'lib/view/miniBoard';
 import type SimulCtrl from '../ctrl';
 import type { Pairing } from '../interfaces';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import { userFlair } from 'lib/view/userLink';
 
 export default function (ctrl: SimulCtrl) {

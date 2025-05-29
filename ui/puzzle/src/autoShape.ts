@@ -1,6 +1,6 @@
 import { winningChances, type CevalCtrl } from 'lib/ceval/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
-import type { DrawModifiers, DrawShape } from 'chessground/draw';
+import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import type { NormalMove, Square } from 'chessops/types';
 

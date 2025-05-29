@@ -1,4 +1,4 @@
-import type { DrawShape } from 'chessground/draw';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { prop, defined } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import type AnalyseCtrl from '../ctrl';

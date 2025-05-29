@@ -1,5 +1,5 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
-import { type Pieces, files } from 'chessground/types';
+import { type Pieces, files } from '@lichess-org/chessground/types';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';

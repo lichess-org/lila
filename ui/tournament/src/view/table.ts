@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import * as licon from 'lib/licon';
 import { type VNode, bind, onInsert, looseH as h } from 'lib/snabbdom';
 import { player as renderPlayer } from './util';
