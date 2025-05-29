@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Patta per comune accordo</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Iscritto %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
@@ -350,6 +351,8 @@
   <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
+  <string name="whiteProposesTakeback">Il Bianco chiede di cambiare mossa</string>
+  <string name="blackProposesTakeback">Il Nero chiede di cambiare mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>

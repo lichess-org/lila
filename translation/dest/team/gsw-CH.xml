@@ -42,6 +42,9 @@
   <string name="teamsIlead">Teams wo ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Wottsch eis vu de kommende Turnier verlinke?</string>
   <string name="leadersChat">Teamleiter-Chat</string>
+  <string name="introduction">Ifüehrig</string>
+  <string name="teamIntroductionHelp">Churzi Beschribig, wo i de Mannschaftsufschtellige sichtbar isch. Bis zu 200 Zeiche.</string>
+  <string name="teamDescriptionHelp">Die vollschtändig Beschribig isch uf de Teamsite z\'finde.</string>
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
   <string name="entryCode">Team-Bitrittscode</string>

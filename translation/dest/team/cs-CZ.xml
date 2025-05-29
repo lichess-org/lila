@@ -50,6 +50,9 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="teamsIlead">Mnou vedené týmy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
   <string name="leadersChat">Chat vedoucích</string>
+  <string name="introduction">Úvod</string>
+  <string name="teamIntroductionHelp">Stručný popis viditelný v seznamech týmů. Až 200 znaků.</string>
+  <string name="teamDescriptionHelp">Kompletní popis viditelný na stránce týmu.</string>
   <string name="closeTeam">Zavřít tým</string>
   <string name="closeTeamDescription">Zavřít tým navždy.</string>
   <string name="entryCode">Heslo týmu</string>

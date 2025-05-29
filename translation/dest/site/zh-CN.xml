@@ -638,7 +638,7 @@
   <string name="really">真的</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">头衔认证</string>
+  <string name="titleVerification">头衔认证</string>
   <string name="sourceCode">源代码</string>
   <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持者</string>

@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">Hòa theo thỏa thuận hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Các ván cờ đang diễn ra</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Tham gia hôm %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -326,7 +327,15 @@
   <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; tàn cuộc</string>
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
+  <string name="whiteProposesTakeback">Trắng yêu cầu đi lại</string>
+  <string name="blackProposesTakeback">Đen yêu cầu đi lại</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
+  <string name="whiteDeclinesTakeback">Trắng từ chối đi lại</string>
+  <string name="blackDeclinesTakeback">Đen từ chối đi lại</string>
+  <string name="whiteAcceptsTakeback">Trắng chấp nhận đi lại</string>
+  <string name="blackAcceptsTakeback">Đen chấp nhận đi lại</string>
+  <string name="whiteCancelsTakeback">Trắng huỷ đi lại</string>
+  <string name="blackCancelsTakeback">Đen huỷ đi lại</string>
   <string name="yourOpponentProposesATakeback">Đối thủ của bạn đề nghị lùi một nước</string>
   <string name="bookmarkThisGame">Đánh dấu ván này</string>
   <string name="tournament">Giải đấu</string>
@@ -631,6 +640,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
+  <string name="titleVerification">Xác nhận danh hiệu</string>
   <string name="sourceCode">Mã Nguồn</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>

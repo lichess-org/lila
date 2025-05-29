@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Draw by mutual agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
+  <string name="joinedX">Joined %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
@@ -678,7 +679,7 @@
   <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="termsOfService">Terms of Service</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Title verification</string>
+  <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>

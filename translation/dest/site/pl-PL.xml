@@ -186,6 +186,7 @@
   <string name="drawByMutualAgreement">Remis za obopólną zgodą</string>
   <string name="fiftyMovesWithoutProgress">50 posunięć bez bicia i ruchu pionem</string>
   <string name="currentGames">Partie w toku</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Dołączono %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>

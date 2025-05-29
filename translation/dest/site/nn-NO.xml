@@ -75,6 +75,7 @@
   <string name="expandVariations">Vis variantar</string>
   <string name="forceVariation">Tving fram varianten</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
+  <string name="copyMainLinePgn">Kopier PGN for hovudvariant</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant vinn</string>
@@ -167,6 +168,7 @@
   <string name="drawByMutualAgreement">Remis etter semje</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk utan framgang</string>
   <string name="currentGames">Parti som blir spela no</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Vart med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>

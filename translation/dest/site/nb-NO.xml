@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Remis ved overenskomst</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Ble med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
@@ -678,7 +679,7 @@
   <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Tjenestevilkår</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Tittelverifisering</string>
+  <string name="titleVerification">Tittelverifisering</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanoppvisninger</string>
   <string name="host">Vert</string>

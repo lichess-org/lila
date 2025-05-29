@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">合意によるドロー</string>
   <string name="fiftyMovesWithoutProgress">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">参加日：%s</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
   </plurals>
@@ -639,7 +640,7 @@
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">実戦タイトルの検証</string>
+  <string name="titleVerification">実戦タイトルの検証</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>

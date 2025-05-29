@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Doporučené události</string>
+  <string name="moveList" comment="List of the moves of the game">Seznam tahů</string>
+  <string name="gameInfo">Informace o hře</string>
+  <string name="pieces">Figurky</string>
+  <string name="gameStatus">Stav hry</string>
+  <string name="lastMove">Poslední tah</string>
+  <string name="inputForm" comment="Form to input moves and commands">Zadat</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Akce</string>
+  <string name="yourClock">Vaše hodiny</string>
+  <string name="opponentClock">Soupeřovy hodiny</string>
+</resources>

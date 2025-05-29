@@ -716,7 +716,7 @@
   <string name="really">pe bune</string>
   <string name="contribute">Contribuie</string>
   <string name="termsOfService">Termeni și condiții</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificarea titlului</string>
+  <string name="titleVerification">Verificarea titlului</string>
   <string name="sourceCode">Cod sursă</string>
   <string name="simultaneousExhibitions">Simultane de șah</string>
   <string name="host">Gazdă</string>

@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Evenimente recomandate</string>
+  <string name="moveList" comment="List of the moves of the game">Lista de mutări</string>
+  <string name="gameInfo">Informații despre joc</string>
+  <string name="pieces">Piese</string>
+  <string name="gameStatus">Starea jocului</string>
+  <string name="lastMove">Ultima mutare</string>
+  <string name="inputForm" comment="Form to input moves and commands">Formular de introducere</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Acțiuni</string>
+  <string name="yourClock">Ceasul tău</string>
+  <string name="opponentClock">Ceas oponent</string>
+</resources>

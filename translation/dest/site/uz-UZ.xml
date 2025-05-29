@@ -678,7 +678,7 @@
   <string name="really">haqiqatda ham</string>
   <string name="contribute">Hissa qo‘shish</string>
   <string name="termsOfService">Xizmatlar terminlari</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Titulni tekshirish</string>
+  <string name="titleVerification">Titulni tekshirish</string>
   <string name="sourceCode">Dastur kodi</string>
   <string name="simultaneousExhibitions">Sinxron ko\'rinishlar</string>
   <string name="host">Xost</string>

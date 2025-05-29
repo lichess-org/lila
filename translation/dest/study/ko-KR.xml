@@ -160,5 +160,23 @@
   <string name="playAgain">다시 플레이</string>
   <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
   <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
-  <string name="perPage">페이지 당 %s개</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">페이지 당 %s개</string>
+  <string name="getTheTour">도움이 필요하세요? 투어를 해보세요!</string>
+  <string name="welcomeToLichessStudyTitle">Lichess 연구에 오신 것을 환영합니다!</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">공유되고 저장됨</string>
+  <string name="sharedAndSavedText">다른 회원들이 내 수를 실시간으로 볼 수 있습니다!&lt;br&gt;그리고 모든 것은 영원히 저장됩니다.</string>
+  <string name="studyMembersTitle">연구 회원들</string>
+  <string name="studyChaptersTitle">연구 챕터</string>
+  <string name="studyChaptersText">하나의 연구는 여러 개의 챕터를 포함할 수 있습니다.&lt;br&gt;각 챕터는 고유한 시작 포지션과 수순 트리를 가지고 있습니다.</string>
+  <string name="commentPositionTitle">포지션에 댓글 남기기</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s 버튼을 클릭하거나, 우측의 수 목록을 우클릭하세요.&lt;br&gt;댓글들은 공유되며 저장됩니다.</string>
+  <string name="annotatePositionTitle">포지션에 주석달기</string>
+  <string name="annotatePositionText">!? 버튼을 클릭하거나, 우측의 수 목록을 우클릭하세요.&lt;br&gt;주석들은 공유되며 저장됩니다.</string>
+  <string name="conclusionTitle">시간을 내주셔셔 감사합니다</string>
+  <string name="createChapterTitle">연구 챕터를 만듭시다</string>
+  <string name="createChapterText">하나의 연구는 여러 개의 챕터를 포함할 수 있습니다.&lt;br&gt;각 챕터는 고유한 수순 트리를 가지고 있고,&lt;br&gt;다양한 방법으로 만들 수 있습니다.</string>
+  <string name="fromInitialPositionTitle">초기 포지션에서</string>
+  <string name="customPositionTitle">사용자 지정 포지션</string>
+  <string name="loadExistingLichessGameTitle">벌써 있는 lichess 게임 불러오기</string>
+  <string name="loadExistingLichessGameText">챕터에 게임 수를 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
 </resources>
