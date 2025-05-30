@@ -28,7 +28,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
         .orFail(s"No puzzle path for batch ${me.username} $angle $tier")
         .flatMap: pathId =>
           colls.path:
-            _.aggregateList(nb): framework =>
+            _.aggregateList(nb, _.sec): framework =>
               import framework.*
               Match($id(pathId)) -> List(
                 Project($doc("puzzleId" -> "$ids", "_id" -> false)),

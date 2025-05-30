@@ -94,7 +94,7 @@ final class PuzzleDashboardApi(
 
   private def compute(userId: UserId, days: Days): Fu[Option[PuzzleDashboard]] =
     colls.round:
-      _.aggregateOne() { framework =>
+      _.aggregateOne(_.sec): framework =>
         import framework.*
         val resultsGroup = List(
           "nb"     -> SumAll,
@@ -123,7 +123,7 @@ final class PuzzleDashboardApi(
             )
           )
         )
-      }.map: r =>
+      .map: r =>
         for
           result     <- r
           globalDocs <- result.getAsOpt[List[Bdoc]]("global")

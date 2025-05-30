@@ -56,7 +56,7 @@ final class PuzzleReplayApi(
   private def createReplayFor(user: User, days: Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
     colls
       .round:
-        _.aggregateOne(): framework =>
+        _.aggregateOne(_.sec): framework =>
           import framework.*
           Match(
             $doc(
