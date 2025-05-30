@@ -6,6 +6,10 @@
   <string name="myBlog">بڵۆگی خۆم</string>
   <string name="likedBlogs">بڵاوکراوەکانی بڵۆگە دڵخوازەکان</string>
   <string name="blogTopics">بابەتەکانی بڵۆگ</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s بڵاوکراوەی بڵۆگ</item>
+    <item quantity="other">%s بڵاوکراوەی بڵۆگ</item>
+  </plurals>
   <string name="lichessOfficialBlog">بڵۆگی فەرمیی لیچێس</string>
   <string name="continueReadingPost">بەردەوام بە لە خوێندنەوەی ئەم بڵاوکراوەیە</string>
   <string name="lichessBlogPostsFromXYear">بڵاوکراوەکانی بڵۆگی لیچێس لە %s</string>
@@ -26,7 +30,7 @@
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">بڵاوکراوە بلکێنە</string>
   <string name="stickyPostHelp">ئەگەر دیاریکرا، ئەم بڵاوکراوەیە لە سەرەوەی بڵاوکراوەکانی تر دەردەکەوێت لە بڵۆگەکەتدا.</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
+    <item quantity="one">بڵاوکراوەیەکی بڵۆگی بڵاوکردەوە</item>
     <item quantity="other">%s بڵاوکراوەی بڵۆگی بڵاوکردەوە</item>
   </plurals>
   <plurals name="nbViews">
@@ -38,21 +42,21 @@
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
   <string name="noPostsInThisBlogYet">ھیچ بڵاوکراوەیەک لەم بڵۆگەدا نییە، لە ئێستادا.</string>
   <string name="noDrafts">ھیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
-  <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
+  <string name="latestBlogPosts">دوایین بڵاوکراوەکانی بڵۆگ</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">بینەری یەک بلاو کراوە</item>
-    <item quantity="other">نیشاندانی هەموو پەیامەکانی %s</item>
+    <item quantity="one">یەک بڵاوکراوە ببینە</item>
+    <item quantity="other">ھەموو %s بڵاوکراوە ببینە</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">بەرزکردنەوەی وێنەیەک بۆ پەیامەکەت</string>
-  <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
-  <string name="imageCredit">دروستکەری وێنە</string>
-  <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
-  <string name="safeToUseImages">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
-  <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
-  <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>
-  <string name="safeAndRespectfulContent">تکایە تەنیا بابەتی پارێزراو وە وە لەسنوری ڕێزدا بکە بە پەیام، بابتی کەسی تر لەبەر مەگرەوە.</string>
-  <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
-  <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
-  <string name="discussThisBlogPostInTheForum">لە مەکۆدا باسی ئەم پۆستەی بلۆگەکە بکەن</string>
-  <string name="youBlockedByBlogAuthor">تۆ لەلایەن نووسەری بلۆگەکەوە بلۆک کراویت.</string>
+  <string name="uploadAnImageForYourPost">وێنەیەک بۆ بڵاوکراوەکەت دابنێ</string>
+  <string name="imageAlt">نووسینی جێگرەوەی وێنە</string>
+  <string name="imageCredit">خاوەنی وێنە</string>
+  <string name="deleteBlog">ئەم پۆستی بڵۆگە بە یەکجاری بسڕەوە</string>
+  <string name="safeToUseImages">بەکارھێنانی وێنە لەم وێبگانەوە بەتەواوەتی ڕێپێدراوە: </string>
+  <string name="selectPostTopics">ئەو بابەتانە دیاری بکە کە بڵاوکراوەکەت دەگرنەوە</string>
+  <string name="useImagesYouMadeYourself">دەتوانیت ئەو وێنانەش بەکار بھێنیت کە خۆت بەرھەمت ھێناون، گرتووتن، یان سکرینشۆتی لیچێسن... ھەرچییەک کە مافی خاوەندارێتیی نەگەڕێتەوە بۆ کەسێکی تر.</string>
+  <string name="safeAndRespectfulContent">تکایە تەنیا بابەتی پارێزراو و لە سنووری ڕێزدا بکە بە بڵاوکراوە. بابەتی کەسی تر لەبەر مەگرەوە.</string>
+  <string name="inappropriateContentAccountClosed">ھەر شتێکی نەشیاو دەکرێت ببێتە ھۆکاری داخستنی ھەژمارەکەت.</string>
+  <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نووسینی بڵاوکراوەیەکی بڵۆگی باش</string>
+  <string name="discussThisBlogPostInTheForum">لە مەکۆدا گفتوگۆ لەسەر ئەم بڵاوکراوەی بلۆگە بکە</string>
+  <string name="youBlockedByBlogAuthor">تۆ لەلایەن نووسەری بڵۆگەکەوە بەربەست کراویت.</string>
 </resources>
