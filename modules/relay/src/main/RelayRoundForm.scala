@@ -90,6 +90,7 @@ final class RelayRoundForm(using mode: Mode):
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
+      "unrated"             -> optional(boolean),
       "customScoring.wWin"  -> customScoringMapping,
       "customScoring.wDraw" -> customScoringMapping,
       "customScoring.bWin"  -> customScoringMapping,
@@ -168,6 +169,7 @@ object RelayRoundForm:
       delay = prev.flatMap(_.sync.delay),
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices),
+      unrated = prev.flatMap(_.unrated),
       customScoringwWin = prev.flatMap(_.customScoring.map(_.wWin)),
       customScoringwDraw = prev.flatMap(_.customScoring.map(_.wDraw)),
       customScoringbWin = prev.flatMap(_.customScoring.map(_.bWin)),
@@ -239,6 +241,7 @@ object RelayRoundForm:
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None,
+      unrated: Option[Boolean] = None,
       customScoringwWin: Option[RelayRound.CustomPoints] = None,
       customScoringwDraw: Option[RelayRound.CustomPoints] = None,
       customScoringbWin: Option[RelayRound.CustomPoints] = None,
@@ -267,6 +270,7 @@ object RelayRoundForm:
           case "new" => none
           case _     => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
+        unrated = unrated,
         customScoring = makeCustomScoring(
           customScoringwWin.orElse(round.customScoring.map(_.wWin)),
           customScoringwDraw.orElse(round.customScoring.map(_.wDraw)),
@@ -316,6 +320,7 @@ object RelayRoundForm:
         startsAt = relayStartsAt,
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
+        unrated = unrated,
         customScoring =
           makeCustomScoring(customScoringwWin, customScoringwDraw, customScoringbWin, customScoringbDraw)
       )
@@ -355,6 +360,7 @@ object RelayRoundForm:
         onlyRound = round.sync.onlyRound.map(Sync.OnlyRound.toString),
         slices = round.sync.slices,
         delay = round.sync.delay,
+        unrated = round.unrated,
         customScoringwWin = round.customScoring.map(_.wWin),
         customScoringwDraw = round.customScoring.map(_.wDraw),
         customScoringbWin = round.customScoring.map(_.bWin),

@@ -187,6 +187,7 @@ object JsonView:
       .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
+      .add("unrated" -> r.unrated)
       .add("customScoring" -> r.customScoring)
 
   def statsJson(stats: RelayStats.RoundStats) =

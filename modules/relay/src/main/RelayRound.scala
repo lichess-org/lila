@@ -24,6 +24,7 @@ case class RelayRound(
     createdAt: Instant,
     crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
+    unrated: Option[Boolean] = None,
     customScoring: Option[RelayRound.CustomScoring] = none
 ):
   inline def studyId = id.into(StudyId)

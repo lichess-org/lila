@@ -347,17 +347,26 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
           )
         ),
-        nav.tour.showScores.option(
+        (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
             toggle = nav.round.exists(r => r.customScoring.isDefined).some
           )(
+            nav.tour.showRatingDiffs.option(
+              form3.group(form("unrated"), raw(""))(
+                form3.checkbox(
+                  _,
+                  labelContent = frag("Unrated round"),
+                  help = frag("Exclude this round when calculating players' rating changes").some
+                )
+              )
+            ),
             Color.all.map: color =>
               form3.split:
                 List("Win", "Draw").map: result =>
                   form3.group(
                     form(s"customScoring.${color.name.head.toLower}${result}"),
-                    s"Points for a ${result.toLowerCase} as ${color.name}"
+                    raw(s"Points for a ${result.toLowerCase} as ${color.name}")
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
