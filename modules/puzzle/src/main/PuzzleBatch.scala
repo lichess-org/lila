@@ -24,7 +24,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
         else if PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
         else PuzzleTier.top
       pathApi
-        .nextFor(angle, tier, difficulty, Set.empty)
+        .nextFor("batch")(angle, tier, difficulty, Set.empty)
         .orFail(s"No puzzle path for batch ${me.username} $angle $tier")
         .flatMap: pathId =>
           colls.path:
