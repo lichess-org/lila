@@ -43,7 +43,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
       else tier
     colls
       .path:
-        _.aggregateOne(): framework =>
+        _.aggregateOne(_.pri): framework =>
           import framework.*
           val rating     = perf.glicko.intRating.map(_ + difficulty.ratingDelta)
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
