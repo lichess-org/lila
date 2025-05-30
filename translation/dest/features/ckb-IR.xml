@@ -12,6 +12,8 @@
   <string name="personalOpeningExplorerX">%1$s (%2$sیش کار دەکات)</string>
   <string name="personalOpeningExplorer">دۆزەری جووڵەی دەستپێکی کەسی</string>
   <string name="globalOpeningExplorerInNbGames">دۆزەری جووڵەی دەستپێکی گشتی (%s یاری!)</string>
+  <string name="everybodyGetsAllFeaturesForFree">بەڵێ، ھەردوو ھەژمارەکە ھەمان تایبەتمەندییان ھەیە!</string>
+  <string name="allFeaturesAreFreeForEverybody">ھەموو تایبەتمەندییەکان بێبەرامبەرن بۆ ھەمووان، بۆ ھەمیشە!</string>
   <string name="ifYouLoveLichess">ئەگەر لیچێست خۆش دەوێت،</string>
   <string name="supportUsWithAPatronAccount">لەڕێی ھەژمارێکی پەیتریۆنەوە پشتگیریمان بکە!</string>
 </resources>
