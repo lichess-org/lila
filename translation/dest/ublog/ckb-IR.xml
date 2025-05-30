@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">پەڕەی کەسی%s</string>
-  <string name="newPost">پەیامی نوێ</string>
-  <string name="editYourBlogPost">دەستکاریکردنی پەیامی پەڕەی تایبەتیت</string>
+  <string name="communityBlogs">بڵۆگەکانی کۆمەڵگا</string>
+  <string name="friendBlogs">بڵۆگەکانی ھاوڕێیان</string>
+  <string name="lichessBlog">بڵۆگی لیچێس</string>
+  <string name="myBlog">بڵۆگی خۆم</string>
+  <string name="likedBlogs">بڵاوکراوەکانی بڵۆگە دڵخوازەکان</string>
+  <string name="blogTopics">بابەتەکانی بڵۆگ</string>
+  <string name="lichessOfficialBlog">بڵۆگی فەرمیی لیچێس</string>
+  <string name="continueReadingPost">بەردەوام بە لە خوێندنەوەی ئەم بڵاوکراوەیە</string>
+  <string name="lichessBlogPostsFromXYear">بڵاوکراوەکانی بڵۆگی لیچێس لە %s</string>
+  <string name="previousBlogPosts">بڵاوکراوەکانی بڵۆگی پێشوو</string>
+  <string name="xBlog">بڵۆگی %s</string>
+  <string name="newPost">بڵاوکراوەی نوێ</string>
+  <string name="editYourBlogPost">دەستکاریکردنی بڵاوکراوەی بڵۆگی خۆت</string>
   <string name="saveDraft">پاشەکەوتکردنی  ڕەشنووس</string>
-  <string name="postTitle">ناونیشانی پەیام</string>
-  <string name="postIntro">پێشەکی پەیام</string>
-  <string name="postBody">ناوەرۆکی پەیام</string>
+  <string name="postTitle">ناونیشانی بڵاوکراوە</string>
+  <string name="postIntro">پێشەکیی بڵاوکراوە</string>
+  <string name="postBody">ناوەڕۆکی بڵاوکراوە</string>
   <string name="drafts">ڕەشنووسەکان</string>
-  <string name="published">بڵاوکراوەکان</string>
-  <string name="createBlogDiscussion">چالاککردنی سەرنجدان</string>
-  <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
-  <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
-  <string name="publishHelp">ئەگەر پشکنین کرا، پۆستەکە لە بلۆگەکەتدا دەخرێتە لیستی پۆستەکەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی پۆستەکانتاندا</string>
-  <string name="stickyPostHelp">ئەگەر بێنە ناو پرۆفایلت، ئەو پۆستە لە سەرەتای پۆستەکانت دەردەکەوێت.</string>
+  <string name="published">بڵاوکرایەوە</string>
+  <string name="createBlogDiscussion">لێدوانەکان چالاک بکە</string>
+  <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت دروستدەکرێت بۆ ئەوەی خەڵک لێدوان لەسەر بڵاوکراوەکەت بدەن</string>
+  <string name="publishOnYourBlog">بڵاوکردنەوە لە بڵۆگەکەتدا</string>
+  <string name="publishHelp">ئەگەر ئەمە دیاریکرا، بڵاوکراوەکە دچێتە بلۆگەکەتەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی بڵاوکراوەکانتدا</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">بڵاوکراوە بلکێنە</string>
+  <string name="stickyPostHelp">ئەگەر دیاریکرا، ئەم بڵاوکراوەیە لە سەرەوەی بڵاوکراوەکانی تر دەردەکەوێت لە بڵۆگەکەتدا.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
-    <item quantity="other">پەیامەکانی%s بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
+    <item quantity="other">%s بڵاوکراوەی بڵۆگی بڵاوکردەوە</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="one">%s بینەر</item>
-    <item quantity="other">بینراو%s</item>
+    <item quantity="one">%s بینین</item>
+    <item quantity="other">%s بینین</item>
   </plurals>
-  <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
-  <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
+  <string name="xPublishedY">%1$s %2$sی بڵاوکردەوە</string>
+  <string name="thisPostIsPublished">ئەم بڵاوکراوەیە بڵاوکراوەتەوە</string>
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
-  <string name="noPostsInThisBlogYet">هیچ پەیامێک نییە لەم پەڕە کەسییەدا، لە ئێستادا.</string>
-  <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
+  <string name="noPostsInThisBlogYet">ھیچ بڵاوکراوەیەک لەم بڵۆگەدا نییە، لە ئێستادا.</string>
+  <string name="noDrafts">ھیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">بینەری یەک بلاو کراوە</item>
