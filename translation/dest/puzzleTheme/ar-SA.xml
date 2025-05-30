@@ -11,13 +11,13 @@
   <string name="attackingF2F7">الهجوم على f2 أو f7</string>
   <string name="attackingF2F7Description">هجوم يستهدف بيادق f2 أو f7، على سبيل المثال، كما في افتتاحية \"fried liver\".</string>
   <string name="attraction">الجذب(التضحية)</string>
-  <string name="attractionDescription">تضحية خادعة تغري الخصم لأخذها لتنفيذ فكرة تكتيكية، أو تبادل قطع بهدف إرغام الخضم على نقل قطعة إلى مربع حيث يمكن استغلال موقعها الجديد من خلال تكتيك معين.</string>
+  <string name="attractionDescription">التبديل أو التضحية بقطعة لحث أو إرغام قطعة الخَصْم لمربع يتيح تكتيكاً للمتابعة.</string>
   <string name="backRankMate">كش مات في الصف الأخير</string>
   <string name="backRankMateDescription">كش مات في الصف الأخير حيث يكون الملك محاصر بقطعه.</string>
-  <string name="bishopEndgame">مرحلة نهاية اللعبة بالفيلة</string>
+  <string name="bishopEndgame">مرحلة نهاية المباراة بالفيلة</string>
   <string name="bishopEndgameDescription">مرحلة نهاية اللعبة تتضمن فيل وجنود فقط.</string>
-  <string name="bodenMate">كش مات \"بودين\"</string>
-  <string name="bodenMateDescription">فيلين يهاجمان الملك على أوتار متجاورة ويكون الملكك محاصر بقطع صديقة ليشكل كش مات.</string>
+  <string name="bodenMate">كش مات بودين</string>
+  <string name="bodenMateDescription">فيلين يهاجمان الملك على أوتار متقاطعة ويكون الملك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="castling">تبييت</string>
   <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
   <string name="capturingDefender">خذ المدافع</string>
