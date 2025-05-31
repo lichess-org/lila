@@ -205,7 +205,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def openings(order: String) = Open:
     env.puzzle.opening.collection.flatMap: collection =>
       negotiate(
-        html = ctx.me.so: me =>
+        html = ctx.me.fold {
+          Ok.page:
+            views.puzzle.ui.opening.all(collection, none, lila.puzzle.PuzzleOpening.Order(order))
+        } { me =>
           env.insight.api
             .insightUser(me)
             .map:
@@ -215,7 +218,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             .flatMap: mine =>
               Ok.page:
                 views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
-        ,
+        },
         json = Ok(lila.puzzle.JsonView.openings(collection))
       )
 
