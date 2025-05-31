@@ -19,7 +19,7 @@ final class PracticeUi(helpers: Helpers)(
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
       .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js(
         PageModule(

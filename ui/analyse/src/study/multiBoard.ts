@@ -2,7 +2,7 @@ import * as licon from 'lib/licon';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { fenColor } from 'lib/game/chess';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/snabbdom';
-import { opposite as cgOpposite, uciToMove } from 'chessground/util';
+import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
@@ -13,7 +13,7 @@ import { playerFed } from './playerBars';
 import { userTitle } from 'lib/view/userLink';
 import { h } from 'snabbdom';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { EMPTY_BOARD_FEN } from 'chessops/fen';
 import { resultTag } from './studyView';
 

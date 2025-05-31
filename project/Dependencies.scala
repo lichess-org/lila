@@ -17,7 +17,7 @@ object Dependencies {
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.13.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.13.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val compression = "org.lichess"                  %% "compression"                     % "3.0"
+  val compression = "com.github.lichess-org"        % "compression"                     % "3.1.1"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.6.3"
+    val version  = "17.7.1"
     val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
     val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
@@ -52,7 +52,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.8.6"
+    val version  = "11.8.7"
     val core     = "com.github.lichess-org.scalalib" %% "scalalib-core"      % version
     val model    = "com.github.lichess-org.scalalib" %% "scalalib-model"     % version
     val playJson = "com.github.lichess-org.scalalib" %% "scalalib-play-json" % version
@@ -88,7 +88,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.20"
+    val playVersion = "2.8.18-lila_3.21"
     val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion

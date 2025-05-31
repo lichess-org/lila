@@ -23,7 +23,7 @@ final private class PuzzleCountApi(
     _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       import Puzzle.BSONFields.*
       colls.puzzle:
-        _.aggregateList(Int.MaxValue): framework =>
+        _.aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Project($doc(themes -> true)) -> List(
             Unwind(themes),

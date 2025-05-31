@@ -17,25 +17,21 @@ final class UserAnalysis(
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  def index = load("", Standard)
+  def index = load(none, Standard)
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load("", Variant.orDefault(Variant.LilaKey(key)))
+      case Array(key) => load(none, Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
-          case Some(variant) if variant != Standard            => load(fen, variant)
-          case _ if Fen.Full.clean(fen) == Standard.initialFen => load("", Standard)
-          case Some(Standard)                                  => load(fen, FromPosition)
-          case _                                               => load(arg, FromPosition)
-      case _ => load("", Standard)
+          case Some(variant) if variant != Standard            => load(fen.some, variant)
+          case _ if Fen.Full.clean(fen) == Standard.initialFen => load(none, Standard)
+          case Some(Standard)                                  => load(fen.some, FromPosition)
+          case _                                               => load(arg.some, FromPosition)
+      case _ => load(none, Standard)
 
-  def load(urlFen: String, variant: Variant) = Open:
-    val inputFen: Option[Fen.Full] = lila.common.String
-      .decodeUriPath(urlFen)
-      .filter(_.trim.nonEmpty)
-      .orElse(get("fen"))
-      .map(Fen.Full.clean)
+  private def load(urlFen: Option[String], variant: Variant) = Open:
+    val inputFen: Option[Fen.Full] = urlFen.orElse(get("fen")).flatMap(readFen)
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
@@ -69,6 +65,21 @@ final class UserAnalysis(
         .map: data =>
           views.analyse.ui.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
+
+  def embed = Anon:
+    InEmbedContext:
+      val pov         = makePov(none, Standard)
+      val orientation = get("color").flatMap(Color.fromName) | pov.color
+      val fen         = get("fen").flatMap(readFen)
+      env.api.roundApi
+        .userAnalysisJson(pov, ctx.pref, fen, orientation, owner = false)
+        .map: data =>
+          Ok(views.analyse.embed.userAnalysis(data)).enforceCrossSiteIsolation
+
+  def readFen(from: String): Option[Fen.Full] = lila.common.String
+    .decodeUriPath(from)
+    .filter(_.trim.nonEmpty)
+    .map(Fen.Full.clean)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
     makePov:
@@ -117,11 +128,9 @@ final class UserAnalysis(
         )
       }
 
-  private def mobileAnalysis(pov: Pov)(using
-      ctx: Context
-  ): Fu[Result] = for
+  private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfKey)
+    users      <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)
@@ -158,15 +167,14 @@ final class UserAnalysis(
           .fold(
             err => BadRequest(err.toString),
             forecasts =>
-              (env.round.forecastApi.save(pov, forecasts) >>
-                env.round.forecastApi.loadForDisplay(pov))
-                .map {
-                  _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                }
-                .recover {
-                  case Forecast.OutOfSync             => forecastReload
-                  case _: lila.core.round.ClientError => forecastReload
-                }
+              val fu = for
+                _   <- env.round.forecastApi.save(pov, forecasts)
+                res <- env.round.forecastApi.loadForDisplay(pov)
+              yield res.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
+              fu.recover {
+                case Forecast.OutOfSync             => forecastReload
+                case _: lila.core.round.ClientError => forecastReload
+              }
           )
   }
 
@@ -181,9 +189,11 @@ final class UserAnalysis(
             .fold(
               err => BadRequest(err.toString),
               forecasts =>
-                val wait = 50 + (Forecast.maxPlies(forecasts).min(10)) * 50
-                (env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
-                  lila.common.LilaFuture.sleep(wait.millis)).inject(forecastReload)
+                for
+                  _ <- env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault
+                  wait = (1 + Forecast.maxPlies(forecasts).min(10)) * 50
+                  _ <- lila.common.LilaFuture.sleep(wait.millis)
+                yield forecastReload
             )
     }
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">ناوی خانەکان</string>
-  <string name="coordinateTraining">ڕاهێنانی ناوی خانەکان</string>
-  <string name="averageScoreAsWhiteX">تێکڕای نمرە وەک سپی: %s</string>
-  <string name="averageScoreAsBlackX">تێکڕای نمرە وەک ڕەش: %s</string>
-  <string name="knowingTheChessBoard">زانینی ناوی خانەکانی تەختەی شەترەنج کارامەیییەکی زۆر گرنگی شەترەنجە:</string>
-  <string name="mostChessCourses">زۆربەی خول و ڕاهێنانەکانی شەترەنج بە شێوەیەکی بەرفراوان نووسینی جەبری بەکاردەهێنن.</string>
-  <string name="talkToYourChessFriends">قسەکردن لەگەڵ هاوڕێ شەترەنجەکانت ئاسانتر دەکات، بەو پێیەی هەردووکتان لە \'زمانی شەترەنج\' تێدەگەن.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">دەتوانیت یارییەک بە شێوەیەکی کاریگەرتر شی بکەیتەوە ئەگەر بتوانیت بە خێرایی ناوی خانەکان بناسیتەوە.</string>
+  <string name="coordinateTraining">ڕاھێنانی ناوی خانەکان</string>
+  <string name="averageScoreAsWhiteX">تێکڕای نمرە بە سپی: %s</string>
+  <string name="averageScoreAsBlackX">تێکڕای نمرە بە ڕەش: %s</string>
+  <string name="knowingTheChessBoard">زانینی ناوی خانەکانی تەختەی شەتڕەنج کارامەیییەکی زۆر گرنگی شەترەنجە لەبەر چەند ھۆکارێک:</string>
+  <string name="mostChessCourses">زۆربەی خول و ڕاھێنانەکانی شەتڕەنج بە شێوەیەکی بەرفراوان نووسینی جەبری بەکاردەھێنن.</string>
+  <string name="talkToYourChessFriends">قسەکردن لەگەڵ هاوڕێی شەتڕەنجەکانت ئاسانتر دەکات، بەو پێیەی هەردووکتان لە \'زمانی شەتڕەنج\' تێدەگەن.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">دەتوانیت یارییەک بە شێوەیەکی باشتر شی بکەیتەوە ئەگەر بتوانیت بەخێرایی ناوی خانەکان بناسیتەوە.</string>
   <string name="aCoordinateAppears">ناوی خانەکە لەسەر بۆردەکە دەردەکەوێت و دەبێت کرتە لەسەر چوارگۆشەی گونجاو بکەیت.</string>
   <string name="aSquareIsHighlightedExplanation">چوارگۆشەیەک لەسەر بۆردەکە تیشکی خراوەتە سەر و دەبێت ناوی خانەکە داخڵ بکەیت (بۆ نموونە \"e4\").</string>
   <string name="youHaveThirtySeconds">30 چرکەت هەیە بۆ ئەوەی زۆرترین چوارگۆشە بە دروستی بزانیت!</string>

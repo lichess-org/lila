@@ -53,7 +53,7 @@
   <string name="strengths">Kekuatan</string>
   <string name="history">Sejarah teka-teki</string>
   <string name="solved">diselesaikan</string>
-  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">gagal</string>
+  <string name="failed">gagal</string>
   <string name="streakDescription">Selesaikan teka-teki yang lebih sukar dan membina rentak kemenangan. Tidak ada jam, jadi luangkan masa anda. Satu langkah yang salah, dan ia selesai! Tetapi anda boleh melangkau satu gerakan setiap sesi.</string>
   <string name="yourStreakX">Coretan anda: %s</string>
   <string name="streakSkipExplanation">Langkau langkah ini untuk mengekalkan rentak anda! Hanya berfungsi sekali dalam larian.</string>
@@ -61,11 +61,9 @@
   <string name="newStreak">Coretan baru</string>
   <string name="fromMyGames">Dari permainan saya</string>
   <string name="lookupOfPlayer">Mencari teka-teki dari permainan pemain</string>
-  <string name="fromXGames">Teka-teki dari permainan %s</string>
   <string name="searchPuzzles">Cari teka-teki</string>
   <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi Lichess masih sangat menyayangi anda.
 Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahkan teka-teki anda!</string>
-  <string name="fromXGamesFound">Teka-teki %1$s terdapat dalam permainan %2$s</string>
   <string name="puzzleDashboardDescription">Melatih, menganalisis, memperbaiki</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s dimainkan</item>

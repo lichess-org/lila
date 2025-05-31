@@ -115,8 +115,9 @@ final class JsonView(
         .add(
           "correspondenceEnds",
           a.corresEnds.map:
-            _.map: (score, povs) =>
-              Json.obj("score" -> score, "games" -> povs)
+            _.map { case (pk, (score, povs)) =>
+              pk.value -> Json.obj("score" -> score, "games" -> povs)
+            }
         )
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)

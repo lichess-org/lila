@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import { Chess } from 'chessops';
 
 function renderMaterialDiff(

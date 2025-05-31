@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Uniuse hai %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partidas</item>
@@ -530,7 +531,7 @@
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
-  <string name="oneUrlPerLine">Unha URL por liña.</string>
+  <string name="oneUrlPerLine">Un URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
   <string name="clearSavedMoves">Eliminar movementos</string>
@@ -969,7 +970,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="simulDescription">Descrición das simultáneas</string>
   <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
   <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
-  <string name="embedsAvailable">Pega unha ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
+  <string name="embedsAvailable">Pega a ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Sala de conversa do torneo</string>
   <string name="noChat">Sen sala de conversa</string>

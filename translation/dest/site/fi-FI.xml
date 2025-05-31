@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Ehdotettu ja hyväksytty tasapeli</string>
   <string name="fiftyMovesWithoutProgress">Viidenkymmenen siirron sääntö</string>
   <string name="currentGames">Meneillään olevat pelit</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Liittyi %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>

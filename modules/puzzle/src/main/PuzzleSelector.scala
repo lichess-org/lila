@@ -53,9 +53,9 @@ final class PuzzleSelector(
       .flatMap { session =>
         import NextPuzzleResult.*
 
-        def switchPath(withRetries: Int)(tier: PuzzleTier) =
+        def switchPath(reason: String)(withRetries: Int)(tier: PuzzleTier) =
           pathApi
-            .nextFor(angle, tier, session.settings.difficulty, session.previousPaths)
+            .nextFor(s"switchPath.$reason")(angle, tier, session.settings.difficulty, session.previousPaths)
             .orFail(s"No puzzle path for selection ${me.username} $angle $tier")
             .flatMap { pathId =>
               val newSession = session.switchTo(pathId)
@@ -71,9 +71,10 @@ final class PuzzleSelector(
           puzzle
 
         nextPuzzleResult(session).flatMap:
-          case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
-          case PathMissing => fufail(s"Puzzle path missing for ${me.username} $session")
-          case PathEnded   => fufail(s"Puzzle path ended for ${me.username} $session")
+          case PathMissing if retries < 10 => switchPath("missing")(retries)(session.path.tier)
+          case PathMissing                 => fufail(s"Puzzle path missing for ${me.username} $session")
+          case PathEnded if retries < 10   => switchPath("ended")(retries)(session.path.tier)
+          case PathEnded                   => fufail(s"Puzzle path ended for ${me.username} $session")
           case PuzzleMissing(id) =>
             logger.warn(s"Puzzle missing: $id")
             sessionApi.set(session.next)
@@ -82,12 +83,13 @@ final class PuzzleSelector(
             sessionApi.set(session.next)
             findNextPuzzleFor(angle, retries = retries + 1)
           case PuzzleAlreadyPlayed(puzzle) =>
-            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
+            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath("played")(retries))
           case WrongColor(_) if retries < 10 =>
             sessionApi.set(session.next)
             findNextPuzzleFor(angle, retries = retries + 1)
           case WrongColor(puzzle) =>
-            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
+            session.path.tier.stepDown
+              .fold(fuccess(serveAndMonitor(puzzle)))(switchPath("wrongColor")(retries - 5))
           case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
       }
 

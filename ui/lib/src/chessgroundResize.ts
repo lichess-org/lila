@@ -1,4 +1,4 @@
-import type { Elements } from 'chessground/types';
+import type { Elements } from '@lichess-org/chessground/types';
 import * as xhr from './xhr';
 import { debounce } from './async';
 import { ShowResizeHandle } from './prefs';

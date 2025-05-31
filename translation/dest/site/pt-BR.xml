@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -39,7 +39,7 @@
   <string name="whitePlays">Brancas jogam</string>
   <string name="blackPlays">Pretas jogam</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
+    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O seu oponente deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas atuais</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Registrou-se %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partidas</item>
@@ -678,7 +679,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificação de título</string>
+  <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>

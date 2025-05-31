@@ -9,7 +9,7 @@ import { getNow } from 'lib/puz/util';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
 import * as licon from 'lib/licon';
 import { onInsert, looseH as h } from 'lib/snabbdom';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 
 export default function (ctrl: StormCtrl): VNode {

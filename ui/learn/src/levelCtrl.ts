@@ -10,7 +10,7 @@ import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
 import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
 import { type Prop, prop } from 'lib';
-import type { DrawShape } from 'chessground/draw';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { makeAppleShape } from './apple';
 import { type WithGround } from 'lib/game/ground';
 

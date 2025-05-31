@@ -678,7 +678,7 @@
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Titel verifiëren</string>
+  <string name="titleVerification">Titel verifiëren</string>
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>

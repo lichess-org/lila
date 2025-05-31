@@ -48,11 +48,11 @@ Este valor pode ser empregado como un indicador da calidade do xogo. Cantos meno
 
 A análise por ordenador en Lichess é proporcionada por Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, táboas e material insuficiente</string>
-  <string name="lichessFollowFIDErules">No caso de que un xogador quede sen tempo, normalmente perderá a partida. Sen embargo, a partida considérase empate se a posición é tal que o opoñente non pode dar mate ao rei do xogador por calquera posible serie de movementos legais (%1$s).
+  <string name="lichessFollowFIDErules">No caso de que un xogador quedase sen tempo, normalmente perderá a partida. Porén, a partida remata en táboas se a posición é tal que o opoñente non pode dar mate por calquera posible serie de movementos legais (%1$s).
 
 En raras ocasións isto pode ser difícil de decidir automaticamente (liñas forzadas, fortalezas). Por defecto, sempre estamos de parte do xogador que non quedou sen tempo.
 
-Ten en conta que é posible dar mate cun só caballo ou alfil, sempre que o opoñente teña unha peza que poida bloquear ao rei.</string>
+Ten en conta que é posible dar mate cun só cabalo ou alfil, sempre que o rival teña unha peza que poida bloquear ao rei.</string>
   <string name="fideHandbook">Manual da FIDE</string>
   <string name="fideHandbookX">Manual da FIDE %s</string>
   <string name="discoveringEnPassant">Por que un peón pode capturar outro peón cando xa está pasado? (captura ao paso)</string>

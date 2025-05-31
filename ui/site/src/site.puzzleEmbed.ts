@@ -1,4 +1,4 @@
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { embedChessground } from './asset';
 
 // https://lichess.org/training/frame

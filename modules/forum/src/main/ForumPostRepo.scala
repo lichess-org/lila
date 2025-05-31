@@ -69,7 +69,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
-      .cursor[ForumPost](ReadPref.priTemp)
+      .cursor[ForumPost](ReadPref.sec)
 
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
@@ -116,10 +116,3 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
       multi = true
     )
-
-  private[forum] def nonGhostCursor(since: Option[Instant]): AkkaStreamCursor[ForumPostMini] =
-    val noGhost = $doc("userId".$ne(UserId.ghost))
-    val filter  = since.fold(noGhost)(instant => $and(noGhost, $doc("createdAt".$gt(instant))))
-    coll
-      .find(filter, miniProjection.some)
-      .cursor[ForumPostMini](ReadPref.priTemp)

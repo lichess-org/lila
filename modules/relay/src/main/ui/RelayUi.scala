@@ -29,7 +29,7 @@ final class RelayUi(helpers: Helpers)(
     Page(rt.fullName)
       .css("analyse.relay")
       .i18n(_.study, _.broadcast)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)

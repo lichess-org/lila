@@ -51,7 +51,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             explorerAndCevalConfig
         )
       .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
@@ -134,5 +134,13 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)
 
-    def analyseModule(mode: String, json: JsObject) =
+    def analyseModule(mode: "userAnalysis" | "replay", json: JsObject) =
       PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
+
+    val embedUserAnalysisBody = div(id := "main-wrap", cls := "is2d")(
+      main(cls := "analyse")(
+        div(cls := "analyse__board main-board")(chessgroundBoard),
+        div(cls := "analyse__tools"),
+        div(cls := "analyse__controls")
+      )
+    )

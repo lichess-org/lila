@@ -21,7 +21,8 @@
   <string name="asWhite">oqlar sifatida</string>
   <string name="asBlack">qoralar sifatida</string>
   <string name="randomColor">Tasodifiy tarafda</string>
-  <string name="createAGame">O\'yin yaratish</string>
+  <string name="createAGame">Oʻyin yarating</string>
+  <string name="createTheGame">Oʻyin yarating</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
   <string name="blackIsVictorious">Qoralar yutdi</string>
   <string name="youPlayTheWhitePieces">Siz oqlarda o\'ynaysiz</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Variantlarni koʻrsatish</string>
   <string name="forceVariation">Majburiy o\'zgartirish</string>
   <string name="copyVariationPgn">Variantning PGN ini nusxalash</string>
+  <string name="copyMainLinePgn">Asosiy yoʻnalishdagi PGN\'ni nusxalang</string>
   <string name="move">Yurish</string>
   <string name="variantLoss">Yo\'qotish varianti</string>
   <string name="variantWin">Yutuq varianti</string>
@@ -156,6 +158,7 @@
   <string name="flipBoard">Taxtani o\'girmoq</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
   <string name="claimADraw">Durrang talab qilmoq</string>
+  <string name="drawClaimed">Durrang qayd etildi</string>
   <string name="offerDraw">Durrang taklif qilish</string>
   <string name="draw">Durrang</string>
   <plurals name="nbPlayers">
@@ -347,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Sharhni ochish</string>
   <string name="takeback">Ortga yurish</string>
   <string name="proposeATakeback">Ortga qaytishni taklif qilish</string>
+  <string name="whiteProposesTakeback">Oqlar yurishni qaytarishni taklif qilmoqda</string>
+  <string name="blackProposesTakeback">Qoralar yurishni qaytarishni taklif qilmoqda</string>
   <string name="takebackPropositionSent">Ortga qaytish jo\'natildi</string>
+  <string name="whiteDeclinesTakeback">Oqlar yurishni qaytarishni rad etdi</string>
+  <string name="blackDeclinesTakeback">Qoralar yurishni qaytarishni rad etdi</string>
+  <string name="whiteAcceptsTakeback">Oqlar yurishni qaytarishga rozi boʻldi</string>
+  <string name="blackAcceptsTakeback">Qoralar yurishni qaytarishga rozi boʻldi</string>
+  <string name="whiteCancelsTakeback">Oqlar yurishni qaytarishdan voz kechdi</string>
+  <string name="blackCancelsTakeback">Qoralar yurishni qaytarishdan voz kechdi</string>
   <string name="yourOpponentProposesATakeback">Sizning sherigingiz ortga qaytishni taklif qilayabdi</string>
   <string name="bookmarkThisGame">Ushbu o\'yinni xatcho\'pga qo\'shish</string>
   <string name="tournament">Turnir</string>
@@ -482,6 +493,7 @@
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="createdBy">Yaratgan tomon</string>
+  <string name="startingIn" comment="Displayed above a timer">Boshlanishigacha</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Qayta boshlash</string>
@@ -666,6 +678,7 @@
   <string name="really">haqiqatda ham</string>
   <string name="contribute">Hissa qo‘shish</string>
   <string name="termsOfService">Xizmatlar terminlari</string>
+  <string name="titleVerification">Titulni tekshirish</string>
   <string name="sourceCode">Dastur kodi</string>
   <string name="simultaneousExhibitions">Sinxron ko\'rinishlar</string>
   <string name="host">Xost</string>
@@ -737,6 +750,9 @@
   <string name="checkYourEmail">Elektron pochtangizni tekshiring</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sizga emailingizga hat yubordik. Emailingizdagi linkni bosib akkountingizni faollashtiring.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
+  <string name="ifYouDoNotGetTheEmail">Agar 5 daqiqa ichida email olmasangiz:</string>
+  <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa email jildlarni tekshiring</string>
+  <string name="verifyYourAddress">%s sizning elektron pochta manzilingizligini tasdiqlang</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ga hat yubordik. Parolni qayta tiklash uchun emaildagi linkni bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
   <string name="readAboutOur">Biz haqimizda oʻqing: %s.</string>
@@ -745,6 +761,7 @@
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
   <string name="downloadRaw">Boricha yuklash</string>
   <string name="downloadImported">Import qilinganni yuklash</string>
+  <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
   <string name="crosstable">Doiraviy turnir</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Siz o\'yin davomida doska ustida sichqoncha yugurgichidan foydalanishingiz mumkin.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Kompyuter talqinlarini ko‘rib chiqish uchun skrolni yuqoriga harakatlantiring.</string>
@@ -781,6 +798,7 @@
   <string name="anonymous">Anonim holatda</string>
   <string name="yourScore">Sizning balingiz: %s</string>
   <string name="language">Til</string>
+  <string name="allLanguages">Barcha tillar</string>
   <string name="background">Orqa fon</string>
   <string name="light">Yorqin</string>
   <string name="dark">To\'q</string>
@@ -988,4 +1006,7 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
 Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
   <string name="nothingToSeeHere">Ayni paytda bu erda ko\'rish uchun hech narsa yo\'q.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility">Maxsus imkoniyatlar</string>
+  <string name="enableBlindMode">Koʻzi ojizlar uchun rejimni yoqing</string>
+  <string name="disableBlindMode">Koʻzi ojizlar uchun rejimni oʻchiring</string>
 </resources>

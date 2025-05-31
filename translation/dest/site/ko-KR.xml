@@ -22,6 +22,7 @@
   <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새로운 대국 만들기</string>
+  <string name="createTheGame">게임을 만들기</string>
   <string name="whiteIsVictorious">백 승리</string>
   <string name="blackIsVictorious">흑 승리</string>
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
@@ -73,6 +74,7 @@
   <string name="expandVariations">바리에이션 확장하기</string>
   <string name="forceVariation">바리에이션 강제하기</string>
   <string name="copyVariationPgn">바리에이션 PGN 복사</string>
+  <string name="copyMainLinePgn">주 라인 PGN 복사</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -148,6 +150,7 @@
   <string name="flipBoard">보드 돌리기</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
+  <string name="drawClaimed">무승부 처리됨</string>
   <string name="offerDraw">무승부 요청</string>
   <string name="draw">무승부</string>
   <plurals name="nbPlayers">
@@ -156,6 +159,7 @@
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
   <string name="fiftyMovesWithoutProgress">진전 없이 50수 소모</string>
   <string name="currentGames">진행 중인 대국들</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s 전에 가입함</string>
   <plurals name="nbGames">
     <item quantity="other">게임 %s개</item>
   </plurals>
@@ -323,7 +327,15 @@
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기 요청</string>
+  <string name="whiteProposesTakeback">백이 무르기를 요청함</string>
+  <string name="blackProposesTakeback">흑이 무르기를 요청함</string>
   <string name="takebackPropositionSent">무르기 요청 전송됨</string>
+  <string name="whiteDeclinesTakeback">백이 무르기를 거절하였습니다</string>
+  <string name="blackDeclinesTakeback">흑이 무르기를 거절하였습니다</string>
+  <string name="whiteAcceptsTakeback">백이 무르기를 승낙하였습니다</string>
+  <string name="blackAcceptsTakeback">흑이 무르기를 승낙하였습니다</string>
+  <string name="whiteCancelsTakeback">백이 무르기를 취소하였습니다</string>
+  <string name="blackCancelsTakeback">흑이 무르기를 취소하였습니다</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
   <string name="bookmarkThisGame">이 대국을 즐겨찾기에 추가하기</string>
   <string name="tournament">토너먼트</string>
@@ -446,6 +458,7 @@
   <string name="wins">승리</string>
   <string name="losses">패배</string>
   <string name="createdBy">토너먼트 주최자:</string>
+  <string name="startingIn" comment="Displayed above a timer">대회 시작까지</string>
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
   <string name="pause">일시 중지</string>
   <string name="resume">재개</string>
@@ -626,6 +639,7 @@
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
   <string name="termsOfService">이용 약관</string>
+  <string name="titleVerification">칭호 인증</string>
   <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">다면기</string>
   <string name="host">주최자</string>
@@ -696,6 +710,9 @@
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
+  <string name="ifYouDoNotGetTheEmail">만일 5분 이내에 이메일을 받지 않으신다면</string>
+  <string name="checkAllEmailFolders">모든 쓰레기통, 스팸 폴더 등을 확인하세요</string>
+  <string name="verifyYourAddress">%s이 자신의 이메일 주소가 맞는지 확인하세요</string>
   <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
   <string name="readAboutOur">%s를 읽어보세요.</string>
@@ -704,6 +721,7 @@
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
   <string name="downloadRaw">기보 다운로드</string>
   <string name="downloadImported">불러온 기보 다운로드</string>
+  <string name="downloadAllGames">모든 게임 다운로드</string>
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 돌림으로써 수를 진행할 수 있습니다.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">컴퓨터 변화수를 미리보기 위해서는 커서를 올리세요.</string>
@@ -739,6 +757,7 @@
   <string name="anonymous">익명 플레이어</string>
   <string name="yourScore">당신의 점수는 %s입니다.</string>
   <string name="language">언어</string>
+  <string name="allLanguages">모든 언어</string>
   <string name="background">배경</string>
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
@@ -913,7 +932,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
-  <string name="navigateMoveTree">수의 나무 탐색</string>
+  <string name="navigateMoveTree">수순 트리 탐색</string>
   <string name="mouseTricks">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
@@ -943,4 +962,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
+  <string name="accessibility">접근성</string>
+  <string name="enableBlindMode">시각장애 모드 활성화하기</string>
+  <string name="disableBlindMode">시각장애 모드 비활성화하기</string>
 </resources>

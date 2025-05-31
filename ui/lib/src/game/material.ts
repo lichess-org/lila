@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
 import { charToRole, ROLES, type Chess } from 'chessops';
 

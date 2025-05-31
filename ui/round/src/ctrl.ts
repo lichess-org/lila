@@ -27,7 +27,7 @@ import * as cevalSub from './cevalSub';
 import { init as keyboardInit } from './keyboard';
 import { PromotionCtrl, promote } from 'lib/game/promotion';
 import * as wakeLock from 'lib/wakeLock';
-import { opposite, uciToMove } from 'chessground/util';
+import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
 import type {

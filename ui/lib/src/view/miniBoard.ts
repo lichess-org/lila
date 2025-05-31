@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import * as domData from '@/data';
 import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
 import { uciToMove, fenColor } from '@/game/chess';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from '@/pubsub';
 import { wsSend } from '@/socket';
 

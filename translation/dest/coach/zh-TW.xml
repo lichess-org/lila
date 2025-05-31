@@ -24,4 +24,5 @@
   <string name="teachingMethod">教學方法</string>
   <string name="publicStudies">公開研究</string>
   <string name="youtubeVideos">在 Youtube 上的影片</string>
+  <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">Lichess 評分</string>
 </resources>

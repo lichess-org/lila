@@ -5,10 +5,10 @@ import type RoundController from './ctrl';
 import { h, type VNode } from 'snabbdom';
 import { plyStep } from './util';
 import type { RoundData } from './interfaces';
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,

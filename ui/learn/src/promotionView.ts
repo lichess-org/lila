@@ -2,7 +2,7 @@ import type { RunCtrl } from './run/runCtrl';
 import type { PromotionRole } from './util';
 import { h } from 'snabbdom';
 import { bind } from 'lib/snabbdom';
-import { opposite, key2pos } from 'chessground/util';
+import { opposite, key2pos } from '@lichess-org/chessground/util';
 
 const pieces: PromotionRole[] = ['queen', 'knight', 'rook', 'bishop'];
 

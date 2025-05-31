@@ -1,7 +1,6 @@
 import { type Chess, makeUci, type Move, parseUci } from 'chessops';
 import type { MoveArgs, MoveSource } from 'lib/bot/types';
 import type { Game } from '../game';
-import { toPgn } from '../chess';
 import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
 import { hashBoard } from 'lib/game/hash';
@@ -36,7 +35,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
 };
 
 const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {
-  const [pgn, chess] = toPgn(game);
+  const [pgn, chess] = game.toPgn();
   const ucis: Uci[] = [];
   const hashes: bigint[] = [];
   for (const node of pgn.moves.mainline()) {
