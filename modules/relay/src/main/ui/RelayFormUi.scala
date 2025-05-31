@@ -98,6 +98,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
       val newRoundNav = nav.copy(newRound = true)
+
       page(trb.newBroadcast.txt(), newRoundNav):
         frag(
           boxTop(
@@ -355,7 +356,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("rated"), raw("")): field =>
-                val withDefault = if nav.newRound then field.copy(value = "true".some) else field
+                val withDefault =
+                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
                 form3.checkbox(
                   withDefault,
                   labelContent = frag("Rated round"),
