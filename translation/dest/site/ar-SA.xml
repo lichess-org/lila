@@ -454,6 +454,8 @@
   <string name="blackDeclinesTakeback">الأسود يرفض الاسترجاع</string>
   <string name="whiteAcceptsTakeback">الأبيض يقبل الاسترجاع</string>
   <string name="blackAcceptsTakeback">الأسود يقبل الاسترجاع</string>
+  <string name="whiteCancelsTakeback">الأبيض يلغي الاسترجاع</string>
+  <string name="blackCancelsTakeback">الأسود يلغي الاسترجاع</string>
   <string name="yourOpponentProposesATakeback">خصمك يطلب تراجعا عن النقلة الأخيرة</string>
   <string name="bookmarkThisGame">أضف هذه المباراة للمفضلة</string>
   <string name="tournament">مسابقة</string>
