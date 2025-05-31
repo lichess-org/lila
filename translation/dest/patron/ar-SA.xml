@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">تبرع</string>
-  <string name="donateAsX">تبرع باسم%s</string>
+  <string name="donateAsX">تبرع بإسم %s</string>
   <string name="lichessPatron">راعي Lichess</string>
   <string name="freeAccount">حساب مجاني</string>
   <string name="becomePatron">كنّ راعياً في Lichess</string>
