@@ -97,7 +97,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
 
     def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
-      page(trb.newBroadcast.txt(), nav.copy(newRound = true)):
+      val newRoundNav = nav.copy(newRound = true)
+      page(trb.newBroadcast.txt(), newRoundNav):
         frag(
           boxTop(
             h1(
@@ -107,7 +108,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav)
+          inner(form, routes.RelayRound.create(nav.tour.id), newRoundNav)
         )
 
     def edit(
@@ -353,13 +354,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             toggle = nav.round.exists(_.customScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
-              form3.group(form("unrated"), raw(""))(
+              form3.group(form("rated"), raw("")): field =>
+                val withDefault = if nav.newRound then field.copy(value = "true".some) else field
                 form3.checkbox(
-                  _,
-                  labelContent = frag("Unrated round"),
-                  help = frag("Exclude this round when calculating players' rating changes").some
+                  withDefault,
+                  labelContent = frag("Rated round"),
+                  help = frag("Include this round when calculating players' rating changes").some
                 )
-              )
             ),
             Color.all.map: color =>
               form3.split:

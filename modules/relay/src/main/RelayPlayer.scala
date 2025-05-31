@@ -35,7 +35,7 @@ object RelayPlayer:
       opponent: StudyPlayer.WithFed,
       color: Color,
       points: Option[Outcome.GamePoints],
-      unrated: Boolean,
+      rated: RelayRound.Rated,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def playerPoints = points.map(_(color))
@@ -46,7 +46,7 @@ object RelayPlayer:
         case zero                => RelayRound.CustomPoints(zero.value)
 
     // only rate draws and victories, not exotic results
-    def isRated = unrated.not && points.exists(_.mapReduce(_.value)(_ + _) == 1)
+    def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
       pp <- playerPoints
       if isRated
@@ -162,7 +162,7 @@ private final class RelayPlayerApi(
                               opponent,
                               color,
                               tags.points,
-                              relayRound.unrated.isDefined,
+                              relayRound.rated,
                               relayRound.customScoring
                             )
                             players.updated(

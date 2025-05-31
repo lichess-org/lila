@@ -91,7 +91,7 @@ final class RelayRoundForm(using mode: Mode):
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
-      "unrated"       -> optional(boolean),
+      "rated"         -> optional(boolean.into[RelayRound.Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
@@ -167,7 +167,7 @@ object RelayRoundForm:
       delay = prev.flatMap(_.sync.delay),
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices),
-      unrated = prev.flatMap(_.unrated),
+      rated = prev.map(_.rated),
       customScoring = prev.flatMap(_.customScoring)
     )
 
@@ -236,7 +236,7 @@ object RelayRoundForm:
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None,
-      unrated: Option[Boolean] = None,
+      rated: Option[RelayRound.Rated] = None,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
@@ -262,8 +262,8 @@ object RelayRoundForm:
           case "new" => none
           case _     => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
-        unrated = unrated,
-        customScoring = customScoring.orElse(round.customScoring)
+        rated = rated | RelayRound.Rated.No,
+        customScoring = customScoring
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -290,7 +290,7 @@ object RelayRoundForm:
         startsAt = relayStartsAt,
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
-        unrated = unrated,
+        rated = rated | RelayRound.Rated.No,
         customScoring = customScoring
       )
 
@@ -329,6 +329,6 @@ object RelayRoundForm:
         onlyRound = round.sync.onlyRound.map(Sync.OnlyRound.toString),
         slices = round.sync.slices,
         delay = round.sync.delay,
-        unrated = round.unrated,
+        rated = round.rated.some,
         customScoring = round.customScoring
       )
