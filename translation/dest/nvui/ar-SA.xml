@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">الأحداث المميزة</string>
+  <string name="moveList" comment="List of the moves of the game">قائمة النقلات</string>
+  <string name="gameInfo">معلومات عن المباراة</string>
+  <string name="pieces">القطع</string>
+  <string name="gameStatus">حالة اللعبة</string>
+  <string name="lastMove">آخر نقلة</string>
+  <string name="inputForm" comment="Form to input moves and commands">نموذج الإدخال</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">الإجراءات</string>
+  <string name="yourClock">ساعتك</string>
+  <string name="opponentClock">ساعة الخصم</string>
+</resources>
