@@ -78,6 +78,7 @@
     @extend %flex-center-nowrap;
     text-transform: uppercase;
     padding: 0 0.7rem;
+    transform: translateY(1px);
   }
 
   .link-center {
