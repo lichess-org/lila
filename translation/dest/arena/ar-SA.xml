@@ -70,8 +70,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">أي فريق ستمثله في هذه المعركة؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">يجب أن تنضم إلى أحد هذه الفرق للمشاركة!</string>
   <string name="created">تم الإنشاء</string>
-  <string name="recentlyPlayed">لعب مؤخرًا</string>
-  <string name="bestResults">أفضل النتائج</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">لعب مؤخرًا</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">أفضل النتائج</string>
   <string name="tournamentStats">إحصائيات البطولة</string>
   <string name="rankAvgHelp">متوسط ​​الرتبة هو نسبة مئوية من رتبتك. الأقل أفضل.
 
@@ -86,4 +86,5 @@
   <string name="tournamentShields">درع البطولة</string>
   <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
   <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
+  <string name="tournamentPairingsAreNowClosed">انتهت منافسات البطولة.</string>
 </resources>
