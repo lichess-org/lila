@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">تسجيل الدخول كـ %s</string>
   <string name="welcome">مرحبا!</string>
   <string name="welcomeToLichess">مرحبًا بك في ليتشيس!</string>
   <string name="thisIsYourProfilePage">هذه هي صفحتك الشخصية.</string>
