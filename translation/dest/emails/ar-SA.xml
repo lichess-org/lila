@@ -15,6 +15,6 @@
  فلتستمتع، ولتجد قطعك دائماً طريقها إلى ملك خصمك!</string>
   <string name="logInToLichess">تسجيل الدخول إلى lichess.org، %s</string>
   <string name="common_orPaste">(النقر لا يعمل؟ جرب لصق الرابط في متصفحك!)</string>
-  <string name="common_note">هذا هو خدمة البريد الإلكتروني الخاص باستخدام %s.</string>
+  <string name="common_note">هذه خدمة بريدية إلكترونية متعلقة باستخدامك %s.</string>
   <string name="common_contact">للتواصل معنا, يرجى استعمال %s.</string>
 </resources>
