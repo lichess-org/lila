@@ -179,4 +179,5 @@
   <string name="customPositionTitle">사용자 지정 포지션</string>
   <string name="loadExistingLichessGameTitle">벌써 있는 lichess 게임 불러오기</string>
   <string name="loadExistingLichessGameText">챕터에 게임 수를 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
+  <string name="fromPgnGameTitle">PGN 게임에서</string>
 </resources>
