@@ -51,12 +51,18 @@ private object GameStream:
           "status"     -> g.status.id,
           "statusName" -> g.status.name,
           "players" -> JsObject(g.players.mapList: p =>
-            p.color.name -> Json
-              .obj(
-                "userId" -> p.userId,
-                "rating" -> p.rating
-              )
-              .add("provisional" -> p.provisional))
+            (p.userId, p.aiLevel) match
+              case (None, None) => p.color.name -> Json.toJson(UserName.anonymous)
+              case (None, Some(aiLevel)) =>
+                p.color.name -> Json
+                  .obj("ai" -> aiLevel)
+              case (Some(userId), _) =>
+                p.color.name -> Json
+                  .obj(
+                    "userId" -> userId,
+                    "rating" -> p.rating
+                  )
+                  .add("provisional", p.provisional))
         )
         .add("winner" -> g.winnerColor.map(_.name))
         .add("initialFen" -> initialFen)
