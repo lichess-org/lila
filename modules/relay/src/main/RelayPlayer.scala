@@ -39,15 +39,11 @@ object RelayPlayer:
       customScoring: Option[RelayRound.CustomScoring] = None
   ):
     def playerPoints = points.map(_(color))
-    def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap(cs =>
-      val points = playerPoints
-      (points, color) match
-        case (Some(p), Color.White) if p == Outcome.Points.One  => cs.wWin.some
-        case (Some(p), Color.Black) if p == Outcome.Points.One  => cs.bWin.some
-        case (Some(p), Color.White) if p == Outcome.Points.Half => cs.wDraw.some
-        case (Some(p), Color.Black) if p == Outcome.Points.Half => cs.bDraw.some
-        case _ => points.map(p => RelayRound.CustomPoints(p.value))
-    )
+    def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
+      playerPoints.map:
+        case Outcome.Points.One  => color.fold(cs.wWin, cs.bWin)
+        case Outcome.Points.Half => color.fold(cs.wDraw, cs.bDraw)
+        case points              => RelayRound.CustomPoints(points.value)
 
     // only rate draws and victories, not exotic results
     def isRated = unrated.not && points.exists(_.mapReduce(_.value)(_ + _) == 1)
