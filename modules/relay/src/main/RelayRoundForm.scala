@@ -1,6 +1,7 @@
 package lila.relay
 
 import io.mola.galimatias.URL
+import chess.ByColor
 import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
@@ -13,7 +14,8 @@ import lila.common.Form.{
   into,
   stringIn,
   LocalDateTimeOrTimestamp,
-  partial
+  partial,
+  byColor
 }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
@@ -60,17 +62,16 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
-    val customScoringMapping: Mapping[Option[RelayRound.CustomPoints]] = optional(
+    import RelayRound.{ CustomPoints, CustomScoring }
+    val customPointMapping: Mapping[CustomPoints] =
       bigDecimal(5, 2)
         .transform(
-          bd => RelayRound.CustomPoints(bd.setScale(2, BigDecimal.RoundingMode.HALF_DOWN).toFloat),
+          bd => CustomPoints(bd.setScale(2, BigDecimal.RoundingMode.HALF_DOWN).toFloat),
           p => BigDecimal.decimal(p.value.toDouble).setScale(2, BigDecimal.RoundingMode.HALF_DOWN)
         )
-        .verifying(
-          "Must be between 0 and 10",
-          p => p.value >= 0 && p.value <= 10
-        )
-    )
+        .verifying("Must be between 0 and 10", p => p.value >= 0 && p.value <= 10)
+    val customScoringMapping: Mapping[CustomScoring] =
+      mapping("win" -> customPointMapping, "draw" -> customPointMapping)(CustomScoring.apply)(unapply)
     mapping(
       "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"             -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -90,11 +91,8 @@ final class RelayRoundForm(using mode: Mode):
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
-      "unrated"             -> optional(boolean),
-      "customScoring.wWin"  -> customScoringMapping,
-      "customScoring.wDraw" -> customScoringMapping,
-      "customScoring.bWin"  -> customScoringMapping,
-      "customScoring.bDraw" -> customScoringMapping
+      "unrated"       -> optional(boolean),
+      "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -170,10 +168,7 @@ object RelayRoundForm:
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices),
       unrated = prev.flatMap(_.unrated),
-      customScoringwWin = prev.flatMap(_.customScoring.map(_.wWin)),
-      customScoringwDraw = prev.flatMap(_.customScoring.map(_.wDraw)),
-      customScoringbWin = prev.flatMap(_.customScoring.map(_.bWin)),
-      customScoringbDraw = prev.flatMap(_.customScoring.map(_.bDraw))
+      customScoring = prev.flatMap(_.customScoring)
     )
 
   case class GameIds(ids: List[GameId])
@@ -242,10 +237,7 @@ object RelayRoundForm:
       onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None,
       unrated: Option[Boolean] = None,
-      customScoringwWin: Option[RelayRound.CustomPoints] = None,
-      customScoringwDraw: Option[RelayRound.CustomPoints] = None,
-      customScoringbWin: Option[RelayRound.CustomPoints] = None,
-      customScoringbDraw: Option[RelayRound.CustomPoints] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None          => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
@@ -271,12 +263,7 @@ object RelayRoundForm:
           case _     => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
         unrated = unrated,
-        customScoring = makeCustomScoring(
-          customScoringwWin.orElse(round.customScoring.map(_.wWin)),
-          customScoringwDraw.orElse(round.customScoring.map(_.wDraw)),
-          customScoringbWin.orElse(round.customScoring.map(_.bWin)),
-          customScoringbDraw.orElse(round.customScoring.map(_.bDraw))
-        )
+        customScoring = customScoring.orElse(round.customScoring)
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -291,23 +278,6 @@ object RelayRoundForm:
         log = SyncLog.empty
       )
 
-    private def makeCustomScoring(
-        wwin: Option[RelayRound.CustomPoints],
-        wdraw: Option[RelayRound.CustomPoints],
-        bwin: Option[RelayRound.CustomPoints],
-        bdraw: Option[RelayRound.CustomPoints]
-    ): Option[RelayRound.CustomScoring] =
-      List(wwin, wdraw, bwin, bdraw)
-        .exists(_.isDefined)
-        .option:
-          val default = RelayRound.CustomScoring.withDefaults
-          RelayRound.CustomScoring(
-            wWin = wwin | default.wWin,
-            wDraw = wdraw | default.wDraw,
-            bWin = bwin | default.bWin,
-            bDraw = bdraw | default.bDraw
-          )
-
     def make(tour: RelayTour)(using Me) =
       RelayRound(
         id = RelayRound.makeId,
@@ -321,8 +291,7 @@ object RelayRoundForm:
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
         unrated = unrated,
-        customScoring =
-          makeCustomScoring(customScoringwWin, customScoringwDraw, customScoringbWin, customScoringbDraw)
+        customScoring = customScoring
       )
 
   object Data:
@@ -361,8 +330,5 @@ object RelayRoundForm:
         slices = round.sync.slices,
         delay = round.sync.delay,
         unrated = round.unrated,
-        customScoringwWin = round.customScoring.map(_.wWin),
-        customScoringwDraw = round.customScoring.map(_.wDraw),
-        customScoringbWin = round.customScoring.map(_.bWin),
-        customScoringbDraw = round.customScoring.map(_.bDraw)
+        customScoring = round.customScoring
       )

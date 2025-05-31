@@ -36,14 +36,14 @@ object RelayPlayer:
       color: Color,
       points: Option[Outcome.GamePoints],
       unrated: Boolean,
-      customScoring: Option[RelayRound.CustomScoring] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def playerPoints = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
       playerPoints.map:
-        case Outcome.Points.One  => color.fold(cs.wWin, cs.bWin)
-        case Outcome.Points.Half => color.fold(cs.wDraw, cs.bDraw)
-        case points              => RelayRound.CustomPoints(points.value)
+        case Outcome.Points.One  => cs(color).win
+        case Outcome.Points.Half => cs(color).draw
+        case zero                => RelayRound.CustomPoints(zero.value)
 
     // only rate draws and victories, not exotic results
     def isRated = unrated.not && points.exists(_.mapReduce(_.value)(_ + _) == 1)
@@ -54,11 +54,11 @@ object RelayPlayer:
     yield Elo.Game(pp, opRating.into(Elo))
 
   object json:
-    given Writes[Outcome]                  = Json.writes
-    given Writes[Outcome.Points]           = writeAs(_.show)
-    given Writes[Outcome.GamePoints]       = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[RelayRound.CustomScoring] = Json.writes
-    given Writes[RelayPlayer.Game]         = Json.writes
+    import JsonView.given
+    given Writes[Outcome]            = Json.writes
+    given Writes[Outcome.Points]     = writeAs(_.show)
+    given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
+    given Writes[RelayPlayer.Game]   = Json.writes
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
@@ -83,9 +83,7 @@ object RelayPlayer:
             "opponent" -> g.opponent,
             "color"    -> g.color
           )
-          .add(
-            "points" -> g.playerPoints
-          )
+          .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)
           .add("ratingDiff" -> rd)
       Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)

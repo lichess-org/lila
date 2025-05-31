@@ -4,6 +4,7 @@ import io.mola.galimatias.URL
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
+import chess.ByColor
 
 import lila.study.Study
 
@@ -25,7 +26,7 @@ case class RelayRound(
     crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
     unrated: Option[Boolean] = None,
-    customScoring: Option[RelayRound.CustomScoring] = none
+    customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
 ):
   inline def studyId = id.into(StudyId)
 
@@ -89,16 +90,7 @@ object RelayRound:
   opaque type CustomPoints = Float
   object CustomPoints extends OpaqueFloat[CustomPoints]
 
-  case class CustomScoring(wWin: CustomPoints, wDraw: CustomPoints, bWin: CustomPoints, bDraw: CustomPoints)
-
-  object CustomScoring:
-    def withDefaults =
-      CustomScoring(
-        wWin = 1f,
-        wDraw = 0.5f,
-        bWin = 1f,
-        bDraw = 0.5f
-      )
+  case class CustomScoring(win: CustomPoints, draw: CustomPoints)
 
   enum Starts:
     case At(at: Instant)

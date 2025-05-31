@@ -350,7 +350,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
-            toggle = nav.round.exists(r => r.customScoring.isDefined).some
+            toggle = nav.round.exists(_.customScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("unrated"), raw(""))(
@@ -363,10 +363,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             ),
             Color.all.map: color =>
               form3.split:
-                List("Win", "Draw").map: result =>
+                List("win", "draw").map: result =>
                   form3.group(
-                    form(s"customScoring.${color.name.head.toLower}${result}"),
-                    raw(s"Points for a ${result.toLowerCase} as ${color.name}")
+                    form("customScoring")(color.name)(result),
+                    raw(s"Points for a $result as ${color.name}")
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )

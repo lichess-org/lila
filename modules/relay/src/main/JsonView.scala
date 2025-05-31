@@ -166,13 +166,7 @@ object JsonView:
 
   given OWrites[SyncLog.Event] = Json.writes
 
-  given OWrites[RelayRound.CustomScoring] = OWrites: cs =>
-    Json.obj(
-      "wWin"  -> cs.wWin,
-      "wDraw" -> cs.wDraw,
-      "bWin"  -> cs.bWin,
-      "bDraw" -> cs.bDraw
-    )
+  given OWrites[RelayRound.CustomScoring] = Json.writes
 
   given OWrites[RelayRound] = OWrites: r =>
     Json

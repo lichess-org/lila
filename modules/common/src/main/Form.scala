@@ -287,6 +287,11 @@ object Form:
       )
     val field = of[FideId]
 
+  object byColor:
+    import chess.ByColor
+    def mappingOf[A](a: Mapping[A]): Mapping[ByColor[A]] =
+      mapping("white" -> a, "black" -> a)(ByColor.apply)(unapply)
+
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
