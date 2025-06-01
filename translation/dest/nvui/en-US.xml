@@ -10,4 +10,13 @@
   <string name="actions">Actions</string>
   <string name="yourClock">Your clock</string>
   <string name="opponentClock">Opponent clock</string>
+  <string name="gameStart">Game start</string>
+  <string name="announceCurrentSquare">Announce current square.</string>
+  <string name="announceLastMove">Announce last move.</string>
+  <string name="announceLastMoveCapture">Announce piece captured in last move.</string>
+  <string name="announcePossibleMoves">Announce possible moves for the selected piece.</string>
+  <string name="announcePossibleCaptures">Announce possible captures with selected piece.</string>
+  <string name="moveWithArrows">Move to adjacent square left, right, up or down.</string>
+  <string name="moveToRank">Move to rank 1-8.</string>
+  <string name="moveToFile">Move to file a-h.</string>
 </resources>
