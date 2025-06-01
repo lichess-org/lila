@@ -10,4 +10,15 @@
   <string name="actions">Handlinger</string>
   <string name="yourClock">Dit ur</string>
   <string name="opponentClock">Modstanders ur</string>
+  <string name="gameStart">Parti start</string>
+  <string name="boardCommandList">Kommandoliste når brættet har fokus</string>
+  <string name="announceCurrentSquare">Annoncer aktuelt felt.</string>
+  <string name="announceLastMove">Annoncer seneste træk.</string>
+  <string name="announceLastMoveCapture">Annoncer brik taget i seneste træk.</string>
+  <string name="announcePossibleMoves">Annoncer mulige træk for den valgte brik.</string>
+  <string name="announcePossibleCaptures">Annoncer muligheder for at tage med den valgte brik.</string>
+  <string name="moveWithArrows">Flyt til tilstødende felt til venstre, højre, op eller ned.</string>
+  <string name="moveToPieceByType">Flyt til en brik ved at skrive dens type. Brug store bogstaver for at vende rækkefølge.</string>
+  <string name="moveToRank">Flyt til række 1-8.</string>
+  <string name="moveToFile">Flyt til linje a-h.</string>
 </resources>
