@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList" comment="List of the moves of the game">수 목록</string>
+  <string name="gameInfo">게임 정보</string>
+  <string name="pieces">기물</string>
+  <string name="gameStatus">게임 상태</string>
+  <string name="lastMove">마지막 수</string>
+  <string name="inputForm" comment="Form to input moves and commands">입력 폼</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">액션들</string>
+  <string name="yourClock">내 시계</string>
+  <string name="opponentClock">상대 시계</string>
+</resources>
