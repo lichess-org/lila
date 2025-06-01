@@ -59,14 +59,14 @@
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
   <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
-  <string name="usingServerAnalysis">Анализа помоћу сервера</string>
+  <string name="usingServerAnalysis">Користи се серверска анализа</string>
   <string name="loadingEngine">Рачунар се учитава...</string>
   <string name="calculatingMoves">Израчунавам потезе...</string>
   <string name="engineFailed">Грешка при учитавању машине</string>
   <string name="cloudAnalysis">Анализа у облаку</string>
   <string name="goDeeper">Иди дубље</string>
-  <string name="showThreat">Прикажи претњу</string>
-  <string name="inLocalBrowser">у локалном прегледачу</string>
+  <string name="showThreat">Покажи претњу</string>
+  <string name="inLocalBrowser">у локалном претраживачу</string>
   <string name="toggleLocalEvaluation">Укључи/искључи локалну процену</string>
   <string name="promoteVariation">Промовишите варијацију</string>
   <string name="makeMainLine">Направи као главну линију</string>
