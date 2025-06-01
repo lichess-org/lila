@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">Sự kiện nổi bật</string>
-  <string name="moveList" comment="List of the moves of the game">Danh sách nước cờ</string>
+  <string name="moveList">Danh sách nước cờ</string>
   <string name="gameInfo">Thông tin ván cờ</string>
   <string name="pieces">Quân cờ</string>
   <string name="gameStatus">Trạng thái ván cờ</string>
   <string name="lastMove">Nước đi cuối cùng</string>
-  <string name="inputForm" comment="Form to input moves and commands">Ô nhập</string>
-  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Hành động</string>
+  <string name="inputForm">Ô nhập</string>
+  <string name="actions">Hành động</string>
   <string name="yourClock">Đồng hồ của bạn</string>
   <string name="opponentClock">Đồng hồ đối thủ</string>
 </resources>
