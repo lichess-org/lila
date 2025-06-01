@@ -10,4 +10,5 @@
   <string name="actions">الإجراءات</string>
   <string name="yourClock">ساعتك</string>
   <string name="opponentClock">ساعة الخصم</string>
+  <string name="gameStart">ب</string>
 </resources>
