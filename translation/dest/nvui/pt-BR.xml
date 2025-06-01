@@ -10,4 +10,13 @@
   <string name="actions">Ações</string>
   <string name="yourClock">Seu relógio</string>
   <string name="opponentClock">Relógio do oponente</string>
+  <string name="gameStart">Começo do jogo</string>
+  <string name="boardCommandList">Lista de comandos ao selecionar o tabuleiro</string>
+  <string name="goToInputForm">Ir ao formulário de entrada de comandos e jogadas.</string>
+  <string name="announceCurrentSquare">Anunciar casa atual.</string>
+  <string name="announceLastMove">Anunciar última jogada.</string>
+  <string name="announceLastMoveCapture">Anunciar peça tomada na última jogada.</string>
+  <string name="announcePossibleMoves">Anunciar possíveis jogadas da peça selecionada.</string>
+  <string name="announcePossibleCaptures">Anunciar possíveis capturas com a peça selecionada.</string>
+  <string name="moveWithArrows">Mover à casa adjacente à esquerda, direita, para cima ou para baixo.</string>
 </resources>
