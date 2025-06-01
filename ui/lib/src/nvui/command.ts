@@ -31,7 +31,7 @@ function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A
 }
 
 export const boardCommands = (): VNode[] => [
-  h('h2', `${i18n.nvui.boardCommandList}`),
+  h('h2', i18n.nvui.boardCommandList),
   h('p', [
     `i: ${i18n.nvui.goToInputForm}`,
     ...[
@@ -44,9 +44,9 @@ export const boardCommands = (): VNode[] => [
       `arrow keys: ${i18n.nvui.moveWithArrows}`,
       `k-q-r-b-n-p: ${i18n.nvui.moveToPieceByType}`,
       `1-8: ${i18n.nvui.moveToRank}`,
-      `Shift+1-8: ${i18n.nvui.moveToFile}`,
-      `Shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
-      `Alt+Shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
+      `shift+1-8: ${i18n.nvui.moveToFile}`,
+      `shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
+      `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
     ].reduce(addBreaks, []),
   ]),
 ];
