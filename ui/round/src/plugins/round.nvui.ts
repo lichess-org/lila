@@ -336,7 +336,7 @@ const inputCommands: InputCommand[] = [
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+          `Bad input: ${input}. Expected format: ${commands.piece.help}`,
       ),
   },
   {
@@ -345,7 +345,7 @@ const inputCommands: InputCommand[] = [
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+          `Bad input: ${input}. Expected format: ${commands.scan.help}`,
       ),
   },
   {
