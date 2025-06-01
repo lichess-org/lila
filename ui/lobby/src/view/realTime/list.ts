@@ -27,7 +27,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       hook.rating
         ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : i18n.site.anonymous,
-      hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
+      ...(hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : []),
       hook.clock,
       h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
     ]),
@@ -74,14 +74,16 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        h(
-          'th',
-          {
-            class: { sortable: true, sort: ctrl.sort === 'rating' },
-            hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-          },
-          [h('i.is'), i18n.site.rating],
-        ),
+        ctrl.opts.showRatings && hooks.some(h => h.rating)
+          ? h(
+              'th',
+              {
+                class: { sortable: true, sort: ctrl.sort === 'rating' },
+                hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+              },
+              [h('i.is'), i18n.site.rating],
+            )
+          : null,
         h(
           'th',
           {
