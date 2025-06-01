@@ -6,8 +6,20 @@
   <string name="pieces">Фигуры</string>
   <string name="gameStatus">Статус игры</string>
   <string name="lastMove">Последний ход</string>
-  <string name="inputForm">Форма ввода</string>
+  <string name="inputForm">Форма ввода ходов и команд</string>
   <string name="actions">Действия</string>
   <string name="yourClock">Ваши часы</string>
   <string name="opponentClock">Часы противника</string>
+  <string name="gameStart">Начало игры</string>
+  <string name="boardCommandList">Список команд, когда на фокус на доске</string>
+  <string name="goToInputForm">Перейдите в форму ходов и команд.</string>
+  <string name="announceCurrentSquare">Назвать текущее поле.</string>
+  <string name="announceLastMove">Назвать последний ход.</string>
+  <string name="announceLastMoveCapture">Назвать фигуру, взятую на последнем ходу.</string>
+  <string name="announcePossibleMoves">Назвать возможные ходы для выбранной фигуры.</string>
+  <string name="announcePossibleCaptures">Назвать возможные взятия выбранной фигурой.</string>
+  <string name="moveWithArrows">Пойти на смежное поле влево, вправо, вверх или вниз.</string>
+  <string name="moveToPieceByType">Перейти к фигуре, введя её тип. Верхний регистр меняет порядок.</string>
+  <string name="moveToRank">Перейти на горизонталь 1–8.</string>
+  <string name="moveToFile">Перейти на вертикаль a–h.</string>
 </resources>
