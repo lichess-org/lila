@@ -82,3 +82,5 @@ f617815e0a3a2d96de9aca3a04d589c78cbd14e8
 
 # reorganize ui folder structure with ui/lib
 cbccd3b23a3ff97e7aaa8e3e4904aa4c521f0103
+# Scala Steward: Reformat with scalafmt 3.9.7
+84aa22bcd511a9eea369c3d6e0ee0d6c975076ca
