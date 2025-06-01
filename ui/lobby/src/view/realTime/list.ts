@@ -7,7 +7,7 @@ import perfIcons from 'lib/game/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import type { Hook } from '../../interfaces';
 
-function renderHook(ctrl: LobbyController, hook: Hook) {
+function renderHook(hook: Hook, includeRatingTag: boolean) {
   return h(
     'tr.hook.' + hook.action,
     {
@@ -27,7 +27,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       hook.rating
         ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : i18n.site.anonymous,
-      ...(hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : []),
+      ...(includeRatingTag ? [hook.rating + (hook.prov ? '?' : '')] : []),
       hook.clock,
       h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
     ]),
@@ -51,7 +51,8 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
   const mine = allHooks.find(isMine),
     max = mine ? 13 : 14,
     hooks = allHooks.slice(0, max),
-    render = (hook: Hook) => renderHook(ctrl, hook),
+    showRatings = ctrl.opts.showRatings && hooks.some(h => h.rating),
+    render = (hook: Hook) => renderHook(hook, showRatings),
     standards = hooks.filter(isNotMine).filter(isStandard(true));
   hookRepo.sort(ctrl, standards);
   const variants = hooks
@@ -74,10 +75,11 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        ctrl.opts.showRatings && hooks.some(h => h.rating)
+        showRatings
           ? h(
               'th',
               {
+                key: 'rating-header',
                 class: { sortable: true, sort: ctrl.sort === 'rating' },
                 hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
               },
