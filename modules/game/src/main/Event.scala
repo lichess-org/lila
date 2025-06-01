@@ -81,7 +81,7 @@ object Event:
       possibleDrops: Option[List[Square]],
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
-    def typ = "move"
+    def typ  = "move"
     def data = MoveOrDrop.data(
       fen,
       check,
@@ -141,7 +141,7 @@ object Event:
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Square]]
   ) extends Event:
-    def typ = "drop"
+    def typ  = "drop"
     def data =
       MoveOrDrop.data(fen, check, threefold, false, state, clock, possibleMoves, possibleDrops, crazyData):
         Json.obj(
@@ -192,7 +192,7 @@ object Event:
           case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key).mkString))
 
   case class Enpassant(pos: Square, color: Color) extends Event:
-    def typ = "enpassant"
+    def typ  = "enpassant"
     def data =
       Json.obj(
         "key"   -> pos.key,
@@ -200,7 +200,7 @@ object Event:
       )
 
   case class Castling(castle: ChessMove.Castle, color: Color) extends Event:
-    def typ = "castling"
+    def typ  = "castling"
     def data =
       import castle.*
       Json.obj(
@@ -214,7 +214,7 @@ object Event:
       id: GameFullId,
       cookie: Option[JsObject]
   ) extends Event:
-    def typ = "redirect"
+    def typ  = "redirect"
     def data =
       Json
         .obj(
@@ -225,7 +225,7 @@ object Event:
     override def only = Some(color)
 
   case class Promotion(role: PromotableRole, pos: Square) extends Event:
-    def typ = "promotion"
+    def typ  = "promotion"
     def data =
       Json.obj(
         "key"        -> pos.key,
@@ -243,7 +243,7 @@ object Event:
     override def owner   = !w
 
   case class EndData(game: Game, ratingDiff: Option[chess.ByColor[IntRatingDiff]]) extends Event:
-    def typ = "endData"
+    def typ  = "endData"
     def data =
       Json
         .obj(
@@ -286,7 +286,7 @@ object Event:
     def data = reloadOr("drawOffer", by)
 
   case class ClockInc(color: Color, time: Centis, newClock: ChessClock) extends Event:
-    def typ = "clockInc"
+    def typ  = "clockInc"
     def data =
       Json.obj(
         "color" -> color,
@@ -297,7 +297,7 @@ object Event:
   sealed trait ClockEvent extends Event
 
   case class Clock(white: Centis, black: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent:
-    def typ = "clock"
+    def typ  = "clock"
     def data =
       Json
         .obj(
@@ -325,7 +325,7 @@ object Event:
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
 
   case class CheckCount(white: Int, black: Int) extends Event:
-    def typ = "checkCount"
+    def typ  = "checkCount"
     def data =
       Json.obj(
         "white" -> white,
@@ -339,7 +339,7 @@ object Event:
       whiteOffersDraw: Boolean,
       blackOffersDraw: Boolean
   ) extends Event:
-    def typ = "state"
+    def typ  = "state"
     def data =
       Json
         .obj(
@@ -355,7 +355,7 @@ object Event:
       white: Boolean,
       black: Boolean
   ) extends Event:
-    def typ = "takebackOffers"
+    def typ  = "takebackOffers"
     def data =
       Json
         .obj()
@@ -368,7 +368,7 @@ object Event:
       black: Boolean,
       watchers: Option[JsValue]
   ) extends Event:
-    def typ = "crowd"
+    def typ  = "crowd"
     def data =
       Json
         .obj(

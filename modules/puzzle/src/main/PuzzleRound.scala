@@ -20,7 +20,7 @@ case class PuzzleRound(
         vote match
           case None                      => themes.filter(_.theme != theme).some
           case Some(v) if v == prev.vote => none
-          case Some(v) =>
+          case Some(v)                   =>
             themes.map {
               case t if t.theme == theme => t.copy(vote = v)
               case t                     => t

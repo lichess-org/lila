@@ -12,7 +12,7 @@ final class JsBot(env: Env) extends LilaController(env):
   def index = Secure(_.Beta) { _ ?=> _ ?=>
     for
       bots <- env.jsBot.repo.getLatestBots()
-      res <- negotiate(
+      res  <- negotiate(
         html =
           for page <- renderPage(views.jsBot.play(bots, prefJson))
           yield Ok(page).withServiceWorker,
@@ -76,7 +76,7 @@ final class JsBot(env: Env) extends LilaController(env):
               .storeAsset(tpe, key, file)
               .flatMap:
                 case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(_) =>
+                case Right(_)    =>
                   for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
                   yield JsonOk(Json.obj("key" -> key, "name" -> name))
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))

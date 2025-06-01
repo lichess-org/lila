@@ -50,7 +50,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case "image/png"  => "png"
           case "image/jpeg" => "jpg"
         .match
-          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
+          case None            => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
               id = ImageId(s"$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
@@ -77,7 +77,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    val sizePx = Left(800)
+    val sizePx                                                                 = Left(800)
     def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
       uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
         .map(pic => url.resize(pic.id, sizePx).some)
@@ -92,7 +92,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         )
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
-          case _ =>
+          case _                        =>
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
             // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
@@ -177,7 +177,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
   private object signQueryString:
-    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
+    private val signer                              = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10.minutes)

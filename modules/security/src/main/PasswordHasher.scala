@@ -46,7 +46,7 @@ final class PasswordHasher(
 )(using Executor, lila.core.config.RateLimit):
   import org.mindrot.BCrypt
 
-  private val aes = new Aes(secret)
+  private val aes                                        = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 

@@ -50,7 +50,7 @@ object HTTPRequest:
   def isLichessMobile(ua: UserAgent): Boolean      = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
   def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value.contains("Lichobile/"))
-  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
+  def isLichobileDev(req: RequestHeader)           = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
@@ -112,11 +112,11 @@ object HTTPRequest:
   def startsWithLichobileAccepts(a: String)       = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
-  def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
+  def acceptsJson(req: RequestHeader)             = accepts(req).exists: a =>
     a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
-  def isProgrammatic(req: RequestHeader) =
+  def isProgrammatic(req: RequestHeader)         =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) ||
       accepts(req).exists(startsWithLichobileAccepts)
 
@@ -130,12 +130,12 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _                                => none
 
-  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
-  private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
+  private def isDataDump(req: RequestHeader)   = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader)     = req.path.startsWith("/appeal")
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
+  private def isStudyExport(req: RequestHeader)  = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
   private def isAccountClose(req: RequestHeader) =
     req.path == "/account/close" || req.path == "/account/delete"
 

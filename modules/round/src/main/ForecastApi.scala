@@ -65,7 +65,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
     pov.game.forecastable
       .so(coll.byId[Forecast](pov.fullId))
       .flatMap:
-        case None => fuccess(none)
+        case None     => fuccess(none)
         case Some(fc) =>
           if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov).inject(none)
           else fuccess(fc.some)

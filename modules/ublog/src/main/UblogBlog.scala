@@ -22,7 +22,7 @@ object UblogBlog:
   enum Id(val full: String):
     case User(id: UserId) extends Id(s"user${Id.sep}$id")
   object Id:
-    private val sep = ':'
+    private val sep                     = ':'
     def apply(full: String): Option[Id] = full.split(sep) match
       case Array("user", id) => User(UserId(id)).some
       case _                 => none

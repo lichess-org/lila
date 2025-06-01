@@ -65,7 +65,7 @@ final class LeaderboardApi(
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
     entries <- repo.coll.list[Entry]($doc("u" -> userId, "d".$gt(since)))
-    _ <- entries.nonEmpty.so:
+    _       <- entries.nonEmpty.so:
       repo.coll.delete.one($inIds(entries.map(_.id))).void
   yield entries.map(_.tourId)
 
@@ -127,8 +127,8 @@ final class LeaderboardApi(
       currentPage = page,
       maxPerPage = maxPerPage,
       adapter = new AdapterLike[TourEntry]:
-        private val selector   = $doc("u" -> user.id)
-        def nbResults: Fu[Int] = repo.coll.countSel(selector)
+        private val selector                                    = $doc("u" -> user.id)
+        def nbResults: Fu[Int]                                  = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
             .aggregateList(length, _.sec): framework =>

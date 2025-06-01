@@ -119,7 +119,7 @@ final class PlayApi(env: Env) extends LilaController(env):
 
   // utils
 
-  private def toResult(f: Funit): Fu[Result] = catchClientError(f.inject(jsonOkResult))
+  private def toResult(f: Funit): Fu[Result]              = catchClientError(f.inject(jsonOkResult))
   private def catchClientError(f: Fu[Result]): Fu[Result] =
     f.recover { case e: lila.core.round.BenignError =>
       BadRequest(jsonError(e.getMessage))

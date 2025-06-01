@@ -132,7 +132,7 @@ trait PrefHelper:
 
   def translatedStudyInviteChoices(using Translate) = privacyBaseChoices
   def translatedPalantirChoices(using Translate)    = privacyBaseChoices
-  private def privacyBaseChoices(using Translate) =
+  private def privacyBaseChoices(using Translate)   =
     List(
       (lila.core.pref.StudyInvite.NEVER, trans.site.never.txt()),
       (lila.core.pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),

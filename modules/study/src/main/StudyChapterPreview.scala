@@ -43,7 +43,7 @@ final class ChapterPreviewApi(
   object jsonList:
     // Can't be higher without skewing the clocks
     // because of Preview.secondsSinceLastMove
-    private val cacheDuration = 1.second
+    private val cacheDuration            = 1.second
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, AsJsons](32, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>

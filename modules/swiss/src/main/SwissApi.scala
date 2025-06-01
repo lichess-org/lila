@@ -557,7 +557,7 @@ final class SwissApi(
                 else
                   for
                     next <- director.startRound(swiss)
-                    _ <- next match
+                    _    <- next match
                       case None =>
                         systemChat(swiss.id, "All possible pairings were played.")
                         doFinish(swiss)
@@ -703,7 +703,7 @@ final class SwissApi(
     players <- mongo.player.list[SwissPlayer]($inIds(playerIds), _.sec)
     // here we use a single ghost ID for all swiss players and pairings,
     // because the mapping of swiss player to swiss pairings must be preserved
-    ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
+    ghostId    = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
     newPlayers = players.map: p =>
       p.copy(id = SwissPlayer.makeId(p.swissId, ghostId), userId = ghostId)
     _ <- mongo.player.delete.one($inIds(playerIds))

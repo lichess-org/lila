@@ -63,7 +63,7 @@ final class ReportApi(
             )
           report = Report.make(scored, prev)
           _      = lila.mon.mod.report.create(report.room.key, scored.score.value.toInt).increment()
-          _ = if report.isRecentComm &&
+          _      = if report.isRecentComm &&
             report.score.value >= thresholds.discord() &&
             prev.exists(_.score.value < thresholds.discord())
           then ircApi.commReportBurst(c.suspect.user.light)
@@ -280,7 +280,7 @@ final class ReportApi(
   def process(report: Report)(using Me): Funit = for
     _             <- accuracy.invalidate($id(report.id))
     deletedAppeal <- deleteIfAppealInquiry(report)
-    _ <- (!deletedAppeal).so:
+    _             <- (!deletedAppeal).so:
       doProcessReport($id(report.id), unsetInquiry = true)
   yield onReportClose()
 
@@ -528,7 +528,7 @@ final class ReportApi(
 
   def deleteAllBy(u: User) = for
     reports <- coll.list[Report]($doc("atoms.by" -> u.id), 500)
-    _ <- reports.traverse: r =>
+    _       <- reports.traverse: r =>
       val newAtoms = r.atoms.map: a =>
         if a.by.is(u)
         then a.copy(by = UserId.ghost.into(ReporterId))
@@ -597,7 +597,7 @@ final class ReportApi(
           case anyId: String  => coll.byId[Report](anyId).orElse(findByUser(UserId(anyId)))
         current <- ofModId(mod.userId)
         _       <- current.ifFalse(onlyOpen).so(cancel)
-        _ <-
+        _       <-
           report.so: r =>
             r.inquiry.isEmpty.so(
               coll

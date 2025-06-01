@@ -103,7 +103,7 @@ object Streamer:
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl  = s"youtube.com/channel/$channelId/live"
   object YouTube:
-    private val ChannelIdRegex = """^([\w-]{24})$""".r
+    private val ChannelIdRegex                      = """^([\w-]{24})$""".r
     def parseChannelId(str: String): Option[String] =
       str match
         case ChannelIdRegex(c) => c.some

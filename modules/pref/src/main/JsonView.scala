@@ -33,7 +33,7 @@ object JsonView:
       "replay"        -> p.replay,
       "challenge"     -> p.challenge,
       "message"       -> p.message,
-      "submitMove" -> {
+      "submitMove"    -> {
         if lichobileCompat then Pref.SubmitMove.lichobile.serverToApp(p.submitMove)
         else p.submitMove
       },

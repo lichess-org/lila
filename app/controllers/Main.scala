@@ -127,7 +127,7 @@ final class Main(
   def devAsset(@annotation.nowarn v: String, path: String, file: String) = assetsC.at(path, file)
 
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
-  def externalLink(tag: String) = Open:
+  def externalLink(tag: String)   = Open:
     StaticContent.externalLinks
       .get(tag)
       .so: url =>

@@ -61,7 +61,7 @@ ${trans.common_orPaste.txt()}
 
   private given Iso.StringIso[TokenPayload] with
     private val sep = ' '
-    val from = str =>
+    val from        = str =>
       str
         .split(sep)
         .match

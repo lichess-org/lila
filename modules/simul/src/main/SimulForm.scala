@@ -26,7 +26,7 @@ object SimulForm:
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras         = clockExtrasPositive.tail.map(-_).reverse.concat(clockExtrasPositive)
-  val clockExtraChoices = options(clockExtras, "%d minute{s}").map:
+  val clockExtraChoices   = options(clockExtras, "%d minute{s}").map:
     case (d, str) if d > 0 => (d, s"+$str")
     case pair              => pair
   val clockExtraDefault = LimitMinutes(0)
@@ -34,7 +34,7 @@ object SimulForm:
   val clockExtraPerPlayerChoices = options((0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300), "%d second{s}")
   val clockExtraPerPlayerDefault = LimitSeconds(0)
 
-  val colors = List("white", "random", "black")
+  val colors       = List("white", "random", "black")
   val colorChoices = List(
     "white"  -> "White",
     "random" -> "Random",
@@ -101,7 +101,7 @@ object SimulForm:
         "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
         "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],
         "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitSeconds],
-        "variants" -> list {
+        "variants"            -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),

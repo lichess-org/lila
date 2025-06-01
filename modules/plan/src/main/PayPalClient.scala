@@ -54,11 +54,11 @@ final private class PayPalClient(
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
     path.orders,
     Json.obj(
-      "intent" -> "CAPTURE",
+      "intent"         -> "CAPTURE",
       "purchase_units" -> List(
         Json.obj(
           "custom_id" -> data.makeCustomId,
-          "amount" -> {
+          "amount"    -> {
             moneyWrites.writes(data.checkout.money) ++ Json.obj(
               "breakdown" -> Json.obj(
                 "item_total" -> data.checkout.money
@@ -90,11 +90,11 @@ final private class PayPalClient(
         Json.obj(
           "plan_id"   -> plan.id.value,
           "custom_id" -> user.id,
-          "plan" -> Json.obj(
+          "plan"      -> Json.obj(
             "billing_cycles" -> Json.arr(
               Json.obj(
-                "sequence"     -> 1,
-                "total_cycles" -> 0,
+                "sequence"       -> 1,
+                "total_cycles"   -> 0,
                 "pricing_scheme" -> Json.obj(
                   "fixed_price" -> checkout.money
                 )
@@ -143,16 +143,16 @@ final private class PayPalClient(
         "product_id" -> patronMonthProductId,
         "name"       -> s"Monthly Patron $currency",
         "description" -> s"Support Lichess and get Patron wings. The subscription is renewed every month. Currency: $currency",
-        "status" -> "ACTIVE",
+        "status"         -> "ACTIVE",
         "billing_cycles" -> Json.arr(
           Json.obj(
             "frequency" -> Json.obj(
               "interval_unit"  -> "MONTH",
               "interval_count" -> 1
             ),
-            "tenure_type"  -> "REGULAR",
-            "sequence"     -> 1,
-            "total_cycles" -> 0,
+            "tenure_type"    -> "REGULAR",
+            "sequence"       -> 1,
+            "total_cycles"   -> 0,
             "pricing_scheme" -> Json.obj(
               "fixed_price" -> Json.obj(
                 "value"         -> "1",

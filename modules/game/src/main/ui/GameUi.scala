@@ -104,12 +104,12 @@ final class GameUi(helpers: Helpers):
     game.status match
       case S.Aborted => trans.site.gameAborted.txt()
       case S.Mate    => trans.site.checkmate.txt()
-      case S.Resign =>
+      case S.Resign  =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
           .txt()
       case S.UnknownFinish => trans.site.finished.txt()
       case S.Stalemate     => trans.site.stalemate.txt()
-      case S.Timeout =>
+      case S.Timeout       =>
         (game.loser, game.turnColor) match
           case (Some(p), _) if p.color.white => trans.site.whiteLeftTheGame.txt()
           case (Some(_), _)                  => trans.site.blackLeftTheGame.txt()
@@ -134,7 +134,7 @@ final class GameUi(helpers: Helpers):
       case S.NoStart =>
         (if game.loser.exists(_.color.white) then trans.site.whiteDidntMove else trans.site.blackDidntMove)
           .txt()
-      case S.Cheat => trans.site.cheatDetected.txt()
+      case S.Cheat      => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match
           case chess.variant.KingOfTheHill => trans.site.kingInTheCenter.txt()
@@ -155,7 +155,7 @@ final class GameUi(helpers: Helpers):
     def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[GameId])(using
         Context
     ): Tag =
-      val matchup = trueMatchup.filter(_.users != ct.users)
+      val matchup                   = trueMatchup.filter(_.users != ct.users)
       val matchupSepAt: Option[Int] = matchup.map: m =>
         (ct.nbGames.min(Crosstable.maxGames)) - m.users.nbGames
 

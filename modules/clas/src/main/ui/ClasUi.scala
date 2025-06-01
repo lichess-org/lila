@@ -133,7 +133,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
                       td(c.name),
                       td(momentFromNow(c.created.at)),
                       c.archived match
-                        case None => td("No")
+                        case None                              => td("No")
                         case Some(Clas.Recorded(closerId, at)) =>
                           td(userIdLink(closerId.some), nbsp, momentFromNow(at))
                       ,

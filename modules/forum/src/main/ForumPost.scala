@@ -42,7 +42,7 @@ case class ForumPost(
 
   def canBeEditedByMe(using me: Me): Boolean =
     userId match
-      case Some(userId) if me.is(userId) => true
+      case Some(userId) if me.is(userId)                                           => true
       case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
@@ -107,10 +107,10 @@ object ForumPost:
     case Horsey   extends Reaction("horsey")
     override def toString = key
   object Reaction:
-    val list               = values.toList
-    val set                = values.toSet
-    val positive           = Set(PlusOne, Laugh, Heart, Horsey)
-    def apply(key: String) = list.find(_.key == key)
+    val list                                              = values.toList
+    val set                                               = values.toSet
+    val positive                                          = Set(PlusOne, Laugh, Heart, Horsey)
+    def apply(key: String)                                = list.find(_.key == key)
     def of(reactions: Reactions, me: User): Set[Reaction] =
       reactions.view
         .collect:

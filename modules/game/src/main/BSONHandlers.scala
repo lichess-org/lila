@@ -115,9 +115,9 @@ object BSONHandlers:
 
       val decoded = r.bytesO(F.huffmanPgn) match
         case Some(huffPgn) => PgnStorage.Huffman.decode(huffPgn, playedPlies, light.id)
-        case None =>
-          val clm  = r.get[CastleLastMove](F.castleLastMove)
-          val sans = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
+        case None          =>
+          val clm           = r.get[CastleLastMove](F.castleLastMove)
+          val sans          = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
           val halfMoveClock = HalfMoveClock
             .from:
               sans.reverse
@@ -176,8 +176,8 @@ object BSONHandlers:
         chess = chessGame,
         loadClockHistory = clk =>
           for
-            bw <- whiteClockHistory
-            bb <- blackClockHistory
+            bw      <- whiteClockHistory
+            bb      <- blackClockHistory
             history <-
               BinaryFormat.clockHistory
                 .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
@@ -204,8 +204,8 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id        -> o.id,
-        F.playerIds -> o.players.reduce(_.id.value + _.id.value),
+        F.id         -> o.id,
+        F.playerIds  -> o.players.reduce(_.id.value + _.id.value),
         F.playerUids -> o.players
           .map(_.userId)
           .toPair
@@ -219,7 +219,7 @@ object BSONHandlers:
         F.status        -> o.status,
         F.turns         -> o.chess.ply,
         F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
-        F.clock -> o.chess.clock.flatMap { c =>
+        F.clock         -> o.chess.clock.flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         },
         F.daysPerTurn       -> o.daysPerTurn,

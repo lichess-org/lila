@@ -41,7 +41,7 @@ case class RelayGame(
     else
       val mainlinePath = root.mainlinePath
       val turn         = root.lastMainlineNode.ply.turn
-      val newRoot = List(
+      val newRoot      = List(
         mainlinePath.nonEmpty.option(mainlinePath.parent) -> turn,
         mainlinePath.some                                 -> !turn
       ).flatMap:

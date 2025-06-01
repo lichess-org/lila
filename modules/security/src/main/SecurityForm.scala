@@ -185,7 +185,7 @@ final class SecurityForm(
       Form:
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token" -> text.verifying(
+          "token"  -> text.verifying(
             "invalidAuthenticationCode",
             t => me.totpSecret.so(_.verify(TotpToken(t)))
           )

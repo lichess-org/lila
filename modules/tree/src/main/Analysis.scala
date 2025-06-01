@@ -58,7 +58,7 @@ object Analysis:
   object Id:
     def apply(gameId: GameId): Id                          = Game(gameId)
     def apply(study: StudyId, chapter: StudyChapterId): Id = Study(study, chapter)
-    def apply(study: Option[StudyId], id: String): Id =
+    def apply(study: Option[StudyId], id: String): Id      =
       study.fold(Game(GameId(id)))(Study(_, StudyChapterId(id)))
 
     extension (id: Id)

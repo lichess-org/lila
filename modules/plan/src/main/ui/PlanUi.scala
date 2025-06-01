@@ -458,14 +458,14 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       p(trp.decideHowMuch()),
                       strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
                       input(
-                        tpe := "number",
-                        min := pricing.min.amount,
-                        max := pricing.max.amount,
+                        tpe  := "number",
+                        min  := pricing.min.amount,
+                        max  := pricing.max.amount,
                         step := {
                           if CurrencyApi.zeroDecimalCurrencies contains pricing.currency then "1"
                           else "0.01"
                         },
-                        name := "amount",
+                        name  := "amount",
                         value := {
                           (info.subscription.item.price.currency == pricing.currency)
                             .so(info.subscription.item.price.money.amount.toString)

@@ -14,7 +14,7 @@ object TutorConversion:
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
-    val perfs = users.toList.map(_.perfType)
+    val perfs    = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.Result,

@@ -7,9 +7,9 @@ import lila.db.ByteArray
 
 class BinaryClockTest extends munit.FunSuite:
 
-  val _0_                  = "00000000"
-  val since                = nowInstant.minusHours(1)
-  def writeBytes(c: Clock) = BinaryFormat.clock(since).write(c)
+  val _0_                                                          = "00000000"
+  val since                                                        = nowInstant.minusHours(1)
+  def writeBytes(c: Clock)                                         = BinaryFormat.clock(since).write(c)
   def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
     (BinaryFormat.clock(since).read(bytes, berserk, false))(White)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))

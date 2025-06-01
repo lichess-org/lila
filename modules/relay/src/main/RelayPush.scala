@@ -33,9 +33,9 @@ final class RelayPush(
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Results] =
     cantHaveUpstream(rt.round) match
       case Some(failure) => fuccess(List(Left(failure)))
-      case None =>
-        val parsed = pgnToGames(pgn, rt.tour.info.clock)
-        val games  = parsed.collect { case Right(g) => g }.toVector
+      case None          =>
+        val parsed                                   = pgnToGames(pgn, rt.tour.info.clock)
+        val games                                    = parsed.collect { case Right(g) => g }.toVector
         val response: List[Either[Failure, Success]] =
           parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
 
@@ -50,7 +50,7 @@ final class RelayPush(
               fuccess(response)
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
-    val ua = HTTPRequest.userAgent(req)
+    val ua     = HTTPRequest.userAgent(req)
     val client = ua
       .filter(_.value.startsWith("Lichess Broadcaster"))
       .flatMap(_.value.split("as:").headOption)

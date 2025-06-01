@@ -25,7 +25,7 @@ final case class ApiAiConfig(
   val days      = daysO | Days(2)
   val time      = clock.so(_.limitInMinutes)
   val increment = clock.fold(Clock.IncrementSeconds(0))(_.incrementSeconds)
-  val timeMode =
+  val timeMode  =
     if clock.isDefined then TimeMode.RealTime
     else if daysO.isDefined then TimeMode.Correspondence
     else TimeMode.Unlimited

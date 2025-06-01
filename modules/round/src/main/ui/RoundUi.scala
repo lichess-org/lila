@@ -70,16 +70,16 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
 
   def describePov(pov: Pov) =
     import pov.*
-    val p1    = playerText(game.whitePlayer, withRating = true)
-    val p2    = playerText(game.blackPlayer, withRating = true)
-    val plays = if game.finishedOrAborted then "played" else "is playing"
+    val p1            = playerText(game.whitePlayer, withRating = true)
+    val p2            = playerText(game.blackPlayer, withRating = true)
+    val plays         = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
       if game.sourceIs(_.Import) then "imported"
       else
         game.clock.fold(chess.Speed.Correspondence.name): c =>
           s"${chess.Speed(c.config).name} (${c.config.show})"
 
-    val mode = game.mode.name
+    val mode    = game.mode.name
     val variant =
       if game.variant == chess.variant.FromPosition
       then "position setup chess"

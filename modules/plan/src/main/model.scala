@@ -222,7 +222,7 @@ case class PayPalEvent(id: PayPalEventId, event_type: String, resource_type: Str
 case class PayPalPlanId(value: String) extends AnyVal with StringValue
 case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cycles: JsArray):
   import JsonHandlers.payPal.given
-  def active = status == "ACTIVE"
+  def active   = status == "ACTIVE"
   val currency = for
     cycle   <- billing_cycles.value.headOption
     pricing <- cycle.obj("pricing_scheme")

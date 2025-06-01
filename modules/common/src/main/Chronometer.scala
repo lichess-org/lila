@@ -21,7 +21,7 @@ object Chronometer:
       def chronometer    = Chronometer(fua)
       def chronometerTry = Chronometer.lapTry(fua)
 
-      def mon(path: lila.mon.TimerPath): Fu[A] = chronometer.mon(path).result
+      def mon(path: lila.mon.TimerPath): Fu[A]                         = chronometer.mon(path).result
       def monTry(path: scala.util.Try[A] => lila.mon.TimerPath): Fu[A] =
         chronometerTry.mon(r => path(r)(lila.mon)).result
       def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =

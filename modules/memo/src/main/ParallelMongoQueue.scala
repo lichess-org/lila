@@ -36,7 +36,7 @@ final class ParallelMongoQueue[A: BSONHandler](
   def enqueue(a: A): Fu[Entry[A]] = workQueue:
     status(a).flatMap:
       case Some(entry) => fuccess(entry)
-      case None =>
+      case None        =>
         val entry = Entry(a, nowInstant, none)
         for _ <- coll.insert.one(entry).recover(lila.db.ignoreDuplicateKey)
         yield entry

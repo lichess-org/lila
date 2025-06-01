@@ -31,9 +31,9 @@ case class Pairing(
   def finished = status >= chess.Status.Mate
   def playing  = !finished
 
-  def quickFinish      = finished && turns.exists(20 >)
-  def quickDraw        = draw && turns.exists(20 >)
-  def notSoQuickFinish = finished && turns.exists(14 <=)
+  def quickFinish                = finished && turns.exists(20 >)
+  def quickDraw                  = draw && turns.exists(20 >)
+  def notSoQuickFinish           = finished && turns.exists(14 <=)
   def longGame(variant: Variant) = turns.exists(_ >= (variant match
     case Standard | Chess960 | Horde            => 60
     case Antichess | Crazyhouse | KingOfTheHill => 40

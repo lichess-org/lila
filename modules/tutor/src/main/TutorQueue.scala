@@ -84,7 +84,7 @@ final private class TutorQueue(
 object TutorQueue:
 
   sealed trait Status
-  case object NotInQueue extends Status
+  case object NotInQueue                                         extends Status
   case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
     def eta = avgDuration * position
 

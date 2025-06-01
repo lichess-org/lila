@@ -41,7 +41,7 @@ object BSONHandlers:
 
   given tourHandler: BSON[Tournament] with
     def reads(r: BSON.Reader) =
-      val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
+      val variant                        = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
       val position: Option[Fen.Standard] =
         r.getO[Fen.Full]("fen")
           .map(_.opening: Fen.Standard)

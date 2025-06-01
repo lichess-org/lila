@@ -6,7 +6,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
 
   def apply(raw: String): TextAnalysis = lila.common.Chronometer
     .sync:
-      val lower = raw.take(2000).toLowerCase
+      val lower   = raw.take(2000).toLowerCase
       val matches = latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
         ruBigRegex.findAllMatchIn(lower).toList
       TextAnalysis(lower, matches.map(_.toString))

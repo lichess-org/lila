@@ -56,7 +56,7 @@ final class TextLpvExpand(
       .map(_.group(1))
       .toList
       .foldLeft(max.value -> List.empty[Fu[(String, Option[LpvEmbed])]]):
-        case ((0, replacements), _) => 0 -> replacements
+        case ((0, replacements), _)               => 0 -> replacements
         case ((counter, replacements), candidate) =>
           val (cost, replacement) = candidate match
             case regex.gamePgnRe(_, id)    => 1 -> getPgn(GameId(id)).map(id -> _)

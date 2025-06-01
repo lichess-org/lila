@@ -34,7 +34,7 @@ final class Tv(
       .flatMap:
         case GameIdAndHistory(gameId, historyIds) =>
           for
-            game <- gameId.so(gameProxy.game)
+            game  <- gameId.so(gameProxy.game)
             games <-
               historyIds
                 .traverse: id =>
@@ -202,7 +202,7 @@ object Tv:
   private def hasBot(c: Candidate)                      = c.hasBot
   private def noBot(c: Candidate)                       = !c.hasBot
 
-  private def olderThan(g: Game, seconds: Int) = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
+  private def olderThan(g: Game, seconds: Int)         = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
   private def fresh(seconds: Int, game: Game): Boolean =
     (game.isBeingPlayed && !olderThan(game, seconds)) ||
       (game.finished && !olderThan(game, 7)) // rematch time
