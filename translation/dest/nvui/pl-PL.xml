@@ -10,4 +10,5 @@
   <string name="actions">Akcje</string>
   <string name="yourClock">Twój zegar</string>
   <string name="opponentClock">Zegar przeciwnika</string>
+  <string name="gameStart">Rozpoczęcie partii</string>
 </resources>
