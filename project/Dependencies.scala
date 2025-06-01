@@ -18,7 +18,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.13.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val compression = "com.github.lichess-org"        % "compression"                     % "3.1.1"
-  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
+  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.3.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.35.0"
