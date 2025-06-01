@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">Wyróżnione wydarzenia</string>
-  <string name="moveList" comment="List of the moves of the game">Lista ruchów</string>
+  <string name="moveList">Lista ruchów</string>
   <string name="gameInfo">Informacje o partii</string>
   <string name="pieces">Bierki</string>
   <string name="gameStatus">Status partii</string>
   <string name="lastMove">Ostatni ruch</string>
-  <string name="inputForm" comment="Form to input moves and commands">Formularz wejściowy</string>
-  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Akcje</string>
+  <string name="inputForm">Formularz wejściowy</string>
+  <string name="actions">Akcje</string>
   <string name="yourClock">Twój zegar</string>
   <string name="opponentClock">Zegar przeciwnika</string>
 </resources>
