@@ -76,7 +76,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
     div(id := "clinput")(
-      a(cls := "link")(span(dataIcon := Icon.Search)),
+      a(cls := "link", dataIcon := Icon.Search),
       input(
         spellcheck   := "false",
         autocomplete := ctx.blind.toString,
