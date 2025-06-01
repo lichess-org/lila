@@ -363,7 +363,7 @@ function onSubmit(
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
-  help: VNode;
+  help: VNode | string;
   cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
   invalid?: (ctrl: AnalyseController) => boolean;
 };

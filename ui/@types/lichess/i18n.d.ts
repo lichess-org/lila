@@ -1747,6 +1747,10 @@ interface I18n {
     announceLastMove: string;
     /** Announce piece captured in last move. */
     announceLastMoveCapture: string;
+    /** Announce locations of a piece type. Example: p capital N for white knights, p lowercase k for black king. */
+    announceLocationPieces: string;
+    /** Announce pieces on a rank or a file. Example: s a, s 1. */
+    announcePiecesOnRankOrFile: string;
     /** Announce possible captures with selected piece. */
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
@@ -1761,14 +1765,20 @@ interface I18n {
     gameStart: string;
     /** Game status */
     gameStatus: string;
+    /** Go to board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
+    goToBoard: string;
     /** Go to move and command input form. */
     goToInputForm: string;
     /** Move and command input form */
     inputForm: string;
+    /** Type these commands in the move and command input form. */
+    inputFormCommandList: string;
     /** Last move */
     lastMove: string;
     /** Move list */
     moveList: string;
+    /** To move a piece, use standard algebraic notation. */
+    movePiece: string;
     /** Move to file a-h. */
     moveToFile: string;
     /** Move to a piece typing its type. Use uppercase to invert order. */
@@ -1781,6 +1791,8 @@ interface I18n {
     opponentClock: string;
     /** Pieces */
     pieces: string;
+    /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
+    promotion: string;
     /** Your clock */
     yourClock: string;
   };

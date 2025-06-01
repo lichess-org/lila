@@ -208,20 +208,17 @@ export function initModule(): NvuiPlugin {
         h('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
         h('h2', i18n.keyboardMove.keyboardInputCommands),
         h('p', [
-          noTrans('Type these commands in the move input.'),
+          i18n.nvui.inputFormCommandList,
+          h('br'),
+          i18n.nvui.movePiece,
+          h('br'),
+          i18n.nvui.promotion,
+          h('br'),
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
         ]),
         ...boardCommands(),
-        h('h2', noTrans('Promotion')),
-        h('p', [
-          noTrans(
-            'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
-          ),
-          h('br'),
-          noTrans('Omission results in promotion to queen'),
-        ]),
       ]);
     },
   };
@@ -294,9 +291,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
-    help: noTrans(
-      'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
-    ),
+    help: i18n.nvui.goToBoard,
     cb: (_notify, _ctrl, _style, input) => {
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
@@ -314,7 +309,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'last',
-    help: noTrans('Read last move.'),
+    help: i18n.nvui.announceLastMove,
     cb: notify => notify($('.lastMove').text()),
     alt: 'l',
   },
