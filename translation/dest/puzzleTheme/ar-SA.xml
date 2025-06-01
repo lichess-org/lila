@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">الأخذ بالتجاوز</string>
+  <string name="advancedPawn">البيدق المتقدم</string>
   <string name="advancedPawnDescription">أحد البيادق الخاصة بك تقدمت إلي ساحة الخَصْم, ممكن من أجل التهديد بالترقية.</string>
   <string name="advantage">أفضلية</string>
   <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
@@ -57,7 +57,9 @@
   <string name="interferenceDescription">نقلة تحجب خط التفاعل بين قطع الخصم بعيدة المدى، ونتيجة لذلك تصبح إحدى القطعتين أو كلاهما بلا حماية. على سبيل المثال، يقف الحصان في مربع بين قلعتين.</string>
   <string name="intermezzo">النقلة البينيّة</string>
   <string name="intermezzoDescription">بدلاً من لعب النقلة المتوقعة، يتم أولاً القيام بنقلة أخرى تشكل تهديدًا فوريًا مباشرًا يجب على الخصم الرد عليه. يُعرف أيضًا باسم \"زفيشنزوك\" أو \"أنترميزو \".</string>
+  <string name="killBoxMateDescription">يقف الرخ بجانب ملك العدو ويدعمه وزير يساهم أيضًا في حجب خانات هروب الملك. يقوم الرخ والوزير بمحاصرة ملك العدو داخل \"صندوق قتل\" بمساحة 3×3.</string>
   <string name="vukovicMate">كش مات فوكوفيتش</string>
+  <string name="vukovicMateDescription">يتعاون الرخ والحصان لإماتة الملك. يقوم الرخ بتنفيذ الإماتة مدعومًا بقطعة ثالثة، بينما يُستخدم الحصان لإغلاق خانات هروب الملك.</string>
   <string name="knightEndgame">نهاية المباراة تتضمن حصان</string>
   <string name="knightEndgameDescription">نهاية مباراة تتضمن أحصنة و بيادق فقط.</string>
   <string name="long">لغز طويل</string>
