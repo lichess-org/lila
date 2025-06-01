@@ -21,8 +21,8 @@
   <string name="announcePossibleCaptures">Announce possible captures with selected piece.</string>
   <string name="moveWithArrows">Move to adjacent square left, right, up or down.</string>
   <string name="moveToPieceByType">Move to a piece typing its type. Use uppercase to invert order.</string>
-  <string name="moveToRank">Move to rank 1-8.</string>
-  <string name="moveToFile">Move to file a-h.</string>
+  <string name="moveToRank">Move to rank 1 to 8.</string>
+  <string name="moveToFile">Move to file a to h.</string>
   <string name="announceLocationPieces">Announce locations of a piece type. Example: p capital N for white knights, p lowercase k for black king.</string>
   <string name="announcePiecesOnRankOrFile">Announce pieces on a rank or a file. Example: s a, s 1.</string>
   <string name="goToBoard">Go to board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
