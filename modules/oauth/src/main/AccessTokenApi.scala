@@ -33,27 +33,27 @@ final class AccessTokenApi(
     _ <- coll.insert.one(token)
   yield token
 
-  def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId): Fu[AccessToken] =
-    (fuccess(isStudent) >>| userApi.isManaged(me)).flatMap { noBot =>
-      val plain = Bearer.randomPersonal()
-      createAndRotate:
-        AccessToken(
-          id = AccessToken.Id.from(plain),
-          plain = plain,
-          userId = me,
-          description = setup.description.some,
-          createdAt = nowInstant.some,
-          scopes = TokenScopes:
-            setup.scopes
-              .flatMap(OAuthScope.byKey.get)
-              .filterNot(_ == OAuthScope.Bot.Play && noBot)
-              .filterNot(_ == OAuthScope.Web.Mobile)
-              .toList
-          ,
-          clientOrigin = None,
-          expires = None
-        )
-    }
+  def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId): Fu[AccessToken] = for
+    noBot <- fuccess(isStudent) >>| userApi.isManaged(me)
+    plain = Bearer.randomPersonal()
+    token = AccessToken(
+      id = AccessToken.Id.from(plain),
+      plain = plain,
+      userId = me,
+      description = setup.description.some,
+      createdAt = nowInstant.some,
+      scopes = TokenScopes:
+        setup.scopes
+          .flatMap(OAuthScope.byKey.get)
+          .filterNot(_ == OAuthScope.Bot.Play && noBot)
+          .filterNot(_ == OAuthScope.Web.Mobile)
+          .toList
+      ,
+      clientOrigin = None,
+      expires = None
+    )
+    res <- createAndRotate(token)
+  yield res
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
     val plain = Bearer.random()
@@ -72,35 +72,32 @@ final class AccessTokenApi(
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
-  ): Fu[Map[UserId, AccessToken]] =
-    userApi
-      .enabledByIds(setup.usernames)
-      .flatMap: users =>
-        val scope = OAuthScope.Challenge.Write
-        users
-          .sequentially: user =>
-            coll
-              .one[AccessToken]:
-                $doc(
-                  F.userId       -> user.id,
-                  F.clientOrigin -> setup.description,
-                  F.scopes       -> scope.key
-                )
-              .getOrElse:
-                val plain = Bearer.randomPersonal()
-                createAndRotate:
-                  AccessToken(
-                    id = AccessToken.Id.from(plain),
-                    plain = plain,
-                    userId = user.id,
-                    description = s"Challenge admin: ${admin.username}".some,
-                    createdAt = nowInstant.some,
-                    scopes = TokenScopes(List(scope)),
-                    clientOrigin = setup.description.some,
-                    expires = Some(nowInstant.plusMonths(6))
-                  )
-              .map(user.id -> _)
-          .map(_.toMap)
+  ): Fu[Map[UserId, AccessToken]] = for
+    users <- userApi.enabledByIds(setup.usernames)
+    scope = OAuthScope.Challenge.Write
+    tokens <- users.sequentially: user =>
+      coll
+        .one[AccessToken]:
+          $doc(
+            F.userId       -> user.id,
+            F.clientOrigin -> setup.description,
+            F.scopes       -> scope.key
+          )
+        .getOrElse:
+          val plain = Bearer.randomPersonal()
+          createAndRotate:
+            AccessToken(
+              id = AccessToken.Id.from(plain),
+              plain = plain,
+              userId = user.id,
+              description = s"Challenge admin: ${admin.username}".some,
+              createdAt = nowInstant.some,
+              scopes = TokenScopes(List(scope)),
+              clientOrigin = setup.description.some,
+              expires = Some(nowInstant.plusMonths(6))
+            )
+        .map(user.id -> _)
+  yield tokens.toMap
 
   def listPersonal(using me: MyId): Fu[List[AccessToken]] =
     coll
@@ -233,7 +230,7 @@ final class AccessTokenApi(
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](4096, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
