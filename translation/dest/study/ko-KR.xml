@@ -180,4 +180,5 @@
   <string name="loadExistingLichessGameTitle">벌써 있는 lichess 게임 불러오기</string>
   <string name="loadExistingLichessGameText">챕터에 게임 수를 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
   <string name="fromPgnGameTitle">PGN 게임에서</string>
+  <string name="variantsAreSupportedTitle">연구들은 변형 체스를 지원합니다</string>
 </resources>
