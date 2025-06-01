@@ -1765,13 +1765,13 @@ interface I18n {
     gameStart: string;
     /** Game status */
     gameStatus: string;
-    /** Go to board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
+    /** Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
     goToBoard: string;
-    /** Go to move and command input form. */
+    /** Go to the command input form. */
     goToInputForm: string;
-    /** Move and command input form */
+    /** Command input form */
     inputForm: string;
-    /** Type these commands in the move and command input form. */
+    /** Type these commands in the command input form. */
     inputFormCommandList: string;
     /** Last move */
     lastMove: string;
