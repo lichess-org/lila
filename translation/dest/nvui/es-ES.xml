@@ -10,4 +10,16 @@
   <string name="actions">Acciones</string>
   <string name="yourClock">Tu reloj</string>
   <string name="opponentClock">Reloj del oponente</string>
+  <string name="gameStart">Comienzo de la partida</string>
+  <string name="boardCommandList">Lista de comandos cuando el tablero está enfocado</string>
+  <string name="goToInputForm">Ir al formulario de entrada de movimientos y comandos.</string>
+  <string name="announceCurrentSquare">Anunciar casilla actual.</string>
+  <string name="announceLastMove">Anunciar último movimiento.</string>
+  <string name="announceLastMoveCapture">Anunciar la pieza capturada en el último movimiento.</string>
+  <string name="announcePossibleMoves">Anunciar posibles movimientos para la pieza seleccionada.</string>
+  <string name="announcePossibleCaptures">Anunciar posibles capturas con la pieza seleccionada.</string>
+  <string name="moveWithArrows">Mover a la casilla adyacente a la izquierda, derecha, arriba o abajo.</string>
+  <string name="moveToPieceByType">Mover a una pieza escribiendo su tipo. Usa mayúsculas para invertir el orden.</string>
+  <string name="moveToRank">Mover a la fila 1-8.</string>
+  <string name="moveToFile">Mover a la columna a-h.</string>
 </resources>
