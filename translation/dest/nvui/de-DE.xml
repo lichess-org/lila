@@ -10,4 +10,16 @@
   <string name="actions">Aktionen</string>
   <string name="yourClock">Deine Uhr</string>
   <string name="opponentClock">Gegnerische Uhr</string>
+  <string name="gameStart">Partiebeginn</string>
+  <string name="boardCommandList">Kommandoliste, wenn das Brett im Fokus ist</string>
+  <string name="goToInputForm">Gehe zum Zug- und Kommando-Eingabeformular.</string>
+  <string name="announceCurrentSquare">Aktuelles Feld aussprechen.</string>
+  <string name="announceLastMove">Letzten Zug aussprechen.</string>
+  <string name="announceLastMoveCapture">Aussprechen, welche Figur im letzten Zug geschlagen wurde.</string>
+  <string name="announcePossibleMoves">Mögliche Züge für die gewählte Figur aussprechen.</string>
+  <string name="announcePossibleCaptures">Mögliche Schlagzüge für die gewählte Figur aussprechen.</string>
+  <string name="moveWithArrows">Auf das benachbarte Feld ziehen links, rechts, oben oder unten.</string>
+  <string name="moveToPieceByType">Zu einer bestimmten Figur springen, indem deren Typ eingegeben wird. Benutze Großschreibung um die Auswahl zu invertieren.</string>
+  <string name="moveToRank">Ziehe auf Reihe 1-8.</string>
+  <string name="moveToFile">Ziehe auf Linie a-h.</string>
 </resources>
