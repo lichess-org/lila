@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="gameStart">Začetek igre</string>
+  <string name="boardCommandList">Seznam ukazov, ko je plošča v fokusu</string>
+  <string name="goToInputForm">Pojdi na obrazec za premikanje in vnos ukazov.</string>
+  <string name="announceCurrentSquare">Naznani trenutno polje.</string>
+  <string name="announceLastMove">Naznani zadnjo potezo.</string>
+  <string name="announceLastMoveCapture">Naznani figuro, vzeto v zadnji potezi.</string>
+  <string name="announcePossibleMoves">Napovejte možne poteze za izbrano figuro.</string>
+  <string name="announcePossibleCaptures">Najavi možna zajetja z izbrano figuro.</string>
+  <string name="moveWithArrows">Premakni se na sosednje polje levo, desno, gor ali dol.</string>
+  <string name="moveToPieceByType">Premaknite se na figuro in vtipkajte njen tip. Za obrnjen vrstni red uporabite velike črke.</string>
+  <string name="moveToRank">Premakni v vrsto 1-8.</string>
+  <string name="moveToFile">Premakni v stolpec a-h.</string>
+</resources>
