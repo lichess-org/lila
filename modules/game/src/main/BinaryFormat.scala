@@ -219,7 +219,7 @@ object BinaryFormat:
         .to(Map)
 
     // cache standard start position
-    val standard = write(Position.init(chess.variant.Standard, White).pieces)
+    val standard: ByteArray = write(chess.variant.Standard.initialPieces)
 
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match

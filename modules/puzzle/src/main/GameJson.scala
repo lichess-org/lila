@@ -89,8 +89,7 @@ final private class GameJson(
           for
             pgnMove <- pgnMoves.lastOption
             position =
-              chess.Position
-                .init(game.variant, chess.White)
+              game.variant.initialPosition
                 .forward(pgnMoves)
                 .valueOr: err =>
                   sys.error(s"GameJson.generateBc ${game.id} $err")

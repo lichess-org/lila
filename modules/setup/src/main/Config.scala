@@ -28,7 +28,7 @@ private[setup] trait Config:
   def hasClock = timeMode == TimeMode.RealTime
 
   def makeGame(v: Variant): ChessGame =
-    ChessGame(position = Position(v), clock = makeClock.map(_.toClock))
+    ChessGame(position = v.initialPosition, clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
