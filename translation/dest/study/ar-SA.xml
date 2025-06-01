@@ -198,6 +198,7 @@
   <string name="conclusionTitle">شكرًا على وقتك</string>
   <string name="createChapterTitle">دعنا ننشئ فصل جديد</string>
   <string name="fromInitialPositionTitle">البدء من وضع البداية</string>
+  <string name="fromInitialPositionText">مجرد إعداد لوح للعبة جديدة.&lt;br&gt;مناسب لاستكشاف الافتتاحيات.</string>
   <string name="customPositionTitle">موضع مخصص</string>
   <string name="fromFenStringTitle">من نص FEN</string>
   <string name="fromPgnGameTitle">من PGN لعبة</string>
