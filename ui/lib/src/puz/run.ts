@@ -1,5 +1,5 @@
 import type { Run } from './interfaces';
-import { opposite, uciToMove } from 'chessground/util';
+import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 

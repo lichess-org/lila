@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { commands } from '../src/nvui/command';
-import type { Pieces } from 'chessground/types';
+import type { Pieces } from '@lichess-org/chessground/types';
 
 const pieces: Pieces = new Map();
 pieces.set('a1', { color: 'white', role: 'king' });

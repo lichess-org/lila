@@ -29,7 +29,7 @@ final class Mailer(
   private def randomClientFor(recipient: EmailAddress): (SMTPMailer, Mailer.Smtp) =
     // Stick to one mailer for each recipient, because each mailer may have its
     // own supression list.
-    if recipient.value.toLowerCase.hashCode.abs % 1000 < getSecondaryPermille() then
+    if recipient.normalize.value.hashCode.abs % 1000 < getSecondaryPermille() then
       (secondaryClient, config.secondary)
     else (primaryClient, config.primary)
 

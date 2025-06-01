@@ -1,4 +1,4 @@
-import { initial as initialBoardFEN } from 'chessground/fen';
+import { initial as initialBoardFEN } from '@lichess-org/chessground/fen';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from './ctrl';
 import type { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';

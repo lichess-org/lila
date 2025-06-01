@@ -480,8 +480,8 @@ object mon:
         val vote           = histogram("puzzle.selector.anon.vote").withoutTags()
       def nextPuzzleResult(result: String) =
         timer("puzzle.selector.user.puzzleResult").withTag("result", result)
-    object path:
-      def nextFor(categ: String) = timer("puzzle.path.nextFor").withTag("categ", categ)
+    def nextPathFor(categ: String, requester: String) =
+      timer("puzzle.path.nextFor").withTags(tags("categ" -> categ, "requester" -> requester))
 
     object batch:
       object selector:

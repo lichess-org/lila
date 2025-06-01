@@ -1,6 +1,6 @@
 import * as licon from 'lib/licon';
 import { bind, looseH as h, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/snabbdom';
-import { Chessground } from 'chessground';
+import { Chessground } from '@lichess-org/chessground';
 import { stepwiseScroll } from 'lib/view/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';

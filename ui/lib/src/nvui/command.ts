@@ -1,6 +1,6 @@
 import { type VNode, type VNodeChildren, h } from 'snabbdom';
 import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
-import type { Pieces } from 'chessground/types';
+import type { Pieces } from '@lichess-org/chessground/types';
 import { noTrans } from '../snabbdom';
 
 interface Command {

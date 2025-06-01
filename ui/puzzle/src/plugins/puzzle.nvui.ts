@@ -30,7 +30,7 @@ import { next as controlNext, prev } from '../control';
 import { bind, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { opposite } from 'chessops';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));

@@ -45,7 +45,7 @@ import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'lib/game/chess';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
