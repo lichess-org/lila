@@ -1779,11 +1779,11 @@ interface I18n {
     moveList: string;
     /** To move a piece, use standard algebraic notation. */
     movePiece: string;
-    /** Move to file a-h. */
+    /** Move to file a to h. */
     moveToFile: string;
     /** Move to a piece typing its type. Use uppercase to invert order. */
     moveToPieceByType: string;
-    /** Move to rank 1-8. */
+    /** Move to rank 1 to 8. */
     moveToRank: string;
     /** Move to adjacent square left, right, up or down. */
     moveWithArrows: string;
