@@ -6,8 +6,19 @@
   <string name="pieces">Pezas</string>
   <string name="gameStatus">Estado da partida</string>
   <string name="lastMove">Última xogada</string>
-  <string name="inputForm">Formulario de entrada</string>
+  <string name="inputForm">Formulario de entrada de comandos e xogadas</string>
   <string name="actions">Accións</string>
   <string name="yourClock">O teu reloxo</string>
   <string name="opponentClock">O reloxo do rival</string>
+  <string name="gameStart">Comezo da partida</string>
+  <string name="boardCommandList">Lista de comandos co taboleiro seleccionado</string>
+  <string name="goToInputForm">Ir ó formulario de entrada de comandos e xogadas.</string>
+  <string name="announceCurrentSquare">Anunciar a casa actual.</string>
+  <string name="announceLastMove">Anunciar a última xogada.</string>
+  <string name="announceLastMoveCapture">Anunciar a peza capturada na última xogada.</string>
+  <string name="announcePossibleMoves">Anunciar as posibles xogadas da peza seleccionada.</string>
+  <string name="announcePossibleCaptures">Anunciar as posibles capturas para a peza seleccionada.</string>
+  <string name="moveWithArrows">Mover á casa adxacente da esquerda, da dereita, superior ou inferior.</string>
+  <string name="moveToRank">Mover á fila 1-8.</string>
+  <string name="moveToFile">Mover á columna a-h.</string>
 </resources>
