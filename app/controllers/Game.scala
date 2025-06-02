@@ -36,8 +36,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       val config = GameApiV2.OneConfig(
         format = GameApiV2.Format.byRequest,
         imported = getBool("imported"),
-        flags = requestPgnFlags(extended = true),
-        playerFile = get("players")
+        flags = requestPgnFlags(extended = true)
       )
       for
         content  <- env.api.gameApiV2.exportOne(game, config)
@@ -79,7 +78,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                   if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
                   else GameApiV2.GameSort.DateDesc,
                 perSecond = perSecond,
-                playerFile = get("players"),
                 ongoing = getBool("ongoing") || !finished,
                 finished = finished
               )
