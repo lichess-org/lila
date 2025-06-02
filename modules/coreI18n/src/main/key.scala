@@ -912,6 +912,7 @@ object I18nKey:
     val `opponentClock`: I18nKey = "nvui:opponentClock"
     val `gameStart`: I18nKey = "nvui:gameStart"
     val `boardCommandList`: I18nKey = "nvui:boardCommandList"
+    val `inputFormCommandList`: I18nKey = "nvui:inputFormCommandList"
     val `goToInputForm`: I18nKey = "nvui:goToInputForm"
     val `announceCurrentSquare`: I18nKey = "nvui:announceCurrentSquare"
     val `announceLastMove`: I18nKey = "nvui:announceLastMove"
@@ -922,6 +923,11 @@ object I18nKey:
     val `moveToPieceByType`: I18nKey = "nvui:moveToPieceByType"
     val `moveToRank`: I18nKey = "nvui:moveToRank"
     val `moveToFile`: I18nKey = "nvui:moveToFile"
+    val `announcePieceLocations`: I18nKey = "nvui:announcePieceLocations"
+    val `announcePiecesOnRankOrFile`: I18nKey = "nvui:announcePiecesOnRankOrFile"
+    val `goToBoard`: I18nKey = "nvui:goToBoard"
+    val `movePiece`: I18nKey = "nvui:movePiece"
+    val `promotion`: I18nKey = "nvui:promotion"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
