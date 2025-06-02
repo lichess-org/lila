@@ -7,7 +7,7 @@ import perfIcons from 'lib/game/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import type { Hook } from '../../interfaces';
 
-function renderHook(hook: Hook, includeRatingTag: boolean) {
+function renderHook(ctrl: LobbyController, hook: Hook) {
   return h(
     'tr.hook.' + hook.action,
     {
@@ -24,10 +24,10 @@ function renderHook(hook: Hook, includeRatingTag: boolean) {
       },
     },
     tds([
-      hook.rating
+      ctrl.me
         ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : i18n.site.anonymous,
-      ...(includeRatingTag ? [hook.rating + (hook.prov ? '?' : '')] : []),
+      ...(!ctrl.me ? [] : !ctrl.opts.showRatings ? [''] : [hook.rating + (hook.prov ? '?' : '')]),
       hook.clock,
       h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
     ]),
@@ -51,9 +51,9 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
   const mine = allHooks.find(isMine),
     max = mine ? 13 : 14,
     hooks = allHooks.slice(0, max),
-    showRatings = ctrl.opts.showRatings && hooks.some(h => h.rating),
-    render = (hook: Hook) => renderHook(hook, showRatings),
+    render = (hook: Hook) => renderHook(ctrl, hook),
     standards = hooks.filter(isNotMine).filter(isStandard(true));
+  if (!ctrl.me) ctrl.setSort('time');
   hookRepo.sort(ctrl, standards);
   const variants = hooks
     .filter(isNotMine)
@@ -75,25 +75,31 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        showRatings
-          ? h(
-              'th',
-              {
-                key: 'rating-header',
-                class: { sortable: true, sort: ctrl.sort === 'rating' },
-                hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-              },
-              [h('i.is'), i18n.site.rating],
-            )
-          : null,
-        h(
-          'th',
-          {
-            class: { sortable: true, sort: ctrl.sort === 'time' },
-            hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
-          },
-          [h('i.is'), i18n.site.time],
-        ),
+        ...[
+          ctrl.me
+            ? h(
+                'th',
+                {
+                  class: { sortable: true, sort: ctrl.sort === 'rating' },
+                  hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+                },
+                [h('i.is'), i18n.site.rating],
+              )
+            : null,
+          h(
+            'th',
+            ctrl.me
+              ? {
+                  key: 'time-header-with-rating',
+                  class: { sortable: true, sort: ctrl.sort === 'time' },
+                  hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
+                }
+              : {
+                  key: 'time-header-without-rating',
+                },
+            [h('i.is'), i18n.site.time],
+          ),
+        ],
         h('th', [h('i.is'), i18n.site.mode]),
       ]),
     ),
