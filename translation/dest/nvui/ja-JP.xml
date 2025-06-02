@@ -10,4 +10,14 @@
   <string name="actions">操作</string>
   <string name="yourClock">自分の時計</string>
   <string name="opponentClock">相手の時計</string>
+  <string name="gameStart">ゲーム開始</string>
+  <string name="boardCommandList">ボードにフォーカスがある時のコマンドリスト</string>
+  <string name="announceCurrentSquare">現在のマスを読み上げる。</string>
+  <string name="announceLastMove">最後の手を読み上げる。</string>
+  <string name="announceLastMoveCapture">最後の手で取られた駒を読み上げる。</string>
+  <string name="announcePossibleMoves">選択した駒の可能な行き先を読み上げる。</string>
+  <string name="announcePossibleCaptures">選択した駒の可能な駒取りを読み上げる。</string>
+  <string name="moveWithArrows">となりのマス（左・右・上・下）に動かす。</string>
+  <string name="moveToRank">ランク 1-8 に移動する。</string>
+  <string name="moveToFile">ファイル a-h に移動する。</string>
 </resources>
