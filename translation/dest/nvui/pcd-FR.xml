@@ -10,4 +10,15 @@
   <string name="actions">Options</string>
   <string name="yourClock">Votre horloge</string>
   <string name="opponentClock">Horloge de l\'adversaire</string>
+  <string name="gameStart">Début de la partie</string>
+  <string name="goToInputForm">Aller au formulaire des options de coups et de commandes</string>
+  <string name="announceCurrentSquare">Annoncer la case actuelle</string>
+  <string name="announceLastMove">Annoncer le dernier coup</string>
+  <string name="announceLastMoveCapture">Annoncer la capture d\'une pièce au dernier coup</string>
+  <string name="announcePossibleMoves">Annoncer les coups possibles pour la pièce sélectionnée</string>
+  <string name="announcePossibleCaptures">Annoncer les captures possibles pour la pièce sélectionnée</string>
+  <string name="moveWithArrows">Aller à la case adjacente à gauche ou à droite ou en haut ou en bas</string>
+  <string name="moveToPieceByType">Déplacer la pièce en tapant son type. Utiliser les majuscules pour inverser l\'ordre.</string>
+  <string name="moveToRank">Aller à la colonne de 1 à 8</string>
+  <string name="moveToFile">Aller à la rangée de A à H</string>
 </resources>
