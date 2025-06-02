@@ -42,7 +42,7 @@ final private[gameSearch] class GameSearchForm:
       "dateMax"     -> GameSearchForm.dateField,
       "status"      -> optional(numberIn(FormHelpers.statuses)),
       "analysed"    -> optional(number),
-      "sort" -> optional(
+      "sort"        -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
           "order" -> stringIn(Sorting.orders)

@@ -283,7 +283,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             a(
               cls      := "text",
               dataIcon := Icon.CautionCircle,
-              href := lila.common.String.base64
+              href     := lila.common.String.base64
                 .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
             )("BOT-COMPATIBLE SETTINGS")
     ).flatten

@@ -84,7 +84,7 @@ final class AccountTermination(
     _           <- pushEnv.unregisterDevices(u)
     _           <- streamerApi.demote(u.id)
     reports     <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-    _ <-
+    _           <-
       if selfClose then modLogApi.selfCloseAccount(u.id, forever, reports)
       else if teacherClose then modLogApi.teacherCloseAccount(u.id)
       else modLogApi.closeAccount(u.id)
@@ -133,7 +133,7 @@ final class AccountTermination(
     _                   <- teamApi.onUserDelete(u.id)
     _                   <- ublogApi.onAccountDelete(u)
     _                   <- tokenApi.revokeAllByUser(u)
-    _ <- u.marks.clean.so:
+    _                   <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
   yield
     // a lot of deletion is done by modules listening to the following event:

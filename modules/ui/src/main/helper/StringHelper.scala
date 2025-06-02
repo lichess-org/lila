@@ -33,8 +33,8 @@ trait StringHelper:
 
   def fragList(frags: List[Frag], separator: String = ", "): Frag =
     frags match
-      case Nil        => emptyFrag
-      case one :: Nil => one
+      case Nil           => emptyFrag
+      case one :: Nil    => one
       case first :: rest =>
         RawFrag:
           frag(first :: rest.map { frag(separator, _) }).render

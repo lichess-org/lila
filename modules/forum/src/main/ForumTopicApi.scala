@@ -103,7 +103,7 @@ final private class ForumTopicApi(
       )
       findDuplicate(topic).flatMap:
         case Some(dup) => fuccess(dup)
-        case None =>
+        case None      =>
           for
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
@@ -159,7 +159,7 @@ final private class ForumTopicApi(
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] = for
     topics <- topicRepo.stickyByCateg(categ.id)
-    views <- topics.sequentially: topic =>
+    views  <- topics.sequentially: topic =>
       postRepo.coll
         .byId[ForumPost](topic.lastPostId(forUser))
         .map: post =>
@@ -182,7 +182,7 @@ final private class ForumTopicApi(
     lastPost      <- postRepo.lastByTopic(topic)
     nbPostsTroll  <- postRepo.unsafe.countByTopic(topic)
     lastPostTroll <- postRepo.unsafe.lastByTopic(topic)
-    _ <-
+    _             <-
       topicRepo.coll.update
         .one(
           $id(topic.id),
@@ -202,7 +202,7 @@ final private class ForumTopicApi(
     topicRepo
       .byTree(categId, slug)
       .flatMap:
-        case None => funit
+        case None        => funit
         case Some(topic) =>
           for
             _        <- postRepo.removeByTopic(topic.id)

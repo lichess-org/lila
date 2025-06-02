@@ -87,7 +87,7 @@ final class OpeningBits(helpers: Helpers):
           )
         )
 
-  def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
+  def queryUrl(q: OpeningQuery): Call       = queryUrl(q.query)
   def queryUrl(q: OpeningQuery.Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)         = openingKeyUrl(o.key)

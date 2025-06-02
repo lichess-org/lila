@@ -56,7 +56,7 @@ final class RacerApi(
 
   def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
     case Some(found) if found.finished => rematch(found, player)
-    case Some(found) =>
+    case Some(found)                   =>
       join(found.id, player)
       fuccess(found.id)
     case None =>

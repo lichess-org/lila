@@ -61,7 +61,7 @@ object Statistics:
   def moderatelyConsistentMoveTimes(pov: Pov): Boolean =
     moveTimeCoefVariation(pov).so { cvIndicatesModeratelyFlatTimes(_) }
 
-  private val fastMove = Centis(50)
+  private val fastMove               = Centis(50)
   def noFastMoves(pov: Pov): Boolean =
     val moveTimes = ~lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
     moveTimes.count(fastMove > _) <= (moveTimes.size / 20) + 2

@@ -82,7 +82,7 @@ final class JsonView(
             rt.map: t =>
               t.theme.value -> JsBoolean(t.vote))
 
-    def api = base
+    def api                                                         = base
     private def base(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(
       "id"         -> round.id.puzzleId,
       "win"        -> round.win,
@@ -178,7 +178,7 @@ final class JsonView(
       "color"      -> puzzle.color.name,
       "initialPly" -> (puzzle.initialPly + 1),
       "gameId"     -> puzzle.gameId,
-      "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
+      "lines"      -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
       "vote"   -> 0,
       "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
@@ -189,7 +189,7 @@ object JsonView:
   given (using Translate): OWrites[PuzzleAngle] = a =>
     Json
       .obj(
-        "key" -> a.key,
+        "key"  -> a.key,
         "name" -> {
           if a == PuzzleAngle.mix
           then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
@@ -221,7 +221,7 @@ object JsonView:
     chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
 
   def puzzleAndGamejson(puzzle: Puzzle, game: JsObject) = Json.obj(
-    "game" -> game,
+    "game"   -> game,
     "puzzle" -> puzzleJsonBase(puzzle).++ {
       Json.obj("initialPly" -> puzzle.initialPly)
     }

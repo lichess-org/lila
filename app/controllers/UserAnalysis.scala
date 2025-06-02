@@ -21,7 +21,7 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load(none, Variant.orDefault(Variant.LilaKey(key)))
+      case Array(key)      => load(none, Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
           case Some(variant) if variant != Standard            => load(fen.some, variant)
@@ -31,7 +31,7 @@ final class UserAnalysis(
       case _ => load(none, Standard)
 
   private def load(urlFen: Option[String], variant: Variant) = Open:
-    val inputFen: Option[Fen.Full] = urlFen.orElse(get("fen")).flatMap(readFen)
+    val inputFen: Option[Fen.Full]       = urlFen.orElse(get("fen")).flatMap(readFen)
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
@@ -54,7 +54,7 @@ final class UserAnalysis(
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
-    val decodedPgn =
+    val decodedPgn  =
       lila.common.String
         .decodeUriPath(pgn.take(5000))
         .map(_.replace("_", " ").replace("+", " ").trim)
@@ -114,7 +114,7 @@ final class UserAnalysis(
               val owner = isMyPov(pov)
               for
                 initialFen <- env.game.gameRepo.initialFen(game.id)
-                data <-
+                data       <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
@@ -133,7 +133,7 @@ final class UserAnalysis(
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)
     crosstable <- env.game.crosstableApi(pov.game)
-    data <- env.api.roundApi.review(
+    data       <- env.api.roundApi.review(
       pov,
       users,
       tv = none,

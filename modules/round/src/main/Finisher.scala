@@ -164,7 +164,7 @@ final private class Finisher(
     (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
-      val result =
+      val result    =
         if game.winnerUserId.has(user.id) then 1
         else if game.loserUserId.has(user.id) then -1
         else 0

@@ -47,7 +47,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
           .aggregateOne(_.sec): framework =>
             import framework.*
             val facets = for
-              tc <- FideTC.values.toList
+              tc    <- FideTC.values.toList
               facet <- List(
                 "top" -> List(
                   Project($doc("_id" -> 0, tc.toString -> 1)),
@@ -99,7 +99,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
   private object playersFromHttpFile:
     def apply(): Funit = for
       httpStream <- ws.url(listUrl).stream()
-      _ <-
+      _          <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
         else
@@ -166,7 +166,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         .fetch(players.map(_.id))
         .flatMap: inDb =>
           val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
-          val changed = players.filter: p =>
+          val changed                          = players.filter: p =>
             inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)

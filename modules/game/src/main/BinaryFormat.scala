@@ -52,7 +52,7 @@ object BinaryFormat:
   object moveTime:
 
     private type MT = Int // centiseconds
-    private val size = 16
+    private val size    = 16
     private val buckets =
       List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
     private val encodeCutoffs = buckets
@@ -109,7 +109,7 @@ object BinaryFormat:
             val config      = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
-            val players = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
+            val players     = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
               .map: (berserk, legacy) =>
                 ClockPlayer
                   .withConfig(config)
@@ -166,7 +166,7 @@ object BinaryFormat:
         case (acc, (true, p))  => acc + (1 << (3 - p))
 
       def posInt(pos: Square): Int = (pos.file.value << 3) + pos.rank.value
-      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
+      val lastMoveInt              = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
       Array(((castleInt << 4) + (lastMoveInt >> 8)).toByte, lastMoveInt.toByte)
@@ -280,7 +280,7 @@ object BinaryFormat:
     val i = if int < (1 << 24) then int else 0
     Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
 
-  private val int23Max = 1 << 23
+  private val int23Max           = 1 << 23
   def writeSignedInt24(int: Int) =
     val i = if int < 0 then int23Max - int else math.min(int, int23Max)
     writeInt24(i)

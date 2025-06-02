@@ -24,7 +24,7 @@ final class Msg(env: Env) extends LilaController(env):
       env.msg.api
         .convoWithMe(username, before)
         .flatMap:
-          case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
+          case None    => negotiate(Redirect(routes.Msg.home), notFoundJson())
           case Some(c) =>
             def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(

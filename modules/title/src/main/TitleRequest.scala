@@ -75,7 +75,7 @@ object TitleRequest:
     def is(s: Status.type => Status) = this == s(Status)
     def isPending                    = name == "pending"
     def isFeedback                   = name == "feedback"
-    def textOpt = this match
+    def textOpt                      = this match
       case pending(t)  => t.some
       case feedback(t) => t.some
       case _           => none

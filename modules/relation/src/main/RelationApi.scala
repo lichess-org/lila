@@ -90,7 +90,7 @@ final class RelationApi(
       for
         following <- fetchFollowing(userId)
         inactive  <- userApi.filterClosedOrInactiveIds(since)(following)
-        _ <- inactive.nonEmpty.so:
+        _         <- inactive.nonEmpty.so:
           countFollowingCache.update(userId, _ - inactive.size)
           repo.unfollowMany(userId, inactive)
       yield inactive
@@ -132,7 +132,7 @@ final class RelationApi(
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {
           case (Some(Follow), _) => funit
           case (_, Some(Block))  => funit
-          case _ =>
+          case _                 =>
             for
               _ <- repo.follow(u1, u2)
               _ <- limitFollow(u1)

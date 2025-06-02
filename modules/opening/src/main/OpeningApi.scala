@@ -54,13 +54,13 @@ final class OpeningApi(
     for
       wiki      <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
-      stats <-
+      stats     <-
         if loadStats then explorer.stats(query.uci, query.config, crawler)
         else fuccess(scala.util.Success(none))
       statsOption = stats.toOption.flatten
       allHistory <- allGamesHistory.get(query.config)
       games      <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
-      withPgn <- games.traverse: g =>
+      withPgn    <- games.traverse: g =>
         pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
       history    = statsOption.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))

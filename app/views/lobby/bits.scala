@@ -109,7 +109,7 @@ object bits:
   def spotlight(e: lila.event.Event)(using Context) =
     a(
       href := (if e.isNow || !e.countdown then e.url else routes.Event.show(e.id).url),
-      cls := List(
+      cls  := List(
         s"tour-spotlight event-spotlight id_${e.id}" -> true,
         "invert"                                     -> e.isNowOrSoon
       )

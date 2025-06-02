@@ -90,7 +90,7 @@ final private class ChapterMaker(
       case _ => root.lastMainlineNode.color
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
-    val variant = data.variant | Variant.default
+    val variant           = data.variant | Variant.default
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
         case Some(game) =>

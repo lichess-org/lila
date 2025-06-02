@@ -81,7 +81,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
           div(cls := "game")(
             a(
               href := routes.Round.player(pov.fullId),
-              cls := List(
+              cls  := List(
                 "title"        -> true,
                 "friend_title" -> pov.game.sourceIs(_.Friend)
               ),

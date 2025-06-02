@@ -110,7 +110,7 @@ final class ChallengeBulkSetupApi(
         case (Right(_), Left(bad))         => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.me.userId :: users)
       .flatMap:
-        case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
+        case Left(errors)      => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
@@ -181,7 +181,7 @@ object ChallengeBulkSetup:
       pairedAt: Option[Instant] = None,
       fen: Option[Fen.Full] = None
   ):
-    def userSet = Set(games.flatMap(g => List(g.white, g.black)))
+    def userSet                            = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
@@ -221,7 +221,7 @@ object ChallengeBulkSetup:
     import lila.game.JsonView.given
     Json
       .obj(
-        "id" -> id,
+        "id"    -> id,
         "games" -> games.map: g =>
           Json.obj(
             "id"    -> g.id,

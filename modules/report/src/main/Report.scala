@@ -54,7 +54,7 @@ case class Report(
   def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def atomsByAndAbout(userId: UserId): List[Atom] =
+  def atomsByAndAbout(userId: UserId): List[Atom]  =
     if user == userId then atoms.toList else atomBy(userId.into(ReporterId)).toList
   def bestAtomByHuman: Option[Atom] = bestAtoms(10).find(_.byHuman)
 
@@ -88,7 +88,7 @@ object Report:
   object Score extends OpaqueDouble[Score]:
     extension (a: Score)
       def +(s: Score): Score = a + s
-      def color =
+      def color              =
         if a >= 150 then "red"
         else if a >= 100 then "orange"
         else if a >= 50 then "yellow"
@@ -109,8 +109,8 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
-    def isFlag                            = text.startsWith(Reason.flagText)
+    def is(reason: Reason.type => Reason)  = this.reason == reason(Reason)
+    def isFlag                             = text.startsWith(Reason.flagText)
     def parseFlag: Option[Atom.ParsedFlag] = isFlag.so:
       text
         .split(" ", 3)
@@ -159,7 +159,7 @@ object Report:
   object Candidate:
     case class Scored(candidate: Candidate, score: Score):
       def withScore(f: Score => Score) = copy(score = f(score))
-      def atom =
+      def atom                         =
         Atom(
           by = candidate.reporter.id,
           reason = candidate.reason,

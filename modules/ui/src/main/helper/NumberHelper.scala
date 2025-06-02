@@ -5,7 +5,7 @@ import java.text.NumberFormat
 import lila.core.i18n.{ maxLangs, Translate }
 
 object NumberHelper:
-  val formatters = scalalib.ConcurrentMap[String, NumberFormat](maxLangs)
+  val formatters                                  = scalalib.ConcurrentMap[String, NumberFormat](maxLangs)
   def formatter(using t: Translate): NumberFormat =
     formatters.computeIfAbsentAlways(t.lang.language):
       NumberFormat.getInstance(t.lang.toLocale)

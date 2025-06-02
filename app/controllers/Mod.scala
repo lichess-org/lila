@@ -185,7 +185,7 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .flatMap:
-        case None => Redirect(routes.Report.list)
+        case None         => Redirect(routes.Report.list)
         case Some(report) =>
           Found(env.user.repo.byId(report.user)): user =>
             import lila.report.Room
@@ -409,7 +409,7 @@ final class Mod(
   protected[controllers] def searchTerm(query: String)(using Context) =
     IpAddress.from(query) match
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
-      case None =>
+      case None     =>
         for
           res  <- env.mod.search(query)
           page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
@@ -505,7 +505,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
+      case None           => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)

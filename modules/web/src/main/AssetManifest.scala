@@ -20,8 +20,8 @@ final class AssetManifest(getFile: GetRelativeFile):
 
   private val logger = lila.log("assetManifest")
 
-  def css(key: String): String             = maps.css.getOrElse(key, key)
-  def hashed(path: String): Option[String] = maps.hashed.get(path)
+  def css(key: String): String                    = maps.css.getOrElse(key, key)
+  def hashed(path: String): Option[String]        = maps.hashed.get(path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
     maps.js.get(key).so(_.allModules)
   }.distinct
@@ -60,7 +60,7 @@ final class AssetManifest(getFile: GetRelativeFile):
       .value
       .map:
         case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js".some, Nil, None))
-        case (k, value) =>
+        case (k, value)       =>
           val path = (value \ "hash")
             .asOpt[String]
             .map(h => s"$k.$h.js")
@@ -85,9 +85,9 @@ final class AssetManifest(getFile: GetRelativeFile):
       .as[JsObject]
       .value
       .map { (k, asset) =>
-        val hash   = (asset \ "hash").as[String]
-        val name   = k.substring(k.lastIndexOf('/') + 1)
-        val extPos = name.lastIndexOf('.')
+        val hash       = (asset \ "hash").as[String]
+        val name       = k.substring(k.lastIndexOf('/') + 1)
+        val extPos     = name.lastIndexOf('.')
         val hashedName =
           if extPos < 0 then s"${name}.$hash"
           else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"

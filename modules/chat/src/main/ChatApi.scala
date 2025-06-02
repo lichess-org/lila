@@ -58,7 +58,7 @@ final class ChatApi(
     private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
       val mine = chat.forMe
       for
-        lines <- JsonView.asyncLines(mine)
+        lines   <- JsonView.asyncLines(mine)
         timeout <- me
           .ifFalse(mine.isEmpty)
           .so:

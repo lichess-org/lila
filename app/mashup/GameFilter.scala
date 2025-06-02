@@ -84,11 +84,11 @@ object GameFilterMenu:
         case All =>
           std(Query.started(user.id)).flatMap:
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-        case Me    => std(Query.opponents(user, me | user))
-        case Rated => std(Query.rated(user.id))
-        case Win   => std(Query.win(user.id))
-        case Loss  => std(Query.loss(user.id))
-        case Draw  => std(Query.draw(user.id))
+        case Me      => std(Query.opponents(user, me | user))
+        case Rated   => std(Query.rated(user.id))
+        case Win     => std(Query.win(user.id))
+        case Loss    => std(Query.loss(user.id))
+        case Draw    => std(Query.draw(user.id))
         case Playing =>
           pagBuilder(
             selector = Query.nowPlaying(user.id),

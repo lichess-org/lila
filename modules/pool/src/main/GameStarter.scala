@@ -40,7 +40,7 @@ final private class GameStarter(
           p1White <- userApi.firstGetsWhite(p1.userId, p2.userId)
           (whitePerf, blackPerf)     = if p1White then perf1 -> perf2 else perf2 -> perf1
           (whiteMember, blackMember) = if p1White then p1 -> p2 else p2 -> p1
-          game = makeGame(
+          game                       = makeGame(
             id,
             pool,
             whiteMember.userId -> whitePerf,

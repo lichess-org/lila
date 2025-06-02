@@ -151,7 +151,7 @@ final private[api] class GameApi(
         "turns"      -> g.ply,
         "color"      -> g.turnColor.name,
         "status"     -> g.status.name,
-        "clock" -> g.clock.map { clock =>
+        "clock"      -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds,
@@ -159,7 +159,7 @@ final private[api] class GameApi(
           )
         },
         "daysPerTurn" -> g.daysPerTurn,
-        "players" -> JsObject(g.players.mapList { p =>
+        "players"     -> JsObject(g.players.mapList { p =>
           p.color.name -> Json
             .obj(
               "userId"     -> p.userId,
@@ -179,7 +179,7 @@ final private[api] class GameApi(
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.sans.mkString(" ")),
         "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
-        "fens" -> ((withFlags.fens && g.finished).so {
+        "fens"     -> ((withFlags.fens && g.finished).so {
           chess
             .Position(g.variant, initialFen)
             .playPositions(g.sans)

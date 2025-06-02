@@ -16,7 +16,7 @@ object CoachProfileForm:
         "listed"    -> boolean,
         "available" -> boolean,
         "languages" -> nonEmptyText,
-        "profile" -> mapping(
+        "profile"   -> mapping(
           "headline"           -> optional(text(minLength = 5, maxLength = 170)),
           "hourlyRate"         -> optional(text(minLength = 3, maxLength = 140)),
           "description"        -> optional(of[RichText]),

@@ -22,12 +22,12 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap(reportAtoms)
-    val appealMsgs: List[Event] = appeal.so: a =>
+    val appealMsgs: List[Event]   = appeal.so: a =>
       a.msgs.toList.takeWhile: msg =>
         a.mutedSince.fold(true)(msg.at.isBefore)
     val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
     val accountCreation: List[Event] = List(AccountCreation(user.createdAt))
-    val concat: List[Event] =
+    val concat: List[Event]          =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: accountCreation
     // latest first
     concat.sorted(using Ordering.by(at).reverse)
@@ -70,7 +70,7 @@ object ModTimeline:
       .toList
       .flatMap: atoms =>
         atoms.head.parseFlag match
-          case None => List(ReportNewAtom(report, atoms))
+          case None       => List(ReportNewAtom(report, atoms))
           case Some(flag) =>
             flag.quotes.map(text =>
               ReportLineFlag(report.open.option(report.id), PublicLine(text, flag.source, atoms.head.at))
@@ -130,7 +130,7 @@ object ModTimeline:
       case l: Modlog if l.action == Modlog.blankedPassword => angle == Angle.None
       case l: Modlog if l.action == Modlog.weakPassword    => angle == Angle.None
       case l: Modlog if l.action == Modlog.troll           => angle != Angle.Play
-      case l: Modlog if l.action == Modlog.modMessage =>
+      case l: Modlog if l.action == Modlog.modMessage      =>
         angle match
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true

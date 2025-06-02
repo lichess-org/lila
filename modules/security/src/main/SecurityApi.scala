@@ -58,7 +58,7 @@ final class SecurityApi(
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
-          case Success(_) => FormValid
+          case Success(_)                => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
@@ -137,7 +137,7 @@ final class SecurityApi(
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
-          case None =>
+          case None         =>
             store.authInfo(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
@@ -199,7 +199,7 @@ final class SecurityApi(
     import play.api.mvc.request.{ Cell, RequestAttrKey }
     req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
       case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
-      case None =>
+      case None          =>
         logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
         none
 

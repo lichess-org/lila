@@ -190,7 +190,7 @@ final class ActivityUi(helpers: Helpers)(
       Context
   ) =
     corresEnds.toSeq.map { case (pk, (score, povs)) =>
-      val pt = lila.rating.PerfType(pk)
+      val pt   = lila.rating.PerfType(pk)
       val text =
         if pk == PerfKey.correspondence then
           trans.activity.completedNbGames.plural(score.size, subCount(score.size))

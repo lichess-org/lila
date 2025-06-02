@@ -105,7 +105,7 @@ object StudyArbitraries:
       dest  <- Arbitrary.arbitrary[Square]
     yield Shape.Arrow(brush, orig, dest)
 
-  given Arbitrary[Shape.Brush] = Arbitrary(Gen.oneOf('G', 'R', 'Y', 'B').map(toBrush))
+  given Arbitrary[Shape.Brush]                  = Arbitrary(Gen.oneOf('G', 'R', 'Y', 'B').map(toBrush))
   private def toBrush(color: Char): Shape.Brush =
     color match
       case 'G' => "green"

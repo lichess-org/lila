@@ -136,7 +136,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         fields.entryCode,
         (tour.isEmpty && teams.nonEmpty).option {
           val baseField = form.prefix("conditions.teamMember.teamId")
-          val field = ctx.req.queryString
+          val field     = ctx.req.queryString
             .get("team")
             .flatMap(_.headOption)
             .foldLeft(baseField): (field, team) =>

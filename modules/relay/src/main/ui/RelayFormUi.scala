@@ -14,9 +14,9 @@ case class FormNavigation(
     targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
-  def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
-  def tourWithRounds = RelayTour.WithRounds(tour, rounds)
-  def round          = roundId.flatMap(id => rounds.find(_.id == id))
+  def tourWithGroup   = RelayTour.WithGroupTours(tour, group)
+  def tourWithRounds  = RelayTour.WithRounds(tour, rounds)
+  def round           = roundId.flatMap(id => rounds.find(_.id == id))
   def featurableRound = round
     .ifTrue(targetRound.isEmpty)
     .filter: r =>
@@ -31,7 +31,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       a(
         href     := routes.RelayTour.edit(nav.tour.id),
         dataIcon := Icon.RadioTower,
-        cls := List(
+        cls      := List(
           "text"                            -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
           "active"                          -> (nav.round.isEmpty && !nav.newRound)
@@ -42,8 +42,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       frag(
         nav.rounds.map: r =>
           a(
-            href := routes.RelayRound.edit(r.id),
-            cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
+            href     := routes.RelayRound.edit(r.id),
+            cls      := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
               if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
@@ -52,7 +52,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(r.name),
         a(
           href := routes.RelayRound.create(nav.tour.id),
-          cls := List(
+          cls  := List(
             "subnav__subitem text" -> true,
             "active"               -> nav.newRound,
             "button"               -> (nav.rounds.isEmpty && !nav.newRound)
@@ -64,7 +64,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     lila.ui.bits.pageMenuSubnav(
       cls := "relay-form__subnav",
       nav.group match
-        case None => tourAndRounds(none)
+        case None    => tourAndRounds(none)
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
@@ -151,7 +151,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav: FormNavigation
     )(using ctx: Context) =
       val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
-      val lccWarning = for
+      val lccWarning            = for
         round    <- nav.round
         upstream <- round.sync.upstream
         if upstream.hasLcc

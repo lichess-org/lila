@@ -46,7 +46,7 @@ object EventForm:
   object icon:
     val default   = ""
     val broadcast = "broadcast.icon"
-    val choices = List(
+    val choices   = List(
       default               -> "Microphone",
       "lichess.event.png"   -> "Lichess",
       "trophy.event.png"    -> "Trophy",

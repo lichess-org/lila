@@ -46,7 +46,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       .find(
         $doc(
           BSONFields.enabled -> true,
-          BSONFields.title -> $doc(
+          BSONFields.title   -> $doc(
             "$exists" -> true,
             "$nin"    -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
           )

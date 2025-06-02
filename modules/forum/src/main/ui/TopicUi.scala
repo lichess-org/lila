@@ -86,7 +86,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )(using ctx: Context) =
     val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
     val headerText   = if isDiagnostic then "Diagnostics" else topic.name
-    val backUrl =
+    val backUrl      =
       if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
       else
         topic.ublogId.fold(s"${routes.ForumCateg.show(categ.id)}"): id =>

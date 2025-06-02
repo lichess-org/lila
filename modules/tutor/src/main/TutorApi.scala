@@ -20,7 +20,7 @@ final class TutorApi(
       .flatMap:
         case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
         case Some(report) => queue.status(user).dmap(some).map { TutorFullReport.Available(report, _) }
-        case None =>
+        case None         =>
           builder.eligiblePerfKeysOf(user) match
             case Nil => fuccess(TutorFullReport.InsufficientGames)
             case _   => queue.status(user).map(TutorFullReport.Empty.apply)

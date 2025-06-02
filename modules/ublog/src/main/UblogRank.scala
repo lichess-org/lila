@@ -83,8 +83,8 @@ object UblogRank:
     def sortingQuery(coll: Coll, framework: coll.AggregationFramework.type) =
       import framework.*
       this match
-        case ByDate => List(Sort(Descending("lived.at")))
-        case ByRank => List(Sort(Descending("rank")))
+        case ByDate         => List(Sort(Descending("lived.at")))
+        case ByRank         => List(Sort(Descending("rank")))
         case ByTimelessRank =>
           List(
             AddFields($doc("timelessRank" -> $doc("$subtract" -> $arr("$rank", "$lived.at")))),

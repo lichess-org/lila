@@ -21,8 +21,8 @@ final class ClasForm(
 
     val form: Form[ClasData] = Form:
       mapping(
-        "name" -> cleanText(minLength = 3, maxLength = 100),
-        "desc" -> cleanText(minLength = 0, maxLength = 2000),
+        "name"     -> cleanText(minLength = 3, maxLength = 100),
+        "desc"     -> cleanText(minLength = 0, maxLength = 2000),
         "teachers" -> nonEmptyText.verifying(
           "Invalid teacher list",
           str =>

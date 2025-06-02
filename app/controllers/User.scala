@@ -84,7 +84,7 @@ final class User(
           info   <- env.userInfo(u, nbs)
           _      <- env.userInfo.preloadTeams(info)
           social <- env.socialInfo(u)
-          page <- renderPage:
+          page   <- renderPage:
             lila.mon.chronoSync(_.user.segment("renderSync")):
               views.user.show.page.activity(as, info, social)
         yield status(page).withCanonical(routes.User.show(u.username))
@@ -238,7 +238,7 @@ final class User(
           page = page
         )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
-        _ <- env.tournament.cached.nameCache.preloadMany:
+        _   <- env.tournament.cached.nameCache.preloadMany:
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       yield pag
@@ -251,7 +251,7 @@ final class User(
           tourneyWinners <- env.tournament.winners.all.map(_.top)
           topOnline      <- env.user.cached.getTop50Online
           _              <- lightUserApi.preloadMany(tourneyWinners.map(_.userId))
-          page <- renderPage:
+          page           <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
         json =
@@ -391,7 +391,7 @@ final class User(
           ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
         }
 
-        val userLoginsFu = env.security.userLogins(user, nbOthers)
+        val userLoginsFu    = env.security.userLogins(user, nbOthers)
         val othersAndLogins = for
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
@@ -527,7 +527,7 @@ final class User(
         withPerfs     <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
         ops = withPerfs.toList.zip(usersAndGames.map(_._2))
         followables <- env.pref.api.followables(ops.map(_._1.id))
-        relateds <-
+        relateds    <-
           ops
             .zip(followables)
             .sequentially { case ((u, nb), followable) =>
@@ -560,17 +560,17 @@ final class User(
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
       get("term").flatMap(UserSearch.read) match
-        case None => BadRequest("No search term provided")
+        case None                            => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
           term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match
-              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+              case (Some(tourId), _, _)  => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
               case (_, Some(swissId), _) =>
                 env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
               case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
-              case _ =>
+              case _                    =>
                 ctx.me.ifTrue(getBool("friend")) match
                   case Some(follower) =>
                     env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>

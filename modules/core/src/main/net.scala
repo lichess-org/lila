@@ -71,7 +71,7 @@ object net:
   object AssetVersion extends OpaqueString[AssetVersion]:
     private var stored = random
     def current        = stored
-    def change() =
+    def change()       =
       stored = random
       current
 

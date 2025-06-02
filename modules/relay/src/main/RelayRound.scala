@@ -163,7 +163,7 @@ object RelayRound:
         case _        => none
       def isUrl            = asUrl.isDefined
       def lcc: Option[Lcc] = asUrl.flatMap(_.lcc)
-      def hasLcc = this match
+      def hasLcc           = this match
         case Url(url)   => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
@@ -179,7 +179,7 @@ object RelayRound:
               (cleanId.size == 8).option(RelayRoundId(cleanId))
             case _ => none
         case _ => none
-      def isRound = roundId.isDefined
+      def isRound                      = roundId.isDefined
       def roundIds: List[RelayRoundId] = this match
         case url: Url   => url.roundId.toList
         case Urls(urls) => urls.map(Url.apply).flatMap(_.roundId)
@@ -198,7 +198,7 @@ object RelayRound:
     val tour: RelayTour
     def display: RelayRound
     def link: RelayRound
-    def fullName = s"${tour.name} • ${display.name}"
+    def fullName     = s"${tour.name} • ${display.name}"
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"

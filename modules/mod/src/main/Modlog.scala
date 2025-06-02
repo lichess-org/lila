@@ -235,6 +235,6 @@ object Modlog:
   val giftPatronMonth     = "giftPatronMonth"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
-  def explain(e: Modlog) = (e.index.has("team")).so(~e.details) match
+  def explain(e: Modlog)   = (e.index.has("team")).so(~e.details) match
     case explainRegex(explain) => explain.some
     case _                     => none

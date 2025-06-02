@@ -80,10 +80,10 @@ final private class GameJson(
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json
       .obj(
-        "id"      -> game.id,
-        "perf"    -> perfJson(game),
-        "players" -> playersJson(game),
-        "rated"   -> game.rated,
+        "id"        -> game.id,
+        "perf"      -> perfJson(game),
+        "players"   -> playersJson(game),
+        "rated"     -> game.rated,
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
           for

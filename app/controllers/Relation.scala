@@ -21,7 +21,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
-    res <- Ok.snip:
+    res        <- Ok.snip:
       if mini
       then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else views.relation.actions(user, relation, blocked = blocked, followable = followable)
@@ -133,7 +133,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
     users       <- env.user.api.listWithPerfs(userIds.toList)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
-    rels <- users.sequentially: u =>
+    rels        <- users.sequentially: u =>
       ctx.userId
         .so(api.fetchRelation(_, u.id))
         .map: rel =>

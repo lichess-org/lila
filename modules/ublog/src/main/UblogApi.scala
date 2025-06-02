@@ -88,7 +88,7 @@ final class UblogApi(
       .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
-    val blogId = UblogBlog.Id.User(user.id)
+    val blogId  = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog
         .primitiveOne[UblogRank.Tier]($id(blogId.full), "tier")

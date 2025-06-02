@@ -84,8 +84,8 @@ object ChatUi:
             .add("loginRequired" -> chat.loginRequired)
             .add("restricted" -> restricted)
             .add("palantir" -> (palantir && ctx.isAuth)),
-          "writeable" -> writeable,
-          "public"    -> public,
+          "writeable"   -> writeable,
+          "public"      -> public,
           "permissions" -> Json
             .obj("local" -> (public && localMod))
             .add("broadcast" -> (public && broadcastMod))

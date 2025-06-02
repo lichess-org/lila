@@ -6,7 +6,7 @@ import lila.core.rating as hub
 object RatingRange:
 
   extension (r: hub.RatingRange)
-    def notBroad: Option[hub.RatingRange] = Option.when(r != hub.RatingRange.broad)(r)
+    def notBroad: Option[hub.RatingRange]           = Option.when(r != hub.RatingRange.broad)(r)
     def withinLimits(rating: IntRating, delta: Int) =
       r.copy(
         min = r.min.atMost(rating.map(_ + delta)),
