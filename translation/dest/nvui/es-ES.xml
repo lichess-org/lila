@@ -12,6 +12,7 @@
   <string name="opponentClock">Reloj del oponente</string>
   <string name="gameStart">Comienzo de la partida</string>
   <string name="boardCommandList">Lista de comandos cuando el tablero está enfocado</string>
+  <string name="inputFormCommandList">Escriba estos comandos en el formulario de entrada de comandos.</string>
   <string name="goToInputForm">Ir al formulario de entrada de movimientos y comandos.</string>
   <string name="announceCurrentSquare">Anunciar casilla actual.</string>
   <string name="announceLastMove">Anunciar último movimiento.</string>
@@ -22,4 +23,9 @@
   <string name="moveToPieceByType">Mover a una pieza escribiendo su tipo. Usa mayúsculas para invertir el orden.</string>
   <string name="moveToRank">Mover a la fila 1-8.</string>
   <string name="moveToFile">Mover a la columna a-h.</string>
+  <string name="announcePieceLocations">Anunciar ubicaciones de las piezas. Ejemplo: p mayúsculas N para los caballos blancos, p minúsculas k para el rey negro.</string>
+  <string name="announcePiecesOnRankOrFile">Anunciar piezas en una fila o columna. Ejemplo: s a, s 1.</string>
+  <string name="goToBoard">Ir al tablero. La casilla predeterminada es e-4. Puedes especificar una casilla: tablero a-1 o b a-1 te llevará a la casilla a-1.</string>
+  <string name="movePiece">Para mover una pieza, usa la notación algebraica estándar.</string>
+  <string name="promotion">Para promover a cualquier otra cosa que una dama, utiliza iguales. Por ejemplo a-8-igual-n promueve a un caballo.</string>
 </resources>
