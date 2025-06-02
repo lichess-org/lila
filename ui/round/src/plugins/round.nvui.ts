@@ -218,7 +218,7 @@ export function initModule(): NvuiPlugin {
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
         ]),
-        ...boardCommands(),
+        ...boardCommands(i18n),
       ]);
     },
   };
@@ -327,7 +327,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'p',
-    help: commands.piece.help,
+    help: commands.piece.help(i18n),
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
@@ -336,7 +336,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    help: commands.scan.help,
+    help: commands.scan.help(i18n),
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??

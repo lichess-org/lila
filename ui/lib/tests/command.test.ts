@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { commands as renderCommands } from '../src/nvui/command';
+import { commands } from '../src/nvui/command';
 import type { Pieces } from '@lichess-org/chessground/types';
 
 const pieces: Pieces = new Map();
@@ -7,9 +7,6 @@ pieces.set('a1', { color: 'white', role: 'king' });
 pieces.set('a2', { color: 'white', role: 'queen' });
 pieces.set('b1', { color: 'white', role: 'knight' });
 pieces.set('b2', { color: 'white', role: 'knight' });
-
-const i18n: I18n = { site: { none: 'None' } } as I18n;
-const commands = renderCommands(i18n);
 
 test('piece command', () => {
   expect(commands.piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
