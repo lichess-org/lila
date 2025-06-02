@@ -467,6 +467,7 @@ final class Mod(
       for
         _ <- env.plan.api.freeMonth(dest)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
+        _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
   }
 

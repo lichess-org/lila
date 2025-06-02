@@ -173,6 +173,13 @@ To make a new donation, head to $baseUrl/patron"""
           alsoSendAsPrivateMessage(to): _ =>
             s"""@${from.username} gifted you $wings!"""
 
+  def onPatronFree(dest: User): Unit =
+    alsoSendAsPrivateMessage(dest)(
+      body = _ => s"""Thank you for being an active member of our community!
+As a token of our appreciation, you have been gifted Patron Wings for a month.
+$baseUrl/patron"""
+    )
+
   private[mailer] def dailyCorrespondenceNotice(
       userId: UserId,
       opponents: List[CorrespondenceOpponent]
