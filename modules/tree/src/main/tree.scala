@@ -17,7 +17,7 @@ import Node.{ Comments, Comment, Gamebook, Shapes }
 // either we decide that branches strictly represent all the children from a node
 // with the first being the mainline, OR we just use it as an List with extra functionalities
 case class Branches(nodes: List[Branch]) extends AnyVal:
-  def first = nodes.headOption
+  def first         = nodes.headOption
   def mainlineFirst = nodes.collectFirst:
     case node if !node.forceVariation => node
   def variations = nodes.drop(1)
@@ -62,7 +62,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
     path.split match
-      case None => this.some
+      case None             => this.some
       case Some(head, tail) =>
         get(head).flatMap: node =>
           node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
@@ -71,7 +71,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def promoteUpAt(path: UciPath): Option[(Branches, Boolean)] =
     path.split match
-      case None => Some(this -> false)
+      case None             => Some(this -> false)
       case Some(head, tail) =>
         for
           node                  <- get(head)
@@ -435,7 +435,7 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
-      def findBy(author: Comment.Author) = a.value.find(_.by.is(author))
+      def findBy(author: Comment.Author)  = a.value.find(_.by.is(author))
       def set(comment: Comment): Comments =
         if a.value.exists(_.by.is(comment.by)) then
           a.value.map:
@@ -451,7 +451,7 @@ object Node:
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
     private def trimOrNone(txt: Option[String]) = txt.map(_.trim).filter(_.nonEmpty)
-    def cleanUp =
+    def cleanUp                                 =
       copy(
         deviation = trimOrNone(deviation),
         hint = trimOrNone(hint)
@@ -459,8 +459,8 @@ object Node:
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
 
   import chess.json.Json.given
-  private val shapeCircleWrites = Json.writes[Shape.Circle]
-  private val shapeArrowWrites  = Json.writes[Shape.Arrow]
+  private val shapeCircleWrites    = Json.writes[Shape.Circle]
+  private val shapeArrowWrites     = Json.writes[Shape.Arrow]
   given shapeWrites: Writes[Shape] = Writes[Shape]:
     case s: Shape.Circle => shapeCircleWrites.writes(s)
     case s: Shape.Arrow  => shapeArrowWrites.writes(s)

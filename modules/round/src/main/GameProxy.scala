@@ -54,7 +54,7 @@ final private class GameProxy(
     cache.value match
       case Some(Success(Some(g))) => f(g)
       case Some(Success(None))    => fufail(s"No proxy game: $id")
-      case _ =>
+      case _                      =>
         cache.flatMap:
           case None    => fufail(s"No proxy game: $id")
           case Some(g) => f(g)

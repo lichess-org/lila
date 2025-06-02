@@ -36,8 +36,8 @@ private[study] object CommentParser:
 
   private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] =
     for
-      h <- hours.toIntOption
-      m <- minutes.toIntOption
+      h  <- hours.toIntOption
+      m  <- minutes.toIntOption
       cs <- seconds.toDoubleOption match
         case Some(s) => Some(Maths.roundAt(s * 100, 0).toInt)
         case _       => none

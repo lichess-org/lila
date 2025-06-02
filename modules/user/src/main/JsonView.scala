@@ -41,7 +41,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs" -> perfs.fold(Json.obj()):
+        "perfs"    -> perfs.fold(Json.obj()):
           case p: UserPerfs => perfsJson(p)
           case p: KeyedPerf => keyedPerfJson(p)
       )
@@ -72,7 +72,7 @@ object JsonView:
       .obj(
         "id"       -> l.user.id,
         "username" -> l.user.name,
-        "perfs" -> Json.obj(
+        "perfs"    -> Json.obj(
           l.perfKey.value -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
         )
       )

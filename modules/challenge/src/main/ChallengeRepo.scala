@@ -39,7 +39,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l".$exists(true)), max)
-    corres <- (realTime.sizeIs < max).so(
+    corres   <- (realTime.sizeIs < max).so(
       createdList(
         $doc($doc("destUser.id" -> userId), "timeControl.l".$exists(false)),
         max - realTime.size

@@ -44,7 +44,7 @@ trait ChessHelper:
           else
             def top(p: Square)  = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
             def left(p: Square) = orient.fold(p.file.value, 7 - p.file.value) * 12.5
-            val highlights = pref.highlight
+            val highlights      = pref.highlight
               .so(lastMove.distinct.map { pos =>
                 s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
               })

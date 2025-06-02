@@ -79,8 +79,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
         (text, process) =>
           for
-            _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            _ <- env.appeal.api.reply(text, appeal)
+            _      <- env.mailer.automaticEmail.onAppealReply(suspect.user)
+            _      <- env.appeal.api.reply(text, appeal)
             result <-
               if process then
                 env.report.api.inquiries

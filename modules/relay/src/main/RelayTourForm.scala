@@ -35,7 +35,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   private val pinnedStreamMapping = mapping(
     "name" -> cleanNonEmptyText(maxLength = 100),
-    "url" -> url.field
+    "url"  -> url.field
       .verifying("Invalid stream URL", url => RelayPinnedStream("", url, None).upstream.isDefined),
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
@@ -52,7 +52,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "showScores"      -> boolean,
       "showRatingDiffs" -> boolean,
       "teamTable"       -> boolean,
-      "players" -> optional(
+      "players"         -> optional(
         of(using formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
       ),
       "teams" -> optional(

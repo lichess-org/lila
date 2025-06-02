@@ -109,7 +109,7 @@ final class Simul(env: Env) extends LilaController(env):
     NoLameOrBot:
       for
         teams <- env.team.api.lightsOf(me)
-        res <- bindForm(forms.create(teams))(
+        res   <- bindForm(forms.create(teams))(
           err => BadRequest.page(views.simul.form.create(err, teams)),
           setup =>
             for simul <- env.simul.api.create(setup)

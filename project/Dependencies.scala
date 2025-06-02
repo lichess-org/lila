@@ -21,7 +21,7 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.35.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.36.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
@@ -62,7 +62,7 @@ object Dependencies {
 
   object flexmark {
     val version = "0.64.8"
-    val bundle =
+    val bundle  =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
           .map { ext =>

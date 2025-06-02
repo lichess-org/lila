@@ -34,8 +34,8 @@ final class JsonView(
 
   def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
-      "in"  -> a.in.map(apply(Direction.In.some)),
-      "out" -> a.out.map(apply(Direction.Out.some)),
+      "in"      -> a.in.map(apply(Direction.In.some)),
+      "out"     -> a.out.map(apply(Direction.Out.some)),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
@@ -65,14 +65,14 @@ final class JsonView(
   def apply(direction: Option[Direction])(c: Challenge)(using Translate): JsObject =
     Json
       .obj(
-        "id"         -> c.id,
-        "url"        -> s"$baseUrl/${c.id}",
-        "status"     -> c.status.name,
-        "challenger" -> c.challengerUser,
-        "destUser"   -> c.destUser,
-        "variant"    -> c.variant,
-        "rated"      -> c.mode.rated,
-        "speed"      -> c.speed.key,
+        "id"          -> c.id,
+        "url"         -> s"$baseUrl/${c.id}",
+        "status"      -> c.status.name,
+        "challenger"  -> c.challengerUser,
+        "destUser"    -> c.destUser,
+        "variant"     -> c.variant,
+        "rated"       -> c.mode.rated,
+        "speed"       -> c.speed.key,
         "timeControl" -> c.timeControl.match
           case TimeControl.Clock(clock) =>
             Json.obj(
@@ -90,7 +90,7 @@ final class JsonView(
         ,
         "color"      -> c.colorChoice.toString.toLowerCase,
         "finalColor" -> c.finalColor.toString.toLowerCase,
-        "perf" -> Json.obj(
+        "perf"       -> Json.obj(
           "icon" -> iconOf(c),
           "name" -> c.perfType.trans
         )

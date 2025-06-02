@@ -52,7 +52,7 @@ final private class StudySocket(
     )
 
   private lazy val studyHandler: SocketHandler =
-    case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
+    case RP.In.ChatSay(roomId, userId, msg)                          => api.talk(userId, roomId, msg)
     case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.{ *, given }
       import JsonView.given
@@ -390,7 +390,7 @@ final private class StudySocket(
       )
     )
   def descStudy(desc: Option[String], who: Who) = version("descStudy", Json.obj("desc" -> desc, "w" -> who))
-  def setTopics(topics: StudyTopics, who: Who) =
+  def setTopics(topics: StudyTopics, who: Who)  =
     version("setTopics", Json.obj("topics" -> topics, "w" -> who))
   def addChapter(pos: Position.Ref, sticky: Boolean, who: Who) =
     version(
@@ -418,7 +418,7 @@ final private class StudySocket(
         "w"         -> who
       )
     )
-  def reloadSri(sri: Sri) = notifySri(sri, "reload", JsNull)
+  def reloadSri(sri: Sri)                                     = notifySri(sri, "reload", JsNull)
   def reloadSriBecauseOf(sri: Sri, chapterId: StudyChapterId) =
     notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
@@ -450,7 +450,7 @@ object StudySocket:
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)
       given Reads[ChapterMaker.Orientation] = stringRead(ChapterMaker.Orientation.apply)
       given Reads[Settings.UserSelection]   = optRead(Settings.UserSelection.byKey.get)
-      given Reads[chess.variant.Variant] =
+      given Reads[chess.variant.Variant]    =
         optRead(key => chess.variant.Variant(chess.variant.Variant.LilaKey(key)))
       given Reads[ChapterMaker.Data]          = Json.reads
       given Reads[ChapterMaker.EditData]      = Json.reads

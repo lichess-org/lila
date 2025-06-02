@@ -28,7 +28,7 @@ object SimpleOpening:
 
   val otherVariations = OpeningVariation("Other variations")
 
-  def apply(key: Key): Option[SimpleOpening] = openings.get(key)
+  def apply(key: Key): Option[SimpleOpening]     = openings.get(key)
   def apply(ref: Opening): Option[SimpleOpening] =
     openings.get(nameToKey(OpeningName(nameOf(ref))).into(Key))
 

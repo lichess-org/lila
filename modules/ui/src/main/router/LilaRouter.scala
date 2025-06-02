@@ -34,9 +34,9 @@ object LilaRouter:
   given PathBindable[UserStr] = strPath[UserStr](UserStr.read, "Invalid Lichess username")
   given PathBindable[PerfKey] = strPath[PerfKey](PerfKey.apply, "Invalid Lichess performance key")
   given PathBindable[GameId]  = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
-  given PathBindable[Color] =
+  given PathBindable[Color]   =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-  given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
+  given PathBindable[Uci]        = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
   given PathBindable[StudyOrder] = strPath[StudyOrder](
     s => scala.util.Try(StudyOrder.valueOf(s).some).getOrElse(None),
     "Invalid study order"

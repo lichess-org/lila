@@ -72,8 +72,8 @@ private object SwissSheet:
         pairingMap.get(round) match
           case Some(pairing) =>
             pairing.status match
-              case Left(_)     => Ongoing
-              case Right(None) => Draw
+              case Left(_)                                 => Ongoing
+              case Right(None)                             => Draw
               case Right(Some(color)) if pairing.isForfeit =>
                 if pairing(color) == player.userId then ForfeitWin else ForfeitLoss
               case Right(Some(color)) => if pairing(color) == player.userId then Win else Loss

@@ -43,7 +43,7 @@ final class PlanApi(
     stripe
       .userCustomer(user)
       .flatMap:
-        case None => fufail(s"Can't switch non-existent customer ${user.id}")
+        case None           => fufail(s"Can't switch non-existent customer ${user.id}")
         case Some(customer) =>
           customer.firstSubscription match
             case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
@@ -58,7 +58,7 @@ final class PlanApi(
     def onCancel = for
       lifetime <- isLifetime(user)
       _        <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
-      _ <- mongo.patron.update
+      _        <- mongo.patron.update
         .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
         .map: _ =>
           logger.info(s"Canceled subscription of ${user.username}")
@@ -68,7 +68,7 @@ final class PlanApi(
       .flatMap:
         case Some(customer) =>
           customer.firstSubscription match
-            case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
+            case None      => fufail(s"Can't cancel non-existent subscription of ${user.id}")
             case Some(sub) =>
               stripeClient.cancelSubscription(sub) >> onCancel
         case None =>
@@ -98,7 +98,7 @@ final class PlanApi(
         )
       isLifetime <- pricingApi.isLifetime(money)
       _          <- addCharge(charge, stripeCharge.country)
-      _ <- patronOption match
+      _          <- patronOption match
         case None =>
           logger.info(s"Charged anon customer $charge")
           funit
@@ -107,9 +107,9 @@ final class PlanApi(
           userApi.byId(prevPatron.userId).orFail(s"Missing user for $prevPatron").flatMap { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
-              case None =>
+              case None     =>
                 stripeClient.getCustomer(stripeCharge.customer).flatMap { customer =>
-                  val freq = if customer.exists(_.renew) then Freq.Monthly else Freq.Onetime
+                  val freq   = if customer.exists(_.renew) then Freq.Monthly else Freq.Onetime
                   val patron = prevPatron
                     .copy(lastLevelUp = prevPatron.lastLevelUp.orElse(nowInstant.some))
                     .levelUpIfPossible
@@ -143,7 +143,7 @@ final class PlanApi(
           case (Some(nextInvoice), paymentMethod) =>
             customer.firstSubscription match
               case Some(sub) => CustomerInfo.Monthly(sub, nextInvoice, paymentMethod).some
-              case None =>
+              case None      =>
                 logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
                 none
           case (None, _) => CustomerInfo.OneTime(customer).some
@@ -190,7 +190,7 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        can <- canUse(data.ip, data.checkout.freq)
+        can     <- canUse(data.ip, data.checkout.freq)
         session <-
           if can.yes then
             data.checkout.freq match
@@ -257,7 +257,7 @@ final class PlanApi(
       usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
       giftTo     <- ipn.giftTo.so(userApi.byId)
-      _ <-
+      _          <-
         if key != payPalIpnKey.value then
           logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
           funit
@@ -283,11 +283,11 @@ final class PlanApi(
           (addCharge(charge, ipn.country) >> ipn.userId.so(userApi.byId)).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
-              case None =>
+              case None     =>
                 val payPal = Patron.PayPalLegacy(ipn.email, ipn.subId, nowInstant)
                 for
                   patron <- userPatron(user)
-                  _ <- patron match
+                  _      <- patron match
                     case None =>
                       for
                         _ <- mongo.patron.insert.one(
@@ -339,7 +339,7 @@ final class PlanApi(
       usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
       giftTo     <- order.giftTo.so(userApi.byId)
-      _ <-
+      _          <-
         if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
           funit
@@ -354,11 +354,11 @@ final class PlanApi(
           (addCharge(charge, order.country) >> order.userId.so(userApi.byId)).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
-              case None =>
+              case None     =>
                 def newPayPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none)
                 for
                   patron <- userPatron(user)
-                  _ <- patron match
+                  _      <- patron match
                     case None =>
                       for
                         _ <- mongo.patron.insert.one(
@@ -398,7 +398,7 @@ final class PlanApi(
       money = sub.capturedMoney
       pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
       usd     <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
-      _ <-
+      _       <-
         if !pricing.valid(money, isGift = false) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
           funit
@@ -562,7 +562,7 @@ final class PlanApi(
     for
       toPatronOpt <- userPatron(to)
       isLifetime  <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi.isLifetime(money))
-      _ <- mongo.patron.update
+      _           <- mongo.patron.update
         .one(
           $id(to.id),
           $set(
@@ -593,7 +593,7 @@ final class PlanApi(
     _ <- mongo.patron.unsetField($id(user.id), "lifetime")
   yield lightUserApi.invalidate(user.id)
 
-  private val recentChargeUserIdsNb = 100
+  private val recentChargeUserIdsNb    = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
     _.refreshAfterWrite(30.minutes).buildAsyncFuture: _ =>
       mongo.charge

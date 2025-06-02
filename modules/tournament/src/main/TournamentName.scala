@@ -100,6 +100,6 @@ private object TournamentName:
         case Yearly          => yearlyX.txt(variant.name)
         case Shield if full  => xShieldArena.txt(variant.name)
         case Shield          => xShield.txt(variant.name)
-        case _ =>
+        case _               =>
           val n = s"${freq.name} ${variant.name}"
           if full then xArena.txt(n) else n

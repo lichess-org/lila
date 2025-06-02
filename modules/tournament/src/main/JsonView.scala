@@ -81,11 +81,11 @@ final class JsonView(
           case (None, _)                                   => fuccess(tour.conditions.accepted)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted)
           case (Some(me), Some(_))                         => verify.rejoin(tour.conditions)(using me)
-          case (Some(me), None) =>
+          case (Some(me), None)                            =>
             userApi.usingPerfOf(me, tour.perfType):
               verify(tour.conditions, tour.perfType)(using me)
-      stats       <- statsApi(tour)
-      shieldOwner <- full.so { shieldApi.currentOwner(tour) }
+      stats           <- statsApi(tour)
+      shieldOwner     <- full.so { shieldApi.currentOwner(tour) }
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
       yield getMyTeamIds(u.lightMe).map: teams =>
         battle.teams.intersect(teams.toSet).toList))
@@ -177,7 +177,7 @@ final class JsonView(
     user    <- lightUserApi.asyncFallback(info.userId)
   yield
     import info.*
-    val isPlaying = recentPovs.headOption.so(_.game.playable)
+    val isPlaying                                              = recentPovs.headOption.so(_.game.playable)
     val povScores: List[(LightPov, Option[arena.Sheet.Score])] = recentPovs.zip:
       (isPlaying.so(List(none[arena.Sheet.Score]))) ::: sheet.scores.map(some)
     Json.obj(
@@ -248,7 +248,7 @@ final class JsonView(
         for
           tour               <- cached.tourCache.byId(id)
           (duels, jsonDuels) <- duelsJson(id)
-          duelTeams <- tour
+          duelTeams          <- tour
             .exists(_.isTeamBattle)
             .so:
               playerRepo
@@ -266,7 +266,7 @@ final class JsonView(
         )
 
   private def featuredJson(featured: FeaturedGame) =
-    val game = featured.game
+    val game                                                 = featured.game
     def ofPlayer(rp: RankedPlayer, p: lila.core.game.Player) =
       val light = lightUserApi.syncFallback(rp.player.userId)
       Json.toJsObject(light) ++
@@ -332,7 +332,7 @@ final class JsonView(
                 top3.sequentially: rp =>
                   for
                     sheet <- cached.sheet(tour, rp.player.userId)
-                    json <- playerJson(
+                    json  <- playerJson(
                       lightUserApi,
                       none,
                       rp,
@@ -396,9 +396,9 @@ final class JsonView(
 
   private given teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites: rt =>
     Json.obj(
-      "rank"  -> rt.rank,
-      "id"    -> rt.teamId,
-      "score" -> rt.score,
+      "rank"    -> rt.rank,
+      "id"      -> rt.teamId,
+      "score"   -> rt.score,
       "players" -> rt.leaders.map: p =>
         Json.obj(
           "user"  -> lightUserApi.sync(p.userId),
@@ -427,11 +427,11 @@ final class JsonView(
               .inject:
                 Json
                   .obj(
-                    "id"        -> teamId,
-                    "nbPlayers" -> info.nbPlayers,
-                    "rating"    -> info.avgRating,
-                    "perf"      -> info.avgPerf,
-                    "score"     -> info.avgScore,
+                    "id"         -> teamId,
+                    "nbPlayers"  -> info.nbPlayers,
+                    "rating"     -> info.avgRating,
+                    "perf"       -> info.avgPerf,
+                    "score"      -> info.avgScore,
                     "topPlayers" -> info.topPlayers.flatMap: p =>
                       lightUserApi
                         .sync(p.userId)

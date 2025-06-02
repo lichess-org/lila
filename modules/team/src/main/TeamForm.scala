@@ -157,7 +157,7 @@ private[team] case class RequestSetup(
 object TeamForm:
   object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
-    val password = "password" -> optional(cleanText(maxLength = 60))
+    val password                  = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",
       pw => team.passwordMatches(pw.so(_.trim))

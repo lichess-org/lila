@@ -138,7 +138,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       .dmap(some)
       .recover:
         case _: NotFoundException => None
-        case e: DeletedException =>
+        case e: DeletedException  =>
           logger.warn(e.getMessage)
           None
 

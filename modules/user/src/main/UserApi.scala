@@ -223,13 +223,13 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
-  def visibleBotsByIds(ids: Iterable[UserId], max: Int = 200): Fu[List[UserWithPerfs]] =
+  def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
     userRepo.coll
-      .aggregateList(max, _.sec): framework =>
+      .aggregateList(onlineBotVisible.value, _.sec): framework =>
         import framework.*
         Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending(BSONFields.playTimeTotal)),
-          Limit(max),
+          Limit(onlineBotVisible.value),
           PipelineOperator(perfsRepo.aggregate.lookup)
         )
       .map: docs =>
@@ -239,7 +239,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield UserWithPerfs(user, perfs)
 
-  // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[UserWithPerfs]] =
     perfsRepo.coll
       .aggregateList(nb, _.sec): framework =>

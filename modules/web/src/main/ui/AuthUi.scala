@@ -75,7 +75,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           h1(cls := "box__top")(trans.site.signUp()),
           postForm(
-            id := "signup-form",
+            id  := "signup-form",
             cls := List(
               "form3"             -> true,
               "h-captcha-enabled" -> form.enabled

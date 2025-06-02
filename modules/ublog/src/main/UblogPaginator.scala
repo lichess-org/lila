@@ -68,7 +68,7 @@ final class UblogPaginator(
   def liveByTopic(topic: UblogTopic, page: Int, byDate: Boolean): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
+        def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           aggregateVisiblePosts($doc("topics" -> topic), offset, length, if byDate then ByDate else ByRank)
       ,

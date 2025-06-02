@@ -19,7 +19,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
   private def sinceSelect(date: Instant)       = $doc("startsAt".$gt(date))
-  private def variantSelect(variant: Variant) =
+  private def variantSelect(variant: Variant)  =
     if variant.standard then $doc("variant".$exists(false))
     else $doc("variant" -> variant.id)
   private def nbPlayersSelect(nb: Int) = $doc("nbPlayers".$gte(nb))
@@ -259,7 +259,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           tour.scheduleFreq.map(tour -> _)
         }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
           case ((tours, skip), (_, freq)) if skip.has(freq) => (tours, skip)
-          case ((tours, skip), (tour, freq)) =>
+          case ((tours, skip), (tour, freq))                =>
             (
               tour :: tours,
               freq match

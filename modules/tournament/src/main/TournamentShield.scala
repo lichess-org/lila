@@ -96,8 +96,8 @@ object TournamentShield:
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
 
   enum Category(val of: SpeedOrVariant, val icon: Icon):
-    def key  = of.fold(_.key, _.key.value)
-    def name = of.fold(_.name, _.name)
+    def key                       = of.fold(_.key, _.key.value)
+    def name                      = of.fold(_.name, _.name)
     def matches(tour: Tournament) =
       if tour.variant.standard
       then ~(of.left.toOption, tour.scheduleSpeed).mapN(_ == _)

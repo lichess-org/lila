@@ -60,7 +60,7 @@ final class LobbySocket(
       case Join(member) => members.put(member.sri.value, member)
 
       case LeaveBatch(sris) => sris.foreach(quit)
-      case LeaveAll =>
+      case LeaveAll         =>
         members.invalidateAll()
         idleSris.clear()
         hookSubscriberSris.clear()
@@ -109,7 +109,7 @@ final class LobbySocket(
       case SetIdle(sri, true)  => idleSris += sri.value
       case SetIdle(sri, false) => idleSris -= sri.value
 
-      case HookSub(member, false) => hookSubscriberSris -= member.sri.value
+      case HookSub(member, false)     => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send.exec(
           P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
@@ -199,7 +199,7 @@ final class LobbySocket(
           lobby ! CancelHook(member.sri) // in case there's one...
           for
             glicko <- userApi.glicko(user.id, perfType)
-            trust <-
+            trust  <-
               if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
           do
             poolApi.join(

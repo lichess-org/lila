@@ -87,7 +87,7 @@ case class NewBranch(
   def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).replace(gamebook.some)
   def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).replace(s)
   def toggleGlyph(glyph: Glyph)            = this.focus(_.metas).modify(_.toggleGlyph(glyph))
-  def clearAnnotations = this
+  def clearAnnotations                     = this
     .focus(_.metas)
     .modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty, comments = Comments.empty))
   def setComp = copy(comp = true)

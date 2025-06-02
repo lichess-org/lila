@@ -160,7 +160,7 @@ case class Game(
   def berserkable =
     isTournament && clock.exists(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
-  def resignable = playable && !abortable
+  def resignable      = playable && !abortable
   def forceResignable =
     resignable && nonAi && hasClock && !isSwiss && !hasRule(_.noClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved

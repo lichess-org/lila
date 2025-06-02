@@ -37,7 +37,7 @@ final private class MovePlayer(
               .leftMap(e => s"$pov $e")
               .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap:
-                case Flagged => finisher.outOfTime(game)
+                case Flagged                                      => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop, compedLag) =>
                   compedLag.foreach { lag =>
                     lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
@@ -58,7 +58,7 @@ final private class MovePlayer(
         applyUci(game, uci, blur = false, botLag)
           .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
           .flatMap:
-            case Flagged => finisher.outOfTime(game)
+            case Flagged                              => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
       case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
@@ -93,7 +93,7 @@ final private class MovePlayer(
           applyUci(game, uci, blur = false, metrics = fishnetLag)
             .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
             .flatMap:
-              case Flagged => finisher.outOfTime(game)
+              case Flagged                              => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
                 for
                   _ <- proxy.save(progress)
@@ -139,7 +139,7 @@ final private class MovePlayer(
           game.chess.drop(role, pos, metrics).map((ncg, drop) => Clock.WithCompensatedLag(ncg, None) -> drop)
       .map:
         case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-        case (ncg, moveOrDrop: MoveOrDrop) =>
+        case (ncg, moveOrDrop: MoveOrDrop)                                                      =>
           MoveApplied(
             game.applyMove(ncg.value, moveOrDrop, blur),
             moveOrDrop,
@@ -148,7 +148,7 @@ final private class MovePlayer(
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit =
     import lila.core.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
-    val color = moveOrDrop.color
+    val color     = moveOrDrop.color
     val moveEvent = MoveEvent(
       gameId = game.id,
       fen = Fen.write(game.chess),

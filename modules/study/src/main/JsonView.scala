@@ -38,7 +38,7 @@ final class JsonView(
         else study.copy(members = StudyMembers.empty)
     yield Json.toJsObject(jsStudy) ++ Json
       .obj(
-        "liked" -> liked,
+        "liked"    -> liked,
         "features" -> Json
           .obj(
             "cloneable" -> allowed(_.cloneable),
@@ -47,13 +47,13 @@ final class JsonView(
           )
           .add("sticky", study.settings.sticky)
           .add("description", study.settings.description),
-        "topics" -> study.topicsOrEmpty,
+        "topics"  -> study.topicsOrEmpty,
         "chapter" -> Json
           .obj(
-            "id"      -> chapter.id,
-            "ownerId" -> chapter.ownerId,
-            "setup"   -> chapter.setup,
-            "tags"    -> chapter.tagsExport,
+            "id"       -> chapter.id,
+            "ownerId"  -> chapter.ownerId,
+            "setup"    -> chapter.setup,
+            "tags"     -> chapter.tagsExport,
             "features" -> Json.obj(
               "computer" -> allowed(_.computer),
               "explorer" -> allowed(_.explorer)
@@ -181,7 +181,7 @@ object JsonView:
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri]                        = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
-  private[study] given Writes[Study.From] = Writes:
+  private[study] given Writes[Study.From]                 = Writes:
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)

@@ -63,7 +63,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
               else 25)
             .flatMap: perSecond =>
               val finished = getBoolOpt("finished") | true
-              val config = GameApiV2.ByUserConfig(
+              val config   = GameApiV2.ByUserConfig(
                 user = user,
                 format = format,
                 vs = vs,
@@ -132,7 +132,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
-    val config = GameApiV2.ByIdsConfig(
+    val config          = GameApiV2.ByIdsConfig(
       ids = GameId.from(ctx.body.body.split(',').view.take(limit).toSeq),
       format = GameApiV2.Format.byRequest,
       flags = requestPgnFlags(extended = false),
@@ -170,7 +170,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match
-      case GameApiV2.Format.PGN => pgnContentType
+      case GameApiV2.Format.PGN  => pgnContentType
       case GameApiV2.Format.JSON =>
         config match
           case _: GameApiV2.OneConfig => JSON

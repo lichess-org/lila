@@ -100,7 +100,7 @@ final class UserApi(
                   .obj(
                     "url"     -> makeUrl(s"@/${u.username}"), // for app BC
                     "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
-                    "count" -> Json.obj(
+                    "count"   -> Json.obj(
                       "all"      -> u.count.game,
                       "rated"    -> u.count.rated,
                       "ai"       -> u.count.ai,

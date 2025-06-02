@@ -111,7 +111,7 @@ object StudyPgnImport:
               c.orElse(clock),
               e.orElse(emt),
               str.trim match
-                case "" => comments
+                case ""  => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             )
@@ -144,7 +144,7 @@ object StudyPgnImport:
             val sanStr                         = moveOrDrop.toSanStr
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
             val mover                          = !position.color
-            val computedClock: Option[Clock] = clock
+            val computedClock: Option[Clock]   = clock
               .map(Clock(_, trust = true.some))
               .orElse:
                 (context.clocks(mover), emt).mapN(guessNewClockState(_, context.timeControl, _))

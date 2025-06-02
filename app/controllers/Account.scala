@@ -186,7 +186,7 @@ final class Account(
   def emailConfirm(token: String) = Open:
     Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
       for
-        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        _   <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
         res <- auth.authenticateUser(
           user,
           remember = true,
@@ -308,7 +308,7 @@ final class Account(
             ),
           _ =>
             for
-              _ <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
+              _   <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
               res <- negotiate(
                 Redirect(routes.Account.kid).flashSuccess,
                 jsonOkResult

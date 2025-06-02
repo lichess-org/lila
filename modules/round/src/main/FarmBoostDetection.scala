@@ -43,7 +43,7 @@ final private class FarmBoostDetection(
       .so: winner =>
         val perf       = winner.perfs(g.perfKey)
         val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
-        def minMoves =
+        def minMoves   =
           if g.variant.standard
           then linearInterpolation(perf.nb)(0 -> 40, 5 -> 20)
           else reasonableMinimumNumberOfMoves(g.variant)

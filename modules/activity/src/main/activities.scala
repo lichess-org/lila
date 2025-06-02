@@ -15,7 +15,7 @@ object activities:
     extension (a: Games)
       def add(pt: PerfKey, score: Score): Games =
         a.value + (pt -> a.value.get(pt).fold(score)(_.plus(score)))
-      def hasNonCorres                          = a.value.exists(_._1 != PerfKey.correspondence)
+      def hasNonCorres = a.value.exists(_._1 != PerfKey.correspondence)
     given Zero[Games] = Zero(Map.empty)
 
   opaque type ForumPosts = List[ForumPostId]
@@ -62,7 +62,7 @@ object activities:
     extension (a: Practice)
       def +(studyId: StudyId): Practice =
         a.value + (studyId -> a.value.get(studyId).fold(1)(1 +))
-    given Zero[Practice]                = Zero(Map.empty)
+    given Zero[Practice] = Zero(Map.empty)
 
   opaque type Simuls = List[SimulId]
   object Simuls extends TotalWrapper[Simuls, List[SimulId]]:
@@ -81,7 +81,7 @@ object activities:
 
   case class Patron(months: Int)
   case class FollowList(ids: List[UserId], nb: Option[Int]):
-    def actualNb = nb | ids.size
+    def actualNb      = nb | ids.size
     def +(id: UserId) =
       if ids contains id then this
       else

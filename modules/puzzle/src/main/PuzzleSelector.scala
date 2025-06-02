@@ -75,7 +75,7 @@ final class PuzzleSelector(
           case PathMissing                 => fufail(s"Puzzle path missing for ${me.username} $session")
           case PathEnded if retries < 10   => switchPath("ended")(retries)(session.path.tier)
           case PathEnded                   => fufail(s"Puzzle path ended for ${me.username} $session")
-          case PuzzleMissing(id) =>
+          case PuzzleMissing(id)           =>
             logger.warn(s"Puzzle missing: $id")
             sessionApi.set(session.next)
             findNextPuzzleFor(angle, retries + 1)

@@ -20,17 +20,17 @@ trait ResponseWriter extends ContentTypes:
   given ContentTypeOf[Int]                   = textContentType
   given (using codec: Codec): Writeable[Int] = Writeable(i => codec.encode(i.toString))
 
-  val pgnContentType = "application/x-chess-pgn"
+  val pgnContentType                                        = "application/x-chess-pgn"
   given pgnWriteable(using codec: Codec): Writeable[PgnStr] =
     Writeable(p => codec.encode(p.toString), pgnContentType.some)
 
   @nowarn("msg=unused implicit parameter")
-  given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A] = textContentType
+  given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A]                      = textContentType
   given stringRuntimeWriteable[A](using codec: Codec, sr: StringRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a)))
 
   @nowarn("msg=unused implicit parameter")
-  given intRuntimeContentType[A: IntRuntime]: ContentTypeOf[A] = textContentType
+  given intRuntimeContentType[A: IntRuntime]: ContentTypeOf[A]                      = textContentType
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a).toString))
 

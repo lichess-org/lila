@@ -83,7 +83,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               else
                 a(
                   titleOrText(trans.site.reportXToModerators.txt(user.username)),
-                  cls := "button button-empty ublog-post__meta__report",
+                  cls  := "button button-empty ublog-post__meta__report",
                   href := addQueryParams(
                     routes.Report.form.url,
                     Map(

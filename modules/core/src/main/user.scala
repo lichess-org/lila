@@ -225,6 +225,7 @@ object user:
     def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]]
     def isCreatedSince(id: UserId, since: Instant): Fu[Boolean]
     def accountAge(id: UserId): Fu[Days]
+    def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter

@@ -62,7 +62,7 @@ final class NotifyApi(
               userId <- doc.getAsOpt[UserId]("_id")
               allows <- doc.getAsOpt[Allows](event.key)
             yield NotifyAllows(userId, allows)
-            val customIds = customAllows.view.map(_.userId).toSet
+            val customIds     = customAllows.view.map(_.userId).toSet
             val defaultAllows = userIds
               .filterNot(customIds.contains)
               .map:
@@ -117,7 +117,7 @@ final class NotifyApi(
     val note = Notification.make(to, content)
     shouldSkip(note).not.flatMapz:
       NotificationPref.events.get(content.key) match
-        case None => bellOne(note)
+        case None        => bellOne(note)
         case Some(event) =>
           prefs.allows(note.to, event).map { allows =>
             if allows.bell then bellOne(note)

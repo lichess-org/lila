@@ -136,7 +136,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
         help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
       clas match
-        case None => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
+        case None    => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
         case Some(_) =>
           form3.group(
             form("teachers"),

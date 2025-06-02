@@ -24,7 +24,7 @@ object UblogTopic extends OpaqueString[UblogTopic]:
     "Tournament",
     "Chess variant"
   )
-  val offTopic: UblogTopic = "Off topic"
+  val offTopic: UblogTopic  = "Off topic"
   val all: List[UblogTopic] = chess ::: List(
     "Software Development",
     "Lichess",
@@ -57,8 +57,8 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
                   Group(BSONNull)("nb" -> SumAll, "posts" -> PushField("$ROOT")),
                   Project:
                     $doc(
-                      "_id" -> false,
-                      "nb"  -> true,
+                      "_id"   -> false,
+                      "nb"    -> true,
                       "posts" -> $doc(
                         "$filter" -> $doc(
                           "input" -> $doc("$slice" -> $arr("$posts", 4)),

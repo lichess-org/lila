@@ -19,7 +19,7 @@ private def publicLineSource(source: lila.core.shutup.PublicSource)(using Transl
   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
   case PublicSource.Simul(id)      => views.simul.ui.link(id)
   case PublicSource.Team(id)       => teamLink(id)
-  case PublicSource.Watcher(id) =>
+  case PublicSource.Watcher(id)    =>
     a(href := routes.Round.watcher(id, Color.white))("Game #", id)
   case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
   case PublicSource.Swiss(id) => views.swiss.ui.link(id)

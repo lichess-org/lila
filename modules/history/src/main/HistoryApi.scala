@@ -33,7 +33,7 @@ final class HistoryApi(
         .void
 
   def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl: coll =>
-    val isStd = game.ratingVariant.standard
+    val isStd   = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
       game.ratingVariant.chess960.option("chess960"                         -> perfs.chess960),
@@ -94,7 +94,7 @@ final class HistoryApi(
         users.zip(hists).map { (user, doc) =>
           val current      = user.perf.intRating
           val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days.value))
-          val previous =
+          val previous     =
             doc
               .flatMap(_.child(perfKey.value))
               .flatMap(ratingsReader.readOpt)
@@ -116,7 +116,7 @@ final class HistoryApi(
         .flatMap: (user, currentRating) =>
           val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
           val days     = (firstDay to (firstDay + 6)).toList
-          val project = $doc:
+          val project  = $doc:
             ("_id" -> BSONBoolean(false)) :: days.map: d =>
               s"$perf.$d" -> BSONBoolean(true)
           withColl(_.find($id(user.id), project.some).one[Bdoc].map {

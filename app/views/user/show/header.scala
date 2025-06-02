@@ -172,7 +172,7 @@ object header:
       standardFlash,
       angle match
         case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
-        case _ =>
+        case _                                      =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
@@ -270,7 +270,7 @@ object header:
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(
           dataTab := "activity",
-          cls := List(
+          cls     := List(
             "nm-item to-activity" -> true,
             "active"              -> (angle == UserInfo.Angle.Activity)
           ),
@@ -278,7 +278,7 @@ object header:
         )(trans.activity.activity()),
         a(
           dataTab := "games",
-          cls := List(
+          cls     := List(
             "nm-item to-games" -> true,
             "active"           -> (angle.key == "games")
           ),

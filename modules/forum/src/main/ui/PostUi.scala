@@ -77,7 +77,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           nbsp,
                           a(
                             titleOrText(trans.site.reportXToModerators.txt(userId)),
-                            cls := "mod report button button-empty",
+                            cls  := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
                               Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
@@ -151,7 +151,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               .react(post.categId, post.id, r.key, !mine(r))
               .url
           ),
-          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          cls   := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if size > 0 then
               val who =

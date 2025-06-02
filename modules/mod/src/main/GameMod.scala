@@ -52,10 +52,10 @@ object GameMod:
 
   val filterForm = Form:
     mapping(
-      "arena"     -> optional(nonEmptyText),
-      "swiss"     -> optional(nonEmptyText),
-      "perf"      -> optional(perfKey),
-      "opponents" -> optional(nonEmptyText),
+      "arena"      -> optional(nonEmptyText),
+      "swiss"      -> optional(nonEmptyText),
+      "perf"       -> optional(perfKey),
+      "opponents"  -> optional(nonEmptyText),
       "nbGamesOpt" -> optional(
         number(min = 1).transform(
           _.atMost(maxGames),

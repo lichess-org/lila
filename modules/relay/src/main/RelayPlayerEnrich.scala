@@ -19,9 +19,9 @@ private case class RelayPlayerLine(
 private object RelayPlayerLine:
 
   object tokenize:
-    private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
-    private val splitRegex     = """\W""".r
-    private val titleRegex     = """(?i)(dr|prof)\.""".r
+    private val nonLetterRegex          = """[^a-zA-Z0-9\s]+""".r
+    private val splitRegex              = """\W""".r
+    private val titleRegex              = """(?i)(dr|prof)\.""".r
     def apply(str: String): PlayerToken =
       splitRegex
         .split:
@@ -68,7 +68,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
 
   def diff(prev: Option[RelayPlayerLines]): Option[RelayPlayerLines] =
     val prevPlayers = prev.so(_.players)
-    val newPlayers =
+    val newPlayers  =
       players.view
         .filter: (name, player) =>
           prevPlayers.get(name).forall(_ != player)
@@ -113,7 +113,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
       case ((tags, ambiguous), color) =>
         val name     = tags.names(color)
         val matching = name.fold(Matching.NotFound)(findMatching)
-        val newTags = tags ++ Tags:
+        val newTags  = tags ++ Tags:
           matching.match
             case Matching.Found(rp) =>
               List(
@@ -168,7 +168,7 @@ private final class RelayPlayerEnrich(
       (ambiguous.nonEmpty && rt.tour.official && once(ambiguous))
         .so:
           def show(p: RelayPlayerLine): String = p.fideId.map(_.toString) | p.name.fold("?")(_.value)
-          val players = ambiguous.map: a =>
+          val players                          = ambiguous.map: a =>
             (a.name.value, a.players.map(show))
           irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullName, players)
         .inject(updated)
@@ -186,7 +186,7 @@ private final class RelayPlayerEnrich(
           val enrichFromFideId = fidePlayerApi.enrichTags(tour)
           for
             studyIds <- roundRepo.studyIdsOf(tour.id)
-            _ <- chapterRepo
+            _        <- chapterRepo
               .byStudiesSource(studyIds)
               .mapAsync(1): chapter =>
                 val (newTags, _) = newPlayers.update(chapter.tags)
