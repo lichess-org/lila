@@ -20,4 +20,6 @@
   <string name="announcePossibleCaptures">Kunngjer moglege slagtrekk for den valde brikka.</string>
   <string name="moveWithArrows">Flytt til tilgrensande felt, venstre, høgre, opp eller ned.</string>
   <string name="moveToPieceByType">Flytt til ei brikke ved å skrive brikketypen. Bruk store bokstavar for å snu rekkefølga.</string>
+  <string name="moveToRank">Flytt til rad 1-8.</string>
+  <string name="moveToFile">Flytt til linje a-h.</string>
 </resources>
