@@ -9,4 +9,9 @@
   <string name="actions">액션들</string>
   <string name="yourClock">내 시계</string>
   <string name="opponentClock">상대 시계</string>
+  <string name="announceCurrentSquare">현재 칸 발표.</string>
+  <string name="announceLastMove">마지막 수 발표.</string>
+  <string name="announceLastMoveCapture">마지막 수에 잡힌 기물 발표.</string>
+  <string name="announcePossibleMoves">현재 선택된 기물의 가능한 수 발표.</string>
+  <string name="moveWithArrows">좌측, 우측, 위쪽, 또는 아래쪽에 인접한 칸으로 이동.</string>
 </resources>
