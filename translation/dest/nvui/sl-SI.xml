@@ -14,4 +14,8 @@
   <string name="moveToRank">Premakni v vrsto 1-8.</string>
   <string name="moveToFile">Premakni v stolpec a-h.</string>
   <string name="announcePieceLocations">Naznanite položaje figur. Primer: velika črka N za bele skakače, mala črka k za črnega kralja.</string>
+  <string name="announcePiecesOnRankOrFile">Naznanite figure po vrsti ali stolpcu. Primer: s a, s 1.</string>
+  <string name="goToBoard">Pojdi na igralno ploščo. Privzeto polje je e-4. Lahko določiš polje: igralna plošča a-1 ali b a-1 te bo pripeljala do polja a-1.</string>
+  <string name="movePiece">Za premikanje figure uporabite standardno algebrsko notacijo.</string>
+  <string name="promotion">Za napredovanje v karkoli drugega kot damo uporabite enačaj. Na primer a-8-=-n napreduje v viteza.</string>
 </resources>
