@@ -2,6 +2,7 @@
 <resources>
   <string name="gameStart">Začetek igre</string>
   <string name="boardCommandList">Seznam ukazov, ko je plošča v fokusu</string>
+  <string name="inputFormCommandList">V obrazec za vnos ukazov vnesite te ukaze.</string>
   <string name="goToInputForm">Pojdi na obrazec za premikanje in vnos ukazov.</string>
   <string name="announceCurrentSquare">Naznani trenutno polje.</string>
   <string name="announceLastMove">Naznani zadnjo potezo.</string>
@@ -12,4 +13,5 @@
   <string name="moveToPieceByType">Premaknite se na figuro in vtipkajte njen tip. Za obrnjen vrstni red uporabite velike črke.</string>
   <string name="moveToRank">Premakni v vrsto 1-8.</string>
   <string name="moveToFile">Premakni v stolpec a-h.</string>
+  <string name="announcePieceLocations">Naznanite položaje figur. Primer: velika črka N za bele skakače, mala črka k za črnega kralja.</string>
 </resources>
