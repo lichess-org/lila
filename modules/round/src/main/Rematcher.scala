@@ -154,9 +154,9 @@ object Rematcher:
   ): ChessGame =
     val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
     val newPosition  = variant match
-      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.position)
-      case Chess960                                 => Position(Chess960)
-      case variant                                  => prevPosition.fold(Position(variant))(_.position)
+      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Chess960.initialPosition)(_.position)
+      case Chess960                                 => Chess960.initialPosition
+      case variant                                  => prevPosition.fold(variant.initialPosition)(_.position)
     val ply   = prevPosition.fold(Ply.initial)(_.ply)
     val color = prevPosition.fold[Color](White)(_.position.color)
     ChessGame(

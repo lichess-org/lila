@@ -58,7 +58,7 @@ private object ChallengeJoiner:
   ): (chess.Game, Option[Position.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =
-      chess.Game(position = Position(variant), clock = tc.realTime.map(_.toClock))
+      chess.Game(position = variant.initialPosition, clock = tc.realTime.map(_.toClock))
 
     val baseState = initialFen
       .ifTrue(variant.fromPosition || variant.chess960)

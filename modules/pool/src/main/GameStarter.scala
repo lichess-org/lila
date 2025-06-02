@@ -60,7 +60,7 @@ final private class GameStarter(
     Game(
       id = id,
       chess = chess.Game(
-        position = chess.Position(chess.variant.Standard),
+        position = chess.variant.Standard.initialPosition,
         clock = pool.clock.toClock.some
       ),
       players = ByColor(whiteUser, blackUser).mapWithColor((u, p) => newPlayer(u, p)),
