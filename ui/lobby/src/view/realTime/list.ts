@@ -53,7 +53,6 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
     hooks = allHooks.slice(0, max),
     render = (hook: Hook) => renderHook(ctrl, hook),
     standards = hooks.filter(isNotMine).filter(isStandard(true));
-  if (!ctrl.me) ctrl.setSort('time');
   hookRepo.sort(ctrl, standards);
   const variants = hooks
     .filter(isNotMine)
