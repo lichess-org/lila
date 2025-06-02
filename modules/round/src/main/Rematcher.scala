@@ -153,7 +153,7 @@ object Rematcher:
       shouldRepeatChess960Position: Boolean
   ): ChessGame =
     val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
-    val newPosition = variant match
+    val newPosition  = variant match
       case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Chess960.initialPosition)(_.position)
       case Chess960                                 => Chess960.initialPosition
       case variant                                  => prevPosition.fold(variant.initialPosition)(_.position)
