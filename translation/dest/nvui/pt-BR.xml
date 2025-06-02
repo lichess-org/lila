@@ -19,4 +19,5 @@
   <string name="announcePossibleMoves">Anunciar possíveis jogadas da peça selecionada.</string>
   <string name="announcePossibleCaptures">Anunciar possíveis capturas com a peça selecionada.</string>
   <string name="moveWithArrows">Mover à casa adjacente à esquerda, direita, para cima ou para baixo.</string>
+  <string name="moveToPieceByType">Mova para uma peça digitando seu tipo. Use maiúscula para inverter a ordem.</string>
 </resources>
