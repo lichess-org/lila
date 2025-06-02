@@ -12,6 +12,8 @@
   <string name="opponentClock">Modstanders ur</string>
   <string name="gameStart">Parti start</string>
   <string name="boardCommandList">Kommandoliste når brættet har fokus</string>
+  <string name="inputFormCommandList">Skriv disse kommandoer i kommando-inputformularen.</string>
+  <string name="goToInputForm">Gå til kommando-inputformularen.</string>
   <string name="announceCurrentSquare">Annoncer aktuelt felt.</string>
   <string name="announceLastMove">Annoncer seneste træk.</string>
   <string name="announceLastMoveCapture">Annoncer brik taget i seneste træk.</string>
@@ -21,4 +23,8 @@
   <string name="moveToPieceByType">Flyt til en brik ved at skrive dens type. Brug store bogstaver for at vende rækkefølge.</string>
   <string name="moveToRank">Flyt til række 1-8.</string>
   <string name="moveToFile">Flyt til linje a-h.</string>
+  <string name="announcePieceLocations">Annoncer placeringen af brikker. Eksempel: p stort N for hvide springere, p lille k for sort konge.</string>
+  <string name="announcePiecesOnRankOrFile">Annoncer brikker på en række eller en linje. Eksempel: s a, s 1.</string>
+  <string name="goToBoard">Gå til brættet. Standardfelt er e-4. Du kan angive et felt: bræt a-1 eller b a-1 vil tage dig til felt a-1.</string>
+  <string name="movePiece">For at flytte en brik, skal du bruge standard algebraisk notation.</string>
 </resources>
