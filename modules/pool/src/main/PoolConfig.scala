@@ -24,7 +24,7 @@ object PoolConfig:
 
   import play.api.libs.json.*
   import lila.common.Json.given
-  private given Lang = lila.core.i18n.defaultLang
+  private given Lang                            = lila.core.i18n.defaultLang
   given (using Translator): OWrites[PoolConfig] = OWrites: p =>
     Json.obj(
       "id"   -> p.id,

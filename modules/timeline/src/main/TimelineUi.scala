@@ -38,7 +38,7 @@ final class TimelineUi(helpers: Helpers)(
   private def renderEntry(e: Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag]:
-        case Follow(u1, u2) => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
+        case Follow(u1, u2)           => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
         case TeamJoin(userId, teamId) =>
           trans.site.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case TeamCreate(userId, teamId) =>

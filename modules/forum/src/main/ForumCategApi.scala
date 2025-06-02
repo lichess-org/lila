@@ -64,7 +64,7 @@ final class ForumCategApi(
       nbTopicsTroll <- topicRepo.unsafe.countByCateg(categ.id)
       nbPostsTroll  <- postRepo.unsafe.countByCateg(categ)
       lastPostTroll <- postRepo.unsafe.lastByCateg(categ)
-      _ <-
+      _             <-
         categRepo.coll.update
           .one(
             $id(categ.id),

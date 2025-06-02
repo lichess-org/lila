@@ -53,7 +53,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>
                 forms.postWithCaptcha(inOwnTeam).some
-            _ <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
+            _   <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
             res <-
               if canRead then
                 Ok.page(

@@ -66,13 +66,13 @@ object Termination:
 
   def fromStatus(s: chess.Status) =
     s match
-      case S.Timeout             => Disconnect
-      case S.Outoftime           => ClockFlag
-      case S.Resign              => Resignation
-      case S.Draw                => Draw
-      case S.Stalemate           => Stalemate
-      case S.Mate | S.VariantEnd => Checkmate
-      case S.Cheat               => Resignation
+      case S.Timeout                                                       => Disconnect
+      case S.Outoftime                                                     => ClockFlag
+      case S.Resign                                                        => Resignation
+      case S.Draw                                                          => Draw
+      case S.Stalemate                                                     => Stalemate
+      case S.Mate | S.VariantEnd                                           => Checkmate
+      case S.Cheat                                                         => Resignation
       case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
         logger.error(s"Unfinished game in the insight indexer: $s")
         Resignation
@@ -92,11 +92,11 @@ enum Phase(val id: Int, val name: String):
   case End     extends Phase(3, "Endgame")
 
 object Phase:
-  val byId = values.mapBy(_.id)
+  val byId                                     = values.mapBy(_.id)
   def of(div: chess.Division, ply: Ply): Phase =
     div.middle.fold[Phase](Opening):
       case m if ply < m => Opening
-      case _ =>
+      case _            =>
         div.end.fold[Phase](Middle):
           case e if ply < e => Middle
           case _            => End
@@ -106,7 +106,7 @@ enum Castling(val id: Int, val name: String):
   case Queenside extends Castling(2, "Queenside castling")
   case None      extends Castling(3, "No castling")
 object Castling:
-  val byId = values.mapBy(_.id)
+  val byId                               = values.mapBy(_.id)
   def fromMoves(moves: Iterable[SanStr]) =
     SanStr.raw(moves).find(_.startsWith("O")) match
       case Some("O-O")   => Kingside

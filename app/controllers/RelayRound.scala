@@ -271,7 +271,7 @@ final class RelayRound(
         (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
         group           <- env.relay.api.withTours.get(rt.tour.id)
-        isSubscribed <- ctx.me.soFu: me =>
+        isSubscribed    <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
@@ -301,7 +301,7 @@ final class RelayRound(
         )
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
-        page <- renderPage:
+        page     <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation

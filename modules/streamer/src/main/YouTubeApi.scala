@@ -27,7 +27,7 @@ final private class YouTubeApi(
   def fetchStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
     val maxResults = 50
     val tubers     = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
-    val idPages = tubers
+    val idPages    = tubers
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)

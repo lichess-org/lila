@@ -44,11 +44,11 @@ final class GameApiV2(
   def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport.ifTrue(config.imported) match
       case Some(imported) => fuccess(imported.pgn.value)
-      case None =>
+      case None           =>
         for
           realPlayers                  <- config.playerFile.so(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)
-          formatted <- config.format match
+          formatted                    <- config.format match
             case Format.JSON =>
               toJson(game, initialFen, analysis, config, realPlayers = realPlayers).map(Json.stringify)
             case Format.PGN =>
@@ -193,7 +193,7 @@ final class GameApiV2(
         enrich(config.flags)(game).dmap { (_, pairing, teams) }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
         config.format match
-          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
+          case Format.PGN  => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
           case Format.JSON =>
             def addBerserk(color: Color)(json: JsObject) =
               if pairing.berserkOf(color) then
@@ -312,7 +312,7 @@ final class GameApiV2(
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
       "source"     -> g.source,
-      "players" -> JsObject(lightUsers.mapList: (p, user) =>
+      "players"    -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
           .add:

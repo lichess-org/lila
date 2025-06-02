@@ -124,7 +124,7 @@ final class RelayListing(
     tours = rawTours.flatMap(dynamicTier.apply)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
-    val toursById = tours.mapBy(_.tour.id)
+    val toursById                  = tours.mapBy(_.tour.id)
     val ungroupedTours: List[Spot] = tours
       .filter(t => !groups.exists(_.tours.contains(t.tour.id)))
       .map(Spot.UngroupedTour.apply)
@@ -185,10 +185,10 @@ private object RelayListing:
         .sortBy(-_._1.getEpochSecond)
         .headOption
         .match
-          case None => trs.rounds.headOption
+          case None          => trs.rounds.headOption
           case Some(_, last) =>
             trs.rounds.find(!_.isFinished) match
-              case None => last.some
+              case None       => last.some
               case Some(next) =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
                 then next.some

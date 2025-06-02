@@ -180,7 +180,7 @@ object EmailConfirm:
       userApi
         .withEmails(u)
         .flatMap:
-          case None => fuccess(NoSuchUser(u.into(UserName)))
+          case None                                          => fuccess(NoSuchUser(u.into(UserName)))
           case Some(lila.core.user.WithEmails(user, emails)) =>
             if user.enabled.no then fuccess(Closed(user.username))
             else

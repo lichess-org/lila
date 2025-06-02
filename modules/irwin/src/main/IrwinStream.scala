@@ -34,7 +34,7 @@ final class IrwinStream:
     Json.obj(
       "t"      -> "request",
       "origin" -> req.origin.key,
-      "user" -> Json.obj(
+      "user"   -> Json.obj(
         "id"     -> req.suspect.user.id,
         "titled" -> req.suspect.user.hasTitle,
         "engine" -> req.suspect.user.marks.engine,
@@ -43,11 +43,11 @@ final class IrwinStream:
       "games" -> req.games.map: (game, analysis) =>
         val moveTimes = game.clockHistory.isDefined.so(game.moveTimes.map(_.map(_.centis)))
         Json.obj(
-          "id"    -> game.id,
-          "white" -> game.whitePlayer.userId,
-          "black" -> game.blackPlayer.userId,
-          "pgn"   -> game.sans.mkString(" "),
-          "emts"  -> moveTimes,
+          "id"       -> game.id,
+          "white"    -> game.whitePlayer.userId,
+          "black"    -> game.blackPlayer.userId,
+          "pgn"      -> game.sans.mkString(" "),
+          "emts"     -> moveTimes,
           "analysis" -> analysis.map {
             _.infos.map { info =>
               info.cp

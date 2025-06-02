@@ -7,7 +7,7 @@ import ScalatagsTemplate.*
 
 def openGraph(graph: OpenGraph): List[Frag] =
   import graph.*
-  val property = attr("property")
+  val property                         = attr("property")
   def tag(name: String, value: String) =
     meta(
       property := s"og:$name",

@@ -85,7 +85,7 @@ object PlayServer:
 
     val httpPort = configuration.getOptional[String]("play.server.http.port").flatMap(_.toIntOption) | 9663
     val address  = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
-    val mode =
+    val mode     =
       if configuration.getOptional[String]("play.mode").contains("prod") then Mode.Prod
       else Mode.Dev
 

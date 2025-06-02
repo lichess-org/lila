@@ -67,7 +67,7 @@ final class ChallengeGranter(
             case (Some(Follow), _)                                 => none // always accept from followed
             case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
             case (_, lila.core.pref.Challenge.FRIEND)              => FriendsOnly.some
-            case (_, lila.core.pref.Challenge.RATING) =>
+            case (_, lila.core.pref.Challenge.RATING)              =>
               perfKey.so: pk =>
                 userApi
                   .perfsOf(from.value -> dest, primary = false)

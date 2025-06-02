@@ -11,8 +11,8 @@ private object BsonHandlers:
   given BSONHandler[Currency]      = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
   given BSONDocumentHandler[Money] = Macros.handler
 
-  given BSONHandler[PayPalOrderId] = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId.apply)
-  given BSONHandler[PayPalPayerId] = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId.apply)
+  given BSONHandler[PayPalOrderId]        = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId.apply)
+  given BSONHandler[PayPalPayerId]        = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId.apply)
   given BSONHandler[PayPalSubscriptionId] =
     stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId.apply)
 

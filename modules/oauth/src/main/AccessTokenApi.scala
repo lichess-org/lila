@@ -217,7 +217,7 @@ final class AccessTokenApi(
 
   def secretScanning(scans: List[AccessTokenApi.GithubSecretScan]): Fu[List[(AccessToken, String)]] = for
     found <- test(scans.map(_.token))
-    res <- scans.sequentially: scan =>
+    res   <- scans.sequentially: scan =>
       val compromised = found.get(scan.token).flatten
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match

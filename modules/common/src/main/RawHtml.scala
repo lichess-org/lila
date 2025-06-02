@@ -177,7 +177,7 @@ object RawHtml:
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")
       }
 
-  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
+  private val markdownLinkRegex                  = """\[([^]]++)\]\((https?://[^)]++)\)""".r
   def justMarkdownLinks(escapedHtml: Html): Html = Html:
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,

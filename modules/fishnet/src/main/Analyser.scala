@@ -90,7 +90,7 @@ final class Analyser(
         if _ then fuccess(Analyser.Result.NoChapter)
         else
           import req.*
-          val sender = Sender(req.userId, none, mod = false, system = false)
+          val sender  = Sender(req.userId, none, mod = false, system = false)
           val limitFu =
             if req.official then fuccess(Analyser.Result.Ok)
             else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)

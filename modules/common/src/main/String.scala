@@ -70,12 +70,12 @@ object String:
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match
-        case JsNull         => "null"
-        case JsString(s)    => safeJsonString(s)
-        case JsNumber(n)    => n.toString
-        case JsFalse        => "false"
-        case JsTrue         => "true"
-        case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
+        case JsNull           => "null"
+        case JsString(s)      => safeJsonString(s)
+        case JsNumber(n)      => n.toString
+        case JsFalse          => "false"
+        case JsTrue           => "true"
+        case JsArray(items)   => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields
             .map: (k, v) =>

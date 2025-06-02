@@ -3,7 +3,7 @@ package com.gilt.gfc.semver
 
 object SemVer:
   def apply(version: String): SemVer =
-    val bits = version.split("[\\.\\-]")
+    val bits           = version.split("[\\.\\-]")
     val (nums, extras) =
       bits.take(3).foldLeft((Nil: List[Long], Nil: List[String])) { case ((num, extra), bit) =>
         import scala.util.control.Exception.*
@@ -81,8 +81,8 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
           1 // Number prefixes compared
         case (Some(ths), Some(_), Some(tht), Some(_)) =>
           ths.compareTo(tht) // Number prefixes same: Compare lexicographically
-        case (Some(_), Some(_), Some(_), None) => 0 // One starts with number the other doesn't: Can't decide
-        case (Some(_), None, Some(_), Some(_)) => 0 // One starts with number the other doesn't: Can't decide
+        case (Some(_), Some(_), Some(_), None)  => 0 // One starts with number the other doesn't: Can't decide
+        case (Some(_), None, Some(_), Some(_))  => 0 // One starts with number the other doesn't: Can't decide
         case (Some(ths), None, Some(tht), None) =>
           ths.compareTo(tht) // No number prefixes: Compare lexicographically
         case (Some(_), _, None, _) => -1 // One has extra, the other doesn't

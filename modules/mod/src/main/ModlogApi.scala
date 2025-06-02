@@ -357,7 +357,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M
     given MyId = m.mod.into(MyId)
-    val icon = m.action match
+    val icon   = m.action match
       case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.isolate | M.closeAccount => "thorhammer"
       case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.unisolate | M.reopenAccount =>
         "blue_circle"
@@ -372,7 +372,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
       import lila.core.irc.ModDomain as domain
       val monitorType = m.action match
-        case M.closeAccount | M.alt => None
+        case M.closeAccount | M.alt                            => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
           Some(domain.Cheat)
         case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
@@ -384,9 +384,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       import Permission.*
       monitorType.so: dom =>
         val monitorable = dom match
-          case domain.Cheat => permissions(MonitoredCheatMod)
-          case domain.Boost => permissions(MonitoredBoostMod)
-          case domain.Comm  => permissions(MonitoredCommMod)
+          case domain.Cheat                             => permissions(MonitoredCheatMod)
+          case domain.Boost                             => permissions(MonitoredBoostMod)
+          case domain.Comm                              => permissions(MonitoredCommMod)
           case domain.Other if m.action == M.modMessage =>
             val presetPerms = m.details.so(presetsApi.permissionsByName)
             if presetPerms(Permission.Shusher) then permissions(MonitoredCommMod)

@@ -95,7 +95,7 @@ final class ClasProgressApi(
           )
         ) -> List:
           GroupField("u")(
-            "nb" -> SumAll,
+            "nb"  -> SumAll,
             "win" -> Sum(
               $doc(
                 "$cond" -> $arr("$w", 1, 0)
@@ -140,7 +140,7 @@ final class ClasProgressApi(
           UnwindField(F.playerUids),
           Match($doc(F.playerUids.$in(userIds))),
           GroupField(F.playerUids)(
-            "nb" -> SumAll,
+            "nb"  -> SumAll,
             "win" -> Sum(
               $doc(
                 "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0)

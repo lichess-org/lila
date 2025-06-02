@@ -32,7 +32,7 @@ final class ForumPostApi(
       val publicMod = MasterGranter(_.PublicMod)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
-      val post = ForumPost.make(
+      val post      = ForumPost.make(
         topicId = topic.id,
         userId = (!anonMod).option(me),
         text = spam.replace(data.text),
@@ -46,7 +46,7 @@ final class ForumPostApi(
         .findDuplicate(post)
         .flatMap:
           case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-          case _ =>
+          case _                                           =>
             for
               _ <- postRepo.coll.insert.one(post)
               _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
@@ -85,7 +85,7 @@ final class ForumPostApi(
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(nowInstant, spam.replace(newText))
-          val save = (newPost.text != post.text).so:
+          val save    = (newPost.text != post.text).so:
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
@@ -95,7 +95,7 @@ final class ForumPostApi(
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId).flatMap:
       case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-      case Some(topic, post) =>
+      case Some(topic, post)                         =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number).dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
@@ -189,7 +189,7 @@ final class ForumPostApi(
     for
       categs     <- categRepo.visibleWithTeams(teams, isMod)
       diagnostic <- if isMod then fuccess(none) else forUser.so(diagnosticForUser)
-      views <- categs
+      views      <- categs
         .parallel: categ =>
           get(categ.lastPostId(forUser)).map: topicPost =>
             CategView(

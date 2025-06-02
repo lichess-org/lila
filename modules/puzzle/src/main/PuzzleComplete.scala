@@ -25,7 +25,7 @@ final class PuzzleComplete(
         api.puzzle
           .find(streakNextId)
           .flatMap:
-            case None => fuccess(Json.obj("streakComplete" -> true))
+            case None         => fuccess(Json.obj("streakComplete" -> true))
             case Some(puzzle) =>
               for
                 score <- data.streakScore
@@ -45,7 +45,7 @@ final class PuzzleComplete(
             finisher(id, angle, data.win, data.mode).flatMapz { (round, perf) =>
               val newMe = me.value.withPerf(perf)
               for
-                _ <- session.onComplete(round, angle)
+                _    <- session.onComplete(round, angle)
                 json <-
                   if mobileBc then
                     fuccess:
@@ -63,7 +63,7 @@ final class PuzzleComplete(
                           _    <- replayApi.onComplete(round, replayDays, angle)
                           next <- replayApi(replayDays.some, theme)
                           json <- next match
-                            case None => fuccess(Json.obj("replayComplete" -> true))
+                            case None                 => fuccess(Json.obj("replayComplete" -> true))
                             case Some(puzzle, replay) =>
                               jsonView.analysis(puzzle, angle, replay.some).map { nextJson =>
                                 Json.obj(
@@ -74,7 +74,7 @@ final class PuzzleComplete(
                         yield json
                       case _ =>
                         for
-                          next <- selector.nextPuzzleForReq(angle, none)
+                          next     <- selector.nextPuzzleForReq(angle, none)
                           nextJson <- next.soFu:
                             given Perf = perf
                             jsonView.analysis(_, angle, none, Me.from(newMe.user.some))

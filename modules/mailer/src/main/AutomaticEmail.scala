@@ -183,7 +183,7 @@ To make a new donation, head to $baseUrl/patron"""
           .filterNot(_.isNoReply)
           .so: email =>
             given Lang = userLang(userWithEmail.user)
-            val hello =
+            val hello  =
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
               "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"

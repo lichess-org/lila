@@ -48,14 +48,14 @@ object RelayPlayer:
     given Writes[Outcome.Points]     = writeAs(_.show)
     given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
     given Writes[RelayPlayer.Game]   = Json.writes
-    given OWrites[RelayPlayer] = OWrites: p =>
+    given OWrites[RelayPlayer]       = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
     def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =
-      val tc = tour.info.fideTcOrGuess
+      val tc             = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
         .orElse(fidePlayer.flatMap(_.ratingOf(tc)))

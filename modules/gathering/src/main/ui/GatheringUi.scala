@@ -30,7 +30,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
       .map: list =>
         st.section(
           dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),
-          cls := List(
+          cls      := List(
             "conditions" -> true,
             "accepted"   -> (relevant && ctx.isAuth && vs.accepted),
             "refused"    -> (relevant && ctx.isAuth && !vs.accepted)

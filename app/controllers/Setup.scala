@@ -43,7 +43,7 @@ final class Setup(
               origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
               denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
-              result <- denied match
+              result   <- denied match
                 case Some(denied) =>
                   val message = lila.challenge.ChallengeDenied.translated(denied)
                   negotiate(
@@ -61,7 +61,7 @@ final class Setup(
                       case _                                     => none
                     .so: challenger =>
                       val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
-                      val challenge = lila.challenge.Challenge.make(
+                      val challenge   = lila.challenge.Challenge.make(
                         variant = config.variant,
                         initialFen = config.fen,
                         timeControl = timeControl,
@@ -108,7 +108,7 @@ final class Setup(
                   me <- ctx.user.soFu(env.user.api.withPerfs)
                   given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                   blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-                  res <- processor.hook(
+                  res      <- processor.hook(
                     userConfig.withinLimits,
                     sri,
                     req.sid,
@@ -125,7 +125,7 @@ final class Setup(
             for
               orig     <- ctx.user.soFu(env.user.api.withPerfs)
               blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-              hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+              hookConfig           = lila.setup.HookConfig.default(ctx.isAuth)
               hookConfigWithRating = get("rr")
                 .fold(
                   hookConfig.withRatingRange(
@@ -152,13 +152,13 @@ final class Setup(
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
             ua     = HTTPRequest.userAgent(req).fold("?")(_.value)
-            _ = lila.mon.lobby.hook
+            _      = lila.mon.lobby.hook
               .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
               .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
-            res <- forcedColor.match
+            res         <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
-              case None =>
+              case None         =>
                 config
                   .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
                   .match
@@ -171,7 +171,7 @@ final class Setup(
                           .toFuccess
                     case Right(Some(seek)) =>
                       author match
-                        case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
+                        case Left(_)   => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
                         case Right(me) =>
                           env.setup.processor.createSeekIfAllowed(seek, me.id).map {
                             case HookResult.Refused     => JsonBadRequest("Already playing too many games")
@@ -196,7 +196,7 @@ final class Setup(
         val reqSri = getAs[Sri]("sri")
         ctx.me match
           case Some(u) => f(Right(u), reqSri)
-          case None =>
+          case None    =>
             reqSri match
               case Some(sri) => f(Left(sri), reqSri)
               case None      => JsonBadRequest("Authentication required")

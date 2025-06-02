@@ -14,7 +14,7 @@ enum RelativeStrength(val id: Int, val name: String):
   case MuchStronger extends RelativeStrength(50, "Much stronger")
 
 object RelativeStrength:
-  val byId = values.mapBy(_.id)
+  val byId                                                              = values.mapBy(_.id)
   def apply(myRating: IntRating, opRating: IntRating): RelativeStrength = apply(
     (opRating - myRating).into(IntRatingDiff)
   )
@@ -33,8 +33,8 @@ enum MovetimeRange(val id: Int, val name: String, val tenths: Int):
   case MTR30  extends MovetimeRange(30, "10 to 30 seconds", 300)
   case MTRInf extends MovetimeRange(60, "More than 30 seconds", Int.MaxValue)
 object MovetimeRange:
-  def reversedNoInf = values.reverse.drop(1)
-  val byId          = values.mapBy(_.id)
+  def reversedNoInf                          = values.reverse.drop(1)
+  val byId                                   = values.mapBy(_.id)
   def toRange(mr: MovetimeRange): (Int, Int) = (
     values.toIndexedSeq.indexOption(mr).map(_ - 1).flatMap(values.lift).fold(0)(_.tenths),
     mr.tenths
@@ -52,8 +52,8 @@ enum MaterialRange(val id: Int, val name: String, val imbalance: Int):
   case Up4   extends MaterialRange(9, "More than +6", Int.MaxValue)
   def negative = imbalance <= 0
 object MaterialRange:
-  def reversedButEqualAndLast = values.diff(List(Equal, Up4)).reverse
-  val byId                    = values.mapBy(_.id)
+  def reversedButEqualAndLast                = values.diff(List(Equal, Up4)).reverse
+  val byId                                   = values.mapBy(_.id)
   def toRange(mr: MaterialRange): (Int, Int) =
     if mr.id == Equal.id then (0, 0)
     else
@@ -70,9 +70,9 @@ enum TimeVariance(val id: Float, val name: String):
   case VeryVariable    extends TimeVariance(1f, "Very variable")
   def intFactored = (id * TimeVariance.intFactor).toInt
 object TimeVariance:
-  val byId            = values.mapBy(_.id)
-  def apply(v: Float) = values.find(_.id >= v) | VeryVariable
-  val intFactor: Int  = 100_000 // multiply variance by that to get an Int for storage
+  val byId                                  = values.mapBy(_.id)
+  def apply(v: Float)                       = values.find(_.id >= v) | VeryVariable
+  val intFactor: Int                        = 100_000 // multiply variance by that to get an Int for storage
   def toRange(tv: TimeVariance): (Int, Int) =
     if tv == VeryVariable then (QuiteVariable.intFactored, Int.MaxValue)
     else
@@ -105,8 +105,8 @@ enum EvalRange(val id: Int, val name: String, val eval: Int):
   case Up4   extends EvalRange(10, "+350 to +600", 600)
   case Up5   extends EvalRange(11, "More than +600", Int.MaxValue)
 object EvalRange:
-  def reversedButLast = values.init.reverse
-  val byId            = values.mapBy(_.id)
+  def reversedButLast                    = values.init.reverse
+  val byId                               = values.mapBy(_.id)
   def toRange(er: EvalRange): (Int, Int) = (
     byId.get(er.id - 1).fold(Int.MinValue)(_.eval),
     er.eval
@@ -137,7 +137,7 @@ object ClockPercentRange:
     ClockPercentRange("25% to 50% time left", ClockPercent.fromPercent(25)),
     ClockPercentRange("≥50% time left", ClockPercent.fromPercent(50))
   )
-  val byPercent = all.toList.mapBy(_.bottom.toInt)
+  val byPercent                                                   = all.toList.mapBy(_.bottom.toInt)
   def toRange(x: ClockPercentRange): (ClockPercent, ClockPercent) = (
     x.bottom,
     all.toList.next(x).fold(ClockPercent.fromPercent(100))(_.bottom)
