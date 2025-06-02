@@ -12,13 +12,19 @@
   <string name="opponentClock">O reloxo do rival</string>
   <string name="gameStart">Comezo da partida</string>
   <string name="boardCommandList">Lista de comandos co taboleiro seleccionado</string>
-  <string name="goToInputForm">Ir ó formulario de entrada de comandos e xogadas.</string>
+  <string name="inputFormCommandList">Escribir estes comandos no formulario de entrada de comandos.</string>
+  <string name="goToInputForm">Ir ó formulario de entrada de comandos.</string>
   <string name="announceCurrentSquare">Anunciar a casa actual.</string>
   <string name="announceLastMove">Anunciar a última xogada.</string>
   <string name="announceLastMoveCapture">Anunciar a peza capturada na última xogada.</string>
-  <string name="announcePossibleMoves">Anunciar as posibles xogadas da peza seleccionada.</string>
+  <string name="announcePossibleMoves">Anunciar as posibles xogadas para a peza seleccionada.</string>
   <string name="announcePossibleCaptures">Anunciar as posibles capturas para a peza seleccionada.</string>
-  <string name="moveWithArrows">Mover á casa adxacente da esquerda, da dereita, superior ou inferior.</string>
-  <string name="moveToRank">Mover á fila 1-8.</string>
+  <string name="moveWithArrows">Ir á casa adxacente da esquerda, da dereita, superior ou inferior.</string>
+  <string name="moveToPieceByType">Ir ás casas usando os nomes das pezas. Por exemplo: premendo \"k\" (Knight=Cabalo) varias veces para seleccionar as casas ocupadas polos cabalos. Usando \"MAIÚSCULAS + k\" neste exemplo cambiaría a orde desta rotación.</string>
+  <string name="moveToRank">Ir á fila 1 a 8.</string>
   <string name="moveToFile">Mover á columna a-h.</string>
+  <string name="announcePieceLocations">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro.</string>
+  <string name="announcePiecesOnRankOrFile">Anunciar as pezas dunha fila ou columna. Por exemplo: \"s a\" (canta as pezas da columna \"a\") ou \"s 1\" (canta as pezas da fila \"1\").</string>
+  <string name="goToBoard">Ir ó taboleiro. A casa á que vai por defecto é \"e4\". Pódese especificar mediante as coordenadas: \"board a1\" ou \"b a1\" irá á casa \"a1\".</string>
+  <string name="movePiece">Empregar a Notación Alxébrica Estándar para mover as pezas.</string>
 </resources>
