@@ -12,6 +12,7 @@
   <string name="opponentClock">Gegnerische Uhr</string>
   <string name="gameStart">Partiebeginn</string>
   <string name="boardCommandList">Kommandoliste, wenn das Brett im Fokus ist</string>
+  <string name="inputFormCommandList">Gib diese Befehle in das Befehlseingabeformular ein.</string>
   <string name="goToInputForm">Gehe zum Zug- und Kommando-Eingabeformular.</string>
   <string name="announceCurrentSquare">Aktuelles Feld aussprechen.</string>
   <string name="announceLastMove">Letzten Zug aussprechen.</string>
@@ -22,4 +23,9 @@
   <string name="moveToPieceByType">Zu einer bestimmten Figur springen, indem deren Typ eingegeben wird. Benutze Großschreibung um die Auswahl zu invertieren.</string>
   <string name="moveToRank">Ziehe auf Reihe 1-8.</string>
   <string name="moveToFile">Ziehe auf Linie a-h.</string>
+  <string name="announcePieceLocations">Lies die Platzierungen der Figuren vor. Beispiel: p und Großes \"N\" für weiße Springer, p und kleines \"k\" für den schwarzen König.</string>
+  <string name="announcePiecesOnRankOrFile">Lies die Figuren auf einer Reihe oder Linie vor. Zum Beispiel: s a, s 1.</string>
+  <string name="goToBoard">Gehe zum Brett. Das Standardfeld ist e-4. Du kannst ein Fels spezifizieren: board a-1 oder b a-1 bringt dich zum Feld a-1.</string>
+  <string name="movePiece">Um eine Figur zu bewegen, benutze standard-algebraische Notation.</string>
+  <string name="promotion">Um eine Figur zu etwas anderem als einer Dame umzuwandeln, benutze \"equals\". Zum Beispiel a-8-equals-n wandelt zu einem Springer um.</string>
 </resources>
