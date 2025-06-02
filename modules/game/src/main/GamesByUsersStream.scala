@@ -56,7 +56,8 @@ private object GameStream:
                 "userId" -> p.userId,
                 "rating" -> p.rating
               )
-              .add("provisional" -> p.provisional))
+              .add("provisional" -> p.provisional)
+              .add("ai" -> p.aiLevel))
         )
         .add("winner" -> g.winnerColor.map(_.name))
         .add("initialFen" -> initialFen)
