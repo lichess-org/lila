@@ -1741,18 +1741,42 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Announce current square. */
+    announceCurrentSquare: string;
+    /** Announce last move. */
+    announceLastMove: string;
+    /** Announce piece captured in last move. */
+    announceLastMoveCapture: string;
+    /** Announce possible captures with selected piece. */
+    announcePossibleCaptures: string;
+    /** Announce possible moves for the selected piece. */
+    announcePossibleMoves: string;
+    /** Command list when the board has focus */
+    boardCommandList: string;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
+    /** Game start */
+    gameStart: string;
     /** Game status */
     gameStatus: string;
-    /** Input form */
+    /** Go to move and command input form. */
+    goToInputForm: string;
+    /** Move and command input form */
     inputForm: string;
     /** Last move */
     lastMove: string;
     /** Move list */
     moveList: string;
+    /** Move to file a-h. */
+    moveToFile: string;
+    /** Move to a piece typing its type. Use uppercase to invert order. */
+    moveToPieceByType: string;
+    /** Move to rank 1-8. */
+    moveToRank: string;
+    /** Move to adjacent square left, right, up or down. */
+    moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
     /** Pieces */
