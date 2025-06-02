@@ -12,7 +12,7 @@ type Commands = {
 
 export const commands: Commands = {
   piece: {
-    help: i18n.nvui.announceLocationPieces,
+    help: i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
       return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },

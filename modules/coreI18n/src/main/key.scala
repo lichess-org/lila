@@ -923,7 +923,7 @@ object I18nKey:
     val `moveToPieceByType`: I18nKey = "nvui:moveToPieceByType"
     val `moveToRank`: I18nKey = "nvui:moveToRank"
     val `moveToFile`: I18nKey = "nvui:moveToFile"
-    val `announceLocationPieces`: I18nKey = "nvui:announceLocationPieces"
+    val `announcePieceLocations`: I18nKey = "nvui:announcePieceLocations"
     val `announcePiecesOnRankOrFile`: I18nKey = "nvui:announcePiecesOnRankOrFile"
     val `goToBoard`: I18nKey = "nvui:goToBoard"
     val `movePiece`: I18nKey = "nvui:movePiece"
