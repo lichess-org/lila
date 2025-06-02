@@ -10,4 +10,14 @@
   <string name="actions">Handlingar</string>
   <string name="yourClock">Di klokke</string>
   <string name="opponentClock">Motspelar si klokke</string>
+  <string name="gameStart">Spelstart</string>
+  <string name="boardCommandList">Kommandoliste når brettet er i fokus</string>
+  <string name="goToInputForm">Gå til trekk- og kommandolinjeskjemaet.</string>
+  <string name="announceCurrentSquare">Kunngjer gjeldande felt.</string>
+  <string name="announceLastMove">Kunngjer siste trekk.</string>
+  <string name="announceLastMoveCapture">Kunngjer kva brikke som vart tatt i siste trekk.</string>
+  <string name="announcePossibleMoves">Kunngjer moglege trekk for den valde brikka.</string>
+  <string name="announcePossibleCaptures">Kunngjer moglege slagtrekk for den valde brikka.</string>
+  <string name="moveWithArrows">Flytt til tilgrensande felt, venstre, høgre, opp eller ned.</string>
+  <string name="moveToPieceByType">Flytt til ei brikke ved å skrive brikketypen. Bruk store bokstavar for å snu rekkefølga.</string>
 </resources>
