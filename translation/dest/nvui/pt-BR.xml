@@ -12,6 +12,7 @@
   <string name="opponentClock">Relógio do oponente</string>
   <string name="gameStart">Começo do jogo</string>
   <string name="boardCommandList">Lista de comandos ao selecionar o tabuleiro</string>
+  <string name="inputFormCommandList">Digite no formulário de entrada de comandos.</string>
   <string name="goToInputForm">Ir ao formulário de entrada de comandos e jogadas.</string>
   <string name="announceCurrentSquare">Anunciar casa atual.</string>
   <string name="announceLastMove">Anunciar última jogada.</string>
