@@ -21,4 +21,7 @@
   <string name="announcePossibleCaptures">Anunciar possíveis capturas com a peça selecionada.</string>
   <string name="moveWithArrows">Mover à casa adjacente à esquerda, direita, para cima ou para baixo.</string>
   <string name="moveToPieceByType">Mova para uma peça digitando seu tipo. Use maiúscula para inverter a ordem.</string>
+  <string name="goToBoard">Ir ao tabuleiro. A casa padrão é e4. Você pode especificar uma casa: board a-1 ou b a-1 te levará à casa a1.</string>
+  <string name="movePiece">Para mover uma peça, use a notação albébrica padrão.</string>
+  <string name="promotion">Para não promover para uma dama, use \"equals\". Por exemplo, a-8-equals-n promove para um cavalo.</string>
 </resources>
