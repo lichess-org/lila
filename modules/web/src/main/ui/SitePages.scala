@@ -42,8 +42,16 @@ final class SitePages(helpers: Helpers):
       a(activeCls("ads"), href := "/ads")("Block ads")
     )
 
-  def webmasters(params: Modifier*)(using Context) =
-    val parameters = frag(p("Parameters:"), ul(params, li(strong("bg"), ": light, dark, system")))
+  def webmasters(pieceNames: List[String])(using Context) =
+    val parameters = frag(
+      p("Parameters:"),
+      ul(
+        // actual supported board theme list from lila-gif/src/assets.rs
+        li(strong("theme"), ": ", List("blue", "brown", "green", "ic", "purple").mkString(", ")),
+        li(strong("pieceSet"), ": ", pieceNames.mkString(", ")),
+        li(strong("bg"), ": light, dark, system")
+      )
+    )
     SitePage(
       title = "Webmasters",
       active = "webmasters",
