@@ -10,7 +10,7 @@ type Commands = {
   [name: string]: Command;
 };
 
-export const commands: Commands = {
+export const commands = (i18n: I18n): Commands => ({
   piece: {
     help: i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
@@ -23,13 +23,13 @@ export const commands: Commands = {
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
-};
+});
 
 function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A | undefined {
   return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;
 }
 
-export const boardCommands = (): VNode[] => [
+export const boardCommands = (i18n: I18n): VNode[] => [
   h('h2', i18n.nvui.boardCommandList),
   h('p', [
     `i: ${i18n.nvui.goToInputForm}`,
