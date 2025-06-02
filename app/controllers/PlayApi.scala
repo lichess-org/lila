@@ -5,7 +5,6 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.id.GameAnyId
-import lila.core.perf.UserWithPerfs
 
 // both bot & board APIs
 final class PlayApi(env: Env) extends LilaController(env):
@@ -155,21 +154,12 @@ final class PlayApi(env: Env) extends LilaController(env):
         case None       => NotFound(jsonError("No such game"))
         case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
 
-  private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
-      env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
-
   def botOnline = Open:
     for
-      users <- botsCache.get({})
+      users <- env.bot.onlineApiUsers.getUsers
       page  <- renderPage(views.user.list.bots(users))
     yield Ok(page)
 
   def botOnlineApi = Anon:
-    botsCache
-      .get({})
-      .map: users =>
-        val jsons = users
-          .take(getInt("nb") | 200)
-          .map(u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true))
-        Ok(ndJson.jsToString(jsons)).as(ndJson.contentType)
+    for lines <- env.bot.onlineApiUsers.getNdJson(getInt("nb"))
+    yield Ok(lines).as(ndJson.contentType)
