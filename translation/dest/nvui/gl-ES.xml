@@ -27,4 +27,5 @@
   <string name="announcePiecesOnRankOrFile">Anunciar as pezas dunha fila ou columna. Por exemplo: \"s a\" (canta as pezas da columna \"a\") ou \"s 1\" (canta as pezas da fila \"1\").</string>
   <string name="goToBoard">Ir ó taboleiro. A casa á que vai por defecto é \"e4\". Pódese especificar mediante as coordenadas: \"board a1\" ou \"b a1\" irá á casa \"a1\".</string>
   <string name="movePiece">Empregar a Notación Alxébrica Estándar para mover as pezas.</string>
+  <string name="promotion">Para non coroar automaticamente coma dama débese usar \"equals\" (\"é igual a\", en inglés). Así, \"a8 equals n\" coroa coma cabalo (n==Knight, en inglés).</string>
 </resources>
