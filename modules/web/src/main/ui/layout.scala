@@ -61,13 +61,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     spaceless:
       s"""
 <div>
-  <button id="challenge-toggle" class="toggle link">
+  <button id="challenge-toggle" class="toggle link" type="button">
     <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="$challenges" data-icon="${Icon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
-  <button id="notify-toggle" class="toggle link">
+  <button id="notify-toggle" class="toggle link" type="button">
     <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="$notifs" data-icon="${Icon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
