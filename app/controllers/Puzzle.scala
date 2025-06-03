@@ -23,7 +23,7 @@ import scalalib.model.Days
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
-  import env.puzzle.jsonView
+  import env.puzzle.{ jsonView, selector }
 
   private def renderShow(
       puzzle: Puz,
@@ -65,25 +65,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
     WithPuzzlePerf:
-      nextPuzzleForMe(angle, none).flatMap:
-        _.fold(redirectNoPuzzle):
-          renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
-
-  private def nextPuzzleForMe(
-      angle: PuzzleAngle,
-      color: Option[Option[Color]],
-      difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
-  )(using ctx: Context)(using Perf): Fu[Option[Puz]] =
-    ctx.me match
-      case Some(me) =>
-        given Me = me
-        val diff = ctx.req.session.get(difficultyCookie).flatMap(PuzzleDifficulty.find)
-        for
-          _   <- diff.so(env.puzzle.session.setDifficulty)
-          _   <- color.so(env.puzzle.session.setAngleAndColor(angle, _))
-          puz <- env.puzzle.selector.nextPuzzleFor(angle)
-        yield puz
-      case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
+      selector
+        .nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))
+        .flatMap:
+          _.fold(redirectNoPuzzle):
+            renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
 
   private def redirectNoPuzzle: Fu[Result] =
     Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.")
@@ -223,8 +209,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     WithPuzzlePerf:
       PuzzleAngle.find(angleOrId) match
         case Some(angle) =>
-          nextPuzzleForMe(angle, none).flatMap:
-            _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
+          selector
+            .nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))
+            .flatMap:
+              _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
         case _ =>
           lila.puzzle.Puzzle.toId(angleOrId) match
             case Some(id) =>
@@ -259,20 +247,23 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .fold(Redirect(routes.Puzzle.openings()).toFuccess): angle =>
           val color = Color.fromName(colorKey)
           WithPuzzlePerf:
-            nextPuzzleForMe(angle, color.some).flatMap:
-              _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
+            selector
+              .nextPuzzleFor(angle, color.some, PuzzleDifficulty.fromReqSession(req))
+              .flatMap:
+                _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     WithPuzzlePerf:
-      validateParam("angle", PuzzleAngle.find, PuzzleAngle.mix): angle =>
-        validateParam("difficulty", PuzzleDifficulty.find, PuzzleDifficulty.Normal): difficulty =>
-          FoundOk(nextPuzzleForMe(angle, none, difficulty))(env.puzzle.jsonView(_, none, none))
+      validateParam("angle", PuzzleAngle.find): angle =>
+        validateParam("difficulty", PuzzleDifficulty.find): difficulty =>
+          FoundOk(selector.nextPuzzleFor(angle | PuzzleAngle.mix, none, difficulty)):
+            env.puzzle.jsonView(_, none, none)
 
-  private def validateParam[A](name: String, read: String => Option[A], default: A)(
-      f: A => Fu[Result]
+  private def validateParam[A](name: String, read: String => Option[A])(
+      f: Option[A] => Fu[Result]
   )(using Context): Fu[Result] =
-    get(name).fold(f(default)): param =>
-      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(f)
+    get(name).fold(f(none)): param =>
+      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(p => f(p.some))
 
   def frame = Anon:
     InEmbedContext:
@@ -385,7 +376,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         api = v =>
           val angle = PuzzleAngle.mix
           WithPuzzlePerf:
-            Found(nextPuzzleForMe(angle, none)): p =>
+            Found(selector.nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))): p =>
               JsonOk(jsonView.analysis(p, angle, apiVersion = v.some))
       )
 
