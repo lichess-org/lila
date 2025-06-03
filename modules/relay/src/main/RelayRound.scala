@@ -4,7 +4,7 @@ import io.mola.galimatias.URL
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
-import chess.ByColor
+import chess.{ Rated, ByColor }
 
 import lila.study.Study
 
@@ -25,7 +25,7 @@ case class RelayRound(
     createdAt: Instant,
     crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
-    rated: RelayRound.Rated = RelayRound.Rated.Yes,
+    rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
 ):
   inline def studyId = id.into(StudyId)
@@ -77,9 +77,6 @@ case class RelayRound(
 object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
-
-  opaque type Rated = Boolean // I'd like to use chess.Mode but it should be a YesNo rather than an enum
-  object Rated extends YesNo[Rated]
 
   opaque type Order = Int
   object Order extends OpaqueInt[Order]

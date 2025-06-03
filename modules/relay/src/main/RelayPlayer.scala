@@ -33,7 +33,7 @@ object RelayPlayer:
       opponent: StudyPlayer.WithFed,
       color: Color,
       points: Option[Outcome.GamePoints],
-      rated: RelayRound.Rated,
+      rated: chess.Rated,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def playerPoints                                        = points.map(_(color))

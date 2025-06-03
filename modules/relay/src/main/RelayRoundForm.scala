@@ -1,7 +1,7 @@
 package lila.relay
 
 import io.mola.galimatias.URL
-import chess.ByColor
+import chess.{ Rated, ByColor }
 import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
@@ -91,7 +91,7 @@ final class RelayRoundForm(using mode: Mode):
       "slices"    -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
-      "rated"         -> optional(boolean.into[RelayRound.Rated]),
+      "rated"         -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
@@ -236,7 +236,7 @@ object RelayRoundForm:
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None,
-      rated: Option[RelayRound.Rated] = None,
+      rated: Option[Rated] = None,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
@@ -262,7 +262,7 @@ object RelayRoundForm:
           case "new" => none
           case _     => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
-        rated = rated | RelayRound.Rated.No,
+        rated = rated | Rated.No,
         customScoring = customScoring
       )
 
@@ -290,7 +290,7 @@ object RelayRoundForm:
         startsAt = relayStartsAt,
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
-        rated = rated | RelayRound.Rated.No,
+        rated = rated | Rated.No,
         customScoring = customScoring
       )
 
