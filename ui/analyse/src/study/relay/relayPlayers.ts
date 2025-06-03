@@ -34,6 +34,7 @@ interface RelayPlayerGame {
   opponent: RelayPlayer;
   color: Color;
   points?: PointsStr;
+  customPoints?: number;
   ratingDiff?: number;
 }
 
@@ -226,7 +227,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         h('tr', [
           h('th', i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
-          withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
+          withScores ? h('th', defaultSort, i18n.broadcast.score) : undefined,
+          h('th', i18n.site.games),
         ]),
       ),
       h(
@@ -250,12 +252,9 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                 )
               : undefined,
             withScores
-              ? h(
-                  'td',
-                  sortByBoth((player.score || 0) * 10, player.rating),
-                  `${player.score}/${player.played}`,
-                )
-              : h('td', sortByBoth(player.played, player.rating), `${player.played}`),
+              ? h('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score}`)
+              : undefined,
+            h('td', sortByBoth(player.played, player.rating), `${player.played}`),
           ]),
         ),
       ),
@@ -322,7 +321,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         playerFed(p.fed),
         ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
       ]),
-      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}/${p.played}`) : undefined,
+      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}`) : undefined,
     ]),
   ]);
 
@@ -338,6 +337,14 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
     p.games.map((game, i) => {
       const op = game.opponent;
       const points = game.points;
+      const customPoints = game.customPoints;
+      const formatPointsStr = (points: PointsStr): string => points.replace('1/2', '½');
+      const formatPoints = (points: PointsStr, customPoints: number | undefined): string =>
+        customPoints === undefined || points.replace('1/2', '0.5') === customPoints.toString()
+          ? formatPointsStr(points)
+          : `${formatPointsStr(points)} (${customPoints})`;
+      const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
+        h(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
       return h(
         'tr',
         {
@@ -363,16 +370,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           ),
           h('td', op.rating?.toString()),
           h('td.is.color-icon.' + game.color),
-          h(
-            'td.tpp__games__status',
-            points
-              ? points === '1'
-                ? h('good', '1')
-                : points === '0'
-                  ? h('bad', '0')
-                  : h('span', '½')
-              : '*',
-          ),
+          h('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
           h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],
       );

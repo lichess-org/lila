@@ -1,6 +1,7 @@
 package lila.relay
 
 import io.mola.galimatias.URL
+import chess.ByColor
 import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
@@ -13,7 +14,8 @@ import lila.common.Form.{
   into,
   stringIn,
   LocalDateTimeOrTimestamp,
-  partial
+  partial,
+  byColor
 }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
@@ -60,6 +62,16 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
+    import RelayRound.{ CustomPoints, CustomScoring }
+    val customPointMapping: Mapping[CustomPoints] =
+      bigDecimal(5, 2)
+        .transform(
+          bd => CustomPoints(bd.setScale(2, BigDecimal.RoundingMode.HALF_DOWN).toFloat),
+          p => BigDecimal.decimal(p.value.toDouble).setScale(2, BigDecimal.RoundingMode.HALF_DOWN)
+        )
+        .verifying("Must be between 0 and 10", p => p.value >= 0 && p.value <= 10)
+    val customScoringMapping: Mapping[CustomScoring] =
+      mapping("win" -> customPointMapping, "draw" -> customPointMapping)(CustomScoring.apply)(unapply)
     mapping(
       "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"             -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -78,6 +90,9 @@ final class RelayRoundForm(using mode: Mode):
       "onlyRound" -> optional(cleanNonEmptyText(maxLength = 50)),
       "slices"    -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
+      ,
+      "rated"         -> optional(boolean.into[RelayRound.Rated]),
+      "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -151,7 +166,9 @@ object RelayRoundForm:
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
-      slices = prev.flatMap(_.sync.slices)
+      slices = prev.flatMap(_.sync.slices),
+      rated = prev.map(_.rated),
+      customScoring = prev.flatMap(_.customScoring)
     )
 
   case class GameIds(ids: List[GameId])
@@ -218,7 +235,9 @@ object RelayRoundForm:
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
-      slices: Option[List[RelayGame.Slice]] = None
+      slices: Option[List[RelayGame.Slice]] = None,
+      rated: Option[RelayRound.Rated] = None,
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None          => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
@@ -232,17 +251,19 @@ object RelayRoundForm:
       .map(RelayRound.Starts.At(_))
       .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
 
-    def update(official: Boolean)(relay: RelayRound)(using Me) =
-      val sync = makeSync(relay.sync.some)
-      relay.copy(
+    def update(official: Boolean)(round: RelayRound)(using Me) =
+      val sync = makeSync(round.sync.some)
+      round.copy(
         name = name,
-        caption = if Granter(_.StudyAdmin) then caption else relay.caption,
-        sync = if relay.sync.playing then sync.play(official) else sync,
+        caption = if Granter(_.StudyAdmin) then caption else round.caption,
+        sync = if round.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
-        startedAt = status.fold(relay.startedAt):
+        startedAt = status.fold(round.startedAt):
           case "new" => none
-          case _     => relay.startedAt.orElse(nowInstant.some),
-        finishedAt = status.has("finished").option(relay.finishedAt.|(nowInstant))
+          case _     => round.startedAt.orElse(nowInstant.some),
+        finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
+        rated = rated | RelayRound.Rated.No,
+        customScoring = customScoring
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -268,42 +289,46 @@ object RelayRoundForm:
         crowd = none,
         startsAt = relayStartsAt,
         startedAt = if status.has("new") then none else nowInstant.some,
-        finishedAt = status.has("finished").option(nowInstant)
+        finishedAt = status.has("finished").option(nowInstant),
+        rated = rated | RelayRound.Rated.No,
+        customScoring = customScoring
       )
 
   object Data:
 
     type Status = "new" | "started" | "finished"
 
-    def make(relay: RelayRound) =
+    def make(round: RelayRound) =
       Data(
-        name = relay.name,
-        caption = relay.caption,
-        syncSource = relay.sync.upstream
+        name = round.name,
+        caption = round.caption,
+        syncSource = round.sync.upstream
           .fold("push"):
             case _: Upstream.Url   => "url"
             case _: Upstream.Urls  => "urls"
             case _: Upstream.Ids   => "ids"
             case _: Upstream.Users => "users"
           .some,
-        syncUrl = relay.sync.upstream.collect:
+        syncUrl = round.sync.upstream.collect:
           case url: Upstream.Url => url,
-        syncUrls = relay.sync.upstream.collect:
+        syncUrls = round.sync.upstream.collect:
           case url: Upstream.Url   => Upstream.Urls(List(url.url))
           case urls: Upstream.Urls => urls,
-        syncIds = relay.sync.upstream.collect:
+        syncIds = round.sync.upstream.collect:
           case ids: Upstream.Ids => ids,
-        syncUsers = relay.sync.upstream.collect:
+        syncUsers = round.sync.upstream.collect:
           case users: Upstream.Users => users,
-        startsAt = relay.startsAtTime,
-        startsAfterPrevious = relay.startsAfterPrevious.option(true),
+        startsAt = round.startsAtTime,
+        startsAfterPrevious = round.startsAfterPrevious.option(true),
         status = some:
-          if relay.isFinished then "finished"
-          else if relay.hasStarted then "started"
+          if round.isFinished then "finished"
+          else if round.hasStarted then "started"
           else "new"
         ,
-        period = relay.sync.period,
-        onlyRound = relay.sync.onlyRound.map(Sync.OnlyRound.toString),
-        slices = relay.sync.slices,
-        delay = relay.sync.delay
+        period = round.sync.period,
+        onlyRound = round.sync.onlyRound.map(Sync.OnlyRound.toString),
+        slices = round.sync.slices,
+        delay = round.sync.delay,
+        rated = round.rated.some,
+        customScoring = round.customScoring
       )

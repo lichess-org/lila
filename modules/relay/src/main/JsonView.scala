@@ -166,19 +166,23 @@ object JsonView:
 
   given OWrites[SyncLog.Event] = Json.writes
 
+  given OWrites[RelayRound.CustomScoring] = Json.writes
+
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
         "id"        -> r.id,
         "name"      -> r.name,
         "slug"      -> r.slug,
-        "createdAt" -> r.createdAt
+        "createdAt" -> r.createdAt,
+        "rated"     -> r.rated
       )
       .add("finishedAt" -> r.finishedAt)
       .add("finished" -> r.isFinished) // BC
       .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
+      .add("customScoring" -> r.customScoring)
 
   def statsJson(stats: RelayStats.RoundStats) =
     Json.obj(
