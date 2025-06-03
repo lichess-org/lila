@@ -418,7 +418,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     .numericalId(solution.id)
                     .map(_ -> PuzzleWin(solution.win))
                 .so: (id, solution) =>
-                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Mode.Rated)
+                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
                 .map:
                   case None =>
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))

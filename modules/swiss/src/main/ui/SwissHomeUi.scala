@@ -59,7 +59,7 @@ final class SwissHomeUi(helpers: Helpers):
                 " • ",
                 if s.variant.exotic then s.variant.name else s.perfType.trans,
                 " • ",
-                (if s.settings.rated then trans.site.ratedTournament else trans.site.casualTournament) ()
+                if s.settings.rated.yes then trans.site.ratedTournament() else trans.site.casualTournament()
               )
             ),
             td(

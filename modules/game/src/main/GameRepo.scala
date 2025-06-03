@@ -393,9 +393,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
-      if g.rated && (g.userIds.distinct.size != 2 ||
+      if g.rated.yes && (g.userIds.distinct.size != 2 ||
           !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
-      then g.copy(mode = chess.Mode.Casual)
+      then g.copy(rated = chess.Rated.No)
       else g
     val userIds               = g2.userIds.distinct
     val fen: Option[Fen.Full] = initialFen.orElse:

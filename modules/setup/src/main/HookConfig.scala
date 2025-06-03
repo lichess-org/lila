@@ -57,7 +57,7 @@ case class HookConfig(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
+            mode = if lila.core.game.allowRated(variant, clock.some) then mode else Rated.No,
             color = color,
             user = user,
             blocking = blocking,
@@ -85,7 +85,7 @@ case class HookConfig(
       days = game.daysPerTurn | days,
       mode = game.mode
     )
-    val h2 = if h1.isRatedUnlimited then h1.copy(mode = Mode.Casual) else h1
+    val h2 = if h1.isRatedUnlimited then h1.copy(mode = Rated.No) else h1
     if !h2.validClock then h2.copy(time = 1) else h2
 
   def withRatingRange(ratingRange: String) =

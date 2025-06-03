@@ -28,7 +28,7 @@ private object Mappings:
   def rawMode(withRated: Boolean) =
     number
       .verifying(HookConfig.modes contains _)
-      .verifying(_ == Mode.Casual.id || withRated)
+      .verifying(_ == Rated.No.id || withRated)
   val ratingRange = text.verifying(RatingRange.isValid)
   val color       = text.verifying(TriColor.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)

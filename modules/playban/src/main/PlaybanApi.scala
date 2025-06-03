@@ -37,7 +37,7 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (blameableSource(game) && game.hasClock).so:
-      if game.rated then fuTrue
+      if game.rated.no then fuTrue
       else userApi.containsEngine(game.userIds).not
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
@@ -117,7 +117,7 @@ final class PlaybanApi(
       }
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
-    if game.casual && blameableSource(game) && isQuickResign(game, status)
+    if game.rated.no && blameableSource(game) && isQuickResign(game, status)
     then winner.map(game.opponent).flatMap(_.userId).so(handleQuickResign(game, _))
     else
       IfBlameable(game):

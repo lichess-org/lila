@@ -106,7 +106,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
               separator,
               variantLink(s.variant, s.perfType, shortName = true),
               separator,
-              if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament()
+              if s.settings.rated.yes then trans.site.ratedTournament() else trans.site.casualTournament()
             ),
             p(
               span(cls := "swiss__meta__round")(

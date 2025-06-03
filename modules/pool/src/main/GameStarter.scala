@@ -64,7 +64,7 @@ final private class GameStarter(
         clock = pool.clock.toClock.some
       ),
       players = ByColor(whiteUser, blackUser).mapWithColor((u, p) => newPlayer(u, p)),
-      mode = chess.Mode.Rated,
+      rated = chess.Rated.Yes,
       status = chess.Status.Created,
       daysPerTurn = none,
       metadata = lila.core.game.newMetadata(Source.Pool)

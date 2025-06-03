@@ -13,7 +13,7 @@ import _root_.chess.{
   Color,
   CorrespondenceClock,
   Game as ChessGame,
-  Mode,
+  Rated,
   Ply,
   Speed,
   Status,
@@ -35,7 +35,7 @@ case class Game(
     status: Status,
     daysPerTurn: Option[Days],
     binaryMoveTimes: Option[Array[Byte]] = None,
-    mode: Mode = Mode.default,
+    rated: Rated = Rated.default,
     bookmarks: Int = 0,
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
@@ -118,7 +118,7 @@ case class Game(
     else
       copy(
         status = Status.Started,
-        mode = Mode(mode.rated && userIds.distinct.size == 2)
+        rated = rated.map(_ && userIds.distinct.size == 2)
       )
 
   def correspondenceClock: Option[CorrespondenceClock] =
@@ -152,7 +152,7 @@ case class Game(
   def swissPreventsDraw = isSwiss && playedTurns < 60
   def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
 
-  def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
+  def boosted = rated.yes && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
   def abortableByUser = abortable && !hasRule(_.noAbort)
@@ -165,8 +165,6 @@ case class Game(
     resignable && nonAi && hasClock && !isSwiss && !hasRule(_.noClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
   def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
-
-  export mode.{ rated, casual }
 
   def finished = status >= Status.Mate
 

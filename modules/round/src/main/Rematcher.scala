@@ -112,7 +112,7 @@ final private class Rematcher(
       sloppy = lila.core.game.newGame(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
-        mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
+        mode = if users.exists(_.exists(_.user.lame)) then chess.Rated.No else pov.game.mode,
         source = pov.game.source | lila.core.game.Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None

@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.Mode
+import chess.Rated
 import play.api.data.*
 import play.api.data.Forms.*
 import smithy4s.Timestamp
@@ -90,7 +90,7 @@ case class SearchData(
       if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
       else perf.toList, // 1,2,3,4,6 are the perf types for standard games
     source = source,
-    rated = mode.flatMap(Mode.apply).map(_.rated),
+    rated = mode.flatMap(Rated.apply).map(_.yes),
     status = status,
     turns = IntRange(turnsMin, turnsMax),
     averageRating = IntRange(ratingMin, ratingMax),

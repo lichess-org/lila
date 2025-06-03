@@ -94,7 +94,7 @@ final class UserAnalysis(
             ply = from.ply
           ),
           players = ByColor(lila.game.Player.make(_, none)),
-          mode = chess.Mode.Casual,
+          mode = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = None
         )

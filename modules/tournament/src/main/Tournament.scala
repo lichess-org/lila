@@ -2,7 +2,7 @@ package lila.tournament
 
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
-import chess.{ Mode, Speed }
+import chess.{ Rated, Speed }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
 
@@ -19,7 +19,7 @@ case class Tournament(
     minutes: Int,
     variant: chess.variant.Variant,
     position: Option[Fen.Standard],
-    mode: Mode,
+    rated: Rated,
     password: Option[String] = None,
     conditions: TournamentCondition.All,
     teamBattle: Option[TeamBattle] = None,
@@ -62,8 +62,6 @@ case class Tournament(
   def isUnique   = scheduleFreq.has(Schedule.Freq.Unique)
 
   def isScheduled = schedule.isDefined
-
-  def isRated = mode == Mode.Rated
 
   def finishesAt = startsAt.plusMinutes(minutes)
 
@@ -173,7 +171,7 @@ object Tournament:
       nbPlayers = 0,
       variant = setup.realVariant,
       position = setup.realPosition,
-      mode = setup.realMode,
+      rated = setup.realRated,
       password = setup.password,
       conditions = setup.conditions,
       teamBattle = setup.teamBattleByTeam.map(TeamBattle.init),
@@ -198,7 +196,7 @@ object Tournament:
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,
-      mode = Mode.Rated,
+      rated = Rated.Yes,
       conditions = sched.conditions,
       schedule = Scheduled(sched.freq, sched.at).some,
       startsAt = startsAt
