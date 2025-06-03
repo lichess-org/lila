@@ -143,7 +143,7 @@ export default new (class implements SoundI {
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
-      msg.lang = translated ? document.documentElement.lang : 'en-US';
+      msg.lang = translated ? document.documentElement.lang : 'en-GB';
       if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
