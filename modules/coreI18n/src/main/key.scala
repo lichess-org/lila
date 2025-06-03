@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String                                   = key
+    def value: String = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -928,6 +928,18 @@ object I18nKey:
     val `goToBoard`: I18nKey = "nvui:goToBoard"
     val `movePiece`: I18nKey = "nvui:movePiece"
     val `promotion`: I18nKey = "nvui:promotion"
+    val `king`: I18nKey = "nvui:king"
+    val `queen`: I18nKey = "nvui:queen"
+    val `queens`: I18nKey = "nvui:queens"
+    val `rook`: I18nKey = "nvui:rook"
+    val `rooks`: I18nKey = "nvui:rooks"
+    val `bishop`: I18nKey = "nvui:bishop"
+    val `bishops`: I18nKey = "nvui:bishops"
+    val `knight`: I18nKey = "nvui:knight"
+    val `knights`: I18nKey = "nvui:knights"
+    val `pawn`: I18nKey = "nvui:pawn"
+    val `pawns`: I18nKey = "nvui:pawns"
+    val `takes`: I18nKey = "nvui:takes"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

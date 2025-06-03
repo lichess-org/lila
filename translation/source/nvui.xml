@@ -27,5 +27,17 @@
   <string name="announcePiecesOnRankOrFile">Announce pieces on a rank or a file. Example: s a, s 1.</string>
   <string name="goToBoard">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
-  <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string>  
+  <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string> 
+  <string name="king">king</string>
+  <string name="queen">queen</string>
+  <string name="queens">queens</string>
+  <string name="rook">rook</string>
+  <string name="rooks">rooks</string>
+  <string name="bishop">bishop</string>
+  <string name="bishops">bishops</string>
+  <string name="knight">knight</string>
+  <string name="knights">knights</string>
+  <string name="pawn">pawn</string>
+  <string name="pawns">pawns</string>
+  <string name="takes">%1$s takes %2$s</string>
 </resources>

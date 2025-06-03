@@ -1755,6 +1755,10 @@ interface I18n {
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
     announcePossibleMoves: string;
+    /** bishop */
+    bishop: string;
+    /** bishops */
+    bishops: string;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1773,6 +1777,12 @@ interface I18n {
     inputForm: string;
     /** Type these commands in the command input form. */
     inputFormCommandList: string;
+    /** king */
+    king: string;
+    /** knight */
+    knight: string;
+    /** knights */
+    knights: string;
     /** Last move */
     lastMove: string;
     /** Move list */
@@ -1789,10 +1799,24 @@ interface I18n {
     moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
+    /** pawn */
+    pawn: string;
+    /** pawns */
+    pawns: string;
     /** Pieces */
     pieces: string;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
+    /** queen */
+    queen: string;
+    /** queens */
+    queens: string;
+    /** rook */
+    rook: string;
+    /** rooks */
+    rooks: string;
+    /** %1$s takes %2$s */
+    takes: I18nFormat;
     /** Your clock */
     yourClock: string;
   };

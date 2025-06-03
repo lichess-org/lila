@@ -122,6 +122,15 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
             )
             .join(' ');
 
+function transRole(role: Role, qty: number): string {
+  if (role === 'king') return i18n.nvui.king;
+  else if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
+  else if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
+  else if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
+  else if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
+  else return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+}
+
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
     'div.pieces',
@@ -139,10 +148,7 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
             [],
           )
           .filter(l => l.keys.length)
-          .map(
-            l =>
-              `${l.role}${l.keys.length > 1 ? 's' : ''}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`,
-          )
+          .map(l => `${transRole(l.role, l.keys.length)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
           .join(', '),
       ]),
     ),
