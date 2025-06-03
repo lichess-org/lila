@@ -136,17 +136,20 @@ export default new (class implements SoundI {
     return this.speechStorage.get();
   };
 
-  say = (text: string, cut = false, force = false, translated = false) => {
+  say = (text: string, cut = false, force = false, translated = false) =>
+    this.sayLazy(() => text, cut, force, translated);
+
+  sayLazy = (text: () => string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
-      const msg = new SpeechSynthesisUtterance(text);
+      const msg = new SpeechSynthesisUtterance(text());
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement.lang : 'en-GB';
       if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = () => this.listeners.forEach(l => l('start', text));
+        msg.onstart = () => this.listeners.forEach(l => l('start', text()));
         msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
       }
       window.speechSynthesis.speak(msg);
@@ -157,7 +160,7 @@ export default new (class implements SoundI {
     }
   };
 
-  saySan = (san?: San, cut?: boolean, force?: boolean) => this.say(speakable(san), cut, force);
+  saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 
