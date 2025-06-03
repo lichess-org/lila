@@ -9,7 +9,7 @@ import play.api.data.Forms.*
 import lila.common.Form.into
 import lila.core.game.{ Game, ImportedGame }
 import lila.game.GameExt.finish
-import lila.tree.ImportResult
+import lila.tree.ParseImport
 
 private val maxPlies = 600
 
@@ -46,15 +46,15 @@ val form = Form:
   )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
-  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed, _) =>
+  ParseImport.game(pgn).map { case (game, result, initialFen, tags) =>
     val dbGame = lila.core.game
       .newImportedGame(
         chess = game,
         players = ByColor: c =>
-          lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.ratings(c)),
+          lila.game.Player.makeImported(c, tags.names(c), tags.ratings(c)),
         rated = Rated.No,
         source = lila.core.game.Source.Import,
-        pgnImport = PgnImport.make(user = user, date = parsed.tags.anyDate, pgn = pgn).some
+        pgnImport = PgnImport.make(user = user, date = tags.anyDate, pgn = pgn).some
       )
       .sloppy
       .start
