@@ -13,8 +13,6 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
-import lila.db.dsl.{ *, given }
-import BSONHandlers.given
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -38,7 +36,7 @@ object RelayPlayer:
       rated: RelayRound.Rated,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
-    def playerPoints = points.map(_(color))
+    def playerPoints                                        = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
       playerPoints.map:
         case Outcome.Points.One  => cs(color).win
@@ -136,16 +134,16 @@ private final class RelayPlayerApi(
       .byId(tourId)
       .flatMapz: tour =>
         for
-          roundIds     <- roundRepo.idsByTourOrdered(tourId)
-          studyPlayers <- fetchStudyPlayers(roundIds)
-          rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-          players <- rounds.toList.foldLeftM(SeqMap.empty: RelayPlayers) {
+          rounds <- roundRepo.byTourOrdered(tourId)
+          roundsById = rounds.mapBy(_.id)
+          studyPlayers <- fetchStudyPlayers(rounds.map(_.id))
+          chapters     <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
+          players = chapters.toList.foldLeft(SeqMap.empty: RelayPlayers) {
             case (players, (studyId, chapters)) =>
-              val roundId = studyId.into(RelayRoundId)
-              roundRepo.coll
-                .byId[RelayRound](roundId)
-                .flatMapz: relayRound =>
-                  val updatedPlayers = chapters.foldLeft(players) { case (players, (chapterId, tags)) =>
+              roundsById
+                .get(studyId.into(RelayRoundId))
+                .fold(players): round =>
+                  chapters.foldLeft(players) { case (players, (chapterId, tags)) =>
                     StudyPlayer
                       .fromTags(tags)
                       .flatMap:
@@ -156,14 +154,14 @@ private final class RelayPlayerApi(
                         gamePlayers.zipColor.foldLeft(players):
                           case (players, (color, (playerId, player))) =>
                             val (_, opponent) = gamePlayers(!color)
-                            val game = RelayPlayer.Game(
-                              roundId,
+                            val game          = RelayPlayer.Game(
+                              round.id,
                               chapterId,
                               opponent,
                               color,
                               tags.points,
-                              relayRound.rated,
-                              relayRound.customScoring
+                              round.rated,
+                              round.customScoring
                             )
                             players.updated(
                               playerId,
@@ -172,7 +170,6 @@ private final class RelayPlayerApi(
                                 .withGame(game)
                             )
                   }
-                  fuccess(updatedPlayers)
           }
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
