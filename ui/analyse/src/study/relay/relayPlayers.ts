@@ -252,7 +252,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                 )
               : undefined,
             withScores
-              ? h('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score}`)
+              ? h('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score ?? 0}`)
               : undefined,
             h('td', sortByBoth(player.played, player.rating), `${player.played}`),
           ]),
