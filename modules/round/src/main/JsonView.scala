@@ -74,7 +74,7 @@ final class JsonView(
     import pov.*
     Json
       .obj(
-        "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
+        "game"   -> gameJsonView.baseWithChessDenorm(game, initialFen),
         "player" -> {
           commonPlayerJson(game, player, users(pov.color), flags) ++ Json
             .obj(
@@ -104,7 +104,7 @@ final class JsonView(
               "coords"            -> pref.coords,
               "resizeHandle"      -> pref.resizeHandle,
               "replay"            -> pref.replay,
-              "autoQueen" -> (if pov.game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER
+              "autoQueen"         -> (if pov.game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER
                               else pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
               "moveEvent"   -> pref.moveEvent
@@ -180,7 +180,7 @@ final class JsonView(
             .add("importedBy" -> game.pgnImport.flatMap(_.user)),
           "clock"          -> game.clock.map(clockJson),
           "correspondence" -> game.correspondenceClock,
-          "player" -> {
+          "player"         -> {
             commonWatcherJson(game, player, users(pov.color), flags) ++ Json
               .obj(
                 "version"   -> socket.version,
@@ -192,7 +192,7 @@ final class JsonView(
             "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
           ),
           "orientation" -> pov.color.name,
-          "url" -> flags.lichobileCompat.option:
+          "url"         -> flags.lichobileCompat.option:
             Json.obj(
               "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
               "round"  -> s"/$gameId/${color.name}"
@@ -239,7 +239,7 @@ final class JsonView(
               "white"       -> Json.obj("user" -> white),
               "black"       -> Json.obj("user" -> black),
               "orientation" -> pov.color.name,
-              "pref" -> Json
+              "pref"        -> Json
                 .obj(
                   "animationDuration" -> animationMillis(pov, pref),
                   "coords"            -> pref.coords
@@ -283,7 +283,7 @@ final class JsonView(
           "ai"    -> opponent.aiLevel
         ),
         "orientation" -> orientation.name,
-        "pref" -> Json
+        "pref"        -> Json
           .obj(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,

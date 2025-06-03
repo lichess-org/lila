@@ -59,7 +59,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
       .obj(
-        "tour" -> fullTour(trs.tour),
+        "tour"   -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
@@ -67,7 +67,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
-    case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
+    case tour: RelayTour   => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
         .obj(

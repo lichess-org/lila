@@ -18,7 +18,7 @@ final private class FishnetRepo(
       clientColl.one[Client]($id(key))
 
   def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client] =
+  def getOfflineClient: Fu[Client]      =
     getEnabledClient(Client.offline.key).getOrElse(fuccess(Client.offline))
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client
@@ -28,7 +28,7 @@ final private class FishnetRepo(
           _ <- clientColl.update.one($id(client.key), $set("instance" -> updated.instance))
           _ = clientCache.invalidate(client.key)
         yield updated
-  def addClient(client: Client) = clientColl.insert.one(client)
+  def addClient(client: Client)     = clientColl.insert.one(client)
   def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one($id(key))
   yield clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
@@ -49,8 +49,8 @@ final private class FishnetRepo(
     else updateAnalysis(update(ana))
 
   object status:
-    private def system(v: Boolean)   = $doc("sender.system" -> v)
-    private def acquired(v: Boolean) = $doc("acquired".$exists(v))
+    private def system(v: Boolean)                      = $doc("sender.system" -> v)
+    private def acquired(v: Boolean)                    = $doc("acquired".$exists(v))
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl
         .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)

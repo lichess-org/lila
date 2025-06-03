@@ -272,7 +272,7 @@ object InsightDimension:
     case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
     case Blur                    => lila.insight.Blur.values.toIndexedSeq
     case TimeVariance            => lila.insight.TimeVariance.values.toIndexedSeq
-    case GameSource =>
+    case GameSource              =>
       Source.values.toIndexedSeq.filter:
         case Source.Ai | Source.Import | Source.ImportLive => false
         case _                                             => true
@@ -364,7 +364,7 @@ object InsightDimension:
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
 
     def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match
-      case Nil => $empty
+      case Nil  => $empty
       case many =>
         $doc(
           "$or" -> many.map(toRange).map {
@@ -376,7 +376,7 @@ object InsightDimension:
     d match
       case InsightDimension.MovetimeRange =>
         selected match
-          case Nil => $empty
+          case Nil  => $empty
           case many =>
             $doc(
               "$or" -> many.map(lila.insight.MovetimeRange.toRange).map { range =>
@@ -389,7 +389,7 @@ object InsightDimension:
         }
       case InsightDimension.MaterialRange =>
         selected match
-          case Nil => $empty
+          case Nil  => $empty
           case many =>
             $doc(
               "$or" -> many.map { range =>
@@ -401,7 +401,7 @@ object InsightDimension:
             )
       case InsightDimension.EvalRange =>
         selected match
-          case Nil => $empty
+          case Nil  => $empty
           case many =>
             $doc(
               "$or" -> many.map { range =>
@@ -418,7 +418,7 @@ object InsightDimension:
         percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent(_))
       case InsightDimension.TimeVariance =>
         selected match
-          case Nil => $empty
+          case Nil  => $empty
           case many =>
             $doc(
               "$or" -> many.map(lila.insight.TimeVariance.toRange).map { range =>

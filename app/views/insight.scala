@@ -21,7 +21,7 @@ def index(
           "ui"              -> ui,
           "initialQuestion" -> question,
           "myUserId"        -> ctx.userId,
-          "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
+          "user"            -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
             "nbGames" -> insightUser.count,
             "stale"   -> stale,
             "shareId" -> prefId

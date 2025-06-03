@@ -22,7 +22,7 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
-  def perfKey = perfType.key
+  def perfKey       = perfType.key
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else

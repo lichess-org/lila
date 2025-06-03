@@ -33,7 +33,7 @@ object Condition:
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(pt: PerfType)(using Translate) = trans.arena.onlyTitled.txt()
+    def name(pt: PerfType)(using Translate)                   = trans.arena.onlyTitled.txt()
     def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf) =
       if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
@@ -89,7 +89,7 @@ object Condition:
       else
         getMaxRating(pt).map:
           case r if r <= rating => Accepted
-          case r =>
+          case r                =>
             Refused: t =>
               given Translate = t
               trans.site.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans, r)

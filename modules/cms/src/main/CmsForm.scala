@@ -14,9 +14,9 @@ final class CmsForm(langList: LangList):
     mapping(
       "key"   -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPageKey],
       "title" -> cleanNonEmptyText(minLength = 3, maxLength = 150),
-      "markdown" -> cleanTextWithSymbols(maxLength = 1000_000).into[Markdown],
-      "language" -> langList.popularLanguagesForm.mapping,
-      "live"     -> boolean,
+      "markdown"      -> cleanTextWithSymbols(maxLength = 1000_000).into[Markdown],
+      "language"      -> langList.popularLanguagesForm.mapping,
+      "live"          -> boolean,
       "canonicalPath" -> optional:
         nonEmptyText.transform(p => if p.startsWith("/") then p else s"/$p", identity)
     )(CmsForm.CmsPageData.apply)(unapply)

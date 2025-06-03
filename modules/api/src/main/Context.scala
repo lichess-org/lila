@@ -102,7 +102,7 @@ final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
 
 object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
-  def apply(ctx: Context): EmbedContext = new EmbedContext(
+  def apply(ctx: Context): EmbedContext    = new EmbedContext(
     ctx,
     bg = ctx.req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
     nonce = Nonce.random

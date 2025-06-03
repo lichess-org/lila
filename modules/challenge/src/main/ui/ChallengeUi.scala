@@ -41,7 +41,7 @@ final class ChallengeUi(helpers: Helpers):
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
-    val variant = c.variant.exotic.so(s" ${c.variant.name}")
+    val variant    = c.variant.exotic.so(s" ${c.variant.name}")
     val challenger = c.challengerUser.fold(trans.site.anonymous.txt()): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings.so(s" (${reg.rating.show})")}"
     val players =

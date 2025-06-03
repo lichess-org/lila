@@ -148,7 +148,7 @@ final private class RoundAsyncActor(
       handle(fullId.playerId): pov =>
         for
           has <- gameRepo.hasHoldAlert(pov)
-          _ <- has.not.so:
+          _   <- has.not.so:
             lila
               .log("cheat")
               .info:
@@ -270,7 +270,7 @@ final private class RoundAsyncActor(
 
     case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
     case DrawClaim(playerId)           => handle(playerId)(drawer.claim)
-    case Cheat(color) =>
+    case Cheat(color)                  =>
       handle: game =>
         (game.playable && !game.sourceIs(_.Import)).so:
           finisher.other(game, _.Cheat, Some(!color))

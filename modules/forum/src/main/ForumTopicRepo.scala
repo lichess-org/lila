@@ -18,7 +18,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def withFilter(f: Filter) = if f == filter then this else new ForumTopicRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
-  private val noTroll = $doc("troll" -> false)
+  private val noTroll     = $doc("troll" -> false)
   private val trollFilter = filter match
     case Safe       => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))

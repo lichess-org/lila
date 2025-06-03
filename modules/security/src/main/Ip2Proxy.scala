@@ -44,7 +44,7 @@ final class Ip2ProxyServer(
     ips.distinct.take(50) match // 50 * ipv6 length < max url length
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
-      case ips =>
+      case ips     =>
         ips.flatMap(getCached).parallel.flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else

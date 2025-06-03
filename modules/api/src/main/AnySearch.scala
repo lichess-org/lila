@@ -22,7 +22,7 @@ final class AnySearch(
         def broadcastRound = relayEnv.api.byIdWithTour(RelayRoundId(id)).map2(_.path)
         def broadcastTour  = relayEnv.api.tourById(RelayTourId(id)).map2(_.path)
 
-        def study = studyEnv.studyRepo.exists(StudyId(id)).map(_.option(routes.Study.show(StudyId(id)).url))
+        def study   = studyEnv.studyRepo.exists(StudyId(id)).map(_.option(routes.Study.show(StudyId(id)).url))
         def chapter =
           studyEnv.chapterRepo.byId(StudyChapterId(id)).map2(c => routes.Study.chapter(c.studyId, c.id).url)
 

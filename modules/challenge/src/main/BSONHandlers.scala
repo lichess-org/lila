@@ -40,7 +40,7 @@ private object BSONHandlers:
   given BSONHandler[DeclineReason] = valueMapHandler(DeclineReason.byKey)(_.key)
 
   given BSON[Rating] with
-    def reads(r: Reader) = Rating(r.get("i"), r.yesnoD("p"))
+    def reads(r: Reader)             = Rating(r.get("i"), r.yesnoD("p"))
     def writes(w: Writer, r: Rating) =
       $doc(
         "i" -> r.int,

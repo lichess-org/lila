@@ -33,7 +33,7 @@ class PlanBuilderTest extends munit.FunSuite:
     assertEquals(tourney2.schedule.get.at, dt1)
 
   test("plansWithStagger & getNewTourneys"):
-    val dt = LocalDateTime.of(2024, 9, 30, 12, 0)
+    val dt    = LocalDateTime.of(2024, 9, 30, 12, 0)
     val plans = List(
       Schedule(Hourly, Bullet, Standard, None, dt).plan,
       Schedule(Hourly, Blitz, Standard, None, dt).plan,

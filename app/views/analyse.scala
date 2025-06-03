@@ -82,7 +82,7 @@ object embed:
       i18nModules = List(_.site, _.timeago, _.study)
     )(
       ui.bits.embedUserAnalysisBody,
-      views.base.page.ui.inlineJs(ctx.nonce, List(Esm("site").some))
+      views.base.page.ui.inlineJs(ctx.nonce, Nil)
     )
 
   def lpv(pgn: PgnStr, getPgn: Boolean, title: String, args: JsObject)(using

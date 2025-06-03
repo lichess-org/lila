@@ -17,7 +17,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
       else Berserk.No
     val score = p.winner match
       case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
-      case None =>
+      case None                =>
         Score(
           Result.Draw,
           if streakable && isOnFire then Flag.Double
@@ -133,7 +133,7 @@ object Sheet:
   @scala.annotation.tailrec
   private def isDrawStreak(scores: List[Score]): Boolean =
     scores match
-      case Nil => false
+      case Nil                => false
       case (s: Score) :: more =>
         s.isWin match
           case None        => true

@@ -191,8 +191,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def getPlayTime(id: UserId): Fu[Option[PlayTime]] =
     coll.primitiveOne[PlayTime]($id(id), F.playTime)
 
-  val enabledSelect  = $doc(F.enabled -> true)
-  val disabledSelect = $doc(F.enabled -> false)
+  val enabledSelect                                = $doc(F.enabled -> true)
+  val disabledSelect                               = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
@@ -389,7 +389,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     def nowFully(user: User) = for
       lockEmail <- emailOrPrevious(user.id)
-      _ <- coll.update.one(
+      _         <- coll.update.one(
         $id(user.id),
         $doc(
           "prevEmail" -> lockEmail,

@@ -114,7 +114,7 @@ final class PuzzleDashboardApi(
           Unwind("puzzle"),
           Facet(
             List(
-              "global" -> List(Group(BSONNull)(resultsGroup*)),
+              "global"  -> List(Group(BSONNull)(resultsGroup*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),

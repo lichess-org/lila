@@ -29,7 +29,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
         .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
           val initBoard    = parsed.tags.fen.flatMap(Fen.read).map(_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
-          val variant =
+          val variant      =
             parsed.tags.variant | {
               if fromPosition then FromPosition
               else Standard
@@ -39,7 +39,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
               case FromPosition if parsed.tags.fen.isEmpty => Standard
               case Standard if fromPosition                => FromPosition
               case v                                       => v
-          val game = state.copy(position = state.position.withVariant(variant))
+          val game       = state.copy(position = state.position.withVariant(variant))
           val initialFen = parsed.tags.fen
             .flatMap(Fen.readWithMoveNumber(variant, _))
             .map(Fen.write)

@@ -111,7 +111,7 @@ final class TournamentApi(
       filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit = for
     formTeamIds <- filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains))
-    teamIds <-
+    teamIds     <-
       if !tour.isCreated
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
@@ -144,7 +144,7 @@ final class TournamentApi(
             .createPairings(tour, users, ranking, smallTourNbActivePlayers)
             .mon(_.tournament.pairing.createPairings)
             .flatMap:
-              case Nil => funit
+              case Nil      => funit
               case pairings =>
                 pairingRepo.insert(pairings.map(_.pairing)) >>
                   pairings
@@ -346,7 +346,7 @@ final class TournamentApi(
             _.value / 10 + 1
 
   private object updateNbPlayers:
-    private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
+    private val onceEvery            = scalalib.cache.OnceEvery[TourId](1.second)
     def apply(tourId: TourId): Funit = onceEvery(tourId).so:
       playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
 
@@ -369,7 +369,7 @@ final class TournamentApi(
           publish()
       case tour if tour.isStarted =>
         for
-          _ <- playerRepo.withdraw(tour.id, userId)
+          _        <- playerRepo.withdraw(tour.id, userId)
           pausable <-
             if isPause
             then cached.ranking(tour).map { _.ranking.get(userId).exists(_ < 7) }
@@ -553,7 +553,7 @@ final class TournamentApi(
             }
       yield ()
 
-  private val tournamentTopNb = 20
+  private val tournamentTopNb    = 20
   private val tournamentTopCache = cacheApi[TourId, TournamentTop](16, "tournament.top"):
     _.refreshAfterWrite(3.second)
       .expireAfterAccess(5.minutes)

@@ -87,7 +87,7 @@ final class TournamentForm:
       "name"           -> optional(eventName(2, nameMaxLength, manager || me.isVerified)),
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
-      "minutes" -> {
+      "minutes"        -> {
         if manager then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },

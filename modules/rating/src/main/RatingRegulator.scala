@@ -21,7 +21,7 @@ object RatingRegulator:
       after: ByColor[Glicko],
       isBot: ByColor[Boolean]
   ): ByColor[Glicko] =
-    val regulated = before.zip(after, (b, a) => regulate(key, b, a))
+    val regulated        = before.zip(after, (b, a) => regulate(key, b, a))
     val halvedAgainstBot = regulated.mapWithColor: (color, glicko) =>
       if !isBot(color) && isBot(!color)
       then glicko.average(before(color))

@@ -57,7 +57,7 @@ final class StudyApi(
             chapterRepo
               .firstByStudy(study.id)
               .flatMap:
-                case None => fixNoChapter(study)
+                case None          => fixNoChapter(study)
                 case Some(chapter) =>
                   val fixed = study.withChapter(chapter)
                   studyRepo.updateSomeFields(fixed).inject(Study.WithChapter(fixed, chapter).some)
@@ -622,7 +622,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(data.id, studyId).flatMapz { chapter =>
-          val name = Chapter.fixName(data.name)
+          val name       = Chapter.fixName(data.name)
           val newChapter = chapter.copy(
             name = name,
             practice = data.isPractice.option(true),
@@ -829,8 +829,8 @@ final class StudyApi(
     study.canContribute(userId).so(f)
 
   // work around circular dependency
-  private var socket: Option[StudySocket]           = None
-  private[study] def registerSocket(s: StudySocket) = socket = s.some
+  private var socket: Option[StudySocket]                                       = None
+  private[study] def registerSocket(s: StudySocket)                             = socket = s.some
   private def sendTo(studyId: StudyId)(f: StudySocket => StudyId => Unit): Unit =
     socket.foreach: s =>
       f(s)(studyId)

@@ -26,8 +26,9 @@
       color: $c-font-clearer !important;
     }
 
+    &::before,
     span::before {
-      vertical-align: middle;
+      vertical-align: top;
     }
   }
 
@@ -75,7 +76,6 @@
   }
 
   .signin {
-    @extend %flex-center-nowrap;
     text-transform: uppercase;
     padding: 0 0.7rem;
   }

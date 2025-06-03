@@ -91,7 +91,7 @@ Today's date is [current date]""")
       statusFlair(req),
       div(cls := "title__status__body")(
         req.status match
-          case Status.building => frag("Please upload the required documents to confirm your identity.")
+          case Status.building   => frag("Please upload the required documents to confirm your identity.")
           case Status.pending(_) =>
             frag(
               h2("All set! Your request is pending."),

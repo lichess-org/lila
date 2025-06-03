@@ -63,7 +63,7 @@ def show(
           "data"     -> data.analysis,
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId"   -> ctx.userId,
-          "chat" -> chatOption.map: c =>
+          "chat"     -> chatOption.map: c =>
             views.chat.json(
               c.chat,
               c.lines,

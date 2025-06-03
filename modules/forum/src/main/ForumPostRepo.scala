@@ -17,7 +17,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
 
   import BSONHandlers.given
 
-  private val noTroll = $doc("troll" -> false)
+  private val noTroll     = $doc("troll" -> false)
   private val trollFilter = filter match
     case Safe       => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))

@@ -153,7 +153,7 @@ object Orders:
   val withoutSelector           = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
   private val byKey             = list.mapBy(_.toString)
   def apply(key: String): Order = byKey.getOrElse(key, default)
-  val name: Order => I18nKey =
+  val name: Order => I18nKey    =
     case Order.hot          => I18nKey.study.hot
     case Order.newest       => I18nKey.study.dateAddedNewest
     case Order.oldest       => I18nKey.study.dateAddedOldest

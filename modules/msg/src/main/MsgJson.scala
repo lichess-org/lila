@@ -56,7 +56,7 @@ final class MsgJson(
 
   private def renderThread(t: MsgThread.WithContact)(using me: Option[Me]) =
     Json.obj(
-      "user" -> renderContact(t.contact),
+      "user"    -> renderContact(t.contact),
       "lastMsg" -> me.fold(t.thread.lastMsg): me =>
         if t.thread.maskFor.contains(me) then t.thread.maskWith.getOrElse(t.thread.lastMsg)
         else t.thread.lastMsg

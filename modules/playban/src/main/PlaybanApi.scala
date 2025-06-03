@@ -259,7 +259,7 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
-    trust <- userTrustApi.get(record.userId)
+    trust  <- userTrustApi.get(record.userId)
     newRec <- record
       .bannable(age, trust)
       .ifFalse(record.banInEffect)

@@ -205,21 +205,16 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def openings(order: String) = Open:
     env.puzzle.opening.collection.flatMap: collection =>
       negotiate(
-        html = ctx.me.so: me =>
-          env.insight.api
-            .insightUser(me)
-            .map:
-              _.some.filterNot(_.isEmpty).so { insightUser =>
-                collection.makeMine(insightUser.families, insightUser.openings).some
-              }
-            .flatMap: mine =>
-              Ok.page:
-                views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
-        ,
+        html = for
+          insights <- ctx.me.so(env.insight.api.insightUser(_).dmap(_.some.filterNot(_.isEmpty)))
+          myOpenings = insights.map(u => collection.makeMine(u.families, u.openings))
+          page = views.puzzle.ui.opening.all(collection, myOpenings, lila.puzzle.PuzzleOpening.Order(order))
+          result <- Ok.page(page)
+        yield result,
         json = Ok(lila.puzzle.JsonView.openings(collection))
       )
 
-  def show(angleOrId: String) = Open(serveShow(angleOrId))
+  def show(angleOrId: String)                         = Open(serveShow(angleOrId))
   def showLang(language: Language, angleOrId: String) =
     LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(language)
 
@@ -304,11 +299,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     DashboardPage(u) { ctx ?=> user =>
       env.puzzle.dashboard(user, days).flatMap { dashboard =>
         path match
-          case "dashboard" => Ok.page(views.puzzle.dashboard.home(user, dashboard, days))
+          case "dashboard"        => Ok.page(views.puzzle.dashboard.home(user, dashboard, days))
           case "improvementAreas" =>
             Ok.page(views.puzzle.dashboard.improvementAreas(user, dashboard, days))
           case "strengths" => Ok.page(views.puzzle.dashboard.strengths(user, dashboard, days))
-          case _ =>
+          case _           =>
             Redirect(routes.Puzzle.dashboard(days, "dashboard", (ctx.isnt(user)).option(user.username)))
       }
     }
@@ -370,7 +365,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                   .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
                   .inject(Nil)
             given Option[Me] <- ctx.me.so(env.user.repo.me)
-            nextPuzzles <- WithPuzzlePerf:
+            nextPuzzles      <- WithPuzzlePerf:
               batchSelect(angle, reqDifficulty, ~getInt("nb"))
             result = nextPuzzles ++ Json.obj("rounds" -> rounds)
           yield Ok(result)

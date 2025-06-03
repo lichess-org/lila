@@ -43,7 +43,7 @@ final class KaladinApi(
     coll(_.byId[KaladinUser](user.id))
 
   def dashboard: Fu[KaladinUser.Dashboard] = for
-    c <- coll.get
+    c         <- coll.get
     completed <- c
       .find($doc("response.at".$exists(true)))
       .sort($doc("response.at" -> -1))
@@ -67,7 +67,7 @@ final class KaladinApi(
           for
             user        <- userApi.withPerfs(sus.user)
             enoughMoves <- hasEnoughRecentMoves(user)
-            _ <-
+            _           <-
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
                 insightApi.indexAll(user.user) >>
@@ -110,7 +110,7 @@ final class KaladinApi(
     def sendReport = for
       suspect <- getSuspect(user.suspectId.value)
       kaladin <- userApi.byId(UserId.kaladin).orFail("Kaladin user not found").dmap(Mod.apply)
-      _ <- reportApi.create(
+      _       <- reportApi.create(
         Report
           .Candidate(
             reporter = Reporter(kaladin.user),

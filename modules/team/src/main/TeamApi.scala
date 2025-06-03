@@ -49,7 +49,7 @@ final class TeamApi(
     val bestId = Team.nameToId(setup.name)
     for
       exists <- chatApi.exists(bestId.into(ChatId))
-      id = if exists then Team.randomId() else bestId
+      id   = if exists then Team.randomId() else bestId
       team = Team.make(
         id = id,
         name = setup.name,
@@ -244,7 +244,7 @@ final class TeamApi(
 
   def quit(team: Team, userId: UserId): Funit = for
     res <- memberRepo.remove(team.id, userId)
-    _ <- (res.n == 1).so:
+    _   <- (res.n == 1).so:
       teamRepo.incMembers(team.id, -1)
   yield
     Bus.pub(LeaveTeam(teamId = team.id, userId = userId))

@@ -82,6 +82,6 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
         .toNel
 
     def rewind(moves: Vector[SanStr]): Option[Position] =
-      Position.standard.forward(moves.dropRight(1)).toOption
+      chess.variant.Standard.initialPosition.forward(moves.dropRight(1)).toOption
 
     def fenOf(position: Position): BoardFen = Fen.writeBoard(position)

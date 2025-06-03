@@ -77,7 +77,7 @@ final class MsgApi(
   def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
     val userId   = username.id
     val threadId = MsgThread.id(me, userId)
-    val before = beforeMillis.flatMap: millis =>
+    val before   = beforeMillis.flatMap: millis =>
       util.Try(millisToInstant(millis)).toOption
     userId
       .isnt(me)
@@ -118,7 +118,7 @@ final class MsgApi(
       for
         contacts <- contactApi.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
         isNew    <- colls.thread.exists($id(threadId)).not
-        verdict <-
+        verdict  <-
           if ignoreSecurity then fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _       = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
@@ -126,8 +126,8 @@ final class MsgApi(
         maskWith <-
           if multi && !isNew then lastDirectMsg(threadId, orig) else fuccess(None)
         res <- verdict match
-          case MsgSecurity.Limit     => fuccess(PostResult.Limited)
-          case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
+          case MsgSecurity.Limit      => fuccess(PostResult.Limited)
+          case _: MsgSecurity.Reject  => fuccess(PostResult.Bounced)
           case send: MsgSecurity.Send =>
             val msg =
               if verdict == MsgSecurity.Spam
@@ -135,7 +135,7 @@ final class MsgApi(
                 logger.branch("spam").warn(s"$orig->$dest $msgPre.text")
                 msgPre.copy(text = spam.replace(msgPre.text))
               else msgPre
-            val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
+            val msgWrite    = colls.msg.insert.one(writeMsg(msg, threadId))
             def threadWrite =
               if isNew then
                 colls.thread.insert.one:

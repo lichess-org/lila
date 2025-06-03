@@ -227,7 +227,7 @@ object Pref:
       val CORRESPONDENCE_UNLIMITED = 1
       val ALWAYS                   = 2
       val choices                  = Seq(NEVER, CORRESPONDENCE_ONLY, CORRESPONDENCE_UNLIMITED, ALWAYS)
-      def appToServer(v: Int) = v match
+      def appToServer(v: Int)      = v match
         case NEVER                    => 0
         case CORRESPONDENCE_ONLY      => CORRESPONDENCE
         case CORRESPONDENCE_UNLIMITED => CORRESPONDENCE | UNLIMITED

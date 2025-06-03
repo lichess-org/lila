@@ -48,7 +48,7 @@ final private class StudyInvite(
     relation  <- relationApi.fetchRelation(invited.id, byUserId)
     _         <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
     isPresent <- getIsPresent(invited.id)
-    _ <-
+    _         <-
       if isPresent || Granter(_.StudyAdmin) then funit
       else
         prefApi
@@ -59,7 +59,7 @@ final private class StudyInvite(
             case lila.core.pref.StudyInvite.FRIEND =>
               if relation.has(Follow) then funit
               else fufail("This user only accept study invitations from friends")
-    shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
+    shouldNotify  = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
       if Granter(_.StudyAdmin) then 0
       else if relation.has(Follow) then 1

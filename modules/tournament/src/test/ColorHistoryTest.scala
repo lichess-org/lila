@@ -11,7 +11,7 @@ object ColorHistoryTest:
   def unpack(s: String): (Int, Int)                              = toTuple2(apply(s))
   def couldPlay(s1: String, s2: String, maxStreak: Int): Boolean = apply(s1).couldPlay(apply(s2), maxStreak)
   def sameColors(s1: String, s2: String): Boolean                = apply(s1).sameColors(apply(s2))
-  def firstGetsWhite(s1: String, s2: String): Boolean =
+  def firstGetsWhite(s1: String, s2: String): Boolean            =
     apply(s1).firstGetsWhite(apply(s2)) { () =>
       true
     }

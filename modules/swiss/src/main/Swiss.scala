@@ -36,7 +36,7 @@ case class Swiss(
   def isNowOrSoon          = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
   def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
   def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
-  def isEnterable =
+  def isEnterable          =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRoundNumber] = SwissRoundNumber.from((1 to round.value).toList)

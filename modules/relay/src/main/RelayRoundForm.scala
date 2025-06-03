@@ -82,13 +82,13 @@ final class RelayRoundForm(using mode: Mode):
       "syncUsers"           -> optional(of[Upstream.Users]),
       "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
-      "status" -> optional:
+      "status"              -> optional:
         text.partial[Data.Status](_.toString):
           case ok: Data.Status => ok,
       "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
       "onlyRound" -> optional(cleanNonEmptyText(maxLength = 50)),
-      "slices" -> optional:
+      "slices"    -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
       "rated"         -> optional(boolean.into[RelayRound.Rated]),
@@ -121,7 +121,7 @@ object RelayRoundForm:
     "users" -> "Lichess usernames"
   )
 
-  private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
+  private val roundNumberRegex             = """([^\d]*)(\d{1,2})([^\d]*)""".r
   val roundNumberIn: String => Option[Int] =
     case roundNumberRegex(_, n, _) => n.toIntOption
     case _                         => none
@@ -130,12 +130,12 @@ object RelayRoundForm:
     val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
       case a :: b :: _ => (a, b).some
       case _           => none
-    val prev: Option[RelayRound] = rounds.lastOption
+    val prev: Option[RelayRound]                      = rounds.lastOption
     def replaceRoundNumber(s: String, n: Int): String =
       roundNumberRegex.replaceAllIn(s, m => s"${m.group(1)}${n}${m.group(3)}")
     val prevNumber: Option[Int] = prev.flatMap(p => roundNumberIn(p.name.value))
     val nextNumber              = (prevNumber | rounds.size) + 1
-    val guessName = for
+    val guessName               = for
       n <- prevNumber
       if prevs
         .map(_._2)

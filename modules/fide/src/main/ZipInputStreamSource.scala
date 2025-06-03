@@ -159,7 +159,7 @@ final class ZipInputStreamSource private (
 
       @tailrec private def nextEntry(streams: Seq[ZipInputStream]): (Option[ZipEntry], Seq[ZipInputStream]) =
         streams match
-          case Seq() => (None, streams)
+          case Seq()     => (None, streams)
           case (z :: zs) =>
             val entry = Option(z.getNextEntry)
             entry match
@@ -194,7 +194,7 @@ final class ZipInputStreamSource private (
           case Some(entry, readBytes) =>
             readBytesTotal += readBytes
             val entryData = ZipEntryData(entry.getName, entry.getTime)
-            val chunk =
+            val chunk     =
               if readBytes == chunkSize then ByteString1C(arr)
               else ByteString1C(arr).take(readBytes)
             buffer :+= ((entryData, chunk))

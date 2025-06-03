@@ -185,7 +185,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit =
     diff match
-      case (Nil, Nil) => funit
+      case (Nil, Nil)     => funit
       case (sets, unsets) =>
         coll.update
           .one(
@@ -397,7 +397,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
       then g.copy(mode = chess.Mode.Casual)
       else g
-    val userIds = g2.userIds.distinct
+    val userIds               = g2.userIds.distinct
     val fen: Option[Fen.Full] = initialFen.orElse:
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Fen.write(g2.chess))

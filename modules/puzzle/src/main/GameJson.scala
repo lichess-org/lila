@@ -80,17 +80,16 @@ final private class GameJson(
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json
       .obj(
-        "id"      -> game.id,
-        "perf"    -> perfJson(game),
-        "players" -> playersJson(game),
-        "rated"   -> game.rated,
+        "id"        -> game.id,
+        "perf"      -> perfJson(game),
+        "players"   -> playersJson(game),
+        "rated"     -> game.rated,
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
           for
             pgnMove <- pgnMoves.lastOption
             position =
-              chess.Position
-                .init(game.variant, chess.White)
+              game.variant.initialPosition
                 .forward(pgnMoves)
                 .valueOr: err =>
                   sys.error(s"GameJson.generateBc ${game.id} $err")

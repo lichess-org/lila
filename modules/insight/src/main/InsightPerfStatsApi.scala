@@ -73,7 +73,7 @@ final class InsightPerfStatsApi(
           nb = ~doc.int("nb")
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds = ids.map(GameId.take)
+          gameIds  = ids.map(GameId.take)
           interval = for
             start <- doc.getAsOpt[Instant]("from")
             end   <- doc.getAsOpt[Instant]("to")

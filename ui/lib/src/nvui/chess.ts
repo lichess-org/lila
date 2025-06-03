@@ -108,7 +108,7 @@ const renderPieceStr = (ch: string, pieceStyle: PieceStyle, c: Color, prefixStyl
 
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
-    ? 'Game start'
+    ? i18n.nvui.gameStart
     : style === 'uci'
       ? (uci ?? '')
       : style === 'san'
@@ -162,14 +162,14 @@ const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
     [],
   );
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
+export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle, i18n: I18n): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
   return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle, i18n: I18n): string {
   const renderedKeysWithPiece = Array.from(pieces)
     .sort(([key1], [key2]) => key1.localeCompare(key2))
     .reduce<string[]>(

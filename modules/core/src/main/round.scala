@@ -82,9 +82,9 @@ case object TooManyPlies
 opaque type IsOfferingRematch = game.PovRef => Boolean
 object IsOfferingRematch extends FunctionWrapper[IsOfferingRematch, game.PovRef => Boolean]
 
-trait BenignError                        extends lilaism.LilaException
-case class ClientError(message: String)  extends BenignError
-case class FishnetError(message: String) extends BenignError
+trait BenignError                          extends lilaism.LilaException
+case class ClientError(message: String)    extends BenignError
+case class FishnetError(message: String)   extends BenignError
 case class GameIsFinishedError(id: GameId) extends BenignError:
   val message = s"game $id is finished"
 

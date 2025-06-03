@@ -73,7 +73,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
               a(
                 cls      := "button button-no-upper text",
                 dataIcon := Icon.Book,
-                href := s"${routes.UserAnalysis
+                href     := s"${routes.UserAnalysis
                     .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
               )("Personal opening explorer"),
               puzzle
@@ -110,7 +110,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
             h2("Your ", color.name, " openings"),
             div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
               div(
-                cls := "tutor__openings__opening tutor-card tutor-card--link",
+                cls      := "tutor__openings__opening tutor-card tutor-card--link",
                 dataHref := routes.Tutor
                   .opening(user.username, report.perf.key, color, fam.family.key.value)
               )(
