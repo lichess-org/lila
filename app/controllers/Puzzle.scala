@@ -454,5 +454,5 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           case None       => Redirect(routes.Puzzle.dashboard(Days(30), "home", none))
     }
 
-  def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
+  private def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
     WithMyPerf(PerfType.Puzzle)(f)
