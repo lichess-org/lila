@@ -12,6 +12,7 @@
   <string name="opponentClock">Motspelar si klokke</string>
   <string name="gameStart">Spelstart</string>
   <string name="boardCommandList">Kommandoliste når brettet er i fokus</string>
+  <string name="inputFormCommandList">Skriv desse kommandoane inn i skjemaet for kommandoar.</string>
   <string name="goToInputForm">Gå til trekk- og kommandolinjeskjemaet.</string>
   <string name="announceCurrentSquare">Kunngjer gjeldande felt.</string>
   <string name="announceLastMove">Kunngjer siste trekk.</string>
@@ -22,4 +23,9 @@
   <string name="moveToPieceByType">Flytt til ei brikke ved å skrive brikketypen. Bruk store bokstavar for å snu rekkefølga.</string>
   <string name="moveToRank">Flytt til rad 1-8.</string>
   <string name="moveToFile">Flytt til linje a-h.</string>
+  <string name="announcePieceLocations">Annonser brikkeplasseringa. Til dømes p og stor N for kvite springarar, p og liten k for svart konge.</string>
+  <string name="announcePiecesOnRankOrFile">Annonser brikker på ein rad eller ei linje. Til dømes s a, s 1.</string>
+  <string name="goToBoard">Gå til brettet. Standardfelt er e-4. Du kan oppgje eit felt: brett a-1 eller b a-1 vil ta deg til felt a-1.</string>
+  <string name="movePiece">Bruk standard algebraisk notasjon for å flytte ei brikke.</string>
+  <string name="promotion">Dersom du skal forvandle til noko anna enn dronning skal du bruke likskapsteiknet. Til dømes forvandlar a-8-er-lik-n til springar.</string>
 </resources>
