@@ -10,4 +10,14 @@
   <string name="actions">Hành động</string>
   <string name="yourClock">Đồng hồ của bạn</string>
   <string name="opponentClock">Đồng hồ đối thủ</string>
+  <string name="gameStart">Trận đấu bắt đầu</string>
+  <string name="boardCommandList">Danh sách lệnh khi nhấp vào bàn cờ</string>
+  <string name="inputFormCommandList">Gõ các lệnh này trong ô nhập lệnh.</string>
+  <string name="goToInputForm">Chuyển đến ô nhập lệnh.</string>
+  <string name="announceCurrentSquare">Thông báo ô cờ hiện tại.</string>
+  <string name="announceLastMove">Thông báo nước đi mới nhất.</string>
+  <string name="announceLastMoveCapture">Thông báo quân cờ bị ăn trong nước cờ mới nhất.</string>
+  <string name="announcePossibleMoves">Thông báo nước cờ hợp lệ cho quân cờ được chọn.</string>
+  <string name="announcePossibleCaptures">Thông báo nước ăn quân có thể với quân cờ được chọn.</string>
+  <string name="moveWithArrows">Di chuyển đến ô liền kề bên trên, xuống, trái hoặc phải.</string>
 </resources>
