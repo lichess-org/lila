@@ -22,7 +22,7 @@ object StudyPgnImportNew:
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    ParseImport.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn, _) =>
+    ParseImport.full(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn, _) =>
       val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
