@@ -9,7 +9,7 @@ import play.api.data.Forms.*
 import lila.common.Form.into
 import lila.core.game.{ Game, ImportedGame }
 import lila.game.GameExt.finish
-import lila.tree.ImportResult
+import lila.tree.{ ImportResult, ParseImport }
 
 private val maxPlies = 600
 
@@ -46,7 +46,7 @@ val form = Form:
   )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
-  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed, _) =>
+  ParseImport.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed, _) =>
     val dbGame = lila.core.game
       .newImportedGame(
         chess = game,

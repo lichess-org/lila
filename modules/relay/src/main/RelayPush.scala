@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
-import lila.tree.ImportResult
+import lila.tree.{ ImportResult, ParseImport }
 
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.common.HTTPRequest
@@ -107,7 +107,7 @@ object RelayPush:
 
   // silently consume DGT board king-check move to center at game end
   private[relay] def validate(pgnBody: PgnStr): Either[Failure, ImportResult] =
-    lila.tree
+    ParseImport
       .parseImport(pgnBody)
       .fold(
         err => Failure(Tags.empty, err.value).asLeft,
