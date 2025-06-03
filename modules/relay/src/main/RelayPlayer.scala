@@ -138,7 +138,7 @@ private final class RelayPlayerApi(
           roundsById = rounds.mapBy(_.id)
           studyPlayers <- fetchStudyPlayers(rounds.map(_.id))
           chapters     <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
-          players = chapters.toList.foldLeft(SeqMap.empty: RelayPlayers) {
+          players = chapters.toList.foldLeft(SeqMap.empty: RelayPlayers):
             case (players, (studyId, chapters)) =>
               roundsById
                 .get(studyId.into(RelayRoundId))
@@ -170,7 +170,6 @@ private final class RelayPlayerApi(
                                 .withGame(game)
                             )
                   }
-          }
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
