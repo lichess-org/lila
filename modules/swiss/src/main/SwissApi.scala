@@ -66,7 +66,7 @@ final class SwissApi(
       winnerId = none,
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
-        rated = data.realPosition.isEmpty && data.isRated,
+        rated = chess.Rated(data.isRated && data.realPosition.isEmpty),
         description = data.description,
         position = data.realPosition,
         chatFor = data.realChatFor,
@@ -99,7 +99,7 @@ final class SwissApi(
             else old.nextRoundAt,
           settings = old.settings.copy(
             nbRounds = data.nbRounds,
-            rated = position.isEmpty && (data.rated | old.settings.rated),
+            rated = data.rated.getOrElse(old.settings.rated).map(_ && position.isEmpty),
             description = data.description.orElse(old.settings.description),
             position = position,
             chatFor = data.chatFor | old.settings.chatFor,

@@ -297,7 +297,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       $set(tourHandler.write(tour)) ++ $unset(
         List(
           // tour.conditions.titled.isEmpty option "conditions.titled",
-          tour.isRated.option("mode"),
+          tour.rated.yes.option("rated"),
           tour.berserkable.option("noBerserk"),
           tour.streakable.option("noStreak"),
           tour.hasChat.option("chat"),

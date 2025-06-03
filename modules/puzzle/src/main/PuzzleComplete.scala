@@ -38,11 +38,11 @@ final class PuzzleComplete(
                 Json.obj("next" -> nextJson)
               }
       case None =>
-        lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
+        lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated.yes).increment()
         ctx.me match
           case Some(me) =>
             given Me = me
-            finisher(id, angle, data.win, data.mode).flatMapz { (round, perf) =>
+            finisher(id, angle, data.win, data.rated).flatMapz { (round, perf) =>
               val newMe = me.value.withPerf(perf)
               for
                 _    <- session.onComplete(round, angle)

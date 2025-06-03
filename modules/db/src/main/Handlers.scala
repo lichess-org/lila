@@ -165,8 +165,6 @@ trait Handlers:
     o => BSONString(o.key.value)
   )
 
-  given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
-
   given perfKeyHandler: BSONHandler[PerfKey] =
     BSONStringHandler.as[PerfKey](key => PerfKey(key).err(s"Unknown perf key $key"), _.value)
 

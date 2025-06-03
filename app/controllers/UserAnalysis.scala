@@ -89,12 +89,9 @@ final class UserAnalysis(
     Pov(
       lila.core.game
         .newGame(
-          chess = chess.Game(
-            position = from.position,
-            ply = from.ply
-          ),
+          chess = chess.Game(position = from.position, ply = from.ply),
           players = ByColor(lila.game.Player.make(_, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = None
         )

@@ -92,7 +92,7 @@ object BsonHandlers:
     def reads(r: BSON.Reader) =
       Swiss.Settings(
         nbRounds = r.get[Int]("n"),
-        rated = r.boolO("r") | true,
+        rated = chess.Rated(r.boolO("r") | true),
         description = r.strO("d"),
         position = r.getO[Fen.Full]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
@@ -105,7 +105,7 @@ object BsonHandlers:
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
         "n"  -> s.nbRounds,
-        "r"  -> (!s.rated).option(false),
+        "r"  -> s.rated.no.option(false),
         "d"  -> s.description,
         "f"  -> s.position,
         "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),

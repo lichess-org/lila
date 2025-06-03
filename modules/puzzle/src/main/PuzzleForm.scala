@@ -3,8 +3,9 @@ package lila.puzzle
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
+import chess.Rated
 
-import lila.common.Form.{ numberIn, stringIn, typeIn, given }
+import lila.common.Form.{ into, numberIn, stringIn, typeIn, given }
 import lila.common.Json.given
 import scalalib.model.Days
 
@@ -14,19 +15,18 @@ object PuzzleForm:
 
   case class RoundData(
       win: PuzzleWin,
-      rated: Boolean,
+      rated: Rated,
       replayDays: Option[Days],
       streakId: Option[String],
       streakScore: Option[Int],
       color: Option[Color]
   ):
     def streakPuzzleId = streakId.flatMap(Puzzle.toId)
-    def mode           = chess.Mode(rated)
 
   val round = Form(
     mapping(
       "win"         -> of[PuzzleWin],
-      "rated"       -> boolean,
+      "rated"       -> boolean.into[Rated],
       "replayDays"  -> optional(typeIn[Days](PuzzleDashboard.dayChoices.toSet)),
       "streakId"    -> optional(nonEmptyText),
       "streakScore" -> optional(number(min = 0, max = maxStreakScore)),
@@ -51,8 +51,7 @@ object PuzzleForm:
   )
 
   object batch:
-    case class Solution(id: PuzzleId, win: PuzzleWin, rated: Boolean = true):
-      def mode = chess.Mode(rated)
+    case class Solution(id: PuzzleId, win: PuzzleWin, rated: Rated = Rated.Yes)
     case class SolveData(solutions: List[Solution])
     given Reads[Solution]  = Json.reads
     given Reads[SolveData] = Json.reads
@@ -62,8 +61,8 @@ object PuzzleForm:
     val round = Form(
       mapping(
         "win" -> text
-      )(w => RoundData(win = PuzzleWin(w == "1" || w == "true"), rated = true, none, none, none, none))(_ =>
-        none
+      )(w => RoundData(win = PuzzleWin(w == "1" || w == "true"), rated = Rated.Yes, none, none, none, none))(
+        _ => none
       )
     )
 

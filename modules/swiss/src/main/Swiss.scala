@@ -2,6 +2,7 @@ package lila.swiss
 
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
+import chess.Rated
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
@@ -95,7 +96,7 @@ object Swiss:
 
   case class Settings(
       nbRounds: Int,
-      rated: Boolean,
+      rated: Rated,
       description: Option[String] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.Mode
+import chess.Rated
 import chess.format.Fen
 import chess.variant.Variant
 import chess.IntRating
@@ -57,7 +57,7 @@ object BSONHandlers:
         minutes = r.int("minutes"),
         variant = variant,
         position = position,
-        mode = r.intO("mode").flatMap(Mode.apply).getOrElse(Mode.Rated),
+        rated = r.intO("mode").flatMap(Rated.apply).getOrElse(Rated.Yes),
         password = r.strO("password"),
         conditions = conditions,
         teamBattle = r.getO[TeamBattle]("teamBattle"),
@@ -87,7 +87,7 @@ object BSONHandlers:
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
         "fen"         -> o.position,
-        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
+        "rated"       -> o.rated.some.filter(_.no).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.nonEmpty.option(o.conditions),
         "teamBattle"  -> o.teamBattle,

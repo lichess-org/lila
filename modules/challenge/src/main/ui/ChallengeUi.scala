@@ -49,7 +49,7 @@ final class ChallengeUi(helpers: Helpers):
       else
         c.destUser.fold(s"Challenge from $challenger"): dest =>
           s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings.so(s" (${dest.rating.show})")}"
-    s"$speed$variant ${c.mode.name} Chess • $players"
+    s"$speed$variant ${c.rated.name} Chess • $players"
 
   private def details(c: Challenge, requestedColor: Option[Color])(using ctx: Context) =
     div(cls := "details-wrapper")(
@@ -72,7 +72,7 @@ final class ChallengeUi(helpers: Helpers):
           c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)).map { colorChoice =>
             frag(colorChoice.trans(), br)
           },
-          modeName(c.mode)
+          ratedName(c.rated)
         )
       ),
       c.rules.nonEmpty.option(
@@ -245,9 +245,9 @@ final class ChallengeUi(helpers: Helpers):
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.so(_.name)} player has already joined."
                 )
-              else if !c.mode.rated || ctx.isAuth then
+              else if c.rated.no || ctx.isAuth then
                 frag(
-                  (c.mode.rated && c.unlimited)
+                  (c.rated.yes && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color))(
                     submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(

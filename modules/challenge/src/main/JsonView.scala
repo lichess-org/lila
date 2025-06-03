@@ -71,7 +71,7 @@ final class JsonView(
         "challenger"  -> c.challengerUser,
         "destUser"    -> c.destUser,
         "variant"     -> c.variant,
-        "rated"       -> c.mode.rated,
+        "rated"       -> c.rated,
         "speed"       -> c.speed.key,
         "timeControl" -> c.timeControl.match
           case TimeControl.Clock(clock) =>

@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ Clock, Speed }
+import chess.{ Rated, Clock, Speed }
 import scalalib.model.Days
 
 import lila.core.data.Template
@@ -14,7 +14,7 @@ final case class ApiConfig(
     variant: chess.variant.Variant,
     clock: Option[Clock.Config],
     days: Option[Days],
-    rated: Boolean,
+    rated: Rated,
     color: TriColor,
     position: Option[Fen.Full] = None,
     message: Option[Template],
@@ -32,16 +32,14 @@ final case class ApiConfig(
     !isBot || clock.forall: c =>
       Speed(c) >= Speed.Bullet
 
-  def validRated = mode.casual || ((clock.isDefined || variant.standard) && variant.fromPosition.not)
-
-  def mode = chess.Mode(rated)
+  def validRated = rated.no || ((clock.isDefined || variant.standard) && variant.fromPosition.not)
 
   def autoVariant =
     if variant.standard && position.exists(!_.isInitial)
     then copy(variant = FromPosition)
     else this
 
-object ApiConfig extends BaseHumanConfig:
+object ApiConfig extends BaseConfig:
 
   lazy val clockLimitSeconds =
     Clock.LimitSeconds.from(Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(_ * 60).toSet)
@@ -50,7 +48,7 @@ object ApiConfig extends BaseHumanConfig:
       v: Option[Variant.LilaKey],
       cl: Option[Clock.Config],
       d: Option[Days],
-      r: Boolean,
+      r: Rated,
       c: Option[String],
       pos: Option[Fen.Full],
       msg: Option[String],

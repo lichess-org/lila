@@ -425,7 +425,7 @@ final class TournamentApi(
               withdrawNonMover(game)
 
   private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: UserId): Funit =
-    tour.mode.rated
+    tour.rated.yes
       .so:
         userApi.perfOptionOf(userId, tour.perfType)
       .flatMap: perf =>
@@ -511,7 +511,7 @@ final class TournamentApi(
           publish()
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.mode.rated.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
+    tour.rated.yes.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
       playerRepo.update(tour.id, userId): player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(

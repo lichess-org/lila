@@ -2,7 +2,7 @@ package lila.game
 package importer
 
 import chess.format.pgn.PgnStr
-import chess.{ ByColor, ErrorStr, Mode }
+import chess.{ ByColor, ErrorStr, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
 
@@ -52,7 +52,7 @@ val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (p
         chess = game,
         players = ByColor: c =>
           lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.ratings(c)),
-        mode = Mode.Casual,
+        rated = Rated.No,
         source = lila.core.game.Source.Import,
         pgnImport = PgnImport.make(user = user, date = parsed.tags.anyDate, pgn = pgn).some
       )
