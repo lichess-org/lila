@@ -28,11 +28,15 @@ object ParseImport:
         Replay
           .makeReplay(parsed.toGame, parsed.mainline.take(maxPlies))
           .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
-            val variant    = extractVariant(setup, parsed.tags)
-            val initialFen = parsed.tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
-            val game       = state.copy(position = replay.state.position.withVariant(variant))
-            val result     = extractResult(game, parsed.tags)
-            ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
+            val extractedData = extractData(replay, parsed.tags)
+            ImportResult(
+              game = extractedData.setup,
+              result = extractedData.result,
+              replay = replay,
+              initialFen = extractedData.initialFen,
+              parsed = parsed,
+              replayError = replayError
+            )
           }
       }
 
@@ -48,14 +52,17 @@ object ParseImport:
       Parser.mainline(pgn).map { parsed =>
         Replay
           .makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
-          .pipe { case Replay.Result(replay @ Replay(setup, _, state), _) =>
-            val variant    = extractVariant(replay.setup, parsed.tags)
-            val initialFen = parsed.tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
-            val game       = replay.state.copy(position = state.position.withVariant(variant))
-            val result     = extractResult(game, parsed.tags)
-            (game, result, initialFen, parsed.tags)
+          .pipe { case Replay.Result(replay, _) =>
+            extractData(replay, parsed.tags)
           }
       }
+
+  def extractData(replay: Replay, tags: Tags): ImportGameResult =
+    val variant    = extractVariant(replay.setup, tags)
+    val initialFen = tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
+    val game       = replay.state.copy(position = replay.state.position.withVariant(variant))
+    val result     = extractResult(game, tags)
+    (game, result, initialFen, tags)
 
   def extractVariant(setup: ChessGame, tags: Tags): Variant =
     inline def initBoard = tags.fen.flatMap(Fen.read).map(_.board)
