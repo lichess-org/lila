@@ -43,6 +43,10 @@ object RelayPlayer:
         case Outcome.Points.Half => cs(color).draw
         case zero                => RelayRound.CustomPoints(zero.value)
 
+    def playerScore = customPlayerPoints
+      .map(_.value)
+      .orElse(playerPoints.map(_.value))
+
     // only rate draws and victories, not exotic results
     def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
@@ -193,8 +197,7 @@ private final class RelayPlayerApi(
       .mapValues: p =>
         p.copy(
           score = p.games
-            .foldMap(_.customPlayerPoints.so(_.value))
-            .some,
+            .foldMap(game => game.playerScore),
           performance = Elo.computePerformanceRating(p.eloGames).map(_.into(IntRating))
         )
       .to(SeqMap)
