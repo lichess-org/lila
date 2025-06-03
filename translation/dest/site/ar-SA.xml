@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">اللعب مع الحاسوب</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
-  <string name="waitingForOpponent">في انتظار الخصم</string>
+  <string name="waitingForOpponent">في إنتظار الخصم</string>
   <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
