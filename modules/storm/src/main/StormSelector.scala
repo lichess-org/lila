@@ -86,7 +86,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
           _.flatMap(puzzleReader.readOpt)
         .map:
           _.grouped(nbSets).toList.map(ThreadLocalRandom.shuffle).transpose
-      .logTimeIfGt("storm selector", 3.seconds)
+      .logTimeIfGt(s"storm selector x$nbSets", 3.seconds)
       .mon(_.storm.selector.time)
       .addEffect:
         _.foreach: puzzles =>
