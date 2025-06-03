@@ -9,4 +9,7 @@
   <string name="actions">Veprime</string>
   <string name="yourClock">Sahati juaj</string>
   <string name="opponentClock">Sahati i kundërshtarit</string>
+  <string name="inputFormCommandList">Shtypini këto urdhra te formulari i dhënies së urdhrave.</string>
+  <string name="goToBoard">Kaloni te fusha. Kuadrati parazgjedhje është e-4. Mund të përcaktoni një kuadrat: “board a-1” ose “b a-1” do t’ju kalojë te kuadrati a-1.</string>
+  <string name="movePiece">Që të lëvizni një gur, përdorni paraqitjen standarde algjebrike.</string>
 </resources>
