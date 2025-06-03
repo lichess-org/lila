@@ -12,6 +12,7 @@
   <string name="opponentClock">Часы противника</string>
   <string name="gameStart">Начало игры</string>
   <string name="boardCommandList">Список команд, когда фокус на доске</string>
+  <string name="inputFormCommandList">Введите эти команды в форму ввода команд.</string>
   <string name="goToInputForm">Перейдите в форму ходов и команд.</string>
   <string name="announceCurrentSquare">Назвать текущее поле.</string>
   <string name="announceLastMove">Назвать последний ход.</string>
@@ -22,4 +23,5 @@
   <string name="moveToPieceByType">Перейти к фигуре, введя её тип. Верхний регистр меняет порядок.</string>
   <string name="moveToRank">Перейти на горизонталь 1–8.</string>
   <string name="moveToFile">Перейти на вертикаль a–h.</string>
+  <string name="movePiece">Чтобы переместить фигуру, используйте стандартную алгебраическую нотацию.</string>
 </resources>
