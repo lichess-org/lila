@@ -37,8 +37,8 @@
     <item quantity="few">Изједначење у првих %s потеза неће донети поене ниједном играчу.</item>
     <item quantity="other">Изједначење у првих %s потеза неће донети поене ниједном играчу.</item>
   </plurals>
-  <string name="thisIsPrivate">Ово је приватан турнир</string>
-  <string name="shareUrl">Делите линк да се играчи прикључе: %s</string>
+  <string name="thisIsPrivate">Ово је приватни турнир</string>
+  <string name="shareUrl">Поделите овај линк да допустите људима да се придруже: %s</string>
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
   <string name="history">Прошле арене</string>
