@@ -1,10 +1,9 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr }
+import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
-import chess.format.pgn.Tags
 
 case class TagResult(status: Status, points: Outcome.GamePoints):
   // duplicated from Game.finish
@@ -34,6 +33,27 @@ object ParseImport:
             val game       = state.copy(position = replay.state.position.withVariant(variant))
             val result     = extractResult(game, parsed.tags)
             ImportResult(game, result, replay.copy(state = game), initialFen, parsed, replayError)
+          }
+      }
+
+  type ImportGameResult = (
+      setup: ChessGame,
+      result: Option[TagResult],
+      initialFen: Option[Fen.Full],
+      tags: Tags
+  )
+
+  def game(pgn: PgnStr): Either[ErrorStr, ImportGameResult] =
+    catchOverflow: () =>
+      Parser.mainline(pgn).map { parsed =>
+        Replay
+          .makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
+          .pipe { case Replay.Result(replay @ Replay(setup, _, state), _) =>
+            val variant    = extractVariant(replay.setup, parsed.tags)
+            val initialFen = parsed.tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
+            val game       = replay.state.copy(position = state.position.withVariant(variant))
+            val result     = extractResult(game, parsed.tags)
+            (game, result, initialFen, parsed.tags)
           }
       }
 
