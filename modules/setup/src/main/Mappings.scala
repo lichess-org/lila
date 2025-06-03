@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.{ Clock, Mode, variant as V }
+import chess.{ Clock, Rated, variant as V }
 import play.api.data.Forms.*
 import play.api.data.format.Formats.doubleFormat
 import scalalib.model.Days
@@ -27,7 +27,7 @@ private object Mappings:
   def mode(withRated: Boolean)    = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =
     number
-      .verifying(HookConfig.modes contains _)
+      .verifying(Rated.byId.contains)
       .verifying(_ == Rated.No.id || withRated)
   val ratingRange = text.verifying(RatingRange.isValid)
   val color       = text.verifying(TriColor.names contains _)

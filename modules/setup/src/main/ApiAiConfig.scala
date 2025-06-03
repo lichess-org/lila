@@ -41,7 +41,7 @@ final case class ApiAiConfig(
               if creatorColor == c
               then newPlayer(c, user)
               else newPlayer.anon(c, level.some),
-            mode = chess.Rated.No,
+            rated = chess.Rated.No,
             source = if chessGame.position.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
             pgnImport = None

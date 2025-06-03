@@ -55,4 +55,4 @@ final class Moretimer(
         prefApi.byId(game.userIdPair)
       .dmap:
         _.forall: p =>
-          p.moretime == Pref.Moretime.ALWAYS || (p.moretime == Pref.Moretime.CASUAL && game.casual)
+          p.moretime == Pref.Moretime.ALWAYS || (p.moretime == Pref.Moretime.CASUAL && game.rated.no)

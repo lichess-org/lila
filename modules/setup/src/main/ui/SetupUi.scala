@@ -2,7 +2,7 @@ package lila.setup
 package ui
 
 import chess.variant.Variant
-import chess.{ Mode, Speed }
+import chess.{ Rated, Speed }
 import play.api.data.{ Field, Form }
 
 import lila.core.rating.RatingRange

@@ -87,7 +87,7 @@ object BSONHandlers:
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
         "fen"         -> o.position,
-        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
+        "rated"       -> o.rated.some.filter(_.no).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.nonEmpty.option(o.conditions),
         "teamBattle"  -> o.teamBattle,

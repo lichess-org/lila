@@ -48,7 +48,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
                   " • ",
                   if s.variant.exotic then s.variant.name else s.perfType.trans,
                   " • ",
-                  if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+                  lila.gathering.ui.translateRated(s.settings.rated),
                   " • ",
                   s.estimatedDurationString
                 )

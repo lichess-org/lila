@@ -90,7 +90,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 separator,
                 tour.durationString
               ),
-              if tour.rated.yes then trans.site.ratedTournament() else trans.site.casualTournament(),
+              lila.gathering.ui.translateRated(tour.rated),
               separator,
               trans.arena.arena(),
               (Granter.opt(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
