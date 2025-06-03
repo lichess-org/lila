@@ -11,12 +11,17 @@
   <string name="yourClock">Your clock</string>
   <string name="opponentClock">Opponent clock</string>
   <string name="gameStart">Game start</string>
+  <string name="boardCommandList">Command list when the board has focus</string>
+  <string name="inputFormCommandList">Type these commands in the command input form.</string>
+  <string name="goToInputForm">Go to the command input form.</string>
   <string name="announceCurrentSquare">Announce current square.</string>
   <string name="announceLastMove">Announce last move.</string>
   <string name="announceLastMoveCapture">Announce piece captured in last move.</string>
   <string name="announcePossibleMoves">Announce possible moves for the selected piece.</string>
   <string name="announcePossibleCaptures">Announce possible captures with selected piece.</string>
   <string name="moveWithArrows">Move to adjacent square left, right, up or down.</string>
+  <string name="moveToPieceByType">Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order.</string>
   <string name="moveToRank">Move to rank 1-8.</string>
   <string name="moveToFile">Move to file a-h.</string>
+  <string name="announcePieceLocations">Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king.</string>
 </resources>
