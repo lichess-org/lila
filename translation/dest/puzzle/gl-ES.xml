@@ -77,7 +77,7 @@
   <string name="searchPuzzles">Busca crebacabezas</string>
   <string name="fromMyGamesNone">Non tes crebacabezas na base de datos e aínda así Lichess quérete moito.
 Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os teus crebacabezas!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Un crebacabezas atopado nas partidas de %2$s</item>
     <item quantity="other">%1$s crebacabezas atopados nas partidas de %2$s</item>
   </plurals>
