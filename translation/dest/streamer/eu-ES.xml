@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Lichess streamerraren orriak zure audientzia du helburu zure streaming plataformak ematen duen hizkuntzarekin. Ezarri zure xake emanaldien hizkuntza emanaldiak egiteko erabiltzen duzun app edo zerbitzuan.</string>
   <string name="twitchUsername">Zure Twitch erabiltzeaile-izena edo URLa</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch edo YouTubeko kanaleran helbidea derrigorrezkoa da</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch eta YouTubeko kanalaren aldaketak egiaztatu egin behar dira.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch eta YouTubeko kanalaren aldaketak egiaztatu egin behar dira.
 
 Zure streamer izaera eta zerrendetan agertzea bertan behera geldituko dira egiaztapenak dirauen artean. Honek 72 ordu arte iraun dezake.</string>
   <string name="youTubeChannelId">Zure YouTube kanalaren IDa</string>
