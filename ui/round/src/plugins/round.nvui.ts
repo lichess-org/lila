@@ -18,7 +18,6 @@ import {
   prefixSetting,
   positionSetting,
   boardSetting,
-  pageSetting,
   boardCommandsHandler,
   possibleMovesHandler,
   lastCapturedCommandHandler,
@@ -32,13 +31,14 @@ import {
   type DropMove,
   pocketsStr,
 } from 'lib/nvui/chess';
-import { renderSetting } from 'lib/nvui/setting';
+import { makeSetting, renderSetting, Setting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands } from 'lib/nvui/command';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
 import { next, prev } from '../keyboard';
+import { storage } from 'lib/storage';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -467,4 +467,16 @@ function nextOrPrev(ctrl: RoundController) {
     if (e.key === 'A') doAndRedraw(ctrl, prev);
     else if (e.key === 'D') doAndRedraw(ctrl, next);
   };
+}
+
+type PageStyle = 'board-actions' | 'actions-board';
+function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
+  });
 }
