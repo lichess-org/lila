@@ -223,13 +223,29 @@ export function renderBoard(
       renderPositionStyle(rank, file, text),
     );
 
+  const transPieceStr = (piece: Piece): string => {
+    if (piece.role === 'king') return piece.color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
+    else if (piece.role === 'queen')
+      return piece.color === 'black' ? i18n.nvui.blackQueen : i18n.nvui.whiteQueen;
+    else if (piece.role === 'rook')
+      return piece.color === 'black' ? i18n.nvui.blackRook : i18n.nvui.whiteRook;
+    else if (piece.role === 'bishop')
+      return piece.color === 'black' ? i18n.nvui.blackBishop : i18n.nvui.whiteBishop;
+    else if (piece.role === 'knight')
+      return piece.color === 'black' ? i18n.nvui.blackKnight : i18n.nvui.whiteKnight;
+    else return piece.color === 'black' ? i18n.nvui.blackPawn : i18n.nvui.whitePawn;
+  };
+
   const doPiece = (rank: Ranks, file: Files): VNode => {
     const key: Key = `${file}${rank}`;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
       const roleCh = roleToChar(piece.role);
-      const pieceText = renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
+      const pieceText =
+        pieceStyle === 'name'
+          ? transPieceStr(piece)
+          : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
       const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';

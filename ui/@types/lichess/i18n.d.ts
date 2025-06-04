@@ -1759,6 +1759,18 @@ interface I18n {
     bishop: string;
     /** bishops */
     bishops: string;
+    /** black bishop */
+    blackBishop: string;
+    /** black king */
+    blackKing: string;
+    /** black knight */
+    blackKnight: string;
+    /** black pawn */
+    blackPawn: string;
+    /** black queen */
+    blackQueen: string;
+    /** black rook */
+    blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1803,6 +1815,8 @@ interface I18n {
     pawn: string;
     /** pawns */
     pawns: string;
+    /** K Q R B N P */
+    pieceInitialLetters: string;
     /** Pieces */
     pieces: string;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
@@ -1817,6 +1831,18 @@ interface I18n {
     rooks: string;
     /** %1$s takes %2$s */
     takes: I18nFormat;
+    /** white bishop */
+    whiteBishop: string;
+    /** white king */
+    whiteKing: string;
+    /** white knight */
+    whiteKnight: string;
+    /** white pawn */
+    whitePawn: string;
+    /** white queen */
+    whiteQueen: string;
+    /** white rook */
+    whiteRook: string;
     /** Your clock */
     yourClock: string;
   };

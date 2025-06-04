@@ -29,15 +29,28 @@
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
   <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string> 
   <string name="king">king</string>
+  <string name="whiteKing">white king</string>
+  <string name="blackKing">black king</string>
   <string name="queen">queen</string>
+  <string name="whiteQueen">white queen</string>
+  <string name="blackQueen">black queen</string>
   <string name="queens">queens</string>
   <string name="rook">rook</string>
+  <string name="whiteRook">white rook</string>
+  <string name="blackRook">black rook</string>
   <string name="rooks">rooks</string>
   <string name="bishop">bishop</string>
+  <string name="whiteBishop">white bishop</string>
+  <string name="blackBishop">black bishop</string>
   <string name="bishops">bishops</string>
   <string name="knight">knight</string>
+  <string name="whiteKnight">white knight</string>
+  <string name="blackKnight">black knight</string>
   <string name="knights">knights</string>
   <string name="pawn">pawn</string>
+  <string name="whitePawn">white pawn</string>
+  <string name="blackPawn">black pawn</string>
   <string name="pawns">pawns</string>
+  <string name="pieceInitialLetters" comment="Keep this order: king queen rook bishop knight pawn">K Q R B N P</string>
   <string name="takes">%1$s takes %2$s</string>
 </resources>
