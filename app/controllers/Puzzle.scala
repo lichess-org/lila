@@ -396,7 +396,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiateJson:
       import PuzzleForm.bc.*
-      import lila.puzzle.PuzzleWin
       ctx.body.body
         .validate[SolveDataBc]
         .fold(
@@ -407,7 +406,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .flatMap: solution =>
                   Puz
                     .numericalId(solution.id)
-                    .map(_ -> PuzzleWin(solution.win))
+                    .map(_ -> solution.win)
                 .so: (id, solution) =>
                   env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
                 .map:

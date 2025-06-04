@@ -68,7 +68,7 @@ object PuzzleForm:
 
     val vote = Form(single("vote" -> numberIn(Set(0, 1))))
 
-    case class SolutionBc(id: Long, win: Boolean)
+    case class SolutionBc(id: Long, win: PuzzleWin)
     case class SolveDataBc(solutions: List[SolutionBc])
     given Reads[SolutionBc]  = Json.reads
     given Reads[SolveDataBc] = Json.reads
