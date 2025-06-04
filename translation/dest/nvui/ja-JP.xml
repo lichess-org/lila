@@ -12,6 +12,7 @@
   <string name="opponentClock">相手の時計</string>
   <string name="gameStart">ゲーム開始</string>
   <string name="boardCommandList">ボードにフォーカスがある時のコマンドリスト</string>
+  <string name="inputFormCommandList">このコマンドをコマンド入力フォームに入力します。</string>
   <string name="announceCurrentSquare">現在のマスを読み上げる。</string>
   <string name="announceLastMove">最後の手を読み上げる。</string>
   <string name="announceLastMoveCapture">最後の手で取られた駒を読み上げる。</string>
@@ -20,4 +21,5 @@
   <string name="moveWithArrows">となりのマス（左・右・上・下）に動かす。</string>
   <string name="moveToRank">ランク 1-8 に移動する。</string>
   <string name="moveToFile">ファイル a-h に移動する。</string>
+  <string name="movePiece">駒を動かすには、標準的な代数式記譜法を使います。</string>
 </resources>
