@@ -96,7 +96,7 @@ final class GameStateStream(
       lila.mon.bot.gameStream("stop").increment()
 
     def receive =
-      case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
+      case MoveGameEvent(g, _, _) if g.id == id && !g.finished                            => pushState(g)
       case lila.chat.ChatLine(chatId, UserLine(username, _, _, _, text, false, false), _) =>
         pushChatLine(username, text, chatId.value.lengthIs == GameId.size)
       case FinishGame(g, _) if g.id == id                                 => onGameOver(g.some)
@@ -105,7 +105,7 @@ final class GameStateStream(
       case BoardTakebackOffer(g) if g.id == id                            => pushState(g)
       case BoardTakeback(g) if g.id == id                                 => pushState(g)
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
-      case SetOnline =>
+      case SetOnline                                                      =>
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler
           .scheduleOnce(6.second):

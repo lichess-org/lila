@@ -31,7 +31,7 @@ final class RequesterApi(coll: Coll)(using Executor):
           (7 to 0 by -1).toList.map(now.minusDays).map(formatter.print).map(_ -> BSONBoolean(true))
       )
       .map: doc =>
-        val daily = doc.flatMap(_.int(formatter.print(now)))
+        val daily  = doc.flatMap(_.int(formatter.print(now)))
         val weekly = doc.so:
           _.values.foldLeft(0):
             case (acc, BSONInteger(v)) => acc + v

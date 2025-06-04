@@ -155,12 +155,12 @@ object mod:
                 }
                 .getOrElse(td(dataSort := 0)),
               userAppeal match
-                case None => td(dataSort := 0)
+                case None         => td(dataSort := 0)
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
                       href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
-                      cls := List(
+                      cls  := List(
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),

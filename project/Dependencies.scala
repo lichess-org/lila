@@ -17,17 +17,17 @@ object Dependencies {
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.13.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.13.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val compression = "org.lichess"                  %% "compression"                     % "3.0"
+  val compression = "com.github.lichess-org"        % "compression"                     % "3.1.1"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.35.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.36.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.1.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
+  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.9-SNAPSHOT"
   val munit       = "org.scalameta"              %% "munit"         % "1.1.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.19.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.1"
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.6.3"
+    val version  = "17.8.0"
     val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
     val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
@@ -62,7 +62,7 @@ object Dependencies {
 
   object flexmark {
     val version = "0.64.8"
-    val bundle =
+    val bundle  =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
           .map { ext =>
@@ -88,7 +88,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.20"
+    val playVersion = "2.8.18-lila_3.21"
     val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion

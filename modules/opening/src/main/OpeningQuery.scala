@@ -1,7 +1,7 @@
 package lila.opening
 
 import chess.Replay
-import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr, Reader }
+import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
 import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
@@ -16,7 +16,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def pgnString        = PgnMovesStr(sans.mkString(" "))
   def pgnUnderscored   = sans.mkString("_")
   def initial          = sans.isEmpty
-  def query = openingAndExtraMoves match
+  def query            = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
   def prev = (sans.sizeIs > 1).so(
     OpeningQuery(
@@ -69,7 +69,7 @@ object OpeningQuery:
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
     for
-      parsed <- Reader.mainline(pgn.into(PgnStr)).toOption
+      parsed <- Replay.mainline(pgn.into(PgnStr)).toOption
       replay <- parsed.valid.toOption
     yield OpeningQuery(replay, config)
 

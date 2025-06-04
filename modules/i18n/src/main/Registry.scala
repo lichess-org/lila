@@ -34,7 +34,7 @@ object Registry:
 
   // for tests
   private[i18n] def getAll(lang: Lang): Option[MessageMap] = all.get(lang)
-  private[i18n] def syncLoadLanguages(): Unit =
+  private[i18n] def syncLoadLanguages(): Unit              =
     LangList.popular.foreach: lang =>
       register(lang, loadSerialized(lang))
 
@@ -50,7 +50,7 @@ object Registry:
     messageMap.asScala.toMap
       .map: (key, value) =>
         key -> value.match
-          case s: String => singleOrEscaped(s)
+          case s: String     => singleOrEscaped(s)
           case m: JMap[?, ?] =>
             val plurals = m
               .asInstanceOf[JMap[String, String]]

@@ -37,7 +37,7 @@ final class Swiss(
             verdicts <- env.swiss.api.verdicts(swiss)
             version  <- env.swiss.version(swiss.id)
             isInTeam <- isUserInTheTeam(swiss.teamId)
-            json <- env.swiss.json(
+            json     <- env.swiss.json(
               swiss = swiss,
               me = ctx.me,
               verdicts = verdicts,
@@ -47,7 +47,7 @@ final class Swiss(
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss.roundInfo)
-            chat <- canChat.soFu:
+            chat    <- canChat.soFu:
               env.chat.api.userChat.cached
                 .findMine(swiss.id.into(ChatId))
                 .map:
@@ -61,7 +61,7 @@ final class Swiss(
             isInTeam      <- isUserInTheTeam(swiss.teamId)
             verdicts      <- env.swiss.api.verdicts(swiss)
             socketVersion <- getBool("socketVersion").soFu(env.swiss.version(swiss.id))
-            playerInfo <- getUserStr("playerInfo").so: u =>
+            playerInfo    <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
             json <- env.swiss.json(
               swiss = swiss,
@@ -242,7 +242,7 @@ final class Swiss(
     env.swiss.cache.swissCache
       .byId(id)
       .map:
-        case None => NotFound("Tournament not found")
+        case None        => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
             .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))

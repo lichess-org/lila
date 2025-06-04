@@ -13,7 +13,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
     if userIds.sizeIs < 2 then Source.empty
     else
       val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
-      val startStream =
+      val startStream  =
         Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
           def matches(game: Game) = game.userIds match
             case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
@@ -50,13 +50,14 @@ private object GameStream:
           "createdAt"  -> g.createdAt,
           "status"     -> g.status.id,
           "statusName" -> g.status.name,
-          "players" -> JsObject(g.players.mapList: p =>
+          "players"    -> JsObject(g.players.mapList: p =>
             p.color.name -> Json
               .obj(
                 "userId" -> p.userId,
                 "rating" -> p.rating
               )
-              .add("provisional" -> p.provisional))
+              .add("provisional" -> p.provisional)
+              .add("ai" -> p.aiLevel))
         )
         .add("winner" -> g.winnerColor.map(_.name))
         .add("initialFen" -> initialFen)

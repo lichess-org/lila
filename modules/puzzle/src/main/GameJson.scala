@@ -37,7 +37,7 @@ final private class GameJson(
         val (id, plies) = readKey(key)
         generate(id, plies, false)
 
-  private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson"):
+  private val bcCache = cacheApi[String, JsObject](1024, "puzzle.bc.gameJson"):
     _.expireAfterAccess(5.minutes)
       .maximumSize(1024)
       .buildAsyncFuture: key =>
@@ -80,22 +80,22 @@ final private class GameJson(
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json
       .obj(
-        "id"      -> game.id,
-        "perf"    -> perfJson(game),
-        "players" -> playersJson(game),
-        "rated"   -> game.rated,
+        "id"        -> game.id,
+        "perf"      -> perfJson(game),
+        "players"   -> playersJson(game),
+        "rated"     -> game.rated,
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
           for
             pgnMove <- pgnMoves.lastOption
-            board <- chess.Replay
-              .boards(pgnMoves, None, game.variant)
-              .valueOr: err =>
-                sys.error(s"GameJson.generateBc ${game.id} $err")
-              .lastOption
-            uciMove <- board.history.lastMove
+            position =
+              game.variant.initialPosition
+                .forward(pgnMoves)
+                .valueOr: err =>
+                  sys.error(s"GameJson.generateBc ${game.id} $err")
+            uciMove <- position.history.lastMove
           yield Json.obj(
-            "fen" -> Fen.write(board).value,
+            "fen" -> Fen.write(position).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,
             "id"  -> UciCharPair(uciMove).toString,

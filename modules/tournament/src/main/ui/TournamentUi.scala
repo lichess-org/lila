@@ -40,7 +40,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
             if t.variant.exotic then t.variant.name else t.perfType.trans,
             t.position.isDefined.option(frag(" • ", trans.site.thematic())),
             " • ",
-            if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+            lila.gathering.ui.translateRated(t.rated),
             " • ",
             t.durationString
           )
@@ -62,7 +62,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     table(cls := "tournaments")(
       tours.map: tour =>
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
-        val timeTag =
+        val timeTag        =
           if tour.isStarted then timeRemaining(tour.finishesAt)
           else momentFromNow(tour.startsAt)
         tr(
@@ -106,7 +106,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
-    private val replacements =
+    private val replacements  =
       given lila.core.i18n.Translate = transDefault
       List(
         "Lichess "    -> "",

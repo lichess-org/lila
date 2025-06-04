@@ -22,6 +22,7 @@
   <string name="asBlack">கறுப்பாக</string>
   <string name="randomColor">ஏதோவொரு புறம்</string>
   <string name="createAGame">ஆட்டமொன்றை ஆக்கு</string>
+  <string name="createTheGame">Translate</string>
   <string name="whiteIsVictorious">வெள்ளை வென்றது</string>
   <string name="blackIsVictorious">கருப்பு வென்றது</string>
   <string name="youPlayTheWhitePieces">நீங்கள் வெள்ளை நிற உருப்படிகளுடன் ஆடுகிறீர்கள்</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">பிறழ்வுகளை விரிவாக்கு</string>
   <string name="forceVariation">பிறழ்வுகளை கட்டாயப்படுத்து</string>
   <string name="copyVariationPgn">பிறழ்வுகள் PGN ஐ நகலெடு</string>
+  <string name="copyMainLinePgn">Kka</string>
   <string name="move">நகர்த்து</string>
   <string name="variantLoss">திரிபுரு தோல்வி</string>
   <string name="variantWin">திரிபுரு வெற்றி</string>

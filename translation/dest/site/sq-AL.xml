@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Barazim me marrëveshje</string>
   <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Erdhi %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
@@ -680,7 +681,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="really">për vërtetë</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="termsOfService">Kushte Shërbimi</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verifikim titulli</string>
+  <string name="titleVerification">Verifikim titulli</string>
   <string name="sourceCode">Kod Burim</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>

@@ -2,6 +2,7 @@ package lila.swiss
 
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
+import chess.Rated
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
@@ -36,7 +37,7 @@ case class Swiss(
   def isNowOrSoon          = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
   def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
   def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
-  def isEnterable =
+  def isEnterable          =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRoundNumber] = SwissRoundNumber.from((1 to round.value).toList)
@@ -95,7 +96,7 @@ object Swiss:
 
   case class Settings(
       nbRounds: Int,
-      rated: Boolean,
+      rated: Rated,
       description: Option[String] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,

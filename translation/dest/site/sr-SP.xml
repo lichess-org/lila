@@ -55,7 +55,7 @@
   <string name="blackDidntMove">Црни се није померијо</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
   <string name="computerAnalysis">Рачунарска анализа</string>
-  <string name="computerAnalysisAvailable">Рачунарска анализа је доступна</string>
+  <string name="computerAnalysisAvailable">Рачунарска анализа доступна</string>
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
   <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
@@ -162,12 +162,12 @@
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
-    <item quantity="other">%s партије</item>
+    <item quantity="other">%s партија</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s обележена игра</item>
-    <item quantity="few">%s обележених игара</item>
-    <item quantity="other">%s обележених игара</item>
+    <item quantity="one">%s обележена партија</item>
+    <item quantity="few">%s обележене партије</item>
+    <item quantity="other">%s обележених партија</item>
   </plurals>
   <string name="viewInFullSize">Погледај у пуној величини</string>
   <string name="logOut">Одјави се</string>
@@ -201,7 +201,7 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s сат</item>
-    <item quantity="few">%s сати</item>
+    <item quantity="few">%s сата</item>
     <item quantity="other">%s сати</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -264,9 +264,9 @@
   </plurals>
   <string name="gamesPlayed">Одиграних партија</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s игра са вама</item>
-    <item quantity="few">%s игара са вама</item>
-    <item quantity="other">%s игара са вама</item>
+    <item quantity="one">%s партија са тобом</item>
+    <item quantity="few">%s партије са тобом</item>
+    <item quantity="other">%s партија са тобом</item>
   </plurals>
   <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
@@ -307,8 +307,8 @@
   <string name="play">Играј</string>
   <string name="inbox">Сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
-  <string name="loginToChat">Улогуј се за ћаскање</string>
-  <string name="youHaveBeenTimedOut">Стављени сте на тајм-аут.</string>
+  <string name="loginToChat">Пријави се да ћаскаш</string>
+  <string name="youHaveBeenTimedOut">Тајм-аутован/а си.</string>
   <string name="spectatorRoom">Соба за гледаоце</string>
   <string name="composeMessage">Састави поруку</string>
   <string name="subject">Наслов</string>
@@ -426,13 +426,13 @@
   <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s увезена игра</item>
-    <item quantity="few">%s увезене игре</item>
-    <item quantity="other">%s увезених игара</item>
+    <item quantity="one">%s увезена партија</item>
+    <item quantity="few">%s увезене партије</item>
+    <item quantity="other">%s увезених партија</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ово је шаховска капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликај на таблу да направиш свој потез и докажи да си људско биће.</string>
-  <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
+  <string name="captcha.fail">Молимо Вас да решите шаховску капчу.</string>
   <string name="notACheckmate">Није шах-мат</string>
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
@@ -455,7 +455,7 @@
   <string name="unblock">Одблокирај</string>
   <string name="xStartedFollowingY">%1$s је почео/ла пратити %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s пратиоц</item>
+    <item quantity="one">%s пратилац</item>
     <item quantity="few">%s пратиоца</item>
     <item quantity="other">%s пратиоца</item>
   </plurals>
@@ -494,18 +494,18 @@
   <string name="wins">Победе</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Направио/ла</string>
-  <string name="standByX">Стрпи се %s, упарујемо играче, будите спремни!</string>
+  <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>
   <string name="resume">Настаби</string>
-  <string name="youArePlaying">Играш на турниру!</string>
+  <string name="youArePlaying">Играш!</string>
   <string name="winRate">Проценат победа</string>
   <string name="performance">Перформанса</string>
   <string name="tournamentComplete">Турнир завршен</string>
-  <string name="movesPlayed">Одиграно потеза</string>
-  <string name="whiteWins">Победе као бели</string>
-  <string name="blackWins">Победе као црни</string>
+  <string name="movesPlayed">Потеза одиграно</string>
+  <string name="whiteWins">Беле победе</string>
+  <string name="blackWins">Црне победе</string>
   <string name="drawRate">Проценат ремија</string>
-  <string name="draws">Ремија</string>
+  <string name="draws">Ремији</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="boardEditor">Уређивач табле</string>
   <string name="setTheBoard">Постави таблу</string>
@@ -517,9 +517,9 @@
   <string name="loadPosition">Учитај позицију</string>
   <string name="isPrivate">Приватни</string>
   <string name="reportXToModerators">Пријави %s модераторима</string>
-  <string name="profileCompletion">Комплетност профила: %s</string>
+  <string name="profileCompletion">Попуњеност профила: %s</string>
   <string name="xRating">%s рејтинг</string>
-  <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
+  <string name="ifNoneLeaveEmpty">Ако немаш, остави празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уреди профил</string>
   <string name="realName">Право име</string>
@@ -540,9 +540,9 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Опрезно, партија је рангирана али нема шаховског сата!</string>
   <string name="success">Успешно</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s партија се игра</item>
-    <item quantity="few">%s партије се играју</item>
-    <item quantity="other">%s партија се игра</item>
+    <item quantity="one">%s партија у игри</item>
+    <item quantity="few">%s партије у игри</item>
+    <item quantity="other">%s партија у игри</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
   <string name="autoSwitch">Аутоматско пребацивање</string>
@@ -601,7 +601,7 @@
   <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
-  <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
+  <string name="letOtherPlayersInviteYouToStudy">Допусти другим играчима да те позову у студију</string>
   <string name="sound">Звук</string>
   <string name="none">Ниједна</string>
   <string name="fast">Брза</string>
@@ -664,9 +664,9 @@
   <string name="whiteCastlingKingside">Бели O-O</string>
   <string name="blackCastlingKingside">Црни O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s коментар на форуму</item>
-    <item quantity="few">%s коментара на форуму</item>
-    <item quantity="other">%s коментара на форуму</item>
+    <item quantity="one">%s објава на форуму</item>
+    <item quantity="few">%s објаве на форуму</item>
+    <item quantity="other">%s објава на форуму</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Време проведено играјући: %s</string>
   <string name="watchGames">Гледај партије</string>
@@ -770,15 +770,15 @@
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
-  <string name="withNobody">Нисаким</string>
+  <string name="withNobody">Ни са ким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
   <string name="kidMode">Дечији режим</string>
   <string name="kidModeIsEnabled">Дечији режим је укључен.</string>
-  <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
-  <string name="enableKidMode">Омогућите Дечији режим рада</string>
-  <string name="disableKidMode">Онемогућите Дечији режим рада</string>
+  <string name="kidModeExplanation">Ово је о сигурности. У дечијем режиму, све комуникације на сајту су искључене. Омогућите ово за Вашу децу и школске ученике како бисте их заштитили од других интернет корисника.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем режиму, Lichess-ов лого добија %s икону да бисте знали да су Ваша деца сигурна.</string>
+  <string name="enableKidMode">Омогући Дечији режим</string>
+  <string name="disableKidMode">Онемогући Дечији режим</string>
   <string name="security">Сигурност</string>
   <string name="sessions">Сесије</string>
   <string name="revokeAllSessions">опозвати све сесије</string>

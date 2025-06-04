@@ -51,7 +51,7 @@ trait LilaLibraryExtensions extends CoreExports:
   extension [A, B](v: Either[A, B])
     def toFuture: Fu[B] = v match
       case Right(res) => fuccess(res)
-      case Left(err) =>
+      case Left(err)  =>
         err match
           case e: Exception => Future.failed(e)
           case _            => fufail(err.toString)

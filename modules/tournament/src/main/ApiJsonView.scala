@@ -43,10 +43,10 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
         "system"    -> "arena", // BC
         "minutes"   -> tour.minutes,
         "clock"     -> tour.clock,
-        "rated"     -> tour.mode.rated,
+        "rated"     -> tour.rated,
         "fullName"  -> tour.name(),
         "nbPlayers" -> tour.nbPlayers,
-        "variant" -> Json.obj(
+        "variant"   -> Json.obj(
           "key"   -> tour.variant.key,
           "short" -> tour.variant.shortName,
           "name"  -> tour.variant.name
@@ -84,7 +84,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
   def byPlayer(e: LeaderboardApi.TourEntry)(using Translate): JsObject =
     Json.obj(
       "tournament" -> baseJson(e.tour),
-      "player" -> Json
+      "player"     -> Json
         .obj(
           "games" -> e.entry.nbGames,
           "score" -> e.entry.score,

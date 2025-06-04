@@ -55,7 +55,7 @@ const editable = (
 
 const inputAttrs: { [name: string]: Attrs } = (() => {
   const elo = { pattern: '\\d{3,4}' };
-  const fideId = { pattern: '\\d{2,8}' };
+  const fideId = { pattern: '\\d{2,9}' };
   return {
     Date: {
       pattern:

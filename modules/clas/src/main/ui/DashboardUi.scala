@@ -126,7 +126,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
 
     def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
       TeacherPage(c, all.filter(_.student.isActive), "students")():
-        val archived = all.filter(_.student.isArchived)
+        val archived  = all.filter(_.student.isArchived)
         val inviteBox =
           if invites.isEmpty
           then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))

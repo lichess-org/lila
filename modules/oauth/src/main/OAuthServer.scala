@@ -43,7 +43,7 @@ final class OAuthServer(
           userApi
             .me(at.userId)
             .flatMap:
-              case None => fufail(NoSuchUser)
+              case None    => fufail(NoSuchUser)
               case Some(u) =>
                 val blocked =
                   at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
@@ -53,8 +53,11 @@ final class OAuthServer(
                       u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
                     }
                   .foreach: req =>
-                    logger.debug:
+                    def logMsg =
                       s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+                    if blocked
+                    then logger.info(logMsg)
+                    else logger.debug(logMsg)
                 if blocked then fufail(OriginBlocked)
                 else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
       .dmap(Right(_))
@@ -68,8 +71,8 @@ final class OAuthServer(
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
   yield for
-    user1 <- auth1
-    user2 <- auth2
+    user1  <- auth1
+    user2  <- auth2
     result <-
       if user1.user.is(user2.user)
       then Left(OneUserWithTwoTokens)

@@ -77,7 +77,7 @@ final private class TvSyncActor(
         "channel" -> channel.key,
         "id"      -> game.id,
         "color"   -> game.naturalOrientation.name,
-        "player" -> user.map: u =>
+        "player"  -> user.map: u =>
           Json.obj(
             "name"   -> u.name,
             "title"  -> u.title,

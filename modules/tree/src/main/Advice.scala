@@ -95,7 +95,7 @@ private[tree] object MateAdvice:
       povScore        = score.invertIf(info.color.black)
       prevPovCpOrZero = prevPovScore.cp.so(_.centipawns)
       povCpOrZero     = povScore.cp.so(_.centipawns)
-      sequence <- MateSequence(prevPovScore, povScore)
+      sequence  <- MateSequence(prevPovScore, povScore)
       judgement <- sequence match
         case MateCreated if prevPovCpOrZero < -999 => Some(Advice.Judgement.Inaccuracy)
         case MateCreated if prevPovCpOrZero < -700 => Some(Advice.Judgement.Mistake)

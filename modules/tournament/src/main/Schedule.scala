@@ -84,8 +84,8 @@ object Schedule:
     val byId             = values.mapBy(_.id)
 
   enum Speed(val id: Int) derives Eq:
-    val name = Speed.this.toString
-    val key  = lila.common.String.lcfirst(name)
+    val name                           = Speed.this.toString
+    val key                            = lila.common.String.lcfirst(name)
     def trans(using Translate): String = this match
       case Speed.Bullet    => I18nKey.site.bullet.txt()
       case Speed.Blitz     => I18nKey.site.blitz.txt()

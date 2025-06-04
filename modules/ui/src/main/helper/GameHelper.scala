@@ -1,6 +1,6 @@
 package lila.ui
 
-import chess.{ Clock, Color, Mode, Outcome }
+import chess.{ Clock, Color, Rated, Outcome }
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
@@ -29,10 +29,10 @@ trait GameHelper:
       .orElse(game.clock.map(_.config).map(shortClockName))
       .getOrElse(trans.site.unlimited())
 
-  def modeName(mode: Mode)(using Translate): String =
-    mode match
-      case Mode.Casual => trans.site.casual.txt()
-      case Mode.Rated  => trans.site.rated.txt()
+  def ratedName(rated: Rated)(using Translate): String =
+    if rated.yes
+    then trans.site.rated.txt()
+    else trans.site.casual.txt()
 
   def playerUsername(
       player: LightPlayer,

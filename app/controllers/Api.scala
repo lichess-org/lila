@@ -68,7 +68,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     else
       val withSignal = getBool("withSignal")
       env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-        val streamingIds = env.streamer.liveStreamApi.userIds
+        val streamingIds         = env.streamer.liveStreamApi.userIds
         def toJson(u: LightUser) =
           lila.common.Json.lightUser
             .write(u)
@@ -146,7 +146,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
       val onlyUserId = getUserStr("player").map(_.id)
-      val config = GameApiV2.ByTournamentConfig(
+      val config     = GameApiV2.ByTournamentConfig(
         tour = tour,
         format = GameApiV2.Format.byRequest,
         flags = gameC.requestPgnFlags(extended = false),

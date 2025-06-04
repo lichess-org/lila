@@ -41,7 +41,7 @@ object AnnotatorTest:
         .newGame(
           g,
           ByColor(Player(GamePlayerId("abcd"), _, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = none
         )
@@ -57,10 +57,9 @@ object AnnotatorTest:
       (output, expected)
 
   def gameWithMoves(sans: List[SanStr], fen: FullFen, variant: Variant): (chess.Game, String) =
-    val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
-    val game       = xs.last._1
-    val moves      = xs.map(_._2.uci.uci).mkString(" ")
-    game -> moves
+    val (state = game, moves = moves) =
+      chess.Game(variant, fen.some).playWhileValid(sans, Ply.initial)(_.move.toUci.uci).toOption.get
+    game -> moves.mkString(" ")
 
   def parse(
       builder: AnalysisBuilder,
@@ -70,7 +69,7 @@ object AnnotatorTest:
       moves: String,
       ply: Ply
   ): lila.analyse.Analysis =
-    val xs = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
+    val xs       = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
     val analysis = Work.Analysis(
       Work.Id("workid"),
       Work.Sender(UserId("user"), None, false, false),

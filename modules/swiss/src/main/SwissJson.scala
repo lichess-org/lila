@@ -95,7 +95,7 @@ final class SwissJson(
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
-    swiss.settings.rated.so:
+    swiss.settings.rated.yes.so:
       for
         perf <- userApi.perfOf(user, swiss.perfType)
         changed = perf.intRating != player.rating

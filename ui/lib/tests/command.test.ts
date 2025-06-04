@@ -1,13 +1,12 @@
 import { expect, test } from 'vitest';
 import { commands } from '../src/nvui/command';
-import type { Pieces } from 'chessground/types';
+import type { Pieces } from '@lichess-org/chessground/types';
 
 const pieces: Pieces = new Map();
 pieces.set('a1', { color: 'white', role: 'king' });
 pieces.set('a2', { color: 'white', role: 'queen' });
 pieces.set('b1', { color: 'white', role: 'knight' });
 pieces.set('b2', { color: 'white', role: 'knight' });
-(window.i18n as any) = { site: { none: 'None' } };
 
 test('piece command', () => {
   expect(commands.piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');

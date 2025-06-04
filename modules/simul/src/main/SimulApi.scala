@@ -247,19 +247,17 @@ final class SimulApi(
     users     = hostColor.fold(us, us.swap)
     clock     = simul.clock.chessClockOf(hostColor)
     perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
-    game1 = lila.core.game.newGame(
+    game1     = lila.core.game.newGame(
       chess = chess
         .Game(
-          variantOption = Some:
-            if simul.position.isEmpty
-            then pairing.player.variant
-            else chess.variant.FromPosition
-          ,
+          if simul.position.isEmpty
+          then pairing.player.variant
+          else chess.variant.FromPosition,
           fen = simul.position
         )
         .copy(clock = clock.start.some),
       players = users.mapWithColor((c, u) => newPlayer(c, u.only(perfType).some)),
-      mode = chess.Mode.Casual,
+      rated = chess.Rated.No,
       source = lila.core.game.Source.Simul,
       pgnImport = None
     )
@@ -311,7 +309,7 @@ final class SimulApi(
 
   private object publish:
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer =
+    private val debouncer   =
       Debouncer[Unit](scheduler.scheduleOnce(5.seconds, _), 1): _ =>
         Bus.pub(siteMessage)
     def apply() = debouncer.push(())

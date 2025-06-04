@@ -51,8 +51,8 @@ case class Pov(game: Game, color: Color):
   override def toString = ref.toString
 
 object Pov:
-  def naturalOrientation(game: Game): Pov    = Pov(game, game.naturalOrientation)
-  def apply(game: Game, player: Player): Pov = Pov(game, player.color)
+  def naturalOrientation(game: Game): Pov                  = Pov(game, game.naturalOrientation)
+  def apply(game: Game, player: Player): Pov               = Pov(game, player.color)
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
     game.player(user).map { apply(game, _) }
 

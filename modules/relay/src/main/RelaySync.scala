@@ -22,7 +22,7 @@ final private class RelaySync(
     chapters <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
     games = RelayInputSanity.fixGames(rawGames)
     plan  = RelayUpdatePlan(chapters, games)
-    _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
+    _       <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt, study, game, chapter)
     appends <- plan.append.toList.sequentially: game =>
@@ -36,7 +36,7 @@ final private class RelaySync(
     // is updated instead of created. The client might be confused.
     // So, send them all the chapter preview with `reloadChapters`
     reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
-    _ = if reloadChapters then
+    _              = if reloadChapters then
       preview.invalidate(study.id)
       studyApi.reloadChapters(study)
       players.invalidate(rt.tour.id)
@@ -78,12 +78,12 @@ final private class RelaySync(
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using
       RelayTour
   ): Fu[NbMoves] =
-    val by = who(chapter.ownerId)
+    val by              = who(chapter.ownerId)
     val (path, newNode) = game.root.mainline.foldLeft(UciPath.root -> none[Branch]):
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match
-          case None => parentPath -> gameNode.some
+          case None           => parentPath -> gameNode.some
           case Some(existing) =>
             gameNode.clock
               .filter: c =>
@@ -157,7 +157,7 @@ final private class RelaySync(
         gameTags(_.Result).isEmpty &&
         !chapter.tags(_.Result).has(game.showResult)
     ).option(Tag(_.Result, game.showResult))
-    val tags = newEndTag.fold(gameTags)(gameTags + _)
+    val tags           = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     if chapterNewTags == chapter.tags then fuccess(false -> false)

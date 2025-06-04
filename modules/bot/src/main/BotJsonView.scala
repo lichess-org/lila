@@ -17,12 +17,11 @@ final class BotJsonView(
   def gameFull(game: Game)(using Translate): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
 
   def gameFull(wf: WithInitialFen)(using Translate): Fu[JsObject] =
-    gameState(wf).map { state =>
+    gameState(wf).map: state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
         "state" -> state
       )
-    }
 
   def gameImmutable(wf: WithInitialFen)(using Translate): JsObject =
     import wf.*
@@ -51,8 +50,8 @@ final class BotJsonView(
           "moves"  -> uciMoves.mkString(" "),
           "wtime"  -> millisRemaining(game, Color.white),
           "btime"  -> millisRemaining(game, Color.black),
-          "winc"   -> (game.clock.so(_.config.increment.millis): Long),
-          "binc"   -> (game.clock.so(_.config.increment.millis): Long),
+          "winc"   -> game.clock.so[Long](_.config.increment.millis),
+          "binc"   -> game.clock.so[Long](_.config.increment.millis),
           "status" -> game.status.name
         )
         .add("wdraw" -> game.whitePlayer.isOfferingDraw)

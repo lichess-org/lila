@@ -2,12 +2,12 @@
 <resources>
   <string name="arena">Арена</string>
   <string name="arenaTournaments">Турнири у арени</string>
-  <string name="isItRated">Да ли је рејтован?</string>
-  <string name="willBeNotified">Бићете обавештени када турнир почне, тако да можете играти партију у другом прозору док чекате.</string>
-  <string name="isRated">Овај турнир је рејтован и утицаће на ваш рејтинг.</string>
-  <string name="isNotRated">Овај турнир *није* рејтован и *неће* утицати на ваш рејтинг.</string>
-  <string name="someRated">Неки турнири су рејтовани и утицаће на ваш рејтинг.</string>
-  <string name="howAreScoresCalculated">Како су бодови рачунати?</string>
+  <string name="isItRated">Да ли је рангиран?</string>
+  <string name="willBeNotified">Бићеш обавештен/а када турнир почне, тако да је сигурно играти у другом прозору док чекаш.</string>
+  <string name="isRated">Овај турнир је рангиран и утицаће на твој рејтинг.</string>
+  <string name="isNotRated">Овај турнир *није* рангиран и *неће* утицати на твој рејтинг.</string>
+  <string name="someRated">Неки турнири су рангирани и утицаће на твој рејтинг.</string>
+  <string name="howAreScoresCalculated">Како се резултати рачунају?</string>
   <string name="howAreScoresCalculatedAnswer">Добитак вам доноси 2 поена, реми вам доноси 1 поен, а губитак вам не доноси ниједан поен. 
 Ако добијете две партије узастопно добијаћете дупле поене, представљене иконом пламена.
 Следеће партије ће наставити да вам доносе дупле поене све док не добијете партију.

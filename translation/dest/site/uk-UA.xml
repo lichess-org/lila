@@ -185,6 +185,7 @@
   <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
   <string name="fiftyMovesWithoutProgress">П\'ятдесят ходів без прогресу</string>
   <string name="currentGames">Поточні партії</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Приєднався %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
     <item quantity="few">%s гри</item>

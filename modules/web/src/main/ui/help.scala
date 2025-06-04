@@ -23,9 +23,9 @@ object help:
     row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
     row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd())
   )
-  private def flip(using Translate)       = row(kbd("f"), trans.site.flipBoard())
-  private def zen(using Translate)        = row(kbd("z"), trans.preferences.zenMode())
-  private def helpDialog(using Translate) = row(kbd("?"), trans.site.showHelpDialog())
+  private def flip(using Translate)          = row(kbd("f"), trans.site.flipBoard())
+  private def zen(using Translate)           = row(kbd("z"), trans.preferences.zenMode())
+  private def helpDialog(using Translate)    = row(kbd("?"), trans.site.showHelpDialog())
   private def localAnalysis(using Translate) = frag(
     row(kbd("l"), trans.site.toggleLocalAnalysis()),
     row(kbd("space"), trans.site.playComputerMove()),
@@ -107,7 +107,8 @@ object help:
               row(kbd("n"), trans.study.nextChapter()),
               row(kbd("p"), trans.study.prevChapter()),
               row(frag((1 to 6).map(kbd(_))), trans.site.toggleGlyphAnnotations()),
-              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.site.togglePositionAnnotations())
+              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.site.togglePositionAnnotations()),
+              row(frag(kbd("ctrl"), kbd("z")), "Undo arrow changes")
             )
           ),
           header(trans.site.mouseTricks()),

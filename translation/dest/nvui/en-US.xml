@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Featured events</string>
+  <string name="moveList" comment="List of the moves of the game">Move list</string>
+  <string name="gameInfo">Game info</string>
+  <string name="pieces">Pieces</string>
+  <string name="gameStatus">Game status</string>
+  <string name="lastMove">Last move</string>
+  <string name="inputForm" comment="Form to input moves and commands">Input form</string>
+  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Actions</string>
+  <string name="yourClock">Your clock</string>
+  <string name="opponentClock">Opponent clock</string>
+</resources>

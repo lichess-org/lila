@@ -5,6 +5,7 @@ import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
 
 import lila.ui.*
+import lila.common.Json.given
 
 import ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
@@ -93,7 +94,7 @@ final class PuzzleBits(helpers: Helpers):
               "datasets" -> Json.arr(
                 Json.obj(
                   "label" -> "Performance",
-                  "data" -> mostPlayed.map: (_, results) =>
+                  "data"  -> mostPlayed.map: (_, results) =>
                     results.performance
                 )
               )

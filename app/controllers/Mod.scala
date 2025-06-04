@@ -27,11 +27,11 @@ final class Mod(
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def alt(username: UserStr, v: Boolean) = OAuthModBody(_.CloseAccount) { me ?=>
-    withSuspect(username): sus =>
+    withSuspect(username): prev =>
       for
-        _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
-        _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
+        sus <- api.setAlt(prev, v)
+        _   <- (v && prev.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
+        _   <- (!v && prev.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
 
@@ -39,10 +39,11 @@ final class Mod(
     import akka.stream.scaladsl.*
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
-        withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(
-            env.api.accountTermination.disable(sus.user, forever = false)
-          ))
+        withSuspect(username): prev =>
+          for
+            sus <- api.setAlt(prev, true)
+            _   <- prev.user.enabled.yes.so(env.api.accountTermination.disable(sus.user, forever = false))
+          yield ()
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -184,7 +185,7 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .flatMap:
-        case None => Redirect(routes.Report.list)
+        case None         => Redirect(routes.Report.list)
         case Some(report) =>
           Found(env.user.repo.byId(report.user)): user =>
             import lila.report.Room
@@ -408,7 +409,7 @@ final class Mod(
   protected[controllers] def searchTerm(query: String)(using Context) =
     IpAddress.from(query) match
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
-      case None =>
+      case None     =>
         for
           res  <- env.mod.search(query)
           page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
@@ -466,6 +467,7 @@ final class Mod(
       for
         _ <- env.plan.api.freeMonth(dest)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
+        _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
   }
 
@@ -504,7 +506,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
+      case None           => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)

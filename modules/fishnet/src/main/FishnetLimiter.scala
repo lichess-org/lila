@@ -27,7 +27,7 @@ final private class FishnetLimiter(
   private def concurrentCheck(sender: Work.Sender) =
     sender match
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(userId, ip, _, _) =>
+      case Work.Sender(userId, ip, _, _)                   =>
         analysisColl
           .exists(
             $or(
@@ -40,7 +40,7 @@ final private class FishnetLimiter(
   private def perDayCheck(sender: Work.Sender): Fu[Analyser.Result] =
     sender match
       case Work.Sender(_, _, mod, system) if mod || system => fuccess(Analyser.Result.Ok)
-      case Work.Sender(userId, ip, _, _) =>
+      case Work.Sender(userId, ip, _, _)                   =>
         def perUser = requesterApi
           .countTodayAndThisWeek(userId)
           .map: (daily, weekly) =>

@@ -40,7 +40,7 @@ trait PaginatorHelper:
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
     val fromPage = 1.max(page - length)
     val toPage   = nbPages.min(page + length)
-    val pre = fromPage match
+    val pre      = fromPage match
       case 1 => Nil
       case 2 => List(1.some)
       case _ => List(1.some, none)

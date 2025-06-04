@@ -5,6 +5,7 @@ import reactivemongo.api.bson.BSONNull
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import scalalib.model.Days
+import chess.IntRating
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,
@@ -14,18 +15,16 @@ case class PuzzleDashboard(
   import PuzzleDashboard.*
 
   lazy val (weakThemes, strongThemes) =
-    val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { case (_, res) =>
-      (res.performance, -res.nb)
+    val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { (_, res) =>
+      (res.performance.value, -res.nb)
     }
     val weaks = all
-      .filter { case (_, r) =>
+      .filter: (_, r) =>
         r.failed >= 3 && r.performance < global.performance
-      }
       .take(topThemesNb)
     val strong = all
-      .filter { case (_, r) =>
+      .filter: (_, r) =>
         r.firstWins >= 3 && r.performance > global.performance
-      }
       .takeRight(topThemesNb)
       .reverse
     (weaks, strong)
@@ -40,7 +39,7 @@ object PuzzleDashboard:
 
   val topThemesNb = 8
 
-  case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int):
+  case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: IntRating):
 
     def firstWins = wins - fixed
     def unfixed   = nb - wins
@@ -50,7 +49,8 @@ object PuzzleDashboard:
     def fixedPercent    = fixed * 100 / nb
     def firstWinPercent = firstWins * 100 / nb
 
-    lazy val performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
+    lazy val performance: IntRating =
+      puzzleRatingAvg.map(_ - 500 + math.round(1000 * (firstWins.toFloat / nb)))
 
     def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
@@ -94,7 +94,7 @@ final class PuzzleDashboardApi(
 
   private def compute(userId: UserId, days: Days): Fu[Option[PuzzleDashboard]] =
     colls.round:
-      _.aggregateOne() { framework =>
+      _.aggregateOne(_.sec): framework =>
         import framework.*
         val resultsGroup = List(
           "nb"     -> SumAll,
@@ -114,7 +114,7 @@ final class PuzzleDashboardApi(
           Unwind("puzzle"),
           Facet(
             List(
-              "global" -> List(Group(BSONNull)(resultsGroup*)),
+              "global"  -> List(Group(BSONNull)(resultsGroup*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),
@@ -123,7 +123,7 @@ final class PuzzleDashboardApi(
             )
           )
         )
-      }.map: r =>
+      .map: r =>
         for
           result     <- r
           globalDocs <- result.getAsOpt[List[Bdoc]]("global")
@@ -149,6 +149,6 @@ final class PuzzleDashboardApi(
     wins   <- doc.int("wins")
     fixes  <- doc.int("fixes")
     rating <- doc.double("rating")
-  yield Results(nb, wins, fixes, rating.toInt)
+  yield Results(nb, wins, fixes, IntRating(rating.toInt))
 
   val relevantThemesSelect = $doc("puzzle.themes".$nin(irrelevantThemes))

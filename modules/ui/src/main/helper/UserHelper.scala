@@ -246,7 +246,7 @@ trait UserHelper:
   val patronIconChar = Icon.Wings
   val lineIconChar   = Icon.Disc
 
-  val lineIcon: Frag = i(cls := "line")
+  val lineIcon: Frag                    = i(cls := "line")
   def patronIcon(using Translate): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")

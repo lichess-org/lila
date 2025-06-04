@@ -181,7 +181,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     values.collect { case (field, Some(v)) =>
       pathToField(path, field) -> v
     } match
-      case Nil => funit
+      case Nil  => funit
       case sets =>
         coll:
           _.update
@@ -212,7 +212,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
             hash.get(studyId) match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
-              case maybe =>
+              case maybe                                                   =>
                 val chapters = ~maybe
                 hash + (studyId -> chapterIdNameHandler.readOpt(doc).fold(chapters)(chapters :+ _))
           }

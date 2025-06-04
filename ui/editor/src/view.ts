@@ -1,9 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { copyMeInput } from 'lib/view/controls';
-import type { MouchEvent, NumberPair } from 'chessground/types';
-import { dragNewPiece } from 'chessground/drag';
-import { eventPosition, opposite } from 'chessground/util';
+import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
+import { dragNewPiece } from '@lichess-org/chessground/drag';
+import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import type { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';

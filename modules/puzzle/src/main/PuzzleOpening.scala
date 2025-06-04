@@ -82,7 +82,7 @@ final class PuzzleOpeningApi(
                 .fold(acc): keyStr =>
                   LilaOpeningFamily.find(keyStr) match
                     case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
-                    case None =>
+                    case None      =>
                       SimpleOpening
                         .find(keyStr)
                         .filter(_.ref.variation != SimpleOpening.otherVariations)

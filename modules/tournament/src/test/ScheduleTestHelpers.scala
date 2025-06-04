@@ -82,7 +82,7 @@ object ScheduleTestHelpers:
         possibleNewPlans: Iterable[A]
     ): List[A] =
       // Bucket schedules by hour for faster conflict detection
-      val hourMap = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
+      val hourMap                                       = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
       def addToMap(hour: Long, s: ScheduleWithInterval) =
         hourMap.getOrElseUpdate(hour, ArrayBuffer.empty).addOne(s)
 

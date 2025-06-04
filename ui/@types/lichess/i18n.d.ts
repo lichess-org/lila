@@ -1741,22 +1741,58 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Announce current square. */
+    announceCurrentSquare: string;
+    /** Announce last move. */
+    announceLastMove: string;
+    /** Announce piece captured in last move. */
+    announceLastMoveCapture: string;
+    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king. */
+    announcePieceLocations: string;
+    /** Announce pieces on a rank or a file. Example: s a, s 1. */
+    announcePiecesOnRankOrFile: string;
+    /** Announce possible captures with selected piece. */
+    announcePossibleCaptures: string;
+    /** Announce possible moves for the selected piece. */
+    announcePossibleMoves: string;
+    /** Command list when the board has focus */
+    boardCommandList: string;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
+    /** Game start */
+    gameStart: string;
     /** Game status */
     gameStatus: string;
-    /** Input form */
+    /** Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
+    goToBoard: string;
+    /** Go to the command input form. */
+    goToInputForm: string;
+    /** Command input form */
     inputForm: string;
+    /** Type these commands in the command input form. */
+    inputFormCommandList: string;
     /** Last move */
     lastMove: string;
     /** Move list */
     moveList: string;
+    /** To move a piece, use standard algebraic notation. */
+    movePiece: string;
+    /** Move to file a to h. */
+    moveToFile: string;
+    /** Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order. */
+    moveToPieceByType: string;
+    /** Move to rank 1 to 8. */
+    moveToRank: string;
+    /** Move to adjacent square left, right, up or down. */
+    moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
     /** Pieces */
     pieces: string;
+    /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
+    promotion: string;
     /** Your clock */
     yourClock: string;
   };
@@ -2289,10 +2325,6 @@ interface I18n {
     fromMyGames: string;
     /** You have no puzzles in the database, but Lichess still loves you very much. */
     fromMyGamesNone: string;
-    /** Puzzles from %s' games */
-    fromXGames: I18nFormat;
-    /** %1$s puzzles found in %2$s games */
-    fromXGamesFound: I18nFormat;
     /** Goals */
     goals: string;
     /** Good move */
@@ -2363,6 +2395,8 @@ interface I18n {
     puzzles: string;
     /** Puzzles by openings */
     puzzlesByOpenings: string;
+    /** %1$s puzzles found in games by %2$s */
+    puzzlesFoundInUserGames: I18nPlural;
     /** Success! */
     puzzleSuccess: string;
     /** Puzzle Themes */
@@ -3389,6 +3423,8 @@ interface I18n {
     itsYourTurn: string;
     /** Join */
     join: string;
+    /** Joined %s */
+    joinedX: I18nFormat;
     /** Join the game */
     joinTheGame: string;
     /** Join the %1$s, to post in this forum */

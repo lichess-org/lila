@@ -47,7 +47,7 @@
     ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "/public/npm",
-      "/node_modules/chessground/dist/chessground.min.js": "/public/npm"
+      "/node_modules/@lichess-org/chessground/dist/chessground.min.js": "/public/npm"
     }
   }
 }

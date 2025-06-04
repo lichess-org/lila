@@ -1,8 +1,8 @@
 import { isPlayerTurn } from 'lib/game/game';
-import { dragNewPiece } from 'chessground/drag';
-import { setDropMode, cancelDropMode } from 'chessground/drop';
+import { dragNewPiece } from '@lichess-org/chessground/drag';
+import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
 import type RoundController from '../ctrl';
-import type { MouchEvent } from 'chessground/types';
+import type { MouchEvent } from '@lichess-org/chessground/types';
 import type { RoundData } from '../interfaces';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';

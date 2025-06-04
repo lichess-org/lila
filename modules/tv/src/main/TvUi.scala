@@ -77,7 +77,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
               div(cls := "setup")(
                 gameUi.widgets.showClock(game),
                 separator,
-                (if game.rated then trans.site.rated else trans.site.casual).txt(),
+                ratedName(game.rated),
                 separator,
                 variantLink(game.variant, game.perfKey, shortName = true)
               )
@@ -98,7 +98,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
         Tv.Channel.list.map: c =>
           a(
             href := s"$baseUrl/${c.key}",
-            cls := List(
+            cls  := List(
               "tv-channel" -> true,
               c.key        -> true,
               "active"     -> (c == channel)

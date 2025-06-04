@@ -188,7 +188,7 @@ final class IrcApi(
         .so:
           val firsts    = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
           val amountSum = buffer.map(_.cents).sum
-          val patrons =
+          val patrons   =
             if firsts.lengthIs > 10
             then s"$firsts and, like, ${firsts.length - 10} others,"
             else firsts
@@ -217,7 +217,7 @@ object IrcApi:
     def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String           = userLink(user.name)
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
-    def userIdLinks(ids: List[UserId]): String =
+    def userIdLinks(ids: List[UserId]): String      =
       UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
     def modLink(name: UserName): String               = lichessLink(s"/@/$name", name.value)
     def gameLink(id: String)                          = lichessLink(s"/$id", s"#$id")

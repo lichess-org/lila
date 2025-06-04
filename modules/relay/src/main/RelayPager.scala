@@ -41,7 +41,7 @@ final class RelayPager(
 
   def allPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int] = fuccess(9999)
+      def nbResults: Fu[Int]                                       = fuccess(9999)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
@@ -61,7 +61,7 @@ final class RelayPager(
 
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int] = tourRepo.countBySubscriberId(userId)
+      def nbResults: Fu[Int]                                       = tourRepo.countBySubscriberId(userId)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
@@ -103,7 +103,7 @@ final class RelayPager(
     def apply(page: Int): Fu[Paginator[WithLastRound]] =
       Paginator(
         adapter = new:
-          def nbResults: Fu[Int] = fuccess(9999)
+          def nbResults: Fu[Int]                                       = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
             if offset == 0 then firstPageCache.get({})
             else inactive.slice(offset, length)
@@ -121,7 +121,7 @@ final class RelayPager(
     val textSelector = $text(query) ++ selectors.officialPublic
 
     // Special case of querying so that users can filter broadcasts by year
-    val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
+    val yearOpt  = """\b(20)\d{2}\b""".r.findFirstIn(query)
     val selector = yearOpt.foldLeft(textSelector): (sel, year) =>
       sel ++ "name".$regex(s"\\b$year\\b")
 
@@ -158,7 +158,7 @@ final class RelayPager(
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
+        def nbResults: Fu[Int]                                       = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>

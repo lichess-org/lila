@@ -12,7 +12,7 @@ import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
-  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
+  def selectTour(tourId: TourId)                             = $doc("tid" -> tourId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
     $doc(
       "tid" -> tourId,

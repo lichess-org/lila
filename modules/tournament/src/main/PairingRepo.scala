@@ -11,8 +11,8 @@ import BSONHandlers.given
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
-  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
-  def selectUser(userId: UserId) = $doc("u" -> userId)
+  def selectTour(tourId: TourId)                             = $doc("tid" -> tourId)
+  def selectUser(userId: UserId)                             = $doc("u" -> userId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
     $doc(
       "tid" -> tourId,

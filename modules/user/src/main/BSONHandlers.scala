@@ -50,7 +50,7 @@ object BSONHandlers:
   given playTimeHandler: BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
   given planHandler: BSONDocumentHandler[Plan]         = Macros.handler[Plan]
   given profileHandler: BSONDocumentHandler[Profile]   = Macros.handler[Profile]
-  private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
+  private[user] given BSONHandler[TotpSecret]          = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )

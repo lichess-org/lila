@@ -2,7 +2,7 @@ package lila.core
 package game
 
 import _root_.chess.format.Fen
-import _root_.chess.{ ByColor, Game as ChessGame, Mode, Status }
+import _root_.chess.{ ByColor, Game as ChessGame, Rated, Status }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Days
 
@@ -15,12 +15,12 @@ case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
 def newImportedGame(
     chess: ChessGame,
     players: ByColor[Player],
-    mode: Mode,
+    rated: Rated,
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Days] = None,
     rules: Set[GameRule] = Set.empty
-): ImportedGame = ImportedGame(newSloppy(chess, players, mode, source, pgnImport, daysPerTurn, rules))
+): ImportedGame = ImportedGame(newSloppy(chess, players, rated, source, pgnImport, daysPerTurn, rules))
 
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game):
@@ -30,17 +30,17 @@ case class NewGame(sloppy: Game):
 def newGame(
     chess: ChessGame,
     players: ByColor[Player],
-    mode: Mode,
+    rated: Rated,
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Days] = None,
     rules: Set[GameRule] = Set.empty
-): NewGame = NewGame(newSloppy(chess, players, mode, source, pgnImport, daysPerTurn, rules))
+): NewGame = NewGame(newSloppy(chess, players, rated, source, pgnImport, daysPerTurn, rules))
 
 private def newSloppy(
     chess: ChessGame,
     players: ByColor[Player],
-    mode: Mode,
+    rated: Rated,
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Days] = None,
@@ -53,7 +53,7 @@ private def newSloppy(
     chess = chess,
     status = Status.Created,
     daysPerTurn = daysPerTurn,
-    mode = mode,
+    rated = rated,
     metadata = newMetadata(source).copy(pgnImport = pgnImport, rules = rules),
     createdAt = createdAt,
     movedAt = createdAt

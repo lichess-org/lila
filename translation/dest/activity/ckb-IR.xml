@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">چالاکی</string>
-  <string name="hostedALiveStream">دەستی بە پەخشی راستەوخۆ کرد</string>
+  <string name="hostedALiveStream">پەخشێکی ڕاستەوخۆی دەستپێکرد</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
-    <item quantity="other">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
+    <item quantity="other">پشتگیریی کرد لە lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
-    <item quantity="other">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
+    <item quantity="other">ڕاھێنانی کرد لە %1$s جووڵە کرد لەسەر %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">شیکاری %s مەتەڵی تاکتیکی کرد</item>
-    <item quantity="other">شیکاری %s مەتەڵی تاکتیکی کرد</item>
+    <item quantity="other">چارەسەری %s مەتەڵی تاکتیکی کرد</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s یاری لە %2$s کراوە</item>
-    <item quantity="other">%1$s یاری لە %2$s کراوە</item>
+    <item quantity="other">%1$s یاریی %2$sی کرد</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%1$s نامەی ناردووە لەبارەی %2$s</item>
-    <item quantity="other">%1$s نامەی ناردووە لەبارەی %2$s</item>
+    <item quantity="one">%1$s پەیامی ناردووە لە %2$s</item>
+    <item quantity="other">%1$s پەیامی ناردووە لە %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s جار جوڵەت کردووە</item>
-    <item quantity="other">%1$s جار جوڵەت کردووە</item>
+    <item quantity="one">%1$s جووڵەی کردووە</item>
+    <item quantity="other">%1$s جووڵەی کردووە</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">لە %1$s شێوازی یاری نامەناردن</item>
-    <item quantity="other">لە %1$s شێوازی یاری نامەناردن</item>
+    <item quantity="one">لە %1$s یاریی نامەگۆڕینەوە</item>
+    <item quantity="other">لە %1$s یاریی نامەگۆڕینەوە</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">یاری تەواوکراو %s یاری نامەناردن</item>
-    <item quantity="other">یاری تەواوکراو %s یاری نامەناردن</item>
+    <item quantity="one">%s یاریی نامەگۆڕینەوەی تەواو کرد</item>
+    <item quantity="other">%s یاریی نامەگۆڕینەوەی تەواو کرد</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">دەستکرد بە فۆڵۆوی %s یاریزان</item>
-    <item quantity="other">دەستکرد بە فۆڵۆوی %s یاریزان</item>
+    <item quantity="one">شوێن %s یاریزان کەوت</item>
+    <item quantity="other">شوێن %s یاریزان کەوت</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s فۆڵۆوەری نوێی بەدەستهێنا</item>
-    <item quantity="other">%s فۆڵۆوەری نوێی بەدەستهێنا</item>
+    <item quantity="one">%s شوێنکەوتووی نوێی بەدەستھێنا</item>
+    <item quantity="other">%s شوێنکەوتووی نوێی بەدەستھێنا</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">لە هەمانکاتدا مێوانداری %s یاری پەخشکراو کرد</item>

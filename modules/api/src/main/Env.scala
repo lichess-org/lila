@@ -56,7 +56,6 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
-    realPlayerApi: lila.web.RealPlayerApi,
     manifest: lila.web.AssetManifest,
     tokenApi: lila.oauth.AccessTokenApi
 )(using val mode: Mode, scheduler: Scheduler)(using

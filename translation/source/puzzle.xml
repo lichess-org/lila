@@ -75,12 +75,14 @@
   <string name="newStreak">New streak</string>
   <string name="fromMyGames">From my games</string>
   <string name="lookupOfPlayer">Lookup puzzles from a player's games</string>
-  <string name="fromXGames">Puzzles from %s' games</string>
   <string name="searchPuzzles">Search puzzles</string>
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
 
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">One puzzle found in games by %2$s</item>
+    <item quantity="other">%1$s puzzles found in games by %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Train, analyse, improve</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s played</item>

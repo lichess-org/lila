@@ -44,7 +44,7 @@ object Student:
     val user: User
   case class WithUser(student: Student, user: User) extends WithUserLike:
     def withPerfs(perfs: UserPerfs) = WithUserPerfs(student, user, perfs)
-  case class WithUserPerf(student: Student, user: User, perf: Perf) extends WithUserLike
+  case class WithUserPerf(student: Student, user: User, perf: Perf)        extends WithUserLike
   case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs) extends WithUserLike:
     def withPerfs = UserWithPerfs(user, perfs)
 

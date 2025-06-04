@@ -99,14 +99,14 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        nbGamesFinished  = games.count(_.points.isDefined)
-        nbGamesUnstarted = games.count(!_.hasMoves)
+        nbGamesFinished             = games.count(_.points.isDefined)
+        nbGamesUnstarted            = games.count(!_.hasMoves)
         allGamesFinishedOrUnstarted = games.nonEmpty &&
           nbGamesFinished + nbGamesUnstarted >= games.size &&
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
         autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
-        roundUpdate = updating: r =>
+        roundUpdate         = updating: r =>
           r.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
             .copy(finishedAt = r.finishedAt.orElse(autoFinishNow.option(nowInstant)))
       yield res -> roundUpdate
@@ -213,7 +213,7 @@ final private class RelayFetch(
       case Sync.Upstream.Ids(ids)     => delayer.internalSource(rt.round, fetchFromGameIds(rt.tour, ids))
       case Sync.Upstream.Users(users) => delayer.internalSource(rt.round, fetchFromUsers(rt.tour, users))
       case Sync.Upstream.Url(url)     => delayer.urlSource(url, rt.round, fetchFromUpstream(rt))
-      case Sync.Upstream.Urls(urls) =>
+      case Sync.Upstream.Urls(urls)   =>
         urls.toVector
           .parallel: url =>
             delayer.urlSource(url, rt.round, fetchFromUpstreamWithRecovery(rt))
@@ -272,7 +272,7 @@ final private class RelayFetch(
           read = (_, _, current) => current
         ).build()
     // cache games with number > 12 to reduce load on big tournaments
-    val tailAt = 30
+    val tailAt            = 30
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1.minutes).build()
@@ -288,7 +288,7 @@ final private class RelayFetch(
         .orElse((index > lccCache.tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
-          case None =>
+          case None       =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
@@ -362,7 +362,7 @@ final private class RelayFetch(
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
 
-  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr.from(http.get(url))
+  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr]                  = PgnStr.from(http.get(url))
   private def httpGetRoundJson(url: URL)(using CanProxy): Fu[DgtJson.RoundJson] =
     http.get(url).flatMap(readAsJson[DgtJson.RoundJson](url))
   private def httpGetGameJson(url: URL)(using CanProxy): Fu[DgtJson.GameJson] =

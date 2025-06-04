@@ -269,7 +269,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def like(studyId: StudyId, userId: UserId, v: Boolean): Fu[Study.Likes] = for
     c <- coll.get
     _ <- c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId))
-    likes <- countLikes(studyId)
+    likes   <- countLikes(studyId)
     updated <- likes match
       case None                   => fuccess(Study.Likes(0))
       case Some(likes, createdAt) =>

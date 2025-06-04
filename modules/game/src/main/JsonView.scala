@@ -60,7 +60,7 @@ final class JsonView(rematches: Rematches):
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
         "status"   -> pov.game.status,
-        "variant" -> Json.obj(
+        "variant"  -> Json.obj(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name
         ),
@@ -70,7 +70,7 @@ final class JsonView(rematches: Rematches):
         "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
           .obj(
-            "id" -> pov.opponent.userId,
+            "id"       -> pov.opponent.userId,
             "username" -> lila.game.Namer
               .playerTextBlocking(pov.opponent, withRating = false)
           )

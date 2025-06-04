@@ -109,7 +109,7 @@ private object SwissScoring:
             val opponentPoints = opponent.so(_.points.value)
             val result         = pairing.resultFor(player.userId)
             val newTieBreak    = tieBreak + result.fold(opponentPoints / 2)(_.so(opponentPoints))
-            val newPerf = perfSum + opponent.so(_.rating.value) + result.so:
+            val newPerf        = perfSum + opponent.so(_.rating.value) + result.so:
               if _ then 500 else -500
             newTieBreak -> newPerf
           case ((tieBreak, perfSum), (round, Some(_: SwissPairing.Bye))) =>

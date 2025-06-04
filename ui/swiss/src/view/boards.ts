@@ -1,7 +1,7 @@
 import type { Board, SwissOpts } from '../interfaces';
 import { renderClock } from 'lib/view/miniBoard';
 import { h, type VNode } from 'snabbdom';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import { player as renderPlayer } from './util';
 
 export function many(boards: Board[], opts: SwissOpts): VNode {

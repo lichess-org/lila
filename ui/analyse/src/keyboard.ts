@@ -140,6 +140,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
     // = ∞ ⩲ ⩱ ± ∓ +- -+
     for (let i = 1; i < 9; i++)
       kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
+
+    kbd.bind('mod+z', ctrl.study.undoShapeChange);
   }
 };
 

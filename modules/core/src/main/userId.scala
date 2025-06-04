@@ -74,7 +74,7 @@ object userId:
     given Conversion[UserName, UserStr]                 = _.value
     given Conversion[Option[UserName], Option[UserStr]] = _.map(_.value)
     given Conversion[UserId, UserStr]                   = _.value
-    def read(str: String): Option[UserStr] =
+    def read(str: String): Option[UserStr]              =
       val trimmed = str.trim
       Option.when(UserName.historicalRegex.matches(trimmed))(UserStr(trimmed))
 
@@ -82,7 +82,7 @@ object userId:
   // "chess-" is a valid username prefix, but not a valid username
   opaque type UserSearch = String
   object UserSearch extends OpaqueString[UserSearch]:
-    private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
+    private val regex                         = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
       if regex.matches(clean) then Some(clean.toLowerCase) else None

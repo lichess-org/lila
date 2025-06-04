@@ -1,7 +1,8 @@
 package lila.game
-import chess.Game as ChessGame
-import chess.format.pgn.{ SanStr, Sans, Tags }
-import chess.format.{ BoardFen, Fen, pgn }
+
+import chess.Position
+import chess.format.pgn.SanStr
+import chess.format.{ BoardFen, Fen }
 
 import scala.util.Success
 
@@ -65,13 +66,13 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
       for
         rewinded  <- rewind(moves)
-        solutions <- solve(rewinded)
+        solutions <- solve(rewinded.position)
         moves = rewinded.position.destinations.map: (from, dests) =>
           from.key -> dests.map(_.key).mkString
-      yield Captcha(game.id, fenOf(rewinded), rewinded.player, solutions, moves = moves)
+      yield Captcha(game.id, fenOf(rewinded.position), rewinded.color, solutions, moves = moves)
 
-    def solve(game: ChessGame): Option[Solutions] =
-      game.position.moves.view
+    def solve(position: Position): Option[Solutions] =
+      position.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
             move.after.checkMate
@@ -80,16 +81,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
           s"${move.orig.key} ${move.dest.key}"
         .toNel
 
-    def rewind(moves: Vector[SanStr]): Option[ChessGame] =
-      pgn.Reader
-        .moves(moves, sans => Sans(safeInit(sans.value)), tags = Tags.empty)
-        .flatMap(_.valid)
-        .map(_.state)
-        .toOption
+    def rewind(moves: Vector[SanStr]): Option[Position] =
+      chess.variant.Standard.initialPosition.forward(moves.dropRight(1)).toOption
 
-    def safeInit[A]: List[A] => List[A] =
-      case _ :: Nil => Nil
-      case x :: xs  => x :: safeInit(xs)
-      case _        => Nil
-
-    def fenOf(game: ChessGame): BoardFen = Fen.writeBoard(game.position)
+    def fenOf(position: Position): BoardFen = Fen.writeBoard(position)

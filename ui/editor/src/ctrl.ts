@@ -8,7 +8,7 @@ import {
   type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import type { Api as CgApi } from 'chessground/api';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { Rules, Square } from 'chessops/types';
 import type { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
@@ -18,7 +18,7 @@ import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'che
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view/dialogs';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 
 export default class EditorCtrl {
   options: Options;
@@ -223,7 +223,12 @@ export default class EditorCtrl {
 
   startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
-  clearBoard = (): boolean => this.setFen(EMPTY_FEN);
+  clearBoard = (): boolean => {
+    const parts = EMPTY_FEN.split(' ');
+    parts[1] = this.turn[0];
+
+    return this.setFen(parts.join(' '));
+  };
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));

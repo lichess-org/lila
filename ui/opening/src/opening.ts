@@ -1,4 +1,4 @@
-import Lpv from 'lichess-pgn-viewer';
+import Lpv from '@lichess-org/pgn-viewer';
 import { initMiniBoards } from 'lib/view/miniBoard';
 import { requestIdleCallback } from 'lib';
 import type { OpeningPage } from './interfaces';

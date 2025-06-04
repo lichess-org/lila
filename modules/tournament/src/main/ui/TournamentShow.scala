@@ -1,6 +1,8 @@
 package lila.tournament
 package ui
+
 import play.api.libs.json.*
+import chess.Rated
 
 import lila.common.Json.given
 import lila.common.String.html.markdownLinksOrRichText
@@ -46,11 +48,11 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       )
       .graph(
         OpenGraph(
-          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
           description =
             s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-              s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
+              s"${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. " +
               tour.winnerId.fold("Winner is not yet decided."): winnerId =>
                 s"${titleNameOrId(winnerId)} takes the prize home!"
         )
@@ -62,7 +64,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           ,
           div(cls := "tour__main")(div(cls := "box")),
           tour.isCreated.option(div(cls := "tour__faq"):
-            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id)))
+            faq(tour.rated.some, tour.isPrivate.option(tour.id)))
         )
 
   object side:
@@ -88,7 +90,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 separator,
                 tour.durationString
               ),
-              if tour.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+              lila.gathering.ui.translateRated(tour.rated),
               separator,
               trans.arena.arena(),
               (Granter.opt(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
@@ -212,9 +214,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         div(cls := "body")(apply())
       )
 
-    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None)(using
-        Context
-    ) =
+    def apply(rated: Option[Rated] = None, privateId: Option[TourId] = None)(using Context) =
       frag(
         privateId.map: id =>
           frag(
@@ -223,10 +223,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           ),
         p(trans.arena.willBeNotified()),
         h2(trans.arena.isItRated()),
-        rated match
-          case Some(true)  => p(trans.arena.isRated())
-          case Some(false) => p(trans.arena.isNotRated())
-          case None        => p(trans.arena.someRated())
+        p:
+          rated.fold(trans.arena.someRated()): r =>
+            if r.yes then trans.arena.isRated() else trans.arena.isNotRated()
         ,
         h2(tra.howAreScoresCalculated()),
         p(tra.howAreScoresCalculatedAnswer()),

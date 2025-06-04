@@ -59,7 +59,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           )
         )
 
-  def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
+  private[puzzle] def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
     updateSession: prev =>
       prev
         .forall(p => p.settings.color != color || p.path.angle != angle)
@@ -105,6 +105,6 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       perf: Perf
   ): Fu[PuzzleSession] =
     pathApi
-      .nextFor(angle, PuzzleTier.top, settings.difficulty, Set.empty)
+      .nextFor("session")(angle, PuzzleTier.top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
       .dmap(pathId => PuzzleSession(settings, pathId, 0))

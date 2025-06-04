@@ -41,7 +41,7 @@ object Stream:
     case class Stream(userId: String, status: Html, streamer: Streamer, lang: Lang)
         extends lila.streamer.Stream:
       def serviceName = "twitch"
-      def urls = Urls(
+      def urls        = Urls(
         embed = parent => s"https://player.twitch.tv/?channel=${userId}&parent=${parent}",
         redirect = s"https://www.twitch.tv/${userId}"
       )
@@ -82,7 +82,7 @@ object Stream:
         lang: Lang
     ) extends lila.streamer.Stream:
       def serviceName = "youTube"
-      def urls = Urls(
+      def urls        = Urls(
         embed = _ => s"https://www.youtube.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
         redirect = s"https://www.youtube.com/watch?v=${videoId}"
       )

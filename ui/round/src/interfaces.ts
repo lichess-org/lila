@@ -7,7 +7,7 @@ import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/in
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
-import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
+import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';

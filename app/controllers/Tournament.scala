@@ -30,7 +30,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
       (scheduled, visible) <- env.tournament.featuring.tourIndex.get(teamIds)
       scheduleJson         <- env.tournament.apiJsonView(visible)
-      response <- negotiate(
+      response             <- negotiate(
         html = for
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
@@ -75,7 +75,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               myInfo   <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
               verdicts <- api.getVerdicts(tour, myInfo.isDefined)
               version  <- env.tournament.version(tour.id)
-              json <- jsonView(
+              json     <- jsonView(
                 tour = tour,
                 page = page,
                 playerInfoExt = none,
@@ -88,7 +88,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chat <- loadChat(tour, json)
-              _ <- tour.teamBattle.so: b =>
+              _    <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
               streamers   <- streamerCache.get(tour.id)
               shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
@@ -115,7 +115,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- partial.not.so(loadChat(tour, json))
-              jsChat <- chatOpt.soFu: c =>
+              jsChat  <- chatOpt.soFu: c =>
                 lila.chat.JsonView.mobile(c.chat)
             yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))

@@ -6,6 +6,7 @@
     <item quantity="other">%s پەخش دەکرێت</item>
   </plurals>
   <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
+  <string name="broadcastCalendar">ڕۆژژمێری پەخش</string>
   <string name="newBroadcast">پەخشێکی تازە</string>
   <string name="subscribedBroadcasts">پەخشی بەشداربووان</string>
   <string name="aboutBroadcasts">دەربارەی پەخش</string>
@@ -20,6 +21,7 @@
   <string name="tournamentDescription">باسی پاڵەوانێتیەکە بکە</string>
   <string name="fullDescription">بە گشتی باسی پالەوانێتیەکە بکە</string>
   <string name="fullDescriptionHelp">وەسفێکی درێژی ھەڵبژاردنی پاڵەوانێتییەکە. %1$s بەردەستە. درێژی دەبێت کەمتر بێت لە کاراکتەرەکانی %2$s.</string>
+  <string name="sourceSingleUrl">بەستەری سەرچاوەی PGN</string>
   <string name="sourceUrlHelp">URL مافی لی چێسە بۆ بەردەست خستنی تازەکردنەوە PGN پێویستە بۆ ھەموان بەردەست بێت لەسەر ئەنتەرنێت</string>
   <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
   <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>
@@ -42,5 +44,23 @@
   <string name="ageThisYear">تەمەنی ئەمساڵ</string>
   <string name="unrated">ڕیزبەندی نەکراوە</string>
   <string name="recentTournaments">پاڵەوانێتییەکانی ئەم دواییە</string>
+  <string name="openLichess">لە لیچێس بیکەرەوە</string>
+  <string name="teams">تیمەکان</string>
+  <string name="boards">تەختەکان</string>
+  <string name="overview">گشتی</string>
+  <string name="subscribeTitle">ئابوونە ببە تاکوو ئاگادار بکرێیتەوە لەکاتی دەستپێکردنی ھەر خولێکدا. دەتوانیت ئاگاداریی زەنگۆڵە و داگرتن زامن بکەیت بۆ پەخشەکان لە تایبەتمەندییەکانی ھەژمارەکەتەوە.</string>
+  <string name="uploadImage">دانانی وێنەی پاڵەوانێتی</string>
+  <string name="noBoardsYet">تا ئێستا ھیچ تەختەیەک نییە. تەختەکان کاتێک دەردەکەون کە یارییەکان داندران.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">تەختەکان لەڕێی سەرچاوەیەک یان %sەوە باردەکرێن</string>
+  <string name="startsAfter">دوای %s دەستپێدەکات</string>
+  <string name="startVerySoon">پەخشەکە بەمزووانە دەستێدەکات.</string>
+  <string name="notYetStarted">پەخشەکە دەستی پێ نەکردووە.</string>
+  <string name="officialWebsite">وێبگەی فەرمی</string>
+  <string name="standings">ڕیزبەندییەکان</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">ھەڵبژاردەی زیاتر لە %s</string>
+  <string name="ratingDiff">جیاوازیی ھەڵسەنگاندن</string>
+  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">یارییەکانی ئەم پاڵەوانێتییە</string>
+  <string name="score">نمرە</string>
+  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">ھەموو تیمەکان</string>
   <string name="backToLiveMove">گەڕانەوە بۆ جوڵەی ڕاستەوخۆ</string>
 </resources>

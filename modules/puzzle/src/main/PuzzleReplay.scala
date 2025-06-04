@@ -36,7 +36,7 @@ final class PuzzleReplayApi(
     maybeDays.so: days =>
       for
         current <- replays.getFuture(me.userId, _ => createReplayFor(me, days, theme))
-        replay <-
+        replay  <-
           if current.days == days && current.theme == theme && current.remaining.nonEmpty
           then fuccess(current)
           else createReplayFor(me, days, theme).tap { replays.put(me.userId, _) }
@@ -56,7 +56,7 @@ final class PuzzleReplayApi(
   private def createReplayFor(user: User, days: Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
     colls
       .round:
-        _.aggregateOne(): framework =>
+        _.aggregateOne(_.sec): framework =>
           import framework.*
           Match(
             $doc(

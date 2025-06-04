@@ -15,7 +15,7 @@ object AnalyseBsonHandlers:
     def reads(r: BSON.Reader) =
       val startPly = Ply(r.intD("ply"))
       val raw      = r.str("data")
-      def id =
+      def id       =
         def getId[Id: BSONReader]: Id = r.get[Id]("_id")
         r.getO[StudyId]("studyId") match
           case Some(studyId) => Analysis.Id(studyId, getId[StudyChapterId])

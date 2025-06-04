@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'lib/ceval/ceval';
 import { path as treePath } from 'lib/tree/tree';

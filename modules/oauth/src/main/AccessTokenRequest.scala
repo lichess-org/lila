@@ -34,8 +34,8 @@ object AccessTokenRequest:
   ):
     def prepare: Either[Error, Prepared] =
       for
-        _    <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
-        code <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
+        _            <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code         <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
         codeVerifier <- codeVerifier
           .toRight(Protocol.Error.CodeVerifierRequired)
           .flatMap(Protocol.CodeVerifier.from)
@@ -45,9 +45,9 @@ object AccessTokenRequest:
 
     def prepareLegacy(auth: Option[BasicAuth]): Either[Error, Prepared] =
       for
-        _        <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
-        code     <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
-        clientId <- clientId.orElse(auth.map(_.clientId)).toRight(Error.ClientIdRequired)
+        _            <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code         <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
+        clientId     <- clientId.orElse(auth.map(_.clientId)).toRight(Error.ClientIdRequired)
         clientSecret <- clientSecret
           .map(LegacyClientApi.ClientSecret.apply)
           .orElse(auth.map(_.clientSecret))

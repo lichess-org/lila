@@ -82,10 +82,9 @@ final private class SwissDirector(
       .newGame(
         chess = chess
           .Game(
-            variantOption = Some {
+            variant =
               if swiss.settings.position.isEmpty then swiss.variant
-              else chess.variant.FromPosition
-            },
+              else chess.variant.FromPosition,
             fen = swiss.settings.position
           )
           .copy(clock = swiss.clock.toClock.some),
@@ -93,7 +92,7 @@ final private class SwissDirector(
           val player = players.get(pairing(c)).err(s"Missing pairing $c $pairing")
           newPlayer(c, player.userId, player.rating, player.provisional)
         ,
-        mode = chess.Mode(swiss.settings.rated),
+        rated = swiss.settings.rated,
         source = lila.core.game.Source.Swiss,
         pgnImport = None
       )

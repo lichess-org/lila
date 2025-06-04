@@ -28,7 +28,7 @@ private[setup] trait Config:
   def hasClock = timeMode == TimeMode.RealTime
 
   def makeGame(v: Variant): ChessGame =
-    ChessGame(position = Position(v), clock = makeClock.map(_.toClock))
+    ChessGame(position = v.initialPosition, clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -110,7 +110,7 @@ trait BaseConfig:
   val variantDefault = chess.variant.Standard
 
   val variantsWithFen = variants :+ FromPosition.id
-  val aiVariants = variants :+
+  val aiVariants      = variants :+
     chess.variant.Crazyhouse.id :+
     chess.variant.KingOfTheHill.id :+
     chess.variant.ThreeCheck.id :+
@@ -136,7 +136,7 @@ trait BaseConfig:
   private val timeMin             = 0
   private val timeMax             = 180
   private val acceptableFractions = Set(1 / 4d, 1 / 2d, 3 / 4d, 3 / 2d)
-  def validateTime(t: Double) =
+  def validateTime(t: Double)     =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
   private val incrementMin                         = Clock.IncrementSeconds(0)

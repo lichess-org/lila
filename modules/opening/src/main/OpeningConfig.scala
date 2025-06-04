@@ -23,8 +23,8 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
   // 1600 to 2200
   // or 1600, 2000, 2200
   private def showContiguous(list: List[String], reference: String): String = list match
-    case Nil          => "All"
-    case List(single) => single
+    case Nil           => "All"
+    case List(single)  => single
     case first :: rest =>
       val many = first :: rest
       val hash = many.mkString(",")

@@ -58,7 +58,7 @@ final private class TutorQueue(
       60,
       $doc(lila.core.game.BSONFields.turns.$gt(10))
     )
-    (rated, casual) = all.partition(_.game.rated)
+    (rated, casual) = all.partition(_.game.rated.yes)
     many            = rated ::: casual.take(30 - rated.size)
     povs            = scalalib.ThreadLocalRandom.shuffle(many).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
@@ -84,7 +84,7 @@ final private class TutorQueue(
 object TutorQueue:
 
   sealed trait Status
-  case object NotInQueue extends Status
+  case object NotInQueue                                         extends Status
   case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
     def eta = avgDuration * position
 

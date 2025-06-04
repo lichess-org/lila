@@ -24,7 +24,7 @@
       width: 32px;
       height: 32px;
       padding: 5px;
-      margin-top: -5px;
+      transform: translateY(-5px);
       margin-inline-start: -42px;
       background-color: $c-contours;
       border: 3px solid $c-bg-box;

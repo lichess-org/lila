@@ -2,8 +2,8 @@
 <resources>
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">پۆلەکان</string>
   <string name="teachClassesOfChessStudents">بە بەکارهێنانی ئامرازەکانی پۆلی لیچێس پۆلێک لە خوێندکارانی شەترەنج فێر بکە.</string>
-  <string name="features">تایبەتمەندیەکان</string>
-  <string name="quicklyGenerateSafeUsernames">دروستکردنی ناوی بەکارهێنەر و وشەی نهێنی پارێزراو بۆ خوێندکاران</string>
+  <string name="features">تایبەتمەندییەکان</string>
+  <string name="quicklyGenerateSafeUsernames">دروستکردنی ناوی بەکارھێنەر و تێپەڕوشەی سەلامەت بۆ خوێندکاران</string>
   <string name="trackStudentProgress">بەدواداچوون بۆ پێشکەوتنی ئاستی خوێندکار لە یاری و مەتەڵەکاندا</string>
   <string name="messageAllStudents">پەیام بۆ هەموو خوێندکاران بنێرە دەربارەی مادەی نوێی ناو پۆلەکەت</string>
   <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
@@ -57,6 +57,8 @@
     <item quantity="one">یەک بانگهێشتنامەی چاوەڕوانکراو</item>
     <item quantity="other">%s بانگهێشتنامەی چاوەڕوانکراو</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">ھەڵواسراو</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">ڕەتکرایەوە</string>
   <string name="onlyVisibleToTeachers">تەنها لای مامۆستایانی پۆلەکە دەردەکەوێت</string>
   <string name="lastActiveDate">چالاک</string>
   <string name="managed">بەڕێوەدەبرێت</string>
@@ -114,4 +116,6 @@
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">بانگهێشتنامەکە نێردا بۆ %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s بانگهێشتنامەی بۆکراوە</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s ئەکاونتێکی منداڵانە و ناتوانێت نامەکەت وەربگرێت. پێویستە بە دەستی بەستەری بانگهێشتکردنیان پێ بدەیت: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">دەتەوێت بگوازرێتەوە بۆ %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">چوون بۆ پۆلێکی تر</string>
 </resources>

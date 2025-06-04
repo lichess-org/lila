@@ -27,7 +27,7 @@ Allow: /game/export/gif/thumbnail/
       "background_color" -> "#161512",
       "theme_color"      -> "#161512",
       "description"      -> "The (really) free, no-ads, open source chess server.",
-      "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map: size =>
+      "icons"            -> List(32, 64, 128, 192, 256, 512, 1024).map: size =>
         Json.obj(
           "src"   -> s"//${net.assetDomain}/assets/logo/lichess-favicon-$size.png",
           "sizes" -> s"${size}x$size",
@@ -46,7 +46,7 @@ Allow: /game/export/gif/thumbnail/
     )
 
   val mobileAndroidUrl = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
-  val mobileIosUrl     = "https://apps.apple.com/us/app/lichess/id1662361230"
+  val mobileIosUrl     = "https://apps.apple.com/app/lichess/id1662361230"
 
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl

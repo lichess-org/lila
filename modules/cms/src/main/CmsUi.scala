@@ -44,7 +44,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   def render(p: CmsPage.RenderOpt)(using Context): Frag =
     p.render match
       case Some(r) => render(r)
-      case None =>
+      case None    =>
         Granter
           .opt(_.Pages)
           .option(

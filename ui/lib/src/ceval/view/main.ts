@@ -11,10 +11,10 @@ import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 

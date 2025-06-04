@@ -35,7 +35,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands } from 'lib/nvui/command';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
 import { next, prev } from '../keyboard';
@@ -58,19 +58,6 @@ export function initModule(): NvuiPlugin {
     if (line.u === 'lichess') notify.set(line.t);
   });
   pubsub.on('round.suggestion', notify.set);
-
-  i18n.nvui = i18n.nvui || {
-    featuredEvents: 'Featured events',
-    moveList: 'Move list',
-    gameInfo: 'Game info',
-    pieces: 'Pieces',
-    gameStatus: 'Game status',
-    lastMove: 'Last move',
-    inputForm: 'Input form',
-    actions: 'Actions',
-    yourClock: 'Your clock',
-    opponentClock: 'Opponent clock',
-  };
 
   return {
     premoveInput: '',
@@ -174,20 +161,17 @@ export function initModule(): NvuiPlugin {
         h('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
         h('h2', i18n.keyboardMove.keyboardInputCommands),
         h('p', [
-          noTrans('Type these commands in the move input.'),
+          i18n.nvui.inputFormCommandList,
+          h('br'),
+          i18n.nvui.movePiece,
+          h('br'),
+          i18n.nvui.promotion,
+          h('br'),
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
         ]),
-        ...boardCommands(),
-        h('h2', noTrans('Promotion')),
-        h('p', [
-          noTrans(
-            'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
-          ),
-          h('br'),
-          noTrans('Omission results in promotion to queen'),
-        ]),
+        ...boardCommands(i18n),
       ]);
     },
   };
@@ -328,9 +312,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
-    help: noTrans(
-      'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
-    ),
+    help: i18n.nvui.goToBoard,
     cb: (_notify, _ctrl, _style, input) => {
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
@@ -348,7 +330,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'last',
-    help: noTrans('Read last move.'),
+    help: i18n.nvui.announceLastMove,
     cb: notify => notify($('.lastMove').text()),
     alt: 'l',
   },
@@ -366,20 +348,20 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'p',
-    help: commands.piece.help,
+    help: commands.piece.help(i18n),
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+          `Bad input: ${input}. Expected format: ${commands.piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help,
+    help: commands.scan.help(i18n),
     cb: (notify, ctrl, style, input) =>
       notify(
         commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+          `Bad input: ${input}. Expected format: ${commands.scan.help}`,
       ),
   },
   {

@@ -29,7 +29,7 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
   def invert = copy(eval = eval.invert)
 
-  def cpComment: Option[String] = cp.map(_.showPawns)
+  def cpComment: Option[String]   = cp.map(_.showPawns)
   def mateComment: Option[String] =
     mate.map: m =>
       s"Mate in ${math.abs(m.value)}"
@@ -65,9 +65,9 @@ object Info:
 
   private def decode(ply: Ply, str: String): Option[Info] =
     str.split(separator) match
-      case Array()       => Info(ply, evals.empty, Nil).some
-      case Array(cp)     => Info(ply, Eval(strCp(cp), None, None), Nil).some
-      case Array(cp, ma) => Info(ply, Eval(strCp(cp), strMate(ma), None), Nil).some
+      case Array()           => Info(ply, evals.empty, Nil).some
+      case Array(cp)         => Info(ply, Eval(strCp(cp), None, None), Nil).some
+      case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None), Nil).some
       case Array(cp, ma, va) =>
         Info(ply, Eval(strCp(cp), strMate(ma), None), SanStr.from(va.split(' ').toList)).some
       case Array(cp, ma, va, be) =>
