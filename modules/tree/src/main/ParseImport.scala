@@ -40,22 +40,20 @@ object ParseImport:
           }
       }
 
+  def game(pgn: PgnStr): Either[ErrorStr, ImportGameResult] =
+    catchOverflow: () =>
+      Parser
+        .mainline(pgn)
+        .map: parsed =>
+          val result = Replay.makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
+          extractData(result.replay, parsed.tags)
+
   type ImportGameResult = (
       setup: ChessGame,
       result: Option[TagResult],
       initialFen: Option[Fen.Full],
       tags: Tags
   )
-
-  def game(pgn: PgnStr): Either[ErrorStr, ImportGameResult] =
-    catchOverflow: () =>
-      Parser.mainline(pgn).map { parsed =>
-        Replay
-          .makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
-          .pipe { case Replay.Result(replay, _) =>
-            extractData(replay, parsed.tags)
-          }
-      }
 
   def extractData(replay: Replay, tags: Tags): ImportGameResult =
     val variant    = extractVariant(replay.setup, tags)
