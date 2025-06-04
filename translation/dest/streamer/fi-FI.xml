@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Lichessin striimaajasivu on suunnattu yleisölle striimialustasi kielellä. Aseta shakkistriimeillesi sopiva kieli niiden lähetykseen käyttämässäsi sovelluksessa tai palvelussa.</string>
   <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Kirjoita Twitch- tai Youtube-käyttäjätunnus</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch- ja YouTube-muutokset on tarkistettava.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch- ja YouTube-muutokset on tarkistettava.
   
   Striimaajamerkkisi ja -listauksesi ovat poissa käytöstä, kunnes tarkistus on tehty. Tarkistukseen voi kulua aikaa 72 tuntia.</string>
   <string name="youTubeChannelId">Youtube-kanavasi ID</string>
