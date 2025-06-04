@@ -10,4 +10,5 @@
   <string name="actions">Acțiuni</string>
   <string name="yourClock">Ceasul tău</string>
   <string name="opponentClock">Ceas oponent</string>
+  <string name="inputFormCommandList">Tastează aceste comenzi în formularul de introducere a comenzii.</string>
 </resources>
