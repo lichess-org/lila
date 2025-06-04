@@ -106,23 +106,6 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` 
 const renderPieceStr = (ch: string, pieceStyle: PieceStyle, c: Color, prefixStyle: PrefixStyle): string =>
   `${renderPrefixStyle(c, prefixStyle)} ${renderPieceStyle(c === 'white' ? ch.toUpperCase() : ch, pieceStyle)}`;
 
-const transSanToWords = (san: string): string =>
-  san
-    .split('')
-    .map(c => {
-      if (c === 'x') return i18n.nvui.sanTakes;
-      if (c === '+') return i18n.nvui.sanCheck;
-      if (c === '#') return i18n.nvui.sanCheckmate;
-      if (c === '=') return i18n.nvui.sanPromotesTo;
-      const code = c.charCodeAt(0);
-      if (code > 48 && code < 58) return c; // 1-8
-      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
-      return charToRole(c) ?? c;
-    })
-    .join(' ')
-    .replace('O - O - O', i18n.nvui.sanLongCastling)
-    .replace('O - O', i18n.nvui.sanShortCastling);
-
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
     ? i18n.nvui.gameStart
@@ -138,15 +121,6 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
                 : f,
             )
             .join(' ');
-
-function transRole(role: Role, qty: number): string {
-  if (role === 'king') return i18n.nvui.king;
-  else if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
-  else if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
-  else if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
-  else if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
-  else return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
-}
 
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
@@ -189,7 +163,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle, i18
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
+  return `${transPieceStr(role, color)}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle, i18n: I18n): string {
@@ -197,7 +171,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
     .sort(([key1], [key2]) => key1.localeCompare(key2))
     .reduce<string[]>(
       (acc, [key, p]) =>
-        key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+        key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color)}`) : acc,
       [],
     );
   return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
@@ -240,19 +214,6 @@ export function renderBoard(
       renderPositionStyle(rank, file, text),
     );
 
-  const transPieceStr = (piece: Piece): string => {
-    if (piece.role === 'king') return piece.color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
-    else if (piece.role === 'queen')
-      return piece.color === 'black' ? i18n.nvui.blackQueen : i18n.nvui.whiteQueen;
-    else if (piece.role === 'rook')
-      return piece.color === 'black' ? i18n.nvui.blackRook : i18n.nvui.whiteRook;
-    else if (piece.role === 'bishop')
-      return piece.color === 'black' ? i18n.nvui.blackBishop : i18n.nvui.whiteBishop;
-    else if (piece.role === 'knight')
-      return piece.color === 'black' ? i18n.nvui.blackKnight : i18n.nvui.whiteKnight;
-    else return piece.color === 'black' ? i18n.nvui.blackPawn : i18n.nvui.whitePawn;
-  };
-
   const doPiece = (rank: Ranks, file: Files): VNode => {
     const key: Key = `${file}${rank}`;
     const piece = pieces.get(key);
@@ -261,7 +222,7 @@ export function renderBoard(
       const roleCh = roleToChar(piece.role);
       const pieceText =
         pieceStyle === 'name' || pieceStyle === 'white uppercase name'
-          ? transPieceStr(piece)
+          ? transPieceStr(piece.role, piece.color)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
@@ -552,4 +513,43 @@ const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-
 const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
+};
+
+const transSanToWords = (san: string): string =>
+  san
+    .split('')
+    .map(c => {
+      if (c === 'x') return i18n.nvui.sanTakes;
+      if (c === '+') return i18n.nvui.sanCheck;
+      if (c === '#') return i18n.nvui.sanCheckmate;
+      if (c === '=') return i18n.nvui.sanPromotesTo;
+      const code = c.charCodeAt(0);
+      if (code > 48 && code < 58) return c; // 1-8
+      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+      return charToRole(c) ?? c;
+    })
+    .join(' ')
+    .replace('O - O - O', i18n.nvui.sanLongCastling)
+    .replace('O - O', i18n.nvui.sanShortCastling);
+
+const transRole = (role: Role, qty: number): string => {
+  if (role === 'king') return i18n.nvui.king;
+  else if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
+  else if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
+  else if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
+  else if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
+  else return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+}
+
+const transPieceStr = (role: Role, color: Color): string => {
+  if (role === 'king') return color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
+  else if (role === 'queen')
+    return color === 'black' ? i18n.nvui.blackQueen : i18n.nvui.whiteQueen;
+  else if (role === 'rook')
+    return color === 'black' ? i18n.nvui.blackRook : i18n.nvui.whiteRook;
+  else if (role === 'bishop')
+    return color === 'black' ? i18n.nvui.blackBishop : i18n.nvui.whiteBishop;
+  else if (role === 'knight')
+    return color === 'black' ? i18n.nvui.blackKnight : i18n.nvui.whiteKnight;
+  else return color === 'black' ? i18n.nvui.blackPawn : i18n.nvui.whitePawn;
 };
