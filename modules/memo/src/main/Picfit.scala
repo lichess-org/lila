@@ -83,8 +83,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   object bodyImage:
     val sizePx                                                                 = Left(800)
     def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
-      uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-        .map(pic => url.resize(pic.id, sizePx).some)
+      rel.contains(idSep).not.so {
+        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+          .map(pic => url.resize(pic.id, sizePx).some)
+      }
 
   private object picfitServer:
 
