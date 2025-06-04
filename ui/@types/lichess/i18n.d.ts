@@ -1815,8 +1815,6 @@ interface I18n {
     pawn: string;
     /** pawns */
     pawns: string;
-    /** K Q R B N P */
-    pieceInitialLetters: string;
     /** Pieces */
     pieces: string;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
@@ -1829,8 +1827,20 @@ interface I18n {
     rook: string;
     /** rooks */
     rooks: string;
-    /** %1$s takes %2$s */
-    takes: I18nFormat;
+    /** check */
+    sanCheck: string;
+    /** checkmate */
+    sanCheckmate: string;
+    /** long castling */
+    sanLongCastling: string;
+    /** promotes to */
+    sanPromotesTo: string;
+    /** short castling */
+    sanShortCastling: string;
+    /** K Q R B N x */
+    sanSymbols: string;
+    /** takes */
+    sanTakes: string;
     /** white bishop */
     whiteBishop: string;
     /** white king */

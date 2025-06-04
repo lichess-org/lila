@@ -51,6 +51,11 @@
   <string name="whitePawn">white pawn</string>
   <string name="blackPawn">black pawn</string>
   <string name="pawns">pawns</string>
-  <string name="pieceInitialLetters" comment="Keep this order: king queen rook bishop knight pawn">K Q R B N P</string>
-  <string name="takes">%1$s takes %2$s</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">takes</string>
+  <string name="sanCheck" comment="+ in standard notation">check</string>
+  <string name="sanCheckmate" comment="# in standard notation">checkmate</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promotes to</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">short castling</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">long castling</string>
 </resources>

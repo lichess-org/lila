@@ -951,8 +951,13 @@ object I18nKey:
     val `whitePawn`: I18nKey = "nvui:whitePawn"
     val `blackPawn`: I18nKey = "nvui:blackPawn"
     val `pawns`: I18nKey = "nvui:pawns"
-    val `pieceInitialLetters`: I18nKey = "nvui:pieceInitialLetters"
-    val `takes`: I18nKey = "nvui:takes"
+    val `sanSymbols`: I18nKey = "nvui:sanSymbols"
+    val `sanTakes`: I18nKey = "nvui:sanTakes"
+    val `sanCheck`: I18nKey = "nvui:sanCheck"
+    val `sanCheckmate`: I18nKey = "nvui:sanCheckmate"
+    val `sanPromotesTo`: I18nKey = "nvui:sanPromotesTo"
+    val `sanShortCastling`: I18nKey = "nvui:sanShortCastling"
+    val `sanLongCastling`: I18nKey = "nvui:sanLongCastling"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

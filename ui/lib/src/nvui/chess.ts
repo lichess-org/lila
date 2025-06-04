@@ -6,7 +6,7 @@ import { chessgroundDests, lichessRules } from 'chessops/compat';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
-import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from '../game/chess';
+import { destsToUcis, plyToTurn, sanToUci, sanWriter } from '../game/chess';
 import { storage } from '../storage';
 
 const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
@@ -106,6 +106,23 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` 
 const renderPieceStr = (ch: string, pieceStyle: PieceStyle, c: Color, prefixStyle: PrefixStyle): string =>
   `${renderPrefixStyle(c, prefixStyle)} ${renderPieceStyle(c === 'white' ? ch.toUpperCase() : ch, pieceStyle)}`;
 
+const transSanToWords = (san: string): string =>
+  san
+    .split('')
+    .map(c => {
+      if (c === 'x') return i18n.nvui.sanTakes;
+      if (c === '+') return i18n.nvui.sanCheck;
+      if (c === '#') return i18n.nvui.sanCheckmate;
+      if (c === '=') return i18n.nvui.sanPromotesTo;
+      const code = c.charCodeAt(0);
+      if (code > 48 && code < 58) return c; // 1-8
+      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+      return charToRole(c) ?? c;
+    })
+    .join(' ')
+    .replace('O - O - O', i18n.nvui.sanLongCastling)
+    .replace('O - O', i18n.nvui.sanShortCastling);
+
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
     ? i18n.nvui.gameStart
@@ -113,7 +130,7 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
       ? (uci ?? '')
       : style === 'san'
         ? san
-        : sanToWords(san)
+        : transSanToWords(san)
             .split(' ')
             .map(f =>
               files.includes(f.toLowerCase() as FileName)
@@ -243,7 +260,7 @@ export function renderBoard(
     if (piece) {
       const roleCh = roleToChar(piece.role);
       const pieceText =
-        pieceStyle === 'name'
+        pieceStyle === 'name' || pieceStyle === 'white uppercase name'
           ? transPieceStr(piece)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
