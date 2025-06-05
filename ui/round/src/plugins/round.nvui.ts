@@ -91,7 +91,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], transGamePerf(d.game.perf)]),
+        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
         d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
         h('h2', i18n.nvui.moveList),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
