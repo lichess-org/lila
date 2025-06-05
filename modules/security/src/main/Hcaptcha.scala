@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.annotation.nowarn
 import play.api.ConfigLoader
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
@@ -47,10 +46,10 @@ object Hcaptcha:
 
 final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
 
-  def form[A](form: Form[A])(using @nowarn req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess:
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess:
     HcaptchaForm(form, config, skip = true)
 
-  def verify(response: String)(using @nowarn req: RequestHeader) = fuccess(Hcaptcha.Result.Disabled)
+  def verify(response: String)(using req: RequestHeader) = fuccess(Hcaptcha.Result.Disabled)
 
 final class HcaptchaReal(
     ipTrust: IpTrust,
