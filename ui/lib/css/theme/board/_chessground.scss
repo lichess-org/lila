@@ -1,5 +1,17 @@
 @import 'board-2d';
 
+@keyframes pulse-fade {
+  0%,
+  100% {
+    background-size: 110%;
+    opacity: 0.95;
+  }
+  50% {
+    background-size: 100%;
+    opacity: 0.2;
+  }
+}
+
 cg-board {
   @extend %box-shadow, %abs-100;
   @include prevent-select;
@@ -117,6 +129,38 @@ square {
 
   &.bh1 piece {
     opacity: 0.98;
+  }
+
+  &.king-win {
+    background-image: url(../images/icons/victory.svg);
+  }
+
+  &.king-draw {
+    background-image: url(../images/icons/stalemate.svg);
+  }
+
+  &.king-lose-checkmate {
+    background-image: url(../images/icons/checkmate.svg);
+  }
+
+  &.king-lose-resign {
+    background-image: url(../images/icons/resign.svg);
+  }
+
+  &.king-lose-timeout {
+    background-image: url(../images/icons/timeout.svg);
+  }
+
+  &.king-win,
+  &.king-draw,
+  &.king-lose-checkmate,
+  &.king-lose-resign,
+  &.king-lose-timeout {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 5;
+    animation: pulse-fade 1.5s infinite ease-in-out;
   }
 }
 
