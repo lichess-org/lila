@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
   <string name="currentGames">Партије у току</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Придружио се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
@@ -351,7 +352,11 @@
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
+  <string name="whiteProposesTakeback">Бели предлаже враћање потеза</string>
+  <string name="blackProposesTakeback">Црни предлаже враћање потеза</string>
   <string name="takebackPropositionSent">Враћање потеза послато</string>
+  <string name="whiteDeclinesTakeback">Бели одбија враћање потеза</string>
+  <string name="blackDeclinesTakeback">Црни одбија враћање потеза</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
