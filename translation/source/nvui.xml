@@ -32,25 +32,35 @@
   <string name="whiteKing">white king</string>
   <string name="blackKing">black king</string>
   <string name="queen">queen</string>
-  <string name="whiteQueen">white queen</string>
-  <string name="blackQueen">black queen</string>
   <string name="queens">queens</string>
+  <string name="whiteQueen">white queen</string>
+  <string name="whiteQueens">white queens</string>
+  <string name="blackQueen">black queen</string>
+  <string name="blackQueens">black queens</string>
   <string name="rook">rook</string>
-  <string name="whiteRook">white rook</string>
-  <string name="blackRook">black rook</string>
   <string name="rooks">rooks</string>
+  <string name="whiteRook">white rook</string>
+  <string name="whiteRooks">white rooks</string>
+  <string name="blackRook">black rook</string>
+  <string name="blackRooks">black rooks</string>
   <string name="bishop">bishop</string>
-  <string name="whiteBishop">white bishop</string>
-  <string name="blackBishop">black bishop</string>
   <string name="bishops">bishops</string>
+  <string name="whiteBishop">white bishop</string>
+  <string name="whiteBishops">white bishops</string>
+  <string name="blackBishop">black bishop</string>
+  <string name="blackBishops">black bishops</string>
   <string name="knight">knight</string>
-  <string name="whiteKnight">white knight</string>
-  <string name="blackKnight">black knight</string>
   <string name="knights">knights</string>
+  <string name="whiteKnight">white knight</string>
+  <string name="whiteKnights">white knights</string>
+  <string name="blackKnight">black knight</string>
+  <string name="blackKnights">black knights</string>
   <string name="pawn">pawn</string>
-  <string name="whitePawn">white pawn</string>
-  <string name="blackPawn">black pawn</string>
   <string name="pawns">pawns</string>
+  <string name="whitePawn">white pawn</string>
+  <string name="whitePawns">white pawns</string>
+  <string name="blackPawn">black pawn</string>
+  <string name="blackPawns">black pawns</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
   <string name="sanTakes" comment="x in standard notation">takes</string>
   <string name="sanCheck" comment="+ in standard notation">check</string>

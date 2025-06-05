@@ -1761,16 +1761,26 @@ interface I18n {
     bishops: string;
     /** black bishop */
     blackBishop: string;
+    /** black bishops */
+    blackBishops: string;
     /** black king */
     blackKing: string;
     /** black knight */
     blackKnight: string;
+    /** black knights */
+    blackKnights: string;
     /** black pawn */
     blackPawn: string;
+    /** black pawns */
+    blackPawns: string;
     /** black queen */
     blackQueen: string;
+    /** black queens */
+    blackQueens: string;
     /** black rook */
     blackRook: string;
+    /** black rooks */
+    blackRooks: string;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1843,16 +1853,26 @@ interface I18n {
     sanTakes: string;
     /** white bishop */
     whiteBishop: string;
+    /** white bishops */
+    whiteBishops: string;
     /** white king */
     whiteKing: string;
     /** white knight */
     whiteKnight: string;
+    /** white knights */
+    whiteKnights: string;
     /** white pawn */
     whitePawn: string;
+    /** white pawns */
+    whitePawns: string;
     /** white queen */
     whiteQueen: string;
+    /** white queens */
+    whiteQueens: string;
     /** white rook */
     whiteRook: string;
+    /** white rooks */
+    whiteRooks: string;
     /** Your clock */
     yourClock: string;
   };
