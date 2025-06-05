@@ -528,19 +528,20 @@ const transSanToWords = (san: string): string =>
       const code = c.charCodeAt(0);
       if (code > 48 && code < 58) return c; // 1-8
       if (code > 96 && code < 105) return c.toUpperCase(); // a-h
-      return charToRole(c) ?? c;
+      return transRole(charToRole(c)) ?? c;
     })
     .join(' ')
     .replace('O - O - O', i18n.nvui.sanLongCastling)
     .replace('O - O', i18n.nvui.sanShortCastling);
 
-const transRole = (role: Role, qty: number): string => {
+const transRole = (role: Role | undefined, qty: number = 1): string => {
   if (role === 'king') return i18n.nvui.king;
   else if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
   else if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
   else if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
   else if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
-  else return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+  else if (role === 'pawn') return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+  else return '';
 };
 
 const transPieceStr = (role: Role, color: Color, qty: number = 1): string => {
