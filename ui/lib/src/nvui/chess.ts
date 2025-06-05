@@ -525,6 +525,7 @@ const transSanToWords = (san: string): string =>
       if (c === '+') return i18n.nvui.sanCheck;
       if (c === '#') return i18n.nvui.sanCheckmate;
       if (c === '=') return i18n.nvui.sanPromotesTo;
+      if (c === '@') return i18n.nvui.sanDroppedOn;
       const code = c.charCodeAt(0);
       if (code > 48 && code < 58) return c; // 1-8
       if (code > 96 && code < 105) return c.toUpperCase(); // a-h

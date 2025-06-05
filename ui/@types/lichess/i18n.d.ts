@@ -1847,6 +1847,8 @@ interface I18n {
     sanCheck: string;
     /** checkmate */
     sanCheckmate: string;
+    /** is dropped on */
+    sanDroppedOn: string;
     /** long castling */
     sanLongCastling: string;
     /** promotes to */

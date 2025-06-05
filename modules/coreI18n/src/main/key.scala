@@ -968,6 +968,10 @@ object I18nKey:
     val `sanPromotesTo`: I18nKey = "nvui:sanPromotesTo"
     val `sanShortCastling`: I18nKey = "nvui:sanShortCastling"
     val `sanLongCastling`: I18nKey = "nvui:sanLongCastling"
+    val `sanDroppedOn`: I18nKey = "nvui:sanDroppedOn"
+    val `invalidMove`: I18nKey = "nvui:invalidMove"
+    val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
+    val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
