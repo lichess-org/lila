@@ -1799,6 +1799,8 @@ interface I18n {
     inputForm: string;
     /** Type these commands in the command input form. */
     inputFormCommandList: string;
+    /** Invalid move */
+    invalidMove: string;
     /** king */
     king: string;
     /** knight */
@@ -1827,6 +1829,10 @@ interface I18n {
     pawns: string;
     /** Pieces */
     pieces: string;
+    /** Premove cancelled */
+    premoveCancelled: string;
+    /** Premove recorded: %s. Hit enter to cancel */
+    premoveRecorded: I18nFormat;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
     /** queen */

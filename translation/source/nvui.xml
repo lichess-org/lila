@@ -68,4 +68,7 @@
   <string name="sanPromotesTo" comment="= in standard notation">promotes to</string>
   <string name="sanShortCastling" comment="O-O in standard notation">short castling</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">long castling</string>
+  <string name="invalidMove">Invalid move</string>
+  <string name="premoveCancelled">Premove cancelled</string>
+  <string name="premoveRecorded">Premove recorded: %s. Hit enter to cancel</string>
 </resources>

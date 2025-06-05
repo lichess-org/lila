@@ -259,8 +259,8 @@ function createSubmitHandler(
       if (nvui.premoveInput !== '') {
         // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
         nvui.premoveInput = '';
-        notify('Cleared premove');
-      } else notify('Invalid move');
+        notify(i18n.nvui.premoveCancelled);
+      } else notify(i18n.nvui.invalidMove);
     }
 
     const input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
@@ -279,10 +279,10 @@ function createSubmitHandler(
       if (isOpponentsTurn) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
-        notify(`Will attempt to premove: ${input}. Enter to cancel`);
+        notify(i18n.nvui.premoveRecorded(input));
       } else if (isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
       else if (move) sendMove(move, ctrl, !!nvui.premoveInput);
-      else notify(`Invalid move: ${input}`);
+      else notify(`${i18n.nvui.invalidMove}: ${input}`);
     }
     $input.val('');
   };
