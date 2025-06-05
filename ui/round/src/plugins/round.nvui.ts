@@ -91,7 +91,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], noTrans(d.game.perf)]),
+        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], transGamePerf(d.game.perf)]),
         d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
         h('h2', i18n.nvui.moveList),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -452,7 +452,7 @@ function gameText(ctrl: RoundController) {
       : i18n.site.gameOver,
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
-    d.game.perf,
+    transGamePerf(d.game.perf),
     i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
@@ -480,3 +480,10 @@ function pageSetting(): Setting<PageStyle> {
     storage: storage.make('nvui.pageLayout'),
   });
 }
+
+function transGamePerf(perf: string): string {
+  if (perf === 'classical') return i18n.site.classical;
+  else if (perf === 'correspondence') return i18n.site.correspondence;
+  else return perf;
+}
+
