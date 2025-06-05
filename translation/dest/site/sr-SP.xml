@@ -357,6 +357,10 @@
   <string name="takebackPropositionSent">Враћање потеза послато</string>
   <string name="whiteDeclinesTakeback">Бели одбија враћање потеза</string>
   <string name="blackDeclinesTakeback">Црни одбија враћање потеза</string>
+  <string name="whiteAcceptsTakeback">Бели прихвата враћање потеза</string>
+  <string name="blackAcceptsTakeback">Црни прихвата враћање потеза</string>
+  <string name="whiteCancelsTakeback">Бели одустаје од враћања потеза</string>
+  <string name="blackCancelsTakeback">Црни одустаје од враћања потеза</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
@@ -499,6 +503,7 @@
   <string name="wins">Победе</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Направио/ла</string>
+  <string name="startingIn" comment="Displayed above a timer">Почиње за</string>
   <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>
   <string name="resume">Настаби</string>
@@ -759,6 +764,9 @@
   <string name="checkYourEmail">Проверите Ваш Имејл</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо Вам имејл. Кликните линк у имејлу да активирате свој налог.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите имејл, проверите друга места на којима може бити, као Ваш отпад, нежељена пошта, друштвене мреже или друге датотеке.</string>
+  <string name="ifYouDoNotGetTheEmail">Ако не добијете имејл у року од 5 минута:</string>
+  <string name="checkAllEmailFolders">Проверите смеће, спем и остале фолдере</string>
+  <string name="verifyYourAddress">Потврдите да је %s ваша имејл адреса</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо имејл на %s. Кликните линк у имејлу да промените своју лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом, слажеш се са %s.</string>
   <string name="readAboutOur">Прочитајте о нашем %s.</string>
