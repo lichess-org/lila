@@ -10,7 +10,12 @@ type Commands = {
   [name: string]: Command;
 };
 
-const i18n = { site: { none: 'None' } } as I18n;
+const i18n =
+  window?.i18n ||
+  ({
+    site: { none: 'None' },
+    nvui: { whiteKnight: 'white knight', whiteKing: 'white king', whiteQueen: 'white queen' },
+  } as I18n);
 
 export const commands: Commands = {
   piece: {

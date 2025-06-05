@@ -163,7 +163,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle, i18
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  return `${transPieceStr(role, color, keys.length)}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
+  return `${transPieceStr(role, color, keys.length, i18n)}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle, i18n: I18n): string {
@@ -172,7 +172,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
     .reduce<string[]>(
       (acc, [key, p]) =>
         key.includes(rankOrFile)
-          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color)}`)
+          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, 1, i18n)}`)
           : acc,
       [],
     );
@@ -224,7 +224,7 @@ export function renderBoard(
       const roleCh = roleToChar(piece.role);
       const pieceText =
         pieceStyle === 'name' || pieceStyle === 'white uppercase name'
-          ? transPieceStr(piece.role, piece.color)
+          ? transPieceStr(piece.role, piece.color, 1, i18n)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
@@ -544,7 +544,7 @@ const transRole = (role: Role | undefined, qty: number = 1): string => {
   else return '';
 };
 
-const transPieceStr = (role: Role, color: Color, qty: number = 1): string => {
+const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): string => {
   if (role === 'king') return color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
   else if (role === 'queen')
     return color === 'black'
@@ -570,7 +570,7 @@ const transPieceStr = (role: Role, color: Color, qty: number = 1): string => {
       : qty === 1
         ? i18n.nvui.whiteBishop
         : i18n.nvui.whiteBishops;
-  else if (role === 'knight')
+  else if (role === 'knight') {
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackKnight
@@ -578,7 +578,7 @@ const transPieceStr = (role: Role, color: Color, qty: number = 1): string => {
       : qty === 1
         ? i18n.nvui.whiteKnight
         : i18n.nvui.whiteKnights;
-  else
+  } else
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackPawn

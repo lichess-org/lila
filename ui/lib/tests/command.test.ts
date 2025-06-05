@@ -9,6 +9,8 @@ pieces.set('b1', { color: 'white', role: 'knight' });
 pieces.set('b2', { color: 'white', role: 'knight' });
 
 test('piece command', () => {
+  expect(commands.piece.apply('p Q', pieces, 'anna')).toBe('white queen: anna 2');
+  expect(commands.piece.apply('p K', pieces, 'san')).toBe('white king: a1');
   expect(commands.piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
   expect(commands.piece.apply('p N', pieces, 'nato')).toBe('white knight: bravo 1, bravo 2');
   expect(commands.piece.apply('p b', pieces, 'san')).toBe('black bishop: None');
