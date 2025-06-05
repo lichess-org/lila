@@ -76,8 +76,8 @@
   <string name="forceVariation">Промакни варијацију</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
-  <string name="variantLoss">Губитак из варијанте</string>
-  <string name="variantWin">Победа из варијанте</string>
+  <string name="variantLoss">Пораз варијанте</string>
+  <string name="variantWin">Победа варијанте</string>
   <string name="insufficientMaterial">Недовољно материјала</string>
   <string name="pawnMove">Потез пешаком</string>
   <string name="capture">Једење</string>
