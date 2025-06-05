@@ -486,4 +486,3 @@ function transGamePerf(perf: string): string {
   else if (perf === 'correspondence') return i18n.site.correspondence;
   else return perf;
 }
-
