@@ -80,11 +80,11 @@
   <string name="variantWin">Победа варијанте</string>
   <string name="insufficientMaterial">Недовољно материјала</string>
   <string name="pawnMove">Потез пешаком</string>
-  <string name="capture">Једење</string>
-  <string name="close">Затворите</string>
-  <string name="winning">Добија</string>
+  <string name="capture">Узимање</string>
+  <string name="close">Затвори</string>
+  <string name="winning">Побеђује</string>
   <string name="losing">Губи</string>
-  <string name="drawn">Реми</string>
+  <string name="drawn">Ремизован</string>
   <string name="unknown">Не зна се</string>
   <string name="database">База података</string>
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
   <string name="currentGames">Партије у току</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Придружио се %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Придружио/ла се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
@@ -359,8 +359,8 @@
   <string name="blackDeclinesTakeback">Црни одбија враћање потеза</string>
   <string name="whiteAcceptsTakeback">Бели прихвата враћање потеза</string>
   <string name="blackAcceptsTakeback">Црни прихвата враћање потеза</string>
-  <string name="whiteCancelsTakeback">Бели одустаје од враћања потеза</string>
-  <string name="blackCancelsTakeback">Црни одустаје од враћања потеза</string>
+  <string name="whiteCancelsTakeback">Бели отказује враћање потеза</string>
+  <string name="blackCancelsTakeback">Црни отказује враћање потеза</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
@@ -764,9 +764,9 @@
   <string name="checkYourEmail">Проверите Ваш Имејл</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо Вам имејл. Кликните линк у имејлу да активирате свој налог.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите имејл, проверите друга места на којима може бити, као Ваш отпад, нежељена пошта, друштвене мреже или друге датотеке.</string>
-  <string name="ifYouDoNotGetTheEmail">Ако не добијете имејл у року од 5 минута:</string>
-  <string name="checkAllEmailFolders">Проверите смеће, спем и остале фолдере</string>
-  <string name="verifyYourAddress">Потврдите да је %s ваша имејл адреса</string>
+  <string name="ifYouDoNotGetTheEmail">Ако не добијеш имејл у року од 5 минута:</string>
+  <string name="checkAllEmailFolders">Провери сав отпад, нежељену пошту и остале датотеке</string>
+  <string name="verifyYourAddress">Потврди да је %s твоја имејл адреса</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо имејл на %s. Кликните линк у имејлу да промените своју лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом, слажеш се са %s.</string>
   <string name="readAboutOur">Прочитајте о нашем %s.</string>
