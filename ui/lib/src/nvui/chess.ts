@@ -448,9 +448,9 @@ export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: Varia
   };
 }
 
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
-const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
-const dropRegex = /^(([qrnb])@([a-h][1-8])|p?@([a-h][2-7]))$/;
+const promotionRegex = /^([a-hA-H]x?)?[a-hA-H](1|8)=[kqnbrKQNBR]$/;
+const uciPromotionRegex = /^([a-hA-H][1-8])([a-hA-H](1|8))[kqnbrKQNBR]$/;
+const dropRegex = /^(([qrnbQRNB])@([a-hA-H][1-8])|[pP]?@([a-hA-H][2-7]))$/;
 export type DropMove = { role: Role; key: Key };
 
 export function inputToMove(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
@@ -463,7 +463,7 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
     promotion = '';
 
   const drop = cleaned.match(dropRegex);
-  if (drop) return { role: charToRole(cleaned[0]) || 'pawn', key: cleaned.split('@')[1].slice(0, 2) as Key };
+  if (drop) return { role: charToRole(cleaned[0]) || 'pawn', key: cleaned.split('@')[1].slice(0, 2).toLowerCase() as Key };
   if (cleaned.match(promotionRegex)) {
     uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
     promotion = cleaned.slice(-1).toLowerCase();
