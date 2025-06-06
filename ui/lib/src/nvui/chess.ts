@@ -463,7 +463,11 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
     promotion = '';
 
   const drop = cleaned.match(dropRegex);
-  if (drop) return { role: charToRole(cleaned[0]) || 'pawn', key: cleaned.split('@')[1].slice(0, 2).toLowerCase() as Key };
+  if (drop)
+    return {
+      role: charToRole(cleaned[0]) || 'pawn',
+      key: cleaned.split('@')[1].slice(0, 2).toLowerCase() as Key,
+    };
   if (cleaned.match(promotionRegex)) {
     uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
     promotion = cleaned.slice(-1).toLowerCase();
