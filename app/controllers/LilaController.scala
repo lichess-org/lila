@@ -133,10 +133,9 @@ abstract private[controllers] class LilaController(val env: Env)
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
-    AuthOrScopedBody(parse.anyContent, selectors*)(f)
+    AuthOrScopedBodyWithParser(parse.anyContent)(selectors*)(f)
 
-  def AuthOrScopedBody[A](
-      parser: BodyParser[A],
+  def AuthOrScopedBodyWithParser[A](parser: BodyParser[A])(
       selectors: OAuthScope.Selector*
   )(f: BodyContext[A] ?=> Me ?=> Fu[Result]): EssentialAction =
     action(parser): req ?=>
