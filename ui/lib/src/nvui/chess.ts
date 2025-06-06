@@ -537,17 +537,17 @@ const transSanToWords = (san: string): string =>
 
 const transRole = (role: Role | undefined, qty: number = 1): string => {
   if (role === 'king') return i18n.nvui.king;
-  else if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
-  else if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
-  else if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
-  else if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
-  else if (role === 'pawn') return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
-  else return '';
+  if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
+  if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
+  if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
+  if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
+  if (role === 'pawn') return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+  return '';
 };
 
 const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): string => {
   if (role === 'king') return color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
-  else if (role === 'queen')
+  if (role === 'queen')
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackQueen
@@ -555,7 +555,7 @@ const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): strin
       : qty === 1
         ? i18n.nvui.whiteQueen
         : i18n.nvui.whiteQueens;
-  else if (role === 'rook')
+  if (role === 'rook')
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackRook
@@ -563,7 +563,7 @@ const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): strin
       : qty === 1
         ? i18n.nvui.whiteRook
         : i18n.nvui.whiteRooks;
-  else if (role === 'bishop')
+  if (role === 'bishop')
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackBishop
@@ -571,7 +571,7 @@ const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): strin
       : qty === 1
         ? i18n.nvui.whiteBishop
         : i18n.nvui.whiteBishops;
-  else if (role === 'knight') {
+  if (role === 'knight')
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackKnight
@@ -579,7 +579,7 @@ const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): strin
       : qty === 1
         ? i18n.nvui.whiteKnight
         : i18n.nvui.whiteKnights;
-  } else
+  if (role === 'pawn')
     return color === 'black'
       ? qty === 1
         ? i18n.nvui.blackPawn
@@ -587,4 +587,5 @@ const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): strin
       : qty === 1
         ? i18n.nvui.whitePawn
         : i18n.nvui.whitePawns;
+  return '';
 };
