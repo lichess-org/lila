@@ -890,7 +890,7 @@
   <string name="learnFromYourMistakes">Învață din greșelile tale</string>
   <string name="learnFromThisMistake">Învață din greșeli</string>
   <string name="skipThisMove">Sari peste această mutare</string>
-  <string name="next">Următorea</string>
+  <string name="next">Următoarea</string>
   <string name="xWasPlayed">%s a fost mutat</string>
   <string name="findBetterMoveForWhite">Găsește o mutare mai bună pentru albe</string>
   <string name="findBetterMoveForBlack">Găsește o mutare mai bună pentru negre</string>
