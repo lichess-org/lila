@@ -348,20 +348,20 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'p',
-    help: commands.piece.help(i18n),
+    help: commands(i18n).piece.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Expected format: ${commands.piece.help}`,
+        commands(i18n).piece.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands(i18n).piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help(i18n),
+    help: commands(i18n).scan.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Expected format: ${commands.scan.help}`,
+        commands(i18n).scan.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands(i18n).scan.help}`,
       ),
   },
   {
