@@ -3,10 +3,10 @@
   <string name="logInAsUsername">Пријави се као %s</string>
   <string name="welcome">Добродошли!</string>
   <string name="welcomeToLichess">Добродошли на Lichess.org!</string>
-  <string name="thisIsYourProfilePage">Ово је страница са твојим профилом.</string>
+  <string name="thisIsYourProfilePage">Ово је твоја профилна страница.</string>
   <string name="enabledKidModeSuggestion">Да ли ће овај налог користити дете? Можда ћете желети да омогућите %s.</string>
   <string name="whatNowSuggestions">Шта даље? Ево неколико сугестија:</string>
-  <string name="learnChessRules">Научи шаховска правила</string>
+  <string name="learnChessRules">Научи правила шаха</string>
   <string name="improveWithChessTacticsPuzzles">Учи кроз шаховске тактичке проблеме.</string>
   <string name="playTheArtificialIntelligence">Играј против вештачке интелигенције.</string>
   <string name="playOpponentsFromAroundTheWorld">Играј против противника широм света.</string>
