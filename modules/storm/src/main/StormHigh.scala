@@ -44,7 +44,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private def compute(userId: UserId): Fu[StormHigh] =
     coll
-      .aggregateOne(): framework =>
+      .aggregateOne(_.sec): framework =>
         import framework.*
         def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id".$gte(sinceId(userId))))
         val scoreSort                                  = Sort(Descending("score"))
