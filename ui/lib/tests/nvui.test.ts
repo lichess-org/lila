@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { inputToMove } from '../src/nvui/chess';
 import { Chessground } from '@lichess-org/chessground';
 
-describe('test input moves', () => {
+describe('mixed case bishop or pawn takes', () => {
   test('case-sensitive captures', async () => {
     const fen = '7k/8/8/8/2p5/1P1B4/8/7K w - - 0 1';
     const cg = Chessground(document.createElement('div'), {
@@ -28,7 +28,7 @@ describe('test input moves', () => {
     expect(inputToMove('BxC4', fen, cg)).toBe('d3c4');
   });
 
-  test('case-sensitive promotions', async () => {
+  test('mixed case promotions', async () => {
     const fen = '8/2P4k/8/8/8/8/7K/8 w - - 0 1';
     const cg = Chessground(document.createElement('div'), {
       fen,
@@ -48,7 +48,7 @@ describe('test input moves', () => {
     expect(inputToMove('c7c8B', fen, cg)).toBe('c7c8b');
   });
 
-  test('case-sensitive drops', async () => {
+  test('mixed case crazyhouse drops', async () => {
     const fen = '8/2P4k/8/8/8/8/7K/8[] b - - 0 1';
     const cg = Chessground(document.createElement('div'), {
       fen,
