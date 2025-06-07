@@ -10,5 +10,22 @@
   <string name="actions">Acțiuni</string>
   <string name="yourClock">Ceasul tău</string>
   <string name="opponentClock">Ceas oponent</string>
+  <string name="gameStart">Început de joc</string>
+  <string name="boardCommandList">Lista de comenzi atunci când tabla este în focus</string>
   <string name="inputFormCommandList">Tastează aceste comenzi în formularul de introducere a comenzii.</string>
+  <string name="goToInputForm">Mergeți la formularul de introducere a comenzii.</string>
+  <string name="announceCurrentSquare">Anunță pătratul curent.</string>
+  <string name="announceLastMove">Anunță ultima mutare.</string>
+  <string name="announceLastMoveCapture">Anunță piesa capturată la ultima mutare.</string>
+  <string name="announcePossibleMoves">Anunță mișcările posibile pentru piesa selectată.</string>
+  <string name="announcePossibleCaptures">Anunță capturile posibile cu piesa selectată.</string>
+  <string name="moveWithArrows">Mută în pătratul adiacent la stânga, la dreapta, în sus sau în jos.</string>
+  <string name="moveToPieceByType">Mută folosind numele pieselor. De exemplu: k repetat va muta în fiecare pătrat unde este un cal. Folosește majuscule pentru a inversa ordinea.</string>
+  <string name="moveToRank">Mută în liniile 1 până la 8.</string>
+  <string name="moveToFile">Mutați în coloanele a până la h.</string>
+  <string name="announcePieceLocations">Anunță pozițiile pieselor. Exemplu: p N majusculă pentru cavaleri albi, p k literă mică pentru regele negru.</string>
+  <string name="announcePiecesOnRankOrFile">Anunță piese pe o linie sau o coloana. Exemplu: s a, s 1.</string>
+  <string name="goToBoard">Mergeți la tablă. Pătratul implicit este e-4. Puteți specifica un pătrat: board a-1 sau b a-1 vă va duce la pătrat a-1.</string>
+  <string name="movePiece">Pentru a muta o piesă, folosiți notația algebrică standard.</string>
+  <string name="promotion">Pentru a promova la orice altceva decât o regină, folosiți equals. De exemplu, a-8-equals-n promovează la un cal.</string>
 </resources>
