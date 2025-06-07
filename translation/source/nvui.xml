@@ -29,8 +29,11 @@
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
   <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string> 
   <string name="king">king</string>
+  <string name="kings">kings</string>
   <string name="whiteKing">white king</string>
+  <string name="whiteKings">white kings</string>
   <string name="blackKing">black king</string>
+  <string name="blackKings">black kings</string>
   <string name="queen">queen</string>
   <string name="queens">queens</string>
   <string name="whiteQueen">white queen</string>

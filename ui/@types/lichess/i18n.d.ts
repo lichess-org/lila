@@ -1765,6 +1765,8 @@ interface I18n {
     blackBishops: string;
     /** black king */
     blackKing: string;
+    /** black kings */
+    blackKings: string;
     /** black knight */
     blackKnight: string;
     /** black knights */
@@ -1803,6 +1805,8 @@ interface I18n {
     invalidMove: string;
     /** king */
     king: string;
+    /** kings */
+    kings: string;
     /** knight */
     knight: string;
     /** knights */
@@ -1865,6 +1869,8 @@ interface I18n {
     whiteBishops: string;
     /** white king */
     whiteKing: string;
+    /** white kings */
+    whiteKings: string;
     /** white knight */
     whiteKnight: string;
     /** white knights */

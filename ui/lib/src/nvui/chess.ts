@@ -541,7 +541,7 @@ const transSanToWords = (san: string): string =>
     .replace('O - O', i18n.nvui.sanShortCastling);
 
 const transRole = (role: Role | undefined, qty: number = 1): string => {
-  if (role === 'king') return i18n.nvui.king;
+  if (role === 'king') return qty === 1 ? i18n.nvui.king : i18n.nvui.kings;
   if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
   if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
   if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
@@ -551,7 +551,14 @@ const transRole = (role: Role | undefined, qty: number = 1): string => {
 };
 
 const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): string => {
-  if (role === 'king') return color === 'black' ? i18n.nvui.blackKing : i18n.nvui.whiteKing;
+  if (role === 'king')
+    return color === 'black'
+      ? qty === 1
+        ? i18n.nvui.blackKing
+        : i18n.nvui.blackKings
+      : qty === 1
+        ? i18n.nvui.whiteKing
+        : i18n.nvui.whiteKings;
   if (role === 'queen')
     return color === 'black'
       ? qty === 1
