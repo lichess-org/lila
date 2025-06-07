@@ -448,8 +448,8 @@ export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: Varia
   };
 }
 
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[qnbr]$/;
-const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qnbr]$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
+const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
 const dropRegex = /^(([qrnb])@([a-h][1-8])|p?@([a-h][2-7]))$/;
 export type DropMove = { role: Role; key: Key };
 
