@@ -58,6 +58,8 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
+import { nvuiRetroView } from '@/retrospect/retroView';
+
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
@@ -158,6 +160,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          h('div', nvuiRetroView(ctrl)),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -360,7 +363,8 @@ function onSubmit(
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+
+type Command = 'p' | 's' | 'eval' | 'learn' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -391,6 +395,11 @@ const inputCommands: InputCommand[] = [
     cmd: 'eval',
     help: noTrans("announce last move's computer evaluation"),
     cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
+  },
+  {
+    cmd: 'learn',
+    help: noTrans('Learn from your mistakes'),
+    cb: (ctrl, notify) => notify(renderLFYM(ctrl)!)
   },
   {
     cmd: 'best',
@@ -484,6 +493,15 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
     );
   });
   return res;
+}
+
+function renderLFYM(ctrl: AnalyseController): string | undefined {
+  if(!ctrl.retro) {
+    ctrl.toggleRetro()
+  }
+  console.log(ctrl);
+
+  return nvuiRetroView(ctrl);
 }
 
 const requestAnalysisButton = (

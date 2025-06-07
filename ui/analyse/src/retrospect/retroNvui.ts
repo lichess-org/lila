@@ -8,13 +8,13 @@ import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
-    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw), "role": "button"  }, i18n.site.viewTheSolution),
+    h('a', { hook: bind('click', ctrl.skip), "role": "button" }, i18n.site.skipThisMove),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
-  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext), attrs: {"role": "button"} }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.site.next,
   ]);
@@ -67,9 +67,7 @@ const feedback = {
         h('div.icon.off', '!'),
         h('div.instruction', [
           h('strong', i18n.site.youBrowsedAway),
-          h('div.choices.off', [
-            h('a', { hook: bind('click', ctrl.jumpToNext), role: 'button' }, i18n.site.resumeLearning),
-          ]),
+          h('div.choices.off', [h('a', { hook: bind('click', ctrl.jumpToNext), "role": "button" }, i18n.site.resumeLearning)]),
         ]),
       ]),
     ];
@@ -79,7 +77,8 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
+          h('strong',
+            { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
           h('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
@@ -90,10 +89,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [
-          h('div.icon', '✓'),
-          h('div.instruction', h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove)),
-        ]),
+        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove))]),
       ),
       jumpToNext(ctrl),
     ];
@@ -192,32 +188,9 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return;
+  if (!ctrl) return h('div.retro-box.training-box.sub-box', [h("span", "root does not have a retro.")])
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
-  return h('div.retro-box.training-box.sub-box', [
-    h('div.title', [
-      h('span', i18n.site.learnFromYourMistakes),
-      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      h('button.fbt', {
-        hook: bind('click', root.toggleRetro, root.redraw),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
-      }),
-    ]),
-    h('div.feedback.' + fb, renderFeedback(root, fb)),
-  ]);
-}
-
-export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
-  console.log('root: ', root);
-  console.log('root.retro: ', root.retro);
-  const ctrl = root.retro;
-  if (!ctrl) return;
-
-  const fb = ctrl.feedback(),
-  completion = ctrl.completion();
-
-
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
       h('span', i18n.site.learnFromYourMistakes),
