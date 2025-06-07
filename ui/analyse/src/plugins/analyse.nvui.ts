@@ -160,7 +160,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
-          h('div', nvuiRetroView(ctrl)),
+          h('div', { attrs: { } }, nvuiRetroView(ctrl)),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -337,6 +337,15 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
+function renderLFYM(ctrl: AnalyseController): VNode | undefined {
+  if(!ctrl.retro) {
+    ctrl.toggleRetro()
+  }
+  console.log("function renderLFYM(${ctrl}: AnalyseController): VNode | undefined")
+
+  return h("h2", "retro started");
+}
+
 function onSubmit(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
@@ -495,14 +504,6 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   return res;
 }
 
-function renderLFYM(ctrl: AnalyseController): VNode | undefined {
-  if(!ctrl.retro) {
-    ctrl.toggleRetro()
-  }
-  console.log("function renderLFYM(${ctrl}: AnalyseController): VNode | undefined")
-
-  return nvuiRetroView(ctrl);
-}
 
 const requestAnalysisButton = (
   ctrl: AnalyseController,

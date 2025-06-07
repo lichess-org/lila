@@ -218,10 +218,8 @@ export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
       return;
   }
 
-
   const fb = ctrl.feedback(),
   completion = ctrl.completion();
-
 
   const node = h('div.retro-box.training-box.sub-box', [
     h('div.title', [
