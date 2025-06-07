@@ -458,8 +458,8 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
   if (!dests) return;
   const legalUcis = destsToUcis(dests),
     legalSans = sanWriter(fen, legalUcis),
-    cleanedMixedCase = input.replace(/\+|#/g, '');
-  // initialize uci from mixed case input because we need to differentiate bxc3 and Bxc3
+    cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
+  // initialize uci preserving first char of input because we need to differentiate bxc3 and Bxc3
   let uci = (sanToUci(cleanedMixedCase, legalSans) || cleanedMixedCase).toLowerCase(),
     promotion = '';
 
