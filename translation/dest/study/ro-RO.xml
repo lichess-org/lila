@@ -53,13 +53,13 @@
   <string name="onlyContributorsCanRequestAnalysis">Numai contribuitorii studiului pot solicita o analiză a computerului.</string>
   <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Toți membri sincronizați rămân la aceeași poziție</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Toți membrii sincronizați rămân la aceeași poziție</string>
   <string name="shareChanges">Împărtășește modificările cu spectatorii și salvează-le pe server</string>
   <string name="playing">În desfășurare</string>
   <string name="showResults">Rezultate</string>
   <string name="showEvalBar">Bară de evaluare</string>
   <string name="next">Următoarea</string>
-  <string name="shareAndExport">Împărtășește &amp; exportă</string>
+  <string name="shareAndExport">Împărtășește și exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
@@ -98,16 +98,16 @@
   <string name="startFromInitialPosition">Începeți de la poziția inițială</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Începeți de la o poziție personalizată</string>
-  <string name="loadAGameByUrl">Încărcați meciul din URL</string>
+  <string name="loadAGameByUrl">Încărcați meciuri din URL-uri</string>
   <string name="loadAPositionFromFen">Încărcați o poziție din FEN</string>
-  <string name="loadAGameFromPgn">Încărcați un joc din PGN</string>
+  <string name="loadAGameFromPgn">Încărcați jocuri din PGN</string>
   <string name="automatic">Automată</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
-    <item quantity="few">Lipiți textul PGN aici, până la %s meciuri</item>
-    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri</item>
+    <item quantity="few">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
+    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
   </plurals>
-  <string name="urlOfTheGame">URL-ul jocului</string>
+  <string name="urlOfTheGame">URL-urile jocurilor, câte unul pe linie</string>
   <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s sau %2$s</string>
   <string name="createChapter">Creați capitolul</string>
   <string name="createStudy">Creați studiul</string>
@@ -169,6 +169,37 @@
   <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
   <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pe pagină</string>
+  <string name="getTheTour">Ai nevoie de ajutor? Urmează turul!</string>
+  <string name="welcomeToLichessStudyTitle">Bine ai venit în Studiile Lichess!</string>
+  <string name="welcomeToLichessStudyText">Aceasta este tabla de analiză comună.&lt;br&gt;&lt;br&gt; Folosește-o pentru analiza si adnotarea jocurilor, &lt;br&gt;discuții pe poziții cu prieteni&lt;br&gt; si desigur pentru lecții de șah.&lt;br&gt;&lt;br&gt; Este o unealtă puternică, hai să vedem cum funcționează.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Distribuit și salvat</string>
+  <string name="sharedAndSavedText">Alţi membri vă pot vedea mutările în timp real!&lt;br&gt;Plus, totul este salvat pentru totdeauna.</string>
+  <string name="studyMembersTitle">Membrii studiului</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectatori pot vedea studiul și pot vorbi în chat.&lt;br&gt;&lt;br&gt;%2$s Contribuitori pot face mutări și actualiza studiul.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Click pe butonul %s.&lt;br&gt;Apoi decide cine poate contribui sau nu.</string>
+  <string name="studyChaptersTitle">Capitole de studiu</string>
+  <string name="studyChaptersText">Un studiu poate conţine mai multe capitole.&lt;br&gt;Fiecare capitol are o poziţie iniţială distinctă şi arbore de mutări.</string>
+  <string name="commentPositionTitle">Comentariu la o poziţie</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Clic pe butonul %s, sau clic dreapta pe lista de mutări din dreapta.&lt;br&gt;Comentariile sunt comune şi salvate.</string>
+  <string name="annotatePositionTitle">Adnotează o poziție</string>
+  <string name="annotatePositionText">Clic pe butonul !? sau clic dreapta pe lista de mutări din dreapta.&lt;br&gt; Simbolurile sunt comune și salvate.</string>
+  <string name="conclusionTitle">Mulțumim pentru timpul tău</string>
+  <string name="conclusionText">Poți găsi studiile tale &lt;a href=\'/study/mine/hot\'&gt;anterioare&lt;/a&gt; din pagina ta de profil.&lt;br&gt;Există, de asemenea, un blog &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;despre studii&lt;/a&gt;.&lt;br&gt;Utilizatorii avansați ar putea dori să apese \"?\" pentru a vedea scurtături de taste.&lt;br&gt;Distracție plăcută!</string>
+  <string name="createChapterTitle">Să creăm un capitol de studiu</string>
+  <string name="createChapterText">Un studiu poate avea mai multe capitole.&lt;br&gt;Fiecare capitol are un arbore de mutări distinct,&lt;br&gt;și poate fi creat în diferite moduri.</string>
+  <string name="fromInitialPositionTitle">Din poziţia iniţială</string>
+  <string name="fromInitialPositionText">Doar aranjarea tablei pentru un joc nou.&lt;br&gt;Potrivită pentru a explora deschideri.</string>
+  <string name="customPositionTitle">Poziție personalizată</string>
+  <string name="customPositionText">Aranjați tabla cum vreți.&lt;br&gt;Potrivită pentru explorarea finalurilor de joc.</string>
+  <string name="loadExistingLichessGameTitle">Încarcă un joc existent din Lichess</string>
+  <string name="loadExistingLichessGameText">Lipește un URL pentru joc din Lichess&lt;br&gt;(de exemplu lichess.org/7fHIU0XI)&lt;br&gt;pentru a încărca mutările jocului în capitol.</string>
+  <string name="fromFenStringTitle">Dintr-un text FEN</string>
+  <string name="fromFenStringText">Lipiți o poziție în formatul FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;pentru a începe capitolul dintr-o poziție anume.</string>
+  <string name="fromPgnGameTitle">Dintr-un PGN de joc(uri)</string>
+  <string name="fromPgnGameText">Lipiți un joc în format PGN.&lt;br&gt;pentru a încărca mutări, comentarii și variații în capitol.</string>
+  <string name="variantsAreSupportedTitle">Studiile suportă variante de șah</string>
+  <string name="variantsAreSupportedText">Da, poți studia Crazyhouse&lt;br&gt;și toate variantele de șah de pe Lichess!</string>
+  <string name="chapterConclusionText">Capitolele sunt salvate pentru totdeauna.&lt;br&gt;Distracție plăcută organizând conținutul tău de șah!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Înfrângere dublă</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Negrul pierde, dar Albul nu poate câștiga</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Albul pierde, dar Negrul nu poate câștiga</string>
