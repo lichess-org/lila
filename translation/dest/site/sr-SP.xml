@@ -59,14 +59,14 @@
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
   <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
-  <string name="usingServerAnalysis">Анализа помоћу сервера</string>
+  <string name="usingServerAnalysis">Користи се серверска анализа</string>
   <string name="loadingEngine">Рачунар се учитава...</string>
   <string name="calculatingMoves">Израчунавам потезе...</string>
   <string name="engineFailed">Грешка при учитавању машине</string>
   <string name="cloudAnalysis">Анализа у облаку</string>
   <string name="goDeeper">Иди дубље</string>
-  <string name="showThreat">Прикажи претњу</string>
-  <string name="inLocalBrowser">у локалном прегледачу</string>
+  <string name="showThreat">Покажи претњу</string>
+  <string name="inLocalBrowser">у локалном претраживачу</string>
   <string name="toggleLocalEvaluation">Укључи/искључи локалну процену</string>
   <string name="promoteVariation">Промовишите варијацију</string>
   <string name="makeMainLine">Направи као главну линију</string>
@@ -76,16 +76,16 @@
   <string name="forceVariation">Промакни варијацију</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
-  <string name="variantLoss">Губитак из варијанте</string>
-  <string name="variantWin">Победа из варијанте</string>
+  <string name="variantLoss">Пораз варијанте</string>
+  <string name="variantWin">Победа варијанте</string>
   <string name="insufficientMaterial">Недовољно материјала</string>
   <string name="pawnMove">Потез пешаком</string>
-  <string name="capture">Једење</string>
-  <string name="close">Затворите</string>
-  <string name="winning">Добија</string>
+  <string name="capture">Узимање</string>
+  <string name="close">Затвори</string>
+  <string name="winning">Побеђује</string>
   <string name="losing">Губи</string>
-  <string name="drawn">Реми</string>
-  <string name="unknown">Не зна се</string>
+  <string name="drawn">Ремизован</string>
+  <string name="unknown">Непознато</string>
   <string name="database">База података</string>
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
   <string name="averageRatingX">Просечан рејтинг: %s</string>
@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
   <string name="currentGames">Партије у току</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Придружио/ла се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
@@ -351,7 +352,15 @@
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
+  <string name="whiteProposesTakeback">Бели предлаже враћање потеза</string>
+  <string name="blackProposesTakeback">Црни предлаже враћање потеза</string>
   <string name="takebackPropositionSent">Враћање потеза послато</string>
+  <string name="whiteDeclinesTakeback">Бели одбија враћање потеза</string>
+  <string name="blackDeclinesTakeback">Црни одбија враћање потеза</string>
+  <string name="whiteAcceptsTakeback">Бели прихвата враћање потеза</string>
+  <string name="blackAcceptsTakeback">Црни прихвата враћање потеза</string>
+  <string name="whiteCancelsTakeback">Бели отказује враћање потеза</string>
+  <string name="blackCancelsTakeback">Црни отказује враћање потеза</string>
   <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
@@ -494,6 +503,7 @@
   <string name="wins">Победе</string>
   <string name="losses">Порази</string>
   <string name="createdBy">Направио/ла</string>
+  <string name="startingIn" comment="Displayed above a timer">Почиње за</string>
   <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>
   <string name="resume">Настаби</string>
@@ -754,6 +764,9 @@
   <string name="checkYourEmail">Проверите Ваш Имејл</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо Вам имејл. Кликните линк у имејлу да активирате свој налог.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите имејл, проверите друга места на којима може бити, као Ваш отпад, нежељена пошта, друштвене мреже или друге датотеке.</string>
+  <string name="ifYouDoNotGetTheEmail">Ако не добијеш имејл у року од 5 минута:</string>
+  <string name="checkAllEmailFolders">Провери сав отпад, нежељену пошту и остале датотеке</string>
+  <string name="verifyYourAddress">Потврди да је %s твоја имејл адреса</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо имејл на %s. Кликните линк у имејлу да промените своју лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом, слажеш се са %s.</string>
   <string name="readAboutOur">Прочитајте о нашем %s.</string>

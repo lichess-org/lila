@@ -418,7 +418,7 @@
   <string name="continueFromHere">இங்கிருந்து தொடர்க</string>
   <string name="toStudy">கற்கை</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
-  <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு உரையாடல், மற்றும் பகிறக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
+  <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு உரையாடல், மற்றும் பகிரக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
   <string name="importGameCaveat">மாறுபடு வரிகள் அழிக்கப்படும். அவற்றை வைத்திருக்க, ஆய்வுமூலம் PGN ஐ இறக்குமதி செய்யவும்.</string>
   <string name="importGameDataPrivacyWarning">இந்த PGN-ஐ பொதுமக்கள் அணுகலாம். தனிப்பட்ட முறையில் விளையாட்டை இறக்குமதி செய்ய, ஒரு ஆய்வைப் பயன்படுத்தவும்.</string>
   <plurals name="nbImportedGames">
@@ -896,7 +896,7 @@
   <string name="searchOrStartNewDiscussion">தேடவும் அல்லது புதிய உரையாடலைத் தொடங்கவும்</string>
   <string name="edit">திருத்துதல்</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">தெறிக்கை</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">சடுதி</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">மின்னல்</string>
   <string name="rapid">துரிதம்</string>
   <string name="classical">செவ்வியல்</string>
   <string name="ultraBulletDesc">அதிவேகமான ஆட்டங்கள்: 30 வினாடிகளுக்கும் குறைவானது</string>

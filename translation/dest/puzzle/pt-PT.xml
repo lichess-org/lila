@@ -78,7 +78,7 @@
   <string name="fromMyGamesNone">Não tens problemas na base de dados, mas Lichess adora-te muito.
 
 Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de teres um problema adicionado!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Um problema encontrado nos jogos de %2$s</item>
     <item quantity="other">%1$s problemas encontrados no jogos de %2$s</item>
   </plurals>

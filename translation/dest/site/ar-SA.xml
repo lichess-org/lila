@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">اللعب مع الحاسوب</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
-  <string name="waitingForOpponent">في إنتظار المنافس</string>
+  <string name="waitingForOpponent">في إنتظار الخصم</string>
   <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
@@ -13,37 +13,38 @@
   <string name="strength">القوة</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">كش مات</string>
-  <string name="stalemate">مات مخنوق</string>
-  <string name="white">أبيض</string>
+  <string name="stalemate">الملك مخنوق</string>
+  <string name="white">الأبيض</string>
   <string name="black">أسود</string>
   <string name="asWhite">بالأبيض</string>
   <string name="asBlack">الأسود</string>
   <string name="randomColor">لون عشوائي</string>
   <string name="createAGame">إنشاء مباراة</string>
+  <string name="createTheGame">أنشئ المباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="youPlayTheWhitePieces">أنت تلعب بالقطع البيضاء</string>
   <string name="youPlayTheBlackPieces">أنت تلعب بالقطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
-  <string name="cheatDetected">تحديد حالة غِشّ</string>
+  <string name="cheatDetected">تم إكتشاف غشّ</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية خاصة</string>
   <string name="newOpponent">خصم جديد</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">يريد متحديك أن يلعب مباراة جديدة معك</string>
-  <string name="joinTheGame">انضم إلى المباراة</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">يريد خصمك أن يلعب مباراة جديدة معك</string>
+  <string name="joinTheGame">اقبل اللعبة</string>
   <string name="whitePlays">دور الأبيض</string>
   <string name="blackPlays">دور الأسود</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="zero">انسحب خصمك من المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
-    <item quantity="one">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانية.</item>
-    <item quantity="two">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانيتين.</item>
-    <item quantity="few">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
-    <item quantity="many">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
-    <item quantity="other">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
+    <item quantity="zero">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="one">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="two">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="few">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="many">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="other">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
   </plurals>
   <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
   <string name="forceResignation">إعلن فوزك</string>
@@ -78,6 +79,7 @@
   <string name="expandVariations">وسع التفريع</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
+  <string name="copyMainLinePgn">نسخ التفريع الرئيسي PGN</string>
   <string name="move">التقلة</string>
   <string name="variantLoss">خسارة بطريقة خاصة</string>
   <string name="variantWin">فوز بطريقة خاصة</string>
@@ -188,6 +190,7 @@
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="claimADraw">إعلان التعادل</string>
+  <string name="drawClaimed">تم أخذ التعادل</string>
   <string name="offerDraw">عرض التعادل</string>
   <string name="draw">تعادل</string>
   <plurals name="nbPlayers">
@@ -201,6 +204,7 @@
   <string name="drawByMutualAgreement">التعادل بالاتفاق المتبادل</string>
   <string name="fiftyMovesWithoutProgress">خمسون حركة بدون أي تقدم</string>
   <string name="currentGames">المباريات الحالية</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">منضم من %s</string>
   <plurals name="nbGames">
     <item quantity="zero">%s مباراة</item>
     <item quantity="one">%s مباراة</item>
@@ -443,7 +447,15 @@
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
+  <string name="whiteProposesTakeback">الأبيض يطلب الاسترجاع</string>
+  <string name="blackProposesTakeback">الأسود يطلب الاسترجاع</string>
   <string name="takebackPropositionSent">أُرسل مقترح التراجع</string>
+  <string name="whiteDeclinesTakeback">الأبيض يرفض الاسترجاع</string>
+  <string name="blackDeclinesTakeback">الأسود يرفض الاسترجاع</string>
+  <string name="whiteAcceptsTakeback">الأبيض يقبل الاسترجاع</string>
+  <string name="blackAcceptsTakeback">الأسود يقبل الاسترجاع</string>
+  <string name="whiteCancelsTakeback">الأبيض يلغي الاسترجاع</string>
+  <string name="blackCancelsTakeback">الأسود يلغي الاسترجاع</string>
   <string name="yourOpponentProposesATakeback">خصمك يطلب تراجعا عن النقلة الأخيرة</string>
   <string name="bookmarkThisGame">أضف هذه المباراة للمفضلة</string>
   <string name="tournament">مسابقة</string>
@@ -626,6 +638,7 @@
   <string name="wins">الفوز</string>
   <string name="losses">الخسارة</string>
   <string name="createdBy">أنشأها</string>
+  <string name="startingIn" comment="Displayed above a timer">تبدأ بعد</string>
   <string name="standByX">تأهب يا %s، جارٍ مزاوجة اللاعبين، استعد!</string>
   <string name="pause">الإيقاف المؤقت</string>
   <string name="resume">استئناف</string>
@@ -829,6 +842,7 @@ https://lichess. org/report.</string>
   <string name="really">حقاً</string>
   <string name="contribute">ساهم</string>
   <string name="termsOfService">شروط الخدمة</string>
+  <string name="titleVerification">التحقق من اللقب</string>
   <string name="sourceCode">الكود المصدر</string>
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
@@ -904,6 +918,9 @@ https://lichess. org/report.</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
+  <string name="ifYouDoNotGetTheEmail">إذا لم تحصل على البريد الإلكتروني في غضون 5 دقائق:</string>
+  <string name="checkAllEmailFolders">التحقق من مجلد المهملات, مجلد الرسائل الغير المرغوب فيها, وغيرها</string>
+  <string name="verifyYourAddress">إثبت أن %s هو بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
   <string name="readAboutOur">اقرأ عن %s.</string>
@@ -912,6 +929,7 @@ https://lichess. org/report.</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
   <string name="downloadRaw">تحميل بدون الشرح</string>
   <string name="downloadImported">تحميل المستورد</string>
+  <string name="downloadAllGames">حمِل كل المباريات</string>
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">مرر فوق المتغييرات لاستعراضها.</string>
@@ -935,6 +953,7 @@ https://lichess. org/report.</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
   <string name="viewTheSolution">الحل</string>
+  <string name="noChallenges">لا توجد تحديات.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">متاح ب %s لغات!</item>
     <item quantity="one">متاح ب %s لغات!</item>
@@ -951,6 +970,7 @@ https://lichess. org/report.</string>
   <string name="anonymous">مجهول</string>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
+  <string name="allLanguages">كل اللغات</string>
   <string name="background">الخلفية</string>
   <string name="light">فاتح</string>
   <string name="dark">داكن</string>
@@ -1149,6 +1169,7 @@ https://lichess. org/report.</string>
   <string name="focusChat">تركيز</string>
   <string name="showHelpDialog">إظهار رسالة المساعدة هذه</string>
   <string name="reopenYourAccount">اعادة فتح حسابك</string>
+  <string name="reopenYourAccountDescription">إذا كنت قد أغلقت حسابك، و أبدلت رأيك، لديك فرصة لاستعادة حسابك مرة أخرى.</string>
   <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
   <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
   <string name="tournamentEntryCode">رمز دخول البطولة</string>
@@ -1169,4 +1190,7 @@ https://lichess. org/report.</string>
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
   <string name="stats">الإحصائيات</string>
+  <string name="accessibility">إمكانية الوصول</string>
+  <string name="enableBlindMode">تفعيل الوضع الأعمى</string>
+  <string name="disableBlindMode">تعطيل الوضع الأعمى</string>
 </resources>

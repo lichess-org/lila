@@ -160,11 +160,11 @@
   <string name="playAgain">もう一度プレイ</string>
   <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
   <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
-  <string name="perPage">%s 件/ページ</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s 件/ページ</string>
   <string name="getTheTour">お困りですか？　ツアーへどうぞ！</string>
   <string name="welcomeToLichessStudyTitle">Lichess 「研究」機能にようこそ！</string>
   <string name="welcomeToLichessStudyText">これは共有される検討用のボードです。&lt;br&gt;&lt;br&gt;棋譜の検討や注釈、&lt;br&gt;友達との相談、&lt;br&gt;レッスンなどに使えます。&lt;br&gt;&lt;br&gt;とても便利なツールなので、ちょっと仕組みを見てみましょう。</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">共有と保存</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">共有と保存</string>
   <string name="sharedAndSavedText">他のメンバーはあなたの手をリアルタイムで見ることができ、&lt;br&gt;変更はすべて永久に保存されます。</string>
   <string name="studyMembersTitle">研究のメンバー</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s 観戦者は研究を見てチャットで会話できます。&lt;br&gt;&lt;br&gt;%2$s 参加者は駒を動かし、研究に変更を加えられます。</string>

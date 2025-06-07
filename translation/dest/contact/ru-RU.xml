@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Обратная связь</string>
-  <string name="contactLichess">Контакты Lichess</string>
+  <string name="contactLichess">Связаться с Lichess</string>
   <string name="whatCanWeHelpYouWith">Чем мы можем вам помочь?</string>
   <string name="visitThisPage">Посетите эту страницу для решения проблемы</string>
   <string name="iCantLogIn">Не могу войти</string>

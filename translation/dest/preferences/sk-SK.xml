@@ -68,5 +68,5 @@
   <string name="notifyWeb">Prehliadač</string>
   <string name="notifyDevice">Zariadenie</string>
   <string name="bellNotificationSound">Zvuk upozornenia</string>
-  <string name="blindfold" comment="As in Blindfold chess">Naslepo</string>
+  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Naslepo</string>
 </resources>

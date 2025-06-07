@@ -67,8 +67,8 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="whichTeamWillYouRepresentInThisBattle">Zein talderen izenean jokatuko duzu?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Parte hartzeko talde hauetako baten kide izan behar zara!</string>
   <string name="created">Sortuta</string>
-  <string name="recentlyPlayed">Azkenaldian jokatuta</string>
-  <string name="bestResults">Emaitza onenak</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Azkenaldian jokatuta</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Emaitza onenak</string>
   <string name="tournamentStats">Txapelketaren estatistikak</string>
   <string name="rankAvgHelp">Sailkapenaren bataz bestekoa zure puntuazioaren ehuneko bat da. Baxuagoa hobe da.
 

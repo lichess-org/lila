@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">پیاده پیش رفته</string>
-  <string name="advancedPawnDescription">یکی از پیاده‌های‌تان به اردوگاه حریف پیش‌رویده، شاید تهدید به ارتقا کند.</string>
+  <string name="advancedPawnDescription">یکی از پیاده‌های‌تان به اردوگاه حریف پیش رفته، شاید تهدید به ارتقا دارد.</string>
   <string name="advantage">برتری</string>
   <string name="advantageDescription">از بخت‌تان برای رسیدن به برتری قطعی بهره برید. (۲۰۰ص‌پ ≤ ارزیابی ≤ ۶۰۰ص‌پ)</string>
   <string name="anastasiaMate">مات آناستازیا</string>

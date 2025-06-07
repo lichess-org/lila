@@ -354,6 +354,10 @@
   <string name="whiteProposesTakeback">Il Bianco chiede di cambiare mossa</string>
   <string name="blackProposesTakeback">Il Nero chiede di cambiare mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
+  <string name="whiteDeclinesTakeback">Il Bianco declina la ripetizione della mossa</string>
+  <string name="blackDeclinesTakeback">Il Nero declina la ripetizione della mossa</string>
+  <string name="whiteAcceptsTakeback">Il Bianco accetta la ripetizione della mossa</string>
+  <string name="blackAcceptsTakeback">Il Nero accetta la ripetizione della mossa</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>

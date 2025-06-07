@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="twitchUsername">Din Twitch-Benutzername oder d\'URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Es brucht Twitch oder Youtube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Änderige uf Twitch und YouTube müend überprüeft werde.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Änderige uf Twitch und YouTube müend überprüeft werde.
 
 Din Streamer-Badge und dini Uflischtig werded usgsetzt, so lang die Überprüefig lauft. Das chann bis zu 72 Stunde gah!</string>
   <string name="youTubeChannelId">Dini YouTube-Kanal-ID</string>

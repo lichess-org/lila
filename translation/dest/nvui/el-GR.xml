@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Λίστα κινήσεων</string>
+  <string name="gameInfo">Πληροφορίες παιχνιδιού</string>
+  <string name="pieces">Κομμάτια</string>
+  <string name="gameStatus">Κατάσταση παιχνιδιού</string>
+  <string name="lastMove">Τελευταία κίνηση</string>
+  <string name="yourClock">Ο χρόνος σας</string>
+  <string name="opponentClock">Ο χρόνος του αντιπάλου</string>
+  <string name="gameStart">Έναρξη παιχνιδιού</string>
+</resources>

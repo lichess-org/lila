@@ -69,8 +69,8 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
   <string name="whichTeamWillYouRepresentInThisBattle">Welles Team vertrittsch du, i dere Schlacht?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Zum Mitschpille, muesch du dich eim vu dene Teams aschlüsse!</string>
   <string name="created">Erschtellt</string>
-  <string name="recentlyPlayed">Chürzlich gschpillt</string>
-  <string name="bestResults">Die beschte Resultat</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Chürzlich gschpillt</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Die beschte Resultat</string>
   <string name="tournamentStats">Turnier - Schtatistike</string>
   <string name="rankAvgHelp">De Rangdurchschnitt isch en Prozäntsatz vu dim Rang. Niedriger isch besser.
 

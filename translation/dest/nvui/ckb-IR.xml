@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">چالاکییە ھەڵبژێردراوەکان</string>
+  <string name="moveList">پێڕستی جووڵەکان</string>
+  <string name="gameInfo">زانیاریی یاری</string>
+  <string name="pieces">داشەکان</string>
+  <string name="gameStatus">دۆخی یاری</string>
+  <string name="lastMove">دوایین جووڵە</string>
+  <string name="inputForm">فۆڕمی جووڵەنووسین</string>
+  <string name="actions">کردارەکان</string>
+  <string name="yourClock">کاتژمێرەکەت</string>
+  <string name="opponentClock">کاتژمێری ڕکابەر</string>
+</resources>

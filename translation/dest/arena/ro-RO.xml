@@ -71,8 +71,8 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="whichTeamWillYouRepresentInThisBattle">Ce echipă vei reprezenta în această bătălie?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Trebuie să te alături uneia dintre aceste echipe pentru a participa!</string>
   <string name="created">Creat</string>
-  <string name="recentlyPlayed">Jucate recent</string>
-  <string name="bestResults">Cele mai bune rezultate</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Jucate recent</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Cele mai bune rezultate</string>
   <string name="tournamentStats">Statistici turneu</string>
   <string name="rankAvgHelp">Media rangului este un procent din clasamentul tău. Mai mic e mai bine.
 

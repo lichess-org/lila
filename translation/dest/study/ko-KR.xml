@@ -179,4 +179,10 @@
   <string name="customPositionTitle">사용자 지정 포지션</string>
   <string name="loadExistingLichessGameTitle">벌써 있는 lichess 게임 불러오기</string>
   <string name="loadExistingLichessGameText">챕터에 게임 수를 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
+  <string name="fromPgnGameTitle">PGN 게임에서</string>
+  <string name="variantsAreSupportedTitle">연구들은 변형 체스를 지원합니다</string>
+  <string name="variantsAreSupportedText">네, 크레이지하우스나 모든 lichess 변형 체스를&lt;br&gt;연구할 수 있어요!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">양측 패배</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">흑 패배, 그러나 백 승리 불가</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">백 패배, 그러나 흑 승리 불가</string>
 </resources>

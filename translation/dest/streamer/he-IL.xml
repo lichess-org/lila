@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">עמוד השדרנים של Lichess מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">נדרש ערוץ ב-Twitch או ב-YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">שינויים ב-Twitch או ב-YouTube צריכים לעבור עימות.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">שינויים ב-Twitch או ב-YouTube צריכים לעבור עימות.
 
 הרישום שלך כמשדר והתו יושעו במהלך הבדיקה, שיכולה להימשך עד 72 שעות.</string>
   <string name="youTubeChannelId">המזהה (ID) של ערוץ ה־YouTube שלך</string>

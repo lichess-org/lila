@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">注目のイベント</string>
-  <string name="moveList" comment="List of the moves of the game">指し手リスト</string>
+  <string name="moveList">指し手リスト</string>
   <string name="gameInfo">ゲーム情報</string>
   <string name="pieces">駒</string>
   <string name="gameStatus">ゲームの状態</string>
   <string name="lastMove">最終手</string>
-  <string name="inputForm" comment="Form to input moves and commands">入力フォーム</string>
-  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">操作</string>
+  <string name="inputForm">入力フォーム</string>
+  <string name="actions">操作</string>
   <string name="yourClock">自分の時計</string>
   <string name="opponentClock">相手の時計</string>
+  <string name="gameStart">ゲーム開始</string>
+  <string name="boardCommandList">ボードにフォーカスがある時のコマンドリスト</string>
+  <string name="inputFormCommandList">このコマンドをコマンド入力フォームに入力します。</string>
+  <string name="announceCurrentSquare">現在のマスを読み上げる。</string>
+  <string name="announceLastMove">最後の手を読み上げる。</string>
+  <string name="announceLastMoveCapture">最後の手で取られた駒を読み上げる。</string>
+  <string name="announcePossibleMoves">選択した駒の可能な行き先を読み上げる。</string>
+  <string name="announcePossibleCaptures">選択した駒の可能な駒取りを読み上げる。</string>
+  <string name="moveWithArrows">となりのマス（左・右・上・下）に動かす。</string>
+  <string name="moveToRank">ランク 1-8 に移動する。</string>
+  <string name="moveToFile">ファイル a-h に移動する。</string>
+  <string name="movePiece">駒を動かすには、標準的な代数式記譜法を使います。</string>
 </resources>

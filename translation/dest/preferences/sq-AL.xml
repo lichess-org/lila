@@ -62,5 +62,5 @@
   <string name="notifyWeb">Shfletues</string>
   <string name="notifyDevice">Pajisje</string>
   <string name="bellNotificationSound">Tingull zileje njoftimesh</string>
-  <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
+  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Me sytë lidhur</string>
 </resources>

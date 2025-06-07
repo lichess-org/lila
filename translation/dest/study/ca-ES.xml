@@ -164,11 +164,11 @@
   <string name="playAgain">Torna a jugar</string>
   <string name="whatWouldYouPlay">Que jugaríeu en aquesta posició?</string>
   <string name="youCompletedThisLesson">Enhorabona, heu completat aquesta lliçó.</string>
-  <string name="perPage">%s per pàgina</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per pàgina</string>
   <string name="getTheTour">Necessites ajuda? Segueix el gira!</string>
   <string name="welcomeToLichessStudyTitle">Benvingut/da als estudis de Lichess!</string>
   <string name="welcomeToLichessStudyText">Això és un tauler d\'anàlisis compartit.&lt;br&gt;&lt;br&gt;Utilitzal per analitzar i anotar partides,&lt;br&gt;discutir posicions amb els amics,&lt;br&gt; i per descomptat per lliçons d\'escacs!&lt;br&gt;&lt;br&gt;És una eina molt poderosa, anem a veure com funciona.</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartit i guardat</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Compartit i guardat</string>
   <string name="sharedAndSavedText">Els altres membres poden veure els teus moviments en temps real!&lt;br&gt;A més a més, tot es guarda per sempre.</string>
   <string name="studyMembersTitle">Membres de l\'estudi</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Els espectadors poden veure l\'estudi i parlar al xat.&lt;br&gt;&lt;br&gt;%2$s Els contribuïdors poden realitzar moviments i actualitzar l\'estudi.</string>

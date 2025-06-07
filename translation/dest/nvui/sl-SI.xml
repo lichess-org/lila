@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="gameStart">Začetek igre</string>
+  <string name="boardCommandList">Seznam ukazov, ko je plošča v fokusu</string>
+  <string name="inputFormCommandList">V obrazec za vnos ukazov vnesite te ukaze.</string>
+  <string name="goToInputForm">Pojdi na obrazec za premikanje in vnos ukazov.</string>
+  <string name="announceCurrentSquare">Naznani trenutno polje.</string>
+  <string name="announceLastMove">Naznani zadnjo potezo.</string>
+  <string name="announceLastMoveCapture">Naznani figuro, vzeto v zadnji potezi.</string>
+  <string name="announcePossibleMoves">Napovejte možne poteze za izbrano figuro.</string>
+  <string name="announcePossibleCaptures">Najavi možna zajetja z izbrano figuro.</string>
+  <string name="moveWithArrows">Premakni se na sosednje polje levo, desno, gor ali dol.</string>
+  <string name="moveToPieceByType">Premaknite se na figuro in vtipkajte njen tip. Za obrnjen vrstni red uporabite velike črke.</string>
+  <string name="moveToRank">Premakni v vrsto 1-8.</string>
+  <string name="moveToFile">Premakni v stolpec a-h.</string>
+  <string name="announcePieceLocations">Naznanite položaje figur. Primer: velika črka N za bele skakače, mala črka k za črnega kralja.</string>
+  <string name="announcePiecesOnRankOrFile">Naznanite figure po vrsti ali stolpcu. Primer: s a, s 1.</string>
+  <string name="goToBoard">Pojdi na igralno ploščo. Privzeto polje je e-4. Lahko določiš polje: igralna plošča a-1 ali b a-1 te bo pripeljala do polja a-1.</string>
+  <string name="movePiece">Za premikanje figure uporabite standardno algebrsko notacijo.</string>
+  <string name="promotion">Za napredovanje v karkoli drugega kot damo uporabite enačaj. Na primer a-8-=-n napreduje v viteza.</string>
+</resources>

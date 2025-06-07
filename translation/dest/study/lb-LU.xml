@@ -163,7 +163,7 @@
   <string name="playAgain">Nach eng Kéier spillen</string>
   <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
-  <string name="perPage">%s pro Säit</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeelt a gespäichert</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Säit</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeelt a gespäichert</string>
   <string name="conclusionTitle">Merci fir deng Zäit</string>
 </resources>

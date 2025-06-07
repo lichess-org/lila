@@ -13,11 +13,11 @@
 وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
 بمعنى أن، الفوز سيستحق 4 نقاط، التعادل: 2 نقطة، وستبقى الخسارة تستحق 0 نقطة.
 كمثال، انتصاران يليهما تعادل سيساوي 6 نقاط: 2 + 2 + (2 × 1)</string>
-  <string name="berserk">مخاطرة الساحة</string>
+  <string name="berserk">ساحة المخاطرة</string>
   <string name="berserkAnswer">عندما يضغط اللاعب زر المخاطرة في بداية المباراة سيفقد اللاعب نصف وقته لكنه في حال الفوز يحصل على نقطة إضافية.
-المخاطرة في حالة الوقت المتزايد يلغي الزيادة مع كل نقلة (يستثنى من ذلك نمط دقيقة +2 ث زيادة/نقلة ، ستلغى الزيادة لكن الوقت سيكون دقيقة كاملة)
-المخاطرة غير متاحة للمباريات ذات التوقيت صفر +زيادة بالثواني (0+1ث/نقلة, 0+2ث).
-المخاطرة تضمن النقطة الإضافية إذا لعبت على الأقل 7 نقلات.</string>
+المخاطرة في حالة الوقت المتزايد يلغي الزيادة مع كل نقلة (يستثنى من ذلك نمط ١+٢، سيصبح بعد المخاطرة ١+٠)
+المخاطرة غير متاحة للمباريات بتوقيت صفر (٠+١, ٠+٢).
+المخاطرة تضمن النقطة الإضافية إذا لعبت على الأقل ٧ نقلات.</string>
   <string name="howIsTheWinnerDecided">كيف يحدد الفائز؟</string>
   <string name="howIsTheWinnerDecidedAnswer">اللاعب (اللاعبون) ذو النقاط الأعلى في نهاية الوقت المحدد للبطولة يتم إعلانه/م فائز/ين.
 عندما يحصل لاعبان أو أكثر على نفس عدد النقاط، يكون معدل الأداء في البطولة هو كسر التعادل.</string>
@@ -70,8 +70,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">أي فريق ستمثله في هذه المعركة؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">يجب أن تنضم إلى أحد هذه الفرق للمشاركة!</string>
   <string name="created">تم الإنشاء</string>
-  <string name="recentlyPlayed">لعب مؤخرًا</string>
-  <string name="bestResults">أفضل النتائج</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">لعب مؤخرًا</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">أفضل النتائج</string>
   <string name="tournamentStats">إحصائيات البطولة</string>
   <string name="rankAvgHelp">متوسط ​​الرتبة هو نسبة مئوية من رتبتك. الأقل أفضل.
 
@@ -86,4 +86,6 @@
   <string name="tournamentShields">درع البطولة</string>
   <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
   <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
+  <string name="tournamentPairingsAreNowClosed">انتهت منافسات البطولة.</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">معدل المخاطرة</string>
 </resources>

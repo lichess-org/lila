@@ -66,6 +66,14 @@
     <item quantity="many">تم اكمال %s مباراة بالمراسلة</item>
     <item quantity="other">تم اكمال %s مباراة بالمراسلة</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="zero">تم لعب %2$s %1$s من مباراة المراسلة</item>
+    <item quantity="one">تم لعب %2$s %1$s من مباراة المراسلة</item>
+    <item quantity="two">تم لعب %2$s %1$s من مباراة المراسلة</item>
+    <item quantity="few">تم لعب %2$s %1$s من مباراة المراسلة</item>
+    <item quantity="many">تم لعب %2$s %1$s من مباراة المراسلة</item>
+    <item quantity="other">تم لعب %2$s %1$s من مباراة المراسلة</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="zero">تم البدء في متابعة %s لاعب</item>
     <item quantity="one">تم البدء في متابعة %s لاعب</item>
@@ -135,9 +143,9 @@
   <plurals name="joinedNbTeams">
     <item quantity="zero">إنضم ل %s فريق</item>
     <item quantity="one">إنضم ل %s فريق</item>
-    <item quantity="two">إنضم لفريقين %s</item>
-    <item quantity="few">إنضم ل %s فرق</item>
-    <item quantity="many">إنضم ل %s فرقة</item>
-    <item quantity="other">إنضم ل %s فريقًا</item>
+    <item quantity="two">إنضم ل %s فِرَق</item>
+    <item quantity="few">إنضم ل %s فِرَق</item>
+    <item quantity="many">إنضم ل %s فِرَق</item>
+    <item quantity="other">إنضم ل %s فِرَق</item>
   </plurals>
 </resources>

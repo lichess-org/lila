@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Η σελίδα Lichess streamer στοχεύει το κοινό σας με τη γλώσσα που παρέχεται από την πλατφόρμα ροής σας. Ορίστε τη σωστή προεπιλεγμένη γλώσσα για τις ροές σκακιού στην εφαρμογή ή την υπηρεσία που χρησιμοποιείτε για να μεταδώσετε.</string>
   <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Απαιτείται είτε το Twitch είτε το YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Οι αλλαγές στο Twitch και στο YouTube πρέπει να επαληθευτούν.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Οι αλλαγές στο Twitch και στο YouTube πρέπει να επαληθευτούν.
   
   Το έμβλημα του streamer και η καταχώρισή σας θα ανασταλεί όσο εξετάζουμε τη φόρμα σας. Αυτό μπορεί να διαρκέσει έως και 72 ώρες.</string>
   <string name="youTubeChannelId">Το αναγνωριστικό του YouTube καναλιού σας</string>

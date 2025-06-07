@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Taules per acord</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense captures ni moviments de peó</string>
   <string name="currentGames">Partides en joc</string>
-  <string name="joinedX">Ha entrat a %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Ha entrat a %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partides</item>

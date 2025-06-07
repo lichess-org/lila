@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">Featured events</string>
-  <string name="moveList" comment="List of the moves of the game">Move list</string>
+  <string name="moveList">Move list</string>
   <string name="gameInfo">Game info</string>
   <string name="pieces">Pieces</string>
   <string name="gameStatus">Game status</string>
   <string name="lastMove">Last move</string>
-  <string name="inputForm" comment="Form to input moves and commands">Input form</string>
-  <string name="actions" comment="Contextual set of actions. For example, while playing, actions may be resign, offer draw, etc">Actions</string>
+  <string name="inputForm">Input form</string>
+  <string name="actions">Actions</string>
   <string name="yourClock">Your clock</string>
   <string name="opponentClock">Opponent clock</string>
+  <string name="gameStart">Game start</string>
+  <string name="boardCommandList">Command list when the board has focus</string>
+  <string name="inputFormCommandList">Type these commands in the command input form.</string>
+  <string name="goToInputForm">Go to the command input form.</string>
+  <string name="announceCurrentSquare">Announce current square.</string>
+  <string name="announceLastMove">Announce last move.</string>
+  <string name="announceLastMoveCapture">Announce piece captured in last move.</string>
+  <string name="announcePossibleMoves">Announce possible moves for the selected piece.</string>
+  <string name="announcePossibleCaptures">Announce possible captures with selected piece.</string>
+  <string name="moveWithArrows">Move to adjacent square left, right, up or down.</string>
+  <string name="moveToPieceByType">Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order.</string>
+  <string name="moveToRank">Move to rank 1-8.</string>
+  <string name="moveToFile">Move to file a-h.</string>
+  <string name="announcePieceLocations">Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king.</string>
+  <string name="announcePiecesOnRankOrFile">Announce pieces on a rank or a file. Example: s a, s 1.</string>
+  <string name="goToBoard">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
+  <string name="movePiece">To move a piece, use standard algebraic notation.</string>
+  <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string>
 </resources>

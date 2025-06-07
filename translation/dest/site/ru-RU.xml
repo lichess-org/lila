@@ -22,7 +22,7 @@
   <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
-  <string name="createTheGame">Создать новую игру</string>
+  <string name="createTheGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
@@ -186,7 +186,7 @@
   <string name="drawByMutualAgreement">Ничья по обоюдному согласию</string>
   <string name="fiftyMovesWithoutProgress">Пятьдесят ходов без прогресса</string>
   <string name="currentGames">Текущие партии</string>
-  <string name="joinedX">Присоединились %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Присоединились %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s игра</item>
     <item quantity="few">%s игры</item>
@@ -759,7 +759,7 @@
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="termsOfService">Пользовательское соглашение</string>
-  <string name="titleVerification">Подтверждение титула</string>
+  <string name="titleVerification">Подтверждение звания</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>

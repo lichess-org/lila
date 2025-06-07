@@ -84,7 +84,7 @@
   <string name="fromMyGamesNone">Nemáte v databáze žiadne úlohy z vlastných partií, ale Lichess Vás má aj tak veľmi rád.
 
 Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlohy z Vašej vlastnej partie!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Medzi partiami od %2$s sa našla jedna úloha</item>
     <item quantity="few">Medzi partiami od %2$s sa našli %1$s úlohy</item>
     <item quantity="many">Medzi partiami od %2$s sa našlo %1$s úloh</item>
