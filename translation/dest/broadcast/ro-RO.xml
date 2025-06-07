@@ -86,4 +86,5 @@
   <string name="allBroadcastsByMonth">Vezi toate transmisiunile pe fiecare lună</string>
   <string name="backToLiveMove">Înapoi la mutarea live</string>
   <string name="sinceHideResults">Din moment ce ai ales să ascunzi rezultatele, toate tablele de previzualizare sunt goale pentru a evita spoilerele.</string>
+  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Tablă live</string>
 </resources>
