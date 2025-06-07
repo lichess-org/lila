@@ -209,16 +209,21 @@ export default function (root: AnalyseCtrl): VNode | undefined {
 }
 
 export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
+  console.log("nvuiRetroView entered");
   console.log('root: ', root);
   console.log('root.retro: ', root.retro);
   const ctrl = root.retro;
-  if (!ctrl) return;
+  if (!ctrl){
+      console.log("!ctrl, exiting");
+      return;
+  }
+
 
   const fb = ctrl.feedback(),
   completion = ctrl.completion();
 
 
-  return h('div.retro-box.training-box.sub-box', [
+  const node = h('div.retro-box.training-box.sub-box', [
     h('div.title', [
       h('span', i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
@@ -229,4 +234,7 @@ export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
     ]),
     h('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);
+
+  console.log("created node: ",node);
+  return node;
 }

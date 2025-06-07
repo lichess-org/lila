@@ -399,7 +399,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'learn',
     help: noTrans('Learn from your mistakes'),
-    cb: (ctrl, notify) => notify(renderLFYM(ctrl)!)
+    cb: (ctrl) => renderLFYM(ctrl)
   },
   {
     cmd: 'best',
@@ -495,11 +495,11 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   return res;
 }
 
-function renderLFYM(ctrl: AnalyseController): string | undefined {
+function renderLFYM(ctrl: AnalyseController): VNode | undefined {
   if(!ctrl.retro) {
     ctrl.toggleRetro()
   }
-  console.log(ctrl);
+  console.log("function renderLFYM(${ctrl}: AnalyseController): VNode | undefined")
 
   return nvuiRetroView(ctrl);
 }
