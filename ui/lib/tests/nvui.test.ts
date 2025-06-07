@@ -19,8 +19,47 @@ describe('test input moves', () => {
     expect(inputToMove('bxc4', fen, cg)).toBe('b3c4');
     expect(inputToMove('bXc4', fen, cg)).toBe('b3c4');
     expect(inputToMove('bXC4', fen, cg)).toBe('b3c4');
+    expect(inputToMove('bxC4', fen, cg)).toBe('b3c4');
 
     // test bishop takes
     expect(inputToMove('Bxc4', fen, cg)).toBe('d3c4');
+    expect(inputToMove('BXc4', fen, cg)).toBe('d3c4');
+    expect(inputToMove('BXC4', fen, cg)).toBe('d3c4');
+    expect(inputToMove('BxC4', fen, cg)).toBe('d3c4');
+  });
+
+  test('case-sensitive promotions', async () => {
+    const fen = '8/2P4k/8/8/8/8/7K/8 w - - 0 1';
+    const cg = Chessground(document.createElement('div'), {
+      fen,
+      movable: {
+        dests: new Map([['c7', ['c8']]]),
+      },
+    });
+
+    // san
+    expect(inputToMove('c8', fen, cg)).toBe('c7c8q');
+    expect(inputToMove('C8', fen, cg)).toBe('c7c8q');
+    expect(inputToMove('c8=R', fen, cg)).toBe('c7c8r');
+    expect(inputToMove('C8=N', fen, cg)).toBe('c7c8n');
+    // uci
+    expect(inputToMove('c7c8b', fen, cg)).toBe('c7c8b');
+    expect(inputToMove('C7C8B', fen, cg)).toBe('c7c8b');
+    expect(inputToMove('c7c8B', fen, cg)).toBe('c7c8b');
+  });
+
+  test('case-sensitive drops', async () => {
+    const fen = '8/2P4k/8/8/8/8/7K/8[] b - - 0 1';
+    const cg = Chessground(document.createElement('div'), {
+      fen,
+      movable: {
+        dests: new Map([['c7', ['c8']]]),
+      },
+    });
+
+    expect(inputToMove('q@c3', fen, cg)).toStrictEqual({ key: 'c3', role: 'queen' });
+    expect(inputToMove('Q@c3', fen, cg)).toStrictEqual({ key: 'c3', role: 'queen' });
+    expect(inputToMove('Q@C3', fen, cg)).toStrictEqual({ key: 'c3', role: 'queen' });
+    expect(inputToMove('q@C3', fen, cg)).toStrictEqual({ key: 'c3', role: 'queen' });
   });
 });
