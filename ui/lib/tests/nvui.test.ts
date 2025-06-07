@@ -53,7 +53,7 @@ describe('test input moves', () => {
     const cg = Chessground(document.createElement('div'), {
       fen,
       movable: {
-        dests: new Map([['c7', ['c8']]]),
+        dests: new Map(),
       },
     });
 
