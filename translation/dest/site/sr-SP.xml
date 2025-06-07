@@ -85,7 +85,7 @@
   <string name="winning">Побеђује</string>
   <string name="losing">Губи</string>
   <string name="drawn">Ремизован</string>
-  <string name="unknown">Не зна се</string>
+  <string name="unknown">Непознато</string>
   <string name="database">База података</string>
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
   <string name="averageRatingX">Просечан рејтинг: %s</string>
