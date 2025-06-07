@@ -3,29 +3,27 @@ import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
 import type { Pieces } from '@lichess-org/chessground/types';
 
 interface Command {
-  help(i18n: I18n): VNode | string;
+  help: VNode | string;
   apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined;
 }
 type Commands = {
   [name: string]: Command;
 };
 
-const i18n = { site: { none: 'None' } } as I18n;
-
-export const commands: Commands = {
+export const commands = (i18n: I18n): Commands => ({
   piece: {
-    help: i18n => i18n.nvui.announcePieceLocations,
+    help: i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
-      return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style, i18n));
+      return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
-    help: i18n => i18n.nvui.announcePiecesOnRankOrFile,
+    help: i18n.nvui.announcePiecesOnRankOrFile,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
-      return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style, i18n));
+      return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
-};
+});
 
 function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A | undefined {
   return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;

@@ -1755,6 +1755,34 @@ interface I18n {
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
     announcePossibleMoves: string;
+    /** bishop */
+    bishop: string;
+    /** bishops */
+    bishops: string;
+    /** black bishop */
+    blackBishop: string;
+    /** black bishops */
+    blackBishops: string;
+    /** black king */
+    blackKing: string;
+    /** black kings */
+    blackKings: string;
+    /** black knight */
+    blackKnight: string;
+    /** black knights */
+    blackKnights: string;
+    /** black pawn */
+    blackPawn: string;
+    /** black pawns */
+    blackPawns: string;
+    /** black queen */
+    blackQueen: string;
+    /** black queens */
+    blackQueens: string;
+    /** black rook */
+    blackRook: string;
+    /** black rooks */
+    blackRooks: string;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1773,6 +1801,16 @@ interface I18n {
     inputForm: string;
     /** Type these commands in the command input form. */
     inputFormCommandList: string;
+    /** Invalid move */
+    invalidMove: string;
+    /** king */
+    king: string;
+    /** kings */
+    kings: string;
+    /** knight */
+    knight: string;
+    /** knights */
+    knights: string;
     /** Last move */
     lastMove: string;
     /** Move list */
@@ -1789,10 +1827,66 @@ interface I18n {
     moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
+    /** pawn */
+    pawn: string;
+    /** pawns */
+    pawns: string;
     /** Pieces */
     pieces: string;
+    /** Premove cancelled */
+    premoveCancelled: string;
+    /** Premove recorded: %s. Hit enter to cancel */
+    premoveRecorded: I18nFormat;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
+    /** queen */
+    queen: string;
+    /** queens */
+    queens: string;
+    /** rook */
+    rook: string;
+    /** rooks */
+    rooks: string;
+    /** check */
+    sanCheck: string;
+    /** checkmate */
+    sanCheckmate: string;
+    /** is dropped on */
+    sanDroppedOn: string;
+    /** long castling */
+    sanLongCastling: string;
+    /** promotes to */
+    sanPromotesTo: string;
+    /** short castling */
+    sanShortCastling: string;
+    /** K Q R B N x */
+    sanSymbols: string;
+    /** takes */
+    sanTakes: string;
+    /** white bishop */
+    whiteBishop: string;
+    /** white bishops */
+    whiteBishops: string;
+    /** white king */
+    whiteKing: string;
+    /** white kings */
+    whiteKings: string;
+    /** white knight */
+    whiteKnight: string;
+    /** white knights */
+    whiteKnights: string;
+    /** white pawn */
+    whitePawn: string;
+    /** white pawns */
+    whitePawns: string;
+    /** white queen */
+    whiteQueen: string;
+    /** white queens */
+    whiteQueens: string;
+    /** white rook */
+    whiteRook: string;
+    /** white rooks */
+    whiteRooks: string;
     /** Your clock */
     yourClock: string;
   };
