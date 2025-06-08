@@ -1,9 +1,9 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { inputToMove } from '../src/nvui/chess';
 import { Chessground } from '@lichess-org/chessground';
 
-describe('mixed case bishop or pawn takes', () => {
-  test('case-sensitive captures', async () => {
+describe('nvui move inputs', () => {
+  test('mixed case bishop or pawn takes', async () => {
     const fen = '7k/8/8/8/2p5/1P1B4/8/7K w - - 0 1';
     const cg = Chessground(document.createElement('div'), {
       fen,
