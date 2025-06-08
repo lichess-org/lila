@@ -28,7 +28,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
     exactOpening
       .map(_.some -> Nil)
-      .orElse(OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
+      .orElse(OpeningDb.search(replay.chronoMoves).map { case Opening.AtPly(op, ply) =>
         op.some -> sans.drop(ply.value + 1).toList
       })
       .getOrElse(none, sans.toList)
