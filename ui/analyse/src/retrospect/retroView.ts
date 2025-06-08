@@ -66,7 +66,7 @@ const feedback = {
       h('div.player', [
         h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', i18n.site.youBrowsedAway),
+          h('strong', {'aria-live': 'polite'}, i18n.site.youBrowsedAway),
           h('div.choices.off', [
             h('a', { hook: bind('click', ctrl.jumpToNext), role: 'button' }, i18n.site.resumeLearning),
           ]),
@@ -105,7 +105,7 @@ const feedback = {
         h('div.player', [
           h('div.icon', '✓'),
           h('div.instruction', [
-            h('strong', i18n.site.solution),
+            h('strong',{ attrs: { 'aria-live': 'assertive' }}, i18n.site.solution),
             h(
               'em',
               i18n.site.bestWasX.asArray(
@@ -126,7 +126,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [h('strong', i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
+          h('div.instruction', [h('strong', {attrs: { 'aria-live': 'assertive'}}, i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
         ]),
       ),
     ];
@@ -136,7 +136,7 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [h('div.icon', spinner()), h('div.instruction', i18n.site.waitingForAnalysis)]),
+          h('div.player', [h('div.icon', spinner()), h('div.instruction', { attrs: {'aria-live': 'polite'}}, i18n.site.waitingForAnalysis)]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -145,7 +145,7 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h(
-            'em',
+            'em',{ attrs: {'aria-live': 'polite'}},
             i18n.site[
               nothing
                 ? ctrl.color === 'white'
@@ -162,6 +162,9 @@ const feedback = {
               : h(
                   'a',
                   {
+                    attrs: {
+                        "role": "button"
+                    },
                     key: 'reset',
                     hook: bind('click', ctrl.reset),
                   },
@@ -170,6 +173,9 @@ const feedback = {
             h(
               'a',
               {
+                attrs: {
+                    "role": "button"
+                },
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
@@ -208,13 +214,11 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
-  console.log("nvuiRetroView entered");
-  console.log('root: ', root);
-  console.log('root.retro: ', root.retro);
+export function renderNvuiRetro(root: AnalyseCtrl): VNode | undefined {
+  console.log(`renderNvuiRetro(${root})`);
   const ctrl = root.retro;
   if (!ctrl){
-      console.log("!ctrl, exiting");
+      console.log("no root.retro, exiting");
       return;
   }
 
@@ -225,12 +229,8 @@ export function nvuiRetroView(root: AnalyseCtrl): VNode | undefined {
     h('div.title', [
       h('span', i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      h('button.fbt', {
-        hook: bind('click', root.toggleRetro, root.redraw),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
-      }),
     ]),
-    h('div.feedback.' + fb, renderFeedback(root, fb)),
+    h('div.feedback.' + fb, { attrs: { 'aria-live': 'assertive' }}, renderFeedback(root, fb)),
   ]);
 
   console.log("created node: ",node);

@@ -58,7 +58,7 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
-import { nvuiRetroView } from '@/retrospect/retroView';
+import { renderNvuiRetro } from '@/retrospect/retroView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -160,7 +160,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
-          h('div', { attrs: {} }, nvuiRetroView(ctrl)),
+          h('div', { attrs: {} }, renderNvuiRetro(ctrl)),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -337,11 +337,11 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function renderLFYM(ctrl: AnalyseController): VNode | undefined {
+function initLFYM(ctrl: AnalyseController): VNode | undefined {
   if (!ctrl.retro) {
     ctrl.toggleRetro();
   }
-  console.log('function renderLFYM(${ctrl}: AnalyseController): VNode | undefined');
+  console.log('initLFYM entered withctrl=', ctrl);
 
   return h('h2', 'retro started');
 }
@@ -407,7 +407,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'learn',
     help: noTrans('Learn from your mistakes'),
-    cb: ctrl => doAndRedraw(ctrl, renderLFYM),
+    cb: ctrl => doAndRedraw(ctrl, initLFYM),
   },
   {
     cmd: 'best',
