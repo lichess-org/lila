@@ -455,7 +455,7 @@ export type DropMove = { role: Role; key: Key };
 
 export function inputToMove(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
-  if (!dests) return;
+  if (!dests || input.length < 1) return;
   const legalUcis = destsToUcis(dests),
     legalSans = sanWriter(fen, legalUcis),
     cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
