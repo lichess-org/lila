@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Position, ByColor, Mode }
+import chess.{ Position, ByColor, Rated }
 
 import lila.core.user.GameUser
 
@@ -41,7 +41,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
-        mode = if chessGame.position.variant.fromPosition then Mode.Casual else c.mode,
+        rated = c.rated.map(_ && !chessGame.position.variant.fromPosition),
         source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,

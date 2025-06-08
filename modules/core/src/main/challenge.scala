@@ -2,7 +2,7 @@ package lila.core
 package challenge
 
 import _root_.chess.variant.Variant
-import _root_.chess.{ Color, Mode }
+import _root_.chess.{ Color, Rated }
 import _root_.chess.rating.RatingProvisional
 import _root_.chess.IntRating
 import scalalib.model.Days
@@ -14,7 +14,7 @@ trait Challenge:
   import Challenge.*
   val id: ChallengeId
   val variant: Variant
-  val mode: Mode
+  val rated: Rated
   val timeControl: TimeControl
   val finalColor: Color
   val destUser: Option[Challenger.Registered]

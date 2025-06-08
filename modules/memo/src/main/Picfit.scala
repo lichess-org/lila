@@ -35,12 +35,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   import PicfitApi.*
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
+  val idSep = ':'
+
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source          = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     uploadSource(rel, source, userId)
 
-  def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
+  private def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
@@ -53,16 +55,18 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case None            => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              id = ImageId(s"$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
               size = part.fileSize.toInt,
               createdAt = nowInstant
             )
-            picfitServer.store(image, part) >>
-              deleteByRel(image.rel) >>
-              coll.insert.one(image).inject(image)
+            for
+              _ <- picfitServer.store(image, part)
+              _ <- deleteByRel(image.rel)
+              _ <- coll.insert.one(image)
+            yield image
 
   def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
     ids.toList.sequentiallyVoid: id =>
@@ -79,8 +83,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   object bodyImage:
     val sizePx                                                                 = Left(800)
     def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
-      uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-        .map(pic => url.resize(pic.id, sizePx).some)
+      rel.contains(idSep).not.so {
+        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+          .map(pic => url.resize(pic.id, sizePx).some)
+      }
 
   private object picfitServer:
 

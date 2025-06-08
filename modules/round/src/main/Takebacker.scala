@@ -107,7 +107,7 @@ final private class Takebacker(
           prefApi.byId(game.userIdPair)
         .dmap:
           _.forall: p =>
-            p.takeback == Pref.Takeback.ALWAYS || (p.takeback == Pref.Takeback.CASUAL && game.casual)
+            p.takeback == Pref.Takeback.ALWAYS || (p.takeback == Pref.Takeback.CASUAL && game.rated.no)
 
   private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]])(f: => Fu[A]): Fu[A] =
     if !game.playable then fufail(ClientError("[takebacker] game is over " + game.id))

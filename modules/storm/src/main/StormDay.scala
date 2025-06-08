@@ -65,28 +65,24 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
     user.so: u =>
       if mobile || sign.check(u, ~data.signed) then
         Bus.pub(lila.core.misc.puzzle.StormRun(u.id, data.score))
-        highApi.get(u.id).flatMap { prevHigh =>
-          val todayId = Id.today(u.id)
-          coll
-            .one[StormDay]($id(todayId))
-            .map:
-              _.getOrElse(StormDay.empty(todayId)).add(data)
-            .flatMap: day =>
-              coll.update.one($id(day._id), day, upsert = true)
-            .flatMap: _ =>
-              val high = highApi.update(u.id, prevHigh, data.score)
-              userApi.addPuzRun("storm", u.id, data.score).inject(high)
-        }
+        for
+          prevHigh <- highApi.get(u.id)
+          todayId = Id.today(u.id)
+          dayOpt <- coll.one[StormDay]($id(todayId))
+          day = dayOpt.getOrElse(StormDay.empty(todayId)).add(data)
+          _ <- coll.update.one($id(day._id), day, upsert = true)
+          high = highApi.update(u.id, prevHigh, data.score)
+          _ <- userApi.addPuzRun("storm", u.id, data.score)
+        yield high
       else
         if data.time > 40 then
           if data.score > 99 then logger.warn(s"badly signed run from ${u.username} $data")
-          lila.mon.storm.run
-            .sign(data.signed match
-              case None              => "missing"
-              case Some("")          => "empty"
-              case Some("undefined") => "undefined"
-              case _                 => "wrong")
-            .increment()
+          val signature = data.signed match
+            case None              => "missing"
+            case Some("")          => "empty"
+            case Some("undefined") => "undefined"
+            case _                 => "wrong"
+          lila.mon.storm.run.sign(signature).increment()
         fuccess(none)
 
   def history(userId: UserId, page: Int): Fu[Paginator[StormDay]] =

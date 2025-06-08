@@ -344,7 +344,7 @@ final class Challenge(env: Env) extends LilaController(env):
           variant = config.variant,
           initialFen = config.position,
           timeControl = timeControl,
-          mode = config.mode,
+          rated = config.rated,
           color = config.color.name,
           challenger = ChallengeModel.toRegistered(orig),
           destUser = dest.some,

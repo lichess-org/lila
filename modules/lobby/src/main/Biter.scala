@@ -69,7 +69,7 @@ final private class Biter(
         clock = hook.clock.toClock.some
       ),
       players = users.mapWithColor(newPlayer.apply),
-      mode = hook.realMode,
+      rated = hook.rated,
       source = lila.core.game.Source.Lobby,
       pgnImport = None
     )
@@ -82,7 +82,7 @@ final private class Biter(
         clock = none
       ),
       players = users.mapWithColor(newPlayer.apply),
-      mode = seek.realMode,
+      rated = seek.rated,
       source = lila.core.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,
       pgnImport = None

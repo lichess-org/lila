@@ -3,7 +3,7 @@ package lila.challenge
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ ByColor, Clock, Mode }
+import chess.{ ByColor, Clock, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -15,6 +15,7 @@ import lila.core.game.GameRule
 import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
+import lila.common.Form.into
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -34,7 +35,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
       setupForm.clock,
       setupForm.optionalDays,
       "fen"           -> optional(lila.common.Form.fen.mapping),
-      "rated"         -> boolean,
+      "rated"         -> boolean.into[Rated],
       "pairAt"        -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
       setupForm.message,
@@ -46,7 +47,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
           clock: Option[Clock.Config],
           days: Option[Days],
           fen: Option[Fen.Full],
-          rated: Boolean,
+          rated: Rated,
           pairTs: Option[Long],
           clockTs: Option[Long],
           message: Option[String],
@@ -144,7 +145,7 @@ final class ChallengeBulkSetupApi(
                     _,
                     data.variant,
                     data.clockOrDays,
-                    Mode(data.rated),
+                    data.rated,
                     pairAt = data.pairAt | nowInstant,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
@@ -172,7 +173,7 @@ object ChallengeBulkSetup:
       games: List[ScheduledGame],
       variant: Variant,
       clock: Either[Clock.Config, Days],
-      mode: Mode,
+      rated: Rated,
       pairAt: Instant,
       startClocksAt: Option[Instant],
       scheduledAt: Instant,
@@ -198,7 +199,7 @@ object ChallengeBulkSetup:
       variant: Variant,
       clock: Option[Clock.Config],
       days: Option[Days],
-      rated: Boolean,
+      rated: Rated,
       pairAt: Option[Instant],
       startClocksAt: Option[Instant],
       message: Option[Template],
@@ -229,7 +230,7 @@ object ChallengeBulkSetup:
             "black" -> g.black
           ),
         "variant"       -> variant.key,
-        "rated"         -> mode.rated,
+        "rated"         -> rated,
         "pairAt"        -> pairAt,
         "startClocksAt" -> startClocksAt,
         "scheduledAt"   -> scheduledAt,

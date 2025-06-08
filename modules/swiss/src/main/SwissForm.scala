@@ -1,7 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config as ClockConfig, IncrementSeconds, LimitSeconds }
-import chess.Speed
+import chess.{ Speed, Rated }
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
@@ -24,7 +24,7 @@ final class SwissForm(using mode: play.api.Mode):
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"          -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
         "variant"           -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
-        "rated"             -> optional(boolean),
+        "rated"             -> optional(boolean.into[Rated]),
         "nbRounds"          -> number(min = minRounds, max = 100),
         "description"       -> optional(cleanNonEmptyText),
         "position"          -> optional(lila.common.Form.fen.playableStrict),
@@ -62,7 +62,7 @@ final class SwissForm(using mode: play.api.Mode):
           if mode.isProd then 60 * 10 else 20
         }),
         variant = Variant.default.key.some,
-        rated = true.some,
+        rated = Rated.Yes.some,
         nbRounds = 7,
         description = none,
         position = none,
@@ -160,7 +160,7 @@ object SwissForm:
       clock: ClockConfig,
       startsAt: Option[Instant],
       variant: Option[Variant.LilaKey],
-      rated: Option[Boolean],
+      rated: Option[Rated],
       nbRounds: Int,
       description: Option[String],
       position: Option[Fen.Full],
@@ -180,10 +180,8 @@ object SwissForm:
         case i                        => i.seconds
     def realPosition = position.ifTrue(realVariant.standard)
 
-    def isRated           = rated | true
-    def validRatedVariant =
-      !isRated ||
-        lila.core.game.allowRated(realVariant, clock.some)
+    def isRated           = rated.forall(_.yes)
+    def validRatedVariant = !isRated || lila.core.game.allowRated(realVariant, clock.some)
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*

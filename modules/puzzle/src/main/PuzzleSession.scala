@@ -59,7 +59,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           )
         )
 
-  def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
+  private[puzzle] def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
     updateSession: prev =>
       prev
         .forall(p => p.settings.color != color || p.path.angle != angle)

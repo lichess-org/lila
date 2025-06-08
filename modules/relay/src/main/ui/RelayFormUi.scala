@@ -97,7 +97,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
 
     def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
-      page(trb.newBroadcast.txt(), nav.copy(newRound = true)):
+      val newRoundNav = nav.copy(newRound = true)
+
+      page(trb.newBroadcast.txt(), newRoundNav):
         frag(
           boxTop(
             h1(
@@ -107,7 +109,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav)
+          inner(form, routes.RelayRound.create(nav.tour.id), newRoundNav)
         )
 
     def edit(
@@ -345,6 +347,36 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               half = true
             ):
               form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
+          )
+        ),
+        (nav.tour.showScores || nav.tour.showRatingDiffs).option(
+          form3.fieldset(
+            "Custom scoring",
+            toggle = nav.round.exists(_.customScoring.isDefined).some
+          )(
+            nav.tour.showRatingDiffs.option(
+              form3.group(form("rated"), raw("")): field =>
+                val withDefault =
+                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
+                form3.checkbox(
+                  withDefault,
+                  labelContent = frag("Rated round"),
+                  help = frag("Include this round when calculating players' rating changes").some
+                )
+            ),
+            Color.all.map: color =>
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("customScoring")(color.name)(result),
+                    raw(s"Points for a $result as ${color.name}")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
+            ,
+            p(
+              "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
+            )
           )
         ),
         Granter

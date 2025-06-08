@@ -257,7 +257,7 @@ final class SimulApi(
         )
         .copy(clock = clock.start.some),
       players = users.mapWithColor((c, u) => newPlayer(c, u.only(perfType).some)),
-      mode = chess.Mode.Casual,
+      rated = chess.Rated.No,
       source = lila.core.game.Source.Simul,
       pgnImport = None
     )

@@ -3,7 +3,7 @@ package lila.security
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
-import play.api.mvc.RequestHeader
+import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
@@ -46,7 +46,7 @@ final class SecurityForm(
 
   private val preloadEmailDnsForm = Form(single("email" -> sendableEmail))
 
-  def preloadEmailDns()(using req: play.api.mvc.Request[?], formBinding: FormBinding): Funit =
+  def preloadEmailDns()(using req: Request[?], formBinding: FormBinding): Funit =
     preloadEmailDnsForm
       .bindFromRequest()
       .fold(_ => funit, emailValidator.preloadDns)

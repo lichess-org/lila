@@ -310,7 +310,7 @@ final class GameUi(helpers: Helpers):
             separator,
             if g.fromPosition then g.variant.name else g.perfType.trans,
             separator,
-            (if g.rated then trans.site.rated else trans.site.casual).txt()
+            ratedName(g.rated)
           )
       )
 

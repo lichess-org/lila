@@ -28,7 +28,7 @@ final class AutoPairing(
           )
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
-        mode = tour.mode,
+        rated = tour.rated,
         source = Source.Arena,
         pgnImport = None
       )

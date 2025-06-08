@@ -43,7 +43,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
         "system"    -> "arena", // BC
         "minutes"   -> tour.minutes,
         "clock"     -> tour.clock,
-        "rated"     -> tour.mode.rated,
+        "rated"     -> tour.rated,
         "fullName"  -> tour.name(),
         "nbPlayers" -> tour.nbPlayers,
         "variant"   -> Json.obj(

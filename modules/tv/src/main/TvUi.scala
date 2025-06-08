@@ -77,7 +77,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
               div(cls := "setup")(
                 gameUi.widgets.showClock(game),
                 separator,
-                (if game.rated then trans.site.rated else trans.site.casual).txt(),
+                ratedName(game.rated),
                 separator,
                 variantLink(game.variant, game.perfKey, shortName = true)
               )

@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
@@ -24,7 +23,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  @nowarn def send(user: User, email: EmailAddress)(using Lang) =
+  def send(user: User, email: EmailAddress)(using Lang) =
     userRepo.setEmailConfirmed(user.id).void
 
   def dryTest(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
