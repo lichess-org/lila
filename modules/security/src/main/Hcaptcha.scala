@@ -8,6 +8,7 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
+import com.softwaremill.tagging.*
 
 import lila.common.HTTPRequest
 import lila.common.autoconfig.*
@@ -15,6 +16,7 @@ import lila.common.config.given
 import lila.core.config.*
 import lila.core.net.IpAddress
 import lila.core.security.{ HcaptchaForm, HcaptchaPublicConfig }
+import lila.memo.SettingStore
 
 trait Hcaptcha extends lila.core.security.Hcaptcha:
 
@@ -55,7 +57,8 @@ final class HcaptchaReal(
     ipTrust: IpTrust,
     ws: StandaloneWSClient,
     netDomain: NetDomain,
-    config: Hcaptcha.Config
+    config: Hcaptcha.Config,
+    alwaysCaptcha: SettingStore[Boolean] @@ AlwaysCaptcha
 )(using Executor)
     extends Hcaptcha:
 
@@ -72,9 +75,11 @@ final class HcaptchaReal(
   private object skipIp:
     private val memo                               = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
     def get(using req: RequestHeader): Fu[Boolean] =
-      val ip = HTTPRequest.ipAddress(req)
-      (!memo.get(ip)).so:
-        ipTrust.isSuspicious(ip).not
+      if alwaysCaptcha.get() then fuFalse
+      else
+        val ip = HTTPRequest.ipAddress(req)
+        (!memo.get(ip)).so:
+          ipTrust.isSuspicious(ip).not
 
     def record(using req: RequestHeader) = memo.put(HTTPRequest.ipAddress(req))
 
