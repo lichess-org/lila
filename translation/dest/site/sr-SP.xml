@@ -91,7 +91,7 @@
   <string name="averageRatingX">Просечан рејтинг: %s</string>
   <string name="recentGames">Недавне партије</string>
   <string name="topGames">Партије највишег рејтинга</string>
-  <string name="masterDbExplanation">Партије преко табле од %1$s+ ФИДЕ рејтованих играча из %2$s до %3$s</string>
+  <string name="masterDbExplanation">Партије преко табле од %1$s+ ФИДЕ рејтованих играча из %2$s. до %3$s.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат у %s полупотез</item>
     <item quantity="few">Мат у %s полупотеза</item>
