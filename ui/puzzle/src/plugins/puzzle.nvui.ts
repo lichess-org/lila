@@ -119,23 +119,30 @@ export function initModule() {
             {
               hook: onInsert(el => {
                 const $board = $(el);
-                $board.on('keydown', jumpOrCommand(ctrl));
                 const $buttons = $board.find('button');
                 const steps = ctrl.tree.getNodeList(ctrl.path);
                 const fenSteps = () => steps.map(step => step.fen);
                 const opponentColor = opposite(ctrl.pov);
-                $board.on(
+
+                $buttons.on(
                   'click',
                   selectionHandler(() => opponentColor, selectSound),
                 );
-                $board.on('keydown', arrowKeyHandler(ctrl.pov, borderSound));
-                $buttons.on(
-                  'keydown',
-                  lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
-                );
-                $buttons.on('keydown', possibleMovesHandler(ctrl.pov, ground, 'standard', steps));
-                $buttons.on('keydown', positionJumpHandler());
-                $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
+                $buttons.on('keydown', (e: KeyboardEvent) => {
+                  if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+                  else if (['o'].includes(e.key)) boardCommandsHandler()(e);
+                  else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
+                  else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+                  else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+                  else if (e.key.toLowerCase() === 'm')
+                    possibleMovesHandler(ctrl.pov, ground, 'standard', steps);
+                  else if (e.key === 'c')
+                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get());
+                  else if (e.key === 'i') {
+                    e.preventDefault();
+                    $('input.move').get(0)?.focus();
+                  }
+                });
               }),
             },
             renderBoard(
@@ -318,12 +325,10 @@ const button = (text: string, action: (e: Event) => void, title?: string, disabl
     text,
   );
 
-function jumpOrCommand(ctrl: PuzzleCtrl) {
+function nextOrPrev(ctrl: PuzzleCtrl) {
   return (e: KeyboardEvent) => {
-    if (e.shiftKey) {
-      if (e.key === 'A') doAndRedraw(ctrl, prev);
-      else if (e.key === 'D') doAndRedraw(ctrl, controlNext);
-    } else boardCommandsHandler()(e);
+    if (e.key === 'A') doAndRedraw(ctrl, prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, controlNext);
   };
 }
 
