@@ -90,17 +90,17 @@
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
   <string name="averageRatingX">Просечан рејтинг: %s</string>
   <string name="recentGames">Недавне партије</string>
-  <string name="topGames">Најбоље партије</string>
-  <string name="masterDbExplanation">Два милиона партија на табли %1$s+ ФИДЕ рангираних играча од %2$s. до %3$s.</string>
+  <string name="topGames">Партије највишег рејтинга</string>
+  <string name="masterDbExplanation">Партије преко табле од %1$s+ ФИДЕ рејтованих играча из %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Мат у %s полу-потезу</item>
-    <item quantity="few">Мат у %s полу-потеза</item>
-    <item quantity="other">Мат у %s полу-потеза</item>
+    <item quantity="one">Мат у %s полупотез</item>
+    <item quantity="few">Мат у %s полупотеза</item>
+    <item quantity="other">Мат у %s полупотеза</item>
   </plurals>
   <string name="dtzWithRounding">Заокружен DTZ50, на основу броја полупотеза до следећег узимања фигуре или потеза пешаком</string>
-  <string name="noGameFound">Партија није нађена</string>
+  <string name="noGameFound">Ниједна партија нађена</string>
   <string name="maxDepthReached">Достигнут максимални број потеза!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључите више партија у менију за подешавања?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључи више партија из менија за префенсе?</string>
   <string name="openings">Отварања</string>
   <string name="openingExplorer">Претраживач отварања</string>
   <string name="openingEndgameExplorer">Претраживач отварања/завршница</string>
