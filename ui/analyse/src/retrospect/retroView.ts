@@ -8,8 +8,8 @@ import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
-    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw), attrs: { "role": "button"} }, i18n.site.viewTheSolution),
+    h('a', { hook: bind('click', ctrl.skip), attrs: { "role": "button"}}, i18n.site.skipThisMove),
   ]);
 }
 
@@ -92,7 +92,7 @@ const feedback = {
         'div.half.top',
         h('div.player', [
           h('div.icon', '✓'),
-          h('div.instruction', h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove)),
+          h('div.instruction',  { attrs: { 'aria-live': 'assertive' } }, h('strong', i18n.study.goodMove)),
         ]),
       ),
       jumpToNext(ctrl),
@@ -103,9 +103,9 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', '✓'),
-          h('div.instruction', [
-            h('strong',{ attrs: { 'aria-live': 'assertive' }}, i18n.site.solution),
+            h('div.icon', '✓'),
+            h('div.instruction', { attrs: { 'aria-live': 'assertive' }},[
+              h('strong', i18n.site.solution),
             h(
               'em',
               i18n.site.bestWasX.asArray(
@@ -126,7 +126,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [h('strong', {attrs: { 'aria-live': 'assertive'}}, i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
+          h('div.instruction', {attrs: { 'aria-live': 'assertive'}}, [h('strong',  i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
         ]),
       ),
     ];
@@ -230,7 +230,7 @@ export function renderNvuiRetro(root: AnalyseCtrl): VNode | undefined {
       h('span', { attrs: { 'aria-live': 'assertive' }}, i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
     ]),
-    h('div.feedback.' + fb,  renderFeedback(root, fb)),
+    h('div.feedback.' + fb, {"aria-label": "feedback"}, renderFeedback(root, fb)),
   ]);
 
   console.log("created node: ",node);
