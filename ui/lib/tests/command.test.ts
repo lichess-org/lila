@@ -18,31 +18,17 @@ beforeAll(() => {
       none: 'None',
     },
     nvui: {
-      whiteKings: Object.assign(
-        (quantity: number, ...args: (string | number)[]) => (quantity == 1 ? 'white king' : 'white kings'),
-        {
-          asArray: undefined,
-        },
+      whiteKings: Object.assign((quantity: number, ...args: (string | number)[]) =>
+        quantity == 1 ? 'white king' : 'white kings',
       ),
-      whiteQueens: Object.assign(
-        (quantity: number, ...args: (string | number)[]) => (quantity == 1 ? 'white queen' : 'white queens'),
-        {
-          asArray: undefined,
-        },
+      whiteQueens: Object.assign((quantity: number, ...args: (string | number)[]) =>
+        quantity == 1 ? 'white queen' : 'white queens',
       ),
-      whiteKnights: Object.assign(
-        (quantity: number, ...args: (string | number)[]) =>
-          quantity == 1 ? 'white knight' : 'white knights',
-        {
-          asArray: undefined,
-        },
+      whiteKnights: Object.assign((quantity: number, ...args: (string | number)[]) =>
+        quantity == 1 ? 'white knight' : 'white knights',
       ),
-      blackBishops: Object.assign(
-        (quantity: number, ...args: (string | number)[]) =>
-          quantity == 1 ? 'black bishop' : 'black bishops',
-        {
-          asArray: undefined,
-        },
+      blackBishops: Object.assign((quantity: number, ...args: (string | number)[]) =>
+        quantity == 1 ? 'black bishop' : 'black bishops',
       ),
     },
   };
