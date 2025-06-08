@@ -167,7 +167,9 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">Sayfa başına %s</string>
   <string name="getTheTour">Yardıma mı ihtiyacın var? Tura başla!</string>
   <string name="welcomeToLichessStudyTitle">Lichess Dersine Hoşgeldin! </string>
+  <string name="welcomeToLichessStudyText">Bu paylaşımlı bir analiz panosudur.&lt;br&gt;&lt;br&gt;Oyunları analiz etmek ve not eklemek,&lt;br&gt;arkadaşlarınızla pozisyonları tartışmak,&lt;br&gt;ve tabii ki satranç dersleri için kullanabilirsiniz!&lt;br&gt;&lt;br&gt;Güçlü bir araç, nasıl çalıştığını görmek için biraz zaman ayıralım.</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Paylaşıldı ve kaydedildi</string>
+  <string name="sharedAndSavedText">Diğer üyeler sizin hareketlerinizi gerçek zamanlı olarak görebilir!&lt;br&gt;Ayrıca, her şey sonsuza kadar kaydedilir.</string>
   <string name="studyMembersTitle">Çalışma üyeleri</string>
   <string name="studyChaptersTitle">Çalışma bölümleri</string>
   <string name="commentPositionTitle">Bir pozisyona yorum yap</string>
