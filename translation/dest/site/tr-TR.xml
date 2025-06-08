@@ -157,6 +157,7 @@
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
+  <string name="drawClaimed">Beraberlik iddia edildi</string>
   <string name="offerDraw">Beraberlik teklif et</string>
   <string name="draw">Berabere</string>
   <plurals name="nbPlayers">
