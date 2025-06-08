@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String                                   = key
+    def value: String = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -928,42 +928,6 @@ object I18nKey:
     val `goToBoard`: I18nKey = "nvui:goToBoard"
     val `movePiece`: I18nKey = "nvui:movePiece"
     val `promotion`: I18nKey = "nvui:promotion"
-    val `king`: I18nKey = "nvui:king"
-    val `kings`: I18nKey = "nvui:kings"
-    val `whiteKing`: I18nKey = "nvui:whiteKing"
-    val `whiteKings`: I18nKey = "nvui:whiteKings"
-    val `blackKing`: I18nKey = "nvui:blackKing"
-    val `blackKings`: I18nKey = "nvui:blackKings"
-    val `queen`: I18nKey = "nvui:queen"
-    val `queens`: I18nKey = "nvui:queens"
-    val `whiteQueen`: I18nKey = "nvui:whiteQueen"
-    val `whiteQueens`: I18nKey = "nvui:whiteQueens"
-    val `blackQueen`: I18nKey = "nvui:blackQueen"
-    val `blackQueens`: I18nKey = "nvui:blackQueens"
-    val `rook`: I18nKey = "nvui:rook"
-    val `rooks`: I18nKey = "nvui:rooks"
-    val `whiteRook`: I18nKey = "nvui:whiteRook"
-    val `whiteRooks`: I18nKey = "nvui:whiteRooks"
-    val `blackRook`: I18nKey = "nvui:blackRook"
-    val `blackRooks`: I18nKey = "nvui:blackRooks"
-    val `bishop`: I18nKey = "nvui:bishop"
-    val `bishops`: I18nKey = "nvui:bishops"
-    val `whiteBishop`: I18nKey = "nvui:whiteBishop"
-    val `whiteBishops`: I18nKey = "nvui:whiteBishops"
-    val `blackBishop`: I18nKey = "nvui:blackBishop"
-    val `blackBishops`: I18nKey = "nvui:blackBishops"
-    val `knight`: I18nKey = "nvui:knight"
-    val `knights`: I18nKey = "nvui:knights"
-    val `whiteKnight`: I18nKey = "nvui:whiteKnight"
-    val `whiteKnights`: I18nKey = "nvui:whiteKnights"
-    val `blackKnight`: I18nKey = "nvui:blackKnight"
-    val `blackKnights`: I18nKey = "nvui:blackKnights"
-    val `pawn`: I18nKey = "nvui:pawn"
-    val `pawns`: I18nKey = "nvui:pawns"
-    val `whitePawn`: I18nKey = "nvui:whitePawn"
-    val `whitePawns`: I18nKey = "nvui:whitePawns"
-    val `blackPawn`: I18nKey = "nvui:blackPawn"
-    val `blackPawns`: I18nKey = "nvui:blackPawns"
     val `sanSymbols`: I18nKey = "nvui:sanSymbols"
     val `sanTakes`: I18nKey = "nvui:sanTakes"
     val `sanCheck`: I18nKey = "nvui:sanCheck"
@@ -975,6 +939,24 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `kings`: I18nKey = "nvui:kings"
+    val `whiteKings`: I18nKey = "nvui:whiteKings"
+    val `blackKings`: I18nKey = "nvui:blackKings"
+    val `queens`: I18nKey = "nvui:queens"
+    val `whiteQueens`: I18nKey = "nvui:whiteQueens"
+    val `blackQueens`: I18nKey = "nvui:blackQueens"
+    val `rooks`: I18nKey = "nvui:rooks"
+    val `whiteRooks`: I18nKey = "nvui:whiteRooks"
+    val `blackRooks`: I18nKey = "nvui:blackRooks"
+    val `bishops`: I18nKey = "nvui:bishops"
+    val `whiteBishops`: I18nKey = "nvui:whiteBishops"
+    val `blackBishops`: I18nKey = "nvui:blackBishops"
+    val `knights`: I18nKey = "nvui:knights"
+    val `whiteKnights`: I18nKey = "nvui:whiteKnights"
+    val `blackKnights`: I18nKey = "nvui:blackKnights"
+    val `pawns`: I18nKey = "nvui:pawns"
+    val `whitePawns`: I18nKey = "nvui:whitePawns"
+    val `blackPawns`: I18nKey = "nvui:blackPawns"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

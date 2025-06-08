@@ -1755,34 +1755,20 @@ interface I18n {
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
     announcePossibleMoves: string;
-    /** bishop */
-    bishop: string;
     /** bishops */
-    bishops: string;
-    /** black bishop */
-    blackBishop: string;
+    bishops: I18nPlural;
     /** black bishops */
-    blackBishops: string;
-    /** black king */
-    blackKing: string;
+    blackBishops: I18nPlural;
     /** black kings */
-    blackKings: string;
-    /** black knight */
-    blackKnight: string;
+    blackKings: I18nPlural;
     /** black knights */
-    blackKnights: string;
-    /** black pawn */
-    blackPawn: string;
+    blackKnights: I18nPlural;
     /** black pawns */
-    blackPawns: string;
-    /** black queen */
-    blackQueen: string;
+    blackPawns: I18nPlural;
     /** black queens */
-    blackQueens: string;
-    /** black rook */
-    blackRook: string;
+    blackQueens: I18nPlural;
     /** black rooks */
-    blackRooks: string;
+    blackRooks: I18nPlural;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1803,14 +1789,10 @@ interface I18n {
     inputFormCommandList: string;
     /** Invalid move */
     invalidMove: string;
-    /** king */
-    king: string;
     /** kings */
-    kings: string;
-    /** knight */
-    knight: string;
+    kings: I18nPlural;
     /** knights */
-    knights: string;
+    knights: I18nPlural;
     /** Last move */
     lastMove: string;
     /** Move list */
@@ -1827,10 +1809,8 @@ interface I18n {
     moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
-    /** pawn */
-    pawn: string;
     /** pawns */
-    pawns: string;
+    pawns: I18nPlural;
     /** Pieces */
     pieces: string;
     /** Premove cancelled */
@@ -1839,14 +1819,10 @@ interface I18n {
     premoveRecorded: I18nFormat;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
-    /** queen */
-    queen: string;
     /** queens */
-    queens: string;
-    /** rook */
-    rook: string;
+    queens: I18nPlural;
     /** rooks */
-    rooks: string;
+    rooks: I18nPlural;
     /** check */
     sanCheck: string;
     /** checkmate */
@@ -1863,30 +1839,18 @@ interface I18n {
     sanSymbols: string;
     /** takes */
     sanTakes: string;
-    /** white bishop */
-    whiteBishop: string;
     /** white bishops */
-    whiteBishops: string;
-    /** white king */
-    whiteKing: string;
+    whiteBishops: I18nPlural;
     /** white kings */
-    whiteKings: string;
-    /** white knight */
-    whiteKnight: string;
+    whiteKings: I18nPlural;
     /** white knights */
-    whiteKnights: string;
-    /** white pawn */
-    whitePawn: string;
+    whiteKnights: I18nPlural;
     /** white pawns */
-    whitePawns: string;
-    /** white queen */
-    whiteQueen: string;
+    whitePawns: I18nPlural;
     /** white queens */
-    whiteQueens: string;
-    /** white rook */
-    whiteRook: string;
+    whiteQueens: I18nPlural;
     /** white rooks */
-    whiteRooks: string;
+    whiteRooks: I18nPlural;
     /** Your clock */
     yourClock: string;
   };

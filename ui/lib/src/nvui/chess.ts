@@ -541,63 +541,21 @@ const transSanToWords = (san: string): string =>
     .replace('O - O', i18n.nvui.sanShortCastling);
 
 const transRole = (role: Role | undefined, qty: number = 1): string => {
-  if (role === 'king') return qty === 1 ? i18n.nvui.king : i18n.nvui.kings;
-  if (role === 'queen') return qty === 1 ? i18n.nvui.queen : i18n.nvui.queens;
-  if (role === 'rook') return qty === 1 ? i18n.nvui.rook : i18n.nvui.rooks;
-  if (role === 'bishop') return qty === 1 ? i18n.nvui.bishop : i18n.nvui.bishops;
-  if (role === 'knight') return qty === 1 ? i18n.nvui.knight : i18n.nvui.knights;
-  if (role === 'pawn') return qty === 1 ? i18n.nvui.pawn : i18n.nvui.pawns;
+  if (role === 'king') return i18n.nvui.kings(qty);
+  if (role === 'queen') return i18n.nvui.queens(qty);
+  if (role === 'rook') return i18n.nvui.rooks(qty);
+  if (role === 'bishop') return i18n.nvui.bishops(qty);
+  if (role === 'knight') return i18n.nvui.knights(qty);
+  if (role === 'pawn') return i18n.nvui.pawns(qty);
   return '';
 };
 
 const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): string => {
-  if (role === 'king')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackKing
-        : i18n.nvui.blackKings
-      : qty === 1
-        ? i18n.nvui.whiteKing
-        : i18n.nvui.whiteKings;
-  if (role === 'queen')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackQueen
-        : i18n.nvui.blackQueens
-      : qty === 1
-        ? i18n.nvui.whiteQueen
-        : i18n.nvui.whiteQueens;
-  if (role === 'rook')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackRook
-        : i18n.nvui.blackRooks
-      : qty === 1
-        ? i18n.nvui.whiteRook
-        : i18n.nvui.whiteRooks;
-  if (role === 'bishop')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackBishop
-        : i18n.nvui.blackBishops
-      : qty === 1
-        ? i18n.nvui.whiteBishop
-        : i18n.nvui.whiteBishops;
-  if (role === 'knight')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackKnight
-        : i18n.nvui.blackKnights
-      : qty === 1
-        ? i18n.nvui.whiteKnight
-        : i18n.nvui.whiteKnights;
-  if (role === 'pawn')
-    return color === 'black'
-      ? qty === 1
-        ? i18n.nvui.blackPawn
-        : i18n.nvui.blackPawns
-      : qty === 1
-        ? i18n.nvui.whitePawn
-        : i18n.nvui.whitePawns;
+  if (role === 'king') return color === 'black' ? i18n.nvui.blackKings(qty) : i18n.nvui.whiteKings(qty);
+  if (role === 'queen') return color === 'black' ? i18n.nvui.blackQueens(qty) : i18n.nvui.whiteQueens(qty);
+  if (role === 'rook') return color === 'black' ? i18n.nvui.blackRooks(qty) : i18n.nvui.whiteRooks(qty);
+  if (role === 'bishop') return color === 'black' ? i18n.nvui.blackBishops(qty) : i18n.nvui.whiteBishops(qty);
+  if (role === 'knight') return color === 'black' ? i18n.nvui.blackKnights(qty) : i18n.nvui.whiteKnights(qty);
+  if (role === 'pawn') return color === 'black' ? i18n.nvui.blackPawns(qty) : i18n.nvui.whitePawns(qty);
   return '';
 };
