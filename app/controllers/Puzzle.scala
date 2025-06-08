@@ -404,9 +404,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             WithPuzzlePerf: perf ?=>
               data.solutions.lastOption
                 .flatMap: solution =>
-                  Puz
-                    .numericalId(solution.id)
-                    .map(_ -> solution.win)
+                  Puz.numericalId(solution.id).map(_ -> solution.win)
                 .so: (id, solution) =>
                   env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
                 .map:

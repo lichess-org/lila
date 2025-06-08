@@ -105,7 +105,7 @@ final private[puzzle] class PuzzleFinisher(
                     userApi
                       .dubiousPuzzle(me.userId, perf)
                       .map: dubiousPuzzleRating =>
-                        val newPuzzleGlicko = (!dubiousPuzzleRating).so(
+                        val newPuzzleGlicko = (!dubiousPuzzleRating).so:
                           ponder
                             .puzzle(
                               angle,
@@ -122,7 +122,6 @@ final private[puzzle] class PuzzleFinisher(
                             .some
                             .filter(puzzle.glicko !=)
                             .filter(_.sanityCheck)
-                        )
                         val round =
                           PuzzleRound(
                             id = PuzzleRound.Id(me.userId, puzzle.id),
@@ -156,15 +155,13 @@ final private[puzzle] class PuzzleFinisher(
                             .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
                             .void
                     _ = if prevRound.isEmpty then
-                      Bus.pub(
-                        Puzzle
-                          .UserResult(
-                            puzzle.id,
-                            me.userId,
-                            win,
-                            perf.intRating -> userPerf.intRating
-                          )
-                      )
+                      Bus.pub:
+                        Puzzle.UserResult(
+                          puzzle.id,
+                          me.userId,
+                          win,
+                          perf.intRating -> userPerf.intRating
+                        )
                   yield (round -> userPerf).some
 
   private object ponder:
