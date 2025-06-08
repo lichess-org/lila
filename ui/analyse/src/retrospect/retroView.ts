@@ -8,13 +8,13 @@ import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw), attrs: { "role": "button"} }, i18n.site.viewTheSolution),
-    h('a', { hook: bind('click', ctrl.skip), attrs: { "role": "button"}}, i18n.site.skipThisMove),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw), attrs: { "role": "button",  "tabindex": "0"} }, i18n.site.viewTheSolution),
+    h('a', { hook: bind('click', ctrl.skip), attrs: { "role": "button", "tabindex": "0"}}, i18n.site.skipThisMove),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
-  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext), attrs: {"area-label":"Jump to next", "tabindex": "0"} }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.site.next,
   ]);
@@ -46,7 +46,7 @@ const feedback = {
             'strong',
             i18n.site.xWasPlayed.asArray(
               h(
-                'move', {attrs: { 'aria-live': 'assertive' }},
+                'move', {attrs: { "tabindex": "0",'aria-live': 'assertive' }},
                 renderIndexAndMove(
                   { withDots: true, showGlyphs: true, showEval: false },
                   ctrl.current()!.fault.node,
@@ -68,7 +68,7 @@ const feedback = {
         h('div.instruction', [
           h('strong', {'aria-live': 'polite'}, i18n.site.youBrowsedAway),
           h('div.choices.off', [
-            h('a', { hook: bind('click', ctrl.jumpToNext), role: 'button' }, i18n.site.resumeLearning),
+            h('a', { "tabindex": "0", hook: bind('click', ctrl.jumpToNext), role: 'button' }, i18n.site.resumeLearning),
           ]),
         ]),
       ]),
@@ -91,7 +91,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', '✓'),
+          h('div.icon', {attrs: {"aria-label": "check mark"}}, '✓'),
           h('div.instruction',  { attrs: { 'aria-live': 'assertive' } }, h('strong', i18n.study.goodMove)),
         ]),
       ),
@@ -226,11 +226,11 @@ export function renderNvuiRetro(root: AnalyseCtrl): VNode | undefined {
   completion = ctrl.completion();
 
   const node = h('div.retro-box.training-box.sub-box', [
-    h('div.title', [
+    h('div.title',  {"tabindex": "0"},[
       h('span', { attrs: { 'aria-live': 'assertive' }}, i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
     ]),
-    h('div.feedback.' + fb, {"aria-label": "feedback"}, renderFeedback(root, fb)),
+    h('div.feedback.' + fb, {"aria-live": "assertive", "tabindex": "0"}, renderFeedback(root, fb)),
   ]);
 
   console.log("created node: ",node);
