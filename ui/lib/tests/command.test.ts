@@ -18,11 +18,32 @@ beforeAll(() => {
       none: 'None',
     },
     nvui: {
-      whiteKing: 'white king',
-      whiteQueen: 'white queen',
-      whiteKnight: 'white knight',
-      whiteKnights: 'white knights',
-      blackBishops: 'black bishops',
+      whiteKings: Object.assign(
+        (quantity: number, ...args: (string | number)[]) => (quantity == 1 ? 'white king' : 'white kings'),
+        {
+          asArray: undefined,
+        },
+      ),
+      whiteQueens: Object.assign(
+        (quantity: number, ...args: (string | number)[]) => (quantity == 1 ? 'white queen' : 'white queens'),
+        {
+          asArray: undefined,
+        },
+      ),
+      whiteKnights: Object.assign(
+        (quantity: number, ...args: (string | number)[]) =>
+          quantity == 1 ? 'white knight' : 'white knights',
+        {
+          asArray: undefined,
+        },
+      ),
+      blackBishops: Object.assign(
+        (quantity: number, ...args: (string | number)[]) =>
+          quantity == 1 ? 'black bishop' : 'black bishops',
+        {
+          asArray: undefined,
+        },
+      ),
     },
   };
   vi.stubGlobal('i18n', i18n);
