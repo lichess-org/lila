@@ -338,9 +338,12 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
 }
 
 function initLFYM(ctrl: AnalyseController): VNode | undefined {
-  if (!ctrl.retro) {
-    ctrl.toggleRetro();
+  if (ctrl.hasFullComputerAnalysis()) {
+    if(!ctrl.retro) {
+      ctrl.toggleRetro();
+    }
   }
+
   console.log('initLFYM entered withctrl=', ctrl);
 
   return h('h2', 'retro started');

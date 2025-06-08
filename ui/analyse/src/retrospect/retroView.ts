@@ -104,8 +104,8 @@ const feedback = {
         'div.half.top',
         h('div.player', [
             h('div.icon', '✓'),
-            h('div.instruction', { attrs: { 'aria-live': 'assertive' }},[
-              h('strong', i18n.site.solution),
+            h('div.instruction', { attrs: { 'tab-index': "0" }},[
+              h('strong', { attrs: { 'aria-live': 'assertive' }}, i18n.site.solution),
             h(
               'em',
               i18n.site.bestWasX.asArray(
@@ -163,7 +163,9 @@ const feedback = {
                   'a',
                   {
                     attrs: {
-                        "role": "button"
+                        "role": "button",
+                        "tab-index": "0",
+
                     },
                     key: 'reset',
                     hook: bind('click', ctrl.reset),
@@ -174,7 +176,9 @@ const feedback = {
               'a',
               {
                 attrs: {
-                    "role": "button"
+                    "role": "button",
+                    "tab-index": "0",
+                    "area-live": "polite",
                 },
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
@@ -225,8 +229,8 @@ export function renderNvuiRetro(root: AnalyseCtrl): VNode | undefined {
   const fb = ctrl.feedback(),
   completion = ctrl.completion();
 
-  const node = h('div.retro-box.training-box.sub-box', [
-    h('div.title',  {"tabindex": "0"},[
+  const node = h('div.retro-box.training-box.sub-box', {attrs: { "tabindex": "0", "aria-label": "Learn from your mistakes area"}}, [
+    h('div.title', [
       h('span', { attrs: { 'aria-live': 'assertive' }}, i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
     ]),
