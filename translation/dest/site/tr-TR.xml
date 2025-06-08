@@ -75,6 +75,7 @@
   <string name="expandVariations">Varyasyonları genişlet</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
+  <string name="copyMainLinePgn">Ana PGN\'yi kopyala</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
   <string name="variantWin">Varyant zaferi</string>
@@ -678,6 +679,7 @@
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="termsOfService">Hizmet koşulları</string>
+  <string name="titleVerification">Ünvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
