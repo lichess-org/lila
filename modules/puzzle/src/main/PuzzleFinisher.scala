@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import chess.{ Mode, ByColor }
+import chess.{ Rated, ByColor }
 import chess.rating.IntRatingDiff
 import chess.rating.glicko.{ Glicko, GlickoCalculator }
 import scalalib.actor.AsyncActorSequencers
@@ -37,7 +37,7 @@ final private[puzzle] class PuzzleFinisher(
     solutions
       .foldM((perf, List.empty[(PuzzleRound, IntRatingDiff)])):
         case ((perf, rounds), sol) =>
-          apply(sol.id, angle, sol.win, sol.mode)(using me, perf).map:
+          apply(sol.id, angle, sol.win, sol.rated)(using me, perf).map:
             case Some(round, newPerf) =>
               val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
               (newPerf, (round, rDiff) :: rounds)
@@ -49,7 +49,7 @@ final private[puzzle] class PuzzleFinisher(
       id: PuzzleId,
       angle: PuzzleAngle,
       win: PuzzleWin,
-      mode: Mode
+      rated: Rated
   )(using me: Me, perf: Perf): Fu[Option[(PuzzleRound, Perf)]] =
     if api.casual(me.value, id) then
       fuccess:
@@ -74,7 +74,7 @@ final private[puzzle] class PuzzleFinisher(
                   case Some(prev) =>
                     fuccess:
                       (prev.updateWithWin(win), none, perf)
-                  case None if mode.casual =>
+                  case None if rated.no =>
                     fuccess:
                       val round = PuzzleRound(
                         id = PuzzleRound.Id(me.userId, puzzle.id),
@@ -105,7 +105,7 @@ final private[puzzle] class PuzzleFinisher(
                     userApi
                       .dubiousPuzzle(me.userId, perf)
                       .map: dubiousPuzzleRating =>
-                        val newPuzzleGlicko = (!dubiousPuzzleRating).so(
+                        val newPuzzleGlicko = (!dubiousPuzzleRating).so:
                           ponder
                             .puzzle(
                               angle,
@@ -122,7 +122,6 @@ final private[puzzle] class PuzzleFinisher(
                             .some
                             .filter(puzzle.glicko !=)
                             .filter(_.sanityCheck)
-                        )
                         val round =
                           PuzzleRound(
                             id = PuzzleRound.Id(me.userId, puzzle.id),
@@ -156,15 +155,13 @@ final private[puzzle] class PuzzleFinisher(
                             .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
                             .void
                     _ = if prevRound.isEmpty then
-                      Bus.pub(
-                        Puzzle
-                          .UserResult(
-                            puzzle.id,
-                            me.userId,
-                            win,
-                            perf.intRating -> userPerf.intRating
-                          )
-                      )
+                      Bus.pub:
+                        Puzzle.UserResult(
+                          puzzle.id,
+                          me.userId,
+                          win,
+                          perf.intRating -> userPerf.intRating
+                        )
                   yield (round -> userPerf).some
 
   private object ponder:

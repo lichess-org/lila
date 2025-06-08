@@ -92,7 +92,7 @@ final private class SwissDirector(
           val player = players.get(pairing(c)).err(s"Missing pairing $c $pairing")
           newPlayer(c, player.userId, player.rating, player.provisional)
         ,
-        mode = chess.Mode(swiss.settings.rated),
+        rated = swiss.settings.rated,
         source = lila.core.game.Source.Swiss,
         pgnImport = None
       )

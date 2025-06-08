@@ -33,7 +33,7 @@ final class ChallengeApi(
       variant = config.variant,
       initialFen = config.position,
       timeControl = Challenge.makeTimeControl(config.clock, config.days),
-      mode = chess.Mode(config.rated),
+      rated = config.rated,
       color = "random",
       challenger = Challenger.Open,
       destUser = none,

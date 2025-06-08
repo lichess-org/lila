@@ -193,7 +193,7 @@ object Tv:
     val list  = values.toList
     val byKey = values.mapBy(_.key)
 
-  private def rated(min: Int) = (c: Candidate) => c.game.rated && hasMinRating(c.game, IntRating(min))
+  private def rated(min: Int) = (c: Candidate) => c.game.rated.yes && hasMinRating(c.game, IntRating(min))
   private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
   private val standard                                  = variant(V.Standard)

@@ -40,7 +40,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
             if t.variant.exotic then t.variant.name else t.perfType.trans,
             t.position.isDefined.option(frag(" • ", trans.site.thematic())),
             " • ",
-            if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+            lila.gathering.ui.translateRated(t.rated),
             " • ",
             t.durationString
           )

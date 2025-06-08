@@ -2,7 +2,7 @@ package lila.setup
 package ui
 
 import chess.variant.Variant
-import chess.{ Mode, Speed }
+import chess.{ Rated, Speed }
 import play.api.data.{ Field, Form }
 
 import lila.core.rating.RatingRange
@@ -141,8 +141,8 @@ final class SetupUi(helpers: Helpers):
 
   private def translatedModeChoices(using Translate) =
     List(
-      (Mode.Casual.id.toString, trans.site.casual.txt(), none),
-      (Mode.Rated.id.toString, trans.site.rated.txt(), none)
+      (Rated.No.id.toString, trans.site.casual.txt(), none),
+      (Rated.Yes.id.toString, trans.site.rated.txt(), none)
     )
 
   private def translatedIncrementChoices(using Translate) =

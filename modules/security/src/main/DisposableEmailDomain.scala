@@ -14,7 +14,7 @@ final class DisposableEmailDomain(
 
   import DisposableEmailDomain.*
 
-  private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
+  private val staticRegex = toRegexStr(staticBlacklist.iterator)
 
   private var regex = finalizeRegex(staticRegex)
 
@@ -36,7 +36,9 @@ final class DisposableEmailDomain(
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
   def apply(domain: Domain): Boolean =
-    !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
+    !DisposableEmailDomain.whitelisted(domain) && (
+      regex.find(domain.lower.value) || domainFragmentRegex.find(domain.lower.value)
+    )
 
   def asMxRecord(domain: Domain): Boolean =
     apply(domain) && !mxRecordPasslist(domain.withoutSubdomain)
@@ -74,6 +76,16 @@ private object DisposableEmailDomain:
     "gnail.com",
     "hotamil.com"
   )
+
+  private val domainFragmentRegex = List(
+    "te?mp-?e?mail",
+    "e?mail-?te?mp",
+    "minutes?-?mail",
+    "temporary",
+    "throwaway",
+    "dispos(e|able)",
+    "spam"
+  ).mkString("|").r.unanchored
 
   private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
     Set(

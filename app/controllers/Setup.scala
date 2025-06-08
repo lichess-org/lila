@@ -65,7 +65,7 @@ final class Setup(
                         variant = config.variant,
                         initialFen = config.fen,
                         timeControl = timeControl,
-                        mode = config.mode,
+                        rated = config.rated,
                         color = config.color.name,
                         challenger = challenger,
                         destUser = destUser,

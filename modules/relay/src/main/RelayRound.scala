@@ -4,6 +4,7 @@ import io.mola.galimatias.URL
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
+import chess.{ Rated, ByColor }
 
 import lila.study.Study
 
@@ -22,8 +23,10 @@ case class RelayRound(
      * sync.nextAt is used for actually synchronising */
     finishedAt: Option[Instant],
     createdAt: Instant,
-    crowd: Option[Crowd]
+    crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
+    rated: Rated = Rated.Yes,
+    customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
 ):
   inline def studyId = id.into(StudyId)
 
@@ -83,6 +86,11 @@ object RelayRound:
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]
+
+  opaque type CustomPoints = Float
+  object CustomPoints extends OpaqueFloat[CustomPoints]
+
+  case class CustomScoring(win: CustomPoints, draw: CustomPoints)
 
   enum Starts:
     case At(at: Instant)

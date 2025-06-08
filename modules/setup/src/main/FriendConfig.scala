@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Clock, Mode }
+import chess.{ Clock, Rated }
 import scalalib.model.Days
 
 import lila.lobby.TriColor
@@ -13,7 +13,7 @@ case class FriendConfig(
     time: Double,
     increment: Clock.IncrementSeconds,
     days: Days,
-    mode: Mode,
+    rated: Rated,
     color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends HumanConfig
@@ -22,11 +22,11 @@ case class FriendConfig(
 
   val strictFen = false
 
-  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, color.name, fen).some
+  def >> = (variant.id, timeMode.id, time, increment, days, rated.id.some, color.name, fen).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
-object FriendConfig extends BaseHumanConfig:
+object FriendConfig extends BaseConfig:
 
   def from(
       v: Variant.Id,
@@ -44,7 +44,7 @@ object FriendConfig extends BaseHumanConfig:
       time = t,
       increment = i,
       days = d,
-      mode = m.fold(Mode.default)(Mode.orDefault),
+      rated = m.fold(Rated.default)(Rated.orDefault),
       color = TriColor(c).err("Invalid color " + c),
       fen = fen
     )
@@ -55,7 +55,7 @@ object FriendConfig extends BaseHumanConfig:
     time = 5d,
     increment = Clock.IncrementSeconds(8),
     days = Days(2),
-    mode = Mode.default,
+    rated = Rated.default,
     color = TriColor.default
   )
 
@@ -71,7 +71,7 @@ object FriendConfig extends BaseHumanConfig:
         time = r.double("t"),
         increment = r.get("i"),
         days = r.get("d"),
-        mode = Mode.orDefault(r.int("m")),
+        rated = Rated.orDefault(r.int("m")),
         color = TriColor.White,
         fen = r.getO[Fen.Full]("f").filter(_.value.nonEmpty)
       )
@@ -83,6 +83,6 @@ object FriendConfig extends BaseHumanConfig:
         "t"  -> o.time,
         "i"  -> o.increment,
         "d"  -> o.days,
-        "m"  -> o.mode.id,
+        "m"  -> o.rated.id,
         "f"  -> o.fen
       )
