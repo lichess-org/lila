@@ -160,7 +160,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
-          h('div', { attrs: { } }, nvuiRetroView(ctrl)),
+          h('div', { attrs: {} }, nvuiRetroView(ctrl)),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -338,12 +338,12 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
 }
 
 function renderLFYM(ctrl: AnalyseController): VNode | undefined {
-  if(!ctrl.retro) {
-    ctrl.toggleRetro()
+  if (!ctrl.retro) {
+    ctrl.toggleRetro();
   }
-  console.log("function renderLFYM(${ctrl}: AnalyseController): VNode | undefined")
+  console.log('function renderLFYM(${ctrl}: AnalyseController): VNode | undefined');
 
-  return h("h2", "retro started");
+  return h('h2', 'retro started');
 }
 
 function onSubmit(
@@ -371,7 +371,6 @@ function onSubmit(
     $input.val('');
   };
 }
-
 
 type Command = 'p' | 's' | 'eval' | 'learn' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
@@ -408,7 +407,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'learn',
     help: noTrans('Learn from your mistakes'),
-    cb: (ctrl) => renderLFYM(ctrl)
+    cb: ctrl => doAndRedraw(ctrl, renderLFYM),
   },
   {
     cmd: 'best',
@@ -503,7 +502,6 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   });
   return res;
 }
-
 
 const requestAnalysisButton = (
   ctrl: AnalyseController,
