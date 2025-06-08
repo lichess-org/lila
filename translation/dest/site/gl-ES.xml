@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
-  <string name="waitingForOpponent">Agardando un rival</string>
+  <string name="waitingForOpponent">Agardando polo rival</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
@@ -858,7 +858,7 @@
   <string name="tryAnotherMoveForWhite">Tenta outro movemento para as brancas</string>
   <string name="tryAnotherMoveForBlack">Tenta outro movemento para as negras</string>
   <string name="solution">Solución</string>
-  <string name="waitingForAnalysis">Agardando análise</string>
+  <string name="waitingForAnalysis">Agardando pola análise</string>
   <string name="noMistakesFoundForWhite">Non hai erros das brancas</string>
   <string name="noMistakesFoundForBlack">Non hai erros das negras</string>
   <string name="doneReviewingWhiteMistakes">Terminada a revisión de erros das brancas</string>
