@@ -495,7 +495,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def passwordCost(req: RequestHeader): Fu[Float] =
     env.security.ipTrust
-      .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
+      .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = EmailConfirm.rateLimit[Result]
 

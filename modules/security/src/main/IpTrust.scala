@@ -15,17 +15,22 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
   private[security] def isSuspicious(ip: IpAddress): Fu[Boolean] =
     if firewallApi.blocksIp(ip) then fuTrue
     else if geoApi.isSuspicious(ip) then fuTrue
-    else proxyApi(ip).dmap(_.is)
+    else proxyApi.ofIp(ip).dmap(_.is)
 
   private[security] def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
-  def data(ip: IpAddress): Fu[IpData] =
-    proxyApi(ip).dmap(IpData(_, geoApi.orUnknown(ip)))
+  def ipData(ip: IpAddress): Fu[IpData] =
+    proxyApi.ofIp(ip).dmap(IpData(_, geoApi.orUnknown(ip)))
 
-  def isPubOrTor(ip: IpAddress): Fu[Boolean] = proxyApi(ip).dmap:
-    case IsProxy.public | IsProxy.tor => true
-    case _                            => false
+  def reqData(req: RequestHeader): Fu[IpData] =
+    proxyApi.ofReq(req).dmap(IpData(_, geoApi.orUnknown(HTTPRequest.ipAddress(req))))
+
+  def isPubOrTor(req: RequestHeader): Fu[Boolean] = proxyApi
+    .ofReq(req)
+    .dmap:
+      case IsProxy.public | IsProxy.tor => true
+      case _                            => false
 
   final class rateLimit(
       credits: Int,
@@ -43,7 +48,7 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     )(using Executor): Fu[A] =
       val ip = HTTPRequest.ipAddress(req)
       for
-        proxy <- proxyApi(ip)
+        proxy <- proxyApi.ofReq(req)
         ipCostFactor =
           if HTTPRequest.nginxWhitelist(req) then 1
           else strategy(IpTrust)(proxy)
@@ -51,15 +56,16 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
       yield res
 
   def rateLimitCostFactor(
-      ip: IpAddress,
+      req: RequestHeader,
       strategy: IpTrust.type => RateLimitStrategy = _.defaultRateLimitStrategy
   ): Fu[Float] =
-    proxyApi(ip).dmap(strategy(IpTrust))
+    proxyApi.ofReq(req).dmap(strategy(IpTrust))
 
   def throttle(base: MaxPerSecond)(using req: RequestHeader)(using Executor): Fu[MaxPerSecond] =
     if HTTPRequest.nginxWhitelist(req) then fuccess(base)
     else
-      proxyApi(HTTPRequest.ipAddress(req))
+      proxyApi
+        .ofReq(req)
         .map(defaultThrottleStrategy)
         .map: div =>
           base.map(mps => (mps / div).toInt)

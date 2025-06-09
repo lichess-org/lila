@@ -38,7 +38,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
 
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
-      .isPubOrTor(ctx.ip)
+      .isPubOrTor(ctx.req)
       .flatMap:
         if _ then Unauthorized.page(views.auth.pubOrTor)
         else res
