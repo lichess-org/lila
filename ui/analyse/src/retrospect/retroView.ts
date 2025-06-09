@@ -8,16 +8,28 @@ import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw), attrs: { "role": "button",  "tabindex": "0"} }, i18n.site.viewTheSolution),
-    h('a', { hook: bind('click', ctrl.skip), attrs: { "role": "button", "tabindex": "0"}}, i18n.site.skipThisMove),
+    h(
+      'a',
+      { hook: bind('click', ctrl.viewSolution, ctrl.redraw), attrs: { role: 'button', tabindex: '0' } },
+      i18n.site.viewTheSolution,
+    ),
+    h(
+      'a',
+      { hook: bind('click', ctrl.skip), attrs: { role: 'button', tabindex: '0' } },
+      i18n.site.skipThisMove,
+    ),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
-  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext), attrs: {"area-label":"Jump to next", "tabindex": "0"} }, [
-    h('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    i18n.site.next,
-  ]);
+  return h(
+    'a.half.continue',
+    {
+      hook: bind('click', ctrl.jumpToNext),
+      attrs: { 'aria-label': 'Jump to next', role: 'button', tabindex: '0' },
+    },
+    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), i18n.site.next],
+  );
 }
 
 const minDepth = 8;
@@ -46,7 +58,8 @@ const feedback = {
             'strong',
             i18n.site.xWasPlayed.asArray(
               h(
-                'move', {attrs: { "tabindex": "0",'aria-live': 'assertive' }},
+                'move',
+                { attrs: { tabindex: '0', 'aria-live': 'assertive' } },
                 renderIndexAndMove(
                   { withDots: true, showGlyphs: true, showEval: false },
                   ctrl.current()!.fault.node,
@@ -54,7 +67,11 @@ const feedback = {
               ),
             ),
           ),
-          h('em', { attrs: { 'aria-live': 'polite'}}, i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
+          h(
+            'em',
+            { attrs: { 'aria-live': 'polite' } },
+            i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
+          ),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -64,11 +81,15 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon.off', '!'),
+        h('div.icon.off', { attrs: { 'aria-label': 'Off track' } }, '!'),
         h('div.instruction', [
-          h('strong', {'aria-live': 'polite'}, i18n.site.youBrowsedAway),
+          h('strong', { 'aria-live': 'polite' }, i18n.site.youBrowsedAway),
           h('div.choices.off', [
-            h('a', { "tabindex": "0", hook: bind('click', ctrl.jumpToNext), role: 'button' }, i18n.site.resumeLearning),
+            h(
+              'a',
+              { tabindex: '0', hook: bind('click', ctrl.jumpToNext), role: 'button' },
+              i18n.site.resumeLearning,
+            ),
           ]),
         ]),
       ]),
@@ -77,10 +98,14 @@ const feedback = {
   fail(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon', '✗'),
+        h('div.icon', { attrs: { 'aria-label': i18n.site.youCanDoBetter } }, '✗'),
         h('div.instruction', [
-          h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
-          h('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
+          h('strong', { attrs: { 'aria-live': 'polite' } }, i18n.site.youCanDoBetter),
+          h(
+            'em',
+            { attrs: { 'aria-live': 'assertive' } },
+            i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
+          ),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -91,8 +116,8 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', {attrs: {"aria-label": "check mark"}}, '✓'),
-          h('div.instruction',  { attrs: { 'aria-live': 'assertive' } }, h('strong', i18n.study.goodMove)),
+          h('div.icon', { attrs: { 'aria-label': i18n.study.goodMove } }, '✓'),
+          h('div.instruction', h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove)),
         ]),
       ),
       jumpToNext(ctrl),
@@ -103,14 +128,15 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-            h('div.icon', '✓'),
-            h('div.instruction', { attrs: { 'tab-index': "0" }},[
-              h('strong', { attrs: { 'aria-live': 'assertive' }}, i18n.site.solution),
+          h('div.icon', { attrs: { 'aria-label': i18n.site.solution } }, '✓'),
+          h('div.instruction', { attrs: { 'tab-index': '0' } }, [
+            h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.solution),
             h(
               'em',
               i18n.site.bestWasX.asArray(
                 h(
                   'strong',
+                  { attrs: { 'aria-live': 'assertive' } },
                   renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node),
                 ),
               ),
@@ -126,7 +152,10 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', {attrs: { 'aria-live': 'assertive'}}, [h('strong',  i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
+          h('div.instruction', [
+            h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.evaluatingYourMove),
+            renderEvalProgress(ctrl.node()),
+          ]),
         ]),
       ),
     ];
@@ -136,7 +165,10 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [h('div.icon', spinner()), h('div.instruction', { attrs: {'aria-live': 'polite'}}, i18n.site.waitingForAnalysis)]),
+          h('div.player', [
+            h('div.icon', { attrs: { 'aria-label': 'spinner' } }, spinner()),
+            h('div.instruction', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
+          ]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -145,7 +177,8 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h(
-            'em',{ attrs: {'aria-live': 'polite'}},
+            'em',
+            { attrs: { 'aria-live': 'polite' } },
             i18n.site[
               nothing
                 ? ctrl.color === 'white'
@@ -163,9 +196,8 @@ const feedback = {
                   'a',
                   {
                     attrs: {
-                        "role": "button",
-                        "tab-index": "0",
-
+                      role: 'button',
+                      'tab-index': '0',
                     },
                     key: 'reset',
                     hook: bind('click', ctrl.reset),
@@ -176,9 +208,8 @@ const feedback = {
               'a',
               {
                 attrs: {
-                    "role": "button",
-                    "tab-index": "0",
-                    "area-live": "polite",
+                  role: 'button',
+                  'tab-index': '0',
                 },
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
@@ -205,38 +236,24 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   if (!ctrl) return;
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
-  return h('div.retro-box.training-box.sub-box', [
-    h('div.title', [
-      h('span', i18n.site.learnFromYourMistakes),
-      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      h('button.fbt', {
-        hook: bind('click', root.toggleRetro, root.redraw),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
-      }),
-    ]),
-    h('div.feedback.' + fb, renderFeedback(root, fb)),
-  ]);
-}
 
-export function renderNvuiRetro(root: AnalyseCtrl): VNode | undefined {
-  console.log(`renderNvuiRetro(${root})`);
-  const ctrl = root.retro;
-  if (!ctrl){
-      console.log("no root.retro, exiting");
-      return;
-  }
-
-  const fb = ctrl.feedback(),
-  completion = ctrl.completion();
-
-  const node = h('div.retro-box.training-box.sub-box', {attrs: { "tabindex": "0", "aria-label": "Learn from your mistakes area"}}, [
-    h('div.title', [
-      h('span', { attrs: { 'aria-live': 'assertive' }}, i18n.site.learnFromYourMistakes),
-      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-    ]),
-    h('div.feedback.' + fb, {"aria-live": "assertive", "tabindex": "0"}, renderFeedback(root, fb)),
-  ]);
-
-  console.log("created node: ",node);
-  return node;
+  return h(
+    'div.retro-box.training-box.sub-box',
+    { attrs: { 'aria-label': 'Learn from your mistakes area' } },
+    [
+      h('div.title', [
+        h('span', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
+        h(
+          'span',
+          { attrs: { 'aria-label': 'mistake number' } },
+          `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
+        ),
+        h('button.fbt', {
+          hook: bind('click', root.toggleRetro, root.redraw),
+          attrs: { 'data-icon': licon.X, 'aria-label': 'toggle learn from your mistakes' },
+        }),
+      ]),
+      h('div.feedback.' + fb, { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb)),
+    ],
+  );
 }

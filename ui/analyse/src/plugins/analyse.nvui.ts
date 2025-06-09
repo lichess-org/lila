@@ -58,7 +58,7 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
-import { renderNvuiRetro } from '@/retrospect/retroView';
+import renderRetro from '@/retrospect/retroView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -155,11 +155,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               ]),
             ],
           ),
+          renderRetro(ctrl),
           notify.render(),
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
-          h('section', renderNvuiRetro(ctrl)),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
           h(
@@ -337,16 +337,16 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function initLFYM(ctrl: AnalyseController): VNode | undefined {
+function initLFYM(ctrl: AnalyseController): string {
   if (ctrl.hasFullComputerAnalysis()) {
-    if(!ctrl.retro) {
+    if (!ctrl.retro) {
       ctrl.toggleRetro();
+      return 'learn from your mistakes';
+    } else {
+      return 'learn from your mistakes running';
     }
   }
-
-  console.log('initLFYM entered withctrl=', ctrl);
-
-  return h('h2', 'retro started');
+  return 'must have complete game analysis for learn from your mistakes';
 }
 
 function onSubmit(
@@ -410,7 +410,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'learn',
     help: noTrans('Learn from your mistakes'),
-    cb: ctrl => doAndRedraw(ctrl, initLFYM),
+    cb: (ctrl, notify) => notify(initLFYM(ctrl)),
   },
   {
     cmd: 'best',
