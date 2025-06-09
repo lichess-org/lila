@@ -81,7 +81,8 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon.off', { attrs: { 'aria-label': 'Off track' } }, '!'),
+        h('div.icon.off', { attrs: { 'aria-label': i18n.site.resumeLearning } }, '!'),
+
         h('div.instruction', [
           h('strong', { 'aria-live': 'polite' }, i18n.site.youBrowsedAway),
           h('div.choices.off', [
@@ -166,7 +167,7 @@ const feedback = {
         h(
           'div.half.top',
           h('div.player', [
-            h('div.icon', { attrs: { 'aria-label': 'spinner' } }, spinner()),
+            h('div.icon', { attrs: { 'aria-label': i18n.site.waitingForAnalysis } }, spinner()),
             h('div.instruction', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
           ]),
         ),
