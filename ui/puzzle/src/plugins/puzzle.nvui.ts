@@ -129,15 +129,16 @@ export function initModule() {
                   selectionHandler(() => opponentColor, selectSound),
                 );
                 $buttons.on('keydown', (e: KeyboardEvent) => {
+                  console.log('keydown ' + e.key);
                   if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
                   else if (['o'].includes(e.key)) boardCommandsHandler()(e);
                   else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
                   else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
                   else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
                   else if (e.key.toLowerCase() === 'm')
-                    possibleMovesHandler(ctrl.pov, ground, 'standard', steps);
+                    possibleMovesHandler(ctrl.pov, ground, 'standard', steps)(e);
                   else if (e.key === 'c')
-                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get());
+                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
                   else if (e.key === 'i') {
                     e.preventDefault();
                     $('input.move').get(0)?.focus();
