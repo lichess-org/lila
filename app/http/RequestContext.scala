@@ -91,7 +91,7 @@ trait RequestContext(using Executor):
         case Some(Right(d)) => d.some
         case _              => none
       .flatMap:
-        case None => fuccess(LoginContext.anon)
+        case None    => fuccess(LoginContext.anon)
         case Some(d) =>
           env.mod.impersonate
             .impersonating(d.me)

@@ -21,7 +21,7 @@ final class InsightApi(
     storage
       .count(userId)
       .flatMap:
-        case 0 => fuccess(InsightUser(0, Nil, Nil))
+        case 0     => fuccess(InsightUser(0, Nil, Nil))
         case count =>
           storage.openings(userId).map { case (families, openings) =>
             InsightUser(count, families, openings)
@@ -53,7 +53,7 @@ final class InsightApi(
     gameRepo
       .lastFinishedRatedNotFromPosition(user)
       .flatMap:
-        case None => fuccess(UserStatus.NoGame)
+        case None       => fuccess(UserStatus.NoGame)
         case Some(game) =>
           storage
             .fetchLast(user.id)

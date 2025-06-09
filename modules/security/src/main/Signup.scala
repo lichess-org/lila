@@ -80,9 +80,9 @@ final class Signup(
               suspIp  <- ipTrust.isSuspicious(ip)
               ipData  <- ipTrust.data(ip)
               captcha <- hcaptcha.verify()
-              result <- captcha match
+              result  <- captcha match
                 case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
-                case _ =>
+                case _                    =>
                   signupRateLimit(
                     data.username.id,
                     suspIp = suspIp,

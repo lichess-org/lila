@@ -128,7 +128,7 @@ object Study:
       sticky: String,
       description: String
   ):
-    def vis = Visibility.byKey.getOrElse(visibility, Visibility.public)
+    def vis      = Visibility.byKey.getOrElse(visibility, Visibility.public)
     def settings =
       Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 

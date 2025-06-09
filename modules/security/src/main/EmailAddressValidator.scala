@@ -17,26 +17,23 @@ final class EmailAddressValidator(
 
   import EmailAddressValidator.*
 
-  val sendableConstraint = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
+  val sendableConstraint = Constraint[EmailAddress]("constraint.email_acceptable"): email =>
     if email.isSendable then Valid
     else Invalid(ValidationError("error.email_acceptable"))
-  }
 
   def uniqueConstraint(forUser: Option[User]) =
-    Constraint[EmailAddress]("constraint.email_unique") { email =>
+    Constraint[EmailAddress]("constraint.email_unique"): email =>
       val (taken, reused) =
         (isTakenBySomeoneElse(email, forUser)
           .zip(wasUsedTwiceRecently(email)))
           .await(2.seconds, "emailUnique")
       if taken || reused then Invalid(ValidationError("error.email_unique"))
       else Valid
-    }
 
   def differentConstraint(than: Option[EmailAddress]) =
-    Constraint[EmailAddress]("constraint.email_different") { email =>
+    Constraint[EmailAddress]("constraint.email_different"): email =>
       if than.has(email) then Invalid(ValidationError("error.email_different"))
       else Valid
-    }
 
   // make sure the cache is warmed up, so next call can be synchronous
   def preloadDns(e: EmailAddress): Funit = apply(e).void

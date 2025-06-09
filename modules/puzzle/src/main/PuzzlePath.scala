@@ -36,7 +36,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
       difficulty: PuzzleDifficulty,
       previousPaths: Set[Id],
       compromise: Int = 0
-  )(using me: Me, perf: Perf): Fu[Option[Id]] = {
+  )(using perf: Perf): Fu[Option[Id]] = {
     val actualTier =
       if tier == PuzzleTier.top && PuzzleDifficulty.isExtreme(difficulty)
       then PuzzleTier.good
@@ -56,7 +56,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
           )
         .dmap(_.flatMap(_.getAsOpt[Id]("_id")))
       .flatMap:
-        case Some(path) => fuccess(path.some)
+        case Some(path)                        => fuccess(path.some)
         case _ if actualTier == PuzzleTier.top =>
           nextFor(requester)(angle, PuzzleTier.good, difficulty, previousPaths)
         case _ if actualTier == PuzzleTier.good && compromise == 2 =>

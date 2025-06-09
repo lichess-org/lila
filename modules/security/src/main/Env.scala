@@ -166,6 +166,12 @@ final class Env(
     text = "Types of proxy that can signup using the legacy mobile API".some
   ).taggedWith[MobileSignupProxy]
 
+  val alwaysCaptcha = settingStore[Boolean](
+    "alwaysCaptcha",
+    default = false,
+    text = "Always serve captchas, don't skip once per IP and per 24h".some
+  ).taggedWith[AlwaysCaptcha]
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
@@ -178,3 +184,4 @@ final class Env(
 
 private trait Proxy2faSetting
 private trait MobileSignupProxy
+private trait AlwaysCaptcha

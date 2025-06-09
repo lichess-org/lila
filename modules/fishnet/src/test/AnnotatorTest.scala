@@ -41,7 +41,7 @@ object AnnotatorTest:
         .newGame(
           g,
           ByColor(Player(GamePlayerId("abcd"), _, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = none
         )
@@ -69,7 +69,7 @@ object AnnotatorTest:
       moves: String,
       ply: Ply
   ): lila.analyse.Analysis =
-    val xs = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
+    val xs       = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
     val analysis = Work.Analysis(
       Work.Id("workid"),
       Work.Sender(UserId("user"), None, false, false),

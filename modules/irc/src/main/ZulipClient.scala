@@ -68,17 +68,17 @@ private object ZulipClient:
 
   object stream:
     object mod:
-      val log          = "mod-log"
-      val adminLog     = "mod-admin-log"
-      val adminGeneral = "mod-admin-general"
-      val commsPublic  = "mod-comms-public"
-      val commsPrivate = "mod-comms-private"
-      val hunterCheat  = "mod-hunter-cheat"
-      val hunterBoost  = "mod-hunter-boost"
-      val adminAppeal  = "mod-admin-appeal"
-      val cafeteria    = "mod-cafeteria"
-      val usernames    = "mod-usernames"
-      val trustSafety  = "org-trustsafety"
+      val log                          = "mod-log"
+      val adminLog                     = "mod-admin-log"
+      val adminGeneral                 = "mod-admin-general"
+      val commsPublic                  = "mod-comms-public"
+      val commsPrivate                 = "mod-comms-private"
+      val hunterCheat                  = "mod-hunter-cheat"
+      val hunterBoost                  = "mod-hunter-boost"
+      val adminAppeal                  = "mod-admin-appeal"
+      val cafeteria                    = "mod-cafeteria"
+      val usernames                    = "mod-usernames"
+      val trustSafety                  = "org-trustsafety"
       def adminMonitor(tpe: ModDomain) = tpe match
         case ModDomain.Comm  => "mod-admin-monitor-comm"
         case ModDomain.Cheat => "mod-admin-monitor-cheat"

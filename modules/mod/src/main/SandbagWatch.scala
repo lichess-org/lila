@@ -19,7 +19,7 @@ final private class SandbagWatch(
 
   def apply(game: Game): Unit = for
     loser <- game.loser.map(_.color)
-    if game.rated && !game.sourceIs(_.Api)
+    if game.rated.yes && !game.sourceIs(_.Api)
     userId <- game.userIds
   do
     (records.getIfPresent(userId), outcomeOf(game, loser, userId)) match

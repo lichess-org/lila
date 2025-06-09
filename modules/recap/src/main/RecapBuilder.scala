@@ -103,7 +103,7 @@ private final class RecapBuilder(
         .fold(this): player =>
           val opponent = g.opponent(player).userId
           val winner   = g.winnerUserId
-          val opening = g.variant.standard.so:
+          val opening  = g.variant.standard.so:
             OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(

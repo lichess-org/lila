@@ -152,8 +152,8 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
   import helpers.*
   import trans.search as trs
 
-  private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-  private val dateMin       = "2011-01-01"
+  private val dateFormatter              = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+  private val dateMin                    = "2011-01-01"
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 

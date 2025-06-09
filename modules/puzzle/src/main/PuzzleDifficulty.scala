@@ -16,3 +16,7 @@ object PuzzleDifficulty:
   def isExtreme(d: PuzzleDifficulty) = d == Easiest || d == Hardest
   def find(str: String)              = all.find(_.key == str)
   def orDefault(str: String)         = find(str) | default
+
+  import play.api.mvc.RequestHeader
+  def fromReqSession(req: RequestHeader): Option[PuzzleDifficulty] =
+    req.session.get(difficultyCookie).flatMap(PuzzleDifficulty.find)

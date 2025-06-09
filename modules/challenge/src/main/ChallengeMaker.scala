@@ -68,7 +68,7 @@ final class ChallengeMaker(
           variant = pov.game.variant,
           initialFen = initialFen,
           timeControl = timeControl,
-          mode = pov.game.mode,
+          rated = pov.game.rated,
           color = (if alternateColor then !pov.color else pov.color).name,
           // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
           // which doesn't use the secret, so we just use an empty string

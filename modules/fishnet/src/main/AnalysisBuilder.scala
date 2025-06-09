@@ -64,7 +64,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
     evals.mapWithIndex:
       case (None, i)                             => cached.get(i)
       case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
-      case (_, i) =>
+      case (_, i)                                =>
         cached
           .get(i)
           .orElse:

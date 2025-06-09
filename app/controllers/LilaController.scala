@@ -133,7 +133,12 @@ abstract private[controllers] class LilaController(val env: Env)
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
-    action(parse.anyContent): req ?=>
+    AuthOrScopedBodyWithParser(parse.anyContent)(selectors*)(f)
+
+  def AuthOrScopedBodyWithParser[A](parser: BodyParser[A])(
+      selectors: OAuthScope.Selector*
+  )(f: BodyContext[A] ?=> Me ?=> Fu[Result]): EssentialAction =
+    action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScopedBody(selectors)(f)
       else handleAuthBody(f)
@@ -331,10 +336,10 @@ abstract private[controllers] class LilaController(val env: Env)
     else
       import LangPicker.ByHref
       LangPicker.byHref(language, ctx.req) match
-        case ByHref.NotFound => notFound(using ctx)
+        case ByHref.NotFound    => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
-        case ByHref.Refused(_) => redirectWithQueryString(path)
+        case ByHref.Refused(_)  => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
           f(using ctx.withLang(lang))
 

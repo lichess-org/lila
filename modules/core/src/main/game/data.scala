@@ -23,7 +23,7 @@ case class GameMetadata(
   def nonEmptyRules                            = rules.nonEmpty.option(rules)
 
 val emptyDrawOffers = GameDrawOffers(Set.empty, Set.empty)
-val emptyMetadata =
+val emptyMetadata   =
   GameMetadata(None, None, None, None, None, analysed = false, emptyDrawOffers, rules = Set.empty)
 
 def newMetadata(source: Source) = emptyMetadata.copy(source = source.some)

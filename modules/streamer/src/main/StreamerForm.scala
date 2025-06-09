@@ -17,7 +17,7 @@ object StreamerForm:
       "name"        -> nameField,
       "headline"    -> optional(of[Headline]),
       "description" -> optional(of[Description]),
-      "twitch" -> optional(
+      "twitch"      -> optional(
         text
           .verifying(
             Constraints.minLength(2),
@@ -28,7 +28,7 @@ object StreamerForm:
       "youTube" -> optional(
         text.verifying("Invalid YouTube channel ID", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
-      "listed" -> of[Listed],
+      "listed"   -> of[Listed],
       "approval" ->
         mapping(
           "granted"   -> boolean,
@@ -36,7 +36,7 @@ object StreamerForm:
           "requested" -> boolean,
           "ignored"   -> boolean,
           "chat"      -> boolean,
-          "quick" -> optional:
+          "quick"     -> optional:
             text.partial[QuickDecision](_.toString):
               case ok: QuickDecision => ok,
           "reason" -> optional(text)
@@ -81,9 +81,9 @@ object StreamerForm:
       val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
       val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
       val newTwitch     = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply)
-      val newYouTube =
+      val newYouTube    =
         youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId))
-      val urlChanges = newTwitch != streamer.twitch || newYouTube != streamer.youTube
+      val urlChanges                     = newTwitch != streamer.twitch || newYouTube != streamer.youTube
       val newApproval: Streamer.Approval =
         if asMod then
           val m = approval.resolve

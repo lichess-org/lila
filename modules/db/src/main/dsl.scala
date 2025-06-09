@@ -77,7 +77,7 @@ trait dsl:
 
   // **********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(term: String): Bdoc = $doc("$text" -> $doc("$search" -> term))
+  def $text(term: String): Bdoc               = $doc("$text" -> $doc("$search" -> term))
   def $text(term: String, lang: String): Bdoc = $doc:
     "$text" -> $doc("$search" -> term, f"$$language" -> lang)
 

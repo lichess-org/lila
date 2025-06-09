@@ -20,7 +20,7 @@ def mini(
     ping: Option[Int],
     ct: Option[lila.game.Crosstable]
 )(using ctx: Context) =
-  val rel = views.relation.mini(u.id, blocked, followable, relation)
+  val rel                      = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
     .flatMap(_.nonEmpty)
     .map: cross =>

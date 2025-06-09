@@ -22,7 +22,7 @@ final class RecapApi(
   def awaiter(user: User, counter: Int = 0): Fu[JsObject] =
     availability(user).flatMap:
       case Recap.Availability.Available(data) => fuccess(data)
-      case Recap.Availability.Queued(_) =>
+      case Recap.Availability.Queued(_)       =>
         if counter < 100
         then delay(1.second)(awaiter(user, counter + 1))
         else fufail(LilaException(s"Recap awaiter timeout for ${user.id}"))

@@ -126,7 +126,7 @@ final class AssessApi(
         Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
         if !game.source.exists(assessableSources.contains) then false
-        else if game.mode.casual then false
+        else if game.rated.no then false
         else if lila.game.Player.HoldAlert.suspicious(holdAlerts) then true
         else if game.isCorrespondence then false
         else if game.playedTurns < PlayerAssessment.minPlies then false
@@ -208,7 +208,7 @@ final class AssessApi(
       // stop here for long games
       else if game.playedTurns > 95 then fuccess(none)
       // stop here for casual games
-      else if !game.mode.rated then fuccess(none)
+      else if game.rated.no then fuccess(none)
       // discard old games
       else if game.createdAt.isBefore(bottomDate) then fuccess(none)
       else if isUpset then fuccess(Upset.some)

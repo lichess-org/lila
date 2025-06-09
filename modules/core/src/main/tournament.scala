@@ -19,7 +19,7 @@ enum Status(val id: Int):
 
 object Status:
   val byId: Map[Int, Status] = values.mapBy(_.id)
-  def byName(str: String) = scala.util
+  def byName(str: String)    = scala.util
     .Try(Status.valueOf(str))
     .toOption
     .orElse:

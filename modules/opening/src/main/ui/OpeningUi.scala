@@ -87,7 +87,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
               page.nameParts.mapWithIndex: (part, i) =>
                 frag(
                   part match
-                    case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
+                    case Left(move)         => span(cls := "opening__name__move")((i > 0).option(", "), move)
                     case Right((name, key)) =>
                       val className = s"opening__name__section opening__name__section--${i + 1}"
                       frag(
@@ -205,7 +205,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   private def renderChildren(node: OpeningTree, level: Int): Frag =
     node.children.map { case (op, node) =>
-      val fold = level < 4 && node.children.nonEmpty
+      val fold    = level < 4 && node.children.nonEmpty
       val content = frag(
         (if fold then summary else div) (op match
           case (name, None)     => name

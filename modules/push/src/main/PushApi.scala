@@ -403,7 +403,7 @@ final private class PushApi(
   private def describeChallenge(c: Challenge) =
     import lila.core.challenge.Challenge.TimeControl.*
     List(
-      if c.mode.rated then "Rated" else "Casual",
+      if c.rated.yes then "Rated" else "Casual",
       c.timeControl match
         case Unlimited         => "Unlimited"
         case Correspondence(d) => s"$d days"

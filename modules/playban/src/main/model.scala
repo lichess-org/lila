@@ -19,8 +19,8 @@ case class UserRecord(
   inline def bans: Vector[TempBan]     = ~b
   inline def rageSit                   = c | RageSit.empty
 
-  def banInEffect = bans.lastOption.exists(_.inEffect)
-  def banMinutes  = bans.lastOption.map(_.remainingMinutes)
+  def banInEffect  = bans.lastOption.exists(_.inEffect)
+  def banMinutes   = bans.lastOption.map(_.remainingMinutes)
   def bansThisWeek =
     val since = nowInstant.minusDays(7)
     bans.count(_.date.isAfter(since))

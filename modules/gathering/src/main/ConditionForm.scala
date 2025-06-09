@@ -11,7 +11,7 @@ import lila.gathering.Condition.*
 
 object ConditionForm:
 
-  val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
+  val nbRatedGames       = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
   val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}").map:
     case (0, _) => (0, "No restriction")
     case x      => x

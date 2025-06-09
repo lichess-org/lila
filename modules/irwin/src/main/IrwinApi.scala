@@ -75,7 +75,7 @@ final class IrwinApi(
           for
             suspect <- getSuspect(report.suspectId.value)
             irwin   <- userApi.byId(UserId.irwin).orFail("Irwin user not found").dmap(Mod.apply)
-            _ <- reportApi.create(
+            _       <- reportApi.create(
               Report.Candidate(
                 reporter = Reporter(irwin.user),
                 suspect = suspect,

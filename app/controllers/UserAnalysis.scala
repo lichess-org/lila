@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
-import chess.{ Position, ByColor, FullMoveNumber }
+import chess.{ Position, ByColor }
 import play.api.libs.json.Json
 import play.api.mvc.*
 
@@ -21,7 +21,7 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key) => load(none, Variant.orDefault(Variant.LilaKey(key)))
+      case Array(key)      => load(none, Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
           case Some(variant) if variant != Standard            => load(fen.some, variant)
@@ -31,7 +31,7 @@ final class UserAnalysis(
       case _ => load(none, Standard)
 
   private def load(urlFen: Option[String], variant: Variant) = Open:
-    val inputFen: Option[Fen.Full] = urlFen.orElse(get("fen")).flatMap(readFen)
+    val inputFen: Option[Fen.Full]       = urlFen.orElse(get("fen")).flatMap(readFen)
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
@@ -54,7 +54,7 @@ final class UserAnalysis(
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
-    val decodedPgn =
+    val decodedPgn  =
       lila.common.String
         .decodeUriPath(pgn.take(5000))
         .map(_.replace("_", " ").replace("+", " ").trim)
@@ -83,20 +83,15 @@ final class UserAnalysis(
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
     makePov:
-      fen.filter(_.value.nonEmpty).flatMap {
-        Fen.readWithMoveNumber(variant, _)
-      } | Position.AndFullMoveNumber(Position(variant), FullMoveNumber.initial)
+      Position.AndFullMoveNumber(variant, fen.filter(_.value.nonEmpty))
 
   private[controllers] def makePov(from: Position.AndFullMoveNumber): Pov =
     Pov(
       lila.core.game
         .newGame(
-          chess = chess.Game(
-            position = from.position,
-            ply = from.ply
-          ),
+          chess = chess.Game(position = from.position, ply = from.ply),
           players = ByColor(lila.game.Player.make(_, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = None
         )
@@ -116,7 +111,7 @@ final class UserAnalysis(
               val owner = isMyPov(pov)
               for
                 initialFen <- env.game.gameRepo.initialFen(game.id)
-                data <-
+                data       <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
@@ -135,7 +130,7 @@ final class UserAnalysis(
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)
     crosstable <- env.game.crosstableApi(pov.game)
-    data <- env.api.roundApi.review(
+    data       <- env.api.roundApi.review(
       pov,
       users,
       tv = none,
@@ -157,7 +152,7 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ ?=>
+  def forecasts(fullId: GameFullId) = AuthOrScopedBodyWithParser(parse.json)(_.Web.Mobile) { ctx ?=> _ ?=>
     import lila.round.Forecast
     Found(env.round.proxyRepo.pov(fullId)): pov =>
       if isTheft(pov) then theftResponse
@@ -171,15 +166,14 @@ final class UserAnalysis(
                 _   <- env.round.forecastApi.save(pov, forecasts)
                 res <- env.round.forecastApi.loadForDisplay(pov)
               yield res.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-              fu.recover {
+              fu.recover:
                 case Forecast.OutOfSync             => forecastReload
                 case _: lila.core.round.ClientError => forecastReload
-              }
           )
   }
 
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
-    AuthBody(parse.json) { ctx ?=> _ ?=>
+    AuthOrScopedBodyWithParser(parse.json)(_.Web.Mobile) { ctx ?=> _ ?=>
       import lila.round.Forecast
       Found(env.round.proxyRepo.pov(fullId)): pov =>
         if isTheft(pov) then theftResponse

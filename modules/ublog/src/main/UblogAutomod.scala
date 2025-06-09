@@ -95,7 +95,7 @@ final class UblogAutomod(
             resultStr <- (best \ "message" \ "content").asOpt[String]
             result    <- normalize(resultStr)
           yield result) match
-            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
+            case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()

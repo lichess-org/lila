@@ -1,6 +1,5 @@
 package lila.security
 
-import scala.annotation.nowarn
 import play.api.ConfigLoader
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
@@ -9,6 +8,7 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
+import com.softwaremill.tagging.*
 
 import lila.common.HTTPRequest
 import lila.common.autoconfig.*
@@ -16,6 +16,7 @@ import lila.common.config.given
 import lila.core.config.*
 import lila.core.net.IpAddress
 import lila.core.security.{ HcaptchaForm, HcaptchaPublicConfig }
+import lila.memo.SettingStore
 
 trait Hcaptcha extends lila.core.security.Hcaptcha:
 
@@ -47,16 +48,17 @@ object Hcaptcha:
 
 final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
 
-  def form[A](form: Form[A])(using @nowarn req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess:
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess:
     HcaptchaForm(form, config, skip = true)
 
-  def verify(response: String)(using @nowarn req: RequestHeader) = fuccess(Hcaptcha.Result.Disabled)
+  def verify(response: String)(using req: RequestHeader) = fuccess(Hcaptcha.Result.Disabled)
 
 final class HcaptchaReal(
     ipTrust: IpTrust,
     ws: StandaloneWSClient,
     netDomain: NetDomain,
-    config: Hcaptcha.Config
+    config: Hcaptcha.Config,
+    alwaysCaptcha: SettingStore[Boolean] @@ AlwaysCaptcha
 )(using Executor)
     extends Hcaptcha:
 
@@ -71,11 +73,13 @@ final class HcaptchaReal(
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
   private object skipIp:
-    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
+    private val memo                               = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
     def get(using req: RequestHeader): Fu[Boolean] =
-      val ip = HTTPRequest.ipAddress(req)
-      (!memo.get(ip)).so:
-        ipTrust.isSuspicious(ip).not
+      if alwaysCaptcha.get() then fuFalse
+      else
+        val ip = HTTPRequest.ipAddress(req)
+        (!memo.get(ip)).so:
+          ipTrust.isSuspicious(ip).not
 
     def record(using req: RequestHeader) = memo.put(HTTPRequest.ipAddress(req))
 

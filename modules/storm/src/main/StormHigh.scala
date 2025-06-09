@@ -27,12 +27,12 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   import StormBsonHandlers.given
   import StormHigh.NewHigh
 
-  private val cache = cacheApi[UserId, StormHigh](8192, "storm.high"):
-    _.expireAfterAccess(1.hour).buildAsyncFuture(compute)
+  private val cache = cacheApi[UserId, StormHigh](16_384, "storm.high"):
+    _.expireAfterAccess(30.minutes).buildAsyncFuture(compute)
 
   export cache.get
 
-  def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
+  private[storm] def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
     val high = prev.update(score)
     (high != prev).so:
       cache.put(userId, fuccess(high))
@@ -44,7 +44,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private def compute(userId: UserId): Fu[StormHigh] =
     coll
-      .aggregateOne(): framework =>
+      .aggregateOne(_.sec): framework =>
         import framework.*
         def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id".$gte(sinceId(userId))))
         val scoreSort                                  = Sort(Descending("score"))

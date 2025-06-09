@@ -14,11 +14,11 @@ final class TournamentModeration(playerRepo: PlayerRepo, userRepo: UserRepo)(usi
   val max = Max(100)
 
   def apply(tourId: TourId, viewStr: String): Fu[(View, List[Player.WithUser])] =
-    val view = View.values.find(_.toString == viewStr).getOrElse(View.values.head)
+    val view    = View.values.find(_.toString == viewStr).getOrElse(View.values.head)
     val players = view match
       case View.recentlyCreated => aggregate(tourId, ordering = some(_.Descending("user.createdAt")))
       case View.fewGamesPlayed  => aggregate(tourId, ordering = some(_.Ascending("user.count.game")))
-      case View.provisional =>
+      case View.provisional     =>
         aggregate(tourId, playerSelect = $doc("pr" -> true).some, ordering = some(_.Descending("r")))
     players.map(view -> _)
 

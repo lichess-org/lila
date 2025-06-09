@@ -21,7 +21,7 @@ final class GifExport(
         Json.obj(
           "delay"       -> 80,
           "orientation" -> chapter.setup.orientation.name,
-          "white" -> List(
+          "white"       -> List(
             chapter.tags(_.WhiteTitle),
             chapter.tags(_.White),
             chapter.tags(_.WhiteElo).map(elo => s"($elo)")
@@ -40,7 +40,7 @@ final class GifExport(
       .flatMap:
         case res if res.status == 200 => fuccess(res.bodyAsSource)
         case res if res.status == 400 => fufail(LilaInvalid(res.body))
-        case res =>
+        case res                      =>
           logger.warn(s"GifExport study ${chapter.studyId}/${chapter.id} ${res.status}")
           fufail(res.statusText)
 

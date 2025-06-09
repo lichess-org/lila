@@ -30,7 +30,7 @@ final private class TutorBuilder(
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
     user     <- userApi.withPerfs(userId).orFail(s"No such user $userId")
     hasFresh <- hasFreshReport(user)
-    report <- (!hasFresh).so:
+    report   <- (!hasFresh).so:
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for
@@ -45,7 +45,7 @@ final private class TutorBuilder(
   yield report
 
   private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
-    _ <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
+    _         <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
     perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)

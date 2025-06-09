@@ -18,9 +18,9 @@ final class JsonView(
     else simul.gameIds.parallel(gameProxy.game).dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
-    games      <- fetchGames(simul)
-    lightHost  <- getLightUser(simul.hostId)
-    applicants <- simul.applicants.sortBy(-_.player.rating.value).sequentially(applicantJson)
+    games          <- fetchGames(simul)
+    lightHost      <- getLightUser(simul.hostId)
+    applicants     <- simul.applicants.sortBy(-_.player.rating.value).sequentially(applicantJson)
     pairingOptions <-
       simul.pairings
         .sortBy(-_.player.rating.value)
@@ -68,7 +68,7 @@ final class JsonView(
 
   private def baseSimul(simul: Simul, host: LightUser) =
     Json.obj(
-      "id" -> simul.id,
+      "id"   -> simul.id,
       "host" -> {
         Json.toJsObject(host) ++ Json
           .obj("rating" -> simul.hostRating)

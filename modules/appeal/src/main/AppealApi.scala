@@ -149,7 +149,7 @@ final class AppealApi(
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
   object modFilter:
-    private var store = Map.empty[UserId, Option[Filter]]
+    private var store                                                = Map.empty[UserId, Option[Filter]]
     def fromQuery(str: Option[String])(using me: Me): Option[Filter] =
       if str.has("reset") then store = store - me.userId
       val filter = str.map(Filter.byName.get) | store.get(me.userId).flatten

@@ -16,7 +16,7 @@ object LameName:
 
   private def simplify(name: UserName): String = name.value.toLowerCase.replaceIf('_', "")
 
-  private val titlePattern = "W*(?:[NCFI1L]|I?G)"
+  private val titlePattern       = "W*(?:[NCFI1L]|I?G)"
   private val containsTitleRegex = (
     "(?i:" + titlePattern + "M[^a-z].*)|" // title at start, separated by non-letter
       + "(?:(?i:" + titlePattern + ")m[^a-z].*)|" // title at start with lowercase m, not followed by lowercase letter

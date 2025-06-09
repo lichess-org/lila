@@ -58,13 +58,13 @@ final private class TvBroadcast(
       gameProxy.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
         Bus.subscribeActorRefDyn(self, List(MoveGameEvent.makeChan(gameId)))
-        val pov = Pov.naturalOrientation(game)
+        val pov  = Pov.naturalOrientation(game)
         val feat = Featured(
           gameId,
           Json.obj(
             "id"          -> gameId,
             "orientation" -> pov.color.name,
-            "players" -> game.players.mapList: p =>
+            "players"     -> game.players.mapList: p =>
               val user = p.userId.flatMap(lightUserSync)
               Json
                 .obj("color" -> p.color.name)

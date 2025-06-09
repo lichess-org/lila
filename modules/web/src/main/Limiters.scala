@@ -112,7 +112,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val follow = RateLimit[UserId](credits = 150, duration = 72.hour, key = "follow.user")
 
-  val search = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
+  val search            = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
   val searchConcurrency = lila.web.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
     ttl = 10.minutes,

@@ -333,7 +333,7 @@ Thank you all, you rock!""".some,
       // hourly limited tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
-          val when = atTopOfHour(rightNow, hourDelta)
+          val when  = atTopOfHour(rightNow, hourDelta)
           val speed = when.getHour % 4 match
             case 0 => Bullet
             case 1 => SuperBlitz
@@ -363,7 +363,7 @@ Thank you all, you rock!""".some,
         },
       // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val when = atTopOfHour(rightNow, hourDelta)
+        val when  = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
           case 0     => HippoBullet
           case 1 | 4 => Bullet
@@ -387,7 +387,7 @@ Thank you all, you rock!""".some,
       },
       // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val when = atTopOfHour(rightNow, hourDelta)
+        val when  = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
           case 0 | 4 => Blitz
           case 1     => HippoBullet
@@ -408,7 +408,7 @@ Thank you all, you rock!""".some,
       },
       // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val when = atTopOfHour(rightNow, hourDelta)
+        val when  = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
           case 0 | 4 => SuperBlitz
           case 1 | 5 => Blitz

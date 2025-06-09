@@ -234,7 +234,7 @@ final class Ublog(env: Env) extends LilaController(env):
       case ByHref.NotFound        => Redirect(routes.Ublog.communityAll(page))
       case ByHref.Redir(language) => Redirect(routes.Ublog.communityLang(language, page))
       case ByHref.Refused(lang)   => communityIndex(lang.some, page)
-      case ByHref.Found(lang) =>
+      case ByHref.Found(lang)     =>
         if ctx.isAuth then communityIndex(lang.some, page)
         else communityIndex(lang.some, page)(using ctx.withLang(lang))
 
