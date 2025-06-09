@@ -349,7 +349,7 @@
     <item quantity="other">Дај %s секунди</item>
   </plurals>
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
-  <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база позиција у завршници</string>
+  <string name="openingExplorerAndTablebase">Претраживач отварања и база позиција у завршници</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
   <string name="whiteProposesTakeback">Бели предлаже враћање потеза</string>
