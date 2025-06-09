@@ -159,7 +159,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
-          h('section', { attrs: {"aria-label": "area-live", "tabindex": "0"} }, renderNvuiRetro(ctrl)),
+          h('section', renderNvuiRetro(ctrl)),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
           h(
