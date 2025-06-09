@@ -81,8 +81,8 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.isAuth then f
     else
-      env.security
-        .ip2proxy(ctx.ip)
+      env.security.ip2proxy
+        .ofReq(ctx.req)
         .flatMap: ip =>
           if ip.isSafeish then f
           else Redirect(routes.Auth.login)

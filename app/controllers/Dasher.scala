@@ -14,7 +14,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       ws.url(s"${env.net.assetBaseUrlInternal}/assets/lifat/background/gallery.json")
         .get()
         .map:
-          case res if res.status == 200 => res.body[JsValue].some
+          case res if res.status == 200 => res.body[JsValue].pp.some
           case _                        => none
         .recoverDefault
 

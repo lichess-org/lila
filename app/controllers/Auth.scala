@@ -166,8 +166,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       Ok.page(views.auth.signup(form))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
-    env.security
-      .ip2proxy(ctx.ip)
+    env.security.ip2proxy
+      .ofReq(ctx.req)
       .foreach: proxy =>
         lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
