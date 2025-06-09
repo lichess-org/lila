@@ -1,29 +1,27 @@
 package controllers
 
+import java.nio.file.Files
 import play.api.libs.json.*
-import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.StandaloneWSClient
 import lila.app.{ *, given }
 import lila.i18n.{ LangList, LangPicker }
 import lila.pref.ui.DasherJson
 
-final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
+final class Dasher(env: Env) extends LilaController(env):
 
-  private lazy val galleryJson = env.memo.cacheApi.unit[Option[JsValue]]:
-    _.refreshAfterWrite(10.minutes).buildAsyncFuture: _ =>
-      ws.url(s"${env.net.assetBaseUrlInternal}/assets/lifat/background/gallery.json")
-        .get()
-        .map:
-          case res if res.status == 200 => res.body[JsValue].pp.some
-          case _                        => none
-        .recoverDefault
+  private lazy val galleryJson = scalalib.data.SimpleMemo[Option[JsValue]](10.minutes.some): () =>
+    val pathname = env.getFile.exec(s"public/lifat/background/gallery.json").toPath
+    try Json.parse(Files.newInputStream(pathname)).some
+    catch
+      case e: Throwable =>
+        lila.log("dasher").warn(s"Error reading gallery json $pathname", e)
+        none
 
   def get = Open:
     negotiateJson:
       ctx.me
         .so(env.streamer.api.isPotentialStreamer(_))
-        .zip(galleryJson.get({}))
-        .map: (isStreamer, gallery) =>
+        .map: isStreamer =>
+          val gallery = galleryJson.get()
           Ok:
             Json.obj(
               "lang" -> Json.obj(
