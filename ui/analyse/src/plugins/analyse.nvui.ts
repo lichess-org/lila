@@ -343,7 +343,7 @@ function initLFYM(ctrl: AnalyseController): string {
       ctrl.toggleRetro();
       return 'learn from your mistakes';
     } else {
-      return 'learn from your mistakes running';
+      return 'learn from your mistakes is already running';
     }
   }
   return 'must have complete game analysis for learn from your mistakes';
@@ -386,7 +386,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: commands.piece.help(i18n),
+    help: "learn where all of a piece are", // commands.piece.help(i18n),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands.piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -395,7 +395,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    help: commands.scan.help(i18n),
+    help: "scan the chess board", // commands.scan.help(i18n),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands.scan.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -619,7 +619,8 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
-const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+
+export const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('click', callback);
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
 };
