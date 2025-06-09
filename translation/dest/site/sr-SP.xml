@@ -106,12 +106,12 @@
   <string name="openingEndgameExplorer">Претраживач отварања/завршница</string>
   <string name="xOpeningExplorer">%s претаживач отварања</string>
   <string name="playFirstOpeningEndgameExplorerMove">Одиграј први потез који сугерише претраживач отварања/завршница</string>
-  <string name="winPreventedBy50MoveRule">Добитак спречен правилом о 50 потеза</string>
-  <string name="lossSavedBy50MoveRule">Пораз спречен правилом о 50 потеза</string>
+  <string name="winPreventedBy50MoveRule">Победа спречена правилом 50 потеза</string>
+  <string name="lossSavedBy50MoveRule">Пораз спречен правилом 50 потеза</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потеза на основу претходне грешке</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
   <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
-  <string name="allSet">Све је спремно!</string>
+  <string name="allSet">Све спремно!</string>
   <string name="importPgn">Унеси PGN</string>
   <string name="delete">Обриши</string>
   <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
@@ -349,7 +349,7 @@
     <item quantity="other">Дај %s секунди</item>
   </plurals>
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
-  <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
+  <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база позиција у завршници</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
   <string name="whiteProposesTakeback">Бели предлаже враћање потеза</string>
