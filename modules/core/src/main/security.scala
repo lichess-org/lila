@@ -102,7 +102,8 @@ object IsProxy extends OpaqueString[IsProxy]:
   val empty       = IsProxy("")
 
 trait Ip2ProxyApi:
-  def apply(ip: IpAddress): Fu[IsProxy]
+  def ofReq(req: RequestHeader): Fu[IsProxy]
+  def ofIp(ip: IpAddress): Fu[IsProxy]
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
 
 opaque type UserTrust = Boolean

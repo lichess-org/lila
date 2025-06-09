@@ -186,7 +186,6 @@ final class StudyApi(
               val newStudy = study.rewindTo(first.id)
               if newStudy == study then fuccess(defaultResult)
               else
-                logger.info(s"Reset study ${study.id} to chapter ${first.id}")
                 studyRepo
                   .updateSomeFields(newStudy)
                   .zip(chapterRepo.byId(first.id))

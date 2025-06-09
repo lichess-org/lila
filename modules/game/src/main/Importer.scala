@@ -11,8 +11,6 @@ import lila.core.game.{ Game, ImportedGame }
 import lila.game.GameExt.finish
 import lila.tree.ParseImport
 
-private val maxPlies = 600
-
 final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
 
   def importAsGame(pgn: PgnStr, forceId: Option[GameId] = none)(using me: Option[MyId]): Fu[Game] =
