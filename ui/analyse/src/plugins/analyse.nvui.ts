@@ -157,9 +157,10 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ),
           notify.render(),
           h('h2', 'Computer analysis'),
+          ...[requestAnalysisButton(ctrl, analysisInProgress, notify.set)],
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
-          renderRetro(ctrl) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)],
+          renderRetro(ctrl),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -510,7 +511,7 @@ const requestAnalysisButton = (
   inProgress: Prop<boolean>,
   notify: (msg: string) => void,
 ): MaybeVNode =>
-  ctrl.ongoing || ctrl.synthetic
+  ctrl.ongoing || ctrl.synthetic || ctrl.data.analysis
     ? undefined
     : inProgress()
       ? h('p', 'Server-side analysis in progress')
