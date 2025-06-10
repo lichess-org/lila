@@ -3,7 +3,7 @@ import { elementScrollBarWidthSlowGuess, header } from './util';
 import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import * as licon from 'lib/licon';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind } from 'lib/snabbdom';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
@@ -163,18 +163,7 @@ export class BackgroundCtrl extends PaneCtrl {
           }),
         ),
       ]),
-      h('span#url', [
-        h('label', 'URL'),
-        h('input', {
-          attrs: { type: 'text', placeholder: 'https://', value: this.data.image },
-          hook: onInsert((el: HTMLInputElement) =>
-            $(el).on(
-              'change keyup paste',
-              debounce(() => setImg(el.value.trim()), 300),
-            ),
-          ),
-        }),
-      ]),
+      this.imageInput(),
     ]);
   };
 }
