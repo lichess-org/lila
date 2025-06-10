@@ -118,10 +118,11 @@ export class BackgroundCtrl extends PaneCtrl {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {
           insert: vnode => {
-            $(vnode.elm as HTMLElement).on(
+            const el = vnode.elm as HTMLInputElement;
+            $(el).on(
               'change keyup paste',
-              debounce((el: HTMLInputElement) => {
-                const url = (el.value as string).trim();
+              debounce(_ => {
+                const url = el.value.trim();
                 if (
                   (url.startsWith('https://') || url.startsWith('//')) &&
                   url.length >= 10 &&
