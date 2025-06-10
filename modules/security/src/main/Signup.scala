@@ -78,7 +78,7 @@ final class Signup(
           data =>
             for
               suspIp  <- ipTrust.isSuspicious(ip)
-              ipData  <- ipTrust.data(ip)
+              ipData  <- ipTrust.reqData(req)
               captcha <- hcaptcha.verify()
               result  <- captcha match
                 case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
@@ -128,7 +128,8 @@ final class Signup(
 
   def mobile(apiVersion: ApiVersion)(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
-    ip2proxy(ip)
+    ip2proxy
+      .ofReq(req)
       .flatMap: proxy =>
         if !proxy.name.forall(mobileSignupProxy.get().value.contains)
         then fuccess(Signup.Result.ForbiddenNetwork)
@@ -144,7 +145,7 @@ final class Signup(
               data =>
                 for
                   suspIp <- ipTrust.isSuspicious(ip)
-                  ipData <- ipTrust.data(ip)
+                  ipData <- ipTrust.ipData(ip)
                   result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
                     val mustConfirm =
                       if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile else MustConfirmEmail.Nope

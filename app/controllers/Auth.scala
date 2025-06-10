@@ -166,8 +166,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       Ok.page(views.auth.signup(form))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
-    env.security
-      .ip2proxy(ctx.ip)
+    env.security.ip2proxy
+      .ofReq(ctx.req)
       .foreach: proxy =>
         lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
@@ -495,7 +495,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def passwordCost(req: RequestHeader): Fu[Float] =
     env.security.ipTrust
-      .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
+      .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = EmailConfirm.rateLimit[Result]
 
