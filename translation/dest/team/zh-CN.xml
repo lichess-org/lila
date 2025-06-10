@@ -41,6 +41,7 @@
   <string name="teamsIlead">我领导的团队</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">你可能想要链接这些即将到来的锦标赛？</string>
   <string name="leadersChat">领队聊天</string>
+  <string name="introduction">简介</string>
   <string name="teamIntroductionHelp">在团队列表中可见的简要描述，最多200个字符。</string>
   <string name="teamDescriptionHelp">在团队页面上可见的完整描述。</string>
   <string name="closeTeam">关闭团队</string>
