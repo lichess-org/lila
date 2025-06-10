@@ -111,7 +111,6 @@ const feedback = {
           h('div.choices.off', [
             h(
               'button',
-
               {
                 tabindex: '0',
                 type: 'button',
@@ -278,6 +277,7 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
+
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
 
@@ -286,9 +286,9 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     { attrs: { 'aria-label': 'Learn from your mistakes area' } },
     [
       h('div.title', [
-        h('span', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
+        h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
         h(
-          'span',
+          'p',
           { attrs: { 'aria-label': 'mistake number' } },
           `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
         ),

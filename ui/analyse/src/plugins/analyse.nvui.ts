@@ -33,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { bind, noTrans, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
+import { bind, noTrans, onInsert, type MaybeVNode } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -155,12 +155,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               ]),
             ],
           ),
-          renderRetro(ctrl),
           notify.render(),
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
-          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          renderRetro(ctrl) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)],
           h('h2', 'Board'),
           h(
             'div.board',
@@ -386,7 +385,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: "learn where all of a piece are", // commands.piece.help(i18n),
+    help: commands.piece.help(i18n),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands.piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -395,7 +394,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    help: "scan the chess board", // commands.scan.help(i18n),
+    help: commands.scan.help(i18n),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands.scan.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -471,40 +470,40 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
-  const anal = ctrl.data.analysis; // heh
-  if (!anal) return undefined;
-  const analysisGlyphs = ['?!', '?', '??'];
-  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
-  const res: Array<VNode> = [];
-  ['white', 'black'].forEach((color: Color) => {
-    res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
-    res.push(
-      h(
-        'select',
-        {
-          hook: bind(
-            'change',
-            e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
-            ctrl.redraw,
-          ),
-        },
-        analysisNodes
-          .filter(n => (n.ply % 2 === 1) === (color === 'white'))
-          .map(node =>
-            h(
-              'option',
-              { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
-              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
-                ' ',
-              ),
-            ),
-          ),
-      ),
-    );
-  });
-  return res;
-}
+//function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
+//const anal = ctrl.data.analysis; // heh
+//if (!anal) return undefined;
+//const analysisGlyphs = ['?!', '?', '??'];
+//const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
+//const res: Array<VNode> = [];
+//['white', 'black'].forEach((color: Color) => {
+//res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
+//res.push(
+//h(
+//'select',
+//{
+//hook: bind(
+//'change',
+//e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
+//ctrl.redraw,
+//),
+//},
+//analysisNodes
+//.filter(n => (n.ply % 2 === 1) === (color === 'white'))
+//.map(node =>
+//h(
+//'option',
+//{ attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
+//[plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
+//' ',
+//),
+//),
+//),
+//),
+//);
+//});
+//return res;
+//}
 
 const requestAnalysisButton = (
   ctrl: AnalyseController,
