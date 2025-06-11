@@ -26,4 +26,30 @@
   <string name="goToBoard">Ir ao tabuleiro. A casa padrão é e4. Você pode especificar uma casa: board a-1 ou b a-1 te levará à casa a1.</string>
   <string name="movePiece">Para mover uma peça, use a notação albébrica padrão.</string>
   <string name="promotion">Para não promover para uma dama, use \"equals\". Por exemplo, a-8-equals-n promove para um cavalo.</string>
+  <string name="king">rei</string>
+  <string name="whiteKing">rei branco</string>
+  <string name="blackKing">rei preto</string>
+  <string name="queen">dama</string>
+  <string name="whiteQueen">dama branca</string>
+  <string name="blackQueen">dama preta</string>
+  <string name="rook">torre</string>
+  <string name="whiteRook">torre branca</string>
+  <string name="blackRook">torre preta</string>
+  <string name="bishop">bispo</string>
+  <string name="whiteBishop">bispo branco</string>
+  <string name="blackBishop">bispo preto</string>
+  <string name="knight">cavalo</string>
+  <string name="whiteKnight">cavalo branco</string>
+  <string name="blackKnight">cavalo preto</string>
+  <string name="pawn">peão</string>
+  <string name="whitePawn">peão branco</string>
+  <string name="blackPawn">peão preto</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T B C x</string>
+  <string name="sanTakes" comment="x in standard notation">toma</string>
+  <string name="sanCheck" comment="+ in standard notation">xeque</string>
+  <string name="sanCheckmate" comment="# in standard notation">xeque-mate</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promove a</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">roque pequeno</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">roque grande</string>
+  <string name="invalidMove">Lance inválido</string>
 </resources>
