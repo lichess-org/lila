@@ -19,9 +19,9 @@ beforeAll(() => {
     },
     nvui: {
       whiteKing: 'white king',
-      whiteQueens: 'white queens',
-      whiteKnights: 'white knights',
-      blackBishops: 'black bishops',
+      whiteQueen: 'white queen',
+      whiteKnight: 'white knight',
+      blackBishop: 'black bishop',
     },
   };
   vi.stubGlobal('i18n', i18n);
@@ -30,9 +30,9 @@ beforeAll(() => {
 test('piece command', () => {
   expect(commands(i18n).piece.apply('p Q', pieces, 'anna')).toBe('white queen: anna 2');
   expect(commands(i18n).piece.apply('p K', pieces, 'san')).toBe('white king: a1');
-  expect(commands(i18n).piece.apply('p N', pieces, 'san')).toBe('white knights: b1, b2');
-  expect(commands(i18n).piece.apply('p N', pieces, 'nato')).toBe('white knights: bravo 1, bravo 2');
-  expect(commands(i18n).piece.apply('p b', pieces, 'san')).toBe('black bishops: None');
+  expect(commands(i18n).piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
+  expect(commands(i18n).piece.apply('p N', pieces, 'nato')).toBe('white knight: bravo 1, bravo 2');
+  expect(commands(i18n).piece.apply('p b', pieces, 'san')).toBe('black bishop: None');
 
   expect(commands(i18n).piece.apply('p X', pieces, 'san')).toBeUndefined();
   expect(commands(i18n).piece.apply('p |', pieces, 'san')).toBeUndefined();
