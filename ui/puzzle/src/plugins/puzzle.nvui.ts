@@ -171,8 +171,8 @@ export function initModule() {
               'Type these commands in the move input.',
               `v: ${i18n.site.viewTheSolution}`,
               'l: Read last move.',
-              commands.piece.help(i18n),
-              commands.scan.help(i18n),
+              commands(i18n).piece.help,
+              commands(i18n).scan.help,
             ].reduce(addBreaks, []),
           ),
           ...boardCommands(i18n),
@@ -239,8 +239,8 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else
     notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
+      commands(i18n).piece.apply(c, pieces, style) ||
+        commands(i18n).scan.apply(c, pieces, style) ||
         `Invalid command: ${c}`,
     );
 }
