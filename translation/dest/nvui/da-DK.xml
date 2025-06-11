@@ -27,4 +27,33 @@
   <string name="announcePiecesOnRankOrFile">Annoncer brikker på en række eller en linje. Eksempel: s a, s 1.</string>
   <string name="goToBoard">Gå til brættet. Standardfelt er e-4. Du kan angive et felt: bræt a-1 eller b a-1 vil tage dig til felt a-1.</string>
   <string name="movePiece">For at flytte en brik, skal du bruge standard algebraisk notation.</string>
+  <string name="king">konge</string>
+  <string name="whiteKing">hvid konge</string>
+  <string name="blackKing">sort konge</string>
+  <string name="queen">dronning</string>
+  <string name="whiteQueen">hvid dronning</string>
+  <string name="blackQueen">sort dronning</string>
+  <string name="rook">tårn</string>
+  <string name="whiteRook">hvidt tårn</string>
+  <string name="blackRook">sort tårn</string>
+  <string name="bishop">løber</string>
+  <string name="whiteBishop">hvid løber</string>
+  <string name="blackBishop">sort løber</string>
+  <string name="knight">springer</string>
+  <string name="whiteKnight">hvid springer</string>
+  <string name="blackKnight">sort springer</string>
+  <string name="pawn">bonde</string>
+  <string name="whitePawn">hvid bonde</string>
+  <string name="blackPawn">sort bonde</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">slår</string>
+  <string name="sanCheck" comment="+ in standard notation">skak</string>
+  <string name="sanCheckmate" comment="# in standard notation">skakmat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">forfremmer til</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kort rokade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">placeres på</string>
+  <string name="invalidMove">Ugyldigt træk</string>
+  <string name="premoveCancelled">Forhåndstræk annulleret</string>
+  <string name="premoveRecorded">Forhåndstræk registreret: %s. Tryk enter for at annullere</string>
 </resources>
