@@ -28,78 +28,24 @@
   <string name="goToBoard">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
   <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string> 
-  <plurals name="kings">
-    <item quantity="one">king</item>
-    <item quantity="other">kings</item>
-  </plurals>
-  <plurals name="whiteKings">
-    <item quantity="one">white king</item>
-    <item quantity="other">white kings</item>
-  </plurals>
-  <plurals name="blackKings">
-    <item quantity="one">black king</item>
-    <item quantity="other">black kings</item>
-  </plurals>
-  <plurals name="queens">
-    <item quantity="one">queen</item>
-    <item quantity="other">queens</item>
-  </plurals>
-  <plurals name="whiteQueens">
-    <item quantity="one">white queen</item>
-    <item quantity="other">white queens</item>
-  </plurals>
-  <plurals name="blackQueens">
-    <item quantity="one">black queen</item>
-    <item quantity="other">black queens</item>
-  </plurals>
-  <plurals name="rooks">
-    <item quantity="one">rook</item>
-    <item quantity="other">rooks</item>
-  </plurals>
-  <plurals name="whiteRooks">
-    <item quantity="one">white rook</item>
-    <item quantity="other">white rooks</item>
-  </plurals>
-  <plurals name="blackRooks">
-    <item quantity="one">black rook</item>
-    <item quantity="other">black rooks</item>
-  </plurals>
-  <plurals name="bishops">
-    <item quantity="one">bishop</item>
-    <item quantity="other">bishops</item>
-  </plurals>
-  <plurals name="whiteBishops">
-    <item quantity="one">white bishop</item>
-    <item quantity="other">white bishops</item>
-  </plurals>
-  <plurals name="blackBishops">
-    <item quantity="one">black bishop</item>
-    <item quantity="other">black bishops</item>
-  </plurals>
-  <plurals name="knights">
-    <item quantity="one">knight</item>
-    <item quantity="other">knights</item>
-  </plurals>
-  <plurals name="whiteKnights">
-    <item quantity="one">white knight</item>
-    <item quantity="other">white knights</item>
-  </plurals>
-  <plurals name="blackKnights">
-    <item quantity="one">black knight</item>
-    <item quantity="other">black knights</item>
-  </plurals>
-  <plurals name="pawns">
-    <item quantity="one">pawn</item>
-    <item quantity="other">pawns</item>
-  </plurals>
-  <plurals name="whitePawns">
-    <item quantity="one">white pawn</item>
-    <item quantity="other">white pawns</item>
-  </plurals>
-  <plurals name="blackPawns">
-    <item quantity="one">black pawn</item>
-    <item quantity="other">black pawns</item>
-  </plurals>
+  <string name="king">king</string>
+  <string name="whiteKing">white king</string>
+  <string name="blackKing">black king</string>
+  <string name="queen">queen</string>
+  <string name="whiteQueen">white queen</string>
+  <string name="blackQueen">black queen</string>
+  <string name="rook">rook</string>
+  <string name="whiteRook">white rook</string>
+  <string name="blackRook">black rook</string>
+  <string name="bishop">bishop</string>
+  <string name="whiteBishop">white bishop</string>
+  <string name="blackBishop">black bishop</string>
+  <string name="knight">knight</string>
+  <string name="whiteKnight">white knight</string>
+  <string name="blackKnight">black knight</string>
+  <string name="pawn">pawn</string>
+  <string name="whitePawn">white pawn</string>
+  <string name="blackPawn">black pawn</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
   <string name="sanTakes" comment="x in standard notation">takes</string>
   <string name="sanCheck" comment="+ in standard notation">check</string>

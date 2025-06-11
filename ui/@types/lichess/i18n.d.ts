@@ -1755,20 +1755,20 @@ interface I18n {
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
     announcePossibleMoves: string;
-    /** bishops */
-    bishops: I18nPlural;
-    /** black bishops */
-    blackBishops: I18nPlural;
-    /** black kings */
-    blackKings: I18nPlural;
-    /** black knights */
-    blackKnights: I18nPlural;
-    /** black pawns */
-    blackPawns: I18nPlural;
-    /** black queens */
-    blackQueens: I18nPlural;
-    /** black rooks */
-    blackRooks: I18nPlural;
+    /** bishop */
+    bishop: string;
+    /** black bishop */
+    blackBishop: string;
+    /** black king */
+    blackKing: string;
+    /** black knight */
+    blackKnight: string;
+    /** black pawn */
+    blackPawn: string;
+    /** black queen */
+    blackQueen: string;
+    /** black rook */
+    blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
     /** Featured events */
@@ -1789,10 +1789,10 @@ interface I18n {
     inputFormCommandList: string;
     /** Invalid move */
     invalidMove: string;
-    /** kings */
-    kings: I18nPlural;
-    /** knights */
-    knights: I18nPlural;
+    /** king */
+    king: string;
+    /** knight */
+    knight: string;
     /** Last move */
     lastMove: string;
     /** Move list */
@@ -1809,8 +1809,8 @@ interface I18n {
     moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
-    /** pawns */
-    pawns: I18nPlural;
+    /** pawn */
+    pawn: string;
     /** Pieces */
     pieces: string;
     /** Premove cancelled */
@@ -1819,10 +1819,10 @@ interface I18n {
     premoveRecorded: I18nFormat;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
-    /** queens */
-    queens: I18nPlural;
-    /** rooks */
-    rooks: I18nPlural;
+    /** queen */
+    queen: string;
+    /** rook */
+    rook: string;
     /** check */
     sanCheck: string;
     /** checkmate */
@@ -1839,18 +1839,18 @@ interface I18n {
     sanSymbols: string;
     /** takes */
     sanTakes: string;
-    /** white bishops */
-    whiteBishops: I18nPlural;
-    /** white kings */
-    whiteKings: I18nPlural;
-    /** white knights */
-    whiteKnights: I18nPlural;
-    /** white pawns */
-    whitePawns: I18nPlural;
-    /** white queens */
-    whiteQueens: I18nPlural;
-    /** white rooks */
-    whiteRooks: I18nPlural;
+    /** white bishop */
+    whiteBishop: string;
+    /** white king */
+    whiteKing: string;
+    /** white knight */
+    whiteKnight: string;
+    /** white pawn */
+    whitePawn: string;
+    /** white queen */
+    whiteQueen: string;
+    /** white rook */
+    whiteRook: string;
     /** Your clock */
     yourClock: string;
   };

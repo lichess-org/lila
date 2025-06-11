@@ -139,7 +139,7 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
             [],
           )
           .filter(l => l.keys.length)
-          .map(l => `${transRole(l.role, l.keys.length)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
+          .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
           .join(', '),
       ]),
     ),
@@ -163,7 +163,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  let pieceStr = transPieceStr(role, color, keys.length, i18n);
+  let pieceStr = transPieceStr(role, color, i18n);
   if (!pieceStr) {
     console.error(`Missing piece name for ${color} ${role} (${keys.length === 1 ? 'singular' : 'plural'})`);
     pieceStr = `${color} ${role}`;
@@ -177,7 +177,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
     .reduce<string[]>(
       (acc, [key, p]) =>
         key.includes(rankOrFile)
-          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, 1, i18n)}`)
+          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`)
           : acc,
       [],
     );
@@ -229,7 +229,7 @@ export function renderBoard(
       const roleCh = roleToChar(piece.role);
       const pieceText =
         pieceStyle === 'name' || pieceStyle === 'white uppercase name'
-          ? transPieceStr(piece.role, piece.color, 1, i18n)
+          ? transPieceStr(piece.role, piece.color, i18n)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
@@ -540,28 +540,15 @@ const transSanToWords = (san: string): string =>
       const code = c.charCodeAt(0);
       if (code > 48 && code < 58) return c; // 1-8
       if (code > 96 && code < 105) return c.toUpperCase(); // a-h
-      return transRole(charToRole(c)) ?? c;
+      const role = charToRole(c);
+      return role ? transRole(role) : c;
     })
     .join(' ')
     .replace('O - O - O', i18n.nvui.sanLongCastling)
     .replace('O - O', i18n.nvui.sanShortCastling);
 
-const transRole = (role: Role | undefined, qty: number = 1): string => {
-  if (role === 'king') return i18n.nvui.kings(qty);
-  if (role === 'queen') return i18n.nvui.queens(qty);
-  if (role === 'rook') return i18n.nvui.rooks(qty);
-  if (role === 'bishop') return i18n.nvui.bishops(qty);
-  if (role === 'knight') return i18n.nvui.knights(qty);
-  if (role === 'pawn') return i18n.nvui.pawns(qty);
-  return '';
-};
+const transRole = (role: Role): string =>
+  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-const transPieceStr = (role: Role, color: Color, qty: number, i18n: I18n): string => {
-  if (role === 'king') return color === 'black' ? i18n.nvui.blackKings(qty) : i18n.nvui.whiteKings(qty);
-  if (role === 'queen') return color === 'black' ? i18n.nvui.blackQueens(qty) : i18n.nvui.whiteQueens(qty);
-  if (role === 'rook') return color === 'black' ? i18n.nvui.blackRooks(qty) : i18n.nvui.whiteRooks(qty);
-  if (role === 'bishop') return color === 'black' ? i18n.nvui.blackBishops(qty) : i18n.nvui.whiteBishops(qty);
-  if (role === 'knight') return color === 'black' ? i18n.nvui.blackKnights(qty) : i18n.nvui.whiteKnights(qty);
-  if (role === 'pawn') return color === 'black' ? i18n.nvui.blackPawns(qty) : i18n.nvui.whitePawns(qty);
-  return '';
-};
+const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
+  i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;
