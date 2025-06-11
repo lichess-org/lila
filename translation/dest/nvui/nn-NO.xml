@@ -28,4 +28,33 @@
   <string name="goToBoard">Gå til brettet. Standardfelt er e-4. Du kan oppgje eit felt: brett a-1 eller b a-1 vil ta deg til felt a-1.</string>
   <string name="movePiece">Bruk standard algebraisk notasjon for å flytte ei brikke.</string>
   <string name="promotion">Dersom du skal forvandle til noko anna enn dronning skal du bruke likskapsteiknet. Til dømes forvandlar a-8-er-lik-n til springar.</string>
+  <string name="king">konge</string>
+  <string name="whiteKing">kvit konge</string>
+  <string name="blackKing">svart konge</string>
+  <string name="queen">dronning</string>
+  <string name="whiteQueen">kvit dronning</string>
+  <string name="blackQueen">svart dronning</string>
+  <string name="rook">tårn</string>
+  <string name="whiteRook">kvitt tårn</string>
+  <string name="blackRook">svart tårn</string>
+  <string name="bishop">løpar</string>
+  <string name="whiteBishop">kvit løpar</string>
+  <string name="blackBishop">svart løpar</string>
+  <string name="knight">springar</string>
+  <string name="whiteKnight">kvit springar</string>
+  <string name="blackKnight">svart springar</string>
+  <string name="pawn">bonde</string>
+  <string name="whitePawn">kvit bonde</string>
+  <string name="blackPawn">svart bonde</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">slår</string>
+  <string name="sanCheck" comment="+ in standard notation">sjakk</string>
+  <string name="sanCheckmate" comment="# in standard notation">sjakkmatt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">forvandlar til</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kort rokade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">plasseras på</string>
+  <string name="invalidMove">Ugyldig trekk</string>
+  <string name="premoveCancelled">Førehandstrekk annullert</string>
+  <string name="premoveRecorded">Førehandstrekk registrert: %s. Trykk enter for å annullera</string>
 </resources>
