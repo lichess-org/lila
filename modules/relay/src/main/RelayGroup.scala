@@ -37,9 +37,9 @@ object RelayGroup:
       def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tourIds)
     object Data:
       def apply(group: RelayGroup.WithTours): Data = Data(group.group.name, group.tours)
-      def parse(value: String): Option[Data] =
+      def parse(value: String): Option[Data]       =
         value.split("\n").toList match
-          case Nil => none
+          case Nil             => none
           case name :: tourIds =>
             val tours = tourIds
               .take(50)
@@ -69,11 +69,11 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   def update(tourId: RelayTourId, data: RelayGroup.form.Data): Funit =
     for
-      prev <- byTour(tourId)
+      prev  <- byTour(tourId)
       curId <- prev match
         case Some(prev) if data.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
         case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
-        case None =>
+        case None       =>
           val newGroup = data.make
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
@@ -97,7 +97,7 @@ final class RelayGroupCrowdSumCache(
   private def compute(tourId: RelayTourId): Fu[Crowd] = Crowd.from:
     for
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
-      res <- colls.round
+      res     <- colls.round
         .aggregateOne(_.sec): framework =>
           import framework.*
           Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->

@@ -55,7 +55,7 @@ for x in xs:
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
-    val alignedEvals =
+    val alignedEvals    =
       if pov.color == pov.startColor
       then lila.tree.evals.initial :: subjectiveEvals
       else subjectiveEvals
@@ -81,7 +81,7 @@ for x in xs:
     val allWinPercents      = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
     val windowSize          = (cps.size / 10).atLeast(2).atMost(8)
     val allWinPercentValues = WinPercent.raw(allWinPercents)
-    val windows =
+    val windows             =
       List
         .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues.take(windowSize))
         .toList ::: allWinPercentValues.sliding(windowSize).toList
@@ -91,7 +91,7 @@ for x in xs:
       .zip(weights)
       .zipWithIndex
       .collect { case ((List(prev, next), weight), i) =>
-        val color = Color.fromWhite((i % 2 == 0) == startColor.white)
+        val color    = Color.fromWhite((i % 2 == 0) == startColor.white)
         val accuracy =
           AccuracyPercent.fromWinPercents(color.fold(prev, next), color.fold(next, prev)).value
         ((accuracy, weight), color)

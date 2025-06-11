@@ -53,13 +53,13 @@ final class Syncache[K, V](
     val future = cache.get(k)
     future.value match
       case Some(Success(v)) => v
-      case Some(_) =>
+      case Some(_)          =>
         cache.invalidate(k)
         default(k)
       case _ =>
         incMiss()
         strategy match
-          case Strategy.NeverWait => default(k)
+          case Strategy.NeverWait                         => default(k)
           case Strategy.WaitAfterUptime(duration, uptime) =>
             if Uptime.startedSinceSeconds(uptime) then waitForResult(k, future, duration)
             else default(k)

@@ -36,7 +36,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
   if (/^[KkNn]{3}$/.test(pieces)) return true;
   if (/b/i.test(pieces)) {
     const expandedFen = expandFen(fullFen);
-    return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[pPnN]/.test(pieces);
+    return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[nN]/.test(pieces);
   }
   return false;
 }

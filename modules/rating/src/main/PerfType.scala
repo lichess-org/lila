@@ -192,7 +192,7 @@ object PerfType:
     List(PerfKey.bullet, PerfKey.blitz, PerfKey.rapid, PerfKey.classical, PerfKey.correspondence)
   val standardSet: Set[PerfKey]        = standard.toSet
   val standardWithUltra: List[PerfKey] = PerfKey.ultraBullet :: standard
-  val leaderboardable: List[PerfKey] = List(
+  val leaderboardable: List[PerfKey]   = List(
     PerfKey.bullet,
     PerfKey.blitz,
     PerfKey.rapid,

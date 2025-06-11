@@ -20,7 +20,7 @@ object MarkdownToastUi:
   object unescapeUnderscoreInLinks:
     private val hrefRegex    = """href="([^"]++)"""".r
     private val contentRegex = """>([^<]++)</a>""".r
-    def apply(markup: Html) = Html:
+    def apply(markup: Html)  = Html:
       contentRegex.replaceAllIn(
         hrefRegex
           .replaceAllIn(markup.value, m => s"""href="${Matcher.quoteReplacement(unescape(m.group(1)))}""""),

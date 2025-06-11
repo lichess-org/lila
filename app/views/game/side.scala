@@ -49,7 +49,7 @@ def meta(
                   frag(
                     ui.widgets.showClock(game),
                     separator,
-                    (if game.rated then trans.site.rated else trans.site.casual).txt(),
+                    ratedName(game.rated),
                     separator,
                     variantLink(game.variant, game.perfType, initialFen, shortName = true)
                   )

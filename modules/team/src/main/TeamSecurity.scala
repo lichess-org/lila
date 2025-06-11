@@ -77,7 +77,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
           )
 
     private val permissionsForm = mapping(
-      "name" -> lila.common.Form.username.historicalField,
+      "name"  -> lila.common.Form.username.historicalField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,

@@ -59,7 +59,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
       .obj(
-        "tour" -> fullTour(trs.tour),
+        "tour"   -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
@@ -67,7 +67,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
-    case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
+    case tour: RelayTour   => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
         .obj(
@@ -166,19 +166,23 @@ object JsonView:
 
   given OWrites[SyncLog.Event] = Json.writes
 
+  given OWrites[RelayRound.CustomScoring] = Json.writes
+
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
         "id"        -> r.id,
         "name"      -> r.name,
         "slug"      -> r.slug,
-        "createdAt" -> r.createdAt
+        "createdAt" -> r.createdAt,
+        "rated"     -> r.rated
       )
       .add("finishedAt" -> r.finishedAt)
       .add("finished" -> r.isFinished) // BC
       .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
+      .add("customScoring" -> r.customScoring)
 
   def statsJson(stats: RelayStats.RoundStats) =
     Json.obj(

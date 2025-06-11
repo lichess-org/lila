@@ -7,6 +7,10 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
+def translateRated(rated: chess.Rated)(using lila.core.i18n.Translate): Frag =
+  if rated.yes then lila.core.i18n.I18nKey.site.ratedTournament()
+  else lila.core.i18n.I18nKey.site.casualTournament()
+
 final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
   import helpers.{ *, given }
 
@@ -30,7 +34,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
       .map: list =>
         st.section(
           dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),
-          cls := List(
+          cls      := List(
             "conditions" -> true,
             "accepted"   -> (relevant && ctx.isAuth && vs.accepted),
             "refused"    -> (relevant && ctx.isAuth && !vs.accepted)

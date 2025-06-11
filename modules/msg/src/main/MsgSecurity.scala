@@ -23,7 +23,7 @@ final private class MsgSecurity(
   import MsgSecurity.*
 
   private object limitCost:
-    val normal = 25
+    val normal                 = 25
     def apply(u: Contact): Int =
       if u.isApiHog then 1
       else if u.isVerified then 5
@@ -64,7 +64,7 @@ final private class MsgSecurity(
           .post(contacts, isNew)
           .flatMap:
             case false => fuccess(Block)
-            case _ =>
+            case _     =>
               isLimited(contacts, isNew, unlimited, text)
                 .orElse(isFakeTeamMessage(rawText, unlimited))
                 .orElse(isSpam(text))

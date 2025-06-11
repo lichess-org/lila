@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.Clock
+import chess.{ Clock, Rated }
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
@@ -78,7 +78,7 @@ object SetupForm:
       "increment"   -> optional(increment),
       "days"        -> optional(days),
       "variant"     -> optional(boardApiVariantKeys),
-      "rated"       -> optional(boolean),
+      "rated"       -> optional(boolean.into[Rated]),
       "ratingRange" -> optional(ratingRange),
       "color"       -> optional(color)
     )((t, i, d, v, r, g, c) =>
@@ -88,7 +88,7 @@ object SetupForm:
         time = t | 10,
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
-        mode = chess.Mode(~r),
+        rated = r | Rated.No,
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault),
         color = lila.lobby.TriColor.orDefault(c)
       )
@@ -145,7 +145,7 @@ object SetupForm:
         variant,
         clock,
         optionalDays,
-        "rated" -> boolean,
+        "rated" -> boolean.into[Rated],
         "color" -> optional(color),
         "fen"   -> fenField,
         message,
@@ -177,7 +177,7 @@ object SetupForm:
       variant,
       clock,
       optionalDays,
-      "rated" -> boolean,
+      "rated" -> boolean.into[Rated],
       "fen"   -> fenField,
       "users" -> optional:
         LilaForm.strings
@@ -191,4 +191,4 @@ object SetupForm:
           .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))
     )(OpenConfig.from)(_ => none)
       .verifying("invalidFen", _.validFen)
-      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
+      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || c.rated.no)

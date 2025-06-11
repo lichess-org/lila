@@ -78,7 +78,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       winnerId = none,
       settings = Swiss.Settings(
         nbRounds = config.nbRounds,
-        rated = true,
+        rated = chess.Rated.Yes,
         description = none,
         position = none,
         roundInterval = SwissForm.autoInterval(config.clock),

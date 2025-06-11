@@ -19,7 +19,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   def errors(field: Field)(using Translate): Frag                 = errors(field.errors)
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
-  private def error(err: FormError)(using Translate): Frag =
+  private def error(err: FormError)(using Translate): Frag        =
     p(cls := "error")(transKey(trans(err.message), err.args))
 
   private def validationModifiers(field: Field): Seq[Modifier] =
@@ -179,7 +179,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       dataIcon := icon,
       name     := nameValue.map(_._1),
       value    := nameValue.map(_._2),
-      cls := List(
+      cls      := List(
         "submit button"  -> true,
         "text"           -> icon.isDefined,
         "yes-no-confirm" -> confirm.nonEmpty

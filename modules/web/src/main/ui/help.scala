@@ -23,9 +23,9 @@ object help:
     row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
     row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd())
   )
-  private def flip(using Translate)       = row(kbd("f"), trans.site.flipBoard())
-  private def zen(using Translate)        = row(kbd("z"), trans.preferences.zenMode())
-  private def helpDialog(using Translate) = row(kbd("?"), trans.site.showHelpDialog())
+  private def flip(using Translate)          = row(kbd("f"), trans.site.flipBoard())
+  private def zen(using Translate)           = row(kbd("z"), trans.preferences.zenMode())
+  private def helpDialog(using Translate)    = row(kbd("?"), trans.site.showHelpDialog())
   private def localAnalysis(using Translate) = frag(
     row(kbd("l"), trans.site.toggleLocalAnalysis()),
     row(kbd("space"), trans.site.playComputerMove()),

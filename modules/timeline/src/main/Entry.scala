@@ -100,7 +100,7 @@ object Entry:
     val planRenewWrite     = Json.writes[PlanRenew]
     val ublogPostLikeWrite = Json.writes[UblogPostLike]
     val streamStartWrite   = Json.writes[StreamStart]
-    given Writes[Atom] = Writes:
+    given Writes[Atom]     = Writes:
       case d: Follow        => followWrite.writes(d)
       case d: TeamJoin      => teamJoinWrite.writes(d)
       case d: TeamCreate    => teamCreateWrite.writes(d)

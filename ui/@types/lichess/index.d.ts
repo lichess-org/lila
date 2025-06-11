@@ -109,6 +109,7 @@ interface SoundI {
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
+  sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
   sayOrPlay(name: string, text: string): void;

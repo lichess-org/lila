@@ -18,7 +18,7 @@ final class AutoPairing(
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock                              = tour.clock.toClock
     val fen: Option[chess.format.Fen.Full] = tour.position.map(_.into(chess.format.Fen.Full))
-    val game = lila.core.game
+    val game                               = lila.core.game
       .newGame(
         chess = chess
           .Game(
@@ -28,7 +28,7 @@ final class AutoPairing(
           )
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
-        mode = tour.mode,
+        rated = tour.rated,
         source = Source.Arena,
         pgnImport = None
       )

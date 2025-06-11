@@ -109,7 +109,7 @@ final class Round(
         .map(_.orElse(Pov(currentGame, me)))
         .flatMap:
           case Some(next) => renderPlayer(next)
-          case None =>
+          case None       =>
             Redirect(currentGame.simulId match
               case Some(simulId) => routes.Simul.show(simulId)
               case None          => routes.Round.watcher(gameId, Color.white))
@@ -178,7 +178,7 @@ final class Round(
                 else
                   for // web crawlers don't need the full thing
                     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                    pgn <- env.api
+                    pgn        <- env.api
                       .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
                     page <- renderPage(views.round.crawler(pov, initialFen, pgn))
                   yield Ok(page)

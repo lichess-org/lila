@@ -96,7 +96,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
     val engine = data.make(by)
-    val bson =
+    val bson   =
       engineHandler.writeOpt(engine).err("external engine bson") ++ $doc("oauthToken" -> oauthTokenId)
     for
       _ <- coll.insert.one(bson)

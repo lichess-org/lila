@@ -140,9 +140,9 @@ case class Simul(
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 
-  def pairingOf(userId: UserId) = pairings.find(_.is(userId))
-  def playerIds                 = pairings.map(_.player.user)
-  def hostScore                 = lila.core.rating.Score(wins, losses, draws, none)
+  def pairingOf(userId: UserId)   = pairings.find(_.is(userId))
+  def playerIds                   = pairings.map(_.player.user)
+  def hostScore                   = lila.core.rating.Score(wins, losses, draws, none)
   def playerScore(userId: UserId) = pairingOf(userId).map: p =>
     Score(p.wins.has(true).so(1), p.wins.has(false).so(1), p.wins.isEmpty.so(1), none)
 

@@ -65,8 +65,8 @@ final class MsgCompat(
 
   def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(
-      "id"   -> c.contact.id,
-      "name" -> c.contact.name,
+      "id"    -> c.contact.id,
+      "name"  -> c.contact.name,
       "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
           "sender"    -> renderUser(if msg.user == c.contact.id then c.contact else me.light),

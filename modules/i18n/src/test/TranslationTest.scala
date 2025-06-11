@@ -13,8 +13,8 @@ class TranslationTest extends munit.FunSuite:
   given lila.core.i18n.Translator = lila.i18n.Translator
 
   test("be valid"):
-    val en     = Registry.getAll(defaultLang).get
-    var tested = 0
+    val en                   = Registry.getAll(defaultLang).get
+    var tested               = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
       Registry.getAll(lang).get.asScala.toMap.flatMap { (k, v) =>
         try

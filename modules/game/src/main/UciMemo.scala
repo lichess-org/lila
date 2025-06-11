@@ -25,7 +25,7 @@ final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.U
   def set(game: Game, uciMoves: Seq[String]) =
     cache.put(game.id, uciMoves.toVector)
 
-  def get(game: Game): Fu[UciVector] = get(game, hardLimit)
+  def get(game: Game): Fu[UciVector]           = get(game, hardLimit)
   def get(game: Game, max: Int): Fu[UciVector] =
     cache
       .getIfPresent(game.id)

@@ -43,8 +43,8 @@ final class UserLoginsApi(
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user).flatMap { infos =>
-      val ips = distinctRecent(infos.map(_.datedIp))
-      val fps = distinctRecent(infos.flatMap(_.datedFp))
+      val ips                                    = distinctRecent(infos.map(_.datedIp))
+      val fps                                    = distinctRecent(infos.flatMap(_.datedFp))
       val fpClients: Map[FingerHash, UserClient] = infos.view
         .flatMap: i =>
           i.fp.map:
@@ -156,7 +156,7 @@ final class UserLoginsApi(
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for
       (ips, fps) <- nextValues("ip", userId).zip(nextValues("fp", userId))
-      users <- (ips.nonEmpty && fps.nonEmpty).so(
+      users      <- (ips.nonEmpty && fps.nonEmpty).so(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
           $doc(
@@ -196,7 +196,7 @@ object UserLogins:
     lazy val alts     = users.count(_.marks.alt)
     lazy val closed   = users.count(u => u.enabled.no && u.marks.clean)
     lazy val cleans   = users.count(u => u.enabled.yes && u.marks.clean)
-    def score =
+    def score         =
       (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last
         case n => n

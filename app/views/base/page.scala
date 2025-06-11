@@ -41,8 +41,8 @@ object page:
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag)
-    val zenable = p.flags(PageFlags.zen)
-    val playing = p.flags(PageFlags.playing)
+    val zenable  = p.flags(PageFlags.zen)
+    val playing  = p.flags(PageFlags.playing)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -113,9 +113,9 @@ object page:
           },
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser     := ctx.userId,
-          dataUsername := ctx.username,
-          dataSoundSet := pref.currentSoundSet.toString,
+          dataUser                    := ctx.userId,
+          dataUsername                := ctx.username,
+          dataSoundSet                := pref.currentSoundSet.toString,
           attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
                                           else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
@@ -151,7 +151,7 @@ object page:
             )
           ),
           div(
-            id := "main-wrap",
+            id  := "main-wrap",
             cls := List(
               "full-screen-force" -> p.flags(PageFlags.fullScreen),
               "is2d"              -> pref.is2d,

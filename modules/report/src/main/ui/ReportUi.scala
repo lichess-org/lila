@@ -212,7 +212,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     .map { room =>
                       a(
                         href := routes.Report.listWithFilter(room.key),
-                        cls := List(
+                        cls  := List(
                           "active"            -> (filter == room.key),
                           s"room-${room.key}" -> true
                         )
@@ -225,7 +225,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.Appeals).option(
                     a(
                       href := routes.Appeal.queue(),
-                      cls := List(
+                      cls  := List(
                         "new"    -> true,
                         "active" -> (filter == "appeal")
                       )
@@ -243,7 +243,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.TitleRequest).option(
                     a(
                       href := routes.TitleVerify.queue,
-                      cls := List(
+                      cls  := List(
                         "new"    -> true,
                         "active" -> (filter == "title")
                       )

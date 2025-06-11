@@ -53,7 +53,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
-  def gameLinks(text: String)(using NetDomain) =
+  def gameLinks(text: String)(using NetDomain)       =
     gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
   def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 

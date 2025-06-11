@@ -212,7 +212,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   private object card:
     private def link(t: RelayTour, url: String, live: Boolean) = a(
       href := url,
-      cls := List(
+      cls  := List(
         "relay-card"         -> true,
         "relay-card--active" -> t.active,
         "relay-card--live"   -> live

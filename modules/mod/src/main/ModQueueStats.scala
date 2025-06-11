@@ -39,7 +39,7 @@ final class ModQueueStats(
         for
           doc     <- docs
           dateStr <- doc.string("_id")
-          date <- Try(java.time.LocalDate.parse(dateStr, dateFormat)).toOption
+          date    <- Try(java.time.LocalDate.parse(dateStr, dateFormat)).toOption
             .map(_.atStartOfDay.instant)
           data <- doc.getAsOpt[List[Bdoc]]("data")
         yield date -> {
@@ -66,7 +66,7 @@ final class ModQueueStats(
                 )
               .map: (roomKey, roomName) =>
                 Json.obj(
-                  "name" -> roomName,
+                  "name"   -> roomName,
                   "series" -> scores.collect:
                     case score if score > 20 || roomKey == Room.Boost.key =>
                       Json.obj(

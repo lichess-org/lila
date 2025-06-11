@@ -76,7 +76,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val switch   = get("switch").orElse(get("as"))
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
-      case None =>
+      case None      =>
         val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
         Ok.page(views.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
@@ -118,7 +118,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                     ,
                     result =>
                       result.toOption match
-                        case None => InternalServerError("Authentication error")
+                        case None                    => InternalServerError("Authentication error")
                         case Some(u) if u.enabled.no =>
                           negotiate(
                             env.mod.logApi.closedByTeacher(u).flatMap {
@@ -159,15 +159,15 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     )
   }
 
-  def signup     = Open(serveSignup)
-  def signupLang = LangPage(routes.Auth.signup)(serveSignup)
+  def signup                             = Open(serveSignup)
+  def signupLang                         = LangPage(routes.Auth.signup)(serveSignup)
   private def serveSignup(using Context) = NoTor:
     forms.signup.website.flatMap: form =>
       Ok.page(views.auth.signup(form))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
-    env.security
-      .ip2proxy(ctx.ip)
+    env.security.ip2proxy
+      .ofReq(ctx.req)
       .foreach: proxy =>
         lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
@@ -179,7 +179,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             .website(ctx.blind)
             .flatMap:
               case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
-              case Signup.Result.MissingCaptcha =>
+              case Signup.Result.MissingCaptcha                               =>
                 forms.signup.website.flatMap: form =>
                   BadRequest.page(views.auth.signup(form))
               case Signup.Result.Bad(err) =>
@@ -195,12 +195,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             env.security.signup
               .mobile(apiVersion)
               .flatMap:
-                case Signup.Result.RateLimited => rateLimited
+                case Signup.Result.RateLimited      => rateLimited
                 case Signup.Result.ForbiddenNetwork =>
                   BadRequest(jsonError("This network cannot create new accounts."))
-                case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
-                case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                case Signup.Result.MissingCaptcha      => BadRequest(jsonError("Missing captcha?!"))
+                case Signup.Result.Bad(err)            => doubleJsonFormError(err)
+                case Signup.Result.ConfirmEmail(_, _)  => Ok(Json.obj("email_confirm" -> true))
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >>
                     authenticateUser(user, remember = true)
@@ -220,7 +220,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def checkYourEmail = Open:
     RedirectToProfileIfLoggedIn:
       EmailConfirm.cookie.get(ctx.req) match
-        case None => Ok.async(accountC.renderCheckYourEmail)
+        case None            => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
           env.user.repo
             .exists(userEmail.username)
@@ -267,7 +267,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     case EmailConfirm.Result.NotFound =>
       lila.mon.user.register.confirmEmailResult(false).increment()
       notFound
-    case EmailConfirm.Result.NeedsConfirm(user) => Ok.page(views.auth.signupConfirm(user, token))
+    case EmailConfirm.Result.NeedsConfirm(user)     => Ok.page(views.auth.signupConfirm(user, token))
     case EmailConfirm.Result.AlreadyConfirmed(user) =>
       if ctx.is(user) then Redirect(routes.User.show(user.username))
       else Redirect(routes.Auth.login)
@@ -275,7 +275,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       lila.mon.user.register.confirmEmailResult(true).increment()
       for
         email <- env.user.repo.email(user.id)
-        _ <- email.so: email =>
+        _     <- email.so: email =>
           authLog(user.username, email.some, "Confirmed email")
           welcome(user, email, sendWelcomeEmail = false)
         res <- redirectNewUser(user)
@@ -300,7 +300,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))
-          _ <- (otherIds.sizeIs >= 2).so(env.user.repo.countLameOrTroll(otherIds).flatMap {
+          _        <- (otherIds.sizeIs >= 2).so(env.user.repo.countLameOrTroll(otherIds).flatMap {
             case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me)
             case _                                        => funit
           })
@@ -381,7 +381,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
               for
                 _         <- env.security.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
                 confirmed <- env.user.repo.setEmailConfirmed(user.id)
-                _ <- confirmed.so:
+                _         <- confirmed.so:
                   welcome(user, _, sendWelcomeEmail = false)
                 _   <- env.user.repo.disableTwoFactor(user.id)
                 _   <- env.security.store.closeAllSessionsOf(user.id)
@@ -495,7 +495,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def passwordCost(req: RequestHeader): Fu[Float] =
     env.security.ipTrust
-      .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
+      .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = EmailConfirm.rateLimit[Result]
 

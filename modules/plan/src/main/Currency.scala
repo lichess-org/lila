@@ -82,7 +82,7 @@ object CurrencyApi:
 
   lazy val stripeCurrencyList: List[Currency] = stripeCurrencies.toList.sortBy(_.getCurrencyCode)
 
-  def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
+  def currencyOption(code: String)   = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =
     Try(Currency.getInstance(locale)).toOption.filter(acceptableCurrencies.contains)
 

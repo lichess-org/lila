@@ -53,7 +53,7 @@ object BSONHandlers:
   given BSONDocumentHandler[Sync] = Macros.handler
 
   import RelayRound.Starts
-  val startsAfterPrevious = "afterPrevious"
+  val startsAfterPrevious   = "afterPrevious"
   given BSONHandler[Starts] = quickHandler[Starts](
     {
       case v: BSONDateTime             => Starts.At(millisToInstant(v.value))
@@ -67,7 +67,8 @@ object BSONHandlers:
 
   given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
 
-  given BSONDocumentHandler[RelayRound] = Macros.handler
+  given BSONHandler[RelayRound.CustomScoring] = Macros.handler
+  given BSONDocumentHandler[RelayRound]       = Macros.handler
 
   given BSONDocumentHandler[RelayPinnedStream]   = Macros.handler
   given BSONDocumentHandler[RelayTour.Spotlight] = Macros.handler

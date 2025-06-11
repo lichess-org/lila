@@ -20,7 +20,7 @@ final class Fide(env: Env) extends LilaController(env):
     env.fide.repo.player
       .fetch(id)
       .flatMap:
-        case None => NotFound.page(views.fide.player.notFound(id))
+        case None         => NotFound.page(views.fide.player.notFound(id))
         case Some(player) =>
           if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
           else

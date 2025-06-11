@@ -43,7 +43,7 @@ final class OAuthServer(
           userApi
             .me(at.userId)
             .flatMap:
-              case None => fufail(NoSuchUser)
+              case None    => fufail(NoSuchUser)
               case Some(u) =>
                 val blocked =
                   at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
@@ -71,8 +71,8 @@ final class OAuthServer(
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
   yield for
-    user1 <- auth1
-    user2 <- auth2
+    user1  <- auth1
+    user2  <- auth2
     result <-
       if user1.user.is(user2.user)
       then Left(OneUserWithTwoTokens)

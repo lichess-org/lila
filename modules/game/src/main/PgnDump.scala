@@ -43,7 +43,7 @@ final class PgnDump(
       else fuccess(Tags(Nil))
 
     tagsFuture.map: ts =>
-      val ply = ts.fen.flatMap(Fen.readWithMoveNumber).fold(Ply.initial)(_.ply)
+      val ply  = ts.fen.flatMap(Fen.readWithMoveNumber).fold(Ply.initial)(_.ply)
       val tree = flags.moves.so:
         makeTree(
           applyDelay(game.sans, flags.keepDelayIf(game.playable)),
@@ -72,9 +72,9 @@ final class PgnDump(
   private def eventOf(game: Game) =
     val perf = game.perfType.nameKey
     game.tournamentId
-      .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
+      .map(id => s"${game.rated.name} $perf tournament https://lichess.org/tournament/$id")
       .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))
-      .getOrElse(s"${game.mode} $perf game")
+      .getOrElse(s"${game.rated.name} $perf game")
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map(rd => Tag(tag(Tag), s"${if !rd.negative then "+" else ""}$rd"))
@@ -153,7 +153,7 @@ object PgnDump:
       clocks: Vector[Centis],
       startColor: Color
   ): Option[PgnTree] =
-    val clockOffset = startColor.fold(0, 1)
+    val clockOffset                = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
       san = san,
       timeLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)

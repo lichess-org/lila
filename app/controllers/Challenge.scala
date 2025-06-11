@@ -57,7 +57,7 @@ final class Challenge(env: Env) extends LilaController(env):
     env.challenge
       .version(c.id)
       .flatMap { version =>
-        val mine = justCreated || isMine(c)
+        val mine                         = justCreated || isMine(c)
         val direction: Option[Direction] =
           if mine then Direction.Out.some
           else if isForMe(c) then Direction.In.some
@@ -130,7 +130,7 @@ final class Challenge(env: Env) extends LilaController(env):
           _.filter(isForMe) match
             case None                  => tryRematch
             case Some(c) if c.accepted => tryRematch
-            case Some(c) =>
+            case Some(c)               =>
               api
                 .accept(c, none)
                 .map:
@@ -194,12 +194,12 @@ final class Challenge(env: Env) extends LilaController(env):
         .activeByIdBy(id, me)
         .flatMap:
           case Some(c) => api.cancel(c).inject(jsonOkResult)
-          case None =>
+          case None    =>
             api
               .activeByIdFor(id, me)
               .flatMap:
                 case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
-                case None =>
+                case None    =>
                   import lila.core.round.{ Tell, RoundBus }
                   env.game.gameRepo
                     .game(id.into(GameId))
@@ -267,7 +267,7 @@ final class Challenge(env: Env) extends LilaController(env):
               env.user.repo.byId(username).flatMap {
                 case None                       => redir
                 case Some(dest) if ctx.is(dest) => redir
-                case Some(dest) =>
+                case Some(dest)                 =>
                   env.challenge.granter.isDenied(dest, c.perfType.key.some).flatMap {
                     case Some(denied) =>
                       showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
@@ -304,7 +304,7 @@ final class Challenge(env: Env) extends LilaController(env):
                             for
                               challenge <- makeOauthChallenge(config, me, destUser)
                               grant     <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
-                              res <- grant match
+                              res       <- grant match
                                 case Some(denied) =>
                                   fuccess:
                                     JsonBadRequest:
@@ -344,7 +344,7 @@ final class Challenge(env: Env) extends LilaController(env):
           variant = config.variant,
           initialFen = config.position,
           timeControl = timeControl,
-          mode = config.mode,
+          rated = config.rated,
           color = config.color.name,
           challenger = ChallengeModel.toRegistered(orig),
           destUser = dest.some,
@@ -380,7 +380,7 @@ final class Challenge(env: Env) extends LilaController(env):
             .isDenied(opponent, g.perfKey.some)
             .flatMap:
               case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(d)))
-              case _ =>
+              case _       =>
                 api
                   .offerRematchForGame(g, me)
                   .map:

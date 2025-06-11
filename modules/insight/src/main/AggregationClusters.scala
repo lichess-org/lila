@@ -35,7 +35,7 @@ object AggregationClusters:
       points = metricValues.map { case InsightMetric.MetricValue(id, name) =>
         name -> Point(stack.find(_.metric == id).so(_.v.toDouble.get))
       }
-      total = stack.map(_.v.toInt.get).sum
+      total    = stack.map(_.v.toInt.get).sum
       percents =
         if total == 0 then points
         else

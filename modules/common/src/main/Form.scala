@@ -60,7 +60,7 @@ object Form:
       .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
-      case None =>
+      case None          =>
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def empty[T]: FieldMapping[Option[T]] =
@@ -213,7 +213,7 @@ object Form:
       }
       def unbind(key: String, value: A) = strBase.unbind(key, from(value).toString)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
-      override val format = Some(("format.boolean", Nil))
+      override val format                              = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
         Right(data.getOrElse(key, "false")).flatMap { v =>
           Right(trueish(v))
@@ -234,11 +234,11 @@ object Form:
 
   object fen:
     import chess.format.Fen
-    val mapping = trim(of[String]).into[Fen.Full]
+    val mapping                   = trim(of[String]).into[Fen.Full]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
       .transform[Fen.Full](if strict then truncateMoveNumber else identity, identity)
-    val playableStrict = playable(strict = true)
+    val playableStrict                    = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= chess.FullMoveNumber(150) then
@@ -280,12 +280,17 @@ object Form:
       formatter.stringTryFormatter(s =>
         s.toIntOption match
           case Some(i) => Right(FideId(i))
-          case None =>
+          case None    =>
             s match
               case urlRegex(id) => Right(FideId(id.toInt))
               case _            => Left("Invalid FIDE ID")
       )
     val field = of[FideId]
+
+  object byColor:
+    import chess.ByColor
+    def mappingOf[A](a: Mapping[A]): Mapping[ByColor[A]] =
+      mapping("white" -> a, "black" -> a)(ByColor.apply)(unapply)
 
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
@@ -312,7 +317,7 @@ object Form:
   extension [A](m: Mapping[A])
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
       m.transform(sr.apply, rs.apply)
-    def iso[B](using iso: Iso[A, B]): Mapping[B] = m.transform(iso.from, iso.to)
+    def iso[B](using iso: Iso[A, B]): Mapping[B]                      = m.transform(iso.from, iso.to)
     def partial[B](f2: B => A)(f1: PartialFunction[A, B]): Mapping[B] =
       m.verifying("Invalid value", f1.isDefinedAt).transform(f1, f2)
 
@@ -339,8 +344,8 @@ object Form:
     val mapping: Mapping[LocalDate]  = of[LocalDate](using format)
   object ISODateTime:
     val format: Formatter[LocalDateTime] = new:
-      val formatter                        = isoInstantFormatter
-      def localDateTimeParse(data: String) = java.time.LocalDateTime.parse(data, formatter)
+      val formatter                                    = isoInstantFormatter
+      def localDateTimeParse(data: String)             = java.time.LocalDateTime.parse(data, formatter)
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
       def unbind(key: String, value: LocalDateTime) = Map(key -> formatter.print(value))
@@ -378,7 +383,7 @@ object Form:
   final class LocalDateTimeOrTimestamp(zone: ZoneId):
     val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
     def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
-    val format: Formatter[Instant] = new:
+    val format: Formatter[Instant]       = new:
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
           .map(_.atZone(zone).toInstant)

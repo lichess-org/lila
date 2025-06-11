@@ -11,7 +11,7 @@ case class TutorFullReport(
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
   def isFresh = at.isAfter(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
 
-  lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
+  lazy val nbGames                   = perfs.toList.map(_.stats.totalNbGames).sum
   lazy val totalTime: FiniteDuration =
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 

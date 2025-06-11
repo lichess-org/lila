@@ -22,7 +22,7 @@ final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDut
                 "start_time"  -> isoDateTimeFormatter.print(date),
                 "end_time"    -> isoDateTimeFormatter.print(date.plusMinutes(3)),
                 "description" -> "restart announce",
-                "services" -> Json.arr(
+                "services"    -> Json.arr(
                   Json.obj(
                     "id"   -> config.serviceId,
                     "type" -> "service_reference"

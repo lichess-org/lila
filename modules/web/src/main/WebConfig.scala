@@ -17,8 +17,8 @@ final class WebConfig(
 object WebConfig:
 
   object blindCookie:
-    val name   = "mBzamRgfXgRBSnXB"
-    val maxAge = 365.days
+    val name                                          = "mBzamRgfXgRBSnXB"
+    val maxAge                                        = 365.days
     def make(lilaCookie: LilaCookie)(enable: Boolean) = lilaCookie.cookie(
       name,
       enable.so("1"),
@@ -53,7 +53,6 @@ object WebConfig:
     baseUrl = c.get[BaseUrl]("net.base_url"),
     assetDomain = c.get[AssetDomain]("net.asset.domain"),
     assetBaseUrl = c.get[AssetBaseUrl]("net.asset.base_url"),
-    assetBaseUrlInternal = c.get[AssetBaseUrlInternal]("net.asset.base_url_internal"),
     stageBanner = c.get[Boolean]("net.stage.banner"),
     siteName = c.get[String]("net.site.name"),
     socketDomains = c.get[List[String]]("net.socket.domains"),

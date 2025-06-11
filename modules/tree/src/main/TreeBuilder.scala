@@ -93,7 +93,7 @@ object TreeBuilder:
             .getOrElse(branch)
 
         games.zipWithIndex.reverse match
-          case Nil => root
+          case Nil                 => root
           case ((g, m), i) :: rest =>
             root.prependChild(rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
               makeBranch(i + 1, g, m).prependChild(node)
@@ -133,7 +133,7 @@ object TreeBuilder:
         error.foreach: err =>
           logChessError(formatError(id, err))
         games.reverse match
-          case Nil => root
+          case Nil            => root
           case (g, m) :: rest =>
             root.addChild(
               rest

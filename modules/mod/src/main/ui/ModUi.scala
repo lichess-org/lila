@@ -29,7 +29,7 @@ final class ModUi(helpers: Helpers):
   def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || Granter.opt(_.Admin)
     submitButton(
-      cls := (!allowed).option("disabled"),
+      cls   := (!allowed).option("disabled"),
       title := {
         if allowed
         then "Definitely erase everything about this user"
@@ -102,7 +102,7 @@ final class ModUi(helpers: Helpers):
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
-                        cls := Granter.of(perm)(u).option("granted"),
+                        cls   := Granter.of(perm)(u).option("granted"),
                         title := Granter
                           .of(perm)(u)
                           .so:

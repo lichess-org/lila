@@ -177,7 +177,7 @@ final class Study(
             )
             loadChat = !HTTPRequest.isXhr(ctx.req)
             chatOpt <- loadChat.so(chatOf(sc.study))
-            jsChat <- chatOpt.soFu: c =>
+            jsChat  <- chatOpt.soFu: c =>
               lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
           yield Ok:
             Json.obj(
@@ -259,7 +259,7 @@ final class Study(
         for
           owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
           contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
-          res <-
+          res     <-
             if owner.isEmpty && contrib.isEmpty then createStudy(data)
             else
               val back = HTTPRequest
@@ -436,8 +436,8 @@ final class Study(
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
       else username.into(UserName)
-    val userId = name.id
-    val isMe   = ctx.me.exists(_.is(userId))
+    val userId     = name.id
+    val isMe       = ctx.me.exists(_.is(userId))
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
@@ -480,7 +480,7 @@ final class Study(
 
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
-      case None => BadRequest("No search term provided")
+      case None       => BadRequest("No search term provided")
       case Some(term) =>
         import lila.common.Json.given
         env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
@@ -513,7 +513,7 @@ final class Study(
     privateUnauthorizedJson
   )
 
-  def privateForbiddenJson = forbiddenJson("This study is now private")
+  def privateForbiddenJson                                 = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
     Forbidden.page(views.study.privateStudy(study)),
     privateForbiddenJson

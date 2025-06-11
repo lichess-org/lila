@@ -106,7 +106,7 @@ final class RelayPgnStream(
       .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         val chan = SyncResult.busChannel(rs.relay.id)
-        val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
+        val sub  = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
           queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
         }
         queue

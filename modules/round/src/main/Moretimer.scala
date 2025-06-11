@@ -42,7 +42,7 @@ final class Moretimer(
         if unchecked < minTime then minTime
         else if unchecked > maxTime then maxTime
         else unchecked
-      val centis = duration.toCentis
+      val centis   = duration.toCentis
       val newClock = colors.foldLeft(clock): (c, color) =>
         c.giveTime(color, centis)
       colors.foreach: c =>
@@ -55,4 +55,4 @@ final class Moretimer(
         prefApi.byId(game.userIdPair)
       .dmap:
         _.forall: p =>
-          p.moretime == Pref.Moretime.ALWAYS || (p.moretime == Pref.Moretime.CASUAL && game.casual)
+          p.moretime == Pref.Moretime.ALWAYS || (p.moretime == Pref.Moretime.CASUAL && game.rated.no)

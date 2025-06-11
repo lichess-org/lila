@@ -103,7 +103,7 @@ final class Analyse(
           case Some(LpvEmbed.PublicPgn(pgn)) =>
             render:
               case AcceptsPgn() => Ok(pgn)
-              case _ =>
+              case _            =>
                 Ok.snip:
                   views.analyse.embed.lpv(
                     pgn,
@@ -137,7 +137,7 @@ final class Analyse(
     simul      <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-    page <- renderPage:
+    page       <- renderPage:
       views.analyse.replay.forCrawler(
         pov,
         initialFen,

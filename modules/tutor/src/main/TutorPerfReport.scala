@@ -119,8 +119,8 @@ private object TutorPerfReport:
 
   import TutorBuilder.*
 
-  private val accuracyQuestion  = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
-  private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
+  private val accuracyQuestion    = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
+  private val awarenessQuestion   = Question(InsightDimension.Perf, InsightMetric.Awareness)
   private val globalClockQuestion = Question(
     InsightDimension.Perf,
     InsightMetric.ClockPercent,

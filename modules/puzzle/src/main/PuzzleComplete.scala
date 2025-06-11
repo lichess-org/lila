@@ -20,12 +20,13 @@ final class PuzzleComplete(
   )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: Context
   )(using Perf, Translate): Fu[JsObject] =
+    given Option[Me] = ctx.me
     data.streakPuzzleId.match
       case Some(streakNextId) =>
         api.puzzle
           .find(streakNextId)
           .flatMap:
-            case None => fuccess(Json.obj("streakComplete" -> true))
+            case None         => fuccess(Json.obj("streakComplete" -> true))
             case Some(puzzle) =>
               for
                 score <- data.streakScore
@@ -38,14 +39,14 @@ final class PuzzleComplete(
                 Json.obj("next" -> nextJson)
               }
       case None =>
-        lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
+        lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated.yes).increment()
         ctx.me match
           case Some(me) =>
             given Me = me
-            finisher(id, angle, data.win, data.mode).flatMapz { (round, perf) =>
+            finisher(id, angle, data.win, data.rated).flatMapz { (round, perf) =>
               val newMe = me.value.withPerf(perf)
               for
-                _ <- session.onComplete(round, angle)
+                _    <- session.onComplete(round, angle)
                 json <-
                   if mobileBc then
                     fuccess:
@@ -63,7 +64,7 @@ final class PuzzleComplete(
                           _    <- replayApi.onComplete(round, replayDays, angle)
                           next <- replayApi(replayDays.some, theme)
                           json <- next match
-                            case None => fuccess(Json.obj("replayComplete" -> true))
+                            case None                 => fuccess(Json.obj("replayComplete" -> true))
                             case Some(puzzle, replay) =>
                               jsonView.analysis(puzzle, angle, replay.some).map { nextJson =>
                                 Json.obj(
@@ -74,7 +75,11 @@ final class PuzzleComplete(
                         yield json
                       case _ =>
                         for
-                          next <- selector.nextPuzzleForReq(angle, none)
+                          next <- selector.nextPuzzleFor(
+                            angle,
+                            none,
+                            PuzzleDifficulty.fromReqSession(ctx.req)
+                          )
                           nextJson <- next.soFu:
                             given Perf = perf
                             jsonView.analysis(_, angle, none, Me.from(newMe.user.some))
@@ -89,7 +94,7 @@ final class PuzzleComplete(
             if mobileBc then fuccess(Json.obj("user" -> false))
             else
               selector
-                .nextPuzzleForReq(angle, data.color.map(some))
+                .nextPuzzleFor(angle, data.color.map(some), PuzzleDifficulty.fromReqSession(ctx.req))
                 .flatMap:
                   _.so(jsonView.analysis(_, angle))
                 .map: json =>

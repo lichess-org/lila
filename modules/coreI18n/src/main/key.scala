@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String = key
+    def value: String                                   = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -910,6 +910,24 @@ object I18nKey:
     val `actions`: I18nKey = "nvui:actions"
     val `yourClock`: I18nKey = "nvui:yourClock"
     val `opponentClock`: I18nKey = "nvui:opponentClock"
+    val `gameStart`: I18nKey = "nvui:gameStart"
+    val `boardCommandList`: I18nKey = "nvui:boardCommandList"
+    val `inputFormCommandList`: I18nKey = "nvui:inputFormCommandList"
+    val `goToInputForm`: I18nKey = "nvui:goToInputForm"
+    val `announceCurrentSquare`: I18nKey = "nvui:announceCurrentSquare"
+    val `announceLastMove`: I18nKey = "nvui:announceLastMove"
+    val `announceLastMoveCapture`: I18nKey = "nvui:announceLastMoveCapture"
+    val `announcePossibleMoves`: I18nKey = "nvui:announcePossibleMoves"
+    val `announcePossibleCaptures`: I18nKey = "nvui:announcePossibleCaptures"
+    val `moveWithArrows`: I18nKey = "nvui:moveWithArrows"
+    val `moveToPieceByType`: I18nKey = "nvui:moveToPieceByType"
+    val `moveToRank`: I18nKey = "nvui:moveToRank"
+    val `moveToFile`: I18nKey = "nvui:moveToFile"
+    val `announcePieceLocations`: I18nKey = "nvui:announcePieceLocations"
+    val `announcePiecesOnRankOrFile`: I18nKey = "nvui:announcePiecesOnRankOrFile"
+    val `goToBoard`: I18nKey = "nvui:goToBoard"
+    val `movePiece`: I18nKey = "nvui:movePiece"
+    val `promotion`: I18nKey = "nvui:promotion"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

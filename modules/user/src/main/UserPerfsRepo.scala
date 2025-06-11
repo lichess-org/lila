@@ -161,9 +161,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     perfOf(userId, pk).map(_.intRating)
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
-    if puzzle.glicko.rating < 2500
-    then fuFalse
-    else
+    (puzzle.glicko.rating >= 2500).so:
       perfOptionOf(id, PerfType.Standard).map:
         _.forall(lila.rating.UserPerfs.dubiousPuzzle(puzzle, _))
 

@@ -90,8 +90,8 @@ object BSON extends Handlers:
     def date(d: Instant)(using handler: BSONHandler[Instant]): BSONValue = handler.writeTry(d).get
     def byteArrayO(b: ByteArray)(using handler: BSONHandler[ByteArray]): Option[BSONValue] =
       if b.isEmpty then None else handler.writeOpt(b)
-    def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
-    def bytes(b: Array[Byte]): BSONBinary         = BSONBinary(b, ByteArray.subtype)
+    def bytesO(b: Array[Byte]): Option[BSONValue]                          = byteArrayO(ByteArray(b))
+    def bytes(b: Array[Byte]): BSONBinary                                  = BSONBinary(b, ByteArray.subtype)
     def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] =
       if list.isEmpty then None
       else Some(BSONArray(list.flatMap(writer.writeOpt)))

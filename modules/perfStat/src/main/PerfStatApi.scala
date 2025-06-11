@@ -105,7 +105,7 @@ final class PerfStatApi(
                   Project(
                     $doc(
                       "_id" -> false,
-                      "r" -> $doc(
+                      "r"   -> $doc(
                         "$subtract" -> $arr(
                           "$rating",
                           $doc("$mod" -> $arr("$rating", percentileOf.group))

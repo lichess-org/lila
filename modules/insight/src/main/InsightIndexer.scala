@@ -70,7 +70,7 @@ final private class InsightIndexer(
     storage
       .nbByPerf(user.id)
       .flatMap: nbs =>
-        var nbByPerf = nbs
+        var nbByPerf                                      = nbs
         def toEntry(game: Game): Fu[Option[InsightEntry]] =
           val nb = nbByPerf.getOrElse(game.perfKey, 0) + 1
           nbByPerf = nbByPerf.updated(game.perfKey, nb)

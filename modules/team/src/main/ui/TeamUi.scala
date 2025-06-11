@@ -16,7 +16,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache    = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10.minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
@@ -48,7 +48,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
       td(cls := "subject")(
         a(
           dataIcon := Icon.Group,
-          cls := List(
+          cls      := List(
             "team-name text" -> true,
             "mine"           -> isMine
           ),
@@ -323,7 +323,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show(TeamId("english-chess-players")).url)
-      case _ =>
+      case _                       =>
         postForm(cls := "inline", action := routes.Team.join(t.id))(
           submitButton(cls := "button button-green")(trt.joinTeam())
         )
