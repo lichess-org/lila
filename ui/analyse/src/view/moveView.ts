@@ -10,7 +10,11 @@ export interface Ctx {
 }
 
 export const renderGlyph = (glyph: Tree.Glyph): VNode =>
-  h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
+  h(
+    'glyph',
+    { attrs: { title: glyph.name, 'aria-label': glyph.name, 'aria-assertive': 'polite' } },
+    glyph.symbol,
+  );
 
 const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 
@@ -22,7 +26,13 @@ export const renderIndex = (ply: Ply, withDots?: boolean): VNode =>
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
-  const nodes = [h('san', fixCrazySan(node.san!))];
+  const nodes = [
+    h(
+      'san',
+      { attrs: { 'aria-live': 'polite', 'aria-label': 'standard algebraic notation' } },
+      fixCrazySan(node.san!),
+    ),
+  ];
   if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => nodes.push(renderGlyph(g)));
   if (node.shapes?.length) nodes.push(h('shapes'));
   if (ev && ctx.showEval) {

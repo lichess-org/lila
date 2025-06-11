@@ -1,5 +1,6 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
-import { defined, prop, type Prop } from 'lib';
+// import { defined, prop, type Prop } from 'lib';
+import { defined, prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -33,7 +34,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { bind, noTrans, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
+import { LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -57,6 +58,8 @@ import type * as studyDeps from '../study/studyDeps';
 import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
+
+import renderRetro from '@/retrospect/retroView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -105,16 +108,16 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
           ...(!ctrl.studyPractice
             ? [
-                h(
-                  'button',
-                  {
-                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
-                  },
-                  i18n.site.openingExplorerAndTablebase,
-                ),
-                explorerView(ctrl),
-              ]
+              h(
+                'button',
+                {
+                  attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+                  hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+                },
+                i18n.site.openingExplorerAndTablebase,
+              ),
+              explorerView(ctrl),
+            ]
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
@@ -128,10 +131,10 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
           clocks &&
-            h('div.clocks', [
-              h('h2', `${i18n.site.clock}`),
-              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
-            ]),
+          h('div.clocks', [
+            h('h2', `${i18n.site.clock}`),
+            h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+          ]),
           h('h2', 'Move form'),
           h(
             'form#move-form',
@@ -154,10 +157,9 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ],
           ),
           notify.render(),
-          h('h2', 'Computer analysis'),
-          ...cevalView.renderCeval(ctrl),
-          cevalView.renderPvs(ctrl),
-          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          renderComputerAnalysis(ctrl, notify),
+
+          renderRetro(ctrl),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -211,12 +213,12 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+                root.find('.copy-pgn').on('click', function(this: HTMLElement) {
                   navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
                     notify.set('PGN copied into clipboard.');
                   });
                 });
-                root.find('.copy-fen').on('click', function (this: HTMLElement) {
+                root.find('.copy-fen').on('click', function(this: HTMLElement) {
                   const inputFen = document.querySelector(
                     '.analyse__underboard__fen input',
                   ) as HTMLInputElement;
@@ -334,6 +336,19 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
+function initLFYM(ctrl: AnalyseController): string {
+  if (ctrl.hasFullComputerAnalysis()) {
+    if (!ctrl.retro) {
+      ctrl.toggleRetro();
+      return 'learn from your mistakes';
+    } else {
+      ctrl.toggleRetro();
+      return 'exited learn from your mistakes';
+    }
+  }
+  return 'must have complete game analysis for learn from your mistakes';
+}
+
 function onSubmit(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
@@ -360,7 +375,7 @@ function onSubmit(
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'p' | 's' | 'eval' | 'learn' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -375,7 +390,7 @@ const inputCommands: InputCommand[] = [
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
+        `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
@@ -384,13 +399,18 @@ const inputCommands: InputCommand[] = [
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
+        `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {
     cmd: 'eval',
     help: noTrans("announce last move's computer evaluation"),
     cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
+  },
+  {
+    cmd: 'learn',
+    help: noTrans('Learn from your mistakes'),
+    cb: (ctrl, notify) => notify(initLFYM(ctrl)),
   },
   {
     cmd: 'best',
@@ -451,65 +471,25 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
-  const anal = ctrl.data.analysis; // heh
-  if (!anal) return undefined;
-  const analysisGlyphs = ['?!', '?', '??'];
-  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
-  const res: Array<VNode> = [];
-  ['white', 'black'].forEach((color: Color) => {
-    res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
-    res.push(
-      h(
-        'select',
-        {
-          hook: bind(
-            'change',
-            e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
-            ctrl.redraw,
-          ),
-        },
-        analysisNodes
-          .filter(n => (n.ply % 2 === 1) === (color === 'white'))
-          .map(node =>
-            h(
-              'option',
-              { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
-              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
-                ' ',
-              ),
-            ),
-          ),
-      ),
-    );
-  });
-  return res;
-}
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+  if (ctrl.retro == undefined) {
+    const nodes = [h('h2', 'Computer analysis'), ...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)];
 
-const requestAnalysisButton = (
-  ctrl: AnalyseController,
-  inProgress: Prop<boolean>,
-  notify: (msg: string) => void,
-): MaybeVNode =>
-  ctrl.ongoing || ctrl.synthetic
-    ? undefined
-    : inProgress()
-      ? h('p', 'Server-side analysis in progress')
-      : h(
-          'button',
-          {
-            hook: bind('click', _ =>
-              xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-                () => {
-                  inProgress(true);
-                  notify('Server-side analysis in progress');
-                },
-                () => notify('Cannot run server-side analysis'),
-              ),
-            ),
-          },
-          i18n.site.requestAComputerAnalysis,
-        );
+    return nodes;
+  }
+  if (ctrl.ongoing || ctrl.synthetic) {
+    notify.set('Server-side analysis in progress');
+    return h('h2', 'Server-side analysis in progress');
+  } else {
+    return h(
+      'button',
+      {
+        hook: bind('click', _ => xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' })),
+      },
+      i18n.site.requestAComputerAnalysis,
+    );
+  }
+}
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
@@ -551,14 +531,14 @@ function userHtml(ctrl: AnalyseController, player: Player) {
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? h('span', [
-        h(
-          'a',
-          { attrs: { href: '/@/' + user.username } },
-          user.title ? `${user.title} ${user.username}` : user.username,
-        ),
-        rating ? ` ${rating}` : ``,
-        ' ' + ratingDiff,
-      ])
+      h(
+        'a',
+        { attrs: { href: '/@/' + user.username } },
+        user.title ? `${user.title} ${user.username}` : user.username,
+      ),
+      rating ? ` ${rating}` : ``,
+      ' ' + ratingDiff,
+    ])
     : studyPlayers || h('span', i18n.site.anonymous);
 }
 
@@ -599,7 +579,8 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
-const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+
+export const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('click', callback);
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
 };
@@ -656,53 +637,53 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
-        h(
-          'div.relay-groups',
-          h('label', [
-            'Current group:',
-            h(
-              'select',
-              {
-                attrs: { autofocus: hash === '#group-select' },
-                hook: redirectToSelectedHook,
-              },
-              relayGroups.tours.map(t =>
-                h(
-                  'option',
-                  { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
-                  t.name,
-                ),
+      h(
+        'div.relay-groups',
+        h('label', [
+          'Current group:',
+          h(
+            'select',
+            {
+              attrs: { autofocus: hash === '#group-select' },
+              hook: redirectToSelectedHook,
+            },
+            relayGroups.tours.map(t =>
+              h(
+                'option',
+                { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
+                t.name,
               ),
             ),
-          ]),
-        ),
+          ),
+        ]),
+      ),
       tour &&
-        relayRounds &&
-        h(
-          'div.relay-rounds',
-          h('label', [
-            'Current round:',
-            h(
-              'select',
-              {
-                attrs: { autofocus: hash === '#round-select' },
-                hook: redirectToSelectedHook,
-              },
-              relayRounds.map(r =>
-                h(
-                  'option',
-                  {
-                    attrs: {
-                      selected: r.id == study.data.id,
-                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
-                    },
+      relayRounds &&
+      h(
+        'div.relay-rounds',
+        h('label', [
+          'Current round:',
+          h(
+            'select',
+            {
+              attrs: { autofocus: hash === '#round-select' },
+              hook: redirectToSelectedHook,
+            },
+            relayRounds.map(r =>
+              h(
+                'option',
+                {
+                  attrs: {
+                    selected: r.id == study.data.id,
+                    url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
                   },
-                  r.name,
-                ),
+                },
+                r.name,
               ),
             ),
-          ]),
-        ),
+          ),
+        ]),
+      ),
       h('div.chapters', [
         h('label', [
           'Current chapter:',
@@ -733,39 +714,39 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
         ]),
         study.members.canContribute()
           ? h('div.buttons', [
-              h(
-                'button',
-                {
-                  hook: onInsert((el: HTMLButtonElement) => {
-                    const toggle = () => {
-                      study.chapters.editForm.toggle(study.currentChapter());
-                      ctrl.redraw();
-                    };
-                    onInsertHandler(toggle, el);
-                  }),
-                },
-                [
-                  'Edit current chapter',
-                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
-                ],
-              ),
-              h(
-                'button',
-                {
-                  hook: onInsert((el: HTMLButtonElement) => {
-                    const toggle = () => {
-                      study.chapters.newForm.toggle();
-                      ctrl.redraw();
-                    };
-                    onInsertHandler(toggle, el);
-                  }),
-                },
-                [
-                  'Add new chapter',
-                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-                ],
-              ),
-            ])
+            h(
+              'button',
+              {
+                hook: onInsert((el: HTMLButtonElement) => {
+                  const toggle = () => {
+                    study.chapters.editForm.toggle(study.currentChapter());
+                    ctrl.redraw();
+                  };
+                  onInsertHandler(toggle, el);
+                }),
+              },
+              [
+                'Edit current chapter',
+                study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
+              ],
+            ),
+            h(
+              'button',
+              {
+                hook: onInsert((el: HTMLButtonElement) => {
+                  const toggle = () => {
+                    study.chapters.newForm.toggle();
+                    ctrl.redraw();
+                  };
+                  onInsertHandler(toggle, el);
+                }),
+              },
+              [
+                'Add new chapter',
+                study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+              ],
+            ),
+          ])
           : undefined,
       ]),
     ])
