@@ -28,4 +28,33 @@
   <string name="goToBoard">Gehe zum Brett. Das Standardfeld ist e-4. Du kannst ein Fels spezifizieren: board a-1 oder b a-1 bringt dich zum Feld a-1.</string>
   <string name="movePiece">Um eine Figur zu bewegen, benutze standard-algebraische Notation.</string>
   <string name="promotion">Um eine Figur zu etwas anderem als einer Dame umzuwandeln, benutze \"equals\". Zum Beispiel a-8-equals-n wandelt zu einem Springer um.</string>
+  <string name="king">König</string>
+  <string name="whiteKing">weißer König</string>
+  <string name="blackKing">schwarzer König</string>
+  <string name="queen">Dame</string>
+  <string name="whiteQueen">weiße Dame</string>
+  <string name="blackQueen">schwarze Dame</string>
+  <string name="rook">Turm</string>
+  <string name="whiteRook">weißer Turm</string>
+  <string name="blackRook">schwarzer Turm</string>
+  <string name="bishop">Läufer</string>
+  <string name="whiteBishop">weißer Läufer</string>
+  <string name="blackBishop">schwarzer Läufer</string>
+  <string name="knight">Springer</string>
+  <string name="whiteKnight">weißer Springer</string>
+  <string name="blackKnight">schwarzer Springer</string>
+  <string name="pawn">Bauer</string>
+  <string name="whitePawn">weißer Bauer</string>
+  <string name="blackPawn">schwarzer Bauer</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">schlägt</string>
+  <string name="sanCheck" comment="+ in standard notation">Schach</string>
+  <string name="sanCheckmate" comment="# in standard notation">Schachmatt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">wandelt um zu</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kurze Rochade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lange Rochade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">wurde platziert auf</string>
+  <string name="invalidMove">Ungültiger Zug</string>
+  <string name="premoveCancelled">Vorrauszug abgebrochen</string>
+  <string name="premoveRecorded">Vorrauszug aufgenommen: %s. Drücke Enter um ihn abzubrechen</string>
 </resources>
