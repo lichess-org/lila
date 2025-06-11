@@ -785,7 +785,7 @@ export default class StudyCtrl {
         this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
         this.ctrl.withCg(cg => cg.setShapes(d.s));
       }
-      this.ctrl.tree.setShapes(d.s, this.ctrl.path);
+      this.ctrl.tree.setShapes(d.s, position.path);
       this.redraw();
     },
     validationError: d => {
