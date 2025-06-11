@@ -11,4 +11,44 @@
   <string name="yourClock">Twój zegar</string>
   <string name="opponentClock">Zegar przeciwnika</string>
   <string name="gameStart">Rozpoczęcie partii</string>
+  <string name="boardCommandList">Lista poleceń, gdy jesteś na szachownicy</string>
+  <string name="goToInputForm">Przejdź do linii poleceń.</string>
+  <string name="announceCurrentSquare">Podaj wybrane pole.</string>
+  <string name="announceLastMove">Podaj ostatnie posunięcie.</string>
+  <string name="announceLastMoveCapture">Podaj bierkę zbitą w ostatnim posunięciu.</string>
+  <string name="announcePossibleMoves">Podaj możliwe posunięcia dla wybranej bierki.</string>
+  <string name="announcePossibleCaptures">Podaj możliwe bicia dla wybranej bierki.</string>
+  <string name="moveWithArrows">Przejście do sąsiedniego pola w lewo, w prawo, w górę lub w dół.</string>
+  <string name="moveToPieceByType">Przejście do pola używając nazw bierek. Np.: podwójne k przenosi do następnego pola ze skoczkiem. Użyj wielkich liter, aby przejść do poprzedniego pola ze skoczkiem.</string>
+  <string name="moveToRank">Wykonaj posunięcie do rzędu od 1 do 8.</string>
+  <string name="moveToFile">Wykonaj posunięcie do kolumny ad a do h.</string>
+  <string name="king">król</string>
+  <string name="whiteKing">biały król</string>
+  <string name="blackKing">czarny król</string>
+  <string name="queen">hetman</string>
+  <string name="whiteQueen">biały hetman</string>
+  <string name="blackQueen">czarny hetman</string>
+  <string name="rook">wieża</string>
+  <string name="whiteRook">biała wieża</string>
+  <string name="blackRook">czarna wieża</string>
+  <string name="bishop">goniec</string>
+  <string name="whiteBishop">biały goniec</string>
+  <string name="blackBishop">czarny goniec</string>
+  <string name="knight">skoczek</string>
+  <string name="whiteKnight">biały skoczek</string>
+  <string name="blackKnight">czarny skoczek</string>
+  <string name="pawn">pion</string>
+  <string name="whitePawn">biały pion</string>
+  <string name="blackPawn">czarny pion</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">zbija</string>
+  <string name="sanCheck" comment="+ in standard notation">szach</string>
+  <string name="sanCheckmate" comment="# in standard notation">mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promuje do</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">krótka roszada</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">długa roszada</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">jest postawiony na</string>
+  <string name="invalidMove">Nieprawidłowy ruch</string>
+  <string name="premoveCancelled">Zaplanowany ruch anulowany</string>
+  <string name="premoveRecorded">Zaplanowany ruch zapisany: %s. Naciśnij Enter, aby go anulować</string>
 </resources>
