@@ -1,13 +1,17 @@
 package lila.security
+
 import play.api.libs.json.*
+import play.api.mvc.RequestHeader
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.net.IpAddress
 import lila.core.security.{ Ip2ProxyApi, IsProxy }
+import lila.common.HTTPRequest
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
-  def apply(ip: IpAddress): Fu[IsProxy]                            = fuccess(IsProxy.empty)
+  def ofReq(req: RequestHeader): Fu[IsProxy]                       = fuccess(IsProxy.empty)
+  def ofIp(ip: IpAddress): Fu[IsProxy]                             = fuccess(IsProxy.empty)
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
 final class Ip2ProxyServer(
@@ -18,10 +22,15 @@ final class Ip2ProxyServer(
 )(using Executor, Scheduler)
     extends Ip2ProxyApi:
 
-  def apply(ip: IpAddress): Fu[IsProxy] =
+  def ofIp(ip: IpAddress): Fu[IsProxy] =
     if tor.isExitNode(ip)
     then fuccess(IsProxy.tor)
     else cache.get(ip.value)
+
+  def ofReq(req: RequestHeader): Fu[IsProxy] =
+    ofIp(HTTPRequest.ipAddress(req)).addEffect:
+      _.name.foreach: name =>
+        lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
 
   def getCached(ip: IpAddress): Option[Fu[IsProxy]] =
     if tor.isExitNode(ip)
@@ -43,7 +52,7 @@ final class Ip2ProxyServer(
   private def batch(ips: Seq[IpAddress]): Fu[Seq[IsProxy]] =
     ips.distinct.take(50) match // 50 * ipv6 length < max url length
       case Nil     => fuccess(Seq.empty[IsProxy])
-      case Seq(ip) => apply(ip).dmap(Seq(_))
+      case Seq(ip) => ofIp(ip).dmap(Seq(_))
       case ips     =>
         ips.flatMap(getCached).parallel.flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
