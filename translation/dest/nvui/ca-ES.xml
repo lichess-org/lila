@@ -28,4 +28,33 @@
   <string name="goToBoard">Aneu al tauler. La casella per defecte és e-4. Podeu especificar una casella: board a 1 or b a-1 us portarà a la casella a-1.</string>
   <string name="movePiece">Per moure una peça utilitzeu la notació algebraica estàndard.</string>
   <string name="promotion">Per promocionar a qualsevol cosa diferent d\'una dama utilitzeu equals. Per exemple a-8-equals-n promociona a un cavall.</string>
+  <string name="king">rei</string>
+  <string name="whiteKing">rei blanc</string>
+  <string name="blackKing">rei negre</string>
+  <string name="queen">dama</string>
+  <string name="whiteQueen">dama blanca</string>
+  <string name="blackQueen">dama negra</string>
+  <string name="rook">torre</string>
+  <string name="whiteRook">torre blanca</string>
+  <string name="blackRook">torre negra</string>
+  <string name="bishop">alfil</string>
+  <string name="whiteBishop">alfil blanc</string>
+  <string name="blackBishop">alfil negre</string>
+  <string name="knight">cavall</string>
+  <string name="whiteKnight">cavall blanc</string>
+  <string name="blackKnight">cavall negre</string>
+  <string name="pawn">peó</string>
+  <string name="whitePawn">peó blanc</string>
+  <string name="blackPawn">peó negre</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T A C x</string>
+  <string name="sanTakes" comment="x in standard notation">captura</string>
+  <string name="sanCheck" comment="+ in standard notation">escac</string>
+  <string name="sanCheckmate" comment="# in standard notation">escac i mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promociona a</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">enroc curt</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">enroc llarg</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">es deixa a</string>
+  <string name="invalidMove">Moviment invàlid</string>
+  <string name="premoveCancelled">Moviment anticipat cancel·lat</string>
+  <string name="premoveRecorded">Moviment anticipat registrat: %s prem enter per cancel·lar</string>
 </resources>
