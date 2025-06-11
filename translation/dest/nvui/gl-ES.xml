@@ -28,4 +28,32 @@
   <string name="goToBoard">Ir ó taboleiro. A casa á que vai por defecto é \"e4\". Pódese especificar mediante as coordenadas: \"board a1\" ou \"b a1\" irá á casa \"a1\".</string>
   <string name="movePiece">Empregar a Notación Alxébrica Estándar para mover as pezas.</string>
   <string name="promotion">Para non coroar automaticamente coma dama débese usar \"equals\" (\"é igual a\", en inglés). Así, \"a8 equals n\" coroa coma cabalo (n==Knight, en inglés).</string>
+  <string name="king">rei</string>
+  <string name="whiteKing">rei branco</string>
+  <string name="blackKing">rei negro</string>
+  <string name="queen">dama</string>
+  <string name="whiteQueen">dama branca</string>
+  <string name="blackQueen">dama negra</string>
+  <string name="rook">torre</string>
+  <string name="whiteRook">torre branca</string>
+  <string name="blackRook">torre negra</string>
+  <string name="bishop">bispo</string>
+  <string name="whiteBishop">bispo branco</string>
+  <string name="blackBishop">bispo negro</string>
+  <string name="knight">cabalo</string>
+  <string name="whiteKnight">cabalo branco</string>
+  <string name="blackKnight">cabalo negro</string>
+  <string name="pawn">peón</string>
+  <string name="whitePawn">peón branco</string>
+  <string name="blackPawn">peón negro</string>
+  <string name="sanTakes" comment="x in standard notation">captura</string>
+  <string name="sanCheck" comment="+ in standard notation">xaque</string>
+  <string name="sanCheckmate" comment="# in standard notation">xaque mate</string>
+  <string name="sanPromotesTo" comment="= in standard notation">coroa a</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">enroque curto</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">enroque longo</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">guíndase en</string>
+  <string name="invalidMove">Movemento non válido</string>
+  <string name="premoveCancelled">Premovemento cancelado</string>
+  <string name="premoveRecorded">Premovemento gardado: %s. Pulsa Enter para cancelar</string>
 </resources>
