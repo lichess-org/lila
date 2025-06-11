@@ -187,7 +187,6 @@
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">تم المشاركة والحفظ</string>
   <string name="sharedAndSavedText">يمكن للأعضاء الآخرين رؤية نقلاتك في الوقت الحقيقي!&lt;br&gt;زيادة على ذلك، يتم حفظ كل شيء إلى الأبد.</string>
   <string name="studyMembersTitle">أعضاء الدراسة</string>
-  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">المشاهدون بإمكانهم رؤية الدراسة والتحدث في خانة الدردشة.&lt;br&gt;&lt;br&gt;%2$s المساهمون بإمكانهم نقل القطع والتعديل علي الدراسة.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">إضغط على زر %s.&lt;br&gt;ثم قرر من يمكنه المساهمة أو لا.</string>
   <string name="studyChaptersTitle">فصول الدراسة</string>
   <string name="studyChaptersText">يمكن للدراسة أن تحتوي علي عدة فصول.&lt;br&gt;كل فصل له موقف أولي مختلف وتفريع النقلات.</string>
