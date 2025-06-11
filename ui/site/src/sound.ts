@@ -14,6 +14,7 @@ export default new (class implements SoundI {
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
+  voiceStorage = storage.make('speech.voice');
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
@@ -145,8 +146,14 @@ export default new (class implements SoundI {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text());
+      const voices = speechSynthesis.getVoices();
+      const selectedVoice = voices.find(voice => voice.name.includes(this.voiceStorage.get() ?? ''));
+      if (selectedVoice) {
+        msg.voice = selectedVoice;
+      } else {
+        msg.lang = translated ? document.documentElement.lang : 'en-GB';
+      }
       msg.volume = this.getVolume();
-      msg.lang = translated ? document.documentElement.lang : 'en-GB';
       if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text()));

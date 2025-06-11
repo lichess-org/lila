@@ -3,10 +3,12 @@ import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import { header } from './util';
-import { bind } from 'lib/snabbdom';
+import { bind, LooseVNodes } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { isSafari } from 'lib/device';
+import { snabDialog } from 'lib/view/dialog';
+import { LichessStorage, storage } from 'lib/storage';
 
 type Key = string;
 
@@ -19,6 +21,9 @@ export interface SoundData {
 
 export class SoundCtrl extends PaneCtrl {
   private list: Sound[];
+  private showVoiceSelection = false;
+  private voiceStorage: LichessStorage = storage.make('speech.voice');
+
   constructor(root: DasherCtrl) {
     super(root);
     this.list = this.root.data.sound.list.map(s => s.split(' '));
@@ -26,6 +31,7 @@ export class SoundCtrl extends PaneCtrl {
 
   render = (): VNode => {
     const current = site.sound.speech() ? 'speech' : site.sound.theme;
+    if (current === 'speech' && this.showVoiceSelection) site.sound.say('Speech synthesis ready');
 
     return h(
       'div.sub.sound.' + current,
@@ -63,7 +69,13 @@ export class SoundCtrl extends PaneCtrl {
               h(
                 'button.text',
                 {
-                  hook: bind('click', () => this.set(s[0])),
+                  hook: bind('click', () => {
+                    if (s[0] !== current) this.set(s[0]);
+                    else if (s[0] === 'speech') {
+                      this.showVoiceSelection = true;
+                      this.redraw();
+                    }
+                  }),
                   class: { active: current === s[0] },
                   attrs: { 'data-icon': licon.Checkmark, type: 'button' },
                 },
@@ -72,9 +84,60 @@ export class SoundCtrl extends PaneCtrl {
             ),
           ),
         ]),
+        this.showVoiceSelection
+          ? snabDialog({
+              attrs: {
+                dialog: {
+                  role: 'dialog',
+                },
+              },
+              class: '',
+              css: [],
+              onClose: () => {
+                this.showVoiceSelection = false;
+                this.redraw();
+              },
+              modal: true,
+              vnodes: this.renderVoiceSelection(),
+              onInsert: dlg => {
+                dlg.show();
+              },
+            })
+          : undefined,
       ],
     );
   };
+
+  private renderVoiceSelection(): LooseVNodes {
+    const selectedVoice = this.voiceStorage.get() ?? '';
+    const synth = window.speechSynthesis;
+    let voices = synth.getVoices();
+    if (voices.length !== 0) {
+      voices = voices.filter(voice => voice.lang.startsWith('en'));
+    }
+    return [
+      h('div.selector', [
+        ...voices.map(voice =>
+          h(
+            'button.text',
+            {
+              hook: bind('click', event => {
+                const target = event.target as HTMLElement;
+                this.voiceStorage.set(target.textContent);
+                this.redraw();
+              }),
+              class: { active: voice.name === selectedVoice },
+              attrs: {
+                'data-icon': voice.name === selectedVoice ? licon.Checkmark : '',
+                type: 'button',
+              },
+            },
+            voice.name,
+          ),
+        ),
+      ]),
+    ];
+  }
 
   private postSet = throttlePromiseDelay(
     () => 1000,
@@ -95,7 +158,6 @@ export class SoundCtrl extends PaneCtrl {
     if (site.sound.speech()) {
       site.sound.changeSet('standard');
       this.postSet('standard');
-      site.sound.say('Speech synthesis ready');
     } else {
       site.sound.changeSet(k);
       site.sound.play('genericNotify');
