@@ -6,7 +6,7 @@ import { chessgroundDests, lichessRules } from 'chessops/compat';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
-import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from '../game/chess';
+import { destsToUcis, plyToTurn, sanToUci, sanWriter } from '../game/chess';
 import { storage } from '../storage';
 
 const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
@@ -113,7 +113,7 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
       ? (uci ?? '')
       : style === 'san'
         ? san
-        : sanToWords(san)
+        : transSanToWords(san)
             .split(' ')
             .map(f =>
               files.includes(f.toLowerCase() as FileName)
@@ -139,10 +139,7 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
             [],
           )
           .filter(l => l.keys.length)
-          .map(
-            l =>
-              `${l.role}${l.keys.length > 1 ? 's' : ''}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`,
-          )
+          .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
           .join(', '),
       ]),
     ),
@@ -162,19 +159,26 @@ const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
     [],
   );
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle, i18n: I18n): string {
+export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
+  let pieceStr = transPieceStr(role, color, i18n);
+  if (!pieceStr) {
+    console.error(`Missing piece name for ${color} ${role}`);
+    pieceStr = `${color} ${role}`;
+  }
+  return `${pieceStr}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle, i18n: I18n): string {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
   const renderedKeysWithPiece = Array.from(pieces)
     .sort(([key1], [key2]) => key1.localeCompare(key2))
     .reduce<string[]>(
       (acc, [key, p]) =>
-        key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+        key.includes(rankOrFile)
+          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`)
+          : acc,
       [],
     );
   return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
@@ -223,7 +227,10 @@ export function renderBoard(
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
       const roleCh = roleToChar(piece.role);
-      const pieceText = renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
+      const pieceText =
+        pieceStyle === 'name' || pieceStyle === 'white uppercase name'
+          ? transPieceStr(piece.role, piece.color, i18n)
+          : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
       const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
@@ -520,3 +527,28 @@ const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
 };
+
+const transSanToWords = (san: string): string =>
+  san
+    .split('')
+    .map(c => {
+      if (c === 'x') return i18n.nvui.sanTakes;
+      if (c === '+') return i18n.nvui.sanCheck;
+      if (c === '#') return i18n.nvui.sanCheckmate;
+      if (c === '=') return i18n.nvui.sanPromotesTo;
+      if (c === '@') return i18n.nvui.sanDroppedOn;
+      const code = c.charCodeAt(0);
+      if (code > 48 && code < 58) return c; // 1-8
+      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+      const role = charToRole(c);
+      return role ? transRole(role) : c;
+    })
+    .join(' ')
+    .replace('O - O - O', i18n.nvui.sanLongCastling)
+    .replace('O - O', i18n.nvui.sanShortCastling);
+
+const transRole = (role: Role): string =>
+  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
+
+const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
+  i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;

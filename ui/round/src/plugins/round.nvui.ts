@@ -91,7 +91,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], noTrans(d.game.perf)]),
+        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
         d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
         h('h2', i18n.nvui.moveList),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -259,8 +259,8 @@ function createSubmitHandler(
       if (nvui.premoveInput !== '') {
         // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
         nvui.premoveInput = '';
-        notify('Cleared premove');
-      } else notify('Invalid move');
+        notify(i18n.nvui.premoveCancelled);
+      } else notify(i18n.nvui.invalidMove);
     }
 
     const input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
@@ -279,10 +279,10 @@ function createSubmitHandler(
       if (isOpponentsTurn) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
-        notify(`Will attempt to premove: ${input}. Enter to cancel`);
+        notify(i18n.nvui.premoveRecorded(input));
       } else if (isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
       else if (move) sendMove(move, ctrl, !!nvui.premoveInput);
-      else notify(`Invalid move: ${input}`);
+      else notify(`${i18n.nvui.invalidMove}: ${input}`);
     }
     $input.val('');
   };
@@ -348,20 +348,20 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'p',
-    help: commands.piece.help(i18n),
+    help: commands(i18n).piece.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Expected format: ${commands.piece.help}`,
+        commands(i18n).piece.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands(i18n).piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help(i18n),
+    help: commands(i18n).scan.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Expected format: ${commands.scan.help}`,
+        commands(i18n).scan.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands(i18n).scan.help}`,
       ),
   },
   {
@@ -452,7 +452,7 @@ function gameText(ctrl: RoundController) {
       : i18n.site.gameOver,
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
-    d.game.perf,
+    transGamePerf(d.game.perf),
     i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
@@ -480,3 +480,5 @@ function pageSetting(): Setting<PageStyle> {
     storage: storage.make('nvui.pageLayout'),
   });
 }
+
+const transGamePerf = (perf: string): string => (i18n.site[perf as keyof typeof i18n.site] as string) || perf;

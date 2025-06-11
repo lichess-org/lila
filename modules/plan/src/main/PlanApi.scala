@@ -87,7 +87,7 @@ final class PlanApi(
       giftTo       <- stripeCharge.giftTo.so(userApi.byId)
       money = stripeCharge.amount.toMoney(stripeCharge.currency)
       usd   <- currencyApi.toUsd(money)
-      proxy <- stripeCharge.ip.soFu(ip2proxy(_))
+      proxy <- stripeCharge.ip.soFu(ip2proxy.ofIp)
       charge = Charge
         .make(
           userId = patronOption.map(_.userId),
@@ -190,7 +190,7 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        can     <- canUse(data.ip, data.checkout.freq)
+        can     <- canUse(data.checkout.freq)
         session <-
           if can.yes then
             data.checkout.freq match
@@ -212,36 +212,37 @@ final class PlanApi(
           .void
       }
 
-    def canUse(ip: IpAddress, freq: Freq)(using me: Me): Fu[StripeCanUse] = ip2proxy(ip).flatMap { proxy =>
-      if !proxy.is then fuccess(StripeCanUse.Yes)
-      else
-        val maxPerWeek = {
-          val verifiedBonus  = me.isVerified.so(50)
-          val nbGamesBonus   = math.sqrt(me.count.game / 50)
-          val seniorityBonus = math.sqrt(daysBetween(me.createdAt, nowInstant) / 30d)
-          verifiedBonus + nbGamesBonus + seniorityBonus
-        }.toInt.atLeast(1).atMost(50)
-        freq match
-          case Freq.Monthly => // prevent several subscriptions in a row
-            StripeCanUse.from(
-              mongo.charge
-                .countSel:
-                  $doc(
-                    "userId" -> me.userId,
-                    "date".$gt(nowInstant.minusWeeks(1)),
-                    "stripe".$exists(true),
-                    "giftTo".$exists(false)
-                  )
-                .map(_ < maxPerWeek)
-            )
-          case Freq.Onetime => // prevents mass gifting or one-time donations
-            StripeCanUse.from(
-              mongo.charge
-                .countSel:
-                  $doc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
-                .map(_ < maxPerWeek)
-            )
-    }
+    def canUse(freq: Freq)(using me: Me, ctx: Context): Fu[StripeCanUse] =
+      ip2proxy.ofReq(ctx.req).flatMap { proxy =>
+        if !proxy.is then fuccess(StripeCanUse.Yes)
+        else
+          val maxPerWeek = {
+            val verifiedBonus  = me.isVerified.so(50)
+            val nbGamesBonus   = math.sqrt(me.count.game / 50)
+            val seniorityBonus = math.sqrt(daysBetween(me.createdAt, nowInstant) / 30d)
+            verifiedBonus + nbGamesBonus + seniorityBonus
+          }.toInt.atLeast(1).atMost(50)
+          freq match
+            case Freq.Monthly => // prevent several subscriptions in a row
+              StripeCanUse.from(
+                mongo.charge
+                  .countSel:
+                    $doc(
+                      "userId" -> me.userId,
+                      "date".$gt(nowInstant.minusWeeks(1)),
+                      "stripe".$exists(true),
+                      "giftTo".$exists(false)
+                    )
+                  .map(_ < maxPerWeek)
+              )
+            case Freq.Onetime => // prevents mass gifting or one-time donations
+              StripeCanUse.from(
+                mongo.charge
+                  .countSel:
+                    $doc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
+                  .map(_ < maxPerWeek)
+              )
+      }
 
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("stripe.customerId" -> id))

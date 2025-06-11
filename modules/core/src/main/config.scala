@@ -29,9 +29,6 @@ object config:
   opaque type AssetBaseUrl = String
   object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
 
-  opaque type AssetBaseUrlInternal = String
-  object AssetBaseUrlInternal extends OpaqueString[AssetBaseUrlInternal]
-
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
@@ -55,7 +52,6 @@ object config:
       baseUrl: BaseUrl,
       assetDomain: AssetDomain,
       assetBaseUrl: AssetBaseUrl,
-      assetBaseUrlInternal: AssetBaseUrlInternal,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

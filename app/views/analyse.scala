@@ -78,7 +78,7 @@ object embed:
       pageModule = ui.bits
         .analyseModule("userAnalysis", Json.obj("data" -> data, "embed" -> true) ++ ui.explorerAndCevalConfig)
         .some,
-      csp = _.withExternalAnalysisApis,
+      csp = _.withExternalAnalysisApis.withWebAssembly,
       i18nModules = List(_.site, _.timeago, _.study)
     )(
       ui.bits.embedUserAnalysisBody,
