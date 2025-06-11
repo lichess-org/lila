@@ -54,4 +54,7 @@
   <string name="sanShortCastling" comment="O-O in standard notation">enroque corto</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">enroque largo</string>
   <string name="sanDroppedOn" comment="crazyhouse @">cae en</string>
+  <string name="invalidMove">Movimiento no válido</string>
+  <string name="premoveCancelled">Movimiento anticipado cancelado</string>
+  <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona enter para cancelar</string>
 </resources>
