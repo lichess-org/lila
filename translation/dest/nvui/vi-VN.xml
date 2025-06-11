@@ -28,4 +28,22 @@
   <string name="goToBoard">Đi đến bàn cờ. Ô cờ mặc định là e-4. Bạn có thể chọn một ô cờ: lên a-1 hoặc b a-1 sẽ đưa bạn đến ô cờ a-1.</string>
   <string name="movePiece">Để di chuyển một quân cờ, sử dụng ký hiệu đại số tiêu chuẩn.</string>
   <string name="promotion">Để phong cấp thành bất cứ quân nào khác ngoài phong hậu, hãy sử dụng ký hiệu quân cờ. Ví dụ a-8-equals-n để phong cấp lên mã.</string>
+  <string name="king">vua</string>
+  <string name="whiteKing">vua trắng</string>
+  <string name="blackKing">vua đen</string>
+  <string name="queen">hậu</string>
+  <string name="whiteQueen">hậu trắng</string>
+  <string name="blackQueen">hậu đen</string>
+  <string name="rook">xe</string>
+  <string name="whiteRook">xe trắng</string>
+  <string name="blackRook">xe đen</string>
+  <string name="bishop">tượng</string>
+  <string name="whiteBishop">tượng trắng</string>
+  <string name="blackBishop">tượng đen</string>
+  <string name="knight">mã</string>
+  <string name="whiteKnight">mã trắng</string>
+  <string name="blackKnight">mã đen</string>
+  <string name="pawn">tốt</string>
+  <string name="whitePawn">tốt trắng</string>
+  <string name="blackPawn">tốt đen</string>
 </resources>
