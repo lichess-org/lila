@@ -70,16 +70,16 @@ export class SoundCtrl extends PaneCtrl {
                 'button.text',
                 {
                   hook: bind('click', () => {
-                    if (s[0] !== current) this.set(s[0]);
-                    else if (s[0] === 'speech') {
+                    if (s[0] === 'speech') {
                       this.showVoiceSelection = true;
-                      this.redraw();
+                      if (current === 'speech') this.redraw();
                     }
+                    if (s[0] !== current) this.set(s[0]);
                   }),
                   class: { active: current === s[0] },
                   attrs: { 'data-icon': licon.Checkmark, type: 'button' },
                 },
-                s[1],
+                [s[1], s[0] === 'speech' ? '...' : ''],
               ),
             ),
           ),
