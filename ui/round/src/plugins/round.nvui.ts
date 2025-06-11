@@ -481,10 +481,4 @@ function pageSetting(): Setting<PageStyle> {
   });
 }
 
-function transGamePerf(perf: string): string {
-  if (perf === 'blitz') return i18n.site.blitz;
-  if (perf === 'rapid') return i18n.site.rapid;
-  if (perf === 'classical') return i18n.site.classical;
-  if (perf === 'correspondence') return i18n.site.correspondence;
-  return perf;
-}
+const transGamePerf = (perf: string): string => (i18n.site[perf as keyof typeof i18n.site] as string) || perf;

@@ -165,7 +165,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
   const keys = keysWithPiece(pieces, role, color);
   let pieceStr = transPieceStr(role, color, i18n);
   if (!pieceStr) {
-    console.error(`Missing piece name for ${color} ${role} (${keys.length === 1 ? 'singular' : 'plural'})`);
+    console.error(`Missing piece name for ${color} ${role}`);
     pieceStr = `${color} ${role}`;
   }
   return `${pieceStr}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
