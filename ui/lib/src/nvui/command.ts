@@ -1,6 +1,7 @@
 import { type VNode, type VNodeChildren, h } from 'snabbdom';
 import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
 import type { Pieces } from '@lichess-org/chessground/types';
+import { memoize } from '../common';
 
 interface Command {
   help: VNode | string;
@@ -10,7 +11,7 @@ type Commands = {
   [name: string]: Command;
 };
 
-export const commands = (i18n: I18n): Commands => ({
+export const commands: () => Commands = memoize(() => ({
   piece: {
     help: i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
@@ -23,7 +24,7 @@ export const commands = (i18n: I18n): Commands => ({
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
-});
+}));
 
 function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A | undefined {
   return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;
