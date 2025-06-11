@@ -171,7 +171,7 @@ export function initModule(): NvuiPlugin {
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
         ]),
-        ...boardCommands(i18n),
+        ...boardCommands(),
       ]);
     },
   };

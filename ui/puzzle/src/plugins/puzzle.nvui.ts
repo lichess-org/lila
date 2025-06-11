@@ -175,7 +175,7 @@ export function initModule() {
               commands().scan.help,
             ].reduce(addBreaks, []),
           ),
-          ...boardCommands(i18n),
+          ...boardCommands(),
           h('h2', 'Promotion'),
           h('p', [
             'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',

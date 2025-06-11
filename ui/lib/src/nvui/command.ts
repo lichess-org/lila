@@ -30,7 +30,7 @@ function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A
   return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;
 }
 
-export const boardCommands = (i18n: I18n): VNode[] => [
+export const boardCommands = (): VNode[] => [
   h('h2', i18n.nvui.boardCommandList),
   h('p', [
     `i: ${i18n.nvui.goToInputForm}`,
