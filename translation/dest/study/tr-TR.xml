@@ -183,4 +183,5 @@
   <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
   <string name="loadExistingLichessGameTitle">Mevcut bir lichess oyununu yükle</string>
   <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Beyaz kaybeder fakat siyah kazanamaz</string>
 </resources>
