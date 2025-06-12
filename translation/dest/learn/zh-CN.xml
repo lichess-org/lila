@@ -152,7 +152,7 @@
   <string name="theGameIsADraw">本局和棋</string>
   <string name="stalemateIntro">当一位棋手并没有被将军但无法走棋时逼和发生了：没有人赢棋，也没有人输棋</string>
   <string name="stalemateGoal">为了逼和黑棋，黑棋必须无法移动任何棋子，同时没有被将军</string>
-  <string name="stalemateComplete">恭喜！逼和起码比被将死好！</string>
+  <string name="stalemateComplete">恭喜！被逼和起码比被将死好！</string>
   <string name="advanced">高级</string>
   <string name="pieceValue">子力价值</string>
   <string name="evaluatePieceStrength">对子力进行估值</string>
