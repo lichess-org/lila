@@ -3,7 +3,7 @@ import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import { header } from './util';
-import { bind, LooseVNodes } from 'lib/snabbdom';
+import { bind, dataIcon } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { isSafari } from 'lib/device';
@@ -68,7 +68,7 @@ export class SoundCtrl extends PaneCtrl {
                 {
                   hook: bind('click', () => this.set(s[0])),
                   class: { active: this.getCurrent() === s[0] },
-                  attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+                  attrs: { ...dataIcon(licon.Checkmark), type: 'button' },
                 },
                 [s[1], s[0] === 'speech' ? '...' : ''],
               ),
@@ -82,7 +82,7 @@ export class SoundCtrl extends PaneCtrl {
                 this.redraw();
               },
               modal: true,
-              vnodes: this.renderVoiceSelection(),
+              vnodes: [this.renderVoiceSelection()],
               onInsert: dlg => {
                 dlg.show();
               },
@@ -94,35 +94,31 @@ export class SoundCtrl extends PaneCtrl {
 
   private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
-  private renderVoiceSelection(): LooseVNodes {
+  private renderVoiceSelection(): VNode {
     const selectedVoice = site.sound.getVoice() ?? '';
-    const synth = window.speechSynthesis;
-    let voices = synth.getVoices();
-    if (voices.length !== 0) {
-      voices = voices.filter(voice => voice.lang.startsWith('en'));
-    }
-    return [
-      h('div.selector', [
-        ...voices.map(voice =>
-          h(
-            'button.text',
-            {
-              hook: bind('click', event => {
-                const target = event.target as HTMLElement;
-                if (target.textContent) site.sound.setVoice(target.textContent);
-                this.redraw();
-              }),
-              class: { active: voice.name === selectedVoice },
-              attrs: {
-                'data-icon': voice.name === selectedVoice ? licon.Checkmark : '',
-                type: 'button',
-              },
+    let voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
+
+    return h(
+      'div.selector',
+      voices.map(voice =>
+        h(
+          'button.text',
+          {
+            hook: bind('click', event => {
+              const target = event.target as HTMLElement;
+              if (target.textContent) site.sound.setVoice(target.textContent);
+              this.redraw();
+            }),
+            class: { active: voice.name === selectedVoice },
+            attrs: {
+              ...dataIcon(voice.name === selectedVoice ? licon.Checkmark : ''),
+              type: 'button',
             },
-            voice.name,
-          ),
+          },
+          voice.name,
         ),
-      ]),
-    ];
+      ),
+    );
   }
 
   private postSet = throttlePromiseDelay(
