@@ -33,4 +33,10 @@
   <string name="sanCheck" comment="+ in standard notation">Schach</string>
   <string name="sanCheckmate" comment="# in standard notation">Schachmatt</string>
   <string name="sanPromotesTo" comment="= in standard notation">Umwandlig in</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">churzi Rochade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">langi Rochade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">uf\'s Fäld</string>
+  <string name="invalidMove">unmögliche Zug</string>
+  <string name="premoveCancelled">Voruszieh deaktiviert</string>
+  <string name="premoveRecorded">Regischtrierti Voruszüg: %s. Druck Enter zum Beände</string>
 </resources>
