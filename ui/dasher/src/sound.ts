@@ -86,13 +86,6 @@ export class SoundCtrl extends PaneCtrl {
         ]),
         this.showVoiceSelection
           ? snabDialog({
-              attrs: {
-                dialog: {
-                  role: 'dialog',
-                },
-              },
-              class: '',
-              css: [],
               onClose: () => {
                 this.showVoiceSelection = false;
                 this.redraw();
