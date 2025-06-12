@@ -75,50 +75,56 @@ export class SoundCtrl extends PaneCtrl {
             ),
           ),
         ]),
-        this.showVoiceSelection
-          ? snabDialog({
-              onClose: () => {
-                this.showVoiceSelection = false;
-                this.redraw();
-              },
-              modal: true,
-              vnodes: [this.renderVoiceSelection()],
-              onInsert: dlg => {
-                dlg.show();
-              },
-            })
-          : undefined,
+        this.voiceSelectionDialog(),
       ],
     );
   };
 
+  private voiceSelectionDialog = () => {
+    if (!this.showVoiceSelection) return;
+    const content = this.renderVoiceSelection();
+    if (!content) return;
+    return snabDialog({
+      onClose: () => {
+        this.showVoiceSelection = false;
+        this.redraw();
+      },
+      modal: true,
+      vnodes: [content],
+      onInsert: dlg => {
+        dlg.show();
+      },
+    });
+  };
+
   private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
-  private renderVoiceSelection(): VNode {
+  private renderVoiceSelection(): VNode | false {
     const selectedVoice = site.sound.getVoice() ?? '';
     let voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
-
-    return h(
-      'div.selector',
-      voices.map(voice =>
-        h(
-          'button.text',
-          {
-            hook: bind('click', event => {
-              const target = event.target as HTMLElement;
-              if (target.textContent) site.sound.setVoice(target.textContent);
-              this.redraw();
-            }),
-            class: { active: voice.name === selectedVoice },
-            attrs: {
-              ...dataIcon(voice.name === selectedVoice ? licon.Checkmark : ''),
-              type: 'button',
-            },
-          },
-          voice.name,
-        ),
-      ),
-    );
+    return voices.length < 2
+      ? false
+      : h(
+          'div.selector',
+          voices.map(voice =>
+            h(
+              'button.text',
+              {
+                hook: bind('click', event => {
+                  const target = event.target as HTMLElement;
+                  if (target.textContent) site.sound.setVoice(target.textContent);
+                  this.redraw();
+                }),
+                class: { active: voice.name === selectedVoice },
+                attrs: {
+                  ...dataIcon(voice.name === selectedVoice ? licon.Checkmark : ''),
+                  type: 'button',
+                },
+              },
+              voice.name,
+            ),
+          ),
+        );
   }
 
   private postSet = throttlePromiseDelay(
