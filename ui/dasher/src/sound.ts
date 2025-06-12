@@ -28,11 +28,10 @@ export class SoundCtrl extends PaneCtrl {
   }
 
   render = (): VNode => {
-    const current = site.sound.speech() ? 'speech' : site.sound.theme;
-    if (current === 'speech' && this.showVoiceSelection) site.sound.say('Speech synthesis ready');
+    if (this.getCurrent() === 'speech' && this.showVoiceSelection) site.sound.say('Speech synthesis ready');
 
     return h(
-      'div.sub.sound.' + current,
+      'div.sub.sound.' + this.getCurrent(),
       {
         hook: {
           insert: () => {
@@ -67,14 +66,8 @@ export class SoundCtrl extends PaneCtrl {
               h(
                 'button.text',
                 {
-                  hook: bind('click', () => {
-                    if (s[0] === 'speech') {
-                      this.showVoiceSelection = true;
-                      if (current === 'speech') this.redraw();
-                    }
-                    if (s[0] !== current) this.set(s[0]);
-                  }),
-                  class: { active: current === s[0] },
+                  hook: bind('click', () => this.set(s[0])),
+                  class: { active: this.getCurrent() === s[0] },
                   attrs: { 'data-icon': licon.Checkmark, type: 'button' },
                 },
                 [s[1], s[0] === 'speech' ? '...' : ''],
@@ -98,6 +91,8 @@ export class SoundCtrl extends PaneCtrl {
       ],
     );
   };
+
+  private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
   private renderVoiceSelection(): LooseVNodes {
     const selectedVoice = site.sound.getVoice() ?? '';
@@ -144,6 +139,12 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private set = (k: Key) => {
+    if (k === 'speech') {
+      this.showVoiceSelection = true;
+      if (this.getCurrent() === 'speech') this.redraw();
+    }
+    if (k === this.getCurrent()) return;
+
     site.sound.speech(k === 'speech');
     pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
