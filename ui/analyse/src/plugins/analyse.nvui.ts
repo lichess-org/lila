@@ -1,5 +1,6 @@
 import { type VNode, h, type VNodeChildren } from 'snabbdom';
-import { defined, prop, type Prop } from 'lib';
+// import { defined, prop, type Prop } from 'lib';
+import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -33,7 +34,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { type LooseVNodes, type MaybeVNode,  bind, noTrans, onInsert } from 'lib/snabbdom'; //looseH as h,
+import { type LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom'; //looseH as h,
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -71,8 +72,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
     positionStyle = positionSetting(),
-    boardStyle = boardSetting(),
-  analysisInProgress = prop(false);
+    boardStyle = boardSetting();
 
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
@@ -107,22 +107,22 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
           ...(!ctrl.studyPractice
             ? [
-              h(
-                'button',
-                {
-                  attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                  hook: onInsert((el: HTMLButtonElement) => {
-                    const toggle = () => {
-                      ctrl.explorer.toggle();
-                      ctrl.redraw();
-                    };
-                    onInsertHandler(toggle, el);
-                  }),
-                },
-                i18n.site.openingExplorerAndTablebase,
-              ),
-              explorerView(ctrl),
-            ]
+                h(
+                  'button',
+                  {
+                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+                    hook: onInsert((el: HTMLButtonElement) => {
+                      const toggle = () => {
+                        ctrl.explorer.toggle();
+                        ctrl.redraw();
+                      };
+                      onInsertHandler(toggle, el);
+                    }),
+                  },
+                  i18n.site.openingExplorerAndTablebase,
+                ),
+                explorerView(ctrl),
+              ]
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
@@ -136,10 +136,10 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
           clocks &&
-          h('div.clocks', [
-            h('h2', `${i18n.site.clock}`),
-            h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
-          ]),
+            h('div.clocks', [
+              h('h2', `${i18n.site.clock}`),
+              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+            ]),
           h('h2', 'Move form'),
           h(
             'form#move-form',
@@ -162,6 +162,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ],
           ),
           notify.render(),
+          h('h2', 'Computer analysis'),
           renderComputerAnalysis(ctrl, notify),
 
           h('h2', 'Board'),
@@ -217,12 +218,12 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', function(this: HTMLElement) {
+                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
                   navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
                     notify.set('PGN copied into clipboard.');
                   });
                 });
-                root.find('.copy-fen').on('click', function(this: HTMLElement) {
+                root.find('.copy-fen').on('click', function (this: HTMLElement) {
                   const inputFen = document.querySelector(
                     '.analyse__underboard__fen input',
                   ) as HTMLInputElement;
@@ -340,17 +341,44 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function initLFYM(ctrl: AnalyseController): string {
+function renderToggleLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
+  // this can prob be done in a more concise mannor
   if (ctrl.hasFullComputerAnalysis()) {
-    if (!ctrl.retro) {
-      ctrl.toggleRetro();
-      return 'learn from your mistakes';
-    } else {
-      ctrl.toggleRetro();
-      return 'exited learn from your mistakes';
+    if (ctrl.retro) {
+      const retro = renderRetro(ctrl);
+      if (retro) {
+        return retro;
+      }
     }
-  }
-  return 'must have complete game analysis for learn from your mistakes';
+    return h(
+      'button',
+      {
+        hook: onInsert((el: HTMLButtonElement) => {
+          const toggleLFYM = () => {
+            ctrl.toggleRetro();
+            notify.set('Learn from your mistakes toggled');
+            ctrl.redraw();
+          };
+          onInsertHandler(toggleLFYM, el);
+        }),
+      },
+      'toggle learn from your mistakes',
+    );
+  } // else
+
+  return h(
+    'button',
+    {
+      hook: onInsert((el: HTMLButtonElement) => {
+        const reqAnal = () => {
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+          ctrl.redraw();
+        };
+        onInsertHandler(reqAnal, el);
+      }),
+    },
+    i18n.site.requestAComputerAnalysis,
+  );
 }
 
 function onSubmit(
@@ -379,7 +407,7 @@ function onSubmit(
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'learn' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -394,7 +422,7 @@ const inputCommands: InputCommand[] = [
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
-        `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
+          `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
@@ -403,18 +431,13 @@ const inputCommands: InputCommand[] = [
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
-        `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
+          `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {
     cmd: 'eval',
     help: noTrans("announce last move's computer evaluation"),
     cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
-  },
-  {
-    cmd: 'learn',
-    help: noTrans('Learn from your mistakes'),
-    cb: (ctrl, notify) => notify(initLFYM(ctrl)),
   },
   {
     cmd: 'best',
@@ -476,18 +499,24 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
 }
 
 function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
-  const retro = renderRetro(ctrl);
-  if (retro) {
-    return retro
-  }// else
-  if (ctrl.ongoing || ctrl.synthetic) {
-    notify.set('Server-side analysis in progress');
-    return h('h2', 'Server-side analysis in progress');
-  }// else
+  if (ctrl.hasFullComputerAnalysis()) {
+    if (ctrl.ongoing || ctrl.synthetic) {
+      notify.set('Server-side analysis in progress');
+      return h('h2', 'Server-side analysis in progress');
+    }
+    return renderToggleLFYMButton(ctrl, notify);
+  }
+
   return h(
     'button',
     {
-      hook: bind('click', _ => xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' })),
+      hook: onInsert((el: HTMLButtonElement) => {
+        const reqAnal = () => {
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+          ctrl.redraw();
+        };
+        onInsertHandler(reqAnal, el);
+      }),
     },
     i18n.site.requestAComputerAnalysis,
   );
@@ -533,14 +562,14 @@ function userHtml(ctrl: AnalyseController, player: Player) {
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? h('span', [
-      h(
-        'a',
-        { attrs: { href: '/@/' + user.username } },
-        user.title ? `${user.title} ${user.username}` : user.username,
-      ),
-      rating ? ` ${rating}` : ``,
-      ' ' + ratingDiff,
-    ])
+        h(
+          'a',
+          { attrs: { href: '/@/' + user.username } },
+          user.title ? `${user.title} ${user.username}` : user.username,
+        ),
+        rating ? ` ${rating}` : ``,
+        ' ' + ratingDiff,
+      ])
     : studyPlayers || h('span', i18n.site.anonymous);
 }
 
@@ -639,53 +668,53 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
-      h(
-        'div.relay-groups',
-        h('label', [
-          'Current group:',
-          h(
-            'select',
-            {
-              attrs: { autofocus: hash === '#group-select' },
-              hook: redirectToSelectedHook,
-            },
-            relayGroups.tours.map(t =>
-              h(
-                'option',
-                { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
-                t.name,
+        h(
+          'div.relay-groups',
+          h('label', [
+            'Current group:',
+            h(
+              'select',
+              {
+                attrs: { autofocus: hash === '#group-select' },
+                hook: redirectToSelectedHook,
+              },
+              relayGroups.tours.map(t =>
+                h(
+                  'option',
+                  { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
+                  t.name,
+                ),
               ),
             ),
-          ),
-        ]),
-      ),
+          ]),
+        ),
       tour &&
-      relayRounds &&
-      h(
-        'div.relay-rounds',
-        h('label', [
-          'Current round:',
-          h(
-            'select',
-            {
-              attrs: { autofocus: hash === '#round-select' },
-              hook: redirectToSelectedHook,
-            },
-            relayRounds.map(r =>
-              h(
-                'option',
-                {
-                  attrs: {
-                    selected: r.id == study.data.id,
-                    url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
+        relayRounds &&
+        h(
+          'div.relay-rounds',
+          h('label', [
+            'Current round:',
+            h(
+              'select',
+              {
+                attrs: { autofocus: hash === '#round-select' },
+                hook: redirectToSelectedHook,
+              },
+              relayRounds.map(r =>
+                h(
+                  'option',
+                  {
+                    attrs: {
+                      selected: r.id == study.data.id,
+                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
+                    },
                   },
-                },
-                r.name,
+                  r.name,
+                ),
               ),
             ),
-          ),
-        ]),
-      ),
+          ]),
+        ),
       h('div.chapters', [
         h('label', [
           'Current chapter:',
@@ -716,39 +745,39 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
         ]),
         study.members.canContribute()
           ? h('div.buttons', [
-            h(
-              'button',
-              {
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const toggle = () => {
-                    study.chapters.editForm.toggle(study.currentChapter());
-                    ctrl.redraw();
-                  };
-                  onInsertHandler(toggle, el);
-                }),
-              },
-              [
-                'Edit current chapter',
-                study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
-              ],
-            ),
-            h(
-              'button',
-              {
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const toggle = () => {
-                    study.chapters.newForm.toggle();
-                    ctrl.redraw();
-                  };
-                  onInsertHandler(toggle, el);
-                }),
-              },
-              [
-                'Add new chapter',
-                study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-              ],
-            ),
-          ])
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.editForm.toggle(study.currentChapter());
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Edit current chapter',
+                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
+                ],
+              ),
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.newForm.toggle();
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Add new chapter',
+                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+                ],
+              ),
+            ])
           : undefined,
       ]),
     ])
