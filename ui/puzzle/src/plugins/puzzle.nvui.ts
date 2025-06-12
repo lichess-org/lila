@@ -129,7 +129,6 @@ export function initModule() {
                   selectionHandler(() => opponentColor, selectSound),
                 );
                 $buttons.on('keydown', (e: KeyboardEvent) => {
-                  console.log('keydown ' + e.key);
                   if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
                   else if (['o'].includes(e.key)) boardCommandsHandler()(e);
                   else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
