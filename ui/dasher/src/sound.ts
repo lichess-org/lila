@@ -101,7 +101,7 @@ export class SoundCtrl extends PaneCtrl {
 
   private renderVoiceSelection(): VNode | false {
     const selectedVoice = site.sound.getVoice() ?? '';
-    let voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
+    const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
     return voices.length < 2
       ? false
       : h(
