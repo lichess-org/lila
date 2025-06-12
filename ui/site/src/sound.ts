@@ -130,6 +130,9 @@ export default new (class implements SoundI {
     return v >= 0 ? v : 0.7;
   };
 
+  getVoice = this.voiceStorage.get;
+  setVoice = this.voiceStorage.set;
+
   enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {

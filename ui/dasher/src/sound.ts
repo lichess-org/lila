@@ -8,7 +8,6 @@ import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { isSafari } from 'lib/device';
 import { snabDialog } from 'lib/view/dialog';
-import { LichessStorage, storage } from 'lib/storage';
 
 type Key = string;
 
@@ -22,7 +21,6 @@ export interface SoundData {
 export class SoundCtrl extends PaneCtrl {
   private list: Sound[];
   private showVoiceSelection = false;
-  private voiceStorage: LichessStorage = storage.make('speech.voice');
 
   constructor(root: DasherCtrl) {
     super(root);
@@ -102,7 +100,7 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private renderVoiceSelection(): LooseVNodes {
-    const selectedVoice = this.voiceStorage.get() ?? '';
+    const selectedVoice = site.sound.getVoice() ?? '';
     const synth = window.speechSynthesis;
     let voices = synth.getVoices();
     if (voices.length !== 0) {
@@ -116,7 +114,7 @@ export class SoundCtrl extends PaneCtrl {
             {
               hook: bind('click', event => {
                 const target = event.target as HTMLElement;
-                this.voiceStorage.set(target.textContent);
+                if (target.textContent) site.sound.setVoice(target.textContent);
                 this.redraw();
               }),
               class: { active: voice.name === selectedVoice },
