@@ -150,7 +150,7 @@ export default new (class implements SoundI {
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text());
       const voices = speechSynthesis.getVoices();
-      const selectedVoice = voices.find(voice => voice.name.includes(this.voiceStorage.get() ?? ''));
+      const selectedVoice = voices.find(voice => voice.name == this.voiceStorage.get());
       if (selectedVoice) {
         msg.voice = selectedVoice;
       } else {
