@@ -51,5 +51,8 @@
   <string name="sanPromotesTo" comment="= in standard notation">promove a</string>
   <string name="sanShortCastling" comment="O-O in standard notation">roque pequeno</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">roque grande</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">é solto em</string>
   <string name="invalidMove">Lance inválido</string>
+  <string name="premoveCancelled">Pré-movimento cancelado</string>
+  <string name="premoveRecorded">Pré-movimento gravado: %s. Pressione enter para cancelar</string>
 </resources>
