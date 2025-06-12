@@ -72,7 +72,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
     prefixStyle = prefixSetting(),
     positionStyle = positionSetting(),
     boardStyle = boardSetting(),
-    analysisInProgress = prop(false);
+  analysisInProgress = prop(false);
 
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
@@ -162,9 +162,8 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ],
           ),
           notify.render(),
-          renderComputerAnalysis(ctrl, notify, analysisInProgress),
+          renderComputerAnalysis(ctrl, notify),
 
-          renderRetro(ctrl),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -476,24 +475,22 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify, analInProcess: Prop<Boolean>): LooseVNodes | VNode {
-  if (ctrl.retro == undefined) {
-    const nodes = [h('h2', 'Computer analysis'), ...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)];
-
-    return nodes;
-  }
-  if (ctrl.ongoing || ctrl.synthetic || analInProcess()) {
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+  const retro = renderRetro(ctrl);
+  if (retro) {
+    return retro
+  }// else
+  if (ctrl.ongoing || ctrl.synthetic) {
     notify.set('Server-side analysis in progress');
     return h('h2', 'Server-side analysis in progress');
-  } else {
-    return h(
-      'button',
-      {
-        hook: bind('click', _ => xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' })),
-      },
-      i18n.site.requestAComputerAnalysis,
-    );
-  }
+  }// else
+  return h(
+    'button',
+    {
+      hook: bind('click', _ => xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' })),
+    },
+    i18n.site.requestAComputerAnalysis,
+  );
 }
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
