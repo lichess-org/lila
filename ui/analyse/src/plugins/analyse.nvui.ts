@@ -1,6 +1,5 @@
-import { h, type VNode, type VNodeChildren } from 'snabbdom';
-// import { defined, prop, type Prop } from 'lib';
-import { defined, prop } from 'lib';
+import { type VNode, h, type VNodeChildren } from 'snabbdom';
+import { defined, prop, type Prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -34,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
+import { type LooseVNodes, type MaybeVNode,  bind, noTrans, onInsert } from 'lib/snabbdom'; //looseH as h,
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -112,7 +111,13 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 'button',
                 {
                   attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                  hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      ctrl.explorer.toggle();
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
                 },
                 i18n.site.openingExplorerAndTablebase,
               ),
@@ -157,7 +162,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ],
           ),
           notify.render(),
-          renderComputerAnalysis(ctrl, notify),
+          renderComputerAnalysis(ctrl, notify, analysisInProgress),
 
           renderRetro(ctrl),
           h('h2', 'Board'),
@@ -471,13 +476,13 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify, analInProcess: Prop<Boolean>): LooseVNodes | VNode {
   if (ctrl.retro == undefined) {
     const nodes = [h('h2', 'Computer analysis'), ...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)];
 
     return nodes;
   }
-  if (ctrl.ongoing || ctrl.synthetic) {
+  if (ctrl.ongoing || ctrl.synthetic || analInProcess()) {
     notify.set('Server-side analysis in progress');
     return h('h2', 'Server-side analysis in progress');
   } else {
