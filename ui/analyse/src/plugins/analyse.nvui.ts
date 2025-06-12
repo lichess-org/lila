@@ -415,7 +415,8 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: commands().piece.help,
+    // help: commands().piece.help, couses normal ui to not render peices
+    help: noTrans("Announce a pieces location. ie: s 1 or s D"),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -424,7 +425,8 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    help: commands().scan.help,
+    // help: commands().scan.help, causes normal ui to not render peices
+    help: noTrans("Scan pieces on a row or file. ie: s 1 or s D"),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||

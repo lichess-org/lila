@@ -13,13 +13,13 @@ type Commands = {
 
 export const commands: () => Commands = memoize(() => ({
   piece: {
-    help: i18n.nvui.announcePieceLocations,
+    help: "Find the location of a piece. ie: p N or p k",  //i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
       return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
-    help: i18n.nvui.announcePiecesOnRankOrFile,
+    help:  "Scan pieces on a row or file. ie: s 1 or s D", // i18n.nvui.announcePiecesOnRankOrFile,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
