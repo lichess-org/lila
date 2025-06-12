@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
-  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस क्यूआर कोड को स्कैन करने दें</string>
+  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस QR कोड को स्कैन करने दें</string>
   <string name="waiting">प्रतिद्वंदी के चुनौती स्वीकार करने की प्रतीक्षा कर रहे हैं</string>
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
+  <string name="createTheGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद विजयी हुआ</string>
   <string name="blackIsVictorious">काला विजयी हुआ</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>

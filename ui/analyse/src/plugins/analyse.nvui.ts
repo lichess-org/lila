@@ -1,5 +1,4 @@
 import { type VNode, h, type VNodeChildren } from 'snabbdom';
-// import { defined, prop, type Prop } from 'lib';
 import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
@@ -164,7 +163,6 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           notify.render(),
           h('h2', 'Computer analysis'),
           renderComputerAnalysis(ctrl, notify),
-
           h('h2', 'Board'),
           h(
             'div.board',
@@ -342,7 +340,6 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
 }
 
 function renderToggleLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
-  // this can prob be done in a more concise mannor
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.retro) {
       const retro = renderRetro(ctrl);

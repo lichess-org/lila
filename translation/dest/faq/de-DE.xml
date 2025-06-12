@@ -48,11 +48,11 @@ Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je wenige
 
 Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
-  <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
+  <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erreichen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
 
 In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
 
-Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
+Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erreichen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
   <string name="fideHandbook">FIDE-Handbuch</string>
   <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>

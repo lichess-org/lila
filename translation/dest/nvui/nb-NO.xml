@@ -10,4 +10,30 @@
   <string name="actions">Handlinger</string>
   <string name="yourClock">Ditt ur</string>
   <string name="opponentClock">Motstanders ur</string>
+  <string name="king">konge</string>
+  <string name="whiteKing">hvit konge</string>
+  <string name="blackKing">svart konge</string>
+  <string name="queen">dronning</string>
+  <string name="whiteQueen">hvit dronning</string>
+  <string name="blackQueen">svart dronning</string>
+  <string name="rook">tårn</string>
+  <string name="whiteRook">hvitt tårn</string>
+  <string name="blackRook">svart tårn</string>
+  <string name="bishop">løper</string>
+  <string name="whiteBishop">hvit løper</string>
+  <string name="blackBishop">svart løper</string>
+  <string name="knight">springer</string>
+  <string name="whiteKnight">hvit springer</string>
+  <string name="blackKnight">svart springer</string>
+  <string name="pawn">bonde</string>
+  <string name="whitePawn">hvit bonde</string>
+  <string name="blackPawn">svart bonde</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">slår</string>
+  <string name="sanCheck" comment="+ in standard notation">sjakk</string>
+  <string name="sanCheckmate" comment="# in standard notation">matt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">forvandler til</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kort rokade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokade</string>
+  <string name="invalidMove">Ulovlig trekk</string>
 </resources>

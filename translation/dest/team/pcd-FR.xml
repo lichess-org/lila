@@ -44,6 +44,9 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="teamsIlead">Équipe(s) que je gère</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
+  <string name="introduction">Introduction</string>
+  <string name="teamIntroductionHelp">Brève description affichée dans la liste des équipes. Maximum de 200 caractères.</string>
+  <string name="teamDescriptionHelp">Description complète affichée sur la page de l\'équipe.</string>
   <string name="closeTeam">Fermer l\'équipe</string>
   <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>
   <string name="entryCode">Mot de passe de l’équipe</string>

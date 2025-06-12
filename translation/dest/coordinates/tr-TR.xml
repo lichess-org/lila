@@ -18,4 +18,5 @@
   <string name="startTraining">Antrenmana başla</string>
   <string name="findSquare">Kareleri bul</string>
   <string name="nameSquare">Kareleri yaz</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Sadece bazı dosyaları &amp; rütbeleri uygulayın</string>
 </resources>

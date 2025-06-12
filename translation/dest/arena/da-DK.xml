@@ -66,8 +66,8 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket hold vil du repræsentere i denne kamp?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du skal være med på et af disse hold for at deltage!</string>
   <string name="created">Oprettet</string>
-  <string name="recentlyPlayed">Spillet for nylig</string>
-  <string name="bestResults">Bedste resultater</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Spillet for nylig</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Bedste resultater</string>
   <string name="tournamentStats">Turneringsstatistik</string>
   <string name="rankAvgHelp">Den gennemsnitlige rangering er en procentdel af din rangering. Lavere er bedre.
 

@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Αναζήτηση γρίφων</string>
   <string name="fromMyGamesNone">Δεν υπάρχουν γρίφοι από τα παιχνίδια σας στη βάση δεδομένων.
 Παίξτε κλασικά ή rapid παιχνίδια για να αυξηθούν οι πιθανότητες προσθήκης γρίφων από τα παιχνίδια σας στη βάση δεδομένων!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Ένας γρίφος βρέθηκε στις παρτίδες του %2$s</item>
+    <item quantity="other">%1$s γρίφοι βρέθηκαν στις παρτίδες του %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Προπονηθείτε, αναλύστε, βελτιωθείτε</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s παίχτηκε</item>
