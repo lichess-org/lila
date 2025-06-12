@@ -22,6 +22,7 @@
   <string name="asBlack">siyahlarda</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
+  <string name="createTheGame">Oyunu oluştur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
   <string name="blackIsVictorious">Zafer Siyahın</string>
   <string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Varyasyonları genişlet</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
+  <string name="copyMainLinePgn">Ana PGN\'yi kopyala</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Varyant yenilgisi</string>
   <string name="variantWin">Varyant zaferi</string>
@@ -156,6 +158,7 @@
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
+  <string name="drawClaimed">Beraberlik iddia edildi</string>
   <string name="offerDraw">Beraberlik teklif et</string>
   <string name="draw">Berabere</string>
   <plurals name="nbPlayers">
@@ -165,6 +168,7 @@
   <string name="drawByMutualAgreement">Karşılıklı anlaşma ile berabere</string>
   <string name="fiftyMovesWithoutProgress">Gelişme olmadan elli hamle</string>
   <string name="currentGames">Şu anda oynanan oyunlar</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s katıldı</string>
   <plurals name="nbGames">
     <item quantity="one">%s oynanan oyun</item>
     <item quantity="other">%s oynanan oyun</item>
@@ -347,7 +351,15 @@
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleyi geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
+  <string name="whiteProposesTakeback">Beyaz hamleyi geri alma önerisinde bulunuyor</string>
+  <string name="blackProposesTakeback">Siyah hamleyi geri alma önerisinde bulunuyor</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklif edildi</string>
+  <string name="whiteDeclinesTakeback">Beyaz hamleyi geri almayı reddediyor</string>
+  <string name="blackDeclinesTakeback">Siyah hamleyi geri almayı reddediyor</string>
+  <string name="whiteAcceptsTakeback">Beyaz hamleyi geri almayı kabul ediyor</string>
+  <string name="blackAcceptsTakeback">Siyah hamleyi geri almayı kabul ediyor</string>
+  <string name="whiteCancelsTakeback">Beyaz hamleyi geri almayı iptal ediyor</string>
+  <string name="blackCancelsTakeback">Siyah hamleyi geri almayı iptal ediyor</string>
   <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri almayı teklif etti</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
   <string name="tournament">Turnuva</string>
@@ -482,6 +494,7 @@
   <string name="wins">Galibiyetler</string>
   <string name="losses">Mağlubiyetler</string>
   <string name="createdBy">Oluşturan kişi</string>
+  <string name="startingIn" comment="Displayed above a timer">Başlamasına</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
   <string name="pause">Duraklat</string>
   <string name="resume">Devam et</string>
@@ -666,6 +679,7 @@
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="termsOfService">Hizmet koşulları</string>
+  <string name="titleVerification">Ünvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
@@ -739,6 +753,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="ifYouDoNotGetTheEmail">Eğer 5 dakika içerisinde mail size ulaşmazsa:</string>
   <string name="checkAllEmailFolders">Tüm çöp, spam ve diğer klasörleri kontrol edin</string>
+  <string name="verifyYourAddress">E-posta adresiniz %s olduğunu doğrulayın</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="readAboutOur">%s hakkında bilgi edinin.</string>
@@ -747,6 +762,7 @@
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
   <string name="downloadRaw">Açıklamasız indirin.</string>
   <string name="downloadImported">İçeri aktarılmış oyunu indir</string>
+  <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="crosstable">Çapraz Tablo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
@@ -989,4 +1005,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="nothingToSeeHere">Şu anda görülebilecek bir şey yok.</string>
   <string name="stats">İstatistikler</string>
+  <string name="accessibility">Erişilebilirlik</string>
+  <string name="enableBlindMode">Kör modunu aktifleştir</string>
+  <string name="disableBlindMode">Kör modunu devre dışı bırak</string>
 </resources>

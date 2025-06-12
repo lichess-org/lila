@@ -181,6 +181,26 @@
   <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
   <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s في كل صفحة</string>
+  <string name="getTheTour">بحاجة للمساعدة؟ احصل على الجولة!</string>
   <string name="welcomeToLichessStudyTitle">مرحبًا بك في Lichess study  !</string>
+  <string name="welcomeToLichessStudyText">هذه لوحة تحليل مشتركة.&lt;br&gt;&lt;br&gt;استخدمها لتُحلل وتُعلق على المباريات،&lt;br&gt;ناقش المواقف المختلفة مع الأصدقاء،&lt;br&gt;وبالطبع لدروس الشطرنج!&lt;br&gt;&lt;br&gt;هي أداة قوية، دعنا نأخذ بعض من الوقت لنرى كيفية عملها.</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">تم المشاركة والحفظ</string>
+  <string name="sharedAndSavedText">يمكن للأعضاء الآخرين رؤية نقلاتك في الوقت الحقيقي!&lt;br&gt;زيادة على ذلك، يتم حفظ كل شيء إلى الأبد.</string>
+  <string name="studyMembersTitle">أعضاء الدراسة</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">إضغط على زر %s.&lt;br&gt;ثم قرر من يمكنه المساهمة أو لا.</string>
+  <string name="studyChaptersTitle">فصول الدراسة</string>
+  <string name="studyChaptersText">يمكن للدراسة أن تحتوي علي عدة فصول.&lt;br&gt;كل فصل له موقف أولي مختلف وتفريع النقلات.</string>
+  <string name="commentPositionTitle">علق علي الموقف</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">انقر علي زر %s ، أو انقر بزر الفأرة الأيمن على قائمة النقلات على اليمين.&lt;br&gt;التعليقات يتم مشاركتها وحفظها.</string>
+  <string name="annotatePositionTitle">علق علي الموقف</string>
+  <string name="annotatePositionText">اضغط على زر ?!, أو أضغط بزر الفأرة الأيمن علي قائمة النقلات علي اليمين.&lt;br&gt; رموز التعليق يتم مشاركتها وحفظها.</string>
+  <string name="conclusionTitle">شكرًا على وقتك</string>
+  <string name="createChapterTitle">دعنا ننشئ فصل جديد</string>
+  <string name="fromInitialPositionTitle">البدء من وضع البداية</string>
+  <string name="fromInitialPositionText">مجرد إعداد لوح للعبة جديدة.&lt;br&gt;مناسب لاستكشاف الافتتاحيات.</string>
+  <string name="customPositionTitle">موضع مخصص</string>
+  <string name="fromFenStringTitle">من نص FEN</string>
+  <string name="fromPgnGameTitle">من PGN لعبة</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">الأسود مهزوم, لكن الأبيض لا يستطيع الفوز</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">الأبيض مهزوم, لكن الأسود لا يستطيع الفوز</string>
 </resources>

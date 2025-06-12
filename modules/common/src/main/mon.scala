@@ -329,6 +329,8 @@ object mon:
     object proxy:
       val request                   = future("security.proxy.time")
       def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r.getOrElse("none"))
+      def hit(prox: String, action: String) =
+        counter("security.proxy.hit").withTags(tags("proxy" -> prox, "action" -> action))
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi:

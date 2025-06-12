@@ -19,7 +19,7 @@ final class Env(
     akka.stream.Materializer
 ):
   val net: NetConfig = lila.web.WebConfig.netConfig(config)
-  export net.{ baseUrl, assetBaseUrlInternal }
+  export net.baseUrl
 
   given mode: Mode                            = environment.mode
   given translator: lila.core.i18n.Translator = lila.i18n.Translator

@@ -67,7 +67,7 @@
   <string name="embedThisBroadcast">இந்த ஒளிபரப்பை உங்கள் இணையதளத்தில் உட்பொதிக்கவும்</string>
   <string name="embedThisRound">உங்கள் இணையதளத்தில் %s ஐ உட்பொதிக்கவும்</string>
   <string name="ratingDiff">மதிப்பீடு வேறுபாடு</string>
-  <string name="gamesThisTournament">இப்பந்தயத்தில்லுள்ள ஆட்டங்கள்</string>
+  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">இப்பந்தயத்தில்லுள்ள ஆட்டங்கள்</string>
   <string name="score">மதிப்பெண்</string>
   <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">அனைத்து கூட்டணிகள்</string>
   <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">பந்தய வடிவம்</string>

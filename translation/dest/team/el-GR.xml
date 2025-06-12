@@ -44,6 +44,8 @@
   <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Θα θέλατε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="leadersChat">Chat αρχηγών</string>
+  <string name="introduction">Εισαγωγή</string>
+  <string name="teamDescriptionHelp">Πλήρης περιγραφή ορατή στη σελίδα της ομάδας.</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
   <string name="entryCode">Κωδικός εισόδου ομάδας</string>

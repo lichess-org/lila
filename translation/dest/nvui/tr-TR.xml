@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Hamle listesi</string>
+  <string name="pieces">Taşlar</string>
+  <string name="gameStatus">Oyun durumu</string>
+  <string name="lastMove">Son hamle</string>
+  <string name="yourClock">Senin saatin</string>
+  <string name="opponentClock">Rakibin saati</string>
+  <string name="king">şah</string>
+  <string name="whiteKing">beyaz şah</string>
+  <string name="blackKing">siyah şah</string>
+  <string name="queen">vezir</string>
+  <string name="whiteQueen">beyaz vezir</string>
+  <string name="blackQueen">siyah vezir</string>
+  <string name="rook">kale</string>
+</resources>

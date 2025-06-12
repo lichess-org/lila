@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">هۆکاری دووەم بۆ پشتڕاستکردنەوەی داخڵبوون</string>
+  <string name="twoFactorAuth">سەلماندنی دوو ھۆکار</string>
   <string name="twoFactorHelp">هۆکاری دووەمی پشتڕاستکردنەوە ئاسایشی زیاتر فەراهەمدەکات بۆ هەژمارەکەت.</string>
-  <string name="scanTheCode">QR کۆدەکە سکان بکە بە نەرمەواڵاکە(بەرنامەکە).</string>
-  <string name="enterPassword">وشەی نهێنی و کۆدی پشتڕاستکردنەوە کە بە نەرمەواڵاکە(بەرنامەکە) دڵنیاکراوەتەوە داخڵبکە بۆ تەواوکردنی کردارەکە. تۆ هەموو جارێک بۆ داخڵبوون پێویستت بە کۆدی پشتڕاستکردنەوە دەبێت.</string>
-  <string name="ifYouCannotScanEnterX">ئەگەر ناتوانی کۆدەکە سکان بکەی، ئەوا کلیلی نهێنی %s داخڵبکە لەسەر نەرمەواڵاکەت(بەرنامەکەت).</string>
-  <string name="authenticationCode">کۆدی پشتڕاستکردنەوە</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">تێبینی: ئەگەر دەستڕاگەیشتن بە کۆدەکانی ڕەسەنایەتی دوو فاکتەری خۆت لەدەستدا، دەتوانیت %s لە ڕێگەی ئیمەیڵەوە ئەنجام بدەیت.</string>
-  <string name="enableTwoFactor">چالاک کردنی هۆکاری دووەمی پشتڕاستکردنەوە</string>
-  <string name="disableTwoFactor">ناچالاک کردنی هۆکاری دووەمی پشتڕاستکردنەوە</string>
-  <string name="twoFactorEnabled">هۆکاری دووەمی پشتڕاستکردنەوە چالاک کراوە</string>
-  <string name="twoFactorToDisable">بۆ ناکاراکردنی ڕەسەنایەتی دوو فاکتەری پێویستت بە وشەی نهێنی و کۆدێکی ڕەسەنایەتییە لە ئەپڵیکەیشنی لیچێسەوە.</string>
-  <string name="openTwoFactorApp">نەرمەواڵا(بەرنامە) ـی هۆکاری دووەمی پشتڕاستکردنەوە بکەوە لەسەر ئامێرەکەت بۆ دەستکەوتنی کۆدی پشتڕاستکردنەوە و ناسنامەی خۆت بسەلمێنە.</string>
-  <string name="setupReminder">تکایە هۆکاری دووەمی پشتڕاستکردنەوە چالاک بکە بۆ زیاتر پاراستنی هەژمارەکەت لەم بەستەرەوە https://lichess.org/account/twofactor.
-ئەم پەیامەت پێدەگات چونکە هەژمارەکەت بەرپرسیارێتی تایبەتی هەیە وەک تیم لیدەر، ڕاهێنەر، مامۆستا یان ستریمەر</string>
+  <string name="twoFactorAppRecommend">بەرنامەیەک داببەزێنە بۆ سەلماندنی دوو ھۆکار. ئێمە ئەمانەی خوارەوە پێشنیار دەکەین:</string>
+  <string name="scanTheCode">کۆدی کیوو ئاڕ بە بەرنامەکە سکان بکە.</string>
+  <string name="enterPassword">تێپەڕوشەکەت و کۆدی سەلماندنەکەت کە لەڕێی بەرنامەکەوە دروست بووە بنووسە بۆ تەواوکردنی ڕێکخستنەکە. ھەموو کاتێک کە دەچیتە ژوورەوە پێویستت بە کۆدی سەلماندنە.</string>
+  <string name="ifYouCannotScanEnterX">ئەگەر ناتوانیت کۆدەکە سکان بکەیت، کلیلی نھێنیی %s لەنێو بەرنامەکەتدا بنووسە.</string>
+  <string name="authenticationCode">کۆدی سەلماندن</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">تێبینی: ئەگەر کۆدی سەلماندنی دوو ھۆکارت لەدەست بدەیت، دەتوانیت %s بکەیت لەڕێی ئیمەیڵەوە.</string>
+  <string name="enableTwoFactor">سەلماندنی دوو ھۆکار چالاک بکە</string>
+  <string name="disableTwoFactor">سەلماندنی دوو ھۆکار ناچالاک بکە</string>
+  <string name="twoFactorEnabled">سەلماندنی دوو ھۆکار چالاک کرا</string>
+  <string name="twoFactorToDisable">بۆ ناچالاککردنی سەلماندنی دوو ھۆکار پێویستت بە تێپەڕوشەکەت و کۆدی سەلماندنەکەت ھەیە لە بەرنامەی سەلماندنەکەتەوە.</string>
+  <string name="openTwoFactorApp">بەرنامەی سەلماندنی دوو ھۆکار لەسەر ئامێرەکەت بکەرەوە بۆ بینینی کۆدی سەلماندن و پشتڕاستکردنەوەی ناسنامەی خۆت.</string>
+  <string name="setupReminder">تکایە سەلماندنی دوو ھۆکار چالاک بکە بۆ پاراستننی ھەژمارەکەت لەڕێی https://lichess.org/account/twofactor. ئەم پەیامەت پێگەیشتووە چونکە ھەژمارەکەت بەرپرسیارێتیی تایبەتی ھەیە وەک یاریزانی خاوەننازناو، سەرۆکی تیم، ڕاھێنەر، مامۆستا یان پەخشکەر.</string>
 </resources>

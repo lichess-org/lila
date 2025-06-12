@@ -167,5 +167,21 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">Sayfa başına %s</string>
   <string name="getTheTour">Yardıma mı ihtiyacın var? Tura başla!</string>
   <string name="welcomeToLichessStudyTitle">Lichess Dersine Hoşgeldin! </string>
+  <string name="welcomeToLichessStudyText">Bu paylaşımlı bir analiz panosudur.&lt;br&gt;&lt;br&gt;Oyunları analiz etmek ve not eklemek,&lt;br&gt;arkadaşlarınızla pozisyonları tartışmak,&lt;br&gt;ve tabii ki satranç dersleri için kullanabilirsiniz!&lt;br&gt;&lt;br&gt;Güçlü bir araç, nasıl çalıştığını görmek için biraz zaman ayıralım.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Paylaşıldı ve kaydedildi</string>
+  <string name="sharedAndSavedText">Diğer üyeler sizin hareketlerinizi gerçek zamanlı olarak görebilir!&lt;br&gt;Ayrıca, her şey sonsuza kadar kaydedilir.</string>
+  <string name="studyMembersTitle">Çalışma üyeleri</string>
+  <string name="studyChaptersTitle">Çalışma bölümleri</string>
+  <string name="commentPositionTitle">Bir pozisyona yorum yap</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s düğmesine tıklayın veya sağdaki taşıma listesine sağ tıklayın.&lt;br&gt;Yorumlar paylaşılır ve kaydedilir.</string>
   <string name="conclusionTitle">Vakit ayırdığınız için teşekkürler</string>
+  <string name="createChapterTitle">Bir çalışma bölümü oluşturalım</string>
+  <string name="createChapterText">Bir çalışma birkaç bölümden oluşabilir.&lt;br&gt;Her bölümün kendine özgü bir hareket ağacı vardır&lt;br&gt;ve çeşitli şekillerde oluşturulabilir.</string>
+  <string name="fromInitialPositionTitle">Başlangıç pozisyonundan</string>
+  <string name="fromInitialPositionText">Yeni bir oyun için sadece bir tahta kurulumu.&lt;br&gt;Açılışları keşfetmek için uygun.</string>
+  <string name="customPositionTitle">Özel konum</string>
+  <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
+  <string name="loadExistingLichessGameTitle">Mevcut bir lichess oyununu yükle</string>
+  <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Beyaz kaybeder fakat siyah kazanamaz</string>
 </resources>

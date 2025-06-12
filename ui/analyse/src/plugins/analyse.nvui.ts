@@ -247,7 +247,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               `x: ${i18n.site.showThreat}`,
             ].reduce(addBreaks, []),
           ),
-          ...boardCommands(i18n),
+          ...boardCommands(),
           h('h2', 'Commands'),
           h(
             'p',
@@ -371,20 +371,20 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: commands.piece.help(i18n),
+    help: commands().piece.help,
     cb: (ctrl, notify, style, input) =>
       notify(
-        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+        commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help(i18n),
+    help: commands().scan.help,
     cb: (ctrl, notify, style, input) =>
       notify(
-        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+        commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {

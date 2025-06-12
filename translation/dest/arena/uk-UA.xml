@@ -70,8 +70,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">Яку команду ви представлятимете в цій битві?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ви повинні приєднатися до однієї з цих команд, щоб взяти участь!</string>
   <string name="created">Створено</string>
-  <string name="recentlyPlayed">Нещодавно зіграні</string>
-  <string name="bestResults">Найкращі результати</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Нещодавно зіграні</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Найкращі результати</string>
   <string name="tournamentStats">Показники турніру</string>
   <string name="rankAvgHelp">Середній ранг - відсоток від вашого рейтингу. Нижчий - краще.
 

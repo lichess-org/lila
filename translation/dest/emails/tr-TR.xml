@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Lichess.org hesabınızı doğrulayın, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess hesabınızı etkinleştirmek için bu bağlantıya tıklayın:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Lichess\'e kaydolmadıysanız, bu mesajı güvenle görmezden gelebilirsiniz. Onaylanmamış hesap ve e-posta adresinizin tüm izleri 48 saat sonra sistemimizden silinecektir.</string>
   <string name="passwordReset_subject">Lichess.org şifrenizi sıfırlayın, %s</string>
   <string name="passwordReset_intro">Hesabınızın şifresini sıfırlamak üzere bir talep aldık.</string>
   <string name="passwordReset_clickOrIgnore">Eğer böyle bir talepte bulunduysanız aşağıdaki linke tıklayın. Aksi takdirde bu mesajı görmezden gelebilirsiniz.</string>

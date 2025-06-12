@@ -148,6 +148,7 @@
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
   <string name="claimADraw">Knýja fram jafntefli</string>
+  <string name="drawClaimed">Jafntefli krafist</string>
   <string name="offerDraw">Bjóða jafntefli</string>
   <string name="draw">Jafntefli</string>
   <plurals name="nbPlayers">
@@ -157,6 +158,7 @@
   <string name="drawByMutualAgreement">Samið um jafntefli</string>
   <string name="fiftyMovesWithoutProgress">Fimmtíu leikir án framvindu</string>
   <string name="currentGames">Skákir í gangi</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Skráðist %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s skák</item>
     <item quantity="other">%s skákir</item>
@@ -172,6 +174,7 @@
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
   <string name="signIn">Skrá inn</string>
+  <string name="rememberMe">Muna eftir innskráningunni minni</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Nýskráning</string>
   <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að búa til marga reikninga og sköpun of margra reikninga verður að banni.</string>
@@ -221,6 +224,9 @@
   <string name="passwordReset">Endurstilling lykilorðs</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="youAreLeavingLichess">Þú ert að yfirgefa Lichess</string>
+  <string name="proceedToX">Fara samt sem áður á %s</string>
+  <string name="passwordSuggestion">Ekki setja lykilorð sem einhver annar stingur upp á. Þeir munu nota það til þess að stela reikningnum þínum.</string>
+  <string name="emailSuggestion">Ekki setja tölvupóstfang sem einhver annar stingur upp á. Þeir munu nota það til þess að stela reikningnum þínum.</string>
   <string name="emailConfirmHelp">Hjálp með staðfestingu á tölvupóst</string>
   <string name="emailConfirmNotReceived">Fékkstu ekki staðfestingartölvupóst?</string>
   <string name="whatSignupUsername">Hvaða notandanafn notaðiru þegar þú nýskráðir aðganginn?</string>
@@ -230,7 +236,10 @@
   <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
   <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
   <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
+  <string name="emailForSignupHelp">Ef allt annað bregst skaltu þá senda okkur þennan tölvupóst:</string>
   <string name="copyTextToEmail">Afritaðu og límdu ofangreindan texta og sendu hann til %s</string>
+  <string name="waitForSignupHelp">Við munum hafa samband við þig innan skamms til þess að hjálpa þér að ljúka við skráninguna þína.</string>
+  <string name="accountConfirmed">Notandinn %s hefur verið staðfestur.</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
   <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
@@ -729,6 +738,7 @@
   <string name="opacity">Ógagnsæi</string>
   <string name="brightness">Skærleiki</string>
   <string name="hue">Litblær</string>
+  <string name="pieceSet">Útlit taflmanna</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>

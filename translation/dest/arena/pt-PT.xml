@@ -68,8 +68,8 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="whichTeamWillYouRepresentInThisBattle">Qual equipa vais representar nesta batalha?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Deves juntar a uma destas equipas para participar!</string>
   <string name="created">Criado</string>
-  <string name="recentlyPlayed">Jogado recentemente</string>
-  <string name="bestResults">Melhores resultados</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Jogado recentemente</string>
+  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Melhores resultados</string>
   <string name="tournamentStats">Estatísticas do torneio</string>
   <string name="rankAvgHelp">A média da classificação é uma percentagem da tua classificação. Menor é melhor.
 

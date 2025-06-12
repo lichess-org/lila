@@ -438,7 +438,7 @@ final class Mod(
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
         withEmails <- env.user.api.withPerfsAndEmails(users)
-        data       <- env.security.ipTrust.data(address)
+        data       <- env.security.ipTrust.ipData(address)
         blocked = env.security.firewall.blocksIp(address)
         page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))
       yield Ok(page)

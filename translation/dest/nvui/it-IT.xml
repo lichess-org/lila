@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveList" comment="List of the moves of the game">Formulario</string>
+  <string name="moveList">Formulario</string>
   <string name="pieces">Pezzo</string>
   <string name="gameStatus">Stato della partita</string>
   <string name="lastMove">Ultima mossa</string>
