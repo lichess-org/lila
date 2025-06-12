@@ -20,7 +20,7 @@
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="inGameOnly">게임 도중에만 적용</string>
-  <string name="exceptInGame">게임 내 제외</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">게임 내 제외</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">브라우저</string>
   <string name="notifyDevice">기기 정보</string>
   <string name="bellNotificationSound">벨 알림 음</string>
-  <string name="blindfold" comment="As in Blindfold chess">기물 가리기</string>
+  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">기물 가리기</string>
 </resources>

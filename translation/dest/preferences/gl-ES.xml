@@ -35,7 +35,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Premovementos (xogar durante o tempo do teu rival)</string>
   <string name="takebacksWithOpponentApproval">Rectificar xogadas (co permiso do rival)</string>
   <string name="inCasualGamesOnly">Só en partidas amigables</string>
-  <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
+  <string name="promoteToQueenAutomatically">Coroar a Dama automaticamente</string>
   <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla &lt;ctrl&gt; ao coroar para desactivar temporalmente a promoción automática</string>
   <string name="whenPremoving">Con premovemento</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
