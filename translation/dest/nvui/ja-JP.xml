@@ -22,4 +22,33 @@
   <string name="moveToRank">ランク 1-8 に移動する。</string>
   <string name="moveToFile">ファイル a-h に移動する。</string>
   <string name="movePiece">駒を動かすには、標準的な代数式記譜法を使います。</string>
+  <string name="king">キング</string>
+  <string name="whiteKing">白のキング</string>
+  <string name="blackKing">黒のキング</string>
+  <string name="queen">クイーン</string>
+  <string name="whiteQueen">白のクイーン</string>
+  <string name="blackQueen">黒のクイーン</string>
+  <string name="rook">ルーク</string>
+  <string name="whiteRook">白のルーク</string>
+  <string name="blackRook">黒のルーク</string>
+  <string name="bishop">ビショップ</string>
+  <string name="whiteBishop">白のビショップ</string>
+  <string name="blackBishop">黒のビショップ</string>
+  <string name="knight">ナイト</string>
+  <string name="whiteKnight">白のナイト</string>
+  <string name="blackKnight">黒のナイト</string>
+  <string name="pawn">ポーン</string>
+  <string name="whitePawn">白のポーン</string>
+  <string name="blackPawn">黒のポーン</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">取る</string>
+  <string name="sanCheck" comment="+ in standard notation">チェック</string>
+  <string name="sanCheckmate" comment="# in standard notation">メイト</string>
+  <string name="sanPromotesTo" comment="= in standard notation">昇格</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">短いキャスリング</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">長いキャスリング</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">打つ</string>
+  <string name="invalidMove">無効な手</string>
+  <string name="premoveCancelled">プリムーブをキャンセルしました</string>
+  <string name="premoveRecorded">プリムーブ %s を登録しました。Enterキーでキャンセルします</string>
 </resources>
