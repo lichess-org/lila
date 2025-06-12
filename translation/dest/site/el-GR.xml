@@ -166,6 +166,7 @@
   <string name="drawByMutualAgreement">Ισοπαλία κατόπιν συμφωνίας</string>
   <string name="fiftyMovesWithoutProgress">Πενήντα κινήσεις χωρίς πρόοδο</string>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Έγινε μέλος %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s παιχνίδι</item>
     <item quantity="other">%s παιχνίδια</item>
@@ -348,7 +349,15 @@
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; φινάλε</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
+  <string name="whiteProposesTakeback">Τα λευκά προτείνουν αναίρεση της κίνησης</string>
+  <string name="blackProposesTakeback">Τα μαύρα προτείνουν αναίρεση της κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
+  <string name="whiteDeclinesTakeback">Τα λευκά απορρίπτουν την αναίρεση της κίνησης</string>
+  <string name="blackDeclinesTakeback">Τα μαύρα απορρίπτουν την αναίρεση της κίνησης</string>
+  <string name="whiteAcceptsTakeback">Τα λευκά αποδέχονται την αναίρεση της κίνησης</string>
+  <string name="blackAcceptsTakeback">Τα μαύρα αποδέχονται την αναίρεση της κίνησης</string>
+  <string name="whiteCancelsTakeback">Τα λευκά ακύρωσαν την πρόταση αναίρεσης της κίνησης</string>
+  <string name="blackCancelsTakeback">Τα μαύρα ακύρωσαν την πρόταση αναίρεσης της κίνησης</string>
   <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Τουρνουά</string>
@@ -669,6 +678,7 @@
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
+  <string name="titleVerification">Επιβεβαίωση τίτλου</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Σιμουλτανέ</string>
   <string name="host">Διοργανωτής</string>

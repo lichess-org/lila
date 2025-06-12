@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Sin anuncios ni seguimiento</string>
-  <string name="correspondenceWithConditionalPremoves">Ajedrez por correspondencia con pre-movimientos condicionales</string>
+  <string name="correspondenceWithConditionalPremoves">Ajedrez por correspondencia con movimientos anticipados condicionales</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Ajedrez estándar y %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Análisis profundo del servidor %s</string>
   <plurals name="gamesPerDay">

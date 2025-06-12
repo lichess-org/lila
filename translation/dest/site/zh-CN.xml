@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">双方同意和棋</string>
   <string name="fiftyMovesWithoutProgress">无实质进展的50步</string>
   <string name="currentGames">正在对局</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">加入了%s</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有 %s 个对局</item>
   </plurals>

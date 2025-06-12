@@ -724,6 +724,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyPreviousBranch">Dega e mëparshme</string>
   <string name="keyNextBranch">Dega pasuese</string>
   <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
+  <string name="variationArrowsInfo">Shigjetat e varianteve ju lejojnë të lëvizni pa përdorur listën e lëvizjeve.</string>
   <string name="playSelectedMove">luaj lëvizjen e përzgjedhur</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
@@ -783,6 +784,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="playChessEverywhere">Luani shah kudo</string>
   <string name="everybodyGetsAllFeaturesForFree">Gjithkush merr falas krejt veçoritë</string>
   <string name="viewTheSolution">Shihni zgjidhjen</string>
+  <string name="noChallenges">Pa sfida.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">I përdorshëm në %s gjuhë!</item>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>

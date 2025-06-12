@@ -5,7 +5,7 @@
   <string name="averageScoreAsWhiteX">Puntuación media con brancas: %s</string>
   <string name="averageScoreAsBlackX">Puntuación media con negras: %s</string>
   <string name="knowingTheChessBoard">Coñecer as coordenadas do taboleiro é unha importante habilidade no xadrez por varias razóns:</string>
-  <string name="mostChessCourses">A maioría dos cursos e exercicios de xadrez empregan a notación alxebraica extensivamente.</string>
+  <string name="mostChessCourses">A maioría dos cursos e exercicios de xadrez empregan a notación alxébrica.</string>
   <string name="talkToYourChessFriends">Fai que sexa máis doado falar cos teus amigos xadrecistas, xa que ambos entendedes a \"linguaxe do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Podes analizar unha partida de xeito máis eficiente se recoñeces rapidamente as coordenadas.</string>
   <string name="aCoordinateAppears">Unha coordenada aparece no taboleiro e debes facer clic no cadrado correspondente.</string>
