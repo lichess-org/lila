@@ -10,4 +10,18 @@
   <string name="actions">Acties</string>
   <string name="yourClock">Jouw klok</string>
   <string name="opponentClock">Klok tegenstander</string>
+  <string name="king">koning</string>
+  <string name="whiteKing">witte koning</string>
+  <string name="blackKing">zwarte koning</string>
+  <string name="queen">koningin</string>
+  <string name="whiteQueen">witte koningin</string>
+  <string name="blackQueen">zwarte koningin</string>
+  <string name="rook">toren</string>
+  <string name="whiteRook">witte toren</string>
+  <string name="blackRook">zwarte toren</string>
+  <string name="knight">ridder</string>
+  <string name="whiteKnight">witte ridder</string>
+  <string name="blackKnight">zwarte ridder</string>
+  <string name="sanCheckmate" comment="# in standard notation">schaakmat</string>
+  <string name="invalidMove">Ongeldige Actie</string>
 </resources>
