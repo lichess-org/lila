@@ -58,6 +58,7 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
+import { renderLFYM } from '@/retrospect/retroView';
 import renderRetro from '@/retrospect/retroView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
@@ -342,6 +343,8 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
 function renderToggleLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.retro) {
+      const LFYM = renderLFYM(ctrl);
+        console.log(LFYM);
       const retro = renderRetro(ctrl);
       if (retro) {
         return retro;
@@ -497,12 +500,13 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode | undefined {
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
       return h('h2', 'Server-side analysis in progress');
     }
+
     return renderToggleLFYMButton(ctrl, notify);
   }
 
