@@ -97,7 +97,8 @@ export function statusOf(d: StatusData): string {
       if (insufficientMaterial(d.variant, d.fen))
         return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
       if (d.drawOffers?.some(turn => turn >= d.ply)) return i18n.site.drawByMutualAgreement;
-      return i18n.site.draw;
+      if (d.variant !== 'standard' || d.source === 'import') return i18n.site.draw;
+      return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     }
     case 'outoftime':
       return `${d.ply % 2 === 0 ? i18n.site.whiteTimeOut : i18n.site.blackTimeOut}${
