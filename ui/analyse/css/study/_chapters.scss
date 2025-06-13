@@ -3,8 +3,6 @@ $span-width: 1.7em;
 .study__chapters {
   @extend %study-list, %study-list-ongoing;
 
-  max-height: 18em;
-
   h3 {
     @extend %break-word;
 
