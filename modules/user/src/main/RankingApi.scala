@@ -73,6 +73,66 @@ final class RankingApi(
                   )
               .dmap(_.flatten)
 
+  def topPerfInUsers(perfId: PerfId, userIds: Fu[Set[UserId]], nb: Int): Fu[List[LightPerf]] =
+    lila.rating
+      .PerfType(perfId)
+      .map(_.key)
+      .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
+      .so: perfKey =>
+        userIds.flatMap: ids =>
+          coll:
+            _.find(
+              $doc(
+                "_id"    -> $doc("$in" -> ids.map(id => s"$id:$perfId")),
+                "perf"   -> perfId,
+                "stable" -> true
+              )
+            )
+              .sort($doc("rating" -> -1))
+              .cursor[Ranking]()
+              .list(nb)
+              .flatMap:
+                _.parallel: r =>
+                  lightUser(r.user).map2: light =>
+                    LightPerf(
+                      user = light,
+                      perfKey = perfKey,
+                      rating = r.rating,
+                      progress = ~r.prog
+                    )
+                .dmap(_.flatten)
+
+  def fetchLeaderboardFriends(nb: Int, userIds: Fu[Set[UserId]]): Fu[lila.rating.UserPerfs.Leaderboards] =
+    for
+      ultraBullet   <- topPerfInUsers(PerfType.UltraBullet.id, userIds, nb)
+      bullet        <- topPerfInUsers(PerfType.Bullet.id, userIds, nb)
+      blitz         <- topPerfInUsers(PerfType.Blitz.id, userIds, nb)
+      rapid         <- topPerfInUsers(PerfType.Rapid.id, userIds, nb)
+      classical     <- topPerfInUsers(PerfType.Classical.id, userIds, nb)
+      chess960      <- topPerfInUsers(PerfType.Chess960.id, userIds, nb)
+      kingOfTheHill <- topPerfInUsers(PerfType.KingOfTheHill.id, userIds, nb)
+      threeCheck    <- topPerfInUsers(PerfType.ThreeCheck.id, userIds, nb)
+      antichess     <- topPerfInUsers(PerfType.Antichess.id, userIds, nb)
+      atomic        <- topPerfInUsers(PerfType.Atomic.id, userIds, nb)
+      horde         <- topPerfInUsers(PerfType.Horde.id, userIds, nb)
+      racingKings   <- topPerfInUsers(PerfType.RacingKings.id, userIds, nb)
+      crazyhouse    <- topPerfInUsers(PerfType.Crazyhouse.id, userIds, nb)
+    yield lila.rating.UserPerfs.Leaderboards(
+      ultraBullet = ultraBullet,
+      bullet = bullet,
+      blitz = blitz,
+      rapid = rapid,
+      classical = classical,
+      chess960 = chess960,
+      kingOfTheHill = kingOfTheHill,
+      threeCheck = threeCheck,
+      antichess = antichess,
+      atomic = atomic,
+      horde = horde,
+      racingKings = racingKings,
+      crazyhouse = crazyhouse
+    )
+
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)

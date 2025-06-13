@@ -115,6 +115,13 @@ final class RelationUi(helpers: Helpers):
           h1(
             a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
             trans.site.friends()
+          ),
+          div(cls := "box__top__actions")(
+            a(
+              href     := s"/@/${u.username}/following/leaderboard",
+              cls      := "button button-empty",
+              dataIcon := Icon.Trophy
+            )(trans.leaderboard.seeLeaderboardWithFriends.txt())
           )
         ),
         pagTable(pag, routes.Relation.following(u.username))
