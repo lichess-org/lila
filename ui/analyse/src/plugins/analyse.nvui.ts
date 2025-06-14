@@ -545,9 +545,11 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseV
       return h('h2', 'Server-side analysis in progress');
     }
     if (getInLFYM()) {
-       const LFYM = renderLFYM(ctrl);
-       if (LFYM) { return LFYM; }
-       notify.set('Problem rendering learn from your mistakes');
+      const LFYM = renderLFYM(ctrl);
+      if (LFYM) {
+        return LFYM;
+      }
+      notify.set('Problem rendering learn from your mistakes');
     }
     return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
   }
