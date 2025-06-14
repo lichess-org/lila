@@ -22,10 +22,10 @@ $c-shade: hsl(0, 0%, 84%);
 $c-inaccuracy: hsl(202, 78%, 40%);
 $c-mistake: hsl(41, 100%, 35%);
 $c-blunder: hsl(0, 68%, 50%);
-$c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 30%);
 $c-interesting: hsl(307, 80%, 59%);
 $c-paper: hsl(60, 56%, 86%);
+$c-border: hsl(0, 0%, 85%);
 $c-dimmer: #fff;
 $c-clearer: #000;
 
@@ -55,7 +55,6 @@ html.light {
   --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
   --c-fancy: hsl(294, 61%, 62%);
 
-  --c-border: hsl(0, 0%, 85%);
   --c-border-page: hsl(0, 0%, 80%);
   --c-border-tour: #{mix(hsl(0, 0%, 80%), $c-bg-page, 50)};
   --c-border-light: hsl(0, 0%, 80%);
