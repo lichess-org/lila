@@ -10,6 +10,15 @@
   <string name="actions">Acties</string>
   <string name="yourClock">Jouw klok</string>
   <string name="opponentClock">Klok tegenstander</string>
+  <string name="announceCurrentSquare">Kondig huidig vakje aan.</string>
+  <string name="announceLastMove">Kondig laatste zet aan.</string>
+  <string name="announceLastMoveCapture">Kondig geslagen stuk aan in de laatste zet.</string>
+  <string name="announcePossibleMoves">Kondig mogelijke zetten aan voor het geselecteerde stuk.</string>
+  <string name="announcePossibleCaptures">Kondig mogelijke slagzetten aan voor het geselecteerde stuk.</string>
+  <string name="moveWithArrows">Verplaats naar aangrenzend vakje links, rechts, boven of beneden.</string>
+  <string name="moveToPieceByType">Verplaats naar vakjes met de namen van een stuk. Bijvoorbeeld: herhaalde p zal naar ieder vakje zetten waar een paard is. Gebruik hoofdletters om de volgorde om te keren.</string>
+  <string name="moveToRank">Verplaats naar rij 1 tot 8.</string>
+  <string name="moveToFile">Verplaats naar kolom a tot h.</string>
   <string name="king">koning</string>
   <string name="whiteKing">witte koning</string>
   <string name="blackKing">zwarte koning</string>
@@ -19,9 +28,23 @@
   <string name="rook">toren</string>
   <string name="whiteRook">witte toren</string>
   <string name="blackRook">zwarte toren</string>
+  <string name="bishop">loper</string>
+  <string name="whiteBishop">witte loper</string>
+  <string name="blackBishop">zwarte loper</string>
   <string name="knight">ridder</string>
   <string name="whiteKnight">witte ridder</string>
   <string name="blackKnight">zwarte ridder</string>
+  <string name="pawn">pion</string>
+  <string name="whitePawn">witte pion</string>
+  <string name="blackPawn">zwarte pion</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L P x</string>
+  <string name="sanTakes" comment="x in standard notation">slaat</string>
+  <string name="sanCheck" comment="+ in standard notation">schaak</string>
   <string name="sanCheckmate" comment="# in standard notation">schaakmat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promoveert</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kort rokeren</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokeren</string>
   <string name="invalidMove">Ongeldige Actie</string>
+  <string name="premoveCancelled">Vooraf-zetten geannuleerd</string>
+  <string name="premoveRecorded">Zet vooraf opgenomen: %s. Enter om te annuleren</string>
 </resources>
