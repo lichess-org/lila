@@ -1,7 +1,5 @@
 package lila.ublog
 
-import com.typesafe.config.Config
-import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
 import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
@@ -11,40 +9,43 @@ import com.roundeights.hasher.Algo
 import lila.memo.SettingStore
 import lila.core.data.Text
 import lila.memo.SettingStore.Text.given
-import lila.core.config.Secret
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
 //   file://./../../../../../sysadmin/prompts/ublog-system-prompt.txt
 
-private object UblogAutomod:
+object UblogAutomod:
 
-  case class Result(
-      classification: String,
-      flagged: Option[String],
-      commercial: Option[String],
-      offtopic: Option[String],
-      evergreen: Option[Boolean],
-      hash: Option[String] = none
+  private val schemaVersion = 1
+
+  case class Assessment(
+      quality: Quality,
+      flagged: Option[String] = none,
+      commercial: Option[String] = none,
+      evergreen: Option[Boolean] = none,
+      hash: Option[String] = none,
+      version: Int = schemaVersion
   )
 
-  private case class Config(apiKey: Secret, model: String, url: String)
-
   private case class FuzzyResult(
-      quality: Option[String],
-      classification: Option[String],
+      quality: String,
       flagged: Option[JsValue],
       commercial: Option[JsValue],
-      offtopic: Option[JsValue],
       evergreen: Option[Boolean]
   )
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
-  private[ublog] val classifications = List("spam", "weak", "good", "great")
+  enum Quality:
+    case Spam, Weak, Good, Great
+    def label: String = toString.toLowerCase
+
+  object Quality:
+    def fromName(name: String): Option[Quality] =
+      values.find(_.toString.equalsIgnoreCase(name))
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
-    appConfig: Configuration,
+    config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -56,35 +57,32 @@ final class UblogAutomod(
     default = Text("")
   )
 
-  private val cfg: UblogAutomod.Config =
-    import lila.common.config.given
-    import lila.common.autoconfig.AutoConfig
-    appConfig.get[UblogAutomod.Config]("ublog.automod")(using AutoConfig.loader)
+  val temperatureSetting = settingStore[Float](
+    "ublogAutomodTemperature",
+    text = "Ublog automod temperature".some,
+    default = 0.3
+  )
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
-  private[ublog] def apply(post: UblogPost): Fu[Option[Result]] = post.live.so:
-    val text = post.allText.take(40_000) // roughly 10k tokens
-    dedup(s"${post.id}:$text").so(fetchText(text))
+  private[ublog] def apply(post: UblogPost): Fu[Option[Assessment]] = post.live.so:
+    val text = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
+    dedup(s"${post.id}:$text").so(assess(text))
 
-  private def fetchText(userText: String): Fu[Option[Result]] =
+  private def assess(userText: String): Fu[Option[Assessment]] =
     val prompt = promptSetting.get().value
-    (cfg.apiKey.value.nonEmpty && prompt.nonEmpty).so:
+    (config.automodApiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
-        "model" -> cfg.model,
-        // "response_format" -> "json", // not universally supported it seems
-        // "temperature" -> 0.7,
-        // "top_p" -> 1,
-        // "frequency_penalty" -> 0,
-        // "presence_penalty" -> 0
-        "messages" -> Json.arr(
+        "model"       -> config.automodModel,
+        "temperature" -> temperatureSetting.get(),
+        "messages"    -> Json.arr(
           Json.obj("role" -> "system", "content" -> prompt),
           Json.obj("role" -> "user", "content"   -> userText)
         )
       )
-      ws.url(cfg.url)
+      ws.url(config.automodUrl)
         .withHttpHeaders(
-          "Authorization" -> s"Bearer ${cfg.apiKey.value}",
+          "Authorization" -> s"Bearer ${config.automodApiKey.value}",
           "Content-Type"  -> "application/json"
         )
         .post(body)
@@ -98,32 +96,31 @@ final class UblogAutomod(
           yield result) match
             case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
-              lila.mon.ublog.automod.classification(res.classification).increment()
+              lila.mon.ublog.automod.quality(res.quality.label).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
               val hash = Algo.sha256(userText).hex.take(12) // matches ublog-automod.mjs hash
               fuccess(res.copy(hash = hash.some).some)
         .monSuccess(_.ublog.automod.request)
 
-  private def normalize(msg: String): Option[Result] = // keep in sync with bin/ublog-automod.mjs
-    val trimmed = msg.slice(msg.lastIndexOf('{'), msg.lastIndexOf('}') + 1)
-    Json.parse(trimmed).asOpt[FuzzyResult].flatMap { res =>
-      val fixed = Result(
-        classification = res.classification.orElse(res.quality).getOrElse("good"),
-        evergreen = res.evergreen,
-        flagged = fix(res.flagged),
-        commercial = fix(res.commercial),
-        offtopic = fix(res.offtopic)
-      )
-      fixed.classification match
-        case "great" | "good" => fixed.some
-        case "weak"           => fixed.copy(evergreen = none).some
-        case "spam"           => fixed.copy(evergreen = none, offtopic = none, commercial = none).some
-        case _                => none
-    }
+  private def normalize(msg: String): Option[Assessment] = // keep in sync with bin/ublog-automod.mjs
+    val trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
+    Json
+      .parse(trimmed)
+      .asOpt[FuzzyResult]
+      .flatMap: res =>
+        Quality.values
+          .find(_.toString.equalsIgnoreCase(res.quality))
+          .map: q =>
+            import Quality.*
+            Assessment(
+              quality = q,
+              evergreen = if q == Good || q == Great then res.evergreen else none,
+              flagged = fixString(res.flagged),
+              commercial = if q != Spam then fixString(res.commercial) else none
+            )
 
-  private def fix(field: Option[JsValue]): Option[String] = // LLM make poopy
-    val bad = Set("none", "reason", "false", "")
+  private def fixString(field: Option[JsValue]): Option[String] = // LLM make poopy
+    val isBad = (v: String) => Set("none", "false", "").exists(_.equalsIgnoreCase(v))
     field match
-      case Some(JsString(value)) => value.trim().toLowerCase().some.filterNot(bad)
-      case Some(JsBoolean(true)) => "true".some
+      case Some(JsString(value)) => value.trim().some.filterNot(isBad)
       case _                     => none

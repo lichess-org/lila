@@ -17,7 +17,7 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
       .css("mod.publicChats")
       .js(Esm("bits.publicChats")):
         main(cls := "page-menu")(
-          modUi.menu("public-chat"),
+          bits.modMenu("public-chat"),
           div(id := "comm-wrap")(
             div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
               h2("Tournament Chats"),

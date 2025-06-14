@@ -9,6 +9,8 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
+import lila.core.ublog.BlogsBy
+import UblogAutomod.Quality
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -19,10 +21,10 @@ final class UblogPaginator(
 
   import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
+  import Quality.*
   import ublogApi.aggregateVisiblePosts
-  import UblogRank.Sorting.{ ByDate, ByRank, ByTimelessRank }
 
-  val maxPerPage = MaxPerPage(15)
+  val maxPerPage = MaxPerPage(24)
 
   def byUser[U: UserIdOf](user: U, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
@@ -40,12 +42,14 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByCommunity(language: Option[Language], page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByCommunity(language: Option[Language], filter: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
+    val q = if filter then Good else Weak
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        val select = $doc("live" -> true, "topics".$ne(UblogTopic.offTopic)) ++ language.so: l =>
-          $doc("language" -> l)
-        def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
+        val select =
+          $doc("live" -> true, selectQuality(q), "topics".$ne(UblogTopic.offTopic)) ++ language.so: l =>
+            $doc("language" -> l)
+        def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       ,
       currentPage = page,
@@ -65,32 +69,51 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByTopic(topic: UblogTopic, page: Int, byDate: Boolean): Fu[Paginator[PreviewPost]] =
+  def liveByTopic(
+      topic: UblogTopic,
+      filter: Boolean,
+      by: BlogsBy,
+      page: Int
+  ): Fu[Paginator[PreviewPost]] =
+    val q =
+      topic match
+        case UblogTopic.offTopic => if filter then Weak else Spam
+        case _                   => if filter then Good else Weak
+
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
+        def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic), offset, length, if byDate then ByDate else ByRank)
+          aggregateVisiblePosts($doc("topics" -> topic, selectQuality(q)), offset, length, by)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  // All blogs ranked by `ByTimelessRank` lived during a specific month
-  def liveByMonth(month: YearMonth, page: Int): Fu[Paginator[PreviewPost]] =
-    UblogBestOf
+  def liveByMonth(month: YearMonth, filter: Boolean, by: BlogsBy, page: Int): Fu[Paginator[PreviewPost]] =
+    val q = if filter then Good else Weak
+    UblogByMonth
       .isValid(month)
       .so:
         Paginator(
           adapter = new AdapterLike[PreviewPost]:
-            def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
+            def nbResults: Fu[Int] = fuccess(50 * maxPerPage.value)
             def slice(offset: Int, length: Int) =
               // topics included to hit prod index
-              aggregateVisiblePosts(UblogBestOf.selector(month), offset, length, ByTimelessRank)
+              aggregateVisiblePosts(
+                UblogByMonth.selector(month) ++ selectQuality(q),
+                offset,
+                length,
+                by
+              )
           ,
           currentPage = page,
           maxPerPage = maxPerPage
         )
+
+  private def selectQuality(q: Quality) =
+    // maybe we should require automod.quality, but allow unassessed for now
+    $or($doc("automod.quality" -> $exists(false)), $doc("automod.quality" -> $gte(q.ordinal)))
 
   object liveByFollowed:
 

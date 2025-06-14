@@ -69,23 +69,6 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: UserStr, path, page: Int ?= 1)
 GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username: UserStr, page: Int ?= 1)
 
-# User blog
-GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
-GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
-POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
-GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
-GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
-GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
-GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
-POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
-POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modAdjust(id: UblogPostId)
-POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
-
 # User
 GET   /api/stream/:username/mod        controllers.User.mod(username: UserStr)
 POST  /@/:username/note                controllers.User.writeNote(username: UserStr)
@@ -120,21 +103,41 @@ GET   /api/fide/player                 controllers.Fide.apiSearch(q: String)
 
 GET   /dasher                          controllers.Dasher.get
 
-# Blog
+
+# Blog/Ublog
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog/best-of                    controllers.Ublog.bestOfYear(page: Int ?= 1)
-GET   /blog/best-of/:year/:month       controllers.Ublog.bestOfMonth(year: Int, month: Int, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
+GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
+GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
-GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
-GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, page: Int ?= 1)
+GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.Score, page: Int ?= 1)
+GET   /blog/community                  controllers.Ublog.communityAll(filter: Boolean ?= true, page: Int ?= 1)
+GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, filter: Boolean ?= true, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: Language ?= Language("all"))
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: Language)
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
+GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
+GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
+POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
+GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
+GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
+GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
+POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
+POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
+GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
+POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
+# Feed
 GET   /feed                            controllers.Feed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.Feed.createForm
 POST  /feed/new                        controllers.Feed.create
@@ -143,6 +146,7 @@ POST  /feed/:id/edit                   controllers.Feed.update(id)
 POST  /feed/:id/delete                 controllers.Feed.delete(id)
 GET   /feed.atom                       controllers.Feed.atom
 
+# Opening
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
 POST  /opening/wiki/:key/:moves        controllers.Opening.wikiWrite(key, moves)

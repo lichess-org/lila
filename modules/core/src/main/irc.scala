@@ -34,5 +34,6 @@ trait IrcApi:
       slug: String,
       title: String,
       intro: String,
-      topic: String
+      topic: String,
+      automod: Option[String]
   ): Funit
