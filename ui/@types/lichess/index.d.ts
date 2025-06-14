@@ -107,6 +107,8 @@ interface SoundI {
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
+  getVoice(): string | null;
+  setVoice(v: string): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
   sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
