@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="king">شاه</string>
+  <string name="whiteKing">شاه سفید</string>
+  <string name="blackKing">شاه سیاه</string>
+  <string name="queen">وزیر</string>
+  <string name="whiteQueen">وزیر سفید</string>
+  <string name="blackQueen">وزیر سیاه</string>
+  <string name="rook">رخ</string>
+  <string name="whiteRook">رخ سفید</string>
+  <string name="blackRook">رخ سیاه</string>
+  <string name="bishop">فیل</string>
+  <string name="whiteBishop">فیل سفید</string>
+  <string name="blackBishop">فیل سیاه</string>
+  <string name="knight">اسب</string>
+  <string name="whiteKnight">اسب سفید</string>
+  <string name="blackKnight">اسب سیاه</string>
+  <string name="pawn">پیاده</string>
+  <string name="whitePawn">پیاده سفید</string>
+  <string name="blackPawn">پیاده سیاه</string>
+  <string name="sanCheck" comment="+ in standard notation">کیش</string>
+  <string name="sanCheckmate" comment="# in standard notation">کیش و مات</string>
+</resources>
