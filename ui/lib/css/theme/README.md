@@ -38,7 +38,7 @@ behind the scenes, this results in a new css/scss variable pair being created bu
 you don't have to do anything special aside from using the `$m-<color(s)>--<op>-<val>` syntax within a style rule.
 
 for example, say we have $c-primary and $c-bg-zebra defined in a theme file. if ui/build is then
-parsing ui/yourModule/css/_yourModule.scss and encounters
+parsing ui/yourModule/css/\_yourModule.scss and encounters
 
 ```scss
 background: $m-primary_bg-zebra--mix-40;

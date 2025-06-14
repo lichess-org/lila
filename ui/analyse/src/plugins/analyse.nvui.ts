@@ -1,5 +1,5 @@
-import { h, type VNode, type VNodeChildren } from 'snabbdom';
-import { defined, prop, type Prop } from 'lib';
+import { type VNode, h, type VNodeChildren } from 'snabbdom';
+import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -33,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { bind, noTrans, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
+import { type LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -58,10 +58,13 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
+import renderRetro from '@/retrospect/retroView';
+
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
+var learningFromYourMistakes = false;
 
 export function initModule(ctrl: AnalyseController): NvuiPlugin {
   const notify = new Notify(),
@@ -69,8 +72,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
     positionStyle = positionSetting(),
-    boardStyle = boardSetting(),
-    analysisInProgress = prop(false);
+    boardStyle = boardSetting();
 
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
@@ -109,7 +111,13 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   'button',
                   {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+                    hook: onInsert((el: HTMLButtonElement) => {
+                      const toggle = () => {
+                        ctrl.explorer.toggle();
+                        ctrl.redraw();
+                      };
+                      onInsertHandler(toggle, el);
+                    }),
                   },
                   i18n.site.openingExplorerAndTablebase,
                 ),
@@ -155,9 +163,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           ),
           notify.render(),
           h('h2', 'Computer analysis'),
-          ...cevalView.renderCeval(ctrl),
-          cevalView.renderPvs(ctrl),
-          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          renderComputerAnalysis(ctrl, notify),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -278,6 +284,12 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
+const getInLFYM = (): boolean => learningFromYourMistakes;
+
+const setInLFYM = (learning: boolean): void => {
+  learningFromYourMistakes = learning;
+};
+
 const evalInfo = (bestEv: EvalScore | undefined): string =>
   defined(bestEv?.cp)
     ? renderEval(bestEv.cp).replace('-', '−')
@@ -334,6 +346,28 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
+function renderLFYM(ctrl: AnalyseController): VNode | undefined {
+  return renderRetro(ctrl);
+}
+
+function renderLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
+  return h(
+    'button',
+    {
+      hook: onInsert((el: HTMLButtonElement) => {
+        const toggleLFYM = () => {
+          ctrl.toggleRetro();
+          notify.set('Learn from your mistakes');
+          setInLFYM(!getInLFYM());
+          ctrl.redraw();
+        };
+        onInsertHandler(toggleLFYM, el);
+      }),
+    },
+    'Learn from your mistakes',
+  );
+}
+
 function onSubmit(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
@@ -371,7 +405,8 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: commands().piece.help,
+    // help: commands().piece.help, couses normal ui to not render peices
+    help: noTrans('Announce a pieces location. ie: p n or p N'),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -380,7 +415,8 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    help: commands().scan.help,
+    // help: commands().scan.help, causes normal ui to not render peices
+    help: noTrans('Scan pieces on a row or file. ie: s 1, s d or s D'),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -451,9 +487,25 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
+function renderReqSrvAnalBtn(ctrl: AnalyseController): VNode {
+  return h(
+    'button',
+    {
+      hook: onInsert((el: HTMLButtonElement) => {
+        const reqAnal = () => {
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+          ctrl.redraw();
+        };
+        onInsertHandler(reqAnal, el);
+      }),
+    },
+    i18n.site.requestAComputerAnalysis,
+  );
+}
+
+function renderAcpl(ctrl: AnalyseController, style: MoveStyle): VNode {
   const anal = ctrl.data.analysis; // heh
-  if (!anal) return undefined;
+  if (!anal) return renderReqSrvAnalBtn(ctrl);
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
@@ -483,33 +535,27 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
       ),
     );
   });
-  return res;
+  return h('section', res);
 }
 
-const requestAnalysisButton = (
-  ctrl: AnalyseController,
-  inProgress: Prop<boolean>,
-  notify: (msg: string) => void,
-): MaybeVNode =>
-  ctrl.ongoing || ctrl.synthetic
-    ? undefined
-    : inProgress()
-      ? h('p', 'Server-side analysis in progress')
-      : h(
-          'button',
-          {
-            hook: bind('click', _ =>
-              xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-                () => {
-                  inProgress(true);
-                  notify('Server-side analysis in progress');
-                },
-                () => notify('Cannot run server-side analysis'),
-              ),
-            ),
-          },
-          i18n.site.requestAComputerAnalysis,
-        );
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+  if (ctrl.hasFullComputerAnalysis()) {
+    if (ctrl.ongoing || ctrl.synthetic) {
+      notify.set('Server-side analysis in progress');
+      return h('h2', 'Server-side analysis in progress');
+    }
+    if (getInLFYM()) {
+      const LFYM = renderLFYM(ctrl);
+      if (LFYM) {
+        return LFYM;
+      }
+      notify.set('Problem rendering learn from your mistakes');
+    }
+    return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
+  }
+  // catch all analysis issues
+  return renderReqSrvAnalBtn(ctrl);
+}
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
@@ -599,7 +645,8 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
-const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+
+export const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('click', callback);
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
 };
