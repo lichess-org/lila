@@ -3,10 +3,10 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Turnee de tip arenă</string>
   <string name="isItRated">Este evaluat?</string>
-  <string name="willBeNotified">Vei fi notificat când competiția începe, deci este în regulă să joci în altă filă în timp ce aștepți.</string>
-  <string name="isRated">Această competiție este evaluată și-ți va afecta scorul.</string>
+  <string name="willBeNotified">Vei fi notificat când competiția începe, deci este în regulă să joci în altă fereastră în timp ce aștepți.</string>
+  <string name="isRated">Această competiție este evaluată și îți va afecta scorul.</string>
   <string name="isNotRated">Această competiție *nu* este evaluată și *nu* îți va afecta scorul.</string>
-  <string name="someRated">Unele competiții sunt evaluate și-ți vor afecta scorul.</string>
+  <string name="someRated">Unele competiții sunt evaluate și îți vor afecta scorul.</string>
   <string name="howAreScoresCalculated">Cum e calculat scorul?</string>
   <string name="howAreScoresCalculatedAnswer">Un câștig valorează 2 puncte, o remiză: 1 punct, iar o înfrângere nu valorează nimic.
 Dacă câștigi două partide consecutiv, punctele vor fi dublate pentru următoarele partide și sunt reprezentate de o pictogramă în flăcări.
