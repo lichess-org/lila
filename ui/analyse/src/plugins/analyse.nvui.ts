@@ -346,13 +346,8 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function renderLFYM(ctrl: AnalyseController): VNode {
-  const rtr = renderRetro(ctrl);
-  if (rtr) {
-    return rtr;
-  } else {
-    return h('h4', { 'aria-live': 'assertive', 'aria-attomic': 'true' }, 'Something bad happened.');
-  }
+function renderLFYM(ctrl: AnalyseController): VNode | undefined {
+  return renderRetro(ctrl);
 }
 
 function renderLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
@@ -550,10 +545,13 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseV
       return h('h2', 'Server-side analysis in progress');
     }
     if (getInLFYM()) {
-      return renderLFYM(ctrl);
+       const LFYM = renderLFYM(ctrl);
+       if (LFYM) { return LFYM; }
+       notify.set('Problem rendering learn from your mistakes');
     }
     return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
   }
+  // catch all analysis issues
   return renderReqSrvAnalBtn(ctrl);
 }
 
