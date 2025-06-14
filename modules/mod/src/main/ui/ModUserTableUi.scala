@@ -91,7 +91,7 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
   def mods(users: List[User])(using Context) =
     Page("All mods").css("mod.misc"):
       main(cls := "page-menu")(
-        modUi.menu("mods"),
+        bits.modMenu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
           h1(cls := "box__top")("All mods"),
           st.table(cls := "slist slist-pad sortable")(

@@ -10,6 +10,18 @@
   /* helps with clipping background into border-radius */
 }
 
+%box-radius-inline-start {
+  border-radius: 0;
+  border-start-start-radius: $box-radius-size;
+  border-end-start-radius: $box-radius-size;
+}
+
+%box-radius-inline-end {
+  border-radius: 0;
+  border-start-end-radius: $box-radius-size;
+  border-end-end-radius: $box-radius-size;
+}
+
 %box-radius-left {
   border-radius: $box-radius-size 0 0 $box-radius-size;
 }
