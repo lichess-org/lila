@@ -28,8 +28,6 @@ export class SoundCtrl extends PaneCtrl {
   }
 
   render = (): VNode => {
-    if (this.getCurrent() === 'speech' && this.showVoiceSelection) site.sound.say('Speech synthesis ready');
-
     return h(
       'div.sub.sound.' + this.getCurrent(),
       {
@@ -93,6 +91,7 @@ export class SoundCtrl extends PaneCtrl {
       vnodes: [content],
       onInsert: dlg => {
         dlg.show();
+        dlg.view.querySelector('.active')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       },
     });
   };
@@ -100,30 +99,33 @@ export class SoundCtrl extends PaneCtrl {
   private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
   private renderVoiceSelection(): VNode | false {
-    const selectedVoice = site.sound.getVoice() ?? '';
-    const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
-    return voices.length < 2
+    const selectedVoice = site.sound.getVoice();
+    const voiceMap = site.sound.getVoiceMap();
+    return voiceMap.size < 2
       ? false
       : h(
           'div.selector',
-          voices.map(voice =>
-            h(
-              'button.text',
-              {
-                hook: bind('click', event => {
-                  const target = event.target as HTMLElement;
-                  if (target.textContent) site.sound.setVoice(target.textContent);
-                  this.redraw();
-                }),
-                class: { active: voice.name === selectedVoice },
-                attrs: {
-                  ...dataIcon(voice.name === selectedVoice ? licon.Checkmark : ''),
-                  type: 'button',
+          [...voiceMap.keys()]
+            .sort((a, b) => a.localeCompare(b))
+            .map(name =>
+              h(
+                'button.text',
+                {
+                  hook: bind('click', event => {
+                    const target = event.target as HTMLElement;
+                    site.sound.setVoice(voiceMap.get(target.textContent!)!);
+                    site.sound.say('Speech synthesis ready');
+                    this.redraw();
+                  }),
+                  class: { active: name === selectedVoice?.name },
+                  attrs: {
+                    ...dataIcon(name === selectedVoice?.name ? licon.Checkmark : ''),
+                    type: 'button',
+                  },
                 },
-              },
-              voice.name,
+                name,
+              ),
             ),
-          ),
         );
   }
 
@@ -141,15 +143,10 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private set = (k: Key) => {
-    if (k === 'speech') {
-      this.showVoiceSelection = true;
-      if (this.getCurrent() === 'speech') this.redraw();
-    }
-    if (k === this.getCurrent()) return;
-
     site.sound.speech(k === 'speech');
-    pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
+      this.showVoiceSelection = true;
+      site.sound.say('Speech synthesis ready');
       site.sound.changeSet('standard');
       this.postSet('standard');
     } else {
@@ -157,6 +154,7 @@ export class SoundCtrl extends PaneCtrl {
       site.sound.play('genericNotify');
       this.postSet(k);
     }
+    pubsub.emit('speech.enabled', site.sound.speech());
     this.redraw();
   };
 

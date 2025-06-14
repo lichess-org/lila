@@ -26,6 +26,7 @@ export default new (class implements SoundI {
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
+    window.speechSynthesis.getVoices(); // preload
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -130,8 +131,35 @@ export default new (class implements SoundI {
     return v >= 0 ? v : 0.7;
   };
 
-  getVoice = this.voiceStorage.get;
-  setVoice = this.voiceStorage.set;
+  getVoice = (): SpeechSynthesisVoice | undefined => {
+    let o: { name: string; lang: string } = { name: '', lang: document.documentElement.lang.split('-')[0] };
+    try {
+      o = JSON.parse(this.voiceStorage.get() ?? JSON.stringify(o));
+    } catch {}
+    const voiceMap = this.getVoiceMap();
+    const voice = voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
+    return voice;
+  };
+
+  getVoiceMap = (): Map<string, SpeechSynthesisVoice> => {
+    const voices = speechSynthesis.getVoices();
+    const voiceMap = new Map<string, SpeechSynthesisVoice>();
+
+    for (const code of ['en', document.documentElement.lang.split('-')[0], document.documentElement.lang]) {
+      voices
+        .filter(v => v.lang.startsWith(code))
+        .sort((a, b) => a.lang.localeCompare(b.lang))
+        .forEach(v => voiceMap.set(v.name, v));
+      // populate map with preferred regional language pronunciations taking precedence. if not matched
+      // exactly by documentElement.lang, the chosen region will be the last one lexicographically
+    }
+    return voiceMap;
+  };
+
+  setVoice = (o?: { name: string; lang: string }) => {
+    if (!o) this.voiceStorage.remove();
+    else this.voiceStorage.set(JSON.stringify({ name: o.name, lang: o.lang }));
+  };
 
   enabled = () => this.theme !== 'silent';
 
@@ -149,8 +177,7 @@ export default new (class implements SoundI {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text());
-      const voices = speechSynthesis.getVoices();
-      const selectedVoice = voices.find(voice => voice.name == this.voiceStorage.get());
+      const selectedVoice = this.getVoice();
       if (selectedVoice) {
         msg.voice = selectedVoice;
       } else {
