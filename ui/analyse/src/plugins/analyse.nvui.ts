@@ -33,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { type LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom'; //looseH as h,
+import { type LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -58,13 +58,13 @@ import type RelayCtrl from '../study/relay/relayCtrl';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 
-import { renderLFYM } from '@/retrospect/retroView';
 import renderRetro from '@/retrospect/retroView';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
+var learningFromYourMistakes = false;
 
 export function initModule(ctrl: AnalyseController): NvuiPlugin {
   const notify = new Notify(),
@@ -284,6 +284,12 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
+const getInLFYM = (): boolean => learningFromYourMistakes;
+
+const setInLFYM = (learning: boolean): void => {
+  learningFromYourMistakes = learning;
+};
+
 const evalInfo = (bestEv: EvalScore | undefined): string =>
   defined(bestEv?.cp)
     ? renderEval(bestEv.cp).replace('-', '−')
@@ -340,44 +346,30 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function renderToggleLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
-  if (ctrl.hasFullComputerAnalysis()) {
-    if (ctrl.retro) {
-      const LFYM = renderLFYM(ctrl);
-        console.log(LFYM);
-      const retro = renderRetro(ctrl);
-      if (retro) {
-        return retro;
-      }
-    }
-    return h(
-      'button',
-      {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const toggleLFYM = () => {
-            ctrl.toggleRetro();
-            notify.set('Learn from your mistakes toggled');
-            ctrl.redraw();
-          };
-          onInsertHandler(toggleLFYM, el);
-        }),
-      },
-      'toggle learn from your mistakes',
-    );
-  } // else
+function renderLFYM(ctrl: AnalyseController): VNode {
+  const rtr = renderRetro(ctrl);
+  if (rtr) {
+    return rtr;
+  } else {
+    return h('h4', { 'aria-live': 'assertive', 'aria-attomic': 'true' }, 'Something bad happened.');
+  }
+}
 
+function renderLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
   return h(
     'button',
     {
       hook: onInsert((el: HTMLButtonElement) => {
-        const reqAnal = () => {
-          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+        const toggleLFYM = () => {
+          ctrl.toggleRetro();
+          notify.set('Learn from your mistakes');
+          setInLFYM(!getInLFYM());
           ctrl.redraw();
         };
-        onInsertHandler(reqAnal, el);
+        onInsertHandler(toggleLFYM, el);
       }),
     },
-    i18n.site.requestAComputerAnalysis,
+    'Learn from your mistakes',
   );
 }
 
@@ -419,7 +411,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
     // help: commands().piece.help, couses normal ui to not render peices
-    help: noTrans('Announce a pieces location. ie: s 1 or s D'),
+    help: noTrans('Announce a pieces location. ie: p n or p N'),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -429,7 +421,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 's',
     // help: commands().scan.help, causes normal ui to not render peices
-    help: noTrans('Scan pieces on a row or file. ie: s 1 or s D'),
+    help: noTrans('Scan pieces on a row or file. ie: s 1, s d or s D'),
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -500,16 +492,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode | undefined {
-  if (ctrl.hasFullComputerAnalysis()) {
-    if (ctrl.ongoing || ctrl.synthetic) {
-      notify.set('Server-side analysis in progress');
-      return h('h2', 'Server-side analysis in progress');
-    }
-
-    return renderToggleLFYMButton(ctrl, notify);
-  }
-
+function renderReqSrvAnalBtn(ctrl: AnalyseController): VNode {
   return h(
     'button',
     {
@@ -523,6 +506,55 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseV
     },
     i18n.site.requestAComputerAnalysis,
   );
+}
+
+function renderAcpl(ctrl: AnalyseController, style: MoveStyle): VNode {
+  const anal = ctrl.data.analysis; // heh
+  if (!anal) return renderReqSrvAnalBtn(ctrl);
+  const analysisGlyphs = ['?!', '?', '??'];
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
+  const res: Array<VNode> = [];
+  ['white', 'black'].forEach((color: Color) => {
+    res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
+    res.push(
+      h(
+        'select',
+        {
+          hook: bind(
+            'change',
+            e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
+            ctrl.redraw,
+          ),
+        },
+        analysisNodes
+          .filter(n => (n.ply % 2 === 1) === (color === 'white'))
+          .map(node =>
+            h(
+              'option',
+              { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
+              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
+                ' ',
+              ),
+            ),
+          ),
+      ),
+    );
+  });
+  return h('section', res);
+}
+
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+  if (ctrl.hasFullComputerAnalysis()) {
+    if (ctrl.ongoing || ctrl.synthetic) {
+      notify.set('Server-side analysis in progress');
+      return h('h2', 'Server-side analysis in progress');
+    }
+    if (getInLFYM()) {
+      return renderLFYM(ctrl);
+    }
+    return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
+  }
+  return renderReqSrvAnalBtn(ctrl);
 }
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {

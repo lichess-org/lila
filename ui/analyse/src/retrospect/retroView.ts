@@ -276,30 +276,6 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return h("h1", "no ctrl");
-  const fb = ctrl.feedback(),
-    completion = ctrl.completion();
-  return h('div.retro-box.training-box.sub-box', [
-    h('div.title', [
-      h('span', i18n.site.learnFromYourMistakes),
-      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      h('button.fbt', {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const toggleRetro = () => {
-            root.toggleRetro();
-            root.redraw();
-          };
-          onInsertHandler(toggleRetro, el);
-        }),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
-      }),
-    ]),
-    h('div.feedback.' + fb, renderFeedback(root, fb)),
-  ]);
-}
-
-export function renderLFYM(root: AnalyseCtrl): VNode | undefined {
-  const ctrl = root.retro;
   if (!ctrl) return;
 
   const fb = ctrl.feedback(),
