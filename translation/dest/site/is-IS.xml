@@ -22,6 +22,7 @@
   <string name="asBlack">sem svartur</string>
   <string name="randomColor">Handahófsvalinn litur</string>
   <string name="createAGame">Hefja leik</string>
+  <string name="createTheGame">Byrjar leikinn</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
@@ -70,7 +71,11 @@
   <string name="promoteVariation">Upp með afbrigði</string>
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
+  <string name="collapseVariations">Fella afbrigði saman</string>
+  <string name="expandVariations">Fella sundur afbrigði</string>
   <string name="forceVariation">Þvinga í tilbrigði</string>
+  <string name="copyVariationPgn">Afrita PGN-afbrigði</string>
+  <string name="copyMainLinePgn">Afrita PGN meginleikja</string>
   <string name="move">Leikur</string>
   <string name="variantLoss">Afbrigði tapar</string>
   <string name="variantWin">Afbrigði vinnur</string>
@@ -97,11 +102,12 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openings">Byrjanir</string>
   <string name="openingExplorer">Skoða byrjanir</string>
-  <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
+  <string name="openingEndgameExplorer">Skoða byrjana/endatafl</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
   <string name="playFirstOpeningEndgameExplorerMove">Leika fyrsta leik byrjunar/endatafls-könnuðar</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
+  <string name="winOr50MovesByPriorMistake">Sigur eða 50 leikir vegna fyrri mistaka</string>
   <string name="allSet">Allt tilbúið!</string>
   <string name="importPgn">Hlaða inn PGN</string>
   <string name="delete">Eyða</string>
@@ -184,6 +190,7 @@
   <string name="latestForumPosts">Síðustu innlegg á korkinn</string>
   <string name="players">Skákmenn</string>
   <string name="friends">Vinir</string>
+  <string name="otherPlayers">aðra leikmenn</string>
   <string name="discussions">Samtöl</string>
   <string name="today">Í dag</string>
   <string name="yesterday">Í gær</string>
@@ -616,6 +623,7 @@
   <string name="error.min">Verður að vera að minnsta kosti %s</string>
   <string name="error.max">Verður að vera í mesta lagi %s</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
+  <string name="ifRegistered">Hefur skráð sig</string>
   <string name="onlyFriends">Aðeins vinir</string>
   <string name="menu">Valmynd</string>
   <string name="castling">Hrókering</string>
@@ -672,6 +680,8 @@
   <string name="keyNextBlunder">Næsti afleikur</string>
   <string name="keyNextMistake">Næstu mistök</string>
   <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
+  <string name="keyPreviousBranch">Fyrri grein</string>
+  <string name="keyNextBranch">Næsta grein</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
   <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. Örskák, hraðskák, klassísk tímamörk, skák960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
@@ -690,13 +700,16 @@
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
+  <string name="checkAllEmailFolders">Skoða allar rusls-, ama- og aðrar möppur</string>
   <string name="weHaveSentYouAnEmailTo">Við sendum póst á %s. Fylgdu hlekknum þar til þess að skipta um lykilorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
+  <string name="readAboutOur">Lestu um %s okkar.</string>
   <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tími sem það tekur netbeina lichess að afgreiða leik.</string>
-  <string name="downloadAnnotated">Hlaða niður skák með athugasemdum</string>
-  <string name="downloadRaw">Hlaða niður grunneintaki</string>
-  <string name="downloadImported">Innsetning klár</string>
+  <string name="downloadAnnotated">Hlaða niður með athugasemdum</string>
+  <string name="downloadRaw">Hlaða niður óunnu eintaki</string>
+  <string name="downloadImported">Niðurhali hlaðið inn</string>
+  <string name="downloadAllGames">Hlaða niður öllum skákum</string>
   <string name="crosstable">Stigatafla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Þú getur einnig skrunað yfir leikborðinu til að fara yfir leikinn.</string>
   <string name="analysisShapesHowTo">Þú getur teiknað hringi og örvar á leikborðið með því að ýta á shift+vinstrismella eða hægrismella með músinni.</string>
@@ -762,6 +775,7 @@
   <string name="youBrowsedAway">Þú vafraðir í burtu</string>
   <string name="resumePractice">Halda áfram æfingu</string>
   <string name="theGameIsADraw">Leikurinn endar í jafntefli.</string>
+  <string name="computerThinking">Tölva hugsar ...</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
   <string name="getAHint">Fá vísbendingu</string>
@@ -795,7 +809,9 @@
   </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
+  <string name="endgame">Endatafl</string>
   <string name="playX">Leika %s</string>
+  <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
@@ -810,6 +826,8 @@
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Örskák</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
   <string name="classical">Hefðbundin Skák</string>
   <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
@@ -824,5 +842,15 @@
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
+  <string name="mentionedYouInX">minntist á þig í „%1$s“.</string>
+  <string name="xMentionedYouInY">%1$s minntist á þig í „%2$s“.</string>
+  <string name="invitedYouToX">bauð þér á „%1$s“.</string>
+  <string name="xInvitedYouToY">%1$s bauð þér á „%2$s“.</string>
+  <string name="youAreNowPartOfTeam">Þú ert nú hluti af hliðinu.</string>
+  <string name="youHaveJoinedTeamX">Þú gekkst til liðs við „%1$s“.</string>
+  <string name="someoneYouReportedWasBanned">Einhver sem þú tilkynntir var bannaður</string>
   <string name="congratsYouWon">Til hamingju, þú vannst!</string>
+  <string name="gameVsX">Skák á móti %1$s</string>
+  <string name="resVsX">%1$s á móti %2$s</string>
+  <string name="lostAgainstTOSViolator">Þú misstir skákstig fyrir einhvern sem braut gegn notkunarskilmálum Lichess</string>
 </resources>

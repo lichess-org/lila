@@ -423,7 +423,7 @@
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
-  <string name="toStudy">Μελέτη</string>
+  <string name="toStudy">Σπουδή</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
   <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
 ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>

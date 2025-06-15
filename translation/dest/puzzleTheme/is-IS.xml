@@ -5,10 +5,21 @@
   <string name="arabianMate">Arabíumát</string>
   <string name="backRankMate">Endaraðarmát</string>
   <string name="bishopEndgame">Biskups endatafl</string>
+  <string name="bishopEndgameDescription">Endatafl með einungis biskupum og peðum.</string>
   <string name="bodenMate">Bodens mát</string>
   <string name="castling">Hrókering</string>
   <string name="defensiveMove">Varnarleikur</string>
   <string name="endgame">Endatafl</string>
   <string name="fork">Gaffall</string>
+  <string name="knightEndgame">Endatafl með riddurum</string>
+  <string name="knightEndgameDescription">Endatafl með einungis riddurum og peðum.</string>
   <string name="mate">Mát</string>
+  <string name="pawnEndgame">Endatafl með peðum</string>
+  <string name="pawnEndgameDescription">Endatafl með einungis peðum.</string>
+  <string name="queenEndgame">Endatafl með drottningum</string>
+  <string name="queenEndgameDescription">Endatafl með einungis drottningum og peðum.</string>
+  <string name="queenRookEndgame">Drottning og hrók</string>
+  <string name="queenRookEndgameDescription">Endatafl með einungis drottningum, hrókum og peðum.</string>
+  <string name="rookEndgame">Endatafl með hrókum</string>
+  <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
 </resources>

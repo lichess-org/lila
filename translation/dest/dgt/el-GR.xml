@@ -2,33 +2,46 @@
 <resources>
   <string name="dgtBoard">Σκακιέρα DGT</string>
   <string name="lichessAndDgt">Το Lichess &amp; η σκακιέρα DGT</string>
-  <string name="dgtBoardRequirements">Απαιτήσεις Σκακιέρας DGT</string>
+  <string name="dgtBoardRequirements">Απαιτήσεις για τη σκακιέρα DGT</string>
   <string name="dgtBoardLimitations">Περιορισμοί της Σκακιέρας DGT</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Για να συνδεθείτε με την ηλεκτρονική σκακιέρα DGT, πρέπει να εγκαταστήσετε το %s.</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Αυτή η σελίδα σάς επιτρέπει να συνδέσετε μια σκακιέρα DGT με το Lichess και να τη χρησιμοποιήσετε για τις παρτίδες σας.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Για να συνδεθείτε με την ηλεκτρονική σκακιέρα DGT, πρέπει να εγκαταστήσετε το πρόγραμμα %s.</string>
   <string name="downloadHere">Μπορείτε να κατεβάσετε το λογισμικό εδώ: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Εάν το %1$s εκτελείται σε αυτόν τον υπολογιστή, μπορείτε να ελέγξετε τη σύνδεσή σας με αυτό το πρόγραμμα %2$s.</string>
   <string name="openingThisLink">ανοίγοντας αυτόν τον σύνδεσμο</string>
-  <string name="ifLiveChessRunningElsewhere">Εάν το %1$s εκτελείται σε διαφορετικό υπολογιστή ή σε διαφορετική θύρα, θα χρειαστεί να ορίσετε τη διεύθυνση IP και τη θύρα στη %2$s.</string>
-  <string name="configurationSection">Ενότητα Ρυθμίσεων</string>
-  <string name="whenReadySetupBoard">Όταν είσαστε έτοιμοι, ρυθμίστε τη σκακιέρα σας και στη συνέχεια κάντε κλικ στο κουμπί %s.</string>
+  <string name="ifLiveChessRunningElsewhere">Εάν το %1$s εκτελείται σε διαφορετικό υπολογιστή ή σε διαφορετική θύρα, θα χρειαστεί να ορίσετε τη διεύθυνση IP και τη θύρα στην %2$s.</string>
+  <string name="configurationSection">ενότητα «Ρυθμίσεις»</string>
+  <string name="keepPlayPageOpen">Η καρτέλα που ανοίγει πατώντας το κουμπί «Παίξτε» πρέπει να παραμείνει ανοιχτή στο πρόγραμμα περιήγησης που χρησιμοποιείτε. Δε χρειάζεται να είναι ορατή – μπορείτε να την ελαχιστοποιήσετε ή να τη βάλετε δίπλα στη σελίδα παρτίδας του Lichess –, αλλά αν την κλείσετε, η σκακιέρα θα σταματήσει να λειτουργεί.</string>
+  <string name="boardWillAutoConnect">Η σκακιέρα θα συνδέεται αυτόματα με όποια παρτίδα βρίσκεται ήδη σε εξέλιξη ή με όποια νέα παρτίδα ξεκινά. Η δυνατότητα επιλογής παρτίδας δεν υποστηρίζεται προς το παρόν, αλλά πρόκειται να προστεθεί σύντομα.</string>
+  <string name="timeControlsForCasualGames">Χρόνος για φιλικές παρτίδες: Κλασικό, Δι\' αλληλογραφίας και Rapid μόνο.</string>
+  <string name="timeControlsForRatedGames">Χρόνος για βαθμολογημένες παρτίδες: Κλασικό, Δι\' αλληλογραφίας και κάποια Rapid, όπως 15+10 και 20+0</string>
+  <string name="whenReadySetupBoard">Όταν είστε έτοιμοι, ρυθμίστε τη σκακιέρα σας και στη συνέχεια κάντε κλικ στο κουμπί %s.</string>
   <string name="ifMoveNotDetected">Εάν δεν εντοπιστεί κάποια κίνηση</string>
-  <string name="reloadThisPage">Ανανέωση αυτής της σελίδας</string>
+  <string name="checkYouHaveMadeOpponentsMove">Βεβαιωθείτε αρχικά πως η κίνηση του αντιπάλου σας στη σκακιέρα DGT έχει καταγραφεί. Στη συνέχεια, ανακαλέστε τη δική σας κίνηση και ξαναπαίξτε.</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Αν δεν υπάρχει κάποια άλλη λύση, ρυθμίστε τη σκακιέρα ώστε να ταιριάζει ακριβώς με τη θέση στο Lichess και στη συνέχεια %s</string>
+  <string name="reloadThisPage">επαναφορτώστε αυτήν τη σελίδα</string>
   <string name="dgtConfigure">Ρυθμίσεις DGT</string>
   <string name="lichessConnectivity">Σύνδεση με το Lichess</string>
-  <string name="noSuitableOauthToken">Δεν έχει δημιουργηθεί κατάλληλο διακριτικό πρόσβασης OAuth.</string>
+  <string name="validDgtOauthToken">Διαθέτετε έγκυρο διακριτικό πρόσβασης (token) OAuth για χρήση με σκακιέρα DGT.</string>
+  <string name="dgtPlayMenuEntryAdded">Προστέθηκε μια καταχώριση %s στο μενού «Παίξτε» που βρίσκεται στο επάνω μέρος της σελίδας.</string>
+  <string name="noSuitableOauthToken">Δεν έχει δημιουργηθεί κατάλληλο διακριτικό πρόσβασης (token) OAuth.</string>
   <string name="dgtBoardConnectivity">Σύνδεση σκακιέρας DGT</string>
   <string name="clickToGenerateOne">Κάντε κλικ για να δημιουργήσετε ένα</string>
   <string name="webSocketUrl">WebSocket URL %s</string>
-  <string name="useWebSocketUrl">Χρησιμοποιήστε «%1$s», εκτός αν το %2$s εκτελείται σε άλλο υπολογιστή ή άλλη θύρα.</string>
+  <string name="useWebSocketUrl">Χρησιμοποιήστε τον σύνδεσμο «%1$s», εκτός αν το πρόγραμμα %2$s εκτελείται σε άλλο υπολογιστή ή σε άλλη θύρα.</string>
   <string name="textToSpeech">Κείμενο σε ομιλία</string>
-  <string name="enableSpeechSynthesis">Ενεργοποίηση Σύνθεσης Ομιλίας</string>
+  <string name="configureVoiceNarration">Ρυθμίστε την εκφώνηση των κινήσεων για να μπορείτε να συγκεντρωθείτε καλύτερα στην παρτίδα σας.</string>
+  <string name="enableSpeechSynthesis">Ενεργοποίηση σύνθεσης ομιλίας</string>
   <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
-  <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
-  <string name="selectAnnouncePreference">Επιλέξτε ΝΑΙ ώστε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε ΟΧΙ ώστε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
+  <string name="announceAllMoves">Ανακοίνωση όλων των κινήσεων</string>
+  <string name="selectAnnouncePreference">Επιλέξτε «Ναι» αν θέλετε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε «Όχι» αν θέλετε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
+  <string name="announceMoveFormat">Μορφή ανακοίνωσης κίνησης</string>
+  <string name="moveFormatDescription">Η μορφή SAN είναι τυπική στο Lichess, π.χ. \"Nf6\". Αντίθετα, η μορφή UCI είναι περισσότερο συνηθισμένη στις σκακιστικές μηχανές, π.χ. \"g8f6\".</string>
   <string name="keywords">Λέξεις-κλειδιά</string>
-  <string name="debug">Αποσφαλμάτωση</string>
+  <string name="keywordFormatDescription">Οι λέξεις-κλειδιά βρίσκονται σε μορφή JSON και χρησιμοποιούνται για τη μετάφραση των κινήσεων και των αποτελεσμάτων τους στη γλώσσα σας. Η προεπιλεγμένη γλώσσα είναι τα Αγγλικά, αλλά μπορείτε να την αλλάξετε.</string>
+  <string name="debug">Αποσφαλμάτωση (Debug)</string>
   <string name="verboseLogging">Λεπτομερής καταγραφή</string>
   <string name="toSeeConsoleMessage">Για να δείτε το μήνυμα κονσόλας, πατήστε Ctrl + Shift + C (Windows, Linux, Chrome OS) ή ⌘ + ⌥ + C (Mac).</string>
-  <string name="playWithDgtBoard">Παίξτε με σκακιέρα DGT</string>
+  <string name="playWithDgtBoard">Παίξτε με τη σκακιέρα DGT</string>
   <string name="configure">Ρυθμίσεις</string>
 </resources>

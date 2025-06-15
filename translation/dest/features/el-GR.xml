@@ -2,16 +2,28 @@
 <resources>
   <string name="zeroAdsAndNoTracking">Χωρίς διαφημίσεις, χωρίς παρακολούθηση</string>
   <string name="correspondenceWithConditionalPremoves">Σκάκι δι\' αλληλογραφίας με υπό όρους προκινήσεις</string>
-  <string name="standardChessAndX" comment="%s is 8 variants">Σκάκι και %s</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Κλασικό σκάκι και %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Ανάλυση σε βάθος από το %s στους διακομιστές του Lichess</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s παρτίδες ανά ημέρα</item>
     <item quantity="other">%s παρτίδες ανά ημέρα</item>
   </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Προετοιμαστής σκακιέρας και σκακιέρα ανάλυσης με το %s</string>
+  <string name="cloudEngineAnalysis">Ανάλυση με μηχανή στο cloud</string>
+  <string name="studies">Σπουδές (ανάλυση με δυνατότητα κοινοποίησης και αποθήκευσης)</string>
+  <string name="chessInsights">Στατιστικά των παρτίδων σας (λεπτομερής ανάλυση του στυλ παιχνιδιού σας)</string>
   <string name="allChessBasicsLessons">Όλα τα βασικά μαθήματα σκακιού</string>
-  <string name="tacticalPuzzlesFromUserGames">Τακτικά παζλ από τις παρτίδες των χρηστών</string>
-  <string name="personalOpeningExplorerX">%1$s (επίσης λειτουργεί σε %2$s)</string>
+  <string name="tacticalPuzzlesFromUserGames">Τακτικά από τις παρτίδες των χρηστών</string>
+  <string name="personalOpeningExplorerX">%1$s (επίσης λειτουργεί και για %2$s)</string>
+  <string name="personalOpeningExplorer">Προσωπικός εξερευνητής ανοιγμάτων</string>
+  <string name="globalOpeningExplorerInNbGames">Εξερευνητής ανοιγμάτων (με %s παρτίδες!)</string>
+  <string name="endgameTablebase">Tablebase για φινάλε με 7 κομμάτια</string>
   <string name="downloadOrUploadAnyGameAsPgn">Λήψη και μεταφόρτωση παιχνιδιών σε μορφή PGN</string>
-  <string name="allFeaturesToCome">Όλες οι λειτουργίες που θα έρθουν, για πάντα!</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Ιστολόγιο, φόρουμ, ομάδες, TV, προσωπικές και ομαδικές συνομιλίες, προκλήσεις</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Ανοιχτόχρωμο/Σκουρόχρωμο θέμα εμφάνισης, προσαρμογή σκακιέρας, κομματιών και φόντου</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Κλασικό, Σκάκι δι\' αλληλογραφίας</string>
+  <string name="allFeaturesToCome">Όλα τα νέα χαρακτηριστικά που θα προστεθούν, για πάντα!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android τηλέφωνα και tablet, με προβολή σε οριζόντια διάταξη</string>
   <string name="everybodyGetsAllFeaturesForFree">Ναι, και οι δύο λογαριασμοί έχουν τα ίδια χαρακτηριστικά!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Πιστεύουμε ότι κάθε σκακιστής αξίζει το καλύτερο, και έτσι:</string>
   <string name="allFeaturesAreFreeForEverybody">Όλες οι λειτουργίες είναι δωρεάν για όλους, για πάντα!</string>

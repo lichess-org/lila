@@ -22,6 +22,7 @@
   <string name="asBlack">como prietes</string>
   <string name="randomColor">Llau aleatoriu</string>
   <string name="createAGame">Crear una partida</string>
+  <string name="createTheGame">Crea xuna partida</string>
   <string name="whiteIsVictorious">Blanques ganen</string>
   <string name="blackIsVictorious">Prietes ganen</string>
   <string name="youPlayTheWhitePieces">Xuegas con blanques</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Espandir variante</string>
   <string name="forceVariation">Convertir en variante</string>
   <string name="copyVariationPgn">Copiar la variante PGN</string>
+  <string name="copyMainLinePgn">Copiar PGN de la variante principal</string>
   <string name="move">Mover</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -166,6 +168,7 @@
   <string name="drawByMutualAgreement">Tables per alcuerdu mutuu</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movimientos ensin progresu</string>
   <string name="currentGames">Partíes actuales</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Xunióse fai %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partíes</item>
@@ -348,7 +351,15 @@
   <string name="openingExplorerAndTablebase">Esplorador d\'apertures y base de datos de finales</string>
   <string name="takeback">Desfaer xugada</string>
   <string name="proposeATakeback">Proponer desfaer xugada</string>
+  <string name="whiteProposesTakeback">Les blanques proponen desfacer la xugada</string>
+  <string name="blackProposesTakeback">Les negres proponen desfacer la xugada</string>
   <string name="takebackPropositionSent">Propuesta de desfaer xugada unviada</string>
+  <string name="whiteDeclinesTakeback">Les blanques refuguen desfaer la xugada</string>
+  <string name="blackDeclinesTakeback">Les negres refuguen desfaer la xugada</string>
+  <string name="whiteAcceptsTakeback">Les blanques acepten desfaer la xugada</string>
+  <string name="blackAcceptsTakeback">Les negres acepten desfaer la xugada</string>
+  <string name="whiteCancelsTakeback">Les blanques encaboxaron desfaer la xugada</string>
+  <string name="blackCancelsTakeback">Les negres encaboxaron desfaer la xugada</string>
   <string name="yourOpponentProposesATakeback">El to oponente propón desfacer la xugada</string>
   <string name="bookmarkThisGame">Marcar esti xuegu como favoritu</string>
   <string name="tournament">Tornéu</string>
@@ -668,6 +679,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuyir</string>
   <string name="termsOfService">Términos de Serviciu</string>
+  <string name="titleVerification">Verificación de títulu</string>
   <string name="sourceCode">Códigu Fonte</string>
   <string name="simultaneousExhibitions">Partíes simultánees</string>
   <string name="host">Agospiu</string>
@@ -996,4 +1008,7 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
 Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puramente con donaciones de los usuarios.</string>
   <string name="nothingToSeeHere">Na que ver equí por agora.</string>
   <string name="stats">Estadístiques</string>
+  <string name="accessibility">Accesibilidá</string>
+  <string name="enableBlindMode">Activar mou a la ciega</string>
+  <string name="disableBlindMode">Desactivar mou a la ciega</string>
 </resources>
