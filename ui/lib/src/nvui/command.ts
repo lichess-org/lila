@@ -15,7 +15,7 @@ export const commands: () => Commands = memoize(() => ({
   piece: {
     help: i18n.nvui.announcePieceLocations,
     apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
-      return tryC(c, /^\/?p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
+      return tryC(c, /^\/?p ([apnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
