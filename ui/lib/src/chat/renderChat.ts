@@ -1,6 +1,6 @@
 import * as licon from '../licon';
 import { type VNode, looseH as h, bind } from '../snabbdom';
-import type { Tab, Palantir } from './interfaces';
+import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
@@ -15,18 +15,18 @@ export function renderChat(ctrl: ChatCtrl): VNode {
   );
 }
 
-function renderPalantir(ctrl: ChatCtrl) {
-  const p = ctrl.palantir;
+function renderVoiceChat(ctrl: ChatCtrl) {
+  const p = ctrl.voiceChat;
   if (!p.enabled()) return;
   return p.instance
     ? p.instance.render()
-    : h('div.mchat__tab.palantir.palantir-slot', {
+    : h('div.mchat__tab.voicechat.voicechat-slot', {
         attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
             site.asset
-              .loadEsm<Palantir>('palantir', {
+              .loadEsm<VoiceChat>('bits.voiceChat', {
                 init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
               })
               .then(m => {
@@ -43,7 +43,7 @@ function normalView(ctrl: ChatCtrl) {
   return [
     h('div.mchat__tabs.nb_' + ctrl.visibleTabs.length, { attrs: { role: 'tablist' } }, [
       ...ctrl.visibleTabs.map(t => renderTab(ctrl, t, active)),
-      renderPalantir(ctrl),
+      renderVoiceChat(ctrl),
     ]),
     h(
       'div.mchat__content.' + active.key,

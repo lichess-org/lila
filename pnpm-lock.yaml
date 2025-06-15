@@ -136,6 +136,9 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.5
         version: 1.5.5
+      '@types/webrtc':
+        specifier: ^0.0.46
+        version: 0.0.46
       '@types/yaireo__tagify':
         specifier: 4.27.0
         version: 4.27.0
@@ -163,6 +166,9 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
+      peerjs:
+        specifier: ^1.5.5
+        version: 1.5.5
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -417,18 +423,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-
-  ui/palantir:
-    dependencies:
-      '@types/webrtc':
-        specifier: ^0.0.44
-        version: 0.0.44
-      lib:
-        specifier: workspace:*
-        version: link:../lib
-      peerjs:
-        specifier: ^1.5.4
-        version: 1.5.4
 
   ui/puzzle:
     dependencies:
@@ -1016,8 +1010,8 @@ packages:
   '@types/webidl-conversions@7.0.3':
     resolution: {integrity: sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==}
 
-  '@types/webrtc@0.0.44':
-    resolution: {integrity: sha512-4BJZdzrApNFeuXgucyqs24k69f7oti3wUcGEbFbaV08QBh7yEe3tnRRuYXlyXJNXiumpZujiZqUZZ2/gMSeO0g==}
+  '@types/webrtc@0.0.46':
+    resolution: {integrity: sha512-cvCnjKy0ma9ODWbVYBTMMB+WkocwLcscCwn2/caDVdb9MWaesS8PYGapIIHFsAaIBXRFlH1Fc7ZjIBO6pH0HKA==}
 
   '@types/whatwg-url@11.0.5':
     resolution: {integrity: sha512-coYR071JRaHa+xoEvvYqvnIHaVqaYrLPbsufM9BF63HkwI5Lgmy2QR8Q5K/lYDYo5AK82wOvSOS0UsLTpTG7uQ==}
@@ -1931,8 +1925,8 @@ packages:
     resolution: {integrity: sha512-YIwCC+pTzp3Bi8jPI9UFKO0t0SLo6xALnHkiNt/iUFmUUZG0fEEmEyFKvjsDKweiFitzHRyhuh6NvyJZ4nNxMg==}
     engines: {node: '>= 14.0.0'}
 
-  peerjs@1.5.4:
-    resolution: {integrity: sha512-yFsoLMnurJKlQbx6kVSBpOp+AlNldY1JQS2BrSsHLKCZnq6t7saHleuHM5svuLNbQkUJXHLF3sKOJB1K0xulOw==}
+  peerjs@1.5.5:
+    resolution: {integrity: sha512-viMUCPDL6CSfOu0ZqVcFqbWRXNHIbv2lPqNbrBIjbFYrflebOjItJ4hPfhjnuUCstqciHVu9vVJ7jFqqKi/EuQ==}
     engines: {node: '>= 14'}
 
   picocolors@1.1.1:
@@ -2810,7 +2804,7 @@ snapshots:
 
   '@types/webidl-conversions@7.0.3': {}
 
-  '@types/webrtc@0.0.44': {}
+  '@types/webrtc@0.0.46': {}
 
   '@types/whatwg-url@11.0.5':
     dependencies:
@@ -3777,7 +3771,7 @@ snapshots:
 
   peerjs-js-binarypack@2.1.0: {}
 
-  peerjs@1.5.4:
+  peerjs@1.5.5:
     dependencies:
       '@msgpack/msgpack': 2.8.0
       eventemitter3: 4.0.7
