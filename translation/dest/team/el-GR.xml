@@ -65,6 +65,8 @@
 
 Δεν μπορείτε να διαγράψετε μια ομάδα εάν τουλάχιστον ένας παίκτης της συμμετέχει στο τουρνουά με αυτήν.</string>
   <string name="numberOfLeadsPerTeam">Πλήθος αρχηγών ανά ομάδα. Οι πόντοι μιας ομάδας υπολογίζονται αθροίζοντας τους επιμέρους πόντους των αρχηγών της.</string>
+  <string name="numberOfLeadsPerTeamHelp">Δε συνιστάται η αλλαγή αυτής της τιμής μετά από την έναρξη του τουρνουά!</string>
+  <string name="innerTeam">Εσωτερικό τουρνουά ομάδας</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Μάχη %s ομάδας</item>
     <item quantity="other">Μάχη %s ομάδων</item>
