@@ -80,4 +80,5 @@
   <string name="allBroadcastsByMonth">Προβολή όλων των αναμεταδόσεων ανά μήνα</string>
   <string name="backToLiveMove">Επιστροφή στην τρέχουσα κίνηση</string>
   <string name="sinceHideResults">Εφόσον επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης είναι κενές ώστε να αποφευχθούν σπόιλερς.</string>
+  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Ζωντανά</string>
 </resources>
