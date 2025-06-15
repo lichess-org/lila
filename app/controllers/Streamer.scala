@@ -32,7 +32,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           Json.obj(
             "url"    -> routes.Streamer.redirect(s.streamer.userId).absoluteURL(),
             "status" -> s.status,
-            "user" -> Json
+            "user"   -> Json
               .obj(
                 "id"   -> s.streamer.userId,
                 "name" -> s.streamer.name

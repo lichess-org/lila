@@ -18,7 +18,7 @@ object ConditionHandlers:
     given BSONHandler[AccountAge]          = Macros.handler
     given BSONDocumentHandler[TeamMember]  = Macros.handler
     given BSONDocumentHandler[AllowList]   = Macros.handler
-    given BSONHandler[Bots] =
+    given BSONHandler[Bots]                =
       quickHandler[Bots]({ case BSONBoolean(v) => Bots(v) }, bots => BSONBoolean(bots.allowed))
 
   object JSONHandlers:
@@ -30,9 +30,9 @@ object ConditionHandlers:
         "list" -> verdicts.list.map { case WithVerdict(cond, verd) =>
           Json.obj(
             "condition" -> cond.name(pt),
-            "verdict" -> verd.match
-              case Accepted        => JsString("ok")
-              case Refused(reason) => reason(translate)
+            "verdict"   -> verd.match
+              case Accepted            => JsString("ok")
+              case Refused(reason)     => reason(translate)
               case RefusedUntil(until) =>
                 val date = DateTimeFormatter
                   .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)

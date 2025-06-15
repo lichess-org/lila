@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.variant.Variant
-import chess.{ Clock, Mode }
+import chess.{ Clock, Rated }
 import chess.IntRating
 import scalalib.model.Days
 
@@ -16,7 +16,7 @@ case class HookConfig(
     time: Double, // minutes
     increment: Clock.IncrementSeconds,
     days: Days,
-    mode: Mode,
+    rated: Rated,
     color: TriColor,
     ratingRange: RatingRange
 ) extends HumanConfig:
@@ -31,7 +31,7 @@ case class HookConfig(
     time,
     increment,
     days,
-    mode.id.some,
+    rated.id.some,
     ratingRange.toString.some,
     color.name.some
   ).some
@@ -57,7 +57,7 @@ case class HookConfig(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
+            rated = if lila.core.game.allowRated(variant, clock.some) then rated else Rated.No,
             color = color,
             user = user,
             blocking = blocking,
@@ -70,7 +70,7 @@ case class HookConfig(
             Seek.make(
               variant = variant,
               daysPerTurn = makeDaysPerTurn,
-              mode = mode,
+              rated = rated,
               user = u,
               blocking = blocking,
               ratingRange = ratingRange
@@ -83,9 +83,9 @@ case class HookConfig(
       time = game.clock.map(_.limitInMinutes) | time,
       increment = game.clock.map(_.incrementSeconds) | increment,
       days = game.daysPerTurn | days,
-      mode = game.mode
+      rated = game.rated
     )
-    val h2 = if h1.isRatedUnlimited then h1.copy(mode = Mode.Casual) else h1
+    val h2 = if h1.isRatedUnlimited then h1.copy(rated = Rated.No) else h1
     if !h2.validClock then h2.copy(time = 1) else h2
 
   def withRatingRange(ratingRange: String) =
@@ -93,7 +93,7 @@ case class HookConfig(
   def withRatingRange(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
     copy(ratingRange = lila.rating.RatingRange.orDefault(rating, deltaMin, deltaMax))
 
-object HookConfig extends BaseHumanConfig:
+object HookConfig extends BaseConfig:
 
   def from(
       v: Variant.Id,
@@ -105,19 +105,18 @@ object HookConfig extends BaseHumanConfig:
       e: Option[String],
       c: Option[String]
   ) =
-    val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm).err(s"Invalid time mode $tm"),
       time = t,
       increment = i,
       days = d,
-      mode = realMode,
+      rated = m.fold(Rated.default)(Rated.orDefault),
       color = TriColor.orDefault(c),
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault)
     )
 
-  def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
+  def default(auth: Boolean): HookConfig = default.copy(rated = Rated(auth))
 
   private val default = HookConfig(
     variant = variantDefault,
@@ -125,7 +124,7 @@ object HookConfig extends BaseHumanConfig:
     time = 5d,
     increment = Clock.IncrementSeconds(3),
     days = Days(2),
-    mode = Mode.default,
+    rated = Rated.default,
     ratingRange = RatingRange.default,
     color = TriColor.default
   )
@@ -142,7 +141,7 @@ object HookConfig extends BaseHumanConfig:
         time = r.double("t"),
         increment = r.get("i"),
         days = r.get("d"),
-        mode = Mode.orDefault(r.int("m")),
+        rated = Rated.orDefault(r.int("m")),
         color = TriColor.Random,
         ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default)
       )
@@ -154,6 +153,6 @@ object HookConfig extends BaseHumanConfig:
         "t"  -> o.time,
         "i"  -> o.increment,
         "d"  -> o.days,
-        "m"  -> o.mode.id,
+        "m"  -> o.rated.id,
         "e"  -> o.ratingRange.toString
       )

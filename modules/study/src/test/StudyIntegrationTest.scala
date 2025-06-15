@@ -273,7 +273,7 @@ object Fixtures:
   val m5   = s"""$m4\n{"t":"clearAnnotations","d":"kMOZO15F"}"""
   val pgn5 = "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5 4. Bd3) (3. e5 c5) 3... dxe4 (3... Bb4) 4. Nxe4 Nd7"
 
-  val m6 = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
+  val m6   = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 

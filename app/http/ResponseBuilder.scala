@@ -48,7 +48,7 @@ trait ResponseBuilder(using Executor)
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { if _ then f else notFound }
 
-  def rateLimited(using Context): Fu[Result] = rateLimited(rateLimitedMsg)
+  def rateLimited(using Context): Fu[Result]                                    = rateLimited(rateLimitedMsg)
   def rateLimited(msg: String = rateLimitedMsg)(using ctx: Context): Fu[Result] = negotiate(
     html =
       if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -75,7 +75,7 @@ trait ResponseBuilder(using Executor)
       result
     )
 
-  def notFound(using ctx: Context): Fu[Result] = notFound(none)
+  def notFound(using ctx: Context): Fu[Result]                      = notFound(none)
   def notFound(msg: Option[String])(using ctx: Context): Fu[Result] =
     negotiate(
       html =

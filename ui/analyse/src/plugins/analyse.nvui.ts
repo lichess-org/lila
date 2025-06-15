@@ -228,7 +228,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               },
             },
           }),
-          h('h2', 'Settings'),
+          h('h2', i18n.site.advancedSettings),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
@@ -363,7 +363,7 @@ function onSubmit(
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
-  help: VNode;
+  help: VNode | string;
   cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
   invalid?: (ctrl: AnalyseController) => boolean;
 };
@@ -371,20 +371,20 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    help: commands.piece.help,
+    help: commands().piece.help,
     cb: (ctrl, notify, style, input) =>
       notify(
-        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+        commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help,
+    help: commands().scan.help,
     cb: (ctrl, notify, style, input) =>
       notify(
-        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ||
-          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+        commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {

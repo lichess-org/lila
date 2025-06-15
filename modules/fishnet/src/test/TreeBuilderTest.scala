@@ -56,7 +56,7 @@ object TreeBuilderTest:
         .newGame(
           g,
           ByColor(Player(GamePlayerId("abcd"), _, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = none
         )

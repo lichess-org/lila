@@ -17,8 +17,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     NoBot:
       ctx.me
         .match
-          case _ if getBool("home") => renderHome
-          case None                 => renderHome
+          case _ if getBool("home")                                   => renderHome
+          case None                                                   => renderHome
           case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
             Ok.async:
               env.clas.api.clas
@@ -28,13 +28,13 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           case Some(me) =>
             for
               hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
-              res <-
+              res     <-
                 if hasClas
                 then
                   for
                     ids     <- env.clas.api.student.clasIdsOfUser(me)
                     classes <- env.clas.api.clas.byIds(ids)
-                    res <- classes match
+                    res     <- classes match
                       case List(single) => redirectTo(single).toFuccess
                       case many         => Ok.page(views.clas.clas.studentIndex(many))
                   yield res
@@ -100,7 +100,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           teachers <- env.clas.api.clas.teachers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
-          page <- renderPage:
+          page     <- renderPage:
             views.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students)
         yield Ok(page),
       orDefault = _ =>

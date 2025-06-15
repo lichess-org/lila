@@ -120,7 +120,7 @@ final private class Finisher(
         variant = game.variant.key.value,
         source = game.source.fold("unknown")(_.name),
         speed = game.speed.name,
-        mode = game.mode.name,
+        mode = game.rated.name,
         status = status.name
       )
       .increment()
@@ -164,10 +164,17 @@ final private class Finisher(
     (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
-      val result =
+      val result    =
         if game.winnerUserId.has(user.id) then 1
         else if game.loserUserId.has(user.id) then -1
         else 0
       userRepo
-        .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
+        .incNbGames(
+          user.id,
+          game.rated.yes,
+          game.hasAi,
+          result = result,
+          totalTime = totalTime,
+          tvTime = tvTime
+        )
         .void

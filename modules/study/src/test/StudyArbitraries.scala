@@ -12,10 +12,10 @@ import lila.tree.{ Metas, NewBranch, NewRoot, NewTree, Clock }
 
 object StudyArbitraries:
 
-  given Arbitrary[NewRoot] = Arbitrary(genRoot(Position(chess.variant.Standard)))
+  given Arbitrary[NewRoot] = Arbitrary(genRoot(chess.variant.Standard.initialPosition))
   type RootWithPath = (NewRoot, UciPath)
-  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Position(chess.variant.Standard)))
-  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Position(chess.variant.Standard)))
+  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(chess.variant.Standard.initialPosition))
+  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(chess.variant.Standard.initialPosition))
 
   given Arbitrary[Clock] = Arbitrary:
     for
@@ -105,7 +105,7 @@ object StudyArbitraries:
       dest  <- Arbitrary.arbitrary[Square]
     yield Shape.Arrow(brush, orig, dest)
 
-  given Arbitrary[Shape.Brush] = Arbitrary(Gen.oneOf('G', 'R', 'Y', 'B').map(toBrush))
+  given Arbitrary[Shape.Brush]                  = Arbitrary(Gen.oneOf('G', 'R', 'Y', 'B').map(toBrush))
   private def toBrush(color: Char): Shape.Brush =
     color match
       case 'G' => "green"

@@ -119,23 +119,30 @@ export function initModule() {
             {
               hook: onInsert(el => {
                 const $board = $(el);
-                $board.on('keydown', jumpOrCommand(ctrl));
                 const $buttons = $board.find('button');
                 const steps = ctrl.tree.getNodeList(ctrl.path);
                 const fenSteps = () => steps.map(step => step.fen);
                 const opponentColor = opposite(ctrl.pov);
-                $board.on(
+
+                $buttons.on(
                   'click',
                   selectionHandler(() => opponentColor, selectSound),
                 );
-                $board.on('keydown', arrowKeyHandler(ctrl.pov, borderSound));
-                $buttons.on(
-                  'keydown',
-                  lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
-                );
-                $buttons.on('keydown', possibleMovesHandler(ctrl.pov, ground, 'standard', steps));
-                $buttons.on('keydown', positionJumpHandler());
-                $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
+                $buttons.on('keydown', (e: KeyboardEvent) => {
+                  if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+                  else if (['o'].includes(e.key)) boardCommandsHandler()(e);
+                  else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
+                  else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+                  else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+                  else if (e.key.toLowerCase() === 'm')
+                    possibleMovesHandler(ctrl.pov, ground, 'standard', steps)(e);
+                  else if (e.key === 'c')
+                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
+                  else if (e.key === 'i') {
+                    e.preventDefault();
+                    $('input.move').get(0)?.focus();
+                  }
+                });
               }),
             },
             renderBoard(
@@ -148,7 +155,7 @@ export function initModule() {
             ),
           ),
           h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-          h('h2', 'Settings'),
+          h('h2', i18n.site.advancedSettings),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
@@ -171,8 +178,8 @@ export function initModule() {
               'Type these commands in the move input.',
               `v: ${i18n.site.viewTheSolution}`,
               'l: Read last move.',
-              commands.piece.help,
-              commands.scan.help,
+              commands().piece.help,
+              commands().scan.help,
             ].reduce(addBreaks, []),
           ),
           ...boardCommands(),
@@ -239,8 +246,8 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else
     notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
+      commands().piece.apply(c, pieces, style) ||
+        commands().scan.apply(c, pieces, style) ||
         `Invalid command: ${c}`,
     );
 }
@@ -318,12 +325,10 @@ const button = (text: string, action: (e: Event) => void, title?: string, disabl
     text,
   );
 
-function jumpOrCommand(ctrl: PuzzleCtrl) {
+function nextOrPrev(ctrl: PuzzleCtrl) {
   return (e: KeyboardEvent) => {
-    if (e.shiftKey) {
-      if (e.key === 'A') doAndRedraw(ctrl, prev);
-      else if (e.key === 'D') doAndRedraw(ctrl, controlNext);
-    } else boardCommandsHandler()(e);
+    if (e.key === 'A') doAndRedraw(ctrl, prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, controlNext);
   };
 }
 

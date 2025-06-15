@@ -121,8 +121,8 @@ object protocol:
 
   object Out:
 
-    def boot             = "boot"
-    def pong(id: String) = s"pong $id"
+    def boot                                = "boot"
+    def pong(id: String)                    = s"pong $id"
     def tellSri(sri: Sri, payload: JsValue) =
       s"tell/sri $sri ${Json.stringify(payload)}"
     def tellSris(sris: Iterable[Sri], payload: JsValue) =

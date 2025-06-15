@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Puzzels zoeken</string>
   <string name="fromMyGamesNone">Je hebt geen puzzels in de database staan, maar Lichess waardeert je nog steeds heel erg.
 Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jouw partijen wordt toegevoegd!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Één puzzel gevonden in partijen van %2$s</item>
+    <item quantity="other">%1$s puzzels gevonden in partijen van %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Train, analyseer, verbeter</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gespeeld</item>

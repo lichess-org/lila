@@ -22,7 +22,7 @@ final private class FarmBoostDetection(
    * - recent game in same matchup has same first SAME_PLIES and same winner
    */
   def botFarming(g: Game): Fu[Boolean] =
-    (g.finished && g.rated && g.userIds.exists(isBotSync))
+    (g.finished && g.rated.yes && g.userIds.exists(isBotSync))
       .so(g.twoUserIds)
       .so: (u1, u2) =>
         crosstableApi(u1, u2).flatMap: ct =>
@@ -43,7 +43,7 @@ final private class FarmBoostDetection(
       .so: winner =>
         val perf       = winner.perfs(g.perfKey)
         val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
-        def minMoves =
+        def minMoves   =
           if g.variant.standard
           then linearInterpolation(perf.nb)(0 -> 40, 5 -> 20)
           else reasonableMinimumNumberOfMoves(g.variant)

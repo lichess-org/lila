@@ -9,6 +9,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.security.spamKeywordsSetting,
     env.security.proxy2faSetting,
     env.security.mobileSignupProxy,
+    env.security.alwaysCaptcha,
     env.oAuth.originBlocklistSetting,
     env.mailer.mailerSecondaryPermilleSetting,
     env.mailer.canSendEmailsSetting,

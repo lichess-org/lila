@@ -14,7 +14,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
         arenas  <- env.tournament.leaderboardApi.recentByUser(user, 1)
         swisses <- env.activity.read.recentSwissRanks(user.id)
         povs    <- fetchGames(user, filter)
-        games <-
+        games   <-
           if isGranted(_.UserEvaluate)
           then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs).map(Right.apply)
           else fuccess(Left(povs))
@@ -41,7 +41,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       bindForm(actionForm)(
         err => BadRequest(err.toString),
         {
-          case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
+          case (gameIds, Some("pgn"))                                         => downloadPgn(user, gameIds)
           case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
             multipleAnalysis(me, gameIds)
           case _ => notFound
@@ -52,7 +52,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
   private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =
     for
       games <- env.game.gameRepo.unanalysedGames(gameIds)
-      _ <- games.sequentiallyVoid: game =>
+      _     <- games.sequentiallyVoid: game =>
         env.fishnet
           .analyser(
             game,

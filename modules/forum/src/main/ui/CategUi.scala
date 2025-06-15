@@ -139,7 +139,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             case Some((topic, post, page)) =>
               val canBrowse = isMod || !view.categ.hidden
               val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
-              val categUrl =
+              val categUrl  =
                 if canBrowse then routes.ForumCateg.show(view.slug)
                 else routes.ForumTopic.show(view.slug, topic.slug, 1)
               tr(

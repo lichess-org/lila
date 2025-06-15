@@ -194,7 +194,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             openings.map: op =>
               a(
                 dataFen := op.opening.ref.fen,
-                cls := List(
+                cls     := List(
                   "blpt puzzle-openings__link" -> true,
                   "opening-mine"               -> mine.exists(_.variationKeys(op.opening.key))
                 ),

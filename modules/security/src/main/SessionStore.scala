@@ -31,7 +31,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def authInfo(sessionId: String) = authCache.get(sessionId)
 
-  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private val authInfoProjection         = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
@@ -122,7 +122,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     for _ <- coll.delete.one($doc("user" -> userId))
     yield uncacheAllOf(userId)
 
-  private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
+  private given BSONDocumentHandler[UserSession]                   = Macros.handler[UserSession]
   def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
     coll
       .find($doc("user" -> userId, "up" -> true))
@@ -138,7 +138,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     lila.security.FingerHash.from(fp) match
-      case None => fufail(s"Can't hash $id's fingerprint $fp")
+      case None       => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         for
           _ <- coll.updateField($id(id), "fp", hash)

@@ -19,21 +19,21 @@ object Dependencies {
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val compression = "com.github.lichess-org"        % "compression"                     % "3.1.1"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
+  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.1" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.35.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.37.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.6.0.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.7.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.1.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.9-SNAPSHOT"
-  val munit       = "org.scalameta"              %% "munit"         % "1.1.1" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.19.0"
-  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.1"
-  val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
-  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.5.0"
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.2.Final").classifier(s"$os-$arch")
+  val lilaSearch  = "com.github.lichess-org.lila-search" %% "client"        % "3.1.9"
+  val munit       = "org.scalameta"                      %% "munit"         % "1.1.1" % Test
+  val uaparser    = "org.uaparser"                       %% "uap-scala"     % "0.19.0"
+  val apacheText  = "org.apache.commons"                  % "commons-text"  % "1.13.1"
+  val apacheMath  = "org.apache.commons"                  % "commons-math3" % "3.6.1"
+  val bloomFilter = "com.github.alexandrnikitin"         %% "bloom-filter"  % "0.13.1_lila-1"
+  val kittens     = "org.typelevel"                      %% "kittens"       % "3.5.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.1.0"  % Test
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.7.1"
+    val version  = "17.8.2"
     val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
     val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
@@ -52,7 +52,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.8.7"
+    val version  = "11.8.8"
     val core     = "com.github.lichess-org.scalalib" %% "scalalib-core"      % version
     val model    = "com.github.lichess-org.scalalib" %% "scalalib-model"     % version
     val playJson = "com.github.lichess-org.scalalib" %% "scalalib-play-json" % version
@@ -62,7 +62,7 @@ object Dependencies {
 
   object flexmark {
     val version = "0.64.8"
-    val bundle =
+    val bundle  =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
           .map { ext =>
@@ -88,7 +88,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.21"
+    val playVersion = "2.8.18-lila_3.22"
     val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion

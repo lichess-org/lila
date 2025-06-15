@@ -14,9 +14,9 @@ case class FormNavigation(
     targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
-  def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
-  def tourWithRounds = RelayTour.WithRounds(tour, rounds)
-  def round          = roundId.flatMap(id => rounds.find(_.id == id))
+  def tourWithGroup   = RelayTour.WithGroupTours(tour, group)
+  def tourWithRounds  = RelayTour.WithRounds(tour, rounds)
+  def round           = roundId.flatMap(id => rounds.find(_.id == id))
   def featurableRound = round
     .ifTrue(targetRound.isEmpty)
     .filter: r =>
@@ -31,7 +31,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       a(
         href     := routes.RelayTour.edit(nav.tour.id),
         dataIcon := Icon.RadioTower,
-        cls := List(
+        cls      := List(
           "text"                            -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
           "active"                          -> (nav.round.isEmpty && !nav.newRound)
@@ -42,8 +42,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       frag(
         nav.rounds.map: r =>
           a(
-            href := routes.RelayRound.edit(r.id),
-            cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
+            href     := routes.RelayRound.edit(r.id),
+            cls      := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
               if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
@@ -52,7 +52,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(r.name),
         a(
           href := routes.RelayRound.create(nav.tour.id),
-          cls := List(
+          cls  := List(
             "subnav__subitem text" -> true,
             "active"               -> nav.newRound,
             "button"               -> (nav.rounds.isEmpty && !nav.newRound)
@@ -64,7 +64,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     lila.ui.bits.pageMenuSubnav(
       cls := "relay-form__subnav",
       nav.group match
-        case None => tourAndRounds(none)
+        case None    => tourAndRounds(none)
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
@@ -97,7 +97,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
 
     def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
-      page(trb.newBroadcast.txt(), nav.copy(newRound = true)):
+      val newRoundNav = nav.copy(newRound = true)
+
+      page(trb.newBroadcast.txt(), newRoundNav):
         frag(
           boxTop(
             h1(
@@ -107,7 +109,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav)
+          inner(form, routes.RelayRound.create(nav.tour.id), newRoundNav)
         )
 
     def edit(
@@ -151,7 +153,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav: FormNavigation
     )(using ctx: Context) =
       val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
-      val lccWarning = for
+      val lccWarning            = for
         round    <- nav.round
         upstream <- round.sync.upstream
         if upstream.hasLcc
@@ -345,6 +347,36 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               half = true
             ):
               form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
+          )
+        ),
+        (nav.tour.showScores || nav.tour.showRatingDiffs).option(
+          form3.fieldset(
+            "Custom scoring",
+            toggle = nav.round.exists(_.customScoring.isDefined).some
+          )(
+            nav.tour.showRatingDiffs.option(
+              form3.group(form("rated"), raw("")): field =>
+                val withDefault =
+                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
+                form3.checkbox(
+                  withDefault,
+                  labelContent = frag("Rated round"),
+                  help = frag("Include this round when calculating players' rating changes").some
+                )
+            ),
+            Color.all.map: color =>
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("customScoring")(color.name)(result),
+                    raw(s"Points for a $result as ${color.name}")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
+            ,
+            p(
+              "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
+            )
           )
         ),
         Granter

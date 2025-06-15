@@ -94,7 +94,7 @@ final class PuzzleBits(helpers: Helpers):
               "datasets" -> Json.arr(
                 Json.obj(
                   "label" -> "Performance",
-                  "data" -> mostPlayed.map: (_, results) =>
+                  "data"  -> mostPlayed.map: (_, results) =>
                     results.performance
                 )
               )

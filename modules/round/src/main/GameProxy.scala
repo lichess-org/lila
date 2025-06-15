@@ -54,7 +54,7 @@ final private class GameProxy(
     cache.value match
       case Some(Success(Some(g))) => f(g)
       case Some(Success(None))    => fufail(s"No proxy game: $id")
-      case _ =>
+      case _                      =>
         cache.flatMap:
           case None    => fufail(s"No proxy game: $id")
           case Some(g) => f(g)
@@ -78,7 +78,7 @@ final private class GameProxy(
   private var scheduledFlush: Cancellable     = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
-    p.statusChanged || p.game.isSimul || (p.game.hasCorrespondenceClock && p.game.rated)
+    p.statusChanged || p.game.isSimul || (p.game.hasCorrespondenceClock && p.game.rated.yes)
 
   private def scheduleFlushProgress(): Unit =
     scheduledFlush.cancel()

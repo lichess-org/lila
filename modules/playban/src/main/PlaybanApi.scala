@@ -37,7 +37,7 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (blameableSource(game) && game.hasClock).so:
-      if game.rated then fuTrue
+      if game.rated.no then fuTrue
       else userApi.containsEngine(game.userIds).not
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
@@ -117,7 +117,7 @@ final class PlaybanApi(
       }
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
-    if game.casual && blameableSource(game) && isQuickResign(game, status)
+    if game.rated.no && blameableSource(game) && isQuickResign(game, status)
     then winner.map(game.opponent).flatMap(_.userId).so(handleQuickResign(game, _))
     else
       IfBlameable(game):
@@ -259,7 +259,7 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
-    trust <- userTrustApi.get(record.userId)
+    trust  <- userTrustApi.get(record.userId)
     newRec <- record
       .bannable(age, trust)
       .ifFalse(record.banInEffect)

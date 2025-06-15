@@ -49,7 +49,7 @@ class Context(
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
-  def canPalantir                 = kid.no && me.exists(!_.marks.troll)
+  def canVoiceChat                = kid.no && me.exists(!_.marks.troll)
   lazy val translate              = Translate(lila.i18n.Translator, lang)
 
 object Context:
@@ -102,7 +102,7 @@ final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
 
 object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
-  def apply(ctx: Context): EmbedContext = new EmbedContext(
+  def apply(ctx: Context): EmbedContext    = new EmbedContext(
     ctx,
     bg = ctx.req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
     nonce = Nonce.random

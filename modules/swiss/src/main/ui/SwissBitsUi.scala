@@ -7,8 +7,8 @@ import ScalatagsTemplate.{ *, given }
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   import helpers.{ *, given }
 
-  def link(swiss: Swiss): Tag     = link(swiss.id, swiss.name)
-  def link(swissId: SwissId): Tag = link(swissId, idToName(swissId))
+  def link(swiss: Swiss): Tag                   = link(swiss.id, swiss.name)
+  def link(swissId: SwissId): Tag               = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Tag =
     a(
       dataIcon := Icon.Trophy,
@@ -48,7 +48,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
                   " • ",
                   if s.variant.exotic then s.variant.name else s.perfType.trans,
                   " • ",
-                  if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+                  lila.gathering.ui.translateRated(s.settings.rated),
                   " • ",
                   s.estimatedDurationString
                 )
@@ -67,7 +67,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
     s.settings.dailyInterval match
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
-      case None =>
+      case None                            =>
         if s.settings.intervalSeconds < 60 then
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)

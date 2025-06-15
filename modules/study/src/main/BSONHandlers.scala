@@ -63,7 +63,7 @@ object BSONHandlers:
     {
       case BSONString(n) if n == UserId.lichess.value || n == "l" => Comment.Author.Lichess
       case BSONString(name)                                       => Comment.Author.External(name)
-      case doc: Bdoc =>
+      case doc: Bdoc                                              =>
         {
           for
             id   <- doc.getAsOpt[UserId]("id")
@@ -89,7 +89,7 @@ object BSONHandlers:
     private def writePocket(p: Crazyhouse.Pocket) =
       p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
-    def reads(r: Reader) =
+    def reads(r: Reader)              =
       Crazyhouse.Data(
         promoted = chess.Bitboard(r.getsD[Square]("o")),
         pockets = ByColor(
@@ -317,7 +317,7 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
-  given BSONHandler[Option[FideId]] = quickHandler(
+  given BSONHandler[Option[FideId]]                                = quickHandler(
     { case BSONInteger(v) => (v > 0).option(FideId(v)) },
     id => BSONInteger(id.so(_.value))
   )
@@ -326,7 +326,7 @@ object BSONHandlers:
 
   private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
-  given BSONHandler[Chapter.Check] = quickHandler[Chapter.Check](
+  given BSONHandler[Chapter.Check]      = quickHandler[Chapter.Check](
     { case BSONString(v) => if v == "#" then Chapter.Check.Mate else Chapter.Check.Check },
     v => BSONString(if v == Chapter.Check.Mate then "#" else "+")
   )

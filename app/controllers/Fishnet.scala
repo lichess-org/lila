@@ -75,7 +75,7 @@ final class Fishnet(env: Env) extends LilaController(env):
           ,
           data =>
             api.authenticateClient(data, req.ipAddress).flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
+              case Failure(msg)    => Unauthorized(jsonError(msg.getMessage))
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json.toJson(work))

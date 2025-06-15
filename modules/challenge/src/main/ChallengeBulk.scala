@@ -100,7 +100,7 @@ final class ChallengeBulkApi(
           .newGame(
             chess = chessGame,
             players = users.map(some).mapWithColor(lila.game.Player.make),
-            mode = bulk.mode,
+            rated = bulk.rated,
             source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
             pgnImport = None,

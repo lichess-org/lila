@@ -33,7 +33,7 @@ final class ChallengeApi(
       variant = config.variant,
       initialFen = config.position,
       timeControl = Challenge.makeTimeControl(config.clock, config.days),
-      mode = chess.Mode(config.rated),
+      rated = config.rated,
       color = "random",
       challenger = Challenger.Open,
       destUser = none,
@@ -144,8 +144,8 @@ final class ChallengeApi(
         then fuccess(Left("This color has already been chosen"))
         else
           for
-            me   <- withPerf
-            join <- joiner(c, me)
+            me     <- withPerf
+            join   <- joiner(c, me)
             result <- join match
               case Right(pov) =>
                 repo
@@ -205,7 +205,7 @@ final class ChallengeApi(
     socket.foreach(_.reload(id))
 
   private object notifyUser:
-    private val throttler = new lila.common.EarlyMultiThrottler[UserId](logger)
+    private val throttler           = new lila.common.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)

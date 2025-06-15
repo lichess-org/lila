@@ -83,7 +83,7 @@ final class Practice(
         studyJson <- env.study.jsonView.full(study, chapter, chapters.some, none, withMembers = false)
         initialFen = chapter.root.fen.some
         pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
-        baseData = env.round.jsonView
+        baseData   = env.round.jsonView
           .userAnalysisJson(
             pov,
             ctx.pref,

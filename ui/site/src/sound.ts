@@ -14,6 +14,7 @@ export default new (class implements SoundI {
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
+  voiceStorage = storage.make('speech.voice');
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
@@ -25,6 +26,7 @@ export default new (class implements SoundI {
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
+    window.speechSynthesis.getVoices(); // preload
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -129,6 +131,36 @@ export default new (class implements SoundI {
     return v >= 0 ? v : 0.7;
   };
 
+  getVoice = (): SpeechSynthesisVoice | undefined => {
+    let o: { name: string; lang: string } = { name: '', lang: document.documentElement.lang.split('-')[0] };
+    try {
+      o = JSON.parse(this.voiceStorage.get() ?? JSON.stringify(o));
+    } catch {}
+    const voiceMap = this.getVoiceMap();
+    const voice = voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
+    return voice;
+  };
+
+  getVoiceMap = (): Map<string, SpeechSynthesisVoice> => {
+    const voices = speechSynthesis.getVoices();
+    const voiceMap = new Map<string, SpeechSynthesisVoice>();
+
+    for (const code of ['en', document.documentElement.lang.split('-')[0], document.documentElement.lang]) {
+      voices
+        .filter(v => v.lang.startsWith(code))
+        .sort((a, b) => a.lang.localeCompare(b.lang))
+        .forEach(v => voiceMap.set(v.name, v));
+      // populate map with preferred regional language pronunciations taking precedence. if not matched
+      // exactly by documentElement.lang, the chosen region will be the last one lexicographically
+    }
+    return voiceMap;
+  };
+
+  setVoice = (o?: { name: string; lang: string }) => {
+    if (!o) this.voiceStorage.remove();
+    else this.voiceStorage.set(JSON.stringify({ name: o.name, lang: o.lang }));
+  };
+
   enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {
@@ -136,17 +168,25 @@ export default new (class implements SoundI {
     return this.speechStorage.get();
   };
 
-  say = (text: string, cut = false, force = false, translated = false) => {
+  say = (text: string, cut = false, force = false, translated = false) =>
+    this.sayLazy(() => text, cut, force, translated);
+
+  sayLazy = (text: () => string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
-      const msg = new SpeechSynthesisUtterance(text);
+      const msg = new SpeechSynthesisUtterance(text());
+      const selectedVoice = this.getVoice();
+      if (selectedVoice) {
+        msg.voice = selectedVoice;
+      } else {
+        msg.lang = translated ? document.documentElement.lang : 'en-GB';
+      }
       msg.volume = this.getVolume();
-      msg.lang = translated ? document.documentElement.lang : 'en-US';
       if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = () => this.listeners.forEach(l => l('start', text));
+        msg.onstart = () => this.listeners.forEach(l => l('start', text()));
         msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
       }
       window.speechSynthesis.speak(msg);
@@ -157,7 +197,7 @@ export default new (class implements SoundI {
     }
   };
 
-  saySan = (san?: San, cut?: boolean, force?: boolean) => this.say(speakable(san), cut, force);
+  saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 

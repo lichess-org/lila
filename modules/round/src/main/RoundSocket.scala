@@ -84,7 +84,7 @@ final class RoundSocket(
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
     given proxy: GameProxy = GameProxy(id, proxyDependencies, gameFu)
-    val roundActor = RoundAsyncActor(
+    val roundActor         = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
@@ -133,7 +133,7 @@ final class RoundSocket(
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId)
     case Protocol.In.Berserk(gameId, userId) => Bus.pub(Berserk(gameId, userId))
-    case Protocol.In.PlayerOnlines(onlines) =>
+    case Protocol.In.PlayerOnlines(onlines)  =>
       onlines.foreach:
         case (gameId, Some(on)) =>
           rounds.tell(gameId, on)
@@ -148,7 +148,7 @@ final class RoundSocket(
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id) => send(P.Out.pong(id))
+    case P.In.Ping(id)                     => send(P.Out.pong(id))
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
@@ -156,7 +156,7 @@ final class RoundSocket(
       yield sendForGameId(anyId.gameId).exec(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
-    case P.In.WsBoot =>
+    case P.In.WsBoot                   =>
       logger.warn("Remote socket boot")
       // schedule termination for all game asyncActors
       // until players actually reconnect
@@ -378,7 +378,7 @@ object RoundSocket:
           raw.get(2) { case Array(gameId, userId) =>
             Berserk(GameId(gameId), UserId(userId)).some
           }
-        case P.RawMsg("r/bye", raw) => Bye(GameFullId(raw.args)).some
+        case P.RawMsg("r/bye", raw)  => Bye(GameFullId(raw.args)).some
         case P.RawMsg("r/hold", raw) =>
           raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
             for
@@ -416,8 +416,8 @@ object RoundSocket:
 
     object Out:
 
-      def resyncPlayer(fullId: GameFullId)        = s"r/resync/player $fullId"
-      def gone(fullId: GameFullId, gone: Boolean) = s"r/gone $fullId ${P.Out.boolean(gone)}"
+      def resyncPlayer(fullId: GameFullId)         = s"r/resync/player $fullId"
+      def gone(fullId: GameFullId, gone: Boolean)  = s"r/gone $fullId ${P.Out.boolean(gone)}"
       def goneIn(fullId: GameFullId, millis: Long) =
         val seconds = Math.ceil(millis / 1000d / tickSeconds).toInt * tickSeconds
         s"r/goneIn $fullId $seconds"

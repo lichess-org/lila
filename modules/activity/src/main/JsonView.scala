@@ -22,7 +22,7 @@ final class JsonView(
     given Writes[PerfType]   = writeAs(_.key)
     given Writes[RatingProg] = Json.writes
     given Writes[Score]      = Json.writes
-    given OWrites[Games] = OWrites: games =>
+    given OWrites[Games]     = OWrites: games =>
       JsObject:
         games.value.toList
           .sortBy((_, s) => -s.size)
@@ -52,7 +52,7 @@ final class JsonView(
     given Writes[Storm]                            = Json.writes
     given Writes[Racer]                            = Json.writes
     given Writes[Streak]                           = Json.writes
-    def simulWrites(user: User) = OWrites[Simul]: s =>
+    def simulWrites(user: User)                    = OWrites[Simul]: s =>
       Json.obj(
         "id"       -> s.id,
         "name"     -> s.name,
@@ -78,14 +78,14 @@ final class JsonView(
       )
     given Writes[FollowList] = Json.writes
     given Writes[Follows]    = Json.writes
-    given Writes[Teams] = Writes: s =>
+    given Writes[Teams]      = Writes: s =>
       JsArray(s.value.flatMap(getLightTeam(_)).map { team =>
         Json.obj("url" -> s"/team/${team.id}", "name" -> team.name).add("flair" -> team.flair)
       })
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
-  private given OWrites[lila.core.study.IdName] = Json.writes
+  private given OWrites[lila.core.study.IdName]                    = Json.writes
   def apply(a: ActivityView, user: User)(using Lang): Fu[JsObject] =
     fuccess:
       Json
@@ -126,7 +126,7 @@ final class JsonView(
           Json.obj(
             "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,
-            "posts" -> posts.map { p =>
+            "posts"     -> posts.map { p =>
               Json.obj(
                 "url"  -> s"/forum/redirect/post/${p.id}",
                 "text" -> p.text.take(500)

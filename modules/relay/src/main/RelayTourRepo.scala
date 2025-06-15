@@ -144,7 +144,7 @@ private object RelayTourRepo:
     def subscriberId(u: UserId) = $doc("subscribers" -> u)
     val officialActive          = officialPublic ++ active
     val officialInactive        = officialPublic ++ inactive
-    def inMonth(at: YearMonth) =
+    def inMonth(at: YearMonth)  =
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
 

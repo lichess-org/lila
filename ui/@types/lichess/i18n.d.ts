@@ -1741,22 +1741,116 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Announce current square. */
+    announceCurrentSquare: string;
+    /** Announce last move. */
+    announceLastMove: string;
+    /** Announce piece captured in last move. */
+    announceLastMoveCapture: string;
+    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces. */
+    announcePieceLocations: string;
+    /** Announce pieces on a rank or a file. Example: s a, s 1. */
+    announcePiecesOnRankOrFile: string;
+    /** Announce possible captures with selected piece. */
+    announcePossibleCaptures: string;
+    /** Announce possible moves for the selected piece. */
+    announcePossibleMoves: string;
+    /** bishop */
+    bishop: string;
+    /** black bishop */
+    blackBishop: string;
+    /** black king */
+    blackKing: string;
+    /** black knight */
+    blackKnight: string;
+    /** black pawn */
+    blackPawn: string;
+    /** black queen */
+    blackQueen: string;
+    /** black rook */
+    blackRook: string;
+    /** Command list when the board has focus */
+    boardCommandList: string;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
+    /** Game start */
+    gameStart: string;
     /** Game status */
     gameStatus: string;
-    /** Input form */
+    /** Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
+    goToBoard: string;
+    /** Go to the command input form. */
+    goToInputForm: string;
+    /** Command input form */
     inputForm: string;
+    /** Type these commands in the command input form. */
+    inputFormCommandList: string;
+    /** Invalid move */
+    invalidMove: string;
+    /** king */
+    king: string;
+    /** knight */
+    knight: string;
     /** Last move */
     lastMove: string;
     /** Move list */
     moveList: string;
+    /** To move a piece, use standard algebraic notation. */
+    movePiece: string;
+    /** Move to file a to h. */
+    moveToFile: string;
+    /** Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order. */
+    moveToPieceByType: string;
+    /** Move to rank 1 to 8. */
+    moveToRank: string;
+    /** Move to adjacent square left, right, up or down. */
+    moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
+    /** pawn */
+    pawn: string;
     /** Pieces */
     pieces: string;
+    /** Premove cancelled */
+    premoveCancelled: string;
+    /** Premove recorded: %s. Hit enter to cancel */
+    premoveRecorded: I18nFormat;
+    /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
+    promotion: string;
+    /** queen */
+    queen: string;
+    /** rook */
+    rook: string;
+    /** check */
+    sanCheck: string;
+    /** checkmate */
+    sanCheckmate: string;
+    /** is dropped on */
+    sanDroppedOn: string;
+    /** long castling */
+    sanLongCastling: string;
+    /** promotes to */
+    sanPromotesTo: string;
+    /** short castling */
+    sanShortCastling: string;
+    /** K Q R B N x */
+    sanSymbols: string;
+    /** takes */
+    sanTakes: string;
+    /** white bishop */
+    whiteBishop: string;
+    /** white king */
+    whiteKing: string;
+    /** white knight */
+    whiteKnight: string;
+    /** white pawn */
+    whitePawn: string;
+    /** white queen */
+    whiteQueen: string;
+    /** white rook */
+    whiteRook: string;
     /** Your clock */
     yourClock: string;
   };

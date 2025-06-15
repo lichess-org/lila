@@ -11,7 +11,7 @@ import chess.{
   Game as ChessGame,
   HalfMoveClock,
   History as ChessHistory,
-  Mode,
+  Rated,
   Ply,
   Status,
   UnmovedRooks
@@ -115,9 +115,9 @@ object BSONHandlers:
 
       val decoded = r.bytesO(F.huffmanPgn) match
         case Some(huffPgn) => PgnStorage.Huffman.decode(huffPgn, playedPlies, light.id)
-        case None =>
-          val clm  = r.get[CastleLastMove](F.castleLastMove)
-          val sans = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
+        case None          =>
+          val clm           = r.get[CastleLastMove](F.castleLastMove)
+          val sans          = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
           val halfMoveClock = HalfMoveClock
             .from:
               sans.reverse
@@ -176,8 +176,8 @@ object BSONHandlers:
         chess = chessGame,
         loadClockHistory = clk =>
           for
-            bw <- whiteClockHistory
-            bb <- blackClockHistory
+            bw      <- whiteClockHistory
+            bb      <- blackClockHistory
             history <-
               BinaryFormat.clockHistory
                 .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
@@ -186,7 +186,7 @@ object BSONHandlers:
         status = light.status,
         daysPerTurn = r.getO[Days](F.daysPerTurn),
         binaryMoveTimes = r.getO[Array[Byte]](F.moveTimes),
-        mode = Mode(r.boolD(F.rated)),
+        rated = r.yesnoD(F.rated),
         bookmarks = r.intD(F.bookmarks),
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
@@ -204,8 +204,8 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id        -> o.id,
-        F.playerIds -> o.players.reduce(_.id.value + _.id.value),
+        F.id         -> o.id,
+        F.playerIds  -> o.players.reduce(_.id.value + _.id.value),
         F.playerUids -> o.players
           .map(_.userId)
           .toPair
@@ -219,14 +219,14 @@ object BSONHandlers:
         F.status        -> o.status,
         F.turns         -> o.chess.ply,
         F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
-        F.clock -> o.chess.clock.flatMap { c =>
+        F.clock         -> o.chess.clock.flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         },
         F.daysPerTurn       -> o.daysPerTurn,
         F.moveTimes         -> o.binaryMoveTimes,
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
         F.blackClockHistory -> clockHistory(Color.Black, o.clockHistory, o.chess.clock, o.flagged),
-        F.rated             -> w.boolO(o.mode.rated),
+        F.rated             -> w.yesnoO(o.rated),
         F.variant           -> o.position.variant.exotic.option(w(o.position.variant.id)),
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),

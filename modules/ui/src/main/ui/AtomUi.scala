@@ -30,7 +30,7 @@ final class AtomUi(netBaseUrl: BaseUrl):
       raw("</feed>")
     )
 
-  def atomDate(date: Instant): String = isoDateTimeFormatter.print(date)
+  def atomDate(date: Instant): String   = isoDateTimeFormatter.print(date)
   def atomDate(date: LocalDate): String =
     java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone).print(date)
 

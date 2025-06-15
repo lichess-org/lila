@@ -16,8 +16,8 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   private lazy val jsonLanguages = safeJsonValue:
     Json.toJson(langList.popularNoRegion.map { l =>
       Json.obj(
-        "code"  -> l.code,
-        "value" -> langList.name(l.toTag),
+        "code"     -> l.code,
+        "value"    -> langList.name(l.toTag),
         "searchBy" -> List(
           l.toLocale.getDisplayLanguage,
           l.toLocale.getDisplayCountry

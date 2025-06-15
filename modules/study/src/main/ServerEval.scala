@@ -133,7 +133,7 @@ object ServerEval:
         chess.Replay.gameMoveWhileValidReverse(info.variation.take(20), root.fen, variant)
       error.foreach(e => logger.info(e.value))
       reversedGames match
-        case Nil => none
+        case Nil            => none
         case (g, m) :: rest =>
           rest
             .foldLeft(makeBranch(g, m)):

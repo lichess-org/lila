@@ -6,7 +6,7 @@ import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, Tour
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, ImportResult, Root, Clock }
+import lila.tree.{ Branch, Branches, ImportResult, ParseImport, Root, Clock }
 
 object StudyPgnImport:
 
@@ -18,7 +18,7 @@ object StudyPgnImport:
   )
 
   def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map(result(_, contributors))
+    ParseImport.full(pgn).map(result(_, contributors))
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
@@ -111,7 +111,7 @@ object StudyPgnImport:
               c.orElse(clock),
               e.orElse(emt),
               str.trim match
-                case "" => comments
+                case ""  => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             )
@@ -144,7 +144,7 @@ object StudyPgnImport:
             val sanStr                         = moveOrDrop.toSanStr
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
             val mover                          = !position.color
-            val computedClock: Option[Clock] = clock
+            val computedClock: Option[Clock]   = clock
               .map(Clock(_, trust = true.some))
               .orElse:
                 (context.clocks(mover), emt).mapN(guessNewClockState(_, context.timeControl, _))

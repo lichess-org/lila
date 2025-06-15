@@ -65,12 +65,12 @@ object SwissCondition:
 
     def all =
       mapping(
-        "nbRatedGame" -> nbRatedGame,
-        "maxRating"   -> maxRating,
-        "minRating"   -> minRating,
-        "titled"      -> titled,
-        "accountAge"  -> accountAge,
-        "allowList"   -> allowList,
+        "nbRatedGame"   -> nbRatedGame,
+        "maxRating"     -> maxRating,
+        "minRating"     -> minRating,
+        "titled"        -> titled,
+        "accountAge"    -> accountAge,
+        "allowList"     -> allowList,
         "playYourGames" -> optional(boolean)
           .transform(_.contains(true).option(PlayYourGames), _.isDefined.option(true))
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)

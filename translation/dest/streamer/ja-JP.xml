@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Lichess の配信者ページは、配信プラットフォームで指定した言語の視聴者を対象にします。配信に使うアプリやサービスでデフォルト言語を正しく設定しておいてください。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch か YouTube が必要です</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch と YouTube の変更を確認する必要があります。
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch と YouTube の変更を確認する必要があります。
   
   審査中、配信者のバッジとリストは一時停止されます。これには最大 72 時間かかります。</string>
   <string name="youTubeChannelId">あなたの YouTube チャンネル ID</string>

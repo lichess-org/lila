@@ -316,7 +316,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         )
 
-  def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
+  def urlOfBlog(blog: UblogBlog): Call      = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))
 

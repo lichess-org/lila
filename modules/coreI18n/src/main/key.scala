@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String = key
+    def value: String                                   = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -910,6 +910,53 @@ object I18nKey:
     val `actions`: I18nKey = "nvui:actions"
     val `yourClock`: I18nKey = "nvui:yourClock"
     val `opponentClock`: I18nKey = "nvui:opponentClock"
+    val `gameStart`: I18nKey = "nvui:gameStart"
+    val `boardCommandList`: I18nKey = "nvui:boardCommandList"
+    val `inputFormCommandList`: I18nKey = "nvui:inputFormCommandList"
+    val `goToInputForm`: I18nKey = "nvui:goToInputForm"
+    val `announceCurrentSquare`: I18nKey = "nvui:announceCurrentSquare"
+    val `announceLastMove`: I18nKey = "nvui:announceLastMove"
+    val `announceLastMoveCapture`: I18nKey = "nvui:announceLastMoveCapture"
+    val `announcePossibleMoves`: I18nKey = "nvui:announcePossibleMoves"
+    val `announcePossibleCaptures`: I18nKey = "nvui:announcePossibleCaptures"
+    val `moveWithArrows`: I18nKey = "nvui:moveWithArrows"
+    val `moveToPieceByType`: I18nKey = "nvui:moveToPieceByType"
+    val `moveToRank`: I18nKey = "nvui:moveToRank"
+    val `moveToFile`: I18nKey = "nvui:moveToFile"
+    val `announcePieceLocations`: I18nKey = "nvui:announcePieceLocations"
+    val `announcePiecesOnRankOrFile`: I18nKey = "nvui:announcePiecesOnRankOrFile"
+    val `goToBoard`: I18nKey = "nvui:goToBoard"
+    val `movePiece`: I18nKey = "nvui:movePiece"
+    val `promotion`: I18nKey = "nvui:promotion"
+    val `king`: I18nKey = "nvui:king"
+    val `whiteKing`: I18nKey = "nvui:whiteKing"
+    val `blackKing`: I18nKey = "nvui:blackKing"
+    val `queen`: I18nKey = "nvui:queen"
+    val `whiteQueen`: I18nKey = "nvui:whiteQueen"
+    val `blackQueen`: I18nKey = "nvui:blackQueen"
+    val `rook`: I18nKey = "nvui:rook"
+    val `whiteRook`: I18nKey = "nvui:whiteRook"
+    val `blackRook`: I18nKey = "nvui:blackRook"
+    val `bishop`: I18nKey = "nvui:bishop"
+    val `whiteBishop`: I18nKey = "nvui:whiteBishop"
+    val `blackBishop`: I18nKey = "nvui:blackBishop"
+    val `knight`: I18nKey = "nvui:knight"
+    val `whiteKnight`: I18nKey = "nvui:whiteKnight"
+    val `blackKnight`: I18nKey = "nvui:blackKnight"
+    val `pawn`: I18nKey = "nvui:pawn"
+    val `whitePawn`: I18nKey = "nvui:whitePawn"
+    val `blackPawn`: I18nKey = "nvui:blackPawn"
+    val `sanSymbols`: I18nKey = "nvui:sanSymbols"
+    val `sanTakes`: I18nKey = "nvui:sanTakes"
+    val `sanCheck`: I18nKey = "nvui:sanCheck"
+    val `sanCheckmate`: I18nKey = "nvui:sanCheckmate"
+    val `sanPromotesTo`: I18nKey = "nvui:sanPromotesTo"
+    val `sanShortCastling`: I18nKey = "nvui:sanShortCastling"
+    val `sanLongCastling`: I18nKey = "nvui:sanLongCastling"
+    val `sanDroppedOn`: I18nKey = "nvui:sanDroppedOn"
+    val `invalidMove`: I18nKey = "nvui:invalidMove"
+    val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
+    val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

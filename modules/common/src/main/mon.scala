@@ -38,8 +38,8 @@ object mon:
           "os"      -> os
         )
 
-    def path(p: String) = counter("http.path.count").withTag("path", p)
-    val userGamesCost   = counter("http.userGames.cost").withoutTags()
+    def path(p: String)                                        = counter("http.path.count").withTag("path", p)
+    val userGamesCost                                          = counter("http.userGames.cost").withoutTags()
     def csrfError(tpe: String, action: String, client: String) =
       counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
     val fingerPrint = timer("http.fingerPrint.time").withoutTags()
@@ -76,7 +76,7 @@ object mon:
         )
     def compute(name: String) = timer("mongocache.compute").withTag("name", name)
   object evalCache:
-    private val r = counter("evalCache.request")
+    private val r                         = counter("evalCache.request")
     def request(ply: Int, isHit: Boolean) =
       r.withTags(tags("ply" -> (if ply < 15 then ply.toString else "15+"), "hit" -> isHit))
     object upgrade:
@@ -86,9 +86,9 @@ object mon:
       val expirable = gauge("evalCache.upgrade.expirable").withoutTags()
   object lobby:
     object hook:
-      val create = counter("lobby.hook.create").withoutTags()
-      val join   = counter("lobby.hook.join").withoutTags()
-      val size   = histogram("lobby.hook.size").withoutTags()
+      val create                               = counter("lobby.hook.create").withoutTags()
+      val join                                 = counter("lobby.hook.join").withoutTags()
+      val size                                 = histogram("lobby.hook.size").withoutTags()
       def apiCreate(ua: String, color: String) =
         counter("lobby.hook.api.create").withTags(tags("ua" -> ua, "color" -> color))
     object seek:
@@ -225,7 +225,7 @@ object mon:
             "dispAttempts" -> dispAttempts,
             "api"          -> apiTag(api)
           )
-      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
+      def mustConfirmEmail(v: String)          = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags()
@@ -249,8 +249,8 @@ object mon:
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
   object mod:
     object report:
-      val highest = gauge("mod.report.highest").withoutTags()
-      val close   = counter("mod.report.close").withoutTags()
+      val highest                            = gauge("mod.report.highest").withoutTags()
+      val close                              = counter("mod.report.close").withoutTags()
       def create(reason: String, score: Int) =
         counter("mod.report.create").withTags:
           tags(
@@ -329,6 +329,8 @@ object mon:
     object proxy:
       val request                   = future("security.proxy.time")
       def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r.getOrElse("none"))
+      def hit(prox: String, action: String) =
+        counter("security.proxy.hit").withTags(tags("proxy" -> prox, "action" -> action))
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi:
@@ -414,7 +416,7 @@ object mon:
           "success" -> successTag(success),
           "client"  -> client
         )
-    def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
+    def withdrawableIds(reason: String)        = future("tournament.withdrawableIds", reason)
     def action(tourId: String, action: String) =
       timer("tournament.api.action").withTags(tags("tourId" -> tourId, "action" -> action))
     object notifier:
@@ -436,10 +438,10 @@ object mon:
     object paypalCheckout:
       val amount           = histogram("plan.amount").withTag("service", "paypalCheckout")
       val fetchAccessToken = future("plan.paypal.accessToken")
-    val stripe  = histogram("plan.amount").withTag("service", "stripe")
-    val goal    = gauge("plan.goal").withoutTags()
-    val current = gauge("plan.current").withoutTags()
-    val percent = gauge("plan.percent").withoutTags()
+    val stripe                                = histogram("plan.amount").withTag("service", "stripe")
+    val goal                                  = gauge("plan.goal").withoutTags()
+    val current                               = gauge("plan.current").withoutTags()
+    val percent                               = gauge("plan.percent").withoutTags()
     def webhook(service: String, tpe: String) =
       counter("plan.webhook").withTags(tags("service" -> service, "tpe" -> tpe))
     object charge:
@@ -519,7 +521,7 @@ object mon:
   object racer:
     private def tpe(lobby: Boolean) = if lobby then "lobby" else "friend"
     def race(lobby: Boolean)        = counter("racer.lobby.race").withTag("tpe", tpe(lobby))
-    def players(lobby: Boolean) =
+    def players(lobby: Boolean)     =
       histogram("racer.lobby.players").withTag("tpe", tpe(lobby))
     def score(lobby: Boolean, auth: Boolean) =
       histogram("racer.player.score").withTags:
@@ -596,7 +598,7 @@ object mon:
   object fishnet:
     object client:
       object result:
-        private val c = counter("fishnet.client.result")
+        private val c                                = counter("fishnet.client.result")
         private def apply(r: String)(client: String) =
           c.withTags(tags("client" -> client, "result" -> r))
         val success     = apply("success")
@@ -629,7 +631,7 @@ object mon:
       val skipPositionsStudy        = future("fishnet.analysis.skipPositions.study")
     object http:
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
-    def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
+    def move(level: Int)                           = counter("fishnet.move.time").withTag("level", level)
     def openingBook(variant: String, hit: Boolean) =
       timer("fishnet.opening.hit").withTags:
         tags("variant" -> variant, "hit" -> hitTag(hit))

@@ -159,7 +159,7 @@ final class JsonView:
     Json.obj(
       "metric"    -> metric,
       "dimension" -> dimension,
-      "filters" -> (filters
+      "filters"   -> (filters
         .split('/')
         .view
         .map(_.split(':'))

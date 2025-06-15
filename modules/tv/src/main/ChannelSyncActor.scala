@@ -67,7 +67,7 @@ final private class ChannelSyncActor(
     candidates = sortedCandidates.filterNot(_.userIds.toSet.intersect(cheaters).nonEmpty)
     _          = lila.mon.tv.selector.cheats(channel.name).record(sortedCandidates.size - candidates.size)
     currentBest <- oneId.so(gameProxy.gameIfPresent)
-    newBest <- currentBest match
+    newBest     <- currentBest match
       case Some(current) if channel.isFresh(current) =>
         fuccess(wayBetter(current, candidates)).orElse(rematch(current))
       case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates)))

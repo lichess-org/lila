@@ -16,7 +16,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def pgnString        = PgnMovesStr(sans.mkString(" "))
   def pgnUnderscored   = sans.mkString("_")
   def initial          = sans.isEmpty
-  def query = openingAndExtraMoves match
+  def query            = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
   def prev = (sans.sizeIs > 1).so(
     OpeningQuery(
@@ -28,7 +28,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
     exactOpening
       .map(_.some -> Nil)
-      .orElse(OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
+      .orElse(OpeningDb.search(replay.chronoMoves).map { case Opening.AtPly(op, ply) =>
         op.some -> sans.drop(ply.value + 1).toList
       })
       .getOrElse(none, sans.toList)

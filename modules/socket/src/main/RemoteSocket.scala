@@ -52,7 +52,7 @@ final class RemoteSocket(
       TellUserIn.make(userId, msg, typ).foreach(Bus.pub[TellUserIn](_))
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send.exec(Out.pong(id))
-    case In.WsBoot =>
+    case In.WsBoot                       =>
       logger.warn("Remote socket boot")
       onlineUserIds.set(initialUserIds)
 
@@ -142,7 +142,7 @@ final class RemoteSocket(
         .map:
           new lila.core.socket.protocol.RawMsg(_, ~parts.lift(1))
         .match
-          case None => logger.error(s"Invalid $channel $str")
+          case None      => logger.error(s"Invalid $channel $str")
           case Some(raw) =>
             fullReader
               .applyOrElse(
@@ -209,7 +209,7 @@ object RemoteSocket:
         case RawMsg("connect/user", raw)     => ConnectUser(UserId(raw.args)).some
         case RawMsg("connect/users", raw)    => ConnectUsers(UserId.from(commas(raw.args))).some
         case RawMsg("disconnect/users", raw) => DisconnectUsers(UserId.from(commas(raw.args))).some
-        case RawMsg("connect/sris", raw) =>
+        case RawMsg("connect/sris", raw)     =>
           ConnectSris {
             commas(raw.args).map(_.split(' ')).map { s =>
               (Sri(s(0)), UserId.from(s.lift(1)))
@@ -217,7 +217,7 @@ object RemoteSocket:
           }.some
         case RawMsg("disconnect/sris", raw) => DisconnectSris(commas(raw.args).map { Sri(_) }).some
         case RawMsg("notified/batch", raw)  => NotifiedBatch(UserId.from(commas(raw.args))).some
-        case RawMsg("lag", raw) =>
+        case RawMsg("lag", raw)             =>
           raw.all.pipe { s =>
             Centis.from(s.lift(1).flatMap(_.toIntOption)).map { Lag(UserId(s(0)), _) }
           }
@@ -230,7 +230,7 @@ object RemoteSocket:
                 }
               case _ => None
           }.toMap).some
-        case RawMsg("tell/sri", raw) => raw.get(3)(lila.core.socket.protocol.In.tellSriMapper)
+        case RawMsg("tell/sri", raw)  => raw.get(3)(lila.core.socket.protocol.In.tellSriMapper)
         case RawMsg("tell/user", raw) =>
           raw.get(2) { case Array(user, payload) =>
             for
@@ -263,10 +263,10 @@ object RemoteSocket:
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: UserId, by: Option[UserId]) =
         s"mod/impersonate $userId ${optional(by.map(_.value))}"
-      def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
-      def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
-      def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
-      private given OWrites[StreamInfo]        = Json.writes[StreamInfo]
+      def follow(u1: UserId, u2: UserId)                      = s"rel/follow $u1 $u2"
+      def unfollow(u1: UserId, u2: UserId)                    = s"rel/unfollow $u1 $u2"
+      def apiUserOnline(u: UserId, v: Boolean)                = s"api/online $u ${boolean(v)}"
+      private given OWrites[StreamInfo]                       = Json.writes[StreamInfo]
       def streamersOnline(streamers: Map[UserId, StreamInfo]) =
         s"streamers/online ${Json.stringify(Json.toJson(streamers.mapKeys(_.value)))}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"

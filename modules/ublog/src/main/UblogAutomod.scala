@@ -31,7 +31,8 @@ private object UblogAutomod:
   private case class Config(apiKey: Secret, model: String, url: String)
 
   private case class FuzzyResult(
-      classification: String,
+      quality: Option[String],
+      classification: Option[String],
       flagged: Option[JsValue],
       commercial: Option[JsValue],
       offtopic: Option[JsValue],
@@ -95,7 +96,7 @@ final class UblogAutomod(
             resultStr <- (best \ "message" \ "content").asOpt[String]
             result    <- normalize(resultStr)
           yield result) match
-            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
+            case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.classification(res.classification).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
@@ -107,7 +108,7 @@ final class UblogAutomod(
     val trimmed = msg.slice(msg.lastIndexOf('{'), msg.lastIndexOf('}') + 1)
     Json.parse(trimmed).asOpt[FuzzyResult].flatMap { res =>
       val fixed = Result(
-        classification = res.classification,
+        classification = res.classification.orElse(res.quality).getOrElse("good"),
         evergreen = res.evergreen,
         flagged = fix(res.flagged),
         commercial = fix(res.commercial),

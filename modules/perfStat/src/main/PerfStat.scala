@@ -22,7 +22,7 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
-  def perfKey = perfType.key
+  def perfKey       = perfType.key
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
@@ -125,7 +125,7 @@ case class Count(
   def apply(pov: Pov) =
     copy(
       all = all + 1,
-      rated = rated + (if pov.game.rated then 1 else 0),
+      rated = rated + (if pov.game.rated.yes then 1 else 0),
       win = win + (if pov.win.contains(true) then 1 else 0),
       loss = loss + (if pov.win.contains(false) then 1 else 0),
       draw = draw + (if pov.win.isEmpty then 1 else 0),
@@ -183,7 +183,7 @@ case class Results(results: List[Result]):
     for
       opId  <- pov.opponent.userId
       opInt <- pov.opponent.stableRating
-      if pov.game.rated
+      if pov.game.rated.yes
       if pov.game.bothPlayersHaveMoved
     yield Results(
       HeapSort.topN(

@@ -21,7 +21,7 @@ object email:
         val lower = e.toLowerCase
         lower.split('@') match
           case Array(name, domain) =>
-            val skipAfterPlus = name.takeWhile('+' != _)
+            val skipAfterPlus  = name.takeWhile('+' != _)
             val normalizedName =
               if EmailAddress.gmailLikeNormalizedDomains(domain) then skipAfterPlus.replace(".", "")
               else skipAfterPlus
@@ -62,7 +62,7 @@ object email:
 
     val maxLength = 320
 
-    val gmailDomains: Set[Domain.Lower] = Domain.Lower.from(Set("gmail.com", "googlemail.com"))
+    val gmailDomains: Set[Domain.Lower]  = Domain.Lower.from(Set("gmail.com", "googlemail.com"))
     val yandexDomains: Set[Domain.Lower] =
       Domain.Lower.from(Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by"))
 

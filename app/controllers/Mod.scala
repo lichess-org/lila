@@ -185,7 +185,7 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .flatMap:
-        case None => Redirect(routes.Report.list)
+        case None         => Redirect(routes.Report.list)
         case Some(report) =>
           Found(env.user.repo.byId(report.user)): user =>
             import lila.report.Room
@@ -409,7 +409,7 @@ final class Mod(
   protected[controllers] def searchTerm(query: String)(using Context) =
     IpAddress.from(query) match
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
-      case None =>
+      case None     =>
         for
           res  <- env.mod.search(query)
           page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
@@ -438,7 +438,7 @@ final class Mod(
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
         withEmails <- env.user.api.withPerfsAndEmails(users)
-        data       <- env.security.ipTrust.data(address)
+        data       <- env.security.ipTrust.ipData(address)
         blocked = env.security.firewall.blocksIp(address)
         page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))
       yield Ok(page)
@@ -467,6 +467,7 @@ final class Mod(
       for
         _ <- env.plan.api.freeMonth(dest)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
+        _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
   }
 
@@ -505,7 +506,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
+      case None           => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)

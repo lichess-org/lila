@@ -36,7 +36,7 @@ final class Racer(env: Env) extends LilaController(env):
 
   def show(id: String) = WithPlayerId { ctx ?=> playerId =>
     env.racer.api.get(RacerRace.Id(id)) match
-      case None => Redirect(routes.Racer.home)
+      case None    => Redirect(routes.Racer.home)
       case Some(r) =>
         val race   = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
         val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
@@ -46,7 +46,7 @@ final class Racer(env: Env) extends LilaController(env):
   def rematch(id: String) = WithPlayerId { _ ?=> playerId =>
     AuthOrTrustedIp:
       env.racer.api.get(RacerRace.Id(id)) match
-        case None => Redirect(routes.Racer.home)
+        case None       => Redirect(routes.Racer.home)
         case Some(race) =>
           env.racer.api
             .rematch(race, playerId)
@@ -66,6 +66,6 @@ final class Racer(env: Env) extends LilaController(env):
     NoBot:
       ctx.req.sid.map { env.racer.api.playerId(_, ctx.me) } match
         case Some(id) => f(id)
-        case None =>
+        case None     =>
           env.security.lilaCookie.ensureAndGet(ctx.req): sid =>
             f(env.racer.api.playerId(sid, none))

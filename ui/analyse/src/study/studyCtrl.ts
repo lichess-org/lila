@@ -316,7 +316,7 @@ export default class StudyCtrl {
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
     pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
-    pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
+    pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
     if (!computer) this.ctrl.getCeval().enabled(false);
@@ -781,8 +781,11 @@ export default class StudyCtrl {
       this.setMemberActive(who);
       if (d.p.chapterId !== this.vm.chapterId) return;
       if (who && who.s === site.sri) return this.redraw(); // update shape indicator in column move view
-      this.ctrl.tree.setShapes(d.s, this.ctrl.path);
-      if (this.ctrl.path === position.path) this.ctrl.withCg(cg => cg.setShapes(d.s));
+      if (this.ctrl.path === position.path) {
+        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+        this.ctrl.withCg(cg => cg.setShapes(d.s));
+      }
+      this.ctrl.tree.setShapes(d.s, position.path);
       this.redraw();
     },
     validationError: d => {

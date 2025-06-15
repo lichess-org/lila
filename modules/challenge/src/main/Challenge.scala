@@ -3,7 +3,7 @@ package lila.challenge
 import cats.derived.*
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
-import chess.{ Color, Mode, Speed }
+import chess.{ Color, Rated, Speed }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Days
@@ -21,7 +21,7 @@ case class Challenge(
     variant: Variant,
     initialFen: Option[Fen.Full],
     timeControl: Challenge.TimeControl,
-    mode: Mode,
+    rated: Rated,
     colorChoice: Challenge.ColorChoice,
     finalColor: Color,
     challenger: Challenge.Challenger,
@@ -141,7 +141,7 @@ object Challenge:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):
-    def userIdList = userIds.map { (u1, u2) => List(u1, u2) }
+    def userIdList                    = userIds.map { (u1, u2) => List(u1, u2) }
     def canJoin(using me: Option[Me]) =
       userIdList.forall(ids => me.exists(me => ids.exists(me.is(_))))
     def colorFor(requestedColor: Option[Color])(using me: Option[Me]): Option[ColorChoice] =
@@ -176,7 +176,7 @@ object Challenge:
       variant: Variant,
       initialFen: Option[Fen.Full],
       timeControl: TimeControl,
-      mode: Mode,
+      rated: Rated,
       color: String,
       challenger: Challenger,
       destUser: GameUser,
@@ -191,9 +191,9 @@ object Challenge:
       case "white" => ColorChoice.White  -> chess.White
       case "black" => ColorChoice.Black  -> chess.Black
       case _       => ColorChoice.Random -> randomColor
-    val finalMode = timeControl match
-      case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Mode.Casual
-      case _                                                                           => mode
+    val finalRated = timeControl match
+      case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Rated.No
+      case _                                                                           => rated
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       id = id.fold(randomId)(_.into(ChallengeId)),
@@ -206,7 +206,7 @@ object Challenge:
             Chess960.positionNumber(fen).isDefined
         else (!variant.standardInitialPosition).option(variant.initialFen),
       timeControl = timeControl,
-      mode = finalMode,
+      rated = finalRated,
       colorChoice = colorChoice,
       finalColor = finalColor,
       challenger = challenger,

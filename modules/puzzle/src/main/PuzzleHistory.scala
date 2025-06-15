@@ -47,7 +47,7 @@ object PuzzleHistory:
   private def groupBySessions(rounds: List[SessionRound]): List[PuzzleSession] =
     rounds
       .foldLeft(List.empty[PuzzleSession]):
-        case (Nil, round) => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
+        case (Nil, round)          => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
         case (last :: sessions, r) =>
           if last.puzzles.head.theme == r.theme &&
             r.round.date.isAfter(last.puzzles.head.round.date.minusHours(1))

@@ -28,7 +28,7 @@ final class LateMultiThrottler(
             self ! Done(id)
       executions = executions + id
 
-    case _: Work => // already executing similar work
+    case _: Work  => // already executing similar work
     case Done(id) =>
       executions = executions - id
 

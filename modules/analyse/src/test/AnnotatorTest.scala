@@ -12,13 +12,13 @@ class AnnotatorTest extends munit.FunSuite:
 
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
-  val annotator = Annotator(NetDomain("l.org"))
+  val annotator               = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
     lila.core.game
       .newGame(
         g,
         ByColor(lila.core.game.Player(GamePlayerId("abcd"), _, aiLevel = none)),
-        mode = chess.Mode.Casual,
+        rated = chess.Rated.No,
         source = lila.core.game.Source.Api,
         pgnImport = none
       )
@@ -28,7 +28,7 @@ class AnnotatorTest extends munit.FunSuite:
   val emptyAnalysis = Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, None, None)
   val emptyEval     = Eval(none, none, none)
 
-  val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")
+  val pgnStr                 = PgnStr("""1. a3 g6?! 2. g4""")
   val playedGame: chess.Game =
     val parsed = Parser.full(pgnStr).toOption.get
     parsed.toGame.forward(parsed.mainline).toOption.get

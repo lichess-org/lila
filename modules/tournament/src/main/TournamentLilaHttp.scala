@@ -23,7 +23,7 @@ final class TournamentLilaHttp(
 
   def handles(tour: Tournament) = isOnLilaHttp.get(tour.id)
   private def handledIds        = isOnLilaHttp.keys
-  def hit(tour: Tournament) =
+  def hit(tour: Tournament)     =
     if tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)
     then isOnLilaHttp.put(tour.id)
 
@@ -49,8 +49,8 @@ final class TournamentLilaHttp(
       .void
 
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for
-    data  <- jsonView.cachableData.get(tour.id)
-    stats <- statsApi(tour)
+    data         <- jsonView.cachableData.get(tour.id)
+    stats        <- statsApi(tour)
     teamStanding <- tour.isTeamBattle.soFu:
       jsonView.fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
     fullStanding <- playerRepo
@@ -67,7 +67,7 @@ final class TournamentLilaHttp(
       .map(JsArray(_))
   yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
-      "id" -> tour.id,
+      "id"               -> tour.id,
       "ongoingUserGames" -> {
         duelStore
           .get(tour.id)

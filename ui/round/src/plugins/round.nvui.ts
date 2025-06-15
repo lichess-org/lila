@@ -1,4 +1,4 @@
-import { type VNode, looseH as h, noTrans, onInsert } from 'lib/snabbdom';
+import { LooseVNode, type VNode, looseH as h, noTrans, onInsert } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -12,7 +12,7 @@ import {
   type MoveStyle,
   renderSan,
   renderPieces,
-  renderBoard,
+  renderBoard as renderChessBoard,
   styleSetting,
   pieceSetting,
   prefixSetting,
@@ -31,13 +31,14 @@ import {
   type DropMove,
   pocketsStr,
 } from 'lib/nvui/chess';
-import { renderSetting } from 'lib/nvui/setting';
+import { makeSetting, renderSetting, Setting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands } from 'lib/nvui/command';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
 import { next, prev } from '../keyboard';
+import { storage } from 'lib/storage';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -50,7 +51,8 @@ export function initModule(): NvuiPlugin {
     prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
     positionStyle = positionSetting(),
-    boardStyle = boardSetting();
+    boardStyle = boardSetting(),
+    pageStyle = pageSetting();
 
   pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
@@ -89,7 +91,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'], noTrans(d.game.perf)]),
+        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
         d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
         h('h2', i18n.nvui.moveList),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -146,61 +148,12 @@ export function initModule(): NvuiPlugin {
               ],
             ),
           ]),
-        h('h2', i18n.site.board),
-        h(
-          'div.board',
-          {
-            hook: onInsert(el => {
-              const $board = $(el);
-              const $buttons = $board.find('button');
-              $buttons.on(
-                'click',
-                selectionHandler(() => ctrl.data.opponent.color, selectSound),
-              );
-              $buttons.on('keydown', (e: KeyboardEvent) => {
-                if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-                else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
-                else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
-                else if (e.key === 'c')
-                  lastCapturedCommandHandler(
-                    () => ctrl.data.steps.map(step => step.fen),
-                    pieceStyle.get(),
-                    prefixStyle.get(),
-                  )();
-                else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
-                else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
-                else if (e.key.toLowerCase() === 'm')
-                  possibleMovesHandler(
-                    ctrl.data.player.color,
-                    ctrl.chessground,
-                    ctrl.data.game.variant.key,
-                    ctrl.data.steps,
-                  )(e);
-                else if (e.key === 'i') {
-                  e.preventDefault();
-                  $('input.move').get(0)?.focus();
-                }
-              });
-            }),
-          },
-          renderBoard(
-            ctrl.chessground.state.pieces,
-            ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
-            pieceStyle.get(),
-            prefixStyle.get(),
-            positionStyle.get(),
-            boardStyle.get(),
-          ),
-        ),
-        h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        h('h2', i18n.nvui.actions),
-        ...(ctrl.data.player.spectator
-          ? renderTableWatch(ctrl)
-          : playable(ctrl.data)
-            ? renderTablePlay(ctrl)
-            : renderTableEnd(ctrl)),
-        h('h2', i18n.settings.settings),
+        ...(pageStyle.get() === 'actions-board'
+          ? [...renderActions(ctrl), ...renderBoard(ctrl)]
+          : [...renderBoard(ctrl), ...renderActions(ctrl)]),
+        h('h2', i18n.site.advancedSettings),
         h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
+        h('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
         h('h3', noTrans('Board settings')),
         h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
         h('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
@@ -208,23 +161,88 @@ export function initModule(): NvuiPlugin {
         h('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
         h('h2', i18n.keyboardMove.keyboardInputCommands),
         h('p', [
-          noTrans('Type these commands in the move input.'),
+          i18n.nvui.inputFormCommandList,
+          h('br'),
+          i18n.nvui.movePiece,
+          h('br'),
+          i18n.nvui.promotion,
+          h('br'),
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
         ]),
         ...boardCommands(),
-        h('h2', noTrans('Promotion')),
-        h('p', [
-          noTrans(
-            'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
-          ),
-          h('br'),
-          noTrans('Omission results in promotion to queen'),
-        ]),
       ]);
     },
   };
+}
+
+function renderBoard(ctrl: RoundController): LooseVNode[] {
+  const prefixStyle = prefixSetting(),
+    pieceStyle = pieceSetting(),
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting();
+
+  return [
+    h('h2', i18n.site.board),
+    h(
+      'div.board',
+      {
+        hook: onInsert(el => {
+          const $board = $(el);
+          const $buttons = $board.find('button');
+          $buttons.on(
+            'click',
+            selectionHandler(() => ctrl.data.opponent.color, selectSound),
+          );
+          $buttons.on('keydown', (e: KeyboardEvent) => {
+            if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+            else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
+            else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+            else if (e.key === 'c')
+              lastCapturedCommandHandler(
+                () => ctrl.data.steps.map(step => step.fen),
+                pieceStyle.get(),
+                prefixStyle.get(),
+              )();
+            else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+            else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+            else if (e.key.toLowerCase() === 'm')
+              possibleMovesHandler(
+                ctrl.data.player.color,
+                ctrl.chessground,
+                ctrl.data.game.variant.key,
+                ctrl.data.steps,
+              )(e);
+            else if (e.key === 'i') {
+              e.preventDefault();
+              $('input.move').get(0)?.focus();
+            }
+          });
+        }),
+      },
+      renderChessBoard(
+        ctrl.chessground.state.pieces,
+        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+    h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+  ];
+}
+
+function renderActions(ctrl: RoundController): LooseVNode[] {
+  return [
+    h('h2', i18n.nvui.actions),
+    ...(ctrl.data.player.spectator
+      ? renderTableWatch(ctrl)
+      : playable(ctrl.data)
+        ? renderTablePlay(ctrl)
+        : renderTableEnd(ctrl)),
+  ];
 }
 
 function createSubmitHandler(
@@ -241,8 +259,8 @@ function createSubmitHandler(
       if (nvui.premoveInput !== '') {
         // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
         nvui.premoveInput = '';
-        notify('Cleared premove');
-      } else notify('Invalid move');
+        notify(i18n.nvui.premoveCancelled);
+      } else notify(i18n.nvui.invalidMove);
     }
 
     const input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
@@ -261,10 +279,10 @@ function createSubmitHandler(
       if (isOpponentsTurn) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
-        notify(`Will attempt to premove: ${input}. Enter to cancel`);
+        notify(i18n.nvui.premoveRecorded(input));
       } else if (isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
       else if (move) sendMove(move, ctrl, !!nvui.premoveInput);
-      else notify(`Invalid move: ${input}`);
+      else notify(`${i18n.nvui.invalidMove}: ${input}`);
     }
     $input.val('');
   };
@@ -294,9 +312,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
-    help: noTrans(
-      'Focus on board. Default square is e4. You can specify a square: board a1 or b a1 will take you to square a1.',
-    ),
+    help: i18n.nvui.goToBoard,
     cb: (_notify, _ctrl, _style, input) => {
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
@@ -314,7 +330,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'last',
-    help: noTrans('Read last move.'),
+    help: i18n.nvui.announceLastMove,
     cb: notify => notify($('.lastMove').text()),
     alt: 'l',
   },
@@ -332,20 +348,20 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'p',
-    help: commands.piece.help,
+    help: commands().piece.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+        commands().piece.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands().piece.help}`,
       ),
   },
   {
     cmd: 's',
-    help: commands.scan.help,
+    help: commands().scan.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
-          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+        commands().scan.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Expected format: ${commands().scan.help}`,
       ),
   },
   {
@@ -436,7 +452,7 @@ function gameText(ctrl: RoundController) {
       : i18n.site.gameOver,
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
-    d.game.perf,
+    transGamePerf(d.game.perf),
     i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
@@ -452,3 +468,17 @@ function nextOrPrev(ctrl: RoundController) {
     else if (e.key === 'D') doAndRedraw(ctrl, next);
   };
 }
+
+type PageStyle = 'board-actions' | 'actions-board';
+function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
+  });
+}
+
+const transGamePerf = (perf: string): string => (i18n.site[perf as keyof typeof i18n.site] as string) || perf;

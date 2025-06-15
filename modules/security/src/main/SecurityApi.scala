@@ -58,7 +58,7 @@ final class SecurityApi(
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
-          case Success(_) => FormValid
+          case Success(_)                => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
@@ -74,8 +74,10 @@ final class SecurityApi(
     )
 
   private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
-    ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
-      p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+    ip2proxy
+      .ofReq(req)
+      .map: p =>
+        p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
   def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
@@ -117,7 +119,7 @@ final class SecurityApi(
         if _ then fufail(SecurityApi.MustConfirmEmail(userId))
         else
           for
-            proxy <- ip2proxy(HTTPRequest.ipAddress(req))
+            proxy <- ip2proxy.ofReq(req)
             _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
             sessionId = SecureRandom.nextString(22)
             _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
@@ -126,9 +128,11 @@ final class SecurityApi(
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
-    val sessionId = SecureRandom.nextString(22)
-    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
+    for
+      proxy <- ip2proxy.ofReq(req)
+      sessionId = SecureRandom.nextString(22)
+      _ <- store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
+    yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
@@ -137,7 +141,7 @@ final class SecurityApi(
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
-          case None =>
+          case None         =>
             store.authInfo(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
@@ -199,7 +203,7 @@ final class SecurityApi(
     import play.api.mvc.request.{ Cell, RequestAttrKey }
     req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
       case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
-      case None =>
+      case None          =>
         logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
         none
 

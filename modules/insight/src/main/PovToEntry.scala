@@ -78,8 +78,8 @@ final private class PovToEntry(
       case _         => chess.Pawn
 
   private def makeMoves(from: RichPov): List[InsightMove] =
-    val sideAndStart = from.pov.sideAndStart
-    def cpDiffs      = from.analysis.so { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    val sideAndStart     = from.pov.sideAndStart
+    def cpDiffs          = from.analysis.so { AccuracyCP.diffsList(sideAndStart, _).toVector }
     val accuracyPercents = from.analysis.map:
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
     val prevInfos = from.analysis.so { an =>
@@ -87,7 +87,7 @@ final private class PovToEntry(
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
-    val roles = from.pov.game.sansOf(from.pov.color).map(sanToRole)
+    val roles  = from.pov.game.sansOf(from.pov.color).map(sanToRole)
     val boards =
       val pivot = if from.pov.color == from.pov.game.startColor then 0 else 1
       from.boards.toList.zipWithIndex.collect:
@@ -103,8 +103,8 @@ final private class PovToEntry(
       .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
       .mapWithIndex { case ((((((role, board), blur), timeCv), clock), movetime), i) =>
-        val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
-        val prevInfo = prevInfos.lift(i)
+        val ply       = Ply(i * 2 + from.pov.color.fold(1, 2))
+        val prevInfo  = prevInfos.lift(i)
         val awareness = from.advices
           .get(ply - 1)
           .flatMap:
@@ -153,7 +153,7 @@ final private class PovToEntry(
     if nb < sliding then Vector.fill(nb)(none[Float])
     else
       val sides = Vector.fill(sliding / 2)(none[Float])
-      val cvs = movetimes
+      val cvs   = movetimes
         .sliding(sliding)
         .map { a =>
           // drop outliers
@@ -210,7 +210,7 @@ final private class PovToEntry(
   private def findOpening(from: RichPov): Option[SimpleOpening] =
     from.pov.game.variant.standard.so(
       OpeningDb
-        .searchInBoards(from.boards.toList)
+        .searchInPositions(from.boards)
         .map(_.opening)
         .flatMap(SimpleOpening.apply)
     )

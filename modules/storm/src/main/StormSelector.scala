@@ -55,7 +55,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
 
   private def aggregateMultipleSets: Fu[List[PuzzleSet]] =
     aggregationColor = !aggregationColor
-    val nbSets = if lila.common.Uptime.startedSinceMinutes(3) then setsPerAggregation else 2
+    val nbSets = if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
     colls
       .path:
         _.aggregateList(setSize * nbSets, _.sec): framework =>
@@ -86,7 +86,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
           _.flatMap(puzzleReader.readOpt)
         .map:
           _.grouped(nbSets).toList.map(ThreadLocalRandom.shuffle).transpose
-      .logTimeIfGt("storm selector", 3.seconds)
+      .logTimeIfGt(s"storm selector x$nbSets", 8.seconds)
       .mon(_.storm.selector.time)
       .addEffect:
         _.foreach: puzzles =>

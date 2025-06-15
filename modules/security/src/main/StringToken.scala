@@ -65,8 +65,8 @@ object StringToken:
     case class Custom[A](f: (A, Hashed) => Fu[Boolean]) extends ValueChecker[A]
 
   object DateStr:
-    def toStr(date: Instant)   = date.toMillis.toString
-    def toInstant(str: String) = str.toLongOption.map(millisToInstant)
+    def toStr(date: Instant)                              = date.toMillis.toString
+    def toInstant(str: String)                            = str.toLongOption.map(millisToInstant)
     def valueCheck(str: String, lifetime: FiniteDuration) =
       toInstant(str).exists(nowInstant.minus(lifetime).isBefore)
 

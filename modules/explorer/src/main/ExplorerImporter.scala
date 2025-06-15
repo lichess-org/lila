@@ -21,8 +21,8 @@ final class ExplorerImporter(
           fuccess(game.some)
         case _ =>
           for
-            _   <- gameRepo.remove(id)
-            pgn <- fetchPgn(id)
+            _    <- gameRepo.remove(id)
+            pgn  <- fetchPgn(id)
             game <- pgn.so: pgn =>
               gameImporter
                 .importAsGame(

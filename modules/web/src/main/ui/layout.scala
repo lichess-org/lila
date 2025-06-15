@@ -22,7 +22,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
   val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
   val charset                   = raw("""<meta charset="utf-8">""")
-  val viewport = raw:
+  val viewport                  = raw:
     """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
@@ -61,13 +61,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     spaceless:
       s"""
 <div>
-  <button id="challenge-toggle" class="toggle link">
+  <button id="challenge-toggle" class="toggle link" type="button">
     <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="$challenges" data-icon="${Icon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
-  <button id="notify-toggle" class="toggle link">
+  <button id="notify-toggle" class="toggle link" type="button">
     <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="$notifs" data-icon="${Icon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
@@ -76,7 +76,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
     div(id := "clinput")(
-      a(cls := "link")(span(dataIcon := Icon.Search)),
+      a(cls := "link", dataIcon := Icon.Search),
       input(
         spellcheck   := "false",
         autocomplete := ctx.blind.toString,

@@ -30,7 +30,7 @@ trait I18nHelper:
   def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using t: Translate): Frag =
     translator.frag.literal(key, args, t.lang)
 
-  def langHref(call: Call)(using Context): String = langHref(call.url)
+  def langHref(call: Call)(using Context): String        = langHref(call.url)
   def langHref(path: String)(using ctx: Context): String =
     if ctx.isAuth || ctx.lang.language == "en"
     then path

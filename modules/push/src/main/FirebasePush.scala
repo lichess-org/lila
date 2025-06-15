@@ -38,7 +38,7 @@ final private class FirebasePush(
           config.googleCredentials.so: creds =>
             for
               data <- data.value
-              _ <-
+              _    <-
                 if !data.mobileCompatible && device.isMobile
                 then funit // mobile doesn't yet support all messages
                 else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
@@ -77,10 +77,10 @@ final private class FirebasePush(
           "message" -> Json
             .obj(
               "token" -> device._id,
-              "data" -> toDataKeyValue:
+              "data"  -> toDataKeyValue:
                 data.firebaseMod.match
                   case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
-                  case _ =>
+                  case _                                             =>
                     data.payload.userData ++ (data.iosBadge.map: number =>
                       "iosBadge" -> number.toString)
             )

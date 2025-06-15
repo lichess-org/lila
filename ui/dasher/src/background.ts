@@ -3,7 +3,7 @@ import { elementScrollBarWidthSlowGuess, header } from './util';
 import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import * as licon from 'lib/licon';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind } from 'lib/snabbdom';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
@@ -118,10 +118,11 @@ export class BackgroundCtrl extends PaneCtrl {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {
           insert: vnode => {
-            $(vnode.elm as HTMLElement).on(
+            const el = vnode.elm as HTMLInputElement;
+            $(el).on(
               'change keyup paste',
-              debounce((el: HTMLInputElement) => {
-                const url = (el.value as string).trim();
+              debounce(_ => {
+                const url = el.value.trim();
                 if (
                   (url.startsWith('https://') || url.startsWith('//')) &&
                   url.length >= 10 &&
@@ -162,18 +163,7 @@ export class BackgroundCtrl extends PaneCtrl {
           }),
         ),
       ]),
-      h('span#url', [
-        h('label', 'URL'),
-        h('input', {
-          attrs: { type: 'text', placeholder: 'https://', value: this.data.image },
-          hook: onInsert((el: HTMLInputElement) =>
-            $(el).on(
-              'change keyup paste',
-              debounce(() => setImg(el.value.trim()), 300),
-            ),
-          ),
-        }),
-      ]),
+      this.imageInput(),
     ]);
   };
 }

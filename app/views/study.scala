@@ -63,7 +63,7 @@ def show(
           "data"     -> data.analysis,
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId"   -> ctx.userId,
-          "chat" -> chatOption.map: c =>
+          "chat"     -> chatOption.map: c =>
             views.chat.json(
               c.chat,
               c.lines,
@@ -72,7 +72,7 @@ def show(
               writeable = ctx.userId.exists(s.canChat),
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
-              palantir = ctx.userId.exists(s.isMember),
+              voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),
           "socketUrl"     -> socketUrl(s.id),

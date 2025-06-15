@@ -68,7 +68,7 @@ final class Team(env: Env) extends LilaController(env):
     log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
-    _ <- env.user.lightUserApi.preloadMany:
+    _    <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.soFu(env.team.version(team.id))
     page    <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
@@ -350,7 +350,7 @@ final class Team(env: Env) extends LilaController(env):
     Found(for
       requestOption <- api.request(requestId)
       teamOption    <- requestOption.so(req => env.team.teamRepo.byId(req.team))
-      isGranted <- teamOption.so: team =>
+      isGranted     <- teamOption.so: team =>
         api.isGranted(team.id, me, _.Request)
     yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
       bindForm(forms.processRequest)(
@@ -394,7 +394,7 @@ final class Team(env: Env) extends LilaController(env):
 
   def autocomplete = Anon:
     get("term").filter(_.nonEmpty) match
-      case None => BadRequest("No search term provided")
+      case None       => BadRequest("No search term provided")
       case Some(term) =>
         for
           teams <- api.autocomplete(term, 10)
@@ -433,7 +433,7 @@ final class Team(env: Env) extends LilaController(env):
                 team.id,
                 if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
               ) {
-                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+                val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
                 val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""

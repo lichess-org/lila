@@ -132,7 +132,7 @@ object JsonApi:
     given Reads[Request.Fishnet]          = Json.reads
     given Reads[Request.Acquire]          = Json.reads
     given Reads[Request.Evaluation.Score] = Json.reads
-    given Reads[List[Uci]] = Reads.of[String].map { str =>
+    given Reads[List[Uci]]                = Reads.of[String].map { str =>
       ~Uci.readList(str)
     }
 
@@ -148,7 +148,7 @@ object JsonApi:
     )(Request.Evaluation.apply)
     given Reads[Option[EvalOrSkip]] = Reads:
       case JsNull => JsSuccess(None)
-      case obj =>
+      case obj    =>
         if ~(obj.boolean("skipped")) then JsSuccess(EvalOrSkip.Skipped.some)
         else EvaluationReads.reads(obj).map(EvalOrSkip.Evaluated(_).some)
     given Reads[Request.PostAnalysis] = Json.reads
@@ -156,13 +156,13 @@ object JsonApi:
   object writers:
     given Writes[Variant] = writeAs(_.key)
     given Writes[Game]    = Json.writes
-    given OWrites[Work] = OWrites { work =>
+    given OWrites[Work]   = OWrites { work =>
       (work match
         case a: Analysis =>
           Json.obj(
             "work" -> Json.obj(
-              "type" -> "analysis",
-              "id"   -> a.id,
+              "type"  -> "analysis",
+              "id"    -> a.id,
               "nodes" -> Json.obj(
                 "sf17_1"    -> a.nodes,
                 "sf16"      -> a.nodes,
