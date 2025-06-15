@@ -21,7 +21,7 @@
   <string name="newTag">Nýtt merki</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í greiningu geta beðið um tölvugreiningu.</string>
   <string name="cloneStudy">Afrita</string>
-  <string name="studyPgn">PGN greiningar</string>
+  <string name="studyPgn">PGN-greiningar</string>
   <string name="studyUrl">URL greiningar</string>
   <string name="open">Opna</string>
   <string name="studyNotFound">Greining fannst ekki</string>
