@@ -90,8 +90,7 @@ export class ChatCtrl {
   }
 
   get isOptional(): boolean {
-    const tabs = this.visibleTabs;
-    return tabs.length === 1 && tabs[0].key === 'discussion';
+    return this.visibleTabs[0]?.key === 'discussion';
   }
 
   get visibleTabs(): Tab[] {
@@ -190,8 +189,6 @@ export class ChatCtrl {
 
   getTab(): Tab {
     const tabs = this.visibleTabs;
-    return this.chatEnabled()
-      ? (tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0])
-      : tabs[tabs.length - 1];
+    return tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0];
   }
 }
