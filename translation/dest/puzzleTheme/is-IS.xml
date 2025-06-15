@@ -11,4 +11,8 @@
   <string name="endgame">Endatafl</string>
   <string name="fork">Gaffall</string>
   <string name="mate">Mát</string>
+  <string name="queenRookEndgame">Drottning og hrók</string>
+  <string name="queenRookEndgameDescription">Endatafl með aðeins drottningu, hrókum og peðum.</string>
+  <string name="rookEndgame">Endatafl með hrókum</string>
+  <string name="rookEndgameDescription">Endatafl með aðeins hrókum og peðum.</string>
 </resources>
