@@ -676,9 +676,9 @@ object mon:
     def create(user: String) = counter("ublog.create").withTag("user", user)
     def view(user: String)   = counter("ublog.view").withTag("user", user)
     object automod:
-      val request                   = future("ublog.automod.request")
-      def classification(c: String) = counter("ublog.automod.classification").withTag("classification", c)
-      def flagged(f: Boolean)       = counter("ublog.automod.flagged").withTag("flagged", f)
+      val request             = future("ublog.automod.request")
+      def quality(c: String)  = counter("ublog.automod.quality").withTag("quality", c)
+      def flagged(f: Boolean) = counter("ublog.automod.flagged").withTag("flagged", f)
   object picfit:
     def uploadTime(user: String) = future("picfit.upload.time", tags("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)

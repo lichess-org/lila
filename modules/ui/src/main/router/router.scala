@@ -12,6 +12,7 @@ package routes:
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
   export lila.core.study.Order as StudyOrder
+  export lila.core.ublog.BlogsBy
   export lila.ui.LilaRouter.given
 
 package router.router:
@@ -26,6 +27,7 @@ package router.router:
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
   export lila.core.study.Order as StudyOrder
+  export lila.core.ublog.BlogsBy
   export lila.ui.LilaRouter.given
 
 package router.team:
