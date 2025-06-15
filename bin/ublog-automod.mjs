@@ -238,11 +238,12 @@ function maybeCopy(src, dest, key) {
 
 // ===========================================================================================================
 
-function maybeBulkWrite(bufferSize) {
+async function maybeBulkWrite(bufferSize) {
   if (bulkOps.length === 0 || bulkOps.length < bufferSize) return;
   const ops = bulkOps.slice();
   bulkOps.length = 0;
-  return db.collection('ublog_post').bulkWrite(ops, { ordered: false });
+  console.log(`bulk writing ${ops.length} operations`);
+  return await db.collection('ublog_post').bulkWrite(ops, { ordered: false });
 }
 
 // ===========================================================================================================
@@ -259,9 +260,9 @@ async function mergeAndExit() {
       bulkOps.push({
         updateOne: { filter: { _id }, update: { $set: { automod } } },
       });
-      maybeBulkWrite(1000);
+      await maybeBulkWrite(1000);
     }
-    maybeBulkWrite(bulkOps.length);
+    await maybeBulkWrite(bulkOps.length);
     code = 0;
   } catch (e) {
     msg = `merge error: ${String(e)} ${JSON.stringify(e)}`;
