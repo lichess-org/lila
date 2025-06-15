@@ -22,6 +22,7 @@
   <string name="asBlack">ως μαύρος</string>
   <string name="randomColor">Τυχαίο χρώμα</string>
   <string name="createAGame">Δημιουργήστε παιχνίδι</string>
+  <string name="createTheGame">Νέα παρτίδα</string>
   <string name="whiteIsVictorious">Τα λευκά νίκησαν</string>
   <string name="blackIsVictorious">Τα μαύρα νίκησαν</string>
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Εμφάνιση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
+  <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας PGN</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -761,6 +763,7 @@
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
+  <string name="downloadAllGames">Λήψη όλων των παρτίδων</string>
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
@@ -1005,4 +1008,7 @@
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Τίποτα για να δείτε εδώ αυτή τη στιγμή.</string>
   <string name="stats">Στατιστικά</string>
+  <string name="accessibility">Προσβασιμότητα</string>
+  <string name="enableBlindMode">Ενεργοποίηση λειτουργίας για τυφλούς</string>
+  <string name="disableBlindMode">Απενεργοποίηση λειτουργίας για τυφλούς</string>
 </resources>
