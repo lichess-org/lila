@@ -15,7 +15,7 @@ private object UblogBsonHandlers:
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
     id => BSONString(id.full)
   )
-  given BSONDocumentHandler[UblogBlog] = Macros.handler
+  given BSONDocumentHandler[UblogBlog]    = Macros.handler
   given BSONHandler[Lang]                 = langByCodeHandler
   given BSONDocumentHandler[Recorded]     = Macros.handler
   given BSONDocumentHandler[Featured]     = Macros.handler
