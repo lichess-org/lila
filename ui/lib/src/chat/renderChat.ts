@@ -65,7 +65,6 @@ const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
       hook: bind('click', e => {
         if ((e.target as HTMLElement).closest('input,label')) return;
         ctrl.setTab(tab);
-        if (tab.key === 'discussion') ctrl.chatEnabled(true);
         ctrl.redraw();
       }),
     },
@@ -78,6 +77,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
     return [
       h('span', ctrl.data.name),
       ctrl.isOptional &&
+        ctrl.getTab() === tab &&
         h('div.switch', [
           h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
             attrs: { type: 'checkbox', checked: ctrl.chatEnabled() },
