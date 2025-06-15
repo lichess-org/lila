@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
+  <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>
+  <string name="personalOpeningExplorer">%s Einstaklingsbundinn byrjanaskoðari</string>
+  <string name="endgameTablebase">7 manna endataflsútreikningasafn</string>
+</resources>
