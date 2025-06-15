@@ -26,7 +26,7 @@ export default new (class implements SoundI {
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
-    window.speechSynthesis.getVoices(); // preload
+    window.speechSynthesis?.getVoices(); // preload
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
