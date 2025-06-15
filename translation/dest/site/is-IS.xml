@@ -71,6 +71,7 @@
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
   <string name="forceVariation">Þvinga í tilbrigði</string>
+  <string name="copyVariationPgn">Afrita PGN-afbrigði</string>
   <string name="move">Leikur</string>
   <string name="variantLoss">Afbrigði tapar</string>
   <string name="variantWin">Afbrigði vinnur</string>
@@ -97,7 +98,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openings">Byrjanir</string>
   <string name="openingExplorer">Skoða byrjanir</string>
-  <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
+  <string name="openingEndgameExplorer">Skoða byrjana/endatafl</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
   <string name="playFirstOpeningEndgameExplorerMove">Leika fyrsta leik byrjunar/endatafls-könnuðar</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
@@ -672,6 +673,8 @@
   <string name="keyNextBlunder">Næsti afleikur</string>
   <string name="keyNextMistake">Næstu mistök</string>
   <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
+  <string name="keyPreviousBranch">Fyrri grein</string>
+  <string name="keyNextBranch">Næsta grein</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
   <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. Örskák, hraðskák, klassísk tímamörk, skák960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
@@ -694,9 +697,9 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
   <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tími sem það tekur netbeina lichess að afgreiða leik.</string>
-  <string name="downloadAnnotated">Hlaða niður skák með athugasemdum</string>
-  <string name="downloadRaw">Hlaða niður grunneintaki</string>
-  <string name="downloadImported">Innsetning klár</string>
+  <string name="downloadAnnotated">Hlaða niður með athugasemdum</string>
+  <string name="downloadRaw">Hlaða niður óunnu eintaki</string>
+  <string name="downloadImported">Niðurhali hlaðið inn</string>
   <string name="crosstable">Stigatafla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Þú getur einnig skrunað yfir leikborðinu til að fara yfir leikinn.</string>
   <string name="analysisShapesHowTo">Þú getur teiknað hringi og örvar á leikborðið með því að ýta á shift+vinstrismella eða hægrismella með músinni.</string>
