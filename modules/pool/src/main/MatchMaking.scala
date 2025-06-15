@@ -43,7 +43,8 @@ object MatchMaking:
     // None indicates a forbidden pairing
     private def pairScore(a: PoolMember, b: PoolMember): Option[Int] =
       val conflict =
-        ratingRangeConflict(a, b) ||
+        a.userId == b.userId ||
+          ratingRangeConflict(a, b) ||
           ratingRangeConflict(b, a) ||
           blockList(a, b) ||
           blockList(b, a)

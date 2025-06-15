@@ -1747,7 +1747,7 @@ interface I18n {
     announceLastMove: string;
     /** Announce piece captured in last move. */
     announceLastMoveCapture: string;
-    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king. */
+    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces. */
     announcePieceLocations: string;
     /** Announce pieces on a rank or a file. Example: s a, s 1. */
     announcePiecesOnRankOrFile: string;

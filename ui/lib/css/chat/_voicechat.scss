@@ -1,4 +1,4 @@
-@keyframes palantir-glowing {
+@keyframes voicechat-glowing {
   40% {
     background: none;
   }
@@ -16,9 +16,9 @@
   }
 }
 
-.palantir {
+.voicechat {
   flex: 0 1 auto;
-  animation: palantir-glowing 1.5s ease-in-out infinite;
+  animation: voicechat-glowing 1.5s ease-in-out infinite;
 
   &-slot {
     animation: none;

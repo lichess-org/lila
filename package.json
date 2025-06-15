@@ -28,15 +28,16 @@
     ]
   },
   "dependencies": {
+    "@lichess-org/chessground": "9.2.3",
+    "@lichess-org/pgn-viewer": "2.4.7",
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.216",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
     "ab": "github:lichess-org/ab-stub",
-    "@lichess-org/chessground": "9.2.3",
     "chessops": "^0.14.2",
     "eslint": "^9.24.0",
-    "@lichess-org/pgn-viewer": "2.4.7",
+    "eslint-plugin-compat": "^6.0.2",
     "lint-staged": "^15.5.0",
     "onchange": "^7.1.0",
     "prettier": "^3.5.3",
@@ -65,5 +66,12 @@
     "test": "vitest run --config=ui/vitest.config.mts",
     "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
-  }
+  },
+  "browserslist": [
+    "Chrome >= 98",
+    "Firefox >= 128",
+    "Edge >= 98",
+    "Opera >= 84",
+    "Safari >= 15.6"
+  ]
 }

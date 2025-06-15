@@ -28,4 +28,33 @@
   <string name="goToBoard">Mergeți la tablă. Pătratul implicit este e-4. Puteți specifica un pătrat: board a-1 sau b a-1 vă va duce la pătrat a-1.</string>
   <string name="movePiece">Pentru a muta o piesă, folosiți notația algebrică standard.</string>
   <string name="promotion">Pentru a promova la orice altceva decât o regină, folosiți equals. De exemplu, a-8-equals-n promovează la un cal.</string>
+  <string name="king">rege</string>
+  <string name="whiteKing">rege alb</string>
+  <string name="blackKing">rege negru</string>
+  <string name="queen">regină</string>
+  <string name="whiteQueen">regină albă</string>
+  <string name="blackQueen">regină neagră</string>
+  <string name="rook">tură</string>
+  <string name="whiteRook">tură albă</string>
+  <string name="blackRook">tură neagră</string>
+  <string name="bishop">nebun</string>
+  <string name="whiteBishop">nebun alb</string>
+  <string name="blackBishop">nebun negru</string>
+  <string name="knight">cal</string>
+  <string name="whiteKnight">cal alb</string>
+  <string name="blackKnight">cal negru</string>
+  <string name="pawn">pion</string>
+  <string name="whitePawn">pion alb</string>
+  <string name="blackPawn">pion negru</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">ia</string>
+  <string name="sanCheck" comment="+ in standard notation">șah</string>
+  <string name="sanCheckmate" comment="# in standard notation">şah mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promovează la</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">rocadă mică</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">rocadă mare</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">este mutat la</string>
+  <string name="invalidMove">Mutarea nu e validă</string>
+  <string name="premoveCancelled">Premutare anulată</string>
+  <string name="premoveRecorded">Premutare înregistrată: %s. Apăsați enter pentru a anula</string>
 </resources>

@@ -49,7 +49,7 @@ class Context(
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
-  def canPalantir                 = kid.no && me.exists(!_.marks.troll)
+  def canVoiceChat                = kid.no && me.exists(!_.marks.troll)
   lazy val translate              = Translate(lila.i18n.Translator, lang)
 
 object Context:

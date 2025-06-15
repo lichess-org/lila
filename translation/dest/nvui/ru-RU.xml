@@ -24,4 +24,28 @@
   <string name="moveToRank">Перейти на горизонталь 1–8.</string>
   <string name="moveToFile">Перейти на вертикаль a–h.</string>
   <string name="movePiece">Чтобы переместить фигуру, используйте стандартную алгебраическую нотацию.</string>
+  <string name="king">король</string>
+  <string name="whiteKing">белый король</string>
+  <string name="blackKing">чёрный король</string>
+  <string name="queen">ферзь</string>
+  <string name="whiteQueen">белый ферзь</string>
+  <string name="blackQueen">чёрный ферзь</string>
+  <string name="rook">ладья</string>
+  <string name="whiteRook">белая ладья</string>
+  <string name="blackRook">чёрная ладья</string>
+  <string name="bishop">слон</string>
+  <string name="whiteBishop">белый слон</string>
+  <string name="blackBishop">чёрный слон</string>
+  <string name="knight">конь</string>
+  <string name="whiteKnight">белый конь</string>
+  <string name="blackKnight">чёрный конь</string>
+  <string name="pawn">пешка</string>
+  <string name="whitePawn">белая пешка</string>
+  <string name="blackPawn">чёрная пешка</string>
+  <string name="sanTakes" comment="x in standard notation">бьёт</string>
+  <string name="sanCheck" comment="+ in standard notation">шах</string>
+  <string name="sanCheckmate" comment="# in standard notation">мат</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">короткая рокировка</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">длинная рокировка</string>
+  <string name="invalidMove">Невозможный ход</string>
 </resources>

@@ -53,7 +53,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       prev
         .forall(_.settings.difficulty != difficulty)
         .option(
-          createSessionFor(
+          createSessionFor("difficulty")(
             prev.map(_.path.angle) | PuzzleAngle.mix,
             PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
           )
@@ -64,7 +64,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       prev
         .forall(p => p.settings.color != color || p.path.angle != angle)
         .option(
-          createSessionFor(
+          createSessionFor("angle")(
             angle,
             PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
           )
@@ -89,22 +89,27 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       canFlush: Boolean
   )(using me: Me, perf: Perf): Fu[PuzzleSession] =
     sessions
-      .getFuture(me.userId, _ => createSessionFor(angle, PuzzleSettings.default))
+      .getFuture(me.userId, _ => createSessionFor("miss")(angle, PuzzleSettings.default))
       .flatMap: current =>
-        if current.path.angle != angle || (canFlush && shouldFlushSession(current))
-        then createSessionFor(angle, current.settings).tap { sessions.put(me.userId, _) }
-        else fuccess(current)
+        val reCreateReason =
+          if current.path.angle != angle then "wrongAngle".some
+          else if canFlush && shouldFlushSession(current) then "flush".some
+          else none
+        reCreateReason match
+          case Some(reason) =>
+            createSessionFor(reason)(angle, current.settings).tap { sessions.put(me.userId, _) }
+          case None => fuccess(current)
 
   // renew the session often for provisional players
   private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
     perf.glicko.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
 
-  private def createSessionFor(angle: PuzzleAngle, settings: PuzzleSettings)(using
+  private def createSessionFor(reason: String)(angle: PuzzleAngle, settings: PuzzleSettings)(using
       me: Me,
       perf: Perf
   ): Fu[PuzzleSession] =
     pathApi
-      .nextFor("session")(angle, PuzzleTier.top, settings.difficulty, Set.empty)
+      .nextFor(s"session.$reason")(angle, PuzzleTier.top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
       .dmap(pathId => PuzzleSession(settings, pathId, 0))

@@ -16,7 +16,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
   return snabDialog({
-    attrs: { dialog: { role: 'dialog', 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
+    attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
     onClose: () => {

@@ -16,7 +16,6 @@ private object UblogBsonHandlers:
     id => BSONString(id.full)
   )
   given BSONDocumentHandler[UblogBlog] = Macros.handler
-
   given BSONHandler[Lang]                 = langByCodeHandler
   given BSONDocumentHandler[Recorded]     = Macros.handler
   given BSONDocumentHandler[Featured]     = Macros.handler
