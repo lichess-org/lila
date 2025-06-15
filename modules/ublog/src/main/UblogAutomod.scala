@@ -31,7 +31,8 @@ private object UblogAutomod:
   private case class Config(apiKey: Secret, model: String, url: String)
 
   private case class FuzzyResult(
-      classification: String,
+      quality: Option[String],
+      classification: Option[String],
       flagged: Option[JsValue],
       commercial: Option[JsValue],
       offtopic: Option[JsValue],
@@ -107,7 +108,7 @@ final class UblogAutomod(
     val trimmed = msg.slice(msg.lastIndexOf('{'), msg.lastIndexOf('}') + 1)
     Json.parse(trimmed).asOpt[FuzzyResult].flatMap { res =>
       val fixed = Result(
-        classification = res.classification,
+        classification = res.classification.orElse(res.quality).getOrElse("good"),
         evergreen = res.evergreen,
         flagged = fix(res.flagged),
         commercial = fix(res.commercial),
