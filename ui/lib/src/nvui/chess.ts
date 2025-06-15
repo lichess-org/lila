@@ -385,6 +385,119 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
+//type Diagonal = 'top_right' | 'bottom_right' | 'bottom_left' | 'top_left';
+type Diagonals = {
+  top_right: Key[];
+  bottom_right: Key[];
+  bottom_left: Key[];
+  top_left: Key[];
+};
+
+function getDiagonals(square: Key, pov: Color): Diagonals {
+  const files = 'abcdefgh';
+  const ranks = '12345678';
+
+  const fileIndex = files.indexOf(square[0]);
+  const rankIndex = ranks.indexOf(square[1]);
+
+  if (fileIndex === -1 || rankIndex === -1) {
+    throw new Error('Invalid square');
+  }
+
+  const coordsToSquare = (f: number, r: number): Key | null => {
+    if (f >= 0 && f < 8 && r >= 0 && r < 8) {
+      return (files[f] + ranks[r]) as Key;
+    }
+    return null;
+  };
+
+  const results: Diagonals = {
+    top_right: [] as Key[],
+    bottom_right: [] as Key[],
+    bottom_left: [] as Key[],
+    top_left: [] as Key[],
+  };
+
+  for (let d = 1; d < 8; d++) {
+    // ( / )
+    let sfw, sbw; // slashforward, slashbackward
+
+    if (pov === 'white') {
+      sfw = coordsToSquare(fileIndex + d, rankIndex + d);
+      sbw = coordsToSquare(fileIndex - d, rankIndex - d);
+    } else {
+      sfw = coordsToSquare(fileIndex - d, rankIndex - d);
+      sbw = coordsToSquare(fileIndex + d, rankIndex + d);
+    }
+
+    if (sfw) results.top_right.push(sfw);
+    if (sbw) results.bottom_left.push(sbw);
+
+    // ( \ ))
+    let bfw, bbw; // backslashforward, backslashbackward
+
+    if (pov === 'white') {
+      bfw = coordsToSquare(fileIndex - d, rankIndex + d);
+      bbw = coordsToSquare(fileIndex + d, rankIndex - d);
+    } else {
+      bfw = coordsToSquare(fileIndex + d, rankIndex - d);
+      bbw = coordsToSquare(fileIndex - d, rankIndex + d);
+    }
+
+    if (bfw) results.top_left.push(bfw);
+    if (bbw) results.bottom_right.push(bbw);
+  }
+
+  return results;
+}
+
+export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
+  return (ev: KeyboardEvent): void => {
+    const target = ev.target as HTMLElement;
+    const key = keyFromAttrs(target);
+    const keyDiagonals = getDiagonals(key!, pov);
+    const currentDiagonal = target.getAttribute('diagonal') ?? 'top_left';
+    // get next valid diagonal clockwise
+    const wheel = [
+      'top_left',
+      'top_right',
+      'bottom_right',
+      'bottom_left',
+      'top_left',
+      'top_right',
+      'bottom_right',
+      'bottom_left',
+    ];
+    const index = wheel.findIndex(item => item === currentDiagonal);
+    const objKeys = wheel.slice(index + 1);
+
+    let nextDiagonal: Key[];
+    for (const objKey of objKeys) {
+      if (keyDiagonals[objKey as keyof Diagonals].length > 0) {
+        target.setAttribute('diagonal', objKey);
+        nextDiagonal = keyDiagonals[objKey as keyof Diagonals];
+        break;
+      }
+    }
+
+    const $boardLive = $('.boardstatus');
+    const renderedPieces = nextDiagonal!.reduce<string[]>(
+      (acc, key) =>
+        pieces.get(key)
+          ? acc.concat(
+              `${renderKey(key, style)} ${transPieceStr(pieces.get(key)!.role, pieces.get(key)!.color, i18n)}`,
+            )
+          : acc,
+      [],
+    );
+    $boardLive.text(
+      target.getAttribute('diagonal') +
+        '  ' +
+        (renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none),
+    );
+  };
+}
+
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
     const key = keyFromAttrs(ev.target as HTMLElement);
