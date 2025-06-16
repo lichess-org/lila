@@ -203,7 +203,7 @@ function renderBoard(ctrl: RoundController): LooseVNode[] {
           );
           $buttons.on('keydown', (e: KeyboardEvent) => {
             if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-            else if (e.key === 'd')
+            else if (e.key.match(/^g$/i))
               scanDiagonalHandler(ctrl.data.player.color, ctrl.chessground.state.pieces, moveStyle.get())(e);
             else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
             else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);

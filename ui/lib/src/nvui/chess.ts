@@ -453,10 +453,11 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
 
 export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
   return (ev: KeyboardEvent): void => {
+    console.log(ev.key + ' ' + ev.shiftKey)
     const target = ev.target as HTMLElement;
     const key = keyFromAttrs(target);
     const keyDiagonals = getDiagonals(key!, pov);
-    const currentDiagonal = target.getAttribute('diagonal') ?? 'top_left';
+    const currentDiagonal = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'top_right' : 'top_left');
     // get next valid diagonal clockwise
     const wheel = [
       'top_left',
@@ -467,8 +468,10 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       'top_right',
       'bottom_right',
       'bottom_left',
+      'top_left',
+      'top_right',
     ];
-    const index = wheel.findIndex(item => item === currentDiagonal);
+    const index = (ev.shiftKey ? wheel.reverse() : wheel).findIndex(item => item === currentDiagonal);
     const objKeys = wheel.slice(index + 1);
 
     let nextDiagonal: Key[];
