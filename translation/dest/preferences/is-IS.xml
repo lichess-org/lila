@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Stillingar</string>
+  <string name="privacy">Persónuvernd</string>
   <string name="notifications">Tilkynningar</string>
   <string name="pieceAnimation">Hreyfing taflmanna</string>
   <string name="materialDifference">Liðsmunur</string>
@@ -43,4 +44,6 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Segja \"Good game, well played\" sjálfkrafa eftir tapi eða jafntefli</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
   <string name="notifyChallenge">Áskoranir</string>
+  <string name="notifyTournamentSoon">Mót hefst senn</string>
+  <string name="notifyWeb">Vafri</string>
 </resources>
