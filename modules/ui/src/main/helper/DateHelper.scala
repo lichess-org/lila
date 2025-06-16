@@ -71,7 +71,7 @@ trait DateHelper:
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
+  def momentFromNow(instant: Instant)(using Translate): Tag = momentFromNow(instant, false, false)
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false)(using Translate): Tag =
     val nowMillis = System.currentTimeMillis()
