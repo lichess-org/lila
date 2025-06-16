@@ -77,8 +77,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="medians">διάμεσες τιμές</string>
   <string name="allAveragesAreX">Όλοι οι μέσοι όροι σε αυτήν τη σελίδα είναι %s.</string>
   <string name="total">Σύνολο</string>
-  <string name="pointsAvg">Μέσος όρος πόντων</string>
-  <string name="pointsSum">Σύνολο πόντων</string>
+  <string name="pointsAvg">Μέσος όρος βαθμών</string>
+  <string name="pointsSum">Σύνολο βαθμών</string>
   <string name="rankAvg">Μέσος όρος κατάταξης</string>
   <string name="tournamentWinners">Νικητές πρωταθλήματος</string>
   <string name="tournamentShields">Πρωταθλήματα Ασπίδας</string>
