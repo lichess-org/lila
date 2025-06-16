@@ -108,6 +108,7 @@
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
   <string name="winOr50MovesByPriorMistake">Sigur eða 50 leikir vegna fyrri mistaka</string>
+  <string name="lossOr50MovesByPriorMistake">Tap eða 50 leikir vegna fyrri mistaka</string>
   <string name="allSet">Allt tilbúið!</string>
   <string name="importPgn">Hlaða inn PGN</string>
   <string name="delete">Eyða</string>
@@ -682,6 +683,7 @@
   <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
+  <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
   <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. Örskák, hraðskák, klassísk tímamörk, skák960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
@@ -690,9 +692,14 @@
   <string name="tournamentMayHaveBeenCanceled">Því kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
   <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s leikmaður í þessari viku.</item>
+    <item quantity="other">%1$s %2$s leikmenn í þessari viku.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betra en %2$s af %3$s.</string>
+  <string name="betterThanPercentPlayers">Trompar %1$s af %2$s leikmönnum</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Þú hefur ekki skráð skor í %s.</string>
   <string name="yourRating">Skákstigin þín</string>
   <string name="cumulative">Uppsafnað</string>
@@ -700,7 +707,9 @@
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
+  <string name="ifYouDoNotGetTheEmail">Ef þú færð ekki tölvupóstinn innan 5 mínútna:</string>
   <string name="checkAllEmailFolders">Skoða allar rusls-, ama- og aðrar möppur</string>
+  <string name="verifyYourAddress">Staðfestu að %s sé netfangið þitt</string>
   <string name="weHaveSentYouAnEmailTo">Við sendum póst á %s. Fylgdu hlekknum þar til þess að skipta um lykilorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
   <string name="readAboutOur">Lestu um %s okkar.</string>
@@ -764,6 +773,7 @@
   <string name="invalidFen">Ógilt FEN</string>
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
+  <string name="notificationsX">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
@@ -820,6 +830,8 @@
   <string name="tryToWin">Reyndu að vinna (eða amk. ná jafntefli) í öllum skákum sem þú teflir.</string>
   <string name="resignLostGames">Gefðu tapaðar skákir (ekki láta tímann renna út).</string>
   <string name="thankYouForReading">Takk fyrir að lesa!</string>
+  <string name="lifetimeScore">Heildarárangur</string>
+  <string name="currentMatchScore">Núverandi skákaárangur</string>
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég er samþykk/ur því að ég muni ekki stofna marga reikninga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
@@ -835,10 +847,20 @@
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
+  <string name="correspondenceDesc">Bréfskák: einn eða fleiri dagar á leik</string>
+  <string name="puzzleDesc">Þjálfari í meginatriðum skákar</string>
   <string name="important">Mikilvægt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Til að tilkynna notenda fyrir svindl eða slæma hegðun, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Til þess að tilkynna notanda fyrir svindl eða ótilhlýðilega hegðun %1$s</string>
+  <string name="useTheReportForm">skaltu nýta tilkynningakorkinn</string>
+  <string name="toRequestSupport">Til þess að óska eftir aðstoð %1$s</string>
+  <string name="tryTheContactPage">skaltu athuga þjónustuverssíðuna</string>
+  <string name="makeSureToRead">Vertu viss um að lesa %1$s</string>
+  <string name="theForumEtiquette">velsæmisreglur umræðukorksins</string>
+  <string name="thisTopicIsArchived">Þetta spjall hefur verið vistað í safni og ekki er lengur hægt að svara því.</string>
+  <string name="joinTheTeamXToPost">Gakktu til liðs við %1$s til þess að póstleggja þennan umræðukork</string>
+  <string name="teamNamedX">%1$s lið</string>
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
@@ -853,4 +875,44 @@
   <string name="gameVsX">Skák á móti %1$s</string>
   <string name="resVsX">%1$s á móti %2$s</string>
   <string name="lostAgainstTOSViolator">Þú misstir skákstig fyrir einhvern sem braut gegn notkunarskilmálum Lichess</string>
+  <string name="refundXpointsTimeControlY">Endurheimt: %1$s %2$s skákstig.</string>
+  <string name="timeAlmostUp">Tíminn er næstum því liðinn!</string>
+  <string name="clickToRevealEmailAddress">[Smelltu til að sýna netfang]</string>
+  <string name="download">Sækja</string>
+  <string name="coachManager">Stýringar þjálfara</string>
+  <string name="streamerManager">Stýringar streymara</string>
+  <string name="cancelTournament">Aflýsa mótinu</string>
+  <string name="tournDescription">Lýsing móts</string>
+  <string name="tournDescriptionHelp">Er nokkuð sérstakt sem óskað er eftir að upplýsa þátttakendur um? Reyndu að hafa það stutt. Tenglar sem styðja Markdown eru í boði: [heiti](https://url)</string>
+  <string name="ratedFormHelp">Leikir gilda til stiga og hafa áhrif á stig leikmanna</string>
+  <string name="onlyMembersOfTeam">Eingöngu meðlimir liðs</string>
+  <string name="noRestriction">Engar hömlur</string>
+  <string name="minimumRatedGames">Lágmarksfjöldi leikja með stigagjöf</string>
+  <string name="minimumRating">Lágmarksstig</string>
+  <string name="maximumWeeklyRating">Hámark vikulegra stiga</string>
+  <string name="cancelSimul">Hætta fjöltefli</string>
+  <string name="simulHostcolor">Litur gestgjafa fyrir hvern leik</string>
+  <string name="estimatedStart">Áætlaður upphafstími</string>
+  <string name="simulFeatured">Sérleiki á %s</string>
+  <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
+  <string name="simulDescription">Lýsing fjölteflis</string>
+  <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
+  <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
+  <string name="tournChat">Spjall móts</string>
+  <string name="noChat">Ekkert spjall</string>
+  <string name="mouseTricks">Músarklækir</string>
+  <string name="focusChat">Skerpa spjall</string>
+  <string name="showHelpDialog">Sýna þennan hjálpglugga</string>
+  <string name="reopenYourAccount">Endurheimtu reikning þinn</string>
+  <string name="reopenYourAccountDescription">Ef þú lokaðir aðganginum þínum, en hefur síðan skipt um skoðun, átt þú möguleika á að fá hann aftur.</string>
+  <string name="emailAssociatedToaccount">Netfang sem tengt er reikningnum</string>
+  <string name="sentEmailWithLink">Við höfum sent þér tölvupóst með tengli.</string>
+  <string name="tournamentEntryCode">Þátttökukóði fyrir mótið</string>
+  <string name="hangOn">Bíddu nú hægur!</string>
+  <string name="abortTheGame">Hætta við skák</string>
+  <string name="resignTheGame">Gefa upp skák</string>
+  <string name="since">Síðan</string>
+  <string name="until">Uns</string>
+  <string name="lichessPatronInfo">Lichess er góðgerðarverkefni og eingöngu ókeypis og opinn hugbúnaður. 
+Allur rekstrarkostnaður, þróun og efniviður er fjármagnaður eingöngu með fjárframlögum notenda.</string>
 </resources>
