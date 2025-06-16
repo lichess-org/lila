@@ -32,7 +32,7 @@
   <string name="requestDeclined">Το αίτημα πρόσβασης απορρίφθηκε από κάποιον αρχηγό της ομάδας.</string>
   <string name="subToTeamMessages">Εγγραφείτε στα μηνύματα της ομάδας</string>
   <string name="teamBattle">Ομαδική μάχη</string>
-  <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων, στην οποία ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
+  <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων, στην οποία ο κάθε παίκτης κερδίζει βαθμούς για την ομάδα του</string>
   <string name="teamTournament">Τουρνουά ομάδας</string>
   <string name="teamTournamentOverview">Ένα τουρνουά Arena στο οποίο μπορούν να συμμετέχουν μόνο παίκτες της ομάδας σας</string>
   <string name="swissTournamentOverview">Ένα Ελβετικό τουρνουά στο οποίο μπορούν να συμμετέχουν μόνο μέλη της ομάδας σας</string>
@@ -64,7 +64,7 @@
   <string name="oneTeamPerLineHelp">Μπορείτε να χρησιμοποιήσετε αυτή τη λίστα και σε άλλα τουρνουά!
 
 Δεν μπορείτε να διαγράψετε μια ομάδα εάν τουλάχιστον ένας παίκτης της συμμετέχει στο τουρνουά με αυτήν.</string>
-  <string name="numberOfLeadsPerTeam">Πλήθος αρχηγών ανά ομάδα. Οι πόντοι μιας ομάδας υπολογίζονται αθροίζοντας τους επιμέρους πόντους των αρχηγών της.</string>
+  <string name="numberOfLeadsPerTeam">Πλήθος αρχηγών ανά ομάδα. Οι βαθμοί μιας ομάδας υπολογίζονται αθροίζοντας τους επιμέρους βαθμούς των αρχηγών της.</string>
   <string name="numberOfLeadsPerTeamHelp">Δε συνιστάται η αλλαγή αυτής της τιμής μετά από την έναρξη του τουρνουά!</string>
   <string name="innerTeam">Εσωτερικό τουρνουά ομάδας</string>
   <plurals name="battleOfNbTeams">
