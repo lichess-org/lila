@@ -366,8 +366,8 @@
   <string name="tournaments">Πρωταθλήματα</string>
   <string name="tournamentPoints">Βαθμοί από τουρνουά</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s πόντος τουρνουά</item>
-    <item quantity="other">%s πόντοι τουρνουά</item>
+    <item quantity="one">%s βαθμός τουρνουά</item>
+    <item quantity="other">%s βαθμοί τουρνουά</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s μελέτη</item>
@@ -491,7 +491,7 @@
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
-  <string name="points">Πόντοι</string>
+  <string name="points">Βαθμοί</string>
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
