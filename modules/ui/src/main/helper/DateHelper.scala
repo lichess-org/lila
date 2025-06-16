@@ -53,7 +53,7 @@ trait DateHelper:
     month.format(formatter)
 
   def showMonth(m: Month)(using lang: Lang): String =
-    m.getDisplayName(TextStyle.FULL, lang.locale)
+    m.getDisplayName(TextStyle.FULL, lang.toLocale)
 
   def showEnglishDate(instant: Instant): String    = englishDateFormatter.print(instant)
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)
@@ -73,10 +73,14 @@ trait DateHelper:
 
   def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
 
-  def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
+  def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false)(using Translate): Tag =
+    val nowMillis = System.currentTimeMillis()
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
-    else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+    else
+      timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(
+        momentFromNowServerText(instant)
+      )
 
   def momentFromNowWithPreload(instant: Instant)(using Translate): Frag =
     momentFromNowWithPreload(instant, false, false)
@@ -94,32 +98,55 @@ trait DateHelper:
   private def absClientInstantEmpty(instant: Instant): Tag =
     timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))
 
-  def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
+  def momentFromNowOnce(instant: Instant)(using Translate): Tag = momentFromNow(instant, once = true)
 
-  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false): Tag =
+  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false)(using Translate): Tag =
     momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(instant: Instant)(using Translate): String =
-    val inFuture          = false
-    val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
-    val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
-    val minutes           = seconds / 60
-    val hours             = minutes / 60
-    val days              = hours / 24
-    lazy val weeks        = days / 7
-    lazy val months       = days / 30
-    lazy val years        = days / 365
-    val preposition       = if inFuture then " from now" else " ago"
-    if minutes == 0 then I18nKey.timeago.rightNow.txt()
-    else if hours == 0 then s"${pluralize("minute", minutes)}$preposition"
-    else if days < 2 then s"${pluralize("hour", hours)}$preposition"
-    else if weeks == 0 then s"${pluralize("day", days)}$preposition"
-    else if months == 0 then s"${pluralize("week", weeks)}$preposition"
-    else if years == 0 then s"${pluralize("month", months)}$preposition"
-    else s"${pluralize("year", years)}$preposition"
+  def momentFromNowServerText(instant: Instant)(using t: Translate): String =
+    val nowSeconds = System.currentTimeMillis() / 1000
+    val dateSec    = instant.toMillis / 1000
+    val inFuture   = dateSec > nowSeconds
+    val seconds    = (if inFuture then dateSec - nowSeconds else nowSeconds - dateSec).toInt.atLeast(0)
+    val minutes    = seconds / 60
+    val hours      = minutes / 60
+    val days       = hours / 24
+    val weeks      = days / 7
+    val months     = days / 30
+    val years      = days / 365
+
+    def plural(keyBase: String, count: Int): String =
+      val key = keyBase match
+        case "second" => if inFuture then I18nKey.timeago.inNbSeconds else I18nKey.timeago.nbSecondsAgo
+        case "minute" => if inFuture then I18nKey.timeago.inNbMinutes else I18nKey.timeago.nbMinutesAgo
+        case "hour"   => if inFuture then I18nKey.timeago.inNbHours else I18nKey.timeago.nbHoursAgo
+        case "day"    => if inFuture then I18nKey.timeago.inNbDays else I18nKey.timeago.nbDaysAgo
+        case "week"   => if inFuture then I18nKey.timeago.inNbWeeks else I18nKey.timeago.nbWeeksAgo
+        case "month"  => if inFuture then I18nKey.timeago.inNbMonths else I18nKey.timeago.nbMonthsAgo
+        case "year"   => if inFuture then I18nKey.timeago.inNbYears else I18nKey.timeago.nbYearsAgo
+        case _        => I18nKey.timeago.justNow
+
+      key.pluralSameTxt(count)
+
+    if seconds < 5 then
+      if inFuture then I18nKey.timeago.justNow.txt() else I18nKey.timeago.rightNow.txt()
+    else if seconds < 60 then
+      plural("second", seconds)
+    else if minutes < 60 then
+      plural("minute", minutes)
+    else if hours < 24 then
+      plural("hour", hours)
+    else if days < 7 then
+      plural("day", days)
+    else if weeks < 4 then
+      plural("week", weeks)
+    else if months < 12 then
+      plural("month", months)
+    else
+      plural("year", years)
 
   def daysFromNow(date: LocalDate)(using Translate): String =
     val today = nowInstant.date
@@ -127,5 +154,16 @@ trait DateHelper:
     else if date == today.minusDays(1) then I18nKey.site.yesterday.txt()
     else momentFromNowServerText(date.atStartOfDay.instant)
 
-  def timeRemaining(instant: Instant): Tag =
-    timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)
+  def timeRemaining(instant: Instant)(using Translate): Tag =
+    // Use nbMinutesRemaining or nbHoursRemaining depending on the time left
+    val nowSeconds = System.currentTimeMillis() / 1000
+    val secondsRemaining = (instant.toMillis / 1000 - nowSeconds).toInt.atLeast(0)
+    val minutes = secondsRemaining / 60
+    val hours = minutes / 60
+
+    val text =
+      if minutes < 60 then I18nKey.timeago.nbMinutesRemaining.pluralSameTxt(minutes)
+      else I18nKey.timeago.nbHoursRemaining.pluralSameTxt(hours)
+
+    timeTag(cls := "timeago remaining", datetimeAttr := isoDateTime(instant))(text)
+
