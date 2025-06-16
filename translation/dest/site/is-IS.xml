@@ -443,7 +443,7 @@
     <item quantity="one">%s vinur tengdur</item>
     <item quantity="other">%s vinir tengdir</item>
   </plurals>
-  <string name="favoriteOpponents">Uppáhalds andstæðingar</string>
+  <string name="favoriteOpponents">Uppáhaldsandstæðingar</string>
   <string name="follow">Fylgja</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Affylgja</string>
@@ -523,7 +523,7 @@
   <string name="setFlair">Spreyttu þig á brellu</string>
   <string name="flair">Brella</string>
   <string name="youCanHideFlair">Það er stilling til að fela brellur notanda á allri síðunni.</string>
-  <string name="biography">Lífssaga</string>
+  <string name="biography">Æviágrip</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða svæði</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatenglar</string>
@@ -584,7 +584,7 @@
   <string name="noNoteYet">Engin glósa eins og sakir standa</string>
   <string name="invalidUsernameOrPassword">Rangt notandanafn eða lykilorð</string>
   <string name="incorrectPassword">Vitlaust lykilorð</string>
-  <string name="invalidAuthenticationCode">Rangur innskráningslykill</string>
+  <string name="invalidAuthenticationCode">Ógildur auðkenningarkóði</string>
   <string name="emailMeALink">Sendu mér hlekk í tölvupósti</string>
   <string name="currentPassword">Núverandi lykilorð</string>
   <string name="newPassword">Nýtt lykilorð</string>
@@ -618,7 +618,7 @@
   <string name="timeline">Tímalína</string>
   <string name="starting">Hefst:</string>
   <string name="allInformationIsPublicAndOptional">Allar upplýsingar hér eru aðgengilegar öllum.</string>
-  <string name="biographyDescription">Segðu frá sjálfum þér, áhugamálunum þínum, hvað þér finnst gaman í skák, uppáhalds opnununum þínum, spilurum , ...</string>
+  <string name="biographyDescription">Segðu frá sjálfum þér, áhugamálunum þínum, hvað þér finnst gaman í skák, uppáhaldsbyrjunum þínum, leikmönnum, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Hámark: %s stafir.</item>
     <item quantity="other">Hámark: %s stafir.</item>
