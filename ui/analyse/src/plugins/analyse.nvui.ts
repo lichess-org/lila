@@ -346,10 +346,6 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function renderLFYM(ctrl: AnalyseController): VNode | undefined {
-  return renderRetro(ctrl);
-}
-
 function renderLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
   return h(
     'button',
@@ -487,7 +483,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderReqSrvAnalBtn(ctrl: AnalyseController): VNode {
+function requestAnalBtn(ctrl: AnalyseController): VNode {
   return h(
     'button',
     {
@@ -505,7 +501,7 @@ function renderReqSrvAnalBtn(ctrl: AnalyseController): VNode {
 
 function renderAcpl(ctrl: AnalyseController, style: MoveStyle): VNode {
   const anal = ctrl.data.analysis; // heh
-  if (!anal) return renderReqSrvAnalBtn(ctrl);
+  if (!anal) return requestAnalBtn(ctrl);
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
@@ -545,7 +541,7 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseV
       return h('h2', 'Server-side analysis in progress');
     }
     if (getInLFYM()) {
-      const LFYM = renderLFYM(ctrl);
+      const LFYM = renderRetro(ctrl);
       if (LFYM) {
         return LFYM;
       }
@@ -554,7 +550,7 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseV
     return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
   }
   // catch all analysis issues
-  return renderReqSrvAnalBtn(ctrl);
+  return requestAnalBtn(ctrl);
 }
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
