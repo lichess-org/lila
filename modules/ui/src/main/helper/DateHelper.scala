@@ -71,9 +71,9 @@ trait DateHelper:
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(instant: Instant)(using Translate): Tag = momentFromNow(instant, false, false)
+  def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
 
-  def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false)(using Translate): Tag =
+  def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     val nowMillis = System.currentTimeMillis()
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
@@ -98,15 +98,15 @@ trait DateHelper:
   private def absClientInstantEmpty(instant: Instant): Tag =
     timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))
 
-  def momentFromNowOnce(instant: Instant)(using Translate): Tag = momentFromNow(instant, once = true)
+  def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
-  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false)(using Translate): Tag =
+  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(instant: Instant)(using t: Translate): String =
+  def momentFromNowServerText(instant: Instant)(using Translate): String =
     val nowSeconds = System.currentTimeMillis() / 1000
     val dateSec    = instant.toMillis / 1000
     val inFuture   = dateSec > nowSeconds
@@ -154,16 +154,5 @@ trait DateHelper:
     else if date == today.minusDays(1) then I18nKey.site.yesterday.txt()
     else momentFromNowServerText(date.atStartOfDay.instant)
 
-  def timeRemaining(instant: Instant)(using Translate): Tag =
-    // Use nbMinutesRemaining or nbHoursRemaining depending on the time left
-    val nowSeconds = System.currentTimeMillis() / 1000
-    val secondsRemaining = (instant.toMillis / 1000 - nowSeconds).toInt.atLeast(0)
-    val minutes = secondsRemaining / 60
-    val hours = minutes / 60
-
-    val text =
-      if minutes < 60 then I18nKey.timeago.nbMinutesRemaining.pluralSameTxt(minutes)
-      else I18nKey.timeago.nbHoursRemaining.pluralSameTxt(hours)
-
-    timeTag(cls := "timeago remaining", datetimeAttr := isoDateTime(instant))(text)
-
+  def timeRemaining(instant: Instant): Tag =
+    timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)
