@@ -364,7 +364,7 @@
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Τουρνουά</string>
   <string name="tournaments">Πρωταθλήματα</string>
-  <string name="tournamentPoints">Πόντοι από τουρνουά</string>
+  <string name="tournamentPoints">Βαθμοί από τουρνουά</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s πόντος τουρνουά</item>
     <item quantity="other">%s πόντοι τουρνουά</item>
