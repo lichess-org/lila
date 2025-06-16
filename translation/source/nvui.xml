@@ -57,4 +57,8 @@
   <string name="invalidMove">Invalid move</string>
   <string name="premoveCancelled">Premove cancelled</string>
   <string name="premoveRecorded">Premove recorded: %s. Hit enter to cancel</string>
+  <string name="topRight" comment="direction of diagonal">top right</string>
+  <string name="bottomRight" comment="direction of diagonal">bottom right</string>
+  <string name="bottomLeft" comment="direction of diagonal">bottom left</string>
+  <string name="topLeft" comment="direction of diagonal">top left</string>
 </resources>

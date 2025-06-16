@@ -385,12 +385,11 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
-//type Diagonal = 'top_right' | 'bottom_right' | 'bottom_left' | 'top_left';
 type Diagonals = {
-  top_right: Key[];
-  bottom_right: Key[];
-  bottom_left: Key[];
-  top_left: Key[];
+  topRight: Key[];
+  bottomRight: Key[];
+  bottomLeft: Key[];
+  topLeft: Key[];
 };
 
 function getDiagonals(square: Key, pov: Color): Diagonals {
@@ -412,10 +411,10 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
   };
 
   const results: Diagonals = {
-    top_right: [] as Key[],
-    bottom_right: [] as Key[],
-    bottom_left: [] as Key[],
-    top_left: [] as Key[],
+    topRight: [] as Key[],
+    bottomRight: [] as Key[],
+    bottomLeft: [] as Key[],
+    topLeft: [] as Key[],
   };
 
   for (let d = 1; d < 8; d++) {
@@ -430,8 +429,8 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
       sbw = coordsToSquare(fileIndex + d, rankIndex + d);
     }
 
-    if (sfw) results.top_right.push(sfw);
-    if (sbw) results.bottom_left.push(sbw);
+    if (sfw) results.topRight.push(sfw);
+    if (sbw) results.bottomLeft.push(sbw);
 
     // ( \ ))
     let bfw, bbw; // backslashforward, backslashbackward
@@ -444,8 +443,8 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
       bbw = coordsToSquare(fileIndex - d, rankIndex + d);
     }
 
-    if (bfw) results.top_left.push(bfw);
-    if (bbw) results.bottom_right.push(bbw);
+    if (bfw) results.topLeft.push(bfw);
+    if (bbw) results.bottomRight.push(bbw);
   }
 
   return results;
@@ -453,23 +452,22 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
 
 export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
   return (ev: KeyboardEvent): void => {
-    console.log(ev.key + ' ' + ev.shiftKey)
     const target = ev.target as HTMLElement;
-    const key = keyFromAttrs(target);
+    const key = keyFromAttrs(target) as Key;
     const keyDiagonals = getDiagonals(key!, pov);
-    const currentDiagonal = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'top_right' : 'top_left');
+    const currentDiagonal = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'topRight' : 'topLeft');
     // get next valid diagonal clockwise
     const wheel = [
-      'top_left',
-      'top_right',
-      'bottom_right',
-      'bottom_left',
-      'top_left',
-      'top_right',
-      'bottom_right',
-      'bottom_left',
-      'top_left',
-      'top_right',
+      'topLeft',
+      'topRight',
+      'bottomRight',
+      'bottomLeft',
+      'topLeft',
+      'topRight',
+      'bottomRight',
+      'bottomLeft',
+      'topLeft',
+      'topRight',
     ];
     const index = (ev.shiftKey ? wheel.reverse() : wheel).findIndex(item => item === currentDiagonal);
     const objKeys = wheel.slice(index + 1);
@@ -494,9 +492,7 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       [],
     );
     $boardLive.text(
-      target.getAttribute('diagonal') +
-        '  ' +
-        (renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none),
+      `${renderKey(key, style)} ${i18n.nvui[target.getAttribute('diagonal') as keyof typeof i18n.nvui]} ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
     );
   };
 }
