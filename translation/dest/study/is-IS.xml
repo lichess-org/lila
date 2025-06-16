@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="noneYet">Ekkert eins og sakir standa.</string>
   <string name="hot">Heitt</string>
   <string name="mostPopular">Vinsælast</string>
   <string name="alphabetical">Stafrófsröð</string>
