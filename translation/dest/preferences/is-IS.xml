@@ -5,7 +5,7 @@
   <string name="pieceAnimation">Hreyfing taflmanna</string>
   <string name="materialDifference">Liðsmunur</string>
   <string name="boardHighlights">Upplýsa borð (á síðasta leik og skák)</string>
-  <string name="pieceDestinations">Áningarstaðir (leyfilegir leikir)</string>
+  <string name="pieceDestinations">Áningarstaðir (gildir leikir og fyrirframgefnir leikir)</string>
   <string name="boardCoordinates">Borðahnit (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Leikjalisti meðan skák er í gangi</string>
   <string name="pgnPieceNotation">Tákn fyrir leiki</string>
@@ -25,7 +25,7 @@
   <string name="clickTwoSquares">Veldu tvo reiti</string>
   <string name="dragPiece">Dragðu taflmann</string>
   <string name="bothClicksAndDrag">Annaðhvort</string>
-  <string name="premovesPlayingDuringOpponentTurn">Fyrirframleikir (leiknir meðan anstæðingur á leik)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Fyrirframgefnir leikir (leiknir á meðan andstæðingur á leik)</string>
   <string name="takebacksWithOpponentApproval">Leikir teknir upp (með leyfi mótherja)</string>
   <string name="inCasualGamesOnly">Einungis í stigalausum leikjum</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
