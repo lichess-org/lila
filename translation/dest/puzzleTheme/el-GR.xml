@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Προωθημένο πιόνι</string>
+  <string name="advancedPawn">Προχωρημένο πιόνι</string>
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
   <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
@@ -16,7 +16,7 @@
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
   <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
-  <string name="bodenMate">Ματ του Μποντάν</string>
+  <string name="bodenMate">Ματ του Boden</string>
   <string name="bodenMateDescription">Δύο επιτιθέμενοι αξιωματικοί κινούμενοι διαγωνίως κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
