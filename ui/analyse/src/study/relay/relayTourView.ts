@@ -387,6 +387,7 @@ const header = (ctx: RelayViewContext) => {
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
         h('h1', group?.name || d.tour.name),
+        !d.tour.tier && h('small.relay-tour__header__nonofficial', i18n.broadcast.noOfficialNote),
         h('div.relay-tour__header__selectors', [
           group && groupSelect(ctx, group),
           roundSelect(relay, ctx.study),

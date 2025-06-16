@@ -207,6 +207,7 @@ object I18nKey:
     val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
     val `sinceHideResults`: I18nKey = "broadcast:sinceHideResults"
     val `liveboard`: I18nKey = "broadcast:liveboard"
+    val `noOfficialNote`: I18nKey = "broadcast:noOfficialNote"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
