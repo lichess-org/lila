@@ -8,6 +8,7 @@
   <string name="hearItPronouncedBySpecialist">Heyra sérfræðing bera þetta fram.</string>
   <string name="whyLiveLightLibre">Live (í beinni), af því að skákir eru tefldir allan sólahringin; light (létt) og libre (frítt) vegna þess að lichess er opin uppspretta og óheftur af rusli sem hrjáir aðrar vefsíður.</string>
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Starfsemi Lichess er fjármögnuð með gjöfum velunnara og vinnuframlagi sjálfboðaliða.</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn of færni, eru margir %3$s.</string>
   <string name="otherWaysToHelp">aðrar leiðir til að hjálpa</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
