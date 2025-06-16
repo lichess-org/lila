@@ -3,13 +3,13 @@
   <string name="advancedPawn">Προχωρημένο πιόνι</string>
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
-  <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Εκμεταλλευτείτε κάθε δυνατή ευκαιρία για να αποκτήσετε καθοριστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">To ματ της Αναστασίας</string>
-  <string name="anastasiaMateDescription">Ένας ίππος και ένας πύργος ή βασίλισσα κάνουν ματ στον αντίπαλο βασιλιά στο περιθώριο της σκακιέρας, όταν ένα φιλικό κομμάτι του εμποδίζει την διαφυγή.</string>
+  <string name="anastasiaMateDescription">Ένας ίππος και ένας πύργος ή μια βασίλισσα συνεργάζονται για να κάνουν ματ, παγιδεύοντας τον αντίπαλο βασιλιά μεταξύ της άκρης της σκακιέρας και ενός φιλικού κομματιού.</string>
   <string name="arabianMate">Αραβικό ματ</string>
-  <string name="arabianMateDescription">Συνεργασία ίππου και πύργου για παγίδευση του αντίπαλου βασιλιά στην άκρη της σκακιέρας.</string>
+  <string name="arabianMateDescription">Ένας ίππος και ένας πύργος συνεργάζονται για να κάνουν ματ παγιδεύοντας τον αντίπαλο βασιλιά σε μια γωνία της σκακιέρας.</string>
   <string name="attackingF2F7">Επίθεση στο f2 ή f7</string>
-  <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
+  <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στο άνοιγμα Fried Liver Attack.</string>
   <string name="attraction">Έλξη</string>
   <string name="attractionDescription">Μια ανταλλαγή ή θυσία που ενθαρρύνει ή αναγκάζει ένα αντίπαλο κομμάτι σε ένα τετράγωνο όπου δύναται μια επακόλουθη τακτική.</string>
   <string name="backRankMate">Ματ της τελευταίας γραμμής</string>
@@ -81,7 +81,7 @@
   <string name="mateIn4Description">Κάντε ματ σε τέσσερις κινήσεις.</string>
   <string name="mateIn5">Ματ σε 5 ή περισσότερο</string>
   <string name="mateIn5Description">Βρείτε μία μακρά ακολουθία κινήσεων που οδηγεί σε ματ.</string>
-  <string name="middlegame">Μέση φάση παιχνιδιού</string>
+  <string name="middlegame">Μέσο</string>
   <string name="middlegameDescription">Μια τακτική κατά τη δεύτερη φάση του παιχνιδιού.</string>
   <string name="oneMove">Γρίφος μιας κίνησης</string>
   <string name="oneMoveDescription">Ένας γρίφος που έχει μόνο μία κίνηση.</string>
