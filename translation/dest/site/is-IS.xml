@@ -166,7 +166,7 @@
   <string name="drawByMutualAgreement">Samið um jafntefli</string>
   <string name="fiftyMovesWithoutProgress">Fimmtíu leikir án framvindu</string>
   <string name="currentGames">Skákir í gangi</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Skráðist %s</string>
+  <string name="joinedX">Skráðist %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s skák</item>
     <item quantity="other">%s skákir</item>
@@ -489,7 +489,6 @@
   <string name="points">Punktar</string>
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
-  <string name="createdBy">Búið til af</string>
   <string name="startingIn" comment="Displayed above a timer">Hefst eftir</string>
   <string name="standByX">Hinkraðu %s, pörun keppanda stendur yfir, vertu tilbúin(n)!</string>
   <string name="pause">Hlé</string>
