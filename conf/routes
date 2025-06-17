@@ -107,13 +107,13 @@ GET   /dasher                          controllers.Dasher.get
 # Blog/Ublog
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
-GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
-GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.Newest, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Boolean ?= true, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
-GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.Score, page: Int ?= 1)
+GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.score, page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.communityAll(filter: Boolean ?= true, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, filter: Boolean ?= true, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: Language ?= Language("all"))
