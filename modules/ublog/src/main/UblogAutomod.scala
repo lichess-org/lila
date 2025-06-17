@@ -45,7 +45,7 @@ object UblogAutomod:
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
-    config: UblogConfig,
+    config: AutomodConfig,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -71,18 +71,18 @@ final class UblogAutomod(
 
   private def assess(userText: String): Fu[Option[Assessment]] =
     val prompt = promptSetting.get().value
-    (config.automodApiKey.value.nonEmpty && prompt.nonEmpty).so:
+    (config.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
-        "model"       -> config.automodModel,
+        "model"       -> config.model,
         "temperature" -> temperatureSetting.get(),
         "messages"    -> Json.arr(
           Json.obj("role" -> "system", "content" -> prompt),
           Json.obj("role" -> "user", "content"   -> userText)
         )
       )
-      ws.url(config.automodUrl)
+      ws.url(config.url)
         .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.automodApiKey.value}",
+          "Authorization" -> s"Bearer ${config.apiKey.value}",
           "Content-Type"  -> "application/json"
         )
         .post(body)

@@ -11,12 +11,11 @@ import lila.common.Bus
 
 @Module
 final private class UblogConfig(
-    @ConfigName("search_page_size") val searchPageSize: MaxPerPage,
-    @ConfigName("carousel_size") val carouselSize: Int,
-    @ConfigName("automod.url") val automodUrl: String,
-    @ConfigName("automod.apiKey") val automodApiKey: Secret,
-    @ConfigName("automod.model") val automodModel: String
+    val searchPageSize: MaxPerPage,
+    val carouselSize: Int,
+    val automod: AutomodConfig
 )
+final private class AutomodConfig(val url: String, val apiKey: Secret, val model: String)
 
 @Module
 final class Env(
@@ -39,8 +38,9 @@ final class Env(
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
-  private val config = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
-  private val colls  = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
+  private given ConfigLoader[AutomodConfig] = AutoConfig.loader[AutomodConfig]
+  private val config                        = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
+  private val colls = UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
   val topic = wire[UblogTopicApi]
 
