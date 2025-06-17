@@ -540,12 +540,12 @@ importers:
 
   ui/voice:
     dependencies:
+      '@lichess-org/vosk-browser':
+        specifier: 0.0.2
+        version: 0.0.2
       lib:
         specifier: workspace:*
         version: link:../lib
-      vosk-browser:
-        specifier: ^0.0.8
-        version: 0.0.8
 
 packages:
 
@@ -830,6 +830,9 @@ packages:
 
   '@lichess-org/stockfish-web@0.0.13':
     resolution: {integrity: sha512-EpcySs+J03xnWDIdY8lz48DSEbDjlxt3lX0I1bv6VgFkW6KkmUZ22aD/BlaNIvyf+mG55KvFhaI5cDSVpMsEqQ==}
+
+  '@lichess-org/vosk-browser@0.0.2':
+    resolution: {integrity: sha512-vRnLc9mstxHoVU7d0EZkfN7THzqXiBApC1E3LdtAuK4RGhwMHzXqur4m1t084kFpSQT10tFY0MQ9vGUwK9xB6w==}
 
   '@mdn/browser-compat-data@5.7.6':
     resolution: {integrity: sha512-7xdrMX0Wk7grrTZQwAoy1GkvPMFoizStUoL+VmtUkAxegbCCec+3FKwOM6yc/uGU5+BEczQHXAlWiqvM8JeENg==}
@@ -2322,8 +2325,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  uuid@9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
   vite-node@3.1.3:
@@ -2398,9 +2401,6 @@ packages:
         optional: true
       jsdom:
         optional: true
-
-  vosk-browser@0.0.8:
-    resolution: {integrity: sha512-df9MuChirUGKxP/+4k8tBV6hJOic8IRdJXv64+ET0Ue5CddOzLZINiHOWCka765gBzHJWNtQKgaYakS0FXZIJA==}
 
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
@@ -2706,6 +2706,10 @@ snapshots:
       snabbdom: 3.5.1
 
   '@lichess-org/stockfish-web@0.0.13': {}
+
+  '@lichess-org/vosk-browser@0.0.2':
+    dependencies:
+      uuid: 11.1.0
 
   '@mdn/browser-compat-data@5.7.6': {}
 
@@ -4194,7 +4198,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  uuid@9.0.0: {}
+  uuid@11.1.0: {}
 
   vite-node@3.1.3(@types/node@22.14.1)(yaml@2.7.0):
     dependencies:
@@ -4266,10 +4270,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  vosk-browser@0.0.8:
-    dependencies:
-      uuid: 9.0.0
 
   w3c-keyname@2.2.8: {}
 
