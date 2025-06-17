@@ -484,7 +484,6 @@
   <string name="points">Puntuak</string>
   <string name="wins">Irabazitakoak</string>
   <string name="losses">Porrotak</string>
-  <string name="createdBy">Sortuta</string>
   <string name="startingIn" comment="Displayed above a timer">Laster hasiko da</string>
   <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
   <string name="pause">Gelditu</string>
