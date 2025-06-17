@@ -156,14 +156,6 @@ $hover-bg: $m-primary_bg--mix-30;
       margin-bottom: 1em;
     }
 
-    &__nonofficial {
-      color: $c-font-dim;
-      &::before {
-        @extend %data-icon;
-        content: $licon-InfoCircle + ' ';
-      }
-    }
-
     &__selectors {
       @extend %flex-center;
       gap: 1em;
