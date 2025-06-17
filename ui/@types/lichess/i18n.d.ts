@@ -247,6 +247,10 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
+    /** Community broadcast */
+    communityBroadcast: string;
+    /** Created and managed by %s. */
+    createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -377,8 +381,6 @@ interface I18n {
     tournamentLocation: string;
     /** Tournament name */
     tournamentName: string;
-    /** Broadcast managed by the community */
-    unofficialNote: string;
     /** Unrated */
     unrated: string;
     /** Upcoming */
