@@ -21,7 +21,8 @@ trait UblogApi:
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]]
 
 enum BlogsBy:
-  case Newest, Oldest, Score, Likes
+  case newest, oldest, score, likes
+  def name = toString
 
 object BlogsBy:
-  def fromName(name: String): Option[BlogsBy] = BlogsBy.values.find(_.toString.equalsIgnoreCase(name))
+  def fromName(name: String): Option[BlogsBy] = values.find(_.name == name)
