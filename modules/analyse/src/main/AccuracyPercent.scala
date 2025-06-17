@@ -84,7 +84,7 @@ for x in xs:
     val windows             =
       List
         .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues.take(windowSize))
-        .toList ::: allWinPercentValues.sliding(windowSize).toList
+        ::: allWinPercentValues.sliding(windowSize).toList
     val weights = windows.map { xs => Maths.standardDeviation(xs).orZero.atLeast(0.5).atMost(12) }
     val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
       .sliding(2)

@@ -23,6 +23,7 @@ import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { verticalResizeSeparator } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
+import { userLink } from 'lib/view/userLink';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -395,6 +396,14 @@ const header = (ctx: RelayViewContext) => {
       broadcastImageOrStream(ctx),
     ]),
     studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD, false) })])),
+    d.tour.communityOwner &&
+      h(
+        'div.relay-tour__note',
+        h('div', [
+          h('div', i18n.broadcast.communityBroadcast),
+          h('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
+        ]),
+      ),
     d.note &&
       h(
         'div.relay-tour__note',

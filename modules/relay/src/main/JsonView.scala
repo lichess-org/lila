@@ -11,8 +11,9 @@ import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
+import lila.core.LightUser.GetterSync
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl):
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl, lightUserSync: GetterSync):
 
   import JsonView.{ Config, given }
 
@@ -55,6 +56,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         if config.html then markup(tour)(md).value
         else md.value)
       .add("teamTable" -> tour.teamTable)
+      .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json

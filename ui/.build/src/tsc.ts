@@ -69,7 +69,7 @@ function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit'): Promis
         return env.done('tsc', undefined);
       case 'ok':
         if (status.some(s => s !== 'ok')) return;
-        env.done('tsc', key === 'noEmit' ? 0 : undefined);
+        if (key === 'noEmit') env.done('tsc', 0);
         okResolve();
     }
   };
