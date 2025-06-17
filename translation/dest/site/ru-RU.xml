@@ -186,7 +186,7 @@
   <string name="drawByMutualAgreement">Ничья по обоюдному согласию</string>
   <string name="fiftyMovesWithoutProgress">Пятьдесят ходов без прогресса</string>
   <string name="currentGames">Текущие партии</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Присоединились %s</string>
+  <string name="joinedX">Присоединились %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s игра</item>
     <item quantity="few">%s игры</item>
@@ -565,7 +565,6 @@
   <string name="points">Очки</string>
   <string name="wins">Победы</string>
   <string name="losses">Поражения</string>
-  <string name="createdBy">Создан</string>
   <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="pause">Приостановить</string>
