@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Patta per comune accordo</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Iscritto %s</string>
+  <string name="joinedX">Iscritto %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
@@ -492,7 +492,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
-  <string name="createdBy">Creato da</string>
   <string name="startingIn" comment="Displayed above a timer">Inizio tra</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
