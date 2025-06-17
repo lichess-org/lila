@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "lib": "workspace:*",
-    "@lichess-org/vosk-browser": "0.0.2"
+    "@lichess-org/vosk-browser": "0.0.3"
   },
   "scripts": {
     "make-grammar": "node --experimental-strip-types --no-warnings makeGrammar.mts"

@@ -541,8 +541,8 @@ importers:
   ui/voice:
     dependencies:
       '@lichess-org/vosk-browser':
-        specifier: 0.0.2
-        version: 0.0.2
+        specifier: 0.0.3
+        version: 0.0.3
       lib:
         specifier: workspace:*
         version: link:../lib
@@ -831,8 +831,8 @@ packages:
   '@lichess-org/stockfish-web@0.0.13':
     resolution: {integrity: sha512-EpcySs+J03xnWDIdY8lz48DSEbDjlxt3lX0I1bv6VgFkW6KkmUZ22aD/BlaNIvyf+mG55KvFhaI5cDSVpMsEqQ==}
 
-  '@lichess-org/vosk-browser@0.0.2':
-    resolution: {integrity: sha512-vRnLc9mstxHoVU7d0EZkfN7THzqXiBApC1E3LdtAuK4RGhwMHzXqur4m1t084kFpSQT10tFY0MQ9vGUwK9xB6w==}
+  '@lichess-org/vosk-browser@0.0.3':
+    resolution: {integrity: sha512-kgxU346dZC/YbtVhqQTJbjZupUjuvwR3R270mGF5LJLmKAUCLRAQFhkRAqv4eUK1dmzu47ywN/SwrL5QrV7tCg==}
 
   '@mdn/browser-compat-data@5.7.6':
     resolution: {integrity: sha512-7xdrMX0Wk7grrTZQwAoy1GkvPMFoizStUoL+VmtUkAxegbCCec+3FKwOM6yc/uGU5+BEczQHXAlWiqvM8JeENg==}
@@ -2707,7 +2707,7 @@ snapshots:
 
   '@lichess-org/stockfish-web@0.0.13': {}
 
-  '@lichess-org/vosk-browser@0.0.2':
+  '@lichess-org/vosk-browser@0.0.3':
     dependencies:
       uuid: 11.1.0
 
