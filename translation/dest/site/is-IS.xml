@@ -160,8 +160,8 @@
   <string name="offerDraw">Bjóða jafntefli</string>
   <string name="draw">Jafntefli</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s tengdir spilarar</item>
-    <item quantity="other">%s tengdir spilarar</item>
+    <item quantity="one">%s leikmaður</item>
+    <item quantity="other">%s leikmenn</item>
   </plurals>
   <string name="drawByMutualAgreement">Samið um jafntefli</string>
   <string name="fiftyMovesWithoutProgress">Fimmtíu leikir án framvindu</string>
