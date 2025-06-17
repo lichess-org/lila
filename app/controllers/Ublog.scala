@@ -13,7 +13,6 @@ import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
 import lila.ublog.UblogAutomod.Quality
 import lila.core.ublog.BlogsBy
 import lila.core.i18n.toLanguage
-//import lila.ublog.UblogAutomod
 import lila.ublog.UblogForm.ModPostData
 
 final class Ublog(env: Env) extends LilaController(env):

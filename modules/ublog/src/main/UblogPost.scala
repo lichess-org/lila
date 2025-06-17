@@ -86,11 +86,11 @@ object UblogPost:
   case class Featured(by: UserId, at: Option[Instant], until: Option[Instant] = none)
 
   case class CarouselPosts(
-      pinned: List[UblogPost.PreviewPost],
-      queue: List[UblogPost.PreviewPost]
+      pinned: List[PreviewPost],
+      queue: List[PreviewPost]
   ):
-    def shuffled: List[UblogPost.PreviewPost] =
-      (pinned.headOption ++ shuffle(pinned.tailOption.getOrElse(Nil) ++ queue)).toList
+    def shuffled: List[PreviewPost] =
+      (pinned.headOption ++ shuffle(~pinned.tailOption ++ queue)).toList
 
     def has(id: UblogPostId): Boolean =
       pinned.exists(_.id == id) || queue.exists(_.id == id)

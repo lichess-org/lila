@@ -101,7 +101,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             ),
             div(cls := "ublog-post__topics")(
               post.topics.map: topic =>
-                a(href := routes.Ublog.topic(topic.url, true, lila.core.ublog.BlogsBy.Newest, 1))(topic.value)
+                a(href := routes.Ublog.topic(topic.url, true, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
               div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(

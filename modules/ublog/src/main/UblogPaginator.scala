@@ -113,7 +113,7 @@ final class UblogPaginator(
 
   private def selectQuality(q: Quality) =
     // maybe we should require automod.quality, but allow unassessed for now
-    $or($doc("automod.quality" -> $exists(false)), $doc("automod.quality" -> $gte(q.ordinal)))
+    $or($doc("automod.quality".$exists(false)), $doc("automod.quality".$gte(q.ordinal)))
 
   object liveByFollowed:
 

@@ -270,32 +270,26 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                 span(cls := "search-sort")(
                   "Sort",
                   span(cls := "btn-rack")(
-                    submitButton(btnCls(by == Score), name := "by", value := "Score")("score"),
-                    submitButton(btnCls(by == Likes), name := "by", value := "Likes")("likes"),
+                    List(score, likes).map: btnBy =>
+                      submitButton(btnCls(by == btnBy), name := "by", value := btnBy.name)(btnBy.name),
                     by match
-                      case Newest =>
-                        submitButton(btnCls(true, "descending"), name := "by", value := "Oldest")("date")
-                      case Oldest =>
-                        submitButton(btnCls(true, "ascending"), name := "by", value := "Newest")("date")
+                      case BlogsBy.newest =>
+                        submitButton(btnCls(true, "descending"), name := "by", value := "oldest")("date")
+                      case BlogsBy.oldest =>
+                        submitButton(btnCls(true, "ascending"), name := "by", value := "newest")("date")
                       case _ =>
-                        submitButton(btnCls(false, "descending"), name := "by", value := "Newest")("date")
+                        submitButton(btnCls(false, "descending"), name := "by", value := "newest")("date")
                   )
                 )
               )
             ),
-            paginator
-              .flatMap:
-                case pager if pager.nbResults > 0 =>
-                  (pager.nbResults > 0).option:
-                    div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                      pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
-                      pagerNext(
-                        pager,
-                        np => routes.Ublog.search(text, by, np).url
-                      )
-                    )
-                case _ => none
-              .getOrElse(div(cls := "ublog-index__posts--empty")("No results"))
+            paginator match
+              case Some(pager) if pager.nbResults > 0 =>
+                div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+                  pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
+                  pagerNext(pager, np => routes.Ublog.search(text, by, np).url)
+                )
+              case _ => div(cls := "ublog-index__posts--empty")("No results")
           )
         )
 
@@ -414,7 +408,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       header: Option[Frag] = None
   )(using ctx: Context) =
     val filter = filterOpt.getOrElse(true)
-    val by     = byOpt.getOrElse(BlogsBy.Newest)
+    val by     = byOpt.getOrElse(BlogsBy.newest)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
@@ -440,7 +434,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       route: (Boolean, BlogsBy) => Call
   ) =
     import BlogsBy.*
-    val sort   = sortOpt.getOrElse(Newest)
+    val sort   = sortOpt.getOrElse(newest)
     val filter = filterOpt.getOrElse(true)
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
@@ -456,14 +450,14 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         span(
           "Sort",
           span(cls := "btn-rack")(
-            a(btnCls(by == Likes), href := route(filter, Likes))("likes"),
+            a(btnCls(by == likes), href := route(filter, likes))("likes"),
             by match
-              case Newest =>
-                a(btnCls(true, "descending"), href := route(filter, Oldest))("date")
-              case Oldest =>
-                a(btnCls(true, "ascending"), href := route(filter, Newest))("date")
+              case BlogsBy.newest =>
+                a(btnCls(true, "descending"), href := route(filter, oldest))("date")
+              case BlogsBy.oldest =>
+                a(btnCls(true, "ascending"), href := route(filter, newest))("date")
               case _ =>
-                a(btnCls(false, "descending"), href := route(filter, Newest))("date")
+                a(btnCls(false, "descending"), href := route(filter, newest))("date")
           )
         )
     )
