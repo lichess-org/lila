@@ -10,4 +10,33 @@
   <string name="actions">Aktione</string>
   <string name="yourClock">Dini Zit</string>
   <string name="opponentClock">Zit vum Gägner</string>
+  <string name="king">König</string>
+  <string name="whiteKing">wisse König</string>
+  <string name="blackKing">schwarze König</string>
+  <string name="queen">Dame</string>
+  <string name="whiteQueen">wissi Dame</string>
+  <string name="blackQueen">schwarzi Dame</string>
+  <string name="rook">Turm</string>
+  <string name="whiteRook">wisse Turm</string>
+  <string name="blackRook">schwarze Turm</string>
+  <string name="bishop">Läufer</string>
+  <string name="whiteBishop">wisse Läufer</string>
+  <string name="blackBishop">schwarze Läufer</string>
+  <string name="knight">Schpringer</string>
+  <string name="whiteKnight">wisse Schpringer</string>
+  <string name="blackKnight">schwarze Schpringer</string>
+  <string name="pawn">Pur</string>
+  <string name="whitePawn">wisse Pur</string>
+  <string name="blackPawn">schwarze Pur</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">schlaht</string>
+  <string name="sanCheck" comment="+ in standard notation">Schach</string>
+  <string name="sanCheckmate" comment="# in standard notation">Schachmatt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">Umwandlig in</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">churzi Rochade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">langi Rochade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">uf\'s Fäld</string>
+  <string name="invalidMove">unmögliche Zug</string>
+  <string name="premoveCancelled">Voruszieh deaktiviert</string>
+  <string name="premoveRecorded">Regischtrierti Voruszüg: %s. Druck Enter zum Beände</string>
 </resources>

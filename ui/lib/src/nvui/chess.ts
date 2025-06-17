@@ -122,26 +122,27 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
             )
             .join(' ');
 
+const renderPiecesByColor = (pieces: Pieces, style: MoveStyle, color: Color): string => {
+  return ROLES.slice()
+    .reverse()
+    .reduce<{ role: Role; keys: Key[] }[]>(
+      (lists, role) =>
+        lists.concat({
+          role,
+          keys: keysWithPiece(pieces, role, color),
+        }),
+      [],
+    )
+    .filter(l => l.keys.length)
+    .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
+    .join(', ');
+};
+
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
     'div.pieces',
     COLORS.map(color =>
-      h(`div.${color}-pieces`, [
-        h('h3', i18n.site[color]),
-        ROLES.slice()
-          .reverse()
-          .reduce<{ role: Role; keys: Key[] }[]>(
-            (lists, role) =>
-              lists.concat({
-                role,
-                keys: keysWithPiece(pieces, role, color),
-              }),
-            [],
-          )
-          .filter(l => l.keys.length)
-          .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
-          .join(', '),
-      ]),
+      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), renderPiecesByColor(pieces, style, color)]),
     ),
   );
 
@@ -161,6 +162,7 @@ const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
+  if (p.toLowerCase() == 'a') return renderPiecesByColor(pieces, style, color);
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
   let pieceStr = transPieceStr(role, color, i18n);

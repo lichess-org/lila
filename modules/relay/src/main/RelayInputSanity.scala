@@ -10,7 +10,8 @@ private object RelayInputSanity:
       removeGamesWithUnknownPlayer(games)
 
   private def removeGamesWithUnknownPlayer(games: RelayGames): RelayGames =
-    games.filterNot(_.hasUnknownPlayer)
+    games.filterNot: game =>
+      game.hasUnknownPlayer || game.isBye
 
   // DGT puts the kings in the center on game end
   // and sends it as actual moves if the kings were close to the center

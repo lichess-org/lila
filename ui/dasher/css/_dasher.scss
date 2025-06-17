@@ -114,8 +114,10 @@
 
       @include transition(background);
 
-      &:hover {
-        background: $c-dasher-light;
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background: $c-dasher-light;
+        }
       }
 
       &.active {
@@ -178,6 +180,10 @@
 
     &.silent input[type='range'] {
       opacity: 0.2;
+    }
+
+    .dialog-content {
+      min-width: 240px;
     }
   }
 

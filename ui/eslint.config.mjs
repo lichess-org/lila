@@ -1,13 +1,15 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import compat from 'eslint-plugin-compat';
 
 export default [
   { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
     files: ['**/*.{ts,mts}'],
-    plugins: { '@typescript-eslint': typescriptEslint },
+    plugins: { '@typescript-eslint': typescriptEslint, compat },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
+      'compat/compat': 'warn',
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',

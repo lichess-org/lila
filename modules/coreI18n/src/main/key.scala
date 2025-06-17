@@ -207,6 +207,8 @@ object I18nKey:
     val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
     val `sinceHideResults`: I18nKey = "broadcast:sinceHideResults"
     val `liveboard`: I18nKey = "broadcast:liveboard"
+    val `communityBroadcast`: I18nKey = "broadcast:communityBroadcast"
+    val `createdAndManagedBy`: I18nKey = "broadcast:createdAndManagedBy"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
@@ -1806,7 +1808,6 @@ object I18nKey:
     val `points`: I18nKey = "points"
     val `wins`: I18nKey = "wins"
     val `losses`: I18nKey = "losses"
-    val `createdBy`: I18nKey = "createdBy"
     val `startingIn`: I18nKey = "startingIn"
     val `standByX`: I18nKey = "standByX"
     val `pause`: I18nKey = "pause"

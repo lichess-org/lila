@@ -228,10 +228,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def coachReview(coach: UserId, author: UserId)(using MyId) = add:
     Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
 
-  def cheatDetected(user: UserId, gameId: GameId) = add:
+  private def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
-  def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for
+  private[mod] def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for
     prevCount <- countRecentCheatDetected(user)
     _         <- cheatDetected(user, gameId)
   yield prevCount + 1

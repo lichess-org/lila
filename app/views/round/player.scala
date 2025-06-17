@@ -29,7 +29,7 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.canPalantir
+          voiceChat = ctx.canVoiceChat
         )
       case Right((c, res)) =>
         views.chat.json(

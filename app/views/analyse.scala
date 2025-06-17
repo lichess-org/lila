@@ -51,7 +51,7 @@ object replay:
         withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.canPalantir
+        voiceChat = ctx.canVoiceChat
       ) -> views.chat.frag
 
     val side = views.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)
