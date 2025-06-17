@@ -303,8 +303,6 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
-    /** Broadcast managed by the Community */
-    noOfficialNote: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
     /** Official Standings */
@@ -379,6 +377,8 @@ interface I18n {
     tournamentLocation: string;
     /** Tournament name */
     tournamentName: string;
+    /** Broadcast managed by the community */
+    unofficialNote: string;
     /** Unrated */
     unrated: string;
     /** Upcoming */

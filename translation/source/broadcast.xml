@@ -85,5 +85,5 @@
   <string name="backToLiveMove">Back to live move</string>
   <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
   <string name="liveboard">Live board</string>
-  <string name="noOfficialNote">Broadcast managed by the Community</string>
+  <string name="unofficialNote">Broadcast managed by the community</string>
 </resources>
