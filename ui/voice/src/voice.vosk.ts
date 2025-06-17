@@ -1,5 +1,10 @@
-import { type KaldiRecognizer, type Model, createModel } from 'vosk-browser';
-import type { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
+import {
+  type KaldiRecognizer,
+  type Model,
+  type ServerMessageResult,
+  type ServerMessagePartialResult,
+  createModel,
+} from '@lichess-org/vosk-browser';
 import type { RecognizerOpts, VoskModule } from './interfaces';
 import { type Selectable, Switch } from './switch';
 
@@ -20,7 +25,7 @@ export function initModule(): VoskModule {
   async function initModel(url: string, language: string): Promise<void> {
     voiceModel?.terminate();
     recs.remove();
-    voiceModel = await createModel(url, LOG_LEVEL);
+    voiceModel = await createModel(url, x => site.asset.url(x, { documentOrigin: true }), LOG_LEVEL);
     lang = language;
   }
 
