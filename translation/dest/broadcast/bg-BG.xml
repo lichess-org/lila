@@ -44,11 +44,11 @@
   <string name="startVerySoon">Излъчването ще започне след малко.</string>
   <string name="officialWebsite">Официален уебсайт</string>
   <string name="standings">Класиране</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Игри в този турнир</string>
+  <string name="gamesThisTournament">Игри в този турнир</string>
   <string name="score">Резултат</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Формат на състезанието</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Място на състезанието</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Часова зона</string>
+  <string name="tournamentFormat">Формат на състезанието</string>
+  <string name="tournamentLocation">Място на състезанието</string>
+  <string name="timezone">Часова зона</string>
   <string name="pastBroadcasts">Минали излъчвания</string>
   <string name="allBroadcastsByMonth">Виж всички излъчвания по месец</string>
 </resources>
