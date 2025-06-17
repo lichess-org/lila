@@ -167,6 +167,7 @@
   <string name="drawByMutualAgreement">Iguhit sa pamamagitan ng kasunduan sa isa\'t isa</string>
   <string name="fiftyMovesWithoutProgress">Limampu\'t gumagalaw nang walang pag-unlad</string>
   <string name="currentGames">Mga laro ngayon</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Sumali %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s na laro</item>
     <item quantity="other">%s na mga laro</item>
@@ -347,6 +348,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s pagaaral</item>
     <item quantity="other">%s mga pagaaral</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="other">%s simul</item>
   </plurals>
   <string name="viewTournament">Tingnan ang paligsahan</string>
   <string name="backToTournament">Bumalik sa paligsahan</string>
