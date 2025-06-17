@@ -89,4 +89,5 @@
   <string name="backToLiveMove">Вернуться к текущему ходу</string>
   <string name="sinceHideResults">Вы выбрали скрыть результаты, поэтому обзор досок пуст, чтобы сохранить интригу.</string>
   <string name="liveboard">Доска в прямом эфире</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Создано и управляется %s.</string>
 </resources>
