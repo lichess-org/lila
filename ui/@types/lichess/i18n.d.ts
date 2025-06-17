@@ -247,6 +247,10 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
+    /** Community broadcast */
+    communityBroadcast: string;
+    /** Created and managed by %s. */
+    createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -3145,8 +3149,6 @@ interface I18n {
     createANewTopic: string;
     /** Create a new tournament */
     createANewTournament: string;
-    /** Created by */
-    createdBy: string;
     /** Newly created simuls */
     createdSimuls: string;
     /** Create the game */

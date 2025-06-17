@@ -43,6 +43,8 @@ case class RelayTour(
 
   def isOwnedBy[U: UserIdOf](u: U): Boolean = ownerIds.toList.contains(u.id)
 
+  def communityOwner: Option[UserId] = tier.isEmpty.option(ownerIds.head)
+
   def giveOfficialToBroadcasterIf(cond: Boolean) =
     if !cond || official == isOwnedBy(UserId.broadcaster) then this
     else
