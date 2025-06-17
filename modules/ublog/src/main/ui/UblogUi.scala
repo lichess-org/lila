@@ -283,19 +283,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                 )
               )
             ),
-            paginator
-              .flatMap:
-                case pager if pager.nbResults > 0 =>
-                  (pager.nbResults > 0).option:
-                    div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                      pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
-                      pagerNext(
-                        pager,
-                        np => routes.Ublog.search(text, by, np).url
-                      )
-                    )
-                case _ => none
-              .getOrElse(div(cls := "ublog-index__posts--empty")("No results"))
+            paginator match
+              case Some(pager) if pager.nbResults > 0 =>
+                div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+                  pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
+                  pagerNext(pager, np => routes.Ublog.search(text, by, np).url)
+                )
+              case _ => div(cls := "ublog-index__posts--empty")("No results")
           )
         )
 

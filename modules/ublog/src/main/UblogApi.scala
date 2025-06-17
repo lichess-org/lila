@@ -312,14 +312,14 @@ final class UblogApi(
       .aggregateList(length, _.sec): framework =>
         import framework.*
         val aggSort = sort match
-        Match(select ++ $doc("live" -> true)) -> (List(aggSort)
-          ++ removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) ++ List(
-            Skip(offset),
-            Limit(length)
-          ))
           case BlogsBy.oldest => Ascending("lived.at")
           case BlogsBy.likes  => Descending("likes")
           case _              => Descending("lived.at")
+        Match(select ++ $doc("live" -> true)) -> {
+          Sort(aggSort) ::
+            removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
+            List(Skip(offset), Limit(length))
+        }
       .map: docs =>
         for
           doc  <- docs
