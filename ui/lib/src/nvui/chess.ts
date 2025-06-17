@@ -385,14 +385,14 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
-type Diagonals = {
+type Spokes = {
   topRight: Key[];
   bottomRight: Key[];
   bottomLeft: Key[];
   topLeft: Key[];
 };
 
-function getDiagonals(square: Key, pov: Color): Diagonals {
+function getSpokes(square: Key, pov: Color): Spokes {
   const files = 'abcdefgh';
   const ranks = '12345678';
 
@@ -410,7 +410,7 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
     return null;
   };
 
-  const results: Diagonals = {
+  const results: Spokes = {
     topRight: [] as Key[],
     bottomRight: [] as Key[],
     bottomLeft: [] as Key[],
@@ -418,35 +418,28 @@ function getDiagonals(square: Key, pov: Color): Diagonals {
   };
 
   for (let d = 1; d < 8; d++) {
-    // ( / )
-    let sfw, sbw; // slashforward, slashbackward
-
+    let topRight, bottomLeft;
     if (pov === 'white') {
-      sfw = coordsToSquare(fileIndex + d, rankIndex + d);
-      sbw = coordsToSquare(fileIndex - d, rankIndex - d);
+      topRight = coordsToSquare(fileIndex + d, rankIndex + d);
+      bottomLeft = coordsToSquare(fileIndex - d, rankIndex - d);
     } else {
-      sfw = coordsToSquare(fileIndex - d, rankIndex - d);
-      sbw = coordsToSquare(fileIndex + d, rankIndex + d);
+      topRight = coordsToSquare(fileIndex - d, rankIndex - d);
+      bottomLeft = coordsToSquare(fileIndex + d, rankIndex + d);
     }
+    if (topRight) results.topRight.push(topRight);
+    if (bottomLeft) results.bottomLeft.push(bottomLeft);
 
-    if (sfw) results.topRight.push(sfw);
-    if (sbw) results.bottomLeft.push(sbw);
-
-    // ( \ ))
-    let bfw, bbw; // backslashforward, backslashbackward
-
+    let topLeft, bottomRight;
     if (pov === 'white') {
-      bfw = coordsToSquare(fileIndex - d, rankIndex + d);
-      bbw = coordsToSquare(fileIndex + d, rankIndex - d);
+      topLeft = coordsToSquare(fileIndex - d, rankIndex + d);
+      bottomRight = coordsToSquare(fileIndex + d, rankIndex - d);
     } else {
-      bfw = coordsToSquare(fileIndex + d, rankIndex - d);
-      bbw = coordsToSquare(fileIndex - d, rankIndex + d);
+      topLeft = coordsToSquare(fileIndex + d, rankIndex - d);
+      bottomRight = coordsToSquare(fileIndex - d, rankIndex + d);
     }
-
-    if (bfw) results.topLeft.push(bfw);
-    if (bbw) results.bottomRight.push(bbw);
+    if (topLeft) results.topLeft.push(topLeft);
+    if (bottomRight) results.bottomRight.push(bottomRight);
   }
-
   return results;
 }
 
@@ -454,9 +447,8 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
     const key = keyFromAttrs(target) as Key;
-    const keyDiagonals = getDiagonals(key!, pov);
-    const currentDiagonal = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'topRight' : 'topLeft');
-    // get next valid diagonal clockwise
+    const keySpokes = getSpokes(key!, pov);
+    const currentSpoke = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'topRight' : 'topLeft');
     const wheel = [
       'topLeft',
       'topRight',
@@ -469,20 +461,20 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       'topLeft',
       'topRight',
     ];
-    const index = (ev.shiftKey ? wheel.reverse() : wheel).findIndex(item => item === currentDiagonal);
+    const index = (ev.shiftKey ? wheel.reverse() : wheel).findIndex(item => item === currentSpoke);
     const objKeys = wheel.slice(index + 1);
 
-    let nextDiagonal: Key[];
+    let nextSpoke: Key[];
     for (const objKey of objKeys) {
-      if (keyDiagonals[objKey as keyof Diagonals].length > 0) {
+      if (keySpokes[objKey as keyof Spokes].length > 0) {
         target.setAttribute('diagonal', objKey);
-        nextDiagonal = keyDiagonals[objKey as keyof Diagonals];
+        nextSpoke = keySpokes[objKey as keyof Spokes];
         break;
       }
     }
 
     const $boardLive = $('.boardstatus');
-    const renderedPieces = nextDiagonal!.reduce<string[]>(
+    const renderedPieces = nextSpoke!.reduce<string[]>(
       (acc, key) =>
         pieces.get(key)
           ? acc.concat(
