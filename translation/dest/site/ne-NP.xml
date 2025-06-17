@@ -443,7 +443,6 @@
   <string name="points">अंक</string>
   <string name="wins">जित</string>
   <string name="losses">हार</string>
-  <string name="createdBy">स्रष्टा</string>
   <string name="standByX">ध्यान दिनुहोला %s, जोडा मिलाइदैंछ, तयार रहनुहोला!</string>
   <string name="youArePlaying">तपाइ खेल्दै हुनुहुन्छ!</string>
   <string name="winRate">जित दर</string>
