@@ -492,7 +492,7 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       [],
     );
     $boardLive.text(
-      `${renderKey(key, style)} ${i18n.nvui[target.getAttribute('diagonal') as keyof typeof i18n.nvui]} ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
+      `${renderKey(key, style)}: ${i18n.nvui[target.getAttribute('diagonal') as keyof typeof i18n.nvui]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
     );
   };
 }
