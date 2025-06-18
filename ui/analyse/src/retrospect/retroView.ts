@@ -19,7 +19,7 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
           };
           onInsertHandler(viewSolution, el);
         }),
-        attrs: { type: 'button', tabindex: '0' },
+        attrs: { tabindex: '0' },
       },
       i18n.site.viewTheSolution,
     ),
@@ -32,7 +32,7 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
           };
           onInsertHandler(skipThisMove, el);
         }),
-        attrs: { type: 'button', tabindex: '0' },
+        attrs: { tabindex: '0' },
       },
       i18n.site.skipThisMove,
     ),
@@ -113,7 +113,6 @@ const feedback = {
               'button',
               {
                 tabindex: '0',
-                type: 'button',
                 hook: onInsert((el: HTMLButtonElement) => {
                   const jumpToNext = () => {
                     ctrl.jumpToNext();
@@ -229,7 +228,6 @@ const feedback = {
                   'button',
                   {
                     attrs: {
-                      type: 'button',
                       'tab-index': '0',
                     },
                     key: 'reset',
@@ -246,7 +244,6 @@ const feedback = {
               'button',
               {
                 attrs: {
-                  type: 'button',
                   'tab-index': '0',
                 },
                 key: 'flip',

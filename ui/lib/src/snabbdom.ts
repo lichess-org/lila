@@ -50,7 +50,6 @@ export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void):
 
 export const dataIcon = (icon: string): Attrs => ({
   'data-icon': icon,
-  'aria-label': icon,
 });
 
 export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });

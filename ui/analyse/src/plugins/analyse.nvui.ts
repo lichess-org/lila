@@ -33,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { type LooseVNodes, type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
+import { type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
