@@ -22,4 +22,13 @@
   <string name="accounts">Reikningar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Koma í veg fyrir að ég spili?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">í sjálfu sér geðröskun</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Notendastíla fyrir Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færri fjölda potta í sal</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Reglulega berast okkur erindi frá notendum sem óska eftir aðstoð við að koma í veg fyrir að þeir spili of mikið.
+
+Hingað til hefur Lichess ekki lagt bann eða blokkeringu á leikmenn nema að broti á þjónustuskilmálum sé um að ræða, en við mælum engu að síður með því að notast sé við ytri tól til að hefta óhóflega spilahegðun. Meðal almennra tillagna að vefsíðuhemla eru %1$s, %2$s og %3$s. Ef þú vilt halda áfram að nota vefsvæðið án þess að láta freistast af hröðum tímastillingum, gætirðu einnig haft áhuga á %4$s, hér er ein með %5$s.
+
+Sumum leikmönnum kann að þykja leikhegðun sín vera að taka á sig mynd fíknar. Raunar flokkar Alþjóðaheilbrigðismálastofnunin tölvuleikjafíkn sem %6$s, og einkennist hún af 1) skertri stjórn á spilun, 2) auknum forgangi á spilun og 3) aukingu á spilun þrátt fyrir neikvæðar afleiðingar. Ef þér sýnist þitt eigið skákframferði fylgja þessu mynstri, hvetjum við þig til að ræða um það við vin eða fjölskyldumeðlim og/eða sérfræðing.</string>
 </resources>
