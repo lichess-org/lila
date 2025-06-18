@@ -64,7 +64,6 @@ const throttled = (sound: string) => throttle(100, () => site.sound.play(sound))
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
-var learningFromYourMistakes = false;
 
 export function initModule(ctrl: AnalyseController): NvuiPlugin {
   const notify = new Notify(),
@@ -284,12 +283,6 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
-const getInLFYM = (): boolean => learningFromYourMistakes;
-
-const setInLFYM = (learning: boolean): void => {
-  learningFromYourMistakes = learning;
-};
-
 const evalInfo = (bestEv: EvalScore | undefined): string =>
   defined(bestEv?.cp)
     ? renderEval(bestEv.cp).replace('-', '−')
@@ -354,8 +347,9 @@ function renderLFYMButton(ctrl: AnalyseController, notify: Notify): VNode {
         const toggleLFYM = () => {
           ctrl.toggleRetro();
           notify.set('Learn from your mistakes');
-          setInLFYM(!getInLFYM());
+          ctrl.nvuiLearning = !ctrl.nvuiLearning;
           ctrl.redraw();
+          el.focus();
         };
         onInsertHandler(toggleLFYM, el);
       }),
@@ -540,7 +534,7 @@ function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): VNode 
       notify.set('Server-side analysis in progress');
       return h('h2', 'Server-side analysis in progress');
     }
-    if (getInLFYM()) {
+    if (ctrl.nvuiLearning) {
       const LFYM = renderRetro(ctrl);
       if (LFYM) {
         return LFYM;

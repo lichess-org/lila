@@ -49,7 +49,7 @@ function jumpToNext(ctrl: RetroCtrl) {
         };
         onInsertHandler(jumpToNext, el);
       }),
-      attrs: { 'aria-label': 'Jump to next', role: 'button', tabindex: '0' },
+      attrs: { 'aria-label': 'Jump to next', tabindex: '0' },
     },
     [h('i', { attrs: dataIcon(licon.PlayTriangle) }), i18n.site.next],
   );
