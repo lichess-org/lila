@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="featuredEvents">Evento in evidenza</string>
+  <string name="featuredEvents">Eventi in evidenza</string>
   <string name="moveList">Formulario</string>
   <string name="gameInfo">Informazioni sulla partita</string>
   <string name="pieces">Pezzo</string>
@@ -12,17 +12,21 @@
   <string name="opponentClock">Orologio dell\'avversario</string>
   <string name="gameStart">Inizio partita</string>
   <string name="boardCommandList">Elenco comandi quando il focus è sulla scacchiera</string>
-  <string name="inputFormCommandList">Digita questi comandi nel campo di inserimento comandi.</string>
-  <string name="goToInputForm">Vai al campo di l\'immissione dei comandi.</string>
+  <string name="inputFormCommandList">Digita questi comandi nel campo di immissione comandi.</string>
+  <string name="goToInputForm">Porta sul campo di immissione dei comandi.</string>
   <string name="announceCurrentSquare">Annuncia la casa attuale.</string>
   <string name="announceLastMove">Annuncia l\'ultima mossa.</string>
   <string name="announceLastMoveCapture">Annuncia il pezzo catturato nell\'ultima mossa.</string>
   <string name="announcePossibleMoves">Annuncia le mosse possibili per il pezzo selezionato.</string>
-  <string name="announcePossibleCaptures">Annuncia le catture possibili.</string>
+  <string name="announcePossibleCaptures">Annuncia le catture possibili con ilpezzo selezionato.</string>
   <string name="moveWithArrows">Sposta alla casa adiacente, sinistra, destra, in alto o in basso.</string>
-  <string name="moveToPieceByType">Spostarsi sulle case in base al nome dei pezzi: per esempio, k ripetute portano su tutte le case dove si trova il re. usare il maiuscolo per invertire l\'ordine.</string>
+  <string name="moveToPieceByType">Sposta sulle case in base al nome dei pezzi: per esempio, k ripetute portano su tutte le case dove si trova il re. usare il maiuscolo per invertire l\'ordine.</string>
+  <string name="moveToRank">Spostarsi sulla fila da 1 a 8.</string>
+  <string name="moveToFile">Spostarsi sulla colonna da a ad h.</string>
+  <string name="announcePieceLocations">Anuncia la posizione dei pezzi. Ad esempio: p N maiuscola per i cavalli bianchi, p k minuscola per il re nero, p A maiuscola per tutti i pezzi bianchi.</string>
+  <string name="announcePiecesOnRankOrFile">Annuncia i pezzi presenti su una traversa o su una colonna. Per esempio: s a, s 1.</string>
   <string name="king">re</string>
-  <string name="whiteKing">bianco</string>
+  <string name="whiteKing">re bianco</string>
   <string name="blackKing">re nero</string>
   <string name="queen">donna</string>
   <string name="whiteQueen">dnna bianca</string>
@@ -36,7 +40,7 @@
   <string name="knight">cavallo</string>
   <string name="whiteKnight">cavallo bianco</string>
   <string name="blackKnight">cavallo nero</string>
-  <string name="pawn">pdone</string>
+  <string name="pawn">pedone</string>
   <string name="whitePawn">pedone bianco</string>
   <string name="blackPawn">pedone nero</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
