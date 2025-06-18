@@ -85,6 +85,6 @@
   <string name="backToLiveMove">Volver al movimiento en directo</string>
   <string name="sinceHideResults">Como elegiste ocultar los resultados, todos los tableros de vista previa están vacíos.</string>
   <string name="liveboard">Tablero en directo</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmisión de la comunidad</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmisión comunitaria</string>
   <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Creada y administrada por %s.</string>
 </resources>
