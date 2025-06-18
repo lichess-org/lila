@@ -632,6 +632,8 @@ const playerByColor = (d: AnalyseData, color: Color): Player =>
 const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
 
+const focus = (el: HTMLElement) => el.focus();
+
 function jumpLine(ctrl: AnalyseController, delta: number) {
   const { i, of } = currentLineIndex(ctrl);
   if (of === 1) return;
@@ -645,6 +647,9 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
 export const onInsertHandler = (callback: () => void, el: HTMLElement) => {
   el.addEventListener('click', callback);
   el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
+
+  el.addEventListener('click', _ => focus(el));
+  el.addEventListener('keydown', ev => ev.key === 'Enter' && focus(el));
 };
 
 const redirectToSelectedHook = bind('change', (e: InputEvent) => {
