@@ -1,15 +1,5 @@
 #!/bin/bash
 
-journalctl --user -fu lila -o cat | grep -E -v fishnet &
-JOURNALCTL_PID=$!
+journalctl --user -fu lila -o cat | grep -vE fishnet &
 
-# l=https://schlawg.org/console
-"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wd'} &
-UI_BUILD_PID=$!
-
-cleanup() {
-  kill $JOURNALCTL_PID $UI_BUILD_PID 2>/dev/null || true
-}
-trap cleanup EXIT SIGINT SIGTERM
-
-wait $JOURNALCTL_PID $UI_BUILD_PID
+"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wd'}
