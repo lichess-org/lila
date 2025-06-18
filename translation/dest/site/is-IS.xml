@@ -35,7 +35,7 @@
   <string name="variantEnding">Ending afbrigðis</string>
   <string name="newOpponent">Nýr andstæðingur</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Andstæðingur þinn vill tefla aðra skák við þig</string>
-  <string name="joinTheGame">Hefja leik</string>
+  <string name="joinTheGame">Hefja skák</string>
   <string name="whitePlays">Hvítur á leik</string>
   <string name="blackPlays">Svartur á leik</string>
   <plurals name="opponentLeftCounter">
@@ -97,6 +97,7 @@
     <item quantity="one">Mát í %s hálfleik</item>
     <item quantity="other">Mát í %s hálfleikum</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' með námundun, byggt á fjölda hálfra leikja uns taflmaður er drepinn eða peð hreyft</string>
   <string name="noGameFound">Engin skák fannst</string>
   <string name="maxDepthReached">Hámarks dýpt náð!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
@@ -490,7 +491,7 @@
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
   <string name="startingIn" comment="Displayed above a timer">Hefst eftir</string>
-  <string name="standByX">Hinkraðu %s, pörun keppanda stendur yfir, vertu tilbúin(n)!</string>
+  <string name="standByX">Hinkraðu %s, verið er að ákvarða mætingar, hafðu augun hjá þér!</string>
   <string name="pause">Hlé</string>
   <string name="resume">Halda áfram</string>
   <string name="youArePlaying">Þú ert að tefla!</string>
@@ -889,7 +890,7 @@
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
   <string name="correspondenceDesc">Bréfskák: einn eða fleiri dagar á leik</string>
-  <string name="puzzleDesc">Þjálfari í meginatriðum skákar</string>
+  <string name="puzzleDesc">Þjálfari í grunnatriðum skákar</string>
   <string name="important">Mikilvægt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
@@ -943,6 +944,7 @@
   <string name="noChat">Ekkert spjall</string>
   <string name="onlyTeamLeaders">Eingöngu liðsstjórar</string>
   <string name="onlyTeamMembers">Eingöngu liðsfélagar</string>
+  <string name="navigateMoveTree">Fletta í gegnum leikjalistann</string>
   <string name="mouseTricks">Músarklækir</string>
   <string name="toggleLocalAnalysis">Virkja tölvugreiningu á staðvél</string>
   <string name="toggleAllAnalysis">Virkja tölvugreiningu á öllum vélum</string>
