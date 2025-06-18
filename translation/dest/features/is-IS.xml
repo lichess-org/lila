@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="zeroAdsAndNoTracking">Alls engar auglýsingar, engar njósnir</string>
   <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
   <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>
+  <string name="personalOpeningExplorer">Einstaklingsbundinn byrjanaskoðari</string>
   <string name="endgameTablebase">7 manna endataflsútreikningasafn</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogg, umræðukorkur, lið, sjónvarp, skilaboð, vinir, áskoranir</string>
   <string name="everybodyGetsAllFeaturesForFree">Já, báðir reikningarnir hafa sömu sérleikana!</string>
   <string name="ifYouLoveLichess">Ef þú fílar Lichess,</string>
   <string name="supportUsWithAPatronAccount">Studdu okkur með velunnarareikningi!</string>
