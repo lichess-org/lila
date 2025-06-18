@@ -85,4 +85,5 @@
   <string name="backToLiveMove">Voltar a posição em direto</string>
   <string name="sinceHideResults">Como optastes por ocultar os resultados, todas as pré-visualizações dos tabuleiros estão vazias para evitar spoilers.</string>
   <string name="liveboard">Tabuleiro em direto</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmissão comunitária</string>
 </resources>
