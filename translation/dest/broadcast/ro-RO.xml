@@ -87,4 +87,6 @@
   <string name="backToLiveMove">Înapoi la mutarea live</string>
   <string name="sinceHideResults">Din moment ce ai ales să ascunzi rezultatele, toate tablele de previzualizare sunt goale pentru a evita spoilerele.</string>
   <string name="liveboard">Tablă live</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmisie din comunitate</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Creat și gestionat de %s.</string>
 </resources>
