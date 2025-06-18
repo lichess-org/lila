@@ -1,58 +1,23 @@
 import { renderIndexAndMove } from '../view/moveView';
-import { onInsertHandler } from '../plugins/analyse.nvui';
 import type { RetroCtrl } from './retroCtrl';
 import type AnalyseCtrl from '../ctrl';
 import * as licon from 'lib/licon';
-import { dataIcon, onInsert } from 'lib/snabbdom';
+import { bind, dataIcon } from 'lib/snabbdom';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h(
-      'button',
-      {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const viewSolution = () => {
-            ctrl.viewSolution();
-            ctrl.redraw();
-          };
-          onInsertHandler(viewSolution, el);
-        }),
-        attrs: { tabindex: '0' },
-      },
-      i18n.site.viewTheSolution,
-    ),
-    h(
-      'button',
-      {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const skipThisMove = () => {
-            ctrl.skip(), ctrl.redraw();
-          };
-          onInsertHandler(skipThisMove, el);
-        }),
-        attrs: { tabindex: '0' },
-      },
-      i18n.site.skipThisMove,
-    ),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
+    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
-  return h(
-    'button.half.continue',
-    {
-      hook: onInsert((el: HTMLButtonElement) => {
-        const jumpToNext = () => {
-          ctrl.jumpToNext(), ctrl.redraw();
-        };
-        onInsertHandler(jumpToNext, el);
-      }),
-      attrs: { 'aria-label': 'Jump to next', tabindex: '0' },
-    },
-    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), i18n.site.next],
-  );
+  return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+    h('i', { attrs: dataIcon(licon.PlayTriangle) }),
+    i18n.site.next,
+  ]);
 }
 
 const minDepth = 8;
@@ -82,7 +47,6 @@ const feedback = {
             i18n.site.xWasPlayed.asArray(
               h(
                 'move',
-                { attrs: { tabindex: '0', 'aria-live': 'assertive' } },
                 renderIndexAndMove(
                   { withDots: true, showGlyphs: true, showEval: false },
                   ctrl.current()!.fault.node,
@@ -90,11 +54,7 @@ const feedback = {
               ),
             ),
           ),
-          h(
-            'em',
-            { attrs: { 'aria-live': 'polite' } },
-            i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
-          ),
+          h('em', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -104,25 +64,10 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon.off', { attrs: { 'aria-label': i18n.site.resumeLearning } }, '!'),
-
+        h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', { 'aria-live': 'assertive' }, i18n.site.youBrowsedAway),
-          h('div.choices.off', [
-            h(
-              'button',
-              {
-                tabindex: '0',
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const jumpToNext = () => {
-                    ctrl.jumpToNext();
-                  };
-                  onInsertHandler(jumpToNext, el);
-                }),
-              },
-              i18n.site.resumeLearning,
-            ),
-          ]),
+          h('strong', i18n.site.youBrowsedAway),
+          h('div.choices.off', [h('a', { hook: bind('click', ctrl.jumpToNext) }, i18n.site.resumeLearning)]),
         ]),
       ]),
     ];
@@ -130,14 +75,10 @@ const feedback = {
   fail(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon', { attrs: { 'aria-label': i18n.site.youCanDoBetter } }, '✗'),
+        h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
-          h(
-            'em',
-            { attrs: { 'aria-live': 'assertive' } },
-            i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
-          ),
+          h('strong', i18n.site.youCanDoBetter),
+          h('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -147,10 +88,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [
-          h('div.icon', { attrs: { 'aria-label': i18n.study.goodMove } }, '✓'),
-          h('div.instruction', h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove)),
-        ]),
+        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', i18n.study.goodMove))]),
       ),
       jumpToNext(ctrl),
     ];
@@ -160,15 +98,14 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', { attrs: { 'aria-label': i18n.site.solution } }, '✓'),
-          h('div.instruction', { attrs: { 'tab-index': '0' } }, [
-            h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.solution),
+          h('div.icon', '✓'),
+          h('div.instruction', [
+            h('strong', i18n.site.solution),
             h(
               'em',
               i18n.site.bestWasX.asArray(
                 h(
                   'strong',
-                  { attrs: { 'aria-live': 'assertive' } },
                   renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node),
                 ),
               ),
@@ -184,10 +121,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [
-            h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.evaluatingYourMove),
-            renderEvalProgress(ctrl.node()),
-          ]),
+          h('div.instruction', [h('strong', i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
         ]),
       ),
     ];
@@ -197,10 +131,7 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [
-            h('div.icon', { attrs: { 'aria-label': i18n.site.waitingForAnalysis } }, spinner()),
-            h('div.instruction', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
-          ]),
+          h('div.player', [h('div.icon', spinner()), h('div.instruction', i18n.site.waitingForAnalysis)]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -210,7 +141,6 @@ const feedback = {
         h('div.instruction', [
           h(
             'em',
-            { attrs: { 'aria-live': 'polite' } },
             i18n.site[
               nothing
                 ? ctrl.color === 'white'
@@ -225,34 +155,18 @@ const feedback = {
             nothing
               ? null
               : h(
-                  'button',
+                  'a',
                   {
-                    attrs: {
-                      'tab-index': '0',
-                    },
                     key: 'reset',
-                    hook: onInsert((el: HTMLButtonElement) => {
-                      const doItAgain = () => {
-                        ctrl.reset();
-                      };
-                      onInsertHandler(doItAgain, el);
-                    }),
+                    hook: bind('click', ctrl.reset),
                   },
                   i18n.site.doItAgain,
                 ),
             h(
-              'button',
+              'a',
               {
-                attrs: {
-                  'tab-index': '0',
-                },
                 key: 'flip',
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const flipBoard = () => {
-                    ctrl.flip();
-                  };
-                  onInsertHandler(flipBoard, el);
-                }),
+                hook: bind('click', ctrl.flip),
               },
               i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
             ),
@@ -274,29 +188,17 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
-
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
-
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
-      h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
-      h(
-        'p',
-        { attrs: { 'aria-label': 'mistake number' } },
-        `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
-      ),
+      h('span', i18n.site.learnFromYourMistakes),
+      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       h('button.fbt', {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const toggleLFYM = () => {
-            root.toggleRetro();
-            root.redraw();
-          };
-          onInsertHandler(toggleLFYM, el);
-        }),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'toggle learn from your mistakes' },
+        hook: bind('click', root.toggleRetro, root.redraw),
+        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
       }),
     ]),
-    h('div.feedback.' + fb, { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb)),
+    h('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);
 }
