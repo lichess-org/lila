@@ -534,7 +534,7 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): LooseVNodes | VNode {
+function renderComputerAnalysis(ctrl: AnalyseController, notify: Notify): VNode {
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
