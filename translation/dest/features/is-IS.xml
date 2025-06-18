@@ -2,7 +2,6 @@
 <resources>
   <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
   <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>
-  <string name="personalOpeningExplorer">%s Einstaklingsbundinn byrjanaskoðari</string>
   <string name="endgameTablebase">7 manna endataflsútreikningasafn</string>
   <string name="everybodyGetsAllFeaturesForFree">Já, báðir reikningarnir hafa sömu sérleikana!</string>
   <string name="ifYouLoveLichess">Ef þú fílar Lichess,</string>
