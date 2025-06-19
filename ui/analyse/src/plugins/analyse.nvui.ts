@@ -428,7 +428,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', { attrs: { 'aria-label': i18n.site.solution } }, '✓'),
+          h('div.icon', { attrs: { 'aria-label': i18n.study.goodMove } }, '✓'),
           h('div.instruction', { attrs: { 'tab-index': '0' } }, [
             h('strong', { attrs: { 'aria-live': 'assertive' } }, i18n.site.solution),
             h(
@@ -541,8 +541,7 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
-    // help: commands().piece.help, couses normal ui to not render peices
-    help: noTrans('Announce a pieces location. ie: p n or p N'),
+    help: commands().piece.help,
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
@@ -551,8 +550,7 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 's',
-    // help: commands().scan.help, causes normal ui to not render peices
-    help: noTrans('Scan pieces on a row or file. ie: s 1, s d or s D'),
+    help: commands().scan.help,
     cb: (ctrl, notify, style, input) =>
       notify(
         commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
