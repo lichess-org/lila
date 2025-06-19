@@ -1775,6 +1775,8 @@ interface I18n {
     blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
+    /** bottom */
+    bottom: string;
     /** bottom left */
     bottomLeft: string;
     /** bottom right */
@@ -1803,6 +1805,8 @@ interface I18n {
     knight: string;
     /** Last move */
     lastMove: string;
+    /** left */
+    left: string;
     /** Move list */
     moveList: string;
     /** To move a piece, use standard algebraic notation. */
@@ -1829,6 +1833,8 @@ interface I18n {
     promotion: string;
     /** queen */
     queen: string;
+    /** right */
+    right: string;
     /** rook */
     rook: string;
     /** check */
@@ -1847,6 +1853,8 @@ interface I18n {
     sanSymbols: string;
     /** takes */
     sanTakes: string;
+    /** top */
+    top: string;
     /** top left */
     topLeft: string;
     /** top right */

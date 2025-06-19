@@ -387,14 +387,9 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
-type Spokes = {
-  topRight: Key[];
-  bottomRight: Key[];
-  bottomLeft: Key[];
-  topLeft: Key[];
-};
+type Spoke = 'top' | 'topRight' | 'right' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'left' | 'topLeft';
 
-function getSpokes(square: Key, pov: Color): Spokes {
+function getSpokeKeys(spoke: Spoke, square: Key, pov: Color): Key[] {
   const files = 'abcdefgh';
   const ranks = '12345678';
 
@@ -412,71 +407,110 @@ function getSpokes(square: Key, pov: Color): Spokes {
     return null;
   };
 
-  const results: Spokes = {
-    topRight: [] as Key[],
-    bottomRight: [] as Key[],
-    bottomLeft: [] as Key[],
-    topLeft: [] as Key[],
-  };
+  let result = [] as Key[];
 
   for (let d = 1; d < 8; d++) {
-    let topRight, bottomLeft;
-    if (pov === 'white') {
-      topRight = coordsToSquare(fileIndex + d, rankIndex + d);
-      bottomLeft = coordsToSquare(fileIndex - d, rankIndex - d);
-    } else {
-      topRight = coordsToSquare(fileIndex - d, rankIndex - d);
-      bottomLeft = coordsToSquare(fileIndex + d, rankIndex + d);
-    }
-    if (topRight) results.topRight.push(topRight);
-    if (bottomLeft) results.bottomLeft.push(bottomLeft);
+    let key: Key | null;
 
-    let topLeft, bottomRight;
-    if (pov === 'white') {
-      topLeft = coordsToSquare(fileIndex - d, rankIndex + d);
-      bottomRight = coordsToSquare(fileIndex + d, rankIndex - d);
-    } else {
-      topLeft = coordsToSquare(fileIndex + d, rankIndex - d);
-      bottomRight = coordsToSquare(fileIndex - d, rankIndex + d);
+    switch (spoke) {
+      case 'top':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex, rankIndex + d)
+            : coordsToSquare(fileIndex, rankIndex - d);
+        break;
+      case 'topRight':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex + d)
+            : coordsToSquare(fileIndex - d, rankIndex - d);
+        break;
+      case 'right':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex)
+            : coordsToSquare(fileIndex - d, rankIndex);
+        break;
+      case 'bottomRight':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex - d)
+            : coordsToSquare(fileIndex - d, rankIndex + d);
+        break;
+      case 'bottom':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex, rankIndex - d)
+            : coordsToSquare(fileIndex, rankIndex + d);
+        break;
+      case 'bottomLeft':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex - d)
+            : coordsToSquare(fileIndex + d, rankIndex + d);
+        break;
+      case 'left':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex)
+            : coordsToSquare(fileIndex + d, rankIndex);
+        break;
+      case 'topLeft':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex + d)
+            : coordsToSquare(fileIndex + d, rankIndex - d);
+        break;
+      default:
+        throw new Error('Invalid spoke ' + spoke);
     }
-    if (topLeft) results.topLeft.push(topLeft);
-    if (bottomRight) results.bottomRight.push(bottomRight);
+    if (key) result.push(key);
+    else break;
   }
-  return results;
+  return result;
 }
 
 export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
     const key = keyFromAttrs(target) as Key;
-    const keySpokes = getSpokes(key!, pov);
-    const currentSpoke = target.getAttribute('diagonal') ?? (ev.shiftKey ? 'topRight' : 'topLeft');
-    const wheel = [
-      'topLeft',
+    const currentSpoke: Spoke | null = target.getAttribute('diagonal') as Spoke;
+    const wheel: Spoke[] = [
+      'top',
       'topRight',
+      'right',
       'bottomRight',
+      'bottom',
       'bottomLeft',
+      'left',
       'topLeft',
-      'topRight',
-      'bottomRight',
-      'bottomLeft',
-      'topLeft',
-      'topRight',
     ];
-    const index = (ev.shiftKey ? wheel.reverse() : wheel).findIndex(item => item === currentSpoke);
-    const objKeys = wheel.slice(index + 1);
 
-    let nextSpoke: Key[];
-    for (const objKey of objKeys) {
-      if (keySpokes[objKey as keyof Spokes].length > 0) {
-        target.setAttribute('diagonal', objKey);
-        nextSpoke = keySpokes[objKey as keyof Spokes];
+    let nextSpoke: Key[] = [];
+    let currentSpokeIndex = 0;
+
+    if (currentSpoke == null) {
+      currentSpokeIndex = ev.altKey ? 0 : 1;
+    } else {
+      currentSpokeIndex = wheel.indexOf(currentSpoke);
+      if ((ev.altKey && currentSpokeIndex % 2 === 0) || (!ev.altKey && currentSpokeIndex % 2 === 1))
+        currentSpokeIndex = (currentSpokeIndex + 2) % 8;
+      else currentSpokeIndex = (currentSpokeIndex + 1) % 8;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      const spokeKeys = getSpokeKeys(wheel[currentSpokeIndex], key, pov);
+      if (spokeKeys.length == 0) {
+        currentSpokeIndex = (currentSpokeIndex + 2) % 8;
+      } else {
+        nextSpoke = spokeKeys;
+        target.setAttribute('diagonal', wheel[currentSpokeIndex]);
         break;
       }
     }
 
     const $boardLive = $('.boardstatus');
-    const renderedPieces = nextSpoke!.reduce<string[]>(
+    const renderedPieces = nextSpoke.reduce<string[]>(
       (acc, key) =>
         pieces.get(key)
           ? acc.concat(
