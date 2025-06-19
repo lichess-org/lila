@@ -358,6 +358,8 @@
   <string name="blackDeclinesTakeback">Il Nero declina la ripetizione della mossa</string>
   <string name="whiteAcceptsTakeback">Il Bianco accetta la ripetizione della mossa</string>
   <string name="blackAcceptsTakeback">Il Nero accetta la ripetizione della mossa</string>
+  <string name="whiteCancelsTakeback">Il bianco rifiuta la ripetizione della mossa</string>
+  <string name="blackCancelsTakeback">Il nero rifiuta la ripetizione della mossa</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>
@@ -677,6 +679,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="termsOfService">Termini di servizio</string>
+  <string name="titleVerification">Verifica del titolo</string>
   <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
