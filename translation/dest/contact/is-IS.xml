@@ -8,4 +8,21 @@
   <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
   <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
   <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
+  <string name="doNotSendReportEmails">Ekki senda okkur vitnisburð í tölvupósti.</string>
+  <string name="doNotMessageModerators">Þess er vænst að ekki séu send einkaskilaboð til stjórnenda.</string>
+  <string name="onlyReports">Aðeins tilkynningareyðublaðið ber árangur þegar tilkynna skal leikmenn.</string>
+  <string name="wantReportBug">Ég vil tilkynna villu</string>
+  <string name="noRatingPoints">Engin skákstig voru gefin</string>
+  <string name="banAppeal">Áfrýjun vegna banns eða hamla á IP-tölu</string>
+  <string name="engineAppeal">Tölvuforrit- eða svindlmerki</string>
+  <string name="sendAppealTo">Þú getur sent áfrýjun til %s.</string>
+  <string name="falsePositives">Falsjákvæðar niðurstöður kunna að gerast, og þykir það okkur leitt.</string>
+  <string name="ifLegit">Verði áfrýjun þín réttmæt munum við tafarlaust aflétta banninu.</string>
+  <string name="accountLost">Komi í ljós að þú hafir notast við aðstoð tölvuforrits, þótt ekki væri nema einu sinni, þá er aðgangur þinn því miður frátekinn.</string>
+  <string name="doNotDeny">Ekki neita því að hafa svindlað. Ef þú vilt fá að búa til nýjan aðgang skaltu bara viðurkenna hvað þú gerðir og sýna að þú skildir að þetta voru mistök.</string>
+  <string name="otherRestriction">Aðrar hömlur</string>
+  <string name="collaboration">Samstarf, lagastoð, viðskipti</string>
+  <string name="monetizing">Að afla tekna af Lichess</string>
+  <string name="buyingLichess">Að kaupa Lichess</string>
+  <string name="authorizationToUse">Leyfi til notkunar Lichess</string>
 </resources>
