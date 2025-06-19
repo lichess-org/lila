@@ -12,7 +12,7 @@ final class UblogSearch(client: SearchClient, config: UblogConfig)(using Executo
 
   def fetchResults(text: String, by: lila.core.ublog.BlogsBy, minQualityOpt: Option[Quality], page: Int) =
     val sortBy =
-      SortBlogsBy.values.find(_.toString == by.toString).getOrElse(SortBlogsBy.Score)
+      SortBlogsBy.values.find(_.toString == by.toString).getOrElse(SortBlogsBy.score)
     builder(Query.Ublog(text, sortBy, minQualityOpt.map(_.ordinal), none), page)
 
   def search(query: Query.Ublog, from: From, size: Size): Fu[List[UblogPostId]] =
