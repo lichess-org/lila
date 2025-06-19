@@ -162,7 +162,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
           ),
           notify.render(),
           h('h2', 'Computer analysis'),
-          renderComputerAnalysis(ctrl, notify),
+          renderComputerAnalysis(ctrl, notify, moveStyle.get()),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -845,7 +845,7 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify): VNode {
+function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode {
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
@@ -858,7 +858,7 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify): VNode {
       }
       notify.set('Problem rendering learn from your mistakes');
     }
-    return h('section', [renderAcpl(ctrl, 'san'), renderLFYMButton(ctrl, notify)]);
+    return h('section', [renderLFYMButton(ctrl, notify), renderAcpl(ctrl, moveStyle)]);
   }
   // catch all analysis issues
   return requestAnalBtn(ctrl);
