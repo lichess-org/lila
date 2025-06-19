@@ -19,7 +19,7 @@
   <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
   <string name="threefoldRepetitionLowerCase">þreföld endurtekning</string>
-  <string name="accounts">Reikningar</string>
+  <string name="accounts">Aðgangar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Koma í veg fyrir að ég spili?</string>
