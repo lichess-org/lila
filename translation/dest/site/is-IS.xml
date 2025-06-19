@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Tefla við vin</string>
   <string name="playWithTheMachine">Tefla við tölvuna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
-  <string name="gameOver">Leik lokið</string>
+  <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
   <string name="orLetYourOpponentScanQrCode">Eða láttu andstæðing þinn skanna þennan QR kóða</string>
   <string name="waiting">Bið</string>
@@ -860,11 +860,13 @@
   <string name="middlegame">Miðtafl</string>
   <string name="endgame">Endatafl</string>
   <string name="conditionalPremoves">Skilyrtir fyrirframgefnir leikir</string>
+  <string name="noConditionalPremoves">Engir skilyrtir fyrirframgefnir leikir</string>
   <string name="playX">Leika %s</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
+  <string name="potentialProblem">Þegar hugsanlegt vandamál greinist birtum við þessi skilaboð.</string>
   <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>
   <string name="tryToWin">Reyndu að vinna (eða amk. ná jafntefli) í öllum skákum sem þú teflir.</string>
@@ -939,6 +941,8 @@
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
+  <string name="markdownAvailable">%s er tiltækt fyrir flóknari málskipan.</string>
+  <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>
   <string name="noChat">Ekkert spjall</string>
@@ -961,6 +965,7 @@
   <string name="gameInProgress">Þú ert nú þegar með skák á móti %s.</string>
   <string name="abortTheGame">Hætta við skák</string>
   <string name="resignTheGame">Gefa upp skák</string>
+  <string name="youCantStartNewGame">Þú getur ekki hafið nýja skák fyrr en þessari er lokið.</string>
   <string name="since">Síðan</string>
   <string name="until">Uns</string>
   <string name="lichessDbExplanation">Skákir sem gilda til stiga sem leiknar eru á Lichess</string>
