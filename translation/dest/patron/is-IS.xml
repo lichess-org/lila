@@ -4,6 +4,7 @@
   <string name="donateAsX">Styrkja sem %s</string>
   <string name="lichessPatron">Velunnari Lichess</string>
   <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Velunnari síðan %s</string>
+  <string name="freeAccount">Ókeypis aðgangur</string>
   <string name="becomePatron">Gerast velunnari Lichess</string>
   <string name="xBecamePatron">%s gerðist velunnari Lichess</string>
   <plurals name="xIsPatronForNbMonths">
@@ -11,11 +12,16 @@
     <item quantity="other">%1$s er velunnari Lichess í %2$s mánuði</item>
   </plurals>
   <string name="newPatrons">Nýlegir velunnarar</string>
-  <string name="youHaveLifetime">Þú ert með ævilangan velunnarareikning. Það er ansi magnað!</string>
-  <string name="patronUntil">Þú ert með velunnarareikning uns %s.</string>
+  <string name="freeChess">Ókeypis skák fyrir alla, til eilífðarnóns!</string>
+  <string name="noAdsNoSubs">Engar auglýsingar, engar áskriftir; heldur opinn hugbúnaður og ástríða.</string>
+  <string name="thankYou">Takk fyrir fjárframlagið!</string>
+  <string name="youHaveLifetime">Þú ert með ævilangan velunnaraaðgang. Það er ansi magnað!</string>
+  <string name="patronUntil">Þú ert með velunnaraaðgang uns %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ef aðgangurinn þinn er ekki endurnýjaður verður hann síðan breyttur í venjulegan aðgang.</string>
   <string name="weAreNonProfit">Við erum stofnun sem er ekki rekin í hagnaðarskyni því við teljum að allir ættu að hafa aðgang að ókeypis heimsklassaskákvettvang.</string>
   <string name="weRelyOnSupport">Við reiðum okkur á stuðning frá fólki eins og þér til að gera þetta mögulegt. Ef þú hefur gaman af Lichess, vinsamlegast íhugaðu að styðja okkur með fjárframlagi og með því að gerast Velunnari!</string>
   <string name="lifetime">Lífstíð</string>
+  <string name="payLifetimeOnce">Borgar þú %s einu sinni. Gerist þú velunnari Lichess til eilífðarnóns!</string>
   <string name="lifetimePatron">Ævilangur velunnari Lichess</string>
   <string name="monthly">Mánaðarlega</string>
   <string name="onetime">Eingreiðsla</string>
@@ -53,10 +59,10 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="viewOthers">Skoða aðra velunnara Lichess</string>
   <string name="date">Dagsetning</string>
   <string name="amount">Upphæð</string>
-  <string name="permanentPatron">Þú hefur nú fastan velunnarareikning.</string>
+  <string name="permanentPatron">Þú hefur nú fastan velunnaraaðgang.</string>
   <string name="nowLifetime">Þú hefur gerst ævilangur velunnari Lichess!</string>
   <string name="nowOneMonth">Þú ert nú Lichess-velunnari í einn mánuð!</string>
-  <string name="downgradeNextMonth">Eftir einn mánuð verður EKKI rukkað af þér aftur og Lichess-reikningurinn þinn mun breytast aftur í venjulegan reikning.</string>
+  <string name="downgradeNextMonth">Eftir einn mánuð verður EKKI rukkað af þér aftur og Lichess-aðgangur þinn mun breytast aftur í venjulegan aðgang.</string>
   <string name="changeCurrency">Breyta gjaldmiðli</string>
   <string name="paymentDetails">Greiðsluupplýsingar</string>
   <string name="updatePaymentMethod">Uppfærða greiðslumáta</string>
