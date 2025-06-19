@@ -494,8 +494,8 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
     } else {
       currentSpokeIndex = wheel.indexOf(currentSpoke);
       if ((ev.altKey && currentSpokeIndex % 2 === 0) || (!ev.altKey && currentSpokeIndex % 2 === 1))
-        currentSpokeIndex = (currentSpokeIndex + 2) % 8;
-      else currentSpokeIndex = (currentSpokeIndex + 1) % 8;
+        currentSpokeIndex = ev.shiftKey ? (currentSpokeIndex + 6) % 8 : (currentSpokeIndex + 2) % 8;
+      else currentSpokeIndex = ev.shiftKey ? (currentSpokeIndex + 7) % 8 : (currentSpokeIndex + 1) % 8;
     }
 
     for (let i = 0; i < 4; i++) {
