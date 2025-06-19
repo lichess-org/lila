@@ -501,7 +501,7 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
     for (let i = 0; i < 4; i++) {
       const rayKeys = getRayKeys(directions[currentRayIndex], key, pov);
       if (rayKeys.length == 0) {
-        currentRayIndex = (currentRayIndex + 2) % 8;
+        currentRayIndex = ev.shiftKey ? (currentRayIndex + 6) % 8 : (currentRayIndex + 2) % 8;
       } else {
         nextRay = rayKeys;
         target.setAttribute('ray', directions[currentRayIndex]);
