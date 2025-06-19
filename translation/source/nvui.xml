@@ -57,12 +57,12 @@
   <string name="invalidMove">Invalid move</string>
   <string name="premoveCancelled">Premove cancelled</string>
   <string name="premoveRecorded">Premove recorded: %s. Hit enter to cancel</string>
-  <string name="top">top</string>
-  <string name="topRight">top right</string>
-  <string name="right">right</string>
-  <string name="bottomRight">bottom right</string>
-  <string name="bottom">bottom</string>
-  <string name="bottomLeft">bottom left</string>
-  <string name="left">left</string>
-  <string name="topLeft">top left</string>
+  <string name="top" comment="direction of a ray">top</string>
+  <string name="topRight" comment="direction of a ray">top right</string>
+  <string name="right" comment="direction of a ray">right</string>
+  <string name="bottomRight" comment="direction of a ray">bottom right</string>
+  <string name="bottom" comment="direction of a ray">bottom</string>
+  <string name="bottomLeft" comment="direction of a ray">bottom left</string>
+  <string name="left" comment="direction of a ray">left</string>
+  <string name="topLeft" comment="direction of a ray">top left</string>
 </resources>

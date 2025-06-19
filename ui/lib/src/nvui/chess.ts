@@ -387,9 +387,9 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
-type Spoke = 'top' | 'topRight' | 'right' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'left' | 'topLeft';
+type Ray = 'top' | 'topRight' | 'right' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'left' | 'topLeft';
 
-function getSpokeKeys(spoke: Spoke, square: Key, pov: Color): Key[] {
+function getRayKeys(ray: Ray, square: Key, pov: Color): Key[] {
   const files = 'abcdefgh';
   const ranks = '12345678';
 
@@ -412,7 +412,7 @@ function getSpokeKeys(spoke: Spoke, square: Key, pov: Color): Key[] {
   for (let d = 1; d < 8; d++) {
     let key: Key | null;
 
-    switch (spoke) {
+    switch (ray) {
       case 'top':
         key =
           pov === 'white'
@@ -462,7 +462,7 @@ function getSpokeKeys(spoke: Spoke, square: Key, pov: Color): Key[] {
             : coordsToSquare(fileIndex + d, rankIndex - d);
         break;
       default:
-        throw new Error('Invalid spoke ' + spoke);
+        throw new Error('Invalid ray ' + ray);
     }
     if (key) result.push(key);
     else break;
@@ -470,12 +470,12 @@ function getSpokeKeys(spoke: Spoke, square: Key, pov: Color): Key[] {
   return result;
 }
 
-export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
+export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
     const key = keyFromAttrs(target) as Key;
-    const currentSpoke: Spoke | null = target.getAttribute('diagonal') as Spoke;
-    const wheel: Spoke[] = [
+    const currentRay: Ray | null = target.getAttribute('ray') as Ray;
+    const directions: Ray[] = [
       'top',
       'topRight',
       'right',
@@ -486,31 +486,31 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       'topLeft',
     ];
 
-    let nextSpoke: Key[] = [];
-    let currentSpokeIndex = 0;
+    let nextRay: Key[] = [];
+    let currentRayIndex = 0;
 
-    if (currentSpoke == null) {
-      currentSpokeIndex = ev.altKey ? 0 : 1;
+    if (currentRay == null) {
+      currentRayIndex = ev.altKey ? 0 : 1;
     } else {
-      currentSpokeIndex = wheel.indexOf(currentSpoke);
-      if ((ev.altKey && currentSpokeIndex % 2 === 0) || (!ev.altKey && currentSpokeIndex % 2 === 1))
-        currentSpokeIndex = ev.shiftKey ? (currentSpokeIndex + 6) % 8 : (currentSpokeIndex + 2) % 8;
-      else currentSpokeIndex = ev.shiftKey ? (currentSpokeIndex + 7) % 8 : (currentSpokeIndex + 1) % 8;
+      currentRayIndex = directions.indexOf(currentRay);
+      if ((ev.altKey && currentRayIndex % 2 === 0) || (!ev.altKey && currentRayIndex % 2 === 1))
+        currentRayIndex = ev.shiftKey ? (currentRayIndex + 6) % 8 : (currentRayIndex + 2) % 8;
+      else currentRayIndex = ev.shiftKey ? (currentRayIndex + 7) % 8 : (currentRayIndex + 1) % 8;
     }
 
     for (let i = 0; i < 4; i++) {
-      const spokeKeys = getSpokeKeys(wheel[currentSpokeIndex], key, pov);
-      if (spokeKeys.length == 0) {
-        currentSpokeIndex = (currentSpokeIndex + 2) % 8;
+      const rayKeys = getRayKeys(directions[currentRayIndex], key, pov);
+      if (rayKeys.length == 0) {
+        currentRayIndex = (currentRayIndex + 2) % 8;
       } else {
-        nextSpoke = spokeKeys;
-        target.setAttribute('diagonal', wheel[currentSpokeIndex]);
+        nextRay = rayKeys;
+        target.setAttribute('ray', directions[currentRayIndex]);
         break;
       }
     }
 
     const $boardLive = $('.boardstatus');
-    const renderedPieces = nextSpoke.reduce<string[]>(
+    const renderedPieces = nextRay.reduce<string[]>(
       (acc, key) =>
         pieces.get(key)
           ? acc.concat(
@@ -520,7 +520,7 @@ export function scanDiagonalHandler(pov: Color, pieces: Pieces, style: MoveStyle
       [],
     );
     $boardLive.text(
-      `${renderKey(key, style)}: ${i18n.nvui[target.getAttribute('diagonal') as keyof typeof i18n.nvui]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
+      `${renderKey(key, style)}: ${i18n.nvui[target.getAttribute('ray') as keyof typeof i18n.nvui]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
     );
   };
 }
