@@ -25,7 +25,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
       setupCtrl.root.redraw();
     },
     modal: true,
-    vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
+    vnodes: [views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;
       dlg.show();

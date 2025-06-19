@@ -3,7 +3,7 @@ import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { renderEval as normalizeEval } from 'lib/ceval/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { type MaybeVNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
+import { type MaybeVNode, type LooseVNodes, hl } from 'lib/snabbdom';
 import type PuzzleCtrl from '../ctrl';
 import { plyToTurn } from 'lib/game/chess';
 
@@ -38,7 +38,7 @@ function pathContains(ctx: Ctx, path: Tree.Path): boolean {
 }
 
 export function renderIndex(ply: number, withDots: boolean): VNode {
-  return h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  return hl('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNodes {
@@ -50,7 +50,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNo
     if (!cs[1])
       return [
         isWhite && renderIndex(main.ply, false),
-        ...renderMoveAndChildrenOf(ctx, main, { parentPath: opts.parentPath, isMainline: true }),
+        renderMoveAndChildrenOf(ctx, main, { parentPath: opts.parentPath, isMainline: true }),
       ];
     const mainChildren = renderChildrenOf(ctx, main, {
         parentPath: opts.parentPath + main.id,
@@ -61,20 +61,20 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNo
       isWhite && renderIndex(main.ply, false),
       renderMoveOf(ctx, main, passOpts),
       isWhite && emptyMove(),
-      h('interrupt', renderLines(ctx, cs.slice(1), { parentPath: opts.parentPath, isMainline: true })),
-      ...(isWhite && mainChildren ? [renderIndex(main.ply, false), emptyMove()] : []),
-      ...mainChildren,
+      hl('interrupt', renderLines(ctx, cs.slice(1), { parentPath: opts.parentPath, isMainline: true })),
+      isWhite && mainChildren && [renderIndex(main.ply, false), emptyMove()],
+      mainChildren,
     ];
   }
   return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
 }
 
 function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
-  return h(
+  return hl(
     'lines',
     { class: { single: !!nodes[1] } },
     nodes.map(function (n) {
-      return h(
+      return hl(
         'line',
         renderMoveAndChildrenOf(ctx, n, { parentPath: opts.parentPath, isMainline: false, withIndex: true }),
       );
@@ -94,10 +94,10 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
     hist: node.ply < ctx.ctrl.initialNode.ply,
   };
   if (node.puzzle) classes[node.puzzle] = true;
-  return h('move', { attrs: { p: path }, class: classes }, renderMove(node));
+  return hl('move', { attrs: { p: path }, class: classes }, renderMove(node));
 }
 
-const renderGlyph = (glyph: Glyph): VNode => h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
+const renderGlyph = (glyph: Glyph): VNode => hl('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
 function puzzleGlyph(node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {
@@ -131,7 +131,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
   const active = path === ctx.ctrl.path;
   const classes: Classes = { active, parent: !active && pathContains(ctx, path) };
   if (node.puzzle) classes[node.puzzle] = true;
-  return h('move', { attrs: { p: path }, class: classes }, [
+  return hl('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),
     node.san,
     puzzleGlyph(node),
@@ -141,16 +141,16 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNodes {
   return [
     renderMoveOf(ctx, node, opts),
-    ...renderChildrenOf(ctx, node, { parentPath: opts.parentPath + node.id, isMainline: opts.isMainline }),
+    renderChildrenOf(ctx, node, { parentPath: opts.parentPath + node.id, isMainline: opts.isMainline }),
   ];
 }
 
 function emptyMove(): VNode {
-  return h('move.empty', '...');
+  return hl('move.empty', '...');
 }
 
 function renderEval(e: string): VNode {
-  return h('eval', e);
+  return hl('eval', e);
 }
 
 function eventPath(e: Event): Tree.Path | null {
@@ -161,7 +161,7 @@ function eventPath(e: Event): Tree.Path | null {
 export function render(ctrl: PuzzleCtrl): VNode {
   const root = ctrl.tree.root;
   const ctx = { ctrl: ctrl, showComputer: false };
-  return h(
+  return hl(
     'div.tview2.tview2-column',
     {
       hook: {
@@ -188,8 +188,8 @@ export function render(ctrl: PuzzleCtrl): VNode {
       },
     },
     [
-      ...(root.ply % 2 === 1 ? [renderIndex(root.ply, false), emptyMove()] : []),
-      ...renderChildrenOf(ctx, root, { parentPath: '', isMainline: true }),
+      root.ply % 2 === 1 && [renderIndex(root.ply, false), emptyMove()],
+      renderChildrenOf(ctx, root, { parentPath: '', isMainline: true }),
     ],
   );
 }

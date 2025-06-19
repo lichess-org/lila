@@ -7,7 +7,7 @@ import { game as gameRoute } from 'lib/game/router';
 import type { RoundData } from '../interfaces';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'lib/snabbdom';
+import { type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/snabbdom';
 import { pubsub } from 'lib/pubsub';
 
 export interface ButtonState {
@@ -28,7 +28,7 @@ function analysisButton(ctrl: RoundController): VNode | false {
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
     replayable(d) &&
-    h(
+    hl(
       'a.fbt',
       {
         attrs: { href: url },
@@ -59,7 +59,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
   if (!rematchable(d)) return [];
   return [
     them &&
-      h(
+      hl(
         'button.rematch-decline',
         {
           attrs: { 'data-icon': licon.X, title: i18n.site.decline },
@@ -67,7 +67,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
         },
         ctrl.nvui ? i18n.site.decline : '',
       ),
-    h(
+    hl(
       'button.fbt.rematch.white',
       {
         class: { me, glowing: them, disabled },
@@ -95,7 +95,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
           ctrl.redraw,
         ),
       },
-      [me ? spinner() : h('span', i18n.site.rematch)],
+      [me ? spinner() : hl('span', i18n.site.rematch)],
     ),
   ];
 }
@@ -111,7 +111,7 @@ export function standard(
   // disabled if condition callback is provided and is falsy
   const enabled = () => !condition || condition(ctrl.data).enabled;
   const hintFn = () => condition?.(ctrl.data)?.overrideHint || hint;
-  return h(
+  return hl(
     'button.fbt.' + socketMsg,
     {
       attrs: ctrl.nvui ? { disabled: !enabled() } : { disabled: !enabled(), title: hintFn() },
@@ -119,7 +119,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    ctrl.nvui ? [hintFn()] : [h('span', justIcon(icon))],
+    ctrl.nvui ? [hintFn()] : [hl('span', justIcon(icon))],
   );
 }
 
@@ -127,32 +127,32 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
   const gone = ctrl.opponentGone();
   if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
-    ? h('div.suggestion', [
-        h('p', { hook: onSuggestionHook }, i18n.site.opponentLeftChoices),
-        h(
+    ? hl('div.suggestion', [
+        hl('p', { hook: onSuggestionHook }, i18n.site.opponentLeftChoices),
+        hl(
           'button.button',
           { hook: bind('click', () => ctrl.socket.sendLoading('resign-force')) },
           i18n.site.forceResignation,
         ),
-        h(
+        hl(
           'button.button',
           { hook: bind('click', () => ctrl.socket.sendLoading('draw-force')) },
           i18n.site.forceDraw,
         ),
       ])
     : gone !== false &&
-        h('div.suggestion', h('p', i18n.site.opponentLeftCounter.asArray(gone, h('strong', '' + gone))));
+        hl('div.suggestion', hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))));
 }
 
 const fbtCancel = (f: (v: boolean) => void) =>
-  h('button.fbt.no', {
+  hl('button.fbt.no', {
     attrs: { title: i18n.site.cancel, 'data-icon': licon.X },
     hook: bind('click', () => f(false)),
   });
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
-  h('div.act-confirm', [
-    h('button.fbt.yes', {
+  hl('div.act-confirm', [
+    hl('button.fbt.yes', {
       attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
       hook: bind('click', () => ctrl.resign(true)),
     }),
@@ -160,8 +160,8 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
   ]);
 
 export const drawConfirm = (ctrl: RoundController): VNode =>
-  h('div.act-confirm', [
-    h('button.fbt.yes.draw-yes', {
+  hl('div.act-confirm', [
+    hl('button.fbt.yes.draw-yes', {
       attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
       hook: bind('click', () => ctrl.offerDraw(true)),
     }),
@@ -169,7 +169,7 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
   ]);
 
 export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) => ButtonState): VNode =>
-  h(
+  hl(
     'button.button.draw-yes',
     {
       hook: bind('click', () =>
@@ -181,13 +181,13 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
       },
       class: { disabled: !condition(ctrl.data).enabled },
     },
-    h('span', '½'),
+    hl('span', '½'),
   );
 
 export function threefoldSuggestion(ctrl: RoundController): LooseVNode {
   return (
     ctrl.data.game.threefold &&
-    h('div.suggestion', [h('p', { hook: onSuggestionHook }, i18n.site.threefoldRepetition)])
+    hl('div.suggestion', [hl('p', { hook: onSuggestionHook }, i18n.site.threefoldRepetition)])
   );
 }
 
@@ -195,8 +195,8 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.tournament?.running &&
-    h('div.follow-up', [
-      h(
+    hl('div.follow-up', [
+      hl(
         'a.text.fbt.strong.glowing',
         {
           attrs: { 'data-icon': licon.PlayTriangle, href: '/tournament/' + d.tournament.id },
@@ -204,8 +204,8 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
         },
         i18n.site.backToTournament,
       ),
-      h('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        h('button.text.fbt.weak', justIcon(licon.Pause), i18n.site.pause),
+      hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
+        hl('button.text.fbt.weak', justIcon(licon.Pause), i18n.site.pause),
       ]),
       analysisButton(ctrl),
     ])
@@ -216,8 +216,8 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.swiss?.running &&
-    h('div.follow-up', [
-      h(
+    hl('div.follow-up', [
+      hl(
         'a.text.fbt.strong.glowing',
         {
           attrs: { 'data-icon': licon.PlayTriangle, href: '/swiss/' + d.swiss.id },
@@ -233,7 +233,7 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
 export function moretime(ctrl: RoundController): LooseVNode {
   return (
     moretimeable(ctrl.data) &&
-    h('a.moretime', {
+    hl('a.moretime', {
       attrs: {
         title: ctrl.data.clock
           ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
@@ -256,13 +256,13 @@ export function followUp(ctrl: RoundController): VNode {
       !d.game.boosted,
     newable = (finished(d) || aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
-  return h('div.follow-up', [
-    ...rematchZone,
+  return hl('div.follow-up', [
+    rematchZone,
     d.tournament &&
-      h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
-    d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
+      hl('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
+    d.swiss && hl('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
     newable &&
-      h(
+      hl(
         'button.fbt.new-opponent',
         {
           hook: bind('click', () => {
@@ -281,14 +281,18 @@ export function watcherFollowUp(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
     content = [
       d.game.rematch &&
-        h('a.fbt.text', { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } }, i18n.site.viewRematch),
+        hl(
+          'a.fbt.text',
+          { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } },
+          i18n.site.viewRematch,
+        ),
       d.tournament &&
-        h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
+        hl('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
 
-      d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
+      d.swiss && hl('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
       analysisButton(ctrl),
     ];
-  return content.find(x => !!x) && h('div.follow-up', content);
+  return content.find(x => !!x) && hl('div.follow-up', content);
 }
 
 const onSuggestionHook: Hooks = onInsert(el => pubsub.emit('round.suggestion', el.textContent));

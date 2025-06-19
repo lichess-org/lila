@@ -1,6 +1,6 @@
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
-import { type VNode, bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, hl } from 'lib/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'lib/view/userLink';
 import { teamName } from './battle';
@@ -20,7 +20,10 @@ function result(win: boolean, stat: number): string {
 }
 
 const playerTitle = (player: Player) =>
-  h('h2', [player.rank ? h('span.rank', `${player.rank}. `) : '', renderPlayer(player, true, false, false)]);
+  hl('h2', [
+    player.rank ? hl('span.rank', `${player.rank}. `) : '',
+    renderPlayer(player, true, false, false),
+  ]);
 
 function setup(vnode: VNode) {
   const el = vnode.elm as HTMLElement,
@@ -33,39 +36,37 @@ export default function (ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
-    return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
+    return hl(tag, [hl('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
   const nb = data.player.nb,
     pairingsLen = data.pairings.length,
     avgOp = pairingsLen
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
-  return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    h('a.close', {
+  return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
+    hl('a.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
     }),
-    h('div.stats', [
+    hl('div.stats', [
       playerTitle(data.player),
       data.player.team &&
-        h('team', { hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw) }, [
+        hl('team', { hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw) }, [
           teamName(ctrl.data.teamBattle!, data.player.team),
         ]),
-      h('table', [
+      hl('table', [
         ctrl.opts.showRatings &&
           data.player.performance &&
           numberRow(i18n.site.performance, data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
         numberRow(i18n.site.gamesPlayed, nb.game),
-        ...(nb.game
-          ? [
-              numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
-              numberRow(i18n.arena.berserkRate, [nb.berserk, nb.game], 'percent'),
-              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
-            ]
-          : []),
+        nb.game > 0 && [
+          numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
+          numberRow(i18n.arena.berserkRate, [nb.berserk, nb.game], 'percent'),
+          ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
+        ],
       ]),
     ]),
-    h('div', [
-      h(
+    hl('div', [
+      hl(
         'table.pairings.sublist',
         {
           hook: bind('click', e => {
@@ -75,7 +76,7 @@ export default function (ctrl: TournamentController): VNode {
         },
         data.pairings.map(function (p, i) {
           const res = result(p.win, p.status);
-          return h(
+          return hl(
             'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
             {
               key: p.id,
@@ -83,12 +84,12 @@ export default function (ctrl: TournamentController): VNode {
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
             },
             [
-              h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
-              h('td', fullName(p.op)),
-              ctrl.opts.showRatings ? h('td', `${p.op.rating}`) : null,
+              hl('th', '' + (Math.max(nb.game, pairingsLen) - i)),
+              hl('td', fullName(p.op)),
+              ctrl.opts.showRatings ? hl('td', `${p.op.rating}`) : null,
               berserkTd(!!p.op.berserk),
-              h('td.is.color-icon.' + p.color),
-              h('td.result', res),
+              hl('td.is.color-icon.' + p.color),
+              hl('td.result', res),
               berserkTd(p.berserk),
             ],
           );
@@ -99,4 +100,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? h('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : h('td.berserk');
+  b ? hl('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : hl('td.berserk');
