@@ -25,4 +25,10 @@
   <string name="monetizing">Að afla tekna af Lichess</string>
   <string name="buyingLichess">Að kaupa Lichess</string>
   <string name="authorizationToUse">Leyfi til notkunar Lichess</string>
+  <string name="welcomeToUse">Velkomið er að nýta Lichess í athöfnum þínum, jafnvel þar sem um viðskipti er að ræða.</string>
+  <string name="videosAndBooks">Þú getur sýnt það í myndböndunum þínum og þú getur prentað skjáskot af Lichess fyrir bækurnar þínar.</string>
+  <string name="creditAppreciated">Viðurkenning er vel þegin en ekki áskilin.</string>
+  <string name="noneOfTheAbove">Ekkert af þessu</string>
+  <string name="sendEmailAt">Sendu okkur tölvupóst á %s.</string>
+  <string name="explainYourRequest">Vinsamlegast útskýrðu beiðni þína á skýran og ýtarlegan hátt. Gefðu upp notandanafn þitt á Lichess, og allar þær upplýsingar sem gætu orðið okkur að gagni við að aðstoða þig.</string>
 </resources>
