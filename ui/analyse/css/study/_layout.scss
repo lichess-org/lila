@@ -6,3 +6,59 @@
   margin-top: calc($analyse-block-gap * 2);
   margin-bottom: calc($analyse-block-gap * -1);
 }
+
+@include mq-at-least-col3 {
+  .analyse {
+    grid-template-areas:
+      'side    . board   gauge tools'
+      'side    . board   gauge tools'
+      'side   . kb-move .     controls'
+      'side   . under   .     controls'
+      'side   . under   .     round-training';
+
+    .vertical-resize {
+      display: flex;
+    }
+    .mchat {
+      margin-top: 0;
+      min-height: 34px;
+    }
+  }
+}
+
+.vertical-resize {
+  @extend %flex-column;
+  @include transition;
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: row-resize;
+  width: 100%;
+  height: 22px;
+
+  &:hover {
+    background: $m-primary--fade-70;
+    hr {
+      background: $c-font;
+      width: 40px;
+    }
+  }
+  hr {
+    @include transition;
+    margin: 0;
+    width: 14px;
+    height: 1px;
+    pointer-events: none;
+  }
+  .chat__members {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 4px;
+  }
+}
+
+.vertical-spacer {
+  height: $block-gap; // in lieu of resize divider when there is no games list
+}

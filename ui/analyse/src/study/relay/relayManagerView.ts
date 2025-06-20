@@ -3,7 +3,7 @@ import { looseH as h, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snab
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
-import { side as studyViewSide } from '../studyView';
+import { studySideNodes } from '../studyView';
 import type StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
@@ -11,21 +11,20 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
     sync = ctrl.data.sync;
   return contributor || study.data.admin
     ? h('div.relay-admin__container', [
-        contributor
-          ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
-              h('h2', [
-                h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-                h('a', {
-                  attrs: { href: `/broadcast/round/${study.data.id}/edit`, 'data-icon': licon.Gear },
-                }),
-              ]),
-              sync?.url || sync?.ids || sync?.urls || sync?.users
-                ? (sync.ongoing ? stateOn : stateOff)(ctrl)
-                : statePush(),
-              renderLog(ctrl),
-            ])
-          : undefined,
-        contributor || study.data.admin ? studyViewSide(study, false) : undefined,
+        contributor &&
+          h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+            h('h2', [
+              h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
+              h('a', {
+                attrs: { href: `/broadcast/round/${study.data.id}/edit`, 'data-icon': licon.Gear },
+              }),
+            ]),
+            sync?.url || sync?.ids || sync?.urls || sync?.users
+              ? (sync.ongoing ? stateOn : stateOff)(ctrl)
+              : statePush(),
+            renderLog(ctrl),
+          ]),
+        ...(contributor || study.data.admin ? studySideNodes(study, false) : []),
       ])
     : undefined;
 }
