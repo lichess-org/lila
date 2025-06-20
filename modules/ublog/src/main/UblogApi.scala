@@ -278,18 +278,14 @@ final class UblogApi(
   ): Fu[Option[UblogPost.Featured]] =
     if data.featured.isEmpty && data.featuredUntil.isEmpty then fuccess(post.featured)
     else
-      val featured =
-        data.featured.collect:
-          case true =>
-            UblogPost
-              .Featured(
-                me.userId,
-                data.featuredUntil.fold(nowInstant.some)(_ => none),
-                data.featuredUntil.map(nowInstant.plusDays(_))
-              )
-
-      val update = featured.fold($unset("featured"))(f => $set("featured" -> f))
-      colls.post.update.one($id(post.id), update).inject(featured)
+      val featured = data.featured.orZero.option:
+        UblogPost.Featured(
+          me.userId,
+          at = data.featuredUntil.isEmpty.option(nowInstant),
+          until = data.featuredUntil.map(nowInstant.plusDays)
+        )
+      for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
+      yield featured
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)
