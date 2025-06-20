@@ -113,9 +113,9 @@
   <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
   <string name="allSet">Све спремно!</string>
   <string name="importPgn">Унеси PGN</string>
-  <string name="delete">Обриши</string>
-  <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
-  <string name="replayMode">Понављање партије</string>
+  <string name="delete">Избриши</string>
+  <string name="deleteThisImportedGame">Избриши ову увезену партију?</string>
+  <string name="replayMode">Начин репризе</string>
   <string name="realtimeReplay">Као уживо</string>
   <string name="byCPL">По рачунару</string>
   <string name="enable">Укључи</string>
