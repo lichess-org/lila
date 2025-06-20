@@ -872,7 +872,7 @@
     <item quantity="other">%s δευτερόλεπτα</item>
   </plurals>
   <string name="opening">Άνοιγμα</string>
-  <string name="middlegame">Μέση φάση παιχνιδιού</string>
+  <string name="middlegame">Μέσο</string>
   <string name="endgame">Φινάλε</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
