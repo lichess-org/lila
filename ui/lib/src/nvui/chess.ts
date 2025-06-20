@@ -387,6 +387,144 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
+type Ray = 'top' | 'topRight' | 'right' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'left' | 'topLeft';
+
+function getRayKeys(ray: Ray, square: Key, pov: Color): Key[] {
+  const files = 'abcdefgh';
+  const ranks = '12345678';
+
+  const fileIndex = files.indexOf(square[0]);
+  const rankIndex = ranks.indexOf(square[1]);
+
+  if (fileIndex === -1 || rankIndex === -1) {
+    throw new Error('Invalid square');
+  }
+
+  const coordsToSquare = (f: number, r: number): Key | null => {
+    if (f >= 0 && f < 8 && r >= 0 && r < 8) {
+      return (files[f] + ranks[r]) as Key;
+    }
+    return null;
+  };
+
+  const result = [] as Key[];
+
+  for (let d = 1; d < 8; d++) {
+    let key: Key | null;
+
+    switch (ray) {
+      case 'top':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex, rankIndex + d)
+            : coordsToSquare(fileIndex, rankIndex - d);
+        break;
+      case 'topRight':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex + d)
+            : coordsToSquare(fileIndex - d, rankIndex - d);
+        break;
+      case 'right':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex)
+            : coordsToSquare(fileIndex - d, rankIndex);
+        break;
+      case 'bottomRight':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex + d, rankIndex - d)
+            : coordsToSquare(fileIndex - d, rankIndex + d);
+        break;
+      case 'bottom':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex, rankIndex - d)
+            : coordsToSquare(fileIndex, rankIndex + d);
+        break;
+      case 'bottomLeft':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex - d)
+            : coordsToSquare(fileIndex + d, rankIndex + d);
+        break;
+      case 'left':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex)
+            : coordsToSquare(fileIndex + d, rankIndex);
+        break;
+      case 'topLeft':
+        key =
+          pov === 'white'
+            ? coordsToSquare(fileIndex - d, rankIndex + d)
+            : coordsToSquare(fileIndex + d, rankIndex - d);
+        break;
+      default:
+        throw new Error('Invalid ray ' + ray);
+    }
+    if (key) result.push(key);
+    else break;
+  }
+  return result;
+}
+
+export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
+  return (ev: KeyboardEvent): void => {
+    const target = ev.target as HTMLElement;
+    const key = keyFromAttrs(target) as Key;
+    const currentRay: Ray | null = target.getAttribute('ray') as Ray;
+    const directions: Ray[] = [
+      'top',
+      'topRight',
+      'right',
+      'bottomRight',
+      'bottom',
+      'bottomLeft',
+      'left',
+      'topLeft',
+    ];
+
+    let nextRay: Key[] = [];
+    let currentRayIndex = 0;
+
+    if (currentRay == null) {
+      currentRayIndex = ev.altKey ? 0 : 1;
+    } else {
+      currentRayIndex = directions.indexOf(currentRay);
+      if ((ev.altKey && currentRayIndex % 2 === 0) || (!ev.altKey && currentRayIndex % 2 === 1))
+        currentRayIndex = ev.shiftKey ? (currentRayIndex + 6) % 8 : (currentRayIndex + 2) % 8;
+      else currentRayIndex = ev.shiftKey ? (currentRayIndex + 7) % 8 : (currentRayIndex + 1) % 8;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      const rayKeys = getRayKeys(directions[currentRayIndex], key, pov);
+      if (rayKeys.length == 0) {
+        currentRayIndex = ev.shiftKey ? (currentRayIndex + 6) % 8 : (currentRayIndex + 2) % 8;
+      } else {
+        nextRay = rayKeys;
+        target.setAttribute('ray', directions[currentRayIndex]);
+        break;
+      }
+    }
+
+    const $boardLive = $('.boardstatus');
+    const renderedPieces = nextRay.reduce<string[]>(
+      (acc, key) =>
+        pieces.get(key)
+          ? acc.concat(
+              `${renderKey(key, style)} ${transPieceStr(pieces.get(key)!.role, pieces.get(key)!.color, i18n)}`,
+            )
+          : acc,
+      [],
+    );
+    $boardLive.text(
+      `${renderKey(key, style)}: ${i18n.nvui[target.getAttribute('ray') as keyof typeof i18n.nvui]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
+    );
+  };
+}
+
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
     const key = keyFromAttrs(ev.target as HTMLElement);
