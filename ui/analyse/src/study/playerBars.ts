@@ -1,5 +1,5 @@
 import type { VNode } from 'snabbdom';
-import { looseH as h } from 'lib/snabbdom';
+import { hl } from 'lib/snabbdom';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
@@ -67,22 +67,22 @@ function renderPlayer(
     rating = showRatings && player?.rating,
     result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color;
-  return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-    h('div.left', [
-      result && h(`${resultTag(result)}.result`, result),
-      h('span.info', [
-        team ? h('span.team', team) : undefined,
+  return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+    hl('div.left', [
+      result && hl(`${resultTag(result)}.result`, result),
+      hl('span.info', [
+        team ? hl('span.team', team) : undefined,
         playerFed(player?.fed),
         player && userTitle(player),
         player &&
           (relayPlayers
-            ? h(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
-            : h(
+            ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
+            : hl(
                 fideId ? 'a.name' : 'span.name',
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
               )),
-        rating && h('span.elo', `${rating}`),
+        rating && hl('span.elo', `${rating}`),
       ]),
     ]),
     materialDiffs[top ? 0 : 1],
@@ -92,7 +92,7 @@ function renderPlayer(
 
 export const playerFed = (fed?: Federation): VNode | undefined =>
   fed &&
-  h('img.mini-game__flag', {
+  hl('img.mini-game__flag', {
     attrs: {
       src: site.asset.url(`images/fide-fed-webp/${fed.id}.webp`),
       title: `Federation: ${fed.name}`,

@@ -1,4 +1,4 @@
-import { looseH as h, type VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/snabbdom';
 import type { TopOrBottom } from 'lib/game/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
@@ -44,13 +44,13 @@ export default function (
     },
     isPlayer = ctrl.root.data.player.color === color,
     direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
-  return h(
+  return hl(
     'div.rclock.rclock-correspondence.rclock-' + position,
     { class: { outoftime: millis <= 0, running: runningColor === color } },
     [
       ctrl.data.showBar &&
-        h('div.bar', [h('span', { attrs: { style: `width: ${ctrl.timePercent(color)}%` } })]),
-      h('div.time', {
+        hl('div.bar', [hl('span', { attrs: { style: `width: ${ctrl.timePercent(color)}%` } })]),
+      hl('div.time', {
         attrs: direction && { style: `direction: ${direction}` },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),

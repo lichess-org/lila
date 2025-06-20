@@ -69,7 +69,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
     },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : hovering ? hovering : selected;
+        it = it ?? hovering ?? selected;
 
         const childNode = ctrl.node.children[it];
         if (defined(childNode)) {

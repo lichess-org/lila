@@ -1,4 +1,4 @@
-import { LooseVNode, type VNode, looseH as h, noTrans, onInsert } from 'lib/snabbdom';
+import { type LooseVNodes, type VNode, hl, noTrans, onInsert } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -85,42 +85,42 @@ export function initModule(): NvuiPlugin {
           }),
         );
       }
-      return h('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
-        h('h1', gameText(ctrl)),
-        h('h2', i18n.nvui.gameInfo),
-        ...['white', 'black'].map((color: Color) =>
-          h('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
+      return hl('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
+        hl('h1', gameText(ctrl)),
+        hl('h2', i18n.nvui.gameInfo),
+        ['white', 'black'].map((color: Color) =>
+          hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
-        d.clock ? h('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
-        h('h2', i18n.nvui.moveList),
-        h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
-        h('h2', i18n.nvui.pieces),
-        h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-        pockets && h('div.pockets', renderPockets(pockets)),
-        h('h2', i18n.nvui.gameStatus),
-        h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
+        hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
+        d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
+        hl('h2', i18n.nvui.moveList),
+        hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
+        hl('h2', i18n.nvui.pieces),
+        hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+        pockets && hl('div.pockets', renderPockets(pockets)),
+        hl('h2', i18n.nvui.gameStatus),
+        hl('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
           ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
         ]),
-        h('h2', i18n.nvui.lastMove),
-        h(
+        hl('h2', i18n.nvui.lastMove),
+        hl(
           'p.lastMove',
           { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
           // make sure consecutive moves are different so that they get re-read
           renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
         ),
         clocks.some(c => !!c) &&
-          h('div.clocks', [
-            h('h2', i18n.nvui.yourClock),
-            h('div.botc', clocks[0]),
-            h('h2', i18n.nvui.opponentClock),
-            h('div.topc', clocks[1]),
+          hl('div.clocks', [
+            hl('h2', i18n.nvui.yourClock),
+            hl('div.botc', clocks[0]),
+            hl('h2', i18n.nvui.opponentClock),
+            hl('div.topc', clocks[1]),
           ]),
         notify.render(),
         ctrl.isPlaying() &&
-          h('div.move-input', [
-            h('h2', i18n.nvui.inputForm),
-            h(
+          hl('div.move-input', [
+            hl('h2', i18n.nvui.inputForm),
+            hl(
               'form#move-form',
               {
                 hook: onInsert(el => {
@@ -134,9 +134,9 @@ export function initModule(): NvuiPlugin {
                 }),
               },
               [
-                h('label', [
+                hl('label', [
                   d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
-                  h('input.move.mousetrap', {
+                  hl('input.move.mousetrap', {
                     attrs: {
                       name: 'move',
                       type: 'text',
@@ -148,44 +148,44 @@ export function initModule(): NvuiPlugin {
               ],
             ),
           ]),
-        ...(pageStyle.get() === 'actions-board'
-          ? [...renderActions(ctrl), ...renderBoard(ctrl)]
-          : [...renderBoard(ctrl), ...renderActions(ctrl)]),
-        h('h2', i18n.site.advancedSettings),
-        h('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
-        h('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
-        h('h3', noTrans('Board settings')),
-        h('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
-        h('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
-        h('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
-        h('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
-        h('h2', i18n.keyboardMove.keyboardInputCommands),
-        h('p', [
+        pageStyle.get() === 'actions-board'
+          ? [renderActions(ctrl), renderBoard(ctrl)]
+          : [renderBoard(ctrl), renderActions(ctrl)],
+        hl('h2', i18n.site.advancedSettings),
+        hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
+        hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
+        hl('h3', noTrans('Board settings')),
+        hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
+        hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
+        hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
+        hl('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
+        hl('h2', i18n.keyboardMove.keyboardInputCommands),
+        hl('p', [
           i18n.nvui.inputFormCommandList,
-          h('br'),
+          hl('br'),
           i18n.nvui.movePiece,
-          h('br'),
+          hl('br'),
           i18n.nvui.promotion,
-          h('br'),
-          ...inputCommands
+          hl('br'),
+          inputCommands
             .filter(c => !c.invalid?.(ctrl))
-            .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, h('br')]),
+            .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, hl('br')]),
         ]),
-        ...boardCommands(),
+        boardCommands(),
       ]);
     },
   };
 }
 
-function renderBoard(ctrl: RoundController): LooseVNode[] {
+function renderBoard(ctrl: RoundController): LooseVNodes {
   const prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
     positionStyle = positionSetting(),
     boardStyle = boardSetting();
 
   return [
-    h('h2', i18n.site.board),
-    h(
+    hl('h2', i18n.site.board),
+    hl(
       'div.board',
       {
         hook: onInsert(el => {
@@ -230,18 +230,18 @@ function renderBoard(ctrl: RoundController): LooseVNode[] {
         boardStyle.get(),
       ),
     ),
-    h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+    hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
   ];
 }
 
-function renderActions(ctrl: RoundController): LooseVNode[] {
+function renderActions(ctrl: RoundController): LooseVNodes {
   return [
-    h('h2', i18n.nvui.actions),
-    ...(ctrl.data.player.spectator
+    hl('h2', i18n.nvui.actions),
+    ctrl.data.player.spectator
       ? renderTableWatch(ctrl)
       : playable(ctrl.data)
         ? renderTablePlay(ctrl)
-        : renderTableEnd(ctrl)),
+        : renderTableEnd(ctrl),
   ];
 }
 
@@ -411,7 +411,7 @@ const renderMoves = (steps: Step[], style: MoveStyle) =>
   steps.reduce<(string | VNode)[]>((res, s) => {
     const turn = s.ply & 1 ? `${plyToTurn(s.ply)}.` : '';
     const san = `${renderSan(s.san, s.uci, style)}, `;
-    return res.concat(`${turn} ${san}`).concat(s.ply % 2 === 0 ? h('br') : []);
+    return res.concat(`${turn} ${san}`).concat(s.ply % 2 === 0 ? hl('br') : []);
   }, []);
 
 function playerHtml(ctrl: RoundController, player: Player) {
@@ -422,8 +422,8 @@ function playerHtml(ctrl: RoundController, player: Player) {
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
-    ? h('span', [
-        h(
+    ? hl('span', [
+        hl(
           'a',
           { attrs: { href: '/@/' + user.username } },
           user.title ? `${user.title} ${user.username}` : user.username,

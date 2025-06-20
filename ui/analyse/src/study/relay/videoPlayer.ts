@@ -1,4 +1,4 @@
-import { looseH as h, type Redraw, type VNode, onInsert } from 'lib/snabbdom';
+import { hl, type VNode, onInsert } from 'lib/snabbdom';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {
@@ -66,14 +66,14 @@ export class VideoPlayer {
 
   render = () => {
     return this.o.embed
-      ? h('div#video-player-placeholder', {
+      ? hl('div#video-player-placeholder', {
           hook: {
             insert: (vnode: VNode) => this.cover(vnode.elm as HTMLElement),
             update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
           },
         })
-      : h('div#video-player-placeholder.link', [
-          h('div.image', {
+      : hl('div#video-player-placeholder.link', [
+          hl('div.image', {
             attrs: { style: `background-image: url(${this.o.image})` },
             hook: onInsert((el: HTMLElement) => {
               el.addEventListener('click', e => {
@@ -83,12 +83,12 @@ export class VideoPlayer {
               el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
-          h('img.video-player-close', {
+          hl('img.video-player-close', {
             attrs: { src: site.asset.flairSrc('symbols.cancel') },
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
-          this.o.text && h('div.text-box', h('div', this.o.text)),
-          h(
+          this.o.text && hl('div.text-box', hl('div', this.o.text)),
+          hl(
             'svg.play-button',
             {
               attrs: {
@@ -97,14 +97,14 @@ export class VideoPlayer {
               },
             },
             [
-              h('circle', {
+              hl('circle', {
                 attrs: {
                   cx: '100',
                   cy: '100',
                   r: '90',
                 },
               }),
-              h('path', {
+              hl('path', {
                 attrs: {
                   d: 'M 68 52 A 5 5 0 0 1 74 46 L 154 96 A 5 5 0 0 1 154 104 L 74 154 A 5 5 0 0 1 68 148 Z',
                 },

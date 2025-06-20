@@ -1,7 +1,7 @@
 import type { LangsData } from './langs';
 import type { BackgroundData } from './background';
 import type { DasherCtrl } from './ctrl';
-import type { Redraw, VNode } from 'lib/snabbdom';
+import type { VNode } from 'lib/snabbdom';
 
 export { DasherCtrl };
 

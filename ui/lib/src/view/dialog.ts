@@ -1,4 +1,4 @@
-import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
+import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
 import { isTouchDevice } from '@/device';
 import { frag } from '@/common';
 import { Janitor } from '@/event';
@@ -103,7 +103,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   const ass = loadAssets(o);
   let dialog: HTMLDialogElement;
 
-  const dialogVNode = h(
+  const dialogVNode = hl(
     `dialog${isTouchDevice() ? '.touch-scroll' : ''}`,
     {
       key: o.class ?? 'dialog',
@@ -112,13 +112,13 @@ export function snabDialog(o: SnabDialogOpts): VNode {
     },
     [
       o.noCloseButton ||
-        h(
+        hl(
           'div.close-button-anchor',
-          h('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
+          hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
         ),
-      h(
+      hl(
         `div.${o.noScrollable ? 'not-' : ''}scrollable`,
-        h(
+        hl(
           'div.dialog-content' +
             (o.class
               ? '.' +
@@ -143,7 +143,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
     ],
   );
   if (!o.modal) return dialogVNode;
-  return h('div.snab-modal-mask' + (o.onInsert ? '.none' : ''), dialogVNode);
+  return hl('div.snab-modal-mask' + (o.onInsert ? '.none' : ''), dialogVNode);
 }
 
 class DialogWrapper implements Dialog {
