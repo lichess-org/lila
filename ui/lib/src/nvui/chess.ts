@@ -407,7 +407,7 @@ function getRayKeys(ray: Ray, square: Key, pov: Color): Key[] {
     return null;
   };
 
-  let result = [] as Key[];
+  const result = [] as Key[];
 
   for (let d = 1; d < 8; d++) {
     let key: Key | null;
