@@ -30,6 +30,10 @@ final class Fide(env: Env) extends LilaController(env):
               rendered <- renderPage(views.fide.player.show(player, user, tours))
             yield Ok(rendered)
 
+  def subscribe(id: chess.FideId, isSubscribed: Boolean) = AuthBody { _ ?=> me ?=>
+    env.fide.repo.player.setSubscribed(id, me.userId, isSubscribed).map(_ => Ok)
+  }
+
   def apiShow(id: chess.FideId) = Anon:
     Found(env.fide.repo.player.fetch(id))(JsonOk)
 

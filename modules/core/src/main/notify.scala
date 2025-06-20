@@ -39,6 +39,7 @@ enum NotificationContent(val key: String):
       extends NotificationContent("gameEnd")
   case StreamStart(streamerId: UserId, streamerName: String)    extends NotificationContent("streamStart")
   case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
+  case BroadcastGame(url: String, title: String, text: String)  extends NotificationContent("broadcastRound")
   case TitledTournamentInvitation(id: TourId, text: String)     extends NotificationContent("titledTourney")
   case CoachReview                                              extends NotificationContent("coachReview")
   case PlanStart(userId: UserId)                                extends NotificationContent("planStart") // BC
