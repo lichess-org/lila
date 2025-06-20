@@ -42,8 +42,8 @@
   <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">documentación de la API</string>
   <string name="newToken">Nuevo token de acceso</string>
   <string name="apiAccessTokens">Token de acceso a la API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Creado %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Último uso %s</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Creado hace %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Último uso hace %s</string>
   <string name="alreadyHavePlayedGames">¡Ya has jugado!</string>
   <string name="attentionOfDevelopers">Nota para la atención de los desarrolladores solamente:</string>
   <string name="possibleToPrefill">Es posible llenar parcialmente este formulario ajustando los parámetros de consulta de la URL.</string>
