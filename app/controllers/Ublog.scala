@@ -208,7 +208,6 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def modPull(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      post.id.pp
       env.ublog.api
         .setFeatured(post, ModPostData(featured = false.some))
         .flatMap: _ =>
