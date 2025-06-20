@@ -11,6 +11,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
   import repo.player.handler
 
   export repo.player.fetch
+  export repo.player.subscribers
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:

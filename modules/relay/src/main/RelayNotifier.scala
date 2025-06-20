@@ -1,10 +1,39 @@
 package lila.relay
 
 import lila.core.notify.{ NotifyApi, NotificationContent }
+import scala.util.{ Success, Failure }
 
-final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)(using Executor):
+final private class RelayNotifier(
+    notifyApi: NotifyApi,
+    tourRepo: RelayTourRepo,
+    getSubscribers: lila.core.fide.GetSubscribers
+)(using
+    Executor
+):
 
-  def roundBegin(rt: RelayRound.WithTour): Funit =
+  private def notifyPlayerSubscribers(rt: RelayRound.WithTour, game: RelayGame): Funit =
+    tourRepo
+      .hasNotified(rt)
+      .not
+      .map: _ =>
+        tourRepo
+          .setNotified(rt)
+          .map: _ =>
+            game.fideIdsList.foreach(fid =>
+              getSubscribers(fid)
+                .foreach: subscribers =>
+                  subscribers.nonEmpty.so:
+                    notifyApi.notifyMany(
+                      subscribers,
+                      NotificationContent.BroadcastGame(
+                        "some url to the game",
+                        "Game started",
+                        "The game of a player that you are following has begun"
+                      )
+                    )
+            )
+
+  private def notifyTournamentSubscribers(rt: RelayRound.WithTour): Funit =
     tourRepo
       .hasNotified(rt)
       .not
@@ -22,3 +51,7 @@ final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)
                     s"${rt.round.name} has begun"
                   )
                 )
+
+  def chapterUpdated(rt: RelayRound.WithTour, game: RelayGame): Funit =
+    notifyTournamentSubscribers(rt)
+    notifyPlayerSubscribers(rt, game)
