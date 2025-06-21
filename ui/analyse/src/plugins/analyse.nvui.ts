@@ -110,13 +110,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
                   'button',
                   {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                    hook: onInsert((el: HTMLButtonElement) => {
-                      const toggle = () => {
-                        ctrl.explorer.toggle();
-                        ctrl.redraw();
-                      };
-                      onInsertHandler(toggle, el);
-                    }),
+                    hook: nvuiInsertHook(() => (ctrl.explorer.toggle(), ctrl.redraw())),
                   },
                   i18n.site.openingExplorerAndTablebase,
                 ),
@@ -280,13 +274,7 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
     h(
       'button',
       {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const viewSolution = () => {
-            ctrl.viewSolution();
-            ctrl.redraw();
-          };
-          onInsertHandler(viewSolution, el);
-        }),
+        hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
       i18n.site.viewTheSolution,
@@ -294,12 +282,7 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
     h(
       'button',
       {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const skipThisMove = () => {
-            ctrl.skip(), ctrl.redraw();
-          };
-          onInsertHandler(skipThisMove, el);
-        }),
+        hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
       i18n.site.skipThisMove,
@@ -311,12 +294,7 @@ function jumpToNext(ctrl: RetroCtrl) {
   return h(
     'button.half.continue',
     {
-      hook: onInsert((el: HTMLButtonElement) => {
-        const jumpToNext = () => {
-          ctrl.jumpToNext(), ctrl.redraw();
-        };
-        onInsertHandler(jumpToNext, el);
-      }),
+      hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
       attrs: { 'aria-label': 'Jump to next', tabindex: '0' },
     },
     [i18n.site.next],
@@ -381,12 +359,7 @@ const feedback = {
               'button',
               {
                 tabindex: '0',
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const jumpToNext = () => {
-                    ctrl.jumpToNext();
-                  };
-                  onInsertHandler(jumpToNext, el);
-                }),
+                hook: nvuiInsertHook(ctrl.jumpToNext),
               },
               i18n.site.resumeLearning,
             ),
@@ -498,12 +471,7 @@ const feedback = {
                       'tab-index': '0',
                     },
                     key: 'reset',
-                    hook: onInsert((el: HTMLButtonElement) => {
-                      const doItAgain = () => {
-                        ctrl.reset();
-                      };
-                      onInsertHandler(doItAgain, el);
-                    }),
+                    hook: nvuiInsertHook(ctrl.reset),
                   },
                   i18n.site.doItAgain,
                 ),
@@ -514,12 +482,7 @@ const feedback = {
                   'tab-index': '0',
                 },
                 key: 'flip',
-                hook: onInsert((el: HTMLButtonElement) => {
-                  const flipBoard = () => {
-                    ctrl.flip();
-                  };
-                  onInsertHandler(flipBoard, el);
-                }),
+                hook: nvuiInsertHook(ctrl.flip),
               },
               i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
             ),
@@ -623,12 +586,18 @@ const jumpPrevLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, -1);
 
 const focus = (el: HTMLElement) => el.focus();
 
-const onInsertHandler = (callback: () => void, el: HTMLElement) => {
-  el.addEventListener('click', callback);
-  el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
-
-  el.addEventListener('click', _ => focus(el));
-  el.addEventListener('keydown', ev => ev.key === 'Enter' && focus(el));
+const nvuiInsertHook = (callback: () => void) => {
+  return onInsert(el => {
+    el.addEventListener('click', () => {
+      callback();
+      focus(el); // ? do we always want this?
+    });
+    el.addEventListener('keydown', ev => {
+      if (ev.key !== 'Enter') return;
+      callback();
+      focus(el); // ? do we always want this?
+    });
+  });
 };
 
 const redirectToSelectedHook = bind('change', (e: InputEvent) => {
@@ -711,13 +680,7 @@ function renderRetro(root: AnalyseCtrl): VNode | undefined {
         `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
       ),
       h('button.fbt', {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const toggleLFYM = () => {
-            root.toggleRetro();
-            root.redraw();
-          };
-          onInsertHandler(toggleLFYM, el);
-        }),
+        hook: nvuiInsertHook(() => (root.toggleRetro(), root.redraw())),
         attrs: { 'aria-label': 'toggle learn from your mistakes' },
       }),
     ]),
@@ -746,14 +709,11 @@ function renderLFYMButton(ctrl: AnalyseCtrl, notify: Notify): VNode {
   return h(
     'button',
     {
-      hook: onInsert((el: HTMLButtonElement) => {
-        const toggleLFYM = () => {
-          ctrl.toggleRetro();
-          notify.set('Learn from your mistakes');
-          ctrl.nvuiLearning = !ctrl.nvuiLearning;
-          ctrl.redraw();
-        };
-        onInsertHandler(toggleLFYM, el);
+      hook: nvuiInsertHook(() => {
+        ctrl.toggleRetro();
+        notify.set('Learn from your mistakes');
+        ctrl.nvuiLearning = !ctrl.nvuiLearning;
+        ctrl.redraw();
       }),
     },
     'Learn from your mistakes',
@@ -796,12 +756,9 @@ function requestAnalBtn(ctrl: AnalyseCtrl): VNode {
   return h(
     'button',
     {
-      hook: onInsert((el: HTMLButtonElement) => {
-        const reqAnal = () => {
-          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
-          ctrl.redraw();
-        };
-        onInsertHandler(reqAnal, el);
+      hook: nvuiInsertHook(() => {
+        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+        ctrl.redraw();
       }),
     },
     i18n.site.requestAComputerAnalysis,
@@ -959,15 +916,7 @@ function tourDetails(
     h('h2', 'Players'),
     h(
       'button',
-      {
-        hook: onInsert((el: HTMLButtonElement) => {
-          const toggle = () => {
-            ctx.relay.tab('players');
-            ctrl.redraw();
-          };
-          onInsertHandler(toggle, el);
-        }),
-      },
+      { hook: nvuiInsertHook(() => (ctx.relay.tab('players'), ctrl.redraw())) },
       'Load player list',
     ),
     ctx.relay.tab() === 'players' ? h('div', playersView(ctx.relay.players, ctx.relay.data.tour)) : h('div'),
@@ -1067,12 +1016,9 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
               h(
                 'button',
                 {
-                  hook: onInsert((el: HTMLButtonElement) => {
-                    const toggle = () => {
-                      study.chapters.editForm.toggle(study.currentChapter());
-                      ctrl.redraw();
-                    };
-                    onInsertHandler(toggle, el);
+                  hook: nvuiInsertHook(() => {
+                    study.chapters.editForm.toggle(study.currentChapter());
+                    ctrl.redraw();
                   }),
                 },
                 [
@@ -1080,22 +1026,10 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
                   study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
                 ],
               ),
-              h(
-                'button',
-                {
-                  hook: onInsert((el: HTMLButtonElement) => {
-                    const toggle = () => {
-                      study.chapters.newForm.toggle();
-                      ctrl.redraw();
-                    };
-                    onInsertHandler(toggle, el);
-                  }),
-                },
-                [
-                  'Add new chapter',
-                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-                ],
-              ),
+              h('button', { hook: nvuiInsertHook(() => (study.chapters.newForm.toggle(), ctrl.redraw())) }, [
+                'Add new chapter',
+                study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+              ]),
             ])
           : undefined,
       ]),
