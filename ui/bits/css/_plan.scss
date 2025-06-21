@@ -187,14 +187,9 @@
       }
 
       .other-choices {
-        @extend %flex-between;
+        @extend %flex-around;
         margin-top: 1em;
         font-size: 1rem;
-        .links {
-          a {
-            margin-inline-start: 2em;
-          }
-        }
       }
       .currency {
         font-size: 1rem;
