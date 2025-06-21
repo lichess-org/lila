@@ -25,4 +25,5 @@
   <string name="score">Árangur</string>
   <string name="allTeams">Öll lið</string>
   <string name="tournamentLocation">Staðsetning móts</string>
+  <string name="liveboard">Taflborð í beinni</string>
 </resources>
