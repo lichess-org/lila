@@ -35,19 +35,20 @@
   <string name="serversAndDeveloper">Fyrst og fremst í öfluga tölvuinnviði.
 Síðan borgum við forritara í fullu starfi: %s, stofnanda Lichess.</string>
   <string name="costBreakdown">Sjáðu sundurliðaðan heildarkostnað á yfirgripsmikinn hátt</string>
-  <string name="officialNonProfit">Er Lichess-stofnunin opinberlega óhagnaðardrifin?</string>
+  <string name="officialNonProfit">Er Lichess-stofnunin formlega óhagnaðardrifin?</string>
   <string name="actOfCreation">Já, hér er stofnskráin (á frönsku)</string>
   <string name="changeMonthlySupport">Get ég breytt/sagt upp mánaðarlegum stuðningi mínum?</string>
   <string name="changeOrContact">Já, hvenær sem er, af þessari síðu.
 Eða þú getur %s.</string>
   <string name="contactSupport">haft samband við þjónustuver Lichess</string>
+  <string name="otherMethods">Mætti styrkja með öðrum hætti?</string>
   <string name="lichessIsRegisteredWith">Lichess er skráð hjá %s.</string>
   <string name="bankTransfers">Við tökum einnig við millifærslum</string>
   <string name="onlyDonationFromAbove">Vinsamlegast athugaðu að eingöngu framlagseyðublaðið hér að ofan mun veita Velunnarastöðuna.</string>
   <string name="patronFeatures">Eru sumir eiginleikar eingöngu fyrir Velunnara?</string>
-  <string name="noPatronFeatures">Nei, vegna þess að Lichess er algerlega ókeypis, að eilífu og fyrir alla. Það er loforð.
+  <string name="noPatronFeatures">Nei, vegna þess að Lichess er algerlega ókeypis, til eilífðarnóns, og fyrir alla. Það er loforð.
 Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnaravængjum sem birtast á notanda þínum.</string>
-  <string name="featuresComparison">Sjá ítarlegan samanburð á sérleikum</string>
+  <string name="featuresComparison">Sjá ýtarlegan samanburð á sérleikum</string>
   <plurals name="patronForMonths">
     <item quantity="one">Velunnari Lichess í einn mánuð</item>
     <item quantity="other">Velunnari Lichess í %s mánuði</item>
