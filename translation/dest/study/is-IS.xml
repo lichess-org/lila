@@ -44,6 +44,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
   <string name="cloneStudy">Afrita</string>
   <string name="studyPgn">Stúdera PGN</string>
+  <string name="copyChapterPgn">Afrita PGN</string>
   <string name="studyUrl">Stúdera slóð</string>
   <string name="open">Opna</string>
   <string name="studyNotFound">Stúdering fannst ekki</string>
