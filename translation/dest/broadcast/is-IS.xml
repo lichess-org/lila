@@ -22,6 +22,8 @@
   <string name="overview">Yfirlit</string>
   <string name="subscribeTitle">Gerstu áskrifandi til þess að fá að vita þegar hver ný umferð hefst. Þér er frjálst að virkja ósjálfvirkar og sjálfvirkar tilkynningar um útsendingar í stillingum á aðgangi þínum.</string>
   <string name="uploadImage">Hlaða inn mynd fyrir mót</string>
+  <string name="embedThisBroadcast">Ívefðu þessa útsendingu inn í vefsíðu þína</string>
+  <string name="embedThisRound">Ívefja %s inn í vefsíðuna þína</string>
   <string name="score">Árangur</string>
   <string name="allTeams">Öll lið</string>
   <string name="tournamentLocation">Staðsetning móts</string>
