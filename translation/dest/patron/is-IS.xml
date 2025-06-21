@@ -30,7 +30,7 @@
   <string name="withCreditCard">Biðgreiðslukort</string>
   <string name="logInToDonate">Skráðu þig inn til að styrkja</string>
   <string name="weAreSmallTeam">Við erum lítið teymi, svo stuðningur þinn skiptir miklu máli!</string>
-  <string name="celebratedPatrons">Hinir rómuðu velunnarar sem gera Lichess mögulega</string>
+  <string name="celebratedPatrons">Hinir rómuðu velunnarar sem setja strik í reikninginn við rekstur Lichess</string>
   <string name="whereMoneyGoes">Hvert fara peningarnir?</string>
   <string name="serversAndDeveloper">Fyrst og fremst í öfluga tölvuinnviði.
 Síðan borgum við forritara í fullu starfi: %s, stofnanda Lichess.</string>
@@ -45,7 +45,7 @@ Eða þú getur %s.</string>
   <string name="lichessIsRegisteredWith">Lichess er skráð hjá %s.</string>
   <string name="bankTransfers">Við tökum einnig við millifærslum</string>
   <string name="onlyDonationFromAbove">Vinsamlegast athugaðu að eingöngu framlagseyðublaðið hér að ofan mun veita Velunnarastöðuna.</string>
-  <string name="patronFeatures">Eru sumir eiginleikar eingöngu fyrir Velunnara?</string>
+  <string name="patronFeatures">Eru sumir sérleikar eingöngu fyrir Velunnara?</string>
   <string name="noPatronFeatures">Nei, vegna þess að Lichess er algerlega ókeypis, til eilífðarnóns, og fyrir alla. Það er loforð.
 Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnaravængjum sem birtast á notanda þínum.</string>
   <string name="featuresComparison">Sjá ýtarlegan samanburð á sérleikum</string>
