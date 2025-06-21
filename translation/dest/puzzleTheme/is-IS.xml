@@ -24,5 +24,6 @@
   <string name="queenRookEndgameDescription">Endatafl með einungis drottningum, hrókum og peðum.</string>
   <string name="rookEndgame">Endatafl með hrókum</string>
   <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
+  <string name="zugzwang">Leikþröng</string>
   <string name="mixDescription">Alls konar samtíningur. Þú veist ekki hverju á að búast við, svo þú hefur augun opin fyrir öllu! Einmitt eins og í alvöru skákum.</string>
 </resources>
