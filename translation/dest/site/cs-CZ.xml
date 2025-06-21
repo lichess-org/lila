@@ -564,7 +564,6 @@
   <string name="points">Body</string>
   <string name="wins">Výhry</string>
   <string name="losses">Prohry</string>
-  <string name="createdBy">Vytvořeno uživatelem</string>
   <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
   <string name="standByX">Vyčkejte %s, vybírám soupeře, připravte se!</string>
   <string name="pause">Pozastavit</string>

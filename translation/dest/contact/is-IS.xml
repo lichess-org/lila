@@ -8,4 +8,28 @@
   <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
   <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
   <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
+  <string name="doNotSendReportEmails">Ekki senda okkur vitnisburð í tölvupósti.</string>
+  <string name="doNotMessageModerators">Þess er vænst að ekki séu send einkaskilaboð til stjórnenda.</string>
+  <string name="onlyReports">Aðeins tilkynningareyðublaðið ber árangur þegar tilkynna skal leikmenn.</string>
+  <string name="wantReportBug">Ég vil tilkynna villu</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Peð drepið ólöglega</string>
+  <string name="noRatingPoints">Engin skákstig voru gefin</string>
+  <string name="banAppeal">Áfrýjun vegna banns eða hamla á IP-tölu</string>
+  <string name="engineAppeal">Tölvuforrit- eða svindlmerki</string>
+  <string name="sendAppealTo">Þú getur sent áfrýjun til %s.</string>
+  <string name="falsePositives">Falsjákvæðar niðurstöður kunna að gerast, og þykir það okkur leitt.</string>
+  <string name="ifLegit">Verði áfrýjun þín réttmæt munum við tafarlaust aflétta banninu.</string>
+  <string name="accountLost">Komi í ljós að þú hafir notast við aðstoð tölvuforrits, þótt ekki væri nema einu sinni, þá er aðgangur þinn því miður frátekinn.</string>
+  <string name="doNotDeny">Ekki neita því að hafa svindlað. Ef þú vilt fá að búa til nýjan aðgang skaltu bara viðurkenna hvað þú gerðir og sýna að þú skildir að þetta voru mistök.</string>
+  <string name="otherRestriction">Aðrar hömlur</string>
+  <string name="collaboration">Samstarf, lagastoð, viðskipti</string>
+  <string name="monetizing">Að afla tekna af Lichess</string>
+  <string name="buyingLichess">Að kaupa Lichess</string>
+  <string name="authorizationToUse">Leyfi til notkunar Lichess</string>
+  <string name="welcomeToUse">Velkomið er að nýta Lichess í athöfnum þínum, jafnvel þar sem um viðskipti er að ræða.</string>
+  <string name="videosAndBooks">Þú getur sýnt það í myndböndunum þínum og þú getur prentað skjáskot af Lichess fyrir bækurnar þínar.</string>
+  <string name="creditAppreciated">Viðurkenning er vel þegin en ekki áskilin.</string>
+  <string name="noneOfTheAbove">Ekkert af þessu</string>
+  <string name="sendEmailAt">Sendu okkur tölvupóst á %s.</string>
+  <string name="explainYourRequest">Vinsamlegast útskýrðu beiðni þína á skýran og ýtarlegan hátt. Gefðu upp notandanafn þitt á Lichess, og allar þær upplýsingar sem gætu orðið okkur að gagni við að aðstoða þig.</string>
 </resources>

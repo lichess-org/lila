@@ -22,6 +22,7 @@
   <string name="asBlack">QujwI\' qIj</string>
   <string name="randomColor">Haw Dop</string>
   <string name="createAGame">tagh Quj</string>
+  <string name="createTheGame">tagh Quj</string>
   <string name="whiteIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
   <string name="blackIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
   <string name="youPlayTheWhitePieces">QujwI\' lIw chIS tIlo\'</string>
@@ -70,6 +71,8 @@
   <string name="promoteVariation">qeylIS</string>
   <string name="makeMainLine">Malqa\'taH</string>
   <string name="deleteFromHere">\'ej yo\' qIj \'e\' yIlo\'</string>
+  <string name="collapseVariations">nlqHommey SoQmoh</string>
+  <string name="expandVariations">nlqHommey poSmoH</string>
   <string name="move">mIw</string>
   <string name="insufficientMaterial">lIw yapHa\'</string>
   <string name="pawnMove">mang mIw</string>
@@ -95,6 +98,14 @@
   <string name="blunder">Qagh</string>
   <string name="mistake">Qagh</string>
   <string name="inaccuracy">QaghHom</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s Qagh</item>
+    <item quantity="other">%s Qaghmey</item>
+  </plurals>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s Qagh</item>
+    <item quantity="other">%s Qaghmey</item>
+  </plurals>
   <string name="moveTimes">TonSaw\'tonSaw\' or vIH</string>
   <string name="flipBoard">\'echlet qaw\'</string>
   <string name="threefoldRepetition">tu\'lu\'chugh Segh</string>

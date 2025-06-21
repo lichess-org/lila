@@ -20,6 +20,7 @@
   <string name="keepGoing">Haltu áfram…</string>
   <string name="puzzleSuccess">Tókst!</string>
   <string name="puzzleComplete">Þraut leyst!</string>
+  <string name="useFindInPage">Notaðu „Finna á síðu“ í vafravalmyndinni til þess að finna uppáhaldsbyrjunina þína!</string>
   <string name="useCtrlF">Notaðu Ctrl+f til þess að finna uppáhaldsbyrjun þína!</string>
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>
@@ -40,6 +41,7 @@
   <string name="puzzleDashboard">Þrautastjórnborð</string>
   <string name="strengths">Styrkleikar</string>
   <string name="history">Þrautsaga</string>
+  <string name="failed">vitlaust</string>
   <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurdöngun. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
   <string name="yourStreakX">Döngun þín: %s</string>
   <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>

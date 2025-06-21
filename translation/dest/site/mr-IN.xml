@@ -477,7 +477,6 @@
   <string name="points">गुण</string>
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
-  <string name="createdBy">निर्माता</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
   <string name="resume">परत सुरू करा</string>

@@ -432,7 +432,6 @@
   <string name="points">Оноо</string>
   <string name="wins">Ялалт</string>
   <string name="losses">Ялагдал</string>
-  <string name="createdBy">Зохион байгуулагч:</string>
   <string name="standByX">%s бэлтэнэ үү, тоглолтын оноолт явагдаж байна!</string>
   <string name="pause">Паузлах</string>
   <string name="resume">Үргэлжлүүлэх</string>

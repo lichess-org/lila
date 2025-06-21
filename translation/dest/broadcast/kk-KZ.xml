@@ -39,5 +39,5 @@
   <string name="deleteTournament">Бұл жарысты жою</string>
   <string name="definitivelyDeleteTournament">Жарысты айналым мен ойындарымен бірге толығымен жою.</string>
   <string name="fideProfile">FIDE төлқұжаты</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Мықтылар</string>
+  <string name="topPlayers">Мықтылар</string>
 </resources>

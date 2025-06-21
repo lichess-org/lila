@@ -35,14 +35,14 @@
   <string name="teams">ทีม</string>
   <string name="boards">กระดาน</string>
   <string name="uploadImage">อัปโหลดรูปทัวนาเมนต์</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">เกมในทัวร์นาเมนต์นี้</string>
+  <string name="gamesThisTournament">เกมในทัวร์นาเมนต์นี้</string>
   <string name="score">คะแนน</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">ทีมทั้งหมด</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">ตำแหน่งของทัวร์นาเมนต์</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">ผู้เล่นท็อป:</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">เขตเวลา</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">หมวดหมู่คะแนน FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">รายละเอียดเพิ่มเติม</string>
+  <string name="allTeams">ทีมทั้งหมด</string>
+  <string name="tournamentLocation">ตำแหน่งของทัวร์นาเมนต์</string>
+  <string name="topPlayers">ผู้เล่นท็อป:</string>
+  <string name="timezone">เขตเวลา</string>
+  <string name="fideRatingCategory">หมวดหมู่คะแนน FIDE</string>
+  <string name="optionalDetails">รายละเอียดเพิ่มเติม</string>
   <string name="pastBroadcasts">การออกอากาศที่ผ่านมา</string>
   <string name="allBroadcastsByMonth">ดูการออกอากาศทั้งหมดตามเดือน</string>
 </resources>

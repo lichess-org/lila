@@ -481,7 +481,6 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
-  <string name="createdBy">Creau per</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Reprener</string>

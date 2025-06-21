@@ -487,7 +487,6 @@
   <string name="points">పాయింట్లు</string>
   <string name="wins">విజయాలు</string>
   <string name="losses">నష్టాలు</string>
-  <string name="createdBy">సృష్టికర్త</string>
   <string name="startingIn" comment="Displayed above a timer">డ్రా క్లెయిమ్ చేయబడింది</string>
   <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
   <string name="pause">విరామం</string>

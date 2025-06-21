@@ -484,7 +484,6 @@
   <string name="points">Ұпайлар</string>
   <string name="wins">Жеңіс</string>
   <string name="losses">Ұтылыс</string>
-  <string name="createdBy">Жасаған</string>
   <string name="startingIn" comment="Displayed above a timer">Басталуы</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
   <string name="pause">Кідіру</string>

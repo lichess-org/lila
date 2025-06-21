@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
   <string name="fiftyMovesWithoutProgress">진전 없이 50수 소모</string>
   <string name="currentGames">진행 중인 대국들</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s 전에 가입함</string>
+  <string name="joinedX">%s 전에 가입함</string>
   <plurals name="nbGames">
     <item quantity="other">대국 %s개</item>
   </plurals>
@@ -457,7 +457,6 @@
   <string name="points">포인트</string>
   <string name="wins">승리</string>
   <string name="losses">패배</string>
-  <string name="createdBy">토너먼트 주최자:</string>
   <string name="startingIn" comment="Displayed above a timer">대회 시작까지</string>
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
   <string name="pause">일시 중지</string>

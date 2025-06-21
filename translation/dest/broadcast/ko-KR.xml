@@ -56,31 +56,31 @@
   <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 토글할 수 있습니다.</string>
   <string name="uploadImage">토너먼트 사진 업로드</string>
   <string name="noBoardsYet">아직 보드가 없습니다. 게임들이 업로드되면 나타납니다.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
   <string name="startsAfter">%s 후 시작</string>
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
   <string name="notYetStarted">아직 방송이 시작을 하지 않았습니다.</string>
   <string name="officialWebsite">공식 웹사이트</string>
   <string name="standings">순위</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">공식 순위</string>
+  <string name="officialStandings">공식 순위</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
   <string name="webmastersPage">웹마스터 페이지</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">이 라운드의 공개된, 실시간 PGN 소스 입니다. 보다 더 빠르고 효율적인 동기화를 위해 %s도 제공됩니다.</string>
   <string name="embedThisBroadcast">이 방송을 웹사이트에 삽입하세요</string>
   <string name="embedThisRound">%s을(를) 웹사이트에 삽입하세요</string>
   <string name="ratingDiff">레이팅 차이</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">이 토너먼트의 게임들</string>
+  <string name="gamesThisTournament">이 토너먼트의 게임들</string>
   <string name="score">점수</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">모든 팀</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">토너먼트 형식</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">토너먼트 장소</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">상위 플레이어들</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">시간대</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE 레이팅 범주</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">선택적 세부 정보</string>
+  <string name="allTeams">모든 팀</string>
+  <string name="tournamentFormat">토너먼트 형식</string>
+  <string name="tournamentLocation">토너먼트 장소</string>
+  <string name="topPlayers">상위 플레이어들</string>
+  <string name="timezone">시간대</string>
+  <string name="fideRatingCategory">FIDE 레이팅 범주</string>
+  <string name="optionalDetails">선택적 세부 정보</string>
   <string name="pastBroadcasts">과거 방송들</string>
   <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
   <string name="backToLiveMove">실시간 수로 돌아가기</string>
   <string name="sinceHideResults">결과를 숨기도록 설정하였기에, 스포일러 방지 차원에서 모든 보드 미리보기가 비어 있습니다.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">실시간 체스판</string>
+  <string name="liveboard">실시간 체스판</string>
 </resources>

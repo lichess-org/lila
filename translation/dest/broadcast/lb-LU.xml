@@ -43,16 +43,16 @@
   <string name="uploadImage">Turnéierbild eroplueden</string>
   <string name="startsAfter">Fänkt no %s un</string>
   <string name="officialWebsite">Offiziell Websäit</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Offizielle Stand</string>
+  <string name="officialStandings">Offizielle Stand</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
   <string name="webmastersPage">Webmaster-Säit</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partien an dësem Turnéier</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">All Ekippen</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnéierformat</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnéierplaz</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Topspiller</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zäitzon</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE-Wäertungskategorie</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Fakultativ Detailler</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live-Briet</string>
+  <string name="gamesThisTournament">Partien an dësem Turnéier</string>
+  <string name="allTeams">All Ekippen</string>
+  <string name="tournamentFormat">Turnéierformat</string>
+  <string name="tournamentLocation">Turnéierplaz</string>
+  <string name="topPlayers">Topspiller</string>
+  <string name="timezone">Zäitzon</string>
+  <string name="fideRatingCategory">FIDE-Wäertungskategorie</string>
+  <string name="optionalDetails">Fakultativ Detailler</string>
+  <string name="liveboard">Live-Briet</string>
 </resources>

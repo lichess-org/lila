@@ -28,4 +28,10 @@
   <string name="goToBoard">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
   <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string>
+  <string name="king">king</string>
+  <string name="whiteKing">white king</string>
+  <string name="blackKing">black king</string>
+  <string name="queen">queen</string>
+  <string name="whiteQueen">white queen</string>
+  <string name="blackQueen">black queen</string>
 </resources>

@@ -15,10 +15,12 @@
   <string name="pgnLetter">Γράμμα (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Λειτουργία Zεν</string>
   <string name="showPlayerRatings">Εμφάνιση αξιολογήσεων παικτών</string>
+  <string name="showFlairs">Εμφάνιση διακριτικών παικτών</string>
   <string name="explainShowPlayerRatings">Αυτό επιτρέπει την απόκρυψη όλων τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα αξιολογούνται, η ρύθμιση αυτή επηρεάζει την εμφάνιση μόνο.</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="inGameOnly">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Όχι κατά τη διάρκεια της παρτίδας</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Όταν απομένουν &lt; 10 δευτερόλεπτα</string>

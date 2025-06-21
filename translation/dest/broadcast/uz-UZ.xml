@@ -58,31 +58,31 @@
   <string name="subscribeTitle">Har bir tur boshlanganda xabardor bo\'lish uchun obuna bo\'ling. Hisobingiz sozlamalarida eshittirishlar uchun qo‘ng‘iroq yoki push bildirishnomalarini almashtirishingiz mumkin.</string>
   <string name="uploadImage">Turnir yuklab olish</string>
   <string name="noBoardsYet">Hali taxtalar yo\'q. Oʻyinlar yuklangandan keyin paydo boʻladi.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Doskalarni manba yoki %s orqali yuklash mumkin</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Doskalarni manba yoki %s orqali yuklash mumkin</string>
   <string name="startsAfter">%s dan keyin boshlanadi</string>
   <string name="startVerySoon">Efir juda tez orada boshlanadi.</string>
   <string name="notYetStarted">Efir hali boshlanmagan.</string>
   <string name="officialWebsite">Rasmiy veb-sayt</string>
   <string name="standings">Turnir jadvali</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Rasmiy reyting</string>
+  <string name="officialStandings">Rasmiy reyting</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s boʻyicha boshqa variantlar</string>
   <string name="webmastersPage">veb-ustalar sahifasi</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Ushbu tur uchun ommaviy, real vaqtda PGN manbasi. Tezroq va samaraliroq sinxronlash uchun %s ni ham taklif qilamiz.</string>
   <string name="embedThisBroadcast">Ushbu translyatsiyani veb-saytingizga joylashtiring</string>
   <string name="embedThisRound">Veb-saytingizga %s joylang</string>
   <string name="ratingDiff">Reyting farqi</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Ushbu turnirdagi o\'yinlar</string>
+  <string name="gamesThisTournament">Ushbu turnirdagi o\'yinlar</string>
   <string name="score">Xol</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Barcha jamoalar</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnir formati</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnir joyi</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Eng yaxshi futbolchilar</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Vaqt mintaqasi</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE reyting toifasi</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Ixtiyoriy tafsilotlar</string>
+  <string name="allTeams">Barcha jamoalar</string>
+  <string name="tournamentFormat">Turnir formati</string>
+  <string name="tournamentLocation">Turnir joyi</string>
+  <string name="topPlayers">Eng yaxshi futbolchilar</string>
+  <string name="timezone">Vaqt mintaqasi</string>
+  <string name="fideRatingCategory">FIDE reyting toifasi</string>
+  <string name="optionalDetails">Ixtiyoriy tafsilotlar</string>
   <string name="pastBroadcasts">O\'tgan eshittirishlar</string>
   <string name="allBroadcastsByMonth">Barcha translyatsiyalarni oyma-oy koʻring</string>
   <string name="backToLiveMove">Jonli efirdagi yurishga qaytish</string>
   <string name="sinceHideResults">Natijalarni yashirishni tanlaganingiz sababli spoiler bermaslik uchun barcha obzor taxtalari boʻsh.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Jonli efirdagi doskasi</string>
+  <string name="liveboard">Jonli efirdagi doskasi</string>
 </resources>

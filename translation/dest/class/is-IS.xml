@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newClass">Nýr bekkur</string>
   <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Enduropna</string>
   <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Fjarlæga nemanda</string>
   <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Fjarlægðir</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
   <string name="addStudent">Bæta nemanda</string>
   <string name="lichessUsername">Lichess notendanafn</string>
+  <string name="teachers">Kennarar</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Kennari</item>
+    <item quantity="other">%s kennarar</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Nemandi</item>
+    <item quantity="other">%s nemendur</item>
+  </plurals>
+  <string name="students">Nemendur</string>
+  <string name="progress">Framvinda</string>
+  <string name="noStudents">Engir nemendur í bekknum eins og sakir standa.</string>
+  <string name="noRemovedStudents">Engir nemendur reknir.</string>
+  <string name="overDays">Yfir daga</string>
+  <string name="timePlaying">Tími í tafli</string>
+  <string name="variantXOverLastY">%1$s yfir undanfarna %2$s</string>
+  <string name="winrate">Sigurhlutfall</string>
+  <string name="na">Ekki til staðar</string>
+  <string name="overview">Yfirlit</string>
+  <string name="news">Fréttir</string>
+  <string name="classNews">Bekkjarfréttir</string>
+  <string name="editNews">Breyta fréttum</string>
+  <string name="notifyAllStudents">Láta alla nemendur vita</string>
+  <string name="nothingHere">Ekkert hér eins og sakir standa.</string>
+  <string name="newsEdit1">Allar bekkjarfréttir á einum stað.</string>
+  <string name="invite">Bjóða</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
 </resources>

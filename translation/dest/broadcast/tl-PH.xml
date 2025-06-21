@@ -55,24 +55,24 @@
   <string name="notYetStarted">Hindi pa nagsisimula ang brodkast.</string>
   <string name="officialWebsite">Opisyal na website</string>
   <string name="standings">Mga Standing</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Opisyal na mga Standing</string>
+  <string name="officialStandings">Opisyal na mga Standing</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Higit pang mga opsyon sa %s</string>
   <string name="webmastersPage">pahina ng mga webmaster</string>
   <string name="embedThisBroadcast">I-embed ang brodkast na ito sa iyong website</string>
   <string name="embedThisRound">I-embed ang %s sa iyong website</string>
   <string name="ratingDiff">Pagkakaiba ng marka</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Mga laro sa torneo na ito</string>
+  <string name="gamesThisTournament">Mga laro sa torneo na ito</string>
   <string name="score">Iskor</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Lahat ng mga koponan</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Format ng Paligsahan</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Lokasyon ng Paligsahan</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Mga nangungunang manlalaro</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Sona ng oras</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Kategorya ng FIDE marka</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Mga opsiyonal na detalye</string>
+  <string name="allTeams">Lahat ng mga koponan</string>
+  <string name="tournamentFormat">Format ng Paligsahan</string>
+  <string name="tournamentLocation">Lokasyon ng Paligsahan</string>
+  <string name="topPlayers">Mga nangungunang manlalaro</string>
+  <string name="timezone">Sona ng oras</string>
+  <string name="fideRatingCategory">Kategorya ng FIDE marka</string>
+  <string name="optionalDetails">Mga opsiyonal na detalye</string>
   <string name="pastBroadcasts">Mga nakaraang brodkast</string>
   <string name="allBroadcastsByMonth">Tingnan ang lahat ng mga brodkast ayon sa buwan</string>
   <string name="backToLiveMove">Bumalik sa live ng tira</string>
   <string name="sinceHideResults">Dahil pinili mong itago ang mga resulta, walang laman ang lahat ng preview board upang maiwasan ang mga spoiler.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live board</string>
+  <string name="liveboard">Live board</string>
 </resources>

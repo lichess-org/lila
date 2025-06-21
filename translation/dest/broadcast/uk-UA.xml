@@ -62,30 +62,30 @@
   <string name="subscribeTitle">Підпишіться, аби отримувати сповіщення перед початком кожного раунду. Ви можете перемикати дзвінок та push-сповіщення трансляцій у налаштуваннях вашого облікового запису.</string>
   <string name="uploadImage">Завантажити зображення турніру</string>
   <string name="noBoardsYet">Ще немає дощок. Вони з\'являться, коли ігри будуть завантажені.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Дошки можна завантажити із джерела або через %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Дошки можна завантажити із джерела або через %s</string>
   <string name="startsAfter">Почнеться після %s</string>
   <string name="startVerySoon">Трансляція розпочнеться дуже скоро.</string>
   <string name="notYetStarted">Трансляція ще не розпочалася.</string>
   <string name="officialWebsite">Офіційний вебсайт</string>
   <string name="standings">Турнірна таблиця</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Офіційна турнірна таблиця</string>
+  <string name="officialStandings">Офіційна турнірна таблиця</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публічне джерело PGN у реальному часі для цього раунду. Ми також пропонуємо %s для швидшої й ефективнішої синхронізації.</string>
   <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>
   <string name="embedThisRound">Вбудувати %s на своєму сайті</string>
   <string name="ratingDiff">Різниця у рейтингу</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Ігри в цьому турнірі</string>
+  <string name="gamesThisTournament">Ігри в цьому турнірі</string>
   <string name="score">Очки</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Усі команди</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Формат турніру</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Місце турніру</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Найкращі гравці</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Часовий пояс</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Категорія рейтингу FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Додаткові деталі</string>
+  <string name="allTeams">Усі команди</string>
+  <string name="tournamentFormat">Формат турніру</string>
+  <string name="tournamentLocation">Місце турніру</string>
+  <string name="topPlayers">Найкращі гравці</string>
+  <string name="timezone">Часовий пояс</string>
+  <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
+  <string name="optionalDetails">Додаткові деталі</string>
   <string name="pastBroadcasts">Минулі трансляції</string>
   <string name="allBroadcastsByMonth">Переглянути всі трансляції за місяцями</string>
   <string name="backToLiveMove">Повернутися до поточного ходу</string>
   <string name="sinceHideResults">Оскільки ви вибрали приховати результати, огляд дощок порожній, щоб не розкривати подробиць.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Наживо</string>
+  <string name="liveboard">Наживо</string>
 </resources>

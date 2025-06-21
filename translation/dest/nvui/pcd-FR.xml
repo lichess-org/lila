@@ -11,6 +11,7 @@
   <string name="yourClock">Votre horloge</string>
   <string name="opponentClock">Horloge de l\'adversaire</string>
   <string name="gameStart">Début de la partie</string>
+  <string name="boardCommandList">Liste des commandes quand l\'échiquier a le focus</string>
   <string name="inputFormCommandList">Tapez ces commandes dans le formulaire de commande.</string>
   <string name="goToInputForm">Aller au formulaire des options de coups et de commandes</string>
   <string name="announceCurrentSquare">Annoncer la case actuelle</string>
@@ -27,4 +28,33 @@
   <string name="goToBoard">Allez à l\'échiquier. la case par défaut est e-4. Vous pouvez préciser une case : case a-1 ou c a-1 vous placera à la case a-1.</string>
   <string name="movePiece">Pour déplacer une pièce, utilisez la notation algébrique standard.</string>
   <string name="promotion">Pour promouvoir un pion à une autre pièce qu\'une dame, utilisez égal. Par exemple, a-8-égal-c promeut le pion à un cavalier.</string>
+  <string name="king">roi</string>
+  <string name="whiteKing">roi blanc</string>
+  <string name="blackKing">roi noir</string>
+  <string name="queen">dame</string>
+  <string name="whiteQueen">dame blanche</string>
+  <string name="blackQueen">dame noire</string>
+  <string name="rook">tour</string>
+  <string name="whiteRook">tour blanche</string>
+  <string name="blackRook">tour noire</string>
+  <string name="bishop">fou</string>
+  <string name="whiteBishop">fou blanc</string>
+  <string name="blackBishop">fou noir</string>
+  <string name="knight">cavalier</string>
+  <string name="whiteKnight">cavalier blanc</string>
+  <string name="blackKnight">cavalier noir</string>
+  <string name="pawn">pion</string>
+  <string name="whitePawn">pion blanc</string>
+  <string name="blackPawn">pion noir</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T F C x</string>
+  <string name="sanTakes" comment="x in standard notation">capture</string>
+  <string name="sanCheck" comment="+ in standard notation">échec</string>
+  <string name="sanCheckmate" comment="# in standard notation">échec et mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promotion à</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">petit roque</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">grand roque</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">est déposé sur</string>
+  <string name="invalidMove">Coup illégal</string>
+  <string name="premoveCancelled">Coup anticipé annulé</string>
+  <string name="premoveRecorded">Coup anticipé enregistré : %s. Appuyer sur la touche Entrée pour annuler.</string>
 </resources>

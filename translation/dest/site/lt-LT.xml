@@ -555,7 +555,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="points">Taškai</string>
   <string name="wins">Pergalės</string>
   <string name="losses">Pralaimėjimai</string>
-  <string name="createdBy">Sukūrė</string>
   <string name="startingIn" comment="Displayed above a timer">Prasidės po</string>
   <string name="standByX">%s, būkite pasiruošę, suporuojami žaidėjai!</string>
   <string name="pause">Pristabdyti</string>

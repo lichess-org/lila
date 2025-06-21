@@ -51,7 +51,7 @@
   <string name="subscribeTitle">ئابوونە ببە تاکوو ئاگادار بکرێیتەوە لەکاتی دەستپێکردنی ھەر خولێکدا. دەتوانیت ئاگاداریی زەنگۆڵە و داگرتن زامن بکەیت بۆ پەخشەکان لە تایبەتمەندییەکانی ھەژمارەکەتەوە.</string>
   <string name="uploadImage">دانانی وێنەی پاڵەوانێتی</string>
   <string name="noBoardsYet">تا ئێستا ھیچ تەختەیەک نییە. تەختەکان کاتێک دەردەکەون کە یارییەکان داندران.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">تەختەکان لەڕێی سەرچاوەیەک یان %sەوە باردەکرێن</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">تەختەکان لەڕێی سەرچاوەیەک یان %sەوە باردەکرێن</string>
   <string name="startsAfter">دوای %s دەستپێدەکات</string>
   <string name="startVerySoon">پەخشەکە بەمزووانە دەستێدەکات.</string>
   <string name="notYetStarted">پەخشەکە دەستی پێ نەکردووە.</string>
@@ -59,8 +59,8 @@
   <string name="standings">ڕیزبەندییەکان</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ھەڵبژاردەی زیاتر لە %s</string>
   <string name="ratingDiff">جیاوازیی ھەڵسەنگاندن</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">یارییەکانی ئەم پاڵەوانێتییە</string>
+  <string name="gamesThisTournament">یارییەکانی ئەم پاڵەوانێتییە</string>
   <string name="score">نمرە</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">ھەموو تیمەکان</string>
+  <string name="allTeams">ھەموو تیمەکان</string>
   <string name="backToLiveMove">گەڕانەوە بۆ جوڵەی ڕاستەوخۆ</string>
 </resources>

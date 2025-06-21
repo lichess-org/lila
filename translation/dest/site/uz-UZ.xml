@@ -492,7 +492,6 @@
   <string name="points">Ballar</string>
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
-  <string name="createdBy">Yaratgan tomon</string>
   <string name="startingIn" comment="Displayed above a timer">Boshlanishigacha</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>

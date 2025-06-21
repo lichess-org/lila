@@ -58,31 +58,33 @@
   <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
   <string name="uploadImage">Upload tournament image</string>
   <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Boards can be loaded with a source or via the %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
   <string name="startsAfter">Starts after %s</string>
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
   <string name="standings">Standings</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Official Standings</string>
+  <string name="officialStandings">Official Standings</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
   <string name="webmastersPage">webmasters page</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronization.</string>
   <string name="embedThisBroadcast">Embed this broadcast in your website</string>
   <string name="embedThisRound">Embed %s in your website</string>
   <string name="ratingDiff">Rating diff</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Games in this tournament</string>
+  <string name="gamesThisTournament">Games in this tournament</string>
   <string name="score">Score</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">All teams</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Tournament format</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Tournament Location</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Top players</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Time zone</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE rating category</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Optional details</string>
+  <string name="allTeams">All teams</string>
+  <string name="tournamentFormat">Tournament format</string>
+  <string name="tournamentLocation">Tournament Location</string>
+  <string name="topPlayers">Top players</string>
+  <string name="timezone">Time zone</string>
+  <string name="fideRatingCategory">FIDE rating category</string>
+  <string name="optionalDetails">Optional details</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
   <string name="backToLiveMove">Back to live move</string>
   <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live board</string>
+  <string name="liveboard">Live board</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Community broadcast</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Created and managed by %s.</string>
 </resources>

@@ -204,7 +204,7 @@
   <string name="drawByMutualAgreement">التعادل بالاتفاق المتبادل</string>
   <string name="fiftyMovesWithoutProgress">خمسون حركة بدون أي تقدم</string>
   <string name="currentGames">المباريات الحالية</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">منضم من %s</string>
+  <string name="joinedX">منضم من %s</string>
   <plurals name="nbGames">
     <item quantity="zero">%s مباراة</item>
     <item quantity="one">%s مباراة</item>
@@ -637,7 +637,6 @@
   <string name="points">النقاط</string>
   <string name="wins">الفوز</string>
   <string name="losses">الخسارة</string>
-  <string name="createdBy">أنشأها</string>
   <string name="startingIn" comment="Displayed above a timer">تبدأ بعد</string>
   <string name="standByX">تأهب يا %s، جارٍ مزاوجة اللاعبين، استعد!</string>
   <string name="pause">الإيقاف المؤقت</string>

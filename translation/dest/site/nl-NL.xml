@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remise overeengekomen</string>
   <string name="fiftyMovesWithoutProgress">Vijftig zetten zonder voortgang</string>
   <string name="currentGames">Lopende partijen</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Lid sinds %s</string>
+  <string name="joinedX">Lid sinds %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
@@ -493,7 +493,6 @@
   <string name="points">Punten</string>
   <string name="wins">Gewonnen</string>
   <string name="losses">Verloren</string>
-  <string name="createdBy">Gemaakt door</string>
   <string name="startingIn" comment="Displayed above a timer">Begint over</string>
   <string name="standByX">Sta klaar %s, spelers worden gepaard, maak je gereed!</string>
   <string name="pause">Pauzeren</string>
