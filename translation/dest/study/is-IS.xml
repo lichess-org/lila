@@ -42,13 +42,25 @@
   <string name="like">Líka við</string>
   <string name="newTag">Nýtt merki</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
+  <string name="next">Næsta</string>
   <string name="cloneStudy">Afrita</string>
   <string name="studyPgn">Stúdera PGN</string>
+  <string name="chapterPgn">PGN kafla</string>
   <string name="copyChapterPgn">Afrita PGN</string>
+  <string name="downloadGame">Hlaða niður skák</string>
   <string name="studyUrl">Stúdera slóð</string>
+  <string name="currentChapterUrl">Núverandi slóð kafla</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Þú getur límt þetta inn á umræðukorkinn eða Lichess-bloggið þitt til þess að ívefja það</string>
+  <string name="startAtInitialPosition">Byrja í upphafsstöðu</string>
+  <string name="startAtX">Byrja á %s</string>
+  <string name="embedInYourWebsite">Ívefja inn í vefsíðuna þína</string>
+  <string name="readMoreAboutEmbedding">Lesa meira um að ívefja</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Aðeins opinberar stúderingar geta verið ívafðar!</string>
   <string name="open">Opna</string>
+  <string name="xBroughtToYouByY">%1$s, er á vegum %2$s</string>
   <string name="studyNotFound">Stúdering fannst ekki</string>
   <string name="noPinnedComment">Ekkert</string>
+  <string name="interactiveLesson">Gagnvirk kennsla</string>
   <string name="chapterX">Kafli %s</string>
   <string name="empty">Tómt</string>
   <string name="editor">Ritill</string>
@@ -62,7 +74,10 @@
   <string name="nobody">Enginn</string>
   <string name="onlyMe">Aðeins fyrir mig</string>
   <string name="contributors">Þátttakendur</string>
+  <string name="pinnedStudyComment">Fest athugasemd við stúderingu</string>
+  <string name="start">Hefja</string>
   <string name="save">Vista</string>
+  <string name="clearChat">Strauja spjalli</string>
   <string name="goodMove">Góður leikur</string>
   <string name="mistake">Mistök</string>
   <string name="brilliantMove">Stórkostlegur leikur</string>
@@ -81,6 +96,27 @@
   <string name="blackIsWinning">Svartur er að vinna</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nýnæmi</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Framrás</string>
+  <string name="initiative">Frumkvæði</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Mótspil</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tímabundið</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Fyrir sóknarfæri</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Með þeirri hugmynd</string>
+  <string name="nextChapter">Næsta kafla</string>
+  <string name="prevChapter">Fyrri kafla</string>
+  <string name="studyActions">Athafnir stúderingar</string>
+  <string name="topics">Umræður</string>
+  <string name="myTopics">Umræður mínar</string>
+  <string name="popularTopics">Vinsælar umræður</string>
+  <string name="manageTopics">Sýsla með umræður</string>
   <string name="back">Til baka</string>
   <string name="playAgain">Tefla aftur</string>
+  <string name="whatWouldYouPlay">Hvað myndir þú leika í þessari stöðu?</string>
+  <string name="youCompletedThisLesson">Til hamingju! Þú hefur lokið þessari kennslu.</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s á síðu</string>
+  <string name="getTheTour">Viltu aðstoð? Skoðaðu kynninguna!</string>
+  <string name="welcomeToLichessStudyTitle">Velkomin(n) í stúderingar Lichess!</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Deilt og vistað</string>
+  <string name="studyMembersTitle">Þátttakendur stúderingar</string>
+  <string name="studyChaptersTitle">Kaflar stúderingar</string>
+  <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
 </resources>
