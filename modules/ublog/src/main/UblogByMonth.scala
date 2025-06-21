@@ -16,7 +16,7 @@ object UblogByMonth:
   def selector(month: YearMonth) =
     val (start, until) = boundsOfMonth(month)
     // to hit topic prod index
-    $doc("topics".$ne(UblogTopic.offTopic), "lived.at".$gt(start).$lt(until))
+    $doc("lived.at".$gt(start).$lt(until))
 
   private def boundsOfMonth(month: YearMonth): (Instant, Instant) =
     val start = month.atDay(1).atStartOfDay()
