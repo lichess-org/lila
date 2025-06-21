@@ -30,4 +30,5 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
   <string name="total">Samtals</string>
+  <string name="pointsSum">Stigasumma</string>
 </resources>
