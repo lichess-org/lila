@@ -25,5 +25,6 @@
   <string name="rookEndgame">Endatafl með hrókum</string>
   <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
   <string name="zugzwang">Leikþröng</string>
+  <string name="zugzwangDescription">Fátt stendur andstæðingnum til boða að leika, og hver einasti leikur versnar stöðu hans.</string>
   <string name="mixDescription">Alls konar samtíningur. Þú veist ekki hverju á að búast við, svo þú hefur augun opin fyrir öllu! Einmitt eins og í alvöru skákum.</string>
 </resources>
