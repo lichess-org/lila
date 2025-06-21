@@ -49,6 +49,7 @@
   <string name="open">Opna</string>
   <string name="studyNotFound">Stúdering fannst ekki</string>
   <string name="noPinnedComment">Ekkert</string>
+  <string name="chapterX">Kafli %s</string>
   <string name="empty">Tómt</string>
   <string name="editor">Ritill</string>
   <string name="automatic">Sjálfvirkt</string>
@@ -64,10 +65,12 @@
   <string name="save">Vista</string>
   <string name="goodMove">Góður leikur</string>
   <string name="mistake">Mistök</string>
+  <string name="brilliantMove">Stórkostlegur leikur</string>
   <string name="blunder">Afleikur</string>
   <string name="interestingMove">Áhugaverður leikur</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Vafasamur leikur</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eini leikurinn</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Leikþröng</string>
   <string name="equalPosition">Jöfn staða</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Óljós staða</string>
   <string name="whiteIsSlightlyBetter">Hvítur er aðeins betri</string>
