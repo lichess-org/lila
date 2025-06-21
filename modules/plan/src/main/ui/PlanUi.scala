@@ -233,11 +233,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       ),
                       ctx.isAuth.option(
                         div(cls := "other-choices")(
-                          a(cls := "currency-toggle")(trans.patron.changeCurrency()),
-                          div(cls := "links")(
-                            a(cls := "stripe")("Google Pay"),
-                            a(cls := "stripe")("Apple Pay")
-                          )
+                          a(cls := "currency-toggle")(trans.patron.changeCurrency())
                         )
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(
