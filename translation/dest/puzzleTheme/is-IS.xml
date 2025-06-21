@@ -8,9 +8,11 @@
   <string name="bishopEndgameDescription">Endatafl með einungis biskupum og peðum.</string>
   <string name="bodenMate">Bodens mát</string>
   <string name="castling">Hrókering</string>
+  <string name="equality">Jafnræði</string>
   <string name="defensiveMove">Varnarleikur</string>
   <string name="endgame">Endatafl</string>
   <string name="fork">Gaffall</string>
+  <string name="hookMate">Krókamát</string>
   <string name="knightEndgame">Endatafl með riddurum</string>
   <string name="knightEndgameDescription">Endatafl með einungis riddurum og peðum.</string>
   <string name="mate">Mát</string>
