@@ -96,11 +96,12 @@ final class IrcApi(
       slug: String,
       title: String,
       intro: String,
-      topic: String
+      topic: String,
+      automod: Option[String]
   ): Funit =
     zulip(_.blog, topic):
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
-      s":note: $link $intro - by ${markdown.userLink(user)}"
+      s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
 
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
