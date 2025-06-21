@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="myBlog">Bloggið mitt</string>
   <string name="newPost">Ný færsla</string>
+  <string name="published">Birt</string>
 </resources>
