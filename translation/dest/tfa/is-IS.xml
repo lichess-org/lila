@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Tveggja þátta auðkenning</string>
+  <string name="setupReminder">Vinsamlegast virkjaðu tveggja þátta auðkenningu til að tryggja aðganginn þinn á https://lichess.org/account/twofactor.
+Þú fékkst þessi skilaboð vegna þess að aðgangur þinn gegnir sérstöku hlutverki svo sem leikmaður með titil, liðsstjóri, þjálfari, kennari eða streymari.</string>
 </resources>
