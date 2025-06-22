@@ -133,4 +133,13 @@
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
   <string name="studyChaptersTitle">Kaflar stúderingar</string>
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
+  <string name="annotatePositionTitle">Skrifa útskýringu á stöðu</string>
+  <string name="conclusionTitle">Takk fyrir tímann þinn</string>
+  <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
+  <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
+  <string name="customPositionTitle">Sérsniðin staða</string>
+  <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svartur tapar, en hvítur getur ekki unnið</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvítur tapar, en svartur getur ekki unnið</string>
 </resources>
