@@ -10,7 +10,7 @@
     <item quantity="one">Einn leikur fannst</item>
     <item quantity="other">%s leikir fannst</item>
   </plurals>
-  <string name="opponentName">Nafn mótleikara</string>
+  <string name="opponentName">Nafn andstæðings</string>
   <string name="loser">Tapari</string>
   <string name="from">Frá</string>
   <string name="to">Til</string>
@@ -22,7 +22,7 @@
   <string name="date">Dagsetning</string>
   <string name="sortBy">Raða eftir</string>
   <string name="analysis">Greining</string>
-  <string name="onlyAnalysed">Aðeins leikir þar sem má fá tölvugreining</string>
+  <string name="onlyAnalysed">Aðeins leikir þar sem má notast við tölvugreiningu</string>
   <string name="descending">Lækkandi</string>
   <string name="ascending">Hækkandi</string>
 </resources>
