@@ -22,7 +22,7 @@
   <string name="asBlack">sem svartur</string>
   <string name="randomColor">Handahófsvalinn litur</string>
   <string name="createAGame">Hefja leik</string>
-  <string name="createTheGame">Byrjar leikinn</string>
+  <string name="createTheGame">Byrjar að tefla</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
@@ -39,8 +39,8 @@
   <string name="whitePlays">Hvítur á leik</string>
   <string name="blackPlays">Svartur á leik</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Andstæðingur þinn yfirgaf skákina. Þú getur krafist sigurs eftir %s sekúndur.</item>
-    <item quantity="other">Andstæðingur þinn yfirgaf leikinn. Þú getur krafist sigurs eftir %s sekúndur.</item>
+    <item quantity="one">Andstæðingur þinn yfirgaf skákina. Þú getur krafist sigurs eftir %s sekúndu.</item>
+    <item quantity="other">Andstæðingur þinn yfirgaf skákina. Þú getur krafist sigurs eftir %s sekúndur.</item>
   </plurals>
   <string name="opponentLeftChoices">Andstæðingurinn yfirgaf skákina. Þú getur krafist sigurs, úrskurðað jafntefli, eða beðið.</string>
   <string name="forceResignation">Krefjast sigurs</string>
@@ -49,8 +49,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Fyrsti einstaklingur sem kemur á þessa vefslóð vill spila við þig</string>
   <string name="whiteResigned">Hvítur gefst upp</string>
   <string name="blackResigned">Svartur gefst upp</string>
-  <string name="whiteLeftTheGame">Hvítur hefur yfirgefið leikinn</string>
-  <string name="blackLeftTheGame">Svartur hefur yfirgefið leikinn</string>
+  <string name="whiteLeftTheGame">Hvítur yfirgaf leikinn</string>
+  <string name="blackLeftTheGame">Svartur yfirgaf skákina</string>
   <string name="whiteDidntMove">Hvítur hóf ekki leik</string>
   <string name="blackDidntMove">Svartur hóf ekki leik</string>
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
@@ -61,7 +61,7 @@
   <string name="depthX">Dýpt %s</string>
   <string name="usingServerAnalysis">Greining frá vefþjóni</string>
   <string name="loadingEngine">Hleð inn vél...</string>
-  <string name="calculatingMoves">Reikna leiki...</string>
+  <string name="calculatingMoves">Reikna út leiki...</string>
   <string name="engineFailed">Villa við ræsingu skáktölvu</string>
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
@@ -307,7 +307,7 @@
   <string name="rematchOfferCanceled">Hætt við boð um aðra skák</string>
   <string name="rematchOfferDeclined">Boði um aðra skák hafnað</string>
   <string name="cancelRematchOffer">Afturkalla boð um aðra skák</string>
-  <string name="viewRematch">Skoða endurleik</string>
+  <string name="viewRematch">Skoða aðra skák</string>
   <string name="confirmMove">Staðfesta leik</string>
   <string name="play">Tefla</string>
   <string name="inbox">Innhólf</string>
