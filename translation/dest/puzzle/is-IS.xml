@@ -47,5 +47,8 @@
   <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>
   <string name="continueTheStreak">Halda dönguninni áfram</string>
   <string name="newStreak">Ný döngun</string>
+  <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
+
+Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
 </resources>
