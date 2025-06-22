@@ -13,7 +13,7 @@
   <string name="pgnPieceNotation">Tákn fyrir leiki</string>
   <string name="chessPieceSymbol">Taflmannatákn</string>
   <string name="pgnLetter">Bókstafir (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Lágmarka truflanir í leik</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Lágmarka truflanir á meðan teflt er</string>
   <string name="displayBoardResizeHandle">Sýna tól til að stækka og minnka borðið</string>
   <string name="onlyOnInitialPosition">Einungis í upphafsstöðu</string>
   <string name="inGameOnly">Aðeins á meðan er teflt</string>
@@ -30,10 +30,10 @@
   <string name="dragPiece">Dragðu taflmann</string>
   <string name="bothClicksAndDrag">Annaðhvort</string>
   <string name="premovesPlayingDuringOpponentTurn">Fyrirframgefnir leikir (leiknir á meðan andstæðingur á leik)</string>
-  <string name="takebacksWithOpponentApproval">Leikir teknir upp (með leyfi mótherja)</string>
+  <string name="takebacksWithOpponentApproval">Afturkallanir (með samþykki andstæðings)</string>
   <string name="inCasualGamesOnly">Einungis í stigalausum leikjum</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
-  <string name="whenPremoving">Við fyrirframleik</string>
+  <string name="whenPremoving">Við fyrirframgefna leiki</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Þegar tími eftir er undir 30 sekúndum</string>
   <string name="moveConfirmation">Staðfesta leik</string>
