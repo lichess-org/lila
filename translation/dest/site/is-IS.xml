@@ -340,7 +340,7 @@
     <item quantity="one">%s í gangi</item>
     <item quantity="other">%s í gangi</item>
   </plurals>
-  <string name="exportGames">Flytja út leiki</string>
+  <string name="exportGames">Flytja út skákir</string>
   <string name="ratingRange">Skákstig</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gefa %s sekúndu</item>
@@ -418,7 +418,7 @@
   <string name="save">Vista</string>
   <string name="leaderboard">Stigaborð</string>
   <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
-  <string name="gameAsGIF">Skák sem GIF</string>
+  <string name="gameAsGIF">Skák sem GIF-snið</string>
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strenginn hér</string>
   <string name="orUploadPgnFile">Eða hlaða upp PGN skrá</string>
@@ -426,13 +426,13 @@
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>
-  <string name="importGameExplanation">Límdu PGN skákar til að fá möguleika á endursýningu, tölvugreiningu, spjalli og deilanlega vefslóð.</string>
+  <string name="importGameExplanation">Límdu inn PGN skákar til að fá möguleika á endursýningu, tölvugreiningu, spjalli og deilanlegri vefslóð.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s innhlaðin skák</item>
     <item quantity="other">%s innhlaðnar skákir</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Þetta er skák CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klikkaðu á borðið til að leika, og sannaðu að þú ert mannvera.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Smelltu á borðið til að leika, og sannaðu að þú sért manneskja.</string>
   <string name="captcha.fail">Vinsamlegast leystu skákþrautina til að halda áfram.</string>
   <string name="notACheckmate">Ekki mát</string>
   <string name="whiteCheckmatesInOneMove">Hvítur mátar í einum leik</string>
@@ -573,7 +573,7 @@
   <string name="reportCheatBoostHelp">Vinsamlegast límdu inn slóðina að skák(unum) og útskýrðu í hverju misferli notandans er fólgið. Forðastu að segja einungis „hann svindlar,“ heldur greindu frá því hvernig þú komst að þeirri niðurstöðu.</string>
   <string name="reportUsernameHelp">Við óskum eftir skýringu á því sem er móðgandi við þetta notandanafn. Ekki nægir að segja „það er óviðeigandi“, heldur upplýstu okkur um hvernig þú komst að þinni niðurstöðu, einkum ef móðgunin er dulbúin, ekki á ensku, í slangri eða vísar til sögulegra/menningarlegra atburða.</string>
   <string name="reportProcessedFasterInEnglish">Tilkynning þín mun hljóta skjótari afgreiðslu sé hún færð á ensku.</string>
-  <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp hlekk á að minnsta kosti einn leik þar sem svindlað var.</string>
+  <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp tengil á allavega eina skák þar sem svindlað var.</string>
   <string name="by">eftir %s</string>
   <string name="importedByX">Hlaðið inn af %s</string>
   <string name="thisTopicIsNowClosed">Þessarri umræðu hefur verið lokað.</string>
@@ -606,7 +606,7 @@
   <string name="insideTheBoard">Innan borðs</string>
   <string name="outsideTheBoard">Utan borðs</string>
   <string name="allSquaresOfTheBoard">Allir reitir borðsins</string>
-  <string name="onSlowGames">Í hægum leikjum</string>
+  <string name="onSlowGames">Í hægum skákum</string>
   <string name="always">Alltaf</string>
   <string name="never">Aldrei</string>
   <string name="xCompetesInY">%1$s keppir í %2$s</string>
@@ -662,7 +662,7 @@
     <item quantity="other">%s póstar á spjallborði</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Spilunartími: %s</string>
-  <string name="watchGames">Horfa á leiki</string>
+  <string name="watchGames">Horfa á skákir</string>
   <string name="tpTimeSpentOnTV">Tími í sjónvarpi: %s</string>
   <string name="watch">Horfa</string>
   <string name="videoLibrary">Myndbandasafn</string>
@@ -689,11 +689,11 @@
   <string name="returnToSimulHomepage">Aftur á heimasíðu fjöltefla</string>
   <string name="aboutSimul">Fjöltefli felur í sér einn leikmann gegn mörgum í einu.</string>
   <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við 2 og tapaði gegn 1.</string>
-  <string name="aboutSimulRealLife">Þessi hugmynd er fengin úr raunheimum. Þar myndi skákmaðurinn ganga frá borði til borð og leika einn leik í einu.</string>
-  <string name="aboutSimulRules">Þegar hópskák hefst byrjar hver leikmaður leik við gestgjafann, sem fær að leika hvítt. Hópskákinni lýkur þegar allir leikir hafa klárast.</string>
-  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Endurleikir, afturkallanir og aukatími eru óvirk.</string>
+  <string name="aboutSimulRealLife">Hugmyndin er fengin úr raunheiminum. Í raunheiminum felst þetta í því að gestgjafi fjölteflisins gengur á milli borða og leikur einn leik í senn.</string>
+  <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver taflmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
+  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru óvirk.</string>
   <string name="create">Búa til</string>
-  <string name="whenCreateSimul">Þegar þú stofnar til hópskákar spilarðu við marga leikmeinn í einu.</string>
+  <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga leikmenn samtímis.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
@@ -717,10 +717,10 @@
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. Örskák, hraðskák, klassísk tímamörk, skák960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
+  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Örskák, hraðskák, hefðbundin skák, Chess960, King of the Hill, Threecheck, og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
   <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
-  <string name="tournamentMayHaveBeenCanceled">Því kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
+  <string name="tournamentMayHaveBeenCanceled">Mótinu kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
   <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -745,14 +745,14 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
   <string name="readAboutOur">Lestu um %s okkar.</string>
   <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tími sem það tekur netbeina lichess að afgreiða leik.</string>
+  <string name="timeToProcessAMoveOnLichessServer">Hve langan tíma það tekur netþjón Lichess að vinna úr leik</string>
   <string name="downloadAnnotated">Hlaða niður með athugasemdum</string>
   <string name="downloadRaw">Hlaða niður óunnu eintaki</string>
   <string name="downloadImported">Niðurhali hlaðið inn</string>
   <string name="downloadAllGames">Hlaða niður öllum skákum</string>
   <string name="crosstable">Stigatafla</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Þú getur einnig skrunað yfir leikborðinu til að fara yfir leikinn.</string>
-  <string name="analysisShapesHowTo">Þú getur teiknað hringi og örvar á leikborðið með því að ýta á shift+vinstrismella eða hægrismella með músinni.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
+  <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
   <string name="withNobody">Með engum</string>
@@ -814,8 +814,8 @@
   <string name="notificationsX">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
-    <item quantity="other">%s sekúndur til að spila fyrsta leik</item>
+    <item quantity="one">%s sekúnda til að gera fyrsta leik</item>
+    <item quantity="other">%s sekúndur til að gera fyrsta leik</item>
   </plurals>
   <string name="practiceWithComputer">Æfa með tölvu</string>
   <string name="anotherWasX">Annar var %s</string>
@@ -823,7 +823,7 @@
   <string name="youBrowsedAway">Þú vafraðir í burtu</string>
   <string name="resumePractice">Halda áfram æfingu</string>
   <string name="drawByFiftyMoves">Skákin endar í jafntefli sökum fimmtíu leikja reglunnar.</string>
-  <string name="theGameIsADraw">Leikurinn endar í jafntefli.</string>
+  <string name="theGameIsADraw">Skákin endar í jafntefli.</string>
   <string name="computerThinking">Tölva hugsar ...</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
@@ -877,7 +877,7 @@
   <string name="lifetimeScore">Heildarárangur</string>
   <string name="currentMatchScore">Núverandi skákaárangur</string>
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
-  <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
+  <string name="agreementNice">Ég lýsi yfir því að ég muni alltaf koma vel fram við aðra leikmenn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég lýsi yfir því að ég muni ekki stofna marga aðganga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
@@ -905,7 +905,7 @@
   <string name="thisTopicIsArchived">Þetta spjall hefur verið vistað í safni og ekki er lengur hægt að svara því.</string>
   <string name="joinTheTeamXToPost">Gakktu til liðs við %1$s til þess að póstleggja þennan umræðukork</string>
   <string name="teamNamedX">%1$s lið</string>
-  <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
+  <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta alveg strax. Farðu að tefla!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
   <string name="mentionedYouInX">minntist á þig í „%1$s“.</string>
