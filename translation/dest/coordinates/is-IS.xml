@@ -6,6 +6,11 @@
   <string name="averageScoreAsBlackX">Meðalskor sem svartur: %s</string>
   <string name="knowingTheChessBoard">Að þekkja hnit borðsins er mikilvægur hæfileiki í skák:</string>
   <string name="mostChessCourses">Flest skáknámskeið og æfingar gjörnýta sama ritháttinn.</string>
+  <string name="goAsLongAsYouWant">Haltu áfram eins lengi og þér sýnist, það eru engin tímamörk!</string>
   <string name="showCoordinates">Sýna hnit</string>
+  <string name="showCoordsOnAllSquares">Hnit á hverjum reit</string>
+  <string name="showPieces">Sýna taflmenn</string>
+  <string name="startTraining">Byrja að æfa</string>
   <string name="findSquare">Finna reit</string>
+  <string name="nameSquare">Nefna reit</string>
 </resources>
