@@ -484,7 +484,7 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
       [],
     );
     $boardLive.text(
-      `${renderKey(originKey, style)}: ${i18n.nvui[target.getAttribute('ray') as keyof typeof i18n.nvui]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
+      `${renderKey(originKey, style)}: ${directions[nextDirectionIndex]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
     );
   };
 }

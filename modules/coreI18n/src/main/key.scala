@@ -959,14 +959,6 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
-    val `top`: I18nKey = "nvui:top"
-    val `topRight`: I18nKey = "nvui:topRight"
-    val `right`: I18nKey = "nvui:right"
-    val `bottomRight`: I18nKey = "nvui:bottomRight"
-    val `bottom`: I18nKey = "nvui:bottom"
-    val `bottomLeft`: I18nKey = "nvui:bottomLeft"
-    val `left`: I18nKey = "nvui:left"
-    val `topLeft`: I18nKey = "nvui:topLeft"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
