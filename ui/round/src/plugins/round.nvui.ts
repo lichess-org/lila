@@ -195,7 +195,7 @@ function renderBoard(ctrl: RoundController): LooseVNode[] {
           const $buttons = $board.find('button');
           $buttons.on('blur', (ev: KeyboardEvent) => {
             const $currBtn = $(ev.target as HTMLElement);
-            $currBtn.removeAttr('diagonal');
+            $currBtn.removeAttr('ray');
           });
           $buttons.on(
             'click',
