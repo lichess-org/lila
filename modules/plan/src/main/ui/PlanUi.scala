@@ -101,7 +101,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               div(cls := "wrapper")(
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
-                  p(trp.weRelyOnSupport())
+                  p(trp.weRelyOnSupport()),
+                  p("Click donate to view payment options based on your device and currency.")
                 ),
                 div(cls := "content")(
                   div(
