@@ -25,6 +25,12 @@ Besti leikur tölvunnar mun tapa núll sentipeðum, en lakari leikir munu gera s
 Með þessu gildi er hægt að meta hversu góð taflmennskan er. Því færri sentipeð sem tapast á leik, því betri er leikurinn.
 
 Tölvugreiningin á Lichess er drifin af Stockfish.</string>
+  <string name="lichessFollowFIDErules">Verði annar leikmaður uppiskroppa með tíma á klukku, mun sá leikmaður yfirleitt tapa leiknum. Hins vegar er jafntefli ef staðan er þannig að andstæðingurinn getur ekki mátað kóng leikmannsins með neinum fjölda leikja (%1$s).
+
+Stundum getur verið flókið að ráða sjálfkrafa (þvingaðir leikir, leikþröng). Við tökum þó vanalega alltaf afstöðu með þeim leikmanni sem ekki kláraði tímann á klukku.
+
+Þess má geta að mögulegt er að máta með stökum riddara eða biskupi ef andstæðingurinn býr yfir taflmanni sem gæti lokað leið kóngsins.</string>
+  <string name="fideHandbook">Handbók alþjóðaskáksambandsins</string>
   <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
   <string name="explainingEnPassant">Þetta er löglegur leikur er kallast „framhjáhlaup“. Wikipedíugreinin sýnir %1$s.
@@ -36,7 +42,12 @@ Fjallað er um þetta í gr. 3.7.3.1 og 3.7.3.2 af %2$s:
 Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</string>
   <string name="goodIntroduction">góða kynningu</string>
   <string name="lichessTraining">Æfingu Lichess</string>
-  <string name="threefoldRepetitionLowerCase">þreföld endurtekning</string>
+  <string name="threefoldRepetition">Þreföld endurtekning</string>
+  <string name="threefoldRepetitionExplanation">Ef staða kemur upp þrisvar sinnum geta leikmenn krafist jafnteflis sökum %1$s. Lichess framfylgir opinberum reglum alþjóðaskáksambandsins, eins og lýst er í gr. 9.2 í %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">þrefaldrar endurtekningar</string>
+  <string name="repeatedPositionsThatMatters">Þreföld endurtekning snýst um endurteknar %1$s, ekki leikir. Endurtekning þarf ekki að eiga sér stað í samfelldri röð.</string>
+  <string name="threeFoldHasToBeClaimed">Annar leikmannanna þarf að lýsa yfir endurtekningu. Þú getur gert það með því að smella á takkann sem birtist, eða með því að bjóða jafntefli áður en þú leikur síðasta endurtekna leikinn þinn; það skiptir engu máli þó andstæðingurinn hafni jafnteflisboðinu, jafnteflið vegna þrefaldrar endurtekningar gildir samt sem áður. Þú getur einnig %1$s Lichess til að krefjast endurtekninga sjálfkrafa fyrir þig. Auk þess lýkur fimmföld endurtekning skákinni alltaf tafarlaust.</string>
+  <string name="configure">stilla</string>
   <string name="accounts">Aðgangar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
