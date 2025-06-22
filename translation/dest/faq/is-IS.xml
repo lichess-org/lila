@@ -18,6 +18,13 @@
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er aðal munurinn í bréfskákreglum að byrjunabók er leyfð. Notkun skákforrita er samt bannað og mun leiða til þess að þú verður flaggaður fyrir skákforritaaðstoð. Þótt ICCF leyfa notkun véla í bréfaskiptum gerir Lichess það ekki.</string>
   <string name="gameplay">Leikmáti</string>
   <string name="eightVariants">8 skákafbrigði</string>
+  <string name="acplExplanation">Svokallaða sentipeð (e. centipawn) er sú mælieining sem notuð er í skák til að lýsa forskoti. Eitt sentipeð er jafnt og 1/100 af peði. Þar af leiðandi 100 sentipeð = 1 peð. Þessar tölur hafa ekki fest sig í sessi í beinlínis skák en eru nytsamlegar fyrir leikmenn, og nauðsynlegar í tölvuskák, til að meta stöður á taflborðinu.
+
+Besti leikur tölvunnar mun tapa núll sentipeðum, en lakari leikir munu gera stöðuna verri, mæld í sentipeðum.
+
+Með þessu gildi er hægt að meta hversu góð taflmennskan er. Því færri sentipeð sem tapast á leik, því betri er leikurinn.
+
+Tölvugreiningin á Lichess er drifin af Stockfish.</string>
   <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
   <string name="explainingEnPassant">Þetta er löglegur leikur er kallast „framhjáhlaup“. Wikipedíugreinin sýnir %1$s.
@@ -33,6 +40,7 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="accounts">Aðgangar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
   <string name="whichRatingSystemUsedByLichess">Hvers konar stigakerfi notar Lichess?</string>
   <string name="ratingSystemUsedByLichess">Skákstig eru reiknuð út frá stigakerfi er kallast Glicko-2, sem Mark Glickman þróaði. Þetta kerfi nýtur mikilla vinsælda og er í notkun hjá ótalmörgum skáksamböndum (Alþjóðaskáksambandið, FIDE, er athyglisverð undantekning þar sem sambandið reiðir sig enn á hið úrelta elóstigakerfi).
 
@@ -43,7 +51,13 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
 Annað sem þarf að athuga er að með tímanum mun bilið á vissustuðlinum stækka. Þetta leiðir til þess að þú getur unnið eða tapað stigum hraðar, sem endurspeglar breytingar á kunnáttu þinni á því tímabili.</string>
   <string name="whyAreRatingHigherExplanation">Ekki er best er að líta á skákstig sem algildar tölur, né bera þær saman við önnur skáksambönd. Ólík sambönd hafa misgóða leikmenn og ólík stigakerfi (Elo, Glicko, Glicko-2, eða umbreytta gerð af framangreindu). Þessir þættir geta stórlega breytt algildum tölum (skákstigum).
 
-Best er að líta á styrkleikastig sem „hlutfallslegar\" tölur (öfugt við „algildar\" tölur): Innan hóps leikmanna mun hlutfallslegur munur á skákstigum þeirra hjálpa þér að meta hver mun vinna/gera jafntefli/tapa og hversu oft. Að segja „ég er með X skákstig\" þýðir ekkert nema aðrir leikmenn séu til staðar til að bera skákstigin saman við.</string>
+Best er að líta á skákstig sem „hlutfallslegar\" tölur (öfugt við „algildar\" tölur): Innan hóps leikmanna mun hlutfallslegur munur á skákstigum þeirra hjálpa þér að meta hver mun vinna/gera jafntefli/tapa og hversu oft. Að segja „ég er með X skákstig\" þýðir ekkert nema aðrir leikmenn séu til staðar til að bera skákstigin saman við.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Því miður getum við ekki endurheimt skákstig fyrir leiki sem tapast sökum seinkunar eða aftengingar, óháð því hvort vandamálið var hjá þér eða okkur. Hið síðarnefnda er þó afar sjaldgæft. Athugaðu einnig að þegar Lichess endurræsir sig og þú tapar út af klukkunni þá hættum við leiknum til að koma í veg fyrir ósanngjarnt tap.</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess getur aukalega sent sprettitilkynningar, til dæmis þegar það er komið að þér eða þú fékkst einkaskilaboð.
+
+Smelltu á lásinn við hliðina á slóð lichess.org í vefslóðastikunni í vafranum þínum.
+
+Veldu síðan hvort skuli leyfa eða loka fyrir tilkynningar frá Lichess.</string>
   <string name="enableAutoplayForSoundsA">Flestir vafrar geta komið í veg fyrir að hljóð spilist á nýhlaðinni síðu til að vernda notendur. Ímyndaðu þér ef hver vefsíða gæti strax sprengt þig með hljóðauglýsingum. Ímyndaðu þér ef sérhver vefsíða gæti jafnskjótt yfirbugað þig með hljóðauglýsingum.
 
 Hið rauða hljóðtákn birtist þegar vafrinn þinn kemur í veg fyrir að lichess.org spili hljóð. Yfirleitt fellur þessi takmörkun úr gildi um leið og þú smellir á eitthvað. Á sumum farsímavöfrum telst það ekki sem smellur að snerta og draga taflmann. Í slíkum tilfellum verður þú að dumpa á taflborðið til þess að leyfa hljóð í upphafi hverrar skákar.
