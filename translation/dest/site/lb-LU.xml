@@ -74,11 +74,12 @@
   <string name="expandVariations">Varianten opklappen</string>
   <string name="forceVariation">Variant forcéieren</string>
   <string name="copyVariationPgn">PGN-Variant kopéieren</string>
+  <string name="copyMainLinePgn">PGN vun der Haaptvariant kopéieren</string>
   <string name="move">Zuch</string>
   <string name="variantLoss">Variant verluer</string>
   <string name="variantWin">Variant gewonn</string>
   <string name="insufficientMaterial">Ongenügend Material</string>
-  <string name="pawnMove">Baueren Zuch</string>
+  <string name="pawnMove">Bauerenzuch</string>
   <string name="capture">Schlagzuch</string>
   <string name="close">Zoumaachen</string>
   <string name="winning">Gewënnt</string>
@@ -166,6 +167,7 @@
   <string name="drawByMutualAgreement">Remis duerch Eenegung</string>
   <string name="fiftyMovesWithoutProgress">50 Zich ouni Progrès</string>
   <string name="currentGames">Lafend Partien</string>
+  <string name="joinedX">%s bäigetrueden</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
@@ -271,6 +273,7 @@
     <item quantity="one">%s Partie géint dech</item>
     <item quantity="other">%s Partien géint dech</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Annuléieren</string>
   <string name="whiteTimeOut">Zäitiwwerschreidung vu Wäiss</string>
   <string name="blackTimeOut">Zäitiwwerschreidung vu Schwaarz</string>
@@ -311,7 +314,7 @@
   <string name="chatRoom">Chatraum</string>
   <string name="loginToChat">An Chat aloggen</string>
   <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
-  <string name="spectatorRoom">Spectateur Raum</string>
+  <string name="spectatorRoom">Zuschauerraum</string>
   <string name="composeMessage">Message schreiwen</string>
   <string name="subject">Betreff</string>
   <string name="send">Schécken</string>
@@ -347,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Eröffnungsdatenbank &amp; Tablebase</string>
   <string name="takeback">Zeréckhuelen</string>
   <string name="proposeATakeback">Zeréckhuelen virschloen</string>
+  <string name="whiteProposesTakeback">Wäiss freet fir en Zuch zréckzehuelen</string>
+  <string name="blackProposesTakeback">Schwaarz freet fir en Zuch zréckzehuelen</string>
   <string name="takebackPropositionSent">Zeréckhuelen geschéckt</string>
+  <string name="whiteDeclinesTakeback">Wäiss refuséiert fir en Zuch zréckzehuelen</string>
+  <string name="blackDeclinesTakeback">Schwaarz refuséiert fir en Zuch zréckzehuelen</string>
+  <string name="whiteAcceptsTakeback">Wäiss ass averstane fir en Zuch zréckzehuelen</string>
+  <string name="blackAcceptsTakeback">Schwaarz ass averstane fir en Zuch zréckzehuelen</string>
+  <string name="whiteCancelsTakeback">Wäiss hëlt d\'Ufro fir en Zuch zréckzehuelen zréck</string>
+  <string name="blackCancelsTakeback">Schwaarz hëlt d\'Ufro fir en Zuch zréckzehuelen zréck</string>
   <string name="yourOpponentProposesATakeback">Däin Géigner schléit en Zeréckhuelen fir</string>
   <string name="bookmarkThisGame">Dës Partie als Lieszeeche späicheren</string>
   <string name="tournament">Turnéier</string>
@@ -417,6 +428,7 @@
   <string name="importGame">Partie importéieren</string>
   <string name="importGameExplanation">Füg eng Partien PGN an fir en browsbaren Replay, Computer Analyse, Partienchat and eng deelbar URL ze kréien.</string>
   <string name="importGameCaveat">Varianten wäerten geläscht ginn. Fir se ze haalen, importéier d\'PGN an eng Etüd.</string>
+  <string name="importGameDataPrivacyWarning">Dëse PGN ass ëffentlech zougänglech. Benotzt eng Studie fir eng Partie privat z\'importéieren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importéiert Partie</item>
     <item quantity="other">%s importéiert Partien</item>
@@ -510,6 +522,9 @@
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
   <string name="realName">Richtegen Numm</string>
+  <string name="setFlair">Setz däi Flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Et gëtt eng Astellung fir all Benotzer-Flairen op der ganzer Säit ze verstoppen.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
@@ -538,6 +553,7 @@
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
   <string name="website">Websäit</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hëllef:</string>
   <string name="createANewTopic">Neien Thema kreéieren</string>
   <string name="topics">Themen</string>
@@ -658,6 +674,7 @@
   <string name="really">wierklech</string>
   <string name="contribute">Bäidroen</string>
   <string name="termsOfService">AGB</string>
+  <string name="titleVerification">Titel-Verifizéierung</string>
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanveranstaltungen</string>
   <string name="host">Host</string>
@@ -973,4 +990,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="nothingToSeeHere">Fir de Moment gëtt et hei näischt ze gesinn.</string>
   <string name="stats">Statistiken</string>
+  <string name="enableBlindMode">Blannemodus aktivéieren</string>
+  <string name="disableBlindMode">Blannemodus desaktivéieren</string>
 </resources>
