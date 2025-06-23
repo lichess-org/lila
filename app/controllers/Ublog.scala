@@ -55,7 +55,8 @@ final class Ublog(env: Env) extends LilaController(env):
             followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
             blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-            isInCarousel   <- isGrantedOpt(_.ModerateBlog).so(env.ublog.api.carousel().map(_.has(post.id)))
+            isInCarousel   <- isGrantedOpt(_.ModerateBlog)
+              .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
             markup <- env.ublog.markup(post)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
@@ -201,18 +202,17 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def modShowCarousel = Secure(_.ModerateBlog) { ctx ?=> me ?=>
     env.ublog.api
-      .carousel()
+      .fetchCarouselFromDb()
       .flatMap: carousel =>
         Ok.page(views.ublog.ui.modShowCarousel(carousel))
   }
 
   def modPull(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      env.ublog.api
-        .setFeatured(post, ModPostData(featured = false.some))
-        .flatMap: _ =>
-          logModAction(post, "pull from carousel")
-          Redirect(routes.Ublog.modShowCarousel)
+      for
+        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
+        _ <- logModAction(post, "pull from carousel")
+      yield Redirect(routes.Ublog.modShowCarousel)
   }
 
   def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
@@ -223,7 +223,7 @@ final class Ublog(env: Env) extends LilaController(env):
           for
             mod      <- env.ublog.api.setModAdjust(post, data)
             featured <- env.ublog.api.setFeatured(post, data)
-            carousel <- env.ublog.api.carousel()
+            carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
             if data.hasUpdates then logModAction(post, data.text)
             Ok.snip(
@@ -232,7 +232,6 @@ final class Ublog(env: Env) extends LilaController(env):
                 carousel.has(post.id)
               )
             )
-
   }
 
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>

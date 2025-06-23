@@ -61,7 +61,7 @@ final class Env(
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
-        api.carousel().map(_.shuffled)
+        api.fetchCarouselFromDb().map(_.shuffled)
 
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>

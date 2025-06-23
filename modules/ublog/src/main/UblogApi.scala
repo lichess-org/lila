@@ -97,7 +97,7 @@ final class UblogApi(
       .zip(latestPosts(blogId, nb))
       .map((UblogPost.BlogPreview.apply).tupled)
 
-  def carousel(): Fu[UblogPost.CarouselPosts] =
+  def fetchCarouselFromDb(): Fu[UblogPost.CarouselPosts] =
     for
       pinned <- colls.post
         .find($doc("live" -> true, "featured.until" -> $gte(nowInstant)), previewPostProjection.some)
@@ -256,10 +256,7 @@ final class UblogApi(
   def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
     import UblogAutomod.{ Quality, Assessment }
     def maybeCopy(v: Option[String], base: Option[String]) =
-      v match
-        case Some("") => none // form sends empty string to unset
-        case None     => base
-        case _        => v
+      v.filter(_.nonEmpty).orElse(base) // form sends empty string to unset
     if !d.hasUpdates then fuccess(post.automod)
     else
       val base       = post.automod.getOrElse(Assessment(quality = Quality.Good))
@@ -269,9 +266,8 @@ final class UblogApi(
         flagged = maybeCopy(d.flagged, base.flagged),
         commercial = maybeCopy(d.commercial, base.commercial)
       )
-      colls.post.update
-        .one($id(post.id), $set("automod" -> assessment))
-        .inject(assessment.some)
+      for _ <- colls.post.updateField($id(post.id), "automod", assessment)
+      yield assessment.some
 
   def setFeatured(post: UblogPost, data: UblogForm.ModPostData)(using
       me: Me
