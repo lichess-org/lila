@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="inputForm">Formulaire fir Befeeler anzeginn</string>
+  <string name="boardCommandList">Befeellëscht, wann d\'Briet am Fokus ass</string>
+  <string name="inputFormCommandList">Gëff dës Befeeler an de Formulaire fir Befeeler anzeginn an.</string>
+</resources>
