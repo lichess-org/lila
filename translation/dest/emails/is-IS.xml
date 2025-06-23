@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Staðfestu lichess.org aðganginn þinn, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Ýttu á slóðina til að virkja Lichess aðganginn þinn:</string>
-  <string name="passwordReset_subject">Endursettu lichess.org lykilorðið þitt, %s</string>
+  <string name="emailConfirm_subject">Staðfestu aðganginn þinn á lichess.org, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Ýttu á slóðina til þess að virkja Lichess-aðganginn þinn:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Ef þú skráðir þig ekki hjá Lichess er óhult að hunsa þessa tilkynningu. Óstaðfesta aðganginum og öllum ummerkjum um netfangið þitt verður eytt úr kerfinu okkar eftir 48 klukkustundir.</string>
+  <string name="passwordReset_subject">Endursetja lykilorðið þitt á lichess.org, %s</string>
   <string name="passwordReset_intro">Við fengum beiðni um að endursetja lykilorðið fyrir aðganginn þinn.</string>
   <string name="passwordReset_clickOrIgnore">Ef þú sendir inn þessa beiðni, ýttu þá á slóðina hér fyrir neðan. Ef ekki, þá getur þú hunsað þennan tölvupóst.</string>
   <string name="emailChange_subject">Staðfestu nýtt netfang, %s</string>
@@ -11,7 +12,7 @@
   <string name="welcome_subject">Velkomin(n) á lichess.org, %s</string>
   <string name="welcome_text">Þér hefur tekist að stofna aðgang á https://lichess.org.
 
-Hér er slóðin á prófílinn þinn: %1$s. Þú getur gert hann persónulegann á %2$s.
+Hér er slóðin á prófílinn þinn: %1$s. Þú getur gert hann persónulegan á %2$s.
 
 Góða skemmtun og megi taflmenn þínir ávallt finna leiðina að kóngi andstæðingsins!</string>
   <string name="logInToLichess">Innskráðu þig á lichess.org, %s</string>

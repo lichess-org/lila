@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Patta per comune accordo</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Iscritto %s</string>
+  <string name="joinedX">Iscritto %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
@@ -358,6 +358,8 @@
   <string name="blackDeclinesTakeback">Il Nero declina la ripetizione della mossa</string>
   <string name="whiteAcceptsTakeback">Il Bianco accetta la ripetizione della mossa</string>
   <string name="blackAcceptsTakeback">Il Nero accetta la ripetizione della mossa</string>
+  <string name="whiteCancelsTakeback">Il bianco rifiuta la ripetizione della mossa</string>
+  <string name="blackCancelsTakeback">Il nero rifiuta la ripetizione della mossa</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>
@@ -492,7 +494,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
-  <string name="createdBy">Creato da</string>
   <string name="startingIn" comment="Displayed above a timer">Inizio tra</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
@@ -678,6 +679,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="termsOfService">Termini di servizio</string>
+  <string name="titleVerification">Verifica del titolo</string>
   <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>

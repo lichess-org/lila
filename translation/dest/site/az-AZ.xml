@@ -476,7 +476,6 @@
   <string name="points">Xallar</string>
   <string name="wins">Qələbələr</string>
   <string name="losses">Məğlubiyyətlər</string>
-  <string name="createdBy">tərəfindən yaradılıb.</string>
   <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
   <string name="pause">Fasilə ver</string>
   <string name="resume">Davam et</string>

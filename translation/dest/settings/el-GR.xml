@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Επιλογές</string>
+  <string name="settings">Ρυθμίσεις</string>
   <string name="closeAccount">Κλείσιμο λογαριασμού</string>
   <string name="managedAccountCannotBeClosed">Ο λογαριασμός σας βρίσκεται υπό διαχείριση και δεν μπορεί να κλείσει.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Δεν θα σας επιτραπεί η δημιουργία νέου λογαριασμού με το ίδιο όνομα, ακόμα κι αν μετατρέψετε έναν μικρό σε έναν κεφαλαίο ή το αντίστροφο.</string>
-  <string name="cancelKeepAccount">Ακύρωσε και διατήρησε τον λογαριασμό μου</string>
-  <string name="closeAccountAreYouSure">Είσαστε σίγουροι ότι θέλετε να κλείσετε τον λογαριασμό σας;</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Δε θα σας επιτραπεί η δημιουργία νέου λογαριασμού με το ίδιο όνομα χρήστη, ακόμα και αν μετατρέψετε ένα μικρό γράμμα σε κεφαλαίο ή αντίστροφα.</string>
+  <string name="cancelKeepAccount">Ακύρωση και διατήρηση του λογαριασμό μου</string>
+  <string name="closeAccountAreYouSure">Θέλετε σίγουρα να κλείσετε τον λογαριασμό σας;</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
 </resources>

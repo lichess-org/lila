@@ -381,7 +381,6 @@
   <string name="points">Punctos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Perditas</string>
-  <string name="createdBy">Create per</string>
   <string name="standByX">%s, attende un momento. On connecte le jocatores, prepara te!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>

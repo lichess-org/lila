@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Επιβεβαιώστε τον λογαριασμό σας στο lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Κάντε κλικ στον σύνδεσμο για να ενεργοποιήσετε τον λογαριασμό σας στο Lichess:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Αν δεν είσαστε εσείς που έχετε εγγραφεί στο Lichess μπορείτε να αγνοήσετε αυτό το μήνυμα με ασφάλεια. Τόσο ο λογαριασμός που δεν έλαβε έγκριση, όσο και κάθε καταγραφή της διεύθυνσης ηλεκτρονικού ταχυδρομείου σας θα διαγραφούν από το σύστημά μας σε 48 ώρες.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Αν δεν έχετε κάνει εγγραφή στο Lichess, αγνοήστε αυτό το μήνυμα. Ο μη επιβεβαιωμένος λογαριασμός και κάθε ίχνος της διεύθυνσης ηλεκτρονικού ταχυδρομείου σας θα διαγραφούν από το σύστημά μας μετά από 48 ώρες.</string>
   <string name="passwordReset_subject">Επαναφέρετε τον κωδικό πρόσβασης του lichess.org, %s</string>
   <string name="passwordReset_intro">Λάβαμε ένα αίτημα επαναφοράς κωδικού πρόσβασης για τον λογαριασμό σας.</string>
   <string name="passwordReset_clickOrIgnore">Αν έχετε κάνει αυτό το αίτημα, κάντε κλικ στον παρακάτω σύνδεσμο. Αν όχι, μπορείτε να αγνοήσετε αυτό το μήνυμα.</string>
