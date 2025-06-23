@@ -259,11 +259,6 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
                 a(href := "https://lichess.org/@/hiimgosu")("hiimgosu")
               )
             ),
-            p(
-              trf.wayOfBerserkExplanation(
-                a(href := "https://lichess.org/tournament/cDyjj1nL")(trf.aHourlyBulletTournament())
-              )
-            ),
             h4("The Golden Zee"),
             p(
               trf.ownerUniqueTrophies(

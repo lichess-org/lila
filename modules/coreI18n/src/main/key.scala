@@ -608,7 +608,6 @@ object I18nKey:
     val `usernamesCannotBeChanged`: I18nKey = "faq:usernamesCannotBeChanged"
     val `uniqueTrophies`: I18nKey = "faq:uniqueTrophies"
     val `ownerUniqueTrophies`: I18nKey = "faq:ownerUniqueTrophies"
-    val `wayOfBerserkExplanation`: I18nKey = "faq:wayOfBerserkExplanation"
     val `aHourlyBulletTournament`: I18nKey = "faq:aHourlyBulletTournament"
     val `goldenZeeExplanation`: I18nKey = "faq:goldenZeeExplanation"
     val `lichessRatings`: I18nKey = "faq:lichessRatings"
