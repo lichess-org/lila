@@ -28,6 +28,6 @@ Tingnan ang %3$s sa tirang ito para sa mga pagsasanay dito.</string>
   <string name="accounts">Mga Account</string>
   <string name="titlesAvailableOnLichess">Anong mga titulo ang mayroon sa Lichess?</string>
   <string name="noUpperCaseDot">Hindi.</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">Si ZugAddict ay nag-iistream at sa huling 2 oras ay sinusubukan niyang talunin ang A.I. antas 8 sa isang larong 1+0 nang walang tagumpay. Sinabi sa kaniya ni Thibault na kapag matagumpay niyang nagawa ito sa stream, makakakuha siya ng bukod-tanging tropeo. Matapos ang isang oras, tinalo niya si Stockfish, at ang pangako ay pinarangal.</string>
+  <string name="goldenZeeExplanation">Si ZugAddict ay nag-iistream at sa huling 2 oras ay sinusubukan niyang talunin ang A.I. antas 8 sa isang larong 1+0 nang walang tagumpay. Sinabi sa kaniya ni Thibault na kapag matagumpay niyang nagawa ito sa stream, makakakuha siya ng bukod-tanging tropeo. Matapos ang isang oras, tinalo niya si Stockfish, at ang pangako ay pinarangal.</string>
   <string name="lichessRatings">Mga Lichess rating</string>
 </resources>
