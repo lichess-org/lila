@@ -11,6 +11,6 @@
   <string name="disableTwoFactor">Zwee-Faktor-Authentifizéierung desaktivéieren</string>
   <string name="twoFactorEnabled">Zwee-Faktor-Authentifizéierung aktivéiert</string>
   <string name="openTwoFactorApp">Maach d\'Zwee-Faktor-Authentifizéierungsapp op dengem Gerät op fir däin Authentifizéierungscode ze gesinn an deng Identitéit ze verifizéieren.</string>
-  <string name="setupReminder">Wannechgelifft aktivéier Zwee-Faktor-Authentifizéierung fir däin Account besser ofzesecheren ob https://lichess.org/account/twofactor.
-Du kriss dësen Message well däin Account speziell Responsabilitéiten huet wéi Ekippen Leader, Trainer, oder Streamer</string>
+  <string name="setupReminder">Aktivéier wgl. d\'Zwee-Faktor-Authentifizéierung op https://lichess.org/account/twofactor fir däi Konto besser ofzesécheren.
+Du kriss dëse Message, well däi Kont speziell Responsabilitéiten huet, wéi Titeldréier, Ekippe-Leader, Trainer, Enseignant oder Streamer.</string>
 </resources>
