@@ -54,6 +54,7 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
     <item quantity="one">Eng oppen Invitatioun</item>
     <item quantity="other">%s oppen Invitatiounen</item>
   </plurals>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Ofgeleent</string>
   <string name="onlyVisibleToTeachers">Nëmme siichtbar fir d\'Enseignantë vum Cours</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwalt</string>
