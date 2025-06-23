@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">ಕೆಲವು Lichess ಪುಟಗಳು ನೀವು ಬಳಸಬಹುದಾದ ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಹೊಂದಿವೆ. \'?\' ಅನ್ನು ಒತ್ತಲು ಪ್ರಯತ್ನಿಸಿ ಲಭ್ಯವಿರುವ ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಲು ಅಧ್ಯಯನ, ವಿಶ್ಲೇಷಣೆ, ಒಗಟು ಅಥವಾ ಆಟದ ಪುಟದಲ್ಲಿ ಕೀ.</string>
   <string name="fairPlay">ಫೇರ್ ಪ್ಲೇ</string>
   <string name="whenAmIEligibleRatinRefund">ಮೋಸಗಾರರಿಂದ ಸ್ವಯಂಚಾಲಿತ ರೇಟಿಂಗ್ ಮರುಪಾವತಿಗೆ ನಾನು ಯಾವಾಗ ಅರ್ಹನಾಗುತ್ತೇನೆ?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">ಆಟಗಾರನನ್ನು ಗುರುತಿಸಿದ ಒಂದು ನಿಮಿಷದ ನಂತರ, ಕಳೆದ 3 ದಿನಗಳಲ್ಲಿ ಅವರ 40 ಇತ್ತೀಚಿನ ರೇಟಿಂಗ್ ಆಟಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಲಾಗುತ್ತದೆ. ಆ ಆಟಗಳಲ್ಲಿ ಒಂದರಲ್ಲಿ ನೀವು ಅವರ ಎದುರಾಳಿಯಾಗಿದ್ದರೆ, ನೀವು ರೇಟಿಂಗ್ ಅನ್ನು ಕಳೆದುಕೊಂಡಿದ್ದೀರಿ (ನಷ್ಟ ಅಥವಾ ಡ್ರಾದ ಕಾರಣ), ಮತ್ತು ನಿಮ್ಮ ರೇಟಿಂಗ್ ತಾತ್ಕಾಲಿಕವಾಗಿಲ್ಲ, ನೀವು ರೇಟಿಂಗ್ ಮರುಪಾವತಿಯನ್ನು ಪಡೆಯುತ್ತೀರಿ. ನಿಮ್ಮ ಗರಿಷ್ಠ ರೇಟಿಂಗ್ ಮತ್ತು ಆಟದ ನಂತರ ನಿಮ್ಮ ರೇಟಿಂಗ್ ಪ್ರಗತಿಯನ್ನು ಆಧರಿಸಿ ಮರುಪಾವತಿಯನ್ನು ಮಿತಿಗೊಳಿಸಲಾಗಿದೆ. (ಉದಾಹರಣೆಗೆ, ಆ ಆಟದ ನಂತರ ನಿಮ್ಮ ರೇಟಿಂಗ್ ಹೆಚ್ಚು ಹೆಚ್ಚಾದರೆ, ನೀವು ಮರುಪಾವತಿಯನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಅಥವಾ ಭಾಗಶಃ ಮರುಪಾವತಿಯನ್ನು ಮಾತ್ರ ಪಡೆಯಬಹುದು.) ಮರುಪಾವತಿಯು ಎಂದಿಗೂ 150 ಅಂಕಗಳನ್ನು ಮೀರುವುದಿಲ್ಲ.</string>
+  <string name="ratingRefundExplanation">ಆಟಗಾರನನ್ನು ಗುರುತಿಸಿದ ಒಂದು ನಿಮಿಷದ ನಂತರ, ಕಳೆದ 3 ದಿನಗಳಲ್ಲಿ ಅವರ 40 ಇತ್ತೀಚಿನ ರೇಟಿಂಗ್ ಆಟಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಲಾಗುತ್ತದೆ. ಆ ಆಟಗಳಲ್ಲಿ ಒಂದರಲ್ಲಿ ನೀವು ಅವರ ಎದುರಾಳಿಯಾಗಿದ್ದರೆ, ನೀವು ರೇಟಿಂಗ್ ಅನ್ನು ಕಳೆದುಕೊಂಡಿದ್ದೀರಿ (ನಷ್ಟ ಅಥವಾ ಡ್ರಾದ ಕಾರಣ), ಮತ್ತು ನಿಮ್ಮ ರೇಟಿಂಗ್ ತಾತ್ಕಾಲಿಕವಾಗಿಲ್ಲ, ನೀವು ರೇಟಿಂಗ್ ಮರುಪಾವತಿಯನ್ನು ಪಡೆಯುತ್ತೀರಿ. ನಿಮ್ಮ ಗರಿಷ್ಠ ರೇಟಿಂಗ್ ಮತ್ತು ಆಟದ ನಂತರ ನಿಮ್ಮ ರೇಟಿಂಗ್ ಪ್ರಗತಿಯನ್ನು ಆಧರಿಸಿ ಮರುಪಾವತಿಯನ್ನು ಮಿತಿಗೊಳಿಸಲಾಗಿದೆ. (ಉದಾಹರಣೆಗೆ, ಆ ಆಟದ ನಂತರ ನಿಮ್ಮ ರೇಟಿಂಗ್ ಹೆಚ್ಚು ಹೆಚ್ಚಾದರೆ, ನೀವು ಮರುಪಾವತಿಯನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಅಥವಾ ಭಾಗಶಃ ಮರುಪಾವತಿಯನ್ನು ಮಾತ್ರ ಪಡೆಯಬಹುದು.) ಮರುಪಾವತಿಯು ಎಂದಿಗೂ 150 ಅಂಕಗಳನ್ನು ಮೀರುವುದಿಲ್ಲ.</string>
   <string name="preventLeavingGameWithoutResigning">ಆಟಗಾರರು ರಾಜೀನಾಮೆ ನೀಡದೆ ಆಟಗಳನ್ನು ತೊರೆದರೆ ಏನು ಮಾಡಲಾಗುತ್ತದೆ?</string>
   <string name="leavingGameWithoutResigningExplanation">ನಿಮ್ಮ ಎದುರಾಳಿಯು ಆಗಾಗ್ಗೆ ಆಟಗಳನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿದರೆ/ಬಿಟ್ಟರೆ, ಅವರು \"ಪ್ಲೇ ಬ್ಯಾನ್\" ಆಗುತ್ತಾರೆ, ಅಂದರೆ ಅವರು ಆಟಗಳನ್ನು ಆಡುವುದರಿಂದ ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷೇಧಿಸಲಾಗಿದೆ. ಇದನ್ನು ಅವರ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಸಾರ್ವಜನಿಕವಾಗಿ ಸೂಚಿಸಲಾಗಿಲ್ಲ. ಈ ನಡವಳಿಕೆಯು ಮುಂದುವರಿದರೆ, ಪ್ಲೇಬಾನ್‌ನ ಉದ್ದವು ಹೆಚ್ಚಾಗುತ್ತದೆ - ಮತ್ತು ಈ ಸ್ವಭಾವದ ದೀರ್ಘಕಾಲದ ನಡವಳಿಕೆಯು ಖಾತೆಯ ಮುಚ್ಚುವಿಕೆಗೆ ಕಾರಣವಾಗಬಹುದು.</string>
   <string name="howCanIBecomeModerator">ನಾನು ಹೇಗೆ ಮಾಡರೇಟರ್ ಆಗಬಹುದು?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್ ಮತ್ತು ಇತರ ಸಮಯ ನಿಯಂತ್ರಣಗಳನ್ನು ಹೇಗೆ ನಿರ್ಧರಿಸಲಾಗುತ್ತದೆ?</string>
   <string name="basedOnGameDuration">ಲೈಚೆಸ್ ಸಮಯದ ನಿಯಂತ್ರಣಗಳು ಅಂದಾಜು ಆಟದ ಅವಧಿಯನ್ನು ಆಧರಿಸಿವೆ = %1$s.
 ಉದಾಹರಣೆಗೆ, 5+3 ಆಟದ ಅಂದಾಜು ಅವಧಿಯು 5 × 60 + 40 × 3 = 420 ಸೆಕೆಂಡುಗಳು.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(ಗಡಿಯಾರ ಆರಂಭಿಕ ಸಮಯ ಸೆಕೆಂಡುಗಳಲ್ಲಿ) + 40 × (ಗಡಿಯಾರ ಹೆಚ್ಚಳ)</string>
+  <string name="durationFormula">(ಗಡಿಯಾರ ಆರಂಭಿಕ ಸಮಯ ಸೆಕೆಂಡುಗಳಲ್ಲಿ) + 40 × (ಗಡಿಯಾರ ಹೆಚ್ಚಳ)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess ನಲ್ಲಿ ನಾನು ಯಾವ ರೂಪಾಂತರಗಳನ್ನು ಆಡಬಹುದು?</string>
@@ -93,12 +93,11 @@ Lichess ನಲ್ಲಿ ಶೀರ್ಷಿಕೆಯ ಆಟಗಾರ ಎಂದು
   <string name="usernamesNotOffensive">ಸಾಮಾನ್ಯವಾಗಿ, ಬಳಕೆದಾರಹೆಸರುಗಳು ಇರಬಾರದು: ಆಕ್ರಮಣಕಾರಿ, ಬೇರೊಬ್ಬರಂತೆ ನಟಿಸುವುದು ಅಥವಾ ಜಾಹೀರಾತು. ನೀವು %1$s ಕುರಿತು ಇನ್ನಷ್ಟು ಓದಬಹುದು.</string>
   <string name="guidelines">ಮಾರ್ಗಸೂಚಿಗಳು</string>
   <string name="canIChangeMyUsername">ನನ್ನ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಾನು ಬದಲಾಯಿಸಬಹುದೇ?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">ಇಲ್ಲ, ತಾಂತ್ರಿಕ ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಕಾರಣಗಳಿಗಾಗಿ ಬಳಕೆದಾರಹೆಸರುಗಳನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ. ಬಳಕೆದಾರಹೆಸರುಗಳು ಹಲವಾರು ಸ್ಥಳಗಳಲ್ಲಿ ಕಾರ್ಯರೂಪಕ್ಕೆ ಬರುತ್ತವೆ: ಡೇಟಾಬೇಸ್‌ಗಳು, ರಫ್ತುಗಳು, ಲಾಗ್‌ಗಳು ಮತ್ತು ಜನರ ಮನಸ್ಸು. ನೀವು ಒಮ್ಮೆ ಕ್ಯಾಪಿಟಲೈಸೇಶನ್ ಅನ್ನು ಸರಿಹೊಂದಿಸಬಹುದು.</string>
+  <string name="usernamesCannotBeChanged">ಇಲ್ಲ, ತಾಂತ್ರಿಕ ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಕಾರಣಗಳಿಗಾಗಿ ಬಳಕೆದಾರಹೆಸರುಗಳನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ. ಬಳಕೆದಾರಹೆಸರುಗಳು ಹಲವಾರು ಸ್ಥಳಗಳಲ್ಲಿ ಕಾರ್ಯರೂಪಕ್ಕೆ ಬರುತ್ತವೆ: ಡೇಟಾಬೇಸ್‌ಗಳು, ರಫ್ತುಗಳು, ಲಾಗ್‌ಗಳು ಮತ್ತು ಜನರ ಮನಸ್ಸು. ನೀವು ಒಮ್ಮೆ ಕ್ಯಾಪಿಟಲೈಸೇಶನ್ ಅನ್ನು ಸರಿಹೊಂದಿಸಬಹುದು.</string>
   <string name="uniqueTrophies">ವಿಶಿಷ್ಟ ಟ್ರೋಫಿಗಳು</string>
   <string name="ownerUniqueTrophies">ಲಿಚೆಸ್‌ನ ಇತಿಹಾಸದಲ್ಲಿ ಆ ಟ್ರೋಫಿ ಅನನ್ಯವಾಗಿದೆ, %1$s ಹೊರತುಪಡಿಸಿ ಬೇರೆ ಯಾರೂ ಅದನ್ನು ಹೊಂದಿರುವುದಿಲ್ಲ.</string>
-  <string name="wayOfBerserkExplanation">ಅದನ್ನು ಪಡೆಯಲು, hiimgosu %s ನ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಗೆಲ್ಲಲು ಮತ್ತು ಗೆಲ್ಲಲು ಸ್ವತಃ ಸವಾಲು ಹಾಕಿದರು.</string>
   <string name="aHourlyBulletTournament">ಒಂದು ಗಂಟೆಯ ಬುಲೆಟ್ ಪಂದ್ಯಾವಳಿ</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict ಸ್ಟ್ರೀಮಿಂಗ್ ಮಾಡುತ್ತಿದ್ದರು ಮತ್ತು ಕಳೆದ 2 ಗಂಟೆಗಳ ಕಾಲ ಅವರು A.I ಅನ್ನು ಸೋಲಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದರು. 1+0 ಆಟದಲ್ಲಿ 8 ನೇ ಹಂತ, ಯಶಸ್ವಿಯಾಗಲಿಲ್ಲ. ಅವರು ಅದನ್ನು ಸ್ಟ್ರೀಮ್‌ನಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿ ಮಾಡಿದರೆ, ಅವರು ಅನನ್ಯ ಟ್ರೋಫಿಯನ್ನು ಪಡೆಯುತ್ತಾರೆ ಎಂದು ಥಿಬಾಲ್ಟ್ ಅವರಿಗೆ ಹೇಳಿದರು. ಒಂದು ಗಂಟೆಯ ನಂತರ, ಅವರು ಸ್ಟಾಕ್ಫಿಶ್ ಅನ್ನು ಒಡೆದರು ಮತ್ತು ಭರವಸೆಯನ್ನು ಗೌರವಿಸಲಾಯಿತು.</string>
+  <string name="goldenZeeExplanation">ZugAddict ಸ್ಟ್ರೀಮಿಂಗ್ ಮಾಡುತ್ತಿದ್ದರು ಮತ್ತು ಕಳೆದ 2 ಗಂಟೆಗಳ ಕಾಲ ಅವರು A.I ಅನ್ನು ಸೋಲಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದರು. 1+0 ಆಟದಲ್ಲಿ 8 ನೇ ಹಂತ, ಯಶಸ್ವಿಯಾಗಲಿಲ್ಲ. ಅವರು ಅದನ್ನು ಸ್ಟ್ರೀಮ್‌ನಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿ ಮಾಡಿದರೆ, ಅವರು ಅನನ್ಯ ಟ್ರೋಫಿಯನ್ನು ಪಡೆಯುತ್ತಾರೆ ಎಂದು ಥಿಬಾಲ್ಟ್ ಅವರಿಗೆ ಹೇಳಿದರು. ಒಂದು ಗಂಟೆಯ ನಂತರ, ಅವರು ಸ್ಟಾಕ್ಫಿಶ್ ಅನ್ನು ಒಡೆದರು ಮತ್ತು ಭರವಸೆಯನ್ನು ಗೌರವಿಸಲಾಯಿತು.</string>
   <string name="lichessRatings">ಲಿಚೆಸ್ ರೇಟಿಂಗ್‌ಗಳು</string>
   <string name="whichRatingSystemUsedByLichess">Lichess ಯಾವ ರೇಟಿಂಗ್ ವ್ಯವಸ್ಥೆಯನ್ನು ಬಳಸುತ್ತದೆ?</string>
   <string name="ratingSystemUsedByLichess">ಮಾರ್ಕ್ ಗ್ಲಿಕ್‌ಮ್ಯಾನ್ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದ ಗ್ಲಿಕ್ಕೊ-2 ರೇಟಿಂಗ್ ವಿಧಾನವನ್ನು ಬಳಸಿಕೊಂಡು ರೇಟಿಂಗ್‌ಗಳನ್ನು ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ. ಇದು ಅತ್ಯಂತ ಜನಪ್ರಿಯ ರೇಟಿಂಗ್ ವಿಧಾನವಾಗಿದೆ ಮತ್ತು ಇದನ್ನು ಗಮನಾರ್ಹ ಸಂಖ್ಯೆಯ ಚೆಸ್ ಸಂಸ್ಥೆಗಳು ಬಳಸುತ್ತವೆ (FIDE ಒಂದು ಗಮನಾರ್ಹವಾದ ಪ್ರತಿ-ಉದಾಹರಣೆಯಾಗಿದೆ, ಏಕೆಂದರೆ ಅವರು ಇನ್ನೂ ದಿನಾಂಕದ ಎಲೋ ರೇಟಿಂಗ್ ವ್ಯವಸ್ಥೆಯನ್ನು ಬಳಸುತ್ತಾರೆ).
