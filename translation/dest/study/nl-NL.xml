@@ -176,12 +176,14 @@
   <string name="studyChaptersTitle">Studiehoofdstukken</string>
   <string name="studyChaptersText">Een studie kan meerdere hoofdstukken bevatten.&lt;br&gt;Elk hoofdstuk heeft een specifieke beginpositie en zettenboom.</string>
   <string name="commentPositionTitle">Reageer op een stelling</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klik op de %s-knop, of klik met de rechtermuisknop op de zettenlijst aan de rechterkant.&lt;br&gt;Opmerkingen worden gedeeld en opgeslagen.</string>
   <string name="annotatePositionTitle">Een stelling van commentaar voorzien</string>
   <string name="annotatePositionText">Klik op de !? knop, of klik met de rechtermuisknop op de zerrenlijst aan de rechterkant.&lt;br&gt;Aantekeningen worden gedeeld en opgeslagen.</string>
   <string name="conclusionTitle">Bedankt voor je tijd</string>
   <string name="createChapterTitle">Laten we een studiehoofdstuk maken</string>
   <string name="createChapterText">Een studie kan verschillende hoofdstukken bevatten.&lt;br&gt;Elk hoofdstuk heeft een aparte zettenboom,&lt;br&gt;en kan op verschillende manieren worden gemaakt.</string>
   <string name="fromInitialPositionTitle">Vanaf beginstelling</string>
+  <string name="fromInitialPositionText">Gewoon een bord voor een nieuwe partij.&lt;br&gt;Geschikt om openingen te verkennen.</string>
   <string name="customPositionTitle">Aangepaste stelling</string>
   <string name="loadExistingLichessGameTitle">Laad een bestaande lichess-partij</string>
   <string name="loadExistingLichessGameText">Plak een lichess partij link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om de partijzetten in het hoofdstuk te laden.</string>
@@ -190,6 +192,7 @@
   <string name="fromPgnGameTitle">Van een PGN-bestand</string>
   <string name="fromPgnGameText">Plak een partij in PGN-formaat.&lt;br&gt;om zetten, reacties en variaties in het hoofdstuk te laden.</string>
   <string name="variantsAreSupportedTitle">Studies ondersteunen varianten</string>
+  <string name="variantsAreSupportedText">Ja, je kunt crazyhouse&lt;br&gt;en alle lichess-varianten bestuderen!</string>
   <string name="chapterConclusionText">Hoofdstukken worden voor altijd bewaard.&lt;br&gt;Veel plezier met het ordenen van uw schaakinhoud!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dubbele nederlaag</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Zwarte nederlaag, maar Wit kan niet winnen</string>
