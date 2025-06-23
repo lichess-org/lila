@@ -199,7 +199,7 @@
   <string name="yesterday">Gëschter</string>
   <string name="minutesPerSide">Minutten pro Säit</string>
   <string name="variant">Variant</string>
-  <string name="variants">Varianten</string>
+  <string name="variants">Schachvarianten</string>
   <string name="timeControl">Kadenz</string>
   <string name="realTime">Echtzäit</string>
   <string name="correspondence">Fernschach</string>
@@ -692,7 +692,7 @@
   <string name="aboutSimulSettings">Simultanpartië sinn ëmmer ongewäert. Revanchen, Zich zeréckhuelen an Zäit bäigi sinn net méiglech.</string>
   <string name="create">Kreéieren</string>
   <string name="whenCreateSimul">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
-  <string name="simulVariantsHint">Wanns du puer Varianten auswiehls, kann all Spiller wiehlen, wéieng hien spillt.</string>
+  <string name="simulVariantsHint">Wann s du e puer Schachvarianten uwiels, ka jiddwer Spiller sech eng eraussichen.</string>
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>
   <string name="simulHostExtraTime">Host extra Zäit</string>
