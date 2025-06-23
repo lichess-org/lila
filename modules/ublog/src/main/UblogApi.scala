@@ -217,42 +217,36 @@ final class UblogApi(
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ $doc("likers" -> user.id))
 
-  def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] =
-    colls.post.update
-      .one(
-        $id(postId),
-        $addOrPull("likers", me.userId, v)
+  def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
+    res       <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
+    aggResult <- colls.post.aggregateOne(): framework =>
+      import framework.*
+      Match($id(postId)) -> List(
+        PipelineOperator(
+          $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
+        ),
+        UnwindField("blog"),
+        Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
       )
-      .flatMap: res =>
-        colls.post
-          .aggregateOne(): framework =>
-            import framework.*
-            Match($id(postId)) -> List(
-              PipelineOperator(
-                $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
-              ),
-              UnwindField("blog"),
-              Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
-            )
-          .map: docOption =>
-            for
-              doc   <- docOption
-              id    <- doc.getAsOpt[UblogPostId]("_id")
-              likes <- doc.getAsOpt[Int]("likes")
-              tier  <- doc
-                .getAsOpt[Int]("tier")
-                .map(t => if t == 0 then Tier.HIDDEN else Tier.NORMAL)
-              title <- doc.string("title")
-            yield (id, likes, tier, title)
-          .flatMap:
-            case None                         => fuccess(UblogPost.Likes(0))
-            case Some(id, likes, tier, title) =>
-              for
-                _ <- colls.post.update.one($id(postId), $set("likes" -> likes))
-                _ =
-                  if res.nModified > 0 && v && tier > Tier.HIDDEN
-                  then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
-              yield UblogPost.Likes(likes)
+    found = for
+      doc   <- aggResult
+      id    <- doc.getAsOpt[UblogPostId]("_id")
+      likes <- doc.getAsOpt[Int]("likes")
+      tier  <- doc
+        .getAsOpt[Int]("tier")
+        .map(t => if t == 0 then Tier.HIDDEN else Tier.NORMAL)
+      title <- doc.string("title")
+    yield (id, likes, tier, title)
+    likes <- found match
+      case None                         => fuccess(UblogPost.Likes(0))
+      case Some(id, likes, tier, title) =>
+        for
+          _ <- colls.post.updateField($id(postId), "likes", likes)
+          _ =
+            if res.nModified > 0 && v && tier > Tier.HIDDEN
+            then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
+        yield UblogPost.Likes(likes)
+  yield likes
 
   def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
     import UblogAutomod.{ Quality, Assessment }
