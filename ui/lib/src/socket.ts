@@ -81,7 +81,7 @@ export function wsAverageLag(): number {
   return siteSocket?.averageLag ?? 0;
 }
 
-const isOnline = () => !('onLine' in navigator) || navigator.onLine;
+const isOnline = () => !('onLine' in navigator) || navigator.onLine || ['localhost', '127.0.0.1'].includes(location.hostname);
 
 class WsSocket {
   averageLag = 0;
