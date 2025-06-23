@@ -6,6 +6,10 @@
   <string name="myBlog">Mäi Blog</string>
   <string name="likedBlogs">Geliket Blog-Bäiträg</string>
   <string name="blogTopics">Blog-Theemen</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Blog-Bäitrag</item>
+    <item quantity="other">%s Blog-Bäiträg</item>
+  </plurals>
   <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
   <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
   <string name="lichessBlogPostsFromXYear">Lichess-Blog-Bäiträg vun %s</string>
