@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Μερικές σελίδες του Lichess έχουν συντομεύσεις πληκτρολογίου που μπορείτε να χρησιμοποιήσετε. Δοκιμάστε να πατήσετε το πλήκτρο «?» σε μελέτη, ανάλυση, γρίφο, ή σελίδα παιχνιδιού, για να δείτε τα διαθέσιμα πλήκτρα.</string>
   <string name="fairPlay">Κανόνες δίκαιου παιχνιδιού</string>
   <string name="whenAmIEligibleRatinRefund">Πότε μπορώ να πάρω πίσω τις μονάδες elo που έχασα παίζοντας με κλέφτες;</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Ένα λεπτό μετά την αναφορά ενός παίκτη, εξετάζονται τα 40 τελευταία βαθμολογημένα παιχνίδια του τις τελευταίες 3 ημέρες. Αν είστε αντίπαλος σε αυτά τα παιχνίδια, έχετε χάσει πόντους (ήττα ή ισοπαλία) και η βαθμολογία σας δεν ήταν προσωρινή, μπορείτε να πάρετε αυτούς τους πόντους πίσω. Η επιστροφή πόντων είναι προσαρμοσμένη με βάση την κορυφαία βαθμολογία σας και την πρόοδό της μετά το παιχνίδι.
+  <string name="ratingRefundExplanation">Ένα λεπτό μετά την αναφορά ενός παίκτη, εξετάζονται τα 40 τελευταία βαθμολογημένα παιχνίδια του τις τελευταίες 3 ημέρες. Αν είστε αντίπαλος σε αυτά τα παιχνίδια, έχετε χάσει πόντους (ήττα ή ισοπαλία) και η βαθμολογία σας δεν ήταν προσωρινή, μπορείτε να πάρετε αυτούς τους πόντους πίσω. Η επιστροφή πόντων είναι προσαρμοσμένη με βάση την κορυφαία βαθμολογία σας και την πρόοδό της μετά το παιχνίδι.
 (Για παράδειγμα, αν η βαθμολογία σας αυξηθεί σημαντικά μετά από αυτά τα παιχνίδια, μπορεί να επιστραφούν μερικοί ή καθόλου πόντοι. Ποτέ δε θα σας επιστραφούν περισσότεροι από 150 πόντοι.</string>
   <string name="preventLeavingGameWithoutResigning">Ποιες είναι οι επιπτώσεις στους παίκτες που φεύγουν από την παρτίδα χωρίς να παραιτηθούν;</string>
   <string name="leavingGameWithoutResigningExplanation">Εάν ένας παίκτης αποχωρεί συχνά ή ακυρώνει πολλά παιχνίδια, τότε τιμωρείται και δεν μπορεί να παίξει άλλα για ένα χρονικό διάστημα. Αυτό δεν αναφέρεται δημοσίως στο προφίλ του. Εάν αυτή η συμπεριφορά συνεχιστεί, το μήκος της τιμωρίας αυξάνεται. Παρατεταμένη συμπεριφορά αυτού του είδους μπορεί να οδηγήσει σε κλείσιμο του λογαριασμού.</string>
@@ -33,7 +33,7 @@
   <string name="gameplay">Παιχνίδι</string>
   <string name="howBulletBlitzEtcDecided">Πώς αποφασίζεται ποιοι χρόνοι είναι τι (π.χ. Bullet, Blitz);</string>
   <string name="basedOnGameDuration">Οι χρόνοι του Lichess βασίζονται στην εκτιμώμενη διάρκεια παιχνιδιού = %1$s. Για παράδειγμα, η εκτιμώμενη διάρκεια παιχνιδιού για ένα παιχνίδι με χρόνο 5+3 είναι 5 × 60 + 40 × 3 = 420 δευτερόλεπτα.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(αρχικός χρόνος χρονομέτρου) + 40 × (προσαύξηση)</string>
+  <string name="durationFormula">(αρχικός χρόνος χρονομέτρου) + 40 × (προσαύξηση)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s δευτερόλεπτα = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s δευτερόλεπτα = %2$s</string>
   <string name="whatVariantsCanIplay">Ποιες είναι οι διάφορες εκδοχές που μπορώ να παίξω στο Lichess;</string>
@@ -96,11 +96,11 @@
   <string name="usernamesNotOffensive">Γενικά, τα ονόματα χρηστών δεν πρέπει να είναι προσβλητικά, να μιμούνται κάποιο άλλο άτομο ή να είναι διαφημίσεις. Μπορείτε να διαβάσετε περισσότερα στις %1$s.</string>
   <string name="guidelines">οδηγίες</string>
   <string name="canIChangeMyUsername">Μπορώ να αλλάξω το όνομα χρήστη μου;</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Όχι, τα ονόματα χρηστών δεν μπορούν να αλλάξουν για τεχνικούς και πρακτικούς λόγους. Τα ονόματα χρηστών υλοποιούνται σε πάρα πολλές θέσεις: βάσεις δεδομένων, εξαγωγές, αρχεία καταγραφής και στο μυαλό των ανθρώπων. Μπορείτε να προσαρμόσετε την κεφαλαιοποίηση μία φορά.</string>
+  <string name="usernamesCannotBeChanged">Όχι, τα ονόματα χρηστών δεν μπορούν να αλλάξουν για τεχνικούς και πρακτικούς λόγους. Τα ονόματα χρηστών υλοποιούνται σε πάρα πολλές θέσεις: βάσεις δεδομένων, εξαγωγές, αρχεία καταγραφής και στο μυαλό των ανθρώπων. Μπορείτε να προσαρμόσετε την κεφαλαιοποίηση μία φορά.</string>
   <string name="uniqueTrophies">Μοναδικά τρόπαια</string>
   <string name="ownerUniqueTrophies">Αυτό το τρόπαιο είναι μοναδικό στην ιστορία του Lichess, και κανείς άλλος από τον %1$s δεν θα το πάρει ποτέ.</string>
   <string name="aHourlyBulletTournament">ένα ωριαίο τουρνουά Bullet</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">Ο ZugAddict έκανε streaming και τις τελευταίες 2 ώρες προσπαθούσε να νικήσει το επίπεδο 8 A.I. σε ένα παιχνίδι 1+0, χωρίς επιτυχία. Ο Thibault του είπε ότι αν τα κατάφερνε, θα έπερνε ένα μοναδικό τρόπαιο. Μια ώρα αργότερα, διέλυσε τον Stockfish, και η υπόσχεση τηρήθηκε.</string>
+  <string name="goldenZeeExplanation">Ο ZugAddict έκανε streaming και τις τελευταίες 2 ώρες προσπαθούσε να νικήσει το επίπεδο 8 A.I. σε ένα παιχνίδι 1+0, χωρίς επιτυχία. Ο Thibault του είπε ότι αν τα κατάφερνε, θα έπερνε ένα μοναδικό τρόπαιο. Μια ώρα αργότερα, διέλυσε τον Stockfish, και η υπόσχεση τηρήθηκε.</string>
   <string name="lichessRatings">Αξιολογήσεις Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Ποιοι σύστημα αξιολόγησης χρησιμοποιεί το Lichess;</string>
   <string name="ratingSystemUsedByLichess">Οι βαθμολογίες υπολογίζονται με τη μέθοδο βαθμολόγησης Glicko-2 που αναπτύχθηκε από τον Mark Glickman. Είναι μια πολύ δημοφιλής μέθοδος και χρησιμοποιείται από έναν σημαντικό αριθμό σκακιστικών οργανισμών (η FIDE είναι ένα αξιοσημείωτο αντίθετο παράδειγμα, καθώς χρησιμοποιεί το σύστημα αξιολόγησης Elo).
@@ -147,7 +147,7 @@
 Το κόκκινο εικονίδιο σίγασης εμφανίζεται όταν το πρόγραμμα περιήγησής σας εμποδίζει το lichess.org από την αναπαραγωγή ενός ήχου. Συνήθως αυτός ο περιορισμός απενεργοποιείται μόλις κάνετε κλικ σε κάτι. Σε ορισμένα προγράμματα περιήγησης για κινητά, η μεταφορά ενός πιονιού με άγγιγμα δε θεωρείται κλικ. Σε αυτήν την περίπτωση, πρέπει να κάνετε κλικ στη σκακιέρα ώστε να επιτρέπεται η αναπαραγωγή ήχου από την αρχή της παρτίδας.
 
 Δείχνουμε το κόκκινο εικονίδιο για να σας ειδοποιούμε όταν συμβαίνει αυτό. Συχνά, μπορείτε να επιτρέψετε στο lichess.org να αναπαράγει ήχους. Παρακάτω, θα βρείτε οδηγίες για να το κάνετε σε πρόσφατες εκδόσεις ορισμένων δημοφιλών προγραμμάτων περιήγησης.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">υπολογιστής</string>
+  <string name="desktop">υπολογιστής</string>
   <string name="enableAutoplayForSoundsFirefox">1. Μεταβείτε στο lichess.org
 2. Πατήστε Ctrl-i στο Linux/Windows ή cmd-i στο MacOS
 3. Κάντε κλικ στην καρτέλα Δικαιώματα ή Άδειες
@@ -165,11 +165,11 @@
 3. Κάντε κλικ στην επιλογή Cookies και άδειες ιστοσελίδας
 4. Κάντε κύλιση προς τα κάτω και κάντε κλικ στην αυτόματη αναπαραγωγή πολυμέσων
 5. Προσθέστε το lichess.org στο επιτρέπω</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Να σταματήσω τον εαυτό μου από το να παίζει;</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">αυτόνομη κατάσταση ψυχικής υγείας</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">λιγότερες ομάδες σε αναμονή</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Λαμβάνουμε τακτικά μηνύματα από χρήστες που μας ζητούν βοήθεια για να σταματήσουν να παίζουν υπερβολικά πολύ.
+  <string name="stopMyselfFromPlaying">Να σταματήσω τον εαυτό μου από το να παίζει;</string>
+  <string name="mentalHealthCondition">αυτόνομη κατάσταση ψυχικής υγείας</string>
+  <string name="lichessUserstyles">Lichess userstyles</string>
+  <string name="fewerLobbyPools">λιγότερες ομάδες σε αναμονή</string>
+  <string name="adviceOnMitigatingAddiction">Λαμβάνουμε τακτικά μηνύματα από χρήστες που μας ζητούν βοήθεια για να σταματήσουν να παίζουν υπερβολικά πολύ.
 
 Αν και το Lichess δεν αποκλείει ή μπλοκάρει παίκτες, εκτός αν υπάρχει παραβίαση των Όρων Χρήσης, προτείνουμε τη χρήση εξωτερικών εργαλείων για τον περιορισμό της υπερβολικής ενασχόλησης με το παιχνίδι. Μερικές συνηθισμένες προτάσεις για προγράμματα αποκλεισμού ιστοσελίδων περιλαμβάνουν τους %1$s, %2$s και %3$s. Αν θέλετε να συνεχίσετε να χρησιμοποιείτε τον ιστότοπο αλλά να μην μπείτε στον πειρασμό να παίξετε γρήγορες παρτίδες, ίσως σας ενδιαφέρει το %4$s — εδώ είναι ένα με %5$s.
 
