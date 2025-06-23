@@ -7,6 +7,7 @@
     <item quantity="one">%s Partie pro Dag</item>
     <item quantity="other">%s Partië pro Dag</item>
   </plurals>
+  <string name="studies">Etüden (persistent Analysen, déi gedeelt kënne ginn)</string>
   <string name="tacticalPuzzlesFromUserGames">Taktesch Aufgabe vu Benotzerpartien</string>
   <string name="personalOpeningExplorerX">%1$s (funktionéiert och fir %2$s)</string>
   <string name="personalOpeningExplorer">Perséinlechen Erëffnungsdatebank</string>
