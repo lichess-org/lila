@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Bəli. Lichess əslində bizə məxsus %1$s, %2$s və ya %3$s istifadə edən digər açıq mənbəli saytlara ilham verdi.</string>
   <string name="fairPlay">Ədalətli Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Bir oyunçu işarələndikdən bir dəqiqə sonra, son 3 gün ərzində oynadığı 40 reytinqli oyun geri alınır. Bu oyunlarda əgər onun rəqibi olsaz, reytinq xalı itirsəz (məğlubiyyət və heç-heçə səbəbilə) və reytinqiniz müvəqqəti deyilsə, geri ödəmə alacaqsız. Geri ödəmə, ən yüksək reytinqinizə və oyundan sonrakı reytinq yüksəlişinizə görə mədudlaşdırılır.
+  <string name="ratingRefundExplanation">Bir oyunçu işarələndikdən bir dəqiqə sonra, son 3 gün ərzində oynadığı 40 reytinqli oyun geri alınır. Bu oyunlarda əgər onun rəqibi olsaz, reytinq xalı itirsəz (məğlubiyyət və heç-heçə səbəbilə) və reytinqiniz müvəqqəti deyilsə, geri ödəmə alacaqsız. Geri ödəmə, ən yüksək reytinqinizə və oyundan sonrakı reytinq yüksəlişinizə görə mədudlaşdırılır.
 (Məsələn, bu oyunlardan sonra reytinqiniz çox artarsa, geri ödəmə və ya qismən geri ödəmə ala bilərsiniz.) Geri ödəmə heç vaxt 150 xaldan çox olmayacaq.</string>
   <string name="preventLeavingGameWithoutResigning">Oyunçuların təslim olmadan oyunlarını tərk etmələri ilə bağlı nə edilir?</string>
   <string name="leavingGameWithoutResigningExplanation">Rəqibiniz tez-tez oyunlarını dayandırar/tərk edərsə, ona \"oynamağa qadağa qoyulur\", yəni müvəqqəti olaraq oyun oynamaq qadağan olunur. Bu, profilində açıq şəkildə göstərilmir. Lakin bu davranış davam edərsə, qadağanın vaxtı artırılır və bu xarakterli uzun müddətli davranış hesabın bağlanmasına səbəb ola bilir.</string>
@@ -30,7 +30,7 @@
   <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
   <string name="basedOnGameDuration">Lichessdə vaxta nəzarət oyun vaxtına nəzərən dəyişir = %1$s
 Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəyə bərabərdir.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
+  <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichessdə hansı variantları oynaya bilərəm?</string>
@@ -91,12 +91,11 @@ LM titulunu bizdən istəməyin.</string>
   <string name="usernamesNotOffensive">Ümumiyyətlə, istifadəçi adları: təhqiramiz, başqasını təqlid edən və ya reklam məqsədli olmamalıdır. Bu haqda daha çox %1$s bölməsində məlumat ala bilərsiniz.</string>
   <string name="guidelines">təlimatlat</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
+  <string name="usernamesCannotBeChanged">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
   <string name="ownerUniqueTrophies">Bu kubok Lichess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
-  <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
+  <string name="goldenZeeExplanation">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
   <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də köhnə Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
