@@ -231,10 +231,8 @@ final class UblogApi(
     found = for
       doc   <- aggResult
       id    <- doc.getAsOpt[UblogPostId]("_id")
-      likes <- doc.getAsOpt[Int]("likes")
-      tier  <- doc
-        .getAsOpt[Int]("tier")
-        .map(t => if t == 0 then Tier.HIDDEN else Tier.NORMAL)
+      likes <- doc.getAsOpt[UblogPost.Likes]("likes")
+      tier  <- doc.getAsOpt[Tier]("tier")
       title <- doc.string("title")
     yield (id, likes, tier, title)
     likes <- found match
@@ -245,7 +243,7 @@ final class UblogApi(
           _ =
             if res.nModified > 0 && v && tier > Tier.HIDDEN
             then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
-        yield UblogPost.Likes(likes)
+        yield likes
   yield likes
 
   def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
