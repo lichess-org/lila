@@ -180,6 +180,7 @@
   <string name="annotatePositionTitle">Konuma yorum ekleyin</string>
   <string name="annotatePositionText">!? düğmesine tıklayın ya da sağdaki hamle listesine sağ tıklayın.&lt;br&gt; Yorum yazıları paylaşılır ve kaydedilir.</string>
   <string name="conclusionTitle">Vakit ayırdığınız için teşekkürler</string>
+  <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Önceki çalışmalarınızı&lt;/a&gt; profil sayfanızdan bulabilirsiniz.&lt;br&gt;Çalışmalar hakkında ayrıca bir &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; blog gönderisi&lt;/a&gt; mevcuttur.&lt;br&gt;Usta kullanıcılar klavye kısayollarını görmek için \"?\" basabilir.&lt;br&gt;İyi eğlenceler!</string>
   <string name="createChapterTitle">Bir çalışma bölümü oluşturalım</string>
   <string name="createChapterText">Bir çalışma birkaç bölümden oluşabilir.&lt;br&gt;Her bölümün kendine özgü bir hareket ağacı vardır&lt;br&gt;ve çeşitli şekillerde oluşturulabilir.</string>
   <string name="fromInitialPositionTitle">Başlangıç pozisyonundan</string>
