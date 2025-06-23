@@ -166,7 +166,9 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Säit</string>
   <string name="welcomeToLichessStudyTitle">Wëllkomm op Lichess Study!</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeelt a gespäichert</string>
+  <string name="sharedAndSavedText">Aner Membere kënnen deng Zich an Echtzäit gesinn!&lt;br&gt;Ausserdeem gëtt alles fir ëmmer gespäichert.</string>
   <string name="studyMembersTitle">Membere vun der Etüd</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klick op den %s-Knäppchen.&lt;br&gt;Da kanns de decidéieren, wee bäidroen däerf a ween net.</string>
   <string name="studyChaptersTitle">Etüdekapitel</string>
   <string name="studyChaptersText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet eng eegen Ausgangsstellung an en eegene Variantebam.</string>
   <string name="commentPositionTitle">Eng Stellung kommentéieren</string>
