@@ -24,7 +24,7 @@
   <string name="leavingGameWithoutResigningExplanation">Wann däi Géigner dacks Partien ofbrécht oder erausgeet, da kritt en eng „Spill-Spär“, wat heescht, datt en temporär gespaart ass fir Partien ze spillen. Dat gëtt net ëffentlech op dem Profil ugewisen. Wann dat Verhalen unhält, da gëtt d\'Dauer vun der Spill-Spär ëmmer méi laang – a wann dat Verhalen nach weider geet, kann de Konto zougemaach ginn.</string>
   <string name="howCanIBecomeModerator">Wéi kann ech e Moderator ginn?</string>
   <string name="youCannotApply">Et ass net méiglech sech als Moderator ze bewerben. Wa mir gesinn, datt een ee gudde Moderator kéint sinn, da kontaktéiere mir déi Persoun.</string>
-  <string name="isCorrespondenceDifferent">Wéi ënnerscheeden sech Korrespondenz an normalen Schach?</string>
+  <string name="isCorrespondenceDifferent">Ënnerscheet sech Fernschach vum normale Schach?</string>
   <string name="pleaseReadFairPlayPage">Fir méi Informatiounen, lies wgl. eis %s</string>
   <string name="fairPlayPage">Fair-Play-Säit</string>
   <string name="youCanUseOpeningBookNoEngine">Op Lichess ass den Haaptënnerscheed bei de Reegele fir Fernschach, datt en Erëffnungsbuch erlaabt ass. D\'Benotze vu Schachprogrammer ass nach ëmemr verbueden a féiert dozou, datt ee fir Schachprogramm-Ënnerstëtzung markéiert gëtt. Obwuel d\'ICCF Schachprogrammer am Fernschach erlaabt, ass dat op Lichess net de Fall.</string>
@@ -58,6 +58,7 @@
   <string name="guidelines">Richtlinnen</string>
   <string name="canIChangeMyUsername">Kann ech mäin Benotzernumm änneren?</string>
   <string name="uniqueTrophies">Eenzegaarteg Trophäen</string>
+  <string name="aHourlyBulletTournament">e stëndlecht Bullet-Turnéier</string>
   <string name="lichessRatings">Lichess Wäertungen</string>
   <string name="whichRatingSystemUsedByLichess">Wéieen Wäertungssystem benotzt Lichess?</string>
   <string name="whatIsProvisionalRating">Firwat ass en Fragezeichen (?) nieft enger Wäertung?</string>
