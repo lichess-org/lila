@@ -90,7 +90,7 @@ object UblogPost:
       queue: List[PreviewPost]
   ):
     def shuffled: List[PreviewPost] =
-      (pinned.headOption ++ shuffle(~pinned.tailOption ++ queue)).toList
+      (pinned ++ shuffle(queue)).toList
 
     def has(id: UblogPostId): Boolean =
       pinned.exists(_.id == id) || queue.exists(_.id == id)
