@@ -21,6 +21,7 @@
   <string name="doNotAskByEmailToReopen">Fro eis net per Email fir däin Konto rëm opzemaachen, mir wäerten en net maachen.</string>
   <string name="wantChangeUsername">Ech wëll mäin Benotzernumm änneren</string>
   <string name="changeUsernameCase">Géi op dës Säit, fir d\'Grouss- a Klengschreiwung vun dengem Benotzernumm ze änneren</string>
+  <string name="orCloseAccount">Du kanns allerdéngs däin aktuelle Konto zoumaachen an en neien uleeën.</string>
   <string name="wantClearHistory">Ech wëll mäin Verlaf oder meng Wäertung läschen</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
   <string name="toReportAPlayerUseForm">Fir ee Spiller ze mellen, benotz de Mellformulaire</string>
@@ -53,6 +54,8 @@
   <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
   <string name="sendAppealTo">Du kanns däin Asproch un %s schécken.</string>
   <string name="falsePositives">Falsch-Positiv-Resultater kënnen heiansdo virkommen a mir entschëllegen eis dofir.</string>
+  <string name="accountLost">Wann s de allerdéngs tatsächlech e Schachprogramm benotzt hues, och wann et just eng Kéier war, dann ass däi Konto leider verluer.</string>
+  <string name="doNotDeny">Streit net of, dass de gefuddelt hues. Wann s de wëlls, dass de en neie Konto uleeën däerfs, da gëff einfach zou, wat s de gemaach hues, a weis, dass de verstanen hues, dass et e Feeler war.</string>
   <string name="otherRestriction">Aner Aschränkung</string>
   <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
   <string name="monetizing">Lichess monetiséieren</string>
