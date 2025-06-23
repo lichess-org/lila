@@ -60,6 +60,9 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
   <string name="upgradeFromManaged">Vu verwalt op selbststänneg upgraden</string>
   <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Fräiginn</string>
   <string name="releaseTheAccount">Gëff de Kont fräi, fir datt de Schüler e selbstänneg verwalte kann.</string>
+  <string name="releaseDesc1">E Konto, dee fräigi gouf, kann net méi verwalt ginn. De Schüler wäert an der Lag sinn de Kannermodus un- an auszemaachen an d\'Passwuert selwer zeréckzesetzen.</string>
+  <string name="releaseDesc2">De Schüler bleift am Cours, nodeems säi Konto fräigi gouf.</string>
+  <string name="realUniqueEmail">Richteg, eendaiteg E-Mail-Adress vum Schüler. Mir schécken eng Confirmatiouns-E-Mail op dës Adress mat engem Link fir d\'Fräigab vum Konto.</string>
   <string name="closeStudent">Kont zoumaachen</string>
   <string name="closeTheAccount">De Schülerkont dauerhaft zoumaachen.</string>
   <string name="closeDesc1">De Schüler wäert dëse Kont ni méi bentoze kënnen. D\'Zoumaachen ass endgülteg. Vergewësser dech, datt de Schüler dat versteet an domat averstanen ass.</string>
