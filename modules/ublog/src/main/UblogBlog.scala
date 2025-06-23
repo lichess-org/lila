@@ -8,8 +8,8 @@ case class UblogBlog(
     modTier: Option[UblogBlog.Tier] // tier set by a mod
 ):
   inline def id = _id
-  def visible   = tier >= UblogRank.Tier.UNLISTED
-  def listed    = tier >= UblogRank.Tier.LOW
+  def visible   = tier >= UblogBlog.Tier.UNLISTED
+  def listed    = tier >= UblogBlog.Tier.LOW
 
   def userId = id match
     case UblogBlog.Id.User(userId) => userId
