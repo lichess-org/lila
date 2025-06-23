@@ -12,6 +12,7 @@ import lila.memo.PicfitApi
 import lila.core.user.KidMode
 import lila.core.ublog.BlogsBy
 import lila.core.timeline.{ Propagate, UblogPostLike }
+import lila.common.LilaFuture.delay
 
 final class UblogApi(
     colls: UblogColls,
@@ -22,7 +23,7 @@ final class UblogApi(
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod,
     config: UblogConfig
-)(using Executor)(using scheduler: Scheduler)
+)(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
@@ -43,10 +44,11 @@ final class UblogApi(
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
-    _ = triggerAutomod(post): res =>
-      if isFirstPublish && blog.tier > Tier.HIDDEN
+  yield
+    triggerAutomod(post).foreach: res =>
+      if isFirstPublish && blog.visible
       then sendPostToZulip(author.light, post, blog.modTier.getOrElse(blog.tier), res)
-  yield post
+    post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
     lila.common.Bus.pub(UblogPost.Create(post))
@@ -166,20 +168,19 @@ final class UblogApi(
       automodNotes
     )
 
-  private def triggerAutomod(post: UblogPost)(andThen: (mod: Option[UblogAutomod.Assessment]) => Unit): Unit =
-    val retries = 5 // 30s, 1m, 2m, 4m, 8m
-    if post.live then attempt()
-
-    def attempt(n: Int = 0): Unit =
+  private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
+    val retries                                                  = 5 // 30s, 1m, 2m, 4m, 8m
+    def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
       automod(post)
         .flatMapz: mod =>
-          andThen(mod.some)
-          colls.post.updateField($id(post.id), "automod", mod).void
-        .recover: e =>
-          if n < retries then scheduler.scheduleOnce((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
+          for _ <- colls.post.updateField($id(post.id), "automod", mod).void
+          yield mod.some
+        .recoverWith: e =>
+          if n < 5 then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
-            andThen(none)
             logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
+            fuccess(none)
+    attempt()
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
