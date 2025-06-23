@@ -38,8 +38,8 @@
   <string name="whitePlays">Wäiss um Zuch</string>
   <string name="blackPlays">Schwaarz um Zuch</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Däin Géigner huet d\'Partie verlooss. Du kanns an %s Sekonn d\'Victoire reklaméieren.</item>
-    <item quantity="other">Däin Géigner huet d\'Partie verlooss. Du kanns an %s Sekonnen d\'Victoire reklaméieren.</item>
+    <item quantity="one">Däi Géigner huet d\'Partie verlooss. Du kanns an %s Sekonn op Gewënn reklaméieren.</item>
+    <item quantity="other">Däi Géigner huet d\'Partie verlooss. Du kanns an %s Sekonnen op Gewënn reklaméieren.</item>
   </plurals>
   <string name="opponentLeftChoices">Däin Géigner huet d\'Partie verlooss. Du kanns d\'Victoire reklaméieren, Remis erklären, oder waarden.</string>
   <string name="forceResignation">Victoire reklaméieren</string>
@@ -184,7 +184,7 @@
   <string name="logOut">Ofmellen</string>
   <string name="signIn">Umellen</string>
   <string name="rememberMe">Ageloggt bleiwen</string>
-  <string name="youNeedAnAccountToDoThat">Du brauchs een Account fir dat ze maachen</string>
+  <string name="youNeedAnAccountToDoThat">Du brauchs e Konto fir dat ze maachen</string>
   <string name="signUp">Registréieren</string>
   <string name="computersAreNotAllowedToPlay">Ënnerstëtzung vun Schachprogrammen, Datenbanken oder aneren Spiller ass wärend enger Partie net erlaabt. Wannechgelift bedenkt och, dass d\'Creatioun vun puer Benotzerkonten ongären gesinn ass and d\'Missachtung vun dëser Reegel, bis op Kulanz vun der Ekipp, zum Ausschloss aller betraffenen Konten féiert.</string>
   <string name="games">Partien</string>
@@ -478,14 +478,14 @@
   <string name="openTournaments">Oppen Turnéier</string>
   <string name="duration">Dauer</string>
   <string name="winner">Gewënner</string>
-  <string name="standing">Plaz</string>
+  <string name="standing">Stand</string>
   <string name="createANewTournament">Neien Turnéier kreéieren</string>
   <string name="tournamentCalendar">Turnéier Kalenner</string>
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
   <string name="advancedSettings">Erweidert Astellungen</string>
   <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
   <string name="inappropriateNameWarning">Alles nemmen liicht Onangemessenes kéint zum Zoumaachen vun dengem Konto féieren.</string>
-  <string name="emptyTournamentName">Eidel loossen, wann den Turnéier no engem bekannten Schachspiller soll benannt ginn.</string>
+  <string name="emptyTournamentName">Eidel loosse fir d\'Turnéier no engem bekannten Schachspiller ze benennen.</string>
   <string name="makePrivateTournament">Turnéier privat maachen an Accès mat Passwuert beschränken</string>
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
@@ -515,7 +515,7 @@
   <string name="clearBoard">Briet opraumen</string>
   <string name="loadPosition">Stellung lueden</string>
   <string name="isPrivate">Privat</string>
-  <string name="reportXToModerators">%s den Moderatoren mellen</string>
+  <string name="reportXToModerators">%s de Moderatore mellen</string>
   <string name="profileCompletion">Profil vollstänneg zu: %s</string>
   <string name="xRating">%s Wäertung</string>
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
@@ -568,10 +568,11 @@
   <string name="reportAUser">Benotzer mellen</string>
   <string name="user">Benotzer</string>
   <string name="reason">Grond</string>
-  <string name="whatIsIheMatter">Wat ass den Problem?</string>
-  <string name="cheat">Bedruch</string>
+  <string name="whatIsIheMatter">Wat ass de Problem?</string>
+  <string name="cheat">Fuddelen</string>
   <string name="troll">Troll</string>
   <string name="other">Aner</string>
+  <string name="reportProcessedFasterInEnglish">Deng Meldung gëtt méi séier verschafft, wa se op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
   <string name="by">vum %s</string>
   <string name="importedByX">Importéiert vun %s</string>
@@ -698,7 +699,7 @@
   <string name="simulAddExtraTimePerPlayer">Gëff denger Auer zousätzlech Zäit fir all Spiller deen der Simultan bäitrëtt.</string>
   <string name="simulHostExtraTimePerPlayer">Gëff all Spiller zousätzlech Bedenkzäit</string>
   <string name="lichessTournaments">Lichess Turnéier</string>
-  <string name="tournamentFAQ">Arena Turnéier FAQ</string>
+  <string name="tournamentFAQ">Arena-Turnéier-FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
   <string name="accuracy">Prezisioun</string>
@@ -734,7 +735,7 @@
   <string name="glicko2Rating">Glicko-2 Wäertung</string>
   <string name="checkYourEmail">Kuck deng E-Mailen</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir hunn dir eng E-Mail geschéckt. Klick op de Link an der E-Mail fir däi Konto z\'aktivéieren.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wann s du keng E-Mail gesäis, kuck op aneren Plazen no, wou se kéint sinn, wéi den Ordner fir Junk, Spam, Sozial Medien oder aner Ordneren.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wann s du keng E-Mail gesäis, kuck op anere Plazen no, wou se kéint sinn, wéi den Ordner fir Junk, Spam, Sozial Medien oder aner Ordneren.</string>
   <string name="ifYouDoNotGetTheEmail">Wann s de d\'E-Mail net banne 5 Minutte kriss:</string>
   <string name="checkAllEmailFolders">Kuck am Junk-, Spam- an aneren Ordneren no</string>
   <string name="verifyYourAddress">Iwwerpréif, ob %s deng E-Mail-Adress ass</string>
@@ -970,6 +971,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="focusChat">Chat fokusséieren</string>
   <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
   <string name="reopenYourAccount">Konto nei opmaachen</string>
+  <string name="reopenYourAccountDescription">Wann s de däi Konto zougemaach hues, der et an Tëschenzäit awer anescht iwwerluecht hues, kriss de d\'Chance fir däi Konto zeréckzekréien.</string>
   <string name="emailAssociatedToaccount">E-Mail-Adress, déi mam Konto associéiert ass</string>
   <string name="sentEmailWithLink">Mir hunn dir eng E-Mail mat engem Link geschéckt.</string>
   <string name="tournamentEntryCode">Turnéier Zougangscode</string>
