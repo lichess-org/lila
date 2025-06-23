@@ -324,7 +324,7 @@ final class UblogApi(
           local = "blog",
           foreign = "_id",
           pipe = List(
-            $doc("$match"   -> $expr($doc("$gt" -> $arr("$tier", Tier.HIDDEN)))),
+            $doc("$match"   -> $expr($doc("$gt" -> $arr("$tier", Tier.UNLISTED)))),
             $doc("$project" -> $id(true))
           )
         )
