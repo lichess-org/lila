@@ -129,8 +129,7 @@ object UblogForm:
   ):
 
     def hasUpdates: Boolean =
-      quality.isDefined || evergreen.isDefined || flagged.isDefined ||
-        commercial.isDefined || featured.isDefined || featuredUntil.isDefined
+      List(quality, evergreen, flagged, commercial, featured, featuredUntil).exists(_.isDefined)
 
     def text = List(
       quality.so(q => s"quality = $q") ++

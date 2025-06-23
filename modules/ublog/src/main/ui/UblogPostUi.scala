@@ -189,9 +189,9 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
     val am        = post.automod
-    val evergreen = am.flatMap(_.evergreen).getOrElse(false)
-    val flagged   = am.flatMap(_.flagged).getOrElse("")
-    val comm      = am.flatMap(_.commercial).getOrElse("")
+    val evergreen = ~am.flatMap(_.evergreen)
+    val flagged   = ~am.flatMap(_.flagged)
+    val comm      = ~am.flatMap(_.commercial)
 
     div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
@@ -217,7 +217,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),
         span(
           "Evergreen",
-          input(tpe := "checkbox", evergreen.option(checked := "")),
+          input(tpe := "checkbox", evergreen.option(checked)),
           "(for recommendations)"
         ),
         span(cls := s"commercial ${comm.isEmpty.so("empty")}", title := comm)(
