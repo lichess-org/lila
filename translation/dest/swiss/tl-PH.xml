@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swiss">Swiss</string>
+  <string name="swissTournaments">Mga paligsahan sa Swiss</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Tingnan ang round</item>
+    <item quantity="other">Tingnan lahat ng %s round</item>
+  </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s round</item>
-    <item quantity="other">%s mga round</item>
+    <item quantity="other">%s (na) round</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s round Swiss</item>
+    <item quantity="other">%s round Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Isang round bawat araw</item>
     <item quantity="other">Isang round tuwing %s araw</item>
   </plurals>
-  <string name="roundsAreStartedManually">Manu-manong sinisimulan ang mga round</string>
+  <string name="roundsAreStartedManually">Sinisimulan ang mga round nang manual</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s segundo sa gitna na mga round</item>
     <item quantity="other">%s segundo sa gitna na mga round</item>
@@ -19,10 +28,32 @@
     <item quantity="other">%s minuto sa gitna na mga round</item>
   </plurals>
   <string name="nextRound">Susunod na round</string>
-  <string name="tournStartDate">Petsa ng nagsisimula ng torneo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Ongoing na laro</item>
+    <item quantity="other">Ongoing na mga laro</item>
+  </plurals>
+  <string name="tournStartDate">Petsa ng nagsisimula ng paligsahan</string>
   <string name="numberOfRounds">Bilang ng mga round</string>
-  <string name="newSwiss">Bagong Swiss torneo</string>
+  <string name="numberOfRoundsHelp">Ang odd na bilang ng mga round ay magbibigay ng pinakamainam na balanseng kulay.</string>
+  <string name="roundInterval">Pagitan sa gitna ng mga round</string>
+  <string name="forbiddenPairings">Ipinagbabawal na mga pagpares</string>
+  <string name="forbiddenPairingsHelp">Mga username ng mga manlalaro na hindi dapat maglaro nang magkasama (Magkapatid, ng halimbawa). Dawalang username bawat linya, na pinaghiwalay ng isang space.</string>
+  <string name="manualPairings">Manual na mga pagpares sa susunod na round</string>
+  <string name="manualPairingsHelp">Tukuyin lahat ng pagpares sa susunod na round nang manual. Isang manlalaro na pares bawat linya. Halimbawa:
+ManlalaroA ManlalaroB
+ManlalaroC ManlalaroD
+Upang magbigay ng bye (1 puntos) sa manlalaro imbis ng pagpares, magdagdag ng isang linya tulad nito:
+ManlalaroE 1
+Ang mga nawawalang manlalaro ay itinuturing absent at makakuha ng walang puntos.
+Iwanang ang field na ito upang hayaang awtomatikong gumawa ang lichess ng mga pagpares.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Dapat naglaro ang kanilang huling swiss na laro</string>
+  <string name="newSwiss">Bagong paligsahan sa Swiss</string>
+  <string name="swissVsArenaQ">Kailan gumamit ang mga paligsahan sa Swiss imbis ng mga arena?</string>
+  <string name="swissVsArenaA">Sa paligsahan ng Swiss, lahat ng manlalaro ay maglalaro ng parehong bilang ng mga laro, at isang beses lang na puwede makipaglaro sa isa\'t isa.
+Maaaring itong maging isang magandang opsyon ito para sa mga club at opisyal na paligsahan.</string>
   <string name="pointsCalculationQ">Paano kinakalkula ang mga puntos?</string>
+  <string name="pointsCalculationA">Ang panalo ay isang puntos, ang tabla ay kalahating puntos, at ang talo ay walang puntos.
+Kapag ang manlalaro ay hindi maaaring ipares sa isang round, natatangap sila ng bye ng isang puntos.</string>
   <string name="tiebreaksCalculationQ">Paano kinakalkula ang mga tie break?</string>
   <string name="sonnebornBergerScore">iskor ng Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Gamit ang %s.
@@ -31,30 +62,46 @@ Idagdag ang mga iskor ng bawat kalaban na matalo ang manlalaro at kalahating pun
   <string name="dutchSystem">sistema ng Dutch</string>
   <string name="FIDEHandbook">FIDE handbook</string>
   <string name="pairingsA">Gamit ang %1$s, ipinatupad ng %2$s, alinsunod sa %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">Anong mangyayari kung ang torneo ay may mas maraming round kaysa sa mga manlalaro?</string>
+  <string name="moreRoundsThanPlayersQ">Anong mangyayari kung ang paligsahan ay may mas maraming round kaysa sa mga manlalaro?</string>
+  <string name="moreRoundsThanPlayersA">Kapag ang lahat ng posibleng pagpares ay nalaro, ang paligsahan ay matatapos at magdedeklara ng panalo.</string>
   <string name="restrictedToTeamsQ">Bakit ito limitado sa mga koponan?</string>
   <string name="numberOfByesQ">Ilang mga bye ang makakuha ng isang manlalaro?</string>
+  <string name="numberOfByesA">Ang manlalaro ay makakuha ng bye ng isang puntos sa tuwing ang sistema ng pagpares ay hindi makahanap ng pagpares para sa kanila.
+Bukod pa rito, ang isang bye ng kalahating puntos ay iniuugnay kapag ang manlalaro ay malate sumali sa paligsahan.</string>
   <string name="earlyDrawsQ">Anong mangyayari sa mga maagang tabla?</string>
   <string name="whatIfOneDoesntPlayQ">Anong mangyayari kung ang isang manlalaro ay hindi naglalaro?</string>
   <string name="protectionAgainstNoShowQ">Ano ang ginagawa patungkol sa mga no-show?</string>
   <string name="lateJoinQ">Maaari bang malate sumali ang mga manlalaro?</string>
+  <string name="willSwissReplaceArenasA">Hindi. Sila ay mga komplementaryong tampok.</string>
   <string name="roundRobinQ">Paano naman ang Round Robin?</string>
-  <string name="otherSystemsQ">Paano ang iba pang sistema ng torneo?</string>
+  <string name="otherSystemsQ">Paano ang iba pang sistema ng paligsahan?</string>
+  <string name="otherSystemsA">Wala kaming planong idagdag ng higit pang mga sistema ng tournament sa Lichess ngayon.</string>
+  <string name="teamOnly">Ang mga paligsahan sa Swiss ay maaari lamang gumawa ng mga pinuno ng koponan, at maaari lamang maglaro ng mga pinuno ng koponan.
+%1$s upang magsimulang maglaro sa mga paligsahan sa Swiss.</string>
   <string name="joinOrCreateTeam">Sumali o gumawa ng isang koponan</string>
   <string name="nowPlaying">Naglalaro ngayon</string>
-  <string name="tournDuration">Tagal ng torneo</string>
+  <string name="startingSoon">Magsisimula mamaya</string>
+  <string name="comparison">Paghahambing</string>
+  <string name="tournDuration">Tagal ng paligsahan</string>
   <string name="numberOfGames">Bilang ng mga laro</string>
+  <string name="numberOfGamesAsManyAsPossible">Kasing dami ng maaaring laruin sa inilaang tagal</string>
+  <string name="numberOfGamesPreDefined">Nagdecide ng maaga, pareho sa lahat ng manlalaro</string>
   <string name="pairingSystem">Sistema ng pagpares</string>
+  <string name="pairingSystemArena">Anumang magagamit ng kalaban na may magkatulad na ranggo</string>
+  <string name="pairingSystemSwiss">Pinakamagandang pagpares batay sa puntos at mga tie break</string>
   <string name="pairingWaitTime">Oras ng paghihintay ng pagpares</string>
   <string name="pairingWaitTimeArena">Mabilis: hindi naghihintay ng lahat ng mga manlalaro</string>
   <string name="pairingWaitTimeSwiss">Mabagal: naghihintay ng lahat ng mga manlalaro</string>
   <string name="identicalPairing">Magkaparehong pagpares</string>
+  <string name="possibleButNotConsecutive">Posible, ngunit hindi magkasunod</string>
   <string name="identicalForbidden">Bawal</string>
   <string name="lateJoin">Malate sumali</string>
+  <string name="pause">Hinto</string>
   <string name="pauseSwiss">Oo pero puwedeng mabawasan ang bilang ng mga round</string>
   <string name="streaksAndBerserk">Mga Streak at Berserk</string>
-  <string name="similarToOTB">Katulad sa mga torneo ng OTB</string>
+  <string name="similarToOTB">Katulad sa mga paligsahan ng OTB</string>
   <string name="unlimitedAndFree">Walang limitasyon at libre</string>
+  <string name="predefinedUsers">Payagan lamang ang mga partikular ng mga user ang sumali</string>
   <string name="playYourGames">Maglaro ng iyong mga laro</string>
   <string name="byes">Mga Bye</string>
   <string name="absences">Mga Kawalan</string>

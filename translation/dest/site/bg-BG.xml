@@ -481,7 +481,6 @@
   <string name="points">Точки</string>
   <string name="wins">Победи</string>
   <string name="losses">Загуби</string>
-  <string name="createdBy">Създадено от</string>
   <string name="startingIn" comment="Displayed above a timer">Започва след</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="pause">Пауза</string>

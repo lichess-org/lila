@@ -3,16 +3,16 @@
   <string name="logInAsUsername">Συνδεθείτε ως %s</string>
   <string name="welcome">Καλώς ήρθατε!</string>
   <string name="welcomeToLichess">Καλώς ήρθατε στο lichess.org!</string>
-  <string name="thisIsYourProfilePage">Αυτή είναι η σελίδα του προφίλ σας.</string>
-  <string name="enabledKidModeSuggestion">Θα χρησιμοποιηθεί ο λογαριασμός από ένα παιδί; Ίσως να θέλετε να ενεργοποιήσετε το %s.</string>
-  <string name="whatNowSuggestions">Και τώρα τι; Εδώ είναι μερικές προτάσεις:</string>
-  <string name="learnChessRules">Μάθετε τους σκακιστικούς κανονισμούς</string>
-  <string name="improveWithChessTacticsPuzzles">Βελτιωθείτε με σκακιστικά παζλ τακτικής.</string>
-  <string name="playTheArtificialIntelligence">Πέξτε με αντίπαλο την τεχνητή νοημοσύνη.</string>
+  <string name="thisIsYourProfilePage">Αυτή είναι η σελίδα προφίλ σας.</string>
+  <string name="enabledKidModeSuggestion">Εάν ο λογαριασμός αυτός πρόκειται να χρησιμοποιηθεί από ένα παιδί, προτείνεται η ενεργοποίηση της %s.</string>
+  <string name="whatNowSuggestions">Και τώρα; Ιδού ορισμένες συμβουλές:</string>
+  <string name="learnChessRules">Μάθετε τους κανόνες του παιχνιδιού.</string>
+  <string name="improveWithChessTacticsPuzzles">Βελτιώστε τις επιδόσεις σας λύνοντας τακτικά.</string>
+  <string name="playTheArtificialIntelligence">Παίξτε με αντίπαλο την τεχνητή νοημοσύνη.</string>
   <string name="playOpponentsFromAroundTheWorld">Παίξτε με αντιπάλους από όλο τον κόσμο.</string>
   <string name="followYourFriendsOnLichess">Ακολουθήστε τους φίλους σας στο Lichess.</string>
   <string name="playInTournaments">Παίξτε σε τουρνουά.</string>
-  <string name="learnFromXAndY">Μάθετε από %1$s και %2$s.</string>
+  <string name="learnFromXAndY">Εξοικειωθείτε με το παιχνίδι μελετώντας μία %1$s και βλέποντας %2$s.</string>
   <string name="configureLichess">Ρυθμίστε το Lichess σύμφωνα με τις προτιμήσεις σας.</string>
   <string name="exploreTheSiteAndHaveFun">Εξερευνήστε την ιστοσελίδα και διασκεδάστε :)</string>
 </resources>

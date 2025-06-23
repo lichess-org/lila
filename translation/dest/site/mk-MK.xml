@@ -468,7 +468,6 @@
   <string name="points">Поени</string>
   <string name="wins">Победи</string>
   <string name="losses">Порази</string>
-  <string name="createdBy">Создадено од</string>
   <string name="standByX">Почекај %s, се спаруваат играчите, подготви се!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Продолжи</string>

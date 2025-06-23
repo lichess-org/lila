@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Αναμεταδόσεις</string>
-  <string name="myBroadcasts">Οι αναμεταδόσεις μου</string>
+  <string name="broadcasts">Μεταδόσεις</string>
+  <string name="myBroadcasts">Οι μεταδόσεις μου</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s αναμετάδοση</item>
-    <item quantity="other">%s αναμεταδόσεις</item>
+    <item quantity="one">%s μετάδοση</item>
+    <item quantity="other">%s μεταδόσεις</item>
   </plurals>
-  <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνουά</string>
-  <string name="broadcastCalendar">Ημερολόγιο αναμεταδόσεων</string>
-  <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
-  <string name="subscribedBroadcasts">Εγγεγραμμένες αναμεταδόσεις</string>
-  <string name="aboutBroadcasts">Σχετικά με τις αναμεταδόσεις</string>
-  <string name="howToUseLichessBroadcasts">Πώς να χρησιμοποιήσετε τις αναμεταδόσεις Lichess.</string>
-  <string name="theNewRoundHelp">Ο νέος γύρος θα έχει τα ίδια μέλη και τους ίδιους συνεισφέροντες όπως ο προηγούμενος.</string>
+  <plurals name="nbViewers">
+    <item quantity="one">%s θεατής</item>
+    <item quantity="other">%s θεατές</item>
+  </plurals>
+  <string name="liveBroadcasts">Ζωντανές μεταδόσεις τουρνουά</string>
+  <string name="broadcastCalendar">Ημερολόγιο μεταδόσεων</string>
+  <string name="newBroadcast">Νέα ζωντανή μετάδοση</string>
+  <string name="subscribedBroadcasts">Μεταδόσεις που έχω εγγραφεί</string>
+  <string name="aboutBroadcasts">Σχετικά με τις μεταδόσεις</string>
+  <string name="howToUseLichessBroadcasts">Τρόπος χρήσης μεταδόσεων Lichess.</string>
+  <string name="theNewRoundHelp">Ο νέος γύρος θα έχει τα ίδια μέλη και τους ίδιους συνεισφέροντες με τον προηγούμενο.</string>
   <string name="addRound">Προσθήκη γύρου</string>
   <string name="ongoing">Σε εξέλιξη</string>
   <string name="upcoming">Προσεχή</string>
@@ -20,64 +24,65 @@
   <string name="roundNumber">Αριθμός γύρου</string>
   <string name="tournamentName">Όνομα τουρνουά</string>
   <string name="tournamentDescription">Σύντομη περιγραφή τουρνουά</string>
-  <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
-  <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει να είναι μικρότερο από %2$s χαρακτήρες.</string>
+  <string name="fullDescription">Πλήρης περιγραφή τουρνουά</string>
+  <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της μετάδοσης. Μπορείτε να χρησιμοποιήσετε %1$s και μέχρι %2$s χαρακτήρες.</string>
   <string name="sourceSingleUrl">Πηγαίο URL για PGN</string>
-  <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
-  <string name="sourceGameIds">Έως και 64 ταυτότητες παιχνιδιών Lichess, διαχωριζόμενες από κενά.</string>
+  <string name="sourceUrlHelp">Η διεύθυνση URL την οποία το Lichess θα χρησιμοποιήσει για τη λήψη ενημερώσεων για τα αρχεία PGN. Πρέπει να είναι δημόσια προσβάσιμη στο διαδίκτυο.</string>
+  <string name="sourceGameIds">Έως και 64 αναγνωριστικά (id) παρτίδων Lichess, χωρισμένα με κενά.</string>
   <string name="startDateTimeZone">Ημερομηνία έναρξης του τουρνουά στην τοπική ζώνη ώρας: %s</string>
-  <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
+  <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει το τουρνουά</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτής της παρτίδας</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
-  <string name="definitivelyDeleteRound">Διαγράψτε οριστικά τον γύρο και όλες τις παρτίδες του.</string>
-  <string name="deleteAllGamesOfThisRound">Διαγράψτε όλες τις παρτίδες αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
-  <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
-  <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
-  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλες τις παρτίδες του.</string>
-  <string name="showScores">Εμφάνιση βαθμολογιών παικτών βάσει των αποτελεσμάτων των παρτίδων.</string>
+  <string name="definitivelyDeleteRound">Οριστική διαγραφή του γύρου και των παρτίδων του.</string>
+  <string name="deleteAllGamesOfThisRound">Διαγραφή όλων των παρτίδων αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τις δημιουργήσετε ξανά.</string>
+  <string name="editRoundStudy">Επεξεργασία σπουδής γύρου</string>
+  <string name="deleteTournament">Διαγραφή τουρνουά</string>
+  <string name="definitivelyDeleteTournament">Οριστική διαγραφή αυτού του τουρνουά, όλων των γύρων του και όλων των παρτίδων του.</string>
+  <string name="showScores">Εμφάνιση βαθμών των παικτών βάσει των παρτίδων τους</string>
   <string name="replacePlayerTags">Προαιρετικό: αντικατάσταση ονομάτων, βαθμολογιών και τίτλων παικτών</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
   <string name="top10Rating">Κορυφαίες 10 βαθμολογίες</string>
   <string name="fidePlayers">Παίκτες FIDE</string>
-  <string name="fidePlayerNotFound">Δε βρέθηκε παίκτης FIDE</string>
+  <string name="fidePlayerNotFound">Δε βρέθηκε κανένας παίκτης FIDE</string>
   <string name="fideProfile">Προφίλ FIDE</string>
   <string name="federation">Ομοσπονδία</string>
-  <string name="ageThisYear">Φετινή ηλικία</string>
+  <string name="ageThisYear">Ηλικία</string>
   <string name="unrated">Μη βαθμολογημένο</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
   <string name="openLichess">Άνοιγμα στο Lichess</string>
   <string name="teams">Ομάδες</string>
   <string name="boards">Σκακιέρες</string>
   <string name="overview">Επισκόπηση</string>
-  <string name="subscribeTitle">Εγγραφείτε για να ειδοποιείστε όταν ξεκινάει ο κάθε γύρος. Μπορείτε να εναλλάξετε μεταξύ του κουδουνιού ή των push ειδοποιήσεων για αναμεταδόσεις, στις προτιμήσεις του λογαριασμού σας.</string>
-  <string name="uploadImage">Ανεβάστε εικόνα τουρνουά</string>
+  <string name="subscribeTitle">Εγγραφείτε για να λαμβάνετε ειδοποίηση στην έναρξη κάθε γύρου. Μπορείτε να προσαρμόσετε τον τρόπο ειδοποίησης (bell ή push) στις ρυθμίσεις.</string>
+  <string name="uploadImage">Μεταφόρτωση εικόνας τουρνουά</string>
   <string name="noBoardsYet">Δεν υπάρχουν διαθέσιμες σκακιέρες ακόμα. Θα εμφανιστούν μόλις φορτωθούν οι παρτίδες.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Οι σκακιέρες μπορούν να φορτωθούν από μια πηγή ή μέσω του %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Οι σκακιέρες μπορούν να φορτωθούν από μια πηγή ή μέσω του %s</string>
   <string name="startsAfter">Ξεκινάει μετά από %s</string>
-  <string name="startVerySoon">Η αναμετάδοση θα ξεκινήσει πολύ σύντομα.</string>
-  <string name="notYetStarted">Η αναμετάδοση δεν έχει ξεκινήσει ακόμα.</string>
+  <string name="startVerySoon">Η μετάδοση θα ξεκινήσει σύντομα.</string>
+  <string name="notYetStarted">Η μετάδοση δεν έχει ξεκινήσει ακόμα.</string>
   <string name="officialWebsite">Επίσημη ιστοσελίδα</string>
   <string name="standings">Κατάταξη</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Επίσημη Κατάταξη</string>
+  <string name="officialStandings">Επίσημη κατάταξη</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Περισσότερες επιλογές στη %s</string>
   <string name="webmastersPage">σελίδα για webmasters</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Μια δημόσια πηγή PGN πολύ λειτουργεί σε πραγματικό χρόνο για αυτόν τον γύρο. Προσφέρουμε επίσης το %s για γρηγορότερο και αποτελεσματικότερο συγχρονισμό.</string>
-  <string name="embedThisBroadcast">Ενσωμάτωση αυτήν την αναμετάδοση στην ιστοσελίδα σας</string>
-  <string name="embedThisRound">Ενσωματώστε τον %s στην ιστοσελίδα σας</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Μια δημόσια πηγή PGN πραγματικού χρόνου για αυτόν τον γύρο. Το Lichess προσφέρει επίσης ένα %s για γρηγορότερο και αποτελεσματικότερο συγχρονισμό.</string>
+  <string name="embedThisBroadcast">Ενσωμάτωση μετάδοσης στην ιστοσελίδα σας</string>
+  <string name="embedThisRound">Ενσωμάτωση %s στην ιστοσελίδα σας</string>
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Παρτίδες σε αυτό το τουρνουά</string>
-  <string name="score">Βαθμολογία</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Όλες οι ομάδες</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Μορφή τουρνουά</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Τοποθεσία Τουρνουά</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Κορυφαίοι παίκτες</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Ζώνη ώρας</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Κατηγορία αξιολόγησης FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Προαιρετικές λεπτομέρειες</string>
-  <string name="pastBroadcasts">Προηγούμενες αναμεταδόσεις</string>
-  <string name="allBroadcastsByMonth">Προβολή όλων των αναμεταδόσεων ανά μήνα</string>
+  <string name="gamesThisTournament">Παρτίδες τουρνουά</string>
+  <string name="score">Βαθμοί</string>
+  <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="tournamentFormat">Μορφή τουρνουά</string>
+  <string name="tournamentLocation">Τοποθεσία τουρνουά</string>
+  <string name="topPlayers">Κορυφαίοι παίκτες</string>
+  <string name="timezone">Ζώνη ώρας</string>
+  <string name="fideRatingCategory">Κατηγορία αξιολόγησης FIDE</string>
+  <string name="optionalDetails">Προαιρετικές λεπτομέρειες</string>
+  <string name="pastBroadcasts">Προηγούμενες μεταδόσεις</string>
+  <string name="allBroadcastsByMonth">Προβολή όλων των μεταδόσεων ανά μήνα</string>
   <string name="backToLiveMove">Επιστροφή στην τρέχουσα κίνηση</string>
-  <string name="sinceHideResults">Εφόσον επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης είναι κενές ώστε να αποφευχθούν σπόιλερς.</string>
+  <string name="sinceHideResults">Επειδή επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης εμφανίζονται κενές ώστε να αποφευχθούν τα spoilers.</string>
+  <string name="liveboard">Ζωντανά</string>
 </resources>

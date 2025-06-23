@@ -481,7 +481,6 @@
   <string name="points">পয়েন্ট</string>
   <string name="wins">জয়</string>
   <string name="losses">পরাজয়</string>
-  <string name="createdBy">তৈরি করেছেন</string>
   <string name="standByX">অপেক্ষিত %s, যোগদান খেলোয়ার, তৈরি হও!</string>
   <string name="pause">বিরতি/Pause</string>
   <string name="resume">পুনরায় শুরু</string>

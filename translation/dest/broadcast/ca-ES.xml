@@ -58,31 +58,33 @@
   <string name="subscribeTitle">Subscriviu-vos per ser notificats quan comença cada ronda. Podeu activar/desactivara la campana o modificar les notificacions push a les preferències del vostre compte.</string>
   <string name="uploadImage">Puja una imatge del torneig</string>
   <string name="noBoardsYet">Encara no hi ha taulers. Apareixeran en el moment que es carreguin les partides.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Els taulers es poden carregar per codi o a través de %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Els taulers es poden carregar per codi o a través de %s</string>
   <string name="startsAfter">Començar a les %s</string>
   <string name="startVerySoon">La retransmissió començarà aviat.</string>
   <string name="notYetStarted">La retransmissió encara no ha començat.</string>
   <string name="officialWebsite">Lloc web oficial</string>
   <string name="standings">Classificació</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Classificació oficial</string>
+  <string name="officialStandings">Classificació oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Més opcions a la %s</string>
   <string name="webmastersPage">pàgina d\'administració</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Un origen públic en PGN públic en temps real d\'aquesta ronda. També oferim un %s per una sincronització més ràpida i eficient.</string>
   <string name="embedThisBroadcast">Incrusta aquesta retransmissió al vostre lloc web</string>
   <string name="embedThisRound">Incrusta %s al vostre lloc web</string>
   <string name="ratingDiff">Diferència puntuació</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partides en aquest torneig</string>
+  <string name="gamesThisTournament">Partides en aquest torneig</string>
   <string name="score">Puntuació</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Tots els equips</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Format del torneig</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Ubicació del torneig</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Millors jugadors</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zona horària</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Categoria puntuació FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Detalls opcionals</string>
+  <string name="allTeams">Tots els equips</string>
+  <string name="tournamentFormat">Format del torneig</string>
+  <string name="tournamentLocation">Ubicació del torneig</string>
+  <string name="topPlayers">Millors jugadors</string>
+  <string name="timezone">Zona horària</string>
+  <string name="fideRatingCategory">Categoria puntuació FIDE</string>
+  <string name="optionalDetails">Detalls opcionals</string>
   <string name="pastBroadcasts">Retransmissions finalitzades</string>
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
   <string name="backToLiveMove">Torna al moviment en directe</string>
   <string name="sinceHideResults">Ja que heu escollit amagar els resultats, la previsualització de tots els taulers està buida per tal d\'evitar espòilers.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Tauler en directe</string>
+  <string name="liveboard">Tauler en directe</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Retransmissió comunitària</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Creada i gestionada per %s.</string>
 </resources>

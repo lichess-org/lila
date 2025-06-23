@@ -482,7 +482,6 @@
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
   <string name="losses">باخت‌ها</string>
-  <string name="createdBy">ساخته شده توسط</string>
   <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="pause">توقف</string>
   <string name="resume">ادامه دادن</string>

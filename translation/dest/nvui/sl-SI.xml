@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Izbrani dogodki</string>
+  <string name="moveList">Seznam potez</string>
+  <string name="gameInfo">Informacije o igri</string>
+  <string name="pieces">Figure</string>
+  <string name="gameStatus">Stanje igre</string>
+  <string name="lastMove">Zadnja poteza</string>
+  <string name="inputForm">Obrazec za vnos ukazov</string>
+  <string name="actions">Dejanja</string>
+  <string name="yourClock">Tvoja ura</string>
+  <string name="opponentClock">Nasprotnikova ura</string>
   <string name="gameStart">Začetek igre</string>
   <string name="boardCommandList">Seznam ukazov, ko je plošča v fokusu</string>
   <string name="inputFormCommandList">V obrazec za vnos ukazov vnesite te ukaze.</string>

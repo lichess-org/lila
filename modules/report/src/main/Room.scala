@@ -45,3 +45,16 @@ object Room:
 
   def filterGranted(reports: List[Report])(using mod: Me) = reports.filter: r =>
     isGranted(r.room) && (r.user.isnt(mod) || mod.isSuperAdmin)
+
+  import lila.core.irc.ModDomain
+  import lila.core.perm.Granter
+  def ircDomain(room: Room)(using Me): ModDomain = room match
+    case Room.Cheat => ModDomain.Cheat
+    case Room.Boost => ModDomain.Boost
+    case Room.Comm  => ModDomain.Comm
+    // spontaneous inquiry
+    case _ if Granter(_.Admin)       => ModDomain.Admin
+    case _ if Granter(_.CheatHunter) => ModDomain.Cheat // heuristic
+    case _ if Granter(_.Shusher)     => ModDomain.Comm
+    case _ if Granter(_.BoostHunter) => ModDomain.Boost
+    case _                           => ModDomain.Admin

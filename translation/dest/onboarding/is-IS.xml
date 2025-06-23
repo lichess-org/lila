@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Skrá inn sem %s</string>
   <string name="welcome">Velkomin(n)!</string>
   <string name="welcomeToLichess">Velkomin(n) á lichess.org!</string>
   <string name="thisIsYourProfilePage">Þetta er forsíðan þín.</string>

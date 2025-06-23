@@ -101,7 +101,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               div(cls := "wrapper")(
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
-                  p(trp.weRelyOnSupport())
+                  p(trp.weRelyOnSupport()),
+                  p("Click donate to view payment options based on your device and currency.")
                 ),
                 div(cls := "content")(
                   div(
@@ -233,11 +234,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       ),
                       ctx.isAuth.option(
                         div(cls := "other-choices")(
-                          a(cls := "currency-toggle")(trans.patron.changeCurrency()),
-                          div(cls := "links")(
-                            a(cls := "stripe")("Google Pay"),
-                            a(cls := "stripe")("Apple Pay")
-                          )
+                          a(cls := "currency-toggle")(trans.patron.changeCurrency())
                         )
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(

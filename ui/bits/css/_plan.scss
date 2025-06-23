@@ -170,15 +170,19 @@
         @extend %flex-between;
         font-size: 1.1em;
 
+        $button-height: 55px;
+
         .button {
           flex: 1 1 auto;
           font-weight: normal;
           margin-inline-end: 1em;
-          height: 55px;
+          height: $button-height;
         }
 
         .paypal {
           display: flex;
+          height: $button-height;
+          overflow: hidden;
 
           iframe {
             color-scheme: normal;
@@ -187,14 +191,8 @@
       }
 
       .other-choices {
-        @extend %flex-between;
         margin-top: 1em;
         font-size: 1rem;
-        .links {
-          a {
-            margin-inline-start: 2em;
-          }
-        }
       }
       .currency {
         font-size: 1rem;

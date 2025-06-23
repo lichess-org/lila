@@ -378,7 +378,6 @@
   <string name="points">Баллар</string>
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
-  <string name="createdBy">Оештыручы</string>
   <string name="standByX">%s көтегез, уйнаучылар чиратлаштырыла, әзерләнегез!</string>
   <string name="pause">Туктату</string>
   <string name="resume">Дәвам итү</string>

@@ -23,8 +23,10 @@
   <string name="moveToPieceByType">Mova para uma peça digitando seu tipo. Use maiúscula para inverter a ordem.</string>
   <string name="moveToRank">Mova da coluna 1 para a 8.</string>
   <string name="moveToFile">Mova da fila a para a h.</string>
+  <string name="announcePieceLocations">Anunciar a localização das peças. Exemplo: p N maiúsculo para os cavalos brancos, p k minúsculo para o rei preto, p A maiúsculo para todas as peças brancas.</string>
+  <string name="announcePiecesOnRankOrFile">Anunciar peças em uma fileira ou coluna. Exemplo: s a, s 1.</string>
   <string name="goToBoard">Ir ao tabuleiro. A casa padrão é e4. Você pode especificar uma casa: board a-1 ou b a-1 te levará à casa a1.</string>
-  <string name="movePiece">Para mover uma peça, use a notação albébrica padrão.</string>
+  <string name="movePiece">Para mover uma peça, use a notação algébrica padrão.</string>
   <string name="promotion">Para não promover para uma dama, use \"equals\". Por exemplo, a-8-equals-n promove para um cavalo.</string>
   <string name="king">rei</string>
   <string name="whiteKing">rei branco</string>

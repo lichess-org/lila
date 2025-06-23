@@ -477,7 +477,6 @@
   <string name="points">अंक</string>
   <string name="wins">जीतें</string>
   <string name="losses">हारें</string>
-  <string name="createdBy">द्वारा रचित</string>
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="pause">ठहराव</string>
   <string name="resume">फिर से शुरू करें</string>
