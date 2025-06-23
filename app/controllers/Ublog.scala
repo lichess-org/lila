@@ -338,11 +338,11 @@ final class Ublog(env: Env) extends LilaController(env):
       Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 
   def search(text: String, by: BlogsBy, page: Int) = Open: ctx ?=>
-    val queryText = text.take(100).trim()
+    val queryText = text.take(100).trim
     NotForKids:
       for
         ids   <- env.ublog.search.fetchResults(queryText, by, Weak.some, page)
-        posts <- ids.mapFutureList(env.ublog.api.searchResultPreviews)
+        posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page  <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
 

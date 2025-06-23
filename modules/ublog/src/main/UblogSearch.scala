@@ -9,6 +9,7 @@ import lila.ublog.UblogAutomod.Quality
 
 final class UblogSearch(client: SearchClient, config: UblogConfig)(using Executor)
     extends SearchReadApi[UblogPostId, Query.Ublog]:
+
   lazy val builder = PaginatorBuilder(this, config.searchPageSize)
 
   def fetchResults(text: String, by: BlogsBy, minQualityOpt: Option[Quality], page: Int) =

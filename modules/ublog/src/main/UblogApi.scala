@@ -118,13 +118,13 @@ final class UblogApi(
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
 
-  def searchResultPreviews(ids: Seq[UblogPostId]): Future[Seq[UblogPost.PreviewPost]] = ids.nonEmpty.so:
+  def postPreviews(ids: Seq[UblogPostId]): Future[Seq[UblogPost.PreviewPost]] = ids.nonEmpty.so:
     colls.post
       .find($inIds(ids) ++ $doc("live" -> true), previewPostProjection.some)
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(config.searchPageSize.value)
       .map: results =>
-        ids.collect(results.iterator.map(p => p.id -> p).toMap) // lila-search order
+        ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
   def recommend(blog: UblogBlog.Id, post: UblogPost)(using kid: KidMode): Fu[List[UblogPost.PreviewPost]] =
     for
@@ -166,7 +166,7 @@ final class UblogApi(
       automodNotes
     )
 
-  private def triggerAutomod(post: UblogPost)(andThen: (mod: Option[UblogAutomod.Assessment]) => Unit) =
+  private def triggerAutomod(post: UblogPost)(andThen: (mod: Option[UblogAutomod.Assessment]) => Unit): Unit =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     if post.live then attempt()
 
@@ -174,7 +174,7 @@ final class UblogApi(
       automod(post)
         .flatMapz: mod =>
           andThen(mod.some)
-          colls.post.update.one($id(post.id), $set("automod" -> mod)).void
+          colls.post.updateField($id(post.id), "automod", mod).void
         .recover: e =>
           if n < retries then scheduler.scheduleOnce((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
