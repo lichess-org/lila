@@ -185,28 +185,14 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .flatMap:
-        case None         => Redirect(routes.Report.list)
-        case Some(report) =>
+        _.fold(Redirect(routes.Report.list).toFuccess): report =>
           Found(env.user.repo.byId(report.user)): user =>
-            import lila.report.Room
-            import lila.core.irc.ModDomain
-            env.irc.api
-              .inquiry(
+            for _ <- env.irc.api.inquiry(
                 user = user.light,
-                domain = report.room match
-                  case Room.Cheat => ModDomain.Cheat
-                  case Room.Boost => ModDomain.Boost
-                  case Room.Comm  => ModDomain.Comm
-                  // spontaneous inquiry
-                  case _ if isGranted(_.Admin)       => ModDomain.Admin
-                  case _ if isGranted(_.CheatHunter) => ModDomain.Cheat // heuristic
-                  case _ if isGranted(_.Shusher)     => ModDomain.Comm
-                  case _ if isGranted(_.BoostHunter) => ModDomain.Boost
-                  case _                             => ModDomain.Admin
-                ,
+                domain = lila.report.Room.ircDomain(report.room),
                 room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
               )
-              .inject(NoContent)
+            yield NoContent
   }
 
   def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>

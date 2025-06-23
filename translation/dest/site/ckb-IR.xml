@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
   <string name="currentGames">یارییەکانی ئێستا</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s بەشدار بووە</string>
+  <string name="joinedX">%s بەشدار بووە</string>
   <plurals name="nbGames">
     <item quantity="one">%s یاری</item>
     <item quantity="other">%s یاریەکان</item>
@@ -493,7 +493,6 @@
   <string name="points">خاڵەکان</string>
   <string name="wins">براوە</string>
   <string name="losses">دۆڕان</string>
-  <string name="createdBy">دروستکراوە لەلایەن</string>
   <string name="startingIn" comment="Displayed above a timer">دەستپێدەکات لە</string>
   <string name="standByX">لەم بەشە بوەستە %s, یاریزانە بەشداربوەکان, ئامادەبە!</string>
   <string name="pause">وەستان</string>

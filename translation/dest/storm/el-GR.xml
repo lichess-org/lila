@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Μετακινήστε ένα κομμάτι για να αρχίσετε</string>
+  <string name="moveToStart">Κάντε μια κίνηση για να ξεκινήσετε</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Παίζετε με τα λευκά σε όλους τους γρίφους</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Παίζετε με τα μαύρα σε όλους τους γρίφους</string>
-  <string name="puzzlesSolved">λυμένοι γρίφοι</string>
+  <string name="puzzlesSolved">λυμένα τακτικά</string>
   <string name="newDailyHighscore">Νέο ημερήσιο ρεκόρ!</string>
   <string name="newWeeklyHighscore">Νέο εβδομαδιαίο ρεκόρ!</string>
   <string name="newMonthlyHighscore">Νέο μηνιαίο ρεκόρ!</string>
@@ -44,19 +44,19 @@
   <string name="nextRace">Επόμενος αγώνας</string>
   <string name="joinRematch">Συμμετοχή στη ρεβάνς</string>
   <string name="waitingToStart">Αναμονή για έναρξη</string>
-  <string name="createNewGame">Νέο παιχνίδι</string>
+  <string name="createNewGame">Νέος αγώνας</string>
   <string name="joinPublicRace">Συμμετοχή σε δημόσιο αγώνα</string>
   <string name="raceYourFriends">Συμμετοχή σε αγώνα με φίλους</string>
   <string name="skip">παράλειψη</string>
   <string name="skipHelp">Μπορείτε να παραλείψετε μία κίνηση σε κάθε αγώνα:</string>
   <string name="skipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το combo σας! Αυτό μπορείτε να το κάνετε μόνο μία φορά σε κάθε αγώνα.</string>
-  <string name="failedPuzzles">Γρίφοι που δε λύθηκαν σωστά</string>
-  <string name="slowPuzzles">Γρίφοι που λύθηκαν αργά</string>
-  <string name="skippedPuzzle">Γρίφος με κίνηση που παραλείφθηκε</string>
+  <string name="failedPuzzles">Τακτικά που δε λύθηκαν σωστά</string>
+  <string name="slowPuzzles">Τακτικά που λύθηκαν αργά</string>
+  <string name="skippedPuzzle">Τακτικό με κίνηση που παραλείφθηκε</string>
   <string name="thisWeek">Αυτήν την εβδομάδα</string>
   <string name="thisMonth">Aυτόν τον μήνα</string>
-  <string name="allTime">Από την αρχή</string>
-  <string name="clickToReload">Κάντε κλικ για να ανανεώσετε τη σελίδα</string>
+  <string name="allTime">Όλων των εποχών</string>
+  <string name="clickToReload">Επαναφόρτωση σελίδας</string>
   <string name="thisRunHasExpired">Αυτός ο γύρος έχει τελειώσει!</string>
   <string name="thisRunWasOpenedInAnotherTab">Αυτός ο γύρος είναι ανοιχτός σε άλλη καρτέλα!</string>
 </resources>

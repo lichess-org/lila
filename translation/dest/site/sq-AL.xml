@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Barazim me marrëveshje</string>
   <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Erdhi %s</string>
+  <string name="joinedX">Erdhi %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
@@ -495,7 +495,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="points">Pikë</string>
   <string name="wins">Fitore</string>
   <string name="losses">Humbje</string>
-  <string name="createdBy">Krijuar nga</string>
   <string name="startingIn" comment="Displayed above a timer">Fillon më</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>

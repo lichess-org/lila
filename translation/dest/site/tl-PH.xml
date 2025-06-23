@@ -167,6 +167,7 @@
   <string name="drawByMutualAgreement">Iguhit sa pamamagitan ng kasunduan sa isa\'t isa</string>
   <string name="fiftyMovesWithoutProgress">Limampu\'t gumagalaw nang walang pag-unlad</string>
   <string name="currentGames">Mga laro ngayon</string>
+  <string name="joinedX">Sumali %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s na laro</item>
     <item quantity="other">%s na mga laro</item>
@@ -348,6 +349,10 @@
     <item quantity="one">%s pagaaral</item>
     <item quantity="other">%s mga pagaaral</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="other">%s simul</item>
+  </plurals>
   <string name="viewTournament">Tingnan ang paligsahan</string>
   <string name="backToTournament">Bumalik sa paligsahan</string>
   <string name="thematic">Pangpakay</string>
@@ -461,7 +466,6 @@
   <string name="points">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
-  <string name="createdBy">Ginawa ni</string>
   <string name="startingIn" comment="Displayed above a timer">Nagsisimula sa</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>

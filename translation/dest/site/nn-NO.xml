@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remis etter semje</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk utan framgang</string>
   <string name="currentGames">Parti som blir spela no</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Vart med %s</string>
+  <string name="joinedX">Vart med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -494,7 +494,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="points">Poeng</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tap</string>
-  <string name="createdBy">Oppretta av</string>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
