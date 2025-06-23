@@ -111,9 +111,7 @@ final class UblogPaginator(
           maxPerPage = maxPerPage
         )
 
-  private def selectQuality(q: Quality) =
-    // maybe we should require automod.quality, but allow unassessed for now
-    $or($doc("automod.quality".$exists(false)), $doc("automod.quality".$gte(q.ordinal)))
+  private def selectQuality(q: Quality) = $doc("automod.quality".$gte(q.ordinal))
 
   object liveByFollowed:
 
