@@ -115,33 +115,34 @@ object TreeBuilder:
       logChessError: LogChessError
   )(info: Info): Branch =
 
-    def makeBranch(g: chess.Game, m: Uci.WithSan) =
-      val fen = Fen.write(g)
+    def makeBranch(m: chess.MoveOrDrop, ply: Ply): Branch =
+      val fen = Fen.write(m.after, ply.fullMoveNumber)
       Branch(
-        id = UciCharPair(m.uci),
-        ply = g.ply,
-        move = m,
+        id = UciCharPair(m.toUci),
+        ply = ply,
+        move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = fen,
-        check = g.position.check,
+        check = m.after.position.check,
         opening = openingOf(fen),
-        crazyData = g.position.crazyData,
+        crazyData = m.after.position.crazyData,
         eval = none
       )
 
-    chess.Replay.gameMoveWhileValid(info.variation.take(20), fromFen, variant) match
-      case (_, games, error) =>
-        error.foreach: err =>
-          logChessError(formatError(id, err))
-        games.reverse match
-          case Nil            => root
-          case (g, m) :: rest =>
-            root.addChild(
-              rest
-                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
-                  makeBranch(g, m).addChild(node)
-                }
-                .setComp
-            )
+    val position = chess.Position.AndFullMoveNumber(variant, fromFen.some)
+    position.position
+      .refoldRight(info.variation.take(20), position.ply)(
+        none[Branch],
+        (step, acc) =>
+          inline def branch = makeBranch(step.move, step.ply)
+          acc.fold(branch)(acc => branch.addChild(acc)).some
+      )
+      .match
+        case Right(result) =>
+          result.error.foreach(e => logChessError(formatError(id, e)))
+          result.result.fold(root)(b => root.addChild(b.setComp))
+        case Left(error) =>
+          logChessError(formatError(id, error))
+          root
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"
