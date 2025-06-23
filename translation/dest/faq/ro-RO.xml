@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Unele pagini Lichess au comenzi rapide de tastatură pe care le puteți folosi. Încercați să apăsați tasta \'?\' la un studiu, analiză, puzzle sau în pagina jocului pentru a afișa scurtăturile de tastatură disponibile.</string>
   <string name="fairPlay">Joc Corect</string>
   <string name="whenAmIEligibleRatinRefund">Cănd sunt eligibil să primesc automat înapoi scorul pierdut din cauza cheaterilor?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
+  <string name="ratingRefundExplanation">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
   <string name="preventLeavingGameWithoutResigning">Ce se face împotriva jucătorilor care abandonează un meci fară sa se predea?</string>
   <string name="leavingGameWithoutResigningExplanation">Daca oponentul tău anulează/iese dintr-un meci frecvent, vor primi \"play ban\", ceea ce înseamnă că sunt blocați temporar din a mai juca partide. Acest lucru nu este indicat public pe profilul lor. Dacă acest comportament continuă, lungimea blocării temporare crește - și acest comportament prelungit poate duce la închiderea contului.</string>
   <string name="howCanIBecomeModerator">Cum pot deveni un moderator?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Cum sunt decise controalele de timp Bullet, Blitz și alte?</string>
   <string name="basedOnGameDuration">Controalele de timp sunt bazate pe durata de joc estimată = %1$s
 De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de secunde.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(timpul inițial pe ceas) + 40 × (crestere pe ceas)</string>
+  <string name="durationFormula">(timpul inițial pe ceas) + 40 × (crestere pe ceas)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>
@@ -96,12 +96,11 @@ Nu cere titlul LM.</string>
   <string name="usernamesNotOffensive">În general, numele de utilizator nu ar trebui să fie: ofensiv, să nu fie numele altcuiva sau publicitate. Puteți citi %1$s aici.</string>
   <string name="guidelines">instrucțiunile</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
+  <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
   <string name="uniqueTrophies">Trofee unice</string>
   <string name="ownerUniqueTrophies">Acest trofeu este unic în istoria Lichess, nimeni înafară de %1$s nu îl va avea vreodată.</string>
-  <string name="wayOfBerserkExplanation">Pentru a-l obține, hiimgosu a înnebunit și s-a provocat să câştige 100%% din jocurile de %s.</string>
   <string name="aHourlyBulletTournament">turneu de o oră de Bullet</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
+  <string name="goldenZeeExplanation">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
   <string name="lichessRatings">Scoruri Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Ce sistem de scor folosește Licehss?</string>
   <string name="ratingSystemUsedByLichess">Scorurile sunt calculate folosind metoda Glicko-2 creată de Mark Glickman. Aceasta este o metoda de calculare a scorului foarte populară, și este folosit de un număr mare de organizații de șah (FIDE ar fi un contraexemplu, fiindcă ei încă folosesc metoda veche de tip Elo).
@@ -149,7 +148,7 @@ Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la
 Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedică lichess.org să ruleze un sunet. De obicei, această restricţie este ridicată odată ce faceţi clic pe ceva. Pe unele browsere mobile, atingerea sau glisarea unei piese nu contează ca un click. În acest caz trebuie să atingeți tabla pentru a permite sunetul la începutul fiecărui joc.
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
+  <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
 2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
 3. Faceți clic pe fila Permisiuni
@@ -167,11 +166,11 @@ Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lu
 3. Faceți clic pe Cookie-uri și Permisiunile site-ului
 4. Derulați în jos și apăsați pe Media autoplay
 5. Adăugați lichess.org pentru a permite</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Să mă opresc din a juca?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">afecţiuni mintale autonome</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Stiluri utilizatori Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">mai puține lobby-uri</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Primim în mod regulat mesaje de la utilizatori care ne cer ajutor pentru a-i opri să joace prea mult.
+  <string name="stopMyselfFromPlaying">Să mă opresc din a juca?</string>
+  <string name="mentalHealthCondition">afecţiuni mintale autonome</string>
+  <string name="lichessUserstyles">Stiluri utilizatori Lichess</string>
+  <string name="fewerLobbyPools">mai puține lobby-uri</string>
+  <string name="adviceOnMitigatingAddiction">Primim în mod regulat mesaje de la utilizatori care ne cer ajutor pentru a-i opri să joace prea mult.
 
 în timp ce Lichess nu interzice sau blochează jucătorii decât pentru încălcări ale Termenilor de utilizare, recomandăm utilizarea de instrumente externe pentru a limita comportamentul excesiv de joacă. Unele sugestii comune pentru blocantele website-urilor includ %1$s, %2$sși %3$s. Dacă doriţi să continuaţi să utilizaţi site-ul dar nu sunteţi tentat de comenzile rapide ați putea fi interesat și de %4$s, aici este unul cu %5$s.
 
