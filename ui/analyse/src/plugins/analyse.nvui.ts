@@ -590,12 +590,12 @@ const nvuiInsertHook = (callback: () => void) => {
   return onInsert(el => {
     el.addEventListener('click', () => {
       callback();
-      focus(el); // ? do we always want this?
+      focus(el); // ? do we always want this? A: stops sr from focusing top
     });
     el.addEventListener('keydown', ev => {
       if (ev.key !== 'Enter') return;
       callback();
-      focus(el); // ? do we always want this?
+      focus(el);
     });
   });
 };
