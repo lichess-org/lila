@@ -232,7 +232,7 @@ final class UblogApi(
                 $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
               ),
               UnwindField("blog"),
-              Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers", "title" -> true)))
+              Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
             )
           .map: docOption =>
             for
