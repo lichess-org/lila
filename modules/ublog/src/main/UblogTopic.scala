@@ -48,9 +48,8 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
         UblogTopic.all
           .map: topic =>
             for
-              count <- colls.post.countSel:
+              count <- colls.post.secondary.countSel:
                 $doc("live" -> true, "topics" -> topic, "automod.quality" -> $ne(0))
-
               posts <- colls.post
                 .find(
                   $doc(

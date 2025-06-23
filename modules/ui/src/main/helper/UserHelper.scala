@@ -148,7 +148,7 @@ trait UserHelper:
     withOnline.so(lineIcon(user)),
     withTitle.option(titleTag(user.title)),
     name | user.username,
-    withFlair.option(userFlair(user)),
+    withFlair.so(userFlair(user)),
     withPerfRating.map(userRating)
   )
 

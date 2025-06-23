@@ -75,10 +75,9 @@ final class UblogPaginator(
       by: BlogsBy,
       page: Int
   ): Fu[Paginator[PreviewPost]] =
-    val q =
-      topic match
-        case UblogTopic.offTopic => if filter then Weak else Spam
-        case _                   => if filter then Good else Weak
+    val q = topic match
+      case UblogTopic.offTopic => if filter then Weak else Spam
+      case _                   => if filter then Good else Weak
 
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
