@@ -31,7 +31,7 @@
     <item quantity="other">%s Memberen</item>
   </plurals>
   <string name="inviteToTheStudy">An d\'Etüd alueden</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Wannechgelift invitéier just Leit déi du kenns an déi aktiv un der Etüd matwierken wëllen.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Invitéier wgl. just Leit, déi s de kenns an déi aktiv bei der Etüd matmaache wëllen.</string>
   <string name="searchByUsername">No Benotzernumm sichen</string>
   <string name="spectator">Zuschauer</string>
   <string name="contributor">Matwierkenden</string>
@@ -164,11 +164,23 @@
   <string name="whatWouldYouPlay">Wat géifs du an dëser Stellung spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Säit</string>
+  <string name="welcomeToLichessStudyTitle">Wëllkomm op Lichess Study!</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeelt a gespäichert</string>
+  <string name="studyMembersTitle">Membere vun der Etüd</string>
+  <string name="studyChaptersTitle">Etüdekapitel</string>
+  <string name="studyChaptersText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet eng eegen Ausgangsstellung an en eegene Variantebam.</string>
   <string name="commentPositionTitle">Eng Stellung kommentéieren</string>
   <string name="conclusionTitle">Merci fir deng Zäit</string>
+  <string name="conclusionText">Du fënns deng &lt;a href=\'/study/mine/hot\'&gt;vireg Etüden&lt;/a&gt; op denger Profilsäit.&lt;br&gt;Et gëtt och e &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;Blog-Bäitrag iwwer Etüden&lt;/a&gt;.&lt;br&gt;Power-Benotzer wëlle villäicht op „?“ drécke fir d\'Tastatur-Ofkierzungen ze gesinn.&lt;br&gt;Vill Spaass!</string>
+  <string name="createChapterTitle">Looss eis en Etüdekapitel uleeën</string>
+  <string name="createChapterText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet en eegene Variantebam,&lt;br&gt;a kann op verschidde Manéieren ugeluecht ginn.</string>
   <string name="fromInitialPositionTitle">Vun der Ausgangsstellung aus</string>
   <string name="customPositionTitle">Benotzerdefinéiert Stellung</string>
   <string name="fromFenStringTitle">Vun enger FEN-Zeecheketten</string>
   <string name="fromPgnGameTitle">Aus enger PGN-Partie</string>
+  <string name="variantsAreSupportedTitle">Etüden ënnerstëtze Schachvarianten</string>
+  <string name="variantsAreSupportedText">Jo, du kanns Crazyhouse&lt;br&gt;an all aner Lichess-Variante studéieren!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Duebel Néierlag</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
 </resources>
