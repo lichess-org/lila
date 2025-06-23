@@ -221,7 +221,7 @@ final class UblogApi(
     colls.post.update
       .one(
         $id(postId),
-        if v then $addToSet("likers" -> me.userId) else $pull("likers" -> me.userId)
+        $addOrPull("likers", me.userId, v)
       )
       .flatMap: res =>
         colls.post
