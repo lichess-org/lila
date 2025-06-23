@@ -33,7 +33,7 @@
   <string name="durationFormula">(Ufankszäit a Sekonnen) + 40 × (Inkrement pro Zuch)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
-  <string name="whatVariantsCanIplay">Wéieng Varianten kann ech op Lichess spillen?</string>
+  <string name="whatVariantsCanIplay">Wéi eng Schachvariante kann ech op Lichess spillen?</string>
   <string name="lichessSupportChessAnd">Lichess ënnerstëtzt Standardschach an %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Wat ass den duerchschnëttlechen Honnertselbauerverloscht (ACPL)?</string>
