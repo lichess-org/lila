@@ -83,8 +83,8 @@ object TreeBuilder:
                 withAnalysisChild(
                   game.id,
                   branch,
-                  game.variant,
-                  Fen.write(fromGame),
+                  fromGame.position,
+                  fromGame.ply,
                   openingOf,
                   logChessError
                 )(adv.info)
@@ -109,8 +109,8 @@ object TreeBuilder:
   private def withAnalysisChild(
       id: GameId,
       root: Branch,
-      variant: Variant,
-      fromFen: Fen.Full,
+      position: chess.Position,
+      ply: Ply,
       openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Branch =
@@ -128,9 +128,8 @@ object TreeBuilder:
         eval = none
       )
 
-    val position = chess.Position.AndFullMoveNumber(variant, fromFen.some)
-    position.position
-      .refoldRight(info.variation.take(20), position.ply)(
+    position
+      .refoldRight(info.variation.take(20), ply)(
         none[Branch],
         (step, acc) =>
           inline def branch = makeBranch(step.move, step.ply)
