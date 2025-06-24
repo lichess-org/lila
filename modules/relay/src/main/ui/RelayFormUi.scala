@@ -414,7 +414,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(Esm("bits.relayTourForm"))
+        .js(List(esmInitBit("relayForm"), Esm("bits.relayTourForm")).map(some))
         .wrap: body =>
           main(cls := "page page-menu")(
             menu.fold(tourUi.pageMenu(_), navigationMenu),
