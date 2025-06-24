@@ -2,41 +2,41 @@ import { Pieces, Pos } from '@lichess-org/chessground/types';
 import { key2pos, pos2key } from '@lichess-org/chessground/util';
 import { keyFromAttrs, MoveStyle, renderKey, transPieceStr } from './chess';
 
-type Ray = 'top' | 'topRight' | 'right' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'left' | 'topLeft';
+const directions = ['top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'];
+type Direction = (typeof directions)[number];
 
-function getKeysOnRay(originKey: Key, ray: Ray, pov: Color): Key[] {
+function getKeysOnRay(originKey: Key, direction: Direction, pov: Color): Key[] {
   const originPos = key2pos(originKey);
-  const fileIndex = originPos[0];
-  const rankIndex = originPos[1];
-
+  const [fileIndex, rankIndex] = originPos;
+  const asWhite = pov === 'white';
   const result = [] as Key[];
 
   for (let d = 1; d < 8; d++) {
     let possibleKey = [-1, -1];
-    switch (ray) {
+    switch (direction) {
       case 'top':
-        possibleKey = pov === 'white' ? [fileIndex, rankIndex + d] : [fileIndex, rankIndex - d];
+        possibleKey = asWhite ? [fileIndex, rankIndex + d] : [fileIndex, rankIndex - d];
         break;
       case 'topRight':
-        possibleKey = pov === 'white' ? [fileIndex + d, rankIndex + d] : [fileIndex - d, rankIndex - d];
+        possibleKey = asWhite ? [fileIndex + d, rankIndex + d] : [fileIndex - d, rankIndex - d];
         break;
       case 'right':
-        possibleKey = pov === 'white' ? [fileIndex + d, rankIndex] : [fileIndex - d, rankIndex];
+        possibleKey = asWhite ? [fileIndex + d, rankIndex] : [fileIndex - d, rankIndex];
         break;
       case 'bottomRight':
-        possibleKey = pov === 'white' ? [fileIndex + d, rankIndex - d] : [fileIndex - d, rankIndex + d];
+        possibleKey = asWhite ? [fileIndex + d, rankIndex - d] : [fileIndex - d, rankIndex + d];
         break;
       case 'bottom':
-        possibleKey = pov === 'white' ? [fileIndex, rankIndex - d] : [fileIndex, rankIndex + d];
+        possibleKey = asWhite ? [fileIndex, rankIndex - d] : [fileIndex, rankIndex + d];
         break;
       case 'bottomLeft':
-        possibleKey = pov === 'white' ? [fileIndex - d, rankIndex - d] : [fileIndex + d, rankIndex + d];
+        possibleKey = asWhite ? [fileIndex - d, rankIndex - d] : [fileIndex + d, rankIndex + d];
         break;
       case 'left':
-        possibleKey = pov === 'white' ? [fileIndex - d, rankIndex] : [fileIndex + d, rankIndex];
+        possibleKey = asWhite ? [fileIndex - d, rankIndex] : [fileIndex + d, rankIndex];
         break;
       case 'topLeft':
-        possibleKey = pov === 'white' ? [fileIndex - d, rankIndex + d] : [fileIndex + d, rankIndex - d];
+        possibleKey = asWhite ? [fileIndex - d, rankIndex + d] : [fileIndex + d, rankIndex - d];
         break;
     }
     if (possibleKey[0] > -1 && possibleKey[0] < 8 && possibleKey[1] > -1 && possibleKey[1] < 8)
@@ -50,34 +50,24 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
     const originKey = keyFromAttrs(target) as Key;
-    const currentRay: Ray | null = target.getAttribute('ray') as Ray;
-    const directions: Ray[] = [
-      'top',
-      'topRight',
-      'right',
-      'bottomRight',
-      'bottom',
-      'bottomLeft',
-      'left',
-      'topLeft',
-    ];
+    const currentDirection: Direction | null = target.getAttribute('ray') as Direction | null;
 
     let nextRay: Key[] = [];
     let nextDirectionIndex = 0;
 
-    if (currentRay == null) {
+    if (currentDirection == null) {
       nextDirectionIndex = ev.altKey ? 0 : 1;
     } else {
-      nextDirectionIndex = directions.indexOf(currentRay);
+      nextDirectionIndex = directions.indexOf(currentDirection);
       if ((ev.altKey && nextDirectionIndex % 2 === 0) || (!ev.altKey && nextDirectionIndex % 2 === 1))
-        nextDirectionIndex = ev.shiftKey ? (nextDirectionIndex + 6) % 8 : (nextDirectionIndex + 2) % 8;
-      else nextDirectionIndex = ev.shiftKey ? (nextDirectionIndex + 7) % 8 : (nextDirectionIndex + 1) % 8;
+        nextDirectionIndex = (nextDirectionIndex + (ev.shiftKey ? 6 : 2)) % 8;
+      else nextDirectionIndex = (nextDirectionIndex + (ev.shiftKey ? 7 : 1)) % 8;
     }
 
     for (let i = 0; i < 4; i++) {
       const rayKeys = getKeysOnRay(originKey, directions[nextDirectionIndex], pov);
       if (rayKeys.length == 0) {
-        nextDirectionIndex = ev.shiftKey ? (nextDirectionIndex + 6) % 8 : (nextDirectionIndex + 2) % 8;
+        nextDirectionIndex = (nextDirectionIndex + (ev.shiftKey ? 6 : 2)) % 8;
       } else {
         nextRay = rayKeys;
         target.setAttribute('ray', directions[nextDirectionIndex]);
