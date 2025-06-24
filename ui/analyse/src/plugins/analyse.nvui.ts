@@ -759,7 +759,7 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
       );
     }
 
-    return h("aside", elements)
+    return h('aside', elements);
   } // No analysis, return request Analysis btn.
   return requestAnalyseBtn(ctrl);
 }
