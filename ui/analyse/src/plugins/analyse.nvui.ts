@@ -112,7 +112,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: nvuiInsertHook(() => (ctrl.explorer.toggle(), ctrl.redraw())),
                   },
-                  i18n.site.openingExplorerAndTablebase,
+                  h('h6', i18n.site.openingExplorerAndTablebase),
                 ),
                 explorerView(ctrl),
               ]
@@ -146,7 +146,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               },
             },
             [
-              h('label', [
+              h('h4', [
                 'Command input',
                 h('input.move.mousetrap', {
                   attrs: { name: 'move', type: 'text', autocomplete: 'off' },
@@ -156,6 +156,23 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
           ),
           notify.render(),
           h('h2', 'Computer analysis'),
+          //h('button', {
+          //hook: nvuiInsertHook(() => (ctrl.toggleRetro(), ctrl.redraw())),
+          //attrs: { 'aria-label': 'toggle learn from your mistakes' },
+          //}),
+          //h(
+          //'button',
+          //{
+          //hook: nvuiInsertHook(() => {
+          //ctrl.toggleRetro();
+          //notify.set('Learn from your mistakes');
+          //ctrl.nvuiLearning = !ctrl.nvuiLearning;
+          //ctrl.redraw();
+          //}),
+          //},
+          //'Learn from your mistakes',
+          //),
+
           renderComputerAnalysis(ctrl, notify, moveStyle.get()),
           h('h2', 'Board'),
           h(
@@ -228,12 +245,12 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
             },
           }),
           h('h2', i18n.site.advancedSettings),
-          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+          h('h4', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
-          h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-          h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+          h('h4', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+          h('h4', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+          h('h4', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+          h('h4', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', i18n.site.keyboardShortcuts),
           h(
             'p',
@@ -270,14 +287,14 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
 }
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
-  return h('div.choices', [
+  return h('aside', [
     h(
       'button',
       {
         hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      i18n.site.viewTheSolution,
+      h('h6', i18n.site.viewTheSolution),
     ),
     h(
       'button',
@@ -285,19 +302,19 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
         hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      i18n.site.skipThisMove,
+      h('h6', i18n.site.skipThisMove),
     ),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
   return h(
-    'button.half.continue',
+    'button',
     {
       hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
       attrs: { 'aria-label': 'Jump to next', tabindex: '0' },
     },
-    [i18n.site.next],
+    h('h6', i18n.site.next),
   );
 }
 
@@ -306,14 +323,8 @@ const maxDepth = 18;
 
 function renderEvalProgress(node: Tree.Node): VNode {
   return h(
-    'div.progress',
-    h('div', {
-      attrs: {
-        style: `width: ${
-          node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0
-        }`,
-      },
-    }),
+    'h4',
+    `${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0}`,
   );
 }
 
@@ -335,7 +346,7 @@ const feedback = {
           ),
         ),
         h(
-          'em',
+          'h4',
           { attrs: { 'aria-live': 'polite' } },
           i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
         ),
@@ -347,29 +358,25 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('aside', [
-        h('div', [
-          h('strong', { 'aria-live': 'assertive' }, i18n.site.youBrowsedAway),
-          h('div', [
-            h(
-              'button',
-              {
-                tabindex: '0',
-                hook: nvuiInsertHook(ctrl.jumpToNext),
-              },
-              i18n.site.resumeLearning,
-            ),
-          ]),
-        ]),
+        h('h3', { 'aria-live': 'assertive' }, i18n.site.youBrowsedAway),
+        h(
+          'button',
+          {
+            tabindex: '0',
+            hook: nvuiInsertHook(ctrl.jumpToNext),
+          },
+          h('h6', i18n.site.resumeLearning),
+        ),
       ]),
     ];
   },
   fail(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', [
+      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
         h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
         h(
-          'em',
-          { attrs: { 'aria-live': 'polite' } },
+          'h4',
+          { attrs: { 'aria-live': 'assertive' } },
           i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
         ),
         skipOrViewSolution(ctrl),
@@ -378,13 +385,16 @@ const feedback = {
   },
   win(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', [h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove), jumpToNext(ctrl)]),
+      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
+        h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove),
+        jumpToNext(ctrl),
+      ]),
     ];
   },
   view(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', { attrs: { 'tab-index': '0' } }, [
-        h('h3', { attrs: { 'aria-live': 'polite' } }, i18n.site.solution),
+      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
+        h('h3', i18n.site.solution),
         h('h4', renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)),
         jumpToNext(ctrl),
       ]),
@@ -392,7 +402,7 @@ const feedback = {
   },
   eval(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', [
+      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
         h('h3', { atters: { 'aria-live': 'polite' } }, i18n.site.evaluatingYourMove),
         h('h4', { attrs: { 'aria-label': 'eval progress' } }, renderEvalProgress(ctrl.node())),
       ]),
@@ -400,12 +410,18 @@ const feedback = {
   },
   end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
     if (!hasFullComputerAnalysis())
-      return [h('aside', h('h3', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis))];
+      return [
+        h(
+          'aside',
+          { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } },
+          h('h3', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
+        ),
+      ];
     const nothing = !ctrl.completion()[1];
     return [
       h('div', [
         h(
-          'em',
+          'h4',
           { attrs: { 'aria-live': 'polite' } },
           i18n.site[
             nothing
@@ -417,7 +433,7 @@ const feedback = {
                 : 'doneReviewingBlackMistakes'
           ],
         ),
-        h('div.choices.end', [
+        h('div', [
           nothing
             ? null
             : h(
@@ -429,7 +445,7 @@ const feedback = {
                   key: 'reset',
                   hook: nvuiInsertHook(ctrl.reset),
                 },
-                i18n.site.doItAgain,
+                h('h6', i18n.site.doItAgain),
               ),
           h(
             'button',
@@ -440,7 +456,7 @@ const feedback = {
               key: 'flip',
               hook: nvuiInsertHook(ctrl.flip),
             },
-            i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+            h('h6', i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes']),
           ),
         ]),
       ]),
@@ -539,18 +555,14 @@ const playerByColor = (d: AnalyseData, color: Color): Player =>
 const jumpNextLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, -1);
 
-const focus = (el: HTMLElement) => el.focus();
-
 const nvuiInsertHook = (callback: () => void) => {
   return onInsert(el => {
     el.addEventListener('click', () => {
       callback();
-      focus(el); // ? do we always want this? A: stops sr from focusing top
     });
     el.addEventListener('keydown', ev => {
       if (ev.key !== 'Enter') return;
       callback();
-      focus(el);
     });
   });
 };
@@ -626,29 +638,25 @@ function renderRetro(root: AnalyseCtrl): VNode | undefined {
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
 
-  return h('div.retro-box.training-box.sub-box', [
-    h('div.title', [
+  return (
+    h('section', { attrs: { 'aria-atomic': 'true' } }, [
       h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
       h(
-        'p',
+        'h6',
         { attrs: { 'aria-label': 'mistake number' } },
         `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
       ),
-      h('button.fbt', {
-        hook: nvuiInsertHook(() => (root.toggleRetro(), root.redraw())),
-        attrs: { 'aria-label': 'toggle learn from your mistakes' },
-      }),
     ]),
-    h('div.feedback.' + fb, { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb)),
-  ]);
+    h('aside', { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb))
+  );
 }
 
 function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   const result = renderResult(ctrl);
   const res = result.length ? result : 'No result';
   return [
-    h('h2', 'Game status'),
-    h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
+    h('h3', 'Game status'),
+    h('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
   ];
 }
 
@@ -658,21 +666,6 @@ function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle): VNodeChildren {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
     return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
   }
-}
-
-function renderLFYMButton(ctrl: AnalyseCtrl, notify: Notify): VNode {
-  return h(
-    'button',
-    {
-      hook: nvuiInsertHook(() => {
-        ctrl.toggleRetro();
-        notify.set('Learn from your mistakes');
-        ctrl.nvuiLearning = !ctrl.nvuiLearning;
-        ctrl.redraw();
-      }),
-    },
-    'Learn from your mistakes',
-  );
 }
 
 function onSubmit(ctrl: AnalyseCtrl, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
@@ -716,7 +709,7 @@ function requestAnalBtn(ctrl: AnalyseCtrl): VNode {
         ctrl.redraw();
       }),
     },
-    i18n.site.requestAComputerAnalysis,
+    h('h6', i18n.site.requestAComputerAnalysis),
   );
 }
 
@@ -755,7 +748,7 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode {
+function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode | void {
   if (ctrl.hasFullComputerAnalysis()) {
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
@@ -768,10 +761,23 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
       }
       notify.set('Problem rendering learn from your mistakes');
     }
-    return h('section', [renderLFYMButton(ctrl, notify), renderAcpl(ctrl, moveStyle)]);
-  }
-  // catch all analysis issues
-  return requestAnalBtn(ctrl);
+    return h('section', [
+      h(
+        'button',
+        {
+          hook: nvuiInsertHook(() => {
+            ctrl.toggleRetro();
+            notify.set('Learn from your mistakes');
+            ctrl.nvuiLearning = !ctrl.nvuiLearning;
+            ctrl.redraw();
+          }),
+          attrs: { 'tab-index': '0' },
+        },
+        h('h6', 'Learn from your mistakes'),
+      ),
+      renderAcpl(ctrl, moveStyle),
+    ]);
+  } // else void. No analisys
 }
 
 function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
@@ -886,14 +892,14 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
   const hash = window.location.hash;
   return (
     study &&
-    h('div.study-details', [
+    h('section', [
       h('h2', 'Study details'),
       h('h3', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
         h(
           'div.relay-groups',
-          h('label', [
+          h('h4', [
             'Current group:',
             h(
               'select',
@@ -915,7 +921,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
         relayRounds &&
         h(
           'div.relay-rounds',
-          h('label', [
+          h('h4', [
             'Current round:',
             h(
               'select',
@@ -939,7 +945,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
           ]),
         ),
       h('div.chapters', [
-        h('label', [
+        h('h4', [
           'Current chapter:',
           h(
             'select',
