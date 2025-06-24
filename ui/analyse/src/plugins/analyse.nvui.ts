@@ -273,7 +273,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
 }
 
 function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode[] {
-  return [
+  const nodes = [
     h(
       'button',
       {
@@ -291,17 +291,21 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode[] {
       h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.skipThisMove),
     ),
   ];
+  console.log(nodes);
+  return nodes;
 }
 
-function renderJumpToNextBtn(ctrl: RetroCtrl): VNode {
-  return h(
-    'button',
-    {
-      hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
-      attrs: { tabindex: '0' },
-    },
-    h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.next),
-  );
+function renderJumpToNextBtn(ctrl: RetroCtrl): VNode[] {
+  return [
+    h(
+      'button',
+      {
+        hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
+        attrs: { tabindex: '0' },
+      },
+      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.next),
+    ),
+  ];
 }
 
 const minDepth = 8;
@@ -368,13 +372,16 @@ const feedback = {
     ];
   },
   win(ctrl: RetroCtrl): VNode[] {
-    return [h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove), renderJumpToNextBtn(ctrl)];
+    return [
+      h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove),
+      ...renderJumpToNextBtn(ctrl),
+    ];
   },
   view(ctrl: RetroCtrl): VNode[] {
     return [
       h('h3', i18n.site.solution),
       h('h4', renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)),
-      renderJumpToNextBtn(ctrl),
+      ...renderJumpToNextBtn(ctrl),
     ];
   },
   eval(ctrl: RetroCtrl): VNode[] {
@@ -758,9 +765,11 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
         renderAcpl(ctrl, moveStyle),
       );
     }
-
-    return h("aside", elements)
-  } // No analysis, return request Analysis btn.
+    return h('aside', elements);
+  } else if (ctrl.ongoing || ctrl.synthetic) {
+    return h('h4', 'analysis only availible for completed games.');
+  }
+  // No analysis, return request Analysis btn.
   return requestAnalyseBtn(ctrl);
 }
 
