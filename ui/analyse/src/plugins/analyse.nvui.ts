@@ -159,7 +159,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
             ],
           ),
           notify.render(),
-          ...renderComputerAnalysis(ctrl, notify, moveStyle.get()),
+          renderComputerAnalysis(ctrl, notify, moveStyle.get()),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -727,7 +727,7 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode[] {
+function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode {
   if (ctrl.hasFullComputerAnalysis()) {
     const elements = [h('h2', 'Computer analysis')];
     if (ctrl.ongoing || ctrl.synthetic) {
@@ -759,9 +759,9 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
       );
     }
 
-    return elements;
+    return h("aside", elements)
   } // No analysis, return request Analysis btn.
-  return [requestAnalyseBtn(ctrl)];
+  return requestAnalyseBtn(ctrl);
 }
 
 function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
