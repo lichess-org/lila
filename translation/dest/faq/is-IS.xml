@@ -8,17 +8,79 @@
   <string name="hearItPronouncedBySpecialist">Heyra sérfræðing bera þetta fram.</string>
   <string name="whyLiveLightLibre">Live (í beinni), af því að skákir eru tefldir allan sólahringin; light (létt) og libre (frítt) vegna þess að lichess er opin uppspretta og óheftur af rusli sem hrjáir aðrar vefsíður.</string>
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Starfsemi Lichess er fjármögnuð með gjöfum velunnara og vinnuframlagi sjálfboðaliða.</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn of færni, eru margir %3$s.</string>
   <string name="otherWaysToHelp">aðrar leiðir til að hjálpa</string>
+  <string name="fairPlay">Göfuglyndi</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
   <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
   <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er aðal munurinn í bréfskákreglum að byrjunabók er leyfð. Notkun skákforrita er samt bannað og mun leiða til þess að þú verður flaggaður fyrir skákforritaaðstoð. Þótt ICCF leyfa notkun véla í bréfaskiptum gerir Lichess það ekki.</string>
+  <string name="gameplay">Leikmáti</string>
   <string name="eightVariants">8 skákafbrigði</string>
+  <string name="acplExplanation">Svokallaða sentipeð (e. centipawn) er sú mælieining sem notuð er í skák til að lýsa forskoti. Eitt sentipeð er jafnt og 1/100 af peði. Þar af leiðandi 100 sentipeð = 1 peð. Þessar tölur hafa ekki fest sig í sessi í beinlínis skák en eru nytsamlegar fyrir leikmenn, og nauðsynlegar í tölvuskák, til að meta stöður á taflborðinu.
+
+Besti leikur tölvunnar mun tapa núll sentipeðum, en lakari leikir munu gera stöðuna verri, mæld í sentipeðum.
+
+Með þessu gildi er hægt að meta hversu góð taflmennskan er. Því færri sentipeð sem tapast á leik, því betri er leikurinn.
+
+Tölvugreiningin á Lichess er drifin af Stockfish.</string>
+  <string name="lichessFollowFIDErules">Verði annar leikmaður uppiskroppa með tíma á klukku, mun sá leikmaður yfirleitt tapa leiknum. Hins vegar er jafntefli ef staðan er þannig að andstæðingurinn getur ekki mátað kóng leikmannsins með neinum fjölda leikja (%1$s).
+
+Stundum getur verið flókið að ráða sjálfkrafa (þvingaðir leikir, leikþröng). Við tökum þó vanalega alltaf afstöðu með þeim leikmanni sem ekki kláraði tímann á klukku.
+
+Þess má geta að mögulegt er að máta með stökum riddara eða biskupi ef andstæðingurinn býr yfir taflmanni sem gæti lokað leið kóngsins.</string>
+  <string name="fideHandbook">Handbók alþjóðaskáksambandsins</string>
   <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
-  <string name="threefoldRepetitionLowerCase">þreföld endurtekning</string>
-  <string name="accounts">Reikningar</string>
+  <string name="explainingEnPassant">Þetta er löglegur leikur er kallast „framhjáhlaup“. Wikipedíugreinin sýnir %1$s.
+
+Fjallað er um þetta í gr. 3.7.3.1 og 3.7.3.2 af %2$s:
+
+„Peð sem stendur á sömu röð og á aðliggjandi dálki við peð andstæðings sem var nýlega leikið fram um tvo reiti í einum leik frá upphafsreit sínum getur drepið þetta peð andstæðingsins eins og það hafi aðeins verið fært um einn reit. Þetta dráp er aðeins löglegt í leiknum sem kemur á eftir þennan upphafsleik og kallast ‚framhjáhlaup.‘“
+
+Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</string>
+  <string name="goodIntroduction">góða kynningu</string>
+  <string name="lichessTraining">Æfingu Lichess</string>
+  <string name="threefoldRepetition">Þreföld endurtekning</string>
+  <string name="threefoldRepetitionExplanation">Ef staða kemur upp þrisvar sinnum geta leikmenn krafist jafnteflis sökum %1$s. Lichess framfylgir opinberum reglum alþjóðaskáksambandsins, eins og lýst er í gr. 9.2 í %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">þrefaldrar endurtekningar</string>
+  <string name="repeatedPositionsThatMatters">Þreföld endurtekning snýst um endurteknar %1$s, ekki leikir. Endurtekning þarf ekki að eiga sér stað í samfelldri röð.</string>
+  <string name="threeFoldHasToBeClaimed">Annar leikmannanna þarf að lýsa yfir endurtekningu. Þú getur gert það með því að smella á takkann sem birtist, eða með því að bjóða jafntefli áður en þú leikur síðasta endurtekna leikinn þinn; það skiptir engu máli þó andstæðingurinn hafni jafnteflisboðinu, jafnteflið vegna þrefaldrar endurtekningar gildir samt sem áður. Þú getur einnig %1$s Lichess til að krefjast endurtekninga sjálfkrafa fyrir þig. Auk þess lýkur fimmföld endurtekning skákinni alltaf tafarlaust.</string>
+  <string name="configure">stilla</string>
+  <string name="accounts">Aðgangar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
+  <string name="goldenZeeExplanation">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
+  <string name="whichRatingSystemUsedByLichess">Hvers konar stigakerfi notar Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Skákstig eru reiknuð út frá stigakerfi er kallast Glicko-2, sem Mark Glickman þróaði. Þetta kerfi nýtur mikilla vinsælda og er í notkun hjá ótalmörgum skáksamböndum (Alþjóðaskáksambandið, FIDE, er athyglisverð undantekning þar sem sambandið reiðir sig enn á hið úrelta elóstigakerfi).
+
+Í grundvallaratriðum byggja Glicko-einkunnir á „vissustuðli\" við útreikning og framsetningu á skákstyrk þínum. Þegar þú byrjar fyrst að nota vefsvæðið, eru skákstigin þín 1500 ± 1000. Talan 1500 eru skákstigin þín, og 1000 er bilið á vissustuðlinum.
+
+Í stuttu máli, kerfið telur sig 95% öruggt um að skákstyrkur þinn liggi á bilinu 500 til 2500. Það er ótrúlega óvíst. Þess vegna, þegar leikmaður er nýbyrjaður, munu skákstigin hans breytast gífurlega, hugsanlega um nokkur hundruð stig í einu. En eftir nokkrar skákir gegn reyndum leikmönnum mun bilið á vissustuðlinum þrengjast, og fjöldi stiga sem vinnst/tapast eftir hverja skák mun minnka.
+
+Annað sem þarf að athuga er að með tímanum mun bilið á vissustuðlinum stækka. Þetta leiðir til þess að þú getur unnið eða tapað stigum hraðar, sem endurspeglar breytingar á kunnáttu þinni á því tímabili.</string>
+  <string name="whyAreRatingHigherExplanation">Ekki er best er að líta á skákstig sem algildar tölur, né bera þær saman við önnur skáksambönd. Ólík sambönd hafa misgóða leikmenn og ólík stigakerfi (Elo, Glicko, Glicko-2, eða umbreytta gerð af framangreindu). Þessir þættir geta stórlega breytt algildum tölum (skákstigum).
+
+Best er að líta á skákstig sem „hlutfallslegar\" tölur (öfugt við „algildar\" tölur): Innan hóps leikmanna mun hlutfallslegur munur á skákstigum þeirra hjálpa þér að meta hver mun vinna/gera jafntefli/tapa og hversu oft. Að segja „ég er með X skákstig\" þýðir ekkert nema aðrir leikmenn séu til staðar til að bera skákstigin saman við.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Því miður getum við ekki endurheimt skákstig fyrir leiki sem tapast sökum seinkunar eða aftengingar, óháð því hvort vandamálið var hjá þér eða okkur. Hið síðarnefnda er þó afar sjaldgæft. Athugaðu einnig að þegar Lichess endurræsir sig og þú tapar út af klukkunni þá hættum við leiknum til að koma í veg fyrir ósanngjarnt tap.</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess getur aukalega sent sprettitilkynningar, til dæmis þegar það er komið að þér eða þú fékkst einkaskilaboð.
+
+Smelltu á lásinn við hliðina á slóð lichess.org í vefslóðastikunni í vafranum þínum.
+
+Veldu síðan hvort skuli leyfa eða loka fyrir tilkynningar frá Lichess.</string>
+  <string name="enableAutoplayForSoundsA">Flestir vafrar geta komið í veg fyrir að hljóð spilist á nýhlaðinni síðu til að vernda notendur. Ímyndaðu þér ef hver vefsíða gæti strax sprengt þig með hljóðauglýsingum. Ímyndaðu þér ef sérhver vefsíða gæti jafnskjótt yfirbugað þig með hljóðauglýsingum.
+
+Hið rauða hljóðtákn birtist þegar vafrinn þinn kemur í veg fyrir að lichess.org spili hljóð. Yfirleitt fellur þessi takmörkun úr gildi um leið og þú smellir á eitthvað. Á sumum farsímavöfrum telst það ekki sem smellur að snerta og draga taflmann. Í slíkum tilfellum verður þú að dumpa á taflborðið til þess að leyfa hljóð í upphafi hverrar skákar.
+
+Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er hægt að veita Lichess.org beinlínis leyfi til að spila hljóð. Hér að neðan eru leiðbeiningar um hvernig það er gert í nýjustu útgáfum nokkurra þekktra vafra.</string>
+  <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég spili?</string>
+  <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
+  <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>
+  <string name="fewerLobbyPools">færri fjölda potta í sal</string>
+  <string name="adviceOnMitigatingAddiction">Reglulega berast okkur erindi frá notendum sem óska eftir aðstoð við að koma í veg fyrir að þeir spili of mikið.
+
+Hingað til hefur Lichess ekki lagt bann eða blokkeringu á leikmenn nema að broti á þjónustuskilmálum sé um að ræða, en við mælum engu að síður með því að notast sé við ytri tól til að hefta óhóflega spilahegðun. Meðal almennra tillagna að vefsíðuhemla eru %1$s, %2$s og %3$s. Ef þú vilt halda áfram að nota vefsvæðið án þess að láta freistast af hröðum tímastillingum, gætirðu einnig haft áhuga á %4$s, hér er ein með %5$s.
+
+Sumum leikmönnum kann að þykja leikhegðun sín vera að taka á sig mynd fíknar. Raunar flokkar Alþjóðaheilbrigðismálastofnunin tölvuleikjafíkn sem %6$s, og einkennist hún af 1) skertri stjórn á spilun, 2) auknum forgangi á spilun og 3) aukingu á spilun þrátt fyrir neikvæðar afleiðingar. Ef þér sýnist þitt eigið skákframferði fylgja þessu mynstri, hvetjum við þig til að ræða um það við vin eða fjölskyldumeðlim og/eða sérfræðing.</string>
 </resources>

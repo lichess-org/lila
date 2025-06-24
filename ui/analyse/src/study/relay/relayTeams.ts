@@ -1,4 +1,4 @@
-import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'lib/snabbdom';
+import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/snabbdom';
 import { json as xhrJson } from 'lib/xhr';
 import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
@@ -48,7 +48,7 @@ export default class RelayTeams {
 }
 
 export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
-  h(
+  hl(
     'div.relay-tour__team-table',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
@@ -73,17 +73,17 @@ const renderTeams = (
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[0];
-    return h('div.relay-tour__team-match', [
-      h('div.relay-tour__team-match__teams', [
-        h('strong.relay-tour__team-match__team', row.teams[0].name),
-        h('span.relay-tour__team-match__team__points', [
-          h('points', firstTeam.points.toString()),
-          h('vs', 'vs'),
-          h('points', row.teams[1].points.toString()),
+    return hl('div.relay-tour__team-match', [
+      hl('div.relay-tour__team-match__teams', [
+        hl('strong.relay-tour__team-match__team', row.teams[0].name),
+        hl('span.relay-tour__team-match__team__points', [
+          hl('points', firstTeam.points.toString()),
+          hl('vs', 'vs'),
+          hl('points', row.teams[1].points.toString()),
         ]),
-        h('strong.relay-tour__team', row.teams[1].name),
+        hl('strong.relay-tour__team', row.teams[1].name),
       ]),
-      h(
+      hl(
         'div.relay-tour__team-match__games',
         row.games.map(game => {
           const chap = chapters.get(game.id);
@@ -93,7 +93,7 @@ const renderTeams = (
             game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
-            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
+            hl('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
               playerView(playersCtrl, sortedPlayers[0]),
               statusView(chap, game.pov, chapters, cloudEval),
               playerView(playersCtrl, sortedPlayers[1]),
@@ -105,17 +105,17 @@ const renderTeams = (
   });
 
 const playerView = (players: RelayPlayers, p: StudyPlayer) =>
-  h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', players.playerLinkConfig(p), [
+  hl('span.relay-tour__team-match__game__player', [
+    hl('span.mini-game__user', players.playerLinkConfig(p), [
       playerFed(p.fed),
-      h('span.name', [userTitle(p), p.name]),
+      hl('span.name', [userTitle(p), p.name]),
     ]),
-    p.rating && h('rating', `${p.rating}`),
+    !!p.rating && hl('rating', `${p.rating}`),
   ]);
 
 const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
   const status = pov === 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
-  return h(
+  return hl(
     'span.relay-tour__team-match__game__status',
     status && status !== '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
   );
@@ -127,14 +127,14 @@ const evalGauge = (
   chapters: StudyChapters,
   cloudEval: MultiCloudEval,
 ): VNode =>
-  h(
+  hl(
     `span.eval-gauge-horiz.pov-${pov}`,
     {
       attrs: { 'data-id': game.id },
       hook: onInsert(cloudEval.observe),
     },
     [
-      h(`span.eval-gauge-horiz__black`, {
+      hl(`span.eval-gauge-horiz__black`, {
         hook: {
           postpatch(old, vnode) {
             const prevNodeCloud = old.data?.cloud;
@@ -153,6 +153,6 @@ const evalGauge = (
           },
         },
       }),
-      h('tick.zero'),
+      hl('tick.zero'),
     ],
   );

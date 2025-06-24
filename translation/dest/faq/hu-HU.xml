@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">A Lichess oldalain gyorsbillentyűket is használhatsz. Nyomd meg a \'?\' billentyűt a tanulmány, elemzés, feladvány és játszma oldalakon az elérhető gyorsbillentyűk listájához.</string>
   <string name="fairPlay">Sportszerűség</string>
   <string name="whenAmIEligibleRatinRefund">Mikor vagyok jogosult értékszám kompenzációra a csalók miatt?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
+  <string name="ratingRefundExplanation">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
   (Például, ha nagyon sokat emelkedett a pontszámod ezalatt a játszmák alatt, nem jár vissza mind.) A kompenzáció sosem több, mint 150 pont.</string>
   <string name="preventLeavingGameWithoutResigning">Mi történik azokkal, akik feladás nélkül hagyják el a játszmát?</string>
   <string name="leavingGameWithoutResigningExplanation">Ha az ellenfeled gyakran szakítja meg vagy hagyja ott a játszmákat, akkor \"kényszerpihenőt\" kapnak, azaz ez idő alatt nem játszhatnak. Ez nincs nyilvánosan feltüntetve a profiljukon. Ha a fenti magatartás folytatódik, a kényszerpihenő egyre hosszabb lesz és végül akár a fiók zárolásához is vezethet.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Mi alapján történik a különböző játékidők (Bullet, Blitz, stb.) besorolása?</string>
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(kiindulási idő) + 40 × (növekmény)</string>
+  <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
@@ -97,12 +97,11 @@ Ne kérj LM címet.</string>
   <string name="usernamesNotOffensive">Általánosságban, egy felhasználói név nem lehet: bántó, más valódi neve vagy reklám. Erről bővebben a %1$s olvashatsz.</string>
   <string name="guidelines">szabályokban</string>
   <string name="canIChangeMyUsername">Megváltoztathatom a felhasználói nevem?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nem, a felhasználói nevek nem módosíthatók technikai és gyakorlati okok miatt. A felhasználói nevek jelen vannak adatbázisokban, exportált fájlokban, naplófájlokban és az emberek fejében. Kis- és nagybetűt változtathatsz egyszer.</string>
+  <string name="usernamesCannotBeChanged">Nem, a felhasználói nevek nem módosíthatók technikai és gyakorlati okok miatt. A felhasználói nevek jelen vannak adatbázisokban, exportált fájlokban, naplófájlokban és az emberek fejében. Kis- és nagybetűt változtathatsz egyszer.</string>
   <string name="uniqueTrophies">Egyedi trófeák</string>
   <string name="ownerUniqueTrophies">Ezek a trófeák egyediek a Lichess történelmében, %1$s kivéve senki más nem szerezhet ilyet.</string>
-  <string name="wayOfBerserkExplanation">Megszerzéséhez, hiimgosu bevállalta, hogy berserkel és megnyeri 100%%-át az %s.</string>
   <string name="aHourlyBulletTournament">óránkénti Bullet arénának</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
+  <string name="goldenZeeExplanation">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
   <string name="lichessRatings">Lichess értékszámok</string>
   <string name="whichRatingSystemUsedByLichess">Milyen értékelő rendszert használ a Lichess?</string>
   <string name="ratingSystemUsedByLichess">Az értékszámok a Glicko-2 módszer alapján számolódnak, amit Mark Glickman dolgozott ki. Ez egy igen népszerű értékelési rendszer, számos sakkszövetség használja (a FIDE a legismertebb ellenpélda, ahol még mindig az Élő-pont rendszer használatos).
@@ -149,7 +148,7 @@ Utána válaszd ki, hogy engedélyezed vagy tiltod az Lichess értesítéseit.</
 A piros némító ikon akkor jelenik meg, ha a böngésző megakadályozta a lichess.org hangjainak lejátszását. Általában ez a korlátozás feloldódik, amint rákattintasz valamire. Egyes mobilböngészőkben egy bábu érintéssel történő húzása nem számít kattintásnak. Ebben az esetben minden játék kezdetén meg kell érintened a táblát, hogy engedélyezd a hangok lejátszását. 
 
 A piros ikont azért mutatjuk, hogy figyelmeztessünk, amikor ez történik. Sok esetben lehetséges külön engedélyezni a lichess.org számára a hangok lejátszását. Itt találod az erre vonatkozó utasításokat néhány népszerű böngésző legújabb verziójához.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">asztali</string>
+  <string name="desktop">asztali</string>
   <string name="enableAutoplayForSoundsFirefox">1. Nyisd meg a lichess.org weboldalt
 2. Használd a Ctrl-i billentyűkombinációt Linuxon és Windowson vagy a cmd-i billentyűkombinációt MacOS-en
 3. Nyisd meg az Engedélyek oldalt
@@ -167,8 +166,8 @@ A piros ikont azért mutatjuk, hogy figyelmeztessünk, amikor ez történik. Sok
 3. Nyisd meg a Sütik és oldalengedélyek menüpontot
 4. Görgess lejjebb és nyisd meg a Média automatikus lejátszása menüpontot
 5. Add hozzá a lichess.org weboldalt az engedélyezéshez</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hagyjam abba a játékot?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">mentális betegség</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess egyéni stílusok</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">kevesebb lobbival</string>
+  <string name="stopMyselfFromPlaying">Hagyjam abba a játékot?</string>
+  <string name="mentalHealthCondition">mentális betegség</string>
+  <string name="lichessUserstyles">Lichess egyéni stílusok</string>
+  <string name="fewerLobbyPools">kevesebb lobbival</string>
 </resources>

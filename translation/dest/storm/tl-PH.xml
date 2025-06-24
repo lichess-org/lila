@@ -12,11 +12,11 @@
   <string name="playAgain">Maglaro ulit</string>
   <plurals name="xRuns">
     <item quantity="one">1 takbo</item>
-    <item quantity="other">%s mga takbo</item>
+    <item quantity="other">%s (na) takbo</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Naglaro ng isang takbo ng %2$s</item>
-    <item quantity="other">Naglaro ng %1$s mga takbo ng %2$s</item>
+    <item quantity="other">Naglaro ng %1$s (na) takbo ng %2$s</item>
   </plurals>
   <string name="highscoreX">Pinakamataas na iskor: %s</string>
   <string name="score">Iskor</string>
@@ -51,7 +51,7 @@
   <string name="skipHelp">Maaaring kang laktawan ng isang galaw bawat karera:</string>
   <string name="skipExplanation">Laktawan ang galaw na ito para mapreserba ang iyong kombo! Gumagana lamang ng isang beses bawat karera.</string>
   <string name="failedPuzzles">Mga nabigong palaisipan</string>
-  <string name="slowPuzzles">Mabagal na mga palaisipan</string>
+  <string name="slowPuzzles">Mga mabagal na palaisipan</string>
   <string name="skippedPuzzle">Nalaktawan na palaisipan</string>
   <string name="thisWeek">Ngayong linggo</string>
   <string name="thisMonth">Ngayong buwan</string>

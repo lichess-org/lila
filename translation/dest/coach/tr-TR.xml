@@ -25,5 +25,6 @@
   <string name="publicStudies">Herkese açık çalışmalar</string>
   <string name="youtubeVideos">YouTube videoları</string>
   <string name="allCountries" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected. it means you are not filtering by country at all. Could alternatively be stated as 'Any country' or 'Show all countries'.&#10;&#10;This string refers to the user's viewing options. A coach cannot state 'any country' on their profile.">Tüm ülkeler</string>
+  <string name="lastLogin" comment="A filter on the coach page, letting users view only coaches who last logged in over a certain period of time.">Son giriş</string>
   <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">Lichess puanı</string>
 </resources>

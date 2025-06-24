@@ -1,5 +1,5 @@
 import type { VNode, VNodeStyle } from 'snabbdom';
-import { bind, looseH as h } from 'lib/snabbdom';
+import { bind, hl } from 'lib/snabbdom';
 import { renderVoiceBar } from 'voice';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
@@ -10,11 +10,11 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
   return (
     ctrl.playing &&
     ctrl.mode() === 'findSquare' &&
-    h(
+    hl(
       'svg.coords-svg',
       { attrs: { viewBox: '0 0 100 100' } },
       ['current', 'next'].map((modifier: CoordModifier) =>
-        h(
+        hl(
           `g.${modifier}`,
           {
             key: `${ctrl.score}-${modifier}`,
@@ -25,7 +25,7 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
                   } as unknown as VNodeStyle)
                 : undefined,
           },
-          h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey),
+          hl('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey),
         ),
       ),
     )
@@ -33,22 +33,22 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
 };
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h('div.explanation.box', [
-    h('h1', i18n.coordinates.coordinates),
-    h('p', i18n.coordinates.knowingTheChessBoard),
-    h('ul', [
-      h('li', i18n.coordinates.mostChessCourses),
-      h('li', i18n.coordinates.talkToYourChessFriends),
-      h('li', i18n.coordinates.youCanAnalyseAGameMoreEffectively),
+  return hl('div.explanation.box', [
+    hl('h1', i18n.coordinates.coordinates),
+    hl('p', i18n.coordinates.knowingTheChessBoard),
+    hl('ul', [
+      hl('li', i18n.coordinates.mostChessCourses),
+      hl('li', i18n.coordinates.talkToYourChessFriends),
+      hl('li', i18n.coordinates.youCanAnalyseAGameMoreEffectively),
     ]),
-    h('strong', i18n.coordinates[ctrl.mode()]),
-    h(
+    hl('strong', i18n.coordinates[ctrl.mode()]),
+    hl(
       'p',
       i18n.coordinates[
         ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
       ],
     ),
-    h(
+    hl(
       'p',
       i18n.coordinates[ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'],
     ),
@@ -56,10 +56,10 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
 };
 
 const table = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h('div.table', [
+  return hl('div.table', [
     !ctrl.hasPlayed && explanation(ctrl),
     !ctrl.playing &&
-      h(
+      hl(
         'button.start.button.button-fat',
         { hook: bind('click', ctrl.start) },
         i18n.coordinates.startTraining,
@@ -68,20 +68,20 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
 };
 
 const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return h(
+  return hl(
     'div.progress',
     ctrl.hasPlayed &&
-      h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }),
+      hl('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }),
   );
 };
 
 const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | false => {
   const coordinateInput = [
     ctrl.coordinateInputMethod() === 'buttons' &&
-      h(
+      hl(
         'div.files-ranks',
         'abcdefgh12345678'.split('').map((fileOrRank: string) =>
-          h(
+          hl(
             'button.file-rank',
             {
               on: {
@@ -97,29 +97,29 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | false => {
           ),
         ),
       ),
-    h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')),
-    h('div.keyboard-container', [
-      h('span', [
-        h('input.keyboard', {
+    hl('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')),
+    hl('div.keyboard-container', [
+      hl('span', [
+        hl('input.keyboard', {
           hook: { insert: vnode => (ctrl.keyboardInput = vnode.elm as HTMLInputElement) },
           on: { keyup: ctrl.onKeyboardInputKeyUp },
         }),
-        ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
+        ctrl.playing ? hl('span', 'Enter the coordinate') : hl('strong', 'Press <enter> to start'),
       ]),
-      h(
+      hl(
         'a',
         { on: { click: () => ctrl.toggleInputMethod() } },
         ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons',
       ),
     ]),
   ];
-  return ctrl.mode() === 'nameSquare' && h('div.coordinate-input', [...coordinateInput]);
+  return ctrl.mode() === 'nameSquare' && hl('div.coordinate-input', coordinateInput);
 };
 
 const view = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.trainer', { class: { wrong: ctrl.wrong } }, [
+  hl('div.trainer', { class: { wrong: ctrl.wrong } }, [
     side(ctrl),
-    h('div.main-board', chessground(ctrl)),
+    hl('div.main-board', chessground(ctrl)),
     textOverlay(ctrl),
     table(ctrl),
     progress(ctrl),

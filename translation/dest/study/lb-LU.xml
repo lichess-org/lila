@@ -31,7 +31,7 @@
     <item quantity="other">%s Memberen</item>
   </plurals>
   <string name="inviteToTheStudy">An d\'Etüd alueden</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Wannechgelift invitéier just Leit déi du kenns an déi aktiv un der Etüd matwierken wëllen.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Invitéier wgl. just Leit, déi s de kenns an déi aktiv bei der Etüd matmaache wëllen.</string>
   <string name="searchByUsername">No Benotzernumm sichen</string>
   <string name="spectator">Zuschauer</string>
   <string name="contributor">Matwierkenden</string>
@@ -43,14 +43,14 @@
   <string name="like">Gefällt mir</string>
   <string name="unlike">Gefällt mer net méi</string>
   <string name="newTag">Néien Tag</string>
-  <string name="commentThisPosition">Kommentéier des Positioun</string>
+  <string name="commentThisPosition">Kommentéier dës Stellung</string>
   <string name="commentThisMove">Kommentéier dësen Zuch</string>
   <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
   <string name="onlyContributorsCanRequestAnalysis">Just Etüden Matwierkender kënnen eng Computer Analyse ufroen.</string>
   <string name="getAFullComputerAnalysis">Vollstänneg serversäiteg Computeranalyse vun der Haaptvariant erhalen.</string>
   <string name="makeSureTheChapterIsComplete">Stell sécher dass d\'Kapitel vollstänneg ass. Du kanns eng Analyse just eemol ufroen.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC Memberen gesinn déi selwecht Positioun</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC-Memberen gesinn déi selwecht Stellung</string>
   <string name="shareChanges">Deel Ännerungen mat den Zuschauer an späicher se um Server</string>
   <string name="playing">Lafend Partie</string>
   <string name="showResults">Resultater</string>
@@ -64,7 +64,7 @@
   <string name="studyUrl">Etüden URL</string>
   <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Zum Anbetten an een Forum oder Blog afügen</string>
-  <string name="startAtInitialPosition">Mat Startpositioun ufänken</string>
+  <string name="startAtInitialPosition">Mat der Ausgangsstellung ufänken</string>
   <string name="startAtX">Bei %s ufänken</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>
   <string name="readMoreAboutEmbedding">Méi iwwer Anbetten liesen</string>
@@ -91,11 +91,11 @@
   <string name="interactiveLesson">Interaktiv Übung</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Eidel</string>
-  <string name="startFromInitialPosition">Aus Startpositioun ufänken</string>
+  <string name="startFromInitialPosition">Vun der Ausgangsstellung aus ufänken</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Aus benotzerdefinéierter Positioun ufänken</string>
+  <string name="startFromCustomPosition">Vun enger benotzerdefinéierter Stellung aus ufänken</string>
   <string name="loadAGameByUrl">Partien mat URL lueden</string>
-  <string name="loadAPositionFromFen">Positioun aus FEN lueden</string>
+  <string name="loadAPositionFromFen">Stellung aus FEN lueden</string>
   <string name="loadAGameFromPgn">Partien aus PGN lueden</string>
   <string name="automatic">Automatesch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
@@ -118,7 +118,7 @@
   <string name="members">Memberen</string>
   <string name="everyone">Jiddereen</string>
   <string name="enableSync">Synchronisatioun aktivéieren</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Jo: Jiddereen op der selwechter Positioun halen</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Jo: Jiddereen op der selwechter Stellung halen</string>
   <string name="noLetPeopleBrowseFreely">Nee: Leit individuell browsen loossen</string>
   <string name="pinnedStudyComment">Ugepinnten Etüdenkommentar</string>
   <string name="start">Lass</string>
@@ -136,8 +136,8 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubiosen Zuch</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eenzegen Zuch</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Ausgeglach Positioun</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Onkloer Positioun</string>
+  <string name="equalPosition">Ausgeglach Stellung</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Onkloer Stellung</string>
   <string name="whiteIsSlightlyBetter">Wäiss steet liicht besser</string>
   <string name="blackIsSlightlyBetter">Schwaarz steet liicht besser</string>
   <string name="whiteIsBetter">Wäiss ass besser</string>
@@ -161,9 +161,28 @@
   <string name="manageTopics">Themen managen</string>
   <string name="back">Zeréck</string>
   <string name="playAgain">Nach eng Kéier spillen</string>
-  <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
+  <string name="whatWouldYouPlay">Wat géifs du an dëser Stellung spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Säit</string>
+  <string name="welcomeToLichessStudyTitle">Wëllkomm op Lichess Study!</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeelt a gespäichert</string>
+  <string name="sharedAndSavedText">Aner Membere kënnen deng Zich an Echtzäit gesinn!&lt;br&gt;Ausserdeem gëtt alles fir ëmmer gespäichert.</string>
+  <string name="studyMembersTitle">Membere vun der Etüd</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klick op den %s-Knäppchen.&lt;br&gt;Da kanns de decidéieren, wee bäidroen däerf a ween net.</string>
+  <string name="studyChaptersTitle">Etüdekapitel</string>
+  <string name="studyChaptersText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet eng eegen Ausgangsstellung an en eegene Variantebam.</string>
+  <string name="commentPositionTitle">Eng Stellung kommentéieren</string>
   <string name="conclusionTitle">Merci fir deng Zäit</string>
+  <string name="conclusionText">Du fënns deng &lt;a href=\'/study/mine/hot\'&gt;vireg Etüden&lt;/a&gt; op denger Profilsäit.&lt;br&gt;Et gëtt och e &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;Blog-Bäitrag iwwer Etüden&lt;/a&gt;.&lt;br&gt;Power-Benotzer wëlle villäicht op „?“ drécke fir d\'Tastatur-Ofkierzungen ze gesinn.&lt;br&gt;Vill Spaass!</string>
+  <string name="createChapterTitle">Looss eis en Etüdekapitel uleeën</string>
+  <string name="createChapterText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet en eegene Variantebam,&lt;br&gt;a kann op verschidde Manéieren ugeluecht ginn.</string>
+  <string name="fromInitialPositionTitle">Vun der Ausgangsstellung aus</string>
+  <string name="customPositionTitle">Benotzerdefinéiert Stellung</string>
+  <string name="fromFenStringTitle">Vun enger FEN-Zeecheketten</string>
+  <string name="fromPgnGameTitle">Aus enger PGN-Partie</string>
+  <string name="variantsAreSupportedTitle">Etüden ënnerstëtze Schachvarianten</string>
+  <string name="variantsAreSupportedText">Jo, du kanns Crazyhouse&lt;br&gt;an all aner Lichess-Schachvariante studéieren!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Duebel Néierlag</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
 </resources>

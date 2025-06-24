@@ -40,9 +40,9 @@
   <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
   <string name="manualPairings">Manuell Paarungen an der nächster Ronn</string>
   <string name="newSwiss">Neit Schwäizer Turnéier</string>
-  <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
-  <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
-Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
+  <string name="swissVsArenaQ">Wéini e Schwäizer Turnéier amplaz vun enger Arena wielen?</string>
+  <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien a kënnen nëmmen eemol géintenee spillen.
+Dat kann eng gutt Optioun fir Clibb an offiziell Turnéiere sinn.</string>
   <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
   <string name="pointsCalculationA">Eng Victoire ass ee Punkt wäert, e Remis ass en hallwen Punkt wäert an eng Defaite si null Punkte wäert. 
 Wann e Spiller net gepuert ka ginn, kritt en en hallwe Punkt.</string>
@@ -69,9 +69,9 @@ Uschléissend gëtt de Spiller vum System aus dem Turnéier ofgezunn, esou datt 
  E kann jidderzäit dem Turnéier erëm bäitrieden.</string>
   <string name="protectionAgainstNoShowQ">Wat geschitt, wann ee Spiller net optaucht?</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
-  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom Schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
-Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
-  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom Schwäizer System Arena ersetzen?</string>
+  <string name="lateJoinA">Jo, bis méi wéi d\'Hallschent vun de Ronnen ugefaangen hunn; zum Beispill kënnen d\'Spiller an engem 11-Ronnen-Turnéier nom Schwäizer System virun der 6. Ronn bäitrieden an an engem 12-Ronnen-Turnéier virun der 7. Ronn.
+Spiller mat Verspéidung kréie just en hallwe Punkt guttgeschriwwen, souguer wann se méi Ronne verpasst hunn.</string>
+  <string name="willSwissReplaceArenasQ">Wäerten Turnéieren nom Schwäizer System Arena-Turnéieren ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
   <string name="roundRobinA">Mir géifen et gäre bäifügen, mee leider funktionéiert Round Robin online net.
@@ -112,5 +112,6 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="predefinedUsers">Nëmmen virdefinéiert Spiller dierfen matmaachen</string>
   <string name="forbiddedUsers">Falls dës Lëscht net eidel ass, kënnen Spiller déi net dropstinn net matmaachen. Een Benotzernumm pro Zeil.</string>
   <string name="playYourGames">Spill deng Partien</string>
+  <string name="absences">Absencen</string>
   <string name="tieBreak">Tie-Break</string>
 </resources>

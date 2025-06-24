@@ -445,7 +445,6 @@
   <string name="points">分數</string>
   <string name="wins">勝</string>
   <string name="losses">負</string>
-  <string name="createdBy">創建者：</string>
   <string name="standByX">%s準備好，你馬上要開始對棋了！</string>
   <string name="pause">暫停</string>
   <string name="resume">繼續</string>

@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">О, æндæр æргом сайтытæ Lichess-æй удцырын райстой æмæ пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
   <string name="whenAmIEligibleRatinRefund">Сайæгой мæ кæд рамбылдта, уæд мын мæ рейтинг фæстæмæ ратдзыстут?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Сайæгойы кæд раргом кодтам, уæд, иу минутæйы фæстæ, йæ 40 ахæм рейтингимæ хъæзтытæ, фæстаг 3 боны кæм рамбылдта, уыдзысты равзард. Ды ацы хъæзтыты йæ ныхмæлæууæг кæд уыдтæ, æмæ дæхион рейтинг æууæнккаг кæд у, уæд дæ рейтинг дын фæстæмæ ратдзыстæм. Баххæст уыдзæн æрæнгонд дæ иуылстыр рейтингæй æмæ æнæраст хъæзтыты фæстæ рейтингы ивындзинæдтæй. 
+  <string name="ratingRefundExplanation">Сайæгойы кæд раргом кодтам, уæд, иу минутæйы фæстæ, йæ 40 ахæм рейтингимæ хъæзтытæ, фæстаг 3 боны кæм рамбылдта, уыдзысты равзард. Ды ацы хъæзтыты йæ ныхмæлæууæг кæд уыдтæ, æмæ дæхион рейтинг æууæнккаг кæд у, уæд дæ рейтинг дын фæстæмæ ратдзыстæм. Баххæст уыдзæн æрæнгонд дæ иуылстыр рейтингæй æмæ æнæраст хъæзтыты фæстæ рейтингы ивындзинæдтæй. 
   (Зæгъæм, дæ рейтинг ацы хъæзтыты фæстæ кæд тынг фæфылдæр, уæд, чи зоны, ницы дын баххæст кæндзыстæм, кæннод йæ хай æрмæст ратдзыстæм.) Цыфæндыйæ дæр дæ баххæст 150 гæбæлтæй нæ ахисдзæн.</string>
   <string name="preventLeavingGameWithoutResigning">Хъазджытæн, хъазтæй кæй рацæуынц æнæ хи дæттгæйæ, цы вæййы?</string>
   <string name="leavingGameWithoutResigningExplanation">Дæ ныхмæлæууæг йæ хъазт кæд арæх фæуромы/фæуадзы, уæд йын хъæзтытæм бацæуæн рæстæгмæ æхгæд уыдзæн, æмæ йæ уæлдæй ничи фендзæн уый. Кæд уый фæстæ йæ митæ нæ бауромдзæн, уæд йын ногæй сыхгæндзыстæм хъæстытæм бацæуæн, фæлæ фылдæр æмгъуыдмæ. Æппын фæстаг, йæ аккаунт æххæстæй сыхгæндзыстæм.</string>
@@ -30,7 +30,7 @@
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр хъазы хуызтæ сахаты цæстдардмæ гæсгæ куыд рабæрæг конд ысты?</string>
   <string name="basedOnGameDuration">Lichess сахаты цæстдард баст у æввахс хъазы дæргъцы = %1$s
 Зæъæм, æввахс 5+3 хъазы дæргъц у 5 × 60 + 40 × 3 = 420 сикъунды.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(райдайæн рæстæг) + 40 × (уæлæмхасæн)</string>
+  <string name="durationFormula">(райдайæн рæстæг) + 40 × (уæлæмхасæн)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр шахмæтты хуызтæ мæ бон у хъазын Lichess-ы?</string>
@@ -72,7 +72,7 @@ LM хуындады райстыл ма кур.</string>
   <string name="usernamesNotOffensive">Æмткæй зæгъгæйæ, пайдакæнæджыты нæмттæ хъуамæ нæ уой: æфхæрæн, рекламæ кæнæн, ави дæу æндæр адæймаджы хуызæн æвдисгæ кæй кæнынц, ахæмтæ. Дæ бон у фылдæр бакæсын нæ %1$s.</string>
   <string name="guidelines">рекомендациты</string>
   <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
+  <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
   <string name="uniqueTrophies">Уникалон лæвартæ</string>
   <string name="ownerUniqueTrophies">Уыцы лæвар у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн уыдзæн ахæм.</string>
   <string name="howToThreeDots">Базон, куыд...</string>

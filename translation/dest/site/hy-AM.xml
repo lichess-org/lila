@@ -481,7 +481,6 @@
   <string name="points">Միավորներ</string>
   <string name="wins">Հաղթանակներ</string>
   <string name="losses">Պարտություններ</string>
-  <string name="createdBy">Ստեղծող՝</string>
   <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
   <string name="pause">Դադար</string>
   <string name="resume">Շարունակել</string>

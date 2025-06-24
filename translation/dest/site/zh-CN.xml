@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">双方同意和棋</string>
   <string name="fiftyMovesWithoutProgress">无实质进展的50步</string>
   <string name="currentGames">正在对局</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">加入了%s</string>
+  <string name="joinedX">加入了%s</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有 %s 个对局</item>
   </plurals>
@@ -457,7 +457,6 @@
   <string name="points">分数</string>
   <string name="wins">胜</string>
   <string name="losses">负</string>
-  <string name="createdBy">创建者：</string>
   <string name="startingIn" comment="Displayed above a timer">开始于</string>
   <string name="standByX">%s 做好准备，你马上就要开始对局了！</string>
   <string name="pause">暂停</string>

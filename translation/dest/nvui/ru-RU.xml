@@ -42,9 +42,11 @@
   <string name="pawn">пешка</string>
   <string name="whitePawn">белая пешка</string>
   <string name="blackPawn">чёрная пешка</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">Кр Ф Л С К :</string>
   <string name="sanTakes" comment="x in standard notation">бьёт</string>
   <string name="sanCheck" comment="+ in standard notation">шах</string>
   <string name="sanCheckmate" comment="# in standard notation">мат</string>
+  <string name="sanPromotesTo" comment="= in standard notation">превращается в</string>
   <string name="sanShortCastling" comment="O-O in standard notation">короткая рокировка</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">длинная рокировка</string>
   <string name="invalidMove">Невозможный ход</string>

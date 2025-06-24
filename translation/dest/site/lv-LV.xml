@@ -516,7 +516,6 @@
   <string name="points">Punkti</string>
   <string name="wins">Uzvaras</string>
   <string name="losses">Zaudējumi</string>
-  <string name="createdBy">Izveidoja</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
   <string name="pause">Pauzēt</string>
   <string name="resume">Atsākt</string>
