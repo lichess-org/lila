@@ -770,6 +770,7 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
     return h('h4', 'analysis only availible for completed games.');
   }
   // No analysis, return request Analysis btn.
+
   return requestAnalyseBtn(ctrl);
 }
 
