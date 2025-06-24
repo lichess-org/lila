@@ -30,8 +30,8 @@ import {
   renderPockets,
   type DropMove,
   pocketsStr,
-  scanDirectionsHandler,
 } from 'lib/nvui/chess';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { makeSetting, renderSetting, Setting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands } from 'lib/nvui/command';
