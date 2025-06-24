@@ -112,7 +112,11 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: nvuiInsertHook(() => (ctrl.explorer.toggle(), ctrl.redraw())),
                   },
-                  h('h6', i18n.site.openingExplorerAndTablebase),
+                  h(
+                    'h6',
+                    { attrs: { style: 'pointer-events: none' } },
+                    i18n.site.openingExplorerAndTablebase,
+                  ),
                 ),
                 explorerView(ctrl),
               ]
@@ -155,25 +159,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
             ],
           ),
           notify.render(),
-          h('h2', 'Computer analysis'),
-          //h('button', {
-          //hook: nvuiInsertHook(() => (ctrl.toggleRetro(), ctrl.redraw())),
-          //attrs: { 'aria-label': 'toggle learn from your mistakes' },
-          //}),
-          //h(
-          //'button',
-          //{
-          //hook: nvuiInsertHook(() => {
-          //ctrl.toggleRetro();
-          //notify.set('Learn from your mistakes');
-          //ctrl.nvuiLearning = !ctrl.nvuiLearning;
-          //ctrl.redraw();
-          //}),
-          //},
-          //'Learn from your mistakes',
-          //),
-
-          renderComputerAnalysis(ctrl, notify, moveStyle.get()),
+          ...renderComputerAnalysis(ctrl, notify, moveStyle.get()),
           h('h2', 'Board'),
           h(
             'div.board',
@@ -247,8 +233,8 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
           h('h2', i18n.site.advancedSettings),
           h('h4', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
-          h('h4', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          h('h4', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+          h('h5', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+          h('h5', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('h4', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('h4', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', i18n.site.keyboardShortcuts),
@@ -286,15 +272,15 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
   };
 }
 
-function skipOrViewSolution(ctrl: RetroCtrl) {
-  return h('aside', [
+function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode[] {
+  return [
     h(
       'button',
       {
         hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      h('h6', i18n.site.viewTheSolution),
+      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.viewTheSolution),
     ),
     h(
       'button',
@@ -302,19 +288,19 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
         hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      h('h6', i18n.site.skipThisMove),
+      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.skipThisMove),
     ),
-  ]);
+  ];
 }
 
-function jumpToNext(ctrl: RetroCtrl) {
+function renderJumpToNextBtn(ctrl: RetroCtrl): VNode {
   return h(
     'button',
     {
       hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
-      attrs: { 'aria-label': 'Jump to next', tabindex: '0' },
+      attrs: { tabindex: '0' },
     },
-    h('h6', i18n.site.next),
+    h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.next),
   );
 }
 
@@ -331,27 +317,25 @@ function renderEvalProgress(node: Tree.Node): VNode {
 const feedback = {
   find(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', [
-        h(
-          'strong',
-          i18n.site.xWasPlayed.asArray(
-            h(
-              'move',
-              { attrs: { 'aria-live': 'assertive' } },
-              renderIndexAndMove(
-                { withDots: true, showGlyphs: false, showEval: false },
-                ctrl.current()!.fault.node,
-              ),
+      h(
+        'h3',
+        i18n.site.xWasPlayed.asArray(
+          h(
+            'move',
+            { attrs: { 'aria-live': 'assertive' } },
+            renderIndexAndMove(
+              { withDots: true, showGlyphs: false, showEval: false },
+              ctrl.current()!.fault.node,
             ),
           ),
         ),
-        h(
-          'h4',
-          { attrs: { 'aria-live': 'polite' } },
-          i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
-        ),
-        skipOrViewSolution(ctrl),
-      ]),
+      ),
+      h(
+        'h4',
+        { attrs: { 'aria-live': 'assertive' } },
+        i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
+      ),
+      ...renderSkipOrViewSolution(ctrl),
     ];
   },
   // user has browsed away from the move to solve
@@ -365,7 +349,7 @@ const feedback = {
             tabindex: '0',
             hook: nvuiInsertHook(ctrl.jumpToNext),
           },
-          h('h6', i18n.site.resumeLearning),
+          h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.resumeLearning),
         ),
       ]),
     ];
@@ -379,33 +363,24 @@ const feedback = {
           { attrs: { 'aria-live': 'assertive' } },
           i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
         ),
-        skipOrViewSolution(ctrl),
+        ...renderSkipOrViewSolution(ctrl),
       ]),
     ];
   },
   win(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
-        h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove),
-        jumpToNext(ctrl),
-      ]),
-    ];
+    return [h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove), renderJumpToNextBtn(ctrl)];
   },
   view(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
-        h('h3', i18n.site.solution),
-        h('h4', renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)),
-        jumpToNext(ctrl),
-      ]),
+      h('h3', i18n.site.solution),
+      h('h4', renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)),
+      renderJumpToNextBtn(ctrl),
     ];
   },
   eval(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
-        h('h3', { atters: { 'aria-live': 'polite' } }, i18n.site.evaluatingYourMove),
-        h('h4', { attrs: { 'aria-label': 'eval progress' } }, renderEvalProgress(ctrl.node())),
-      ]),
+      h('h3', { atters: { 'aria-live': 'polite' } }, i18n.site.evaluatingYourMove),
+      h('h4', { attrs: { 'aria-label': 'eval progress' } }, renderEvalProgress(ctrl.node())),
     ];
   },
   end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
@@ -445,7 +420,7 @@ const feedback = {
                   key: 'reset',
                   hook: nvuiInsertHook(ctrl.reset),
                 },
-                h('h6', i18n.site.doItAgain),
+                h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.doItAgain),
               ),
           h(
             'button',
@@ -456,7 +431,11 @@ const feedback = {
               key: 'flip',
               hook: nvuiInsertHook(ctrl.flip),
             },
-            h('h6', i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes']),
+            h(
+              'h6',
+              { attrs: { style: 'pointer-events: none' } },
+              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+            ),
           ),
         ]),
       ]),
@@ -639,7 +618,7 @@ function renderRetro(root: AnalyseCtrl): VNode | undefined {
     completion = ctrl.completion();
 
   return (
-    h('section', { attrs: { 'aria-atomic': 'true' } }, [
+    h('section', { attrs: { 'aria-atomic': 'true', 'aria-live': 'assertive' } }, [
       h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
       h(
         'h6',
@@ -700,7 +679,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function requestAnalBtn(ctrl: AnalyseCtrl): VNode {
+function requestAnalyseBtn(ctrl: AnalyseCtrl): VNode {
   return h(
     'button',
     {
@@ -709,13 +688,13 @@ function requestAnalBtn(ctrl: AnalyseCtrl): VNode {
         ctrl.redraw();
       }),
     },
-    h('h6', i18n.site.requestAComputerAnalysis),
+    h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.requestAComputerAnalysis),
   );
 }
 
 function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   const anal = ctrl.data.analysis; // heh
-  if (!anal) return requestAnalBtn(ctrl);
+  if (!anal) return requestAnalyseBtn(ctrl);
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
@@ -748,36 +727,41 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode | void {
+function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode[] {
   if (ctrl.hasFullComputerAnalysis()) {
+    const elements = [h('h2', 'Computer analysis')];
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
-      return h('h2', 'Server-side analysis in progress');
-    }
-    if (ctrl.nvuiLearning) {
+      elements.push(h('h2', 'Server-side analysis in progress'));
+    } else if (ctrl.nvuiLearning) {
       const LFYM = renderRetro(ctrl);
       if (LFYM) {
-        return LFYM;
+        elements.push(LFYM);
+      } else {
+        notify.set('Problem rendering learn from your mistakes');
       }
-      notify.set('Problem rendering learn from your mistakes');
+    } else {
+      elements.push(
+        h(
+          'button',
+          {
+            hook: nvuiInsertHook(() => {
+              ctrl.toggleRetro();
+              notify.set('Learn from your mistakes');
+              ctrl.nvuiLearning = !ctrl.nvuiLearning;
+              ctrl.redraw();
+            }),
+            attrs: { 'tab-index': '0' },
+          },
+          h('h6', { attrs: { style: 'pointer-events: none' } }, 'Learn from your mistakes'),
+        ),
+        renderAcpl(ctrl, moveStyle),
+      );
     }
-    return h('section', [
-      h(
-        'button',
-        {
-          hook: nvuiInsertHook(() => {
-            ctrl.toggleRetro();
-            notify.set('Learn from your mistakes');
-            ctrl.nvuiLearning = !ctrl.nvuiLearning;
-            ctrl.redraw();
-          }),
-          attrs: { 'tab-index': '0' },
-        },
-        h('h6', 'Learn from your mistakes'),
-      ),
-      renderAcpl(ctrl, moveStyle),
-    ]);
-  } // else void. No analisys
+
+    return elements;
+  } // No analysis, return request Analysis btn.
+  return [requestAnalyseBtn(ctrl)];
 }
 
 function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
@@ -973,7 +957,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
           ),
         ]),
         study.members.canContribute()
-          ? h('div.buttons', [
+          ? h('div', [
               h(
                 'button',
                 {
