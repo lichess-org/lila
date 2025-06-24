@@ -132,7 +132,7 @@ const glyphToSvg: Dictionary<string> = {
   ),
 
   // Black is winning
-  '-+': composeGlyph(
+  '−+': composeGlyph(
     '#333',
     '<path d="M 71,27 L 71,73 M 94,50 L 48,50" stroke="#fff" stroke-width="8" fill="none"/><path stroke="#fff" stroke-width="8" fill="none" d="M 40,50 L 4,50"/>',
   ),
