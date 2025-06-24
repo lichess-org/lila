@@ -1,6 +1,6 @@
 import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/snabbdom';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import { prop, Prop, scrollTo } from 'lib';
@@ -137,7 +137,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function statusIcon(member: StudyMember) {
     const contrib = member.role === 'w';
-    return h(
+    return hl(
       'span.status',
       {
         class: {
@@ -153,7 +153,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return h('i.act', {
+      return hl('i.act', {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
@@ -162,7 +162,7 @@ export function view(ctrl: StudyCtrl): VNode {
         ),
       });
     if (!isOwner && member.user.id === members.opts.myId)
-      return h('i.act.leave', {
+      return hl('i.act.leave', {
         attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
         hook: bind('click', members.leave, ctrl.redraw),
       });
@@ -171,16 +171,16 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function memberConfig(member: StudyMember): VNode {
     const roleId = 'member-role';
-    return h(
+    return hl(
       'm-config',
       {
         key: member.user.id + '-config',
         hook: onInsert(el => scrollTo($(el).parent('.study__members')[0] as HTMLElement, el)),
       },
       [
-        h('div.role', [
-          h('div.switch', [
-            h('input.cmn-toggle', {
+        hl('div.role', [
+          hl('div.switch', [
+            hl('input.cmn-toggle', {
               attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
               hook: bind(
                 'change',
@@ -188,13 +188,13 @@ export function view(ctrl: StudyCtrl): VNode {
                 ctrl.redraw,
               ),
             }),
-            h('label', { attrs: { for: roleId } }),
+            hl('label', { attrs: { for: roleId } }),
           ]),
-          h('label', { attrs: { for: roleId } }, i18n.study.contributor),
+          hl('label', { attrs: { for: roleId } }, i18n.study.contributor),
         ]),
-        h(
+        hl(
           'div.kick',
-          h(
+          hl(
             'a.button.button-red.button-empty.text',
             { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
             i18n.study.kick,
@@ -206,13 +206,13 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const ordered: StudyMember[] = members.ordered();
 
-  return h('div.study__members', { hook: onInsert(() => pubsub.emit('chat.resize')) }, [
-    ...ordered
+  return hl('div.study__members', { hook: onInsert(() => pubsub.emit('chat.resize')) }, [
+    ordered
       .map(member => {
         const confing = members.confing() === member.user.id;
         return [
-          h('div', { key: member.user.id, class: { editing: !!confing } }, [
-            h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+          hl('div', { key: member.user.id, class: { editing: !!confing } }, [
+            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
             configButton(ctrl, member),
           ]),
           confing && memberConfig(member),
@@ -221,15 +221,15 @@ export function view(ctrl: StudyCtrl): VNode {
       .reduce((a, b) => a.concat(b), []),
     isOwner &&
       ordered.length < members.max &&
-      h('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        h('div.left', [
-          h('span.status', iconTag(licon.PlusButton)),
-          h('div.user-link', i18n.study.addMembers),
+      hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+        hl('div.left', [
+          hl('span.status', iconTag(licon.PlusButton)),
+          hl('div.user-link', i18n.study.addMembers),
         ]),
       ]),
     !members.canContribute() &&
       ctrl.data.admin &&
-      h(
+      hl(
         'form.admin',
         {
           key: ':admin',
@@ -238,7 +238,7 @@ export function view(ctrl: StudyCtrl): VNode {
             return false;
           }),
         },
-        [h('button.button.button-red.button-thin', 'Enter as admin')],
+        [hl('button.button.button-red.button-thin', 'Enter as admin')],
       ),
   ]);
 }

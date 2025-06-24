@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { type VNode, looseH as h, onInsert, bind } from 'lib/snabbdom';
+import { type VNode, hl, onInsert, bind } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
 import { domDialog } from 'lib/view/dialog';
@@ -14,11 +14,11 @@ import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
 import { env } from './devEnv';
 
 export function renderDevSide(): VNode {
-  return h('div.dev-side.dev-view', [
-    h('div', player(co.opposite(env.game.screenOrientation))),
+  return hl('div.dev-side.dev-view', [
+    hl('div', player(co.opposite(env.game.screenOrientation))),
     dashboard(),
     progress(),
-    h('div', player(env.game.screenOrientation)),
+    hl('div', player(env.game.screenOrientation)),
   ]);
 }
 
@@ -30,7 +30,7 @@ function player(color: Color): VNode {
     white: isLight ? '.button-metal' : '.button-inverse',
     black: isLight ? '.button-inverse' : '.button-metal',
   };
-  return h(
+  return hl(
     `div.player`,
     {
       attrs: { 'data-color': color },
@@ -38,18 +38,18 @@ function player(color: Color): VNode {
     },
     [
       env.bot[color] &&
-        h(`button.upper-right`, {
+        hl(`button.upper-right`, {
           attrs: { 'data-action': 'remove', 'data-icon': licon.Cancel },
           hook: bind('click', e => {
             reset({ ...env.bot.uids, [color]: undefined });
             e.stopPropagation();
           }),
         }),
-      h('img', { attrs: { src: imgUrl } }),
+      hl('img', { attrs: { src: imgUrl } }),
       (!(env.bot.white || env.bot.black) || (p && !('level' in p))) &&
-        h('div.bot-actions', [
+        hl('div.bot-actions', [
           //p instanceof Bot &&
-          h(
+          hl(
             'button.button' + buttonClass[color],
             {
               hook: onInsert(el =>
@@ -63,7 +63,7 @@ function player(color: Color): VNode {
           ),
           p &&
             !('level' in p) &&
-            h(
+            hl(
               'button.button' + buttonClass[color],
               {
                 hook: onInsert(el =>
@@ -82,11 +82,11 @@ function player(color: Color): VNode {
               'rate',
             ),
         ]),
-      h('div.stats', [
-        h('span', env.game.nameOf(color)),
+      hl('div.stats', [
+        hl('span', env.game.nameOf(color)),
         p && ratingSpan(p),
-        p instanceof Bot && h('span.stats', p.statsText),
-        h('span', resultsString(env.dev.log, env.bot[color]?.uid)),
+        p instanceof Bot && hl('span.stats', p.statsText),
+        hl('span', resultsString(env.dev.log, env.bot[color]?.uid)),
       ]),
     ],
   );
@@ -99,8 +99,8 @@ function ratingText(uid: string, speed: LocalSpeed): string {
 
 function ratingSpan(p: Bot): VNode {
   const glicko = env.dev.getRating(p.uid, env.game.speed);
-  return h('span.stats', [
-    h('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
+  return hl('span.stats', [
+    hl('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
     `${glicko.r}${glicko.rd > 80 ? '?' : ''}`,
   ]);
 }
@@ -124,11 +124,11 @@ async function editBot(color: Color) {
 }
 
 function clockOptions() {
-  return h('span', [
-    ...(['initial', 'increment'] as const).map(type => {
-      return h('label', [
+  return hl('span', [
+    (['initial', 'increment'] as const).map(type => {
+      return hl('label', [
         type === 'initial' ? 'clk' : 'inc',
-        h(
+        hl(
           `select.${type}`,
           {
             hook: onInsert(el =>
@@ -138,11 +138,9 @@ function clockOptions() {
               }),
             ),
           },
-          [
-            ...rangeTicks[type].map(([secs, label]) =>
-              h('option', { attrs: { value: secs, selected: secs === env.game[type] } }, label),
-            ),
-          ],
+          rangeTicks[type].map(([secs, label]) =>
+            hl('option', { attrs: { value: secs, selected: secs === env.game[type] } }, label),
+          ),
         ),
       ]);
     }),
@@ -156,22 +154,22 @@ function reset(params: Partial<LocalSetup>): void {
 }
 
 function dashboard() {
-  return h('div.dev-dashboard', [
+  return hl('div.dev-dashboard', [
     fen(),
     clockOptions(),
-    h('span', [
-      h('div', [
-        h('label', { attrs: { title: 'instantly deduct bot move times. disable animations and sound' } }, [
-          h('input', {
+    hl('span', [
+      hl('div', [
+        hl('label', { attrs: { title: 'instantly deduct bot move times. disable animations and sound' } }, [
+          hl('input', {
             attrs: { type: 'checkbox', checked: env.dev.hurryProp() },
             hook: bind('change', e => env.dev.hurryProp((e.target as HTMLInputElement).checked)),
           }),
           'hurry',
         ]),
       ]),
-      h('label', [
+      hl('label', [
         'games',
-        h('input.num-games', {
+        hl('input.num-games', {
           attrs: { type: 'text', value: storedIntProp('botdev.numGames', 1)() },
           hook: bind('input', e => {
             const el = e.target as HTMLInputElement;
@@ -183,26 +181,26 @@ function dashboard() {
         }),
       ]),
     ]),
-    h('span', [
-      h(
+    hl('span', [
+      hl(
         'button.button.button-metal',
         { hook: bind('click', () => showSetupDialog(env.game.live.setup)) },
         'setup',
       ),
-      h('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'tour'),
-      h('div.spacer'),
-      h('button.button.button-metal', {
+      hl('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'tour'),
+      hl('div.spacer'),
+      hl('button.button.button-metal', {
         attrs: { 'data-icon': licon.ShareIos },
         hook: bind('click', () => report()),
       }),
-      h(`button.board-action.button.button-metal`, {
+      hl(`button.board-action.button.button-metal`, {
         attrs: { 'data-icon': licon.Switch },
         hook: bind('click', () => {
           env.game.load({ white: env.bot.uids.black, black: env.bot.uids.white });
           env.redraw();
         }),
       }),
-      h(`button.board-action.button.button-metal`, {
+      hl(`button.board-action.button.button-metal`, {
         attrs: { 'data-icon': licon.Reload },
         hook: onInsert(el =>
           el.addEventListener('click', () => {
@@ -217,19 +215,19 @@ function dashboard() {
 }
 
 function progress() {
-  return h('div.dev-progress', [
-    h('div.results', [
+  return hl('div.dev-progress', [
+    hl('div.results', [
       env.dev.log.length > 0 &&
-        h('button.button.button-empty.button-red.icon-btn.upper-right', {
+        hl('button.button.button-empty.button-red.icon-btn.upper-right', {
           attrs: { 'data-icon': licon.Cancel },
           hook: bind('click', () => {
             env.dev.log = [];
             env.redraw();
           }),
         }),
-      ...playersWithResults(env.dev.log).map(p => {
+      playersWithResults(env.dev.log).map(p => {
         const bot = env.bot.info(p)!;
-        return h(
+        return hl(
           'div',
           `${bot?.name ?? p} ${ratingText(p, env.game.speed)} ${resultsString(env.dev.log, p)}`,
         );
@@ -242,7 +240,7 @@ function renderPlayPause(): VNode {
   const boardTurn = env.game.rewind?.turn ?? env.game.live.turn;
   const disabled = !env.bot[boardTurn];
   const paused = env.game.isStopped || env.game.rewind || env.game.live.finished;
-  return h(
+  return hl(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {
       hook: onInsert(el =>
@@ -272,7 +270,7 @@ function renderPlayPause(): VNode {
 
 function fen(): VNode {
   const boardFen = env.game.rewind?.fen ?? env.game.live.fen;
-  return h('input.fen', {
+  return hl('input.fen', {
     key: boardFen,
     attrs: {
       type: 'text',

@@ -1,4 +1,4 @@
-import { looseH as h, type VNode } from '@/snabbdom';
+import { hl, type VNode } from '@/snabbdom';
 import { clamp } from '@/algo';
 import { storedMap } from '@/storage';
 import { myUserId } from '@/common';
@@ -16,7 +16,7 @@ type ResizerElement = HTMLElement & { observer: MutationObserver };
 
 export function verticalResizeSeparator(o: Opts): VNode {
   // add these directly after the vnode they resize
-  return h(
+  return hl(
     'div.vertical-resize-separator',
     {
       hook: {
@@ -62,7 +62,7 @@ export function verticalResizeSeparator(o: Opts): VNode {
         destroy: vn => (vn.elm as ResizerElement).observer?.disconnect(),
       },
     },
-    [o.kid, h('hr', { attrs: { role: 'separator' } })],
+    [o.kid, hl('hr', { attrs: { role: 'separator' } })],
   );
 }
 
