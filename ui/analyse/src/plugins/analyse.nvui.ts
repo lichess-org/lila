@@ -272,8 +272,8 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
   };
 }
 
-function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode[] {
-  const nodes = [
+function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
+  return h("div", [
     h(
       'button',
       {
@@ -290,9 +290,7 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode[] {
       },
       h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.skipThisMove),
     ),
-  ];
-  console.log(nodes);
-  return nodes;
+  ]);
 }
 
 function renderJumpToNextBtn(ctrl: RetroCtrl): VNode[] {
@@ -339,7 +337,7 @@ const feedback = {
         { attrs: { 'aria-live': 'assertive' } },
         i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
       ),
-      ...renderSkipOrViewSolution(ctrl),
+      renderSkipOrViewSolution(ctrl),
     ];
   },
   // user has browsed away from the move to solve
@@ -367,7 +365,7 @@ const feedback = {
           { attrs: { 'aria-live': 'assertive' } },
           i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
         ),
-        ...renderSkipOrViewSolution(ctrl),
+        renderSkipOrViewSolution(ctrl),
       ]),
     ];
   },
