@@ -118,9 +118,9 @@ function view(opts: Opts, coords: Coords): VNode {
         () => ctrl.pendingDeletionPath(null),
       ),
 
-      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
+      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setCollapsedForCtxMenu(opts.path, false)),
 
-      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
+      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setCollapsedForCtxMenu(opts.path, true)),
 
       ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
 
