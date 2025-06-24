@@ -34,6 +34,8 @@ export function initModule(args: { fn: string } & any): void {
       return setAssetInfo();
     case 'streamerSubscribe':
       return streamerSubscribe();
+    case 'fidePlayerSubscribe':
+      return fidePlayerSubscribe();
     case 'thanksReport':
       return thanksReport();
     case 'titleRequest':
@@ -230,6 +232,13 @@ function streamerSubscribe() {
           { method: 'post' },
         );
       });
+  });
+}
+
+function fidePlayerSubscribe() {
+  const el = $('#fide-player-subscribe');
+  el.on('change', () => {
+    text(el.data('action').replace(/set=[^&]+/, `set=${el.prop('checked')}`), { method: 'post' });
   });
 }
 

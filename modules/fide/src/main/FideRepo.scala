@@ -19,7 +19,15 @@ final private class FideRepo(
     def fetch(id: FideId): Fu[Option[FidePlayer]]     = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
-    def countAll = playerColl.count()
+    def countAll                                  = playerColl.count()
+    def subscribers(fid: FideId): Fu[Set[UserId]] =
+      playerColl.distinctEasy[UserId, Set]("subscribers", $id(fid))
+    def setSubscribed(fid: FideId, uid: UserId, isSubscribed: Boolean): Funit =
+      playerColl.update
+        .one($id(fid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
+        .void
+    def isSubscribed(fid: FideId, uid: UserId): Fu[Boolean] =
+      playerColl.exists($doc($id(fid), "subscribers" -> uid))
 
   object federation:
     given BSONDocumentHandler[hub.Federation.Stats] = Macros.handler

@@ -16,7 +16,7 @@ final class Fide(env: Env) extends LilaController(env):
           case Left(player) => Redirect(routes.Fide.show(player.id, player.slug))
           case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim))).map(Ok(_))
 
-  def show(id: chess.FideId, slug: String, page: Int) = Open:
+  def show(id: chess.FideId, slug: String, page: Int) = Open { ctx ?=>
     env.fide.repo.player
       .fetch(id)
       .flatMap:
@@ -25,10 +25,17 @@ final class Fide(env: Env) extends LilaController(env):
           if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
           else
             for
-              user     <- env.title.api.publicUserOf(player.id)
-              tours    <- env.relay.playerTour.playerTours(player, page)
-              rendered <- renderPage(views.fide.player.show(player, user, tours))
+              user         <- env.title.api.publicUserOf(player.id)
+              tours        <- env.relay.playerTour.playerTours(player, page)
+              isSubscribed <- ctx.me
+                .fold(Future.successful(false))(me => env.fide.repo.player.isSubscribed(id, me.userId))
+              rendered <- renderPage(views.fide.player.show(player, user, tours, isSubscribed))
             yield Ok(rendered)
+  }
+
+  def subscribe(id: chess.FideId, isSubscribed: Boolean) = AuthBody { _ ?=> me ?=>
+    env.fide.repo.player.setSubscribed(id, me.userId, isSubscribed).map(_ => Ok)
+  }
 
   def apiShow(id: chess.FideId) = Anon:
     Found(env.fide.repo.player.fetch(id))(JsonOk)

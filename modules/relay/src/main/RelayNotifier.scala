@@ -1,10 +1,51 @@
 package lila.relay
 
 import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.study.{ Chapter, ChapterRepo }
+import chess.ByColor
 
-final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)(using Executor):
+final private class RelayNotifier(
+    notifyApi: NotifyApi,
+    tourRepo: RelayTourRepo,
+    chapterRepo: ChapterRepo,
+    getSubscribers: lila.core.fide.GetSubscribers
+)(using Executor):
 
-  def roundBegin(rt: RelayRound.WithTour): Funit =
+  private def notifyPlayerSubscribers(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
+    chapterRepo
+      .hasNotified(chapter.id)
+      .not
+      .flatMapz:
+        chapterRepo.setNotified(chapter.id) >>
+        val futureByColor = game.fideIds.mapWithColor((color, fid) =>
+          fid
+            .map(
+              getSubscribers(_).flatMap(subscribers =>
+                if subscribers.nonEmpty then
+                  notifyApi.notifyMany(
+                    subscribers,
+                    NotificationContent.BroadcastRound(
+                      rt.path(chapter.id),
+                      rt.tour.name.value,
+                      chapter.players.flatMap(players =>
+                        players.map(_.name) match
+                          case ByColor(Some(whiteName), Some(blackName)) =>
+                            Some(ByColor(whiteName, blackName))
+                          case _ => None
+                      ) match
+                        case Some(players) =>
+                          s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
+                        case None => s"A player you are following has started a game in ${rt.round.name}"
+                    )
+                  )
+                else Future.successful(())
+              )
+            )
+            .getOrElse(Future.successful(()))
+        )
+        Future.sequence(futureByColor.all).map(_ => ())
+
+  private def notifyTournamentSubscribers(rt: RelayRound.WithTour): Funit =
     tourRepo
       .hasNotified(rt)
       .not
@@ -22,3 +63,7 @@ final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)
                     s"${rt.round.name} has begun"
                   )
                 )
+
+  def chapterUpdated(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
+    notifyPlayerSubscribers(rt, chapter, game)
+    notifyTournamentSubscribers(rt)

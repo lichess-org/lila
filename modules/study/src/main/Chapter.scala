@@ -116,6 +116,8 @@ case class Chapter(
 
   def tagsExport = PgnTags.cleanUpForPublication(tags)
 
+  def players = ChapterPlayer.fromTags(tags, denorm.so(_.clocks))
+
 object Chapter:
 
   type Order = Int

@@ -28,6 +28,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def tokenize: hub.Tokenize                    = FidePlayer.tokenize
   def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
   def getPlayer: hub.GetPlayer                  = playerApi.get
+  def getSubscribers: hub.GetSubscribers        = repo.player.subscribers
 
   def search(q: Option[String], page: Int = 1): Fu[Either[FidePlayer, Paginator[FidePlayer]]] =
     val query = q.so(_.trim)

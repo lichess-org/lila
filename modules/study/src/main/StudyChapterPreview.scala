@@ -101,7 +101,7 @@ final class ChapterPreviewApi(
     ChapterPreview(
       id = id,
       name = name,
-      players = ChapterPlayer.fromTags(tags, denorm.so(_.clocks)),
+      players = players,
       orientation = setup.orientation,
       fen = denorm.fold(Fen.initial)(_.fen),
       lastMove = denorm.flatMap(_.uci),
