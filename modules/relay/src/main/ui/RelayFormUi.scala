@@ -89,7 +89,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(List(Esm("bits.flatpickr"), esmInitBit("relayForm")).map(some))
+        .js(List(Esm("bits.flatpickr")).map(some))
         .wrap: body =>
           main(cls := "page page-menu")(
             navigationMenu(nav),
