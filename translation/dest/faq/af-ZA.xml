@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Party Lichess blaaie het kitssleutels wat jy kan gebruik. Probeer om die \'?\' sleutel te druk op \'n studie, analise, raaisel of spel blad om die beskikbare kitssleutels te vertoon.</string>
   <string name="fairPlay">Regverdige spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ek in aanmerking vir die outomatiese terugbetaling van graderings van bedrieërs?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Een minuut nadat \'n speler gemerk is, word hul 40 laaste wedstryde in die afgelope drie dae geneem. As u die teenstander in daardie wedstryde is, het u \'n aanslag verloor (as gevolg van \'n verlies of gelykop uitslag) en u gradering was nie voorlopig nie, u ontvang \'n terugbetaling. Die terugbetaling is beperk op grond van u piekgradering en u vordering na die wedstryd.
+  <string name="ratingRefundExplanation">Een minuut nadat \'n speler gemerk is, word hul 40 laaste wedstryde in die afgelope drie dae geneem. As u die teenstander in daardie wedstryde is, het u \'n aanslag verloor (as gevolg van \'n verlies of gelykop uitslag) en u gradering was nie voorlopig nie, u ontvang \'n terugbetaling. Die terugbetaling is beperk op grond van u piekgradering en u vordering na die wedstryd.
   (Byvoorbeeld, as u gradering aansienlik toegeneem het na daardie speletjies, sal u miskien geen terugbetaling of slegs \'n gedeeltelike terugbetaling kry nie.) \'N Terugbetaling sal nooit meer as 150 punte oorskry nie.</string>
   <string name="preventLeavingGameWithoutResigning">Wat word gedoen daaraan dat spelers speletjies verlaat aonder om te bedank?</string>
   <string name="leavingGameWithoutResigningExplanation">As u opponent gereeld speletjies staak / verlaat, word hulle \"speel verban\", wat beteken dat hulle tydelik verbied word om speletjies te speel. Dit word nie publiek op hul profiel aangedui nie. As hierdie gedrag voortduur, verhoog die lengte van die speelbaan - en langdurige gedrag van hierdie aard kan lei tot die sluiting van die rekening.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hoe word daar besluit oor Bullet, Blitz en ander tydsbeheer?</string>
   <string name="basedOnGameDuration">Lichess-tydkontroles is gebaseer op die geskatte tydsduur = %1$s
 Die geskatte duur van \'n 5 + 3-speletjie is byvoorbeeld 5 × 60 + 40 × 3 = 420 sekondes.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(clock initial time) + 40 × (clock increment)</string>
+  <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Watter variante kan ek op Lichess speel?</string>
@@ -97,12 +97,11 @@ Moenie om die LM-titel vra nie.</string>
   <string name="usernamesNotOffensive">Oor die algemeen moet gebruikersname nie beledigend wees, iemand anders voordoen of adverteer nie. U kan meer lees oor die %1$s.</string>
   <string name="guidelines">riglyne</string>
   <string name="canIChangeMyUsername">Kan ek my gebruikersnaam verander?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nee, gebruikersname kan nie verander word nie vir tegniese en praktiese redes. Gebruikersname word in te veel plekke gematerialiseer: databasisse, uitvoere, logboeke en mense se geheue. Jy kan die hoofletters en kleinletters een keer verander.</string>
+  <string name="usernamesCannotBeChanged">Nee, gebruikersname kan nie verander word nie vir tegniese en praktiese redes. Gebruikersname word in te veel plekke gematerialiseer: databasisse, uitvoere, logboeke en mense se geheue. Jy kan die hoofletters en kleinletters een keer verander.</string>
   <string name="uniqueTrophies">Unieke trofeë</string>
   <string name="ownerUniqueTrophies">Daardie trofee is uniek in die geskiedenis van Lichess, niemand anders as %1$s sal dit ooit hê nie.</string>
-  <string name="wayOfBerserkExplanation">Om dit te kry, het hiimgosu homself uitgedaag om te berserk en 100 %% wedstryde van %s te wen.</string>
   <string name="aHourlyBulletTournament">\'n Bulletoernooi per uur</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict was besig om te stroom en die laaste 2 uur het hy probeer om A.I. vlak 8 in \'n 1 + 0-wedstryd, sonder sukses. Thibault het vir hom gesê dat hy \'n unieke trofee sou kry as hy dit suksesvol gedoen het. Een uur later het hy Stockfish verpletter, en die belofte is nagekom.</string>
+  <string name="goldenZeeExplanation">ZugAddict was besig om te stroom en die laaste 2 uur het hy probeer om A.I. vlak 8 in \'n 1 + 0-wedstryd, sonder sukses. Thibault het vir hom gesê dat hy \'n unieke trofee sou kry as hy dit suksesvol gedoen het. Een uur later het hy Stockfish verpletter, en die belofte is nagekom.</string>
   <string name="lichessRatings">Lichess-graderings</string>
   <string name="whichRatingSystemUsedByLichess">Watter graderingstelsel gebruik Lichess?</string>
   <string name="ratingSystemUsedByLichess">Graderings word bereken volgens die Glicko-2-graderingsmetode wat deur Mark Glickman ontwikkel is. Dit is \'n baie gewilde beoordelingsmetode en word deur \'n aansienlike aantal skaakorganisasies gebruik (FIDE is \'n noemenswaardige teenvoorbeeld, aangesien hulle steeds die gedateerde Elo-graderingstelsel gebruik).

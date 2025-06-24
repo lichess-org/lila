@@ -5,7 +5,7 @@ import { BackgroundCtrl } from './background';
 import { BoardCtrl } from './board';
 import { PieceCtrl } from './piece';
 import { LinksCtrl } from './links';
-import type { MaybeVNode, Redraw } from 'lib/snabbdom';
+import type { MaybeVNode } from 'lib/snabbdom';
 import type { DasherData, Mode, PaneCtrl } from './interfaces';
 import { type Prop, prop } from 'lib';
 import { pubsub } from 'lib/pubsub';

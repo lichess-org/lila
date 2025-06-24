@@ -58,6 +58,7 @@
     <item quantity="other">%s προσκλήσεις εκκρεμούν</item>
   </plurals>
   <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Εκκρεμεί</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Απορρίφθηκε</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειριζόμενος</string>
@@ -116,4 +117,5 @@
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">Έχει ήδη σταλεί πρόσκληση στον χρήστη %s</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">Ο χρήστης %1$s είναι λογαριασμός παιδιού και δεν μπορεί να λάβει το μήνυμά σας. Πρέπει να του δώσετε το URL της πρόσκλησης: %2$s</string>
   <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Μετακίνηση σε %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Μετακίνηση σε άλλη τάξη</string>
 </resources>

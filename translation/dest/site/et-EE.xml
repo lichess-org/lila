@@ -459,7 +459,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="points">Punktid</string>
   <string name="wins">Võidud</string>
   <string name="losses">Kaotused</string>
-  <string name="createdBy">Loodud</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="pause">Peata</string>
   <string name="resume">Jätka</string>

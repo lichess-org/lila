@@ -5,7 +5,7 @@ import renderExpiration from './expiration';
 import { userHtml } from './user';
 import * as button from './button';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, looseH as h, bind } from 'lib/snabbdom';
+import { type LooseVNodes, hl, bind } from 'lib/snabbdom';
 import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import { anyClockView } from './clock';
 
@@ -14,20 +14,20 @@ function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   return ctrl.nvui
     ? undefined
     : player.ai
-      ? h('div.user-link.online.ruser.ruser-' + position, [
-          h('i.line'),
-          h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
+      ? hl('div.user-link.online.ruser.ruser-' + position, [
+          hl('i.line'),
+          hl('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
       : userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
 
-const loader = () => h('i.ddloader');
+const loader = () => hl('i.ddloader');
 
-const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes) => [
+const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes[]) => [
   renderReplay(ctrl),
-  buttons.find(x => !!x) && h('div.rcontrols', buttons),
+  buttons.find(x => !!x) && hl('div.rcontrols', buttons),
 ];
 
 export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
@@ -48,15 +48,15 @@ const prompt = (ctrl: RoundController) => {
 
   const btn = (tpe: 'yes' | 'no', icon: string, text: string, action: () => void) =>
     ctrl.nvui
-      ? h('button', { hook: bind('click', action) }, text)
-      : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
+      ? hl('button', { hook: bind('click', action) }, text)
+      : hl(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
 
   const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.text || i18n.site.decline, o.no.action);
   const yesBtn =
     o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.text || i18n.site.accept, o.yes.action);
 
   return {
-    promptVNode: h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]),
+    promptVNode: hl('div.question', { key: o.prompt }, [noBtn, hl('p', o.prompt), yesBtn]),
     isQuestion: o.no !== undefined || o.yes !== undefined,
   };
 };
@@ -79,7 +79,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                   'takeback-yes',
                   ctrl.takebackYes,
                 ),
-            ctrl.drawConfirm
+            !!ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
                 ? button.claimThreefold(ctrl, d => {
@@ -100,7 +100,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                     'draw-yes',
                     () => ctrl.offerDraw(true),
                   ),
-            ctrl.resignConfirm
+            !!ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(
                   ctrl,
@@ -118,26 +118,26 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
       : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
     renderReplay(ctrl),
-    h('div.rcontrols', [
-      h(
+    hl('div.rcontrols', [
+      hl(
         'div.ricons',
         { class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm), empty: !icons.length } },
         icons,
       ),
-      ...buttons,
+      buttons,
     ]),
   ];
 };
 
 export const renderTable = (ctrl: RoundController): LooseVNodes => [
-  h('div.round__app__table'),
+  hl('div.round__app__table'),
   renderExpiration(ctrl),
   renderPlayer(ctrl, 'top'),
-  ...(ctrl.data.player.spectator
+  ctrl.data.player.spectator
     ? renderTableWatch(ctrl)
     : playable(ctrl.data)
       ? renderTablePlay(ctrl)
-      : renderTableEnd(ctrl)),
+      : renderTableEnd(ctrl),
   renderPlayer(ctrl, 'bottom'),
   /* render clocks after players so they display on top of them in col1,
    * since they occupy the same grid cell. This is required to avoid

@@ -3,7 +3,7 @@ import { hyphenToCamel, Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { bind, looseH as h, type VNode } from 'lib/snabbdom';
+import { bind, hl, type VNode } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 
@@ -30,10 +30,10 @@ export class BoardCtrl extends PaneCtrl {
   }
 
   render = (): VNode =>
-    h(`div.sub.board.${this.dimension}`, [
+    hl(`div.sub.board.${this.dimension}`, [
       header(i18n.site.board, this.close),
-      h('div.selector.large', [
-        h(
+      hl('div.selector.large', [
+        hl(
           'button.text',
           {
             class: { active: !this.is3d },
@@ -42,7 +42,7 @@ export class BoardCtrl extends PaneCtrl {
           },
           '2D',
         ),
-        h(
+        hl(
           'button.text',
           {
             class: { active: this.is3d },
@@ -52,9 +52,9 @@ export class BoardCtrl extends PaneCtrl {
           '3D',
         ),
       ]),
-      ...this.propSliders(),
+      this.propSliders(),
       this.showReset() &&
-        h(
+        hl(
           'button.text.reset',
           {
             attrs: { 'data-icon': licon.Back, type: 'button' },
@@ -62,10 +62,10 @@ export class BoardCtrl extends PaneCtrl {
           },
           i18n.site.boardReset,
         ),
-      h(
+      hl(
         'div.list',
         this.boardList.map((t: string) =>
-          h(
+          hl(
             'button',
             {
               key: t,
@@ -73,7 +73,7 @@ export class BoardCtrl extends PaneCtrl {
               attrs: { title: t, type: 'button' },
               class: { active: this.current === t },
             },
-            h('span.' + t),
+            hl('span.' + t),
           ),
         ),
       ),
@@ -183,12 +183,12 @@ export class BoardCtrl extends PaneCtrl {
   };
 
   private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
-    h(
+    hl(
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
-        h('label', label),
-        h('input.range', {
+        hl('label', label),
+        hl('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },
           hook: {

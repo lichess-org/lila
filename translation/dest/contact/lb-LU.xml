@@ -8,7 +8,7 @@
   <string name="noConfirmationEmail">Ech hunn keng Confirmatiounsemail kritt</string>
   <string name="forgotPassword">Ech hunn mäin Passwuert vergiess</string>
   <string name="forgotUsername">Ech hun mäin Benotzernumm vergiess</string>
-  <string name="youCanLoginWithEmail">Du kanns dech mat der Email Adress aloggen mat der du dech ugemellt hues</string>
+  <string name="youCanLoginWithEmail">Du kanns dech mat der E-Mail-Adress aloggen, mat där s du dech ugemellt hues</string>
   <string name="lost2FA">Ech hunn Accès zu mengen Zwee-Faktor-Authentifizéierungs Codes verluer</string>
   <string name="doPasswordReset">Passwuert zerécksétzen fir den zweeten Faktor ze läschen</string>
   <string name="accountSupport">Ech brauch Benotzerkonto-Ënnerstëtzung</string>
@@ -21,6 +21,7 @@
   <string name="doNotAskByEmailToReopen">Fro eis net per Email fir däin Konto rëm opzemaachen, mir wäerten en net maachen.</string>
   <string name="wantChangeUsername">Ech wëll mäin Benotzernumm änneren</string>
   <string name="changeUsernameCase">Géi op dës Säit, fir d\'Grouss- a Klengschreiwung vun dengem Benotzernumm ze änneren</string>
+  <string name="orCloseAccount">Du kanns allerdéngs däin aktuelle Konto zoumaachen an en neien uleeën.</string>
   <string name="wantClearHistory">Ech wëll mäin Verlaf oder meng Wäertung läschen</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
   <string name="toReportAPlayerUseForm">Fir ee Spiller ze mellen, benotz de Mellformulaire</string>
@@ -35,7 +36,7 @@
   <string name="reportMobileIssue">Als e Lichess-Mobil-Applikatiouns-Problem op GitHub</string>
   <string name="reportBugInDiscord">Am Lichess-Discordserver</string>
   <string name="howToReportBug">Beschreif wgl., wéi de Feeler ausgesäit, wat s de amplaz erwaart hues a wat ee maache muss, fir de Feeler ze reproduzéieren.</string>
-  <string name="illegalPawnCapture">Illegalen Bauerenschlagzuch</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Illegalen Bauerenschlagzuch</string>
   <string name="calledEnPassant">Dat gëtt „en passant“ genannt an ass eng vun de Reegele vum Schach.</string>
   <string name="tryEnPassant">Probéiert dëst klengt, interaktiivt Spill fir méi iwwer „en passant“ ze léieren.</string>
   <string name="illegalCastling">Illegal oder onméiglech Rochade</string>
@@ -53,6 +54,8 @@
   <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
   <string name="sendAppealTo">Du kanns däin Asproch un %s schécken.</string>
   <string name="falsePositives">Falsch-Positiv-Resultater kënnen heiansdo virkommen a mir entschëllegen eis dofir.</string>
+  <string name="accountLost">Wann s de allerdéngs tatsächlech e Schachprogramm benotzt hues, och wann et just eng Kéier war, dann ass däi Konto leider verluer.</string>
+  <string name="doNotDeny">Streit net of, dass de gefuddelt hues. Wann s de wëlls, dass de en neie Konto uleeën däerfs, da gëff einfach zou, wat s de gemaach hues, a weis, dass de verstanen hues, dass et e Feeler war.</string>
   <string name="otherRestriction">Aner Aschränkung</string>
   <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
   <string name="monetizing">Lichess monetiséieren</string>

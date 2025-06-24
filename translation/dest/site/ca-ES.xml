@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Taules per acord</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense captures ni moviments de peó</string>
   <string name="currentGames">Partides en joc</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Ha entrat a %s</string>
+  <string name="joinedX">Ha entrat a %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partides</item>
@@ -493,7 +493,6 @@
   <string name="points">Punts</string>
   <string name="wins">Victòries</string>
   <string name="losses">Derrotes</string>
-  <string name="createdBy">Creat per</string>
   <string name="startingIn" comment="Displayed above a timer">Començant en</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>

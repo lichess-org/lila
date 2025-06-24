@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remis efter fælles aftale</string>
   <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Tilsluttede sig %s</string>
+  <string name="joinedX">Tilsluttede sig %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
@@ -493,7 +493,6 @@
   <string name="points">Points</string>
   <string name="wins">Gevinster</string>
   <string name="losses">Tabte</string>
-  <string name="createdBy">Oprettet af</string>
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
   <string name="pause">Sæt på pause</string>

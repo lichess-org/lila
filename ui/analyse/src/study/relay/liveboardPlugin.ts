@@ -1,4 +1,4 @@
-import { looseH as h, VNode } from 'lib/snabbdom';
+import { hl, VNode } from 'lib/snabbdom';
 import { getChessground, initMiniBoardWith } from 'lib/view/miniBoard';
 import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin } from 'lib/chat/interfaces';
@@ -58,7 +58,7 @@ export class LiveboardPlugin implements ChatPlugin {
     this.board.orientation = this.ctrl.bottomColor();
     this.animate = true;
 
-    return h('div.chat-liveboard', {
+    return hl('div.chat-liveboard', {
       hook: {
         insert: (vn: VNode) => initMiniBoardWith(vn.elm as HTMLElement, this.board!),
         update: (_, vn: VNode) => {

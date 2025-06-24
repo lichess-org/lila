@@ -59,8 +59,8 @@
     <item quantity="other">Huet %s Etüde kreéiert</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Huet bei %s Arena Turnéier matgemaach</item>
-    <item quantity="other">Huet bei %s Arena Turnéiere matgemaach</item>
+    <item quantity="one">Huet bei %s Arena-Turnéier matgemaach</item>
+    <item quantity="other">Huet bei %s Arena-Turnéiere matgemaach</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Huet sech als #%1$s (iewescht %2$s%%) mat %3$s Partie an %4$s placéiert</item>

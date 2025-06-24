@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { looseH as h, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
+import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
@@ -10,28 +10,27 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),
     sync = ctrl.data.sync;
   return contributor || study.data.admin
-    ? h('div.relay-admin__container', [
-        contributor
-          ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
-              h('h2', [
-                h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-                h('a', {
-                  attrs: { href: `/broadcast/round/${study.data.id}/edit`, 'data-icon': licon.Gear },
-                }),
-              ]),
-              sync?.url || sync?.ids || sync?.urls || sync?.users
-                ? (sync.ongoing ? stateOn : stateOff)(ctrl)
-                : statePush(),
-              renderLog(ctrl),
-            ])
-          : undefined,
-        contributor || study.data.admin ? studyViewSide(study, false) : undefined,
+    ? hl('div.relay-admin__container', [
+        contributor &&
+          hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+            hl('h2', [
+              hl('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
+              hl('a', {
+                attrs: { href: `/broadcast/round/${study.data.id}/edit`, 'data-icon': licon.Gear },
+              }),
+            ]),
+            sync?.url || sync?.ids || sync?.urls || sync?.users
+              ? (sync.ongoing ? stateOn : stateOff)(ctrl)
+              : statePush(),
+            renderLog(ctrl),
+          ]),
+        (contributor || study.data.admin) && studyViewSide(study, false),
       ])
     : undefined;
 }
 
 const logSuccess = (e: LogEvent) =>
-  e.moves ? [h('strong', '' + e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
+  e.moves ? [hl('strong', '' + e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
 
 function renderLog(ctrl: RelayCtrl) {
   const url = ctrl.data.sync?.url;
@@ -40,59 +39,55 @@ function renderLog(ctrl: RelayCtrl) {
     .reverse()
     .map(e => {
       const err =
-        e.error && h('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
-      return h(
+        e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
+      return hl(
         'div' + (err ? '.err' : ''),
         { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },
-        [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter()(new Date(e.at)))])],
+        [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
       );
     });
-  if (ctrl.loading()) logLines.unshift(h('div.load', [h('i.ddloader'), 'Polling source...']));
-  return h('div.log', logLines);
+  if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('i.ddloader'), 'Polling source...']));
+  return hl('div.log', logLines);
 }
 
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
-  return h(
+  return hl(
     'div.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
-      h('div', [
+      hl('div', [
         'Connected ',
-        ...(sync
-          ? [
-              sync.delay ? `with ${sync.delay}s delay ` : null,
-              ...(sync.url
-                ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
-                : sync.ids
-                  ? ['to', h('br'), sync.ids.length, ' game(s)']
-                  : sync.users
-                    ? [
-                        'to',
-                        h('br'),
-                        sync.users.length > 4 ? `${sync.users.length} users` : sync.users.join(' '),
-                      ]
-                    : sync.urls
-                      ? ['to', h('br'), sync.urls.length, ' sources']
-                      : []),
-              sync.filter ? ` (round ${sync.filter})` : null,
-              sync.slices ? ` (slice ${sync.slices})` : null,
-            ]
-          : []),
+        sync && [
+          !!sync.delay && `with ${sync.delay}s delay `,
+          sync.url
+            ? ['to source', hl('br'), sync.url.replace(/https?:\/\//, '')]
+            : sync.ids
+              ? ['to', hl('br'), sync.ids.length, ' game(s)']
+              : sync.users
+                ? [
+                    'to',
+                    hl('br'),
+                    sync.users.length > 4 ? `${sync.users.length} users` : sync.users.join(' '),
+                  ]
+                : sync.urls && ['to', hl('br'), sync.urls.length, ' sources'],
+          !!sync.filter && ` (round ${sync.filter})`,
+          !!sync.slices && ` (slice ${sync.slices})`,
+        ],
       ]),
     ],
   );
 }
 
 const stateOff = (ctrl: RelayCtrl) =>
-  h(
+  hl(
     'div.state.off.clickable',
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
-    [h('div.fat', 'Click to connect')],
+    [hl('div.fat', 'Click to connect')],
   );
 
 const statePush = () =>
-  h('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
+  hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
 
 const dateFormatter = memoize(
   () =>

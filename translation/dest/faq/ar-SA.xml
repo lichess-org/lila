@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">بعض صفحات Lichess لديها اختصارات لوحة المفاتيح يمكنك استخدامها. حاول الضغط على مفتاح \'؟\' على صفحة دراسة أو تحليل أو لغز أو لعبة لقائمة اختصارات لوحة المفاتيح المتاحة.</string>
   <string name="fairPlay">اللعب النزيه</string>
   <string name="whenAmIEligibleRatinRefund">متى يكون حسابي مستوفي للشروط ليتم اعادة تقييمي من الغشاشين ؟</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">بعد دقيقة من وضع العلامة على اللاعب، يتم أخذ اخر ٤٠ مباراة مقيّمة لهم في الثلاثة الايام الأخيرة، اذا كنت خصمهم في هذه المباريات، وخسرت نقاط تقييم (بسبب خسارة مباراة او تعادل) وتقييمك لم يكن مؤقتاً، ستستعيد نقاط تقييمك. تم تحديد حد أقصى للتقييم المسترد استناداً الى ذروة التقييم الخاص بك والتقدم الذي احرزته بعد اللعبة.
+  <string name="ratingRefundExplanation">بعد دقيقة من وضع العلامة على اللاعب، يتم أخذ اخر ٤٠ مباراة مقيّمة لهم في الثلاثة الايام الأخيرة، اذا كنت خصمهم في هذه المباريات، وخسرت نقاط تقييم (بسبب خسارة مباراة او تعادل) وتقييمك لم يكن مؤقتاً، ستستعيد نقاط تقييمك. تم تحديد حد أقصى للتقييم المسترد استناداً الى ذروة التقييم الخاص بك والتقدم الذي احرزته بعد اللعبة.
 على سبيل المثال (إذا زاد تقييمك بشكل كبير بعد تلك المباريات، قد لاتسترد نقاط تقييمك او على ردّ جزئي فقط.) ولن تتجاوز النقاط المستردّة 150 نقطة.</string>
   <string name="preventLeavingGameWithoutResigning">ما الذي يتم فعله بشأن اللاعبين الذين يغادرون المباريات دون الاستسلام؟</string>
   <string name="leavingGameWithoutResigningExplanation">اذا كان خصمك يلغي/يغادر المباريات بشكل متكرر، يتم حظرهم من اللعب بشكل مؤقت. لايكون هذا معلنا على صفحاتهم الشخصية. واذا استمر هذا السلوك، فإن مدة الحظر تزيد - والسلوك المطول من هذا النوع قد يؤدي الى اغلاق الحساب.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">كيف يتم تحديد بولييت، بليتز وغيرها من الضوابط الزمنية؟</string>
   <string name="basedOnGameDuration">تحكم وقت اللعبة مبني على المدة المقدرة للعبة = %1$s
 على سبيل المثال، المدة المقدرة للعبة 5+3 هي 5 × 60 + 40 × 3 = 420 ثانية.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
+  <string name="durationFormula">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s ثانية=%2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s ثانية=%2$s</string>
   <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
@@ -95,12 +95,11 @@
   <string name="usernamesNotOffensive">عموما، لا ينبغي أن تكون أسماء المستخدمين: مهينة، أو تنتحل صفة شخص آخر، أو تقوم بالإعلان. يمكنك قراءة المزيد عن %1$s.</string>
   <string name="guidelines">الإرشادات</string>
   <string name="canIChangeMyUsername">هل يمكنني تغيير اسم المستخدم الخاص بي؟</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">كلا، لا يمكن تغيير أسماء المستخدمين لأسباب فنية وعملية. إذ تنتشر وتتوزع أسماء المستخدمين في أماكن كثيرة جدًا منها: قواعد البيانات، والصادرات، والسجلات وذاكرة الناس. يمكنك ضبط الأحرف الكبيرة مرة واحدة.</string>
+  <string name="usernamesCannotBeChanged">كلا، لا يمكن تغيير أسماء المستخدمين لأسباب فنية وعملية. إذ تنتشر وتتوزع أسماء المستخدمين في أماكن كثيرة جدًا منها: قواعد البيانات، والصادرات، والسجلات وذاكرة الناس. يمكنك ضبط الأحرف الكبيرة مرة واحدة.</string>
   <string name="uniqueTrophies">كؤوس فريدة</string>
   <string name="ownerUniqueTrophies">هذه الكأس فريدة من نوعها في تاريخ ليشس، لن يحصل عليها أحد سوى %1$s.</string>
-  <string name="wayOfBerserkExplanation">من أجل الحصول على هذا اللقب، تحدى hiimgosu نفسه وقام بالمخاطرة والفوز بـ 100%% من مباريات %s.</string>
   <string name="aHourlyBulletTournament">بطولة شطرنج الطلقة السَّاعية</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">حاول ZugAddict هزيمة المستوى 8 من ستوكفيش لساعتين متواصلتين بينما كان يقوم بالبث في مباراة 1+0 لكن لم يحالفه الحظ في النجاح. أخبره Thibault أنه إذا نجح في القيام بذلك أثناء البث فسوف يحصل على كأس فريد. بعد ذلك بساعة، قام بهزم المحرك هزيمة نكراء وتم الوفاء بالوعد.</string>
+  <string name="goldenZeeExplanation">حاول ZugAddict هزيمة المستوى 8 من ستوكفيش لساعتين متواصلتين بينما كان يقوم بالبث في مباراة 1+0 لكن لم يحالفه الحظ في النجاح. أخبره Thibault أنه إذا نجح في القيام بذلك أثناء البث فسوف يحصل على كأس فريد. بعد ذلك بساعة، قام بهزم المحرك هزيمة نكراء وتم الوفاء بالوعد.</string>
   <string name="lichessRatings">تقييمات Lichess</string>
   <string name="whichRatingSystemUsedByLichess">ما هو نظام التقييم الذي يستخدمه ليشيس؟</string>
   <string name="ratingSystemUsedByLichess">يتم حساب التصنيفات بناءً على طريقة Glicko-2 التي طورها مارك جليكمان. وهي طريقة تصنيف شائعة جدًا يستخدمها عدد كبير من منظمات الشطرنج (على العكس من ذلك، لا يزال الاتحاد الدولي للشطرنج يستخدم طريقة تصنيف Elo القديمة).
@@ -145,7 +144,7 @@
 تظهر أيقونة كتم الصوت الحمراء عندما يمنع متصفحك موقعنا من تشغيل الصوت، يزال هذا القيد عادة بمجرد النقر في أي مكان، لكن في بعض متصفحات الأجهزة المحمولة، لا يعد سحب القطعة بمثابة نقرة، لذا يجب عليك النقر على الرقعة لتشغيل الصوت في بداية كل مباراة تلعبها.
 
 نعرض الرمز الأحمر لتنبيهك عند حدوث ذلك، في كثير من الأحيان يمكنك السماح لنا بتشغيل الأصوات عن طريق متصفحك، وفيما يلي تعليمات للقيام بذلك على الإصدارات الحديثة من بعض المتصفحات الشائعة.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">سطح المكتب</string>
+  <string name="desktop">سطح المكتب</string>
   <string name="enableAutoplayForSoundsFirefox">1. اذهب إلى lichess.org
 2. اضغط Ctrl-i في نظامي Linux/Windows أو cmd-i على MacOS
 3. انقر فوق علامة تبويب الأذونات
@@ -163,11 +162,11 @@
 3. انقر على ملفات تعريف الارتباط و أذونات الموقع
 4. مرر للأسفل وانقر على Media Autoplay
 5. أضف lichess.org للقائمة المسموح بها</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">كيف أوقف نفسي عن اللعب؟</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">حالة عقلية مستقلة</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">أنماط المستخدم ليتشيس</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">تصنيفات أقل</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">نتلقى بانتظام رسائل من المستخدمين يطلبون منا المساعدة لمنعهم من اللعب كثيرًا.
+  <string name="stopMyselfFromPlaying">كيف أوقف نفسي عن اللعب؟</string>
+  <string name="mentalHealthCondition">حالة عقلية مستقلة</string>
+  <string name="lichessUserstyles">أنماط المستخدم ليتشيس</string>
+  <string name="fewerLobbyPools">تصنيفات أقل</string>
+  <string name="adviceOnMitigatingAddiction">نتلقى بانتظام رسائل من المستخدمين يطلبون منا المساعدة لمنعهم من اللعب كثيرًا.
 
  على الرغم من أن Lichess لا تقوم بحظر اللاعبين أو حظرهم باستثناء انتهاكات شروط الخدمة، فإننا نوصي باستخدام أدوات خارجية للحد من سلوك اللعب المفرط.  تتضمن بعض الاقتراحات الشائعة لأدوات حظر مواقع الويب %1$s و%2$s و%3$s.  إذا كنت تريد الاستمرار في استخدام الموقع ولكن لا تنجذب إلى التحكم في الوقت السريع، فقد تكون مهتمًا أيضًا بـ %4$s، إليك واحدة مع %5$s.
 

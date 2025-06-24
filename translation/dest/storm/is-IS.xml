@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="score">Stig</string>
+  <string name="accuracy">Nákvæmni</string>
+  <string name="combo">Hrina</string>
+  <string name="skip">sleppa</string>
+  <string name="thisWeek">Í þessari viku</string>
+  <string name="thisMonth">Þessi mánuður</string>
+  <string name="allTime">Frá upphafi</string>
+</resources>

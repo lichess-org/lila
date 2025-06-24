@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">部分页面可以使用键盘快捷键。在研讨、分析、谜题或对局界面按下“?”键，即可列出你可以使用的快捷键。</string>
   <string name="fairPlay">公平竞争</string>
   <string name="whenAmIEligibleRatinRefund">我因与作弊者对弈而损失等级分，何时有资格获得自动补偿？</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">在棋手被标记为作弊者 1 分钟后，他们在过去 3 天内最新的 40 个评分对局也会被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，并且你的等级分不是临时的，那么所丢的分数会返还给你。返还分数情况各异，具体分数基于你的最高分和该对局应得分数自动设定，且最多不会超过 150 分。(例如，如果你的评分在与作弊者对弈后一段时间内大幅增加，则你可能只能得到部分返还分数或得不到返还分数。)</string>
+  <string name="ratingRefundExplanation">在棋手被标记为作弊者 1 分钟后，他们在过去 3 天内最新的 40 个评分对局也会被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，并且你的等级分不是临时的，那么所丢的分数会返还给你。返还分数情况各异，具体分数基于你的最高分和该对局应得分数自动设定，且最多不会超过 150 分。(例如，如果你的评分在与作弊者对弈后一段时间内大幅增加，则你可能只能得到部分返还分数或得不到返还分数。)</string>
   <string name="preventLeavingGameWithoutResigning">玩家没有认输就离开棋局，怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开棋局，他们会被 “禁止游戏”，即暂时禁止他们参加对局。 这一限制不会显示在他们的个人资料中。如果他们继续这样做，禁止的期限就会延长――长期被禁止可能会导致账户封禁。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
@@ -32,7 +32,7 @@
   <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess 时限基于预计的游戏持续时间 = %1$s。 例如，5+3 的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(时钟初始时间) + 40 × (加时)</string>
+  <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s秒 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
   <string name="whatVariantsCanIplay">我可以在 Lichess 上玩到哪些变体？</string>
@@ -95,12 +95,11 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于 %1$s 的信息。</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我能变更我的用户名吗?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 你可以调整一次用户名大小写。</string>
+  <string name="usernamesCannotBeChanged">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 你可以调整一次用户名大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在 Lichess 历史上是独一无二的，除了 %1$s，任何人都不会有。</string>
-  <string name="wayOfBerserkExplanation">为了获得它，hiimgosu 不断挑战自己的极限并最终赢得了所有 %s 对局。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict 当时在直播，他两个小时里一直试图在 1+0 的棋局中打败第八级的 AI，但没有成功。Thibault 告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
+  <string name="goldenZeeExplanation">ZugAddict 当时在直播，他两个小时里一直试图在 1+0 的棋局中打败第八级的 AI，但没有成功。Thibault 告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么等级分系统？</string>
   <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织所采用 (FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统)。
@@ -147,7 +146,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
 
 当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">桌面端</string>
+  <string name="desktop">桌面端</string>
   <string name="enableAutoplayForSoundsFirefox">1. 前往 lichess.org
 2. Linux 与 Windows 系统请点击 Ctrl + i，MacOS 系统请点击 cmd + i
 3. 点击权限选项卡
@@ -165,11 +164,11 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 3. 点击“Cookie 和网站权限”
 4. 向下滑动页面，点击“媒体自动播放”
 5. 添加 lichess.org 至允许列表</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">防止自己过度沉迷于游戏？</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">独立的精神健康状况</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess 用户样式</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">更少的大厅游戏池</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">我们经常收到用户的信息，要求我们帮助他们阻止过度沉迷于游戏。
+  <string name="stopMyselfFromPlaying">防止自己过度沉迷于游戏？</string>
+  <string name="mentalHealthCondition">独立的精神健康状况</string>
+  <string name="lichessUserstyles">Lichess 用户样式</string>
+  <string name="fewerLobbyPools">更少的大厅游戏池</string>
+  <string name="adviceOnMitigatingAddiction">我们经常收到用户的信息，要求我们帮助他们阻止过度沉迷于游戏。
 
 除了违反服务条款的情况外，Lichess 不会封禁或屏蔽玩家，但我们建议使用外部工具来限制过度游戏行为。一些常见的网站屏蔽工具包括 %1$s、%2$s 和 %3$s。如果您想继续使用网站，但又不想受到快速时间控制的诱惑，您可能会对 %4$s 感兴趣，这里有一种 %5$s 的用户风格。
 

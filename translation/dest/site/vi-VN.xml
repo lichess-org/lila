@@ -56,7 +56,7 @@
   <string name="computerAnalysis">Phân tích từ máy tính</string>
   <string name="computerAnalysisAvailable">Có sẵn phân tích từ máy tính</string>
   <string name="computerAnalysisDisabled">Phân tích từ máy tính bị vô hiệu hóa</string>
-  <string name="analysis">Bàn cờ phân tích</string>
+  <string name="analysis">Phân tích bàn cờ</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">Hòa theo thỏa thuận hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Các ván cờ đang diễn ra</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Tham gia hôm %s</string>
+  <string name="joinedX">Tham gia hôm %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -458,7 +458,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="points">Điểm</string>
   <string name="wins">Thắng</string>
   <string name="losses">Thua</string>
-  <string name="createdBy">Tạo bởi</string>
   <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
   <string name="standByX">%s chờ nhé, đang xếp cặp đấu, chuẩn bị sẵn sàng!</string>
   <string name="pause">Tạm rút</string>

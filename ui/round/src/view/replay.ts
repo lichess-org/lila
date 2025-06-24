@@ -8,7 +8,7 @@ import viewStatus from 'lib/game/view/status';
 import { game as gameRoute } from 'lib/game/router';
 import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/snabbdom';
 import boardMenu from './boardMenu';
 import { repeater } from 'lib';
 
@@ -42,15 +42,15 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   }),
 );
 
-const renderDrawOffer = () => h('draw', { attrs: { title: 'Draw offer' } }, '½?');
+const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½?');
 
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
-    ? h(moveTag, { class: { a1t: step.ply === curPly } }, [
+    ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
         step.san[0] === 'P' ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
-    : orEmpty && h(moveTag, '…');
+    : orEmpty && hl(moveTag, '…');
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
@@ -66,9 +66,9 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         result = '½-½';
     }
   if (result || aborted(ctrl.data)) {
-    return h('div.result-wrap', [
-      h('p.result', result || ''),
-      h(
+    return hl('div.result-wrap', [
+      hl('p.result', result || ''),
+      hl(
         'p.status',
         {
           hook: onInsert(() => {
@@ -103,7 +103,7 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   const els: LooseVNodes = [],
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(h(indexTag, i + indexOffset + ''));
+    els.push(hl(indexTag, i + indexOffset + ''));
     els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
     els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
   }
@@ -117,7 +117,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   return (
     userAnalysable(ctrl.data) &&
     !ctrl.data.local &&
-    h(
+    hl(
       'a.fbt.analysis',
       {
         class: { text: !!forecastCount },
@@ -127,7 +127,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
           'data-icon': licon.Microscope,
         },
       },
-      forecastCount ? ['' + forecastCount] : [],
+      !!forecastCount && String(forecastCount),
     )
   );
 }
@@ -148,16 +148,16 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
     lastPly = util.lastPly(ctrl.data);
-  return h(rbuttonsTag, [
-    analysisButton(ctrl) || h('div.noop'),
-    ...[
+  return hl(rbuttonsTag, [
+    analysisButton(ctrl) || hl('div.noop'),
+    [
       [licon.JumpFirst, firstPly],
       [licon.JumpPrev, ctrl.ply - 1],
       [licon.JumpNext, ctrl.ply + 1],
       [licon.JumpLast, lastPly],
     ].map((b: [string, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return h('button.fbt.repeatable', {
+      return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
@@ -174,17 +174,17 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    h('div.message', util.justIcon(licon.InfoCircle), [
-      h('div', [
+    hl('div.message', util.justIcon(licon.InfoCircle), [
+      hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
-        ...(d.player.color === 'white' ? [h('br'), h('strong', i18n.site.itsYourTurn)] : []),
+        d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
       ]),
     ])
   );
 }
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
-  h('button.fbt', {
+  hl('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
   });
@@ -193,7 +193,7 @@ export function render(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
     moves =
       ctrl.replayEnabledByPref() &&
-      h(
+      hl(
         movesTag,
         {
           hook: onInsert(el => {
@@ -225,12 +225,12 @@ export function render(ctrl: RoundController): LooseVNode {
   const renderMovesOrResult = moves ? moves : renderResult(ctrl);
   return (
     !ctrl.nvui &&
-    h(rmovesTag, [
+    hl(rmovesTag, [
       renderButtons(ctrl),
       boardMenu(ctrl),
       initMessage(ctrl) ||
         (displayColumns() === 1
-          ? h('div.col1-moves', [
+          ? hl('div.col1-moves', [
               col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,
               col1Button(ctrl, 1, licon.JumpNext, ctrl.ply === util.lastPly(d)),

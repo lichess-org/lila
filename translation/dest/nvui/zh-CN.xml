@@ -28,4 +28,28 @@
   <string name="goToBoard">跳转到棋盘。默认格子是e-4。你可以指定一个格子：board a-1或者b a-1将会把你带到a-1格。</string>
   <string name="movePiece">使用标准代数制记录法移动棋子。</string>
   <string name="promotion">使用equals升变为皇后以外的棋子。 例如a-8-equals-n升变为马。</string>
+  <string name="king">王</string>
+  <string name="whiteKing">白王</string>
+  <string name="blackKing">黑王</string>
+  <string name="queen">后</string>
+  <string name="whiteQueen">白后</string>
+  <string name="blackQueen">黑后</string>
+  <string name="rook">车</string>
+  <string name="whiteRook">白车</string>
+  <string name="blackRook">黑车</string>
+  <string name="bishop">象</string>
+  <string name="whiteBishop">白象</string>
+  <string name="blackBishop">黑象</string>
+  <string name="knight">马</string>
+  <string name="whiteKnight">白马</string>
+  <string name="blackKnight">黑马</string>
+  <string name="pawn">兵</string>
+  <string name="whitePawn">白兵</string>
+  <string name="blackPawn">黑兵</string>
+  <string name="sanCheck" comment="+ in standard notation">将军</string>
+  <string name="sanCheckmate" comment="# in standard notation">将死</string>
+  <string name="sanPromotesTo" comment="= in standard notation">升变成</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">短易位</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">长易位</string>
+  <string name="invalidMove">违规着法</string>
 </resources>

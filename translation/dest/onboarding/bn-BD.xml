@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s নামে লগ ইন কব়ূন।</string>
   <string name="welcome">স্বাগতম!</string>
-  <string name="welcomeToLichess">Lichess এ স্বাগতম!</string>
+  <string name="welcomeToLichess">Lichess.org এ স্বাগতম!</string>
   <string name="thisIsYourProfilePage">এটি আপনার প্রোফাইল পৃষ্ঠা.</string>
   <string name="enabledKidModeSuggestion">একটি শিশু কি এই অ্যাকাউন্ট ব্যবহার করবে? আপনি হয়তো %s সক্ষম করতে চাইতে পারেন.</string>
   <string name="whatNowSuggestions">এখন কি? এখানে কয়েকটি পরামর্শ:</string>

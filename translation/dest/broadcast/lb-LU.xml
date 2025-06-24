@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Iwwerdroungen</string>
+  <string name="myBroadcasts">Meng Iwwerdroungen</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s Iwwerdroung</item>
     <item quantity="other">%s Iwwerdroungen</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s Zuschauer</item>
+    <item quantity="other">%s Zuschauer</item>
+  </plurals>
   <string name="liveBroadcasts">Live Turnéier Iwwerdroungen</string>
+  <string name="broadcastCalendar">Iwwerdroungskalenner</string>
   <string name="newBroadcast">Nei Live Iwwerdroung</string>
+  <string name="subscribedBroadcasts">Abonéiert Iwwerdroungen</string>
+  <string name="aboutBroadcasts">Iwwer Iwwerdroungen</string>
+  <string name="howToUseLichessBroadcasts">Wéi ee Lichess-Iwwerdrounge benotzt.</string>
   <string name="addRound">Ronn hinzufügen</string>
   <string name="ongoing">Am Gaang</string>
   <string name="upcoming">Demnächst</string>
@@ -31,6 +40,7 @@
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
   <string name="replacePlayerTags">Optional: Spillernimm, Wäertungen an Titelen ersetzen</string>
   <string name="fideFederations">FIDE-Federatiounen</string>
+  <string name="top10Rating">Top-10-Wäertung</string>
   <string name="fidePlayers">FIDE-Spiller</string>
   <string name="fidePlayerNotFound">FIDE-Spiller net tfonnt</string>
   <string name="fideProfile">FIDE-Profil</string>
@@ -38,21 +48,39 @@
   <string name="ageThisYear">Alter dëst Joer</string>
   <string name="unrated">Ongewäert</string>
   <string name="recentTournaments">Rezent Turnéieren</string>
+  <string name="openLichess">Op Lichess opmaachen</string>
   <string name="teams">Ekippen</string>
+  <string name="boards">Brieder</string>
   <string name="overview">Iwwersiicht</string>
   <string name="uploadImage">Turnéierbild eroplueden</string>
+  <string name="noBoardsYet">Nach keng Brieder. Se wäerten optauchen, soubal Partien eropgeluede goufen.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brieder kënnen iwwer eng Source oder iwwer d\'%s geluede ginn</string>
   <string name="startsAfter">Fänkt no %s un</string>
+  <string name="startVerySoon">D\'Iwwerdroung fänkt geschwënn un.</string>
+  <string name="notYetStarted">D\'Iwwerdroung huet nach net ugefaangen.</string>
   <string name="officialWebsite">Offiziell Websäit</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Offizielle Stand</string>
+  <string name="standings">Stand</string>
+  <string name="officialStandings">Offizielle Stand</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
   <string name="webmastersPage">Webmaster-Säit</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partien an dësem Turnéier</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">All Ekippen</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnéierformat</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnéierplaz</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Topspiller</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zäitzon</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE-Wäertungskategorie</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Fakultativ Detailler</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live-Briet</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Eng ëffentlech Echtzäit-PGN-Source fir dës Ronn. Mir bidden och eng %s fir eng méi séier a méi effizient Synchroniséierung.</string>
+  <string name="embedThisBroadcast">Bann dës Iwwerdroung an deng Websäit an</string>
+  <string name="embedThisRound">Bann %s an deng Websäit an</string>
+  <string name="ratingDiff">Wäertungsdifferenz</string>
+  <string name="gamesThisTournament">Partien an dësem Turnéier</string>
+  <string name="score">Punktestand</string>
+  <string name="allTeams">All Ekippen</string>
+  <string name="tournamentFormat">Turnéierformat</string>
+  <string name="tournamentLocation">Turnéierplaz</string>
+  <string name="topPlayers">Topspiller</string>
+  <string name="timezone">Zäitzon</string>
+  <string name="fideRatingCategory">FIDE-Wäertungskategorie</string>
+  <string name="optionalDetails">Fakultativ Detailler</string>
+  <string name="pastBroadcasts">Vergaangen Iwwerdroungen</string>
+  <string name="allBroadcastsByMonth">All Iwwerdroungen nom Mount uweisen</string>
+  <string name="backToLiveMove">Zeréck op den aktuellen Zuch</string>
+  <string name="sinceHideResults">Well s de dech decidéiert hues fir d\'Resultater ze verstoppen, sinn all d\'Virschau-Vrieder eisel fir Spoileren z\'evitéieren.</string>
+  <string name="liveboard">Live-Briet</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Gemeinschafts-Iwwerdroungen</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Ugeluecht a verwalt vum %s.</string>
 </resources>

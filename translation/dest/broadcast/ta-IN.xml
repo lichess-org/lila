@@ -54,28 +54,28 @@
   <string name="subscribeTitle">ஒவ்வொரு சுற்று தொடங்கும் போதும் அறிவிப்பு பெற சந்தா பதியவும். உங்கள் கணக்கு விருப்பத்தேர்வுகளில் ஒளிபரப்புகளுக்கான மணி அல்லது தூண்டு அறிவிப்புகளை இயக்கலாம்.</string>
   <string name="uploadImage">பந்தயத்தின் படத்தைப் பதிவேற்றவும்</string>
   <string name="noBoardsYet">இன்னும் பலகைகள் இல்லை. ஆட்டங்கள் பதிவேற்றப்பட்டதும் இவை தோன்றும்.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">பலகைகளை ஆதாரத்துடன் அல்லது %s வழியாக ஏற்றலாம்</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">பலகைகளை ஆதாரத்துடன் அல்லது %s வழியாக ஏற்றலாம்</string>
   <string name="startsAfter">%sக்குப் பிறகு துவங்குகிறது</string>
   <string name="startVerySoon">மிக விரைவில் ஒளிபரப்பு துவங்கும்.</string>
   <string name="notYetStarted">ஒளிபரப்பு இன்னும் துவங்கவில்லை.</string>
   <string name="officialWebsite">அதிகாரப்பூர்வ இணையதளம்</string>
   <string name="standings">நிலைகள்</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">அதிகாரப்பூர்வ நிலைகள்</string>
+  <string name="officialStandings">அதிகாரப்பூர்வ நிலைகள்</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s இல் கூடுதல் தேர்வுரிமை</string>
   <string name="webmastersPage">இணையவல்லுநர் பக்கம்</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">இந்தச் சுற்றுக்கான பொது, நிகழ்நேர PGN ஆதாரம். வேகமான மற்றும் திறமையான ஒத்திசைவுக்கு நாங்கள் %s ஐ வழங்குகிறோம்.</string>
   <string name="embedThisBroadcast">இந்த ஒளிபரப்பை உங்கள் இணையதளத்தில் உட்பொதிக்கவும்</string>
   <string name="embedThisRound">உங்கள் இணையதளத்தில் %s ஐ உட்பொதிக்கவும்</string>
   <string name="ratingDiff">மதிப்பீடு வேறுபாடு</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">இப்பந்தயத்தில்லுள்ள ஆட்டங்கள்</string>
+  <string name="gamesThisTournament">இப்பந்தயத்தில்லுள்ள ஆட்டங்கள்</string>
   <string name="score">மதிப்பெண்</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">அனைத்து கூட்டணிகள்</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">பந்தய வடிவம்</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">பந்தய இடம்</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">சிறந்த வீரர்கள்</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">நேர மண்டலம்</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE மதிப்பீடு வகை</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">விருப்ப விவரங்கள்</string>
+  <string name="allTeams">அனைத்து கூட்டணிகள்</string>
+  <string name="tournamentFormat">பந்தய வடிவம்</string>
+  <string name="tournamentLocation">பந்தய இடம்</string>
+  <string name="topPlayers">சிறந்த வீரர்கள்</string>
+  <string name="timezone">நேர மண்டலம்</string>
+  <string name="fideRatingCategory">FIDE மதிப்பீடு வகை</string>
+  <string name="optionalDetails">விருப்ப விவரங்கள்</string>
   <string name="pastBroadcasts">கடந்த ஒளிபரப்புகள்</string>
   <string name="allBroadcastsByMonth">மாதம்தோறும் அனைத்து ஒளிபரப்புகளையும் பார்க்க</string>
   <string name="backToLiveMove">நேரலை நகர்வுக்குத் திரும்பு</string>

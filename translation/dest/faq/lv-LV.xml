@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Dažās Lichess lapās varat izmantot tastatūras saīsnes. Nospiediet \"?\" taustiņu izpētes, analīzes, pužļu vai spēles lapā, lai skatītu pieejamās saīsnes.</string>
   <string name="fairPlay">Godīga spēlēšana</string>
   <string name="whenAmIEligibleRatinRefund">Kad man ir tiesības uz automātisku reitinga atlīdzinājumu no blēžiem?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
+  <string name="ratingRefundExplanation">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
   (Piemēram, ja jūsu reitings ļoti pieauga pēc šīm spēlēm, iespējams, nesaņemsiet atlīdzinājumu vai tā daļu.) Atlīdzinājums nepārsniegs 150 punktus.</string>
   <string name="preventLeavingGameWithoutResigning">Kas tiek darīts, ja spēlētāji pamet spēles nepadodoties?</string>
   <string name="leavingGameWithoutResigningExplanation">Ja jūsu pretinieks bieži atceļ/pamet spēles, tiek uzlikts liegums spēlēt, kas nozīmē, ka viņiem īslaicīgi aizliegts spēlēt spēles. Šis netiek parādīts viņu profilā. Ja šāda izturēšanās turpinās, lieguma ilgumu pagarina - un atkārtota šāda veida rīcība var novest pie konta slēgšanas.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
   <string name="basedOnGameDuration">Lichess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
   Piemēram, 5+3 spēles aptuvenais ilgums ir 5 * 60 + 40 * 3 = 420 sekundes.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(sākotnējais laiks) + 40 * (gājiena pieaugums)</string>
+  <string name="durationFormula">(sākotnējais laiks) + 40 * (gājiena pieaugums)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
@@ -96,12 +96,11 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="usernamesNotOffensive">Lietotājvārdiem nevajadzētu būt aizvainojošiem, un tie nedrīkst uzdoties par kādu citu vai ko reklamēt. Varat lasīt vairāk par %1$s.</string>
   <string name="guidelines">norādījumiem</string>
   <string name="canIChangeMyUsername">Vai varu mainīt lietotājvārdu?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
+  <string name="usernamesCannotBeChanged">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
   <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
-  <string name="wayOfBerserkExplanation">Lai to dabūtu, hiimgosu izaicināja sevi spēlēt Kurbadu un uzvarēt visas spēlētās spēles %s.</string>
   <string name="aHourlyBulletTournament">ik stundu Bullet turnīrā</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict pēdējās divas stundas straumējot centās pārspēt astotā līmeņa A.I. 1+0 spēlē, bet bez panākumiem. Thibault pavēstīja, ka ja viņš straumējot tomēr pārspēs A.I., tad tiks pie unikālas trofejas. Stundu vēlāk viņš pārspēja Stockfish un solījums tika izpildīts.</string>
+  <string name="goldenZeeExplanation">ZugAddict pēdējās divas stundas straumējot centās pārspēt astotā līmeņa A.I. 1+0 spēlē, bet bez panākumiem. Thibault pavēstīja, ka ja viņš straumējot tomēr pārspēs A.I., tad tiks pie unikālas trofejas. Stundu vēlāk viņš pārspēja Stockfish un solījums tika izpildīts.</string>
   <string name="lichessRatings">Lichess reitingi</string>
   <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").

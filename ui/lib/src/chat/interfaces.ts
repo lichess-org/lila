@@ -39,7 +39,7 @@ export interface ChatData {
   resourceId: string;
   loginRequired: boolean;
   restricted: boolean;
-  palantir: boolean;
+  voiceChat: boolean;
   hostIds?: string[];
 }
 
@@ -61,8 +61,8 @@ export interface Permissions {
   shadowban?: boolean;
 }
 
-export interface ChatPalantir {
-  instance?: Palantir;
+export interface VoiceChatData {
+  instance?: VoiceChat;
   loaded: boolean;
   enabled: Prop<boolean>;
 }
@@ -122,6 +122,6 @@ export interface ModerationHistoryEntry {
   date: number;
 }
 
-export interface Palantir {
+export interface VoiceChat {
   render(): VNode | undefined;
 }

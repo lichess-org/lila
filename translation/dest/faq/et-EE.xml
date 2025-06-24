@@ -35,7 +35,7 @@
   <string name="whatUsernameCanIchoose">Mis mu kasutajanimeks võib olla?</string>
   <string name="usernamesNotOffensive">Üldjuhul ei tohi kasutajanimi olla: solvav, end kellekski teiseks kehastavad ega reklaam. Rohkem saate lugeda siit %1$s.</string>
   <string name="canIChangeMyUsername">Kas ma saan muuta oma kasutajanime?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ei, kasutajanime ei või muuta praktilistel ja tehnoloogilistel põhjustel. Kasutajanimed kajastuvad liiga mitmes kohas: andmebaasid, ekspordid, logid ja inimeste meeltes. Võimalik on muuta tähtede suurust ühe korra.</string>
+  <string name="usernamesCannotBeChanged">Ei, kasutajanime ei või muuta praktilistel ja tehnoloogilistel põhjustel. Kasutajanimed kajastuvad liiga mitmes kohas: andmebaasid, ekspordid, logid ja inimeste meeltes. Võimalik on muuta tähtede suurust ühe korra.</string>
   <string name="lichessRatings">Lichess reitingud</string>
   <string name="whichRatingSystemUsedByLichess">Millist reitingsüsteemi Lichess kasutab?</string>
   <string name="ratingLeaderboards">reitingu edetabel</string>

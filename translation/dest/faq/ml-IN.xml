@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">അതെ. ഞങ്ങളുടെ %1$s, %2$s, അല്ലെങ്കില്‍ %3$s ഉപയോഗിക്കുന്ന മറ്റു ഓപ്പണ്‍ സോര്‍സ് വെബ്സൈറ്റുകള്‍ക്ക് Lichess പ്രചോദനം നൽകിയിട്ടുണ്ട്.</string>
   <string name="fairPlay">ന്യായമായ കളി</string>
   <string name="whenAmIEligibleRatinRefund">വഞ്ചകരിൽ നിന്ന് സ്വയമേയുള്ള റേറ്റിംഗ് റീഫണ്ടിന് ഞാൻ എപ്പോഴാണ് യോഗ്യനാകുന്നത്?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">ഒരു കളിക്കാരനെ അടയാളപ്പെടുത്തി ഒരു മിനിറ്റിന് ശേഷം, കഴിഞ്ഞ 3 ദിവസങ്ങളിലെ ഏറ്റവും പുതിയ റേറ്റുചെയ്ത 40 ഗെയിമുകൾ എടുക്കുന്നു. ആ കളികളിൽ നിങ്ങൾ അവരുടെ എതിരാളി ആണെങ്കിൽ, നിങ്ങൾക്ക് റേറ്റിംഗ് നഷ്ടപ്പെട്ടു (തോല്‍വി അല്ലെങ്കിൽ സമനില കാരണം), നിങ്ങളുടെ റേറ്റിംഗ് താൽക്കാലികമായിരുന്നില്ല എങ്കില്‍ നിങ്ങൾക്ക് റേറ്റിംഗ് റീഫണ്ട് ലഭിക്കും. നിങ്ങളുടെ പീക്ക് റേറ്റിംഗും ഗെയിമിന് ശേഷമുള്ള നിങ്ങളുടെ റേറ്റിംഗ് പുരോഗതിയും അടിസ്ഥാനമാക്കിയാണ് റീഫണ്ട് പരിധി നിശ്ചയിച്ചിരിക്കുന്നത്.
+  <string name="ratingRefundExplanation">ഒരു കളിക്കാരനെ അടയാളപ്പെടുത്തി ഒരു മിനിറ്റിന് ശേഷം, കഴിഞ്ഞ 3 ദിവസങ്ങളിലെ ഏറ്റവും പുതിയ റേറ്റുചെയ്ത 40 ഗെയിമുകൾ എടുക്കുന്നു. ആ കളികളിൽ നിങ്ങൾ അവരുടെ എതിരാളി ആണെങ്കിൽ, നിങ്ങൾക്ക് റേറ്റിംഗ് നഷ്ടപ്പെട്ടു (തോല്‍വി അല്ലെങ്കിൽ സമനില കാരണം), നിങ്ങളുടെ റേറ്റിംഗ് താൽക്കാലികമായിരുന്നില്ല എങ്കില്‍ നിങ്ങൾക്ക് റേറ്റിംഗ് റീഫണ്ട് ലഭിക്കും. നിങ്ങളുടെ പീക്ക് റേറ്റിംഗും ഗെയിമിന് ശേഷമുള്ള നിങ്ങളുടെ റേറ്റിംഗ് പുരോഗതിയും അടിസ്ഥാനമാക്കിയാണ് റീഫണ്ട് പരിധി നിശ്ചയിച്ചിരിക്കുന്നത്.
  (ഉദാഹരണത്തിന്, ആ ഗെയിമുകൾക്ക് ശേഷം നിങ്ങളുടെ റേറ്റിംഗ് വളരെയധികം വർദ്ധിച്ചാൽ, നിങ്ങൾക്ക് റീഫണ്ട് ലഭിക്കില്ല അല്ലെങ്കിൽ ഭാഗിക റീഫണ്ട് മാത്രമേ ലഭിക്കൂ.) ഒരു റീഫണ്ട് ഒരിക്കലും 150 പോയിന്‍റുകള്‍ക്ക് അപ്പുറം പോകുകയില്ല.</string>
   <string name="preventLeavingGameWithoutResigning">കളിക്കാർ രാജിവെക്കാതെ കളികൾ ഉപേക്ഷിച്ചാൽ എന്ത് നടപടി ആണ് എടുക്കുന്നത്?</string>
   <string name="leavingGameWithoutResigningExplanation">നിങ്ങളുടെ എതിരാളി പതിവായി ഗെയിമുകൾ ഉപേക്ഷിക്കുകയോ നിര്‍ത്തുകയോ ചെയ്യുകയാണെങ്കിൽ, അവർക്ക് \"കളി നിരോധിച്ചിരിക്കുന്നു\", അതായത് ഗെയിമുകൾ കളിക്കുന്നതിൽ നിന്ന് അവരെ താൽക്കാലികമായി നിരോധിച്ചിരിക്കുന്നു. ഇത് അവരുടെ പ്രൊഫൈലിൽ പൊതുവായി സൂചിപ്പിക്കുന്നില്ല. ഈ സ്വഭാവം തുടരുകയാണെങ്കിൽ, കളി നിരോധനത്തിന്‍റെ ദൈർഘ്യം വർദ്ധിക്കും - ഈ സ്വഭാവം നീണ്ട കാലം ഉണ്ടെങ്കില്‍ അക്കൗണ്ട് അടയ്ക്കലില്ലേക്ക് നയിച്ചേക്കാം.</string>
@@ -30,7 +30,7 @@
   <string name="howBulletBlitzEtcDecided">ബുള്ളറ്റ്, ബ്ലിറ്റ്സ്, മറ്റ് സമയ നിയന്ത്രണങ്ങൾ എന്നിവ എങ്ങനെയാണ് തീരുമാനിക്കുന്നത്?</string>
   <string name="basedOnGameDuration">Lichess സമയ നിയന്ത്രണങ്ങൾ ഗെയിം ദൈർഘ്യത്തെ അടിസ്ഥാനമാക്കിയുള്ളതാണ് = %1$s.
 ഉദാഹരണത്തിന്, ഒരു 5 + 3 ഗെയിമിന്റെ കണക്കാക്കിയ ദൈർഘ്യം = 5 × 60 + 40 × 3 = 420 seconds ആണ്.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(ക്ലോക്ക് പ്രാരംഭ സമയം സെക്കൻഡിൽ) + 40 x (ക്ലോക്ക് ഇങ്ക്രിമെന്‍റ്)</string>
+  <string name="durationFormula">(ക്ലോക്ക് പ്രാരംഭ സമയം സെക്കൻഡിൽ) + 40 x (ക്ലോക്ക് ഇങ്ക്രിമെന്‍റ്)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess-ൽ എനിക്ക് എന്ത് വേരിയന്റ്റുകൾ കളിക്കാനാകും?</string>
@@ -45,5 +45,5 @@ Lichess-ലെ കമ്പ്യൂട്ടർ വിശകലനം Stockfish
   <string name="accounts">അക്കൗണ്ടുകള്‍</string>
   <string name="noUpperCaseDot">ഇല്ല.</string>
   <string name="whatIsProvisionalRating">എന്റെ രേറ്റിങ്ങിന്റെ തോട്ടുമുമ്പു് ഒരു കാകുയടയാളം (?) എന്തിന ഇരിക്കുന്നതു്?</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">ഉപരിഫലകം</string>
+  <string name="desktop">ഉപരിഫലകം</string>
 </resources>
