@@ -5,19 +5,19 @@
   <string name="challengeDeclined">Erausfuerderung ofgeleent</string>
   <string name="challengeAccepted">Erausfuerderung ugeholl!</string>
   <string name="challengeCanceled">Erausfuerderung annuléiert.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Registréier dech wannechgelift fir Erausfuerderungen ze schécken.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Mell dech wgl. u fir dësem Benotzer Erausfuerderungen ze schécken.</string>
   <string name="youCannotChallengeX">Du kanns %s net erausfuerderen.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptéiert keng Erausfuerderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deng %1$s Wäertung ass ze wäit vum %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Kann net erausfuerderen wéinst provisorescher %s Wäertung.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptéiert just Erausfuerderungen vun Frënn.</string>
   <string name="declineGeneric">Ech akzeptéieren am Moment keng Erausfuerderungen.</string>
-  <string name="declineLater">Ech hun gerad keng Zäit, wannechgelift probéier méi spéit.</string>
-  <string name="declineTooFast">Dës Zäitkontroll ass mer ze schnell, fuerder mech wannechgelift zu enger méi lueser Partie eraus.</string>
-  <string name="declineTooSlow">Dës Zäitkontroll ass mer ze lues, fuerder mech wannechgelift zu enger méi schneller Partie eraus.</string>
-  <string name="declineTimeControl">Ech akzeptéieren keng Erausfuerderungen an dëser Zäitkontroll.</string>
-  <string name="declineRated">Schéck mer wannechgelift eng gewäert Erausfuerderung.</string>
-  <string name="declineCasual">Schéck mer wannechgelift eng ongewäert Erausfuerderung.</string>
+  <string name="declineLater">Ech hu grad keng Zäit, probéier wgl. méi spéit nach eng Kéier.</string>
+  <string name="declineTooFast">Déi Kadenz ass mer ze séier, fuerder mech wgl. zu enger méi lueser Partie eraus.</string>
+  <string name="declineTooSlow">Déi Kadenz ass mer ze lues, fuerder mech wgl. zu enger méi séierer Partie eraus.</string>
+  <string name="declineTimeControl">Ech akzeptéiere keng Erausfuerderungen mat där Kadenz.</string>
+  <string name="declineRated">Schéck mer wgl. eng gewäert Erausfuerderung.</string>
+  <string name="declineCasual">Schéck mer wgl. eng ongewäert Erausfuerderung.</string>
   <string name="declineStandard">Ech akzeptéieren am Moment keng Erausfuerderungen zu Varianten.</string>
   <string name="declineVariant">Ech wëll déi Variant gerad net spillen.</string>
   <string name="declineNoBot">Ech akzeptéieren keng Erausfuerderungen vun Bots.</string>

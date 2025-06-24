@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">कुछ Lichess पृष्ठों में कीबोर्ड शॉर्टकट हैं जिनका आप उपयोग कर सकते हैं. \'दबाव\' दबाने की कोशिश करो \'?\' उपलब्ध कीबोर्ड शॉर्टकट को सूचीबद्ध करने के लिए एक अध्ययन, विश्लेषण, पहेली या गेम पेज पर कुंजी.</string>
   <string name="fairPlay">फेयर प्ले</string>
   <string name="whenAmIEligibleRatinRefund">जब मैं थिएटर से स्वचालित रेटिंग वापसी के लिए योग्य हूं?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
+  <string name="ratingRefundExplanation">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
   (उदाहरण के लिए, यदि उन खेलों के बाद आपकी रेटिंग बहुत बढ़ गई, तो आपको कोई रिफंड या केवल आंशिक धनवापसी नहीं मिल सकती है।) रिफंड कभी भी 150 अंकों से अधिक नहीं होगा।</string>
   <string name="preventLeavingGameWithoutResigning">बिना इस्तीफा दिए खेल छोड़ने वाले खिलाड़ियों के बारे में क्या किया जाता है?</string>
   <string name="leavingGameWithoutResigningExplanation">यदि आपका प्रतिद्वंद्वी अक्सर खेल को छोड़ देता है / छोड़ देता है, तो उन्हें \"प्ले प्रतिबंधित\" मिल जाता है, जिसका अर्थ है कि वे अस्थायी रूप से गेम खेलने से प्रतिबंधित हैं। यह उनके प्रोफ़ाइल पर पारंपरिक रूप से इंगित नहीं किया गया है। यदि यह व्यवहार जारी रहता है, तो प्लेबन की लंबाई बढ़ जाती है - और इस प्रकृति के लंबे समय तक व्यवहार के कारण खाता बंद हो सकता है।</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">बुलेट, ब्लिट्ज और अन्य समय नियंत्रण कैसे तय किए जाते हैं?</string>
   <string name="basedOnGameDuration">लिचेस समय नियंत्रण अनुमानित खेल अवधि =%1$s पर आधारित है
 उदाहरण के लिए, 5 + 3 गेम की अनुमानित अवधि 5 × 60 + 40 × 3 = 420 सेकंड है।</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(घड़ी प्रारंभिक समय) + 40 × (घड़ी की वृद्धि)</string>
+  <string name="durationFormula">(घड़ी प्रारंभिक समय) + 40 × (घड़ी की वृद्धि)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">लिचेस पर मैं कौन से संस्करण खेल सकता हूं?</string>
@@ -97,12 +97,11 @@
   <string name="usernamesNotOffensive">सामान्य तौर पर, उपयोगकर्ता नाम नहीं होना चाहिए: आक्रामक, किसी और को प्रतिरूपण करना, या विज्ञापन करना। आप%1$s के बारे में अधिक पढ़ सकते हैं।</string>
   <string name="guidelines">दिशा निर्देशों</string>
   <string name="canIChangeMyUsername">क्या मेरे द्वारा मेरा यूजरनेम बदला जा सकता है?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">नहीं, तकनीकी और व्यावहारिक कारणों से उपयोगकर्ता नाम नहीं बदले जा सकते हैं। डेटाबेस, निर्यात, लॉग और लोगों के दिमाग: उपयोगकर्ता नामों को बहुत अधिक स्थानों पर भौतिकीकृत किया गया है। आप एक बार पूंजीकरण को समायोजित कर सकते हैं।</string>
+  <string name="usernamesCannotBeChanged">नहीं, तकनीकी और व्यावहारिक कारणों से उपयोगकर्ता नाम नहीं बदले जा सकते हैं। डेटाबेस, निर्यात, लॉग और लोगों के दिमाग: उपयोगकर्ता नामों को बहुत अधिक स्थानों पर भौतिकीकृत किया गया है। आप एक बार पूंजीकरण को समायोजित कर सकते हैं।</string>
   <string name="uniqueTrophies">अनोखी ट्राफियां</string>
   <string name="ownerUniqueTrophies">लिचेस के इतिहास में यह ट्रॉफी अद्वितीय है,%1$s के अलावा किसी के पास कभी नहीं होगा।</string>
-  <string name="wayOfBerserkExplanation">इसे पाने के लिए, हीमगासु ने खुद को निडर होने के लिए चुनौती दी और 100%% का %sगेम जीत लिया।</string>
   <string name="aHourlyBulletTournament">प्रति घंटा बुलेट टूर्नामेंट</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict स्ट्रीमिंग थी और पिछले 2 घंटों से वह ए.आई. स्तर 1 एक 0 + खेल में, सफलता के बिना। थिबॉल्ट ने उसे बताया कि अगर उसने सफलतापूर्वक इसे स्ट्रीम पर किया, तो उसे एक अनूठी ट्रॉफी मिलेगी। एक घंटे बाद, उन्होंने स्टॉकफिश को धराशायी कर दिया, और वादा सम्मानित किया गया।</string>
+  <string name="goldenZeeExplanation">ZugAddict स्ट्रीमिंग थी और पिछले 2 घंटों से वह ए.आई. स्तर 1 एक 0 + खेल में, सफलता के बिना। थिबॉल्ट ने उसे बताया कि अगर उसने सफलतापूर्वक इसे स्ट्रीम पर किया, तो उसे एक अनूठी ट्रॉफी मिलेगी। एक घंटे बाद, उन्होंने स्टॉकफिश को धराशायी कर दिया, और वादा सम्मानित किया गया।</string>
   <string name="lichessRatings">लिच्छवियों की रेटिंग</string>
   <string name="whichRatingSystemUsedByLichess">Lichess किस रेटिंग प्रणाली का उपयोग करता है?</string>
   <string name="ratingSystemUsedByLichess">मार्क ग्लिकमैन द्वारा विकसित ग्लिको -2 रेटिंग पद्धति का उपयोग करके रेटिंग की गणना की जाती है। यह एक बहुत ही लोकप्रिय रेटिंग पद्धति है, और इसका उपयोग कई महत्वपूर्ण शतरंज संगठनों द्वारा किया जाता है (FIDE एक उल्लेखनीय काउंटर-उदाहरण है, क्योंकि वे अभी भी दिनांकित एलो रेटिंग प्रणाली का उपयोग करते हैं)।
@@ -149,7 +148,7 @@
 लाल म्यूट आइकन तब दिखाई देता है जब आपका ब्राउज़र lichess.org को ध्वनि चलाने से रोकता है. आमतौर पर कुछ क्लिक करने के बाद यह प्रतिबंध हटा दिया जाता है. कुछ मोबाइल ब्राउज़रों पर, एक टुकड़े को खींचने वाले स्पर्श को एक क्लिक के रूप में नहीं गिना जाता है. उस स्थिति में आपको प्रत्येक गेम की शुरुआत में ध्वनि की अनुमति देने के लिए बोर्ड को टैप करना होगा.
 
 ऐसा होने पर हम आपको सचेत करने के लिए लाल आइकन दिखाते हैं. अक्सर आप स्पष्ट रूप से lichess.org को ध्वनियों को खेलने की अनुमति दे सकते हैं. यहां कुछ लोकप्रिय ब्राउज़रों के हाल के संस्करणों पर ऐसा करने के निर्देश दिए गए हैं.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">डेस्कटॉप</string>
+  <string name="desktop">डेस्कटॉप</string>
   <string name="enableAutoplayForSoundsFirefox">1. Lichess.org पर जाएं
 2. MacOS पर Linux / Windows या cmd-i पर Ctrl-i दबाएं
 3. अनुमति टैब पर क्लिक करें
