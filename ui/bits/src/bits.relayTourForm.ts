@@ -1,5 +1,23 @@
+import { wireCropDialog } from './crop';
+
 site.load.then(() => {
   $('.form3[action="/broadcast/new"] #form3-info_timeZone').each(function (this: HTMLSelectElement) {
     if (!$('.is-invalid').length) this.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
   });
+
+  wireCropDialog({
+    aspectRatio: 2 / 1,
+    post: { url: $('.relay-image-edit').attr('data-post-url')!, field: 'image' },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  });
+
+  const $source = $('#form3-syncSource'),
+    showSource = () =>
+      $('.relay-form__sync').each(function (this: HTMLElement) {
+        this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
+      });
+
+  $source.on('change', showSource);
+  showSource();
 });
