@@ -23,7 +23,7 @@
   <string name="moveToPieceByType">Sposta sulle case in base al nome dei pezzi: per esempio, k ripetute portano su tutte le case dove si trova il re. usare il maiuscolo per invertire l\'ordine.</string>
   <string name="moveToRank">Spostarsi sulla fila da 1 a 8.</string>
   <string name="moveToFile">Spostarsi sulla colonna da a ad h.</string>
-  <string name="announcePieceLocations">Anuncia la posizione dei pezzi. Ad esempio: p N maiuscola per i cavalli bianchi, p k minuscola per il re nero, p A maiuscola per tutti i pezzi bianchi.</string>
+  <string name="announcePieceLocations">Annuncia la posizione dei pezzi. Ad esempio: p N maiuscola per i cavalli bianchi, p k minuscola per il re nero, p A maiuscola per tutti i pezzi bianchi.</string>
   <string name="announcePiecesOnRankOrFile">Annuncia i pezzi presenti su una traversa o su una colonna. Per esempio: s a, s 1.</string>
   <string name="king">re</string>
   <string name="whiteKing">re bianco</string>
