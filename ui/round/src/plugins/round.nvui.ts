@@ -31,6 +31,7 @@ import {
   type DropMove,
   pocketsStr,
 } from 'lib/nvui/chess';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { makeSetting, renderSetting, Setting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands } from 'lib/nvui/command';
@@ -181,6 +182,7 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
   const prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
     positionStyle = positionSetting(),
+    moveStyle = styleSetting(),
     boardStyle = boardSetting();
 
   return [
@@ -191,12 +193,22 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
         hook: onInsert(el => {
           const $board = $(el);
           const $buttons = $board.find('button');
+          $buttons.on('blur', (ev: KeyboardEvent) => {
+            const $currBtn = $(ev.target as HTMLElement);
+            $currBtn.removeAttr('ray');
+          });
           $buttons.on(
             'click',
             selectionHandler(() => ctrl.data.opponent.color, selectSound),
           );
           $buttons.on('keydown', (e: KeyboardEvent) => {
             if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+            else if (e.key.match(/^x$/i))
+              scanDirectionsHandler(
+                ctrl.data.player.color,
+                ctrl.chessground.state.pieces,
+                moveStyle.get(),
+              )(e);
             else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
             else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
             else if (e.key === 'c')
