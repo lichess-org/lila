@@ -83,9 +83,9 @@ final class CoachApi(
 
   private val countriesCache = cacheApi.unit[CountrySelection]:
     _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
-      import lila.core.user.Flag
+      import lila.core.user.FlagCode
       userRepo.coll.secondary
-        .distinctEasy[Flag.Code, Set](
+        .distinctEasy[FlagCode, Set](
           "profile.country",
           $doc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
         )
