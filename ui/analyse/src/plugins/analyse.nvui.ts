@@ -234,7 +234,6 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', i18n.site.keyboardShortcuts),
           h(
             'p',
