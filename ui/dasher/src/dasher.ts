@@ -1,4 +1,3 @@
-import type { Redraw } from 'lib/snabbdom';
 import { DasherCtrl } from './ctrl';
 import { json as xhrJson } from 'lib/xhr';
 import { spinnerVdom, spinnerHtml } from 'lib/view/controls';

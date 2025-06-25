@@ -6,10 +6,11 @@
   <string name="enterPassword">Gëff däin Passwuert and den vun der App generéierten Authentifizéierungscode an fir den Setup ofzeschléissen. Du wäerts ëmmer een Authentifizéierungscode brauchen fir dech anzeloggen.</string>
   <string name="ifYouCannotScanEnterX">Falls du den Code net scannen kanns, gëff dësen geheimen %s op der App an.</string>
   <string name="authenticationCode">Authentifizéierungscode</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Opgepasst: Falls du den Zougang zu dengen Zwee-Faktor-Authentifizéierungs-Code verléiers, kanns du per Mail däi %s.</string>
   <string name="enableTwoFactor">Zwee-Faktor-Authentifizéierung aktivéieren</string>
   <string name="disableTwoFactor">Zwee-Faktor-Authentifizéierung desaktivéieren</string>
   <string name="twoFactorEnabled">Zwee-Faktor-Authentifizéierung aktivéiert</string>
   <string name="openTwoFactorApp">Maach d\'Zwee-Faktor-Authentifizéierungsapp op dengem Gerät op fir däin Authentifizéierungscode ze gesinn an deng Identitéit ze verifizéieren.</string>
-  <string name="setupReminder">Wannechgelifft aktivéier Zwee-Faktor-Authentifizéierung fir däin Account besser ofzesecheren ob https://lichess.org/account/twofactor.
-Du kriss dësen Message well däin Account speziell Responsabilitéiten huet wéi Ekippen Leader, Trainer, oder Streamer</string>
+  <string name="setupReminder">Aktivéier wgl. d\'Zwee-Faktor-Authentifizéierung op https://lichess.org/account/twofactor fir däi Konto besser ofzesécheren.
+Du kriss dëse Message, well däi Kont speziell Responsabilitéiten huet, wéi Titeldréier, Ekippe-Leader, Trainer, Enseignant oder Streamer.</string>
 </resources>

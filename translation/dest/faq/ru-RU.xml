@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">На некоторых страницах Lichess есть горячие клавиши, которые вы можете использовать. Попробуйте нажать клавишу \'?\' в студии, анализе партии, задаче или во время игры, чтобы перечислить доступные горячие клавиши.</string>
   <string name="fairPlay">Честная игра</string>
   <string name="whenAmIEligibleRatinRefund">Если оказалось, что я проиграл жулику, мне вернут рейтинг?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Через минуту после того, как жулик был обнаружен, 40 рейтинговых игр, в которых он одержал победу за последние 3 дня, подлежат рассмотрению. Если вы были его соперником в этих играх, и ваш собственный рейтинг считается надёжным, вы можете рассчитывать на возмещение рейтинга. Возмещение может быть ограничено различными условиями, такими как ваш максимальный рейтинг и изменение рейтинга после нечестных игр.
+  <string name="ratingRefundExplanation">Через минуту после того, как жулик был обнаружен, 40 рейтинговых игр, в которых он одержал победу за последние 3 дня, подлежат рассмотрению. Если вы были его соперником в этих играх, и ваш собственный рейтинг считается надёжным, вы можете рассчитывать на возмещение рейтинга. Возмещение может быть ограничено различными условиями, такими как ваш максимальный рейтинг и изменение рейтинга после нечестных игр.
  Например, если ваш рейтинг значительно вырос после таких игр, вы можете не получить возмещения, или получить лишь часть. В любом случае, возмещение не может превышать 150 очков рейтинга.</string>
   <string name="preventLeavingGameWithoutResigning">Что происходит с игроками, который выходят из игры, не сдаваясь при этом?</string>
   <string name="leavingGameWithoutResigningExplanation">Если ваш соперник часто прерывает или покидает игру, он временно блокируется, при этом признак блокировки видит только он сам. Если после окончания блокировки он продолжает вести себя так же, он опять блокируется, но уже на более длительный срок. В дальнейшем его учётная запись может быть полностью заблокирована.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
   <string name="basedOnGameDuration">Контроль времени влияет на общее ожидаемое время на партию, равное %1$s
  Например, время партии с контролем 5+3 равно 5 × 60 + 40 × 3 = 420 секунд.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(начальное время) + 40 × (добавка)</string>
+  <string name="durationFormula">(начальное время) + 40 × (добавка)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">В какие виды шахмат я могу играть на Lichess?</string>
@@ -97,12 +97,11 @@
   <string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
   <string name="guidelines">рекомендациях</string>
   <string name="canIChangeMyUsername">Могу ли я изменить своё имя пользователя?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
+  <string name="usernamesCannotBeChanged">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
   <string name="uniqueTrophies">Уникальные трофеи</string>
   <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lichess, и ни у кого, кроме %1$s их не было.</string>
-  <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
   <string name="aHourlyBulletTournament">ежечасном турнире в Пулю</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
+  <string name="goldenZeeExplanation">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Какая система рейтинга используется на Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рейтинги считаются на основе метода Glicko-2, разработанного Марком Гликманом. Это очень распространённый метод, используемый большим количеством шахматных организаций (ФИДЕ при этом, наоборот, всё ещё использует устаревший метод Эло).
@@ -149,7 +148,7 @@
 Красная иконка отключённого звука появляется в том случае, если ваш браузер не позволяет lichess.org проигрывать звук. Обычно это ограничение возникает однократно, и пропадает, как только вы нажмете на что-нибудь. На некоторых мобильных браузерах перетаскивание фигуры не считается за клик. В этом случае вы должны коснуться доски, чтобы разрешить звук, и делать это в начале каждой партии.
 
 Мы показываем красную иконку, чтобы предупредить вас, когда это произойдёт. Часто вы можете явно разрешить воспроизведение звука. Вот инструкции для последних версий некоторых популярных браузеров.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">настольный</string>
+  <string name="desktop">настольный</string>
   <string name="enableAutoplayForSoundsFirefox">1. Перейдите на lichess.org
 2. Нажмите Ctrl-i на Linux/Windows или cmd-i на MacOS
 3. Нажмите на вкладку Разрешения
@@ -167,11 +166,11 @@
 3. Щелкните Cookies и разрешения сайта
 4. Прокрутите вниз и щёлкните автовоспроизведение Media
 5. Добавьте lichess.org для разрешения</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Как воздерживаться от игр?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">отдельное психическое расстройство</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">пользовательские CSS-стили Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">меньшее количество вариантов в Зале ожидания</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Мы часто получаем сообщения от игроков с просьбами помочь им перестать играть.
+  <string name="stopMyselfFromPlaying">Как воздерживаться от игр?</string>
+  <string name="mentalHealthCondition">отдельное психическое расстройство</string>
+  <string name="lichessUserstyles">пользовательские CSS-стили Lichess</string>
+  <string name="fewerLobbyPools">меньшее количество вариантов в Зале ожидания</string>
+  <string name="adviceOnMitigatingAddiction">Мы часто получаем сообщения от игроков с просьбами помочь им перестать играть.
 
 Хотя Lichess не запрещает или не блокирует игроков, кроме как на основании условий предоставления услуг, мы рекомендуем использовать внешние инструменты для ограничения чрезмерного увлечения игрой. Некоторые общие предложения для блокировщиков веб-сайтов включают %1$s, %2$sи %3$s. Если вы хотите продолжать пользоваться сайтом, но не соблазняться быстрым контролем времени, вас могут заинтересовать %4$s, а также %5$s.
 

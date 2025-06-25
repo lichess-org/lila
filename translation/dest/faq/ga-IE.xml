@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
   <string name="fairPlay">Cothrom na Féinne</string>
   <string name="whenAmIEligibleRatinRefund">Cathain a bheidh mé incháilithe don aisíocaíocht rátála uathoibríoch ó caimiléirí?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Nóiméad tar éis imreoir a mharcáil, tógtar a 40 cluiche rátáilte is déanaí le 3 lá anuas. Más tusa a chéile comhraic sna cluichí sin, chaill tú rátáil (mar gheall ar chaillteanas nó tarraingt), agus mura raibh do rátáil sealadach, faigheann tú aisíocaíocht rátála. Cuirtear teorainn leis an aisíocaíocht bunaithe ar do bhuaic-rátáil agus ar do dhul chun cinn rátála tar éis an chluiche.
+  <string name="ratingRefundExplanation">Nóiméad tar éis imreoir a mharcáil, tógtar a 40 cluiche rátáilte is déanaí le 3 lá anuas. Más tusa a chéile comhraic sna cluichí sin, chaill tú rátáil (mar gheall ar chaillteanas nó tarraingt), agus mura raibh do rátáil sealadach, faigheann tú aisíocaíocht rátála. Cuirtear teorainn leis an aisíocaíocht bunaithe ar do bhuaic-rátáil agus ar do dhul chun cinn rátála tar éis an chluiche.
   (Mar shampla, má mhéadaigh do rátáil go mór tar éis na gcluichí sin, b’fhéidir nach bhfaighfeá aisíocaíocht ar bith nó aisíocaíocht pháirteach.) Ní bhfaigheann tú aisíocaíocht os cionn 150 pointe riamh.</string>
   <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
   <string name="leavingGameWithoutResigningExplanation">Má ghiorraíonn / fágann do chéile comhraic cluichí go minic, faigheann siad “cosc ar imirt”, rud a chiallaíonn go gcuirtear cosc orthu go sealadach cluichí a imirt. Ní léirítear é seo go poiblí ar a bpróifíl. Má leantar leis an iompar seo, méadaíonn fad an cosc - agus d’fhéadfadh dúnadh cuntas a bheith mar thoradh ar iompar fada den chineál seo.</string>
@@ -32,7 +32,7 @@
   <string name="howBulletBlitzEtcDecided">Conas a chinntear Bullet, Blitz agus rialuithe ama eile?</string>
   <string name="basedOnGameDuration">Tá rialtán ama Lichess bunaithe ar fhad cluiche measta = %1$s
 Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
+  <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
@@ -110,12 +110,11 @@ Ná iarr ar an teideal LM.</string>
   <string name="usernamesNotOffensive">Go ginearálta, níor cheart go mbeadh ainmneacha úsáideora: maslach, aithris a dhéanamh ar dhuine eile, nó fógraíocht a dhéanamh. Is féidir leat níos mó a léamh faoin %1$s.</string>
   <string name="guidelines">treoirlínte</string>
   <string name="canIChangeMyUsername">An bhfuil cead agam m’ainm úsáideora a athrú?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ní féidir ainmneacha úsáideora a athrú ar chúiseanna teicniúla agus praiticiúla. Cuirtear ainmneacha úsáideoirí i bhfeidhm san iomarca áiteanna: bunachair sonraí, onnmhairí, logaí agus intinn daoine. Is féidir leat an ceannlitriú a athrú uair amháin.</string>
+  <string name="usernamesCannotBeChanged">Ní féidir ainmneacha úsáideora a athrú ar chúiseanna teicniúla agus praiticiúla. Cuirtear ainmneacha úsáideoirí i bhfeidhm san iomarca áiteanna: bunachair sonraí, onnmhairí, logaí agus intinn daoine. Is féidir leat an ceannlitriú a athrú uair amháin.</string>
   <string name="uniqueTrophies">Trófaithe uathúla</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
-  <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
+  <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ríomhtar rátálacha ag baint úsáide as an modh rátála Glicko-2 a d’fhorbair Mark Glickman. Is modh rátála an-tóir é seo, agus úsáideann líon suntasach eagraíochtaí fichille é (is sampla maith é FIDE, toisc go n-úsáideann siad an córas rátála Elo dátaithe fós).

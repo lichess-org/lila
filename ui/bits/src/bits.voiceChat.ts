@@ -1,4 +1,4 @@
-import { looseH as h } from 'lib/snabbdom';
+import { hl } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'lib/pubsub';
@@ -206,7 +206,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
     render: () => {
       const connections = allOpenConnections();
       return devices
-        ? h(
+        ? hl(
             'div.mchat__tab.voicechat.data-count.voicechat-' + state,
             {
               attrs: {
@@ -222,7 +222,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
             },
             state === 'on'
               ? connections.map(c =>
-                  h('audio.voicechat__audio.' + c.peer, {
+                  hl('audio.voicechat__audio.' + c.peer, {
                     attrs: { autoplay: true },
                     hook: {
                       insert(vnode) {

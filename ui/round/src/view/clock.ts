@@ -1,4 +1,4 @@
-import { type LooseVNode, looseH as h, bind } from 'lib/snabbdom';
+import { type LooseVNode, hl, bind } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { renderClock } from 'lib/game/clock/clockView';
 import RoundController from '../ctrl';
@@ -35,10 +35,10 @@ const onTheSide = (round: RoundController) => (color: Color, position: TopOrBott
 function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   const d = ctrl.data;
   if (finished(d) || aborted(d)) return;
-  return h(
+  return hl(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&
-      h(
+      hl(
         'div.rclock-turn__text',
         d.player.spectator
           ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
@@ -51,12 +51,12 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon(licon.Berserk)) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, justIcon(licon.Berserk)) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
   !ctrl.hasGoneBerserk(color) &&
-  h('button.fbt.go-berserk', {
+  hl('button.fbt.go-berserk', {
     attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
     hook: bind('click', ctrl.goBerserk),
   });
@@ -69,4 +69,4 @@ const clockSide = (
 ) =>
   ranks &&
   !showBerserk(ctrl, color) &&
-  h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]);
+  hl('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]);

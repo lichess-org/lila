@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Kai kurie Lichess puslapiai turi sparčiuosius klavišus. Pabandykite paspausti \'?\' klavišą studijos, analizės, galvosūkio ar žaidimo puslapyje norėdami pamatyti prieinamus sparčiuosius klavišus.</string>
   <string name="fairPlay">Sąžiningas žaidimas</string>
   <string name="whenAmIEligibleRatinRefund">Kodėl aš galiu gauti automatinį reitingo atstatymą nuo sukčių?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Praėjus minutei nuo žaidėjo pažymėjimo paimami paskutiniai 40 reitinguotų žaidimų per paskutines 3 dienas. Jei jūs buvote jų oponentas tuose žaidimuose ir praradote reitingo (dėl pralaimėjimo ar lygiųjų), ir jūsų reitingas nebuvo laikinas, jūs gausite reitingo atstatymą. Reitingo atstatymas apribotas jūsų geriausiu reitingu ir reitingo progresu po žaidimo. Pavyzdžiui: jei jūsų reitingas po tų žaidimų stipriai paaugo, jūs galite negauti jokio atstatymo, arba tik dalinį atstatymą. Atstatymas niekada neviršys 150 taškų.</string>
+  <string name="ratingRefundExplanation">Praėjus minutei nuo žaidėjo pažymėjimo paimami paskutiniai 40 reitinguotų žaidimų per paskutines 3 dienas. Jei jūs buvote jų oponentas tuose žaidimuose ir praradote reitingo (dėl pralaimėjimo ar lygiųjų), ir jūsų reitingas nebuvo laikinas, jūs gausite reitingo atstatymą. Reitingo atstatymas apribotas jūsų geriausiu reitingu ir reitingo progresu po žaidimo. Pavyzdžiui: jei jūsų reitingas po tų žaidimų stipriai paaugo, jūs galite negauti jokio atstatymo, arba tik dalinį atstatymą. Atstatymas niekada neviršys 150 taškų.</string>
   <string name="preventLeavingGameWithoutResigning">Kas daroma dėl žaidėjų, kurie palieka žaidimus nepasiduodami?</string>
   <string name="leavingGameWithoutResigningExplanation">Jei jūsų priešininkas dažnai atšaukia/palieka žaidimus, jam laikinai uždraudžiama žaisti žaidimus. Tai nėra skelbiama viešai jų profilyje. Jei toks elgesys tęsiasi - draudimo laikas ilgėja. Panašūs pakartotiniai veiksmai gali privesti prie paskyros uždarymo.</string>
   <string name="howCanIBecomeModerator">Kaip galiu tapti moderatoriumi?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Kaip nusprendžiama laiko kontrolė kulkos, žaibo ir kituose žaidimuose?</string>
   <string name="basedOnGameDuration">Lichess laiko kontrolės paremtos spėjama žaidimo trukme %1$s
 Pavyzdžiui, spėjama žaidimo 5+3 trukmė yra 5 × 60 + 40 × 3 = 420 sekundžių.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(pradinis laiko kiekis) + 40 × (pridėtinės sekundės)</string>
+  <string name="durationFormula">(pradinis laiko kiekis) + 40 × (pridėtinės sekundės)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kokius variantus galiu žaisti Lichess?</string>
@@ -96,12 +96,11 @@ Neprašykite LM titulo.</string>
   <string name="usernamesNotOffensive">Bendrai, vartotojo vardai negali būti: įžeidūs, mėgdžiojantys ką nors kitą, ar reklamuojantys. Daugiau apie tai galite skaityti %1$s.</string>
   <string name="guidelines">taisyklėse</string>
   <string name="canIChangeMyUsername">Ar galiu pakeisti savo vartotojo vardą?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne, vartotojų vardai negali būti pakeisti dėl techninių ir praktinių priežasčių. Vartotojų vardai naudojami per daug skirtingų vietų - duomenų bazėse, eksportuotuose žaidimuose, išrašuose ir žmonių mintyse. Yra galimybė tik pakeisti didžiąsias/mažąsias raides.</string>
+  <string name="usernamesCannotBeChanged">Ne, vartotojų vardai negali būti pakeisti dėl techninių ir praktinių priežasčių. Vartotojų vardai naudojami per daug skirtingų vietų - duomenų bazėse, eksportuotuose žaidimuose, išrašuose ir žmonių mintyse. Yra galimybė tik pakeisti didžiąsias/mažąsias raides.</string>
   <string name="uniqueTrophies">Unikalūs trofėjai</string>
   <string name="ownerUniqueTrophies">Šis trofėjus yra unikalus Lichess istorijoje, jo neturės niekas daugiau be %1$s.</string>
-  <string name="wayOfBerserkExplanation">Norėdamas jį gauti, hiimgosu iškėlė tau iššūkį laimėti tūžiu 100%% žaidimų %s.</string>
   <string name="aHourlyBulletTournament">valandiniame kukos turnyre</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict transliavo savo žaidimą ir per paskutines dvi valandas nesėkmingai stengėsi įveikti 8 lygio kompiuterį 1+0 žaidime. Thibault jam paskė, kad jei jis tai sėkmingai padarys transliacijoje, jis gaus unikalų trofėjų. Po valandos ZugAddict įveikė Stockfish ir pažadas buvo ištęsėtas.</string>
+  <string name="goldenZeeExplanation">ZugAddict transliavo savo žaidimą ir per paskutines dvi valandas nesėkmingai stengėsi įveikti 8 lygio kompiuterį 1+0 žaidime. Thibault jam paskė, kad jei jis tai sėkmingai padarys transliacijoje, jis gaus unikalų trofėjų. Po valandos ZugAddict įveikė Stockfish ir pažadas buvo ištęsėtas.</string>
   <string name="lichessRatings">Lichess reitingai</string>
   <string name="whichRatingSystemUsedByLichess">Kokią reitingavimo sistemą naudoja Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingai skaičiuojami Glicko-2 reitingavimo metodu, sukurtu Marko Glickmano. Tai itin populiarus reitingavimo metodas, kuris naudojamas dideliame šachmatų organizacijų skaičiuje (FIDE čia yra priešingas pavyzdys, nes jie vis dar naudoja pasenusią Elo reitingavimo sistemą).
@@ -148,7 +147,7 @@ Tada pasirinkite, ar norite gauti, ar blokuoti pranešimus iš Lichess.</string>
 Raudona nutildymo piktograma pasirodo, kai naršyklė neleidžia lichess.org leisti garso. Paprastai šis apribojimas panaikinamas, kai kur nors spustelėsite. Kai kuriose mobiliosiose naršyklėse elemento vilkimas jį palietus nelaikomas paspaudimu. Tokiu atveju turite paliesti lentą, kad kiekvieno žaidimo pradžioje būtų leidžiamas garsas.
 
 Rodome raudoną piktogramą, kad įspėtume jus, kai tai atsitiks. Dažnai galite aiškiai leisti lichess.org skleisti garsą. Čia pateikiamos instrukcijos, kaip tai padaryti naudojant naujausias kai kurių populiarių naršyklių versijas.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">darbalaukis</string>
+  <string name="desktop">darbalaukis</string>
   <string name="enableAutoplayForSoundsFirefox">1. Eikite į lichess.org
 2. Paspauskite Ctrl-i, jei naudojate „Linux“ ir/arba „Windows“, arba cmd-i, jei naudojate „MacOS“.
 3. Spustelėkite skirtuką Leidimai
@@ -166,11 +165,11 @@ Rodome raudoną piktogramą, kad įspėtume jus, kai tai atsitiks. Dažnai galit
 3. Spustelėkite Slapukai ir svetainės leidimai
 4. Slinkite žemyn ir spustelėkite Media autoplay
 5. Pridėkite lichess.org prie \"Leisti\"</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stabdote savo žaidimą?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">savarankiška psichinės sveikatos būklė</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess vartotojo stiliai</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">mažiau greito suporavimo pasiūlymų</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Reguliariai gauname žinutes iš vartotojų, prašančių padėti, kad jie nežaistų per daug.
+  <string name="stopMyselfFromPlaying">Stabdote savo žaidimą?</string>
+  <string name="mentalHealthCondition">savarankiška psichinės sveikatos būklė</string>
+  <string name="lichessUserstyles">Lichess vartotojo stiliai</string>
+  <string name="fewerLobbyPools">mažiau greito suporavimo pasiūlymų</string>
+  <string name="adviceOnMitigatingAddiction">Reguliariai gauname žinutes iš vartotojų, prašančių padėti, kad jie nežaistų per daug.
 
 Nors Lichess nedraudžia ir neblokuoja žaidėjų, išskyrus paslaugų teikimo sąlygų pažeidimus, rekomenduojame naudoti išorinius įrankius, kad apribotumėte pernelyg ilgai besitęsiantį žaidimą. Kai kurie bendri svetainių blokatorių pasiūlymai yra %1$s, %2$s ir %3$s. Jei norite ir toliau naudotis svetaine, bet nesusigundyti greita laiko kontrole, jus taip pat gali sudominti %4$s, čia yra %5$s.
 

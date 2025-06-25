@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Delles páxines de Lichess tienen atayos de tecláu que pues utilizar. Prime la tecla \'?\' nun estudiu , análisis, exerciciu o partida para listar los atayos de tecláu disponibles.</string>
   <string name="fairPlay">Xuego llimpiu</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdíos contra un tramposu?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minutu dempués de marcar a un xugador como tramposu, tómense les sos últimes 40 partíes por puntos de los trés últimos díes. Si tu fuisti el so oponente neses partíes, perdisti puntos nelles (bien porque perdisti, bien porque empatasti), y la to puntuación nun yera provisional, entós devuélvensete puntos. Esti reembolsu ta limitao pola to puntuación máxima y por cómo progresara la to puntuación dempués d\'aquella partida.
+  <string name="ratingRefundExplanation">Un minutu dempués de marcar a un xugador como tramposu, tómense les sos últimes 40 partíes por puntos de los trés últimos díes. Si tu fuisti el so oponente neses partíes, perdisti puntos nelles (bien porque perdisti, bien porque empatasti), y la to puntuación nun yera provisional, entós devuélvensete puntos. Esti reembolsu ta limitao pola to puntuación máxima y por cómo progresara la to puntuación dempués d\'aquella partida.
 (Por exemplu, si la to puntuación xubió muncho depués d\'aquelles partíes, pue que nun se te devuelvan los puntos o namás se te devuelvan dalgunos). La devolución en nengún casu va ser de más de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">¿Qué se fai con los xugadores qu\'abandonen les partíes ensin rindise ?</string>
   <string name="leavingGameWithoutResigningExplanation">Si el to oponente abandona munchas partíes márcase-y como \"prohibíu xugar\", lo que significa que ta temporalmente suspendíu pa xugar. Esto nun s\'indica públicamente nel so perfil. Si persiste nesti comportamientu, la duración de la suspensión aumenta y puede traer el zarru de la so cuenta.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempu en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempu de Lichess basar na duración envalorada d\'una partida = %1$s
 Por ejemplu, la duración envalorada d\'una partida de 5+3 ye 5 * 60 + 40 * 3 = 420 segundos.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempu inicial del reló) + 40 × (incrementu)</string>
+  <string name="durationFormula">(tiempu inicial del reló) + 40 × (incrementu)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">¿Qué variantes puedo xugar en Lichess?</string>
@@ -97,12 +97,11 @@ Nun solicites el títulu de LM.</string>
   <string name="usernamesNotOffensive">Polo xeneral, los nomes d\'usuariu nun deben: ser ofensivos, suplantar a daquién o faer publicidá. Pues lleer más sobre les %1$s.</string>
   <string name="guidelines">pautes</string>
   <string name="canIChangeMyUsername">¿Puedo camudar el mio nome d\'usuariu?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Non, los nomes d\'usuariu nun pudeen camudase por razones técniques y práctiques. Los nomes d\'usuariu materialicense en munchos llugares: bases de datos, esportaciones, rexistros y na mente de les persones. Pues camudar les mayúscules/minúscules solo una vegada.</string>
+  <string name="usernamesCannotBeChanged">Non, los nomes d\'usuariu nun pudeen camudase por razones técniques y práctiques. Los nomes d\'usuariu materialicense en munchos llugares: bases de datos, esportaciones, rexistros y na mente de les persones. Pues camudar les mayúscules/minúscules solo una vegada.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Esi troféu ye únicu na hestoria de Lichess, naide más que %1$s va tenerlo xamás.</string>
-  <string name="wayOfBerserkExplanation">Pa llogralo, hiimgosu desafiose a sigo mesmu a berserk y ganó toles partíes de %s.</string>
   <string name="aHourlyBulletTournament">un tornéu Bullet per hora</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict taba retransmitiendo y mientres les dos últimes hores tuviera tratando de ganar a la I.A. nivel 8 nuna partida 1+0, ensin ésitu .Thibault díxo-y que si lo llograba mientres la tresmisión, llograría un troféu únicu. Xuna hora dempués, venció a Stockfish y cumplióse la promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict taba retransmitiendo y mientres les dos últimes hores tuviera tratando de ganar a la I.A. nivel 8 nuna partida 1+0, ensin ésitu .Thibault díxo-y que si lo llograba mientres la tresmisión, llograría un troféu únicu. Xuna hora dempués, venció a Stockfish y cumplióse la promesa.</string>
   <string name="lichessRatings">Puntuaciones de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Les puntuaciones calcúlense utilizando el métodu de clasificación Glicko-2 desenvueltu por Mark Glickman. Ye un métodu de puntuación bien popular y qu\'utilicen munches organizaciones d\'axedrez (la FIDE ye un contraexemplu notable, ya que utilicen el sistema de puntuación Elo).
@@ -149,7 +148,7 @@ llueu escueye si dexar o bloquiar notificaciones de Lichess.</string>
 L\'iconu coloráu de silenciu apaez cuando el to navegador impide que lichess.org reproduza un soníu. Polo xeneral, esta restricción eliminase una vegada que fexes clic en daqué. En dellos navegadores móviles, tocar y arrastrar una pieza nun cunta como un clic. Nesi casu tienes que tocar el tableru pa dexar el soníu al entamu de cada xuegu.
 
 Amosemos l\'iconu coloráu p\'avisate cuando esto asoceda. A menudo, pues dexar explícitamente que lichess.org reproduza soníos. Equí vas atopar instrucciones pa faelo en versiones recién de dellos navegadores populares.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritoriu</string>
+  <string name="desktop">escritoriu</string>
   <string name="enableAutoplayForSoundsFirefox">1. Ve a lichess.org
 2. Pulsia Ctrl-i en Linux/Windows o cmd-i en MacOS
 3. Fai clic na pestaña Permisos
@@ -167,11 +166,11 @@ Amosemos l\'iconu coloráu p\'avisate cuando esto asoceda. A menudo, pues dexar 
 3. Fai clic en Cookies y permisos del sitiu
 4. Muévite escontra baxo y fai clic en Reproducción automática
 5. Añede a lichess.org en Habilitar</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">¿Parar de xugar?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">condición de salú mental independiente</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Estilos d\'usuariu de Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menos caxiellas d\'emparexamientu</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Solemos recibir mensaxes de xente que nos pide ayuda pa nun xugar tanto.
+  <string name="stopMyselfFromPlaying">¿Parar de xugar?</string>
+  <string name="mentalHealthCondition">condición de salú mental independiente</string>
+  <string name="lichessUserstyles">Estilos d\'usuariu de Lichess</string>
+  <string name="fewerLobbyPools">menos caxiellas d\'emparexamientu</string>
+  <string name="adviceOnMitigatingAddiction">Solemos recibir mensaxes de xente que nos pide ayuda pa nun xugar tanto.
 
 Anque Lichess non prohibe nin bloquia a los xugadores, sacante si tratese de violaciones de los Terminos de Serviciu, l\'usu de ferramientes de terceros pa llindar el comportamientu de xuegu escesivu. Delles suxerencies de bloquiadores de sitio web son %1$s, %2$s, y %3$s. Si lo que deseyes ye siguir usando el sitiu, pero non los controles de tiempu más rápidos, podría interesate %4$s y %5$s.
 

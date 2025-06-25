@@ -24,7 +24,7 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
   });
-  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  if (!!autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();
 }
 
