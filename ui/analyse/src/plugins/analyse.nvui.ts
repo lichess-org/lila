@@ -1,5 +1,5 @@
 import { type VNode, h, type VNodeChildren } from 'snabbdom';
-import { defined } from 'lib';
+import { defined, Prop, prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -64,10 +64,11 @@ const throttled = (sound: string) => throttle(100, () => site.sound.play(sound))
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
+const analysisInProgress: Prop<boolean> = prop(false);
+const notify = new Notify();
 
 export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
-  const notify = new Notify(),
-    moveStyle = styleSetting(),
+  const moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
     positionStyle = positionSetting(),
@@ -112,11 +113,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: nvuiInsertHook(() => (ctrl.explorer.toggle(), ctrl.redraw())),
                   },
-                  h(
-                    'h6',
-                    { attrs: { style: 'pointer-events: none' } },
-                    i18n.site.openingExplorerAndTablebase,
-                  ),
+                  h('h6', i18n.site.openingExplorerAndTablebase),
                 ),
                 explorerView(ctrl),
               ]
@@ -281,7 +278,7 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
         hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.viewTheSolution),
+      h('h6', i18n.site.viewTheSolution),
     ),
     h(
       'button',
@@ -289,7 +286,7 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
         hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.skipThisMove),
+      h('h6', i18n.site.skipThisMove),
     ),
   ]);
 }
@@ -302,7 +299,7 @@ function renderJumpToNextBtn(ctrl: RetroCtrl): VNode[] {
         hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
         attrs: { tabindex: '0' },
       },
-      h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.next),
+      h('h6', i18n.site.next),
     ),
   ];
 }
@@ -313,6 +310,7 @@ const maxDepth = 18;
 function renderEvalProgress(node: Tree.Node): VNode {
   return h(
     'h4',
+    { attrs: { 'aria-label': 'eval progress' } },
     `${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0}`,
   );
 }
@@ -352,7 +350,7 @@ const feedback = {
             tabindex: '0',
             hook: nvuiInsertHook(ctrl.jumpToNext),
           },
-          h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.resumeLearning),
+          h('h6', i18n.site.resumeLearning),
         ),
       ]),
     ];
@@ -386,24 +384,17 @@ const feedback = {
   eval(ctrl: RetroCtrl): VNode[] {
     return [
       h('h3', { atters: { 'aria-live': 'polite' } }, i18n.site.evaluatingYourMove),
-      h('h4', { attrs: { 'aria-label': 'eval progress' } }, renderEvalProgress(ctrl.node())),
+      h('h4', renderEvalProgress(ctrl.node())),
     ];
   },
   end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
     if (!hasFullComputerAnalysis())
-      return [
-        h(
-          'div',
-          { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } },
-          h('h3', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
-        ),
-      ];
+      return [h('div', { attrs: { 'tab-index': '0' } }, h('h3', i18n.site.waitingForAnalysis))];
     const nothing = !ctrl.completion()[1];
     return [
       h('div', [
         h(
           'h4',
-          { attrs: { 'aria-live': 'polite' } },
           i18n.site[
             nothing
               ? ctrl.color === 'white'
@@ -426,7 +417,7 @@ const feedback = {
                   key: 'reset',
                   hook: nvuiInsertHook(ctrl.reset),
                 },
-                h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.doItAgain),
+                h('h6', i18n.site.doItAgain),
               ),
           h(
             'button',
@@ -437,11 +428,7 @@ const feedback = {
               key: 'flip',
               hook: nvuiInsertHook(ctrl.flip),
             },
-            h(
-              'h6',
-              { attrs: { style: 'pointer-events: none' } },
-              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
-            ),
+            h('h6', i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes']),
           ),
         ]),
       ]),
@@ -618,7 +605,7 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 function renderRetro(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return;
+  if (!ctrl) return requestAnalyseBtn(root);
 
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
@@ -685,22 +672,33 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function requestAnalyseBtn(ctrl: AnalyseCtrl): VNode {
+function requestAnalyseBtn(ctrl: AnalyseCtrl): VNode | undefined {
+  if (ctrl.ongoing || ctrl.synthetic) {
+    return;
+  } else if (analysisInProgress()) {
+    return h('p', 'Server-side analysis in progress');
+  }
   return h(
     'button',
     {
       hook: nvuiInsertHook(() => {
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' });
+        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+          () => {
+            analysisInProgress(true);
+            notify.set('Server-side analysis in progress');
+          },
+          () => notify.set('Cannot run server-side analysis'),
+        );
         ctrl.redraw();
       }),
     },
-    h('h6', { attrs: { style: 'pointer-events: none' } }, i18n.site.requestAComputerAnalysis),
+    h('h6', i18n.site.requestAComputerAnalysis),
   );
 }
 
-function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
+function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): MaybeVNode {
   const anal = ctrl.data.analysis; // heh
-  if (!anal) return requestAnalyseBtn(ctrl);
+  if (!anal) return undefined;
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
@@ -733,9 +731,9 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): VNode {
   return h('section', res);
 }
 
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode {
+function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode | undefined {
   if (ctrl.hasFullComputerAnalysis()) {
-    const elements = [h('h2', 'Computer analysis')];
+    const elements: MaybeVNode[] = [h('h2', 'Computer analysis')];
     if (ctrl.ongoing || ctrl.synthetic) {
       notify.set('Server-side analysis in progress');
       elements.push(h('h2', 'Server-side analysis in progress'));
@@ -759,7 +757,7 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
             }),
             attrs: { 'tab-index': '0' },
           },
-          h('h6', { attrs: { style: 'pointer-events: none' } }, 'Learn from your mistakes'),
+          h('h6', 'Learn from your mistakes'),
         ),
         renderAcpl(ctrl, moveStyle),
       );
@@ -769,7 +767,6 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
     return h('h4', 'analysis only availible for completed games.');
   }
   // No analysis, return request Analysis btn.
-
   return requestAnalyseBtn(ctrl);
 }
 

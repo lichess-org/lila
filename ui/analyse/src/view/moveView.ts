@@ -12,7 +12,7 @@ export interface Ctx {
 export const renderGlyph = (glyph: Tree.Glyph): VNode =>
   h(
     'glyph',
-    { attrs: { title: glyph.name, 'aria-label': glyph.name, 'aria-assertive': 'polite' } },
+    { attrs: { title: glyph.name } },
     glyph.symbol,
   );
 
@@ -29,7 +29,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const nodes = [
     h(
       'san',
-      { attrs: { 'aria-live': 'polite', 'aria-label': 'standard algebraic notation' } },
+      { attrs: { 'aria-live': 'polite' } },
       fixCrazySan(node.san!),
     ),
   ];
