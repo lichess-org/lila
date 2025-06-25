@@ -10,18 +10,18 @@ class ReferrerRedirectTest extends munit.FunSuite:
     assertEquals(r.valid("/tournament"), Some("https://lichess.org/tournament"))
     assertEquals(r.valid("/@/neio"), Some("https://lichess.org/@/neio"))
     assertEquals(r.valid("/@/Neio"), Some("https://lichess.org/@/Neio"))
-    assertEquals(r.valid("//lichess.org"), Some("https://lichess.org/"))
-    assertEquals(r.valid("//foo.lichess.org"), Some("https://foo.lichess.org/"))
+    assertEquals(r.valid("/"), Some("https://lichess.org/"))
     assertEquals(r.valid("https://lichess.org/tournament"), Some("https://lichess.org/tournament"))
     assertEquals(
       r.valid("https://lichess.org/?a_a=b-b&C[]=#hash"),
       Some("https://lichess.org/?a_a=b-b&C[]=#hash")
     )
-    val legacyOauth =
-      "https://oauth.lichess.org/oauth/authorize?response_type=code&client_id=NotReal1&redirect_uri=http%3A%2F%2Fexample.lichess.ovh%3A9371%2Foauth-callback&scope=challenge:read+challenge:write+board:play&state=123abc"
-    assertEquals(r.valid(legacyOauth), Some(legacyOauth))
+    assertEquals(r.valid("/api"), Some("https://lichess.org/api"))
+    assertEquals(r.valid("/something/api/something"), Some("https://lichess.org/something/api/something"))
+
   test("be invalid"):
     assertEquals(r.valid(""), None)
+    assertEquals(r.valid("//foo.lichess.org"), None)
     assertEquals(r.valid("ftp://lichess.org/tournament"), None)
     assertEquals(r.valid("https://evil.com"), None)
     assertEquals(r.valid("https://evil.com/foo"), None)
@@ -30,3 +30,11 @@ class ReferrerRedirectTest extends munit.FunSuite:
     assertEquals(r.valid("/\t/evil.com"), None)
     assertEquals(r.valid("/ /evil.com"), None)
     assertEquals(r.valid("http://lichess.org/"), None) // downgrade to http
+    assertEquals(r.valid("/login"), None)
+    assertEquals(r.valid("/account/personal-data"), None)
+    assertEquals(r.valid("/api/games/user/Cammy"), None)
+    assertEquals(r.valid("/api/broadcast/abcdefgh"), None)
+    assertEquals(r.valid("https://lichess.org/api/broadcast/abcdefgh"), None)
+    assertEquals(r.valid("https://lichess.org/something.pgn"), None)
+    assertEquals(r.valid("https://lichess.org/swiss/abcdefgh.trf"), None)
+    assertEquals(r.valid("https://lichess.org/games/export/Cammy"), None)
