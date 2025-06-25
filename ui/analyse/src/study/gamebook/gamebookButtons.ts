@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { bind, dataIcon, type VNode, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, type VNode, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from '../../ctrl';
 import type StudyCtrl from '../studyCtrl';
 
@@ -10,9 +10,9 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const state = ctrl.state,
     fb = state.feedback,
     myTurn = fb === 'play';
-  return h('div.gamebook-buttons', [
+  return hl('div.gamebook-buttons', [
     root.path &&
-      h(
+      hl(
         'button.fbt.text.back',
         {
           attrs: { 'data-icon': licon.LessThan, type: 'button' },
@@ -21,7 +21,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
         i18n.study.back,
       ),
     myTurn &&
-      h(
+      hl(
         'button.fbt.text.solution',
         {
           attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
@@ -37,7 +37,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
   if (study.data.chapter.gamebook) {
     const o = study.vm.gamebookOverride;
     if (study.members.canContribute())
-      return h(
+      return hl(
         'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
@@ -54,7 +54,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
       const isAnalyse = o === 'analyse',
         ctrl = study.gamebookPlay;
       if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
-        return h(
+        return hl(
           'a.fbt.text.preview',
           {
             class: { active: isAnalyse },

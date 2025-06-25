@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Bi einige Lichess-Site gits Taschtaturchürzel, wo mer chann verwände. Mit em Fragezeiche (?) werded, uf Schtudie-, Analyse-, Rätsel- oder Schpielsite - die verfüegbare Taschte-Kombinazione azeigt.</string>
   <string name="fairPlay">Fairs Schpille</string>
   <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Schpiel, vu de letschte 3 Tag aglueget. Bisch du i dene Schpiel under de Gägner gsi und dini Wertig hät sich verschlächteret, will du verlore- oder Remis gschpillt häsch, dänn chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dem Schpiel.
+  <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Schpiel, vu de letschte 3 Tag aglueget. Bisch du i dene Schpiel under de Gägner gsi und dini Wertig hät sich verschlächteret, will du verlore- oder Remis gschpillt häsch, dänn chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dem Schpiel.
 (Wänn dini Wertig nach so Schpiel starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil. Dini Wertig dörf au nöd erscht \"provisorisch\" si.) Rückerschtattige sind nie höcher als 150 Pünkt.</string>
   <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo anstatt ufgeh, eifach abhaued?</string>
   <string name="leavingGameWithoutResigningExplanation">Wänn de Gägner hüfig Schpiel abbricht oder verlaht, kassiert er en \"Schpiel-Bann\" und chann e gwüssi Zit kei Schpiel schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret. Witeri Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Zitkontrolle sind?</string>
   <string name="basedOnGameDuration">Lichess Zitkontrolle basiered uf de erwartete Schpieldur = %1$s
 Zum Bischpil berächnet sich die erwartete Schpieldur vonere 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunde.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(Zitguethabe am Afang) + 40 × (Zug-Inkrement)</string>
+  <string name="durationFormula">(Zitguethabe am Afang) + 40 × (Zug-Inkrement)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Was für Variante chann ich uf Lichess schpille?</string>
@@ -98,12 +98,11 @@ Also verlang de Titel nöd.</string>
   <string name="usernamesNotOffensive">Im Allgemeine sött en Nutzername nöd aschtössig, öpper imitierend oder Werbend si. Du chasch meh über d\'%1$s läse.</string>
   <string name="guidelines">Richtliniä</string>
   <string name="canIChangeMyUsername">Chann ich min Benutzername ändere?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
+  <string name="usernamesCannotBeChanged">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
   <string name="uniqueTrophies">Einzigartigi Trophäe</string>
   <string name="ownerUniqueTrophies">Die Trophäe isch einzigartig i de Gschicht vo Lichess, niemert usser em %1$s wird si jemals ha.</string>
-  <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Schpiel vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">es schtündlichs Bullet-Turnier</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
+  <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
   <string name="lichessRatings">Lichess Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
@@ -150,7 +149,7 @@ Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert werde sö
 Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedem Schpiel ufs Brätt tippe zum so de Ton aktiviere.
 
 s\'rote Symbol macht dich druf ufmerksam, wänn das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">Desktop</string>
+  <string name="desktop">Desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
 2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
 3. Klick de Tab \"Permissions\"
@@ -168,11 +167,11 @@ s\'rote Symbol macht dich druf ufmerksam, wänn das passiert. Oft chann mer lich
 3. Klick \"Cookies and Site Permissions\"
 4. Scroll abwärts und klick \"Media autoplay\"
 5. \"Lichess.org\" zum Erlaube bi-füege</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Mich sälber vum Schpille abhalte?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">eigene, geischtige G\'sundheitszueschtand</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess Benutzerstil</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">weniger Lobby-Pools</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Es chömed regelmässig Nachrichte, wo eus Benutzer um Hilf bitted, sie vum übermässige Schpille ab z\'halte.
+  <string name="stopMyselfFromPlaying">Mich sälber vum Schpille abhalte?</string>
+  <string name="mentalHealthCondition">eigene, geischtige G\'sundheitszueschtand</string>
+  <string name="lichessUserstyles">Lichess Benutzerstil</string>
+  <string name="fewerLobbyPools">weniger Lobby-Pools</string>
+  <string name="adviceOnMitigatingAddiction">Es chömed regelmässig Nachrichte, wo eus Benutzer um Hilf bitted, sie vum übermässige Schpille ab z\'halte.
 
 Obwohl Lichess kei Schpiller schperrt oder blockiert, usser bi Verschtöss gäge d\'Nutzigsbedingige, empfehled mir d\'Verwändig vu externe Werchzüg, um exzessivs Schpielverhalte i\'zschränke. Einigi, gängigi Vorschläg für Website-Blocker sind %1$s, %2$s und %3$s. Wänn Du eusi Website witer nutze wotsch, aber nöd dur schnälli Zitkontrolle i Versuechig g\'rate wottsch, chasch Du au a %4$s intressiert si. Da isch eini mit %5$s.
 

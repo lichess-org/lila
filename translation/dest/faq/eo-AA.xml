@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Kelkaj Lichess paĝoj havas flumklavojn, ke vi povas uzi. Provi premu la \"?\" klavon ĉe studa, analiza, puzla, aŭ luda paĝo por listo de disponeblaj flumklavoj.</string>
   <string name="fairPlay">Honesta ludo</string>
   <string name="whenAmIEligibleRatinRefund">Kiam mi memage reakiros perditajn poentojn pro trompantoj?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minuton post la momento kiam la ludanto estas markita kiel trompa, la poentoj de la lasta lastaj 40 rangaj ludoj, dum la lastaj tri tagoj, estos demetintaj. Si iu alia perdis poentojn en tiuj ludoj (pro malvenko aŭ egalvenko), kaj ties rango ne estis provizora, tiu rehavos poentojn. La kvanto da poentoj ricevotaj estas limigita de via plej alta rango kaj de la progreso de via rango post tiu ludo. (Ezkemple, se via rango multe supreniris post tiu ludo, vi povus rehavi neniun poenton aŭ parton de tio, kion vi estus devinta ricevi. Rehavo estos neniam pli ol 150 poentoj).</string>
+  <string name="ratingRefundExplanation">Minuton post la momento kiam la ludanto estas markita kiel trompa, la poentoj de la lasta lastaj 40 rangaj ludoj, dum la lastaj tri tagoj, estos demetintaj. Si iu alia perdis poentojn en tiuj ludoj (pro malvenko aŭ egalvenko), kaj ties rango ne estis provizora, tiu rehavos poentojn. La kvanto da poentoj ricevotaj estas limigita de via plej alta rango kaj de la progreso de via rango post tiu ludo. (Ezkemple, se via rango multe supreniris post tiu ludo, vi povus rehavi neniun poenton aŭ parton de tio, kion vi estus devinta ricevi. Rehavo estos neniam pli ol 150 poentoj).</string>
   <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
   <string name="leavingGameWithoutResigningExplanation">Se via kontraŭulo ofte abortas/eliras ludojn, tiam li estos \"luda forigita\" kio signifas, ke li estas portempe forigita de ludo. Tio ne estas publike montrata ĉe ties profilo. Se tia konduto daŭras, la longo de luda forigo pliiĝas - kaj daŭrigita konduto de tia naturo eble alkondukis onin al fermato de ties konto.</string>
   <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Kial estas Kugla, Blitza, kaj alia tempregado decidis?</string>
   <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
 Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
+  <string name="durationFormula">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kiujn ŝakvariantojn mi povas ludi en Lichess?</string>
@@ -96,12 +96,11 @@ Ne petu por la LM titolo.</string>
   <string name="usernamesNotOffensive">Ĝenerale, uzantnomoj ne povus esti: ofenda, imitanta de aliulo, aŭ varbanta. Vi povas legi plu pri la %1$s.</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
+  <string name="usernamesCannotBeChanged">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
   <string name="ownerUniqueTrophies">Tiu trofeo estas unika en la historio de Lichess, neniu krom %1$s iam havos ĝin.</string>
-  <string name="wayOfBerserkExplanation">Por akiri ĝin, hiimgosu defiis sin berserki kaj venki ciujn ludojn de %s.</string>
   <string name="aHourlyBulletTournament">hore kugla turniro</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
+  <string name="goldenZeeExplanation">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="ratingSystemUsedByLichess">Atingoj estas kalkulita per la Glicko-2 atinga metodo ellaborita de Mark Glickman. Tiu estas tre populara atinga metodo, kaj estas uzata de signifa nombro de ŝakorganazaĵoj. (FIDE estas notinda kontraŭekzamplo, ĉar ili uzas la neĝisdatan Elo atingan sistemon).
@@ -148,7 +147,7 @@ Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
 La ruĝa silentiga ikono aperas kiam via retumilo malhelpis lichess.org ludi sonon. Ĝenerale tiu limigo foriĝas kiam vi alklaki ion. Sur kelkaj poŝtelefonaj retumiloj, tuŝŝovoj ne estas tipo de alklako. En tiu okazo vi devas tuŝeti la tabulon por permesi sonon ĉe la komenco de la ludo.
 
 Ni montras la ruĝan ikonon por averti vin kiam tio okazas. Ofte vi povas eksplice permesi lichess.org ludi sonojn. Ĉi tie estas instrukcio por fari tio sur lastaj versioj de kelkaj popularaj retumiloj.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">labortablo</string>
+  <string name="desktop">labortablo</string>
   <string name="enableAutoplayForSoundsFirefox">1. Iru al lichess.org
 2. Premu str-i sur Linukso/Vindozo aŭ kmd-i sur MakOS
 3. Alklaku la langeton de Permesoj
@@ -166,11 +165,11 @@ Ni montras la ruĝan ikonon por averti vin kiam tio okazas. Ofte vi povas ekspli
 3. Alklaku Kuketojn kaj Retejan Permesojn
 4. Rulumu malsupre kaj alklaku aŭdvidaĵan aŭtomatan ludigon
 5. Aldonu lichess.org al Permesata</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Ĉu haltigi min mem el ludo?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">memstara mensmalsano</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess uzantstiloj</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">malpli da vestiblaj grupoj</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Ni regule ricevas mesaĝojn de uzantoj, kiuj petas nin por helpi ilin halti troludi.
+  <string name="stopMyselfFromPlaying">Ĉu haltigi min mem el ludo?</string>
+  <string name="mentalHealthCondition">memstara mensmalsano</string>
+  <string name="lichessUserstyles">Lichess uzantstiloj</string>
+  <string name="fewerLobbyPools">malpli da vestiblaj grupoj</string>
+  <string name="adviceOnMitigatingAddiction">Ni regule ricevas mesaĝojn de uzantoj, kiuj petas nin por helpi ilin halti troludi.
 
 Kiam Lichess ne forigas aŭ forbaras ludantojn krom ĉar malobservos de uzkondiĉoj, ni rekomendi uzon de eksteraj iloj por limi troludado. Kelkaj kutimaj proponoj por retblokiloj estas %1$s, %2$s, and %3$s. Se vi volas daŭri uzi la la retpaĝo, sed ne tentiĝas per rapidaj temporegardoj, tiam vi povus esti interestata pri %4$s, tie estas unu kun %5$s.
 

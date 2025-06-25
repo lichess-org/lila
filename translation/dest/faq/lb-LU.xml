@@ -9,9 +9,11 @@
   <string name="whyLiveLightLibre">Live, well Partien 24/7 an Echtzäit gespillt ginn; liicht an fräi well Lichess open-source an fräi vun proprietärem Dreck ass, wéi een en op aneren Websäiten geseit.</string>
   <string name="whyIsLilaCalledLila">Et verhält sech ähnlech mam Quellcode fir Lichess; %1$s, deen fir li[chess an sca]la steet. Den Groussdeel vun Lichess ass an %2$s geschriwwen, enger intuitiver Programméiersprooch.</string>
   <string name="howCanIContributeToLichess">Wéi kann ech zu Lichess bäidroen?</string>
-  <string name="beingAPatron">een Ënnerstëtzer sinn</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess gëtt duerch d\'Spende vun Ënnerstëtzer an duerch d\'Efforte vun enger Ekipp vu Benevolle méiglech gemaach.</string>
+  <string name="findMoreAndSeeHowHelp">Du kanns méi driwwer gewuer gi fir %1$s (dorënner eng %2$s). Wann s de Lichess hëllefe wëlls, andeems de deng Zäit an deng Fäegkeeten zur Verfügung stells, da gëtt et nach vill %3$s.</string>
+  <string name="beingAPatron">en Ënnerstëtzer ze sinn</string>
   <string name="breakdownOfOurCosts">Opschlësselung vun eise Käschten</string>
-  <string name="otherWaysToHelp">aner Methode fir ze hëllefen</string>
+  <string name="otherWaysToHelp">aner Manéiere fir ze hëllefen</string>
   <string name="areThereWebsitesBasedOnLichess">Ginn et Websäiten déi op Lichess baséieren?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jo. Lichess huet aner Open-Source Säiten inspiréiert déi eis %1$s, %2$s, oder %3$s benotzen.</string>
   <string name="keyboardShortcuts">Wéieng Tastaturkürzel ginn et?</string>
@@ -19,17 +21,19 @@
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Wéi qualifizéieren ech mech fir eng automatesch Wäertungsréckerstattung?</string>
   <string name="preventLeavingGameWithoutResigning">Wat geschitt mat Spiller, déi eng Partie verloossen, ouni opzeginn?</string>
+  <string name="leavingGameWithoutResigningExplanation">Wann däi Géigner dacks Partien ofbrécht oder erausgeet, da kritt en eng „Spill-Spär“, wat heescht, datt en temporär gespaart ass fir Partien ze spillen. Dat gëtt net ëffentlech op dem Profil ugewisen. Wann dat Verhalen unhält, da gëtt d\'Dauer vun der Spill-Spär ëmmer méi laang – a wann dat Verhalen nach weider geet, kann de Konto zougemaach ginn.</string>
   <string name="howCanIBecomeModerator">Wéi kann ech e Moderator ginn?</string>
   <string name="youCannotApply">Et ass net méiglech sech als Moderator ze bewerben. Wa mir gesinn, datt een ee gudde Moderator kéint sinn, da kontaktéiere mir déi Persoun.</string>
-  <string name="isCorrespondenceDifferent">Wéi ënnerscheeden sech Korrespondenz an normalen Schach?</string>
+  <string name="isCorrespondenceDifferent">Ënnerscheet sech Fernschach vum normale Schach?</string>
   <string name="pleaseReadFairPlayPage">Fir méi Informatiounen, lies wgl. eis %s</string>
   <string name="fairPlayPage">Fair-Play-Säit</string>
+  <string name="youCanUseOpeningBookNoEngine">Op Lichess ass den Haaptënnerscheed bei de Reegele fir Fernschach, datt en Erëffnungsbuch erlaabt ass. D\'Benotze vu Schachprogrammer ass nach ëmemr verbueden a féiert dozou, datt ee fir Schachprogramm-Ënnerstëtzung markéiert gëtt. Obwuel d\'ICCF Schachprogrammer am Fernschach erlaabt, ass dat op Lichess net de Fall.</string>
   <string name="gameplay">Spillerliefnis</string>
   <string name="howBulletBlitzEtcDecided">Wat decidéiert op eng Zäitkontroll Bullet, Blitz oder eng aner ass?</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(Ufankszäit a Sekonnen) + 40 × (Inkrement pro Zuch)</string>
+  <string name="durationFormula">(Ufankszäit a Sekonnen) + 40 × (Inkrement pro Zuch)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
-  <string name="whatVariantsCanIplay">Wéieng Varianten kann ech op Lichess spillen?</string>
+  <string name="whatVariantsCanIplay">Wéi eng Schachvariante kann ech op Lichess spillen?</string>
   <string name="lichessSupportChessAnd">Lichess ënnerstëtzt Standardschach an %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Wat ass den duerchschnëttlechen Honnertselbauerverloscht (ACPL)?</string>
@@ -54,6 +58,7 @@
   <string name="guidelines">Richtlinnen</string>
   <string name="canIChangeMyUsername">Kann ech mäin Benotzernumm änneren?</string>
   <string name="uniqueTrophies">Eenzegaarteg Trophäen</string>
+  <string name="aHourlyBulletTournament">e stëndlecht Bullet-Turnéier</string>
   <string name="lichessRatings">Lichess Wäertungen</string>
   <string name="whichRatingSystemUsedByLichess">Wéieen Wäertungssystem benotzt Lichess?</string>
   <string name="whatIsProvisionalRating">Firwat ass en Fragezeichen (?) nieft enger Wäertung?</string>
@@ -72,7 +77,7 @@
   <string name="connexionLostCanIGetMyRatingBack">Ech hunn eng Partie wéinst Lag/Verbindungsverloscht verluer. Kann ech meng Wäertungspunkten zeréckkréien?</string>
   <string name="howToThreeDots">Wéi...</string>
   <string name="enableDisableNotificationPopUps">Notifikatiouns-Popups aktivéieren an desaktivéieren?</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">Desktop</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Mech selwer vum s`Spillen ofhalen?</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess-Benotzerstiler</string>
+  <string name="desktop">Desktop</string>
+  <string name="stopMyselfFromPlaying">Mech selwer vum s`Spillen ofhalen?</string>
+  <string name="lichessUserstyles">Lichess-Benotzerstiler</string>
 </resources>

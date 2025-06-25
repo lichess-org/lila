@@ -24,7 +24,7 @@
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er høvuðsmunurin á reglunum í brævtalvi, at eitt sonevnt bókabyrjanartalv er loyvt. At nýta hjálp frá telduni er tó enn bannað, og førir við sær, at viðkomandi telvari verður meldaður fyri at fáa hjálp frá telduni. Hóast ICCF loyvir hjálp frá telduni í brævtalvi, loyvir Lichess tí ikki.</string>
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(byrjanartíð á klokkuni) + 40 × (tíð løgd afturat)</string>
+  <string name="durationFormula">(byrjanartíð á klokkuni) + 40 × (tíð løgd afturat)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvørji avbrigdi kann eg telva á Lichess?</string>
@@ -60,7 +60,7 @@ At enda er ærisheitið: %2$s.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="usernamesNotOffensive">Sum heild eiga brúkaranøvn ikki at vera stoytandi og eiga ikki at lýsa fyri onkrari ávísari vøru ella virki. Við brúkaranavninum eigur tú ei heldur at látast at vera onkur annar, enn tú ert. Tú kanst lesa meir um hetta: %1$s.</string>
   <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
+  <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
   <string name="lichessRatings">Lichess styrkitøl</string>
   <string name="whichRatingSystemUsedByLichess">Hvørja styrkitalaskipan nýtir Lichess?</string>
 </resources>

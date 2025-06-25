@@ -1,10 +1,10 @@
-import { looseH as h, VNode } from 'lib/snabbdom';
+import { hl, VNode } from 'lib/snabbdom';
 
 export function renderGameView(side?: VNode): VNode {
-  return h('main.round', [
-    side ? h('aside.round__side', side) : undefined,
-    h('div.round__app', [h('div.round__app__board.main-board'), h('div.col1-rmoves-preload')]),
-    h('div.round__underboard', [h('div.round__now-playing')]),
-    h('div.round__underchat'),
+  return hl('main.round', [
+    side ? hl('aside.round__side', side) : undefined,
+    hl('div.round__app', [hl('div.round__app__board.main-board'), hl('div.col1-rmoves-preload')]),
+    hl('div.round__underboard', [hl('div.round__now-playing')]),
+    hl('div.round__underchat'),
   ]);
 }

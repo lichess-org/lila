@@ -19,7 +19,7 @@
   <string name="keyboardShortcuts">Какви клавишни комбинации има?</string>
   <string name="fairPlay">Честна игра</string>
   <string name="whenAmIEligibleRatinRefund">Кога отговарям на условията за автоматично възстановяване на състезателният ми рейтинг от измамници?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Една минута след като даден играч бъде маркиран, се вземат неговите 40 най-нови оценени игри през последните 3 дни. Ако сте техен опонент в тези игри, загубили сте рейтинг (поради загуба или равенство) и рейтингът ви не е временен, получавате възстановяване на сумата за рейтинг. Възстановяването е ограничено въз основа на най-високия ви рейтинг и напредъка ви в рейтинга след играта.
+  <string name="ratingRefundExplanation">Една минута след като даден играч бъде маркиран, се вземат неговите 40 най-нови оценени игри през последните 3 дни. Ако сте техен опонент в тези игри, загубили сте рейтинг (поради загуба или равенство) и рейтингът ви не е временен, получавате възстановяване на сумата за рейтинг. Възстановяването е ограничено въз основа на най-високия ви рейтинг и напредъка ви в рейтинга след играта.
   (Например, ако рейтингът ви се повиши значително след тези игри, може да не получите възстановяване или само частично възстановяване.) Възстановяването никога няма да надхвърли 150 точки.</string>
   <string name="preventLeavingGameWithoutResigning">Какво се прави с играчите, които напускат игрите, без да се предадат?</string>
   <string name="leavingGameWithoutResigningExplanation">Ако опонентът ви често прекъсва/напуска игри, той получава „забрана за игра“, което означава, че е временно забранен да играе игри. Това не е публично посочено в профила им. Ако това поведение продължи, продължителността на плейбана се увеличава - и продължително поведение от този характер може да доведе до закриване на акаунт.</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Как се определят Bullet, Blitz и други времеви контроли?</string>
   <string name="basedOnGameDuration">Времевите контроли на Lichess се основават на очакваната продължителност на играта = %1$s.
 Например очакваната продължителност на игра 5+3 е 5 × 60 + 40 × 3 = 420 секунди.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(начално време на часовника в секунди) + 40 × (увеличение на часовника)</string>
+  <string name="durationFormula">(начално време на часовника в секунди) + 40 × (увеличение на часовника)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sсек = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Какви варианти мога да играя на Lichess?</string>
@@ -94,7 +94,7 @@
   <string name="usernamesNotOffensive">Като цяло, потребителските имена не трябва да са обидни, представляващи другиго, или с цел реклама. Можете да прочетете повече в %1$s.</string>
   <string name="guidelines">упътванията</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското си име?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
+  <string name="usernamesCannotBeChanged">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
   <string name="uniqueTrophies">Уникални трофеи</string>
   <string name="ownerUniqueTrophies">Тази награда е единствена в историята на Lichess, никой освен %1$s никога няма да я има.</string>
   <string name="whatIsProvisionalRating">Защо има въпросителна (?) до моя ранк?</string>
@@ -106,5 +106,5 @@
 Кликнете върху иконата за заключване до адреса lichess. org в лентата с URL адреси на браузъра си.
 
 След това изберете дали да разрешите или да блокирате известията от Lichess.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">работен плот</string>
+  <string name="desktop">работен плот</string>
 </resources>

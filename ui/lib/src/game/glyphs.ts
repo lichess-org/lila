@@ -31,6 +31,16 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
 const composeGlyph = (fill: string, path: string) =>
   `<defs><filter id="shadow"><feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" /></filter></defs><g transform="translate(71 -12) scale(0.4)"><circle style="fill:${fill};filter:url(#shadow)" cx="50" cy="50" r="50" />${path}</g>`;
 
+const whiteIsWinning = composeGlyph(
+  '#bbb',
+  '<path d="M 29,27 L 29,73 M 6,50 L 52,50" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 60,50 L 96,50"/>',
+);
+
+const blackIsWinning = composeGlyph(
+  '#333',
+  '<path d="M 71,27 L 71,73 M 94,50 L 48,50" stroke="#fff" stroke-width="8" fill="none"/><path stroke="#fff" stroke-width="8" fill="none" d="M 40,50 L 4,50"/>',
+);
+
 const glyphToSvg: Dictionary<string> = {
   // Inaccuracy
   '?!': composeGlyph(
@@ -126,16 +136,12 @@ const glyphToSvg: Dictionary<string> = {
   ),
 
   // White is winning
-  '+−': composeGlyph(
-    '#bbb',
-    '<path d="M 29,27 L 29,73 M 6,50 L 52,50" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 60,50 L 96,50"/>',
-  ),
+  '+−': whiteIsWinning,
+  '+-': whiteIsWinning,
 
   // Black is winning
-  '-+': composeGlyph(
-    '#333',
-    '<path d="M 71,27 L 71,73 M 94,50 L 48,50" stroke="#fff" stroke-width="8" fill="none"/><path stroke="#fff" stroke-width="8" fill="none" d="M 40,50 L 4,50"/>',
-  ),
+  '−+': blackIsWinning,
+  '-+': blackIsWinning,
 
   // Novelty
   N: composeGlyph(
@@ -185,9 +191,3 @@ const glyphToSvg: Dictionary<string> = {
     '<path fill="#fff" d="M 22.95,85.70 L 22.95,80.20 L 45.45,14.30 L 54.45,14.30 L 77.05,80.30 L 77.05,85.70 L 22.95,85.70 M 32.55,77.80 L 67.15,77.80 L 54.65,40.60 Q 51.35,30.70 49.85,24.10 Q 48.55,29.00 47.45,33.00 Q 46.35,37.00 45.25,40.20 L 32.55,77.80"/>',
   ),
 };
-
-// NOTE: Inkscape tips
-//   On Inkscape, by using "Object to Path", text is converted to path, which enables consistent layout on browser.
-//   Inkscape's output includes unnecessary attributes which can be cleaned up with https://lean-svg.netlify.app.
-//   Wrap it by `transform="translate(...) scale(...)"` so that it sits at the right top corner.
-//   Small tweak (e.g. changing color, scaling size, etc...) can be done by directly modifying svg below.

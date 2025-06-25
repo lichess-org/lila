@@ -1,6 +1,6 @@
 import { defined, prop, Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -187,7 +187,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
-  return h(
+  return hl(
     'div.study__chapters',
     {
       hook: {
@@ -220,7 +220,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
-        return h(
+        return hl(
           'button',
           {
             key: chapter.id,
@@ -228,20 +228,20 @@ export function view(ctrl: StudyCtrl): VNode {
             class: { active, editing, draggable: canContribute },
           },
           [
-            h('span', (i + 1).toString()),
-            h('h3', chapter.name),
-            chapter.status && h('res', chapter.status),
+            hl('span', (i + 1).toString()),
+            hl('h3', chapter.name),
+            chapter.status && hl('res', chapter.status),
             canContribute &&
-              h('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
+              hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
           ],
         );
       })
       .concat(
         ctrl.members.canContribute()
           ? [
-              h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-                h('span', iconTag(licon.PlusButton)),
-                h('h3', i18n.study.addNewChapter),
+              hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+                hl('span', iconTag(licon.PlusButton)),
+                hl('h3', i18n.study.addNewChapter),
               ]),
             ]
           : [],

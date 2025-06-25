@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">برخی از صفحه‌های Lichess دارای میانبرهای صفحه‌کلید هستند که می‌توانید از آنها بهرایید. برای دیدن فهرست میانبرهای صفحه‌کلید، درون صفحهٔ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بزنید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
+  <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
   <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که بازی را بدون انصراف ترک میکنند انجام شده است?</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
   <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="basedOnGameDuration">زمان‌بندی‌های Lichess بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
 برای نمونه، مدت برآوردشدهٔ یک بازی ۵+۳ می‌شود ۵ × ۶۰ + ۴۰ × ۳۰ = ۴۲۰ ثانیه.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
+  <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">چه وَرتاهایی را می‌توانم در Lichess بازی کنم؟</string>
@@ -84,12 +84,11 @@
   <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
+  <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="ownerUniqueTrophies">آن جایزه در تاریخ لیچس خاص هست و هیچکس به غیر از %1$s نمی‌توانند داشته باشند.</string>
-  <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
   <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
+  <string name="goldenZeeExplanation">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>
   <string name="ratingSystemUsedByLichess">درجه‌بندی‌ها با استفاده از شیوه درجه‌بندی Glicko-2 که به‌دست مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این شیوه درجه‌بندی بسیار محبوب است و تعداد قابل توجهی از نهادهای شطرنج از آن استفاده می‌کنند (FIDE یک مثال نقض قابل‌توجه است، زیرا آنها هنوز از شیوه درجه‌بندی ازمُدافتاده Elo استفاده می‌کنند).
@@ -131,7 +130,7 @@
 
 سپس برگزینید که آیا اعلان‌های Lichess مُجاز/مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">رایانه</string>
+  <string name="desktop">رایانه</string>
   <string name="enableAutoplayForSoundsFirefox">1.به lichess.org بروید
 2.بر روی ویندوز و یا لینوکس خود دکمه Ctrl-i بزنید و یا بر روی مک دکمه cmd-i را بزنید
 3.بر روی تب مجوز ها بزنید
@@ -149,11 +148,11 @@
 ۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید
 ۴. به پایین بِنَوَردید و پخش خودکار رسانه (Media autoplay) را بزنید
 ۵. وبگاه lichess.org را به اجازه‌داران (Allow) بیفزایید</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">چگونه خودم را از بازی، بازدارم؟</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">وضعیت سلامت روانی خوداتکا</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">سبک‌های کاربری Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">جَرگه‌های سَرسَرای کمتر</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">ما پیاپی از کاربران پیام‌هایی دریافت می‌کنیم که از ما کمک می‌خواهند تا جلوی بازی بیش از حدشان را بگیریم.
+  <string name="stopMyselfFromPlaying">چگونه خودم را از بازی، بازدارم؟</string>
+  <string name="mentalHealthCondition">وضعیت سلامت روانی خوداتکا</string>
+  <string name="lichessUserstyles">سبک‌های کاربری Lichess</string>
+  <string name="fewerLobbyPools">جَرگه‌های سَرسَرای کمتر</string>
+  <string name="adviceOnMitigatingAddiction">ما پیاپی از کاربران پیام‌هایی دریافت می‌کنیم که از ما کمک می‌خواهند تا جلوی بازی بیش از حدشان را بگیریم.
 
 در حالی که Lichess به جز برای نقض شرایط خدمات، بازیکنان را تحریم یا مسدود نمی‌کند، توصیه می‌کنیم از ابزارهای خارجی برای محدودسازی خوره‌بازی استفاده کنید. برخی از پیشنهادهای رایجِ مسدودگرهای وبگاه، عبارتند از %1$s و %2$s و %3$s. اگر می‌خواهید به استفاده از Lichess ادامه دهید، ولی به بازی‌های تند وسوسه نشوید، ممکن است به %4$s نیز علاقه‌مند باشید، %5$s هم وجود دارد.
 

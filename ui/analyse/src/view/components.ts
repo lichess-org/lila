@@ -5,11 +5,12 @@ import * as licon from 'lib/licon';
 import {
   type VNode,
   type LooseVNode,
+  type LooseVNodes,
   bind,
   bindNonPassive,
   onInsert,
   dataIcon,
-  looseH as h,
+  hl,
 } from 'lib/snabbdom';
 import { playable } from 'lib/game/game';
 import { bindMobileMousedown, isMobile } from 'lib/device';
@@ -88,10 +89,10 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 
 export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
-  ...kids: LooseVNode[]
+  ...kids: LooseVNodes[]
 ): VNode {
   const isRelay = defined(ctrl.study?.relay);
-  return h(
+  return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
       hook: {
@@ -127,24 +128,24 @@ export function renderMain(
 }
 
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
-  return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
+  return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embedded,
-    ...(ctrl.actionMenu()
+    ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [
-          ...cevalView.renderCeval(ctrl),
+          cevalView.renderCeval(ctrl),
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
           renderMoveList(ctrl, deps, concealOf),
           deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
           backToLiveView(ctrl),
           forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
-        ]),
+        ],
   ]);
 }
 
 export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewContext) {
-  return h(
+  return hl(
     addChapterId(study, 'div.analyse__board.main-board'),
     {
       hook:
@@ -171,7 +172,7 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
             ),
     },
     [
-      ...(playerStrips || []),
+      playerStrips,
       playerBars?.[ctrl.bottomIsWhite() ? 1 : 0],
       chessground.render(ctrl),
       playerBars?.[ctrl.bottomIsWhite() ? 0 : 1],
@@ -181,7 +182,7 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
 }
 
 export function renderUnderboard({ ctrl, deps, study }: ViewContext) {
-  return h(
+  return hl(
     'div.analyse__underboard',
     {
       hook:
@@ -194,10 +195,10 @@ export function renderUnderboard({ ctrl, deps, study }: ViewContext) {
 export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
-  return h('div.copyables', [
-    h('div.pair', [
-      h('label.name', 'FEN'),
-      h('input.copyable', {
+  return hl('div.copyables', [
+    hl('div.pair', [
+      hl('label.name', 'FEN'),
+      hl('input.copyable', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         hook: {
           insert: vnode => {
@@ -221,10 +222,10 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         },
       }),
     ]),
-    h('div.pgn', [
-      h('div.pair', [
-        h('label.name', 'PGN'),
-        h('textarea.copyable', {
+    hl('div.pgn', [
+      hl('div.pair', [
+        hl('label.name', 'PGN'),
+        hl('textarea.copyable', {
           attrs: { spellcheck: 'false' },
           class: { 'is-error': !!ctrl.pgnError },
           hook: {
@@ -250,7 +251,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           },
         }),
         !isMobile() &&
-          h(
+          hl(
             'button.button.button-thin.bottom-item.bottom-action.text',
             {
               attrs: dataIcon(licon.PlayTriangle),
@@ -261,7 +262,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
             i18n.site.importPgn,
           ),
-        h(
+        hl(
           'div.bottom-item.bottom-error',
           { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
           renderPgnError(ctrl.pgnError),
@@ -275,7 +276,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu();
-  return h(
+  return hl(
     'div.analyse__controls.analyse-controls',
     {
       hook: onInsert(
@@ -297,16 +298,16 @@ export function renderControls(ctrl: AnalyseCtrl) {
       ),
     },
     [
-      h(
+      hl(
         'div.features',
         ctrl.studyPractice
           ? [
-              h('button.fbt', {
+              hl('button.fbt', {
                 attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
               }),
             ]
           : [
-              h('button.fbt', {
+              hl('button.fbt', {
                 attrs: {
                   title: i18n.site.openingExplorerAndTablebase,
                   'data-act': 'explorer',
@@ -321,7 +322,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 ctrl.ceval.allowed() &&
                 !ctrl.isGamebook() &&
                 !ctrl.isEmbed &&
-                h('button.fbt', {
+                hl('button.fbt', {
                   attrs: {
                     title: i18n.site.practiceWithComputer,
                     'data-act': 'practice',
@@ -331,15 +332,15 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 }),
             ],
       ),
-      h('div.jumps', [
+      hl('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
         jumpButton(licon.JumpNext, 'next', canJumpNext),
         jumpButton(licon.JumpLast, 'last', canJumpNext),
       ]),
       ctrl.studyPractice
-        ? h('div.noop')
-        : h('button.fbt', {
+        ? hl('div.noop')
+        : hl('button.fbt', {
             class: { active: menuIsOpen },
             attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
           }),
@@ -350,8 +351,8 @@ export function renderControls(ctrl: AnalyseCtrl) {
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const termination = () => ctrl.study && findTag(ctrl.study.data.chapter.tags, 'termination');
   const render = (result: string, status: string) => [
-    h('div.result', result),
-    h('div.status', [termination() && `${termination()} • `, status]),
+    hl('div.result', result),
+    hl('div.status', [termination() && `${termination()} • `, status]),
   ];
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
@@ -371,8 +372,8 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
 }
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  h('div.analyse__moves.areplay', [
-    h(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), ...renderResult(ctrl)]),
+  hl('div.analyse__moves.areplay', [
+    hl(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 
@@ -428,7 +429,7 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 }
 
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
-  h('button.fbt', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  hl('button.fbt', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
 
 const dataAct = (e: Event): string | null => {
   const target = e.target as HTMLElement;
@@ -437,7 +438,7 @@ const dataAct = (e: Event): string | null => {
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
-    h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
+    hl('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
   const clocks = renderClocks(ctrl, ctrl.path),
     whitePov = ctrl.bottomIsWhite(),

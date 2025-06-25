@@ -1,6 +1,6 @@
 import { view as cevalView } from 'lib/ceval/ceval';
 import { onClickAway } from 'lib';
-import { bind, dataIcon, looseH as h, onInsert, type VNode } from 'lib/snabbdom';
+import { bind, dataIcon, hl, onInsert, type VNode } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import type AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
@@ -40,13 +40,13 @@ export function relayView(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
-    ...(ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx)),
+    ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx),
   );
 }
 
 export const backToLiveView = (ctrl: AnalyseCtrl) =>
   ctrl.study?.isRelayAwayFromLive()
-    ? h(
+    ? hl(
         'button.fbt.relay-back-to-live.text',
         {
           attrs: dataIcon(licon.PlayTriangle),
@@ -69,9 +69,9 @@ export function renderStreamerMenu(relay: RelayCtrl): VNode {
     url.searchParams.set('embed', id);
     return url.toString();
   };
-  return h(
+  return hl(
     'div.streamer-menu-anchor',
-    h(
+    hl(
       'div.streamer-menu',
       {
         hook: onInsert(
@@ -82,9 +82,9 @@ export function renderStreamerMenu(relay: RelayCtrl): VNode {
         ),
       },
       relay.streams.map(([id, info]) =>
-        h('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
+        hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
           info.name,
-          h('i', info.lang),
+          hl('i', info.lang),
         ]),
       ),
     ),

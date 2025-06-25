@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichess にはショートカットキーが使えるページがあります。研究、解析、問題、対局のページで 「?」キーを押すと、使えるショートカットキーの一覧が表示されます。</string>
   <string name="fairPlay">フェアプレイについて</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 5 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります（たとえばその後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります）。また回復は 150 点が上限です。</string>
+  <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 5 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります（たとえばその後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります）。また回復は 150 点が上限です。</string>
   <string name="preventLeavingGameWithoutResigning">投了せずに対局からいなくなる人にはどう対処していますか？</string>
   <string name="leavingGameWithoutResigningExplanation">何度も対局を中止／放置する人は対戦禁止 (play ban) になります。つまり対局が一時的にできなくなります。このことはプロフィールには表示されません。同じ行為がさらに続くと対戦禁止の期間は長くなっていき、最後にはアカウントが停止されることがあります。</string>
   <string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
   <string name="basedOnGameDuration">Lichess の持時間は推定所要時間 = %1$s で分類されています。
  たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
+  <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess にはどんなバリアント（変則ルール）がありますか？</string>
@@ -84,12 +84,11 @@
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="canIChangeMyUsername">ユーザー名は変えられますか？</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
+  <string name="usernamesCannotBeChanged">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="ownerUniqueTrophies">このトロフィーは Lichess 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
-  <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
   <string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
+  <string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
   <string name="lichessRatings">Lichess のレーティング</string>
   <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
   <string name="ratingSystemUsedByLichess">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、FIDE は今も古い Elo 方式を使っています）。
@@ -130,7 +129,7 @@
 ブラウザが lichess.org のサウンド再生を阻止すると、赤のミュート・アイコンが表示されます。通常、何かをクリックするとこの制限は解除されます。一部のモバイル用ブラウザでは、駒のタッチ＆ドラッグはクリックしたことになりません。その場合は対局が始まるたびに盤をタップして音声をオンにする必要があります。
 
 たいていの場合、ブラウザの設定で lichess.org のサウンド再生を許可できます。以下によく使われるブラウザの最近のバージョンでの操作方法をまとめました。</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">デスクトップ</string>
+  <string name="desktop">デスクトップ</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org に行く
 2. Linux/Windows なら Ctrl+i を、MacOS なら cmd+i を押す
 3. 許可設定タブをクリック
@@ -148,11 +147,11 @@
 3. 「Cookie とサイトのアクセス許可」をクリック
 4. スクロールして「メディアの自動再生」をクリック
 5. 「許可」に lichess.org を追加</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">チェスのやりすぎを止めるには？</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">独立した疾病</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess ユーザースタイル</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">ロビーのプール数を減らせます</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Lichess には、チェスのやりすぎを止めるにはどうすればいいか、という相談がよく寄せられます。
+  <string name="stopMyselfFromPlaying">チェスのやりすぎを止めるには？</string>
+  <string name="mentalHealthCondition">独立した疾病</string>
+  <string name="lichessUserstyles">Lichess ユーザースタイル</string>
+  <string name="fewerLobbyPools">ロビーのプール数を減らせます</string>
+  <string name="adviceOnMitigatingAddiction">Lichess には、チェスのやりすぎを止めるにはどうすればいいか、という相談がよく寄せられます。
 
 Lichess がユーザーを追放やブロックするのは規約違反の時だけなので、やりすぎを防ぐには外部ツールの利用をおすすめします。ウェブサイトブロッカーとして %1$s、%2$s、%3$s などがよく使われます。また Lichess は続けたいが短い持時間は避けたいという場合は %4$s を使うこともできます。一例として %5$s。
 

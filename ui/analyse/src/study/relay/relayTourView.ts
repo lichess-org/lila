@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, looseH as h, type LooseVNode } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
@@ -38,7 +38,7 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
             ? players(ctx)
             : overview(ctx);
 
-  return h('div.box.relay-tour', content);
+  return hl('div.box.relay-tour', content);
 }
 
 export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
@@ -46,7 +46,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const empty = study.chapters.list.looksNew();
   const resizeId =
     !isTouchDevice() && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
-  return h(
+  return hl(
     'aside.relay-tour__side',
     {
       hook: {
@@ -54,17 +54,17 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
       },
     },
     [
-      ...(empty
+      empty
         ? [startCountdown(relay)]
         : [
-            h('div.relay-tour__side__header', [
-              h(
+            hl('div.relay-tour__side__header', [
+              hl(
                 'button.relay-tour__side__name',
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
                 relay.roundName(),
               ),
               !ctrl.isEmbed &&
-                h('button.streamer-show.data-count', {
+                hl('button.streamer-show.data-count', {
                   attrs: {
                     'data-icon': licon.Mic,
                     'data-count': relay.streams.length,
@@ -77,14 +77,14 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
                   },
                   hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
                 }),
-              h('button.relay-tour__side__search', {
+              hl('button.relay-tour__side__search', {
                 attrs: { 'data-icon': licon.Search },
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),
-          ]),
+          ],
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
-      !empty ? gamesList(study, relay) : h('div.vertical-spacer'),
+      !empty ? gamesList(study, relay) : hl('div.vertical-spacer'),
       !empty &&
         resizeId &&
         verticalResizeSeparator({
@@ -101,7 +101,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           min: () => 0,
           max: () => window.innerHeight,
           initialMaxHeight: window.innerHeight / 3,
-          kid: h('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
+          kid: hl('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
         }),
       kid,
     ],
@@ -111,21 +111,18 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
 const startCountdown = (relay: RelayCtrl) => {
   const round = relay.currentRound(),
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
-    date = startsAt && h('time', commonDateFormat(startsAt));
-  return h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
-    h('strong', round.name),
-    ...(startsAt
+    date = startsAt && hl('time', commonDateFormat(startsAt));
+  return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
+    hl('strong', round.name),
+    startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? [i18n.broadcast.startVerySoon, date]
-        : [h('strong', timeago(startsAt)), date]
-      : [i18n.broadcast.notYetStarted]),
+        : [hl('strong', timeago(startsAt)), date]
+      : [i18n.broadcast.notYetStarted],
   ]);
 };
 
-const players = (ctx: RelayViewContext) => [
-  ...header(ctx),
-  playersView(ctx.relay.players, ctx.relay.data.tour),
-];
+const players = (ctx: RelayViewContext) => [header(ctx), playersView(ctx.relay.players, ctx.relay.data.tour)];
 
 export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
@@ -141,16 +138,16 @@ export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
       ([key, value, icon, textAlternative, linkName]) =>
         key &&
         value &&
-        h('div.relay-tour__info__' + key, [
-          icon && h('img', { attrs: { src: site.asset.flairSrc(icon), alt: textAlternative! } }),
+        hl('div.relay-tour__info__' + key, [
+          icon && hl('img', { attrs: { src: site.asset.flairSrc(icon), alt: textAlternative! } }),
           linkName
-            ? h('a', { attrs: { href: value, target: '_blank', rel: 'nofollow noreferrer' } }, linkName)
+            ? hl('a', { attrs: { href: value, target: '_blank', rel: 'nofollow noreferrer' } }, linkName)
             : value,
         ]),
     )
     .filter(defined);
 
-  return contents.length ? h('div.relay-tour__info', contents) : undefined;
+  return contents.length ? hl('div.relay-tour__info', contents) : undefined;
 };
 
 const dateFormat = memoize(() =>
@@ -170,37 +167,36 @@ const showDates = (dates: RelayTourDates) => {
 
 const showSource = (data: RelayData) =>
   data.lcc
-    ? h('div.relay-tour__source', [
+    ? hl('div.relay-tour__source', [
         'PGN source: ',
-        h('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
+        hl('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
       ])
     : undefined;
 
 const overview = (ctx: RelayViewContext) => {
   const tour = ctx.relay.data.tour;
   return [
-    ...header(ctx),
+    header(ctx),
     showInfo(tour.info, tour.dates),
-    tour.description
-      ? h('div.relay-tour__markup', {
-          hook: innerHTML(tour.description, () => tour.description!),
-        })
-      : undefined,
-    ...(ctx.ctrl.isEmbed ? [] : [showSource(ctx.relay.data), share(ctx)]),
+    tour.description &&
+      hl('div.relay-tour__markup', {
+        hook: innerHTML(tour.description, () => tour.description!),
+      }),
+    ctx.ctrl.isEmbed || [showSource(ctx.relay.data), share(ctx)],
   ];
 };
 
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
     `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
-  const iframeHelp = h(
+  const iframeHelp = hl(
     'div.form-help',
     i18n.broadcast.iframeHelp.asArray(
-      h('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
+      hl('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
     ),
   );
   const roundName = ctx.relay.roundName();
-  return h(
+  return hl(
     'div.relay-tour__share',
     [
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
@@ -208,10 +204,10 @@ const share = (ctx: RelayViewContext) => {
       [
         `${roundName} PGN`,
         `${ctx.relay.roundPath()}.pgn`,
-        h(
+        hl(
           'div.form-help',
           i18n.broadcast.pgnSourceHelp.asArray(
-            h(
+            hl(
               'a',
               { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
               'streaming API',
@@ -222,8 +218,8 @@ const share = (ctx: RelayViewContext) => {
       [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
       [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([text, path, help]: [string, string, VNode]) =>
-      h('div.form-group', [
-        h('label.form-label', text),
+      hl('div.form-group', [
+        hl('label.form-label', text),
         copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
         help,
       ]),
@@ -234,32 +230,30 @@ const share = (ctx: RelayViewContext) => {
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
   const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
-  return h(
+  return hl(
     'div.mselect.relay-tour__mselect.relay-tour__group-select',
     {
       class: { mselect__active: toggle() },
     },
     [
-      h(
+      hl(
         'label.mselect__label',
         clickHook,
         group.tours.find(t => t.id === ctx.relay.data.tour.id)?.name || ctx.relay.data.tour.name,
       ),
-      ...(toggle()
-        ? [
-            h('label.fullscreen-mask', clickHook),
-            h(
-              'nav.mselect__list',
-              group.tours.map(tour =>
-                h(
-                  `a.mselect__item${tour.id === ctx.relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
-                  tour.name,
-                ),
-              ),
+      toggle() && [
+        hl('label.fullscreen-mask', clickHook),
+        hl(
+          'nav.mselect__list',
+          group.tours.map(tour =>
+            hl(
+              `a.mselect__item${tour.id === ctx.relay.data.tour.id ? '.current' : ''}`,
+              { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
+              tour.name,
             ),
-          ]
-        : []),
+          ),
+        ),
+      ],
     ],
   );
 };
@@ -269,100 +263,92 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
   const round = relay.currentRound();
   const icon = roundStateIcon(round, true);
-  return h(
+  return hl(
     'div.mselect.relay-tour__mselect.relay-tour__round-select',
     {
       class: { mselect__active: toggle() },
     },
     [
-      h('label.mselect__label.relay-tour__round-select__label', clickHook, [
-        h('span.relay-tour__round-select__name', round.name),
-        h(
-          'span.relay-tour__round-select__status',
-          icon || [round.startsAt ? timeago(round.startsAt) : undefined],
-        ),
+      hl('label.mselect__label.relay-tour__round-select__label', clickHook, [
+        hl('span.relay-tour__round-select__name', round.name),
+        hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
       ]),
-      ...(toggle()
-        ? [
-            h('label.fullscreen-mask', clickHook),
-            h(
-              'div.relay-tour__round-select__list.mselect__list',
+      toggle() && [
+        hl('label.fullscreen-mask', clickHook),
+        hl(
+          'div.relay-tour__round-select__list.mselect__list',
+          {
+            hook: onInsert(el => {
+              const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
+              goTo
+                ?.closest('.relay-tour__round-select')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }),
+          },
+          hl(
+            'table',
+            hl(
+              'tbody',
               {
-                hook: onInsert(el => {
-                  const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
-                  goTo
-                    ?.closest('.relay-tour__round-select')
-                    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                hook: bind('click', e => {
+                  const target = e.target as HTMLElement;
+                  if (target.tagName !== 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
                 }),
               },
-              h(
-                'table',
-                h(
-                  'tbody',
+              relay.data.rounds.map((round, i) =>
+                hl(
+                  'tr.mselect__item',
                   {
-                    hook: bind('click', e => {
-                      const target = e.target as HTMLElement;
-                      if (target.tagName !== 'A')
-                        site.redirect($(target).parents('tr').find('a').attr('href')!);
-                    }),
+                    class: {
+                      ['current-round']: round.id === study.data.id,
+                      ['ongoing-round']: !!round.ongoing,
+                    },
                   },
-                  relay.data.rounds.map((round, i) =>
-                    h(
-                      'tr.mselect__item',
-                      {
-                        class: {
-                          ['current-round']: round.id === study.data.id,
-                          ['ongoing-round']: !!round.ongoing,
-                        },
-                      },
-                      [
-                        h(
-                          'td.name',
-                          h(
-                            'a',
-                            { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                            round.name,
-                          ),
-                        ),
-                        h(
-                          'td.time',
-                          round.startsAt
-                            ? commonDateFormat(new Date(round.startsAt))
-                            : round.startsAfterPrevious
-                              ? i18n.broadcast.startsAfter(
-                                  relay.data.rounds[i - 1]?.name || 'the previous round',
-                                )
-                              : '',
-                        ),
-                        h(
-                          'td.status',
-                          roundStateIcon(round, false) ||
-                            (round.startsAt ? timeago(round.startsAt) : undefined),
-                        ),
-                      ],
+                  [
+                    hl(
+                      'td.name',
+                      hl(
+                        'a',
+                        { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
+                        round.name,
+                      ),
                     ),
-                  ),
+                    hl(
+                      'td.time',
+                      !!round.startsAt
+                        ? commonDateFormat(new Date(round.startsAt))
+                        : round.startsAfterPrevious &&
+                            i18n.broadcast.startsAfter(
+                              relay.data.rounds[i - 1]?.name || 'the previous round',
+                            ),
+                    ),
+                    hl(
+                      'td.status',
+                      roundStateIcon(round, false) || (!!round.startsAt && timeago(round.startsAt)),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ]
-        : []),
+          ),
+        ),
+      ],
     ],
   );
 };
 
 const games = (ctx: RelayViewContext) => [
-  ...header(ctx),
+  header(ctx),
   ctx.study.chapters.list.looksNew()
-    ? h(
+    ? hl(
         'div.relay-tour__note',
-        h('div', [
-          h('div', i18n.broadcast.noBoardsYet),
+        hl('div', [
+          hl('div', i18n.broadcast.noBoardsYet),
           ctx.study.members.myMember() &&
-            h(
+            hl(
               'small',
               i18n.broadcast.boardsCanBeLoaded.asArray(
-                h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+                hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
               ),
             ),
         ]),
@@ -372,11 +358,11 @@ const games = (ctx: RelayViewContext) => [
 ];
 
 const teams = (ctx: RelayViewContext) => [
-  ...header(ctx),
+  header(ctx),
   ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
 ];
 
-const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.stats)];
+const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay } = ctx;
@@ -385,34 +371,34 @@ const header = (ctx: RelayViewContext) => {
     studyD = ctrl.study?.data.description;
 
   return [
-    h('div.relay-tour__header', [
-      h('div.relay-tour__header__content', [
-        h('h1', group?.name || d.tour.name),
-        h('div.relay-tour__header__selectors', [
+    hl('div.relay-tour__header', [
+      hl('div.relay-tour__header__content', [
+        hl('h1', group?.name || d.tour.name),
+        hl('div.relay-tour__header__selectors', [
           group && groupSelect(ctx, group),
           roundSelect(relay, ctx.study),
         ]),
       ]),
       broadcastImageOrStream(ctx),
     ]),
-    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD, false) })])),
+    studyD && hl('div.relay-tour__note.pinned', hl('div', [hl('div', { hook: richHTML(studyD, false) })])),
     d.tour.communityOwner &&
-      h(
+      hl(
         'div.relay-tour__note',
-        h('div', [
-          h('div', i18n.broadcast.communityBroadcast),
-          h('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
+        hl('div', [
+          hl('div', i18n.broadcast.communityBroadcast),
+          hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
         ]),
       ),
     d.note &&
-      h(
+      hl(
         'div.relay-tour__note',
-        h('div', [
-          h('div', { hook: richHTML(d.note, false) }),
-          h('small', 'This note is visible to contributors only.'),
+        hl('div', [
+          hl('div', { hook: richHTML(d.note, false) }),
+          hl('small', 'This note is visible to contributors only.'),
         ]),
       ),
-    h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
+    hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
   ];
 };
 
@@ -443,7 +429,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
   if (!relay) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
-    h(
+    hl(
       `span.relay-tour__tabs--${key}`,
       {
         class: { active: relay.tab() === key },
@@ -452,34 +438,33 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       },
       name,
     );
-  return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
+  return hl('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', i18n.broadcast.overview),
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
-    study.members.myMember() && relay.data.tour.tier
+    study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
-      : ctrl.isEmbed
-        ? h(
-            'a.relay-tour__tabs--open.text',
-            {
-              attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
-            },
-            i18n.broadcast.openLichess,
-          )
-        : undefined,
+      : ctrl.isEmbed &&
+        hl(
+          'a.relay-tour__tabs--open.text',
+          {
+            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+          },
+          i18n.broadcast.openLichess,
+        ),
   ]);
 };
 
 const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
-    ? h(
+    ? hl(
         'span.round-state.ongoing',
         { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
         titleAsText && i18n.broadcast.ongoing,
       )
     : round.finished &&
-      h(
+      hl(
         'span.round-state.finished',
         { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
         titleAsText && i18n.site.finished,
@@ -490,14 +475,14 @@ const broadcastImageOrStream = (ctx: RelayViewContext) => {
   const d = relay.data,
     embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
 
-  return h(
+  return hl(
     `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
     embedVideo
       ? relay.videoPlayer?.render()
       : d.tour.image
-        ? h('img', { attrs: { src: d.tour.image } })
+        ? hl('img', { attrs: { src: d.tour.image } })
         : ctx.study.members.isOwner()
-          ? h(
+          ? hl(
               'a.button.relay-tour__header__image-upload',
               { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
               i18n.broadcast.uploadImage,

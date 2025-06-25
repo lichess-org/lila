@@ -4,11 +4,11 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">Du spills an allen Aufgaben mat de wäisse Figuren</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Du spills an allen Aufgaben mat de schwaarze Figuren</string>
   <string name="puzzlesSolved">Aufgabe geléist</string>
-  <string name="newDailyHighscore">Néien Dagesrekord!</string>
-  <string name="newWeeklyHighscore">Néien Wocherekord!</string>
+  <string name="newDailyHighscore">Neien Dagesrekord!</string>
+  <string name="newWeeklyHighscore">Néie Wocherekord!</string>
   <string name="newMonthlyHighscore">Néie Rekord vum Mount!</string>
   <string name="newAllTimeHighscore">Néien Allzäitrekord!</string>
-  <string name="previousHighscoreWasX">Leschten Highscore war %s</string>
+  <string name="previousHighscoreWasX">De virege Rekord war %s</string>
   <string name="playAgain">Nach eng Kéier spillen</string>
   <plurals name="xRuns">
     <item quantity="one">1 Duerchlaf</item>
@@ -18,7 +18,7 @@
     <item quantity="one">Huet een Duerchlaf vun %2$s gespillt</item>
     <item quantity="other">Huet %1$s Duerchleef vun %2$s gespillt</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
+  <string name="highscoreX">Rekord: %s</string>
   <string name="score">Score</string>
   <string name="moves">Zich</string>
   <string name="accuracy">Prezisioun</string>
@@ -29,7 +29,7 @@
   <string name="puzzlesPlayed">Aufgaben gespillt</string>
   <string name="newRun">Neien Duerchlaf (hotkey: Leertaste)</string>
   <string name="endRun">Duerchlaf ofbriechen (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
+  <string name="highscores">Rekorder</string>
   <string name="viewBestRuns">Bescht Duerchleef ukucken</string>
   <string name="bestRunOfDay">Beschten Duerchlaf vum Dag</string>
   <string name="runs">Duerchleef</string>

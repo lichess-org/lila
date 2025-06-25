@@ -4,5 +4,7 @@
   <string name="closeAccount">Konto zoumaachen</string>
   <string name="managedAccountCannotBeClosed">Dësen Konto gëtt verwalt an kann net zougemaach ginn.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Du wäers keen Konto mam selwechten Numm können opmaachen, och mat anerer Grouss-/Klengschreiwung.</string>
-  <string name="thisAccountIsClosed">Dësen Konto ass zou.</string>
+  <string name="cancelKeepAccount">Ofbriechen a mäi Konto halen</string>
+  <string name="closeAccountAreYouSure">Bass de sécher, datt s de däi Konto zoumaache wëlls?</string>
+  <string name="thisAccountIsClosed">Dëse Konto ass zou.</string>
 </resources>

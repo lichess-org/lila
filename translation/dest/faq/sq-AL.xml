@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Disa faqe Lichess-i kanë shkurtore që mund të përdorni. Provoni të shtypni tastin “?” në një faqe ushtrimesh, analizash, puzzle-esh apo lojërësh, që të shfaqen shkurtoret e gatshme të tastierës.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kur kualifikohem për kthim pikësh të humbura nga lojtarë hileqarë?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
+  <string name="ratingRefundExplanation">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
   (Për shembull, nëse vlerësimi juaj është rritur dukshëm pas këtyre lojërave, mund të mos merrni kthim, ose vetëm një rikthim të pjesshëm). Kthimi i pikëve s’tejkalon kurrë 150 pikë.</string>
   <string name="preventLeavingGameWithoutResigning">Çfarë ndodh me lojtarë që e lënë lojën pa dhënë dorëheqje?</string>
   <string name="leavingGameWithoutResigningExplanation">Nëse kundërshtari juaj ndërpret/braktis shpesh lojërat, për ta jepet “dëbuar nga luajtje”, që do të thotë se dëbohen përkohësisht nga luajtja e lojërave. Kjo nuk shfaqet publikisht në profilin e tij. Nëse kjo sjellje vazhdon, kohëzgjatja e dëbimit nga luajta rritet - dhe përsëritja e zgjatur e sjelljes së kësaj natyre ve mund të çojë në mbyllje të llogarisë.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Si përcaktohen Bullet-i, Blit-i dhe kontrolle të tjerë të kohës?</string>
   <string name="basedOnGameDuration">Kontrollet për kohën në Lichess bazohen në zgjatjen e përafërt të lojës = %1$s
 Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5 x 60 + 40 x 3 =420 sekonda.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(koha fillestare e sahatit, në sekonda) + 40 x (shtim kohe)</string>
+  <string name="durationFormula">(koha fillestare e sahatit, në sekonda) + 40 x (shtim kohe)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cilat variante mund të luaj në Lichess?</string>
@@ -97,12 +97,11 @@ Mos e kërkoni titullin LM.</string>
   <string name="usernamesNotOffensive">Përgjithësisht, emrat e përdoruesve s’duhet të jenë: fyes, imitim i dikujt tjetër, apo të përbëjnë reklamë. Më tepër rreth kësaj mund të lexoni te %1$s.</string>
   <string name="guidelines">udhëzimet</string>
   <string name="canIChangeMyUsername">A mund ta ndryshoj emrin tim të përdoruesit?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Jo, për arsye teknike dhe praktike, emri i përdoruesit s’mund të ndryshohet. Emrat e përdoruesve materializohen në shumë vende: baza të dhënash, eksportime, regjistra, si dhe në mendjen e njerëzve. Shkrimin me të madh a me të vogël mund ta ndryshoni vetëm njëherë.</string>
+  <string name="usernamesCannotBeChanged">Jo, për arsye teknike dhe praktike, emri i përdoruesit s’mund të ndryshohet. Emrat e përdoruesve materializohen në shumë vende: baza të dhënash, eksportime, regjistra, si dhe në mendjen e njerëzve. Shkrimin me të madh a me të vogël mund ta ndryshoni vetëm njëherë.</string>
   <string name="uniqueTrophies">Trofe unike</string>
   <string name="ownerUniqueTrophies">Kjo trofe është unike në historinë e Lichess-it, s’do ta ketë kurrë tjetër veç %1$s.</string>
-  <string name="wayOfBerserkExplanation">Për ta fituar, hiimgosu sfidoi veten me “berserk” dhe që të fitojë krejt lojërat e %s.</string>
   <string name="aHourlyBulletTournament">një turneu Plumb njëorësh</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict po transmetonte dhe për 2 orët e fundit u rrek të mposhte nivelin 8 të A.I.-së në një lojë 1+0, pa sukses. Thibault-i i tha se nëse ia dilte me sukses, në transmetim, do të merrte një trofe unike. Një orë më vonë, dërrmoi Stockfish-in dhe premtimi u mbajt.</string>
+  <string name="goldenZeeExplanation">ZugAddict po transmetonte dhe për 2 orët e fundit u rrek të mposhte nivelin 8 të A.I.-së në një lojë 1+0, pa sukses. Thibault-i i tha se nëse ia dilte me sukses, në transmetim, do të merrte një trofe unike. Një orë më vonë, dërrmoi Stockfish-in dhe premtimi u mbajt.</string>
   <string name="lichessRatings">Vlerësim në Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Çfarë sistemi vlerësimi përdor Lichess-i?</string>
   <string name="ratingSystemUsedByLichess">Vlerësimet llogariten duke përdorur metodën Glicko-2 të vlerësimit, të hartuar nga Mark Glickman. Kjo është një metodë shumë popullore vlerësimi dhe përdoret në një numër të madh entesh shahu (FIDE përbën një shembull të njohur për të kundërtën, ngaqë ende përdor sistemin e vjetruar Elo për vlerësime).
@@ -149,7 +148,7 @@ Mandej përzgjidhni nëse doni të lejohen apo të bllokohen njoftimet nga Liche
 Ikona e kuqe e heshtimit duket kur shfletuesi juaj i pengon lichess.org të luajë një tingull. Zakonisht ky kufizim hiqet kur klikoni mbi diçka.Në disa shfletues për celularë, tërheqja e nëj guri nuk llogaritet si klikim. Në atë rast duhet të prekni fushën, që të lejoni tingull në fillim të çdo loje.
 
 Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund ta lejoni shprehimisht lichess.org të luajë tinguj. Ja udhëzimet për ta bërë këtë në versione të afërt të disa shfletuesve të njohur.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
+  <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Kaloni te lichess.org
 2. Shtypni Ctrl-i në Linux/Windows, ose cmd-i në MacOS
 3. Klikoni skedën Leje
@@ -167,8 +166,8 @@ Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund 
 3. Klikoni Leje Cookie-sh dhe Sajti
 4. Shkoni më poshtë dhe klikoni “Vetëluajtje mediash”
 5. Shtoni lichess.org te Lejoje</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Të ndal veten nga loja?</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Marrim rregullisht mesazhe nga përdorues ku na kërkohet t’i ndihmojmë të reshtin së luajturi tej mase.
+  <string name="stopMyselfFromPlaying">Të ndal veten nga loja?</string>
+  <string name="adviceOnMitigatingAddiction">Marrim rregullisht mesazhe nga përdorues ku na kërkohet t’i ndihmojmë të reshtin së luajturi tej mase.
 
 Teksa Lichess-i nuk dëbon, apo bllokon lojtarë, hiq cenime të Kushteve të Shërbimit, rekomandojmë përdorim mjetesh të jashtme për kufizim sjelljeje të tepruar të luajturi. Disa nga sugjerimet e rëndomta për bllokues sajtesh përfshijnë %1$s, %2$s dhe %3$s. Nësedoni të vazhdoni të përdorni sajtin, por pa qenë të joshur nga kontrolle të shpejtë kohe, mund t’ju interesojnë edhe %4$s, ja një me %5$s.
 

@@ -51,7 +51,7 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="accounts">Aðgangar</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
+  <string name="goldenZeeExplanation">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
   <string name="whichRatingSystemUsedByLichess">Hvers konar stigakerfi notar Lichess?</string>
   <string name="ratingSystemUsedByLichess">Skákstig eru reiknuð út frá stigakerfi er kallast Glicko-2, sem Mark Glickman þróaði. Þetta kerfi nýtur mikilla vinsælda og er í notkun hjá ótalmörgum skáksamböndum (Alþjóðaskáksambandið, FIDE, er athyglisverð undantekning þar sem sambandið reiðir sig enn á hið úrelta elóstigakerfi).
 
@@ -74,11 +74,11 @@ Veldu síðan hvort skuli leyfa eða loka fyrir tilkynningar frá Lichess.</stri
 Hið rauða hljóðtákn birtist þegar vafrinn þinn kemur í veg fyrir að lichess.org spili hljóð. Yfirleitt fellur þessi takmörkun úr gildi um leið og þú smellir á eitthvað. Á sumum farsímavöfrum telst það ekki sem smellur að snerta og draga taflmann. Í slíkum tilfellum verður þú að dumpa á taflborðið til þess að leyfa hljóð í upphafi hverrar skákar.
 
 Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er hægt að veita Lichess.org beinlínis leyfi til að spila hljóð. Hér að neðan eru leiðbeiningar um hvernig það er gert í nýjustu útgáfum nokkurra þekktra vafra.</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Koma í veg fyrir að ég spili?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">í sjálfu sér geðröskun</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Notendastíla fyrir Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færri fjölda potta í sal</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Reglulega berast okkur erindi frá notendum sem óska eftir aðstoð við að koma í veg fyrir að þeir spili of mikið.
+  <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég spili?</string>
+  <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
+  <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>
+  <string name="fewerLobbyPools">færri fjölda potta í sal</string>
+  <string name="adviceOnMitigatingAddiction">Reglulega berast okkur erindi frá notendum sem óska eftir aðstoð við að koma í veg fyrir að þeir spili of mikið.
 
 Hingað til hefur Lichess ekki lagt bann eða blokkeringu á leikmenn nema að broti á þjónustuskilmálum sé um að ræða, en við mælum engu að síður með því að notast sé við ytri tól til að hefta óhóflega spilahegðun. Meðal almennra tillagna að vefsíðuhemla eru %1$s, %2$s og %3$s. Ef þú vilt halda áfram að nota vefsvæðið án þess að láta freistast af hröðum tímastillingum, gætirðu einnig haft áhuga á %4$s, hér er ein með %5$s.
 

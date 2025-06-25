@@ -646,9 +646,9 @@
   <string name="error.unknown">Άκυρη τιμή</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
   <string name="error.email">Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη</string>
-  <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
+  <string name="error.email_acceptable">Αυτή η διεύθυνση email δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
   <string name="error.email_unique">Η διεύθυνση ηλεκτρονικού ταχυδρομείου είναι άκυρη ή υπάρχει ήδη</string>
-  <string name="error.email_different">Έχετε ήδη αυτήν την διεύθυνση ηλ. ταχυδρομείου</string>
+  <string name="error.email_different">Αυτή είναι η τρέχουσα διεύθυνση email σας</string>
   <string name="error.minLength">Πρέπει να περιέχει τουλάχιστον %s χαρακτήρες</string>
   <string name="error.maxLength">Πρέπει να περιέχει το πολύ %s χαρακτήρες</string>
   <string name="error.min">Πρέπει να είναι τουλάχιστον %s</string>

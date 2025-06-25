@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, type MaybeVNode, bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { type VNode, type MaybeVNode, bind, dataIcon, hl } from 'lib/snabbdom';
 import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
 import type PuzzleCtrl from '../ctrl';
@@ -10,31 +10,38 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   const data = ctrl.data,
     angle = data.angle;
   const showEditor = ctrl.mode === 'view' && !ctrl.autoNexting();
-  if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  if (data.replay) return showEditor ? hl('div.puzzle__side__theme', editor(ctrl)) : null;
   const puzzleMenu = (v: VNode): VNode =>
-    h('a', { attrs: { href: ctrl.routerWithLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
+    hl(
+      'a',
+      { attrs: { href: ctrl.routerWithLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } },
+      v,
+    );
   return ctrl.streak
     ? null
     : ctrl.isDaily
-      ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', i18n.puzzle.dailyPuzzle)))
-      : h('div.puzzle__side__theme', [
-          puzzleMenu(h('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
+      ? hl(
+          'div.puzzle__side__theme.puzzle__side__theme--daily',
+          puzzleMenu(hl('h2', i18n.puzzle.dailyPuzzle)),
+        )
+      : hl('div.puzzle__side__theme', [
+          puzzleMenu(hl('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
           angle.opening
-            ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
+            ? hl('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
                 'Learn more about ',
                 angle.opening.name,
               ])
-            : h('p', [
+            : hl('p', [
                 angle.desc,
                 angle.chapter &&
-                  h(
+                  hl(
                     'a.puzzle__side__theme__chapter.text',
                     { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank' } },
                     [' ', i18n.puzzle.example],
                   ),
               ]),
           showEditor
-            ? h('div.puzzle__themes', editor(ctrl))
+            ? hl('div.puzzle__themes', editor(ctrl))
             : !data.replay &&
               !ctrl.streak &&
               (angle.opening || angle.openingAbstract) &&
@@ -58,7 +65,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
   if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
   return [
-    h(
+    hl(
       'div.puzzle__themes_list',
       {
         hook: bind('click', e => {
@@ -68,23 +75,23 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
         }),
       },
       visibleThemes.map(key =>
-        h('div.puzzle__themes__list__entry', { class: { strike: votedThemes[key] === false } }, [
-          h(
+        hl('div.puzzle__themes__list__entry', { class: { strike: votedThemes[key] === false } }, [
+          hl(
             'a',
             { attrs: { href: `/training/${key}`, title: themeTrans(`${key}Description`) } },
             themeTrans(key),
           ),
           allThemes &&
-            h(
+            hl(
               'div.puzzle__themes__votes',
               allThemes.static.has(key)
-                ? [h('div.puzzle__themes__lock', h('i', { attrs: dataIcon(licon.Padlock) }))]
+                ? [hl('div.puzzle__themes__lock', hl('i', { attrs: dataIcon(licon.Padlock) }))]
                 : [
-                    h('span.puzzle__themes__vote.vote-up', {
+                    hl('span.puzzle__themes__vote.vote-up', {
                       class: { active: votedThemes[key] },
                       attrs: { 'data-theme': key },
                     }),
-                    h('span.puzzle__themes__vote.vote-down', {
+                    hl('span.puzzle__themes__vote.vote-down', {
                       class: { active: votedThemes[key] === false },
                       attrs: { 'data-theme': key },
                     }),
@@ -95,7 +102,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
     ),
     ...(availableThemes
       ? [
-          h(
+          hl(
             `select.puzzle__themes__selector.cache-bust-${availableThemes.length}`,
             {
               hook: {
@@ -109,9 +116,9 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
               },
             },
             [
-              h('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
-              ...availableThemes.map(theme =>
-                h(
+              hl('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
+              availableThemes.map(theme =>
+                hl(
                   'option',
                   { attrs: { value: theme, title: themeTrans(`${theme}Description`) } },
                   themeTrans(theme),
@@ -119,7 +126,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
               ),
             ],
           ),
-          h(
+          hl(
             'a.puzzle__themes__study.text',
             { attrs: { 'data-icon': licon.InfoCircle, href: studyUrl, target: '_blank' } },
             'About puzzle themes',
