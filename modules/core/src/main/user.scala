@@ -161,6 +161,7 @@ object user:
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
+  case class ChangeFlag(id: UserId, flag: FlagCode)
 
   case class UserDelete(user: User):
     export user.id

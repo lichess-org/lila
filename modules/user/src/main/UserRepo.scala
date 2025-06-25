@@ -164,7 +164,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
           else if i < -2 then Color.white.some
           else none
 
-  def setProfile(id: UserId, profile: Profile): Funit =
+  private[user] def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
   def setRealName(id: UserId, name: String): Funit =

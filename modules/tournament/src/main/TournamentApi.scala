@@ -293,6 +293,8 @@ final class TournamentApi(
           then
             getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
               if !verdicts.accepted then fuccess(JoinResult.Verdicts)
+              else if ForbiddenFlag.isForbidden(tour.id)
+              then fuccess(JoinResult.FlagBanned)
               else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
@@ -334,7 +336,7 @@ final class TournamentApi(
   )(using GetMyTeamIds, Me): Fu[Tournament.JoinResult] =
     val promise = Promise[Tournament.JoinResult]()
     join(tourId, data, isLeader, promise.some)
-    promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
+    promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Timeout)
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
     cached

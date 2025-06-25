@@ -35,6 +35,17 @@ final private class TournamentBusHandler(
     case lila.core.playban.SittingDetected(tourId, userId) =>
       api.withdraw(tourId, userId, isPause = false, isStalling = true)
 
+  Bus.sub[lila.core.user.ChangeFlag]: change =>
+    ForbiddenFlag
+      .isForbiddenSomewhere(change.flag)
+      .foreach: tourId =>
+        api.withdraw(
+          tourId,
+          change.userId,
+          isPause = false,
+          reason = s"flag ${change.flag} forbidden in tournament $tourId"
+        )
+
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo
       .withdrawableIds(userId, reason = "ejectFromEnterable")

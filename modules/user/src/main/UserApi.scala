@@ -9,7 +9,7 @@ import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.lilaism.LilaInvalid
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf }
+import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf, Profile }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.PerfType
@@ -273,3 +273,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           user <- doc.getAsOpt[User]("user")
           perfs = perfsRepo.aggregate.readFrom(doc, user)
         yield UserWithPerfs(user, perfs)
+
+  def updateProfile(prev: User, profile: Profile): Funit =
+    for _ <- userRepo.setProfile(prev.id, profile)
+    yield profile.flag
+      .filter(!prev.profile.flatMap(_.flag).contains(_))
+      .foreach: flag =>
+        lila.common.Bus.pub(lila.core.user.ChangeFlag(prev.id, flag))
