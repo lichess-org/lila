@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.fide as hub
 import lila.db.dsl.{ *, given }
+import scala.util.Success
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,
@@ -19,6 +20,17 @@ final private class FideRepo(
     def fetch(id: FideId): Fu[Option[FidePlayer]]     = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
+    def fetchWithSubs(ids: Seq[FideId]): Fu[List[(FidePlayer, Set[UserId])]] =
+      playerColl.find($inIds(ids)).cursor[BSONDocument](ReadPref.sec).listAll().map { players =>
+        players
+          .map(player =>
+            for
+              p    <- BSON.readDocument[FidePlayer](player)
+              subs <- player.getAsTry[Set[UserId]]("subscribers")
+            yield (p, subs)
+          )
+          .collect { case Success(value) => value }
+      }
     def countAll                                  = playerColl.count()
     def subscribers(fid: FideId): Fu[Set[UserId]] =
       playerColl.distinctEasy[UserId, Set]("subscribers", $id(fid))
