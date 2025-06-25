@@ -231,12 +231,13 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
             },
           }),
           h('h2', i18n.site.advancedSettings),
-          h('h4', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
           h('h3', 'Board settings'),
-          h('h5', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          h('h5', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-          h('h4', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-          h('h4', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+          h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+          h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+          h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', i18n.site.keyboardShortcuts),
           h(
             'p',
@@ -343,7 +344,7 @@ const feedback = {
   // user has browsed away from the move to solve
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', [
+      h('div', [
         h('h3', { 'aria-live': 'assertive' }, i18n.site.youBrowsedAway),
         h(
           'button',
@@ -358,7 +359,7 @@ const feedback = {
   },
   fail(ctrl: RetroCtrl): VNode[] {
     return [
-      h('aside', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
+      h('div', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
         h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
         h(
           'h4',
@@ -392,7 +393,7 @@ const feedback = {
     if (!hasFullComputerAnalysis())
       return [
         h(
-          'aside',
+          'div',
           { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } },
           h('h3', { attrs: { 'aria-live': 'polite' } }, i18n.site.waitingForAnalysis),
         ),
@@ -631,7 +632,7 @@ function renderRetro(root: AnalyseCtrl): VNode | undefined {
         `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
       ),
     ]),
-    h('aside', { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb))
+    h('div', { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb))
   );
 }
 
@@ -763,7 +764,7 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
         renderAcpl(ctrl, moveStyle),
       );
     }
-    return h('aside', elements);
+    return h('div', elements);
   } else if (ctrl.ongoing || ctrl.synthetic) {
     return h('h4', 'analysis only availible for completed games.');
   }
@@ -884,14 +885,14 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
   const hash = window.location.hash;
   return (
     study &&
-    h('section', [
+    h('div.study-details', [
       h('h2', 'Study details'),
-      h('h3', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
+      h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
       relayGroups &&
         h(
           'div.relay-groups',
-          h('h4', [
+          h('label', [
             'Current group:',
             h(
               'select',
@@ -913,7 +914,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
         relayRounds &&
         h(
           'div.relay-rounds',
-          h('h4', [
+          h('label', [
             'Current round:',
             h(
               'select',
@@ -937,7 +938,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
           ]),
         ),
       h('div.chapters', [
-        h('h4', [
+        h('label', [
           'Current chapter:',
           h(
             'select',
@@ -965,7 +966,7 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
           ),
         ]),
         study.members.canContribute()
-          ? h('div', [
+          ? h('div.buttons', [
               h(
                 'button',
                 {
