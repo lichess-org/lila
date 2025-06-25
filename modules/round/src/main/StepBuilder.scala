@@ -54,37 +54,38 @@ object StepBuilder:
 
   private val logger = lila.round.logger.branch("StepBuilder")
 
-  def apply(
-      id: GameId,
-      sans: Vector[SanStr],
-      variant: Variant,
-      initialFen: Fen.Full
-  ): JsArray =
-    val (init, games, error) = chess.Replay.gameMoveWhileValid(sans, initialFen, variant)
-    error.foreach(logChessError(id.value))
-    JsArray:
-      val initStep = Step(
-        ply = init.ply,
-        move = none,
-        fen = Fen.write(init),
-        check = init.position.check,
-        dests = None,
-        drops = None,
-        crazyData = init.position.crazyData
-      )
-      val moveSteps = games.map: (g, m) =>
+  def apply(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Fen.Full): JsArray =
+    val position = chess.Position.AndFullMoveNumber(variant, initialFen.some)
+    val initStep = Step(
+      ply = position.ply,
+      move = none,
+      fen = Fen.write(position),
+      check = position.position.check,
+      dests = None,
+      drops = None,
+      crazyData = position.position.crazyData
+    )
+    val tailSteps = position.position
+      .play(sans, position.ply): step =>
         Step(
-          ply = g.ply,
-          move = m.some,
-          fen = Fen.write(g),
-          check = g.position.check,
+          ply = step.ply,
+          move = Uci.WithSan(step.move.toUci, step.move.toSanStr).some,
+          fen = Fen.write(step.next, step.ply.fullMoveNumber),
+          check = step.next.check,
           dests = None,
           drops = None,
-          crazyData = g.position.crazyData
+          crazyData = step.next.crazyData
         )
-      (initStep :: moveSteps).map(_.toJson)
+      .match
+        case Left(error) =>
+          logChessError(id.value)(error)
+          Nil
+        case Right(steps) =>
+          steps
+
+    JsArray((initStep :: tailSteps).map(_.toJson))
 
   private val logChessError = (id: String) =>
     (err: chess.ErrorStr) =>
       val path = if id == "synthetic" then "analysis" else id
-      logger.info(s"https://lichess.org/$path ${err.value.linesIterator.toList.headOption | "?"}")
+      logger.info(s"https://lichess.org/$path ${err.value}")
