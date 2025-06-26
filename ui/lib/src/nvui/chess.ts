@@ -525,7 +525,7 @@ const squareSelector = (rank: string, file: string) =>
 
 const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
 
-const keyFromAttrs = (el: HTMLElement): Key | undefined => {
+export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
 };
@@ -552,5 +552,5 @@ const transSanToWords = (san: string): string =>
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
+export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;

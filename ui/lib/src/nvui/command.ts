@@ -47,6 +47,7 @@ export const boardCommands = (): VNode[] => [
       `shift+1 to 8: ${i18n.nvui.moveToFile}`,
       `shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
       `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
+      'x: announce pieces around this square (try shift and alt)',
     ].reduce(addBreaks, []),
   ]),
 ];

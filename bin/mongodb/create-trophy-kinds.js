@@ -7,15 +7,6 @@ db.trophyKind.insertOne({
   withCustomImage: false,
 });
 db.trophyKind.insertOne({
-  _id: 'wayOfBerserk',
-  name: 'The way of Berserk',
-  icon: '',
-  url: '//lichess.org/faq#trophies',
-  klass: 'fire-trophy',
-  order: NumberInt(2),
-  withCustomImage: false,
-});
-db.trophyKind.insertOne({
   _id: 'marathonWinner',
   name: 'Marathon Winner',
   icon: '',

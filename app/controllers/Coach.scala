@@ -3,25 +3,26 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
+import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm, allFlags }
 import lila.user.Flags
+import lila.core.user.FlagCode
 
 final class Coach(env: Env) extends LilaController(env):
 
   import env.coach.api
 
   def homeLang =
-    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1))
+    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, allFlags, 1))
 
-  def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
+  def all(page: Int) = search("all", CoachPager.Order.Login.key, allFlags, page)
 
-  def search(l: String, o: String, c: String, page: Int) = Open:
+  def search(l: String, o: String, c: FlagCode, page: Int) = Open:
     searchResults(l, o, c, page)
 
-  private def searchResults(l: String, o: String, c: String, page: Int)(using Context) =
+  private def searchResults(l: String, o: String, c: FlagCode, page: Int)(using Context) =
     val order   = CoachPager.Order(o)
     val lang    = (l != "all").so(play.api.i18n.Lang.get(l))
-    val country = (c != "all").so(Flags.info(c))
+    val country = Flags.info(c)
     for
       langCodes <- env.coach.api.allLanguages
       countries <- env.coach.api.countrySelection

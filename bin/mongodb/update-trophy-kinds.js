@@ -1,5 +1,4 @@
 const newIcons = {
-  wayOfBerserk: '',
   marathonWinner: '',
   marathonTopTen: '',
   marathonTopFifty: '',
