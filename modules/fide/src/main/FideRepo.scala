@@ -34,20 +34,13 @@ final private class FideRepo(
     def followers(playerId: FideId): Fu[Set[UserId]]               = get(playerId)
     def follow(userId: UserId, playerId: FideId): Funit            = save(userId, playerId)
     def unfollow(userId: UserId, playerId: FideId): Funit          = remove(userId, playerId)
-    def isFollowing(userId: UserId, playerId: FideId): Fu[Boolean] = exist(userId, playerId)
+    def isFollowing(userId: UserId, playerId: FideId): Fu[Boolean] = exists(userId, playerId)
 
     private def makeId(u: UserId, p: FideId) = s"$u/$p"
     private def get(p: FideId)               = followerColl.distinctEasy[UserId, Set]("u", $doc("p" -> p))
-    private def save(u: UserId, p: FideId)   = playerColl.exists($id(p)).flatMap {
-      case true =>
-        followerColl.update
-          .one(
-            $id(makeId(u, p)),
-            $doc("u" -> u, "p" -> p),
-            upsert = true
-          )
-          .void
-      case false => Future.unit
-    }
+    private def save(u: UserId, p: FideId)   = playerColl
+      .exists($id(p))
+      .flatMapz:
+        followerColl.update.one($id(makeId(u, p)), $doc("u" -> u, "p" -> p), upsert = true).void
     private def remove(u: UserId, p: FideId) = followerColl.delete.one($id(makeId(u, p))).void
-    private def exist(u: UserId, p: FideId)  = followerColl.exists($id(makeId(u, p)))
+    private def exists(u: UserId, p: FideId) = followerColl.exists($id(makeId(u, p)))

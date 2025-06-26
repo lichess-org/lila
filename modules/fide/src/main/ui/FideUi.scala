@@ -198,8 +198,8 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         trans.site.follow()
       )
 
-    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Boolean)(using
-        ctx: Context
+    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Option[Boolean])(using
+        Context
     ) =
       page(s"${player.name} - FIDE player ${player.id}", "players")(
         cls := "box-pad fide-player",
@@ -208,7 +208,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             span(titleTag(player.title), player.name),
             user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
           ),
-          ctx.me.map(_ => followButton(player, isFollowing))
+          isFollowing.map(followButton(player, _))
         ),
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>

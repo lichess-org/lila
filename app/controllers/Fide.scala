@@ -16,7 +16,7 @@ final class Fide(env: Env) extends LilaController(env):
           case Left(player) => Redirect(routes.Fide.show(player.id, player.slug))
           case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim))).map(Ok(_))
 
-  def show(id: chess.FideId, slug: String, page: Int) = Open { ctx ?=>
+  def show(id: chess.FideId, slug: String, page: Int) = Open:
     env.fide.repo.player
       .fetch(id)
       .flatMap:
@@ -27,17 +27,16 @@ final class Fide(env: Env) extends LilaController(env):
             for
               user        <- env.title.api.publicUserOf(player.id)
               tours       <- env.relay.playerTour.playerTours(player, page)
-              isFollowing <- ctx.me
-                .fold(Future.successful(false))(me => env.fide.repo.follower.isFollowing(me.userId, id))
-              rendered <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
+              isFollowing <- ctx.me.soFu(me => env.fide.repo.follower.isFollowing(me.userId, id))
+              rendered    <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
             yield Ok(rendered)
-  }
 
-  def follow(fideId: chess.FideId, follow: Boolean) = AuthBody { _ ?=> me ?=>
-    follow match
-      case true  => env.fide.repo.follower.follow(me.userId, fideId).map(_ => Ok)
-      case false => env.fide.repo.follower.unfollow(me.userId, fideId).map(_ => Ok)
-  }
+  def follow(fideId: chess.FideId, follow: Boolean) = AuthBody(_ ?=>
+    me ?=>
+      follow match
+        case true  => env.fide.repo.follower.follow(me.userId, fideId).map(_ => Ok)
+        case false => env.fide.repo.follower.unfollow(me.userId, fideId).map(_ => Ok)
+  )
 
   def apiShow(id: chess.FideId) = Anon:
     Found(env.fide.repo.player.fetch(id))(JsonOk)

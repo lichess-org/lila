@@ -16,7 +16,7 @@ object player:
       player: FidePlayer,
       user: Option[User],
       tours: Paginator[RelayTour.WithLastRound],
-      isFollowing: Boolean
+      isFollowing: Option[Boolean]
   )(using Context) =
     ui.player.show(
       player,
