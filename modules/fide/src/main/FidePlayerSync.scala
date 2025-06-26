@@ -163,21 +163,18 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
 
     private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
       repo.player
-        .fetchWithSubs(players.map(_.id))
+        .fetch(players.map(_.id))
         .flatMap: inDb =>
-          val inDbMap: Map[FideId, (FidePlayer, Set[UserId])] = inDb.mapBy(_._1.id)
-          val changed                                         = players.collect: p =>
-            inDbMap.get(p.id) match
-              case Some((i, subs)) if !i.isSame(p) => (p, subs)
-              case None                            => (p, Set.empty)
+          val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
+          val changed                          = players.filter: p =>
+            inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)
             for
-              elements <- changed.toList.sequentially: pWithSubs =>
-                val (p, subs) = pWithSubs
+              elements <- changed.toList.sequentially: p =>
                 update.element(
                   q = $id(p.id),
-                  u = repo.player.handler.writeTry(p).get ++ BSONDocument("subscribers" -> subs),
+                  u = repo.player.handler.writeOpt(p).get,
                   upsert = true
                 )
               _ <- elements.nonEmpty.so(update.many(elements).void)

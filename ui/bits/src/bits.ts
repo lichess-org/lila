@@ -34,8 +34,8 @@ export function initModule(args: { fn: string } & any): void {
       return setAssetInfo();
     case 'streamerSubscribe':
       return streamerSubscribe();
-    case 'fidePlayerSubscribe':
-      return fidePlayerSubscribe();
+    case 'fidePlayerFollow':
+      return fidePlayerFollow();
     case 'thanksReport':
       return thanksReport();
     case 'titleRequest':
@@ -235,10 +235,10 @@ function streamerSubscribe() {
   });
 }
 
-function fidePlayerSubscribe() {
-  const el = $('#fide-player-subscribe');
+function fidePlayerFollow() {
+  const el = $('#fide-player-follow');
   el.on('change', () => {
-    text(el.data('action').replace(/set=[^&]+/, `set=${el.prop('checked')}`), { method: 'post' });
+    text(el.data('action').replace(/follow=[^&]+/, `follow=${el.prop('checked')}`), { method: 'post' });
   });
 }
 

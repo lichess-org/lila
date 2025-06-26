@@ -8,10 +8,10 @@ final private class RelayNotifier(
     notifyApi: NotifyApi,
     tourRepo: RelayTourRepo,
     chapterRepo: ChapterRepo,
-    getSubscribers: lila.core.fide.GetSubscribers
+    getPlayerFollowers: lila.core.fide.GetPlayerFollowers
 )(using Executor):
 
-  private def notifyPlayerSubscribers(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
+  private def notifyPlayerFollowers(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
     chapterRepo
       .hasNotified(chapter.id)
       .not
@@ -20,10 +20,10 @@ final private class RelayNotifier(
         val futureByColor = game.fideIds.mapWithColor((color, fid) =>
           fid
             .map(
-              getSubscribers(_).flatMap(subscribers =>
-                if subscribers.nonEmpty then
+              getPlayerFollowers(_).flatMap(followers =>
+                if followers.nonEmpty then
                   notifyApi.notifyMany(
-                    subscribers,
+                    followers,
                     NotificationContent.BroadcastRound(
                       rt.path(chapter.id),
                       rt.tour.name.value,
@@ -65,5 +65,5 @@ final private class RelayNotifier(
                 )
 
   def chapterUpdated(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
-    notifyPlayerSubscribers(rt, chapter, game)
+    notifyPlayerFollowers(rt, chapter, game)
     notifyTournamentSubscribers(rt)

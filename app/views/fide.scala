@@ -16,7 +16,7 @@ object player:
       player: FidePlayer,
       user: Option[User],
       tours: Paginator[RelayTour.WithLastRound],
-      isSubscribed: Boolean
+      isFollowing: Boolean
   )(using Context) =
     ui.player.show(
       player,
@@ -25,5 +25,5 @@ object player:
         views.relay.tour.renderPager(views.relay.tour.asRelayPager(tours)):
           routes.Fide.show(player.id, player.slug, _)
       ,
-      isSubscribed
+      isFollowing
     )
