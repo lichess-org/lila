@@ -10,11 +10,12 @@ import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
 import { TreeView } from './treeView/treeView';
+import { render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -659,6 +660,13 @@ export default class AnalyseCtrl {
   setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
     this.tree.setCollapsedForCtxMenu(path, collapsed);
     this.redraw();
+  }
+
+  wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
+    if (typeof structuredClone !== 'function') return true;
+    const fakeCtrl = {...this, tree: build(structuredClone(this.tree.root))};
+    fakeCtrl.tree.setCollapsedForCtxMenu(path, collapsed);
+    return JSON.stringify(renderTreeView(this)) !== JSON.stringify(renderTreeView(fakeCtrl));
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
