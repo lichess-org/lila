@@ -14,8 +14,7 @@ import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, 
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
-import { render as renderTreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
