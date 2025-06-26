@@ -322,7 +322,6 @@ const feedback = {
         i18n.site.xWasPlayed.asArray(
           h(
             'move',
-            { attrs: { 'aria-live': 'assertive' } },
             renderIndexAndMove(
               { withDots: true, showGlyphs: false, showEval: false },
               ctrl.current()!.fault.node,
@@ -330,11 +329,7 @@ const feedback = {
           ),
         ),
       ),
-      h(
-        'h4',
-        { attrs: { 'aria-live': 'assertive' } },
-        i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack'],
-      ),
+      h('h4', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
       renderSkipOrViewSolution(ctrl),
     ];
   },
@@ -342,7 +337,7 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div', [
-        h('h3', { 'aria-live': 'assertive' }, i18n.site.youBrowsedAway),
+        h('h3', i18n.site.youBrowsedAway),
         h(
           'button',
           {
@@ -356,22 +351,15 @@ const feedback = {
   },
   fail(ctrl: RetroCtrl): VNode[] {
     return [
-      h('div', { attrs: { 'aria-live': 'atomic', 'tab-index': '0' } }, [
-        h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.youCanDoBetter),
-        h(
-          'h4',
-          { attrs: { 'aria-live': 'assertive' } },
-          i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack'],
-        ),
+      h('div', [
+        h('h3', i18n.site.youCanDoBetter),
+        h('h4', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
         renderSkipOrViewSolution(ctrl),
       ]),
     ];
   },
   win(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.study.goodMove),
-      ...renderJumpToNextBtn(ctrl),
-    ];
+    return [h('h3', i18n.study.goodMove), ...renderJumpToNextBtn(ctrl)];
   },
   view(ctrl: RetroCtrl): VNode[] {
     return [
@@ -381,14 +369,10 @@ const feedback = {
     ];
   },
   eval(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('h3', { atters: { 'aria-live': 'polite' } }, i18n.site.evaluatingYourMove),
-      h('h4', renderEvalProgress(ctrl.node())),
-    ];
+    return [h('h3', i18n.site.evaluatingYourMove), h('h4', renderEvalProgress(ctrl.node()))];
   },
   end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
-    if (!hasFullComputerAnalysis())
-      return [h('div', { attrs: { 'tab-index': '0' } }, h('h3', i18n.site.waitingForAnalysis))];
+    if (!hasFullComputerAnalysis()) return [h('div', h('h3', i18n.site.waitingForAnalysis))];
     const nothing = !ctrl.completion()[1];
     return [
       h('div', [
@@ -410,9 +394,6 @@ const feedback = {
             : h(
                 'button',
                 {
-                  attrs: {
-                    'tab-index': '0',
-                  },
                   key: 'reset',
                   hook: nvuiInsertHook(ctrl.reset),
                 },
@@ -421,9 +402,6 @@ const feedback = {
           h(
             'button',
             {
-              attrs: {
-                'tab-index': '0',
-              },
               key: 'flip',
               hook: nvuiInsertHook(ctrl.flip),
             },
@@ -610,15 +588,15 @@ function renderRetro(root: AnalyseCtrl): VNode | undefined {
     completion = ctrl.completion();
 
   return (
-    h('section', { attrs: { 'aria-atomic': 'true', 'aria-live': 'assertive' } }, [
-      h('h3', { attrs: { 'aria-live': 'assertive' } }, i18n.site.learnFromYourMistakes),
+    h('section', { attrs: { 'aria-atomic': 'true' } }, [
+      h('h3', i18n.site.learnFromYourMistakes),
       h(
         'h6',
         { attrs: { 'aria-label': 'mistake number' } },
         `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
       ),
     ]),
-    h('div', { attrs: { 'aria-live': 'assertive' } }, renderFeedback(root, fb))
+    h('div', renderFeedback(root, fb))
   );
 }
 
