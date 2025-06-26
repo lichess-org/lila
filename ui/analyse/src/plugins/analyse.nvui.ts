@@ -275,7 +275,6 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
       'button',
       {
         hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
-        attrs: { tabindex: '0' },
       },
       h('h6', i18n.site.viewTheSolution),
     ),
@@ -283,7 +282,6 @@ function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
       'button',
       {
         hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
-        attrs: { tabindex: '0' },
       },
       h('h6', i18n.site.skipThisMove),
     ),
@@ -296,7 +294,6 @@ function renderJumpToNextBtn(ctrl: RetroCtrl): VNode[] {
       'button',
       {
         hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
-        attrs: { tabindex: '0' },
       },
       h('h6', i18n.site.next),
     ),
@@ -341,7 +338,6 @@ const feedback = {
         h(
           'button',
           {
-            tabindex: '0',
             hook: nvuiInsertHook(ctrl.jumpToNext),
           },
           h('h6', i18n.site.resumeLearning),
@@ -732,7 +728,6 @@ function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: Mo
               ctrl.nvuiLearning = !ctrl.nvuiLearning;
               ctrl.redraw();
             }),
-            attrs: { 'tab-index': '0' },
           },
           h('h6', 'Learn from your mistakes'),
         ),
