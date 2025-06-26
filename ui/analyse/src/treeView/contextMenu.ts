@@ -119,10 +119,14 @@ function view(opts: Opts, coords: Coords): VNode {
       ),
 
       ctrl.wouldCtxCollapseAffectView(opts.path, false) &&
-        action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setCollapsedForCtxMenu(opts.path, false)),
+        action(licon.PlusButton, i18n.site.expandVariations, () =>
+          ctrl.setCollapsedForCtxMenu(opts.path, false),
+        ),
 
       ctrl.wouldCtxCollapseAffectView(opts.path, true) &&
-        action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setCollapsedForCtxMenu(opts.path, true)),
+        action(licon.MinusButton, i18n.site.collapseVariations, () =>
+          ctrl.setCollapsedForCtxMenu(opts.path, true),
+        ),
 
       ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
 

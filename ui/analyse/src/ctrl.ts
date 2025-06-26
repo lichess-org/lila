@@ -664,40 +664,39 @@ export default class AnalyseCtrl {
   }
 
   wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
-    const sameShallowProps = (a: any, b: any): boolean => 
-      a === b || (
-        !!a && !!b && 
-        Object.keys(a).length === Object.keys(b).length && 
-        Object.keys(a).every(k => 
-          typeof a[k] === 'function' ||
-          typeof b[k] === 'function' ||
-          a[k] === b[k]
-        )
-      );
+    const sameShallowProps = (a: any, b: any): boolean =>
+      a === b ||
+      (!!a &&
+        !!b &&
+        Object.keys(a).length === Object.keys(b).length &&
+        Object.keys(a).every(k => typeof a[k] === 'function' || typeof b[k] === 'function' || a[k] === b[k]));
 
     const sameVisually = (v1: VNode | undefined, v2: VNode | undefined): boolean => {
       if (v1 === v2) return true;
-      if (!v1 || !v2 || [typeof v1, typeof v2].includes('string') || v1.sel !== v2.sel || v1.text !== v2.text) return false;
-    
-      const d1 = v1.data ?? {}, d2 = v2.data ?? {};
+      if (!v1 || !v2 || [typeof v1, typeof v2].includes('string') || v1.sel !== v2.sel || v1.text !== v2.text)
+        return false;
+
+      const d1 = v1.data ?? {},
+        d2 = v2.data ?? {};
       if (
-        d1.ns !== d2.ns || 
+        d1.ns !== d2.ns ||
         d1.is !== d2.is ||
         !sameShallowProps(d1.attrs, d2.attrs) ||
         !sameShallowProps(d1.class, d2.class) ||
         !sameShallowProps(d1.style, d2.style) ||
         !sameShallowProps(d1.props, d2.props) ||
         !sameShallowProps(d1.dataset, d2.dataset)
-      ) return false;
-    
+      )
+        return false;
+
       const c1 = v1.children as VNode[] | undefined;
       const c2 = v2.children as VNode[] | undefined;
       if (!c1 || !c2) return c1 === c2;
       return c1.length === c2.length && c1.every((_, i) => sameVisually(c1[i], c2[i]));
-    }
+    };
 
     if (typeof structuredClone !== 'function') return true;
-    const ctrlWithDiffTree = {...this, tree: build(structuredClone(this.tree.root))};
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
     ctrlWithDiffTree.tree.setCollapsedForCtxMenu(path, collapsed);
     return !sameVisually(renderTreeView(this), renderTreeView(ctrlWithDiffTree));
   }

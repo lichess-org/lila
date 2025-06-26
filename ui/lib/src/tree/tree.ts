@@ -202,7 +202,8 @@ export function build(root: Tree.Node): TreeWrapper {
     return parent ? parent.clock : node.clock;
   }
 
-  const setCollapsedAt = (path: Tree.Path, collapsed: boolean) => updateAt(path, node => node.collapsed = collapsed);
+  const setCollapsedAt = (path: Tree.Path, collapsed: boolean) =>
+    updateAt(path, node => (node.collapsed = collapsed));
 
   return {
     root,
@@ -235,7 +236,7 @@ export function build(root: Tree.Node): TreeWrapper {
     setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean) {
       // Also update parent
       setCollapsedAt(treePath.init(path), collapsed);
-      updateRecursive(path, node => node.collapsed = collapsed);
+      updateRecursive(path, node => (node.collapsed = collapsed));
     },
     pathIsMainline,
     pathIsForcedVariation,
