@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
 final class LeaderboardApi(
-    val repo: LeaderboardRepo,
+    repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
 )(using Executor, akka.stream.Materializer)
@@ -30,12 +30,11 @@ final class LeaderboardApi(
 
   def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
     repo.coll
-      .find(
+      .find:
         $doc(
           "u" -> userId,
           "d".$gte(range.start).$lt(range.end)
         )
-      )
       .sort($sort.desc("d"))
       .cursor[Entry]()
       .list(100)
