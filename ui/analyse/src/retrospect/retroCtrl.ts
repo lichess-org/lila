@@ -190,7 +190,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function solveCurrent() {
-    solvedPlies.push(current()!.fault.node.ply);
+    if (current()) solvedPlies.push(current()!.fault.node.ply);
   }
 
   function hideComputerLine(node: Tree.Node): boolean {

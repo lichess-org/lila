@@ -22,6 +22,12 @@ export class Notify {
   currentText = (): string =>
     this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
 
-  render = (): VNode =>
-    h('div.notify', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, this.currentText());
+  render = (): VNode => {
+    const text = this.currentText();
+    return h('div.notify', {
+      key: text,
+      attrs: { role: 'alert' }, // macos voiceover doesn't read aria-live on page load...
+      hook: { insert: v => setTimeout(() => (v.elm!.textContent = text)) }, // so we do this
+    });
+  };
 }

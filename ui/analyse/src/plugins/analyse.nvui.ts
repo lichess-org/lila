@@ -1,11 +1,10 @@
-import { type VNode, h, type VNodeChildren } from 'snabbdom';
+import { type VNode, hl, type LooseVNodes, type VNodeChildren } from 'lib/snabbdom';
 import { defined, Prop, prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData, NvuiPlugin } from '../interfaces';
 import type { Player } from 'lib/game/game';
-import { renderIndexAndMove } from '../view/moveView';
 import {
   type MoveStyle,
   renderSan,
@@ -34,7 +33,7 @@ import {
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { type MaybeVNode, bind, noTrans, onInsert } from 'lib/snabbdom';
+import { type MaybeVNode, bind, noTrans } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -78,7 +77,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
-  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl))); // ? is 'c' for chat or eval?
 
   return {
     render(deps?: typeof studyDeps): VNode {
@@ -93,49 +92,47 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
         drawable: { enabled: false },
         coordinates: false,
       });
-      return h('main.analyse', [
-        h('div.nvui', [
+      return hl('main.analyse', [
+        hl('div.nvui', [
           studyDetails(ctrl),
-          h('h1', 'Textual representation'),
-          h('h2', 'Game info'),
+          hl('h1', 'Textual representation'),
+          hl('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
+            hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
           ),
-          h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
-          d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          h('h2', 'Moves'),
-          h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
-          ...(!ctrl.studyPractice
-            ? [
-                h(
-                  'button',
-                  {
-                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                    hook: nvuiInsertHook(() => (ctrl.explorer.toggle(), ctrl.redraw())),
-                  },
-                  h('h6', i18n.site.openingExplorerAndTablebase),
-                ),
-                explorerView(ctrl),
-              ]
-            : []),
-          h('h2', 'Pieces'),
-          h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          h('div.pockets', pockets && renderPockets(pockets)),
-          ...renderAriaResult(ctrl),
-          h('h2', 'Current position'),
-          h(
+          hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
+          d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+          hl('h2', 'Moves'),
+          hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
+          !ctrl.studyPractice && [
+            hl(
+              'button',
+              {
+                attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+                hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+              },
+              i18n.site.openingExplorerAndTablebase,
+            ),
+            explorerView(ctrl),
+          ],
+          hl('h2', 'Pieces'),
+          hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+          hl('div.pockets', pockets && renderPockets(pockets)),
+          renderAriaResult(ctrl),
+          hl('h2', 'Current position'),
+          hl(
             'p.position.lastMove',
             { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
           clocks &&
-            h('div.clocks', [
-              h('h2', `${i18n.site.clock}`),
-              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+            hl('div.clocks', [
+              hl('h2', `${i18n.site.clock}`),
+              hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
             ]),
-          h('h2', 'Move form'),
-          h(
+          hl('h2', 'Move form'),
+          hl(
             'form#move-form',
             {
               hook: {
@@ -147,18 +144,24 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               },
             },
             [
-              h('h4', [
+              hl('label', [
                 'Command input',
-                h('input.move.mousetrap', {
+                hl('input.move.mousetrap', {
                   attrs: { name: 'move', type: 'text', autocomplete: 'off' },
                 }),
               ]),
             ],
           ),
           notify.render(),
-          renderComputerAnalysis(ctrl, notify, moveStyle.get()),
-          h('h2', 'Board'),
-          h(
+          !ctrl.retro && [
+            hl('h2', 'Computer analysis'),
+            cevalView.renderCeval(ctrl),
+            cevalView.renderPvs(ctrl),
+            renderAcpl(ctrl, style) || requestAnalysisBtn(ctrl, analysisInProgress),
+          ],
+          renderLearnFromMistakes(ctrl),
+          hl('h2', 'Board'),
+          hl(
             'div.board',
             {
               hook: {
@@ -176,7 +179,10 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
                       arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
                     else if (e.key === 'c')
                       lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
-                    else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+                    else if (e.key === 'i') {
+                      e.preventDefault();
+                      document.querySelector<HTMLElement>('input.move')?.focus();
+                    } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
                     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
                     else if (e.key.toLowerCase() === 'm')
                       possibleMovesHandler(
@@ -198,14 +204,14 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               boardStyle.get(),
             ),
           ),
-          h(
+          hl(
             'div.boardstatus',
             {
               attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' },
             },
             '',
           ),
-          h('div.content', {
+          hl('div.content', {
             hook: {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
@@ -227,15 +233,15 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               },
             },
           }),
-          h('h2', i18n.site.advancedSettings),
-          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board settings'),
-          h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-          h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-          h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('h2', i18n.site.keyboardShortcuts),
-          h(
+          hl('h2', i18n.site.advancedSettings),
+          hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+          hl('h3', 'Board settings'),
+          hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+          hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+          hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+          hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+          hl('h2', i18n.site.keyboardShortcuts),
+          hl(
             'p',
             [
               'Use arrow keys to navigate in the game.',
@@ -246,9 +252,9 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               `x: ${i18n.site.showThreat}`,
             ].reduce(addBreaks, []),
           ),
-          ...boardCommands(),
-          h('h2', 'Commands'),
-          h(
+          boardCommands(),
+          hl('h2', 'Commands'),
+          hl(
             'p',
             [
               'Type these commands in the command input.',
@@ -260,154 +266,14 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
               [],
             ),
           ),
-          h('h2', 'Chat'),
+          hl('h2', 'Chat'),
           ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
-          ...(deps && ctrl.study?.relay ? tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps) : []),
+          deps && ctrl.study?.relay && tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps),
         ]),
       ]);
     },
   };
 }
-
-function renderSkipOrViewSolution(ctrl: RetroCtrl): VNode {
-  return h('div', [
-    h(
-      'button',
-      {
-        hook: nvuiInsertHook(() => (ctrl.viewSolution(), ctrl.redraw())),
-      },
-      h('h6', i18n.site.viewTheSolution),
-    ),
-    h(
-      'button',
-      {
-        hook: nvuiInsertHook(() => (ctrl.skip(), ctrl.redraw())),
-      },
-      h('h6', i18n.site.skipThisMove),
-    ),
-  ]);
-}
-
-function renderJumpToNextBtn(ctrl: RetroCtrl): VNode[] {
-  return [
-    h(
-      'button',
-      {
-        hook: nvuiInsertHook(() => (ctrl.jumpToNext(), ctrl.redraw())),
-      },
-      h('h6', i18n.site.next),
-    ),
-  ];
-}
-
-const minDepth = 8;
-const maxDepth = 18;
-
-function renderEvalProgress(node: Tree.Node): VNode {
-  return h(
-    'h4',
-    { attrs: { 'aria-label': 'eval progress' } },
-    `${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0}`,
-  );
-}
-
-const feedback = {
-  find(ctrl: RetroCtrl): VNode[] {
-    return [
-      h(
-        'h3',
-        i18n.site.xWasPlayed.asArray(
-          h(
-            'move',
-            renderIndexAndMove(
-              { withDots: true, showGlyphs: false, showEval: false },
-              ctrl.current()!.fault.node,
-            ),
-          ),
-        ),
-      ),
-      h('h4', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
-      renderSkipOrViewSolution(ctrl),
-    ];
-  },
-  // user has browsed away from the move to solve
-  offTrack(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('div', [
-        h('h3', i18n.site.youBrowsedAway),
-        h(
-          'button',
-          {
-            hook: nvuiInsertHook(ctrl.jumpToNext),
-          },
-          h('h6', i18n.site.resumeLearning),
-        ),
-      ]),
-    ];
-  },
-  fail(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('div', [
-        h('h3', i18n.site.youCanDoBetter),
-        h('h4', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
-        renderSkipOrViewSolution(ctrl),
-      ]),
-    ];
-  },
-  win(ctrl: RetroCtrl): VNode[] {
-    return [h('h3', i18n.study.goodMove), ...renderJumpToNextBtn(ctrl)];
-  },
-  view(ctrl: RetroCtrl): VNode[] {
-    return [
-      h('h3', i18n.site.solution),
-      h('h4', renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)),
-      ...renderJumpToNextBtn(ctrl),
-    ];
-  },
-  eval(ctrl: RetroCtrl): VNode[] {
-    return [h('h3', i18n.site.evaluatingYourMove), h('h4', renderEvalProgress(ctrl.node()))];
-  },
-  end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
-    if (!hasFullComputerAnalysis()) return [h('div', h('h3', i18n.site.waitingForAnalysis))];
-    const nothing = !ctrl.completion()[1];
-    return [
-      h('div', [
-        h(
-          'h4',
-          i18n.site[
-            nothing
-              ? ctrl.color === 'white'
-                ? 'noMistakesFoundForWhite'
-                : 'noMistakesFoundForBlack'
-              : ctrl.color === 'white'
-                ? 'doneReviewingWhiteMistakes'
-                : 'doneReviewingBlackMistakes'
-          ],
-        ),
-        h('div', [
-          nothing
-            ? null
-            : h(
-                'button',
-                {
-                  key: 'reset',
-                  hook: nvuiInsertHook(ctrl.reset),
-                },
-                h('h6', i18n.site.doItAgain),
-              ),
-          h(
-            'button',
-            {
-              key: 'flip',
-              hook: nvuiInsertHook(ctrl.flip),
-            },
-            h('h6', i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes']),
-          ),
-        ]),
-      ]),
-    ];
-  },
-};
 
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
@@ -500,18 +366,6 @@ const playerByColor = (d: AnalyseData, color: Color): Player =>
 const jumpNextLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, -1);
 
-const nvuiInsertHook = (callback: () => void) => {
-  return onInsert(el => {
-    el.addEventListener('click', () => {
-      callback();
-    });
-    el.addEventListener('keydown', ev => {
-      if (ev.key !== 'Enter') return;
-      callback();
-    });
-  });
-};
-
 const redirectToSelectedHook = bind('change', (e: InputEvent) => {
   const target = e.target as HTMLSelectElement;
   const selectedOption = target.options[target.selectedIndex];
@@ -519,7 +373,7 @@ const redirectToSelectedHook = bind('change', (e: InputEvent) => {
   if (url) window.location.href = url;
 });
 
-const renderPlayer = (ctrl: AnalyseCtrl, player: Player): VNodeChildren =>
+const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
   player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 const evalInfo = (bestEv: EvalScore | undefined): string =>
@@ -541,6 +395,22 @@ const noEvalStr = (ctrl: CevalCtrl) =>
         ? 'local evaluation not enabled'
         : '';
 
+function clickHook(main: (el: HTMLElement) => void, post?: () => void) {
+  return {
+    // put unique identifying props on the button container (class is fine)
+    // because snabbdom and screen readers will mix them up.
+    hook: {
+      insert: (vnode: VNode) => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('click', () => {
+          main(el);
+          post?.();
+        });
+      },
+    },
+  };
+}
+
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
   const evs = ctrl.currentEvals(),
@@ -548,6 +418,7 @@ function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   const evalStr = evalInfo(bestEv);
   return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
+
 function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
   const noEvalMsg = noEvalStr(ctrl.ceval);
   if (noEvalMsg) return noEvalMsg;
@@ -568,48 +439,20 @@ function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
   return '';
 }
 
-function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'end'>) {
-  const ctrl: RetroCtrl = root.retro!;
-  const current = ctrl.current();
-  if (ctrl.isSolving() && current && root.path !== current.prev.path) return feedback.offTrack(ctrl);
-  if (fb === 'find') return current ? feedback.find(ctrl) : feedback.end(ctrl, root.hasFullComputerAnalysis);
-  return feedback[fb](ctrl);
-}
-
-function renderRetro(root: AnalyseCtrl): VNode | undefined {
-  const ctrl = root.retro;
-  if (!ctrl) return requestAnalyseBtn(root);
-
-  const fb = ctrl.feedback(),
-    completion = ctrl.completion();
-
-  return (
-    h('section', { attrs: { 'aria-atomic': 'true' } }, [
-      h('h3', i18n.site.learnFromYourMistakes),
-      h(
-        'h6',
-        { attrs: { 'aria-label': 'mistake number' } },
-        `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`,
-      ),
-    ]),
-    h('div', renderFeedback(root, fb))
-  );
-}
-
 function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   const result = renderResult(ctrl);
   const res = result.length ? result : 'No result';
   return [
-    h('h3', 'Game status'),
-    h('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
+    hl('h3', 'Game status'),
+    hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
   ];
 }
 
-function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle): VNodeChildren {
-  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style);
+function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle) {
+  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style, !ctrl.retro);
   else {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
-    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
+    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style, !ctrl.retro);
   }
 }
 
@@ -645,40 +488,35 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function requestAnalyseBtn(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.ongoing || ctrl.synthetic) {
-    return;
-  } else if (analysisInProgress()) {
-    return h('p', 'Server-side analysis in progress');
-  }
-  return h(
-    'button',
-    {
-      hook: nvuiInsertHook(() => {
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-          () => {
-            analysisInProgress(true);
-            notify.set('Server-side analysis in progress');
-          },
-          () => notify.set('Cannot run server-side analysis'),
-        );
-        ctrl.redraw();
-      }),
-    },
-    h('h6', i18n.site.requestAComputerAnalysis),
-  );
+function requestAnalysisBtn(ctrl: AnalyseCtrl, inProgress: Prop<boolean>): VNode | undefined {
+  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
+  return inProgress()
+    ? hl('p', 'Server-side analysis in progress')
+    : hl(
+        'button.request-analysis',
+        clickHook(() =>
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+            () => {
+              inProgress(true);
+              notify.set('Server-side analysis in progress');
+            },
+            () => notify.set('Cannot run server-side analysis'),
+          ),
+        ),
+        i18n.site.requestAComputerAnalysis,
+      );
 }
 
-function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): MaybeVNode {
-  const anal = ctrl.data.analysis; // heh
-  if (!anal) return undefined;
+function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
+  const analysis = ctrl.data.analysis;
+  if (!analysis || ctrl.retro) return undefined;
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
-    res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
+    res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
-      h(
+      hl(
         'select',
         {
           hook: bind(
@@ -690,7 +528,7 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): MaybeVNode {
         analysisNodes
           .filter(n => (n.ply % 2 === 1) === (color === 'white'))
           .map(node =>
-            h(
+            hl(
               'option',
               { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
               [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
@@ -701,45 +539,7 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): MaybeVNode {
       ),
     );
   });
-  return h('section', res);
-}
-
-function renderComputerAnalysis(ctrl: AnalyseCtrl, notify: Notify, moveStyle: MoveStyle): VNode | undefined {
-  if (ctrl.hasFullComputerAnalysis()) {
-    const elements: MaybeVNode[] = [h('h2', 'Computer analysis')];
-    if (ctrl.ongoing || ctrl.synthetic) {
-      notify.set('Server-side analysis in progress');
-      elements.push(h('h2', 'Server-side analysis in progress'));
-    } else if (ctrl.nvuiLearning) {
-      const LFYM = renderRetro(ctrl);
-      if (LFYM) {
-        elements.push(LFYM);
-      } else {
-        notify.set('Problem rendering learn from your mistakes');
-      }
-    } else {
-      elements.push(
-        h(
-          'button',
-          {
-            hook: nvuiInsertHook(() => {
-              ctrl.toggleRetro();
-              notify.set('Learn from your mistakes');
-              ctrl.nvuiLearning = !ctrl.nvuiLearning;
-              ctrl.redraw();
-            }),
-          },
-          h('h6', 'Learn from your mistakes'),
-        ),
-        renderAcpl(ctrl, moveStyle),
-      );
-    }
-    return h('div', elements);
-  } else if (ctrl.ongoing || ctrl.synthetic) {
-    return h('h4', 'analysis only availible for completed games.');
-  }
-  // No analysis, return request Analysis btn.
-  return requestAnalyseBtn(ctrl);
+  return res;
 }
 
 function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
@@ -778,8 +578,8 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
-    ? h('span', [
-        h(
+    ? hl('span', [
+        hl(
           'a',
           { attrs: { href: '/@/' + user.username } },
           user.title ? `${user.title} ${user.username}` : user.username,
@@ -787,7 +587,7 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,
       ])
-    : studyPlayers || h('span', i18n.site.anonymous);
+    : studyPlayers || hl('span', i18n.site.anonymous);
 }
 
 function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
@@ -801,7 +601,7 @@ function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
   ] as const;
   return (
     player &&
-    h(
+    hl(
       'span',
       keys
         .reduce<
@@ -833,16 +633,16 @@ function tourDetails(
   ctx.relay.redraw = ctrl.redraw;
 
   return [
-    h('h1', 'Tour details'),
-    h('h2', 'Overview'),
-    h('div', tourOverview(tour.info, tour.dates)),
-    h('h2', 'Players'),
-    h(
-      'button',
-      { hook: nvuiInsertHook(() => (ctx.relay.tab('players'), ctrl.redraw())) },
+    hl('h1', 'Tour details'),
+    hl('h2', 'Overview'),
+    hl('div', tourOverview(tour.info, tour.dates)),
+    hl('h2', 'Players'),
+    hl(
+      'button.tournament-players',
+      clickHook(() => ctx.relay.tab('players'), ctrl.redraw),
       'Load player list',
     ),
-    ctx.relay.tab() === 'players' ? h('div', playersView(ctx.relay.players, ctx.relay.data.tour)) : h('div'),
+    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players, ctx.relay.data.tour)),
   ];
 }
 
@@ -854,23 +654,23 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
   const hash = window.location.hash;
   return (
     study &&
-    h('div.study-details', [
-      h('h2', 'Study details'),
-      h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
-      h('br'),
+    hl('div.study-details', [
+      hl('h2', 'Study details'),
+      hl('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
+      hl('br'),
       relayGroups &&
-        h(
+        hl(
           'div.relay-groups',
-          h('label', [
+          hl('label', [
             'Current group:',
-            h(
+            hl(
               'select',
               {
                 attrs: { autofocus: hash === '#group-select' },
                 hook: redirectToSelectedHook,
               },
               relayGroups.tours.map(t =>
-                h(
+                hl(
                   'option',
                   { attrs: { selected: t.id == tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
                   t.name,
@@ -881,18 +681,18 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
         ),
       tour &&
         relayRounds &&
-        h(
+        hl(
           'div.relay-rounds',
-          h('label', [
+          hl('label', [
             'Current round:',
-            h(
+            hl(
               'select',
               {
                 attrs: { autofocus: hash === '#round-select' },
                 hook: redirectToSelectedHook,
               },
               relayRounds.map(r =>
-                h(
+                hl(
                   'option',
                   {
                     attrs: {
@@ -906,10 +706,10 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
             ),
           ]),
         ),
-      h('div.chapters', [
-        h('label', [
+      hl('div.chapters', [
+        hl('label', [
           'Current chapter:',
-          h(
+          hl(
             'select',
             {
               attrs: { id: 'chapter-select' },
@@ -920,39 +720,35 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
                 study.setChapter(chapterId!);
               }),
             },
-            study.chapters.list.all().map((ch, i) =>
-              h(
-                'option',
-                {
-                  attrs: {
-                    selected: ch.id === study.currentChapter().id,
-                    chapterId: ch.id,
-                  },
-                },
-                `${i + 1}. ${ch.name}`,
+            study.chapters.list
+              .all()
+              .map((ch, i) =>
+                hl(
+                  'option',
+                  { attrs: { selected: ch.id === study.currentChapter().id, chapterId: ch.id } },
+                  `${i + 1}. ${ch.name}`,
+                ),
               ),
-            ),
           ),
         ]),
         study.members.canContribute()
-          ? h('div.buttons', [
-              h(
-                'button',
-                {
-                  hook: nvuiInsertHook(() => {
-                    study.chapters.editForm.toggle(study.currentChapter());
-                    ctrl.redraw();
-                  }),
-                },
+          ? hl('div.buttons', [
+              hl(
+                'button.edit-chapter',
+                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
                 [
                   'Edit current chapter',
                   study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
                 ],
               ),
-              h('button', { hook: nvuiInsertHook(() => (study.chapters.newForm.toggle(), ctrl.redraw())) }, [
-                'Add new chapter',
-                study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-              ]),
+              hl(
+                'button.create-chapter',
+                clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
+                [
+                  'Add new chapter',
+                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+                ],
+              ),
             ])
           : undefined,
       ]),
@@ -966,3 +762,121 @@ function jumpMoveOrLine(ctrl: AnalyseCtrl) {
     else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
   };
 }
+
+function renderLearnFromMistakes(ctrl: AnalyseCtrl): LooseVNodes {
+  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
+
+  const nodes: LooseVNodes = [
+    hl('h2', i18n.site.learnFromYourMistakes),
+    hl(
+      'button.lfym-toggle',
+      clickHook(ctrl.toggleRetro, ctrl.redraw),
+      ctrl.retro ? 'Stop learning from mistakes' : 'Learn from your mistakes',
+    ),
+  ];
+  if (ctrl.retro) {
+    const current = ctrl.retro.current();
+    const state =
+      ctrl.retro.isSolving() && current && ctrl.path !== current.prev.path
+        ? 'offTrack'
+        : ctrl.retro.feedback();
+    const completion = ctrl.retro.completion();
+    nodes.push(
+      hl('label', `Mistake ${Math.min(completion[0] + 1, completion[1])} of ${completion[1]}`),
+      learnStateBtns[state]?.(ctrl.retro),
+    );
+  }
+  return nodes;
+}
+
+function liveVNode(text: string) {
+  const liveAction = (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text));
+  return hl(`p`, {
+    attrs: { key: text, role: 'alert' },
+    hook: { insert: liveAction, update: liveAction },
+  });
+}
+
+function speakableMove(node: Tree.Node) {
+  return renderSan(node.san, node.uci, styleSetting().get());
+}
+
+function solveAndSkipBtns(ctrl: RetroCtrl): LooseVNodes {
+  return [
+    hl(
+      'button.lfym-solve',
+      clickHook(() => ctrl.feedback('view'), ctrl.redraw),
+      i18n.site.viewTheSolution,
+    ),
+    hl('button.lfym-skip', clickHook(ctrl.skip, ctrl.redraw), i18n.site.skipThisMove),
+  ];
+}
+
+function nextMistakeBtn(ctrl: RetroCtrl): LooseVNodes {
+  return ctrl.current()
+    ? hl('button.lfym-next', clickHook(ctrl.skip), i18n.site.next)
+    : doneWithMistakes(ctrl);
+}
+
+function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
+  const noMistakes = !ctrl.completion()[1];
+  return [
+    liveVNode(
+      i18n.site[
+        noMistakes
+          ? ctrl.color === 'white'
+            ? 'noMistakesFoundForWhite'
+            : 'noMistakesFoundForBlack'
+          : ctrl.color === 'white'
+            ? 'doneReviewingWhiteMistakes'
+            : 'doneReviewingBlackMistakes'
+      ],
+    ),
+    !noMistakes && hl('button.lfym-again', clickHook(ctrl.reset), i18n.site.doItAgain),
+    hl(
+      'button.lfym-flip',
+      clickHook(() => {
+        ctrl.flip();
+        ctrl.jumpToNext();
+      }),
+      i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+    ),
+  ];
+}
+
+const learnStateBtns = {
+  offTrack(ctrl: RetroCtrl): LooseVNodes {
+    return [
+      liveVNode(i18n.site.youBrowsedAway),
+      hl('button.lfym-resume', clickHook(ctrl.jumpToNext), i18n.site.resumeLearning),
+    ];
+  },
+  fail(ctrl: RetroCtrl): LooseVNodes {
+    const tryAgain =
+      ctrl.color === 'white' ? i18n.site.tryAnotherMoveForWhite : i18n.site.tryAnotherMoveForBlack;
+    return [liveVNode(`${i18n.site.youCanDoBetter}. ${tryAgain}`), solveAndSkipBtns(ctrl)];
+  },
+  win(ctrl: RetroCtrl): LooseVNodes {
+    return learnStateBtns.find(ctrl, `${i18n.study.goodMove}. `);
+  },
+  view(ctrl: RetroCtrl): LooseVNodes {
+    if (!ctrl.current()) return doneWithMistakes(ctrl);
+    return [
+      liveVNode(`${i18n.site.solution} ${speakableMove(ctrl.current()!.solution.node)}.`),
+      nextMistakeBtn(ctrl),
+    ];
+  },
+  find(ctrl: RetroCtrl, prelude = ''): LooseVNodes {
+    const node = ctrl.current()?.fault.node;
+    if (!node) return doneWithMistakes(ctrl);
+    return [
+      liveVNode(
+        prelude +
+          `Turn ${Math.floor(node.ply / 2) + 1}. ${i18n.site[ctrl.color]} played ${speakableMove(node)}. ` +
+          (ctrl.color === 'white' ? i18n.site.findBetterMoveForWhite : i18n.site.findBetterMoveForBlack),
+      ),
+      solveAndSkipBtns(ctrl),
+    ];
+  },
+  eval: undefined,
+};
