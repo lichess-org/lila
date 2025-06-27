@@ -47,10 +47,10 @@ final private class RelayNotifier(
 
   private object notifyTournamentSubscribers:
 
-    private val dedupDbReq = scalalib.cache.OnceEvery[RelayTourId](5.minutes)
+    private val dedupDbReq = scalalib.cache.OnceEvery[RelayRoundId](5.minutes)
 
     def apply(rt: RelayRound.WithTour): Funit =
-      dedupDbReq(rt.tour.id).so:
+      dedupDbReq(rt.round.id).so:
         tourRepo
           .hasNotified(rt)
           .not
