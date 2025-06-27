@@ -196,6 +196,8 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
           $buttons.on('blur', (ev: KeyboardEvent) => {
             const $currBtn = $(ev.target as HTMLElement);
             $currBtn.removeAttr('ray');
+            $buttons.removeClass('active');
+            $currBtn.addClass('active');
           });
           $buttons.on(
             'click',
@@ -329,7 +331,8 @@ const inputCommands: InputCommand[] = [
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
       const rank = words[1]?.charAt(1) || '4';
-      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      const button =
+        $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
       button?.focus();
     },
     alt: 'b',
