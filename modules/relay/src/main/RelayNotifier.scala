@@ -21,19 +21,17 @@ final private class RelayNotifier(
           for
             followers <- fid.so(getPlayerFollowers)
             notify    <- followers.nonEmpty.so:
-              notifyApi.notifyMany(
-                followers,
-                NotificationContent.BroadcastRound(
-                  url = rt.path(chapter.id),
-                  title = rt.tour.name.value,
-                  text = chapter.tags.names
-                    .traverse(identity)
-                    .match
-                      case Some(players) =>
-                        s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
-                      case None => s"A player you are following is playing in ${rt.round.name}"
-                )
-              )
+              chapter.tags.names
+                .traverse(identity)
+                .so: names =>
+                  notifyApi.notifyMany(
+                    followers,
+                    NotificationContent.BroadcastRound(
+                      url = rt.path(chapter.id),
+                      title = rt.tour.name.value,
+                      text = s"${names(color)} is playing against ${names(!color)} in ${rt.round.name}"
+                    )
+                  )
           yield notify
         Future.sequence(futureByColor.all).void
 
