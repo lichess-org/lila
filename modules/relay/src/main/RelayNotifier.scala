@@ -26,8 +26,8 @@ final private class RelayNotifier(
                 NotificationContent.BroadcastRound(
                   url = rt.path(chapter.id),
                   title = rt.tour.name.value,
-                  text = chapter.players
-                    .flatMap(_.traverse(_.name))
+                  text = chapter.tags.names
+                    .traverse(identity)
                     .match
                       case Some(players) =>
                         s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
