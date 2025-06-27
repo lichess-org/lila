@@ -28,6 +28,8 @@ export function initModule(args: { fn: string } & any): void {
       return importer();
     case 'pmAll':
       return pmAll();
+    case 'relayForm':
+      return relayForm();
     case 'setAssetInfo':
       return setAssetInfo();
     case 'streamerSubscribe':
@@ -182,6 +184,24 @@ function pmAll() {
   $('.copy-url-button').on('click', function (e) {
     $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n');
   });
+}
+
+function relayForm() {
+  wireCropDialog({
+    aspectRatio: 2 / 1,
+    post: { url: $('.relay-image-edit').attr('data-post-url')!, field: 'image' },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  });
+
+  const $source = $('#form3-syncSource'),
+    showSource = () =>
+      $('.relay-form__sync').each(function (this: HTMLElement) {
+        this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
+      });
+
+  $source.on('change', showSource);
+  showSource();
 }
 
 function setAssetInfo() {

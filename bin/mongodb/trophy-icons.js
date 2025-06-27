@@ -1,5 +1,4 @@
 const replacements = [
-  ['wayOfBerserk', ''],
   ['marathonWinner', ''],
   ['marathonTopTen', ''],
   ['marathonTopFifty', ''],

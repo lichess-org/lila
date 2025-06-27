@@ -16,14 +16,24 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
 
   private val validCharsRegex = """^[\w-\.:/\?&=@#%\[\]\+~]+$""".r
 
+  private val forbiddenRegexes = List(
+    "^/api/".r,
+    "\\.(pgn|trf|csv|gif)$".r,
+    "/export/".r,
+    "/personal-data$".r
+  )
+
+  private def isForbiddenPath(path: String): Boolean =
+    forbiddenRegexes.exists(_.findFirstIn(path).isDefined)
+
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
   def valid(referrer: String): Option[String] =
-    (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so(
+    (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so:
       Try {
         URL.parse(parsedBaseUrl, referrer)
       }.toOption
-        .filter: url =>
-          (url.scheme == parsedBaseUrl.scheme) && s".${url.host}".endsWith(s".${parsedBaseUrl.host}")
+        .filter(_.scheme == parsedBaseUrl.scheme)
+        .filter(_.host == parsedBaseUrl.host)
+        .filterNot(url => isForbiddenPath(url.path))
         .map(_.toString)
-    )
