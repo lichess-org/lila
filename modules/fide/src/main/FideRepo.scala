@@ -31,11 +31,13 @@ final private class FideRepo(
     def fetch(code: hub.Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
-    private def makeId(u: UserId, p: FideId) = s"$u/$p"
-    def followers(p: FideId)                 = followerColl.distinctEasy[UserId, Set]("u", $doc("p" -> p))
-    def follow(u: UserId, p: FideId)         = playerColl
+    private def makeId(u: UserId, p: FideId)   = s"$p/$u"
+    def followers(p: FideId): Fu[List[UserId]] =
+      for ids <- followerColl.distinctEasy[String, List]("_id", "_id".$startsWith(s"$p/"))
+      yield UserId.from(ids.map(id => id.drop(id.indexOf('/') + 1)))
+    def follow(u: UserId, p: FideId) = playerColl
       .exists($id(p))
       .flatMapz:
-        followerColl.update.one($id(makeId(u, p)), $doc("u" -> u, "p" -> p), upsert = true).void
+        followerColl.update.one($id(makeId(u, p)), $doc("u" -> u), upsert = true).void
     def unfollow(u: UserId, p: FideId)    = followerColl.delete.one($id(makeId(u, p))).void
     def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(makeId(u, p)))
