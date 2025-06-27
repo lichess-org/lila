@@ -112,9 +112,7 @@
   &__follow {
     @extend %flex-center-nowrap;
     gap: 1ch;
-    label {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
   &__user {
     font-size: 0.7em;

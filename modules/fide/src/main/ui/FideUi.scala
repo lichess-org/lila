@@ -188,7 +188,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
     private def followButton(player: FidePlayer, isFollowing: Boolean)(using Context) =
       val id = "fide-player-follow"
-      div(cls := "fide-player__follow")(
+      label(cls := "fide-player__follow")(
         form3.cmnToggle(
           fieldId = id,
           fieldName = id,
