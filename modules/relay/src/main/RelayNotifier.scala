@@ -1,10 +1,9 @@
 package lila.relay
 
-import chess.ByColor
 import scalalib.cache.OnceEvery
 
 import lila.core.notify.{ NotifyApi, NotificationContent }
-import lila.study.{ Chapter, ChapterRepo }
+import lila.study.Chapter
 
 final private class RelayNotifier(
     notifyApi: NotifyApi,
@@ -19,26 +18,23 @@ final private class RelayNotifier(
     def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
       dedupNotif(chapter.id).so:
         val futureByColor = game.fideIds.mapWithColor((color, fid) =>
-          fid.so:
-            getPlayerFollowers(_).flatMap(followers =>
+          fid
+            .so(getPlayerFollowers(_))
+            .flatMap: followers =>
               followers.nonEmpty.so:
                 notifyApi.notifyMany(
                   followers,
                   NotificationContent.BroadcastRound(
                     rt.path(chapter.id),
                     rt.tour.name.value,
-                    chapter.players.flatMap(players =>
-                      players.map(_.name) match
-                        case ByColor(Some(whiteName), Some(blackName)) =>
-                          Some(ByColor(whiteName, blackName))
-                        case _ => None
-                    ) match
-                      case Some(players) =>
-                        s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
-                      case None => s"A player you are following has started a game in ${rt.round.name}"
+                    chapter.players
+                      .flatMap(_.traverse(_.name))
+                      .match
+                        case Some(players) =>
+                          s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
+                        case None => s"A player you are following is playing in ${rt.round.name}"
                   )
                 )
-            )
         )
         Future.sequence(futureByColor.all).void
 
