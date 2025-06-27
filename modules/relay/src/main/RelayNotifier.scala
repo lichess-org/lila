@@ -45,16 +45,20 @@ final private class RelayNotifier(
         )
         Future.sequence(futureByColor.all).map(_ => ())
 
-  private def notifyTournamentSubscribers(rt: RelayRound.WithTour): Funit =
-    tourRepo
-      .hasNotified(rt)
-      .not
-      .flatMapz:
-        tourRepo.setNotified(rt) >>
-          tourRepo
-            .subscribers(rt.tour.id)
-            .flatMap: subscribers =>
-              subscribers.nonEmpty.so:
+  private object notifyTournamentSubscribers:
+
+    private val dedupDbReq = scalalib.cache.OnceEvery[RelayTourId](5.minutes)
+
+    def apply(rt: RelayRound.WithTour): Funit =
+      dedupDbReq(rt.tour.id).so:
+        tourRepo
+          .hasNotified(rt)
+          .not
+          .flatMapz:
+            for
+              _           <- tourRepo.setNotified(rt)
+              subscribers <- tourRepo.subscribers(rt.tour.id)
+              _           <- subscribers.nonEmpty.so:
                 notifyApi.notifyMany(
                   subscribers,
                   NotificationContent.BroadcastRound(
@@ -63,6 +67,7 @@ final private class RelayNotifier(
                     s"${rt.round.name} has begun"
                   )
                 )
+            yield ()
 
   def chapterUpdated(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
     notifyPlayerFollowers(rt, chapter, game)
