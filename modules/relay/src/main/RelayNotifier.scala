@@ -22,7 +22,7 @@ final private class RelayNotifier(
             followers <- fid.so(getPlayerFollowers)
             notify    <- followers.nonEmpty.so:
               chapter.tags.names
-                .traverse(identity)
+                .sequence
                 .so: names =>
                   notifyApi.notifyMany(
                     followers,
