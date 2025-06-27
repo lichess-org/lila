@@ -19,32 +19,28 @@ final private class RelayNotifier(
     def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
       dedupNotif(chapter.id).so:
         val futureByColor = game.fideIds.mapWithColor((color, fid) =>
-          fid
-            .map(
-              getPlayerFollowers(_).flatMap(followers =>
-                if followers.nonEmpty then
-                  notifyApi.notifyMany(
-                    followers,
-                    NotificationContent.BroadcastRound(
-                      rt.path(chapter.id),
-                      rt.tour.name.value,
-                      chapter.players.flatMap(players =>
-                        players.map(_.name) match
-                          case ByColor(Some(whiteName), Some(blackName)) =>
-                            Some(ByColor(whiteName, blackName))
-                          case _ => None
-                      ) match
-                        case Some(players) =>
-                          s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
-                        case None => s"A player you are following has started a game in ${rt.round.name}"
-                    )
+          fid.so:
+            getPlayerFollowers(_).flatMap(followers =>
+              followers.nonEmpty.so:
+                notifyApi.notifyMany(
+                  followers,
+                  NotificationContent.BroadcastRound(
+                    rt.path(chapter.id),
+                    rt.tour.name.value,
+                    chapter.players.flatMap(players =>
+                      players.map(_.name) match
+                        case ByColor(Some(whiteName), Some(blackName)) =>
+                          Some(ByColor(whiteName, blackName))
+                        case _ => None
+                    ) match
+                      case Some(players) =>
+                        s"${players(color)} is playing against ${players(!color)} in ${rt.round.name}"
+                      case None => s"A player you are following has started a game in ${rt.round.name}"
                   )
-                else Future.successful(())
-              )
+                )
             )
-            .getOrElse(Future.successful(()))
         )
-        Future.sequence(futureByColor.all).map(_ => ())
+        Future.sequence(futureByColor.all).void
 
   private object notifyTournamentSubscribers:
 
