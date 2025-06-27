@@ -33,9 +33,8 @@ final class Fide(env: Env) extends LilaController(env):
 
   def follow(fideId: chess.FideId, follow: Boolean) = AuthBody(_ ?=>
     me ?=>
-      if follow
-      then env.fide.repo.follower.follow(me.userId, fideId).inject(Ok)
-      else env.fide.repo.follower.unfollow(me.userId, fideId).inject(Ok)
+      val f = if follow then env.fide.repo.follower.follow else env.fide.repo.follower.unfollow
+      for _ <- f(me.userId, fideId) yield NoContent
   )
 
   def apiShow(id: chess.FideId) = Anon:
