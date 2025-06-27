@@ -12,7 +12,7 @@
   <string name="opponentClock">Reloj del oponente</string>
   <string name="gameStart">Comienzo de la partida</string>
   <string name="boardCommandList">Lista de comandos cuando el tablero está enfocado</string>
-  <string name="inputFormCommandList">Escriba estos comandos en el formulario de entrada de comandos.</string>
+  <string name="inputFormCommandList">Escribe estos comandos en el formulario de entrada de comandos.</string>
   <string name="goToInputForm">Ir al formulario de entrada de movimientos y comandos.</string>
   <string name="announceCurrentSquare">Anunciar casilla actual.</string>
   <string name="announceLastMove">Anunciar último movimiento.</string>
@@ -27,7 +27,7 @@
   <string name="announcePiecesOnRankOrFile">Anunciar piezas en una fila o columna. Ejemplo: s a, s 1.</string>
   <string name="goToBoard">Ir al tablero. La casilla predeterminada es e-4. Puedes especificar una casilla: tablero a-1 o b a-1 te llevará a la casilla a-1.</string>
   <string name="movePiece">Para mover una pieza, usa la notación algebraica estándar.</string>
-  <string name="promotion">Para promover a cualquier otra cosa que una dama, utiliza iguales. Por ejemplo a-8-igual-n promueve a un caballo.</string>
+  <string name="promotion">Para promover a cualquier otra pieza distinta a una dama, utiliza la palabra igual. Por ejemplo a-8-igual-n promueve a un caballo.</string>
   <string name="king">rey</string>
   <string name="whiteKing">rey blanco</string>
   <string name="blackKing">rey negro</string>
@@ -56,5 +56,5 @@
   <string name="sanDroppedOn" comment="crazyhouse @">cae en</string>
   <string name="invalidMove">Movimiento no válido</string>
   <string name="premoveCancelled">Movimiento anticipado cancelado</string>
-  <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona Intro para cancelar</string>
+  <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona enter para cancelar</string>
 </resources>

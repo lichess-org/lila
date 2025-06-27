@@ -85,4 +85,6 @@
   <string name="backToLiveMove">Tilbake til trekk på direkten</string>
   <string name="sinceHideResults">Du valgte å skjule resultatene, så alle forhåndsvisningene av brettene er tomme for å unngå å røpe noe.</string>
   <string name="liveboard">Brett i sanntid</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Fellesskapsoverføring</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Opprettet og forvaltet av %s.</string>
 </resources>

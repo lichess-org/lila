@@ -116,12 +116,12 @@
   <string name="delete">Избриши</string>
   <string name="deleteThisImportedGame">Избриши ову увезену партију?</string>
   <string name="replayMode">Начин репризе</string>
-  <string name="realtimeReplay">Као уживо</string>
-  <string name="byCPL">По рачунару</string>
-  <string name="enable">Укључи</string>
+  <string name="realtimeReplay">Стварновремено</string>
+  <string name="byCPL">По ЦПГ-у</string>
+  <string name="enable">Омогући</string>
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
-  <string name="evaluationGauge">Линија за процену</string>
+  <string name="evaluationGauge">Мерило процене</string>
   <string name="multipleLines">Више стрелица</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Меморија</string>
