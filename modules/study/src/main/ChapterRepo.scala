@@ -127,14 +127,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def setName(id: StudyChapterId, name: StudyChapterName) = coll(_.updateField($id(id), "name", name)).void
 
-  // used only by the relay module for the follow fide players feature
-  def hasNotified(id: StudyChapterId): Fu[Boolean] =
-    coll(_.exists($doc($id(id), "notified" -> id)))
-
-  // used only by the relay module for the follow fide players feature
-  def setNotified(id: StudyChapterId): Funit =
-    coll(_.update.one($id(id), $addToSet("notified" -> id)).void)
-
   // insert node and its children
   // and updates chapter denormalization
   private[study] def addSubTree(

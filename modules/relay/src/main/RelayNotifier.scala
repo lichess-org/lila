@@ -1,22 +1,23 @@
 package lila.relay
 
+import chess.ByColor
+import scalalib.cache.OnceEvery
+
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.study.{ Chapter, ChapterRepo }
-import chess.ByColor
 
 final private class RelayNotifier(
     notifyApi: NotifyApi,
     tourRepo: RelayTourRepo,
-    chapterRepo: ChapterRepo,
     getPlayerFollowers: lila.core.fide.GetPlayerFollowers
 )(using Executor):
 
-  private def notifyPlayerFollowers(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
-    chapterRepo
-      .hasNotified(chapter.id)
-      .not
-      .flatMapz:
-        chapterRepo.setNotified(chapter.id) >>
+  private object notifyPlayerFollowers:
+
+    private val dedupNotif = OnceEvery[StudyChapterId](1.day)
+
+    def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
+      dedupNotif(chapter.id).so:
         val futureByColor = game.fideIds.mapWithColor((color, fid) =>
           fid
             .map(
@@ -47,7 +48,7 @@ final private class RelayNotifier(
 
   private object notifyTournamentSubscribers:
 
-    private val dedupDbReq = scalalib.cache.OnceEvery[RelayRoundId](5.minutes)
+    private val dedupDbReq = OnceEvery[RelayRoundId](5.minutes)
 
     def apply(rt: RelayRound.WithTour): Funit =
       dedupDbReq(rt.round.id).so:
