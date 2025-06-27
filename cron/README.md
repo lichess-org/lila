@@ -15,6 +15,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 0  4 * * * root jobq -q mongo_queue mongosh --quiet 172.16.0.50:27017/lichess /home/lichess/deploy/cron/mongodb-queue-stats.js
 */2 * * * * root jobq -q mongo_patron mongosh --quiet 172.16.0.50:27017/lichess /home/lichess/deploy/cron/mongodb-patron-denorm.js
 26 * * * * root jobq -q mongo_patron mongosh --quiet 172.16.0.50:27017/lichess /home/lichess/deploy/cron/mongodb-ublog-similar-incremental.js
+* * * * * root jobq -q mongo_fscday25 mongosh --quiet 172.16.0.50:27017/lichess /home/lichess/deploy/cron/mongodb-tournament-participation-trophies.js
 
 ### running on puzzle db
 # m h dom mon dow user  command

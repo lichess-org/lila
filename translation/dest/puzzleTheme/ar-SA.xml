@@ -26,7 +26,7 @@
   <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
   <string name="doubleBishopMate">كش مات بفيلين</string>
   <string name="doubleBishopMateDescription">فيلين يهاجمان الملك على أوتار متجاورة ويكون الملك محاصر بقطع صديقة ليحقق كش مات.</string>
-  <string name="dovetailMate">كش مات \"Dovetail\"</string>
+  <string name="dovetailMate">كش مات دوفيتيل</string>
   <string name="dovetailMateDescription">الوزير يحقق كش مات للملك العدو المجاور، و تكون مربعات الهروب من كش مات مشغولة بقطع صديقة.</string>
   <string name="equality">المساواة</string>
   <string name="equalityDescription">النجاة من وضع خاسر: اذهب نحو التعادل أو احصل على مساواة في الوضع. (التقييم 200 ≤ سنتي بيدق)</string>
@@ -37,7 +37,7 @@
   <string name="defensiveMove">نقلة دفاعية</string>
   <string name="defensiveMoveDescription">نقلة أو سلسلة من النقلات الدقيقة الضرورية لتجنب خسارة قطع أو خسارة الأفضلية.</string>
   <string name="deflection">إبعاد</string>
-  <string name="deflectionDescription">نقلة تشتت قطعة الخَصْم عن مهمة أخرى تؤديها، كالدفاع عن مربع مهم. أحيانًا يُطلق علي هذا التكتيك أيضًا \"التحميل الزائد\".</string>
+  <string name="deflectionDescription">نقلة تُبعد قطعة الخَصْم عن مهمة أخرى تؤديها، كالدفاع عن مربع مهم. أحيانًا يُطلق علي هذا التكتيك أيضًا \"التحميل الزائد\".</string>
   <string name="discoveredAttack">هجوم مكشوف</string>
   <string name="discoveredAttackDescription">تحريك قطعة (مثل الحصان)، كانت تمنع في السابق الهجوم بقطعة بعيدة المدى (مثل القلعة)، بعيدا عن طريق تلك القطعة.</string>
   <string name="doubleCheck">كش مزدوج</string>
@@ -57,6 +57,7 @@
   <string name="interferenceDescription">نقلة تحجب خط التفاعل بين قطع الخصم بعيدة المدى، ونتيجة لذلك تصبح إحدى القطعتين أو كلاهما بلا حماية. على سبيل المثال، يقف الحصان في مربع بين قلعتين.</string>
   <string name="intermezzo">النقلة البينيّة</string>
   <string name="intermezzoDescription">بدلاً من لعب النقلة المتوقعة، يتم أولاً القيام بنقلة أخرى تشكل تهديدًا فوريًا مباشرًا يجب على الخصم الرد عليه. يُعرف أيضًا باسم \"زفيشنزوك\" أو \"أنترميزو \".</string>
+  <string name="killBoxMate">كش مات المِصّيدة</string>
   <string name="killBoxMateDescription">يقف الرخ بجانب ملك العدو ويدعمه وزير يساهم أيضًا في حجب خانات هروب الملك. يقوم الرخ والوزير بمحاصرة ملك العدو داخل \"صندوق قتل\" بمساحة 3×3.</string>
   <string name="vukovicMate">كش مات فوكوفيتش</string>
   <string name="vukovicMateDescription">يتعاون الرخ والحصان لإماتة الملك. يقوم الرخ بتنفيذ الإماتة مدعومًا بقطعة ثالثة، بينما يُستخدم الحصان لإغلاق خانات هروب الملك.</string>
@@ -101,7 +102,7 @@
   <string name="quietMove">نقلة هادئة</string>
   <string name="quietMoveDescription">حركة لا تكش أو تأخذ أي قطعة و لا تشكل أي تهديد مباشر بالأخذ، لكنها تحضر لحركة خفية لتهديد لا يمكن تجنبه.</string>
   <string name="rookEndgame">نهاية المباراة بالقلعة</string>
-  <string name="rookEndgameDescription">نهاية المباراة بالقلعة و الجنود فقط.</string>
+  <string name="rookEndgameDescription">نهاية المباراة بالقلعة و البيادق فقط.</string>
   <string name="sacrifice">تضحية</string>
   <string name="sacrificeDescription">تكتيك يشمل التضحية ببعض القطع مقابل كسب الأفضلية مرة أخرى بعد عدة حركات إجبارية.</string>
   <string name="short">لغز قصير</string>
@@ -110,8 +111,8 @@
   <string name="skewerDescription">نموذج يتضمن قطعة عالية القيمة تتعرض للهجوم، وتتحرك بعيدًا عن الخط، وتسمح بأسر قطعة ذات قيمة أقل خلفها أو مهاجمتها، عكس التثبيت.</string>
   <string name="smotheredMate">كش بالخنق</string>
   <string name="smotheredMateDescription">هو نمط من الكش مات بالحصان حيث أن الملك غير قادر على التحرك لأنه محاط (مخنوق) بقطعه.</string>
-  <string name="superGM">مباراة أستاذ دولي كبير</string>
-  <string name="superGMDescription">ألغاز من مبارايات تم لعبها من أفضل اللاعبين في العالم.</string>
+  <string name="superGM">مباريات أساتذة كبار</string>
+  <string name="superGMDescription">ألغاز من مبارايات أفضل لاعبين في العالم.</string>
   <string name="trappedPiece">قطعة محاصرة</string>
   <string name="trappedPieceDescription">قطعة لا تستطيع الهرب بسبب عدم وجود مربعات آمنة للهروب إليها.</string>
   <string name="underPromotion">ترقية لغير الوزير</string>
@@ -120,11 +121,11 @@
   <string name="veryLongDescription">أربع نقلات أو أكثر للفوز.</string>
   <string name="xRayAttack">هجوم X-Ray</string>
   <string name="xRayAttackDescription">القطعة تهاجم أو تدافع عن مربع, من خلال قطعة عدو.</string>
-  <string name="zugzwang">Zugzwang</string>
-  <string name="zugzwangDescription">حركات الخصم محدودة و كل الحركات تؤدي إلى تفاقم الوضع نحو الأسوء.</string>
+  <string name="zugzwang">زُوغْزوان</string>
+  <string name="zugzwangDescription">حركات الخصم محدودة وكلها تؤدي إلى وضع أسوأ.</string>
   <string name="mix">خليط</string>
   <string name="mixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
   <string name="playerGames">مبارايات اللاعب</string>
   <string name="playerGamesDescription">ابحث عن ألغاز من مبارياتك أو من مباريات لاعبين آخرين.</string>
-  <string name="puzzleDownloadInformation">هذه الألغاز موجودة للعامة بإمكانك تحميلها من هنا%s.</string>
+  <string name="puzzleDownloadInformation">هذه الألغاز موجودة للعامة بإمكانك تحميلها من هنا %s.</string>
 </resources>
