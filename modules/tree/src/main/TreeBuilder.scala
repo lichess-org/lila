@@ -126,20 +126,16 @@ object TreeBuilder:
         eval = none
       )
 
-    position.after
+    val (result, error) = position.after
       .foldRight(info.variation.take(20), position.ply)(
         none[Branch],
         (step, acc) =>
           inline def branch = makeBranch(step.move, step.ply)
           acc.fold(branch)(acc => branch.addChild(acc)).some
       )
-      .match
-        case Right(result) =>
-          result.error.foreach(e => logChessError(formatError(id, e)))
-          result.result.fold(root)(b => root.addChild(b.setComp))
-        case Left(error) =>
-          logChessError(formatError(id, error))
-          root
+
+    error.foreach(e => logChessError(formatError(id, e)))
+    result.fold(root)(b => root.addChild(b.setComp))
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"

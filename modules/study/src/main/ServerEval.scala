@@ -129,21 +129,16 @@ object ServerEval:
     end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val position = chess.Position.AndFullMoveNumber(variant, root.fen.some)
-      position.position
+      val position        = chess.Position.AndFullMoveNumber(variant, root.fen.some)
+      val (result, error) = position.position
         .foldRight(info.variation.take(20), position.ply)(
           none[Branch],
           (step, acc) =>
             inline def branch = makeBranch(step.move, step.ply)
             acc.fold(branch)(acc => branch.addChild(acc)).some
         )
-        .match
-          case Right(result) =>
-            result.error.foreach(e => logger.info(e.value))
-            result.result
-          case Left(error) =>
-            logger.info(error.value)
-            none
+      error.foreach(e => logger.info(e.value))
+      result
 
     private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
       Branch(
