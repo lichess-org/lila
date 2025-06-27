@@ -1,4 +1,12 @@
-import { type VNode, hl, type LooseVNodes, type VNodeChildren } from 'lib/snabbdom';
+import {
+  type VNode,
+  type LooseVNodes,
+  type VNodeChildren,
+  type MaybeVNode,
+  hl,
+  bind,
+  noTrans,
+} from 'lib/snabbdom';
 import { defined, Prop, prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
@@ -31,9 +39,8 @@ import {
   pocketsStr,
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
-import { Notify } from 'lib/nvui/notify';
+import { Notify, liveText } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { type MaybeVNode, bind, noTrans } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
@@ -122,7 +129,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
           hl('h2', 'Current position'),
           hl(
             'p.position.lastMove',
-            { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+            ctrl.retro ? {} : { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
@@ -563,7 +570,7 @@ function renderCurrentNode(ctrl: AnalyseCtrl, style: MoveStyle): string {
     plyToTurn(node.ply),
     renderSan(node.san, node.uci, style),
     renderLineIndex(ctrl),
-    renderComments(node, style),
+    !ctrl.retro && renderComments(node, style),
   ]
     .join(' ')
     .trim();
@@ -789,14 +796,6 @@ function renderLearnFromMistakes(ctrl: AnalyseCtrl): LooseVNodes {
   return nodes;
 }
 
-function liveVNode(text: string) {
-  const liveAction = (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text));
-  return hl(`p`, {
-    attrs: { key: text, role: 'alert' },
-    hook: { insert: liveAction, update: liveAction },
-  });
-}
-
 function speakableMove(node: Tree.Node) {
   return renderSan(node.san, node.uci, styleSetting().get());
 }
@@ -821,7 +820,7 @@ function nextMistakeBtn(ctrl: RetroCtrl): LooseVNodes {
 function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
   const noMistakes = !ctrl.completion()[1];
   return [
-    liveVNode(
+    liveText(
       i18n.site[
         noMistakes
           ? ctrl.color === 'white'
@@ -847,14 +846,14 @@ function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
 const learnStateBtns = {
   offTrack(ctrl: RetroCtrl): LooseVNodes {
     return [
-      liveVNode(i18n.site.youBrowsedAway),
+      liveText(i18n.site.youBrowsedAway),
       hl('button.lfym-resume', clickHook(ctrl.jumpToNext), i18n.site.resumeLearning),
     ];
   },
   fail(ctrl: RetroCtrl): LooseVNodes {
     const tryAgain =
       ctrl.color === 'white' ? i18n.site.tryAnotherMoveForWhite : i18n.site.tryAnotherMoveForBlack;
-    return [liveVNode(`${i18n.site.youCanDoBetter}. ${tryAgain}`), solveAndSkipBtns(ctrl)];
+    return [liveText(`${i18n.site.youCanDoBetter}. ${tryAgain}`), solveAndSkipBtns(ctrl)];
   },
   win(ctrl: RetroCtrl): LooseVNodes {
     return learnStateBtns.find(ctrl, `${i18n.study.goodMove}. `);
@@ -862,7 +861,7 @@ const learnStateBtns = {
   view(ctrl: RetroCtrl): LooseVNodes {
     if (!ctrl.current()) return doneWithMistakes(ctrl);
     return [
-      liveVNode(`${i18n.site.solution} ${speakableMove(ctrl.current()!.solution.node)}.`),
+      liveText(`${i18n.site.solution} ${speakableMove(ctrl.current()!.solution.node)}.`),
       nextMistakeBtn(ctrl),
     ];
   },
@@ -870,7 +869,7 @@ const learnStateBtns = {
     const node = ctrl.current()?.fault.node;
     if (!node) return doneWithMistakes(ctrl);
     return [
-      liveVNode(
+      liveText(
         prelude +
           `Turn ${Math.floor(node.ply / 2) + 1}. ${i18n.site[ctrl.color]} played ${speakableMove(node)}. ` +
           (ctrl.color === 'white' ? i18n.site.findBetterMoveForWhite : i18n.site.findBetterMoveForBlack),

@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import { requestIdleCallback } from '../common';
+import { isApple } from '../device';
 
 type Notification = {
   text: string;
@@ -23,11 +24,19 @@ export class Notify {
     this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
 
   render = (): VNode => {
-    const text = this.currentText();
     return h('div.notify', {
-      key: text,
-      attrs: { role: 'alert' }, // macos voiceover doesn't read aria-live on page load...
-      hook: { insert: v => setTimeout(() => (v.elm!.textContent = text)) }, // so we do this
+      key: this.currentText(),
+      attrs: isApple() ? { role: 'alert' } : { 'aria-live': 'assertive', 'aria-atomic': 'true' },
+      hook: { insert: v => setTimeout(() => (v.elm!.textContent = this.currentText())) },
     });
   };
+}
+
+export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
+  const liveAction = (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50);
+  return h(sel, {
+    key: text,
+    attrs: isApple() ? { role: 'alert' } : { 'aria-live': live, 'aria-atomic': 'true' },
+    hook: { insert: liveAction, update: liveAction },
+  });
 }
