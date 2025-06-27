@@ -43,7 +43,7 @@ object TreeBuilder:
       eval = infos.lift(0).map(makeEval)
     )
 
-    init
+    init.position
       .play(game.sans, init.ply)(step => chess.MoveOrDrop.WithPly(step.move, step.ply))
       .fold(
         _ => root,
@@ -127,7 +127,7 @@ object TreeBuilder:
       )
 
     position.after
-      .refoldRight(info.variation.take(20), position.ply)(
+      .foldRight(info.variation.take(20), position.ply)(
         none[Branch],
         (step, acc) =>
           inline def branch = makeBranch(step.move, step.ply)

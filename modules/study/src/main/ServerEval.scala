@@ -131,7 +131,7 @@ object ServerEval:
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       val position = chess.Position.AndFullMoveNumber(variant, root.fen.some)
       position.position
-        .refoldRight(info.variation.take(20), position.ply)(
+        .foldRight(info.variation.take(20), position.ply)(
           none[Branch],
           (step, acc) =>
             inline def branch = makeBranch(step.move, step.ply)
