@@ -27,7 +27,7 @@ export class Notify {
     return h('div.notify', {
       key: this.currentText(),
       attrs: isApple() ? { role: 'alert' } : { 'aria-live': 'assertive', 'aria-atomic': 'true' },
-      hook: { insert: v => setTimeout(() => (v.elm!.textContent = this.currentText())) },
+      hook: { insert: v => setTimeout(() => (v.elm!.textContent = this.currentText()), 50) },
     });
   };
 }

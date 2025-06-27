@@ -158,7 +158,7 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
             cevalView.renderPvs(ctrl),
             renderAcpl(ctrl, style) || requestAnalysisBtn(ctrl, analysisInProgress),
           ],
-          renderLearnFromMistakes(ctrl),
+          renderRetro(ctrl),
           hl('h2', 'Board'),
           hl(
             'div.board',
@@ -762,13 +762,13 @@ function clickHook(main: (el: HTMLElement) => void, post?: () => void) {
   };
 }
 
-function renderLearnFromMistakes(ctrl: AnalyseCtrl): LooseVNodes {
+function renderRetro(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
 
   const nodes: LooseVNodes = [
     hl('h2', i18n.site.learnFromYourMistakes),
     hl(
-      'button.lfym-toggle',
+      'button.retro-toggle',
       clickHook(ctrl.toggleRetro, ctrl.redraw),
       ctrl.retro ? 'Stop learning from mistakes' : 'Learn from your mistakes',
     ),
@@ -782,7 +782,7 @@ function renderLearnFromMistakes(ctrl: AnalyseCtrl): LooseVNodes {
     const completion = ctrl.retro.completion();
     nodes.push(
       hl('label', `Mistake ${Math.min(completion[0] + 1, completion[1])} of ${completion[1]}`),
-      learnStateBtns[state]?.(ctrl.retro),
+      retroStateBtns[state]?.(ctrl.retro),
     );
   }
   return nodes;
@@ -795,17 +795,17 @@ function speakableMove(node: Tree.Node) {
 function solveAndSkipBtns(ctrl: RetroCtrl): LooseVNodes {
   return [
     hl(
-      'button.lfym-solve',
+      'button.retro-solve',
       clickHook(() => ctrl.feedback('view'), ctrl.redraw),
       i18n.site.viewTheSolution,
     ),
-    hl('button.lfym-skip', clickHook(ctrl.skip, ctrl.redraw), i18n.site.skipThisMove),
+    hl('button.retro-skip', clickHook(ctrl.skip, ctrl.redraw), i18n.site.skipThisMove),
   ];
 }
 
 function nextMistakeBtn(ctrl: RetroCtrl): LooseVNodes {
   return ctrl.current()
-    ? hl('button.lfym-next', clickHook(ctrl.skip), i18n.site.next)
+    ? hl('button.retro-next', clickHook(ctrl.skip), i18n.site.next)
     : doneWithMistakes(ctrl);
 }
 
@@ -823,9 +823,9 @@ function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
             : 'doneReviewingBlackMistakes'
       ],
     ),
-    !noMistakes && hl('button.lfym-again', clickHook(ctrl.reset), i18n.site.doItAgain),
+    !noMistakes && hl('button.retro-again', clickHook(ctrl.reset), i18n.site.doItAgain),
     hl(
-      'button.lfym-flip',
+      'button.retro-flip',
       clickHook(() => {
         ctrl.flip();
         ctrl.jumpToNext();
@@ -835,11 +835,11 @@ function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
   ];
 }
 
-const learnStateBtns = {
+const retroStateBtns = {
   offTrack(ctrl: RetroCtrl): LooseVNodes {
     return [
       liveText(i18n.site.youBrowsedAway),
-      hl('button.lfym-resume', clickHook(ctrl.jumpToNext), i18n.site.resumeLearning),
+      hl('button.retro-resume', clickHook(ctrl.jumpToNext), i18n.site.resumeLearning),
     ];
   },
   fail(ctrl: RetroCtrl): LooseVNodes {
@@ -848,7 +848,7 @@ const learnStateBtns = {
     return [liveText(`${i18n.site.youCanDoBetter}. ${tryAgain}`), solveAndSkipBtns(ctrl)];
   },
   win(ctrl: RetroCtrl): LooseVNodes {
-    return learnStateBtns.find(ctrl, `${i18n.study.goodMove}. `);
+    return retroStateBtns.find(ctrl, `${i18n.study.goodMove}. `);
   },
   view(ctrl: RetroCtrl): LooseVNodes {
     if (!ctrl.current()) return doneWithMistakes(ctrl);
