@@ -1,12 +1,4 @@
-import {
-  type VNode,
-  type LooseVNodes,
-  type VNodeChildren,
-  type MaybeVNode,
-  hl,
-  bind,
-  noTrans,
-} from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/snabbdom';
 import { defined, Prop, prop } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
@@ -282,6 +274,91 @@ export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
   };
 }
 
+function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
+  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
+  const evs = ctrl.currentEvals(),
+    bestEv = cevalView.getBestEval(evs);
+  const evalStr = evalInfo(bestEv);
+  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
+}
+
+const evalInfo = (bestEv: EvalScore | undefined): string =>
+  defined(bestEv?.cp)
+    ? renderEval(bestEv.cp).replace('-', '−')
+    : defined(bestEv?.mate)
+      ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
+      : '';
+
+const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
+
+const noEvalStr = (ctrl: CevalCtrl) =>
+  !ctrl.allowed()
+    ? 'local evaluation not allowed'
+    : !ctrl.possible
+      ? 'local evaluation not possible'
+      : !ctrl.enabled()
+        ? 'local evaluation not enabled'
+        : '';
+
+function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
+  const noEvalMsg = noEvalStr(ctrl.ceval);
+  if (noEvalMsg) return noEvalMsg;
+  const node = ctrl.node,
+    setup = parseFen(node.fen).unwrap();
+  let pvs: Tree.PvData[] = [];
+  if (ctrl.threatMode() && node.threat) {
+    pvs = node.threat.pvs;
+    setup.turn = opposite(setup.turn);
+    if (setup.turn === 'white') setup.fullmoves += 1;
+  } else if (node.ceval) pvs = node.ceval.pvs;
+  const pos = setupPosition(lichessRules(ctrl.ceval.opts.variant.key), setup);
+  if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
+    const uci = pvs[0].moves[0];
+    const san = makeSan(pos.unwrap(), parseUci(uci)!);
+    return renderSan(san, uci, style);
+  }
+  return '';
+}
+
+function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
+  const result = renderResult(ctrl);
+  const res = result.length ? result : 'No result';
+  return [
+    hl('h3', 'Game status'),
+    hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
+  ];
+}
+
+function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle) {
+  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style, !ctrl.retro);
+  else {
+    const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
+    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style, !ctrl.retro);
+  }
+}
+
+function onSubmit(ctrl: AnalyseCtrl, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
+  return (e: SubmitEvent) => {
+    e.preventDefault();
+    const input = castlingFlavours(($input.val() as string).trim());
+    // Allow commands with/without a leading '/'
+    const command = getCommand(input) || getCommand(input.slice(1));
+    if (command && !command.invalid?.(ctrl)) command.cb(ctrl, notify, style(), input);
+    else {
+      const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
+      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
+      const isInvalidDrop = (d: DropMove) =>
+        !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
+      const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
+
+      if (!move || isInvalidCrazy) notify(`Invalid move: ${input}`);
+      else sendMove(move, ctrl);
+    }
+    $input.val('');
+  };
+}
+
 type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
@@ -362,128 +439,6 @@ const getCommand = (input: string) => {
   ); // 'next line' should not be interpreted as 'next'
 };
 
-const doAndRedraw = (ctrl: AnalyseCtrl, fn: (ctrl: AnalyseCtrl) => void): void => {
-  fn(ctrl);
-  ctrl.redraw();
-};
-
-const playerByColor = (d: AnalyseData, color: Color): Player =>
-  color === d.player.color ? d.player : d.opponent;
-
-const jumpNextLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, 1);
-const jumpPrevLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, -1);
-
-const redirectToSelectedHook = bind('change', (e: InputEvent) => {
-  const target = e.target as HTMLSelectElement;
-  const selectedOption = target.options[target.selectedIndex];
-  const url = selectedOption.getAttribute('url');
-  if (url) window.location.href = url;
-});
-
-const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
-  player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
-
-const evalInfo = (bestEv: EvalScore | undefined): string =>
-  defined(bestEv?.cp)
-    ? renderEval(bestEv.cp).replace('-', '−')
-    : defined(bestEv?.mate)
-      ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
-      : '';
-
-const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
-  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
-
-const noEvalStr = (ctrl: CevalCtrl) =>
-  !ctrl.allowed()
-    ? 'local evaluation not allowed'
-    : !ctrl.possible
-      ? 'local evaluation not possible'
-      : !ctrl.enabled()
-        ? 'local evaluation not enabled'
-        : '';
-
-function clickHook(main: (el: HTMLElement) => void, post?: () => void) {
-  return {
-    // put unique identifying props on the button container (class is fine)
-    // because snabbdom and screen readers will mix them up.
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => {
-          main(el);
-          post?.();
-        });
-      },
-    },
-  };
-}
-
-function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
-  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  const evs = ctrl.currentEvals(),
-    bestEv = cevalView.getBestEval(evs);
-  const evalStr = evalInfo(bestEv);
-  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
-}
-
-function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
-  const noEvalMsg = noEvalStr(ctrl.ceval);
-  if (noEvalMsg) return noEvalMsg;
-  const node = ctrl.node,
-    setup = parseFen(node.fen).unwrap();
-  let pvs: Tree.PvData[] = [];
-  if (ctrl.threatMode() && node.threat) {
-    pvs = node.threat.pvs;
-    setup.turn = opposite(setup.turn);
-    if (setup.turn === 'white') setup.fullmoves += 1;
-  } else if (node.ceval) pvs = node.ceval.pvs;
-  const pos = setupPosition(lichessRules(ctrl.ceval.opts.variant.key), setup);
-  if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
-    const uci = pvs[0].moves[0];
-    const san = makeSan(pos.unwrap(), parseUci(uci)!);
-    return renderSan(san, uci, style);
-  }
-  return '';
-}
-
-function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
-  const result = renderResult(ctrl);
-  const res = result.length ? result : 'No result';
-  return [
-    hl('h3', 'Game status'),
-    hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
-  ];
-}
-
-function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle) {
-  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style, !ctrl.retro);
-  else {
-    const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
-    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style, !ctrl.retro);
-  }
-}
-
-function onSubmit(ctrl: AnalyseCtrl, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
-  return (e: SubmitEvent) => {
-    e.preventDefault();
-    const input = castlingFlavours(($input.val() as string).trim());
-    // Allow commands with/without a leading '/'
-    const command = getCommand(input) || getCommand(input.slice(1));
-    if (command && !command.invalid?.(ctrl)) command.cb(ctrl, notify, style(), input);
-    else {
-      const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
-      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
-      const isInvalidDrop = (d: DropMove) =>
-        !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
-      const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
-
-      if (!move || isInvalidCrazy) notify(`Invalid move: ${input}`);
-      else sendMove(move, ctrl);
-    }
-    $input.val('');
-  };
-}
-
 function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   if (typeof uciOrDrop === 'string')
     ctrl.sendMove(
@@ -493,25 +448,6 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
       charToRole(uciOrDrop.slice(4)),
     );
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
-}
-
-function requestAnalysisBtn(ctrl: AnalyseCtrl, inProgress: Prop<boolean>): VNode | undefined {
-  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
-  return inProgress()
-    ? hl('p', 'Server-side analysis in progress')
-    : hl(
-        'button.request-analysis',
-        clickHook(() =>
-          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-            () => {
-              inProgress(true);
-              notify.set('Server-side analysis in progress');
-            },
-            () => notify.set('Cannot run server-side analysis'),
-          ),
-        ),
-        i18n.site.requestAComputerAnalysis,
-      );
 }
 
 function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
@@ -549,6 +485,25 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
   return res;
 }
 
+const requestAnalysisBtn = (ctrl: AnalyseCtrl, inProgress: Prop<boolean>) => {
+  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
+  return inProgress()
+    ? hl('p', 'Server-side analysis in progress')
+    : hl(
+        'button.request-analysis',
+        clickHook(() =>
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+            () => {
+              inProgress(true);
+              notify.set('Server-side analysis in progress');
+            },
+            () => notify.set('Cannot run server-side analysis'),
+          ),
+        ),
+        i18n.site.requestAComputerAnalysis,
+      );
+};
+
 function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
   const prevNode = ctrl.tree.nodeAtPath(treePath.init(ctrl.path));
@@ -575,6 +530,9 @@ function renderCurrentNode(ctrl: AnalyseCtrl, style: MoveStyle): string {
     .join(' ')
     .trim();
 }
+
+const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
+  player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseCtrl, player: Player) {
   const d = ctrl.data,
@@ -619,6 +577,12 @@ function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
   );
 }
 
+const playerByColor = (d: AnalyseData, color: Color): Player =>
+  color === d.player.color ? d.player : d.opponent;
+
+const jumpNextLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, 1);
+const jumpPrevLine = (ctrl: AnalyseCtrl) => jumpLine(ctrl, -1);
+
 function jumpLine(ctrl: AnalyseCtrl, delta: number) {
   const { i, of } = currentLineIndex(ctrl);
   if (of === 1) return;
@@ -628,6 +592,13 @@ function jumpLine(ctrl: AnalyseCtrl, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
+
+const redirectToSelectedHook = bind('change', (e: InputEvent) => {
+  const target = e.target as HTMLSelectElement;
+  const selectedOption = target.options[target.selectedIndex];
+  const url = selectedOption.getAttribute('url');
+  if (url) window.location.href = url;
+});
 
 function tourDetails(
   ctrl: AnalyseCtrl,
@@ -653,7 +624,7 @@ function tourDetails(
   ];
 }
 
-function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
+function studyDetails(ctrl: AnalyseCtrl) {
   const study = ctrl.study;
   const relayGroups = study?.relay?.data.group;
   const relayRounds = study?.relay?.data.rounds;
@@ -763,10 +734,31 @@ function studyDetails(ctrl: AnalyseCtrl): MaybeVNode {
   );
 }
 
+const doAndRedraw = (ctrl: AnalyseCtrl, fn: (ctrl: AnalyseCtrl) => void): void => {
+  fn(ctrl);
+  ctrl.redraw();
+};
+
 function jumpMoveOrLine(ctrl: AnalyseCtrl) {
   return (e: KeyboardEvent) => {
     if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
     else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+  };
+}
+
+function clickHook(main: (el: HTMLElement) => void, post?: () => void) {
+  return {
+    // put unique identifying props on the button container (class is fine)
+    // because snabbdom and screen readers will mix them up.
+    hook: {
+      insert: (vnode: VNode) => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('click', () => {
+          main(el);
+          post?.();
+        });
+      },
+    },
   };
 }
 
