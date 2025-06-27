@@ -31,11 +31,10 @@ final class Fide(env: Env) extends LilaController(env):
               rendered    <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
             yield Ok(rendered)
 
-  def follow(fideId: chess.FideId, follow: Boolean) = AuthBody(_ ?=>
+  def follow(fideId: chess.FideId, follow: Boolean) = AuthBody: _ ?=>
     me ?=>
       val f = if follow then env.fide.repo.follower.follow else env.fide.repo.follower.unfollow
       for _ <- f(me.userId, fideId) yield NoContent
-  )
 
   def apiShow(id: chess.FideId) = Anon:
     Found(env.fide.repo.player.fetch(id))(JsonOk)

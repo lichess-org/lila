@@ -10,7 +10,7 @@ import scala.util.Success
 final private class FideRepo(
     private[fide] val playerColl: Coll,
     private[fide] val federationColl: Coll,
-    private[fide] val followerColl: Coll
+    private val followerColl: Coll
 )(using Executor):
 
   object player:
