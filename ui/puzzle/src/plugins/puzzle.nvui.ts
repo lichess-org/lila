@@ -137,10 +137,18 @@ export function initModule() {
                 );
                 $buttons.on('keydown', (e: KeyboardEvent) => {
                   if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-                  else if (e.key.match(/^x$/i))
-                    scanDirectionsHandler(ctrl.pov, ground.state.pieces, moveStyle.get())(e);
+                  else if (e.key.toLowerCase() === 'f') {
+                    ctrl.flip();
+                    ctrl.redraw();
+                  } else if (e.key.match(/^x$/i))
+                    scanDirectionsHandler(
+                      ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+                      ground.state.pieces,
+                      moveStyle.get(),
+                    )(e);
                   else if (['o'].includes(e.key)) boardCommandsHandler()(e);
-                  else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
+                  else if (e.key.startsWith('Arrow'))
+                    arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
                   else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
                   else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
                   else if (e.key.toLowerCase() === 'm')
@@ -156,7 +164,7 @@ export function initModule() {
             },
             renderBoard(
               ground.state.pieces,
-              ctrl.pov,
+              ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),

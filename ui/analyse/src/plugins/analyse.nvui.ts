@@ -179,15 +179,19 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', (e: KeyboardEvent) => {
                     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+                    else if (e.key.toLowerCase() === 'f') {
+                    ctrl.flipped = !ctrl.flipped;
+                    ctrl.redraw();
+                  } 
                     else if (e.key.match(/^x$/i))
                       scanDirectionsHandler(
-                        ctrl.data.player.color,
+                        ctrl.flipped ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
                         ctrl.chessground.state.pieces,
                         moveStyle.get(),
                       )(e);
                     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
                     else if (e.key.startsWith('Arrow'))
-                      arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+                      arrowKeyHandler(ctrl.flipped ? opposite(ctrl.data.player.color) : ctrl.data.player.color, borderSound)(e);
                     else if (e.key === 'c')
                       lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
                     else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
@@ -209,7 +213,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             },
             renderBoard(
               ctrl.chessground.state.pieces,
-              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
+              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.flipped ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
