@@ -51,7 +51,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   const current = prop<Retrospection | null>(null);
   const feedback = prop<Feedback>('find');
 
-  const redraw = root.redraw;
+  function safeRedraw() {
+    if (!site.blindMode) root.redraw();
+  }
 
   function isPlySolved(ply: Ply): boolean {
     return solvedPlies.includes(ply);
@@ -71,7 +73,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     const node = findNextNode();
     if (!node) {
       current(null);
-      return redraw();
+      return safeRedraw();
     }
     const fault = {
       node,
@@ -114,7 +116,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       });
     }
     root.userJump(prev.path);
-    redraw();
+    safeRedraw();
   }
 
   function onJump(): void {
@@ -163,8 +165,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function onWin(): void {
     solveCurrent();
+    if (site.blindMode) jumpToNext();
     feedback('win');
-    redraw();
+    safeRedraw();
   }
 
   function onFail(): void {
@@ -175,7 +178,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     };
     root.userJump(current()!.prev.path);
     if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children)) root.tree.deleteNodeAt(bad.path);
-    redraw();
+    safeRedraw();
   }
 
   function viewSolution() {
@@ -190,7 +193,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function solveCurrent() {
-    solvedPlies.push(current()!.fault.node.ply);
+    if (current()) solvedPlies.push(current()!.fault.node.ply);
   }
 
   function hideComputerLine(node: Tree.Node): boolean {
@@ -237,7 +240,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       if (root.data.game.variant.key !== 'racingKings') root.flip();
       else {
         root.retro = make(root, opposite(color));
-        redraw();
+        safeRedraw();
       }
     },
     preventGoingToNextMove: () => {
@@ -246,6 +249,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     },
     close: root.toggleRetro,
     node: () => root.node,
-    redraw,
+    redraw: root.redraw,
   };
 }

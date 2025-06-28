@@ -491,7 +491,12 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
   return legalUcis.includes(uci) ? `${uci}${promotion}` : undefined;
 }
 
-export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {
+export function renderMainline(
+  nodes: Tree.Node[],
+  currentPath: Tree.Path,
+  style: MoveStyle,
+  withComments = true,
+): VNodeChildren {
   const res: VNodeChildren = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
@@ -502,7 +507,7 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
       renderSan(node.san, node.uci, style),
     ];
     res.push(h('move', { attrs: { p: path }, class: { active: path === currentPath } }, content));
-    res.push(renderComments(node, style));
+    if (withComments) res.push(renderComments(node, style));
     res.push(', ');
     if (node.ply % 2 === 0) res.push(h('br'));
   });

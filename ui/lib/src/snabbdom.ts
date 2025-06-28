@@ -2,12 +2,13 @@ import {
   type VNode,
   type VNodeData,
   type VNodeChildElement,
+  type VNodeChildren,
   type Hooks,
   type Attrs,
   h as snabH,
 } from 'snabbdom';
 
-export type { Attrs, VNode };
+export type { Attrs, VNode, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 
@@ -53,7 +54,7 @@ export const dataIcon = (icon: string): Attrs => ({
 
 export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
 
-export type LooseVNode = VNode | string | number | undefined | null | boolean;
+export type LooseVNode = VNodeChildElement | boolean;
 export type LooseVNodes = LooseVNode | LooseVNodes[];
 
 // '' may be falsy but it's a valid VNode

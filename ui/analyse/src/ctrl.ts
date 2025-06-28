@@ -693,7 +693,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.chessground?.setAutoShapes(computeAutoShapes(this));
+    if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
@@ -718,7 +718,7 @@ export default class AnalyseCtrl {
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
-        this.redraw();
+        if (!(site.blindMode && this.retro)) this.redraw();
       }
     });
   };
