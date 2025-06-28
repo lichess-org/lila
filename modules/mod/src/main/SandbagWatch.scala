@@ -28,22 +28,20 @@ final private class SandbagWatch(
       case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
 
   private def setRecord(userId: UserId, record: Record, game: Game): Funit =
-    if record.immaculate then
-      fuccess:
-        records.invalidate(userId)
+    if record.immaculate then fuccess(records.invalidate(userId))
     else if game.isTournament && userId.is(game.winnerUserId) then
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
       funit
     else
       records.put(userId, record)
-      modLogApi
-        .countRecentRatingManipulationsWarnings(userId)
-        .flatMap: nbWarnings =>
-          val sandbagCount       = record.countSandbagWithLatest
-          val boostCount         = record.samePlayerBoostCount
-          val sandbagSeriousness = sandbagCount + nbWarnings
-          val boostSeriousness   = boostCount + nbWarnings
+      for
+        nbWarnings <- modLogApi.countRecentRatingManipulationsWarnings(userId)
+        sandbagCount       = record.countSandbagWithLatest
+        boostCount         = record.samePlayerBoostCount
+        sandbagSeriousness = sandbagCount + nbWarnings
+        boostSeriousness   = boostCount + nbWarnings
+        _ <-
           if sandbagCount == 3
           then sendMessage(userId, msgPreset.sandbagAuto)
           else if sandbagCount == 4 then
@@ -54,6 +52,7 @@ final private class SandbagWatch(
           else if boostCount == 4
           then withWinnerAndLoser(game)((u1, u2) => reportApi.autoBoostReport(u1, u2, boostSeriousness))
           else funit
+      yield ()
 
   private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
     messageOnceEvery(userId).so:
@@ -61,9 +60,7 @@ final private class SandbagWatch(
       messenger.postPreset(userId, preset).void
 
   private def withWinnerAndLoser(game: Game)(f: (UserId, UserId) => Funit): Funit =
-    game.winnerUserId.so: winner =>
-      game.loserUserId.so:
-        f(winner, _)
+    (game.winnerUserId, game.loserUserId).tupled.so(f.tupled)
 
   private val records: Cache[UserId, Record] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(3.hours)
@@ -72,10 +69,12 @@ final private class SandbagWatch(
   private def outcomeOf(game: Game, loser: Color, userId: UserId): Outcome =
     game
       .player(userId)
-      .ifTrue(isSandbag(game))
-      .fold[Outcome](Good): player =>
-        if player.color == loser then game.winnerUserId.fold[Outcome](Good)(Sandbag.apply)
-        else game.loserUserId.fold[Outcome](Good)(Boost.apply)
+      .ifTrue(isSandbagOrBoost(game))
+      .flatMap: player =>
+        if player.color == loser
+        then game.winnerUserId.map(Sandbag.apply)
+        else game.loserUserId.map(Boost.apply)
+      .getOrElse(Good)
 
   private def isSandbag(game: Game): Boolean =
     game.playedTurns <= {
