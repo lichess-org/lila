@@ -4,7 +4,7 @@ import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
-import chess.{ Centis, Ply }
+import chess.{ Centis, Ply, Position }
 
 object TreeBuilder:
 
@@ -80,16 +80,15 @@ object TreeBuilder:
 
             advices
               .get(move.ply + 1)
-              .flatMap { adv =>
-                games.lift(index - 1).map { case fromGame =>
-                  withAnalysisChild(
-                    game.id,
-                    branch,
-                    fromGame,
-                    openingOf,
-                    logChessError
-                  )(adv.info)
-                }
+              .map { adv =>
+                withAnalysisChild(
+                  game.id,
+                  branch,
+                  move.after,
+                  move.ply,
+                  openingOf,
+                  logChessError
+                )(adv.info)
               }
               .getOrElse(branch)
 
@@ -111,7 +110,8 @@ object TreeBuilder:
   private def withAnalysisChild(
       id: GameId,
       root: Branch,
-      position: chess.MoveOrDrop.WithPly,
+      position: Position,
+      ply: Ply,
       openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Branch =
@@ -129,8 +129,8 @@ object TreeBuilder:
         eval = none
       )
 
-    val (result, error) = position.after
-      .foldRight(info.variation.take(20), position.ply)(
+    val (result, error) = position
+      .foldRight(info.variation.take(20), ply)(
         none[Branch],
         (step, acc) =>
           inline def branch = makeBranch(step.move, step.ply)
