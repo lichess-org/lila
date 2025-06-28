@@ -11,7 +11,7 @@ object MsgPreset:
 
   private val baseUrl = "https://lichess.org"
 
-  def maxFollow(username: UserName, max: Int) =
+  def maxFollow(username: UserName, max: Max) =
     Msg(
       name = "Follow limit reached!",
       text = s"""Sorry, you can't follow more than $max players on Lichess.
