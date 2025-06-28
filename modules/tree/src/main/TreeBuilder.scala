@@ -51,9 +51,9 @@ object TreeBuilder:
           root
         ,
         games =>
-          def makeBranch(index: Int, move: chess.MoveOrDrop.WithPly): Branch =
+          def makeBranch(move: chess.MoveOrDrop.WithPly): Branch =
             val fen    = Fen.write(move.after, move.ply.fullMoveNumber)
-            val info   = infos.lift(index - 1)
+            val info   = infos.lift((move.ply - init.ply - 1).value)
             val advice = advices.get(move.ply)
 
             val branch = Branch(
@@ -92,11 +92,11 @@ object TreeBuilder:
               }
               .getOrElse(branch)
 
-          games.zipWithIndex.reverse match
-            case Nil            => root
-            case (g, i) :: rest =>
-              root.prependChild(rest.foldLeft(makeBranch(i + 1, g)) { case (node, (g, i)) =>
-                makeBranch(i + 1, g).prependChild(node)
+          games.reverse match
+            case Nil       => root
+            case g :: rest =>
+              root.prependChild(rest.foldLeft(makeBranch(g)) { case (node, g) =>
+                makeBranch(g).prependChild(node)
               })
       )
 
