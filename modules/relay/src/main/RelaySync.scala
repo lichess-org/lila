@@ -51,7 +51,7 @@ final private class RelaySync(
     chapter             <- updateInitialPosition(study.id, chapter, game)
     (tagUpdate, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
     nbMoves             <- updateChapterTree(study, chapter, game)(using rt.tour)
-    _                   <- (nbMoves > 0).so(notifier.roundBegin(rt))
+    _ = if nbMoves > 0 then notifier.chapterUpdated(rt, chapter, game)
   yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves, newEnd)
 
   private def createChapter(

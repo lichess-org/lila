@@ -191,7 +191,6 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     (ctx.isAuth && ctx.isnt(s.user)).option:
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
-        `for`          := id,
         data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
       )(
         span(

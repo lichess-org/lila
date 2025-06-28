@@ -6,7 +6,7 @@ import scalalib.paginator.Paginator
 
 import lila.core.config.NetDomain
 import lila.core.data.RichText
-import lila.core.user.{ Flag, FlagCode, Profile }
+import lila.core.user.{ Flag, Profile }
 import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
 import lila.ui.*
 

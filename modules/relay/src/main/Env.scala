@@ -31,6 +31,7 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     guessPlayer: lila.core.fide.GuessPlayer,
     getPlayer: lila.core.fide.GetPlayer,
+    getPlayerFollowers: lila.core.fide.GetPlayerFollowers,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,

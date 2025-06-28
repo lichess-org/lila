@@ -106,6 +106,14 @@
     align-items: center;
     gap: 1em;
   }
+  &__header {
+    @extend %flex-between-nowrap;
+  }
+  &__follow {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
+    cursor: pointer;
+  }
   &__user {
     font-size: 0.7em;
   }
