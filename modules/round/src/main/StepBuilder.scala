@@ -64,9 +64,11 @@ object StepBuilder:
       dests = None,
       drops = None,
       crazyData = position.position.crazyData
-    )
-    val tailSteps = position.position
-      .play(sans, position.ply): step =>
+    ).toJson
+
+    val (moveSteps, error) = position.position.foldRight(sans, position.ply)(
+      List.empty[JsValue],
+      (step, acc) =>
         Step(
           ply = step.ply,
           move = Uci.WithSan(step.move.toUci, step.move.toSanStr).some,
@@ -75,15 +77,10 @@ object StepBuilder:
           dests = None,
           drops = None,
           crazyData = step.next.crazyData
-        )
-      .match
-        case Left(error) =>
-          logChessError(id.value)(error)
-          Nil
-        case Right(steps) =>
-          steps
-
-    JsArray((initStep :: tailSteps).map(_.toJson))
+        ).toJson :: acc
+    )
+    error.foreach(logChessError(id.value))
+    JsArray(initStep :: moveSteps)
 
   private val logChessError = (id: String) =>
     (err: chess.ErrorStr) =>
