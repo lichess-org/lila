@@ -245,7 +245,11 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
       },
       renderChessBoard(
         ctrl.chessground.state.pieces,
-        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+        ctrl.data.game.variant.key === 'racingKings'
+          ? 'white'
+          : ctrl.flip
+            ? opposite(ctrl.data.player.color)
+            : ctrl.data.player.color,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
