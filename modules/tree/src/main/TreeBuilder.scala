@@ -43,25 +43,26 @@ object TreeBuilder:
       eval = infos.lift(0).map(makeEval)
     )
 
-    def makeBranch(move: chess.MoveOrDrop.WithPly): Branch =
-      val fen    = Fen.write(move.after, move.ply.fullMoveNumber)
-      val info   = infos.lift((move.ply - init.ply - 1).value)
-      val advice = advices.get(move.ply)
+    def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =
+      val fen    = Fen.write(move.after, ply.fullMoveNumber)
+      val index  = (ply - init.ply - 1).value
+      val info   = infos.lift(index)
+      val advice = advices.get(ply)
 
       val branch = Branch(
         id = UciCharPair(move.toUci),
-        ply = move.ply,
+        ply = ply,
         move = Uci.WithSan(move.toUci, move.toSanStr),
         fen = fen,
         check = move.after.check,
         opening = openingOf(fen),
-        clock = withClocks.flatMap(_.lift((move.ply - init.ply - 1).value)).map(Clock(_)),
+        clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
         eval = info.map(makeEval),
         glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
         comments = Node.Comments(
-          drawOfferPlies(move.ply)
-            .option(makeLichessComment(Comment(s"${!move.ply.turn} offers draw")))
+          drawOfferPlies(ply)
+            .option(makeLichessComment(Comment(s"${!ply.turn} offers draw")))
             .toList :::
             advice
               .map(_.makeComment(withEval = false, withBestMove = true))
@@ -71,13 +72,13 @@ object TreeBuilder:
       )
 
       advices
-        .get(move.ply + 1)
+        .get(ply + 1)
         .map { adv =>
           withAnalysisChild(
             game.id,
             branch,
             move.after,
-            move.ply,
+            ply,
             openingOf,
             logChessError
           )(adv.info)
@@ -87,7 +88,7 @@ object TreeBuilder:
     val (result, error) = init.position.foldRight(game.sans, init.ply)(
       none[Branch],
       (step, acc) =>
-        inline def branch = makeBranch(chess.MoveOrDrop.WithPly(step.move, step.ply))
+        inline def branch = makeBranch(step.move, step.ply)
         acc.fold(branch)(acc => branch.prependChild(acc)).some
     )
 
