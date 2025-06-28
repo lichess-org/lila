@@ -718,7 +718,7 @@ export default class AnalyseCtrl {
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
-        this.redraw();
+        if (!(site.blindMode && this.retro)) this.redraw();
       }
     });
   };

@@ -1,22 +1,16 @@
 import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/snabbdom';
-import { defined, Prop, prop } from 'lib';
+import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData, NvuiPlugin } from '../interfaces';
+import type { AnalyseData } from '../interfaces';
 import type { Player } from 'lib/game/game';
 import {
-  type MoveStyle,
   renderSan,
   renderPieces,
   renderBoard,
   renderMainline,
   renderComments,
-  styleSetting,
-  pieceSetting,
-  prefixSetting,
-  boardSetting,
-  positionSetting,
   boardCommandsHandler,
   selectionHandler,
   arrowKeyHandler,
@@ -31,9 +25,7 @@ import {
   pocketsStr,
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
-import { Notify, liveText } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
 import { view as cevalView, renderEval, type CevalCtrl } from 'lib/ceval/ceval';
@@ -51,227 +43,217 @@ import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
 import renderClocks from '../view/clocks';
 import { renderChat } from 'lib/chat/renderChat';
-
-import type * as studyDeps from '../study/studyDeps';
-import type RelayCtrl from '../study/relay/relayCtrl';
-import type { RetroCtrl } from '../retrospect/retroCtrl';
+import { throttle } from 'lib/async';
+import { renderRetro } from '../retrospect/nvuiRetroView';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
+import { NvuiContext } from '../analyse.nvui';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
-const analysisInProgress: Prop<boolean> = prop(false);
-const notify = new Notify();
 
-export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
-  const moveStyle = styleSetting(),
-    pieceStyle = pieceSetting(),
-    prefixStyle = prefixSetting(),
-    positionStyle = positionSetting(),
-    boardStyle = boardSetting();
-
+export function initNvui({ ctrl, notify }: NvuiContext): void {
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
-
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl))); // ? is 'c' for chat or eval?
+}
 
-  return {
-    render(deps?: typeof studyDeps): VNode {
-      notify.redraw = ctrl.redraw;
-      const d = ctrl.data,
-        style = moveStyle.get(),
-        clocks = renderClocks(ctrl, ctrl.path),
-        pockets = ctrl.node.crazy?.pockets;
-      ctrl.chessground = makeChessground(document.createElement('div'), {
-        ...makeCgConfig(ctrl),
-        animation: { enabled: false },
-        drawable: { enabled: false },
-        coordinates: false,
-      });
-      return hl('main.analyse', [
-        hl('div.nvui', [
-          studyDetails(ctrl),
-          hl('h1', 'Textual representation'),
-          hl('h2', 'Game info'),
-          ...['white', 'black'].map((color: Color) =>
-            hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
-          ),
-          hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
-          d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          hl('h2', 'Moves'),
-          hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
-          !ctrl.studyPractice && [
-            hl(
-              'button',
-              {
-                attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
-              },
-              i18n.site.openingExplorerAndTablebase,
-            ),
-            explorerView(ctrl),
-          ],
-          hl('h2', 'Pieces'),
-          hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          hl('div.pockets', pockets && renderPockets(pockets)),
-          renderAriaResult(ctrl),
-          hl('h2', 'Current position'),
-          hl(
-            'p.position.lastMove',
-            ctrl.retro ? {} : { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-            // make sure consecutive positions are different so that they get re-read
-            renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
-          ),
-          clocks &&
-            hl('div.clocks', [
-              hl('h2', `${i18n.site.clock}`),
-              hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
-            ]),
-          hl('h2', 'Move form'),
-          hl(
-            'form#move-form',
-            {
-              hook: {
-                insert(vnode) {
-                  const $form = $(vnode.elm as HTMLFormElement),
-                    $input = $form.find('.move').val('');
-                  $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
-                },
-              },
-            },
-            [
-              hl('label', [
-                'Command input',
-                hl('input.move.mousetrap', {
-                  attrs: { name: 'move', type: 'text', autocomplete: 'off' },
-                }),
-              ]),
-            ],
-          ),
-          notify.render(),
-          !ctrl.retro && [
-            hl('h2', 'Computer analysis'),
-            cevalView.renderCeval(ctrl),
-            cevalView.renderPvs(ctrl),
-            renderAcpl(ctrl, style) || requestAnalysisBtn(ctrl, analysisInProgress),
-          ],
-          renderRetro(ctrl),
-          hl('h2', 'Board'),
-          hl(
-            'div.board',
-            {
-              hook: {
-                insert: el => {
-                  const $board = $(el.elm as HTMLElement);
-                  const $buttons = $board.find('button');
-                  const steps = () => ctrl.tree.getNodeList(ctrl.path);
-                  const fenSteps = () => steps().map(step => step.fen);
-                  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
-                  $buttons.on('click', selectionHandler(opponentColor, selectSound));
-                  $buttons.on('keydown', (e: KeyboardEvent) => {
-                    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
-                    else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
-                    else if (e.key.startsWith('Arrow'))
-                      arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
-                    else if (e.key === 'c')
-                      lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
-                    else if (e.key === 'i') {
-                      e.preventDefault();
-                      document.querySelector<HTMLElement>('input.move')?.focus();
-                    } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
-                    else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
-                    else if (e.key.toLowerCase() === 'm')
-                      possibleMovesHandler(
-                        ctrl.turnColor(),
-                        ctrl.chessground,
-                        ctrl.data.game.variant.key,
-                        ctrl.nodeList,
-                      )(e);
-                  });
-                },
-              },
-            },
-            renderBoard(
-              ctrl.chessground.state.pieces,
-              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
-              pieceStyle.get(),
-              prefixStyle.get(),
-              positionStyle.get(),
-              boardStyle.get(),
-            ),
-          ),
-          hl(
-            'div.boardstatus',
-            {
-              attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' },
-            },
-            '',
-          ),
-          hl('div.content', {
-            hook: {
-              insert: vnode => {
-                const root = $(vnode.elm as HTMLElement);
-                root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
-                  navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                    notify.set('PGN copied into clipboard.');
-                  });
-                });
-                root.find('.copy-fen').on('click', function (this: HTMLElement) {
-                  const inputFen = document.querySelector(
-                    '.analyse__underboard__fen input',
-                  ) as HTMLInputElement;
-                  const fen = inputFen.value;
-                  navigator.clipboard.writeText(fen).then(() => {
-                    notify.set('FEN copied into clipboard.');
-                  });
-                });
-              },
-            },
-          }),
-          hl('h2', i18n.site.advancedSettings),
-          hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          hl('h3', 'Board settings'),
-          hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-          hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-          hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-          hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          hl('h2', i18n.site.keyboardShortcuts),
-          hl(
-            'p',
-            [
-              'Use arrow keys to navigate in the game.',
-              `l: ${i18n.site.toggleLocalAnalysis}`,
-              `z: ${i18n.site.toggleAllAnalysis}`,
-              `space: ${i18n.site.playComputerMove}`,
-              'c: announce computer evaluation',
-              `x: ${i18n.site.showThreat}`,
-            ].reduce(addBreaks, []),
-          ),
-          boardCommands(),
-          hl('h2', 'Commands'),
-          hl(
-            'p',
-            [
-              'Type these commands in the command input.',
-              ...inputCommands
-                .filter(c => !c.invalid?.(ctrl))
-                .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
-            ].reduce<VNodeChildren[]>(
-              (acc, curr, i) => (i % 2 != 0 ? addBreaks(acc, curr) : acc.concat(curr)),
-              [],
-            ),
-          ),
-          hl('h2', 'Chat'),
-          ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
-          deps && ctrl.study?.relay && tourDetails(ctrl, ctrl.study, ctrl.study.relay, deps),
+export function renderNvui(ctx: NvuiContext): VNode {
+  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  notify.redraw = ctrl.redraw;
+  const d = ctrl.data,
+    style = moveStyle.get(),
+    clocks = renderClocks(ctrl, ctrl.path),
+    pockets = ctrl.node.crazy?.pockets;
+  ctrl.chessground = makeChessground(document.createElement('div'), {
+    ...makeCgConfig(ctrl),
+    animation: { enabled: false },
+    drawable: { enabled: false },
+    coordinates: false,
+  });
+  return hl('main.analyse', [
+    hl('div.nvui', [
+      studyDetails(ctrl),
+      hl('h1', 'Textual representation'),
+      hl('h2', 'Game info'),
+      ...['white', 'black'].map((color: Color) =>
+        hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
+      ),
+      hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
+      d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+      hl('h2', 'Moves'),
+      hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
+      !ctrl.studyPractice && [
+        hl(
+          'button',
+          {
+            attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+            hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+          },
+          i18n.site.openingExplorerAndTablebase,
+        ),
+        explorerView(ctrl),
+      ],
+      hl('h2', 'Pieces'),
+      hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+      hl('div.pockets', pockets && renderPockets(pockets)),
+      renderAriaResult(ctrl),
+      hl('h2', 'Current position'),
+      hl(
+        'p.position.lastMove',
+        ctrl.retro ? {} : { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+        // make sure consecutive positions are different so that they get re-read
+        renderCurrentNode(ctx) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
+      ),
+      clocks &&
+        hl('div.clocks', [
+          hl('h2', `${i18n.site.clock}`),
+          hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
-      ]);
+      hl('h2', 'Move form'),
+      hl(
+        'form#move-form',
+        {
+          hook: {
+            insert(vnode) {
+              const $form = $(vnode.elm as HTMLFormElement),
+                $input = $form.find('.move').val('');
+              $form.on('submit', onSubmit(ctx, $input));
+            },
+          },
+        },
+        [
+          hl('label', [
+            'Command input',
+            hl('input.move.mousetrap', {
+              attrs: { name: 'move', type: 'text', autocomplete: 'off' },
+            }),
+          ]),
+        ],
+      ),
+      notify.render(),
+      renderRetro(ctx),
+      !ctrl.retro && [
+        hl('h2', 'Computer analysis'),
+        cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
+        cevalView.renderPvs(ctrl),
+        renderAcpl(ctx) || requestAnalysisBtn(ctx),
+      ],
+      hl('h2', 'Board'),
+      hl(
+        'div.board',
+        { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+        renderBoard(
+          ctrl.chessground.state.pieces,
+          ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
+          pieceStyle.get(),
+          prefixStyle.get(),
+          positionStyle.get(),
+          boardStyle.get(),
+        ),
+      ),
+      hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+      hl('div.content', {
+        hook: {
+          insert: vnode => {
+            const root = $(vnode.elm as HTMLElement);
+            root.append($('.blind-content').removeClass('none'));
+            root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+              navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
+                notify.set('PGN copied into clipboard.');
+              });
+            });
+            root.find('.copy-fen').on('click', function (this: HTMLElement) {
+              const inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement;
+              const fen = inputFen.value;
+              navigator.clipboard.writeText(fen).then(() => {
+                notify.set('FEN copied into clipboard.');
+              });
+            });
+          },
+        },
+      }),
+      hl('h2', i18n.site.advancedSettings),
+      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+      hl('h3', 'Board settings'),
+      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+      hl('h2', i18n.site.keyboardShortcuts),
+      hl(
+        'p',
+        [
+          'Use arrow keys to navigate in the game.',
+          `l: ${i18n.site.toggleLocalAnalysis}`,
+          `z: ${i18n.site.toggleAllAnalysis}`,
+          `space: ${i18n.site.playComputerMove}`,
+          'c: announce computer evaluation',
+          `x: ${i18n.site.showThreat}`,
+        ].reduce(addBreaks, []),
+      ),
+      boardCommands(),
+      hl('h2', 'Commands'),
+      hl(
+        'p',
+        [
+          'Type these commands in the command input.',
+          ...inputCommands
+            .filter(c => !c.invalid?.(ctrl))
+            .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
+        ].reduce<VNodeChildren[]>(
+          (acc, curr, i) => (i % 2 != 0 ? addBreaks(acc, curr) : acc.concat(curr)),
+          [],
+        ),
+      ),
+      hl('h2', 'Chat'),
+      ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
+      deps && ctrl.study?.relay && tourDetails(ctx),
+    ]),
+  ]);
+}
+
+export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
+  return {
+    // put unique identifying props on the button container (such as class)
+    // because snabbdom WILL mix plain adjacent buttons up.
+    hook: {
+      insert: (vnode: VNode) => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('click', () => {
+          main?.(el);
+          post?.();
+        });
+      },
     },
   };
+}
+
+function boardEventsHook({ ctrl, pieceStyle, prefixStyle }: NvuiContext, el: HTMLElement): void {
+  const $board = $(el);
+  const $buttons = $board.find('button');
+  const steps = () => ctrl.tree.getNodeList(ctrl.path);
+  const fenSteps = () => steps().map(step => step.fen);
+  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+  $buttons.on('click', selectionHandler(opponentColor, selectSound));
+  $buttons.on('keydown', (e: KeyboardEvent) => {
+    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
+    else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+    else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
+    else if (e.key === 'i') {
+      e.preventDefault();
+      document.querySelector<HTMLElement>('input.move')?.focus();
+    } else if (e.key === 'f') {
+      if (ctrl.data.game.variant.key !== 'racingKings') ctrl.flip();
+    } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+    else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (e.key.toLowerCase() === 'm')
+      possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
+  });
 }
 
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
@@ -301,7 +283,7 @@ const noEvalStr = (ctrl: CevalCtrl) =>
         ? 'local evaluation not enabled'
         : '';
 
-function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
+function renderBestMove({ ctrl, moveStyle }: NvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl.ceval);
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
@@ -316,7 +298,7 @@ function renderBestMove(ctrl: AnalyseCtrl, style: MoveStyle): string {
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
-    return renderSan(san, uci, style);
+    return renderSan(san, uci, moveStyle.get());
   }
   return '';
 }
@@ -330,21 +312,22 @@ function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   ];
 }
 
-function renderCurrentLine(ctrl: AnalyseCtrl, style: MoveStyle) {
-  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style, !ctrl.retro);
+function renderCurrentLine({ ctrl, moveStyle }: NvuiContext) {
+  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, moveStyle.get(), !ctrl.retro);
   else {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
-    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style, !ctrl.retro);
+    return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, moveStyle.get(), !ctrl.retro);
   }
 }
 
-function onSubmit(ctrl: AnalyseCtrl, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
+function onSubmit(ctx: NvuiContext, $input: Cash) {
+  const { ctrl, notify } = ctx;
   return (e: SubmitEvent) => {
     e.preventDefault();
     const input = castlingFlavours(($input.val() as string).trim());
     // Allow commands with/without a leading '/'
     const command = getCommand(input) || getCommand(input.slice(1));
-    if (command && !command.invalid?.(ctrl)) command.cb(ctrl, notify, style(), input);
+    if (command && !command.invalid?.(ctrl)) command.cb(ctx, input);
     else {
       const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
       const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
@@ -352,7 +335,7 @@ function onSubmit(ctrl: AnalyseCtrl, notify: (txt: string) => void, style: () =>
         !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
       const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
 
-      if (!move || isInvalidCrazy) notify(`Invalid move: ${input}`);
+      if (!move || isInvalidCrazy) notify.set(`Invalid move: ${input}`);
       else sendMove(move, ctrl);
     }
     $input.val('');
@@ -363,7 +346,7 @@ type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'ne
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
-  cb: (ctrl: AnalyseCtrl, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
+  cb: (ctrl: NvuiContext, input: string) => void;
   invalid?: (ctrl: AnalyseCtrl) => boolean;
 };
 
@@ -371,54 +354,54 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
     help: commands().piece.help,
-    cb: (ctrl, notify, style, input) =>
-      notify(
-        commands().piece.apply(input, ctrl.chessground.state.pieces, style) ||
+    cb: ({ ctrl, notify, moveStyle }, input) =>
+      notify.set(
+        commands().piece.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) ||
           `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
     cmd: 's',
     help: commands().scan.help,
-    cb: (ctrl, notify, style, input) =>
-      notify(
-        commands().scan.apply(input, ctrl.chessground.state.pieces, style) ||
+    cb: ({ ctrl, notify, moveStyle }, input) =>
+      notify.set(
+        commands().scan.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) ||
           `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {
     cmd: 'eval',
     help: noTrans("announce last move's computer evaluation"),
-    cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
+    cb: ({ ctrl, notify }) => notify.set(renderEvalAndDepth(ctrl)),
   },
   {
     cmd: 'best',
     help: noTrans('announce the top engine move'),
-    cb: (ctrl, notify, style) => notify(renderBestMove(ctrl, style)),
+    cb: ctx => ctx.notify.set(renderBestMove(ctx)),
   },
   {
     cmd: 'prev',
     help: noTrans('return to the previous move'),
-    cb: ctrl => doAndRedraw(ctrl, prev),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, prev),
   },
-  { cmd: 'next', help: noTrans('go to the next move'), cb: ctrl => doAndRedraw(ctrl, next) },
+  { cmd: 'next', help: noTrans('go to the next move'), cb: ({ ctrl }) => doAndRedraw(ctrl, next) },
   {
     cmd: 'prev line',
     help: noTrans('switch to the previous variation'),
-    cb: ctrl => doAndRedraw(ctrl, jumpPrevLine),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, jumpPrevLine),
   },
   {
     cmd: 'next line',
     help: noTrans('switch to the next variation'),
-    cb: ctrl => doAndRedraw(ctrl, jumpNextLine),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, jumpNextLine),
   },
   {
     cmd: 'pocket',
     help: noTrans('Read out pockets for white or black. Example: "pocket black"'),
-    cb: (ctrl, notify, _, input) => {
+    cb: ({ ctrl, notify }, input) => {
       const pockets = ctrl.node.crazy?.pockets;
       const color = input.split(' ')?.[1]?.trim();
-      return notify(
+      return notify.set(
         pockets
           ? color
             ? pocketsStr(color === 'white' ? pockets[0] : pockets[1]) || i18n.site.none
@@ -450,7 +433,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
+function renderAcpl({ ctrl, moveStyle }: NvuiContext): LooseVNodes {
   const analysis = ctrl.data.analysis;
   if (!analysis || ctrl.retro) return undefined;
   const analysisGlyphs = ['?!', '?', '??'];
@@ -474,9 +457,11 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
             hl(
               'option',
               { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
-              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
-                ' ',
-              ),
+              [
+                plyToTurn(node.ply),
+                renderSan(node.san!, node.uci, moveStyle.get()),
+                renderComments(node, moveStyle.get()),
+              ].join(' '),
             ),
           ),
       ),
@@ -485,16 +470,16 @@ function renderAcpl(ctrl: AnalyseCtrl, style: MoveStyle): LooseVNodes {
   return res;
 }
 
-const requestAnalysisBtn = (ctrl: AnalyseCtrl, inProgress: Prop<boolean>) => {
+const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: NvuiContext) => {
   if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
-  return inProgress()
+  return analysisInProgress()
     ? hl('p', 'Server-side analysis in progress')
     : hl(
         'button.request-analysis',
         clickHook(() =>
           xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
             () => {
-              inProgress(true);
+              analysisInProgress(true);
               notify.set('Server-side analysis in progress');
             },
             () => notify.set('Cannot run server-side analysis'),
@@ -518,15 +503,16 @@ function renderLineIndex(ctrl: AnalyseCtrl): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode(ctrl: AnalyseCtrl, style: MoveStyle): string {
+function renderCurrentNode({ ctrl, moveStyle }: NvuiContext): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [
     plyToTurn(node.ply),
-    renderSan(node.san, node.uci, style),
+    renderSan(node.san, node.uci, moveStyle.get()),
     renderLineIndex(ctrl),
-    !ctrl.retro && renderComments(node, style),
+    !ctrl.retro && renderComments(node, moveStyle.get()),
   ]
+    .filter(x => x)
     .join(' ')
     .trim();
 }
@@ -600,13 +586,8 @@ const redirectToSelectedHook = bind('change', (e: InputEvent) => {
   if (url) window.location.href = url;
 });
 
-function tourDetails(
-  ctrl: AnalyseCtrl,
-  study: studyDeps.StudyCtrl,
-  relay: RelayCtrl,
-  deps: typeof studyDeps,
-): VNode[] {
-  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: false };
+function tourDetails({ ctrl, deps }: NvuiContext): VNode[] {
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), allowVideo: false } as RelayViewContext;
   const tour = ctx.relay.data.tour;
   ctx.relay.redraw = ctrl.redraw;
 
@@ -745,129 +726,3 @@ function jumpMoveOrLine(ctrl: AnalyseCtrl) {
     else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
   };
 }
-
-function clickHook(main: (el: HTMLElement) => void, post?: () => void) {
-  return {
-    // put unique identifying props on the button container (class is fine)
-    // because snabbdom and screen readers will mix them up.
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => {
-          main(el);
-          post?.();
-        });
-      },
-    },
-  };
-}
-
-function renderRetro(ctrl: AnalyseCtrl): LooseVNodes {
-  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
-
-  const nodes: LooseVNodes = [
-    hl('h2', i18n.site.learnFromYourMistakes),
-    hl(
-      'button.retro-toggle',
-      clickHook(ctrl.toggleRetro, ctrl.redraw),
-      ctrl.retro ? 'Stop learning from mistakes' : 'Learn from your mistakes',
-    ),
-  ];
-  if (ctrl.retro) {
-    const current = ctrl.retro.current();
-    const state =
-      ctrl.retro.isSolving() && current && ctrl.path !== current.prev.path
-        ? 'offTrack'
-        : ctrl.retro.feedback();
-    const completion = ctrl.retro.completion();
-    nodes.push(
-      hl('label', `Mistake ${Math.min(completion[0] + 1, completion[1])} of ${completion[1]}`),
-      retroStateBtns[state]?.(ctrl.retro),
-    );
-  }
-  return nodes;
-}
-
-function speakableMove(node: Tree.Node) {
-  return renderSan(node.san, node.uci, styleSetting().get());
-}
-
-function solveAndSkipBtns(ctrl: RetroCtrl): LooseVNodes {
-  return [
-    hl(
-      'button.retro-solve',
-      clickHook(() => ctrl.feedback('view'), ctrl.redraw),
-      i18n.site.viewTheSolution,
-    ),
-    hl('button.retro-skip', clickHook(ctrl.skip, ctrl.redraw), i18n.site.skipThisMove),
-  ];
-}
-
-function nextMistakeBtn(ctrl: RetroCtrl): LooseVNodes {
-  return ctrl.current()
-    ? hl('button.retro-next', clickHook(ctrl.skip), i18n.site.next)
-    : doneWithMistakes(ctrl);
-}
-
-function doneWithMistakes(ctrl: RetroCtrl): LooseVNodes {
-  const noMistakes = !ctrl.completion()[1];
-  return [
-    liveText(
-      i18n.site[
-        noMistakes
-          ? ctrl.color === 'white'
-            ? 'noMistakesFoundForWhite'
-            : 'noMistakesFoundForBlack'
-          : ctrl.color === 'white'
-            ? 'doneReviewingWhiteMistakes'
-            : 'doneReviewingBlackMistakes'
-      ],
-    ),
-    !noMistakes && hl('button.retro-again', clickHook(ctrl.reset), i18n.site.doItAgain),
-    hl(
-      'button.retro-flip',
-      clickHook(() => {
-        ctrl.flip();
-        ctrl.jumpToNext();
-      }),
-      i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
-    ),
-  ];
-}
-
-const retroStateBtns = {
-  offTrack(ctrl: RetroCtrl): LooseVNodes {
-    return [
-      liveText(i18n.site.youBrowsedAway),
-      hl('button.retro-resume', clickHook(ctrl.jumpToNext), i18n.site.resumeLearning),
-    ];
-  },
-  fail(ctrl: RetroCtrl): LooseVNodes {
-    const tryAgain =
-      ctrl.color === 'white' ? i18n.site.tryAnotherMoveForWhite : i18n.site.tryAnotherMoveForBlack;
-    return [liveText(`${i18n.site.youCanDoBetter}. ${tryAgain}`), solveAndSkipBtns(ctrl)];
-  },
-  win(ctrl: RetroCtrl): LooseVNodes {
-    return retroStateBtns.find(ctrl, `${i18n.study.goodMove}. `);
-  },
-  view(ctrl: RetroCtrl): LooseVNodes {
-    if (!ctrl.current()) return doneWithMistakes(ctrl);
-    return [
-      liveText(`${i18n.site.solution} ${speakableMove(ctrl.current()!.solution.node)}.`),
-      nextMistakeBtn(ctrl),
-    ];
-  },
-  find(ctrl: RetroCtrl, prelude = ''): LooseVNodes {
-    const node = ctrl.current()?.fault.node;
-    if (!node) return doneWithMistakes(ctrl);
-    return [
-      liveText(
-        prelude +
-          `Turn ${Math.floor(node.ply / 2) + 1}. ${i18n.site[ctrl.color]} played ${speakableMove(node)}. ` +
-          (ctrl.color === 'white' ? i18n.site.findBetterMoveForWhite : i18n.site.findBetterMoveForBlack),
-      ),
-      solveAndSkipBtns(ctrl),
-    ];
-  },
-  eval: undefined,
-};
