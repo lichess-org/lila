@@ -9,6 +9,7 @@ import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn,
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import java.time.ZoneId
+import chess.tiebreakers.Tiebreaker
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -43,6 +44,21 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
+  private given Formatter[Tiebreaker] =
+    formatter.stringOptionFormatter(_.code, Tiebreaker.byCode.get)
+
+  private val optionalTb       = optional(typeIn(Tiebreaker.values.toSet))
+  private val tiebreaksMapping =
+    mapping(
+      "tiebreak1" -> optionalTb,
+      "tiebreak2" -> optionalTb,
+      "tiebreak3" -> optionalTb,
+      "tiebreak4" -> optionalTb,
+      "tiebreak5" -> optionalTb
+    )((tb1, tb2, tb3, tb4, tb5) => Seq(tb1, tb2, tb3, tb4, tb5).flatten)(seq =>
+      (seq.lift(0), seq.lift(1), seq.lift(2), seq.lift(3), seq.lift(4)).some
+    )
+
   val form = Form(
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
@@ -51,6 +67,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
       "showScores"      -> boolean,
       "showRatingDiffs" -> boolean,
+      "tiebreaks"       -> optional(tiebreaksMapping),
       "teamTable"       -> boolean,
       "players"         -> optional(
         of(using formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
@@ -78,6 +95,7 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
+      tiebreaks: Option[Seq[Tiebreaker]] = none,
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,
@@ -96,6 +114,7 @@ object RelayTourForm:
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
+          tiebreaks = tiebreaks,
           teamTable = teamTable,
           players = players,
           teams = teams,
@@ -119,6 +138,7 @@ object RelayTourForm:
         syncedAt = none,
         showScores = showScores,
         showRatingDiffs = showRatingDiffs,
+        tiebreaks = tiebreaks,
         teamTable = teamTable,
         players = players,
         teams = teams,
@@ -146,6 +166,7 @@ object RelayTourForm:
         tier = tour.tier,
         showScores = tour.showScores,
         showRatingDiffs = tour.showRatingDiffs,
+        tiebreaks = tour.tiebreaks,
         teamTable = tour.teamTable,
         players = tour.players,
         teams = tour.teams,

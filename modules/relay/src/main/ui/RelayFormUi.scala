@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
+import chess.tiebreakers.Tiebreaker
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -552,7 +553,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3
           .fieldset(
             "Features",
-            toggle = tg.map(_.tour).exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable).some
+            toggle = tg
+              .map(_.tour)
+              .exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable || t.tiebreaks.isDefined)
+              .some
           )(
             form3.split(
               form3.checkbox(
@@ -573,6 +577,23 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               )
+            ),
+            form3.split(
+              (1 to 5).map: i =>
+                form3.group(
+                  form(s"tiebreaks.tiebreak$i"),
+                  s"Tiebreak $i",
+                  half = true
+                )(
+                  form3.select(
+                    _,
+                    Tiebreaker.values
+                      .sortBy(_.name)
+                      .map: t =>
+                        t.code -> s"${t.name} (${t.code})",
+                    default = "Optional. Select a tiebreak".some
+                  )
+                )
             )
           ),
         form3.fieldset(

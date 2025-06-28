@@ -26,6 +26,8 @@ interface RelayPlayer extends StudyPlayer {
   played?: number;
   ratingDiff?: number;
   performance?: number;
+  tiebreaks?: Record<string, number>;
+  rank?: number;
 }
 
 interface RelayPlayerGame {
@@ -206,6 +208,7 @@ const playersList = (ctrl: RelayPlayers): VNode =>
 const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
   const withScores = !!players.find(p => p.score !== undefined);
+  const withRank = !!players.find(p => p.rank);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
@@ -219,7 +222,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       hl(
         'thead',
         hl('tr', [
-          hl('th', i18n.site.player),
+          withRank && hl('th', i18n.site.rank),
+          hl('th.player-name', i18n.site.player),
           withRating && hl('th', !withScores && defaultSort, 'Elo'),
           withScores && hl('th', defaultSort, i18n.broadcast.score),
           hl('th', i18n.site.games),
@@ -229,6 +233,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         'tbody',
         players.map(player =>
           hl('tr', [
+            withRank && hl('td', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
             hl(
               'td.player-name',
               { attrs: { 'data-sort': player.name || '' } },
@@ -245,7 +250,23 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                 !!player.rating && [`${player.rating}`, ratingDiff(player)],
               ),
             withScores &&
-              hl('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score ?? 0}`),
+              hl(
+                'td',
+                {
+                  attrs: {
+                    title: player.tiebreaks
+                      ? 'TBs: ' +
+                        Object.entries(player.tiebreaks)
+                          .map(([code, tb]) => `${code}:${tb}`)
+                          .join(', ')
+                      : '',
+                    'data-sort': player.rank
+                      ? -player.rank // so that I don't have to insert a data-sort-reverse also
+                      : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
+                  },
+                },
+                `${player.score ?? 0}`,
+              ),
             hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
           ]),
         ),
