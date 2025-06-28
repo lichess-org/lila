@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.core.fide.FideTC
+import chess.tiebreakers.Tiebreaker
 
 object BSONHandlers:
 
@@ -65,7 +66,8 @@ object BSONHandlers:
     }
   )
 
-  given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
+  given BSONHandler[FideTC]     = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
+  given BSONHandler[Tiebreaker] = stringAnyValHandler[Tiebreaker](_.code, Tiebreaker.byCode(_))
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound]       = Macros.handler

@@ -13,6 +13,8 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
+import chess.tiebreakers.Tiebreaker.{ PlayerGames, POVGame, tb, Player }
+import chess.tiebreakers.{ Tiebreaker, TieBreakPoints }
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -20,11 +22,15 @@ case class RelayPlayer(
     score: Option[Float],
     ratingDiff: Option[IntRatingDiff],
     performance: Option[IntRating],
+    tiebreaks: Option[SeqMap[Tiebreaker, TieBreakPoints]],
+    rank: Option[Int],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
   def eloGames: Vector[Elo.Game]       = games.flatMap(_.eloGame)
+  def toTieBreakPlayer: Option[Player] = (player.id, player.rating).mapN: (id, rating) =>
+    Player(name = id.toString, rating = rating.into(Elo))
 
 object RelayPlayer:
   case class Game(
@@ -47,6 +53,14 @@ object RelayPlayer:
       .map(_.value)
       .orElse(playerPoints.map(_.value))
 
+    def toTiebreakerGame: Option[POVGame] =
+      (opponent.id, opponent.rating).mapN: (opponentId, opRating) =>
+        POVGame(
+          color = color,
+          opponent = Player(opponentId.toString, opRating.into(Elo)),
+          points = playerPoints
+        )
+
     // only rate draws and victories, not exotic results
     def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
@@ -57,16 +71,25 @@ object RelayPlayer:
 
   object json:
     import JsonView.given
-    given Writes[Outcome]            = Json.writes
-    given Writes[Outcome.Points]     = writeAs(_.show)
-    given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[RelayPlayer.Game]   = Json.writes
-    given OWrites[RelayPlayer]       = OWrites: p =>
+    given Writes[Outcome]                            = Json.writes
+    given Writes[Outcome.Points]                     = writeAs(_.show)
+    given Writes[Outcome.GamePoints]                 = writeAs(points => Outcome.showPoints(points.some))
+    given Writes[RelayPlayer.Game]                   = Json.writes
+    given Writes[SeqMap[Tiebreaker, TieBreakPoints]] = Writes { tbs =>
+      JsObject(
+        tbs.map { case (tb, tbv) =>
+          tb.code -> Json.toJson(tbv)
+        }
+      )
+    }
+    given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
+        .add("tiebreaks" -> p.tiebreaks)
+        .add("rank" -> p.rank)
     def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =
       val tc             = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
@@ -170,7 +193,10 @@ private final class RelayPlayerApi(
                             players.updated(
                               playerId,
                               players
-                                .getOrElse(playerId, RelayPlayer(player, None, None, None, Vector.empty))
+                                .getOrElse(
+                                  playerId,
+                                  RelayPlayer(player, None, None, None, None, None, Vector.empty)
+                                )
                                 .withGame(game)
                             )
                   }
@@ -178,7 +204,7 @@ private final class RelayPlayerApi(
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
             else fuccess(withScore)
-        yield withRatingDiff
+        yield computeTiebreaksAndRank(withRatingDiff, tour.tiebreaks)
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
@@ -217,3 +243,68 @@ private final class RelayPlayerApi(
           .map: newPlayer =>
             id -> (newPlayer | player)
       .map(_.to(SeqMap))
+
+  private def computeTiebreaksAndRank(
+      players: RelayPlayers,
+      breakers: Option[Seq[Tiebreaker]]
+  ): RelayPlayers =
+    breakers.fold(players)(brs => computeTiebreaks(players, brs).pipe(rankPlayers))
+
+  private def computeTiebreaks(
+      players: RelayPlayers,
+      breakers: Seq[Tiebreaker]
+  ): RelayPlayers =
+    // We must compute a tiebreak for all players and then move on to the next because direct-encounter
+    // uses the previous tiebreaks to compute equal standings.
+    breakers.foldLeft(players): (accPlayers, breaker) =>
+      accPlayers.map:
+        case (id, player) =>
+          player.toTieBreakPlayer.fold(id -> player): tiebreakerPlayer =>
+            val allGames = accPlayers.flatMap { case (_, rp) =>
+              val tbGames = rp.games.flatMap(_.toTiebreakerGame)
+              rp.toTieBreakPlayer
+                .map(pl => PlayerGames(pl, tbGames, rp.tiebreaks.map(_.map(_._2).toVector)))
+            }.toSeq
+            val newTb        = tb(breaker, tiebreakerPlayer, allGames)
+            val newTiebreaks = player.tiebreaks match
+              case Some(tbs) => tbs.updated(breaker, newTb)
+              case _         => SeqMap(breaker -> newTb)
+            id -> player.copy(tiebreaks = Some(newTiebreaks))
+
+  private def rankPlayers(
+      players: RelayPlayers
+  ): RelayPlayers =
+    def compareTiebreaks(
+        a: Option[SeqMap[Tiebreaker, TieBreakPoints]],
+        b: Option[SeqMap[Tiebreaker, TieBreakPoints]]
+    ): Int =
+      (a, b)
+        .flatMapN: (amap, bmap) =>
+          amap
+            .zip(bmap)
+            .collectFirst:
+              case ((xk, xv), (yk, yv)) if xk == yk && xv != yv =>
+                yv.value.compareTo(xv.value)
+        .getOrElse(0)
+
+    val sorted = players.toList.sortWith { case ((_, p1), (_, p2)) =>
+      // 1. Score descending
+      val scoreCmp = Ordering[Option[Float]].reverse.compare(p1.score, p2.score)
+      if scoreCmp != 0 then scoreCmp < 0
+      else
+        // 2. Tiebreaks descending
+        val tbCmp = compareTiebreaks(p1.tiebreaks, p2.tiebreaks)
+        if tbCmp != 0 then tbCmp < 0
+        else
+          // 3. Performance descending
+          val perfCmp = p1.performance.map(_.value).compare(p2.performance.map(_.value))
+          if perfCmp != 0 then perfCmp < 0
+          else
+            // 4. Rating descending
+            p1.rating.map(_.value) < p2.rating.map(_.value)
+    }
+    sorted.zipWithIndex
+      .map:
+        case ((id, player), i) =>
+          id -> player.copy(rank = Some(i + 1))
+      .to(SeqMap)

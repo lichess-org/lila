@@ -10,6 +10,7 @@ import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
 import chess.TournamentClock
+import chess.tiebreakers.Tiebreaker
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -25,6 +26,7 @@ case class RelayTour(
     spotlight: Option[RelayTour.Spotlight] = None,
     showScores: Boolean = true,
     showRatingDiffs: Boolean = true,
+    tiebreaks: Option[Seq[Tiebreaker]] = None,
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
