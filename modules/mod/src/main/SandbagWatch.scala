@@ -87,7 +87,7 @@ final private class SandbagWatch(
       else if loserRatingGt(1600) then 15
       else 8
 
-    game.playedTurns <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
+    game.playedPlies <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
 
 private object SandbagWatch:
 

@@ -129,7 +129,7 @@ final class AssessApi(
         else if game.rated.no then false
         else if lila.game.Player.HoldAlert.suspicious(holdAlerts) then true
         else if game.isCorrespondence then false
-        else if game.playedTurns < PlayerAssessment.minPlies then false
+        else if game.playedPlies < PlayerAssessment.minPlies then false
         else if game.players.exists(consistentMoveTimes(game)) then true
         else if game.createdAt.isBefore(bottomDate) then false
         else true
@@ -204,9 +204,9 @@ final class AssessApi(
       // give up on correspondence games
       else if game.isCorrespondence then fuccess(none)
       // stop here for short games
-      else if game.playedTurns < PlayerAssessment.minPlies then fuccess(none)
+      else if game.playedPlies < PlayerAssessment.minPlies then fuccess(none)
       // stop here for long games
-      else if game.playedTurns > 95 then fuccess(none)
+      else if game.playedPlies > 95 then fuccess(none)
       // stop here for casual games
       else if game.rated.no then fuccess(none)
       // discard old games

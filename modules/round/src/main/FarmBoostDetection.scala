@@ -49,10 +49,10 @@ final private class FarmBoostDetection(
           else reasonableMinimumNumberOfMoves(g.variant)
         val found = (
           perf.provisional.yes &&
-            g.playedTurns < minMoves &&
+            g.playedPlies < minMoves &&
             g.durationSeconds.exists(_ < minSeconds)
         ) || (
-          g.playedTurns < 10
+          g.playedPlies < 10
         )
         if found then
           lila.mon.round.farming.provisional.increment()

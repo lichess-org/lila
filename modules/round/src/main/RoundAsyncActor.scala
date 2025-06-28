@@ -382,7 +382,7 @@ final private class RoundAsyncActor(
         )
 
   private def recordLag(pov: Pov): Unit =
-    if (pov.game.playedTurns.value & 30) == 10 then
+    if (pov.game.playedPlies.value & 30) == 10 then
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for
