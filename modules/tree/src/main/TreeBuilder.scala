@@ -46,7 +46,10 @@ object TreeBuilder:
     init.position
       .play(game.sans, init.ply)(step => chess.MoveOrDrop.WithPly(step.move, step.ply))
       .fold(
-        _ => root,
+        error =>
+          logChessError(formatError(game.id, error))
+          root
+        ,
         games =>
           def makeBranch(index: Int, move: chess.MoveOrDrop.WithPly): Branch =
             val fen    = Fen.write(move.after, move.ply.fullMoveNumber)
