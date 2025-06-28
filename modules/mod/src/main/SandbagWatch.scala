@@ -2,6 +2,7 @@ package lila.mod
 
 import com.github.blemale.scaffeine.Cache
 import chess.rating.IntRatingDiff
+import chess.IntRating
 
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi
@@ -76,11 +77,17 @@ final private class SandbagWatch(
         else game.loserUserId.map(Boost.apply)
       .getOrElse(Good)
 
-  private def isSandbag(game: Game): Boolean =
-    game.playedTurns <= {
+  private def isSandbagOrBoost(game: Game): Boolean =
+
+    def loserRatingGt(r: Int) = game.loser.flatMap(_.rating).exists(_ > IntRating(r))
+
+    val minTurns =
       if game.variant == chess.variant.Atomic then 3
+      else if loserRatingGt(1800) then 25
+      else if loserRatingGt(1600) then 15
       else 8
-    } && game.winner.exists(_.ratingDiff.exists(_.positive))
+
+    game.playedTurns <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
 
 private object SandbagWatch:
 
