@@ -12,8 +12,8 @@ object TreeBuilder:
     val dests =
       if variant.standard && root.fen.isInitial then initialStandardDests
       else
-        val sit = chess.Game(variant.some, root.fen.some).position
-        sit.playable(false).so(sit.destinations)
+        val position = chess.Position(variant, root.fen)
+        position.playable(false).so(position.destinations)
     root
       .focus(_.metas)
       .modify(_.copy(dests = dests.some))
@@ -22,6 +22,6 @@ object TreeBuilder:
     val dests =
       if variant.standard && root.fen.isInitial then initialStandardDests
       else
-        val sit = chess.Game(variant.some, root.fen.some).position
-        sit.playable(false).so(sit.destinations)
+        val position = chess.Position(variant, root.fen)
+        position.playable(false).so(position.destinations)
     root.copy(dests = dests.some)
