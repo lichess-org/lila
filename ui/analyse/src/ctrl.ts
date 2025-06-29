@@ -10,11 +10,11 @@ import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -48,6 +48,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { VNode } from 'lib/snabbdom';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -656,12 +657,47 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
-    // Also update parent
-    const parentPath = treePath.init(path);
-    this.tree.setCollapsedAt(parentPath, collapsed);
-    this.tree.setCollapsedRecursive(path, collapsed);
+  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedForCtxMenu(path, collapsed);
     this.redraw();
+  }
+
+  wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
+    const sameShallowProps = (a: any, b: any): boolean =>
+      a === b ||
+      (!!a &&
+        !!b &&
+        Object.keys(a).length === Object.keys(b).length &&
+        Object.keys(a).every(k => typeof a[k] === 'function' || typeof b[k] === 'function' || a[k] === b[k]));
+
+    const sameVisually = (v1: VNode | undefined, v2: VNode | undefined): boolean => {
+      if (v1 === v2) return true;
+      if (!v1 || !v2 || [typeof v1, typeof v2].includes('string') || v1.sel !== v2.sel || v1.text !== v2.text)
+        return false;
+
+      const d1 = v1.data ?? {},
+        d2 = v2.data ?? {};
+      if (
+        d1.ns !== d2.ns ||
+        d1.is !== d2.is ||
+        !sameShallowProps(d1.attrs, d2.attrs) ||
+        !sameShallowProps(d1.class, d2.class) ||
+        !sameShallowProps(d1.style, d2.style) ||
+        !sameShallowProps(d1.props, d2.props) ||
+        !sameShallowProps(d1.dataset, d2.dataset)
+      )
+        return false;
+
+      const c1 = v1.children as VNode[] | undefined;
+      const c2 = v2.children as VNode[] | undefined;
+      if (!c1 || !c2) return c1 === c2;
+      return c1.length === c2.length && c1.every((_, i) => sameVisually(c1[i], c2[i]));
+    };
+
+    if (typeof structuredClone !== 'function') return true;
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
+    ctrlWithDiffTree.tree.setCollapsedForCtxMenu(path, collapsed);
+    return !sameVisually(renderTreeView(this), renderTreeView(ctrlWithDiffTree));
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {

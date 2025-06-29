@@ -513,7 +513,7 @@ const requestAnalysisButton = (
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
-  const prevNode = ctrl.tree.nodeAtPath(treePath.init(ctrl.path));
+  const prevNode = ctrl.tree.parentNode(ctrl.path);
   return {
     i: prevNode.children.findIndex(node => node.id === ctrl.node.id),
     of: prevNode.children.length,
