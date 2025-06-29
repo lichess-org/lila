@@ -19,3 +19,10 @@ object UblogPost:
 
 trait UblogApi:
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]]
+
+enum BlogsBy:
+  case newest, oldest, score, likes
+  def name = toString
+
+object BlogsBy:
+  def fromName(name: String): Option[BlogsBy] = values.find(_.name == name)
