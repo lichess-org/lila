@@ -22,8 +22,8 @@ object TreeBuilder:
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
-    val init                               = chess.Position.AndFullMoveNumber(game.variant, initialFen.some)
-    val fen                                = Fen.write(init)
+    val setup                              = chess.Position.AndFullMoveNumber(game.variant, initialFen)
+    val fen                                = Fen.write(setup)
     val infos: Vector[Info]                = analysis.so(_.infos.toVector)
     val openingOf: OpeningOf               =
       if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
@@ -32,20 +32,20 @@ object TreeBuilder:
     val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
 
     val root = Root(
-      ply = init.ply,
+      ply = setup.ply,
       fen = fen,
-      check = init.position.check,
+      check = setup.position.check,
       opening = openingOf(fen),
       clock = withFlags.clocks.so:
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
       ,
-      crazyData = init.position.crazyData,
+      crazyData = setup.position.crazyData,
       eval = infos.lift(0).map(makeEval)
     )
 
     def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =
       val fen    = Fen.write(move.after, ply.fullMoveNumber)
-      val index  = (ply - init.ply - 1).value
+      val index  = (ply - setup.ply - 1).value
       val info   = infos.lift(index)
       val advice = advices.get(ply)
 
@@ -85,7 +85,7 @@ object TreeBuilder:
         }
         .getOrElse(branch)
 
-    val (result, error) = init.position.foldRight(game.sans, init.ply)(
+    val (result, error) = setup.position.foldRight(game.sans, setup.ply)(
       none[Branch],
       (step, acc) =>
         inline def branch = makeBranch(step.move, step.ply)
