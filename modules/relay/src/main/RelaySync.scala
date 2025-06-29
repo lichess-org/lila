@@ -48,11 +48,11 @@ final private class RelaySync(
       game: RelayGame,
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] = for
-    chapter             <- updateInitialPosition(study.id, chapter, game)
-    (tagUpdate, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
-    nbMoves             <- updateChapterTree(study, chapter, game)(using rt.tour)
-    _ = if nbMoves > 0 then notifier.chapterUpdated(rt, chapter, game)
-  yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves, newEnd)
+    chapter           <- updateInitialPosition(study.id, chapter, game)
+    (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
+    nbMoves           <- updateChapterTree(study, chapter, game)(using rt.tour)
+    _ = if nbMoves > 0 then notifier.chapterUpdated(rt, newTags.foldLeft(chapter)(_.withTags(_)), game)
+  yield SyncResult.ChapterResult(chapter.id, newTags.isDefined, nbMoves, newEnd)
 
   private def createChapter(
       rt: RelayRound.WithTour,
@@ -148,7 +148,7 @@ final private class RelaySync(
       study: Study,
       chapter: Chapter,
       game: RelayGame
-  ): Fu[(Boolean, Boolean)] = // (newTags, newEnd)
+  ): Fu[(Option[Tags], Boolean)] = // (newTags, newEnd)
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
@@ -160,7 +160,7 @@ final private class RelaySync(
     val tags           = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
-    if chapterNewTags == chapter.tags then fuccess(false -> false)
+    if chapterNewTags == chapter.tags then fuccess(none -> false)
     else
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
@@ -174,7 +174,7 @@ final private class RelaySync(
         )(who(chapter.ownerId))
         newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         _ <- newEnd.so(onChapterEnd(tour, study, chapter))
-      yield (true, newEnd)
+      yield (tags.some, newEnd)
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
     _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)

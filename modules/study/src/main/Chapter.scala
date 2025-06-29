@@ -116,6 +116,8 @@ case class Chapter(
 
   def tagsExport = PgnTags.cleanUpForPublication(tags)
 
+  def withTags(t: Tags) = copy(tags = t)
+
 object Chapter:
 
   type Order = Int
