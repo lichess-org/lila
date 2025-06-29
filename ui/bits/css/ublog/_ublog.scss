@@ -142,7 +142,10 @@
   span {
     @extend %flex-between;
     font-size: 0.9em;
-    gap: 1ch;
+  }
+  label {
+    display: flex;
+    gap: 4px;
   }
   .pull {
     padding: 2px;
@@ -158,6 +161,7 @@
     }
   }
   .user-link {
+    display: flex;
     color: $c-primary;
   }
 }
