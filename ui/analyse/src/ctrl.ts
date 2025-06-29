@@ -123,7 +123,6 @@ export default class AnalyseCtrl {
   requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
   nvui?: NvuiPlugin;
-  nvuiLearning?: boolean;
   pvUciQueue: Uci[] = [];
   keyboardMove?: KeyboardMove;
 
