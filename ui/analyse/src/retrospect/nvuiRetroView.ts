@@ -23,7 +23,6 @@ export function renderRetro(ctx: NvuiContext): LooseVNodes {
 
     let state = ctrl.retro.feedback();
     if (ctrl.retro.isSolving() && current && ctrl.path !== current.prev.path) state = 'offTrack';
-    console.log(state, ctrl.retro.feedback());
 
     nodes.push(
       hl('label', `Mistake ${Math.min(mistakes[0] + 1, mistakes[1])} of ${mistakes[1]}`),
