@@ -14,7 +14,7 @@ export function renderRetro(ctx: NvuiContext): LooseVNodes {
     hl(
       'button.retro-toggle',
       clickHook(ctrl.toggleRetro, ctrl.redraw),
-      ctrl.retro ? 'Stop learning from mistakes' : 'Learn from your mistakes',
+      ctrl.retro ? 'Stop learning from mistakes' : i18n.site.learnFromYourMistakes
     ),
   ];
   if (ctrl.retro) {
