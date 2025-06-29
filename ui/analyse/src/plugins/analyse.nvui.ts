@@ -30,6 +30,7 @@ import {
   renderPockets,
   pocketsStr,
 } from 'lib/nvui/chess';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
@@ -169,12 +170,30 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   const steps = () => ctrl.tree.getNodeList(ctrl.path);
                   const fenSteps = () => steps().map(step => step.fen);
                   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+                  $buttons.on('blur', (ev: KeyboardEvent) => {
+                    const $currBtn = $(ev.target as HTMLElement);
+                    $currBtn.removeAttr('ray');
+                    $buttons.removeClass('active');
+                    $currBtn.addClass('active');
+                  });
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', (e: KeyboardEvent) => {
                     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+                    else if (e.key.toLowerCase() === 'f') {
+                      ctrl.flipped = !ctrl.flipped;
+                      ctrl.redraw();
+                    } else if (e.key.match(/^x$/i))
+                      scanDirectionsHandler(
+                        ctrl.flipped ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+                        ctrl.chessground.state.pieces,
+                        moveStyle.get(),
+                      )(e);
                     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
                     else if (e.key.startsWith('Arrow'))
-                      arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+                      arrowKeyHandler(
+                        ctrl.flipped ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+                        borderSound,
+                      )(e);
                     else if (e.key === 'c')
                       lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
                     else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
@@ -186,13 +205,21 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                         ctrl.data.game.variant.key,
                         ctrl.nodeList,
                       )(e);
+                    else if (e.key === 'i') {
+                      e.preventDefault();
+                      $('input.move').get(0)?.focus();
+                    }
                   });
                 },
               },
             },
             renderBoard(
               ctrl.chessground.state.pieces,
-              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
+              ctrl.data.game.variant.key === 'racingKings'
+                ? 'white'
+                : ctrl.flipped
+                  ? opposite(ctrl.data.player.color)
+                  : ctrl.data.player.color,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
@@ -360,7 +387,7 @@ function onSubmit(
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'b' | 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -369,6 +396,18 @@ type InputCommand = {
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'b',
+    help: i18n.nvui.goToBoard,
+    cb: (_notify, _ctrl, _style, input) => {
+      const words = input.split(' ');
+      const file = words[1]?.charAt(0) || 'e';
+      const rank = words[1]?.charAt(1) || '4';
+      const button =
+        $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      button?.focus();
+    },
+  },
   {
     cmd: 'p',
     help: commands().piece.help,

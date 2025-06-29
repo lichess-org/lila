@@ -22,6 +22,7 @@ import {
   styleSetting,
   type MoveStyle,
 } from 'lib/nvui/chess';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'lib/nvui/setting';
 import { Notify } from 'lib/nvui/notify';
@@ -124,14 +125,30 @@ export function initModule() {
                 const fenSteps = () => steps.map(step => step.fen);
                 const opponentColor = opposite(ctrl.pov);
 
+                $buttons.on('blur', (ev: KeyboardEvent) => {
+                  const $currBtn = $(ev.target as HTMLElement);
+                  $currBtn.removeAttr('ray');
+                  $buttons.removeClass('active');
+                  $currBtn.addClass('active');
+                });
                 $buttons.on(
                   'click',
                   selectionHandler(() => opponentColor, selectSound),
                 );
                 $buttons.on('keydown', (e: KeyboardEvent) => {
                   if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+                  else if (e.key.toLowerCase() === 'f') {
+                    ctrl.flip();
+                    ctrl.redraw();
+                  } else if (e.key.match(/^x$/i))
+                    scanDirectionsHandler(
+                      ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+                      ground.state.pieces,
+                      moveStyle.get(),
+                    )(e);
                   else if (['o'].includes(e.key)) boardCommandsHandler()(e);
-                  else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.pov, borderSound)(e);
+                  else if (e.key.startsWith('Arrow'))
+                    arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
                   else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
                   else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
                   else if (e.key.toLowerCase() === 'm')
@@ -147,7 +164,7 @@ export function initModule() {
             },
             renderBoard(
               ground.state.pieces,
-              ctrl.pov,
+              ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
@@ -235,7 +252,7 @@ const isYourMove = (ctrl: PuzzleCtrl): boolean =>
 const browseHint = (ctrl: PuzzleCtrl): string[] =>
   ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
-const shortCommands = ['l', 'last', 'p', 's', 'v'];
+const shortCommands = ['b', 'l', 'last', 'p', 's', 'v'];
 
 const isShortCommand = (input: string): boolean => shortCommands.includes(input.split(' ')[0].toLowerCase());
 
@@ -244,7 +261,13 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
-  else
+  else if (lowered.startsWith('b')) {
+    const words = c.split(' ');
+    const file = words[1]?.charAt(0) || 'e';
+    const rank = words[1]?.charAt(1) || '4';
+    const button = $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+    button?.focus();
+  } else
     notify(
       commands().piece.apply(c, pieces, style) ||
         commands().scan.apply(c, pieces, style) ||

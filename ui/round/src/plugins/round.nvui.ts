@@ -40,6 +40,7 @@ import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
 import { next, prev } from '../keyboard';
 import { storage } from 'lib/storage';
+import { opposite } from 'chessops';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -196,6 +197,8 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
           $buttons.on('blur', (ev: KeyboardEvent) => {
             const $currBtn = $(ev.target as HTMLElement);
             $currBtn.removeAttr('ray');
+            $buttons.removeClass('active');
+            $currBtn.addClass('active');
           });
           $buttons.on(
             'click',
@@ -203,14 +206,21 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
           );
           $buttons.on('keydown', (e: KeyboardEvent) => {
             if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-            else if (e.key.match(/^x$/i))
+            else if (e.key.toLowerCase() === 'f') {
+              ctrl.flip = !ctrl.flip;
+              ctrl.redraw();
+            } else if (e.key.match(/^x$/i))
               scanDirectionsHandler(
-                ctrl.data.player.color,
+                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
                 ctrl.chessground.state.pieces,
                 moveStyle.get(),
               )(e);
             else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
-            else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+            else if (e.key.startsWith('Arrow'))
+              arrowKeyHandler(
+                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+                borderSound,
+              )(e);
             else if (e.key === 'c')
               lastCapturedCommandHandler(
                 () => ctrl.data.steps.map(step => step.fen),
@@ -235,7 +245,11 @@ function renderBoard(ctrl: RoundController): LooseVNodes {
       },
       renderChessBoard(
         ctrl.chessground.state.pieces,
-        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
+        ctrl.data.game.variant.key === 'racingKings'
+          ? 'white'
+          : ctrl.flip
+            ? opposite(ctrl.data.player.color)
+            : ctrl.data.player.color,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
@@ -329,7 +343,8 @@ const inputCommands: InputCommand[] = [
       const words = input.split(' ');
       const file = words[1]?.charAt(0) || 'e';
       const rank = words[1]?.charAt(1) || '4';
-      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      const button =
+        $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
       button?.focus();
     },
     alt: 'b',
