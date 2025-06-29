@@ -70,6 +70,7 @@
   <string name="promoteVariation">Эхеде бахинабизе</string>
   <string name="makeMainLine">Аслияблъун гьабизе</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
+  <string name="expandVariations">Вариантал тӀиритӀизе</string>
   <string name="forceVariation">Вариантлъун гьабизе</string>
   <string name="move">Хъурщи</string>
   <string name="variantLoss">Вариант къола</string>
@@ -346,7 +347,15 @@
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="proposeATakeback">Тlадбуссинабизе биччаян абизе</string>
+  <string name="whiteProposesTakeback">ХъахӀаз тӀадбуссинабизе биччаян абуна</string>
+  <string name="blackProposesTakeback">ЧӀегӀераз тӀадбуссинабизе биччаян абуна</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
+  <string name="whiteDeclinesTakeback">ХъахӀаз тӀадбуссинабизе биччачӀо</string>
+  <string name="blackDeclinesTakeback">ЧӀегӀераз тӀадбуссинабизе биччачӀо</string>
+  <string name="whiteAcceptsTakeback">ХъахӀаз тӀадбуссинабизе биччана</string>
+  <string name="blackAcceptsTakeback">ЧӀегӀераз тӀадбуссинабизе биччана</string>
+  <string name="whiteCancelsTakeback">ХъахӀаз тӀадбуссинаби нахъе гьабуна</string>
+  <string name="blackCancelsTakeback">ЧӀегӀераз тӀадбуссинаби нахъе гьабуна</string>
   <string name="yourOpponentProposesATakeback">Дур дандияс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьеб хӀаялда аскӀоб гӀуж базе</string>
   <string name="tournament">Турнир</string>

@@ -22,6 +22,7 @@
   <string name="asBlack">као црни</string>
   <string name="randomColor">Насумична боја</string>
   <string name="createAGame">Започни нову партију</string>
+  <string name="createTheGame">Креирај игру</string>
   <string name="whiteIsVictorious">Бели је поебдио</string>
   <string name="blackIsVictorious">Црни је победио</string>
   <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
@@ -122,11 +123,11 @@
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
   <string name="evaluationGauge">Мерило процене</string>
-  <string name="multipleLines">Више стрелица</string>
-  <string name="cpus">Процесори</string>
+  <string name="multipleLines">Више линија</string>
+  <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
-  <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
+  <string name="removesTheDepthLimit">Уклања ограничење дубине и држи твој рачунар топлим</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
