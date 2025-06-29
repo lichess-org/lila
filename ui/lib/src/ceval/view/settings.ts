@@ -66,7 +66,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                       min: 0,
                       max: searchTicks.length - 1,
                       step: 1,
-                      'aria-valuetext': `${searchTicks[searchTick()]} seconds`,
+                      'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
                     },
                     hook: rangeConfig(searchTick, n => {
                       ceval.storedMovetime(searchTicks[n] * 1000);
