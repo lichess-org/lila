@@ -38,6 +38,7 @@ brain(dea?d|less?)
 bugger
 buk?kake
 bull?shit
+cancer
 che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chicken
@@ -51,6 +52,7 @@ coon
 coward?
 cripp?led?
 cry(baby|ing|)
+cuck(old|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
@@ -114,6 +116,7 @@ poof
 poon
 poo++p(face|)
 porn(hub|)
+pos\b
 pric?k
 prostitute
 punani
@@ -287,6 +290,7 @@ cornutt?o
 cretino
 di merda
 figa
+frocio
 li mortacci tua
 putt?ana
 stronzo
@@ -363,10 +367,11 @@ yar+ak kafa(l[iı]|s[iı])
   def critical = dict("""
 (die|burn)s? irl
 (f|ph)a++gg?([oi]t|)
+(gets?|from|of|by|on|wish|you) cancer
 (go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 (ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
-cancer
+cancer (for|to)
 gas the
 g?kys
 get bombed
@@ -375,6 +380,7 @@ ky5
 (l|1|ı|\|)<ys
 n[1i]gg?er
 rap(ed?|e?ing)
+rope\b
 subhuman
 """)
 
