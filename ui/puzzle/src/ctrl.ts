@@ -11,7 +11,6 @@ import type {
   MoveTest,
   ThemeKey,
   ReplayEnd,
-  NvuiPlugin,
   PuzzleRound,
   RoundThemes,
 } from './interfaces';

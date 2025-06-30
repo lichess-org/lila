@@ -1,4 +1,4 @@
-import type { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
+import type { RoundData, RoundOpts } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
 import menuHover from 'lib/menuHover';
 import RoundController from './ctrl';
