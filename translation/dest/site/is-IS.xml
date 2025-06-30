@@ -464,7 +464,7 @@
   </plurals>
   <string name="more">Meira</string>
   <string name="memberSince">Meðlimur síðan</string>
-  <string name="lastSeenActive">Síðast tengdur %s</string>
+  <string name="lastSeenActive">Síðast álínís %s</string>
   <string name="player">Skákmenn</string>
   <string name="list">Listi</string>
   <string name="graph">Graf</string>
@@ -688,10 +688,10 @@
   <string name="noSimulExplanation">Þetta fjöltefli er ekki til.</string>
   <string name="returnToSimulHomepage">Aftur á heimasíðu fjöltefla</string>
   <string name="aboutSimul">Fjöltefli felur í sér einn leikmann gegn mörgum í einu.</string>
-  <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við 2 og tapaði gegn 1.</string>
+  <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við tvo og tapaði gegn einum.</string>
   <string name="aboutSimulRealLife">Hugmyndin er fengin úr raunheiminum. Í raunheiminum felst þetta í því að gestgjafi fjölteflisins gengur á milli borða og leikur einn leik í senn.</string>
   <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver taflmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
-  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru óvirk.</string>
+  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru ekki í boði.</string>
   <string name="create">Búa til</string>
   <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga leikmenn samtímis.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
