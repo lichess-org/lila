@@ -18,7 +18,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     playing = ctrl.isPlaying(),
     gameFinished = finished(data),
     customHighlights = new Map<Key, string>();
-  if (gameFinished) {
+  if (gameFinished && data.game.variant.key == 'standard') {
     const gameStatus = data.game.status.id;
     const winner = data.game.winner,
       loser = winner === 'white' ? 'black' : winner === 'black' ? 'white' : undefined;
