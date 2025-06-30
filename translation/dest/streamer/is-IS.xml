@@ -36,4 +36,5 @@
   Streymismerkið þitt og listun verða lokuð á meðan farið er yfir. Þetta getur tekið allt að 72 klukkustundir.</string>
   <string name="youTubeChannelId">YouTube-rásarauðkennið þitt</string>
   <string name="streamerName">Streymaranafn þitt á Lichess</string>
+  <string name="uploadPicture">Hlaða inn mynd</string>
 </resources>
