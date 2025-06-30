@@ -366,7 +366,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(study, game),
-  Seq(chess.tiebreakers) ++ tests.bundle
+  Seq(chess.tiebreaker) ++ tests.bundle
 )
 
 lazy val studySearch = module("studySearch",

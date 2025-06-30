@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
-import chess.tiebreakers.Tiebreaker
+import chess.tiebreaker.Tiebreaker
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],

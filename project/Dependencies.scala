@@ -43,13 +43,13 @@ object Dependencies {
   }
 
   object chess {
-    val version    = "tiebreaker"
-    val core       = "org.lichess" %% "scalachess"            % version
-    val testKit    = "org.lichess" %% "scalachess-test-kit"   % version % Test
-    val playJson   = "org.lichess" %% "scalachess-play-json"  % version
-    val rating     = "org.lichess" %% "scalachess-rating"     % version
-    val tiebreakers = "org.lichess" %% "scalachess-tiebreakers" % version
-    def bundle     = Seq(core, testKit, playJson, rating, tiebreakers)
+    val version    = "17.8.2"
+    val core       = "com.github.lichess-org.scalachess" %% "scalachess"            % version
+    val testKit    = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"   % version % Test
+    val playJson   = "com.github.lichess-org.scalachess" %% "scalachess-play-json"  % version
+    val rating     = "com.github.lichess-org.scalachess" %% "scalachess-rating"     % version
+    val tiebreaker = "com.github.lichess-org.scalachess" %% "scalachess-tiebreaker" % version
+    def bundle     = Seq(core, testKit, playJson, rating, tiebreaker)
   }
 
   object scalalib {

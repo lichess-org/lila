@@ -9,7 +9,7 @@ import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn,
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import java.time.ZoneId
-import chess.tiebreakers.Tiebreaker
+import chess.tiebreaker.Tiebreaker
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 

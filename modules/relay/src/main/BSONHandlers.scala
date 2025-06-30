@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.core.fide.FideTC
-import chess.tiebreakers.Tiebreaker
+import chess.tiebreaker.Tiebreaker
 
 object BSONHandlers:
 

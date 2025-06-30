@@ -13,8 +13,10 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
-import chess.tiebreakers.Tiebreaker.{ PlayerGames, POVGame, tb, Player }
-import chess.tiebreakers.{ Tiebreaker, TieBreakPoints }
+import chess.tiebreaker.Tiebreaker.{ PlayerGames, POVGame, tb, Player }
+import chess.tiebreaker.{ Tiebreaker, TieBreakPoints }
+import cats.syntax.all.*
+import cats.data.NonEmptySeq
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -29,8 +31,8 @@ case class RelayPlayer(
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
   def eloGames: Vector[Elo.Game]       = games.flatMap(_.eloGame)
-  def toTieBreakPlayer: Option[Player] = (player.id, player.rating).mapN: (id, rating) =>
-    Player(name = id.toString, rating = rating.into(Elo))
+  def toTieBreakPlayer: Option[Player] = player.id.map: id =>
+    Player(name = id.toString, rating = player.rating.map(_.into(Elo)))
 
 object RelayPlayer:
   case class Game(
@@ -54,10 +56,10 @@ object RelayPlayer:
       .orElse(playerPoints.map(_.value))
 
     def toTiebreakerGame: Option[POVGame] =
-      (opponent.id, opponent.rating).mapN: (opponentId, opRating) =>
+      opponent.id.map: (opponentId) =>
         POVGame(
           color = color,
-          opponent = Player(opponentId.toString, opRating.into(Elo)),
+          opponent = Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
           points = playerPoints
         )
 
@@ -260,11 +262,18 @@ private final class RelayPlayerApi(
       accPlayers.map:
         case (id, player) =>
           player.toTieBreakPlayer.fold(id -> player): tiebreakerPlayer =>
-            val allGames = accPlayers.flatMap { case (_, rp) =>
-              val tbGames = rp.games.flatMap(_.toTiebreakerGame)
-              rp.toTieBreakPlayer
-                .map(pl => PlayerGames(pl, tbGames, rp.tiebreaks.map(_.map(_._2).toVector)))
-            }.toSeq
+            val allGames = accPlayers
+              .flatMap: (_, rp) =>
+                val tbGames = rp.games.flatMap(_.toTiebreakerGame)
+                rp.toTieBreakPlayer
+                  .map(pl =>
+                    PlayerGames(
+                      pl,
+                      tbGames,
+                      rp.tiebreaks.flatMap(tbs => NonEmptySeq.fromSeq(tbs.values.toSeq))
+                    )
+                  )
+              .toSeq
             val newTb        = tb(breaker, tiebreakerPlayer, allGames)
             val newTiebreaks = player.tiebreaks match
               case Some(tbs) => tbs.updated(breaker, newTb)
