@@ -30,16 +30,16 @@ export function initModule(ctrl: RoundController): NvuiPlugin {
   });
   pubsub.on('round.suggestion', ctx.notify.set);
 
-  return {
+  const nvui: NvuiPlugin = {
     premoveInput: '',
-    playPremove(ctrl: RoundController) {
-      const nvui = ctrl.nvui!;
+    playPremove() {
       nvui.submitMove?.(true);
       nvui.premoveInput = '';
     },
     submitMove: undefined,
     render: () => renderNvui(ctx),
   };
+  return nvui;
 }
 
 type PageStyle = 'board-actions' | 'actions-board';

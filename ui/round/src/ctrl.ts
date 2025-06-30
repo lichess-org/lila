@@ -490,7 +490,7 @@ export default class RoundController implements MoveRootCtrl {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (this.nvui) this.nvui.playPremove(this);
+        if (this.nvui) this.nvui.playPremove();
         else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
