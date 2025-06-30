@@ -25,4 +25,5 @@
   <string name="onlyAnalysed">Aðeins leikir þar sem má notast við tölvugreiningu</string>
   <string name="descending">Lækkandi</string>
   <string name="ascending">Hækkandi</string>
+  <string name="ratingExplanation">Meðalskákstig beggja leikmanna</string>
 </resources>
