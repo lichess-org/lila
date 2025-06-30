@@ -17,6 +17,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="thereIsACountdown">Það er niðurtalning fyrir fyrsta leikinn þinn. Takist ekki að leika innan þess tíma fær andstæðingurinn þinn sigurinn.</string>
   <string name="thisIsPrivate">Þetta er einkamót</string>
   <string name="variant">Afbrigði</string>
+  <string name="minimumGameLength">Lágmarkslengd skákar</string>
   <string name="history">Ferill á Arena</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Skoða liðið</item>
@@ -43,4 +44,5 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="pointsAvg">Meðalstig</string>
   <string name="pointsSum">Stigasumma</string>
   <string name="rankAvg">Meðalstaða</string>
+  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserk-hlutfall</string>
 </resources>
