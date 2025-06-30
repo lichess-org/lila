@@ -809,7 +809,7 @@
   <string name="coaches">Þjálfarar</string>
   <string name="invalidPgn">Ógilt PGN</string>
   <string name="invalidFen">Ógilt FEN</string>
-  <string name="custom">Sérsniðinn</string>
+  <string name="custom">Sérsniðin</string>
   <string name="notifications">Tilkynningar</string>
   <string name="notificationsX">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
