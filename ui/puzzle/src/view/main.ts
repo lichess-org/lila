@@ -64,7 +64,6 @@ function controls(ctrl: PuzzleCtrl): VNode {
 let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {

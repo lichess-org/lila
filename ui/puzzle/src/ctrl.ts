@@ -82,7 +82,6 @@ export default class PuzzleCtrl implements ParentCtrl {
   constructor(
     readonly opts: PuzzleOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin,
   ) {
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(

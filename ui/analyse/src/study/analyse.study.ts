@@ -2,7 +2,7 @@ import { patch } from '../view/util';
 import makeStart from '../start';
 import type { AnalyseOpts } from '../interfaces';
 import type { AnalyseSocketSend } from '../socket';
-import * as studyDeps from '../study/studyDeps';
+import * as studyDeps from './studyDeps';
 import { wsConnect } from 'lib/socket';
 
 export { patch };
