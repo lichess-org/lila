@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
   <string name="score">Stig</string>
   <string name="accuracy">Nákvæmni</string>
   <string name="combo">Hrina</string>
