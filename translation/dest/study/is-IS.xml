@@ -46,6 +46,9 @@
   <string name="commentThisPosition">Gera athugasemd við þessa stöðu</string>
   <string name="commentThisMove">Gera athugasemd við þennan leik</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
+  <string name="playing">Í gangi</string>
+  <string name="showResults">Niðurstöður</string>
+  <string name="showEvalBar">Stöðumatsstikur</string>
   <string name="next">Næsta</string>
   <string name="cloneStudy">Afrita</string>
   <string name="studyPgn">Stúdera PGN</string>
@@ -63,6 +66,13 @@
   <string name="open">Opna</string>
   <string name="xBroughtToYouByY">%1$s, er á vegum %2$s</string>
   <string name="studyNotFound">Stúdering fannst ekki</string>
+  <string name="editChapter">Breyta kafla</string>
+  <string name="newChapter">Nýr kafli</string>
+  <string name="importFromChapterX">Flytja inn úr %s</string>
+  <string name="orientation">Átt</string>
+  <string name="analysisMode">Greiningarhamur</string>
+  <string name="pinnedChapterComment">Fest athugasemd við kafla</string>
+  <string name="saveChapter">Vista kafla</string>
   <string name="deleteChapter">Eyða kafla</string>
   <string name="deleteThisChapter">Eyddu þessum kafla. Það er ekki aftur snúið!</string>
   <string name="rightUnderTheBoard">Beint fyrir neðan borðið</string>
@@ -88,6 +98,9 @@
   <string name="nobody">Enginn</string>
   <string name="onlyMe">Aðeins fyrir mig</string>
   <string name="contributors">Þátttakendur</string>
+  <string name="enableSync">Virkja samstillingu</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Já: hafa alla áfram í sömu stöðu</string>
+  <string name="noLetPeopleBrowseFreely">Nei: leyfa fólki að vafra frjálsmannlega</string>
   <string name="pinnedStudyComment">Fest athugasemd við stúderingu</string>
   <string name="start">Hefja</string>
   <string name="save">Vista</string>
