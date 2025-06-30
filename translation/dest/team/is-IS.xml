@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Lið</string>
   <string name="teams">Lið</string>
   <plurals name="nbMembers">
     <item quantity="one">%s meðlimir</item>
@@ -11,5 +12,11 @@
   <string name="noTeamFound">Ekkert lið fannst</string>
   <string name="joinTeam">Ganga í lið</string>
   <string name="quitTeam">Ganga úr liði</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Liðsstjóri</item>
+    <item quantity="other">Liðsstjórar</item>
+  </plurals>
   <string name="teamRecentMembers">Nýjustu liðsmenn</string>
+  <string name="kickSomeone">Reka einhvern úr liðinu</string>
+  <string name="whoToKick">Hvern viltu reka út úr liðinu?</string>
 </resources>
