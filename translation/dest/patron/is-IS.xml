@@ -53,9 +53,13 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
     <item quantity="one">Velunnari Lichess í einn mánuð</item>
     <item quantity="other">Velunnari Lichess í %s mánuði</item>
   </plurals>
+  <string name="currentStatus">Núverandi staða</string>
+  <string name="nextPayment">Næsta greiðsla</string>
+  <string name="makeAdditionalDonation">Veita viðbótarfjárframlag</string>
   <string name="giftPatronWingsShort">Gefa Velunnaravængi</string>
   <string name="giftPatronWings">Gefa leikmanni Velunnaravængi</string>
   <string name="update">Uppfæra</string>
+  <string name="changeMonthlyAmount">Breyta mánaðarlegri upphæð (%s)</string>
   <string name="xOrY">%1$s eða %2$s</string>
   <string name="viewOthers">Skoða aðra velunnara Lichess</string>
   <string name="date">Dagsetning</string>
