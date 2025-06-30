@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="totalGames">Skákir alls</string>
+  <string name="ratedGames">Skákir með stigagjöf</string>
+  <string name="tournamentGames">Mótsskákir</string>
+  <string name="berserkedGames">Berserk-skákir</string>
+  <string name="timeSpentPlaying">Spilunartími</string>
+  <string name="averageOpponent">Meðalandstæðingur</string>
+  <string name="victories">Sigrar</string>
+  <string name="defeats">Töp</string>
+  <string name="disconnections">Aftengingar</string>
+  <string name="notEnoughGames">Ekki teflt nógu mikið</string>
   <string name="winningStreak">Sigurdöngun</string>
   <string name="losingStreak">Ósigurdöngun</string>
   <string name="longestStreak">Lengsta döngun: %s</string>
