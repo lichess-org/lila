@@ -90,11 +90,11 @@ export default class RoundController implements MoveRootCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   blindfoldStorage: LichessBooleanStorage;
   server: Server;
+  nvui?: NvuiPlugin;
 
   constructor(
     readonly opts: RoundOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin | undefined,
   ) {
     util.upgradeServerData(opts.data);
 
@@ -128,8 +128,11 @@ export default class RoundController implements MoveRootCtrl {
     this.server = new Server(() => this.data);
 
     this.menu = toggle(false, redraw);
-
-    setTimeout(this.delayedInit, 200);
+    const nvuiPromise = site.blindMode && site.asset.loadEsm<NvuiPlugin>('round.nvui', { init: this });
+    setTimeout(async () => {
+      if (nvuiPromise) this.nvui = await nvuiPromise;
+      this.delayedInit();
+    }, 200);
 
     setTimeout(this.showExpiration, 350);
 
@@ -487,7 +490,7 @@ export default class RoundController implements MoveRootCtrl {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (this.nvui) this.nvui.playPremove(this);
+        if (this.nvui) this.nvui.playPremove();
         else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
@@ -903,49 +906,52 @@ export default class RoundController implements MoveRootCtrl {
     site.asset.loadEsm('round.yeet');
   });
 
-  private delayedInit = () => {
-    requestIdleCallback(() => {
-      const d = this.data;
-      if (this.isPlaying()) {
-        if (!d.simul) blur.init(d.steps.length > 2);
+  private delayedInit = () =>
+    requestIdleCallback(
+      () => {
+        const d = this.data;
+        if (this.isPlaying()) {
+          if (!d.simul) blur.init(d.steps.length > 2);
 
-        title.init();
-        this.setTitle();
+          title.init();
+          this.setTitle();
 
-        if (d.crazyhouse) crazyInit(this);
+          if (d.crazyhouse) crazyInit(this);
 
-        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !d.local)
-          window.addEventListener('beforeunload', e => {
-            if (site.unload.expected || !this.isPlaying()) return;
-            this.socket.send('bye2');
-            e.preventDefault();
-          });
+          if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !d.local)
+            window.addEventListener('beforeunload', e => {
+              if (site.unload.expected || !this.isPlaying()) return;
+              this.socket.send('bye2');
+              e.preventDefault();
+            });
 
-        if (!this.nvui && d.pref.submitMove) {
-          site.mousetrap
-            .bind('esc', () => {
-              this.submitMove(false);
-              this.chessground.cancelMove();
-            })
-            .bind('return', () => this.submitMove(true));
+          if (!this.nvui && d.pref.submitMove) {
+            site.mousetrap
+              .bind('esc', () => {
+                this.submitMove(false);
+                this.chessground.cancelMove();
+              })
+              .bind('return', () => this.submitMove(true));
+          }
+          cevalSub.subscribe(this);
         }
-        cevalSub.subscribe(this);
-      }
 
-      if (!this.nvui) keyboardInit(this);
-      if (this.isPlaying() && d.steps.length === 1) {
-        this.blindfold(this.blindfoldStorage.get());
-      }
-      if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
-
-      setTimeout(() => {
-        if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
-          alert('Play enhancement extensions are no longer allowed!');
-          wsDestroy();
-          this.setRedirecting();
-          location.href = '/page/play-extensions';
+        if (!this.nvui) keyboardInit(this);
+        if (this.isPlaying() && d.steps.length === 1) {
+          this.blindfold(this.blindfoldStorage.get());
         }
-      }, 1000);
-    }, 800);
-  };
+        if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
+
+        setTimeout(() => {
+          if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
+            alert('Play enhancement extensions are no longer allowed!');
+            wsDestroy();
+            this.setRedirecting();
+            location.href = '/page/play-extensions';
+          }
+        }, 1000);
+      },
+
+      800,
+    );
 }

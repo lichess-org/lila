@@ -1,4 +1,4 @@
-import type { NvuiContext } from '../analyse.nvui';
+import type { AnalyseNvuiContext } from '../analyse.nvui';
 import { type LooseVNodes, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { RetroCtrl } from '../retrospect/retroCtrl';
@@ -6,7 +6,7 @@ import { renderSan } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
 import { clickHook } from '../view/nvuiView';
 
-export function renderRetro(ctx: NvuiContext): LooseVNodes {
+export function renderRetro(ctx: AnalyseNvuiContext): LooseVNodes {
   const { ctrl } = ctx;
   if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
 
@@ -32,7 +32,7 @@ export function renderRetro(ctx: NvuiContext): LooseVNodes {
   return nodes;
 }
 
-interface RetroContext extends NvuiContext {
+interface RetroContext extends AnalyseNvuiContext {
   readonly ctrl: AnalyseCtrl & { retro: RetroCtrl };
 }
 

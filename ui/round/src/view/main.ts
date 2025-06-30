@@ -25,7 +25,7 @@ export function main(ctrl: RoundController): VNode {
     );
   const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
   return ctrl.nvui
-    ? ctrl.nvui.render(ctrl)
+    ? ctrl.nvui.render()
     : hl('div.round__app.variant-' + d.game.variant.key, [
         hl(
           'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
