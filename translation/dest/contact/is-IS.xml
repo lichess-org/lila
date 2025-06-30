@@ -8,6 +8,12 @@
   <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
   <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
   <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
+  <string name="wantChangeUsername">Mig langar að breyta notandanafni mínu</string>
+  <string name="changeUsernameCase">Farðu á þessa síðu til þess að hafa áhrif á stafsetur í notandanafni þínu</string>
+  <string name="cantChangeMore">Við getum ekki breytt meiru en stafsetunum. Af tæknilegum ástæðum er það hreinlega ómögulegt.</string>
+  <string name="orCloseAccount">Hins vegar er hægt að loka núverandi aðgangi og stofna nýjan.</string>
+  <string name="wantReport">Ég vil tilkynna leikmann</string>
+  <string name="toReportAPlayerUseForm">Til þess að tilkynna leikmann skal nota tilkynningareyðublaðið</string>
   <string name="doNotSendReportEmails">Ekki senda okkur vitnisburð í tölvupósti.</string>
   <string name="doNotMessageModerators">Þess er vænst að ekki séu send einkaskilaboð til stjórnenda.</string>
   <string name="onlyReports">Aðeins tilkynningareyðublaðið ber árangur þegar tilkynna skal leikmenn.</string>
@@ -15,6 +21,8 @@
   <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Peð drepið ólöglega</string>
   <string name="noRatingPoints">Engin skákstig voru gefin</string>
   <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur skák með stigagjöf ekki gefið stig ef það er ákveðið að leikmaðurinn sé að misnota tölvuna til að fá stig.</string>
+  <string name="errorPage">Villusíða</string>
+  <string name="reportErrorPage">Hafi villusíða komið upp, máttu tilkynna slíkt:</string>
   <string name="banAppeal">Áfrýjun vegna banns eða hamla á IP-tölu</string>
   <string name="engineAppeal">Tölvuforrit- eða svindlmerki</string>
   <string name="sendAppealTo">Þú getur sent áfrýjun til %s.</string>
