@@ -25,6 +25,16 @@
   <string name="realName">Rétt nafn</string>
   <string name="addStudent">Bæta nemanda</string>
   <string name="lichessUsername">Lichess notendanafn</string>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Í bið</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Hafnað</string>
+  <string name="onlyVisibleToTeachers">Aðeins sýnilegt bekkjarkennurum</string>
+  <string name="lastActiveDate">Síðast álínís</string>
+  <string name="managed">Stýrður aðgangur</string>
+  <string name="thisStudentAccountIsManaged">Þessi nemendaaðgangur er stýrður</string>
+  <string name="upgradeFromManaged">Fara úr stýrðum yfir í sjálfstæðan</string>
+  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Útskrifa</string>
+  <string name="closeStudent">Loka aðgangi</string>
+  <string name="closeTheAccount">Loka nemendaaðganginum fyrir fullt og allt.</string>
   <string name="teachers">Kennarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Kennari</item>
@@ -51,6 +61,10 @@
   <string name="nothingHere">Ekkert hér eins og sakir standa.</string>
   <string name="newsEdit1">Allar bekkjarfréttir á einum stað.</string>
   <string name="invite">Bjóða</string>
+  <string name="youHaveBeenInvitedByX">Þér hefur verið boðið af %s.</string>
+  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Þú þáðir þetta boð.</string>
+  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Þú afþakkaðir þetta boð.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">notað þetta eyðublað</string>
   <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
 </resources>
