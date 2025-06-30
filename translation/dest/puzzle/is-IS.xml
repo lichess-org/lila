@@ -20,6 +20,8 @@
   <string name="keepGoing">Haltu áfram…</string>
   <string name="puzzleSuccess">Tókst!</string>
   <string name="puzzleComplete">Þraut leyst!</string>
+  <string name="byOpenings">Eftir byrjunum</string>
+  <string name="puzzlesByOpenings">Þrautir eftir byrjunum</string>
   <string name="useFindInPage">Notaðu „Finna á síðu“ í vafravalmyndinni til þess að finna uppáhaldsbyrjunina þína!</string>
   <string name="useCtrlF">Notaðu Ctrl+f til þess að finna uppáhaldsbyrjun þína!</string>
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
@@ -39,6 +41,7 @@
   <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
   <string name="puzzleDashboard">Þrautastjórnborð</string>
+  <string name="improvementAreas">Þar sem hægt er að bæta</string>
   <string name="strengths">Styrkleikar</string>
   <string name="history">Þrautsaga</string>
   <string name="failed">vitlaust</string>
@@ -47,8 +50,10 @@
   <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>
   <string name="continueTheStreak">Halda dönguninni áfram</string>
   <string name="newStreak">Ný döngun</string>
+  <string name="fromMyGames">Úr skákum mínum</string>
   <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
 
 Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
+  <string name="improvementAreasDescription">Temdu þér eftirfarandi til þess að hámarka framfarir þínar!</string>
 </resources>
