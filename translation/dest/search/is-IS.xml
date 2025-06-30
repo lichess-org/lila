@@ -23,6 +23,9 @@
   <string name="sortBy">Raða eftir</string>
   <string name="analysis">Greining</string>
   <string name="onlyAnalysed">Aðeins leikir þar sem má notast við tölvugreiningu</string>
+  <string name="evaluation">Stöðumat</string>
+  <string name="maxNumber">Hámarksfjöldi</string>
+  <string name="include">Láta fylgja</string>
   <string name="descending">Lækkandi</string>
   <string name="ascending">Hækkandi</string>
   <string name="ratingExplanation">Meðalskákstig beggja leikmanna</string>
