@@ -53,38 +53,33 @@ final class Challenge(env: Env) extends LilaController(env):
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using ctx: Context): Fu[Result] =
-    env.challenge
-      .version(c.id)
-      .flatMap { version =>
-        val mine                         = justCreated || isMine(c)
-        val direction: Option[Direction] =
-          if mine then Direction.Out.some
-          else if isForMe(c) then Direction.In.some
-          else none
-        val json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
-        negotiate(
-          html =
-            val color = get("color").flatMap(Color.fromName)
-            if mine then
-              ctx.userId
-                .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
-                .flatMap(env.user.lightUserApi.asyncManyFallback)
-                .flatMap: friends =>
-                  error match
-                    case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
-                    case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
-            else
-              Ok.async:
-                c.challengerUserId
-                  .so(env.user.api.byIdWithPerf(_, c.perfType))
-                  .map:
-                    views.challenge.theirs(c, json, _, color)
-          ,
-          json = Ok(json)
-        ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-      }
-      .map(env.security.lilaCookie.ensure(ctx.req))
+  )(using ctx: Context): Fu[Result] = for
+    version <- env.challenge.version(c.id)
+    mine                         = justCreated || isMine(c)
+    direction: Option[Direction] =
+      if mine then Direction.Out.some
+      else if isForMe(c) then Direction.In.some
+      else none
+    json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
+    res <- negotiate(
+      html =
+        val color = get("color").flatMap(Color.fromName)
+        if mine then
+          ctx.userId
+            .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
+            .flatMap(env.user.lightUserApi.asyncManyFallback)
+            .flatMap: friends =>
+              error match
+                case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
+                case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
+        else
+          Ok.async:
+            for challenge <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
+            yield views.challenge.theirs(c, json, challenge, color)
+      ,
+      json = Ok(json)
+    ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
+  yield env.security.lilaCookie.ensure(ctx.req)(res)
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
