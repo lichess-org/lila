@@ -666,7 +666,7 @@ export default class AnalyseCtrl {
     if (typeof structuredClone !== 'function') return true;
     const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
     ctrlWithDiffTree.tree.setCollapsedForCtxMenu(path, collapsed);
-    return !isEquivalent(renderTreeView(this), renderTreeView(ctrlWithDiffTree));
+    return !isEquivalent(renderTreeView(this), renderTreeView(ctrlWithDiffTree), ['function']);
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
