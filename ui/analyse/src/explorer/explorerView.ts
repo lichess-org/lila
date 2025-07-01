@@ -2,7 +2,7 @@ import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { numberFormat } from 'lib/i18n';
 import perfIcons from 'lib/game/perfIcons';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import type AnalyseCtrl from '../ctrl';
@@ -22,13 +22,13 @@ function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
   const section = (key: 'white' | 'black' | 'draws') => {
     const percent = (move[key] * 100) / sum;
-    return h(
+    return hl(
       'span.' + key,
       { attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' } },
       percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : '',
     );
   };
-  return h('div.bar', ['white', 'draws', 'black'].map(section));
+  return hl('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
@@ -48,28 +48,28 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
         ]
       : data.moves;
 
-  return h('table.moves', [
-    h('thead', [
-      h('tr', [
-        h('th', i18n.site.move),
-        h('th', { attrs: { colspan: 2 } }, i18n.site.games),
-        h('th', i18n.site.whiteDrawBlack),
+  return hl('table.moves', [
+    hl('thead', [
+      hl('tr', [
+        hl('th', i18n.site.move),
+        hl('th', { attrs: { colspan: 2 } }, i18n.site.games),
+        hl('th', i18n.site.whiteDrawBlack),
       ]),
     ]),
-    h(
+    hl(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
       movesWithCurrent.map(move => {
         const total = move.white + move.draws + move.black;
-        return h(`tr${move.uci ? '' : '.sum'}`, { key: move.uci, attrs: { 'data-uci': move.uci } }, [
-          h(
+        return hl(`tr${move.uci ? '' : '.sum'}`, { key: move.uci, attrs: { 'data-uci': move.uci } }, [
+          hl(
             'td',
             { attrs: { title: move.opening ? `${move.opening.eco}: ${move.opening.name}` : '' } },
             move.san,
           ),
-          h('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
-          h('td', numberFormat(total)),
-          h('td', { attrs: { title: moveStatsTooltip(ctrl, move) } }, resultBar(move)),
+          hl('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
+          hl('td', numberFormat(total)),
+          hl('td', { attrs: { title: moveStatsTooltip(ctrl, move) } }, resultBar(move)),
         ]);
       }),
     ),
@@ -95,18 +95,18 @@ function moveStatsTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
 
 const showResult = (winner?: Color): VNode =>
   winner === 'white'
-    ? h('result.white', '1-0')
+    ? hl('result.white', '1-0')
     : winner === 'black'
-      ? h('result.black', '0-1')
-      : h('result.draws', '½-½');
+      ? hl('result.black', '0-1')
+      : hl('result.draws', '½-½');
 
 function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu(),
     isMasters = ctrl.explorer.db() === 'masters';
-  return h('table.games', [
-    h('thead', [h('tr', [h('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
-    h(
+  return hl('table.games', [
+    hl('thead', [hl('tr', [hl('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
+    hl(
       'tbody',
       moveArrowAttributes(ctrl, {
         fen,
@@ -123,23 +123,23 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
       games.map(game => {
         return openedId === game.id
           ? gameActions(ctrl, game)
-          : h('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
+          : hl('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
               ctrl.explorer.opts.showRatings &&
-                h(
+                hl(
                   'td',
-                  [game.white, game.black].map(p => h('span', '' + p.rating)),
+                  [game.white, game.black].map(p => hl('span', '' + p.rating)),
                 ),
-              h(
+              hl(
                 'td',
-                [game.white, game.black].map(p => h('span', p.name)),
+                [game.white, game.black].map(p => hl('span', p.name)),
               ),
-              h('td', showResult(game.winner)),
-              h('td', game.month || game.year),
+              hl('td', showResult(game.winner)),
+              hl('td', game.month || game.year),
               !isMasters &&
-                h(
+                hl(
                   'td',
                   game.speed &&
-                    h('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
+                    hl('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
                 ),
             ]);
       }),
@@ -161,31 +161,31 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     ctrl.explorer.gameMenu(null);
     ctrl.redraw();
   };
-  return h('tr', { key: game.id + '-m' }, [
-    h('td.game_menu', { attrs: { colspan: ctrl.explorer.db() === 'masters' ? 4 : 5 } }, [
-      h(
+  return hl('tr', { key: game.id + '-m' }, [
+    hl('td.game_menu', { attrs: { colspan: ctrl.explorer.db() === 'masters' ? 4 : 5 } }, [
+      hl(
         'div.game_title',
         `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
       ),
-      h('div.menu', [
-        h(
+      hl('div.menu', [
+        hl(
           'a.text',
           { attrs: dataIcon(licon.Eye), hook: bind('click', _ => openGame(ctrl, game.id)) },
           'View',
         ),
         ctrl.study &&
-          h(
+          hl(
             'a.text',
             { attrs: dataIcon(licon.BubbleSpeech), hook: bind('click', _ => send(false), ctrl.redraw) },
             'Cite',
           ),
         ctrl.study &&
-          h(
+          hl(
             'a.text',
             { attrs: dataIcon(licon.PlusButton), hook: bind('click', _ => send(true), ctrl.redraw) },
             'Insert',
           ),
-        h(
+        hl(
           'a.text',
           { attrs: dataIcon(licon.X), hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw) },
           'Close',
@@ -196,42 +196,42 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
 }
 
 const closeButton = (ctrl: AnalyseCtrl): VNode =>
-  h(
+  hl(
     'button.button.button-empty.text',
     { attrs: dataIcon(licon.X), hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) },
     i18n.site.close,
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
-  h('div.data.empty', [
+  hl('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
-    h('div.message', [
-      h(
+    hl('div.message', [
+      hl(
         'strong',
         ctrl.explorer.root.node.ply >= MAX_DEPTH ? i18n.site.maxDepthReached : i18n.site.noGameFound,
       ),
-      data?.queuePosition
-        ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
+      !!data?.queuePosition
+        ? hl('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !ctrl.explorer.config.fullHouse() &&
-          h('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),
+          hl('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),
     ]),
   ]);
 
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
-  h('div.data.empty', [
-    h('div.title', i18n.site.gameOver),
-    h('div.message', [h('i', { attrs: dataIcon(licon.InfoCircle) }), h('h3', title), closeButton(ctrl)]),
+  hl('div.data.empty', [
+    hl('div.title', i18n.site.gameOver),
+    hl('div.message', [hl('i', { attrs: dataIcon(licon.InfoCircle) }), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
   const opening = data?.opening;
   const title = opening ? `${opening.eco} ${opening.name}` : '';
-  return h(
+  return hl(
     'div.title',
     { attrs: opening ? { title } : {} },
     opening
-      ? [h('a', { attrs: { href: `/opening/${opening.name}`, target: '_blank' } }, title)]
+      ? [hl('a', { attrs: { href: `/opening/${opening.name}`, target: '_blank' } }, title)]
       : [showTitle(ctrl.data.game.variant)],
   );
 };
@@ -248,7 +248,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
     if (moveTable || recentTable || topTable)
-      lastShow = h('div.data', [
+      lastShow = hl('div.data', [
         explorerTitle(ctrl.explorer),
         data?.opening && openingTitle(ctrl, data),
         moveTable,
@@ -266,17 +266,17 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         data.moves.filter(m => m.category === category),
       );
     if (data.moves.length)
-      lastShow = h('div.data', [
-        ...row('loss', i18n.site.winning),
-        ...row('unknown', i18n.site.unknown),
-        ...row('syzygy-loss', i18n.site.winOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
-        ...row('maybe-loss', 'Win or 50 moves'),
-        ...row('blessed-loss', i18n.site.winPreventedBy50MoveRule),
-        ...row('draw', i18n.site.drawn),
-        ...row('cursed-win', i18n.site.lossSavedBy50MoveRule),
-        ...row('maybe-win', 'Loss or 50 moves'),
-        ...row('syzygy-win', i18n.site.lossOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
-        ...row('win', i18n.site.losing),
+      lastShow = hl('div.data', [
+        row('loss', i18n.site.winning),
+        row('unknown', i18n.site.unknown),
+        row('syzygy-loss', i18n.site.winOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
+        row('maybe-loss', 'Win or 50 moves'),
+        row('blessed-loss', i18n.site.winPreventedBy50MoveRule),
+        row('draw', i18n.site.drawn),
+        row('cursed-win', i18n.site.lossSavedBy50MoveRule),
+        row('maybe-win', 'Loss or 50 moves'),
+        row('syzygy-win', i18n.site.lossOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
+        row('win', i18n.site.losing),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, i18n.site.checkmate);
     else if (data.stalemate) lastShow = showGameEnd(ctrl, i18n.site.stalemate);
@@ -289,7 +289,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 const explorerTitle = (explorer: ExplorerCtrl) => {
   const db = explorer.db();
   const otherLink = (name: string, title: string) =>
-    h(
+    hl(
       'button.button-link',
       {
         key: name,
@@ -299,7 +299,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       name,
     );
   const playerLink = () =>
-    h(
+    hl(
       'button.button-link.player',
       {
         key: 'player',
@@ -318,7 +318,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       i18n.site.player,
     );
   const active = (nodes: LooseVNodes, title: string) =>
-    h(
+    hl(
       'span.active.text.' + db,
       {
         attrs: { title, ...dataIcon(licon.Book) },
@@ -331,22 +331,22 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     lichessDbExplanation = i18n.site.lichessDbExplanation;
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;
-  return h('div.explorer-title', [
+  return hl('div.explorer-title', [
     db === 'masters'
-      ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([h('strong', 'Lichess'), ' database'], lichessDbExplanation)
+      ? active([hl('strong', 'Lichess'), ' database'], lichessDbExplanation)
       : otherLink('Lichess', lichessDbExplanation),
     db === 'player'
       ? playerName
         ? active(
             [
-              h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+              hl(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
               ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
                 !explorer.config.data.open() &&
-                h('i.ddloader', {
+                hl('i.ddloader', {
                   attrs: {
                     title: queuePosition
                       ? `Indexing ${queuePosition} other players first ...`
@@ -356,7 +356,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
             ],
             i18n.site.switchSides,
           )
-        : active([h('strong', 'Player'), ' database'], '')
+        : active([hl('strong', 'Player'), ' database'], '')
       : playerLink(),
   ]);
 };
@@ -367,15 +367,15 @@ function showTitle(variant: Variant) {
 }
 
 function showConfig(ctrl: AnalyseCtrl): VNode {
-  return h('div.config', [explorerTitle(ctrl.explorer), ...renderConfig(ctrl.explorer.config)]);
+  return hl('div.config', [explorerTitle(ctrl.explorer), renderConfig(ctrl.explorer.config)]);
 }
 
 function showFailing(ctrl: AnalyseCtrl) {
-  return h('div.data.empty', [
-    h('div.title', showTitle(ctrl.data.game.variant)),
-    h('div.failing.message', [
-      h('h3', 'Oops, sorry!'),
-      h('p.explanation', ctrl.explorer.failing()?.toString()),
+  return hl('div.data.empty', [
+    hl('div.title', showTitle(ctrl.data.game.variant)),
+    hl('div.failing.message', [
+      hl('h3', 'Oops, sorry!'),
+      hl('p.explanation', ctrl.explorer.failing()?.toString()),
       closeButton(ctrl),
     ]),
   ]);
@@ -391,7 +391,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     configOpened = config.data.open(),
     loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
     content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
-  return h(
+  return hl(
     `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,
     {
       class: { loading, reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2) },
@@ -405,9 +405,9 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       },
     },
     [
-      h('div.overlay'),
+      hl('div.overlay'),
       content,
-      h('button.fbt.toconf', {
+      hl('button.fbt.toconf', {
         attrs: {
           'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
           ...dataIcon(configOpened ? licon.X : licon.Gear),

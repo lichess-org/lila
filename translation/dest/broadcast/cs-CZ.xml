@@ -62,31 +62,31 @@
   <string name="subscribeTitle">Přihlaste se k odběru, abyste byli informováni o začátku každého kola. V předvolbách účtu můžete přepnout mezi zvukovými nebo push oznámeními pro vysílání.</string>
   <string name="uploadImage">Nahrát obrázek turnaje</string>
   <string name="noBoardsYet">Zatím žádné šachovnice. Ty se zobrazí se po nahrání partií.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Hry můžou být načteny pomocí zdroje či %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Hry můžou být načteny pomocí zdroje či %s</string>
   <string name="startsAfter">Začíná po %s</string>
   <string name="startVerySoon">Vysílání začne velmi brzy.</string>
   <string name="notYetStarted">Vysílání ještě nezačalo.</string>
   <string name="officialWebsite">Oficiální stránka</string>
   <string name="standings">Pořadí</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Oficiální pořadí</string>
+  <string name="officialStandings">Oficiální pořadí</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
   <string name="webmastersPage">Stránka webmasterů</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Veřejný zdroj PGN v reálném čase pro toto kolo. Nabízíme také %s pro rychlejší a efektivnější synchronizaci.</string>
   <string name="embedThisBroadcast">Vložte toto vysílání na váš web</string>
   <string name="embedThisRound">Vložte %s na váš web</string>
   <string name="ratingDiff">Ratingový rozdíl</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Hry v tomto turnaji</string>
+  <string name="gamesThisTournament">Hry v tomto turnaji</string>
   <string name="score">Skóre</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Všechny týmy</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Formát turnaje</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Místo konání turnaje</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Nejlepší hráči</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Časové pásmo</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Kategorie ratingu FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Volitelné detaily</string>
+  <string name="allTeams">Všechny týmy</string>
+  <string name="tournamentFormat">Formát turnaje</string>
+  <string name="tournamentLocation">Místo konání turnaje</string>
+  <string name="topPlayers">Nejlepší hráči</string>
+  <string name="timezone">Časové pásmo</string>
+  <string name="fideRatingCategory">Kategorie ratingu FIDE</string>
+  <string name="optionalDetails">Volitelné detaily</string>
   <string name="pastBroadcasts">Dřívější vysílání</string>
   <string name="allBroadcastsByMonth">Zobrazit všechny vysílání podle měsíce</string>
   <string name="backToLiveMove">Zpět k přímému tahu</string>
   <string name="sinceHideResults">Vzhledem k tomu, že jste se rozhodli skrýt výsledky, všechny náhledy jsou prázdné, abyste se vyhnuli spoilerům.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Živá deska</string>
+  <string name="liveboard">Živá deska</string>
 </resources>

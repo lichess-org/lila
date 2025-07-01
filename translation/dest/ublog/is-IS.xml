@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="myBlog">Bloggið mitt</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s færsla á bloggi</item>
+    <item quantity="other">%s færslur á bloggi</item>
+  </plurals>
   <string name="newPost">Ný færsla</string>
+  <string name="published">Birt</string>
 </resources>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Leikjalisti</string>
+  <string name="premoveCancelled">Hætt við forskráðan leik</string>
+  <string name="premoveRecorded">Leikur forskráður: %s. Ýttu á Enter til þess að hætta við</string>
+</resources>

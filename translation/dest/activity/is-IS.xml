@@ -29,6 +29,10 @@
     <item quantity="one">Lauk %s bréfskák</item>
     <item quantity="other">Lauk %s bréfskákum</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Bjó til %s nýja stúderingu</item>
+    <item quantity="other">Bjó til %s nýjar stúderingar</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Tók þátt í %s Arena móti</item>
     <item quantity="other">Tók þátt í %s Arena mótum</item>

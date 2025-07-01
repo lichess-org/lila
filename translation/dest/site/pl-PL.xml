@@ -186,7 +186,7 @@
   <string name="drawByMutualAgreement">Remis za obopólną zgodą</string>
   <string name="fiftyMovesWithoutProgress">50 posunięć bez bicia i ruchu pionem</string>
   <string name="currentGames">Partie w toku</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Dołączono %s</string>
+  <string name="joinedX">Dołączono %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -201,8 +201,8 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>
-    <item quantity="few">%s ulubiona partie</item>
-    <item quantity="many">%s ulubiona partii</item>
+    <item quantity="few">%s ulubione partie</item>
+    <item quantity="many">%s ulubionych partii</item>
     <item quantity="other">%s ulubionych partii</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
@@ -565,7 +565,6 @@
   <string name="points">Punkty</string>
   <string name="wins">Wygrane</string>
   <string name="losses">Przegrane</string>
-  <string name="createdBy">Stworzony przez</string>
   <string name="startingIn" comment="Displayed above a timer">Rozpoczęcie za</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>

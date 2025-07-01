@@ -62,4 +62,5 @@
     <item quantity="one">%s klukkustund eftir</item>
     <item quantity="other">%s klukkustundir eftir</item>
   </plurals>
+  <string name="completed">lokið</string>
 </resources>

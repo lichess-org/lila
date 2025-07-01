@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, looseH as h } from 'lib/snabbdom';
+import { type VNode, bind, onInsert, hl } from 'lib/snabbdom';
 import { richHTML } from 'lib/richText';
 import type StudyCtrl from './studyCtrl';
 import { confirm } from 'lib/view/dialogs';
@@ -34,17 +34,17 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
+  return hl(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib &&
       !isEmpty &&
-      h('div.contrib', [
-        h('span', descTitle(chapter)),
+      hl('div.contrib', [
+        hl('span', descTitle(chapter)),
         !isEmpty &&
-          h('a', {
+          hl('a', {
             attrs: { 'data-icon': licon.Pencil, title: 'Edit' },
             hook: bind('click', () => (desc.edit = true), desc.redraw),
           }),
-        h('a', {
+        hl('a', {
           attrs: { 'data-icon': licon.Trash, title: 'Delete' },
           hook: bind('click', async () => {
             if (await confirm('Delete permanent description?')) desc.save('');
@@ -52,23 +52,27 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
         }),
       ]),
     isEmpty
-      ? h('a.text.button', { hook: bind('click', () => (desc.edit = true), desc.redraw) }, descTitle(chapter))
-      : h('div.text', { hook: richHTML(desc.text) }),
+      ? hl(
+          'a.text.button',
+          { hook: bind('click', () => (desc.edit = true), desc.redraw) },
+          descTitle(chapter),
+        )
+      : hl('div.text', { hook: richHTML(desc.text) }),
   ]);
 }
 
 const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
-  h('div.study-desc-form', [
-    h('div.title', [
+  hl('div.study-desc-form', [
+    hl('div.title', [
       descTitle(chapter),
-      h('button.button.button-empty.button-green', {
+      hl('button.button.button-empty.button-green', {
         attrs: { 'data-icon': licon.Checkmark, title: 'Save and close' },
         hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
       }),
     ]),
-    h('form.form3', [
-      h('div.form-group', [
-        h('textarea#form-control.desc-text.' + id, {
+    hl('form.form3', [
+      hl('div.form-group', [
+        hl('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : ctrl.text || '';
             el.oninput = () => ctrl.save(el.value.trim());

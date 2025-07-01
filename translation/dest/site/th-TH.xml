@@ -448,7 +448,6 @@
   <string name="points">แต้ม</string>
   <string name="wins">ชนะ</string>
   <string name="losses">แพ้</string>
-  <string name="createdBy">สร้างโดย</string>
   <string name="startingIn" comment="Displayed above a timer">จะเริ่มใน</string>
   <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
   <string name="pause">พัก</string>

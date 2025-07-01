@@ -55,28 +55,28 @@
   <string name="subscribeTitle">Pretplatite se da biste bili obavješteni o počecima svake runde. Možete prilagoditi obavještenja o emitovanjima u preferencama vašeg računa.</string>
   <string name="uploadImage">Ubacite sliku turnira</string>
   <string name="noBoardsYet">Ploče nisu još dostupne. Iste će se prikazati čim mečevi budu unešeni.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Ploče se mogu unijeti pomoću izvora ili preko %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Ploče se mogu unijeti pomoću izvora ili preko %s</string>
   <string name="startsAfter">Počinje poslije %s</string>
   <string name="startVerySoon">Emitovanje će ubrzo započeti.</string>
   <string name="notYetStarted">Emitovanje još nije počelo.</string>
   <string name="officialWebsite">Oficijelna web-stranica</string>
   <string name="standings">Rang lista</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Oficijelna rang lista</string>
+  <string name="officialStandings">Oficijelna rang lista</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više opcija na %s</string>
   <string name="webmastersPage">stranica web-mastera</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javni, u stvarnom vremenu PGN izvor za ovu rundu. Nudimo također %s za bržu i efikasniju sinkronizaciju.</string>
   <string name="embedThisBroadcast">Uvežite ovo emitovanje u vašu web stranicu</string>
   <string name="embedThisRound">Uvežite %s u vašu web-stranicu</string>
   <string name="ratingDiff">Razlika u rejtingu</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Mečevi u ovom turniru</string>
+  <string name="gamesThisTournament">Mečevi u ovom turniru</string>
   <string name="score">Bodovi</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Svi timovi</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Format turnira</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Lokacija turnira</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Najbolji igrači</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Vremenska zona</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Kategorija FIDE rejtinga</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Opcionalni detalji</string>
+  <string name="allTeams">Svi timovi</string>
+  <string name="tournamentFormat">Format turnira</string>
+  <string name="tournamentLocation">Lokacija turnira</string>
+  <string name="topPlayers">Najbolji igrači</string>
+  <string name="timezone">Vremenska zona</string>
+  <string name="fideRatingCategory">Kategorija FIDE rejtinga</string>
+  <string name="optionalDetails">Opcionalni detalji</string>
   <string name="pastBroadcasts">Prošla emitovanja</string>
   <string name="allBroadcastsByMonth">Vidi sva moja emitovanja ovaj mjesec</string>
 </resources>

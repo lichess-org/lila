@@ -22,7 +22,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
     Page(title)
       .css("bits.fide")
-      .js(infiniteScrollEsmInit):
+      .js(infiniteScrollEsmInit ++ esmInitBit("fidePlayerFollow")):
         main(cls := "page-menu")(
           menu(active),
           div(cls := "page-menu__content box")(modifiers)
@@ -186,12 +186,29 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
-    def show(player: FidePlayer, user: Option[User], tours: Option[Frag])(using Context) =
+    private def followButton(player: FidePlayer, isFollowing: Boolean)(using Context) =
+      val id = "fide-player-follow"
+      label(cls := "fide-player__follow")(
+        form3.cmnToggle(
+          fieldId = id,
+          fieldName = id,
+          checked = isFollowing,
+          action = Some(routes.Fide.follow(player.id, isFollowing).url)
+        ),
+        trans.site.follow()
+      )
+
+    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Option[Boolean])(using
+        Context
+    ) =
       page(s"${player.name} - FIDE player ${player.id}", "players")(
         cls := "box-pad fide-player",
-        h1(
-          span(titleTag(player.title), player.name),
-          user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+        div(cls := "fide-player__header")(
+          h1(
+            span(titleTag(player.title), player.name),
+            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+          ),
+          isFollowing.map(followButton(player, _))
         ),
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>

@@ -45,6 +45,8 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
   <string name="leadersChat">Chat dei leader</string>
   <string name="introduction">Introduzione</string>
+  <string name="teamIntroductionHelp">Breve descrizione visibile negli elenchi delle squadre. Fino a 200 caratteri.</string>
+  <string name="teamDescriptionHelp">Descrizione completa visibile nella pagina della squadra.</string>
   <string name="closeTeam">Chiudi la squadra</string>
   <string name="closeTeamDescription">Chiude la squadra per sempre.</string>
   <string name="entryCode">Codice di accesso alla squadra</string>

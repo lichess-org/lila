@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { onInsert, bind, looseH as h, type VNode } from 'lib/snabbdom';
+import { onInsert, bind, hl, type VNode } from 'lib/snabbdom';
 import { jsonSimple } from 'lib/xhr';
 import { snabDialog, type Dialog } from 'lib/view/dialog';
 import { onClickAway } from 'lib';
@@ -7,29 +7,29 @@ import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
-  return h(`div#voice-bar${cls ? '.' + cls : ''}`, [
-    h('div#voice-status-row', [
-      h('button#microphone-button', {
+  return hl(`div#voice-bar${cls ? '.' + cls : ''}`, [
+    hl('div#voice-status-row', [
+      hl('button#microphone-button', {
         hook: onInsert(el => el.addEventListener('click', () => ctrl.toggle())),
       }),
-      h('span#voice-status', {
+      hl('span#voice-status', {
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
-      h('button#voice-help-button', {
+      hl('button#voice-help-button', {
         attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
         hook: bind('click', () => ctrl.showHelp(true), undefined, false),
       }),
-      h('button#voice-settings-button', {
+      hl('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
         class: { active: ctrl.showPrefs() },
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
     ]),
     ctrl.showPrefs() &&
-      h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
+      hl('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
         deviceSelector(ctrl, redraw),
         langSetting(ctrl),
-        ...(ctrl.module()?.prefNodes(redraw) ?? []),
+        ctrl.module()?.prefNodes(redraw),
         pushTalkSetting(ctrl),
       ]),
     ctrl.showHelp() && renderHelpModal(ctrl),
@@ -55,38 +55,36 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 }
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
-  return h('div.voice-setting', { attrs: { style: 'align-self: center' } }, [
-    h('div.switch', { attrs: { title: 'Hold the shift key while speaking' } }, [
-      h('input#wake-mode.cmn-toggle', {
+  return hl('div.voice-setting', { attrs: { style: 'align-self: center' } }, [
+    hl('div.switch', { attrs: { title: 'Hold the shift key while speaking' } }, [
+      hl('input#wake-mode.cmn-toggle', {
         attrs: { type: 'checkbox', checked: ctrl.pushTalk() },
         hook: bind('change', e => ctrl.pushTalk((e.target as HTMLInputElement).checked)),
       }),
-      h('label', { attrs: { for: 'wake-mode' } }),
+      hl('label', { attrs: { for: 'wake-mode' } }),
     ]),
-    h('label', { attrs: { for: 'wake-mode' } }, ['Push ', h('strong', 'shift'), ' key to talk']),
+    hl('label', { attrs: { for: 'wake-mode' } }, ['Push ', hl('strong', 'shift'), ' key to talk']),
   ]);
 }
 
 function langSetting(ctrl: VoiceCtrl) {
   return (
     supportedLangs.length > 1 &&
-    h('div.voice-setting', [
-      h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-      h(
+    hl('div.voice-setting', [
+      hl('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      hl(
         'select#voice-lang',
         {
           attrs: { name: 'lang' },
           hook: bind('change', e => ctrl.lang((e.target as HTMLSelectElement).value)),
         },
-        [
-          ...supportedLangs.map(l =>
-            h(
-              'option',
-              { attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] } },
-              l[1],
-            ),
+        supportedLangs.map(l =>
+          hl(
+            'option',
+            { attrs: l[0] === ctrl.lang() ? { value: l[0], selected: '' } : { value: l[0] } },
+            l[1],
           ),
-        ],
+        ),
       ),
     ])
   );
@@ -102,9 +100,9 @@ const nullMic: MediaDeviceInfo = {
 
 let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
-  return h('div.voice-setting', [
-    h('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
-    h(
+  return hl('div.voice-setting', [
+    hl('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
+    hl(
       'select#voice-mic',
       {
         hook: onInsert((el: HTMLSelectElement) => {
@@ -116,7 +114,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
         }),
       },
       devices.map(d =>
-        h(
+        hl(
           'option',
           {
             attrs: {

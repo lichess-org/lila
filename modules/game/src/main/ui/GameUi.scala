@@ -282,7 +282,7 @@ final class GameUi(helpers: Helpers):
         gamePlayer(g.blackPlayer)
       ),
       result(g, as),
-      if g.playedTurns > 0 then opening(g) else frag(br, br),
+      if g.playedPlies > 0 then opening(g) else frag(br, br),
       note.map: note =>
         div(cls := "notes")(strong("Notes: "), note),
       g.metadata.analysed.option(

@@ -231,14 +231,14 @@ final class CoachUi(helpers: Helpers)(
                   lang.fold(trans.site.allLanguages.txt())(langList.name),
                   langSelections.map: (code, name) =>
                     a(
-                      href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
+                      href := routes.Coach.search(code, order.key, country.fold(allFlags)(_.code)),
                       cls  := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                 ),
                 lila.ui.bits.mselect(
                   "coach-country",
                   country.fold(trans.coach.allCountries.txt())(flagApi.name),
-                  (("all", trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
+                  ((allFlags, trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
                       cls  := (code == country.fold("all")(_.code)).option("current")
@@ -250,7 +250,7 @@ final class CoachUi(helpers: Helpers)(
                   CoachPager.Order.list.map: o =>
                     a(
                       href := routes.Coach
-                        .search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
+                        .search(lang.fold("all")(_.code), o.key, country.fold(allFlags)(_.code)),
                       cls := (order == o).option("current")
                     )(o.i18nKey())
                 )
@@ -265,7 +265,9 @@ final class CoachUi(helpers: Helpers)(
                 pager,
                 np =>
                   addQueryParam(
-                    routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url,
+                    routes.Coach
+                      .search(lang.fold("all")(_.code), order.key, country.fold(allFlags)(_.code))
+                      .url,
                     "page",
                     np.toString
                   )

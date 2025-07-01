@@ -112,7 +112,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
         parentPath: path,
         isMainline: opts.isMainline,
         depth: opts.depth,
-        truncate: opts.truncate ? opts.truncate - 1 : undefined,
+        truncate: !!opts.truncate ? opts.truncate - 1 : undefined,
         withIndex: !!comments[0],
       }) || [],
     );

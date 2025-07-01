@@ -4,5 +4,13 @@
   <string name="swissTournaments">Swiss-mót</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
   <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir spilarar leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. Það sem líkist hringhana á netinu best er að spila Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar spilaðar áður en mótinu lýkur.</string>
+  <string name="nowPlaying">Í afspilun núna</string>
+  <string name="startingSoon">Hefst senn</string>
+  <string name="pairingWaitTime">Biðtími á mætingum</string>
+  <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
+  <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum leikmönnum</string>
+  <string name="identicalPairing">Nákvæmlega eins mætingar</string>
+  <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
+  <string name="identicalForbidden">Bannað</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
 </resources>
