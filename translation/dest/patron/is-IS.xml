@@ -60,7 +60,9 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="giftPatronWings">Gefa leikmanni Velunnaravængi</string>
   <string name="update">Uppfæra</string>
   <string name="changeMonthlyAmount">Breyta mánaðarlegri upphæð (%s)</string>
+  <string name="cancelSupport">Hætta við stuðninginn þinn</string>
   <string name="xOrY">%1$s eða %2$s</string>
+  <string name="decideHowMuch">Ákveddu hvað Lichess er þér virði:</string>
   <string name="viewOthers">Skoða aðra velunnara Lichess</string>
   <string name="date">Dagsetning</string>
   <string name="amount">Upphæð</string>
