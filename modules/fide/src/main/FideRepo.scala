@@ -32,7 +32,7 @@ final private class FideRepo(
 
   object follower:
     private def makeId(u: UserId, p: FideId)   = s"$p/$u"
-    def followers(p: FideId): Fu[List[UserId]] =
+    def followers(p: FideId): Fu[List[UserId]] = (p.value > 0).so:
       for ids <- followerColl.distinctEasy[String, List]("_id", "_id".$startsWith(s"$p/"))
       yield UserId.from(ids.map(id => id.drop(id.indexOf('/') + 1)))
     def follow(u: UserId, p: FideId) = playerColl

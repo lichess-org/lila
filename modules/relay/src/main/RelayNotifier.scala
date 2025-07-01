@@ -15,9 +15,9 @@ final private class RelayNotifier(
 
     private val dedupNotif = OnceEvery[StudyChapterId](1.day)
 
-    def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Funit =
+    def apply(rt: RelayRound.WithTour, chapter: Chapter): Funit =
       dedupNotif(chapter.id).so:
-        val futureByColor = game.fideIds.mapWithColor: (color, fid) =>
+        val futureByColor = chapter.tags.fideIds.mapWithColor: (color, fid) =>
           for
             followers <- fid.so(getPlayerFollowers)
             notify    <- followers.nonEmpty.so:
@@ -57,8 +57,8 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def onCreate(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
-    notifyPlayerFollowers(rt, chapter, game)
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Unit =
+    notifyPlayerFollowers(rt, chapter)
     notifyTournamentSubscribers(rt)
 
   def onUpdate = onCreate
