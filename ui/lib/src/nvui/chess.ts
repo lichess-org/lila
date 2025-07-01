@@ -491,7 +491,12 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
   return legalUcis.includes(uci) ? `${uci}${promotion}` : undefined;
 }
 
-export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {
+export function renderMainline(
+  nodes: Tree.Node[],
+  currentPath: Tree.Path,
+  style: MoveStyle,
+  withComments = true,
+): VNodeChildren {
   const res: VNodeChildren = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
@@ -502,7 +507,7 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
       renderSan(node.san, node.uci, style),
     ];
     res.push(h('move', { attrs: { p: path }, class: { active: path === currentPath } }, content));
-    res.push(renderComments(node, style));
+    if (withComments) res.push(renderComments(node, style));
     res.push(', ');
     if (node.ply % 2 === 0) res.push(h('br'));
   });
@@ -525,7 +530,7 @@ const squareSelector = (rank: string, file: string) =>
 
 const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
 
-const keyFromAttrs = (el: HTMLElement): Key | undefined => {
+export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
 };
@@ -552,5 +557,5 @@ const transSanToWords = (san: string): string =>
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
+export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;

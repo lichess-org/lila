@@ -11,7 +11,7 @@ import lila.common.Form.{
   playerTitle
 }
 import lila.common.LameName
-import lila.core.user.Profile
+import lila.core.user.{ FlagCode, Profile }
 
 final class UserForm:
 
@@ -34,7 +34,7 @@ final class UserForm:
 
   val profile: Form[Profile] = Form:
     mapping(
-      "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
+      "flag"       -> optional(text.into[FlagCode].verifying(Flags.codeSet contains _)),
       "location"   -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 80)),
       "bio"        -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 400, maxSymbols = 10)),
       "realName"   -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100)),

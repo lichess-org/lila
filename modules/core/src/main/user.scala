@@ -110,7 +110,7 @@ object user:
     override def toString = "TotpSecret(****)"
 
   case class Profile(
-      @Key("country") flag: Option[String] = None,
+      @Key("country") flag: Option[FlagCode] = None,
       location: Option[String] = None,
       bio: Option[String] = None,
       realName: Option[String] = None,
@@ -332,17 +332,17 @@ object user:
       inline def modId: ModId   = userId.into(ModId)
       inline def myId: MyId     = userId.into(MyId)
 
-  final class Flag(val code: Flag.Code, val name: Flag.Name, val abrev: Option[String]):
+  final class Flag(val code: FlagCode, val name: FlagName, val abrev: Option[String]):
     def shortName = abrev | name
 
-  object Flag:
-    type Code = String
-    type Name = String
+  opaque type FlagCode = String
+  object FlagCode extends OpaqueString[FlagCode]
+  type FlagName = String
 
   trait FlagApi:
     val all: List[Flag]
-    val nonCountries: List[Flag.Code]
-    def name(flag: Flag): Flag.Name
+    val nonCountries: List[FlagCode]
+    def name(flag: Flag): FlagName
 
   type GameUser  = Option[WithPerf]
   type GameUsers = ByColor[GameUser]

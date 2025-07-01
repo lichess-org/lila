@@ -53,7 +53,7 @@ object PlayerAssessment:
     if game.variant != chess.variant.Antichess ||
       (assessment != GameAssessment.Cheating && assessment != GameAssessment.LikelyCheating)
     then assessment
-    else if flags.highlyConsistentMoveTimes && flags.suspiciousErrorRate && game.playedTurns < 50 && game
+    else if flags.highlyConsistentMoveTimes && game.playedPlies < 50 && game
         .sansOf(!color)
         .takeRight(12)
         .count(_.value.startsWith("B")) > 6

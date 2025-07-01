@@ -30,7 +30,7 @@ object GameExt:
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
+      val noLastInc = g.finished && (g.playedPlies >= history.size) == (color != g.turnColor)
 
       pairs
         .map: (first, second) =>
@@ -42,12 +42,12 @@ object GameExt:
     }
   }.orElse(g.binaryMoveTimes.map: binary =>
     // TODO: make movetime.read return List after writes are disabled.
-    val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
+    val base = BinaryFormat.moveTime.read(binary, g.playedPlies)
     val mts  = if color == g.startColor then base else base.drop(1)
     everyOther(mts.toList))
 
   def analysable(g: Game) =
-    g.replayable && g.playedTurns > 4 &&
+    g.replayable && g.playedPlies > 4 &&
       Game.analysableVariants(g.variant) &&
       !Game.isOldHorde(g)
 
@@ -127,7 +127,7 @@ object GameExt:
         binaryMoveTimes = (!g.sourceIs(_.Import) && g.chess.clock.isEmpty).option {
           BinaryFormat.moveTime.write {
             g.binaryMoveTimes.so { t =>
-              BinaryFormat.moveTime.read(t, g.playedTurns)
+              BinaryFormat.moveTime.read(t, g.playedPlies)
             } :+ Centis.ofLong(nowCentis - g.movedAt.toCentis).nonNeg
           }
         },
@@ -184,7 +184,7 @@ object GameExt:
     def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
 
     def playerBlurPercent(color: Color): Int =
-      if g.playedTurns > 5
+      if g.playedPlies > 5
       then (g.player(color).blurs.nb * 100) / g.playerMoves(color)
       else 0
 
