@@ -74,8 +74,10 @@ final class Challenge(env: Env) extends LilaController(env):
                 case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
         else
           Ok.async:
-            for challenge <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
-            yield views.challenge.theirs(c, json, challenge, color)
+            for
+              challenger <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
+              relation   <- (ctx.userId, c.challengerUserId).tupled.so(env.relation.api.fetchRelation.tupled)
+            yield views.challenge.theirs(c, json, challenger, color, relation)
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
