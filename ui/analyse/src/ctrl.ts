@@ -658,14 +658,14 @@ export default class AnalyseCtrl {
   }
 
   setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
-    this.tree.setCollapsedParentAndRecursive(path, collapsed);
+    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
     this.redraw();
   }
 
   wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
     if (typeof structuredClone !== 'function') return true;
     const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
-    ctrlWithDiffTree.tree.setCollapsedParentAndRecursive(path, collapsed);
+    ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
     return !isEquivalent(renderTreeView(this), renderTreeView(ctrlWithDiffTree), ['function']);
   }
 
