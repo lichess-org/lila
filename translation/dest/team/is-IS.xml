@@ -19,4 +19,9 @@
   <string name="teamRecentMembers">Nýjustu liðsmenn</string>
   <string name="kickSomeone">Reka einhvern úr liðinu</string>
   <string name="whoToKick">Hvern viltu reka út úr liðinu?</string>
+  <string name="closeTeam">Loka liði</string>
+  <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
+  <string name="incorrectEntryCode">Rangur aðgöngukóði.</string>
+  <string name="declinedRequests">Hafnaðar beiðnir</string>
+  <string name="teamPage">Liðssíða</string>
 </resources>
