@@ -48,7 +48,6 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
-import { VNode } from 'lib/snabbdom';
 import { isEquivalent } from 'lib/algo';
 
 export default class AnalyseCtrl {
