@@ -64,7 +64,7 @@ final private class RelaySync(
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
-            if chapter.root.mainline.size > 0 then notifier.notify(rt, chapter, game)
+            if chapter.root.mainline.nonEmpty then notifier.notify(rt, chapter, game)
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size, false).some
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
