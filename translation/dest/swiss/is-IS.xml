@@ -2,6 +2,12 @@
 <resources>
   <string name="swiss">Swiss</string>
   <string name="swissTournaments">Swiss-mót</string>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Ein umferð á dag</item>
+    <item quantity="other">Ein umferð á %s daga fresti</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Umferðir eru byrjaðar handvirkt</string>
+  <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
@@ -9,6 +15,7 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
 Það sem líkist hringhana á netinu best er að spila Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar spilaðar áður en mótinu lýkur.</string>
   <string name="nowPlaying">Í afspilun núna</string>
   <string name="startingSoon">Hefst senn</string>
+  <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
   <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum leikmönnum</string>
@@ -16,4 +23,5 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="tieBreak">Bráðabani</string>
 </resources>
