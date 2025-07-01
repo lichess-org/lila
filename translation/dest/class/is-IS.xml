@@ -27,6 +27,7 @@
   <string name="invitedToXByY">Boðið í %1$s af %2$s</string>
   <string name="realName">Rétt nafn</string>
   <string name="addStudent">Bæta nemanda</string>
+  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
   <string name="lichessUsername">Lichess notendanafn</string>
   <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
   <string name="clickToViewInvitation">Smelltu á tengilinn til að skoða boðið:</string>
