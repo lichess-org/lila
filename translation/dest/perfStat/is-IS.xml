@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">Tölfræði fyrir %s</string>
+  <string name="provisional">tímabundin</string>
+  <string name="notEnoughRatedGames">Hefur ekki teflt nógu margar stigaskákir til að meta skákstyrk með vissu.</string>
   <string name="totalGames">Skákir alls</string>
   <string name="ratedGames">Skákir með stigagjöf</string>
   <string name="tournamentGames">Mótsskákir</string>
