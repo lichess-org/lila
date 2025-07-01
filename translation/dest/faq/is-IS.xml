@@ -16,6 +16,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Já. Lichess hefur sannarlega veitt öðrum vefsíðum sem nota opinn hugbúnað innblástur, sem nota %1$s okkar, %2$s eða %3$s.</string>
   <string name="keyboardShortcuts">Hvaða flýtilyklar eru til?</string>
   <string name="fairPlay">Göfuglyndi</string>
+  <string name="whenAmIEligibleRatinRefund">Hvenær á ég rétt á að fá sjálfkrafa umbun fyrir skákstig sökum svindlara?</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
   <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
   <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>
