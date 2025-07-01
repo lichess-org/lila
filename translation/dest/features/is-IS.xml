@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Alls engar auglýsingar, engar njósnir</string>
+  <string name="cloudEngineAnalysis">Greining með tölvuforriti í netskýi</string>
   <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
   <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>
   <string name="personalOpeningExplorer">Einstaklingsbundinn byrjanaskoðari</string>
