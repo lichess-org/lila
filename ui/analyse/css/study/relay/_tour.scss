@@ -392,6 +392,10 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
+  &__standings--disclaimer {
+    text-align: end;
+  }
+
   &__player {
     @extend %flex-column;
     gap: 2em;

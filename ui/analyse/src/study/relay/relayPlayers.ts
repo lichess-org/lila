@@ -21,12 +21,16 @@ import { isTouchDevice } from 'lib/device';
 
 export type RelayPlayerId = FideId | string;
 
+interface Tiebreak {
+  [code: string]: { name: string; points: number };
+}
+
 interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
   ratingDiff?: number;
   performance?: number;
-  tiebreaks?: Record<string, number>;
+  tiebreaks?: Tiebreak;
   rank?: number;
 }
 
@@ -210,69 +214,91 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withScores = !!players.find(p => p.score !== undefined);
   const withRank = !!players.find(p => p.rank);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
+  const tbs = !!players.length && players[0].tiebreaks ? Object.entries(players[0].tiebreaks) : [];
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
-  return hl(
-    'table.relay-tour__players.slist.slist-invert.slist-pad',
-    {
-      hook: onInsert(tableAugment),
-    },
-    [
-      hl(
-        'thead',
-        hl('tr', [
-          withRank && hl('th', i18n.site.rank),
-          hl('th.player-name', i18n.site.player),
-          withRating && hl('th', !withScores && defaultSort, 'Elo'),
-          withScores && hl('th', defaultSort, i18n.broadcast.score),
-          hl('th', i18n.site.games),
-        ]),
-      ),
-      hl(
-        'tbody',
-        players.map(player =>
+  return hl('div.table', [
+    hl(
+      'p.relay-tour__standings--disclaimer',
+      'Standings are based on broadcasted games and may not tally with official results.',
+    ),
+    hl(
+      'table.relay-tour__players.slist.slist-invert.slist-pad',
+      {
+        hook: onInsert(tableAugment),
+      },
+      [
+        hl(
+          'thead',
           hl('tr', [
-            withRank && hl('td', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
-            hl(
-              'td.player-name',
-              { attrs: { 'data-sort': player.name || '' } },
-              hl('a', playerLinkConfig(ctrl, player, true), [
-                playerFed(player.fed),
-                userTitle(player),
-                player.name,
-              ]),
+            withRank && hl('th', i18n.site.rank),
+            hl('th.player-name', i18n.site.player),
+            withRating && hl('th', !withScores && defaultSort, 'Elo'),
+            withScores && hl('th', defaultSort, i18n.broadcast.score),
+            hl('th', i18n.site.games),
+            Array.from({ length: tbs.length }, (_, i) =>
+              hl('th', { attrs: { 'data-sort': i + 1, title: tbs[i][1].name } }, `${tbs[i][0]}`),
             ),
-            withRating &&
-              hl(
-                'td',
-                sortByBoth(player.rating, (player.score || 0) * 10),
-                !!player.rating && [`${player.rating}`, ratingDiff(player)],
-              ),
-            withScores &&
-              hl(
-                'td',
-                {
-                  attrs: {
-                    title: player.tiebreaks
-                      ? 'TBs: ' +
-                        Object.entries(player.tiebreaks)
-                          .map(([code, tb]) => `${code}:${tb}`)
-                          .join(', ')
-                      : '',
-                    'data-sort': player.rank
-                      ? -player.rank // so that I don't have to insert a data-sort-reverse also
-                      : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
-                  },
-                },
-                `${player.score ?? 0}`,
-              ),
-            hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
           ]),
         ),
-      ),
-    ],
-  );
+        hl(
+          'tbody',
+          players.map(player =>
+            hl('tr', [
+              withRank && hl('td', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
+              hl(
+                'td.player-name',
+                { attrs: { 'data-sort': player.name || '' } },
+                hl('a', playerLinkConfig(ctrl, player, true), [
+                  playerFed(player.fed),
+                  userTitle(player),
+                  player.name,
+                ]),
+              ),
+              withRating &&
+                hl(
+                  'td',
+                  sortByBoth(player.rating, (player.score || 0) * 10),
+                  !!player.rating && [`${player.rating}`, ratingDiff(player)],
+                ),
+              withScores &&
+                hl(
+                  'td',
+                  {
+                    attrs: {
+                      title: player.tiebreaks
+                        ? 'TBs: ' +
+                          Object.values(player.tiebreaks)
+                            .map(tb => `${tb.name}:${tb.points}`)
+                            .join(', ')
+                        : '',
+                      'data-sort': player.rank
+                        ? -player.rank // so that I don't have to insert a data-sort-reverse also
+                        : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
+                    },
+                  },
+                  `${player.score ?? 0}`,
+                ),
+              hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
+              Array.from({ length: tbs.length }, (_, i) =>
+                hl(
+                  'td',
+                  {
+                    attrs: {
+                      'data-sort': i + 1,
+                      title: `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].name ?? undefined) : undefined}`,
+                    },
+                  },
+                  `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].points ?? 0) : 0}`,
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ],
+    ),
+  ]);
 };
 
 const playerTipId = 'tour-player-tip';
