@@ -40,6 +40,8 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nýlega tekið þátt í</string>
   <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
+  <string name="medians">miðgildi</string>
+  <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
   <string name="total">Samtals</string>
   <string name="pointsAvg">Meðalstig</string>
   <string name="pointsSum">Stigasumma</string>
