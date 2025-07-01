@@ -57,6 +57,8 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def chapterUpdated(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
     notifyPlayerFollowers(rt, chapter, game)
     notifyTournamentSubscribers(rt)
+
+  def onUpdate = onCreate
