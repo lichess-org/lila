@@ -21,6 +21,7 @@
   <string name="asBlack">ক\'লা ৰং হিচাপে</string>
   <string name="randomColor">যাদৃচ্ছিক দল</string>
   <string name="createAGame">নতুন খেল আৰমভ কৰক</string>
+  <string name="createTheGame">গেমটো সৃষ্টি কৰক</string>
   <string name="whiteIsVictorious">বগা দল বিজয়ী</string>
   <string name="blackIsVictorious">ক’লা দল বিজয়ী</string>
   <string name="youPlayTheWhitePieces">আপুনি বগা ৰং হিচাপে খেলিব</string>
@@ -28,6 +29,7 @@
   <string name="itsYourTurn">আপোনাৰ খেলাৰ পাল !</string>
   <string name="cheatDetected">Cheat Ketcohahe</string>
   <string name="kingInTheCenter">ৰজা আহিল মাজ\'লৈ</string>
+  <string name="threeChecks">তিনিটা চেক</string>
   <string name="joinTheGame">খেলখনত ভাগ লোৱা</string>
   <string name="whitePlays">বগা দলৰ পাল</string>
   <string name="blackPlays">ক’লা দলৰ পাল</string>
