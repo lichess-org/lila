@@ -10,7 +10,7 @@
   <string name="actions">الإجراءات</string>
   <string name="yourClock">ساعتك</string>
   <string name="opponentClock">ساعة الخصم</string>
-  <string name="gameStart">ب</string>
+  <string name="gameStart">بدأت اللعبة</string>
   <string name="boardCommandList">قائمة الأوامر عندما تكون رقعة الشطرنج محط التركيز</string>
   <string name="inputFormCommandList">اكتب هذه الأوامر في نموذج إدخال الأوامر.</string>
   <string name="goToInputForm">انتقل إلى نموذج إدخال الأمر.</string>
