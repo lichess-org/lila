@@ -111,8 +111,7 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | 
 }
 
 function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
-  const collapsed =
-    parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
+  const collapsed = !!parentNode.collapsed;
   return hl(
     'lines',
     { class: { single: !nodes[1], collapsed } },

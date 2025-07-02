@@ -28,7 +28,7 @@ export interface TreeWrapper {
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
-  setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean): void;
+  setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -36,12 +36,20 @@ export interface TreeWrapper {
   removeCeval(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
+  someInSubtree(path: Tree.Path, match: (node: Tree.Node) => boolean): boolean;
 }
 
 export function build(root: Tree.Node): TreeWrapper {
   const lastNode = (): MaybeNode => ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
 
   const nodeAtPath = (path: Tree.Path): Tree.Node => nodeAtPathFrom(root, path);
+
+  function initCollapsed(node: Tree.Node, branchDepth: number) {
+    node.collapsed ??= branchDepth >= 3 && node.children.length > 1;
+    node.children.forEach((child, i) => initCollapsed(child, branchDepth + (i || branchDepth ? 1 : 0)));
+  }
+
+  initCollapsed(root, 0);
 
   function nodeAtPathFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
     if (path === '') return node;
@@ -202,9 +210,6 @@ export function build(root: Tree.Node): TreeWrapper {
     return parent ? parent.clock : node.clock;
   }
 
-  const setCollapsedAt = (path: Tree.Path, collapsed: boolean) =>
-    updateAt(path, node => (node.collapsed = collapsed));
-
   return {
     root,
     lastPly: (): number => lastNode()?.ply || root.ply,
@@ -232,11 +237,15 @@ export function build(root: Tree.Node): TreeWrapper {
         node.clock = clock;
       });
     },
-    setCollapsedAt,
-    setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean) {
-      // Also update parent
-      setCollapsedAt(treePath.init(path), collapsed);
-      updateRecursive(path, node => (node.collapsed = collapsed));
+    setCollapsedAt(path: Tree.Path, collapsed: boolean) {
+      return updateAt(path, function (node) {
+        node.collapsed = collapsed;
+      });
+    },
+    setCollapsedRecursive(path: Tree.Path, collapsed: boolean) {
+      return updateRecursive(path, function (node) {
+        node.collapsed = collapsed && node.children.length > 1;
+      });
     },
     pathIsMainline,
     pathIsForcedVariation,
@@ -262,5 +271,10 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     parentNode,
     getParentClock,
+    someInSubtree(path: Tree.Path, match: (node: Tree.Node) => boolean): boolean {
+      const nodes: Tree.Node[] = [];
+      ops.updateAll(nodeAtPath(path), n => nodes.push(n));
+      return nodes.some(match);
+    },
   };
 }

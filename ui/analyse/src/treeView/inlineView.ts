@@ -69,8 +69,7 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | 
 }
 
 function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
-  const collapsed =
-    parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
+  const collapsed = !!parentNode.collapsed;
   return h(
     'lines',
     { class: { collapsed } },

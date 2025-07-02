@@ -90,7 +90,9 @@ function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
+    extendedPath = opts.root.tree.extendPath(opts.path, onMainline),
+    canCollapse = ctrl.tree.someInSubtree(opts.path, n => n.children.length > 1 && !n.collapsed),
+    canExpand = ctrl.tree.someInSubtree(opts.path, n => !!n.collapsed);
   return hl(
     'div#' + elementId + '.visible',
     {
@@ -118,15 +120,11 @@ function view(opts: Opts, coords: Coords): VNode {
         () => ctrl.pendingDeletionPath(null),
       ),
 
-      ctrl.wouldCtxCollapseAffectView(opts.path, false) &&
-        action(licon.PlusButton, i18n.site.expandVariations, () =>
-          ctrl.setCollapsedForCtxMenu(opts.path, false),
-        ),
+      canExpand &&
+        action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setCollapsedFrom(opts.path, false)),
 
-      ctrl.wouldCtxCollapseAffectView(opts.path, true) &&
-        action(licon.MinusButton, i18n.site.collapseVariations, () =>
-          ctrl.setCollapsedForCtxMenu(opts.path, true),
-        ),
+      canCollapse &&
+        action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setCollapsedFrom(opts.path, true)),
 
       ctrl.study && studyView.contextMenu(ctrl.study, opts.path, node),
 
