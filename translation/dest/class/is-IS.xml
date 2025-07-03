@@ -76,6 +76,9 @@
   <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Þú þáðir þetta boð.</string>
   <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Þú afþakkaðir þetta boð.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
+  <string name="createMultipleAccounts">Stofna marga Lichess-aðganga í einu</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">notað þetta eyðublað</string>
+  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Boð hefur verið sent til %s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytja yfir í %s</string>
   <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
 </resources>
