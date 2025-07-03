@@ -45,6 +45,7 @@
   <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
   <string name="sacrifice">Fórn</string>
   <string name="shortDescription">Tveir leikir til sigurs.</string>
+  <string name="veryLongDescription">Sigur í fjórum eða fleiri leikjum.</string>
   <string name="xRayAttack">Gegnumhótun</string>
   <string name="zugzwang">Leikþröng</string>
   <string name="zugzwangDescription">Fátt stendur andstæðingnum til boða að leika, og hver einasti leikur versnar stöðu hans.</string>
