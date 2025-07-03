@@ -22,11 +22,14 @@
   <string name="roundNumber">Númer umferðar</string>
   <string name="tournamentName">Heiti móts</string>
   <string name="tournamentDescription">Stutt lýsing á mótinu</string>
+  <string name="fullDescription">Lýsing móts í heild sinni</string>
   <string name="sourceSingleUrl">PGN-upprunavefslóð</string>
   <string name="currentGameUrl">Slóð núverandi skákar</string>
   <string name="downloadAllRounds">Hlaða niður öllum umferðum</string>
   <string name="resetRound">Endurvekja þessa umferð</string>
+  <string name="deleteRound">Eyða þessari umferð</string>
   <string name="editRoundStudy">Breyta umferðarstúderingu</string>
+  <string name="deleteTournament">Eyða þessu móti</string>
   <string name="fideFederations">Aðildarfélög alþjóðaskáksambandsins</string>
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
   <string name="fidePlayers">Leikmenn alþjóðaskáksambandsins</string>
@@ -42,6 +45,7 @@
   <string name="overview">Yfirlit</string>
   <string name="subscribeTitle">Gerstu áskrifandi til þess að fá að vita þegar hver ný umferð hefst. Þér er frjálst að virkja ósjálfvirkar og sjálfvirkar tilkynningar um útsendingar í stillingum á aðgangi þínum.</string>
   <string name="uploadImage">Hlaða inn mynd fyrir mót</string>
+  <string name="startsAfter">Byrjar eftir %s</string>
   <string name="officialWebsite">Opinber vefsíða</string>
   <string name="standings">Staða</string>
   <string name="officialStandings">Opinberar stöður</string>
