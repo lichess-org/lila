@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="accountMuted">Aðgangurinn þinn er þaggaður.</string>
+  <string name="blogRules">reglur um blogg</string>
+  <string name="fairPlay">Göfuglyndi</string>
+</resources>
