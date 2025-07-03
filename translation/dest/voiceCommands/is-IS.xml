@@ -6,4 +6,6 @@
   <string name="takeRookWithQueen">Drepa hrók með drottningu</string>
   <string name="phoneticAlphabetIsBest">Hljóðritunarstafróf er best</string>
   <string name="sleep">Sofa (ef vekjaorð gildir)</string>
+  <string name="turnOffVoiceRecognition">Slökkva á talgreiningu</string>
+  <string name="showPuzzleSolution">Sýna lausn þrautarinnar</string>
 </resources>
