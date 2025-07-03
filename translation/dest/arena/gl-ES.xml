@@ -3,7 +3,7 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneos Arena</string>
   <string name="isItRated">É puntuado?</string>
-  <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes xogar sen problema noutra lapela mentres agardas.</string>
+  <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes cambiar de lapela sen problema.</string>
   <string name="isRated">Este torneo é puntuado e afectará á túa puntuación.</string>
   <string name="isNotRated">Este torneo *non* é puntuado e *non* afectará á túa puntuación.</string>
   <string name="someRated">Algúns torneos son puntuados e afectarán á túa puntuación.</string>
