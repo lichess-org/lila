@@ -10,11 +10,24 @@
     <item quantity="one">%s áhorfandi</item>
     <item quantity="other">%s áhorfendur</item>
   </plurals>
+  <string name="broadcastCalendar">Útsendingadagatal</string>
+  <string name="newBroadcast">Ný útsending í beinni</string>
+  <string name="subscribedBroadcasts">Áskriftarútsendingar</string>
   <string name="aboutBroadcasts">Um útsendingar</string>
   <string name="howToUseLichessBroadcasts">Hvernig á að nota Lichess-útsendingar.</string>
+  <string name="addRound">Bæta við umferð</string>
   <string name="ongoing">Yfirstandandi</string>
   <string name="upcoming">Framundan</string>
+  <string name="roundName">Heiti umferðar</string>
+  <string name="roundNumber">Númer umferðar</string>
+  <string name="tournamentName">Heiti móts</string>
+  <string name="tournamentDescription">Stutt lýsing á mótinu</string>
+  <string name="sourceSingleUrl">PGN-upprunavefslóð</string>
+  <string name="currentGameUrl">Slóð núverandi skákar</string>
   <string name="downloadAllRounds">Hlaða niður öllum umferðum</string>
+  <string name="resetRound">Endurvekja þessa umferð</string>
+  <string name="editRoundStudy">Breyta umferðarstúderingu</string>
+  <string name="fideFederations">Aðildarfélög alþjóðaskáksambandsins</string>
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
   <string name="fidePlayers">Leikmenn alþjóðaskáksambandsins</string>
   <string name="fidePlayerNotFound">Leikmaður alþjóðaskáksambandsins fannst ekki</string>
@@ -34,11 +47,14 @@
   <string name="officialStandings">Opinberar stöður</string>
   <string name="embedThisBroadcast">Ívefðu þessa útsendingu inn í vefsíðu þína</string>
   <string name="embedThisRound">Ívefja %s inn í vefsíðuna þína</string>
+  <string name="ratingDiff">Mismunur á skákstigum</string>
   <string name="gamesThisTournament">Skákir á þessu móti</string>
   <string name="score">Árangur</string>
   <string name="allTeams">Öll lið</string>
   <string name="tournamentLocation">Staðsetning móts</string>
   <string name="topPlayers">Bestu leikmennirnir</string>
   <string name="timezone">Tímabelti</string>
+  <string name="optionalDetails">Valfrjálsar upplýsingar</string>
   <string name="liveboard">Taflborð í beinni</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Útsendingar samfélagsins</string>
 </resources>
