@@ -37,8 +37,8 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="defender">Núverandi meistari</string>
   <string name="pickYourTeam">Veldu lið þiit</string>
   <string name="created">Stofnað</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nýlega tekið þátt í</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Besti árangurinn</string>
+  <string name="recentlyPlayed">Nýlega tekið þátt í</string>
+  <string name="bestResults">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
   <string name="medians">miðgildi</string>
   <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
@@ -50,5 +50,5 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="onlyTitled">Eingöngu leikmenn með titil</string>
   <string name="onlyTitledHelp">Krefjast opinbers titils til þess að taka þátt í mótinu</string>
   <string name="tournamentPairingsAreNowClosed">Nú er hætt að ákvarða mætingar móts.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserk-hlutfall</string>
+  <string name="berserkRate">Berserk-hlutfall</string>
 </resources>
