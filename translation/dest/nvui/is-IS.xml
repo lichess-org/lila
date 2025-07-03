@@ -9,6 +9,7 @@
   <string name="yourClock">Klukka þín</string>
   <string name="opponentClock">Klukka andstæðingsins</string>
   <string name="gameStart">Skák byrjar</string>
+  <string name="announceCurrentSquare">Lesa núverandi reit upphátt.</string>
   <string name="announceLastMove">Lesa síðasta leik upphátt.</string>
   <string name="king">kóngur</string>
   <string name="whiteKing">hvítur kóngur</string>
