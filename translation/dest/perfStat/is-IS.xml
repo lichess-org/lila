@@ -14,6 +14,7 @@
   <string name="defeats">Töp</string>
   <string name="disconnections">Aftengingar</string>
   <string name="notEnoughGames">Ekki teflt nógu mikið</string>
+  <string name="highestRating">Flestu skákstig: %s</string>
   <string name="winningStreak">Sigurdöngun</string>
   <string name="losingStreak">Ósigurdöngun</string>
   <string name="longestStreak">Lengsta döngun: %s</string>
