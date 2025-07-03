@@ -18,13 +18,12 @@ final private class RelayNotifier(
     def apply(rt: RelayRound.WithTour, chapter: Chapter): Unit =
       dedupNotif(chapter.id).so:
         chapter.tags.fideIds.foreach: (color, fid) =>
-          fid.so: fid =>
-            for
-              followers <- getPlayerFollowers(fid)
-              _         <- followers.nonEmpty.so(notify(followers, color, fid))
-            yield ()
+          for
+            followers <- fid.so(fid => getPlayerFollowers(fid))
+            _         <- followers.nonEmpty.so(notify(followers, color))
+          yield ()
 
-      def notify(followers: List[UserId], color: Color, fid: chess.FideId) =
+      def notify(followers: List[UserId], color: Color) =
         val names = chapter.tags.names
         names(color) match
           case Some(playerName) =>
@@ -38,9 +37,7 @@ final private class RelayNotifier(
               )
             )
           case None =>
-            fuccess(
-              lila.log("relay").warn(s"Missing player name for FIDE id ${fid} in game ${chapter.id}")
-            )
+            fuccess(lila.log("relay").warn(s"Missing player name for $color in game ${chapter.id}"))
 
   private object notifyTournamentSubscribers:
 
