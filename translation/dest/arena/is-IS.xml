@@ -23,6 +23,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
     <item quantity="one">Skoða liðið</item>
     <item quantity="other">Skoða öll %s lið</item>
   </plurals>
+  <string name="newTeamBattle">Ný liðsorrusta</string>
   <string name="customStartDate">Sérsniðinn upphafsdagur</string>
   <string name="allowBerserk">Leyfa Berserk</string>
   <string name="allowChatHelp">Leyfa leikmönnum að rabba í spjallherbergi</string>
@@ -34,6 +35,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="averageScore">Meðalstig</string>
   <string name="myTournaments">Mótin mín</string>
   <string name="editTournament">Breyta móti</string>
+  <string name="editTeamBattle">Breyta liðsorrustu</string>
   <string name="defender">Núverandi meistari</string>
   <string name="pickYourTeam">Veldu lið þiit</string>
   <string name="created">Stofnað</string>
