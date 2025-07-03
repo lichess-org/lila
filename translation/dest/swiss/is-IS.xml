@@ -22,6 +22,7 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
   <string name="identicalPairing">Nákvæmlega eins mætingar</string>
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
+  <string name="pause">Pása</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
   <string name="tieBreak">Bráðabani</string>
 </resources>
