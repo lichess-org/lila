@@ -97,3 +97,15 @@ final class Pref(env: Env) extends LilaController(env):
           v => api.setPref(me, change.update(v)).inject(NoContent)
         )
   }
+
+  def network = Auth { ctx ?=> me ?=>
+    Ok.page(views.account.pref.network(ctx.pref.isUsingAltSocket))
+  }
+
+  def networkPost = AuthBody { ctx ?=> me ?=>
+    for _ <- bindForm(forms.cfRoutingForm)(
+        _ => funit,
+        cfRouting => env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = cfRouting.some))
+      )
+    yield Redirect(routes.Pref.network)
+  }

@@ -11,14 +11,17 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     scheduler: Scheduler
 ):
   def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
-    Source(List(initialJson)).concat(
+    Source(List(initialJson)).concat:
       Source
         .queue[JsObject](1, akka.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue: queue =>
+
           val keepAliveInterval = scheduler.scheduleWithFixedDelay(15.seconds, 15.seconds): () =>
             api.ping(challenge.id)
+
           def completeWith(msg: String) =
             for _ <- queue.offer(Json.obj("done" -> msg)) yield queue.complete()
+
           val subPositive = Bus.sub[PositiveEvent]:
             case PositiveEvent.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
 
@@ -32,4 +35,3 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
               keepAliveInterval.cancel()
               Bus.unsub[PositiveEvent](subPositive)
               Bus.unsub[NegativeEvent](subNegative)
-    )

@@ -220,7 +220,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode[] {
 
   const switchButton: VNode | false =
     !ctrl.mandatoryCeval?.() &&
-    hl('div.switch', { attrs: { title: i18n.site.toggleLocalEvaluation + ' (L)' } }, [
+    hl('div.switch', { attrs: { role: 'button', title: i18n.site.toggleLocalEvaluation + ' (L)' } }, [
       hl('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
         attrs: { type: 'checkbox', checked: enabled, disabled: !ceval.analysable },
         hook: onInsert((el: HTMLInputElement) => {
@@ -232,11 +232,15 @@ export function renderCeval(ctrl: ParentCtrl): VNode[] {
     ]);
 
   const settingsGear = hl('button.settings-gear', {
-    attrs: { 'data-icon': licon.Gear, title: 'Engine settings' },
+    attrs: { role: 'button', 'data-icon': licon.Gear, title: 'Engine settings' },
     class: { active: ctrl.getCeval().showEnginePrefs() }, // must use ctrl.getCeval() rather than ceval here
     hook: bind(
       'click',
-      () => ctrl.getCeval().showEnginePrefs.toggle(), // must use ctrl.getCeval() rather than ceval here
+      () => {
+        ctrl.getCeval().showEnginePrefs.toggle(); // must use ctrl.getCeval() rather than ceval here
+        if (ctrl.getCeval().showEnginePrefs())
+          setTimeout(() => document.querySelector<HTMLElement>('.select-engine')?.focus()); // nvui
+      },
       () => ctrl.getCeval().opts.redraw(), // must use ctrl.getCeval() rather than ceval here
       false,
     ),
