@@ -33,6 +33,10 @@
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>
   <string name="ratingX">Skákstig: %s</string>
   <string name="hidden">falið</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Teflt %s sinni</item>
+    <item quantity="other">Teflt %s sinnum</item>
+  </plurals>
   <string name="fromGameLink">Úr skák %s</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="difficultyLevel">Þyngdarstig</string>
@@ -57,6 +61,7 @@
   <string name="continueTheStreak">Halda dönguninni áfram</string>
   <string name="newStreak">Ný döngun</string>
   <string name="fromMyGames">Úr skákum mínum</string>
+  <string name="searchPuzzles">Leita að þrautum</string>
   <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
 
 Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
