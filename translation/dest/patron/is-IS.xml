@@ -27,6 +27,7 @@
   <string name="onetime">Eingreiðsla</string>
   <string name="singleDonation">Eitt framlag sem veitir þér Velunnaravængi í einn mánuð.</string>
   <string name="otherAmount">Annað</string>
+  <string name="pleaseEnterAmountInX">Vinsamlegast sláðu inn upphæð í %s</string>
   <string name="withCreditCard">Biðgreiðslukort</string>
   <string name="logInToDonate">Skráðu þig inn til að styrkja</string>
   <string name="weAreSmallTeam">Við erum lítið teymi, svo stuðningur þinn skiptir miklu máli!</string>
@@ -67,6 +68,7 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="date">Dagsetning</string>
   <string name="amount">Upphæð</string>
   <string name="permanentPatron">Þú hefur nú fastan velunnaraaðgang.</string>
+  <string name="checkOutProfile">Kannaðu prófílsíðuna þína!</string>
   <string name="nowLifetime">Þú hefur gerst ævilangur velunnari Lichess!</string>
   <string name="nowOneMonth">Þú ert nú Lichess-velunnari í einn mánuð!</string>
   <string name="downgradeNextMonth">Eftir einn mánuð verður EKKI rukkað af þér aftur og Lichess-aðgangur þinn mun breytast aftur í venjulegan aðgang.</string>
