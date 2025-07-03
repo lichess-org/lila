@@ -10,6 +10,7 @@
   <string name="hourlyRate">Tímagjald</string>
   <string name="availability">Fáanleiki</string>
   <string name="accepting">Tekur við nemendum</string>
+  <string name="notAccepting">Tekur ekki við nemendum eins og er</string>
   <string name="viewXProfile">Skoða Lichess-prófil %s</string>
   <string name="sendPM">Senda einkaskilaboð</string>
   <string name="aboutMe">Um mig</string>
