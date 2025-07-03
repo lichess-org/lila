@@ -47,6 +47,7 @@ private object OpeningSearch:
         .take(200)
         .replace("_", " ")
         .replace("-", " ")
+        .replace(".", " ")
         .split(' ')
         .view
         .map(_.trim)
