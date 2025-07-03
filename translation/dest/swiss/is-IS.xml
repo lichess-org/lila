@@ -20,8 +20,10 @@
     <item quantity="one">Skák í gangi</item>
     <item quantity="other">Skákir í gangi</item>
   </plurals>
+  <string name="tournStartDate">Upphafsdagur móts</string>
   <string name="forbiddenPairings">Forboðnar mætingar</string>
   <string name="newSwiss">Nýtt Swiss-mót</string>
+  <string name="pointsCalculationQ">Hvernig eru stig reiknuð út?</string>
   <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
   <string name="FIDEHandbook">Handbók alþjóðaskáksambandsins</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
