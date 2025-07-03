@@ -6,5 +6,6 @@
     <item quantity="other">%s færslur á bloggi</item>
   </plurals>
   <string name="newPost">Ný færsla</string>
+  <string name="drafts">Drög</string>
   <string name="published">Birt</string>
 </resources>
