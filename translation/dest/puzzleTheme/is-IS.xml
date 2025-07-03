@@ -28,6 +28,7 @@
   <string name="opening">Byrjun</string>
   <string name="pawnEndgame">Endatafl með peðum</string>
   <string name="pawnEndgameDescription">Endatafl með einungis peðum.</string>
+  <string name="pin">Leppun</string>
   <string name="queenEndgame">Endatafl með drottningum</string>
   <string name="queenEndgameDescription">Endatafl með einungis drottningum og peðum.</string>
   <string name="queenRookEndgame">Drottning og hrók</string>
