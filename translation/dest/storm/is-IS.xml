@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 lota</item>
+    <item quantity="other">%s lotur</item>
+  </plurals>
   <string name="score">Stig</string>
+  <string name="moves">Leikir</string>
   <string name="accuracy">Nákvæmni</string>
   <string name="combo">Hrina</string>
+  <string name="time">Tími</string>
+  <string name="runs">Lotur</string>
   <string name="skip">sleppa</string>
   <string name="thisWeek">Í þessari viku</string>
   <string name="thisMonth">Þessi mánuður</string>
