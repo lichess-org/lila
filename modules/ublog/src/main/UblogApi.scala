@@ -10,7 +10,7 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.core.user.KidMode
-import lila.core.ublog.BlogsBy
+import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
 
@@ -28,6 +28,7 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
   import UblogBlog.Tier
+  import UblogAutomod.Assessment
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -164,7 +165,7 @@ final class UblogApi(
       slug = post.slug,
       title = post.title,
       intro = post.intro,
-      topic = mod.fold(Tier.name(tier).toLowerCase())(_.quality.label + " quality") + " new posts",
+      topic = mod.fold(Tier.name(tier).toLowerCase())(_.quality.toString + " quality") + " new posts",
       automodNotes
     )
 
@@ -247,12 +248,11 @@ final class UblogApi(
   yield likes
 
   def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
-    import UblogAutomod.{ Quality, Assessment }
     def maybeCopy(v: Option[String], base: Option[String]) =
       v.filter(_.nonEmpty).orElse(base) // form sends empty string to unset
     if !d.hasUpdates then fuccess(post.automod)
     else
-      val base       = post.automod.getOrElse(Assessment(quality = Quality.Good))
+      val base       = post.automod.getOrElse(Assessment(quality = Quality.good))
       val assessment = Assessment(
         quality = d.quality.flatMap(Quality.fromName).getOrElse(base.quality),
         evergreen = d.evergreen.orElse(base.evergreen),

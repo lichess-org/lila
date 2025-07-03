@@ -3,7 +3,7 @@ package lila.ublog
 import scalalib.ThreadLocalRandom.shuffle
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import UblogAutomod.Quality.Good
+import lila.core.ublog.Quality
 
 opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
@@ -55,7 +55,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
                   $doc(
                     "live"            -> true,
                     "topics"          -> topic,
-                    "automod.quality" -> $gte(Good.ordinal),
+                    "automod.quality" -> $gte(Quality.good.ordinal),
                     "likes"           -> $gt(50)
                   ),
                   previewPostProjection.some

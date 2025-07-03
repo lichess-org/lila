@@ -6,8 +6,9 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.DefaultBodyReadables.readableAsString
 import com.roundeights.hasher.Algo
 
-import lila.memo.SettingStore
 import lila.core.data.Text
+import lila.core.ublog.Quality
+import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
 
 // see also:
@@ -34,14 +35,6 @@ object UblogAutomod:
       evergreen: Option[Boolean]
   )
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
-
-  enum Quality:
-    case Spam, Weak, Good, Great
-    def label: String = toString.toLowerCase
-
-  object Quality:
-    def fromName(name: String): Option[Quality] =
-      values.find(_.toString.equalsIgnoreCase(name))
 
 final class UblogAutomod(
     ws: StandaloneWSClient,
@@ -96,7 +89,7 @@ final class UblogAutomod(
           yield result) match
             case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
-              lila.mon.ublog.automod.quality(res.quality.label).increment()
+              lila.mon.ublog.automod.quality(res.quality.toString).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
               val hash = Algo.sha256(userText).hex.take(12) // matches ublog-automod.mjs hash
               fuccess(res.copy(hash = hash.some).some)
@@ -108,15 +101,15 @@ final class UblogAutomod(
       .parse(trimmed)
       .asOpt[FuzzyResult]
       .flatMap: res =>
-        Quality.values
-          .find(_.toString.equalsIgnoreCase(res.quality))
+        Quality
+          .fromName(res.quality)
           .map: q =>
             import Quality.*
             Assessment(
               quality = q,
-              evergreen = if q == Good || q == Great then res.evergreen else none,
+              evergreen = if q == good || q == great then res.evergreen else none,
               flagged = fixString(res.flagged),
-              commercial = if q != Spam then fixString(res.commercial) else none
+              commercial = if q != spam then fixString(res.commercial) else none
             )
 
   private def fixString(field: Option[JsValue]): Option[String] = // LLM make poopy

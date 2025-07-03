@@ -7,6 +7,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.i18n.LangList
 import lila.ublog.UblogPost
 import lila.core.i18n.toLanguage
+import lila.core.ublog.Quality
 
 lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi)(picfitUrl)
 
@@ -19,7 +20,7 @@ lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
         views.captcha(form, _)
 )
 
-def community(language: Option[Language], filter: Boolean, posts: Paginator[UblogPost.PreviewPost])(using
+def community(language: Option[Language], filter: Quality, posts: Paginator[UblogPost.PreviewPost])(using
     ctx: Context
 ) =
   val langSelections: List[(Language, String)] = (Language("all"), trans.site.allLanguages.txt()) ::

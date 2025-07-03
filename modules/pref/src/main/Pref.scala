@@ -1,6 +1,7 @@
 package lila.pref
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import lila.core.ublog.Quality
 
 case class Pref(
     @Key("_id") id: UserId,
@@ -43,6 +44,7 @@ case class Pref(
     pieceNotation: Int,
     resizeHandle: Int,
     agreement: Int,
+    blogFilter: Quality,
     usingAltSocket: Option[Boolean],
     board: Pref.BoardPref,
     tags: Map[String, String] = Map.empty
@@ -496,6 +498,7 @@ object Pref:
     agreement = Agreement.current,
     usingAltSocket = none,
     board = BoardPref(brightness = 100, opacity = 100, hue = 0),
+    blogFilter = Quality.good,
     tags = Map.empty
   )
 

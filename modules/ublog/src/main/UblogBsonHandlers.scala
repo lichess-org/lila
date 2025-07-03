@@ -9,7 +9,8 @@ import lila.db.dsl.{ *, given }
 private object UblogBsonHandlers:
 
   import UblogPost.{ LightPost, PreviewPost, Recorded, Featured }
-  import UblogAutomod.{ Quality, Assessment }
+  import UblogAutomod.Assessment
+  import lila.core.ublog.Quality
 
   given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },

@@ -101,7 +101,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             ),
             div(cls := "ublog-post__topics")(
               post.topics.map: topic =>
-                a(href := routes.Ublog.topic(topic.url, true, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
+                a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
               div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
@@ -196,11 +196,11 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
         span(cls := "btn-rack")(
-          UblogAutomod.Quality.values.map: q =>
+          lila.core.ublog.Quality.values.map: q =>
             button(
               cls   := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.toString
-            )(q.toString)
+              value := q.ordinal.toString
+            )(q.toString.capitalize)
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),

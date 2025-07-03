@@ -26,3 +26,10 @@ enum BlogsBy:
 
 object BlogsBy:
   def fromName(name: String): Option[BlogsBy] = values.find(_.name == name)
+
+enum Quality:
+  case spam, weak, good, great
+
+object Quality:
+  def fromName(name: String): Option[Quality] =
+    values.find(_.toString.equalsIgnoreCase(name))

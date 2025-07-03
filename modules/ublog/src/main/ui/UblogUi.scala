@@ -5,7 +5,7 @@ import java.time.YearMonth
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
-import lila.core.ublog.BlogsBy
+import lila.core.ublog.{ BlogsBy, Quality }
 
 import ScalatagsTemplate.{ *, given }
 
@@ -110,7 +110,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def community(
       language: Option[Language],
-      filter: Boolean,
+      filter: Quality,
       posts: Paginator[UblogPost.PreviewPost],
       langSelections: List[(Language, String)]
   )(using ctx: Context) =
@@ -124,14 +124,14 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           st.title := "Lichess community blogs"
         ).some
       )
-      .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter)))):
+      .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
           menu(Right("community")),
           div(cls := "page-menu__content box box-pad ublog-index")(
             boxTop(
               h1(cls := "collapsible")("Recent posts"),
               div(cls := "box__top__actions")(
-                filterAndSort(filter.some, none, (f, _) => routes.Ublog.communityLang(languageOrAll, f)),
+                filterAndSort(filter.some, none, (f, _) => routes.Ublog.communityLang(languageOrAll, f.some)),
                 lila.ui.bits.mselect(
                   "ublog-lang",
                   language.fold(trans.site.allLanguages.txt())(langList.nameByLanguage),
@@ -139,8 +139,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                     .map: (languageSel, name) =>
                       a(
                         href := {
-                          if languageSel == Language("all") then routes.Ublog.communityAll(filter)
-                          else routes.Ublog.communityLang(languageSel, filter)
+                          if languageSel == Language("all") then routes.Ublog.communityAll(filter.some)
+                          else routes.Ublog.communityLang(languageSel, filter.some)
                         },
                         cls := (languageSel == languageOrAll).option("current")
                       )(name)
@@ -155,8 +155,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                   posts,
                   p =>
                     language
-                      .fold(routes.Ublog.communityAll(filter, p))(l =>
-                        routes.Ublog.communityLang(l, filter, p)
+                      .fold(routes.Ublog.communityAll(filter.some, p))(l =>
+                        routes.Ublog.communityLang(l, filter.some, p)
                       )
                       .url
                 )
@@ -208,27 +208,27 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, filter: Boolean, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
+  def topic(top: UblogTopic, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
       Context
   ) =
     list(
       title = s"$top posts",
       posts = posts,
       menuItem = "topics",
-      route = (p, f, b) => routes.Ublog.topic(top.value, f, b, p),
+      route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
       onEmpty = "Nothing to show.",
       filterOpt = filter.some,
       byOpt = by.some
     )
 
-  def month(yearMonth: YearMonth, filter: Boolean, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
+  def month(yearMonth: YearMonth, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
       Context
   ) =
     list(
       title = s"$yearMonth posts",
       posts = posts,
       menuItem = "by-month",
-      route = (p, f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f, b, p),
+      route = (p, f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f.some, b, p),
       onEmpty = "Nothing to show.",
       filterOpt = filter.some,
       byOpt = by.some,
@@ -238,12 +238,12 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           helpers,
           "by-month",
           UblogByMonth.allYears,
-          (y, m) => routes.Ublog.byMonth(y, m, filter, by)
+          (y, m) => routes.Ublog.byMonth(y, m, filter.some, by)
         )(yearMonth),
         filterAndSort(
           filter.some,
           by.some,
-          (f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f, b, 1)
+          (f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f.some, b, 1)
         )
       ).some
     )
@@ -401,14 +401,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
       menuItem: String,
-      route: (Int, Boolean, BlogsBy) => Call,
+      route: (Int, Quality, BlogsBy) => Call,
       onEmpty: => Frag,
-      filterOpt: Option[Boolean] = None,
-      byOpt: Option[BlogsBy] = None,
-      header: Option[Frag] = None
+      filterOpt: Option[Quality] = none,
+      byOpt: Option[BlogsBy] = none,
+      header: Option[Frag] = none
   )(using ctx: Context) =
-    val filter = filterOpt.getOrElse(true)
-    val by     = byOpt.getOrElse(BlogsBy.newest)
+    val by = byOpt.getOrElse(BlogsBy.newest)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
@@ -422,28 +421,36 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
                 posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
-                pagerNext(posts, np => route(np, filter, by).url)
+                pagerNext(posts, np => route(np, filterOpt.getOrElse(Quality.spam), by).url)
               )
             else div(cls := "ublog-index__posts--empty")(onEmpty)
           )
         )
 
   private def filterAndSort(
-      filterOpt: Option[Boolean],
+      filterOpt: Option[Quality],
       sortOpt: Option[BlogsBy],
-      route: (Boolean, BlogsBy) => Call
-  ) =
+      route: (Quality, BlogsBy) => Call
+  )(using Context) =
     import BlogsBy.*
+    import Quality.*
     val sort   = sortOpt.getOrElse(newest)
-    val filter = filterOpt.getOrElse(true)
+    val filter = filterOpt.getOrElse(weak)
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
         span(
-          "Effort",
-          span(cls := "btn-rack")(
-            a(btnCls(!filter), href := route(false, sort))("low"),
-            a(btnCls(filter), href := route(true, sort))("high")
-          )
+          "Show",
+          if Granter.opt(_.ModerateBlog) then
+            span(cls := "btn-rack")(
+              a(btnCls(filter == spam), href := route(spam, sort))("spam"),
+              a(btnCls(filter == weak), href := route(weak, sort))("weak"),
+              a(btnCls(filter == good), href := route(good, sort))("good")
+            )
+          else
+            span(cls := "btn-rack")(
+              a(btnCls(filter == good), href := route(good, sort))("most"),
+              a(btnCls(filter == weak), href := route(weak, sort))("all")
+            )
         )
       ),
       sortOpt.map: by =>

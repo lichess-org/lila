@@ -9,7 +9,7 @@ import scalalib.model.Language
 import lila.common.Form.{ cleanNonEmptyText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
-import UblogAutomod.Quality
+import lila.core.ublog.Quality
 
 final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
