@@ -17,6 +17,7 @@
   <string name="humanOrComputer">Hvort að mótleikari var manneskja eða tölva</string>
   <string name="aiLevel">A.I. stig</string>
   <string name="source">Uppruni</string>
+  <string name="nbTurns">Fjöldi umferða</string>
   <string name="result">Niðurstöður</string>
   <string name="winnerColor">Vinnara litur</string>
   <string name="date">Dagsetning</string>
