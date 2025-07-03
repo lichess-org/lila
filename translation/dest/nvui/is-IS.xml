@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveList">Leikjalisti</string>
+  <string name="pieces">Taflmenn</string>
+  <string name="king">kóngur</string>
+  <string name="queen">drottning</string>
+  <string name="rook">hrókur</string>
+  <string name="bishop">biskup</string>
+  <string name="knight">riddari</string>
+  <string name="pawn">peð</string>
+  <string name="sanTakes" comment="x in standard notation">drepur</string>
+  <string name="sanCheck" comment="+ in standard notation">skák</string>
   <string name="premoveCancelled">Hætt við forskráðan leik</string>
   <string name="premoveRecorded">Leikur forskráður: %s. Ýttu á Enter til þess að hætta við</string>
 </resources>
