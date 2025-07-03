@@ -66,8 +66,8 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="whichTeamWillYouRepresentInThisBattle">Bạn sẽ đại diện cho đội nào trong trận chiến này?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Bạn phải tham gia một trong những đội này để tham gia!</string>
   <string name="created">Đã tạo</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Đã chơi gần đây</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Kết quả tốt nhất</string>
+  <string name="recentlyPlayed">Đã chơi gần đây</string>
+  <string name="bestResults">Kết quả tốt nhất</string>
   <string name="tournamentStats">Thống kê giải đấu</string>
   <string name="rankAvgHelp">Thứ hạng trung bình là phần trăm thứ hạng của bạn. Thấp hơn là tốt hơn.
 
@@ -83,5 +83,5 @@ Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. H
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
   <string name="onlyTitledHelp">Yêu cầu có một danh hiệu chính thức để tham gia giải đấu</string>
   <string name="tournamentPairingsAreNowClosed">Đã đóng việc xếp cặp đấu.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Tỉ lệ Berserk</string>
+  <string name="berserkRate">Tỉ lệ Berserk</string>
 </resources>
