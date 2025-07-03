@@ -96,6 +96,7 @@ Veldu síðan hvort skuli leyfa eða loka fyrir tilkynningar frá Lichess.</stri
 Hið rauða hljóðtákn birtist þegar vafrinn þinn kemur í veg fyrir að lichess.org spili hljóð. Yfirleitt fellur þessi takmörkun úr gildi um leið og þú smellir á eitthvað. Á sumum farsímavöfrum telst það ekki sem smellur að snerta og draga taflmann. Í slíkum tilfellum verður þú að dumpa á taflborðið til þess að leyfa hljóð í upphafi hverrar skákar.
 
 Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er hægt að veita Lichess.org beinlínis leyfi til að spila hljóð. Hér að neðan eru leiðbeiningar um hvernig það er gert í nýjustu útgáfum nokkurra þekktra vafra.</string>
+  <string name="desktop">skjáborð</string>
   <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég spili?</string>
   <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
   <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>
