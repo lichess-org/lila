@@ -15,7 +15,7 @@ final private class RelayNotifier(
 
     private val dedupNotif = OnceEvery[StudyChapterId](1.day)
 
-    def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
+    def apply(rt: RelayRound.WithTour, chapter: Chapter): Unit =
       dedupNotif(chapter.id).so:
         chapter.tags.fideIds.foreach: (color, fid) =>
           fid.so: fid =>
