@@ -17,7 +17,7 @@ final private class RelayNotifier(
 
     def apply(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
       dedupNotif(chapter.id).so:
-        game.fideIds.foreach: (color, fid) =>
+        chapter.tags.fideIds.foreach: (color, fid) =>
           fid.so: fid =>
             for
               followers <- getPlayerFollowers(fid)
@@ -66,6 +66,8 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def chapterUpdated(rt: RelayRound.WithTour, chapter: Chapter, game: RelayGame): Unit =
-    notifyPlayerFollowers(rt, chapter, game)
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Unit =
+    notifyPlayerFollowers(rt, chapter)
     notifyTournamentSubscribers(rt)
+
+  def onUpdate = onCreate

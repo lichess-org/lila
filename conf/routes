@@ -499,6 +499,8 @@ GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                             controllers.Pref.set(name)
+GET   /account/preferences/network            controllers.Pref.network
+POST  /account/preferences/network            controllers.Pref.networkPost
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
 POST  /account/preferences/notification       controllers.Pref.notifyFormApply
@@ -649,7 +651,7 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
-GET   /inbox/unread-count              controllers.Msg.unreadCount
+GET   /inbox/unread-count              controllers.Msg.unreadCountBC
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
@@ -815,7 +817,6 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
-GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
 
 # App BC
 GET   /account/security                controllers.Account.security

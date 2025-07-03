@@ -62,7 +62,7 @@ object net:
   )
 
   opaque type ApiVersion = Int
-  object ApiVersion extends OpaqueInt[ApiVersion]:
+  object ApiVersion extends RichOpaqueInt[ApiVersion]:
     def puzzleV2(v: ApiVersion) = v >= 6
     val lichobile: ApiVersion   = 6
     val mobile: ApiVersion      = 10 // i.e. github.com/lichess-org/mobile
