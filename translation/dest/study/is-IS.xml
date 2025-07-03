@@ -91,6 +91,7 @@
   <string name="loadAPositionFromFen">Hlaða inn stöðu úr FEN</string>
   <string name="loadAGameFromPgn">Hlaða inn skákum úr PGN</string>
   <string name="automatic">Sjálfvirkt</string>
+  <string name="urlOfTheGame">Vefslóð skákanna, ein í hverri línu</string>
   <string name="createChapter">Búa til kafla</string>
   <string name="createStudy">Búa til stúderingu</string>
   <string name="editStudy">Breyta stúderingu</string>
@@ -134,7 +135,7 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nýnæmi</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Framrás</string>
   <string name="initiative">Frumkvæði</string>
-  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Áhlaup</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Hótun</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Mótspil</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tímabundið</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Fyrir sóknarfæri</string>
