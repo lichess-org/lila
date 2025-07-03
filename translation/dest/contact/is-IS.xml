@@ -42,6 +42,7 @@
   <string name="castlingPrevented">Aðeins er komið í veg fyrir hrókeringu ef kóngurinn fer í gegnum stjórnaðan reit.</string>
   <string name="castlingRules">Gakktu úr skugga um að þú skiljir reglurnar um að hrókera</string>
   <string name="tryCastling">Prófaðu þennan minni háttar gagnvirka leik til að æfa hrókeringu í skák</string>
+  <string name="insufficientMaterial">Skortir mannafla til að máta</string>
   <string name="noRatingPoints">Engin skákstig voru gefin</string>
   <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur skák með stigagjöf ekki gefið stig ef það er ákveðið að leikmaðurinn sé að misnota tölvuna til að fá stig.</string>
   <string name="errorPage">Villusíða</string>
