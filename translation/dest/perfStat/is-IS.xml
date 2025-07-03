@@ -19,5 +19,6 @@
   <string name="losingStreak">Ósigurdöngun</string>
   <string name="longestStreak">Lengsta döngun: %s</string>
   <string name="currentStreak">Núverandi döngun: %s</string>
+  <string name="gamesInARow">Skákir tefldar í röð</string>
   <string name="now">núna</string>
 </resources>
