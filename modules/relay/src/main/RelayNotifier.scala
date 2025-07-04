@@ -15,14 +15,7 @@ final private class RelayNotifier(
 
     private val dedupNotif = OnceEvery[StudyChapterId](1.day)
 
-    def apply(rt: RelayRound.WithTour, chapter: Chapter): Unit =
-      dedupNotif(chapter.id).so:
-        chapter.tags.fideIds.foreach: (color, fid) =>
-          for
-            followers <- fid.so(fid => getPlayerFollowers(fid))
-            _         <- followers.nonEmpty.so(notify(followers, color))
-          yield ()
-
+    def apply(rt: RelayRound.WithTour, chapter: Chapter): Funit =
       def notify(followers: List[UserId], color: Color) =
         val names = chapter.tags.names
         names(color) match
@@ -39,11 +32,19 @@ final private class RelayNotifier(
           case None =>
             fuccess(lila.log("relay").warn(s"Missing player name for $color in game ${chapter.id}"))
 
+      dedupNotif(chapter.id).so:
+        val futureByColor = chapter.tags.fideIds.mapWithColor: (color, fid) =>
+          for
+            followers <- fid.so(fid => getPlayerFollowers(fid))
+            _         <- followers.nonEmpty.so(notify(followers, color))
+          yield ()
+        Future.sequence(futureByColor.all).void
+
   private object notifyTournamentSubscribers:
 
     private val dedupDbReq = OnceEvery[RelayRoundId](5.minutes)
 
-    def apply(rt: RelayRound.WithTour): Unit =
+    def apply(rt: RelayRound.WithTour): Funit =
       dedupDbReq(rt.round.id).so:
         tourRepo
           .hasNotified(rt)
@@ -63,8 +64,9 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Unit =
-    notifyPlayerFollowers(rt, chapter)
-    notifyTournamentSubscribers(rt)
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
+    val fu1 = notifyPlayerFollowers(rt, chapter)
+    val fu2 = notifyTournamentSubscribers(rt)
+    Future.sequence(Seq(fu1, fu2)).void
 
   def onUpdate = onCreate
