@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String                                   = key
+    def value: String = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -2790,6 +2790,7 @@ object I18nKey:
     val `inNbWeeks`: I18nKey = "timeago:inNbWeeks"
     val `inNbMonths`: I18nKey = "timeago:inNbMonths"
     val `inNbYears`: I18nKey = "timeago:inNbYears"
+    val `nbSecondsAgo`: I18nKey = "timeago:nbSecondsAgo"
     val `nbMinutesAgo`: I18nKey = "timeago:nbMinutesAgo"
     val `nbHoursAgo`: I18nKey = "timeago:nbHoursAgo"
     val `nbDaysAgo`: I18nKey = "timeago:nbDaysAgo"
