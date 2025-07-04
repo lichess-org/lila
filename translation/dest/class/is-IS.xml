@@ -29,8 +29,11 @@
   <string name="addStudent">Bæta nemanda</string>
   <string name="inviteALichessAccount">Bjóða Lichess-aðgangi</string>
   <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
+  <string name="createDesc2">Ekki þarf að gefa upp netfang. Lykilorð myndast sjálfkrafa og þú þarft að senda það til nemandans svo hann geti skráð sig inn.</string>
+  <string name="createStudentWarning">Stofnaðu einungis aðganga fyrir þá sem eru virkilega nemendur. Ekki notfæra þér þetta til þess að stofna marga aðganga fyrir sjálfan þig. Þú gætir fengið bann.</string>
   <string name="lichessUsername">Lichess notendanafn</string>
   <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
+  <string name="invitationToClass">Þér er boðið að fara í bekkinn „%s“ sem nemandi.</string>
   <string name="clickToViewInvitation">Smelltu á tengilinn til að skoða boðið:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Eitt boð í bið</item>
