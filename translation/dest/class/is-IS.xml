@@ -26,7 +26,9 @@
   <string name="generateANewPassword">Búa til nýtt lykilorð fyrir nemandann</string>
   <string name="invitedToXByY">Boðið í %1$s af %2$s</string>
   <string name="realName">Rétt nafn</string>
+  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Dulið. Verður aldrei sýnt utan bekkjar. Hjálpar þér að muna hver nemandinn er.</string>
   <string name="addStudent">Bæta nemanda</string>
+  <string name="lichessProfileXCreatedForY">Lichess-prófíll %1$s búinn til fyrir %2$s.</string>
   <string name="inviteALichessAccount">Bjóða Lichess-aðgangi</string>
   <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
   <string name="createDesc2">Ekki þarf að gefa upp netfang. Lykilorð myndast sjálfkrafa og þú þarft að senda það til nemandans svo hann geti skráð sig inn.</string>
@@ -47,6 +49,8 @@
   <string name="thisStudentAccountIsManaged">Þessi nemendaaðgangur er stýrður</string>
   <string name="upgradeFromManaged">Fara úr stýrðum yfir í sjálfstæðan</string>
   <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Útskrifa</string>
+  <string name="releaseDesc1">Ekki er hægt að stýra útskrifuðum aðgangi aftur. Nemandinn getur víxlað krakkaham og endurstillt lykilorðið sjálfur.</string>
+  <string name="realUniqueEmail">Ekta og einstakt netfang nemandans. Við munum senda staðfestingarpóst á það, með tengil til að ljúka við útskrift aðgangs.</string>
   <string name="closeStudent">Loka aðgangi</string>
   <string name="closeTheAccount">Loka nemendaaðganginum fyrir fullt og allt.</string>
   <string name="teachers">Kennarar</string>
@@ -81,6 +85,7 @@
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
   <string name="createMultipleAccounts">Stofna marga Lichess-aðganga í einu</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">notað þetta eyðublað</string>
+  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Nöfn nemenda í alvöru, einn á línu</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Boð hefur verið sent til %s</string>
   <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytja yfir í %s</string>
   <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
