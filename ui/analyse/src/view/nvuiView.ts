@@ -48,6 +48,7 @@ import { renderRetro } from '../retrospect/nvuiRetroView';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import type { AnalyseNvuiContext } from '../analyse.nvui';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -232,15 +233,24 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
   };
 }
 
-function boardEventsHook({ ctrl, pieceStyle, prefixStyle }: AnalyseNvuiContext, el: HTMLElement): void {
+function boardEventsHook(
+  { ctrl, pieceStyle, prefixStyle, moveStyle }: AnalyseNvuiContext,
+  el: HTMLElement,
+): void {
   const $board = $(el);
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+  $buttons.on('blur', (ev: KeyboardEvent) => {
+    const $currBtn = $(ev.target as HTMLElement);
+    $currBtn.removeAttr('ray');
+  });
   $buttons.on('click', selectionHandler(opponentColor, selectSound));
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    else if (e.key.match(/^x$/i))
+      scanDirectionsHandler(ctrl.data.player.color, ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
     else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
@@ -342,7 +352,7 @@ function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'b' | 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -351,6 +361,17 @@ type InputCommand = {
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'b',
+    help: i18n.nvui.goToBoard,
+    cb: (_, input) => {
+      const words = input.split(' ');
+      const file = words[1]?.charAt(0) || 'e';
+      const rank = words[1]?.charAt(1) || '4';
+      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      button?.focus();
+    },
+  },
   {
     cmd: 'p',
     help: commands().piece.help,
