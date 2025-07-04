@@ -58,7 +58,8 @@ final private class RelayNotifier(
             yield ()
 
   def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Unit =
-    notifyPlayerFollowers(rt, chapter)
     notifyTournamentSubscribers(rt)
+    if rt.tour.tier.exists(_ >= RelayTour.Tier.normal)
+    then notifyPlayerFollowers(rt, chapter)
 
   def onUpdate = onCreate
