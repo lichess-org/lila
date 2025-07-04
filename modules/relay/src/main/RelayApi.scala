@@ -222,6 +222,7 @@ final class RelayApi(
           "tier"            -> tour.tier,
           "showScores"      -> tour.showScores.some,
           "showRatingDiffs" -> tour.showRatingDiffs.some,
+          "tiebreaks"       -> tour.tiebreaks,
           "teamTable"       -> tour.teamTable.some,
           "players"         -> tour.players,
           "teams"           -> tour.teams,

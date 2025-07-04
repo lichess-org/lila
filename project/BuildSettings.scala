@@ -10,7 +10,7 @@ object BuildSettings {
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
-      resolvers ++= Seq(jitpack, lilaMaven, sonashots),
+      resolvers ++= Seq(Resolver.defaultLocal, jitpack, lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       javacOptions ++= Seq("--release", "21"),
