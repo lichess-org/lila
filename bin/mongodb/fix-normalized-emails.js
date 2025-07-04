@@ -21,9 +21,9 @@ let nbUpdates = 0;
 let nbDups = 0;
 let nbSkips = 0;
 
-db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, username: 1 }).forEach(user => {
-  const normalized = normalize(user.email);
+db.user4.find({ email: /[A-Z]|^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, username: 1 }).forEach(user => {
   const verbatim = user.verbatimEmail || user.email;
+  const normalized = normalize(verbatim);
   print(user.username, ': ', verbatim, '->', normalized);
 
   const updates = {};
