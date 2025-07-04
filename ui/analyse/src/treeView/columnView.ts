@@ -9,7 +9,6 @@ import {
   type Ctx as BaseCtx,
   type Opts as BaseOpts,
   nonEmpty,
-  mainHook,
   nodeClasses,
   renderInlineCommentsOf,
   retroLine,
