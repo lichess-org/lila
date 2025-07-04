@@ -70,8 +70,8 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="whichTeamWillYouRepresentInThisBattle">Koju ekipu će te predstavljati u ovoj borbi?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Morate se pridružiti jednom od ovih ekipa kako bi sudjelovali!</string>
   <string name="created">Organizirano</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Prethodno odigrano</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Najbolji rezultati</string>
+  <string name="recentlyPlayed">Prethodno odigrano</string>
+  <string name="bestResults">Najbolji rezultati</string>
   <string name="tournamentStats">Statistika turnira</string>
   <string name="rankAvgHelp">Prosječna pozicija je postotak tvoje pozicije. Niže je bolje.
 

@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Lið</string>
   <string name="teams">Lið</string>
   <plurals name="nbMembers">
     <item quantity="one">%s meðlimir</item>
     <item quantity="other">%s meðlimir</item>
   </plurals>
   <string name="allTeams">Öll lið</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lið liðsstjóra</string>
   <string name="newTeam">Nýtt lið</string>
   <string name="myTeams">Liðin mín</string>
   <string name="noTeamFound">Ekkert lið fannst</string>
   <string name="joinTeam">Ganga í lið</string>
   <string name="quitTeam">Ganga úr liði</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Liðsstjóri</item>
+    <item quantity="other">Liðsstjórar</item>
+  </plurals>
   <string name="teamRecentMembers">Nýjustu liðsmenn</string>
+  <string name="kickSomeone">Reka einhvern úr liðinu</string>
+  <string name="whoToKick">Hvern viltu reka út úr liðinu?</string>
+  <string name="teamBattle">Liðsorrusta</string>
+  <string name="teamTournament">Liðsmót</string>
+  <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
+  <string name="teamsIlead">Lið sem ég stjórna</string>
+  <string name="leadersChat">Liðsstjóraspjall</string>
+  <string name="introduction">Kynning</string>
+  <string name="closeTeam">Loka liði</string>
+  <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
+  <string name="incorrectEntryCode">Rangur aðgöngukóði.</string>
+  <string name="upcomingTournaments">Mót á döfinni</string>
+  <string name="completedTourns">Lokin mót</string>
+  <string name="declinedRequests">Hafnaðar beiðnir</string>
+  <string name="teamPage">Liðssíða</string>
+  <string name="innerTeam">Innra liðið</string>
 </resources>

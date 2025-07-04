@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="accountMuted">Aðgangurinn þinn er þaggaður.</string>
+  <string name="closedByModerators">Aðganginum þínum var lokað af stjórnendum.</string>
+  <string name="hiddenBlog">Stjórnendur hafa falið bloggfærslur þínar.</string>
+  <string name="playTimeout">Þú ert í leikhlé.</string>
+  <string name="blogRules">reglur um blogg</string>
+  <string name="fairPlay">Göfuglyndi</string>
+</resources>
