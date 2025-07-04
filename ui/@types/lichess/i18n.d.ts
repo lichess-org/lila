@@ -221,7 +221,7 @@ interface I18n {
     viewAllXTeams: I18nPlural;
     /** Which team will you represent in this battle? */
     whichTeamWillYouRepresentInThisBattle: string;
-    /** You will be notified when the tournament starts, so it is safe to play in another tab while waiting. */
+    /** You will be notified when the tournament starts, so feel free to leave this tab idle. */
     willBeNotified: string;
     /** You must join one of these teams to participate! */
     youMustJoinOneOfTheseTeamsToParticipate: string;

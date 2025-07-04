@@ -16,6 +16,7 @@ import { renderResult } from './replay';
 import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
+import { opposite } from 'chessops';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -155,6 +156,8 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
           $buttons.on('blur', (ev: KeyboardEvent) => {
             const $currBtn = $(ev.target as HTMLElement);
             $currBtn.removeAttr('ray');
+            $buttons.removeClass('active');
+            $currBtn.addClass('active');
           });
           $buttons.on(
             'click',
@@ -164,12 +167,19 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
             if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
             else if (e.key.match(/^x$/i))
               scanDirectionsHandler(
-                ctrl.data.player.color,
+                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
                 ctrl.chessground.state.pieces,
                 moveStyle.get(),
               )(e);
-            else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
-            else if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+            else if (e.key.toLowerCase() === 'f') {
+              ctrl.flip = !ctrl.flip;
+              ctrl.redraw();
+            } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
+            else if (e.key.startsWith('Arrow'))
+              nv.arrowKeyHandler(
+                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+                borderSound,
+              )(e);
             else if (e.key === 'c')
               nv.lastCapturedCommandHandler(
                 () => ctrl.data.steps.map(step => step.fen),
@@ -194,7 +204,11 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
       },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
-        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
+        ctrl.data.game.variant.key === 'racingKings'
+          ? 'white'
+          : ctrl.flip
+            ? opposite(ctrl.data.player.color)
+            : ctrl.data.player.color,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
@@ -275,12 +289,8 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
     help: i18n.nvui.goToBoard,
-    cb: (_notify, _ctrl, _style, input) => {
-      const words = input.split(' ');
-      const file = words[1]?.charAt(0) || 'e';
-      const rank = words[1]?.charAt(1) || '4';
-      const button = $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
-      button?.focus();
+    cb: (notify, ctrl, style, input) => {
+      notify(commands().board.apply(input, ctrl.chessground.state.pieces, style) || '');
     },
     alt: 'b',
   },

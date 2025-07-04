@@ -12,6 +12,7 @@ import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { opposite } from 'chessops';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -104,14 +105,30 @@ export function renderNvui({
             const fenSteps = () => steps.map(step => step.fen);
             const opponentColor = opposite(ctrl.pov);
 
+            $buttons.on('blur', (ev: KeyboardEvent) => {
+              const $currBtn = $(ev.target as HTMLElement);
+              $currBtn.removeAttr('ray');
+              $buttons.removeClass('active');
+              $currBtn.addClass('active');
+            });
             $buttons.on(
               'click',
               nv.selectionHandler(() => opponentColor, selectSound),
             );
             $buttons.on('keydown', (e: KeyboardEvent) => {
               if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-              else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
-              else if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(ctrl.pov, borderSound)(e);
+              else if (e.key.match(/^x$/i))
+                scanDirectionsHandler(
+                  ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+                  ground.state.pieces,
+                  moveStyle.get(),
+                )(e);
+              else if (e.key.toLowerCase() === 'f') {
+                ctrl.flip();
+                ctrl.redraw();
+              } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
+              else if (e.key.startsWith('Arrow'))
+                nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
               else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
               else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
               else if (e.key.toLowerCase() === 'm')
@@ -127,7 +144,7 @@ export function renderNvui({
         },
         nv.renderBoard(
           ground.state.pieces,
-          ctrl.pov,
+          ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
           pieceStyle.get(),
           prefixStyle.get(),
           positionStyle.get(),
@@ -211,7 +228,7 @@ const isYourMove = (ctrl: PuzzleCtrl): boolean =>
 const browseHint = (ctrl: PuzzleCtrl): string[] =>
   ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
-const shortCommands = ['l', 'last', 'p', 's', 'v'];
+const shortCommands = ['b', 'l', 'last', 'p', 's', 'v'];
 
 const isShortCommand = (input: string): boolean => shortCommands.includes(input.split(' ')[0].toLowerCase());
 
@@ -224,6 +241,7 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
     notify(
       commands().piece.apply(c, pieces, style) ||
         commands().scan.apply(c, pieces, style) ||
+        commands().board.apply(c, pieces, style) ||
         `Invalid command: ${c}`,
     );
 }
