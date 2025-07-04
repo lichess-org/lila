@@ -118,9 +118,17 @@ export function renderNvui({
             $buttons.on('keydown', (e: KeyboardEvent) => {
               if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
               else if (e.key.match(/^x$/i))
-                scanDirectionsHandler(ctrl.pov, ground.state.pieces, moveStyle.get())(e);
-              else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
-              else if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(ctrl.pov, borderSound)(e);
+                scanDirectionsHandler(
+                  ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+                  ground.state.pieces,
+                  moveStyle.get(),
+                )(e);
+              else if (e.key.toLowerCase() === 'f') {
+                ctrl.flip();
+                ctrl.redraw();
+              } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
+              else if (e.key.startsWith('Arrow'))
+                nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
               else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
               else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
               else if (e.key.toLowerCase() === 'm')
@@ -136,7 +144,7 @@ export function renderNvui({
         },
         nv.renderBoard(
           ground.state.pieces,
-          ctrl.pov,
+          ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
           pieceStyle.get(),
           prefixStyle.get(),
           positionStyle.get(),

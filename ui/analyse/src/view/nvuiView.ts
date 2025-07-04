@@ -252,7 +252,7 @@ function boardEventsHook(
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))
-      scanDirectionsHandler(ctrl.data.player.color, ctrl.chessground.state.pieces, moveStyle.get())(e);
+      scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
     else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
