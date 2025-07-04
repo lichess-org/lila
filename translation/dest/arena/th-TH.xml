@@ -60,8 +60,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">คุณจะเป็นตัวแทนของทีมใดในการต่อสู้ครั้งนี้</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">คุณต้องเข้าร่วมหนึ่งในทีมเหล่านี้เพื่อเข้าร่วม!</string>
   <string name="created">สร้าง</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">เล่นล่าสุด</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">ผลลัพธ์ของเกมที่ดีที่สุด</string>
+  <string name="recentlyPlayed">เล่นล่าสุด</string>
+  <string name="bestResults">ผลลัพธ์ของเกมที่ดีที่สุด</string>
   <string name="tournamentStats">สถิติของทัวร์นาเมนต์</string>
   <string name="rankAvgHelp">อันดับเฉลี่ยคือเปอร์เซ็นต์ของอันดับของคุณ ยิ่งต่ำยิ่งดี
 
@@ -77,5 +77,5 @@
   <string name="onlyTitled">ผู้เล่นที่มีตำแหน่ง</string>
   <string name="onlyTitledHelp">ต้องมีตำแหน่งถึงจะเข้าร่วมทัวร์นาเมนต์ได้</string>
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ในทัวร์นาเมนต์ได้ปิดแล้ว</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">อัตราเบอร์เซิร์ก</string>
+  <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
 </resources>

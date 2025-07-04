@@ -201,8 +201,8 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>
-    <item quantity="few">%s ulubiona partie</item>
-    <item quantity="many">%s ulubiona partii</item>
+    <item quantity="few">%s ulubione partie</item>
+    <item quantity="many">%s ulubionych partii</item>
     <item quantity="other">%s ulubionych partii</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>

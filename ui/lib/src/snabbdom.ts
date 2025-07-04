@@ -2,12 +2,13 @@ import {
   type VNode,
   type VNodeData,
   type VNodeChildElement,
+  type VNodeChildren,
   type Hooks,
   type Attrs,
   h as snabH,
 } from 'snabbdom';
 
-export type { Attrs, VNode };
+export type { Attrs, VNode, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 
@@ -53,7 +54,7 @@ export const dataIcon = (icon: string): Attrs => ({
 
 export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
 
-export type LooseVNode = VNode | string | number | undefined | null | boolean;
+export type LooseVNode = VNodeChildElement | boolean;
 export type LooseVNodes = LooseVNode | LooseVNodes[];
 
 // '' may be falsy but it's a valid VNode
@@ -66,12 +67,8 @@ const filterKids = (children: LooseVNodes): VNodeChildElement[] => {
   return flatKids.filter(kidFilter) as VNodeChildElement[];
 };
 
-// obviate need for some ternary expressions in renders.  Allows
-//   hl('div', [ h(i), isKid && [hl('div', 'kid'), h('span')]])
-// instead of
-//   h('div', [ h(i), ...(isKid ? [h('div', 'kid'), h('span')] : [] ])
-// 'true' values are filtered out of children array same as 'false' (for || case)
-
+// strip boolean results and flatten arrays in renders.  Allows
+//   hl('div', isDivEmpty || [ 'foo', fooHasKid && [ 'has', 'kid' ])
 export function hl(sel: string, dataOrKids?: VNodeData | LooseVNodes, kids?: LooseVNodes): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
   if (!kidFilter(dataOrKids)) return snabH(sel);

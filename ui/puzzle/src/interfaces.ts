@@ -2,7 +2,6 @@ import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
 import type { Coords } from 'lib/prefs';
 import perfIcons from 'lib/game/perfIcons';
-import type PuzzleCtrl from './ctrl';
 import type { ExternalEngineInfo } from 'lib/ceval/ceval';
 
 export type PuzzleId = string;
@@ -14,7 +13,7 @@ export interface AllThemes {
 }
 
 export interface NvuiPlugin {
-  render(ctrl: PuzzleCtrl): VNode;
+  render(): VNode;
 }
 
 export type ReplayEnd = PuzzleReplay;

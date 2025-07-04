@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Tveggja þátta auðkenning</string>
+  <string name="scanTheCode">Skannaðu QR-kóðann með appinu.</string>
+  <string name="authenticationCode">Auðkenningarkóði</string>
+  <string name="enableTwoFactor">Virkja tveggja þátta auðkenningu</string>
+  <string name="disableTwoFactor">Afvirkja tveggja þátta auðkenningu</string>
+  <string name="twoFactorEnabled">Tveggja þátta auðkenning er virk</string>
   <string name="setupReminder">Vinsamlegast virkjaðu tveggja þátta auðkenningu til að tryggja aðganginn þinn á https://lichess.org/account/twofactor.
 Þú fékkst þessi skilaboð vegna þess að aðgangur þinn gegnir sérstöku hlutverki svo sem leikmaður með titil, liðsstjóri, þjálfari, kennari eða streymari.</string>
 </resources>

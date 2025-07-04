@@ -71,7 +71,7 @@ case class Game(
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u).exists(turnOf)
 
-  def playedTurns: Ply = ply - startedAtPly
+  def playedPlies: Ply = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -149,16 +149,16 @@ case class Game(
 
   def aiPov: Option[Pov] = players.findColor(_.isAi).map(pov)
 
-  def swissPreventsDraw = isSwiss && playedTurns < 60
-  def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
+  def swissPreventsDraw = isSwiss && playedPlies < 60
+  def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedPlies < 60
 
-  def boosted = rated.yes && finished && bothPlayersHaveMoved && playedTurns < 10
+  def boosted = rated.yes && finished && bothPlayersHaveMoved && playedPlies < 10
 
-  def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
+  def abortable       = status == Status.Started && playedPlies < 2 && nonMandatory
   def abortableByUser = abortable && !hasRule(_.noAbort)
 
   def berserkable =
-    isTournament && clock.exists(_.config.berserkable) && status == Status.Started && playedTurns < 2
+    isTournament && clock.exists(_.config.berserkable) && status == Status.Started && playedPlies < 2
 
   def resignable      = playable && !abortable
   def forceResignable =
@@ -218,19 +218,19 @@ case class Game(
   def isUnlimited = !hasClock && !hasCorrespondenceClock
 
   def playerWhoDidNotMove: Option[Player] = {
-    if playedTurns == Ply.initial then player(startColor).some
-    else if playedTurns == Ply.initial.next then player(!startColor).some
+    if playedPlies == Ply.initial then player(startColor).some
+    else if playedPlies == Ply.initial.next then player(!startColor).some
     else none
   }.filterNot(winner.contains)
 
-  def bothPlayersHaveMoved = playedTurns > 1
+  def bothPlayersHaveMoved = playedPlies > 1
 
   def startColor = startedAtPly.turn
 
   def playerMoves(color: Color): Int =
     if color == startColor
-    then (playedTurns.value + 1) / 2
-    else playedTurns.value / 2
+    then (playedPlies.value + 1) / 2
+    else playedPlies.value / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
@@ -253,7 +253,7 @@ case class Game(
 
   def isPgnImport = pgnImport.isDefined
 
-  def hasFewerMovesThanExpected = playedTurns <= reasonableMinimumNumberOfMoves(variant)
+  def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)
 
   lazy val opening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)

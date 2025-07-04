@@ -7,6 +7,7 @@ import lila.challenge.Challenge.Status
 import lila.core.LightUser
 import lila.core.game.GameRule
 import lila.core.user.WithPerf
+import lila.core.relation.Relation
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -213,9 +214,13 @@ final class ChallengeUi(helpers: Helpers):
             )
       )
 
-  def theirs(c: Challenge, json: JsObject, user: Option[WithPerf], color: Option[Color])(using
-      ctx: Context
-  ) =
+  def theirs(
+      c: Challenge,
+      json: JsObject,
+      user: Option[WithPerf],
+      color: Option[Color],
+      relation: Option[Relation]
+  )(using ctx: Context) =
     page(c, json, owner = false, color):
       main(cls := "page-small challenge-page challenge-theirs box box-pad"):
         c.status match
@@ -234,7 +239,8 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               c.notableInitialFen.map: fen =>
                 div(cls := "board-preview", chessgroundMini(fen.board, !c.finalColor)(div)),
-              if c.open.exists(!_.canJoin) then
+              if relation.has(Relation.Block) then badTag("You have blocked this player.")
+              else if c.open.exists(!_.canJoin) then
                 div(
                   "Waiting for ",
                   fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),

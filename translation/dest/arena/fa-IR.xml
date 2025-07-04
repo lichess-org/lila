@@ -68,8 +68,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">نماینده کدام تیم در این نبرد خواهید بود؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">برای شرکت کردن، شما باید عضو یکی از این تیم ها شوید!</string>
   <string name="created">ایجاد شده</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">به تازگی بازی شد</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">بهترین نتایج</string>
+  <string name="recentlyPlayed">به تازگی بازی شد</string>
+  <string name="bestResults">بهترین نتایج</string>
   <string name="tournamentStats">آمار مسابقه</string>
   <string name="rankAvgHelp">میانگین رتبه دهی، درصدبندی از جایگاه شما است. پایین‌تر بهتر است.
 

@@ -26,6 +26,8 @@ object RoundMobile:
     // correspondence game sent through firebase data
     // https://github.com/lichess-org/mobile/blob/main/lib/src/model/correspondence/offline_correspondence_game.dart
     case Offline extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = false)
+    // requested by the forecast analysis board to refresh the game
+    case Forecast extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = true)
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,
@@ -57,6 +59,9 @@ final class RoundMobile(
 
   def offline(game: Game, id: GameAnyId): Fu[JsObject] =
     forUseCase(game, id, UseCase.Offline)
+
+  def forecast(game: Game, id: GameAnyId): Fu[JsObject] =
+    forUseCase(game, id, UseCase.Forecast)
 
   private def forUseCase(game: Game, id: GameAnyId, use: UseCase): Fu[JsObject] =
     for
