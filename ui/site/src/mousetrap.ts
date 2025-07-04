@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { KeyboardRemapper } from 'lib/keyboardRemapper';
+
 type Action = 'keypress' | 'keydown' | 'keyup';
 
 type Callback = (e: KeyboardEvent) => void;
@@ -31,6 +33,8 @@ interface Binding {
   modifiers: string[];
   action: Action;
 }
+
+const qwertyRemapper = new KeyboardRemapper('QWERTY');
 
 const MAP: Record<string, string> = {
   8: 'backspace',
@@ -209,10 +213,11 @@ export default class Mousetrap {
   };
 
   private getMatches = (e: KeyboardEvent): Binding[] => {
+    const { mapped: mapped, key: mappedKey } = qwertyRemapper.map(e);
     const key = keyFromEvent(e);
     const action = e.type;
     const modifiers = action === 'keyup' && isModifier(key) ? [key] : eventModifiers(e);
-    return (this.bindings[key] || []).filter(
+    return (this.bindings[key] || (mapped && this.bindings[mappedKey]) || []).filter(
       binding =>
         action === binding.action &&
         // Chrome will not fire a keypress if meta or control is down,
