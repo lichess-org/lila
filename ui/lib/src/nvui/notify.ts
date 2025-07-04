@@ -23,9 +23,8 @@ export class Notify {
   currentText = (): string =>
     this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
 
-  render = (): VNode => {
-    return liveText(this.currentText(), 'assertive', 'div.notify');
-  };
+  render = (): VNode =>
+    h('div.notify', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, this.currentText());
 }
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
