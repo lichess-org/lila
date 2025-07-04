@@ -10,11 +10,11 @@ import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -48,6 +48,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { isEquivalent } from 'lib/algo';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -656,9 +657,16 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  setCollapsedFrom(path: Tree.Path, collapsed: boolean): void {
-    this.tree.setCollapsedRecursive(path, collapsed);
+  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
     this.redraw();
+  }
+
+  wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
+    if (typeof structuredClone !== 'function') return true;
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
+    ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+    return !isEquivalent(renderTreeView(this), renderTreeView(ctrlWithDiffTree), ['function']);
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {

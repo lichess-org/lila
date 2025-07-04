@@ -9,7 +9,6 @@ import { isEmpty, defined } from 'lib';
 import { type MaybeVNodes } from 'lib/snabbdom';
 import { path as treePath } from 'lib/tree/tree';
 import { playable } from 'lib/game/game';
-import { PlusButton, MinusButton } from 'lib/licon';
 
 export const nonEmpty = (x: unknown): boolean => !!x;
 
@@ -19,7 +18,8 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       const el = vnode.elm as HTMLElement;
       if (ctrl.path !== '') autoScroll(ctrl, el);
       const ctxMenuCallback = (e: MouseEvent) => {
-        contextMenu(e, { path: eventPath(e) ?? '', root: ctrl });
+        const path = eventPath(e);
+        if (path !== null) contextMenu(e, { path, root: ctrl });
         ctrl.redraw();
         return false;
       };
@@ -28,7 +28,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
 
       el.addEventListener('mousedown', (e: MouseEvent) => {
-        if (e.target instanceof HTMLAnchorElement || (defined(e.button) && e.button !== 0)) return; // only touch or left click
+        if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
         if (path) ctrl.userJump(path);
         ctrl.redraw();
@@ -142,14 +142,6 @@ export function retroLine(ctx: Ctx, node: Tree.Node): VNode | undefined {
   return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node)
     ? h('line', i18n.site.learnFromThisMistake)
     : undefined;
-}
-
-export function disclosureBtn(ctx: Ctx, node: Tree.Node, path: Tree.Path): VNode | undefined {
-  if (node.children.length < 2) return;
-  return h('a.disclosure', {
-    attrs: { 'data-icon': node.collapsed ? PlusButton : MinusButton },
-    on: { click: () => ctx.ctrl.setCollapsed(path, !node.collapsed) },
-  });
 }
 
 export const renderingCtx = (ctrl: AnalyseCtrl): Ctx => ({

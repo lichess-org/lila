@@ -425,6 +425,14 @@
     margin-bottom: 0;
   }
 
+  line.expand > a {
+    color: $c-font-dim;
+  }
+
+  line.expand > a:hover {
+    color: $c-font;
+  }
+
   inline {
     display: inline;
     font-style: italic;
@@ -460,26 +468,5 @@
 
   .hide {
     display: none;
-  }
-
-  .disclosure {
-    vertical-align: 1px;
-    color: $c-font-dimmer;
-    font-size: 13px;
-    padding-inline-start: 7px;
-
-    @media (pointer: coarse) {
-      font-size: 16px;
-    }
-    &:hover {
-      color: $c-primary;
-    }
-  }
-  move .disclosure {
-    padding: 0 7px;
-
-    &:hover {
-      color: $c-font-clearer;
-    }
   }
 }
