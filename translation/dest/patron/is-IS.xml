@@ -24,6 +24,7 @@
   <string name="payLifetimeOnce">Borgar þú %s einu sinni. Gerist þú velunnari Lichess til eilífðarnóns!</string>
   <string name="lifetimePatron">Ævilangur velunnari Lichess</string>
   <string name="monthly">Mánaðarlega</string>
+  <string name="recurringBilling">Síendurtekin gjaldtaka, sem endurnýjar Velunnaravængina þína á mánaðarfresti.</string>
   <string name="onetime">Eingreiðsla</string>
   <string name="singleDonation">Eitt framlag sem veitir þér Velunnaravængi í einn mánuð.</string>
   <string name="otherAmount">Annað</string>
@@ -82,4 +83,5 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="changeCurrency">Breyta gjaldmiðli</string>
   <string name="paymentDetails">Greiðsluupplýsingar</string>
   <string name="updatePaymentMethod">Uppfærða greiðslumáta</string>
+  <string name="stripeManageSub">Stjórnaðu áskriftinni þinni og hladdu niður reikningum og kvittunum</string>
 </resources>
