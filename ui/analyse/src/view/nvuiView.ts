@@ -365,15 +365,9 @@ type InputCommand = {
 const inputCommands: InputCommand[] = [
   {
     cmd: 'b',
-    help: i18n.nvui.goToBoard,
-    cb: (_, input) => {
-      const words = input.split(' ');
-      const file = words[1]?.charAt(0) || 'e';
-      const rank = words[1]?.charAt(1) || '4';
-      const button =
-        $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
-      button?.focus();
-    },
+    help: commands().board.help,
+    cb: ({ ctrl, notify, moveStyle }, input) =>
+      notify.set(commands().board.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) || ''),
   },
   {
     cmd: 'p',

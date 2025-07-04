@@ -289,13 +289,8 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'board',
     help: i18n.nvui.goToBoard,
-    cb: (_notify, _ctrl, _style, input) => {
-      const words = input.split(' ');
-      const file = words[1]?.charAt(0) || 'e';
-      const rank = words[1]?.charAt(1) || '4';
-      const button =
-        $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
-      button?.focus();
+    cb: (notify, ctrl, style, input) => {
+      notify(commands().board.apply(input, ctrl.chessground.state.pieces, style) || '');
     },
     alt: 'b',
   },

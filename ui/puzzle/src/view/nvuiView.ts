@@ -237,16 +237,11 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
-  else if (lowered.startsWith('b')) {
-    const words = c.split(' ');
-    const file = words[1]?.charAt(0) || 'e';
-    const rank = words[1]?.charAt(1) || '4';
-    const button = $('button.active').get(0) || $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
-    button?.focus();
-  } else
+  else
     notify(
       commands().piece.apply(c, pieces, style) ||
         commands().scan.apply(c, pieces, style) ||
+        commands().board.apply(c, pieces, style) ||
         `Invalid command: ${c}`,
     );
 }
