@@ -28,7 +28,7 @@ $top-height: 3.2rem;
       display: flex;
 
       input {
-        @extend %box-radius-left;
+        @extend %box-radius-inline-start;
 
         flex: 1 1 100%;
         height: $top-height;
@@ -40,7 +40,7 @@ $top-height: 3.2rem;
       }
 
       .button {
-        @extend %box-radius-right;
+        @extend %box-radius-inline-end;
 
         padding: 0 1.5em;
         border-inline-start: 0;

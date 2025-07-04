@@ -168,9 +168,17 @@ async function parseScss(src: string, processed: Set<string>) {
 
 // collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
+  async function loadThemeColors(themeFile: string) {
+    const text = await fs.promises.readFile(themeFile, 'utf8');
+    const colorMap = new Map<string, clr.Instance>();
+    for (const [, color, colorVal] of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
+      colorMap.set(color, clr(colorVal.trim()));
+    }
+    return colorMap;
+  }
   const themes: string[] = ['dark'];
 
-  const defaultThemeColors = await loadThemeColorDefs(join(env.themeDir, '_default.scss'));
+  const defaultThemeColors = await loadThemeColors(join(env.themeDir, '_default.scss'));
   themeColorMap.set('default', defaultThemeColors);
 
   const themeFiles = await glob(join(env.themeDir, '_*.scss'), { absolute: false });
@@ -183,8 +191,9 @@ async function parseThemeColorDefs() {
     if (theme === 'default') {
       continue;
     }
+
     themes.push(theme);
-    themeColorMap.set(theme, await loadThemeColorDefs(themeFile, defaultThemeColors));
+    themeColorMap.set(theme, await loadThemeColors(themeFile));
   }
 
   for (const theme of themes) {
@@ -194,51 +203,6 @@ async function parseThemeColorDefs() {
       if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
     }
   }
-}
-
-async function loadThemeColorDefs(themeFile: string, fallbackColors: Map<string, clr.Instance> = new Map()) {
-  const text = await fs.promises.readFile(themeFile, 'utf8');
-
-  const capturedColors = new Map<string, string>();
-  for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-    capturedColors.set(match[1], match[2]);
-  }
-
-  const colorMap = new Map<string, clr.Instance>();
-  for (const [color, colorVal] of capturedColors) {
-    colorMap.set(color, resolveVariablesInValue(colorVal, capturedColors, fallbackColors));
-  }
-
-  return colorMap;
-}
-
-// if value is a variable (i.e. starts with $), recursively resolve it to the value of the referenced variable
-// if the variable is unknown, try to fall back to fallbackColors
-function resolveVariablesInValue(
-  value: string,
-  variables: Map<string, string>,
-  fallbackColors: Map<string, clr.Instance>,
-) {
-  const visitedVariables = new Set<string>();
-  while (value.startsWith('$')) {
-    const colorName = value.substring(3);
-    const resolvedValue = variables.get(colorName);
-    if (!resolvedValue) {
-      const fallbackColor = fallbackColors.get(colorName);
-      if (!fallbackColor) {
-        env.log(`${errorMark} Failed to resolve variable: '${c.magenta(value)}'`, 'sass');
-        return clr('black');
-      }
-      return fallbackColor;
-    }
-    if (visitedVariables.has(resolvedValue)) {
-      env.log(`${errorMark} Detected loop resolving variable: '${c.magenta(value)}'`, 'sass');
-      return clr('black');
-    }
-    visitedVariables.add(resolvedValue);
-    value = resolvedValue;
-  }
-  return clr(value);
 }
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins

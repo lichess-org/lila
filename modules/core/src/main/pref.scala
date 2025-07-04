@@ -1,6 +1,7 @@
 package lila.core
 package pref
 
+import lila.core.ublog.Quality
 import lila.core.user.User
 import lila.core.userId.UserId
 
@@ -19,6 +20,7 @@ trait Pref:
   val theme: String
   val pieceSet: String
   val usingAltSocket: Option[Boolean]
+  val blogFilter: Quality
 
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean

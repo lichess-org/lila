@@ -29,6 +29,7 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
   extension (query: Query)
     def index: String = query match
       case _: Query.Forum => "forum"
+      case _: Query.Ublog => "ublog"
       case _: Query.Game  => "game"
       case _: Query.Study => "study"
       case _: Query.Team  => "team"

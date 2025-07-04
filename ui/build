@@ -2,8 +2,9 @@
 
 set -e
 
-MIN_NODE="v22.6.0"
+cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
+MIN_NODE="$(cat ../../.node-version)"
 CUR_NODE=$(node -v 2>/dev/null || echo "v0.0.0")
 LOWEST="$(printf "%s\n%s" "$MIN_NODE" "$CUR_NODE" | sort -V | head -n 1)"
 if [ "$LOWEST" != "$MIN_NODE" ]; then
@@ -11,13 +12,6 @@ if [ "$LOWEST" != "$MIN_NODE" ]; then
   exit 1
 fi
 
-cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
-
-if [[ " $* " != *" --no-corepack "* ]]; then
-  if ! corepack enable >/dev/null 2>&1; then
-    echo "Corepack not available. Try a userland node such as nvm."
-  fi
-fi
 if ! yes | pnpm install --ignore-workspace >/dev/null 2>&1; then
   pnpm install --loglevel debug --ignore-workspace
   exit $?
