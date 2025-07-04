@@ -32,6 +32,7 @@ import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
+import { mainHook } from '../treeView/common';
 import * as gridHacks from './gridHacks';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
@@ -372,7 +373,7 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
 }
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', [
+  hl('div.analyse__moves.areplay', { hook: mainHook(ctrl) }, [
     hl(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);

@@ -1,5 +1,4 @@
 import { isEmpty } from 'lib';
-import * as licon from 'lib/licon';
 import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
 import { fixCrazySan } from 'lib/game/chess';
 import { path as treePath, ops as treeOps } from 'lib/tree/tree';
@@ -16,6 +15,7 @@ import {
   retroLine,
   renderComment,
   renderingCtx,
+  disclosureBtn,
 } from './common';
 
 interface Ctx extends BaseCtx {
@@ -24,6 +24,7 @@ interface Ctx extends BaseCtx {
 interface Opts extends BaseOpts {
   conceal?: Conceal;
   noConceal?: boolean;
+  branchParent?: Tree.Node;
 }
 
 function emptyMove(conceal?: Conceal): VNode {
@@ -36,14 +37,13 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const cs = node.children.filter(x => ctx.showComputer || !x.comp),
     main = cs[0];
   if (!main) return;
-  const conceal = opts.noConceal
-    ? null
-    : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
+  const path = opts.parentPath + main.id;
+  const conceal = opts.noConceal ? null : opts.conceal || ctx.concealOf(true)(path, main);
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = !main.forceVariation
-        ? renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(nonEmpty)
+        ? renderMainlineCommentsOf(ctx, main, conceal, true, path).filter(nonEmpty)
         : [];
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return [
@@ -58,7 +58,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
     const mainChildren =
       !main.forceVariation &&
       renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
+        parentPath: path,
         isMainline: true,
         depth: opts.depth,
         conceal,
@@ -70,9 +70,9 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
       depth: opts.depth,
       conceal,
     };
-
     return [
-      isWhite && moveView.renderIndex(main.ply, false),
+      isWhite &&
+        moveView.renderIndex(main.ply, false, cs[1] ? disclosureBtn(ctx, node, opts.parentPath) : undefined),
       !main.forceVariation && renderMoveOf(ctx, main, passOpts),
       isWhite && !main.forceVariation && emptyMove(conceal),
       hl(
@@ -93,7 +93,8 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
     ];
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-  return renderInlined(ctx, cs, opts) || [renderLines(ctx, node, cs, opts)];
+  if (node.collapsed) return;
+  return renderInlined(ctx, cs, opts) || renderLines(ctx, node, cs, opts);
 }
 
 function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | undefined {
@@ -101,6 +102,7 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | 
   if (!nodes[1] || nodes[2]) return;
   // only if second branch has no sub-branches
   if (treeOps.hasBranching(nodes[1], 6)) return;
+
   return renderMoveAndChildrenOf(ctx, nodes[0], {
     parentPath: opts.parentPath,
     isMainline: false,
@@ -110,35 +112,27 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | 
   });
 }
 
-function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
-  const collapsed = !!parentNode.collapsed;
+function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): LooseVNodes {
+  if (parentNode.collapsed) return;
   return hl(
     'lines',
-    { class: { single: !nodes[1], collapsed } },
-    collapsed
-      ? hl('line', { class: { expand: true } }, [
+    { class: { single: !nodes[1], collapsed: false } },
+    nodes.map(n => {
+      return (
+        retroLine(ctx, n) ||
+        hl('line', [
           hl('branch'),
-          hl('a', {
-            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations },
-            on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
+          renderMoveAndChildrenOf(ctx, n, {
+            parentPath: opts.parentPath,
+            isMainline: false,
+            depth: opts.depth + 1,
+            withIndex: true,
+            noConceal: opts.noConceal,
+            truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
           }),
         ])
-      : nodes.map(n => {
-          return (
-            retroLine(ctx, n) ||
-            hl('line', [
-              hl('branch'),
-              renderMoveAndChildrenOf(ctx, n, {
-                parentPath: opts.parentPath,
-                isMainline: false,
-                depth: opts.depth + 1,
-                withIndex: true,
-                noConceal: opts.noConceal,
-                truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
-              }),
-            ])
-          );
-        }),
+      );
+    }),
   );
 }
 
@@ -149,16 +143,22 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     classes = nodeClasses(ctx, node, path);
-  if (opts.conceal) classes[opts.conceal as string] = true;
-  return hl('move', { attrs: { p: path }, class: classes }, moveView.renderMove(ctx, node));
+  if (opts.conceal) classes[opts.conceal] = true;
+  return hl('move', { attrs: { p: path }, class: classes }, [
+    moveView.renderMove(ctx, node, node.ply % 2 === 1 ? disclosureBtn(ctx, node, path) : undefined),
+  ]);
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1,
     path = opts.parentPath + node.id,
-    content: LooseVNodes = [withIndex && moveView.renderIndex(node.ply, true), fixCrazySan(node.san!)],
+    content: LooseVNodes = [
+      withIndex && moveView.renderIndex(node.ply, true),
+      fixCrazySan(node.san!),
+      !opts.inline && disclosureBtn(ctx, node, path),
+    ],
     classes = nodeClasses(ctx, node, path);
-  if (opts.conceal) classes[opts.conceal as string] = true;
+  if (opts.conceal) classes[opts.conceal] = true;
   if (node.glyphs) node.glyphs.forEach(g => content.push(moveView.renderGlyph(g)));
   return hl('move', { attrs: { p: path }, class: classes }, content);
 }
@@ -226,7 +226,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   // root path is hardcoded, is there a better way?
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
   const blackStarts = (root.ply & 1) === 1;
-  return hl('div.tview2.tview2-column', { hook: mainHook(ctrl) }, [
+  return hl('div.tview2.tview2-column', [
     !isEmpty(commentTags) && hl('interrupt', commentTags),
     blackStarts && moveView.renderIndex(root.ply, false),
     blackStarts && emptyMove(),

@@ -17,13 +17,14 @@ const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 export const renderIndexText = (ply: Ply, withDots?: boolean): string =>
   plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '');
 
-export const renderIndex = (ply: Ply, withDots?: boolean): VNode =>
-  h(`index.sbhint${ply}`, renderIndexText(ply, withDots));
+export const renderIndex = (ply: Ply, withDots?: boolean, withKid?: VNode): VNode =>
+  h(`index.sbhint${ply}`, [renderIndexText(ply, withDots), withKid]);
 
-export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
+export function renderMove(ctx: Ctx, node: Tree.Node, withKid?: VNode): VNode[] {
   const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
   const nodes = [h('san', fixCrazySan(node.san!))];
   if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => nodes.push(renderGlyph(g)));
+  if (withKid) nodes.push(withKid);
   if (node.shapes?.length) nodes.push(h('shapes'));
   if (ev && ctx.showEval) {
     if (defined(ev.cp)) nodes.push(renderEval(normalizeEval(ev.cp)));
