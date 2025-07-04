@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="dgtBoard">DGT-taflborð</string>
+  <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
+  <string name="reloadThisPage">Endurhlaða þessa síðu</string>
+  <string name="dgtConfigure">DGT - Stillingar</string>
+  <string name="lichessConnectivity">Lichess-tengjanleiki</string>
+  <string name="textToSpeech">Talgervill</string>
+  <string name="enableSpeechSynthesis">Kveikja á talgervingu</string>
+  <string name="speechSynthesisVoice">Talgervilsrödd</string>
+  <string name="announceAllMoves">Lesa alla leiki upphátt</string>
+  <string name="keywords">Stikkorð</string>
+  <string name="debug">Villuleit</string>
+  <string name="verboseLogging">Fjölyrt skráning</string>
   <string name="configure">Stilla</string>
 </resources>

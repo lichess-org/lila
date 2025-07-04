@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Gerðu til að byrja</string>
+  <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
+  <string name="playAgain">Tefla aftur</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 lota</item>
+    <item quantity="other">%s lotur</item>
+  </plurals>
   <string name="score">Stig</string>
+  <string name="moves">Leikir</string>
   <string name="accuracy">Nákvæmni</string>
   <string name="combo">Hrina</string>
+  <string name="time">Tími</string>
+  <string name="puzzlesPlayed">Þrautir tefldar</string>
+  <string name="viewBestRuns">Skoða bestar lotur</string>
+  <string name="bestRunOfDay">Besta lota dagsins</string>
+  <string name="runs">Lotur</string>
+  <string name="getReady">Komdu þér í gírinn!</string>
+  <string name="waitingForMorePlayers">Bíð eftir að fleiri leikmenn bætist í hópinn...</string>
+  <string name="raceComplete">Keppni lokið!</string>
+  <string name="spectating">Horfir á</string>
+  <string name="waitForRematch">Bíð eftir að leika aftur</string>
+  <string name="nextRace">Næsta keppni</string>
+  <string name="joinRematch">Tefla aftur</string>
+  <string name="waitingToStart">Bíð eftir að byrja</string>
+  <string name="createNewGame">Byrja að tefla á ný</string>
+  <string name="raceYourFriends">Kepptu við vini þína</string>
   <string name="skip">sleppa</string>
+  <string name="skipHelp">Þú getur sleppt einum leik á keppni:</string>
+  <string name="failedPuzzles">Misheppnaðar þrautir</string>
+  <string name="slowPuzzles">Hægar þrautir</string>
+  <string name="skippedPuzzle">Sleppt þraut</string>
   <string name="thisWeek">Í þessari viku</string>
   <string name="thisMonth">Þessi mánuður</string>
   <string name="allTime">Frá upphafi</string>
+  <string name="clickToReload">Smelltu til að endurhlaða</string>
+  <string name="thisRunHasExpired">Þessi lota er útrunnin!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Þessi lota var opnuð í öðrum flipa!</string>
 </resources>

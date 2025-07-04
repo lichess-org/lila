@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newAccessToken">Nýr persónuleikur aðgöngutóki forritaskila</string>
+  <string name="tokenDescription">Lýsing tóka</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lesa tölvupóstsfang</string>
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lesa aðsendar áskoranir</string>
+  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lesa upplýsingar um persónuleg lið</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lesa inn leikmenn sem verið er að fylgja</string>
   <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Leiktu skákir með forritaskil þjarka</string>
   <string name="personalAccessTokens">Persónulegir aðgangstókar fyrir forritaskil</string>
   <string name="guardTokensCarefully">Gættu þessara tóka vandlega! Þau eru sem lykilorð. Kosturinn við að nota tóka frekar en að setja lykilorðið þitt í skriftu er að það er hægt að afturkalla þau, og þú getur búið til fullt af þeim.</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">Hjálparskjöl forritaskila</string>
   <string name="apiAccessTokens">Aðgangstókar fyrir forritaskil</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Búið til %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Síðast notað %s</string>
+  <string name="alreadyHavePlayedGames">Þú hefur nú þegar teflt!</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Til dæmis: %s</string>
 </resources>

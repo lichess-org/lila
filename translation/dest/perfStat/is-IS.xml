@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">Tölfræði fyrir %s</string>
+  <string name="viewTheGames">Skoða skákirnar</string>
+  <string name="provisional">tímabundin</string>
+  <string name="notEnoughRatedGames">Hefur ekki teflt nógu margar stigaskákir til að meta skákstyrk með vissu.</string>
+  <string name="totalGames">Skákir alls</string>
+  <string name="ratedGames">Skákir með stigagjöf</string>
+  <string name="tournamentGames">Mótsskákir</string>
+  <string name="berserkedGames">Berserk-skákir</string>
+  <string name="timeSpentPlaying">Spilunartími</string>
+  <string name="averageOpponent">Meðalandstæðingur</string>
+  <string name="victories">Sigrar</string>
+  <string name="defeats">Töp</string>
+  <string name="disconnections">Aftengingar</string>
+  <string name="notEnoughGames">Ekki teflt nógu mikið</string>
+  <string name="highestRating">Flestu skákstig: %s</string>
   <string name="winningStreak">Sigurdöngun</string>
   <string name="losingStreak">Ósigurdöngun</string>
   <string name="longestStreak">Lengsta döngun: %s</string>
   <string name="currentStreak">Núverandi döngun: %s</string>
+  <string name="gamesInARow">Skákir tefldar í röð</string>
+  <string name="now">núna</string>
 </resources>

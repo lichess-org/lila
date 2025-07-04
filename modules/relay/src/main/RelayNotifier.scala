@@ -65,7 +65,7 @@ final private class RelayNotifier(
             yield ()
 
   def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
-    val fu1 = notifyPlayerFollowers(rt, chapter)
+    val fu1 = rt.tour.tier.exists(_ >= RelayTour.Tier.normal).so(notifyPlayerFollowers(rt, chapter))
     val fu2 = notifyTournamentSubscribers(rt)
     Future.sequence(Seq(fu1, fu2)).void
 

@@ -45,8 +45,13 @@
   <string name="newTag">Nýtt merki</string>
   <string name="commentThisPosition">Gera athugasemd við þessa stöðu</string>
   <string name="commentThisMove">Gera athugasemd við þennan leik</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
+  <string name="playing">Í gangi</string>
+  <string name="showResults">Niðurstöður</string>
+  <string name="showEvalBar">Stöðumatsstikur</string>
   <string name="next">Næsta</string>
+  <string name="shareAndExport">Deila &amp; flytja út</string>
   <string name="cloneStudy">Afrita</string>
   <string name="studyPgn">Stúdera PGN</string>
   <string name="chapterPgn">PGN kafla</string>
@@ -63,6 +68,15 @@
   <string name="open">Opna</string>
   <string name="xBroughtToYouByY">%1$s, er á vegum %2$s</string>
   <string name="studyNotFound">Stúdering fannst ekki</string>
+  <string name="editChapter">Breyta kafla</string>
+  <string name="newChapter">Nýr kafli</string>
+  <string name="importFromChapterX">Flytja inn úr %s</string>
+  <string name="orientation">Átt</string>
+  <string name="analysisMode">Greiningarhamur</string>
+  <string name="pinnedChapterComment">Fest athugasemd við kafla</string>
+  <string name="saveChapter">Vista kafla</string>
+  <string name="clearAnnotations">Hreinsa glósur</string>
+  <string name="clearVariations">Hreinsa afbrigði</string>
   <string name="deleteChapter">Eyða kafla</string>
   <string name="deleteThisChapter">Eyddu þessum kafla. Það er ekki aftur snúið!</string>
   <string name="rightUnderTheBoard">Beint fyrir neðan borðið</string>
@@ -79,6 +93,9 @@
   <string name="loadAPositionFromFen">Hlaða inn stöðu úr FEN</string>
   <string name="loadAGameFromPgn">Hlaða inn skákum úr PGN</string>
   <string name="automatic">Sjálfvirkt</string>
+  <string name="urlOfTheGame">Vefslóð skákanna, ein í hverri línu</string>
+  <string name="createChapter">Búa til kafla</string>
+  <string name="createStudy">Búa til stúderingu</string>
   <string name="editStudy">Breyta stúderingu</string>
   <string name="visibility">Sýnileiki</string>
   <string name="public">Opinbert</string>
@@ -88,10 +105,19 @@
   <string name="nobody">Enginn</string>
   <string name="onlyMe">Aðeins fyrir mig</string>
   <string name="contributors">Þátttakendur</string>
+  <string name="members">Meðlimir</string>
+  <string name="everyone">Allir</string>
+  <string name="enableSync">Virkja samstillingu</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Já: hafa alla áfram í sömu stöðu</string>
+  <string name="noLetPeopleBrowseFreely">Nei: leyfa fólki að vafra frjálsmannlega</string>
   <string name="pinnedStudyComment">Fest athugasemd við stúderingu</string>
   <string name="start">Hefja</string>
   <string name="save">Vista</string>
   <string name="clearChat">Strauja spjalli</string>
+  <string name="deleteTheStudyChatHistory">Eyða spjallsögu stúderingar? Þessi aðgerð er óafturkallanleg!</string>
+  <string name="deleteStudy">Eyða stúderingu</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eyða allri stúderingu? Það er ekki aftur snúið! Sláðu inn nafn stúderingar í öryggisskyni: %s</string>
+  <string name="whereDoYouWantToStudyThat">Hvar viltu stúdera það?</string>
   <string name="goodMove">Góður leikur</string>
   <string name="mistake">Mistök</string>
   <string name="brilliantMove">Stórkostlegur leikur</string>
@@ -111,6 +137,7 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nýnæmi</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Framrás</string>
   <string name="initiative">Frumkvæði</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Hótun</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Mótspil</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tímabundið</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Fyrir sóknarfæri</string>
@@ -138,6 +165,7 @@
   <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
   <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
   <string name="customPositionTitle">Sérsniðin staða</string>
+  <string name="fromFenStringTitle">Útfrá Fen-streng</string>
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svartur tapar, en hvítur getur ekki unnið</string>
