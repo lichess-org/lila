@@ -47,6 +47,7 @@
   <string name="commentThisMove">Gera athugasemd við þennan leik</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
   <string name="playing">Í gangi</string>
   <string name="showResults">Niðurstöður</string>
   <string name="showEvalBar">Stöðumatsstikur</string>
