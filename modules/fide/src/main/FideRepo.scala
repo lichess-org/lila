@@ -31,9 +31,9 @@ final private class FideRepo(
     def fetch(code: hub.Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
-    private def makeId(u: UserId, p: FideId)   = s"$p/$u"
-    def followers(p: FideId): Fu[List[UserId]] = (p.value > 0).so:
-      for ids <- followerColl.distinctEasy[String, List]("_id", "_id".$startsWith(s"$p/"))
+    private def makeId(u: UserId, p: FideId)  = s"$p/$u"
+    def followers(p: FideId): Fu[Set[UserId]] = (p.value > 0).so:
+      for ids <- followerColl.distinctEasy[String, Set]("_id", "_id".$startsWith(s"$p/"))
       yield UserId.from(ids.map(id => id.drop(id.indexOf('/') + 1)))
     def follow(u: UserId, p: FideId) = playerColl
       .exists($id(p))
