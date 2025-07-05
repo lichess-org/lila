@@ -32,8 +32,6 @@ export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', 
         attrs: { role: 'alert' },
         hook: { insert: (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50) },
       }
-    : {
-        attrs: { 'aria-live': live, 'aria-atomic': 'true' },
-      };
-  return h(sel, { key: text, ...data }, isApple() ? undefined : text);
+    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+  return h(sel, data, isApple() ? undefined : text);
 }
