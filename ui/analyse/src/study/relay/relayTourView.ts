@@ -21,7 +21,7 @@ import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, isTouchDevice } from 'lib/device';
-import { verticalResizeSeparator } from 'lib/view/verticalResize';
+import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
 
@@ -87,7 +87,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
       !empty ? gamesList(study, relay) : hl('div.vertical-spacer'),
       !empty &&
         resizeId &&
-        verticalResizeSeparator({
+        verticalResize({
           key: `relay-games.${resizeId}`,
           min: () => 48,
           max: () => 48 * study.chapters.list.size(),
@@ -95,7 +95,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
       resizeId &&
-        verticalResizeSeparator({
+        verticalResize({
           key: 'relay-chat',
           id: resizeId,
           min: () => 0,
