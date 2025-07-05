@@ -541,6 +541,7 @@
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
   <string name="blog">බ්ලොග්</string>
   <string name="privacyPolicy">Privacy Policy</string>
+  <string name="letOtherPlayersFollowYou">අනෙක් ක්‍රීඩකයන්ට ඔබව Follow කරන්න ඉඩ දෙන්න</string>
   <string name="sound">ශබ්දය</string>
   <string name="none">කිසිවක් නැත</string>
   <string name="fast">ඉක්මනින්</string>
@@ -628,5 +629,7 @@
   <string name="keyPreviousBranch">පෙර ශාඛාව</string>
   <string name="newTournament">නව Tournament එකක්</string>
   <string name="weeklyPerfTypeRatingDistribution">සතිපතා %s ශ්‍රේණි බෙදා හැරීම</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">අපි ඔබට Email පණිවුඩයක් එවා ඇත. එහි ඇති Link එක click කිරීමෙන් ඔබේ ගිණුම Activate කරන්න.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email පණිවුඩය සොයාගත නොහැකි නම් එය තිබිය හැකි ස්ථාන Spam, Junk, Social පරීක්ෂා කරන්න.</string>
   <string name="pieceSet">ඉත්තන් පෙළ</string>
 </resources>
