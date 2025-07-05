@@ -69,7 +69,15 @@
   <string name="showThreat">तर्जनम् दर्शय</string>
   <string name="inLocalBrowser">स्थानीय-जालगवेषके</string>
   <string name="toggleLocalEvaluation">स्थानीयमूल्याङ्कनं परिवर्तय</string>
-  <string name="promoteVariation">विविधतां संवर्धय</string>
+  <string name="promoteVariation">भिन्नपङ्क्तिं संवर्धय</string>
   <string name="makeMainLine">मुख्यपङ्क्तिं कुरु</string>
   <string name="deleteFromHere">अत्रतः लोपय</string>
+  <string name="collapseVariations">भिन्नपङ्क्तिं संक्षिप्यतात्</string>
+  <string name="expandVariations">भिन्नपङ्क्तिं विस्तृणीतात्</string>
+  <string name="forceVariation">भिन्नपङ्क्तिं दर्शय</string>
+  <string name="copyVariationPgn">भिन्नपङ्क्तेः PGN प्रतिलिम्पस्व</string>
+  <string name="copyMainLinePgn">मुख्यपङ्क्तेः PGN प्रतिलिम्पस्व</string>
+  <string name="whiteDrawBlack">शुक्लः / समफलम् / कृष्णः</string>
+  <string name="topGames">उत्कृष्टक्रीडाः</string>
+  <string name="delete">लोपय</string>
 </resources>
