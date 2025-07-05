@@ -45,8 +45,12 @@
   <string name="newTag">Nýtt merki</string>
   <string name="commentThisPosition">Gera athugasemd við þessa stöðu</string>
   <string name="commentThisMove">Gera athugasemd við þennan leik</string>
+  <string name="annotateWithGlyphs">Skýra með stafbrigðum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
+  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á meginleikjunum.</string>
+  <string name="makeSureTheChapterIsComplete">Gakktu úr skugga um að kaflanum sé lokið. Þú getur aðeins beðið um greiningu einu sinni.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
   <string name="playing">Í gangi</string>
   <string name="showResults">Niðurstöður</string>
   <string name="showEvalBar">Stöðumatsstikur</string>
@@ -79,6 +83,7 @@
   <string name="clearVariations">Hreinsa afbrigði</string>
   <string name="deleteChapter">Eyða kafla</string>
   <string name="deleteThisChapter">Eyddu þessum kafla. Það er ekki aftur snúið!</string>
+  <string name="clearAllCommentsInThisChapter">Stroka út allar athugasemdir, stafbrigði og teiknuð form í þessum kafla</string>
   <string name="rightUnderTheBoard">Beint fyrir neðan borðið</string>
   <string name="noPinnedComment">Ekkert</string>
   <string name="normalAnalysis">Venjuleg greining</string>
@@ -156,7 +161,9 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s á síðu</string>
   <string name="getTheTour">Viltu aðstoð? Skoðaðu kynninguna!</string>
   <string name="welcomeToLichessStudyTitle">Velkomin(n) í stúderingar Lichess!</string>
+  <string name="welcomeToLichessStudyText">Þetta er skipt greiningarborð.&lt;br&gt;&lt;br&gt;Notfærðu þér það til að greina og gera athugasemdir við skákir,&lt;br&gt;ræddu stöður við vini,&lt;br&gt;og auðvitað fyrir kennsluefni í skák!&lt;br&gt;&lt;br&gt;Það er öflugt tól, lofum okkur að skoða hvernig það virkar.</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Deilt og vistað</string>
+  <string name="sharedAndSavedText">Aðrir meðlimir geta séð leiki þína í rauntíma!&lt;br&gt;Auk þess vistast allt saman til frambúðar.</string>
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
   <string name="studyChaptersTitle">Kaflar stúderingar</string>
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
@@ -165,8 +172,11 @@
   <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
   <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
   <string name="customPositionTitle">Sérsniðin staða</string>
+  <string name="loadExistingLichessGameTitle">Hlaða inn tiltækri Lichess-skák</string>
   <string name="fromFenStringTitle">Útfrá Fen-streng</string>
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
+  <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
+  <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svartur tapar, en hvítur getur ekki unnið</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvítur tapar, en svartur getur ekki unnið</string>

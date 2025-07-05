@@ -177,8 +177,8 @@
     <item quantity="other">%1$s stig eftir %2$s skákir</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s geymd</item>
-    <item quantity="other">%s geymdar</item>
+    <item quantity="one">%s bókamerkt</item>
+    <item quantity="other">%s bókamerktar</item>
   </plurals>
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
@@ -231,7 +231,7 @@
   <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
-  <string name="passwordReset">Endurstilling lykilorðs</string>
+  <string name="passwordReset">endurstillingu lykilorðs</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="error.weakPassword">Þetta lykilorð er afar algengt, og ansi auðvelt að geta.</string>
   <string name="error.namePassword">Vinsamlegast ekki nota notandanafnið þitt sem lykilorðið.</string>

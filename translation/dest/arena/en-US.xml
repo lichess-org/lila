@@ -3,7 +3,7 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena tournaments</string>
   <string name="isItRated">Is it rated?</string>
-  <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
+  <string name="willBeNotified">You will be notified when the tournament starts, so feel free to leave this tab idle.</string>
   <string name="isRated">This tournament is rated and will affect your rating.</string>
   <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
   <string name="someRated">Some tournaments are rated and will affect your rating.</string>

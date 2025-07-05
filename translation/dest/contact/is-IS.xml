@@ -8,6 +8,8 @@
   <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
   <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
   <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
+  <string name="youCanLoginWithEmail">Þú getur skráð þig inn með netfanginu sem þú nýskráðir þig með</string>
+  <string name="lost2FA">Ég missti aðgang að tveggja þátta auðkenningarkóðunum mínum</string>
   <string name="doPasswordReset">Ljúktu við að endurstilla lykilorð til þess að fjarlægja tveggja þátta auðkenningu þína</string>
   <string name="accountSupport">Ég þarfnast aðstoðar við aðganginn</string>
   <string name="wantTitle">Ég vil að titillinn minn birtist á Lichess</string>

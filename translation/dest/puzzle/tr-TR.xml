@@ -76,6 +76,10 @@
   <string name="lookupOfPlayer">Bir oyuncunun oyunlarından bulmaca ara</string>
   <string name="searchPuzzles">Bulmaca ara</string>
   <string name="fromMyGamesNone">Veri tabanında sizin maçlarınızdan bir bulmaca bulamadık ama dert etmeyin, Lichess pabucunuzu dama atmadı. Size ait bulmacaların eklenme şansını artırmak için rapid ve klasik maçlar oynayın!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Bir bulmaca oyunlar arasında %2$s tarafından bulundu</item>
+    <item quantity="other">%1$s bulmaca oyunlar arasında %2$s tarafından bulundu</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Egzersiz yapın, analiz edin, becerilerinizi geliştirin</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s bulmaca</item>

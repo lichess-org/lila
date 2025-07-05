@@ -11,6 +11,14 @@
   <string name="gameStart">Skák byrjar</string>
   <string name="announceCurrentSquare">Lesa núverandi reit upphátt.</string>
   <string name="announceLastMove">Lesa síðasta leik upphátt.</string>
+  <string name="announceLastMoveCapture">Lesa upphátt taflmann sem var drepinn í síðasta leik.</string>
+  <string name="announcePossibleMoves">Lesa mögulega leiki upphátt fyrir valinn taflmann.</string>
+  <string name="announcePossibleCaptures">Lesa möguleg dráp upphátt með völdum taflmanni.</string>
+  <string name="moveWithArrows">Fara á aðliggjandi reit til vinstri, hægri, upp eða niður.</string>
+  <string name="moveToPieceByType">Færa sig á reit með því að nota heiti taflmanns. Til dæmis: endurtekið „k\" mun færa sig á hvern þann reit þar sem riddari er. Notaðu hástaf til að snúa röðinni við.</string>
+  <string name="announcePieceLocations">Lesa staðsetningar taflmanna upphátt. Dæmi: „p stór stafur N\" fyrir hvíta riddara, „p lítill stafur k\" fyrir svarta kónginn, „p stór stafur A\" fyrir alla hvíta taflmenn.</string>
+  <string name="announcePiecesOnRankOrFile">Lesa upphátt taflmenn á röð eða línu. Dæmi: „s a\", „s 1\".</string>
+  <string name="movePiece">Til þess að færa taflmann skal nota staðlaða algebrutáknkerfið.</string>
   <string name="king">kóngur</string>
   <string name="whiteKing">hvítur kóngur</string>
   <string name="blackKing">svartur kóngur</string>

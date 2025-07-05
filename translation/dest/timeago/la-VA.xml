@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">nunc</string>
+  <string name="rightNow">nunc</string>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s momentum reliqua</item>
+    <item quantity="other">%s momenta reliquae</item>
+  </plurals>
+  <string name="completed">completus est</string>
+</resources>
