@@ -631,5 +631,10 @@
   <string name="weeklyPerfTypeRatingDistribution">සතිපතා %s ශ්‍රේණි බෙදා හැරීම</string>
   <string name="weHaveSentYouAnEmailClickTheLink">අපි ඔබට Email පණිවුඩයක් එවා ඇත. එහි ඇති Link එක click කිරීමෙන් ඔබේ ගිණුම Activate කරන්න.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email පණිවුඩය සොයාගත නොහැකි නම් එය තිබිය හැකි ස්ථාන Spam, Junk, Social පරීක්ෂා කරන්න.</string>
+  <string name="ifYouDoNotGetTheEmail">ඔබට මිනිත්තු 5 ක් තුළ විද්‍යුත් තැපෑල නොලැබුණොත් :</string>
+  <string name="checkAllEmailFolders">සියලු පිටු වල පරීක්ෂා කරන්න</string>
+  <string name="verifyYourAddress">ඔබේ විද්‍යුත් තැපෑල %s ලෙස සහතික කරගන්න</string>
+  <string name="weHaveSentYouAnEmailTo">අපි ඔබට විද්‍යුත් තැපෑලක් %sට එවා ඇත. සබැදිය මගින් මුරපදය නැවත සෑදීම සිදු කළ හැක.</string>
+  <string name="opacity">පාරාන්ධතාව</string>
   <string name="pieceSet">ඉත්තන් පෙළ</string>
 </resources>
