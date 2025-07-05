@@ -5,8 +5,9 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
 import lila.core.id.RelayTourId
-import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel }
+import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayPlayer }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
@@ -155,9 +156,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     WithTour(id): tour =>
       env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
-  def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
-    env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
-  }
+  def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile): _ ?=>
+    me ?=> env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
 
   def cloneTour(id: RelayTourId) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
@@ -238,8 +238,16 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def player(tourId: RelayTourId, id: String) = Anon:
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
-      val player  = env.relay.playerApi.player(tour, decoded)
-      Found(player)(JsonOk)
+      val json    =
+        for
+          player      <- env.relay.playerApi.player(tour, decoded)
+          fidePlayer  <- player.flatMap(_.fideId).so(env.fide.repo.player.fetch)
+          isFollowing <- (ctx.me.map(_.userId), fidePlayer.map(_.id)) match
+            case (Some(u), Some(p)) if HTTPRequest.isLichessMobile(ctx.req) =>
+              env.fide.repo.follower.isFollowing(u, p).map(Some(_))
+            case _ => fuccess[Option[Boolean]](None)
+        yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
+      Found(json)(JsonOk)
 
   private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 

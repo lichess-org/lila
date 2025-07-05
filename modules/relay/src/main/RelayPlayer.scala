@@ -67,7 +67,9 @@ object RelayPlayer:
         .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
-    def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =
+    def full(
+        tour: RelayTour
+    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], isFollowing: Option[Boolean]): JsObject =
       val tc             = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
@@ -88,6 +90,7 @@ object RelayPlayer:
           .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)
           .add("ratingDiff" -> rd)
+          .add("isFollowing" -> isFollowing)
       Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
@@ -118,13 +121,12 @@ private final class RelayPlayerApi(
   export cache.get
   export jsonCache.get as jsonList
 
-  def player(tour: RelayTour, str: String): Fu[Option[JsObject]] =
+  def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
     for
       players <- cache.get(tour.id)
       player = players.get(id)
-      fidePlayer <- player.flatMap(_.fideId).so(fidePlayerGet)
-    yield player.map(json.full(tour)(_, fidePlayer))
+    yield player
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 

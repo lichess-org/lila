@@ -98,12 +98,14 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       previews: ChapterPreview.AsJsons,
       group: Option[RelayGroup.WithTours],
       targetRound: Option[RelayRound.WithTour],
+      isSubscribed: Option[Boolean],
       socketVersion: Option[SocketVersion]
   )(using Option[Me]): JsObject =
     myRound(rt) ++ Json
       .obj("games" -> previews)
       .add("group" -> group)
       .add("targetRound" -> targetRound.map(withUrl(_, true)))
+      .add("isSubscribed", isSubscribed)
       .add("socketVersion" -> socketVersion)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
