@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<svg width="655.36" height="655.36" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" stroke-width="0.00512" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)" version="1.1" xml:space="preserve">
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="SVGRepo_bgCarrier" stroke-width="0" transform="matrix(1 0 0 1 72 72)">
+   <rect fill="#8fd279" height="655.36" id="svg_1" rx="360" ry="360" width="655.36" x="-71.68" y="-71.68"/>
+  </g>
+  <g id="SVGRepo_tracerCarrier" stroke="#CCCCCC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.02"/>
+  <g id="SVGRepo_iconCarrier" transform="matrix(1 0 0 1 0 0) translate(-5 -11) matrix(1 0 0 1 73 71)">
+   <style type="text/css">.st0{fill:#ffffff;}</style>
+   <g id="svg_2">
+    <path class="st0" d="m469.11,134.41c-23.69,0 -42.89,19.2 -42.89,42.89c0,11.28 4.45,21.45 11.56,29.11l-76.87,75.97l-93.82,-144.77c18.28,-4.92 31.8,-21.44 31.8,-41.27c0,-23.67 -19.2,-42.87 -42.89,-42.87s-42.89,19.2 -42.89,42.87c0,19.83 13.51,36.35 31.8,41.27l-93.82,144.77l-76.87,-75.97c7.11,-7.66 11.56,-17.83 11.56,-29.11c0,-23.69 -19.2,-42.89 -42.89,-42.89s-42.89,19.2 -42.89,42.89s19.2,42.89 42.89,42.89l0,238.34l213.11,0l213.11,0l0,-238.34c23.69,0 42.89,-19.21 42.89,-42.89s-19.2,-42.89 -42.89,-42.89z" id="svg_3"/>
+   </g>
+  </g>
+ </g>
+</svg>
