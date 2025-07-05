@@ -35,7 +35,7 @@ export const commands: () => Commands = memoize(() => ({
         $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
       if (button) {
         button.focus();
-        return 'board ' + file + '.' + rank;
+        return '';
       } else {
         return file + '.' + rank + ' is not a valid square';
       }
