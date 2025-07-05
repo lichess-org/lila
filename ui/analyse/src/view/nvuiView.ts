@@ -58,7 +58,7 @@ export function initNvui({ ctrl, notify }: AnalyseNvuiContext): void {
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
-  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl))); // ? is 'c' for chat or eval?
+  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
