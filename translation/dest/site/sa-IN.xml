@@ -3,7 +3,7 @@
   <string name="playWithAFriend">मित्रेण सह  क्रीडतु</string>
   <string name="playWithTheMachine">यन्त्रेण सह  क्रीडतु</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कमपि   क्रीडार्थम् उपाह्वयितुम्  एनम्  निर्देशम् प्रेषयतु</string>
-  <string name="gameOver">द्यूतम् समाप्तम्</string>
+  <string name="gameOver">क्रीडा समाप्ता</string>
   <string name="waitingForOpponent">प्रतियोगिनम् प्रतीक्षे</string>
   <string name="orLetYourOpponentScanQrCode">वा प्रतिद्वन्दिनं QR सङ्केतकं परिशीलितुम् अनुमन्यस्व</string>
   <string name="waiting">प्रतीक्ष्यते</string>
@@ -16,8 +16,8 @@
   <string name="resign">विजहातु</string>
   <string name="checkmate">संरोधः</string>
   <string name="stalemate">स्तंभनः</string>
-  <string name="white">श्वेतः</string>
-  <string name="black">कृष्ण</string>
+  <string name="white">शुक्लः</string>
+  <string name="black">कृष्णः</string>
   <string name="asWhite">श्वेतेव</string>
   <string name="asBlack">यथा कृष्णः</string>
   <string name="randomColor">यादृच्छिको वर्ण​:</string>
@@ -80,4 +80,7 @@
   <string name="whiteDrawBlack">शुक्लः / समफलम् / कृष्णः</string>
   <string name="topGames">उत्कृष्टक्रीडाः</string>
   <string name="delete">लोपय</string>
+  <string name="friends">मित्राणि</string>
+  <string name="today">अद्य</string>
+  <string name="time">समयः</string>
 </resources>
