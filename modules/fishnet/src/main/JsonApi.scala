@@ -132,9 +132,7 @@ object JsonApi:
     given Reads[Request.Fishnet]          = Json.reads
     given Reads[Request.Acquire]          = Json.reads
     given Reads[Request.Evaluation.Score] = Json.reads
-    given Reads[List[Uci]]                = Reads.of[String].map { str =>
-      ~Uci.readList(str)
-    }
+    given Reads[List[Uci]]                = Reads.of[String].map(Uci.readList(_).getOrElse(Nil))
 
     given EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv")

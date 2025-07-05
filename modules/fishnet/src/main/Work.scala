@@ -48,7 +48,7 @@ object Work:
       variant: Variant,
       moves: String
   ):
-    def uciList: List[Uci] = ~(Uci.readList(moves))
+    def uciList: List[Uci] = Uci.readList(moves).getOrElse(Nil)
 
   case class Sender(
       userId: UserId,

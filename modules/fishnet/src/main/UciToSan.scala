@@ -27,8 +27,7 @@ private object UciToSan:
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
         position <- positions.lift(ply.value - startedAt.value - 1).toRight(s"No move found at ply $ply")
-        ucis     <- variation.traverse(Uci.apply).toRight(s"Invalid UCI moves $variation")
-        moves    <- position.play(ucis, ply)(_.move.toSanStr).leftMap(_.toString)
+        moves    <- position.play(variation, ply)(_.move.toSanStr).leftMap(_.value)
       yield moves
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
