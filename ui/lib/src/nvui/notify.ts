@@ -23,15 +23,17 @@ export class Notify {
   currentText = (): string =>
     this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
 
-  render = (): VNode =>
-    h('div.notify', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, this.currentText());
+  render = (): VNode => liveText(this.currentText(), 'assertive', 'div.notify');
 }
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
-  const liveAction = (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50);
-  return h(sel, {
-    key: text,
-    attrs: isApple() ? { role: 'alert' } : { 'aria-live': live, 'aria-atomic': 'true' },
-    hook: { insert: liveAction },
-  });
+  return h(
+    sel,
+    {
+      key: text,
+      attrs: isApple() ? { role: 'alert' } : { 'aria-live': live, 'aria-atomic': 'true' },
+      hook: { insert: (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50) },
+    },
+    '\u00A0',
+  );
 }
