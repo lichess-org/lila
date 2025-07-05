@@ -352,7 +352,14 @@
   <string name="openingExplorerAndTablebase">ఓపెనింగ్ ఎక్స్‌ప్లోరర్ &amp; టేబుల్‌బేస్</string>
   <string name="takeback">వెనక్కి తీసుకో</string>
   <string name="proposeATakeback">టేక్‌బ్యాక్‌ను ప్రతిపాదించండి</string>
+  <string name="whiteProposesTakeback">తెలుపు వెనక్కి తీసుకోవటానికి అడుగుతుంది</string>
+  <string name="blackProposesTakeback">నలుపు వెనక్కి తీసుకోవటానికి అడుగుతుంది</string>
   <string name="takebackPropositionSent">టేక్‌బ్యాక్ పంపబడింది</string>
+  <string name="whiteDeclinesTakeback">తెలుపు వెనక్కి తీసుకోవడం ఒప్పుకోలేదు</string>
+  <string name="blackDeclinesTakeback">నలుపు వెనక్కి తీసుకోవడం ఒప్పుకోలేదు</string>
+  <string name="whiteAcceptsTakeback">తెలుపు వెనక్కి తీసుకోవడం ఒప్పుకుంది</string>
+  <string name="blackAcceptsTakeback">నలుపు వెనక్కి తీసుకోవడం ఒప్పుకుంది</string>
+  <string name="whiteCancelsTakeback">తెలుపు వెనక్కి తీసుకోవడం వద్దనుకుని</string>
   <string name="yourOpponentProposesATakeback">మీ ప్రత్యర్థి టేక్‌బ్యాక్‌ను ప్రతిపాదించాడు</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
   <string name="tournament">టోర్నమెంట్</string>
