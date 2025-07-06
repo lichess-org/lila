@@ -1,0 +1,85 @@
+# Exclude Git
+.git
+.gitignore
+
+# Exclude Docker files
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Exclude SBT build artifacts
+target/
+project/target/
+project/project/target/
+.bsp/
+
+# Exclude IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+.metals/
+.bloop/
+
+# Exclude OS files
+.DS_Store
+Thumbs.db
+
+# Exclude logs
+logs/
+*.log
+
+# Exclude temporary files
+tmp/
+temp/
+
+# Exclude node modules if any
+node_modules/
+
+# Exclude documentation
+*.md
+docs/
+
+# Exclude test artifacts
+test-output/
+test-results/
+
+# Exclude local configuration
+local.conf
+dev.conf
+
+# Exclude backup files
+*~
+*.bak
+*.backup
+
+# Exclude package files
+*.tar.gz
+*.zip
+*.jar
+*.war
+*.ear
+*.nar
+
+# Exclude compiled binaries
+*.class
+*.o
+*.so
+*.dll
+*.exe
+
+# Exclude IDE project files
+.project
+.classpath
+.settings/
+.cache-main
+.cache-tests
+.worksheet
+
+# Exclude Scala/Java artifacts
+*.tasty
+*.class
+.ensime
+.ensime_cache/
+.scala_dependencies
+.worksheet 

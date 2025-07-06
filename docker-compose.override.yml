@@ -1,0 +1,110 @@
+services:
+  # Development overrides
+  lichess:
+    environment:
+      - JAVA_OPTS=-Xmx1g -Xms512m -Dlogger.file=conf/logger.dev.xml
+      - SBT_OPTS=-XX:+UseG1GC -XX:MaxGCPauseMillis=100
+    volumes:
+      - ./conf:/app/conf
+      - ./logs:/app/logs
+      - ./translation:/app/translation
+      - ./target:/app/target
+    # Enable for development hot-reload
+    # command: sbt run
+    ports:
+      - "9663:9663"
+      - "5005:5005"  # Debug port
+
+  # MongoDB with less strict settings for development
+  mongodb:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: lichess
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongodb/init:/docker-entrypoint-initdb.d:ro
+      - ./docker/mongodb/conf:/etc/mongo:ro
+    ports:
+      - "27017:27017"
+
+  # Redis with persistence disabled for development
+  redis:
+    command: redis-server --requirepass password --save ""
+    ports:
+      - "6379:6379"
+
+  # Elasticsearch with development settings
+  elasticsearch:
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - cluster.routing.allocation.disk.threshold_enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  # Add MongoDB Express for database management
+  mongo-express:
+    image: mongo-express:latest
+    container_name: lichess-mongo-express
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    ports:
+      - "8081:8081"
+
+  # Add Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: lichess-redis-commander
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:password
+    ports:
+      - "8082:8081"
+
+  # Add Kibana for Elasticsearch management
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: lichess-kibana
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+
+  # Add Mailhog for email testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: lichess-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP server
+      - "8025:8025"  # Web interface
+
+  # Add Adminer for database management
+  adminer:
+    image: adminer:latest
+    container_name: lichess-adminer
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongodb_data:
+  redis_data:
+  elasticsearch_data: 
