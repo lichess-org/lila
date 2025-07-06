@@ -1,16 +1,17 @@
 package lila.challenge
 
-import lila.core.challenge.PositiveEvent
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
-
-import lila.common.Bus
 
 final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: Executor,
     scheduler: Scheduler
 ):
-  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
+  def apply(
+      challenge: Challenge,
+      initialJson: JsObject,
+      challengeResult: Promise[String]
+  ): Source[JsValue, ?] =
     Source(List(initialJson)).concat:
       Source
         .queue[JsObject](1, akka.stream.OverflowStrategy.dropHead)
@@ -22,16 +23,10 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
           def completeWith(msg: String) =
             for _ <- queue.offer(Json.obj("done" -> msg)) yield queue.complete()
 
-          val subPositive = Bus.sub[PositiveEvent]:
-            case PositiveEvent.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
-
-          val subNegative = Bus.sub[NegativeEvent]:
-            case NegativeEvent.Decline(c) if c.id == challenge.id => completeWith("declined")
-            case NegativeEvent.Cancel(c) if c.id == challenge.id  => completeWith("canceled")
+          challengeResult.future.map(completeWith)
 
           queue
             .watchCompletion()
             .addEffectAnyway:
               keepAliveInterval.cancel()
-              Bus.unsub[PositiveEvent](subPositive)
-              Bus.unsub[NegativeEvent](subNegative)
+              challengeResult.tryComplete(scala.util.Try("dummy")) // trigger cleanup
