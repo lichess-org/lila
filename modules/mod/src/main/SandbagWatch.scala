@@ -83,8 +83,8 @@ final private class SandbagWatch(
 
     val minTurns =
       if game.variant == chess.variant.Atomic then 3
-      else if loserRatingGt(1800) then 25
-      else if loserRatingGt(1600) then 15
+      else if loserRatingGt(1800) then 20
+      else if loserRatingGt(1600) then 12
       else 8
 
     game.playedPlies <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))

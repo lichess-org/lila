@@ -54,6 +54,7 @@
   <string name="notifyInvitedStudy">Boð í stúderingu</string>
   <string name="notifyChallenge">Áskoranir</string>
   <string name="notifyTournamentSoon">Mót hefst senn</string>
+  <string name="notifyBell">Innhólfstilkynningar innan Lichess</string>
   <string name="notifyWeb">Vafri</string>
   <string name="notifyDevice">Tæki</string>
   <string name="bellNotificationSound">Innhólfstilkynningahljóð</string>
