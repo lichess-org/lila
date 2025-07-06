@@ -156,8 +156,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     WithTour(id): tour =>
       env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
-  def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile): _ ?=>
-    me ?=> env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
+  def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
+    for _ <- env.relay.api.subscribe(id, me.userId, isSubscribed)
+    yield jsonOkResult
+  }
 
   def cloneTour(id: RelayTourId) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
@@ -242,10 +244,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         for
           player      <- env.relay.playerApi.player(tour, decoded)
           fidePlayer  <- player.flatMap(_.fideId).so(env.fide.repo.player.fetch)
-          isFollowing <- (ctx.me.map(_.userId), fidePlayer.map(_.id)) match
-            case (Some(u), Some(p)) if HTTPRequest.isLichessMobile(ctx.req) =>
-              env.fide.repo.follower.isFollowing(u, p).map(Some(_))
-            case _ => fuccess[Option[Boolean]](None)
+          isFollowing <- (ctx.me.map(_.userId), fidePlayer.map(_.id)).tupled.soFu: (u, p) =>
+            HTTPRequest.isLichessMobile(ctx.req).so(env.fide.repo.follower.isFollowing(u, p))
         yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
       Found(json)(JsonOk)
 
