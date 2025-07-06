@@ -4,7 +4,9 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.app.{ *, given }
-import lila.challenge.{ Challenge as ChallengeModel, Direction }
+import lila.challenge.{ Challenge as ChallengeModel, Direction, NegativeEvent }
+import lila.common.Bus
+import lila.core.challenge.PositiveEvent
 import lila.core.id.ChallengeId
 import lila.core.net.Bearer
 import lila.game.AnonCookie
@@ -307,6 +309,24 @@ final class Challenge(env: Env) extends LilaController(env):
                                     JsonBadRequest:
                                       jsonError(lila.challenge.ChallengeDenied.translated(denied))
                                 case _ =>
+
+                                  val challengeResponse = Promise[String]
+
+                                  if config.keepAliveStream then
+                                    val subPositive = Bus.sub[PositiveEvent]:
+                                      case PositiveEvent.Accept(c, _) if c.id == challenge.id =>
+                                        challengeResponse.success("accepted")
+
+                                    val subNegative = Bus.sub[NegativeEvent]:
+                                      case NegativeEvent.Decline(c) if c.id == challenge.id =>
+                                        challengeResponse.success("declined")
+                                      case NegativeEvent.Cancel(c) if c.id == challenge.id =>
+                                        challengeResponse.success("canceled")
+
+                                    challengeResponse.future.onComplete: _ =>
+                                      Bus.unsub[PositiveEvent](subPositive)
+                                      Bus.unsub[NegativeEvent](subNegative)
+
                                   env.challenge.api.create(challenge).flatMap {
                                     if _ then
                                       ctx.isMobileOauth
@@ -321,9 +341,19 @@ final class Challenge(env: Env) extends LilaController(env):
                                           if config.keepAliveStream then
                                             jsOptToNdJson:
                                               ndJson
-                                                .addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                                .addKeepAlive(
+                                                  env.challenge.keepAliveStream(
+                                                    challenge,
+                                                    json,
+                                                    challengeResponse.future
+                                                  )
+                                                )
                                           else JsonOk(json)
-                                    else JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                    else
+                                      if config.keepAliveStream then
+                                        // trigger unsubscribe
+                                        challengeResponse.success("Challenge not created")
+                                      JsonBadRequest(jsonError("Challenge not created")).toFuccess
                                   }
                             yield res
               }
