@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, onInsert, looseH as h } from 'lib/snabbdom';
+import { type VNode, onInsert, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
@@ -59,7 +59,7 @@ function action(
   onHover?: () => void,
   onLeave?: () => void,
 ): VNode {
-  return h(
+  return hl(
     'a',
     {
       attrs: { 'data-icon': icon },
@@ -91,7 +91,7 @@ function view(opts: Opts, coords: Coords): VNode {
     node = ctrl.tree.nodeAtPath(opts.path),
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
     extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
-  return h(
+  return hl(
     'div#' + elementId + '.visible',
     {
       hook: {
@@ -103,7 +103,7 @@ function view(opts: Opts, coords: Coords): VNode {
       },
     },
     [
-      h('p.title', nodeFullName(node)),
+      hl('p.title', nodeFullName(node)),
 
       !onMainline &&
         action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(opts.path, false)),
@@ -122,7 +122,7 @@ function view(opts: Opts, coords: Coords): VNode {
 
       action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
 
-      ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
+      ctrl.study && studyView.contextMenu(ctrl.study, opts.path, node),
 
       onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),

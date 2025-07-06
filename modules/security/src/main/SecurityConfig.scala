@@ -45,11 +45,7 @@ private object SecurityConfig:
   )
   given ConfigLoader[EmailConfirm] = AutoConfig.loader
 
-  case class Tor(
-      @ConfigName("enabled") enabled: Boolean,
-      @ConfigName("provider_url") providerUrl: String,
-      @ConfigName("refresh_delay") refreshDelay: FiniteDuration
-  )
+  case class Tor(@ConfigName("enabled") enabled: Boolean)
   given ConfigLoader[Tor] = AutoConfig.loader
 
   case class DisposableEmail(

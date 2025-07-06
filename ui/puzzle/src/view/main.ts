@@ -7,7 +7,7 @@ import feedbackView from './feedback';
 import * as licon from 'lib/licon';
 import { stepwiseScroll } from 'lib/view/controls';
 import { type VNode, h } from 'snabbdom';
-import { onInsert, bindNonPassive, looseH as lh } from 'lib/snabbdom';
+import { onInsert, bindNonPassive, hl } from 'lib/snabbdom';
 import { bindMobileMousedown } from 'lib/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'lib/ceval/ceval';
@@ -20,7 +20,7 @@ import type PuzzleCtrl from '../ctrl';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { storage } from 'lib/storage';
 
-const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);
+const renderAnalyse = (ctrl: PuzzleCtrl): VNode => hl('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -28,15 +28,15 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return lh('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  return hl('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {
   const node = ctrl.node;
   const nextNode = node.children[0];
   const notOnLastMove = ctrl.mode === 'play' && nextNode && nextNode.puzzle !== 'fail';
-  return lh('div.puzzle__controls.analyse-controls', [
-    lh(
+  return hl('div.puzzle__controls.analyse-controls', [
+    hl(
       'div.jumps',
       {
         hook: onInsert(
@@ -64,14 +64,13 @@ function controls(ctrl: PuzzleCtrl): VNode {
 let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = showCeval;
   }
-  return lh(
+  return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
@@ -88,14 +87,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
       },
     },
     [
-      lh('aside.puzzle__side', [
+      hl('aside.puzzle__side', [
         replay(ctrl),
         puzzleBox(ctrl),
         ctrl.streak ? streakBox(ctrl) : userBox(ctrl),
         config(ctrl),
         theme(ctrl),
       ]),
-      lh(
+      hl(
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
@@ -121,14 +120,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
         [chessground(ctrl), ctrl.promotion.view()],
       ),
       cevalView.renderGauge(ctrl),
-      lh('div.puzzle__tools', [
+      hl('div.puzzle__tools', [
         ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
-        lh(
+        hl(
           'div.ceval-wrap',
           { class: { none: !showCeval } },
-          showCeval ? [...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
+          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
@@ -144,8 +143,8 @@ export default function (ctrl: PuzzleCtrl): VNode {
 function session(ctrl: PuzzleCtrl) {
   const rounds = ctrl.session.get().rounds,
     current = ctrl.data.puzzle.id;
-  return lh('div.puzzle__session', [
-    ...rounds.map(round => {
+  return hl('div.puzzle__session', [
+    rounds.map(round => {
       const rd =
         round.ratingDiff && ctrl.opts.showRatings
           ? round.ratingDiff > 0
@@ -168,8 +167,8 @@ function session(ctrl: PuzzleCtrl) {
     }),
     rounds.find(r => r.id === current)
       ? !ctrl.streak &&
-        lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-      : lh(
+        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+      : hl(
           'a.result-cursor.current',
           { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
           ctrl.streak && (ctrl.streak.data.index + 1).toString(),

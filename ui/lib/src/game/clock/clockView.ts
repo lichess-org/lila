@@ -1,6 +1,6 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
-import { looseH as h, type VNode, LooseVNodes } from '@/snabbdom';
+import { hl, type VNode, LooseVNodes } from '@/snabbdom';
 import { TopOrBottom } from '../game';
 import { displayColumns } from '@/device';
 
@@ -24,17 +24,17 @@ export function renderClock(
     insert: vnode => update(vnode.elm as HTMLElement),
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
   };
-  return h(
+  return hl(
     // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
     `div.rclock.rclock-${position}.rclock-${color}`,
     { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs } },
     ctrl.opts.nvui
-      ? [h('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
+      ? [hl('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
           ctrl.showBar && ctrl.opts.bothPlayersHavePlayed() ? showBar(ctrl, color) : undefined,
-          h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
-          ...onTheSide(color, position),
+          hl('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
+          onTheSide(color, position),
         ],
   );
 }
@@ -115,7 +115,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
   };
   return displayColumns() === 1
     ? undefined
-    : h('div.bar', {
+    : hl('div.bar', {
         class: { berserk: ctrl.opts.hasGoneBerserk(color) },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),

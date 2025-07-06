@@ -15,12 +15,13 @@ final class GarbageCollector(
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
     currentlyPlaying: LazyDep[lila.core.round.CurrentlyPlaying],
-    isArmed: () => Boolean
+    isArmed: () => Boolean,
+    userRepo: lila.user.UserRepo
 )(using ec: Executor, scheduler: Scheduler):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = scalalib.cache.OnceEvery[UserId](20.minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](1.hour)
 
   private case class ApplyData(
       user: User,
@@ -95,7 +96,9 @@ final class GarbageCollector(
           s"Will dispose of https://lichess.org/${user.username} in $wait. $msg${(!armed).so(" [DRY]")}"
         noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")
         if armed then
-          for _ <- waitForCollection(user.id, nowInstant.plus(wait))
+          for
+            _ <- userRepo.setAlt(user.id, true)
+            _ <- waitForCollection(user.id, nowInstant.plus(wait))
           do Bus.pub(lila.core.security.GarbageCollect(user.id))
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
@@ -109,7 +112,7 @@ final class GarbageCollector(
         .exec(userId)
         .map2(_.game)
         .flatMap: game =>
-          if game.exists(_.playedTurns > 25) then funit
+          if game.exists(_.playedPlies > 25) then funit
           else
             LilaFuture.delay(if game.isDefined then 10.seconds else 30.seconds):
               waitForCollection(userId, max)

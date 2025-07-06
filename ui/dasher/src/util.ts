@@ -1,16 +1,16 @@
 import * as licon from 'lib/licon';
-import { bind, looseH as h, type VNode } from 'lib/snabbdom';
+import { bind, hl, type VNode } from 'lib/snabbdom';
 import { memoize, Toggle } from 'lib';
 
 export const header = (name: string, close: () => void): VNode =>
-  h(
+  hl(
     'button.head.text',
     { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
     name,
   );
 
 export const moreButton = (toggle: Toggle): VNode =>
-  h(
+  hl(
     'button.button.more',
     {
       attrs: { title: i18n.site.more },

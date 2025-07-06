@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Net genug gewäert Partien goufen gespillt fir eng zouverlässegeg Wäertung ze etabléieren.</string>
   <string name="progressOverLastXGames">Progrès iwwert déi lescht %s Partien:</string>
   <string name="ratingDeviation">Wäertungsofweichung: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">En niddregen Wäert heescht d\'Wäertung ass méi stabel. Iwwer %1$s ass d\'Wäertung just provisoresch. Fir an der Ranglëscht abegraff ze ginn muss dësen Wäert ënner %2$s(Standard Schach) respektiv %3$s(Varianten) sinn.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">En niddrege Wäert heescht, datt d\'Wäertung méi stabil ass. Iwwer %1$s gëlt d\'Wäertung als provisoresch. Fir a Ranglëscht opgeholl ze gi muss dëse Wäert ënner %2$s (Standardschach) respektiv %3$s (Schachvarianten) leien.</string>
   <string name="totalGames">Total Partien</string>
   <string name="ratedGames">Gewäert Partien</string>
   <string name="tournamentGames">Turnéier Partien</string>

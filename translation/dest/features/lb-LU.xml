@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Keng Werbung, keen Tracking</string>
+  <string name="correspondenceWithConditionalPremoves">Fernschach mat bedingte Virauszich</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Standardschach an %s</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s Partie pro Dag</item>
     <item quantity="other">%s Partië pro Dag</item>
   </plurals>
+  <string name="studies">Etüden (persistent Analysen, déi gedeelt kënne ginn)</string>
   <string name="tacticalPuzzlesFromUserGames">Taktesch Aufgabe vu Benotzerpartien</string>
+  <string name="personalOpeningExplorerX">%1$s (funktionéiert och fir %2$s)</string>
+  <string name="personalOpeningExplorer">Perséinlechen Erëffnungsdatebank</string>
+  <string name="globalOpeningExplorerInNbGames">Global Erëffnungsdatebank (%s Partien!)</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultrabullet, Bullet, Blitz, Schnellschach, Klassesch, Fernschach</string>
   <string name="everybodyGetsAllFeaturesForFree">Jo, béid Konten hunn déi selwecht Funktiounen!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Mir sinn der Meenung, datt jiddwer Schachspiller dat bescht verdéngt, dofir:</string>
   <string name="allFeaturesAreFreeForEverybody">All Funktioune si gratis fir jiddereen, fir ëmmer!</string>
+  <string name="ifYouLoveLichess">Wann s de Lichess gär hues:</string>
+  <string name="supportUsWithAPatronAccount">Ënnerstëtz eis mat engem Ënnerstëtzer-Konto!</string>
 </resources>

@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">合意によるドロー</string>
   <string name="fiftyMovesWithoutProgress">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">参加日：%s</string>
+  <string name="joinedX">参加日：%s</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
   </plurals>
@@ -458,7 +458,6 @@
   <string name="points">ポイント</string>
   <string name="wins">勝</string>
   <string name="losses">敗</string>
-  <string name="createdBy">トーナメント作成者</string>
   <string name="startingIn" comment="Displayed above a timer">開始まで</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="pause">休む</string>

@@ -177,7 +177,7 @@
   <string name="drawByMutualAgreement">Remiză prin acord reciproc</string>
   <string name="fiftyMovesWithoutProgress">Cincizeci de mișcări fără progres</string>
   <string name="currentGames">Partide active</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">S-a alăturat %s</string>
+  <string name="joinedX">S-a alăturat %s</string>
   <plurals name="nbGames">
     <item quantity="one">o partidă</item>
     <item quantity="few">%s partide</item>
@@ -529,7 +529,6 @@
   <string name="points">Puncte</string>
   <string name="wins">Victorii</string>
   <string name="losses">Înfrângeri</string>
-  <string name="createdBy">Creat de</string>
   <string name="startingIn" comment="Displayed above a timer">Începe în</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>

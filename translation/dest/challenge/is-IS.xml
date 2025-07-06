@@ -3,14 +3,18 @@
   <string name="challengesX">Áskoranir: %1$s</string>
   <string name="challengeToPlay">Skora á</string>
   <string name="challengeDeclined">Áskorun hafnað.</string>
+  <string name="challengeAccepted">Tekið við áskorun!</string>
+  <string name="challengeCanceled">Hætt við áskorun.</string>
   <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Skráðu þig inn til að senda áskorarnir þessa notanda.</string>
+  <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
+  <string name="yourXRatingIsTooFarFromY">Of mikill munur er á milli %1$s skákstiga þinna og skákstiga notandans %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ekki er hægt að skora á vegna tímabundinna skákstiga í %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="declineGeneric">Ég tek ekki við áskorunum í augnablikinu.</string>
   <string name="declineLater">Þetta er ekki heppilegur tími fyrir mig, vinsamlegast spyrðu aftur síðar.</string>
-  <string name="declineTooFast">Þessar tímaskorður er of hraðar fyrir mig, vinsamlegast skoraðu aftur á með hægari leik.</string>
-  <string name="declineTooSlow">Þessar tímaskorður er of hægar fyrir mig, vinsamlegast skoraðu aftur á með hraðari leik.</string>
+  <string name="declineTooFast">Þessar tímaskorður er of hraðar fyrir mig, vinsamlegast skoraðu aftur á mig með hægari skák.</string>
+  <string name="declineTooSlow">Þessar tímaskorður er of hægar fyrir mig, vinsamlegast skoraðu aftur á mig með hraðari skák.</string>
   <string name="declineTimeControl">Ég samþykki ekki áskoranir með þessum tímaskorðum.</string>
   <string name="declineRated">Vinsamlegast sendu mér áskorun með stigagjöf í staðinn.</string>
   <string name="declineCasual">Vinsamlegast sendu mér áskorun til æfingar í staðinn.</string>

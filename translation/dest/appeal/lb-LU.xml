@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="cleanAllGood">Däi Konto ass net markéiert oder ageschränkt. Alles an der Rei!</string>
+  <string name="engineMarked">Däi Konto ass markéiert fir extern Ënnerstëtzung wärend Partien.</string>
+  <string name="arenaBanned">Däi Konto ass fir Arenae gespaart.</string>
+  <string name="prizeBanned">Däi Konto ass fir Turnéiere mat richtege Präisser gespaart.</string>
+  <string name="boosterMarked">Däi Konto ass markéiert fir Wäertungsmanipulatioun.</string>
+  <string name="boosterMarkedInfo">Mir definéieren dat als muttwëllegt Manipuléiere vun der Wäertung, andeems ee Partien express verléiert oder géint en anere Konto spillt, dee Partien express verléiert.</string>
+  <string name="accountMuted">Däi Konto ass stommgeschalt.</string>
+  <string name="accountMutedInfo">Lies eis %s. Wann ee sech net un d\'Kommunikatiounsrichtlinnen hält, kënne Konte stommgeschalt ginn.</string>
+  <string name="excludedFromLeaderboards">Däi Konto gouf vun de Ranglëschten ausgeschloss.</string>
+  <string name="excludedFromLeaderboardsInfo">Mir definéieren dat als Benotze vun enger onfairer Method fir op d\'Ranglëscht ze kommen.</string>
+  <string name="closedByModerators">Däi Konto gouf vu Moderatoren zougemaach.</string>
   <string name="hiddenBlog">Deng Blogge goufe vu Moderatore verstoppt.</string>
   <string name="hiddenBlogInfo">Lies léiwer nach eng Kéier eis %s.</string>
+  <string name="communicationGuidelines">Kommunikatiounsrichtlinnen</string>
   <string name="blogRules">Blog-Reegelen</string>
 </resources>

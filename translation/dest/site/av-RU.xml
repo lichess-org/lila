@@ -21,6 +21,7 @@
   <string name="asBlack">чӀегӀераздалъун</string>
   <string name="randomColor">РакӀалда гьечӀого ккараб кьер</string>
   <string name="createAGame">ХӀай гьабизе</string>
+  <string name="createTheGame">ХӀай гьабизе</string>
   <string name="whiteIsVictorious">ХъахӀал бергьана</string>
   <string name="blackIsVictorious">ЧӀегӀерал бергьана</string>
   <string name="youPlayTheWhitePieces">Мун хъахӀаздалъун хӀала</string>
@@ -69,6 +70,7 @@
   <string name="promoteVariation">Эхеде бахинабизе</string>
   <string name="makeMainLine">Аслияблъун гьабизе</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
+  <string name="expandVariations">Вариантал тӀиритӀизе</string>
   <string name="forceVariation">Вариантлъун гьабизе</string>
   <string name="move">Хъурщи</string>
   <string name="variantLoss">Вариант къола</string>
@@ -113,7 +115,8 @@
   <string name="realtimeReplay">БукӀараб куцалъ</string>
   <string name="byCPL">Камияз</string>
   <string name="enable">Биччазе</string>
-  <string name="bestMoveArrow">Бищун лъикӀаб хъурщиялъул чӀорил сурат</string>
+  <string name="bestMoveArrow">Бищун лъикӀаб хъурщиялъул чӀор бихьизе</string>
+  <string name="showVariationArrows">Вариантазул чӀорал рихьизаризе</string>
   <string name="evaluationGauge">Къиматалъул роцен</string>
   <string name="multipleLines">Чанги вариант</string>
   <string name="cpus">CPU</string>
@@ -151,6 +154,7 @@
   <string name="flipBoard">Хъарщи сверизабизе</string>
   <string name="threefoldRepetition">ЛъабцӀул такрар гьаби</string>
   <string name="claimADraw">Ращад ккей тӀалаб гьабизе</string>
+  <string name="drawClaimed">Ращад ккей лъазабуна</string>
   <string name="offerDraw">Ращад ккеялда разилъаян абизе</string>
   <string name="draw">Ращад ккей</string>
   <plurals name="nbPlayers">
@@ -160,6 +164,7 @@
   <string name="drawByMutualAgreement">КӀиязулго разилъиялдалъун ращад ккей</string>
   <string name="fiftyMovesWithoutProgress">ЦебетӀей гьечӀого кӀикъоялда анцӀго хъурщи</string>
   <string name="currentGames">Гьанжесел хӀаял</string>
+  <string name="joinedX">%s жувана</string>
   <plurals name="nbGames">
     <item quantity="one">%s хӀай</item>
     <item quantity="other">%s хӀай</item>
@@ -285,6 +290,7 @@
   <string name="abortGame">ХӀай лъугӀизабичӀого тезе</string>
   <string name="gameAborted">ХӀай лъугӀизабичӀого тана</string>
   <string name="standard">ГӀадатаб</string>
+  <string name="customPosition">Рекъезабулеб позиция</string>
   <string name="unlimited">ГьечӀо</string>
   <string name="mode">КъагӀида</string>
   <string name="casual">Гьадингояб</string>
@@ -341,7 +347,15 @@
   <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="proposeATakeback">Тlадбуссинабизе биччаян абизе</string>
+  <string name="whiteProposesTakeback">ХъахӀаз тӀадбуссинабизе биччаян абуна</string>
+  <string name="blackProposesTakeback">ЧӀегӀераз тӀадбуссинабизе биччаян абуна</string>
   <string name="takebackPropositionSent">ТӀадбуссинабизе биччаян абуна</string>
+  <string name="whiteDeclinesTakeback">ХъахӀаз тӀадбуссинабизе биччачӀо</string>
+  <string name="blackDeclinesTakeback">ЧӀегӀераз тӀадбуссинабизе биччачӀо</string>
+  <string name="whiteAcceptsTakeback">ХъахӀаз тӀадбуссинабизе биччана</string>
+  <string name="blackAcceptsTakeback">ЧӀегӀераз тӀадбуссинабизе биччана</string>
+  <string name="whiteCancelsTakeback">ХъахӀаз тӀадбуссинаби нахъе гьабуна</string>
+  <string name="blackCancelsTakeback">ЧӀегӀераз тӀадбуссинаби нахъе гьабуна</string>
   <string name="yourOpponentProposesATakeback">Дур дандияс тӀадбуссинабизе биччаян абуна</string>
   <string name="bookmarkThisGame">Гьеб хӀаялда аскӀоб гӀуж базе</string>
   <string name="tournament">Турнир</string>
@@ -423,6 +437,7 @@
   <string name="blackCheckmatesInOneMove">ЧӀегӀерал цо хъурщиялъ мат гьабула</string>
   <string name="retry">ЦӀидасан хӀалбихьизе</string>
   <string name="reconnecting">Бухьен цӀидасан лъугьунеб буго</string>
+  <string name="noNetwork">Офлайн</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s гьудул онлайн</item>
     <item quantity="other">%s гьудул онлайн</item>
@@ -473,7 +488,6 @@
   <string name="points">Балал</string>
   <string name="wins">Бергьенлъи</string>
   <string name="losses">Къей</string>
-  <string name="createdBy">Гьабуна</string>
   <string name="standByX">%sгун балагьун чӀа, хӀалел кӀи-кӀи рикьулел руго, хӀадур вукӀа!</string>
   <string name="pause">ЧӀезабизе</string>
   <string name="resume">Биччазе</string>
@@ -484,6 +498,7 @@
   <string name="movesPlayed">Хъурщи гьабуна</string>
   <string name="whiteWins">ХъахӀаз бергьенлъи</string>
   <string name="blackWins">ЧӀегӀераз бергьенлъи</string>
+  <string name="drawRate">Ращад ккей</string>
   <string name="draws">Ращад ккей</string>
   <string name="averageOpponent">Гьоркьохъев дандияв</string>
   <string name="boardEditor">Хъорщол редактор</string>
@@ -680,6 +695,7 @@
   <string name="keyNextBlunder">Хадусеб кӀудияб гъалатӀ</string>
   <string name="keyNextMistake">Хадусеб гъалатӀ</string>
   <string name="keyNextInaccuracy">Хадусеб гьитӀинаб гъалатӀ</string>
+  <string name="toggleVariationArrows">Риччазе/свинаризе вариантазул чӀорал</string>
   <string name="playSelectedMove">бищараб хъурши гьабе</string>
   <string name="newTournament">ЦӀияб турнир</string>
   <string name="tournamentHomeTitle">БатӀи-батӀиял заманалда тӀад хъаравуллъиги варинталги ругел шахматазул турнирал</string>
@@ -732,6 +748,7 @@
   <string name="playChessEverywhere">Шахматал кибго хӀай</string>
   <string name="everybodyGetsAllFeaturesForFree">Киназего киналго алатал чӀобого щола</string>
   <string name="viewTheSolution">БитӀун гьаби бихьизе</string>
+  <string name="noChallenges">Къецалде ахӀи гьечӀо.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s мацӀалда рагьараб буго!</item>
     <item quantity="other">%s мацӀалда рагьараб буго!</item>
@@ -744,6 +761,7 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Дур рикӀкӀин: %s</string>
   <string name="language">МацӀ</string>
+  <string name="allLanguages">Киналго мацӀал</string>
   <string name="background">НахъабакӀ</string>
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
@@ -933,4 +951,6 @@
   <string name="showMeEverything">Кинабго бихьизабизе</string>
   <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
 Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
+  <string name="stats">Истатистика</string>
+  <string name="accessibility">Хасал рекъезариял</string>
 </resources>

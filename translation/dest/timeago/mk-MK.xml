@@ -54,4 +54,13 @@
     <item quantity="one">Пред %s година</item>
     <item quantity="other">Пред %s години</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">преостанува %s минута</item>
+    <item quantity="other">преостануваат %s минути</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">преостанува %s час</item>
+    <item quantity="other">преостануваат %s часови</item>
+  </plurals>
+  <string name="completed">завршено</string>
 </resources>

@@ -60,7 +60,7 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
   <string name="averagePerformance">meso wawa</string>
   <string name="averageScore">meso nanpa</string>
   <string name="created">pali</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">pini pona</string>
+  <string name="bestResults">pini pona</string>
   <string name="total">ale</string>
   <string name="onlyTitled">jan wawa taso</string>
 </resources>

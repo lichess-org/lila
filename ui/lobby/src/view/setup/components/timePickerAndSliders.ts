@@ -1,5 +1,5 @@
 import type { Prop } from 'lib';
-import { looseH as h } from 'lib/snabbdom';
+import { hl } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import type { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
@@ -17,9 +17,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
   return [
     renderTimeModePicker(ctrl, allowAnonymous),
     setupCtrl.timeMode() === 'realTime' &&
-      h('div.time-choice', [
-        h('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide),
-        h(
+      hl('div.time-choice', [
+        hl('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide),
+        hl(
           'select#sf_time',
           {
             on: { change: (e: Event) => setupCtrl.timeV(parseFloat((e.target as HTMLSelectElement).value)) },
@@ -30,9 +30,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
         ),
       ]),
     setupCtrl.timeMode() === 'realTime' &&
-      h('div.increment-choice', [
-        h('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds),
-        h(
+      hl('div.increment-choice', [
+        hl('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds),
+        hl(
           'select#sf_increment',
           {
             on: {
@@ -49,9 +49,9 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
         ),
       ]),
     setupCtrl.timeMode() === 'correspondence' &&
-      h('div.days-choice', [
-        h('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn),
-        h(
+      hl('div.days-choice', [
+        hl('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn),
+        hl(
           'select#sf_days',
           {
             on: { change: (e: Event) => setupCtrl.daysV(parseInt((e.target as HTMLSelectElement).value)) },
@@ -72,9 +72,9 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
   const { setupCtrl } = ctrl;
   return (
     (ctrl.me || allowAnonymous) &&
-    h('div.label-select', [
-      h('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl),
-      h(
+    hl('div.label-select', [
+      hl('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl),
+      hl(
         'select#sf_timeMode',
         {
           on: {
@@ -88,7 +88,7 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
 };
 
 const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: Record<string, boolean>) =>
-  h('input.range', {
+  hl('input.range', {
     class: classes,
     attrs: { type: 'range', min, max, value: prop() },
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
@@ -96,32 +96,32 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
 
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
   const { setupCtrl } = ctrl;
-  return h(
+  return hl(
     'div.time-mode-config.optional-config',
     site.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
           renderTimeModePicker(ctrl, allowAnonymous),
           setupCtrl.timeMode() === 'realTime' &&
-            h('div.time-choice.range', [
+            hl('div.time-choice.range', [
               `${i18n.site.minutesPerSide}: `,
-              h('span', showTime(setupCtrl.time())),
+              hl('span', showTime(setupCtrl.time())),
               inputRange(0, 38, setupCtrl.timeV, {
                 failure: !setupCtrl.validTime() || !setupCtrl.validAiTime(),
               }),
             ]),
           setupCtrl.timeMode() === 'realTime'
-            ? h('div.increment-choice.range', [
+            ? hl('div.increment-choice.range', [
                 `${i18n.site.incrementInSeconds}: `,
-                h('span', `${setupCtrl.increment()}`),
+                hl('span', `${setupCtrl.increment()}`),
                 inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
             : setupCtrl.timeMode() === 'correspondence' &&
-              h(
+              hl(
                 'div.correspondence',
-                h('div.days-choice.range', [
+                hl('div.days-choice.range', [
                   `${i18n.site.daysPerTurn}: `,
-                  h('span', `${setupCtrl.days()}`),
+                  hl('span', `${setupCtrl.days()}`),
                   inputRange(1, 7, setupCtrl.daysV),
                 ]),
               ),

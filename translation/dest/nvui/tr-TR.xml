@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveList">Hamle listesi</string>
+  <string name="gameInfo">Oyun bilgisi</string>
   <string name="pieces">Taşlar</string>
   <string name="gameStatus">Oyun durumu</string>
   <string name="lastMove">Son hamle</string>
+  <string name="inputForm">Komut girdi formu</string>
+  <string name="actions">Eylemler</string>
   <string name="yourClock">Senin saatin</string>
   <string name="opponentClock">Rakibin saati</string>
+  <string name="gameStart">Oyun başlangıcı</string>
+  <string name="goToInputForm">Komut girdi formuna git.</string>
+  <string name="movePiece">Bir taşı oynatmak için, standart cebirsel notasyon kullanın.</string>
   <string name="king">şah</string>
   <string name="whiteKing">beyaz şah</string>
   <string name="blackKing">siyah şah</string>
@@ -13,4 +19,23 @@
   <string name="whiteQueen">beyaz vezir</string>
   <string name="blackQueen">siyah vezir</string>
   <string name="rook">kale</string>
+  <string name="whiteRook">beyaz kale</string>
+  <string name="blackRook">siyah kale</string>
+  <string name="bishop">fil</string>
+  <string name="whiteBishop">beyaz fil</string>
+  <string name="blackBishop">siyah fil</string>
+  <string name="knight">at</string>
+  <string name="whiteKnight">beyaz at</string>
+  <string name="blackKnight">siyah at</string>
+  <string name="pawn">piyon</string>
+  <string name="whitePawn">beyaz piyon</string>
+  <string name="blackPawn">siyah piyon</string>
+  <string name="sanTakes" comment="x in standard notation">alır</string>
+  <string name="sanCheck" comment="+ in standard notation">şah</string>
+  <string name="sanCheckmate" comment="# in standard notation">şah mat</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kısa rok</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">uzun rok</string>
+  <string name="invalidMove">Geçersiz hamle</string>
+  <string name="premoveCancelled">Ön hamle iptal edildi</string>
+  <string name="premoveRecorded">Ön hamle kaydedildi: %s. İptal etmek için gir tuşuna bas</string>
 </resources>

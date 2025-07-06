@@ -555,7 +555,6 @@
   <string name="points">Točke</string>
   <string name="wins">Zmage</string>
   <string name="losses">Porazi</string>
-  <string name="createdBy">Ustvaril</string>
   <string name="startingIn" comment="Displayed above a timer">Začetek čez</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
   <string name="pause">Premor</string>

@@ -114,6 +114,7 @@ GET   /fide                            controllers.Fide.index(page: Int ?= 1, q:
 GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
 GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
 GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideId, name, page: Int ?= 1)
+POST  /fide/:fideId/follow             controllers.Fide.follow(fideId: chess.FideId, follow: Boolean)
 GET   /api/fide/player/:id             controllers.Fide.apiShow(id: chess.FideId)
 GET   /api/fide/player                 controllers.Fide.apiSearch(q: String)
 
@@ -378,7 +379,8 @@ GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: 
 GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
-POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: GameFullId)
+GET   /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
+POST  /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
 POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: GameFullId)
 
@@ -497,6 +499,8 @@ GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                             controllers.Pref.set(name)
+GET   /account/preferences/network            controllers.Pref.network
+POST  /account/preferences/network            controllers.Pref.networkPost
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
 POST  /account/preferences/notification       controllers.Pref.notifyFormApply
@@ -647,7 +651,7 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
-GET   /inbox/unread-count              controllers.Msg.unreadCount
+GET   /inbox/unread-count              controllers.Msg.unreadCountBC
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
@@ -660,7 +664,7 @@ GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 POST  /upload/image/coach              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username: UserStr)
-GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order, country, page: Int ?= 1)
+GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order, country: FlagCode, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang: Language)
 
 # Paste
@@ -813,7 +817,6 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
-GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
 
 # App BC
 GET   /account/security                controllers.Account.security

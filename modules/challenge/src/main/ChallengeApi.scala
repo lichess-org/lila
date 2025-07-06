@@ -138,8 +138,10 @@ final class ChallengeApi(
         val color = openFixedColor.orElse(requestedColor)
         if c.challengerIsOpen
         then
-          withPerf.flatMap: me =>
-            repo.setChallenger(c.setChallenger(me, sid), color).inject(none.asRight)
+          for
+            me <- withPerf
+            _  <- repo.setChallenger(c.setChallenger(me, sid), color)
+          yield none.asRight
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Left("This color has already been chosen"))
         else
@@ -148,14 +150,13 @@ final class ChallengeApi(
             join   <- joiner(c, me)
             result <- join match
               case Right(pov) =>
-                repo
-                  .accept(c)
-                  .inject:
-                    uncacheAndNotify(c)
-                    Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
-                    c.rematchOf.foreach: gameId =>
-                      Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
-                    Right(pov.some)
+                for _ <- repo.accept(c)
+                yield
+                  uncacheAndNotify(c)
+                  Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
+                  c.rematchOf.foreach: gameId =>
+                    Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
+                  Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result
 

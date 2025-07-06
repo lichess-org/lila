@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">某些 Lichess 頁面有快捷鍵。嘗試在研究、分析、謎題、或下棋頁面中按下「？」以查看可用快捷鍵。</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
+  <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
 (例如：你如果在那些棋局之後積分大幅提升，你可能就不會拿回那些積分或是只拿回一部分)。且退回的積分永遠不會超過150分。</string>
   <string name="preventLeavingGameWithoutResigning">對那些沒有認輸就離開棋局的棋手會怎麼處理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的對手經常放棄／中離棋局，他們會受到＂禁止對弈＂的懲罰。代表他們暫時無法對弈。這不會顯示在他們的個人資料上。如果情況未改善，每次懲罰的時間將會延長，並有可能導致帳號被封鎖。</string>
@@ -35,7 +35,7 @@
   <string name="howBulletBlitzEtcDecided">Bullet、Blitz和其他模式的時限是怎麼決定的？</string>
   <string name="basedOnGameDuration">Lichess上的時限基於預期的對弈時間 %1$s
 例如，5+3的預期對弈時間為 5 × 60 + 40 × 3 = 420秒。</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(初始時間) + 40 x (加時)</string>
+  <string name="durationFormula">(初始時間) + 40 x (加時)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒屬於 %2$s 比賽</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
@@ -96,12 +96,11 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="usernamesNotOffensive">一般來說，用戶名不應該是：冒犯性的、冒充他人的或含有廣告的。您可以閱讀有關 %1$s 的更多信息。</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">因為某些技術性原因無法更改使用者名稱。使用者名稱已太被廣泛使用：資料庫、導出、日誌、與其他人的腦中。你可以更改大小寫一次。</string>
+  <string name="usernamesCannotBeChanged">因為某些技術性原因無法更改使用者名稱。使用者名稱已太被廣泛使用：資料庫、導出、日誌、與其他人的腦中。你可以更改大小寫一次。</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="ownerUniqueTrophies">這個獎杯在 Lichess 的歷史上是獨一無二的，除了 %1$s 之外沒有人曾經擁有它。</string>
-  <string name="wayOfBerserkExplanation">hiimgosu 為了贏得獎盃而以 berserk 比賽鍛鍊自己並且最終贏得每場%s</string>
   <string name="aHourlyBulletTournament">小時制Bullet模式錦標賽</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">當時，ZugAddict己經直播了兩個小時，但他仍未能在1+0的棋局中擊敗第八級人工智能。Thibault吿訴他，如果他能在直播上成功擊敗人工智能，便會獲得一個獨特的奬盃。一個小時後，他粉碎了Stockfish， Thibault也兌現了承諾。</string>
+  <string name="goldenZeeExplanation">當時，ZugAddict己經直播了兩個小時，但他仍未能在1+0的棋局中擊敗第八級人工智能。Thibault吿訴他，如果他能在直播上成功擊敗人工智能，便會獲得一個獨特的奬盃。一個小時後，他粉碎了Stockfish， Thibault也兌現了承諾。</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
   <string name="ratingSystemUsedByLichess">評分是使用 Mark Glickman 開發的 Glicko-2 評分方法計算的。這是一種非常流行的評分方法，並且被大量國際象棋組織使用(FIDE 是一個值得注意的反面例子，因為他們仍然使用過時的 Elo 評分系統)。
@@ -142,7 +141,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 紅色靜音按鈕會在音效被阻擋時顯示。大多在點擊棋子時才會停用此種限制。在某些行動版瀏覽器上，拖曳一個棋子不會被認為為一種點擊方式。在那種情況下您必須在每個棋局開始後點擊棋盤以啟用音效。
 
 在此種限制發生時我們會以紅色圖示警告你。大多時候可以允許 lichess.org 播放音效。以下是如何在大多瀏覽器上啟用音效：</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">電腦</string>
+  <string name="desktop">電腦</string>
   <string name="enableAutoplayForSoundsFirefox">1. 到 lichess.org
 2. 在 Linux/Windows 上按下 Ctrl-i  或是在 macOS 按下 cmd-i
 3. 點擊「權限」分頁
@@ -160,11 +159,11 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 3. 點擊「Cookie 和網站權限」
 4. 捲動到底下並點擊媒體自動播放
 5. 增加 lichess.org 以允許</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">如何克制西洋棋成癮？</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">獨立的心理健康狀況</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles（與 stylus 一併使用）</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">這個</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">我們時常收到使用者希望能夠暫時讓他們放下西洋棋作更重要的事情。
+  <string name="stopMyselfFromPlaying">如何克制西洋棋成癮？</string>
+  <string name="mentalHealthCondition">獨立的心理健康狀況</string>
+  <string name="lichessUserstyles">Lichess userstyles（與 stylus 一併使用）</string>
+  <string name="fewerLobbyPools">這個</string>
+  <string name="adviceOnMitigatingAddiction">我們時常收到使用者希望能夠暫時讓他們放下西洋棋作更重要的事情。
 
 雖然 Lichess 不會在使用者不違反服務條款的情況下以任何理由踢出或封禁玩家，我們建議以其他工具限制過量的下棋行為。有些人建議使用網站阻擋器例如 %1$s、%2$s、以及%3$s。如果你想在不被時間控制器所干擾的情況下繼續使用此網站，你可以參考 %4$s，或是擁有更少人的%5$s。
 

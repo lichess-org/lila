@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">சில லைச்சஸ் பக்கங்களில் நீங்கள் பயன்படுத்தக்கூடிய விசைப்பலகை குறுக்குவழிகள் உள்ளன. கிடைக்கக்கூடிய விசைப்பலகை குறுக்குவழிகளைப் பட்டியலிட, ஆய்வு, பகுப்பாய்வு, புதிர் அல்லது விளையாட்டுப் பக்கத்தில் \'?\' விசையை அழுத்த முயற்சிக்கவும்.</string>
   <string name="fairPlay">நியாயமான விளையாட்டு</string>
   <string name="whenAmIEligibleRatinRefund">ஏமாற்றுபவர்களிடமிருந்து தானியங்கி மதிப்பீட்டைத் திரும்பப் பெற நான் எப்போது தகுதி பெறுவேன்?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">ஒரு வீரரைக் குறித்த பிறகு ஒரு நிமிடம் கழித்து, கடந்த 5 நாட்களில் அவர்களின் 40 சமீபத்திய மதிப்பிடப்பட்ட விளையாட்டுகள் கணக்கில் எடுத்துக்கொள்ளப்படும். அந்த விளையாட்டுகளில் ஒன்றில் நீங்கள் அவர்களின் எதிராளியாக இருந்திருந்தால், மதிப்பீட்டை இழந்திருந்தால் (தோல்வி அல்லது டிரா காரணமாக), உங்கள் மதிப்பீடு தற்காலிகமாக இல்லை என்றால், உங்களுக்கு மதிப்பீட்டைத் திரும்பப் பெற முடியும். உங்கள் உச்ச மதிப்பீடு மற்றும் விளையாட்டுக்குப் பிறகு உங்கள் மதிப்பீட்டு முன்னேற்றத்தின் அடிப்படையில் பணத்தைத் திரும்பப் பெறுவது வரையறுக்கப்படுகிறது. (எடுத்துக்காட்டாக, அந்த விளையாட்டுக்குப் பிறகு உங்கள் மதிப்பீடு பெரிதும் அதிகரித்தால், உங்களுக்கு பணத்தைத் திரும்பப் பெற முடியாது அல்லது பகுதியளவு பணத்தைத் திரும்பப் பெறலாம்.) பணத்தைத் திரும்பப் பெறுவது ஒருபோதும் 150 புள்ளிகளைத் தாண்டாது.</string>
+  <string name="ratingRefundExplanation">ஒரு வீரரைக் குறித்த பிறகு ஒரு நிமிடம் கழித்து, கடந்த 5 நாட்களில் அவர்களின் 40 சமீபத்திய மதிப்பிடப்பட்ட விளையாட்டுகள் கணக்கில் எடுத்துக்கொள்ளப்படும். அந்த விளையாட்டுகளில் ஒன்றில் நீங்கள் அவர்களின் எதிராளியாக இருந்திருந்தால், மதிப்பீட்டை இழந்திருந்தால் (தோல்வி அல்லது டிரா காரணமாக), உங்கள் மதிப்பீடு தற்காலிகமாக இல்லை என்றால், உங்களுக்கு மதிப்பீட்டைத் திரும்பப் பெற முடியும். உங்கள் உச்ச மதிப்பீடு மற்றும் விளையாட்டுக்குப் பிறகு உங்கள் மதிப்பீட்டு முன்னேற்றத்தின் அடிப்படையில் பணத்தைத் திரும்பப் பெறுவது வரையறுக்கப்படுகிறது. (எடுத்துக்காட்டாக, அந்த விளையாட்டுக்குப் பிறகு உங்கள் மதிப்பீடு பெரிதும் அதிகரித்தால், உங்களுக்கு பணத்தைத் திரும்பப் பெற முடியாது அல்லது பகுதியளவு பணத்தைத் திரும்பப் பெறலாம்.) பணத்தைத் திரும்பப் பெறுவது ஒருபோதும் 150 புள்ளிகளைத் தாண்டாது.</string>
   <string name="preventLeavingGameWithoutResigning">வீரர்கள் ராஜினாமா செய்யாமல் விளையாட்டுகளை விட்டு வெளியேறினால் என்ன செய்வது?</string>
   <string name="leavingGameWithoutResigningExplanation">உங்கள் எதிராளி அடிக்கடி விளையாட்டுகளை நிறுத்தினால்/வெளியேறினால், அவர்கள் \"விளையாட்டு தடை\" பெறுவார்கள், அதாவது அவர்கள் விளையாட்டுகளை விளையாடுவதிலிருந்து தற்காலிகமாக தடை செய்யப்படுவார்கள். இது அவர்களின் சுயவிவரத்தில் பொதுவில் குறிப்பிடப்படவில்லை. இந்த நடத்தை தொடர்ந்தால், பிளேபேனின் நீளம் அதிகரிக்கிறது - மேலும் இந்த வகையான நீடித்த நடத்தை கணக்கு மூடலுக்கு வழிவகுக்கும்.</string>
   <string name="howCanIBecomeModerator">நான் எவ்வாறு நடுவர் ஆவது?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">புல்லட், பிளிட்ஸ் மற்றும் பிற நேரக் கட்டுப்பாடுகள் எவ்வாறு தீர்மானிக்கப்படுகின்றன?</string>
   <string name="basedOnGameDuration">லைச்சஸ் நேரக் கட்டுப்பாடுகள் மதிப்பிடப்பட்ட விளையாட்டு கால அளவு = %1$s ஐ அடிப்படையாகக் கொண்டவை.
 உதாரணமாக, 5+3 விளையாட்டின் மதிப்பிடப்பட்ட கால அளவு 5 × 60 + 40 × 3 = 420 வினாடிகள் ஆகும்.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(கடிகார ஆரம்ப நேரம் வினாடிகளில்) + 40 × (கடிகார அதிகரிப்பு)</string>
+  <string name="durationFormula">(கடிகார ஆரம்ப நேரம் வினாடிகளில்) + 40 × (கடிகார அதிகரிப்பு)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">லைச்சஸில் என்னென்ன வகைகளை நான் விளையாட முடியும்?</string>
@@ -96,12 +96,11 @@ LM பட்டத்தைக் கேட்க வேண்டாம்.</str
   <string name="usernamesNotOffensive">பொதுவாக, பயனர்பெயர்கள் இப்படி இருக்கக்கூடாது: புண்படுத்தும், வேறொருவரைப் போல ஆள்மாறாட்டம் செய்யும் அல்லது விளம்பரப்படுத்தும். %1$s பற்றி நீங்கள் மேலும் படிக்கலாம்.</string>
   <string name="guidelines">வழிகாட்டுதல்கள்</string>
   <string name="canIChangeMyUsername">எனது பயனர்பெயரை மாற்ற முடியுமா?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">இல்லை, தொழில்நுட்ப மற்றும் நடைமுறை காரணங்களுக்காக பயனர்பெயர்களை மாற்ற முடியாது. பயனர்பெயர்கள் பல இடங்களில் உருவகப்படுத்தப்பட்டுள்ளன: தரவுத்தளங்கள், ஏற்றுமதிகள், பதிவுகள் மற்றும் மக்களின் மனங்கள். நீங்கள் ஒரு முறை பெரிய எழுத்துக்களை சரிசெய்யலாம்.</string>
+  <string name="usernamesCannotBeChanged">இல்லை, தொழில்நுட்ப மற்றும் நடைமுறை காரணங்களுக்காக பயனர்பெயர்களை மாற்ற முடியாது. பயனர்பெயர்கள் பல இடங்களில் உருவகப்படுத்தப்பட்டுள்ளன: தரவுத்தளங்கள், ஏற்றுமதிகள், பதிவுகள் மற்றும் மக்களின் மனங்கள். நீங்கள் ஒரு முறை பெரிய எழுத்துக்களை சரிசெய்யலாம்.</string>
   <string name="uniqueTrophies">தனித்துவமான கோப்பைகள்</string>
   <string name="ownerUniqueTrophies">அந்த கோப்பை லைச்செஸ் வரலாற்றில் தனித்துவமானது, %1$s ஐத் தவிர வேறு யாரும் அதை ஒருபோதும் பெற மாட்டார்கள்.</string>
-  <string name="wayOfBerserkExplanation">அதைப் பெற, ஹைம்கோசு தன்னைத்தானே வெறித்தனமாகச் சவால் செய்து %s இன் அனைத்து விளையாட்டுகளையும் வெல்லச் சொன்னார்.</string>
   <string name="aHourlyBulletTournament">ஒரு மணி நேரத்திற்கு ஒரு முறை புல்லட் போட்டி</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict ஸ்ட்ரீமிங் செய்து கொண்டிருந்தார், கடந்த 2 மணி நேரமாக அவர் A.I. லெவல் 8-ஐ 1+0 ஆட்டத்தில் தோற்கடிக்க முயற்சி செய்து கொண்டிருந்தார், ஆனால் வெற்றி பெறவில்லை. ஸ்ட்ரீமில் அதை வெற்றிகரமாகச் செய்தால், அவருக்கு ஒரு தனித்துவமான கோப்பை கிடைக்கும் என்று திபோ அவரிடம் கூறினார். ஒரு மணி நேரம் கழித்து, அவர் ஸ்டாக்ஃபிஷை அடித்து நொறுக்கினார், வாக்குறுதி நிறைவேற்றப்பட்டது.</string>
+  <string name="goldenZeeExplanation">ZugAddict ஸ்ட்ரீமிங் செய்து கொண்டிருந்தார், கடந்த 2 மணி நேரமாக அவர் A.I. லெவல் 8-ஐ 1+0 ஆட்டத்தில் தோற்கடிக்க முயற்சி செய்து கொண்டிருந்தார், ஆனால் வெற்றி பெறவில்லை. ஸ்ட்ரீமில் அதை வெற்றிகரமாகச் செய்தால், அவருக்கு ஒரு தனித்துவமான கோப்பை கிடைக்கும் என்று திபோ அவரிடம் கூறினார். ஒரு மணி நேரம் கழித்து, அவர் ஸ்டாக்ஃபிஷை அடித்து நொறுக்கினார், வாக்குறுதி நிறைவேற்றப்பட்டது.</string>
   <string name="lichessRatings">லீசெஸ் மதிப்பீடுகள்</string>
   <string name="whichRatingSystemUsedByLichess">லிச்செஸ் எந்த மதிப்பீட்டு முறையைப் பயன்படுத்துகிறது?</string>
   <string name="ratingSystemUsedByLichess">மதிப்பீடுகள் மார்க் க்ளிக்மேன் உருவாக்கிய க்ளிக்கோ-2 மதிப்பீட்டு முறையைப் பயன்படுத்தி கணக்கிடப்படுகின்றன. இது மிகவும் பிரபலமான மதிப்பீட்டு முறையாகும், மேலும் இது கணிசமான எண்ணிக்கையிலான சதுரங்க அமைப்புகளால் பயன்படுத்தப்படுகிறது (FIDE ஒரு குறிப்பிடத்தக்க எதிர்-உதாரணமாகும், ஏனெனில் அவை இன்னும் காலாவதியான எலோ மதிப்பீட்டு முறையைப் பயன்படுத்துகின்றன).
@@ -148,7 +147,7 @@ LM பட்டத்தைக் கேட்க வேண்டாம்.</str
 உங்கள் உலாவி lichess.org ஒலியை இயக்குவதைத் தடுக்கும்போது சிவப்பு மியூட் ஐகான் தோன்றும். பொதுவாக நீங்கள் ஏதாவது ஒன்றைக் கிளிக் செய்தவுடன் இந்தக் கட்டுப்பாடு நீக்கப்படும். சில மொபைல் உலாவிகளில், ஒரு பகுதியை இழுப்பதைத் தொடுவது ஒரு கிளிக்காகக் கணக்கிடப்படாது. அந்தச் சூழ்நிலையில், ஒவ்வொரு விளையாட்டின் தொடக்கத்திலும் ஒலியை அனுமதிக்க நீங்கள் பலகையைத் தட்ட வேண்டும்.
 
 இது நிகழும்போது உங்களை எச்சரிக்க சிவப்பு ஐகானைக் காட்டுகிறோம். பெரும்பாலும் நீங்கள் lichess.org ஒலிகளை இயக்க வெளிப்படையாக அனுமதிக்கலாம். சில பிரபலமான உலாவிகளின் சமீபத்திய பதிப்புகளில் அவ்வாறு செய்வதற்கான வழிமுறைகள் இங்கே.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">டெஸ்க்டாப்</string>
+  <string name="desktop">டெஸ்க்டாப்</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org க்குச் செல்லவும்
 2. Linux/Windows இல் Ctrl-i ஐ அழுத்தவும் அல்லது MacOS இல் cmd-i ஐ அழுத்தவும்
 3. அனுமதிகள் தாவலைக் கிளிக் செய்யவும்
@@ -166,11 +165,11 @@ LM பட்டத்தைக் கேட்க வேண்டாம்.</str
 3. குக்கீகள் மற்றும் தள அனுமதிகளைக் கிளிக் செய்யவும்
 4. கீழே உருட்டி மீடியா ஆட்டோபிளே என்பதைக் கிளிக் செய்யவும்
 5. அனுமதிக்க lichess.org ஐச் சேர்க்கவும்</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">நான் விளையாடுவதை நிறுத்தவா?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">தனித்த மனநல நிலை</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">லைச்சஸ் பயனர் பாணிகள்</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">குறைவான லாபி நீச்சல் குளங்கள்</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">பயனர்கள் அதிகமாக விளையாடுவதைத் தடுக்க எங்களிடம் உதவி கேட்டு நாங்கள் தொடர்ந்து செய்திகளைப் பெறுகிறோம்.
+  <string name="stopMyselfFromPlaying">நான் விளையாடுவதை நிறுத்தவா?</string>
+  <string name="mentalHealthCondition">தனித்த மனநல நிலை</string>
+  <string name="lichessUserstyles">லைச்சஸ் பயனர் பாணிகள்</string>
+  <string name="fewerLobbyPools">குறைவான லாபி நீச்சல் குளங்கள்</string>
+  <string name="adviceOnMitigatingAddiction">பயனர்கள் அதிகமாக விளையாடுவதைத் தடுக்க எங்களிடம் உதவி கேட்டு நாங்கள் தொடர்ந்து செய்திகளைப் பெறுகிறோம்.
 
 சேவை விதிமுறைகளை மீறும் சந்தர்ப்பங்களில் தவிர, Lichess வீரர்களைத் தடை செய்யவோ அல்லது தடுக்கவோ இல்லை என்றாலும், அதிகப்படியான விளையாட்டு நடத்தையைக் கட்டுப்படுத்த வெளிப்புற கருவிகளைப் பயன்படுத்த பரிந்துரைக்கிறோம். வலைத்தளத் தடுப்பாளர்களுக்கான சில பொதுவான பரிந்துரைகளில் %1$s, %2$s மற்றும் %3$s ஆகியவை அடங்கும். நீங்கள் தளத்தைத் தொடர்ந்து பயன்படுத்த விரும்பினால், ஆனால் வேகமான நேரக் கட்டுப்பாடுகளால் சோதிக்கப்படாமல் இருக்க விரும்பினால், நீங்கள் %4$s இல் ஆர்வமாக இருக்கலாம், இங்கே %5$s உடன் ஒன்று உள்ளது.
 

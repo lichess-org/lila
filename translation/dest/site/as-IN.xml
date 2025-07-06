@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">বন্ধু\'ৰ বিপক্ষে খেলক</string>
-  <string name="playWithTheMachine">কম্পিউটাৰ\'ৰ বিপক্ষে খেলক</string>
+  <string name="playWithAFriend">বন্ধুৰ লগত খেলা</string>
+  <string name="playWithTheMachine">কম্পিউটাৰৰ সৈতে খেলক</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">অান এজনৰ বিপক্ষে খেলিবলৈ এই URLতু ব্যৱহাৰ কৰক</string>
-  <string name="gameOver">Khel Sesh</string>
-  <string name="waitingForOpponent">বিৰোধী\'ৰ অপেক্ষাত</string>
-  <string name="orLetYourOpponentScanQrCode">Yyi Loota myaiaponet QR code scanna</string>
+  <string name="gameOver">খেল খাটাম</string>
+  <string name="waitingForOpponent">প্ৰতিপক্ষৰ বাবে অপেক্ষা কৰি আছে</string>
+  <string name="orLetYourOpponentScanQrCode">আপোনাৰ প্ৰতিদ্বন্দ্বীক QR ক\'ড স্কেন কৰিবলৈ দিয়ক</string>
   <string name="waiting">অপেক্ষাত</string>
   <string name="yourTurn">আপোনাৰ পাল</string>
   <string name="level">স্তৰ বা লেভেল</string>
@@ -21,6 +21,7 @@
   <string name="asBlack">ক\'লা ৰং হিচাপে</string>
   <string name="randomColor">যাদৃচ্ছিক দল</string>
   <string name="createAGame">নতুন খেল আৰমভ কৰক</string>
+  <string name="createTheGame">গেমটো সৃষ্টি কৰক</string>
   <string name="whiteIsVictorious">বগা দল বিজয়ী</string>
   <string name="blackIsVictorious">ক’লা দল বিজয়ী</string>
   <string name="youPlayTheWhitePieces">আপুনি বগা ৰং হিচাপে খেলিব</string>
@@ -28,6 +29,7 @@
   <string name="itsYourTurn">আপোনাৰ খেলাৰ পাল !</string>
   <string name="cheatDetected">Cheat Ketcohahe</string>
   <string name="kingInTheCenter">ৰজা আহিল মাজ\'লৈ</string>
+  <string name="threeChecks">তিনিটা চেক</string>
   <string name="joinTheGame">খেলখনত ভাগ লোৱা</string>
   <string name="whitePlays">বগা দলৰ পাল</string>
   <string name="blackPlays">ক’লা দলৰ পাল</string>
@@ -38,4 +40,7 @@
   <string name="blackLeftTheGame">ক\'লা খেলোৱৈয়ে খেলখন এৰি গ\'ল</string>
   <string name="depthX">Diff %s</string>
   <string name="close">বন্ধ</string>
+  <string name="unknown">অজ্ঞাত</string>
+  <string name="recentGames">শেহতীয়া গেমছ</string>
+  <string name="topGames">শীৰ্ষ খেল</string>
 </resources>

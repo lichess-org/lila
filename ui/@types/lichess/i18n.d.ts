@@ -1219,8 +1219,6 @@ interface I18n {
     viewSiteInformationPopUp: string;
     /** Watch International Master Eric Rosen checkmate %s. */
     watchIMRosenCheckmate: I18nFormat;
-    /** To get it, hiimgosu challenged himself to berserk and win all games of %s. */
-    wayOfBerserkExplanation: I18nFormat;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */
     weCannotDoThatEvenIfItIsServerSideButThatsRare: string;
     /** We repeated a position three times. Why was the game not drawn? */

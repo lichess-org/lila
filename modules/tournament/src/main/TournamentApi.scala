@@ -789,9 +789,9 @@ final class TournamentApi(
 
 private object TournamentApi:
 
-  case class Callbacks(
-      clearJsonViewCache: Tournament => Unit,
-      clearWinnersCache: Tournament => Unit,
-      clearTrophyCache: Tournament => Unit,
-      indexLeaderboard: Tournament => Funit
+  final class Callbacks(
+      val clearJsonViewCache: Tournament => Unit,
+      val clearWinnersCache: Tournament => Unit,
+      val clearTrophyCache: Tournament => Unit,
+      val indexLeaderboard: Tournament => Funit
   )

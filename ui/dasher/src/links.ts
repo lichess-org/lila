@@ -1,4 +1,4 @@
-import { type Attrs, looseH as h, type VNode, bind } from 'lib/snabbdom';
+import { type Attrs, hl, type VNode, bind } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
@@ -10,17 +10,17 @@ export class LinksCtrl extends PaneCtrl {
 
   render = (): VNode => {
     const modeCfg = this.modeCfg;
-    return h('div', [
+    return hl('div', [
       this.userLinks(),
-      h('div.subs', [
-        h('button.sub', modeCfg('langs'), i18n.site.language),
-        h('button.sub', modeCfg('sound'), i18n.site.sound),
-        h('button.sub', modeCfg('background'), i18n.site.background),
-        h('button.sub', modeCfg('board'), i18n.site.board),
-        h('button.sub', modeCfg('piece'), i18n.site.pieceSet),
+      hl('div.subs', [
+        hl('button.sub', modeCfg('langs'), i18n.site.language),
+        hl('button.sub', modeCfg('sound'), i18n.site.sound),
+        hl('button.sub', modeCfg('background'), i18n.site.background),
+        hl('button.sub', modeCfg('board'), i18n.site.board),
+        hl('button.sub', modeCfg('piece'), i18n.site.pieceSet),
         this.root.opts.zenable &&
-          h('div.zen.selector', [
-            h(
+          hl('div.zen.selector', [
+            hl(
               'button.text',
               {
                 attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
@@ -42,16 +42,16 @@ export class LinksCtrl extends PaneCtrl {
     const d = this.data,
       linkCfg = this.linkCfg;
     return d.user
-      ? h('div.links', [
-          h(
+      ? hl('div.links', [
+          hl(
             'a.user-link.online.text.is-green',
             linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
             i18n.site.profile,
           ),
 
-          h('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
+          hl('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
 
-          h(
+          hl(
             'a.text',
             linkCfg(
               '/account/profile',
@@ -61,12 +61,12 @@ export class LinksCtrl extends PaneCtrl {
             i18n.preferences.preferences,
           ),
 
-          d.coach && h('a.text', linkCfg('/coach/edit', licon.GraduateCap), i18n.site.coachManager),
+          d.coach && hl('a.text', linkCfg('/coach/edit', licon.GraduateCap), i18n.site.coachManager),
 
-          d.streamer && h('a.text', linkCfg('/streamer/edit', licon.Mic), i18n.site.streamerManager),
+          d.streamer && hl('a.text', linkCfg('/streamer/edit', licon.Mic), i18n.site.streamerManager),
 
-          h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-            h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, i18n.site.logOut),
+          hl('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
+            hl('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, i18n.site.logOut),
           ]),
         ])
       : null;

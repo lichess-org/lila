@@ -2,7 +2,7 @@ import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
 import { isTouchDevice } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
-import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
 import { toggle, type ToggleSettings } from 'lib/view/controls';
 import type AnalyseCtrl from '../ctrl';
@@ -38,11 +38,11 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
     ...(d.game.speed !== 'correspondence' && !isEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : []),
   ];
-  return h(
+  return hl(
     'div.autoplay',
     speeds.map(speed => {
       const active = ctrl.autoplay.getDelay() === speed.delay;
-      return h(
+      return hl(
         'a.button',
         {
           class: { active, 'button-empty': !active },
@@ -54,11 +54,11 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   );
 }
 
-const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
+const hiddenInput = (name: string, value: string) => hl('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
   if (ctrl.study || ctrl.ongoing) return;
-  return h(
+  return hl(
     'form',
     {
       attrs: { method: 'post', action: '/study/as' },
@@ -75,7 +75,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy),
+      hl('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy),
     ],
   );
 }
@@ -88,8 +88,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools: MaybeVNodes = [
-    h('div.action-menu__tools', [
-      h(
+    hl('div.action-menu__tools', [
+      hl(
         'a',
         {
           hook: bind('click', () => {
@@ -102,7 +102,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         i18n.site.flipBoard,
       ),
       !ctrl.ongoing &&
-        h(
+        hl(
           'a',
           {
             attrs: {
@@ -121,7 +121,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.boardEditor,
         ),
       canContinue &&
-        h(
+        hl(
           'a',
           {
             hook: bind('click', () =>
@@ -133,7 +133,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ),
       studyButton(ctrl),
       ctrl.persistence?.isDirty &&
-        h(
+        hl(
           'a',
           {
             attrs: {
@@ -147,49 +147,45 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const cevalConfig: MaybeVNodes =
-    ceval?.possible && ceval.allowed()
-      ? [
-          h('h2', i18n.site.computerAnalysis),
-          ctrlToggle(
-            {
-              name: i18n.site.enable,
-              title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-              id: 'all',
-              checked: ctrl.showComputer(),
-              disabled: mandatoryCeval,
-              change: ctrl.toggleComputer,
-            },
-            ctrl,
-          ),
-          ...(ctrl.showComputer()
-            ? [
-                ctrlToggle(
-                  {
-                    name: i18n.site.bestMoveArrow,
-                    title: 'Hotkey: a',
-                    id: 'shapes',
-                    checked: ctrl.showAutoShapes(),
-                    change: ctrl.toggleAutoShapes,
-                  },
-                  ctrl,
-                ),
-                ctrlToggle(
-                  {
-                    name: i18n.site.evaluationGauge,
-                    id: 'gauge',
-                    checked: ctrl.showGauge(),
-                    change: ctrl.toggleGauge,
-                  },
-                  ctrl,
-                ),
-              ]
-            : []),
-        ]
-      : [];
+  const cevalConfig: LooseVNodes = ceval?.possible &&
+    ceval.allowed() && [
+      hl('h2', i18n.site.computerAnalysis),
+      ctrlToggle(
+        {
+          name: i18n.site.enable,
+          title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+          id: 'all',
+          checked: ctrl.showComputer(),
+          disabled: mandatoryCeval,
+          change: ctrl.toggleComputer,
+        },
+        ctrl,
+      ),
+      ctrl.showComputer() && [
+        ctrlToggle(
+          {
+            name: i18n.site.bestMoveArrow,
+            title: 'Hotkey: a',
+            id: 'shapes',
+            checked: ctrl.showAutoShapes(),
+            change: ctrl.toggleAutoShapes,
+          },
+          ctrl,
+        ),
+        ctrlToggle(
+          {
+            name: i18n.site.evaluationGauge,
+            id: 'gauge',
+            checked: ctrl.showGauge(),
+            change: ctrl.toggleGauge,
+          },
+          ctrl,
+        ),
+      ],
+    ];
 
   const displayConfig = [
-    h('h2', 'Display'),
+    hl('h2', 'Display'),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
@@ -227,14 +223,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ),
   ];
 
-  return h('div.action-menu', [
-    ...tools,
-    ...displayConfig,
-    ...cevalConfig,
-    ...(ctrl.mainline.length > 4 ? [h('h2', i18n.site.replayMode), autoplayButtons(ctrl)] : []),
+  return hl('div.action-menu', [
+    tools,
+    displayConfig,
+    cevalConfig,
+    ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
     canContinue &&
-      h('div.continue-with.none.g_' + d.game.id, [
-        h(
+      hl('div.continue-with.none.g_' + d.game.id, [
+        hl(
           'a.button',
           {
             attrs: {
@@ -246,7 +242,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.playWithTheMachine,
         ),
-        h(
+        hl(
           'a.button',
           {
             attrs: {

@@ -4,21 +4,24 @@ import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
+import lila.core.net.ApiVersion
 
 final class Msg(env: Env) extends LilaController(env):
 
-  def home = Auth { _ ?=> me ?=>
+  private val newMobileApi = ApiVersion(5)
+
+  def home = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     negotiateApi(
       html = Ok.async(inboxJson.map(views.msg.home)).map(_.hasPersonalData),
       api = v =>
         JsonOk:
-          if v.value >= 5 then inboxJson
+          if v >= newMobileApi then inboxJson
           else env.msg.compat.inbox(getInt("page"))
     )
   }
 
-  def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me ?=>
-    if username.value == "new"
+  def convo(username: UserStr, before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
+    if username.is(UserStr("new"))
     then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api
@@ -31,24 +34,24 @@ final class Msg(env: Env) extends LilaController(env):
               html = Ok.async(newJson.map(views.msg.home)),
               api = v =>
                 JsonOk:
-                  if v.value >= 5 then newJson
+                  if v >= newMobileApi then newJson
                   else fuccess(env.msg.compat.thread(c))
             ).map(_.hasPersonalData)
   }
 
-  def search(q: String) = Auth { _ ?=> me ?=>
+  def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
       q.trim.some.filter(_.nonEmpty) match
         case None    => env.msg.json.searchResult(env.msg.search.empty)
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }
 
-  def unreadCount = Auth { _ ?=> me ?=>
+  def unreadCountBC = Auth { _ ?=> me ?=>
     JsonOk:
       env.msg.compat.unreadCount(me)
   }
 
-  def convoDelete(username: UserStr) = Auth { _ ?=> me ?=>
+  def convoDelete(username: UserStr) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     env.msg.api.delete(username) >>
       JsonOk(inboxJson)
   }
@@ -87,10 +90,9 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   private def inboxJson(using me: Me) =
-    env.msg.api.myThreads.flatMap(env.msg.json.threads).map { threads =>
-      import lila.common.Json.lightUserWrites
-      Json.obj(
-        "me"       -> Json.toJsObject(me.light).add("bot" -> me.isBot),
-        "contacts" -> threads
-      )
-    }
+    import lila.common.Json.lightUserWrites
+    for threads <- env.msg.api.myThreads.flatMap(env.msg.json.threads)
+    yield Json.obj(
+      "me"       -> Json.toJsObject(me.light).add("bot" -> me.isBot),
+      "contacts" -> threads
+    )

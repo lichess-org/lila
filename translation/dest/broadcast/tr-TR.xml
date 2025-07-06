@@ -6,6 +6,10 @@
     <item quantity="one">%s canlı turnuva</item>
     <item quantity="other">%s canlı turnuva</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s izleyici</item>
+    <item quantity="other">%s izleyici</item>
+  </plurals>
   <string name="liveBroadcasts">Canlı Turnuva Yayınları</string>
   <string name="broadcastCalendar">Turnuva takvimi</string>
   <string name="newBroadcast">Canlı Turnuva Ekle</string>
@@ -54,30 +58,33 @@
   <string name="subscribeTitle">Tur başladığında bildirim almak için abone olun. Hesap tercihlerinizden anlık ya da çan bildirimi tercihinizi hesap tercihlerinizden belirleyebilirsiniz.</string>
   <string name="uploadImage">Turnuva görseli yükleyin</string>
   <string name="noBoardsYet">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Tahtalar bir kaynaktan ya da %sndan yüklenebilir</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tahtalar bir kaynaktan ya da %sndan yüklenebilir</string>
   <string name="startsAfter">%s\'ten sonra başlar</string>
   <string name="startVerySoon">Yayın az sonra başlayacak.</string>
   <string name="notYetStarted">Yayın henüz başlamadı.</string>
   <string name="officialWebsite">Resmî site</string>
   <string name="standings">Sıralamalar</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Resmi Sıralamalar</string>
+  <string name="officialStandings">Resmi Sıralamalar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
   <string name="webmastersPage">ağ yöneticileri sayfası</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Bu turun açık, gerçek zamanlı PGN kaynağı. Daha hızlı ve verimli senkronizasyon için %s\'ımız da bulunmaktadır.</string>
   <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>
   <string name="embedThisRound">%su İnternet sitenizde gömülü paylaşın</string>
   <string name="ratingDiff">Puan farkı</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Bu turnuvadaki maçlar</string>
+  <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
   <string name="score">Skor</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Tüm takımlar</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnuva biçimi</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnuva Konumu</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">En iyi oyuncular</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zaman dilimi</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE derecelendirme kategorisi</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">İsteğe bağlı ayrıntılar</string>
+  <string name="allTeams">Tüm takımlar</string>
+  <string name="tournamentFormat">Turnuva biçimi</string>
+  <string name="tournamentLocation">Turnuva Konumu</string>
+  <string name="topPlayers">En iyi oyuncular</string>
+  <string name="timezone">Zaman dilimi</string>
+  <string name="fideRatingCategory">FIDE derecelendirme kategorisi</string>
+  <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
   <string name="pastBroadcasts">Geçmiş yayınlar</string>
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
   <string name="backToLiveMove">Canlı hamleye dön</string>
   <string name="sinceHideResults">Sonuçları gizlemeyi seçtiğiniz için, spoiler vermemek adına tüm tahta görünümleri boş olacak.</string>
+  <string name="liveboard">Canlı tahta</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Topluluk yayını</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">%s tarafından oluşturuldu ve yönetiliyor.</string>
 </resources>

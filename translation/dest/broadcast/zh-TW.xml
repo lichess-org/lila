@@ -53,28 +53,28 @@
   <string name="subscribeTitle">訂閱以在每輪開始時獲得通知。您可以在帳戶設定中切換直播的鈴聲或推播通知。</string>
   <string name="uploadImage">上傳錦標賽圖片</string>
   <string name="noBoardsYet">尚無棋局。這些棋局將在對局上傳後顯示。</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">棋盤能夠以輸入源投放或是利用%s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">棋盤能夠以輸入源投放或是利用%s</string>
   <string name="startsAfter">於%s開始</string>
   <string name="startVerySoon">直播即將開始。</string>
   <string name="notYetStarted">直播尚未開始。</string>
   <string name="officialWebsite">官網</string>
   <string name="standings">排行榜</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">官方排名</string>
+  <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">更多選項在%s</string>
   <string name="webmastersPage">網頁管理員頁面</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">這一輪的公開實時 PGN。我們還提供%s以實現更快和更高效的同步。</string>
   <string name="embedThisBroadcast">將此直播嵌入您的網站</string>
   <string name="embedThisRound">將%s嵌入您的網站</string>
   <string name="ratingDiff">評級差異</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">此比賽的對局</string>
+  <string name="gamesThisTournament">此比賽的對局</string>
   <string name="score">分數</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">所有團隊</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">錦標賽格式</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">錦標賽地點</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">頂尖玩家</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">時區</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE 評級類別</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">其他細節</string>
+  <string name="allTeams">所有團隊</string>
+  <string name="tournamentFormat">錦標賽格式</string>
+  <string name="tournamentLocation">錦標賽地點</string>
+  <string name="topPlayers">頂尖玩家</string>
+  <string name="timezone">時區</string>
+  <string name="fideRatingCategory">FIDE 評級類別</string>
+  <string name="optionalDetails">其他細節</string>
   <string name="pastBroadcasts">直播紀錄</string>
   <string name="allBroadcastsByMonth">以月份顯示所有直播</string>
   <string name="backToLiveMove">返回及時走法</string>

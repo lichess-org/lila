@@ -48,8 +48,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">Tim mana yang akan Anda wakili dalam pertarungan ini?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Anda harus bergabung dengan salah satu tim berikut untuk berpartisipasi!</string>
   <string name="created">Dibuat</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Baru saja dimainkan</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Hasil terbaik</string>
+  <string name="recentlyPlayed">Baru saja dimainkan</string>
+  <string name="bestResults">Hasil terbaik</string>
   <string name="tournamentStats">Statistik turnamen</string>
   <string name="rankAvgHelp">Rata-rata peringkat adalah persentase peringkat Anda. Lebih rendah lebih baik.
 

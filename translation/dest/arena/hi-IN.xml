@@ -67,8 +67,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">इस लड़ाई में आप किस टीम का प्रतिनिधित्व करेंगे?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">भाग लेने के लिए आपको इनमें से किसी एक टीम में शामिल होना होगा!</string>
   <string name="created">बनाया था</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">हाल ही में खेला</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">सर्वोत्तम परिणाम</string>
+  <string name="recentlyPlayed">हाल ही में खेला</string>
+  <string name="bestResults">सर्वोत्तम परिणाम</string>
   <string name="tournamentStats">टूर्नामेंट आँकड़े</string>
   <string name="rankAvgHelp">रैंक औसत आपकी रैंकिंग का एक प्रतिशत है। कम बेहतर है।
 

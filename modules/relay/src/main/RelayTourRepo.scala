@@ -37,12 +37,12 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       .void
 
   def isSubscribed(tid: RelayTourId, uid: UserId): Fu[Boolean] =
-    coll.exists($doc($id(tid), "subscribers" -> uid))
+    coll.secondary.exists($doc($id(tid), "subscribers" -> uid))
 
   def countBySubscriberId(uid: UserId): Fu[Int] =
     coll.countSel(selectors.subscriberId(uid))
 
-  def hasNotified(rt: RelayRound.WithTour): Fu[Boolean] =
+  private[relay] def hasNotified(rt: RelayRound.WithTour): Fu[Boolean] =
     coll.exists($doc($id(rt.tour.id), "notified" -> rt.round.id))
 
   def setNotified(rt: RelayRound.WithTour): Funit =

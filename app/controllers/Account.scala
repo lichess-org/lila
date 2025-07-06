@@ -237,12 +237,6 @@ final class Account(
           env.user.repo.disableTwoFactor(me).inject(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 
-  def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> me ?=>
-    val page = (use: Option[Boolean]) => Ok.page(pages.network(use, ctx.pref.isUsingAltSocket))
-    if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
-    else env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
-  }
-
   def close = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)

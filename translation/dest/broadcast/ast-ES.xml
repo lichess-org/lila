@@ -54,31 +54,31 @@
   <string name="subscribeTitle">Suscríbite pa ser notificao per voz cuando entame cada ronda. Pues alternar ente notificaciones de campana o de dispositivu pa emisiones nes preferencies de la to cuenta.</string>
   <string name="uploadImage">Xubir imaxe del tornéu</string>
   <string name="noBoardsYet">Entá nun hai tableros. Estos van apaecer una vegada que se xuban les partíes.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Los tableros pueden cargase con una fonte o al traviés de %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargase con una fonte o al traviés de %s</string>
   <string name="startsAfter">Entama dempués de %s</string>
   <string name="startVerySoon">La tresmisión va empezar en pocu tiempu.</string>
   <string name="notYetStarted">La tresmisión entá nun entamó.</string>
   <string name="officialWebsite">Sitiu oficial</string>
   <string name="standings">Clasificaciones</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Clasificación oficial</string>
+  <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
   <string name="webmastersPage">la páxina del webmaster</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fonte PGN pública en tiempu real pa esta ronda. Tamién ufiertamos %s pa una sincronización más rápida y eficiente.</string>
   <string name="embedThisBroadcast">Enserta esta tresmisión nel to sitiu web</string>
   <string name="embedThisRound">Enserta la %s nel to sitiu web</string>
   <string name="ratingDiff">Diferencia de puntuación</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partíes nesti tornéu</string>
+  <string name="gamesThisTournament">Partíes nesti tornéu</string>
   <string name="score">Resultaú</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Toos equipos</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Formatu del tornéu</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Allugamientu del tornéu</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Meyores xugadores</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zona horaria</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Categoría de calificación de FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Detalles opcionales</string>
+  <string name="allTeams">Toos equipos</string>
+  <string name="tournamentFormat">Formatu del tornéu</string>
+  <string name="tournamentLocation">Allugamientu del tornéu</string>
+  <string name="topPlayers">Meyores xugadores</string>
+  <string name="timezone">Zona horaria</string>
+  <string name="fideRatingCategory">Categoría de calificación de FIDE</string>
+  <string name="optionalDetails">Detalles opcionales</string>
   <string name="pastBroadcasts">Tresmisiones pasaes</string>
   <string name="allBroadcastsByMonth">Ver toles tresmisiones per mes</string>
   <string name="backToLiveMove">Volver al movimientu en directu</string>
   <string name="sinceHideResults">Como escoyisti esconder los resultaos, tolos tableros de vista previa tán vacíos.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Tableru en directu</string>
+  <string name="liveboard">Tableru en directu</string>
 </resources>

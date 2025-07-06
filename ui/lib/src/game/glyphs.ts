@@ -29,13 +29,23 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
 }
 
 const composeGlyph = (fill: string, path: string) =>
-  `<defs><filter id="shadow"><feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" /></filter></defs><g transform="translate(71 -12) scale(0.4)"><circle style="fill:${fill};filter:url(#shadow)" cx="50" cy="50" r="50" />${path}</g>`;
+  `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.4 0 0 .4 71 -12)"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
+
+const whiteIsWinning = composeGlyph(
+  '#bbb',
+  '<path fill="none" stroke="#fff" stroke-width="7" d="M29 27v46M6 50h46m8 0h36"/>',
+);
+
+const blackIsWinning = composeGlyph(
+  '#333',
+  '<path fill="none" stroke="#fff" stroke-width="8" d="M71 27v46m23-23H48m-8 0H4"/>',
+);
 
 const glyphToSvg: Dictionary<string> = {
   // Inaccuracy
   '?!': composeGlyph(
     '#56b4e9',
-    '<path fill="#fff" d="M37.734 21.947c-3.714 0-7.128.464-10.242 1.393-3.113.928-6.009 2.13-8.685 3.605l4.343 8.766c2.35-1.202 4.644-2.157 6.883-2.867a22.366 22.366 0 0 1 6.799-1.065c2.294 0 4.07.464 5.326 1.393 1.311.874 1.967 2.186 1.967 3.933 0 1.748-.546 3.277-1.639 4.588-1.038 1.257-2.786 2.758-5.244 4.506-2.786 2.021-4.751 3.961-5.898 5.819-1.147 1.857-1.721 4.15-1.721 6.88v2.952h10.568v-2.377c0-1.147.137-2.103.41-2.868.328-.764.93-1.557 1.803-2.376.874-.82 2.104-1.803 3.688-2.95 2.13-1.584 3.906-3.058 5.326-4.424 1.42-1.42 2.485-2.95 3.195-4.59.71-1.638 1.065-3.576 1.065-5.816 0-4.206-1.584-7.675-4.752-10.406-3.114-2.731-7.51-4.096-13.192-4.096zm24.745.819l2.048 39.084h9.75l2.047-39.084zM35.357 68.73c-1.966 0-3.632.52-4.998 1.557-1.365.983-2.047 2.732-2.047 5.244 0 2.404.682 4.152 2.047 5.244 1.366 1.038 3.032 1.557 4.998 1.557 1.912 0 3.55-.519 4.916-1.557 1.366-1.092 2.05-2.84 2.05-5.244 0-2.512-.684-4.26-2.05-5.244-1.365-1.038-3.004-1.557-4.916-1.557zm34.004 0c-1.966 0-3.632.52-4.998 1.557-1.365.983-2.049 2.732-2.049 5.244 0 2.404.684 4.152 2.05 5.244 1.365 1.038 3.03 1.557 4.997 1.557 1.912 0 3.55-.519 4.916-1.557 1.366-1.092 2.047-2.84 2.047-5.244 0-2.512-.681-4.26-2.047-5.244-1.365-1.038-3.004-1.557-4.916-1.557z"/>',
+    '<path fill="#fff" d="M37.734 21.947c-3.714 0-7.128.464-10.242 1.393-3.113.928-6.009 2.13-8.685 3.605l4.343 8.766c2.35-1.202 4.644-2.157 6.883-2.867a22.366 22.366 0 0 1 6.799-1.065c2.294 0 4.07.464 5.326 1.393 1.311.874 1.967 2.186 1.967 3.933 0 1.748-.546 3.277-1.639 4.588-1.038 1.257-2.786 2.758-5.244 4.506-2.786 2.021-4.751 3.961-5.898 5.819-1.147 1.857-1.721 4.15-1.721 6.88v2.952h10.568v-2.377c0-1.147.137-2.103.41-2.868.328-.764.93-1.557 1.803-2.376.874-.82 2.104-1.803 3.688-2.95 2.13-1.584 3.906-3.058 5.326-4.424 1.42-1.42 2.485-2.95 3.195-4.59.71-1.638 1.065-3.576 1.065-5.816 0-4.206-1.584-7.675-4.752-10.406-3.114-2.731-7.51-4.096-13.192-4.096zm24.745.819 2.048 39.084h9.75l2.047-39.084zM35.357 68.73c-1.966 0-3.632.52-4.998 1.557-1.365.983-2.047 2.732-2.047 5.244 0 2.404.682 4.152 2.047 5.244 1.366 1.038 3.032 1.557 4.998 1.557 1.912 0 3.55-.519 4.916-1.557 1.366-1.092 2.05-2.84 2.05-5.244 0-2.512-.684-4.26-2.05-5.244-1.365-1.038-3.004-1.557-4.916-1.557zm34.004 0c-1.966 0-3.632.52-4.998 1.557-1.365.983-2.049 2.732-2.049 5.244 0 2.404.684 4.152 2.05 5.244 1.365 1.038 3.03 1.557 4.997 1.557 1.912 0 3.55-.519 4.916-1.557 1.366-1.092 2.047-2.84 2.047-5.244 0-2.512-.681-4.26-2.047-5.244-1.365-1.038-3.004-1.557-4.916-1.557z"/>',
   ),
 
   // Mistake
@@ -104,90 +114,80 @@ const glyphToSvg: Dictionary<string> = {
   // White is slightly better
   '⩲': composeGlyph(
     '#999',
-    '<path d="M 50,51 L 50,5 M 27,28 L 73,28" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,64 L 73,64"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,78 L 73,78"/>',
+    '<path fill="none" stroke="#fff" stroke-width="7" d="M50 51V5M27 28h46M27 64h46M27 78h46"/>',
   ),
 
   // Black is slightly better
   '⩱': composeGlyph(
     '#555',
-    '<path d="M 50,49 L 50,95 M 27,72 L 73,72" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,36 L 73,36"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,22 L 73,22"/>',
+    '<path fill="none" stroke="#fff" stroke-width="7" d="M50 49v46M27 72h46M27 36h46M27 22h46"/>',
   ),
 
   // White is better
   '±': composeGlyph(
     '#aaa',
-    '<path d="M 50,59 L 50,13 M 27,36 L 73,36" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,72 L 73,72"/>',
+    '<path fill="none" stroke="#fff" stroke-width="7" d="M50 59V13M27 36h46M27 72h46"/>',
   ),
 
   // Black is better
   '∓': composeGlyph(
     '#444',
-    '<path d="M 50,41 L 50,87 M 27,64 L 73,64" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 27,28 L 73,28"/>',
+    '<path fill="none" stroke="#fff" stroke-width="7" d="M50 41v46M27 64h46M27 28h46"/>',
   ),
 
   // White is winning
-  '+−': composeGlyph(
-    '#bbb',
-    '<path d="M 29,27 L 29,73 M 6,50 L 52,50" stroke="#fff" stroke-width="7" fill="none"/><path stroke="#fff" stroke-width="7" fill="none" d="M 60,50 L 96,50"/>',
-  ),
+  '+−': whiteIsWinning,
+  '+-': whiteIsWinning,
 
   // Black is winning
-  '-+': composeGlyph(
-    '#333',
-    '<path d="M 71,27 L 71,73 M 94,50 L 48,50" stroke="#fff" stroke-width="8" fill="none"/><path stroke="#fff" stroke-width="8" fill="none" d="M 40,50 L 4,50"/>',
-  ),
+  '−+': blackIsWinning,
+  '-+': blackIsWinning,
 
   // Novelty
   N: composeGlyph(
     '#90c290',
-    '<path fill="#fff" d="M 21.70,85.70 L 21.70,14.30 L 32.10,14.30 L 70.20,73.40 L 70.60,73.40 Q 70.50,71.80 70.35,68.60 Q 70.20,65.40 70.05,61.60 Q 69.90,57.80 69.90,54.60 L 69.90,14.30 L 78.30,14.30 L 78.30,85.70 L 67.80,85.70 L 29.60,26.40 L 29.20,26.40 Q 29.50,29.90 29.75,35.10 Q 30.00,40.30 30.00,45.80 L 30.00,85.70 L 21.70,85.70"/>',
+    '<path fill="#fff" d="M21.7 85.7V14.3h10.4l38.1 59.1h.4q-.1-1.6-.25-4.8-.15-3.2-.3-7t-.15-7V14.3h8.4v71.4H67.8L29.6 26.4h-.4q.3 3.5.55 8.7.25 5.2.25 10.7v39.9h-8.3"/>',
   ),
 
   // Development
   '↑↑': composeGlyph(
     '#c87e9d',
-    '<path fill="#fff" d="M 32,29.20 Q 25.40,32.70 17.20,36.50 L 17.20,32.10 Q 26.50,24.10 30.90,15.40 L 33.10,15.40 Q 37.50,24.10 46.80,32.10 L 46.80,36.50 Q 38.60,32.70 32,29.20 L 32,84.60"/><path fill="#fff" d="M 68,29.20 Q 61.40,32.70 53.20,36.50 L 53.20,32.10 Q 62.50,24.10 66.90,15.40 L 69.10,15.40 Q 73.50,24.10 82.80,32.10 L 82.80,36.50 Q 74.60,32.70 68,29.20 L 68,84.60"/><path stroke="#fff" stroke-width="7" fill="none" d="M 32,29.2 L 32,84.6"/><path stroke="#fff" stroke-width="7" fill="none" d="M 68,29.2 L 68,84.6"/>',
+    '<path fill="#fff" d="M32 29.2q-6.6 3.5-14.8 7.3v-4.4q9.3-8 13.7-16.7h2.2q4.4 8.7 13.7 16.7v4.4q-8.2-3.8-14.8-7.3v55.4m36-55.4q-6.6 3.5-14.8 7.3v-4.4q9.3-8 13.7-16.7h2.2q4.4 8.7 13.7 16.7v4.4q-8.2-3.8-14.8-7.3v55.4"/><path fill="none" stroke="#fff" stroke-width="7" d="M32 29.2v55.4m36-55.4v55.4"/>',
   ),
 
   // Initiative
   '↑': composeGlyph(
     '#2660a4',
-    '<path fill="#fff" d="M 50,29.20 Q 43.40,32.70 35.20,36.50 L 35.20,32.10 Q 44.50,24.10 48.90,15.40 L 51.10,15.40 Q 55.50,24.10 64.80,32.10 L 64.80,36.50 Q 56.60,32.70 50,29.20"/><path stroke="#fff" stroke-width="7" fill="none" d="M 50,29.2 L 50,84.6"/>',
+    '<path fill="#fff" d="M50 29.2q-6.6 3.5-14.8 7.3v-4.4q9.3-8 13.7-16.7h2.2q4.4 8.7 13.7 16.7v4.4q-8.2-3.8-14.8-7.3"/><path fill="none" stroke="#fff" stroke-width="7" d="M50 29.2v55.4"/>',
   ),
 
   // Attack
   '→': composeGlyph(
     '#fb0e3d',
-    '<path fill="#fff" d="M 70.80,50 Q 67.30,56.60 63.50,64.80 L 67.90,64.80 Q 75.90,55.50 84.60,51.10 L 84.60,48.90 Q 75.90,44.50 67.90,35.20 L 63.50,35.20 Q 67.30,43.40 70.80,50"/><path stroke="#fff" stroke-width="7" fill="none" d="M 15.4,50 L 70.8,50"/>',
+    '><path fill="#fff" d="M70.8 50q-3.5 6.6-7.3 14.8h4.4q8-9.3 16.7-13.7v-2.2q-8.7-4.4-16.7-13.7h-4.4q3.8 8.2 7.3 14.8"/><path fill="none" stroke="#fff" stroke-width="7" d="M15.4 50h55.4"/>',
   ),
 
   // Counterplay
   '⇆': composeGlyph(
     '#ff784f',
-    '<path fill="#fff" d="M 32.10,48.40 Q 24.10,39.10 15.40,33.6 Q 24.10,28.10 32.10,18.80 L 36.50,18.80 Q 32.70,27.00 29.20,33.6 Q 32.70,40.20 36.50,48.40 L 32.10,48.40 M 70.8,66.4 Q 67.30,59.80 63.50,51.60 L 67.90,51.60 Q 75.90,60.90 84.60,65.30 L 84.60,67.50 Q 75.90,71.90 67.90,81.20 L 63.50,81.20 Q 67.30,73.00 70.80,66.4"/><path stroke="#fff" stroke-width="7" fill="none" d="M 29.2,33.6 L 80,33.6"/><path stroke="#fff" stroke-width="7" fill="none" d="M 20,66.4 L 70.8,66.4"/>',
+    '<path fill="#fff" d="M32.1 48.4q-8-9.3-16.7-14.8 8.7-5.5 16.7-14.8h4.4q-3.8 8.2-7.3 14.8 3.5 6.6 7.3 14.8h-4.4m38.7 18q-3.5-6.6-7.3-14.8h4.4q8 9.3 16.7 13.7v2.2q-8.7 4.4-16.7 13.7h-4.4q3.8-8.2 7.3-14.8"/><path fill="none" stroke="#fff" stroke-width="7" d="M29.2 33.6H80M20 66.4h50.8"/>',
   ),
 
   // Time trouble
   '⊕': composeGlyph(
     '#c2095a',
-    '<circle stroke="#fff" stroke-width="7" fill="none" cx="50" cy="50" r="25"/><path stroke="#fff" stroke-width="7" fill="none" d="M 50,25 L 50,75"/><path stroke="#fff" stroke-width="7" fill="none" d="M 25,50 L 75,50"/>',
+    '<circle cx="50" cy="50" r="25" fill="none" stroke="#fff" stroke-width="7"/><path fill="none" stroke="#fff" stroke-width="7" d="M50 25v50M25 50h50"/>',
   ),
 
   // With compensation
   '=∞': composeGlyph(
     '#180aae',
-    '<path stroke="#fff" stroke-width="7" fill="none" d="M 10,42 h 36 M 10,58 h 36"/><path stroke="#fff" stroke-width="7" fill="none" d="M 70,42.95 A 10 10 0 1 0 70,57.05 L 75,42.95 A 10 10 0 1 1 75,57.05 L 70,42.95"/>',
+    '<path fill="none" stroke="#fff" stroke-width="7" d="M10 42h36M10 58h36m24-15.05a10 10 0 1 0 0 14.1l5-14.1a10 10 0 1 1 0 14.1l-5-14.1"/>',
   ),
 
   // With the idea
   '∆': composeGlyph(
     '#c8c831',
-    '<path fill="#fff" d="M 22.95,85.70 L 22.95,80.20 L 45.45,14.30 L 54.45,14.30 L 77.05,80.30 L 77.05,85.70 L 22.95,85.70 M 32.55,77.80 L 67.15,77.80 L 54.65,40.60 Q 51.35,30.70 49.85,24.10 Q 48.55,29.00 47.45,33.00 Q 46.35,37.00 45.25,40.20 L 32.55,77.80"/>',
+    '<path fill="#fff" d="M22.95 85.7v-5.5l22.5-65.9h9l22.6 66v5.4h-54.1m9.6-7.9h34.6l-12.5-37.2q-3.3-9.9-4.8-16.5-1.3 4.9-2.4 8.9-1.1 4-2.2 7.2l-12.7 37.6"/>',
   ),
 };
-
-// NOTE: Inkscape tips
-//   On Inkscape, by using "Object to Path", text is converted to path, which enables consistent layout on browser.
-//   Inkscape's output includes unnecessary attributes which can be cleaned up with https://lean-svg.netlify.app.
-//   Wrap it by `transform="translate(...) scale(...)"` so that it sits at the right top corner.
-//   Small tweak (e.g. changing color, scaling size, etc...) can be done by directly modifying svg below.

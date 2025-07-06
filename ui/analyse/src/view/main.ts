@@ -1,6 +1,6 @@
 import { view as cevalView } from 'lib/ceval/ceval';
 import * as licon from 'lib/licon';
-import { type VNode, onInsert, looseH as h } from 'lib/snabbdom';
+import { type VNode, onInsert, hl } from 'lib/snabbdom';
 import { playable } from 'lib/game/game';
 import * as router from 'lib/game/router';
 import { render as trainingView } from './roundTraining';
@@ -49,7 +49,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     trainingView(ctrl),
     ctrl.studyPractice
       ? deps?.studyPracticeView.side(study!)
-      : h(
+      : hl(
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
@@ -67,9 +67,9 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                   ctrl.forecast && forecastView(ctrl, ctrl.forecast),
                   !ctrl.synthetic &&
                     playable(ctrl.data) &&
-                    h(
+                    hl(
                       'div.back-to-game',
-                      h(
+                      hl(
                         'a.button.button-empty.text',
                         {
                           attrs: {
@@ -83,6 +83,6 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                 ],
         ),
     ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
-    h('div.chat__members.none', { hook: onInsert(watchers) }),
+    hl('div.chat__members.none', { hook: onInsert(watchers) }),
   );
 }
