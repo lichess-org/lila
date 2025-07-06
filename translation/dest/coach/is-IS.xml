@@ -4,6 +4,8 @@
   <string name="lichessCoach">Lichess Þjálfari</string>
   <string name="areYouCoach">Ertu frábær þjálfari með %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM eða FIDE titil</string>
+  <string name="confirmTitle">Staðfestu titilinn þinn hér og við munum fara yfir umsóknina þína.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Sendu okkur tölvupóst á %s og við munum fara yfir umsókn þína.</string>
   <string name="location">Staðsetning</string>
   <string name="languages">Tungumál</string>
   <string name="rating">Skákstig</string>
@@ -11,6 +13,7 @@
   <string name="availability">Fáanleiki</string>
   <string name="accepting">Tekur við nemendum</string>
   <string name="notAccepting">Tekur ekki við nemendum eins og er</string>
+  <string name="xCoachesStudents">%s þjálfar nemendur í skák</string>
   <string name="viewXProfile">Skoða Lichess-prófil %s</string>
   <string name="sendPM">Senda einkaskilaboð</string>
   <string name="aboutMe">Um mig</string>

@@ -16,21 +16,28 @@ final private class RelayNotifier(
     private val dedupNotif = OnceEvery[StudyChapterId](1.day)
 
     def apply(rt: RelayRound.WithTour, chapter: Chapter): Funit =
+      def notify(followers: List[UserId], color: Color) =
+        val names = chapter.tags.names
+        names(color) match
+          case Some(playerName) =>
+            val opponent = names(!color).map(name => s" against ${name} ").getOrElse(" ")
+            notifyApi.notifyMany(
+              followers,
+              NotificationContent.BroadcastRound(
+                url = rt.path(chapter.id),
+                title = rt.tour.name.value,
+                text = s"${playerName} is playing${opponent}in ${rt.round.name}"
+              )
+            )
+          case None =>
+            fuccess(lila.log("relay").warn(s"Missing player name for $color in game ${chapter.id}"))
+
       dedupNotif(chapter.id).so:
         val futureByColor = chapter.tags.fideIds.mapWithColor: (color, fid) =>
           for
-            followers <- fid.so(getPlayerFollowers)
-            notify    <- followers.nonEmpty.so:
-              chapter.tags.names.sequence.so: names =>
-                notifyApi.notifyMany(
-                  followers,
-                  NotificationContent.BroadcastRound(
-                    url = rt.path(chapter.id),
-                    title = rt.tour.name.value,
-                    text = s"${names(color)} is playing against ${names(!color)} in ${rt.round.name}"
-                  )
-                )
-          yield notify
+            followers <- fid.so(fid => getPlayerFollowers(fid))
+            _         <- followers.nonEmpty.so(notify(followers, color))
+          yield ()
         Future.sequence(futureByColor.all).void
 
   private object notifyTournamentSubscribers:
@@ -57,8 +64,10 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Unit =
-    notifyPlayerFollowers(rt, chapter)
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
     notifyTournamentSubscribers(rt)
+      .zip:
+        rt.tour.tier.exists(_ >= RelayTour.Tier.normal).so(notifyPlayerFollowers(rt, chapter))
+      .void
 
   def onUpdate = onCreate
