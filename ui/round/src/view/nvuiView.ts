@@ -172,8 +172,10 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
                 moveStyle.get(),
               )(e);
             else if (e.key.toLowerCase() === 'f') {
-              ctrl.flip = !ctrl.flip;
-              ctrl.redraw();
+              if (ctrl.data.game.variant.key !== 'racingKings') {
+                ctrl.flip = !ctrl.flip;
+                ctrl.redraw();
+              }
             } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
             else if (e.key.startsWith('Arrow'))
               nv.arrowKeyHandler(
