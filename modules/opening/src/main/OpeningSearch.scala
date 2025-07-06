@@ -92,9 +92,9 @@ private object OpeningSearch:
     }.toList
 
   private def scoreOf(query: Query, entry: Entry): Option[Score] = {
-    val entryPgnLower = entry.opening.pgn.value.toLowerCase()
-    val entryUciLower = entry.opening.uci.value.toLowerCase()
-    val entryTokensLower = entry.tokens.map(_.toLowerCase)
+    val entryPgnLower            = entry.opening.pgn.value.toLowerCase()
+    val entryUciLower            = entry.opening.uci.value.toLowerCase()
+    val entryTokensLower         = entry.tokens.map(_.toLowerCase)
     def exactMatch(token: Token) =
       entryTokensLower(token) ||
         entryTokensLower(s"${token}s") // kings and queens can be matched by king and queen
