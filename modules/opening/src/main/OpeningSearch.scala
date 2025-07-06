@@ -91,7 +91,7 @@ private object OpeningSearch:
       Entry(op, tokenize(op))
     }.toList
 
-  private def scoreOf(query: Query, entry: Entry): Option[Score] = {
+  private def scoreOf(query: Query, entry: Entry): Option[Score] =
     val entryPgnLower            = entry.opening.pgn.value.toLowerCase()
     val entryUciLower            = entry.opening.uci.value.toLowerCase()
     val entryTokensLower         = entry.tokens.map(_.toLowerCase)
@@ -101,7 +101,7 @@ private object OpeningSearch:
     if entryPgnLower.startsWith(query.raw) ||
       entryPgnLower.startsWith(query.numberedPgn) ||
       entryUciLower.startsWith(query.raw)
-    then (query.raw.size * 1000 - entry.opening.nbMoves)
+    then (query.raw.size * 1000 - entry.opening.nbMoves).some.filter(_ > 0)
     else
       query.tokens
         .foldLeft((query.tokens, 0)) { case ((remaining, score), token) =>
@@ -109,14 +109,13 @@ private object OpeningSearch:
           else (remaining, score)
         } match
         case (remaining, score) =>
-          score + remaining.map { t =>
+          (score + remaining.map { t =>
             entryTokensLower.map { e =>
               if e.startsWith(t) then t.size * 50
               else if e.contains(t) then t.size * 20
               else 0
             }.sum
-          }.sum - entry.opening.key.value.size
-  }.some.filter(_ > 0)
+          }.sum).some.filter(_ > 0).map(_ - entry.opening.key.value.size)
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
