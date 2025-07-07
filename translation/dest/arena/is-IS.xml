@@ -25,6 +25,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   </plurals>
   <string name="newTeamBattle">Ný liðsorrusta</string>
   <string name="customStartDate">Sérsniðinn upphafsdagur</string>
+  <string name="customStartDateHelp">Í þínu eigin tímabelti. Þetta hnekkir stillingunni „Tími áður en mót hefst.“</string>
   <string name="allowBerserk">Leyfa Berserk</string>
   <string name="allowChatHelp">Leyfa leikmönnum að rabba í spjallherbergi</string>
   <string name="arenaStreaks">Arena-döngun</string>

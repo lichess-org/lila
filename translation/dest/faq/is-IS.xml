@@ -100,6 +100,10 @@ Hið rauða hljóðtákn birtist þegar vafrinn þinn kemur í veg fyrir að lic
 
 Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er hægt að veita Lichess.org beinlínis leyfi til að spila hljóð. Hér að neðan eru leiðbeiningar um hvernig það er gert í nýjustu útgáfum nokkurra þekktra vafra.</string>
   <string name="desktop">skjáborð</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Farðu á lichess.org
+2. Ýttu á Ctrl-i á Linux/Windows eða cmd-i á MacOS-stýrikerfi
+3. Smelltu á „Heimildir“ (e. Permissions) flipann
+4. Leyfðu hljóð- og myndgögn á lichess.org</string>
   <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég spili?</string>
   <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
   <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>

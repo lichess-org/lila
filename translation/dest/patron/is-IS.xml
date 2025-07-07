@@ -24,6 +24,7 @@
   <string name="payLifetimeOnce">Borgar þú %s einu sinni. Gerist þú velunnari Lichess til eilífðarnóns!</string>
   <string name="lifetimePatron">Ævilangur velunnari Lichess</string>
   <string name="monthly">Mánaðarlega</string>
+  <string name="recurringBilling">Síendurtekin gjaldtaka, sem endurnýjar Velunnaravængina þína á mánaðarfresti.</string>
   <string name="onetime">Eingreiðsla</string>
   <string name="singleDonation">Eitt framlag sem veitir þér Velunnaravængi í einn mánuð.</string>
   <string name="otherAmount">Annað</string>
@@ -54,9 +55,11 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
     <item quantity="one">Velunnari Lichess í einn mánuð</item>
     <item quantity="other">Velunnari Lichess í %s mánuði</item>
   </plurals>
+  <string name="youSupportWith">Þú styður lichess.org með %s á mánuði.</string>
   <string name="tyvm">Þakka þér kærlega fyrir hjálpina. Þú ert æði!</string>
   <string name="currentStatus">Núverandi staða</string>
   <string name="nextPayment">Næsta greiðsla</string>
+  <string name="youWillBeChargedXOnY">Þú verður rukkaður um %1$s þann %2$s.</string>
   <string name="makeAdditionalDonation">Veita viðbótarfjárframlag</string>
   <string name="giftPatronWingsShort">Gefa Velunnaravængi</string>
   <string name="giftPatronWings">Gefa leikmanni Velunnaravængi</string>
@@ -65,9 +68,13 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="cancelSupport">Hætta við stuðninginn þinn</string>
   <string name="xOrY">%1$s eða %2$s</string>
   <string name="decideHowMuch">Ákveddu hvað Lichess er þér virði:</string>
+  <string name="stopPayments">Taka út kreditkortið þitt og stöðva greiðslur:</string>
+  <string name="stopPaymentsPayPal">Hætta PayPal-áskrift og stöðva greiðslur:</string>
+  <string name="noLongerSupport">Styðja ekki lengur Lichess</string>
   <string name="viewOthers">Skoða aðra velunnara Lichess</string>
   <string name="date">Dagsetning</string>
   <string name="amount">Upphæð</string>
+  <string name="transactionCompleted">Viðskiptunum þínum hefur verið lokið og kvittun fyrir framlaginu hefur verið send til þín í tölvupósti.</string>
   <string name="permanentPatron">Þú hefur nú fastan velunnaraaðgang.</string>
   <string name="checkOutProfile">Kannaðu prófílsíðuna þína!</string>
   <string name="nowLifetime">Þú hefur gerst ævilangur velunnari Lichess!</string>
@@ -76,4 +83,5 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="changeCurrency">Breyta gjaldmiðli</string>
   <string name="paymentDetails">Greiðsluupplýsingar</string>
   <string name="updatePaymentMethod">Uppfærða greiðslumáta</string>
+  <string name="stripeManageSub">Stjórnaðu áskriftinni þinni og hladdu niður reikningum og kvittunum</string>
 </resources>
