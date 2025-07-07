@@ -22,7 +22,17 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const { ctrl, notify, legacynotify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const {
+    ctrl,
+    notify,
+    legacynotify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+  } = ctx;
   notify.redraw = ctrl.redraw;
   legacynotify.redraw = ctrl.redraw;
   const d = ctrl.data,
