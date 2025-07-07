@@ -10,7 +10,9 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: Executor,
     scheduler: Scheduler
 ):
-  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
+  def apply(challenge: Challenge, initialJson: JsObject)(
+      createTheChallengeNow: () => Funit
+  ): Source[JsValue, ?] =
     Source(List(initialJson)).concat:
       Source
         .queue[JsObject](1, akka.stream.OverflowStrategy.dropHead)
@@ -20,7 +22,8 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
             api.ping(challenge.id)
 
           def completeWith(msg: String) =
-            for _ <- queue.offer(Json.obj("done" -> msg)) yield queue.complete()
+            for _ <- queue.offer(Json.obj("done" -> msg))
+            yield queue.complete()
 
           val subPositive = Bus.sub[PositiveEvent]:
             case PositiveEvent.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
@@ -29,9 +32,12 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
             case NegativeEvent.Decline(c) if c.id == challenge.id => completeWith("declined")
             case NegativeEvent.Cancel(c) if c.id == challenge.id  => completeWith("canceled")
 
-          queue
-            .watchCompletion()
-            .addEffectAnyway:
-              keepAliveInterval.cancel()
-              Bus.unsub[PositiveEvent](subPositive)
-              Bus.unsub[NegativeEvent](subNegative)
+          for
+            _ <- createTheChallengeNow()
+            q <- queue
+              .watchCompletion()
+              .addEffectAnyway:
+                keepAliveInterval.cancel()
+                Bus.unsub[PositiveEvent](subPositive)
+                Bus.unsub[NegativeEvent](subNegative)
+          yield q
