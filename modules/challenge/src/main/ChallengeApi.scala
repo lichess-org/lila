@@ -23,10 +23,14 @@ final class ChallengeApi(
   def allFor(userId: UserId, max: Int = 50): Fu[AllChallenges] =
     createdByDestId(userId, max).zip(createdByChallengerId(userId)).dmap((AllChallenges.apply).tupled)
 
+  def delayedCreate(c: Challenge): Fu[Option[() => Funit]] =
+    isLimitedByMaxPlaying(c).not.map:
+      _.option(() => doCreate(c))
+
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
-    isLimitedByMaxPlaying(c).flatMap:
-      if _ then fuFalse else doCreate(c).inject(true)
+    delayedCreate(c).flatMapz: f =>
+      for _ <- f() yield true
 
   def createOpen(config: lila.core.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
     val c = Challenge.make(
@@ -182,8 +186,7 @@ final class ChallengeApi(
     repo.byId(gameId.into(ChallengeId)).flatMap(_.so(remove))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if c.clock.isEmpty then fuFalse
-    else
+    c.clock.nonEmpty.so:
       c.userIds.existsM: userId =>
         gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 

@@ -233,10 +233,7 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
   };
 }
 
-function boardEventsHook(
-  { ctrl, pieceStyle, prefixStyle, moveStyle }: AnalyseNvuiContext,
-  el: HTMLElement,
-): void {
+function boardEventsHook({ ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext, el: HTMLElement): void {
   const $board = $(el);
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
@@ -265,6 +262,7 @@ function boardEventsHook(
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
+    else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
   });
 }
 

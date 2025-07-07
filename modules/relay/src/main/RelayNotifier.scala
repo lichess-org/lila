@@ -16,7 +16,11 @@ final private class RelayNotifier(
     private val dedupNotif = OnceEvery[StudyChapterId](1.day)
 
     def apply(rt: RelayRound.WithTour, chapter: Chapter): Funit =
-      def notify(followers: List[UserId], color: Color) =
+
+      def followersOf(color: Color): Fu[Set[UserId]] =
+        chapter.tags.fideIds(color).so(getPlayerFollowers)
+
+      def notify(followers: Set[UserId], color: Color): Funit =
         val names = chapter.tags.names
         names(color) match
           case Some(playerName) =>
@@ -33,12 +37,13 @@ final private class RelayNotifier(
             fuccess(lila.log("relay").warn(s"Missing player name for $color in game ${chapter.id}"))
 
       dedupNotif(chapter.id).so:
-        val futureByColor = chapter.tags.fideIds.mapWithColor: (color, fid) =>
-          for
-            followers <- fid.so(fid => getPlayerFollowers(fid))
-            _         <- followers.nonEmpty.so(notify(followers, color))
-          yield ()
-        Future.sequence(futureByColor.all).void
+        for
+          whiteFollowers <- followersOf(Color.white)
+          _              <- notify(whiteFollowers, Color.white)
+          blackFollowers <- followersOf(Color.black)
+          newFollowers = blackFollowers -- whiteFollowers
+          _ <- notify(newFollowers, Color.black)
+        yield ()
 
   private object notifyTournamentSubscribers:
 

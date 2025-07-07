@@ -307,23 +307,23 @@ final class Challenge(env: Env) extends LilaController(env):
                                     JsonBadRequest:
                                       jsonError(lila.challenge.ChallengeDenied.translated(denied))
                                 case _ =>
-                                  env.challenge.api.create(challenge).flatMap {
-                                    if _ then
-                                      ctx.isMobileOauth
-                                        .so(env.challenge.version(challenge.id).dmap(some))
-                                        .map: socketVersion =>
-                                          val json = env.challenge.jsonView
-                                            .apiAndMobile(
-                                              challenge,
-                                              socketVersion,
-                                              lila.challenge.Direction.Out.some
-                                            )
+                                  env.challenge.api.delayedCreate(challenge).flatMap {
+                                    case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                    case Some(createNow) =>
+                                      for
+                                        socket <- ctx.isMobileOauth.soFu(env.challenge.version(challenge.id))
+                                        json = env.challenge.jsonView.apiAndMobile(
+                                          challenge,
+                                          socket,
+                                          lila.challenge.Direction.Out.some
+                                        )
+                                        res <-
                                           if config.keepAliveStream then
-                                            jsOptToNdJson:
-                                              ndJson
-                                                .addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                          else JsonOk(json)
-                                    else JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                            val stream =
+                                              env.challenge.keepAliveStream(challenge, json)(createNow)
+                                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
+                                          else for _ <- createNow() yield JsonOk(json)
+                                      yield res
                                   }
                             yield res
               }
