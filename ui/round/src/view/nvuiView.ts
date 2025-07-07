@@ -22,8 +22,9 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const { ctrl, notify, legacynotify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
+  legacynotify.redraw = ctrl.redraw;
   const d = ctrl.data,
     nvui = ctrl.nvui!,
     step = plyStep(d, ctrl.ply),
@@ -72,6 +73,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
         hl('div.topc', clocks[1]),
       ]),
     notify.render(),
+    legacynotify.render(),
     ctrl.isPlaying() &&
       hl('div.move-input', [
         hl('h2', i18n.nvui.inputForm),
@@ -81,7 +83,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
             hook: onInsert(el => {
               const $form = $(el as HTMLFormElement),
                 $input = $form.find('.move').val('');
-              nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
+              nvui.submitMove = createSubmitHandler(ctrl, legacynotify.set, moveStyle.get, $input);
               $form.on('submit', (ev: SubmitEvent) => {
                 ev.preventDefault();
                 nvui.submitMove?.();
