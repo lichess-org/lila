@@ -130,8 +130,10 @@ export function build(root: Tree.Node): TreeWrapper {
       return newPath;
     }
     return updateAt(path, n => {
-      n.children.push(node)
-    }) ? newPath : undefined;
+      n.children.push(node);
+    })
+      ? newPath
+      : undefined;
   }
 
   function addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined {
@@ -177,13 +179,15 @@ export function build(root: Tree.Node): TreeWrapper {
       node.comments = comments.length ? comments : undefined;
     });
 
-  const setGlyphsAt = (glyphs: Tree.Glyph[], path: Tree.Path) => updateAt(path, node => {
-    node.glyphs = glyphs
-  });
+  const setGlyphsAt = (glyphs: Tree.Glyph[], path: Tree.Path) =>
+    updateAt(path, node => {
+      node.glyphs = glyphs;
+    });
 
   const parentNode = (path: Tree.Path): Tree.Node => nodeAtPath(treePath.init(path));
 
-  const getParentClock = (node: Tree.Node, path: Tree.Path): Tree.Clock | undefined => path ? parentNode(path).clock : node.clock;
+  const getParentClock = (node: Tree.Node, path: Tree.Path): Tree.Clock | undefined =>
+    path ? parentNode(path).clock : node.clock;
 
   return {
     root,
@@ -194,24 +198,29 @@ export function build(root: Tree.Node): TreeWrapper {
     updateAt,
     addNode,
     addNodes,
-    addDests: (dests: string, path: Tree.Path) => updateAt(path, (node: Tree.Node) => {
-      node.dests = dests
-    }),
-    setShapes: (shapes: Tree.Shape[], path: Tree.Path) => updateAt(path, (node: Tree.Node) => {
-      node.shapes = shapes.slice()
-    }),
+    addDests: (dests: string, path: Tree.Path) =>
+      updateAt(path, (node: Tree.Node) => {
+        node.dests = dests;
+      }),
+    setShapes: (shapes: Tree.Shape[], path: Tree.Path) =>
+      updateAt(path, (node: Tree.Node) => {
+        node.shapes = shapes.slice();
+      }),
     setCommentAt,
     deleteCommentAt,
     setGlyphsAt,
-    setClockAt: (clock: Tree.Clock | undefined, path: Tree.Path) => updateAt(path, node => {
-      node.clock = clock
-    }),
-    setCollapsedAt: (path: Tree.Path, collapsed: boolean) => updateAt(path, node => {
-      node.collapsed = collapsed
-    }),
-    setCollapsedRecursive: (path: Tree.Path, collapsed: boolean) => updateRecursive(path, node => {
-      node.collapsed = collapsed
-    }),
+    setClockAt: (clock: Tree.Clock | undefined, path: Tree.Path) =>
+      updateAt(path, node => {
+        node.clock = clock;
+      }),
+    setCollapsedAt: (path: Tree.Path, collapsed: boolean) =>
+      updateAt(path, node => {
+        node.collapsed = collapsed;
+      }),
+    setCollapsedRecursive: (path: Tree.Path, collapsed: boolean) =>
+      updateRecursive(path, node => {
+        node.collapsed = collapsed;
+      }),
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
@@ -219,9 +228,10 @@ export function build(root: Tree.Node): TreeWrapper {
     pathExists,
     deleteNodeAt,
     promoteAt,
-    forceVariationAt: (path: Tree.Path, force: boolean) => updateAt(path, node => {
-      node.forceVariation = force
-    }),
+    forceVariationAt: (path: Tree.Path, force: boolean) =>
+      updateAt(path, node => {
+        node.forceVariation = force;
+      }),
     getCurrentNodesAfterPly,
     merge: (tree: Tree.Node) => ops.merge(root, tree),
     removeCeval: () =>
