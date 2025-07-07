@@ -12,12 +12,11 @@ private final class RelayStudyPropagation(
 )(using Executor):
 
   // force studies visibility based on broadcast tier
-  def onTierChange(tour: RelayTour) =
-    roundRepo
-      .studyIdsOf(tour.id)
-      .flatMap:
-        _.sequentiallyVoid: id =>
-          studyApi.setVisibility(id, tour.studyVisibility)
+  def onVisibilityChange(tour: RelayTour) = for
+    ids <- roundRepo.studyIdsOf(tour.id)
+    _   <- ids.sequentiallyVoid: id =>
+      studyApi.setVisibility(id, tour.visibility)
+  yield ()
 
   // if the study is a round, propagate members to all round studies of the tournament group
   def onStudyMembersChange(study: Study) =

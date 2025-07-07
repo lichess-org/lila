@@ -176,20 +176,17 @@ final private class RelayFetch(
         .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
-    val highPriorityTier = tour.tier.exists:
-      case RelayTour.Tier.best | RelayTour.Tier.`private` => true
-      case _                                              => false
     val base =
       if upstream.isInternal then 1
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if highPriorityTier then 1
+      if tour.tierIs(_.best) then 1
       else if tour.official then 2
       else 3
     } * {
-      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < Crowd(10)) then 2 else 1
+      if upstream.hasLcc && !tour.tierIs(_.best) && round.crowd.exists(_ < Crowd(10)) then 2 else 1
     } * {
       if round.hasStarted then 1
       else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2

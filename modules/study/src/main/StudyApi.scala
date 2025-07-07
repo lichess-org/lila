@@ -751,7 +751,7 @@ final class StudyApi(
                 name = Study.toName(data.name),
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
-                visibility = data.vis,
+                visibility = data.visibility,
                 description = settings.description.option:
                   study.description.filter(_.nonEmpty) | "-"
               )

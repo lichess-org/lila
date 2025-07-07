@@ -1,8 +1,10 @@
 package lila.relay
 
+import java.time.YearMonth
+
 import lila.db.dsl.{ *, given }
 import lila.relay.BSONHandlers.given
-import java.time.YearMonth
+import lila.core.study.Visibility
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
@@ -135,8 +137,8 @@ private object RelayTourRepo:
 
   object selectors:
     val official                = $doc("tier".$exists(true))
-    val publicTour              = $doc("tier".$ne(RelayTour.Tier.`private`))
-    val privateTour             = $doc("tier" -> RelayTour.Tier.`private`)
+    val publicTour              = $doc("visibility".$ne(Visibility.`private`))
+    val privateTour             = $doc("visibility" -> Visibility.`private`)
     val officialPublic          = $doc("tier".$gte(RelayTour.Tier.normal))
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
