@@ -233,7 +233,10 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
   };
 }
 
-function boardEventsHook({ ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext, el: HTMLElement): void {
+function boardEventsHook(
+  { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
+  el: HTMLElement,
+): void {
   const $board = $(el);
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
