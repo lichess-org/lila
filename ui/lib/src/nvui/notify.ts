@@ -1,6 +1,6 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
 import { requestIdleCallback } from '../common';
-import { isApple } from '../device';
+import { isMac } from '../device';
 
 type Notification = {
   text: string;
@@ -27,11 +27,11 @@ export class Notify {
 }
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
-  const data: VNodeData = isApple()
+  const data: VNodeData = isMac()
     ? {
         attrs: { role: 'alert' },
         hook: { insert: (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50) },
       }
     : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
-  return h(sel, data, isApple() ? undefined : text);
+  return h(sel, data, isMac() ? undefined : text);
 }
