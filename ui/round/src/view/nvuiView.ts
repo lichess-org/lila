@@ -143,7 +143,7 @@ function renderActions({ ctrl }: RoundNvuiContext): LooseVNodes {
 }
 
 function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
-  const { ctrl, prefixStyle, pieceStyle, positionStyle, moveStyle, boardStyle } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, positionStyle, moveStyle, boardStyle, notify } = ctx;
 
   return [
     hl('h2', i18n.site.board),
@@ -173,8 +173,11 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
               )(e);
             else if (e.key.toLowerCase() === 'f') {
               if (ctrl.data.game.variant.key !== 'racingKings') {
-                ctrl.flip = !ctrl.flip;
-                ctrl.redraw();
+                notify.set('Flipping the board');
+                setTimeout(() => {
+                  ctrl.flip = !ctrl.flip;
+                  ctrl.redraw();
+                }, 1000);
               }
             } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
             else if (e.key.startsWith('Arrow'))

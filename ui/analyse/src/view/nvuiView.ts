@@ -260,7 +260,10 @@ function boardEventsHook(
       e.preventDefault();
       document.querySelector<HTMLElement>('input.move')?.focus();
     } else if (e.key === 'f') {
-      if (ctrl.data.game.variant.key !== 'racingKings') ctrl.flip();
+      if (ctrl.data.game.variant.key !== 'racingKings') {
+        notify.set('Flipping the board');
+        setTimeout(() => ctrl.flip(), 1000);
+      }
     } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
