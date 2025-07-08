@@ -28,7 +28,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
-    coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.publicTour))
+    coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
 
   def subscribers(tid: RelayTourId): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
@@ -136,10 +136,12 @@ private object RelayTourRepo:
     yield name
 
   object selectors:
-    val official                = $doc("tier".$exists(true))
-    val publicTour              = $doc("visibility".$ne(Visibility.`private`))
-    val privateTour             = $doc("visibility" -> Visibility.`private`)
-    val officialPublic          = $doc("tier".$gte(RelayTour.Tier.normal))
+    val official = $doc("tier".$exists(true))
+    object vis:
+      val public    = $doc("visibility" -> Visibility.public)
+      val notPublic = $doc("visibility".$ne(Visibility.public))
+      val `private` = $doc("visibility" -> Visibility.`private`)
+    val officialPublic          = official ++ vis.public
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
     def ownerId(u: UserId)      = $doc("ownerIds" -> u)

@@ -150,6 +150,7 @@ object RelayTourForm:
           timeZone = tour.info.timeZoneOrDefault.some
         ),
         markup = tour.markup,
+        visibility = tour.visibility.some,
         tier = tour.tier,
         showScores = tour.showScores,
         showRatingDiffs = tour.showRatingDiffs,

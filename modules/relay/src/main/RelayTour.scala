@@ -59,6 +59,8 @@ case class RelayTour(
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
+  def isPrivate = visibility == Visibility.`private`
+
 object RelayTour:
 
   val maxRelays = Max(64)
