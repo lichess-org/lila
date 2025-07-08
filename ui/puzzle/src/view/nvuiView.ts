@@ -105,12 +105,7 @@ export function renderNvui({
             const fenSteps = () => steps.map(step => step.fen);
             const opponentColor = opposite(ctrl.pov);
 
-            $buttons.on('blur', (ev: KeyboardEvent) => {
-              const $currBtn = $(ev.target as HTMLElement);
-              $currBtn.removeAttr('ray');
-              $buttons.removeClass('active');
-              $currBtn.addClass('active');
-            });
+            $buttons.on('blur', nv.leaveSquareHandler($buttons));
             $buttons.on(
               'click',
               nv.selectionHandler(() => opponentColor, selectSound),

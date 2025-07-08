@@ -23,6 +23,7 @@ import {
   possibleMovesHandler,
   renderPockets,
   pocketsStr,
+  leaveSquareHandler,
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
@@ -242,12 +243,7 @@ function boardEventsHook(
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
-  $buttons.on('blur', (ev: KeyboardEvent) => {
-    const $currBtn = $(ev.target as HTMLElement);
-    $currBtn.removeAttr('ray');
-    $buttons.removeClass('active');
-    $currBtn.addClass('active');
-  });
+  $buttons.on('blur', leaveSquareHandler($buttons));
   $buttons.on('click', selectionHandler(opponentColor, selectSound));
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);

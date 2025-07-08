@@ -153,12 +153,7 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
         hook: onInsert(el => {
           const $board = $(el);
           const $buttons = $board.find('button');
-          $buttons.on('blur', (ev: KeyboardEvent) => {
-            const $currBtn = $(ev.target as HTMLElement);
-            $currBtn.removeAttr('ray');
-            $buttons.removeClass('active');
-            $currBtn.addClass('active');
-          });
+          $buttons.on('blur', nv.leaveSquareHandler($buttons));
           $buttons.on(
             'click',
             nv.selectionHandler(() => ctrl.data.opponent.color, selectSound),
