@@ -142,6 +142,7 @@ private object RelayTourRepo:
       val notPublic = $doc("visibility".$ne(Visibility.public))
       val `private` = $doc("visibility" -> Visibility.`private`)
     val officialPublic          = official ++ vis.public
+    val officialNotPublic       = official ++ vis.notPublic
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
     def ownerId(u: UserId)      = $doc("ownerIds" -> u)

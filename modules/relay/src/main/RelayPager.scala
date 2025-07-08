@@ -46,7 +46,7 @@ final class RelayPager(
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(selectors.vis.notPublic) -> {
+            Match(selectors.officialNotPublic) -> {
               List(Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
