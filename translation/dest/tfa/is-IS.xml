@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Tveggja þátta auðkenning</string>
+  <string name="twoFactorHelp">Tveggja þátta auðkenning bætir við enn einu öryggislagi fyrir aðganginn þinn.</string>
+  <string name="twoFactorAppRecommend">Sæktu þér app fyrir tveggja þátta auðkenningu. Við mælum með eftirfarandi öppum:</string>
   <string name="scanTheCode">Skannaðu QR-kóðann með appinu.</string>
   <string name="authenticationCode">Auðkenningarkóði</string>
   <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Ath: Ef þú missir aðgang að tveggja þátta auðkenningarkóðunum þínum leyfist þér að biðja um %s í tölvupósti.</string>

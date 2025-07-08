@@ -9,16 +9,16 @@
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играј!</string>
   <string name="chessPieces">Шаховске фигуре</string>
   <string name="theRook">Топ</string>
-  <string name="itMovesInStraightLines">Креће се у правим линијама</string>
-  <string name="rookIntro">Топ је снажна фигура. Да ли сте спремни да га управљате?</string>
-  <string name="rookGoal">Кликните на топа
-да га доведете до звезде!</string>
-  <string name="grabAllTheStars">Зграбите све звезде!</string>
-  <string name="theFewerMoves">Што мање потеза направите,
-више ћете добити поена!</string>
-  <string name="useTwoRooks">Користите два топа
-да убрзате ствари!</string>
-  <string name="rookComplete">Честитамо! Успешно сте савладали топом.</string>
+  <string name="itMovesInStraightLines">Креће се у равним линијама</string>
+  <string name="rookIntro">Топ је моћна фигура. Да ли си спреман/на командовати њиме?</string>
+  <string name="rookGoal">Кликни на топа
+да га доведеш до звезде!</string>
+  <string name="grabAllTheStars">Покупи све звезде!</string>
+  <string name="theFewerMoves">Што мање потеза направиш,
+то више бодова освојиш!</string>
+  <string name="useTwoRooks">Користи два топа
+да убрзаш ствари!</string>
+  <string name="rookComplete">Честитке! Успешно си савладао/ла топа.</string>
   <string name="theBishop">Ловац</string>
   <string name="itMovesDiagonally">Креће се дијагонално</string>
   <string name="bishopIntro">Сада ћемо научити како да маневришемо ловцем!</string>

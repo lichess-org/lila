@@ -167,6 +167,7 @@
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
   <string name="studyChaptersTitle">Kaflar stúderingar</string>
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Smelltu á %s hnappinn eða hægrismelltu á leikjalistann hægra megin.&lt;br&gt;Athugasemdir eru deildar og vistaðar.</string>
   <string name="annotatePositionTitle">Skrifa útskýringu á stöðu</string>
   <string name="conclusionTitle">Takk fyrir tímann þinn</string>
   <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
