@@ -16,9 +16,9 @@
   <string name="grabAllTheStars">Покупи све звезде!</string>
   <string name="theFewerMoves">Што мање потеза направиш,
 то више бодова освојиш!</string>
-  <string name="useTwoRooks">Користите два топа
-да убрзате ствари!</string>
-  <string name="rookComplete">Честитамо! Успешно сте савладали топом.</string>
+  <string name="useTwoRooks">Користи два топа
+да убрзаш ствари!</string>
+  <string name="rookComplete">Честитке! Успешно си савладао/ла топа.</string>
   <string name="theBishop">Ловац</string>
   <string name="itMovesDiagonally">Креће се дијагонално</string>
   <string name="bishopIntro">Сада ћемо научити како да маневришемо ловцем!</string>
