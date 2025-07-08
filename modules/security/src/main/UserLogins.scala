@@ -54,8 +54,10 @@ final class UserLoginsApi(
         infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]): (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).foldLeft(Set(UserClient(info.ua)))(_ ++ _))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers)
-        .zip(ip2proxy.keepProxies(ips.map(_.value).toList))
-        .map { (otherUsers, proxies) =>
+        .zip:
+          ip2proxy.keepProxies:
+            ips.toList.sortedReverse.map(_.value).toList
+        .map: (otherUsers, proxies) =>
           val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { (acc, other) =>
             other.ips.foldLeft(acc): (acc, ip) =>
               acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
@@ -86,7 +88,6 @@ final class UserLoginsApi(
             uas = distinctRecent(infos.map(_.datedUa)).toList,
             otherUsers = otherUsers
           )
-        }
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
