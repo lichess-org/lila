@@ -35,7 +35,7 @@ final class ModTimelineUi(helpers: Helpers)(
       .view
       .mapValues(_.map(_._2))
       .toList
-      .sortBy(_._2.head.at)(using Ordering[Instant].reverse)
+      .sortByReverse(_._2.head.at)
       .map: (period, events) =>
         (period, ModTimeline.aggregateEvents(events))
       .map(renderPeriod(t))

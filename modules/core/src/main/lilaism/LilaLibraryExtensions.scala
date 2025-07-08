@@ -74,6 +74,8 @@ trait LilaLibraryExtensions extends CoreExports:
     def previous(a: A): Option[A]                      = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]                          = indexOption(a).flatMap(i => list.lift(i + 1))
     def sortedReverse(using ord: Ordering[A]): List[A] = list.sorted(using ord.reverse)
+    def sortByReverse[B](f: A => B)(using ord: Ordering[B]): List[A] =
+      list.sortBy(f)(using ord.reverse)
 
     def sequentially[B](f: A => Fu[B])(using Executor): Fu[List[B]] =
       list
