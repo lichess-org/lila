@@ -111,7 +111,7 @@
   <string name="winOr50MovesByPriorMistake">Ganar o 50 xugaes per erru previu</string>
   <string name="lossOr50MovesByPriorMistake">Perder o 50 xugaes per erru previu</string>
   <string name="unknownDueToRounding">Victoria o derrota segura solu si siguióse la llínea de movimientos encamentaos dende la última captura o movimientu de peón, pola mor del posible arredondio de valores DTZ de les Tables de Finales Syzygy.</string>
-  <string name="allSet">¡Tou llistu!</string>
+  <string name="allSet">¡Too llisto!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Aborrar</string>
   <string name="deleteThisImportedGame">¿Aborrar esta partida importada?</string>
