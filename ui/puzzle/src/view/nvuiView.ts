@@ -237,7 +237,7 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
-  else if (lowered === 'b') commands().board.apply(c, pieces, style);
+  else if (lowered.charAt(0) === 'b') commands().board.apply(c, pieces, style);
   else
     notify(
       commands().piece.apply(c, pieces, style) ||
