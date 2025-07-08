@@ -45,10 +45,7 @@ private object OpeningSearch:
     def apply(str: String): Set[Token] =
       str
         .take(200)
-        .replace("_", " ")
-        .replace("-", " ")
-        .replace(".", " ")
-        .split(' ')
+        .split(Array(' ', '_', '-', '.'))
         .view
         .map(_.trim)
         .filter(_.nonEmpty)
