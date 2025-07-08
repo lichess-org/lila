@@ -4,11 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import io.mola.galimatias.URL
+import java.time.ZoneId
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
-import java.time.ZoneId
+import lila.core.study.Visibility
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -40,6 +41,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
 
+  private given Formatter[Visibility] =
+    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
@@ -48,6 +51,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "info"            -> infoMapping,
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "visibility"      -> optional(typeIn(Visibility.values.toSet)),
       "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
       "showScores"      -> boolean,
       "showRatingDiffs" -> boolean,
@@ -75,6 +79,7 @@ object RelayTourForm:
       name: RelayTour.Name,
       info: RelayTour.Info,
       markup: Option[Markdown] = none,
+      visibility: Option[Visibility] = none,
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
@@ -93,6 +98,7 @@ object RelayTourForm:
           name = name,
           info = info,
           markup = markup,
+          visibility = visibility | tour.visibility,
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
@@ -112,6 +118,7 @@ object RelayTourForm:
         info = info,
         markup = markup,
         ownerIds = NonEmptyList.one(me),
+        visibility = visibility | Visibility.public,
         tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         live = none,
@@ -143,6 +150,7 @@ object RelayTourForm:
           timeZone = tour.info.timeZoneOrDefault.some
         ),
         markup = tour.markup,
+        visibility = tour.visibility.some,
         tier = tour.tier,
         showScores = tour.showScores,
         showRatingDiffs = tour.showRatingDiffs,

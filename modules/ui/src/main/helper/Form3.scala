@@ -143,7 +143,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         st.id := id(field),
         name  := field.name,
         cls   := "form-control",
-        disabled.option(st.disabled := true),
+        disabled.option(st.disabled),
         required.option(st.required)
       )(validationModifiers(field))(
         default.map { option(value := "")(_) },

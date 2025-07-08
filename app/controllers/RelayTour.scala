@@ -24,8 +24,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           env.relay.pager
             .search(query, page)
             .flatMap: pager =>
-              Ok.async:
-                views.relay.tour.search(pager, query)
+              Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
             (active, past) <- env.relay.top(page)
@@ -173,20 +172,24 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def show(@nowarn slug: String, id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      env.relay.listing.defaultRoundToLink
-        .get(tour.id)
-        .flatMap:
-          case None =>
-            ctx.me
-              .soUse(env.relay.api.canUpdate(tour))
-              .flatMap:
-                if _ then Redirect(routes.RelayRound.form(tour.id))
-                else emptyBroadcastPage(tour)
-          case Some(round) => Redirect(round.withTour(tour).path)
+      if tour.isPrivate && ctx.isAnon
+      then Unauthorized.page(views.site.message.relayPrivate)
+      else
+        env.relay.listing.defaultRoundToLink
+          .get(tour.id)
+          .flatMap:
+            case None =>
+              ctx.me
+                .soUse(env.relay.api.canUpdate(tour))
+                .flatMap:
+                  if _ then Redirect(routes.RelayRound.form(tour.id))
+                  else emptyBroadcastPage(tour)
+            case Some(round) => Redirect(round.withTour(tour).path)
 
   def embedShow(@nowarn slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
-      FoundEmbed(env.relay.api.tourById(id)): tour =>
+      val tourFu = env.relay.api.tourById(id).map(_.filterNot(_.isPrivate))
+      FoundEmbed(tourFu): tour =>
         env.relay.listing.defaultRoundToLink
           .get(tour.id)
           .flatMap:
@@ -200,10 +203,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiShow(id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      for
-        trs   <- env.relay.api.withRounds(tour)
-        group <- env.relay.api.withTours.get(tour.id)
-      yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
+      if tour.isPrivate && ctx.isAnon
+      then Unauthorized(jsonError("This tournament is private"))
+      else
+        for
+          trs   <- env.relay.api.withRounds(tour)
+          group <- env.relay.api.withTours.get(tour.id)
+        yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>

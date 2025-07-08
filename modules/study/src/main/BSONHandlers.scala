@@ -369,7 +369,7 @@ object BSONHandlers:
     )
 
   import lila.core.study.Visibility
-  private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
+  given visibilityHandler: BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
     v => BSONString(v.toString)
   )
