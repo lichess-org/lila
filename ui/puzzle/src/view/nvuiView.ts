@@ -125,7 +125,6 @@ export function renderNvui({
                 )(e);
               else if (e.key.toLowerCase() === 'f') {
                 ctrl.flip();
-                ctrl.redraw();
               } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
               else if (e.key.startsWith('Arrow'))
                 nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
