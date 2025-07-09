@@ -553,7 +553,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3
           .fieldset(
             "Features",
-            toggle = tg.map(_.tour).exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable).some
+            toggle = tg
+              .map(_.tour)
+              .exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic)
+              .some
           )(
             form3.split(
               form3.checkbox(
