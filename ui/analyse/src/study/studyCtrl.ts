@@ -716,7 +716,7 @@ export default class StudyCtrl {
       this.ctrl.tree.promoteAt(position.path, d.toMainline);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
       else if (this.relay) this.ctrl.jump(d.p.path);
-      this.ctrl.treeVersion++;
+      this.ctrl.treeView.update();
       return this.redraw();
     },
     reload: () => this.xhrReload(),
