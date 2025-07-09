@@ -66,6 +66,8 @@ final class Env(
 
   private lazy val studyPropagation = wire[RelayStudyPropagation]
 
+  private lazy val tagManualOverride = wire[RelayTagManualOverride]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing = wire[RelayListing]

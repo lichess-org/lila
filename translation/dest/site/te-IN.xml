@@ -617,6 +617,8 @@
   <string name="tools">పరికరాలు</string>
   <string name="error.required">ఈ సమాచారం అవసరం</string>
   <string name="error.email_different">ఇది ఇప్పటికే మీ ఈమెయిల్ అడ్రస్</string>
+  <string name="onlyFriends">స్నేహితులు మాత్రమే</string>
+  <string name="menu">మెనూ</string>
   <string name="castling">కాస్లింగ్</string>
   <string name="whiteCastlingKingside">తెలుపు O-O</string>
   <string name="blackCastlingKingside">నలుపు O-O</string>
@@ -650,6 +652,8 @@
   <string name="aboutSimul">Simuls ఒకే ఆటగాడు ఒకేసారి అనేక మంది ఆటగాళ్లను ఎదుర్కొంటాడు.</string>
   <string name="aboutSimulImage">50 మంది ప్రత్యర్థులలో, ఫిషర్ 47 గేమ్‌లు గెలిచాడు, 2 డ్రా చేసుకున్నాడు మరియు 1 ఓడిపోయాడు.</string>
   <string name="lichessTournaments">లీచెస్స్ టోర్నమెంట్లు</string>
+  <string name="timeBeforeTournamentStarts">టోర్నమెంట్ మొదలయ్యే ముందు సమయం</string>
+  <string name="newTournament">కొత్త టోర్నమెంట్</string>
   <string name="since">నుండి</string>
   <string name="until">వరకు</string>
   <string name="lichessDbExplanation">లిచెస్ ఆటగాళ్ళందరి నుండి రేటెడ్ ఆటలు నమూనా చేయబడ్డాయి</string>

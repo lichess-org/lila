@@ -4,6 +4,7 @@ import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
+import scalalib.actor.SyncActorMap
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
@@ -12,7 +13,7 @@ import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.minimalNodeJsonWriter
-import scalalib.actor.SyncActorMap
+import lila.core.study.Visibility
 
 final private class StudySocket(
     api: StudyApi,
@@ -452,9 +453,10 @@ object StudySocket:
       given Reads[Settings.UserSelection]   = optRead(Settings.UserSelection.byKey.get)
       given Reads[chess.variant.Variant]    =
         optRead(key => chess.variant.Variant(chess.variant.Variant.LilaKey(key)))
-      given Reads[ChapterMaker.Data]          = Json.reads
-      given Reads[ChapterMaker.EditData]      = Json.reads
-      given Reads[ChapterMaker.DescData]      = Json.reads
+      given Reads[ChapterMaker.Data]     = Json.reads
+      given Reads[ChapterMaker.EditData] = Json.reads
+      given Reads[ChapterMaker.DescData] = Json.reads
+      given Reads[Visibility]            = stringRead(v => Visibility.byKey.getOrElse(v, Visibility.public))
       given studyDataReads: Reads[Study.Data] = Json.reads
       given Reads[SetTag]                     = Json.reads
       given Reads[Gamebook]                   = Json.reads
