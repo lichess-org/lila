@@ -93,15 +93,12 @@ object RelayTourForm:
   ):
 
     def update(tour: RelayTour)(using me: Me) =
-      val v = visibility | tour.visibility
       tour
         .copy(
           name = name,
           info = info,
           markup = markup,
-          visibility =
-            if tour.official then if Granter(_.Relay) then v else tour.visibility
-            else v,
+          visibility = visibility.ifTrue(!tour.official || Granter(_.Relay)) | tour.visibility,
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
