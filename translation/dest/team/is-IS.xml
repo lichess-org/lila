@@ -29,9 +29,14 @@
   <string name="closeTeam">Loka liði</string>
   <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
   <string name="incorrectEntryCode">Rangur aðgöngukóði.</string>
+  <string name="teamAlreadyExists">Þetta lið er nú þegar til.</string>
   <string name="upcomingTournaments">Mót á döfinni</string>
   <string name="completedTourns">Lokin mót</string>
   <string name="declinedRequests">Hafnaðar beiðnir</string>
   <string name="teamPage">Liðssíða</string>
   <string name="innerTeam">Innra liðið</string>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Einn liðstjóri á lið</item>
+    <item quantity="other">%s liðsstjórar á lið</item>
+  </plurals>
 </resources>

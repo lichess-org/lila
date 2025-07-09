@@ -11,6 +11,7 @@ import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -181,6 +182,9 @@ final class Env(
   lazy val coreApi = new lila.core.security.SecurityApi:
     export api.shareAnIpOrFp
     export userLogins.getUserIdsWithSameIpAndPrint
+
+  Bus.sub[lila.core.security.AskAreRelated]: ask =>
+    ask.promise.completeWith(api.shareAnIpOrFp.tupled(ask.users))
 
 private trait Proxy2faSetting
 private trait MobileSignupProxy

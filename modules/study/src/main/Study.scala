@@ -119,7 +119,7 @@ object Study:
   case class Data(
       name: String,
       flair: Option[String],
-      visibility: String,
+      visibility: Visibility,
       computer: Settings.UserSelection,
       explorer: Settings.UserSelection,
       cloneable: Settings.UserSelection,
@@ -128,7 +128,6 @@ object Study:
       sticky: String,
       description: String
   ):
-    def vis      = Visibility.byKey.getOrElse(visibility, Visibility.public)
     def settings =
       Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 

@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
+import lila.core.study.Visibility
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -572,6 +573,20 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 trans.team.teamTournament(),
                 help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
+              ),
+              form3.group(
+                form("visibility"),
+                trans.study.visibility(),
+                half = true
+              )(
+                form3.select(
+                  _,
+                  List(
+                    Visibility.public.key    -> "Public",
+                    Visibility.unlisted.key  -> "Unlisted (from URL only)",
+                    Visibility.`private`.key -> "Private (invited members only)"
+                  )
+                )
               )
             )
           ),
@@ -625,7 +640,7 @@ Team Dogs ; Scooby Doo"""),
                 form3.group(
                   form("tier"),
                   raw("Official Lichess broadcast tier"),
-                  help = raw("Feature on /broadcast - for admins only").some,
+                  help = raw("Priority and ranking - for admins only").some,
                   half = true
                 )(form3.select(_, RelayTour.Tier.options)),
                 Granter
