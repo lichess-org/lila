@@ -98,7 +98,7 @@ object RelayTourForm:
           name = name,
           info = info,
           markup = markup,
-          visibility = visibility | tour.visibility,
+          visibility = visibility.ifTrue(!tour.official || Granter(_.Relay)) | tour.visibility,
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
