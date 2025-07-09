@@ -71,8 +71,8 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="whichTeamWillYouRepresentInThisBattle">Którą drużynę będziesz reprezentował w tej bitwie?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musisz dołączyć do jednej z tych drużyn aby wziąć udział!</string>
   <string name="created">Utworzono</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Ostatnio rozegrane</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Najlepsze wyniki</string>
+  <string name="recentlyPlayed">Ostatnio rozegrane</string>
+  <string name="bestResults">Najlepsze wyniki</string>
   <string name="tournamentStats">Statystyki turniejowe</string>
   <string name="rankAvgHelp">Średnia ranga to procent twojego rankingu. Niższa jest lepsza.
 
@@ -88,5 +88,5 @@ Na przykład, będąc 3 w rankingu turnieju liczącym 100 graczy = 3%. Będąc 1
   <string name="onlyTitled">Tylko gracze z tytułem</string>
   <string name="onlyTitledHelp">Wymagany oficjalny tytuł, aby dołączyć do turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Udział berserków</string>
+  <string name="berserkRate">Udział berserków</string>
 </resources>

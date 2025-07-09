@@ -33,6 +33,9 @@
   <string name="streamerLanguageSettings">صفحة البث Lichess تستهدف جمهورك مع اللغة التي توفرها منصة البث الخاصة بك. قم بتعيين اللغة الافتراضية الصحيحة لبث الشطرنج الخاص بك في التطبيق أو الخدمة التي تستخدمها للبث.</string>
   <string name="twitchUsername">اسم مستخدم تويتش أو عنوان URL الخاص بك</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">مطلوب إما تويتش أو يوتيوب</string>
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">يجب التحقق من تغييرات Twitch وYoutube.
+  
+  سيتم تعليق شارتك وبثك أثناء عملية المراجعة. قد يستغرق ذلك ما يصل إلى 72 ساعة.</string>
   <string name="youTubeChannelId">معرف قناتك على اليوتيوب</string>
   <string name="streamerName">اسم البث الخاص بك على Lichess</string>
   <plurals name="keepItShort">

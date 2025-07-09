@@ -110,3 +110,5 @@ opaque type UserTrust = Boolean
 object UserTrust extends YesNo[UserTrust]
 trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
+
+case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])

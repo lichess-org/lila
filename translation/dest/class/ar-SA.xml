@@ -61,6 +61,8 @@
     <item quantity="many">%s دعوة معلقة</item>
     <item quantity="other">%s دعوة معلقة</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">قيد الانتظار</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">تم الرفض</string>
   <string name="onlyVisibleToTeachers">ظاهر فقط لمعلمى الفصل</string>
   <string name="lastActiveDate">ناشط</string>
   <string name="managed">تحت ادارة</string>
@@ -126,4 +128,6 @@
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">تم إرسال الدعوة الى %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s لديه دعوة معلقة بالفعل</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s حساب طفل ولا يمكنه استلام رسالتك. يجب أن تعطيهم عنوان URL للدعوة يدوياً: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">نقل إلى %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">نقل إلى صف آخر</string>
 </resources>

@@ -4,13 +4,14 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import io.mola.galimatias.URL
+import java.time.ZoneId
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
-import java.time.ZoneId
+import lila.core.study.Visibility
 
-final class RelayTourForm(langList: lila.core.i18n.LangList):
+final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
   import RelayTourForm.*
 
@@ -40,6 +41,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
 
+  private given Formatter[Visibility] =
+    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
@@ -48,6 +51,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "info"            -> infoMapping,
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "visibility"      -> optional(typeIn(Visibility.values.toSet)),
       "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
       "showScores"      -> boolean,
       "showRatingDiffs" -> boolean,
@@ -59,7 +63,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
       "spotlight"    -> optional(spotlightMapping),
-      "grouping"     -> RelayGroup.form.mapping,
+      "grouping"     -> groupForm.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping),
       "note"         -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
@@ -67,7 +71,29 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   def create = form
 
-  def edit(t: RelayTour.WithGroupTours) = form.fill(Data.make(t))
+  def edit(t: RelayTour.WithGroupTours) = form.fill(makeData(t))
+
+  private def makeData(tg: RelayTour.WithGroupTours) =
+    import tg.*
+    Data(
+      name = tour.name,
+      info = tour.info.copy(
+        fideTc = tour.info.fideTcOrGuess.some,
+        timeZone = tour.info.timeZoneOrDefault.some
+      ),
+      markup = tour.markup,
+      visibility = tour.visibility.some,
+      tier = tour.tier,
+      showScores = tour.showScores,
+      showRatingDiffs = tour.showRatingDiffs,
+      teamTable = tour.teamTable,
+      players = tour.players,
+      teams = tour.teams,
+      spotlight = tour.spotlight,
+      grouping = group.map(groupForm.data),
+      pinnedStream = tour.pinnedStream,
+      note = tour.note
+    )
 
 object RelayTourForm:
 
@@ -75,6 +101,7 @@ object RelayTourForm:
       name: RelayTour.Name,
       info: RelayTour.Info,
       markup: Option[Markdown] = none,
+      visibility: Option[Visibility] = none,
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
@@ -82,7 +109,7 @@ object RelayTourForm:
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,
       spotlight: Option[RelayTour.Spotlight] = none,
-      grouping: Option[RelayGroup.form.Data] = none,
+      grouping: Option[RelayGroupData] = none,
       pinnedStream: Option[RelayPinnedStream] = none,
       note: Option[String] = none
   ):
@@ -93,6 +120,7 @@ object RelayTourForm:
           name = name,
           info = info,
           markup = markup,
+          visibility = visibility.ifTrue(!tour.official || Granter(_.Relay)) | tour.visibility,
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
@@ -112,6 +140,7 @@ object RelayTourForm:
         info = info,
         markup = markup,
         ownerIds = NonEmptyList.one(me),
+        visibility = visibility | Visibility.public,
         tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         live = none,
@@ -133,24 +162,3 @@ object RelayTourForm:
       RelayTour.Name(""),
       RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
     )
-
-    def make(tg: RelayTour.WithGroupTours) =
-      import tg.*
-      Data(
-        name = tour.name,
-        info = tour.info.copy(
-          fideTc = tour.info.fideTcOrGuess.some,
-          timeZone = tour.info.timeZoneOrDefault.some
-        ),
-        markup = tour.markup,
-        tier = tour.tier,
-        showScores = tour.showScores,
-        showRatingDiffs = tour.showRatingDiffs,
-        teamTable = tour.teamTable,
-        players = tour.players,
-        teams = tour.teams,
-        spotlight = tour.spotlight,
-        grouping = group.map(RelayGroup.form.Data.apply),
-        pinnedStream = tour.pinnedStream,
-        note = tour.note
-      )

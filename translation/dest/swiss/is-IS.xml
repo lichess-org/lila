@@ -2,15 +2,56 @@
 <resources>
   <string name="swiss">Swiss</string>
   <string name="swissTournaments">Swiss-mót</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Skoða umferðina</item>
+    <item quantity="other">Skoða allar %s umferðir</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Swiss-umferð</item>
+    <item quantity="other">%s Swiss-umferðir</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Ein umferð á dag</item>
+    <item quantity="other">Ein umferð á %s daga fresti</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Umferðir eru byrjaðar handvirkt</string>
+  <string name="nextRound">Næsta umferð</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Skák í gangi</item>
+    <item quantity="other">Skákir í gangi</item>
+  </plurals>
+  <string name="tournStartDate">Upphafsdagur móts</string>
+  <string name="forbiddenPairings">Forboðnar mætingar</string>
+  <string name="newSwiss">Nýtt Swiss-mót</string>
+  <string name="pointsCalculationQ">Hvernig eru stig reiknuð út?</string>
+  <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
+  <string name="FIDEHandbook">Handbók alþjóðaskáksambandsins</string>
+  <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
+  <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
+Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
+  <string name="numberOfByesQ">Hversu oft getur leikmaður verið stakur?</string>
+  <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
+  <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
-  <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir spilarar leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. Það sem líkist hringhana á netinu best er að spila Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar spilaðar áður en mótinu lýkur.</string>
+  <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir spilarar leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. 
+Það sem líkist hringhana á netinu best er að spila Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar spilaðar áður en mótinu lýkur.</string>
   <string name="nowPlaying">Í afspilun núna</string>
   <string name="startingSoon">Hefst senn</string>
+  <string name="comparison">Samanburður</string>
+  <string name="numberOfGames">Fjöldi skáka</string>
+  <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
   <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum leikmönnum</string>
   <string name="identicalPairing">Nákvæmlega eins mætingar</string>
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
+  <string name="lateJoin">Seinlegar þátttökur</string>
+  <string name="pause">Pása</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
+  <string name="playYourGames">Tefldu skákir þínar</string>
+  <string name="byes">Stökur</string>
+  <string name="absences">Fjarvistir</string>
+  <string name="tieBreak">Bráðabani</string>
 </resources>

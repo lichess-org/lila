@@ -20,7 +20,7 @@ object Rewind:
           players = game.players.map(_.removeTakebackProposition),
           chess = rewindedGame.copy(clock = newClock),
           binaryMoveTimes = game.binaryMoveTimes.map { binary =>
-            val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
+            val moveTimes = BinaryFormat.moveTime.read(binary, game.playedPlies)
             BinaryFormat.moveTime.write(moveTimes.dropRight(1))
           },
           loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),

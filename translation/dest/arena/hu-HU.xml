@@ -67,8 +67,8 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod reprezentálni ebben a versenyben?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz hogy részt vehess!</string>
   <string name="created">Létrehozva</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nemrég játszott</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Legjobb eredmények</string>
+  <string name="recentlyPlayed">Nemrég játszott</string>
+  <string name="bestResults">Legjobb eredmények</string>
   <string name="tournamentStats">Verseny statisztikák</string>
   <string name="rankAvgHelp">A helyezés átlag az egy százaléka a helyezésednek. Alacsonyabb jobb.
 

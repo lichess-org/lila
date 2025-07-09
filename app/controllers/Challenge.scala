@@ -53,38 +53,35 @@ final class Challenge(env: Env) extends LilaController(env):
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using ctx: Context): Fu[Result] =
-    env.challenge
-      .version(c.id)
-      .flatMap { version =>
-        val mine                         = justCreated || isMine(c)
-        val direction: Option[Direction] =
-          if mine then Direction.Out.some
-          else if isForMe(c) then Direction.In.some
-          else none
-        val json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
-        negotiate(
-          html =
-            val color = get("color").flatMap(Color.fromName)
-            if mine then
-              ctx.userId
-                .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
-                .flatMap(env.user.lightUserApi.asyncManyFallback)
-                .flatMap: friends =>
-                  error match
-                    case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
-                    case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
-            else
-              Ok.async:
-                c.challengerUserId
-                  .so(env.user.api.byIdWithPerf(_, c.perfType))
-                  .map:
-                    views.challenge.theirs(c, json, _, color)
-          ,
-          json = Ok(json)
-        ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-      }
-      .map(env.security.lilaCookie.ensure(ctx.req))
+  )(using ctx: Context): Fu[Result] = for
+    version <- env.challenge.version(c.id)
+    mine                         = justCreated || isMine(c)
+    direction: Option[Direction] =
+      if mine then Direction.Out.some
+      else if isForMe(c) then Direction.In.some
+      else none
+    json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
+    res <- negotiate(
+      html =
+        val color = get("color").flatMap(Color.fromName)
+        if mine then
+          ctx.userId
+            .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
+            .flatMap(env.user.lightUserApi.asyncManyFallback)
+            .flatMap: friends =>
+              error match
+                case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
+                case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
+        else
+          Ok.async:
+            for
+              challenger <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
+              relation   <- (ctx.userId, c.challengerUserId).tupled.so(env.relation.api.fetchRelation.tupled)
+            yield views.challenge.theirs(c, json, challenger, color, relation)
+      ,
+      json = Ok(json)
+    ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
+  yield env.security.lilaCookie.ensure(ctx.req)(res)
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
@@ -310,23 +307,23 @@ final class Challenge(env: Env) extends LilaController(env):
                                     JsonBadRequest:
                                       jsonError(lila.challenge.ChallengeDenied.translated(denied))
                                 case _ =>
-                                  env.challenge.api.create(challenge).flatMap {
-                                    if _ then
-                                      ctx.isMobileOauth
-                                        .so(env.challenge.version(challenge.id).dmap(some))
-                                        .map: socketVersion =>
-                                          val json = env.challenge.jsonView
-                                            .apiAndMobile(
-                                              challenge,
-                                              socketVersion,
-                                              lila.challenge.Direction.Out.some
-                                            )
+                                  env.challenge.api.delayedCreate(challenge).flatMap {
+                                    case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                    case Some(createNow) =>
+                                      for
+                                        socket <- ctx.isMobileOauth.soFu(env.challenge.version(challenge.id))
+                                        json = env.challenge.jsonView.apiAndMobile(
+                                          challenge,
+                                          socket,
+                                          lila.challenge.Direction.Out.some
+                                        )
+                                        res <-
                                           if config.keepAliveStream then
-                                            jsOptToNdJson:
-                                              ndJson
-                                                .addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                          else JsonOk(json)
-                                    else JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                            val stream =
+                                              env.challenge.keepAliveStream(challenge, json)(createNow)
+                                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
+                                          else for _ <- createNow() yield JsonOk(json)
+                                      yield res
                                   }
                             yield res
               }

@@ -4,7 +4,7 @@ import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
-import chess.{ Centis, Ply }
+import chess.{ Centis, Ply, Position }
 
 object TreeBuilder:
 
@@ -22,82 +22,78 @@ object TreeBuilder:
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
+    val setup                              = chess.Position.AndFullMoveNumber(game.variant, initialFen)
+    val fen                                = Fen.write(setup)
+    val infos: Vector[Info]                = analysis.so(_.infos.toVector)
+    val openingOf: OpeningOf               =
+      if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
+      then OpeningDb.findByFullFen
+      else _ => None
+    val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
 
-    chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
-      case (init, games, error) =>
-        error.foreach: err =>
-          logChessError(formatError(game.id, err))
+    val root = Root(
+      ply = setup.ply,
+      fen = fen,
+      check = setup.position.check,
+      opening = openingOf(fen),
+      clock = withFlags.clocks.so:
+        game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
+      ,
+      crazyData = setup.position.crazyData,
+      eval = infos.lift(0).map(makeEval)
+    )
 
-        val openingOf: OpeningOf =
-          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
-          then OpeningDb.findByFullFen
-          else _ => None
+    def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =
+      val fen    = Fen.write(move.after, ply.fullMoveNumber)
+      val index  = (ply - setup.ply - 1).value
+      val info   = infos.lift(index)
+      val advice = advices.get(ply)
 
-        val fen                       = Fen.write(init)
-        val infos: Vector[Info]       = analysis.so(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
-
-        val root = Root(
-          ply = init.ply,
-          fen = fen,
-          check = init.position.check,
-          opening = openingOf(fen),
-          clock = withFlags.clocks.so:
-            game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
-          ,
-          crazyData = init.position.crazyData,
-          eval = infos.lift(0).map(makeEval)
+      val branch = Branch(
+        id = UciCharPair(move.toUci),
+        ply = ply,
+        move = Uci.WithSan(move.toUci, move.toSanStr),
+        fen = fen,
+        check = move.after.check,
+        opening = openingOf(fen),
+        clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
+        crazyData = move.after.crazyData,
+        eval = info.map(makeEval),
+        glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+        comments = Node.Comments(
+          drawOfferPlies(ply)
+            .option(makeLichessComment(Comment(s"${!ply.turn} offers draw")))
+            .toList :::
+            advice
+              .map(_.makeComment(withEval = false, withBestMove = true))
+              .toList
+              .map(makeLichessComment)
         )
+      )
 
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan): Branch =
-          val fen    = Fen.write(g)
-          val info   = infos.lift(index - 1)
-          val advice = advices.get(g.ply)
+      advices
+        .get(ply + 1)
+        .map { adv =>
+          withAnalysisChild(
+            game.id,
+            branch,
+            move.after,
+            ply,
+            openingOf,
+            logChessError
+          )(adv.info)
+        }
+        .getOrElse(branch)
 
-          val branch = Branch(
-            id = UciCharPair(m.uci),
-            ply = g.ply,
-            move = m,
-            fen = fen,
-            check = g.position.check,
-            opening = openingOf(fen),
-            clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)).map(Clock(_)),
-            crazyData = g.position.crazyData,
-            eval = info.map(makeEval),
-            glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
-            comments = Node.Comments(
-              drawOfferPlies(g.ply)
-                .option(makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
-                .toList :::
-                advice
-                  .map(_.makeComment(withEval = false, withBestMove = true))
-                  .toList
-                  .map(makeLichessComment)
-            )
-          )
+    val (result, error) = setup.position.foldRight(game.sans, setup.ply)(
+      none[Branch],
+      (step, acc) =>
+        inline def branch = makeBranch(step.move, step.ply)
+        acc.fold(branch)(acc => branch.prependChild(acc)).some
+    )
 
-          advices
-            .get(g.ply + 1)
-            .flatMap { adv =>
-              games.lift(index - 1).map { case (fromGame, _) =>
-                withAnalysisChild(
-                  game.id,
-                  branch,
-                  game.variant,
-                  Fen.write(fromGame),
-                  openingOf,
-                  logChessError
-                )(adv.info)
-              }
-            }
-            .getOrElse(branch)
-
-        games.zipWithIndex.reverse match
-          case Nil                 => root
-          case ((g, m), i) :: rest =>
-            root.prependChild(rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
-              makeBranch(i + 1, g, m).prependChild(node)
-            })
+    error.foreach(err => logChessError(formatError(game.id, err)))
+    result.fold(root)(b => root.prependChild(b))
 
   private[tree] def makeLichessComment(c: Comment) =
     Node.Comment(
@@ -109,39 +105,35 @@ object TreeBuilder:
   private def withAnalysisChild(
       id: GameId,
       root: Branch,
-      variant: Variant,
-      fromFen: Fen.Full,
+      position: Position,
+      ply: Ply,
       openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Branch =
 
-    def makeBranch(g: chess.Game, m: Uci.WithSan) =
-      val fen = Fen.write(g)
+    def makeBranch(m: chess.MoveOrDrop, ply: Ply): Branch =
+      val fen = Fen.write(m.after, ply.fullMoveNumber)
       Branch(
-        id = UciCharPair(m.uci),
-        ply = g.ply,
-        move = m,
+        id = UciCharPair(m.toUci),
+        ply = ply,
+        move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = fen,
-        check = g.position.check,
+        check = m.after.position.check,
         opening = openingOf(fen),
-        crazyData = g.position.crazyData,
+        crazyData = m.after.position.crazyData,
         eval = none
       )
 
-    chess.Replay.gameMoveWhileValid(info.variation.take(20), fromFen, variant) match
-      case (_, games, error) =>
-        error.foreach: err =>
-          logChessError(formatError(id, err))
-        games.reverse match
-          case Nil            => root
-          case (g, m) :: rest =>
-            root.addChild(
-              rest
-                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
-                  makeBranch(g, m).addChild(node)
-                }
-                .setComp
-            )
+    val (result, error) = position
+      .foldRight(info.variation.take(20), ply)(
+        none[Branch],
+        (step, acc) =>
+          inline def branch = makeBranch(step.move, step.ply)
+          acc.fold(branch)(acc => branch.addChild(acc)).some
+      )
+
+    error.foreach(e => logChessError(formatError(id, e)))
+    result.fold(root)(b => root.addChild(b.setComp))
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"

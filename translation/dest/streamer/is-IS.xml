@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Streymarar á Lichess</string>
+  <string name="lichessStreamer">Streymari á Lichess</string>
   <string name="live">Í BEINNI!</string>
   <string name="offline">AFLÍNIS</string>
   <string name="currentlyStreaming">Nú að streyma: %s</string>
@@ -36,4 +38,17 @@
   Streymismerkið þitt og listun verða lokuð á meðan farið er yfir. Þetta getur tekið allt að 72 klukkustundir.</string>
   <string name="youTubeChannelId">YouTube-rásarauðkennið þitt</string>
   <string name="streamerName">Streymaranafn þitt á Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Hafðu það stutt: %s stafur að hámarki</item>
+    <item quantity="other">Hafðu það stutt: %s stafir að hámarki</item>
+  </plurals>
+  <string name="visibility">Sýnilegt á síðu streymara</string>
+  <string name="whenApproved">Við samþykki umsjónarmanna</string>
+  <string name="headline">Fyrirsögn</string>
+  <string name="tellUsAboutTheStream">Segðu okkur frá streymi þínu í einni setningu</string>
+  <string name="longDescription">Ýtarleg lýsing</string>
+  <string name="xStreamerPicture">Streymaramynd %s</string>
+  <string name="changePicture">Breyta/eyða myndinni þinni</string>
+  <string name="uploadPicture">Hlaða inn mynd</string>
+  <string name="maxSize">Hámarksstærð: %s</string>
 </resources>

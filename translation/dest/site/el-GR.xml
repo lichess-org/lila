@@ -801,8 +801,8 @@
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
-  <string name="light">Φωτεινό</string>
-  <string name="dark">Σκοτεινό</string>
+  <string name="light">Ανοιχτόχρωμο</string>
+  <string name="dark">Σκουρόχρωμο</string>
   <string name="transparent">Διάφανο</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>

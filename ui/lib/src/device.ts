@@ -108,8 +108,10 @@ export const isWebkit = (constraint?: VersionConstraint): boolean =>
 export const isIosChrome = (constraint?: VersionConstraint): boolean =>
   lowerAgent.includes('crios/') && isVersionCompatible(webkitVersion(), constraint);
 
-export const isApple: () => boolean = memoize<boolean>(
-  () => /macintosh|iphone|ipad|ipod/.test(lowerAgent), // macOS or iOS
+export const isApple: () => boolean = memoize<boolean>(() => /macintosh|iphone|ipad|ipod/.test(lowerAgent));
+
+export const isMac: () => boolean = memoize<boolean>(
+  () => lowerAgent.includes('macintosh') && !('ontouchstart' in window),
 );
 
 const webkitVersion = memoize<string | false>(

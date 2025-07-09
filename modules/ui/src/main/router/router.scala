@@ -9,6 +9,7 @@ package routes:
   export lila.core.i18n.Language
   export lila.core.id.*
   export lila.core.userId.UserStr
+  export lila.core.user.FlagCode
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
   export lila.core.study.Order as StudyOrder
@@ -23,6 +24,7 @@ package router.router:
   export lila.core.i18n.Language
   export lila.core.id.*
   export lila.core.userId.UserStr
+  export lila.core.user.FlagCode
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
   export lila.core.study.Order as StudyOrder

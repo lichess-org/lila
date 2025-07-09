@@ -64,11 +64,10 @@ object TutorCompare:
     val half = ~scalalib.Maths.divideRoundUp(nb, 2)
     comparisons.partition(_.better) match
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
-  }.sorted(using compOrder.reverse).take(nb)
+  }.sortedReverse.take(nb)
 
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
-    comparisons
-      .sorted(using compOrder.reverse)
+    comparisons.sortedReverse
       .foldLeft(Vector.empty[AnyComparison]):
         case (Vector(), c)                          => Vector(c)
         case (acc, _) if acc.size >= nb             => acc

@@ -2,6 +2,7 @@ package lila.security
 
 import lila.user.UserRepo
 import lila.core.security.UserTrust
+import lila.core.user.FlagCode
 
 private final class UserTrustApi(
     cacheApi: lila.memo.CacheApi,
@@ -57,7 +58,7 @@ private final class UserTrustApi(
   private def looksLikeKnownAbuser(user: User): Boolean = List(
     user.count.lossH < 2,
     user.lang.has(scalalib.model.LangTag("tr-TR")),
-    user.profile.flatMap(_.flag).has("TR"),
+    user.profile.flatMap(_.flag).has(FlagCode("TR")),
     user.flair.isDefined,
     user.id.value.takeRight(2).forall(_.isDigit)
   ).count(identity) > 3

@@ -21,7 +21,7 @@
   <string name="asWhite">sem hvítur</string>
   <string name="asBlack">sem svartur</string>
   <string name="randomColor">Handahófsvalinn litur</string>
-  <string name="createAGame">Hefja leik</string>
+  <string name="createAGame">Byrja að tefla</string>
   <string name="createTheGame">Byrjar að tefla</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
@@ -177,8 +177,8 @@
     <item quantity="other">%1$s stig eftir %2$s skákir</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s geymd</item>
-    <item quantity="other">%s geymdar</item>
+    <item quantity="one">%s bókamerkt</item>
+    <item quantity="other">%s bókamerktar</item>
   </plurals>
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
@@ -231,7 +231,7 @@
   <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
-  <string name="passwordReset">Endurstilling lykilorðs</string>
+  <string name="passwordReset">endurstillingu lykilorðs</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="error.weakPassword">Þetta lykilorð er afar algengt, og ansi auðvelt að geta.</string>
   <string name="error.namePassword">Vinsamlegast ekki nota notandanafnið þitt sem lykilorðið.</string>
@@ -405,7 +405,7 @@
   <string name="mustBeInTeam">Þú verður að vera í liðinu %s</string>
   <string name="youAreNotInTeam">Þú ert ekki í liðinu %s</string>
   <string name="backToGame">Aftur í skákina</string>
-  <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
+  <string name="siteDescription">Ókeypis netþjónn fyrir vefskák. Tefldu í þægilegu umhverfi. Engin nýskráning, engar auglýsingar, engar viðbætur nauðsynlegar. Tefldu á móti tölvu, vinum eða handahófsvöldum andstæðingum.</string>
   <string name="xJoinedTeamY">%1$s gekk í liðið %2$s</string>
   <string name="xCreatedTeamY">%1$s stofnaði liðið %2$s</string>
   <string name="startedStreaming">byrjaði að streyma</string>
@@ -441,8 +441,8 @@
   <string name="reconnecting">Tengja aftur</string>
   <string name="noNetwork">Aflínis</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s vinur tengdur</item>
-    <item quantity="other">%s vinir tengdir</item>
+    <item quantity="one">%s vinur álínis</item>
+    <item quantity="other">%s vinir álínis</item>
   </plurals>
   <string name="favoriteOpponents">Uppáhaldsandstæðingar</string>
   <string name="follow">Fylgja</string>
@@ -464,7 +464,7 @@
   </plurals>
   <string name="more">Meira</string>
   <string name="memberSince">Meðlimur síðan</string>
-  <string name="lastSeenActive">Síðast tengdur %s</string>
+  <string name="lastSeenActive">Síðast álínís %s</string>
   <string name="player">Skákmenn</string>
   <string name="list">Listi</string>
   <string name="graph">Graf</string>
@@ -543,7 +543,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Skipta sjálfkrafa yfir í næstu skák eftir leik</string>
   <string name="autoSwitch">Skipta sjálfkrafa</string>
   <string name="puzzles">Þrautir</string>
-  <string name="onlineBots">Tengdir þjarkar</string>
+  <string name="onlineBots">Álínis þjarkar</string>
   <string name="name">Nafn</string>
   <string name="description">Lýsing</string>
   <string name="descPrivate">Afvikin lýsing</string>
@@ -688,10 +688,10 @@
   <string name="noSimulExplanation">Þetta fjöltefli er ekki til.</string>
   <string name="returnToSimulHomepage">Aftur á heimasíðu fjöltefla</string>
   <string name="aboutSimul">Fjöltefli felur í sér einn leikmann gegn mörgum í einu.</string>
-  <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við 2 og tapaði gegn 1.</string>
+  <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við tvo og tapaði gegn einum.</string>
   <string name="aboutSimulRealLife">Hugmyndin er fengin úr raunheiminum. Í raunheiminum felst þetta í því að gestgjafi fjölteflisins gengur á milli borða og leikur einn leik í senn.</string>
   <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver taflmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
-  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru óvirk.</string>
+  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru ekki í boði.</string>
   <string name="create">Búa til</string>
   <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga leikmenn samtímis.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
@@ -809,7 +809,7 @@
   <string name="coaches">Þjálfarar</string>
   <string name="invalidPgn">Ógilt PGN</string>
   <string name="invalidFen">Ógilt FEN</string>
-  <string name="custom">Sérsniðinn</string>
+  <string name="custom">Sérsniðin</string>
   <string name="notifications">Tilkynningar</string>
   <string name="notificationsX">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
@@ -860,6 +860,7 @@
   <string name="middlegame">Miðtafl</string>
   <string name="endgame">Endatafl</string>
   <string name="conditionalPremoves">Skilyrtir fyrirframgefnir leikir</string>
+  <string name="addCurrentVariation">Bæta núverandi afbrigði við</string>
   <string name="noConditionalPremoves">Engir skilyrtir fyrirframgefnir leikir</string>
   <string name="playX">Leika %s</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>

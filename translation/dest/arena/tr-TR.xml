@@ -66,8 +66,8 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="whichTeamWillYouRepresentInThisBattle">Bu mücadelede hangi takımı temsil edeceksiniz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Katılmak için bu takımlardan birine katılmanız gerekir!</string>
   <string name="created">Oluşturuldu</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Son oynananlar</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">En iyi sonuçlar</string>
+  <string name="recentlyPlayed">Son oynananlar</string>
+  <string name="bestResults">En iyi sonuçlar</string>
   <string name="tournamentStats">Turnuva istatistikleri</string>
   <string name="rankAvgHelp">Sıralama ortalaması, sıralamanızın yüzdesidir. Daha düşük olması daha iyidir.
 
@@ -83,5 +83,5 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="onlyTitled">Sadece unvanlı oyuncular</string>
   <string name="onlyTitledHelp">Turnuvaya katılmak için resmî bir unvana sahip olmayı iste</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Divane oranı</string>
+  <string name="berserkRate">Divane oranı</string>
 </resources>

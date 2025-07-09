@@ -160,12 +160,14 @@ final class RelayRound(
     Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
       studyC.CanView(study)(
         for
-          group       <- env.relay.api.withTours.get(rt.tour.id)
-          previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-          targetRound <- env.relay.api.officialTarget(rt.round)
-          sVersion    <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
+          group        <- env.relay.api.withTours.get(rt.tour.id)
+          previews     <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+          targetRound  <- env.relay.api.officialTarget(rt.round)
+          isSubscribed <- ctx.me.soFu(me => env.relay.api.isSubscribed(rt.tour.id, me.userId))
+          sVersion     <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
         yield JsonOk:
-          env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, sVersion)
+          env.relay.jsonView
+            .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:

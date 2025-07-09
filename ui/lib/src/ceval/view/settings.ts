@@ -9,17 +9,7 @@ import { onClickAway } from '../../common';
 import { clamp } from '../../algo';
 import { confirm } from '../../view/dialogs';
 
-const allSearchTicks: [number, string][] = [
-  [4000, '4s'],
-  [6000, '6s'],
-  [8000, '8s'],
-  [10000, '10s'],
-  [12000, '12s'],
-  [15000, '15s'],
-  [20000, '20s'],
-  [30000, '30s'],
-  [Number.POSITIVE_INFINITY, '∞'],
-];
+const allSearchTicks = [4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
@@ -28,7 +18,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
     engCtrl = ctrl.getCeval().engines,
-    searchTicks = allSearchTicks.filter(x => x[0] <= ceval.engines.maxMovetime);
+    searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
 
   let observer: ResizeObserver;
 
@@ -45,7 +35,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
   function searchTick() {
     const millis = ceval.storedMovetime();
     return clamp(
-      allSearchTicks.findIndex(([tickMs]) => tickMs >= millis),
+      allSearchTicks.findIndex(tickSecs => tickSecs * 1000 >= millis),
       { min: 0, max: searchTicks.length - 1 },
     );
   }
@@ -69,15 +59,24 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
             !ceval.customSearch &&
               (id => {
                 return hl('div.setting', { attrs: { title: 'Set time to evaluate fresh positions' } }, [
-                  hl('label', 'Search time'),
+                  hl('label', { attrs: { for: id } }, 'Search time'),
                   hl('input#' + id, {
-                    attrs: { type: 'range', min: 0, max: searchTicks.length - 1, step: 1 },
+                    attrs: {
+                      type: 'range',
+                      min: 0,
+                      max: searchTicks.length - 1,
+                      step: 1,
+                      'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
+                    },
                     hook: rangeConfig(searchTick, n => {
-                      ceval.storedMovetime(searchTicks[n][0]);
+                      ceval.storedMovetime(searchTicks[n] * 1000);
                       ctrl.restartCeval?.();
                     }),
                   }),
-                  hl('div.range_value', searchTicks[searchTick()][1]),
+                  hl(
+                    'div.range_value',
+                    isFinite(searchTicks[searchTick()]) ? `${searchTicks[searchTick()]}s` : '∞',
+                  ),
                 ]);
               })('engine-search-ms'),
             !ceval.customSearch &&
@@ -160,6 +159,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
                     step: 1,
                     disabled: ceval.maxHash <= 16,
+                    'aria-valuetext': `${ceval.hashSize} megabytes`,
                   },
                   hook: rangeConfig(
                     () => Math.floor(Math.log2(ceval.hashSize)),
