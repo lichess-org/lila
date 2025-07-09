@@ -39,17 +39,22 @@ final private class FarmBoostDetection(
     g.sourceIs(_.Friend)
       .so(g.winnerColor)
       .map(users(_))
-      .filterNot(_.user.createdSinceDays(15))
+      .filterNot(_.user.createdSinceDays(5))
       .so: winner =>
-        val perf       = winner.perfs(g.perfKey)
-        val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
-        def minMoves   =
+        val perf              = winner.perfs(g.perfKey)
+        val minSeconds        = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
+        def minPliesForPerfNb =
           if g.variant.standard
           then linearInterpolation(perf.nb)(0 -> 40, 5 -> 20)
           else reasonableMinimumNumberOfMoves(g.variant)
+        def minPliesForLoserRating =
+          g.variant.standard
+            .so(g.loser.flatMap(_.rating))
+            .map: rating =>
+              linearInterpolation(rating.value)(1500 -> 10, 2500 -> 40)
         val found = (
           perf.provisional.yes &&
-            g.playedPlies < minMoves &&
+            (g.playedPlies < minPliesForPerfNb || minPliesForLoserRating.exists(g.playedPlies < _)) &&
             g.durationSeconds.exists(_ < minSeconds)
         ) || (
           g.playedPlies < 10

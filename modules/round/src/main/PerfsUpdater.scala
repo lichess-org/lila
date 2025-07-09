@@ -21,10 +21,9 @@ final class PerfsUpdater(
     (game.rated.yes && game.finished && (game.playedPlies >= 2 || game.isTournament)).so:
       for
         isBotFarming <- farming.botFarming(game)
-        result       <-
-          isBotFarming.not.so:
-            (!farming.newAccountBoosting(game, users)).so:
-              calculateRatingAndPerfs(game, users).so(saveRatings(game.id, users))
+        result       <- (!isBotFarming && !farming.newAccountBoosting(game, users)).so:
+          calculateRatingAndPerfs(game, users).so:
+            saveRatings(game.id, users)
       yield result
 
   private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]): Option[
