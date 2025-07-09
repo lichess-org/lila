@@ -23,6 +23,7 @@ import {
   possibleMovesHandler,
   renderPockets,
   pocketsStr,
+  leaveSquareHandler,
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
@@ -48,6 +49,7 @@ import { renderRetro } from '../retrospect/nvuiRetroView';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import type { AnalyseNvuiContext } from '../analyse.nvui';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -233,7 +235,7 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
 }
 
 function boardEventsHook(
-  { ctrl, pieceStyle, prefixStyle, notify }: AnalyseNvuiContext,
+  { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
   el: HTMLElement,
 ): void {
   const $board = $(el);
@@ -241,9 +243,12 @@ function boardEventsHook(
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+  $buttons.on('blur', leaveSquareHandler($buttons));
   $buttons.on('click', selectionHandler(opponentColor, selectSound));
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    else if (e.key.match(/^x$/i))
+      scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
     else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
@@ -251,7 +256,10 @@ function boardEventsHook(
       e.preventDefault();
       document.querySelector<HTMLElement>('input.move')?.focus();
     } else if (e.key === 'f') {
-      if (ctrl.data.game.variant.key !== 'racingKings') ctrl.flip();
+      if (ctrl.data.game.variant.key !== 'racingKings') {
+        notify.set('Flipping the board');
+        setTimeout(() => ctrl.flip(), 1000);
+      }
     } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
@@ -346,7 +354,7 @@ function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'b' | 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -355,6 +363,12 @@ type InputCommand = {
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'b',
+    help: commands().board.help,
+    cb: ({ ctrl, notify, moveStyle }, input) =>
+      notify.set(commands().board.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) || ''),
+  },
   {
     cmd: 'p',
     help: commands().piece.help,

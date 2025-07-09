@@ -8,6 +8,15 @@ import { renderPieceStr, keyFromAttrs, isKey } from './render';
 import type { PieceStyle, PrefixStyle } from './setting';
 
 /* Listen to interactions on the chessboard */
+export function leaveSquareHandler(buttons: Cash) {
+  return (ev: KeyboardEvent): void => {
+    const $currBtn = $(ev.target as HTMLElement);
+    $currBtn.removeAttr('ray');
+    buttons.removeClass('active');
+    $currBtn.addClass('active');
+  };
+}
+
 export function positionJumpHandler() {
   return (ev: KeyboardEvent): void => {
     const key = keyFromAttrs(ev.target as HTMLElement);
