@@ -37,7 +37,7 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
           Json.obj(
             "t"           -> "signup",
             "username"    -> user.username,
-            "email"       -> email.value,
+            "email"       -> email,
             "ip"          -> HTTPRequest.ipAddress(req).value,
             "suspIp"      -> suspIp,
             "userAgent"   -> HTTPRequest.userAgent(req),
