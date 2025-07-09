@@ -45,8 +45,8 @@ final class Env(
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
-
-  lazy val tourForm = wire[RelayTourForm]
+  lazy val groupForm = wire[RelayGroupForm]
+  lazy val tourForm  = wire[RelayTourForm]
 
   private val colls = wire[RelayColls]
 

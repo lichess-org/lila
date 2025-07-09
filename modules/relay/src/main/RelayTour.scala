@@ -34,9 +34,7 @@ case class RelayTour(
     pinnedStream: Option[RelayPinnedStream] = None,
     note: Option[String] = None
 ):
-  lazy val slug =
-    val s = scalalib.StringOps.slug(name.value)
-    if s.isEmpty then "-" else s
+  def slug = name.toSlug
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 
@@ -66,7 +64,11 @@ object RelayTour:
   val maxRelays = Max(64)
 
   opaque type Name = String
-  object Name extends OpaqueString[Name]
+  object Name extends OpaqueString[Name]:
+    extension (name: Name)
+      def toSlug =
+        val s = scalalib.StringOps.slug(name.value)
+        if s.isEmpty then "-" else s
 
   enum Tier(val v: Int):
     case normal extends Tier(3)

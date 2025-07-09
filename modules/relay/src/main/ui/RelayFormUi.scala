@@ -748,14 +748,17 @@ Team Dogs ; Scooby Doo"""),
         form("grouping"),
         "Optional: assign tournaments to a group",
         help = frag( // do not translate
-          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+          "First line is the group name.",
+          br,
+          "Subsequent lines are URLs of tournaments that will be part of the group.",
           br,
           "You can add, remove, and re-order tournaments; and you can rename the group.",
           br,
           "Example:",
-          pre("""Youth Championship 2024
-tour1-id Youth Championship 2024 | G20
-tour2-id Youth Championship 2024 | G16
+          pre("""Dutch Championships 2025
+https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
+https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
+https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
 """)
         ).some
       )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))
