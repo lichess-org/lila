@@ -1,10 +1,15 @@
 package lila.security
-import lila.core.net.{ IpAddress, UserAgent }
 
-case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
-  def compare(other: Dated[V]) = other.date.compareTo(date)
-  def map[X](f: V => X)        = copy(value = f(value))
-  def seconds                  = date.toSeconds
+import lila.core.net.{ IpAddress, UserAgent }
+import lila.core.misc.AtInstant
+
+case class Dated[V](value: V, date: Instant):
+  def map[X](f: V => X) = copy(value = f(value))
+  def seconds           = date.toSeconds
+
+object Dated:
+  given [A] => AtInstant[Dated[A]] = _.date
+  given [A] => Ordering[Dated[A]]  = AtInstant.atInstantOrdering
 
 case class AuthInfo(user: UserId, hasFp: Boolean)
 
