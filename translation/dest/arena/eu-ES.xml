@@ -67,8 +67,8 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="whichTeamWillYouRepresentInThisBattle">Zein talderen izenean jokatuko duzu?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Parte hartzeko talde hauetako baten kide izan behar zara!</string>
   <string name="created">Sortuta</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Azkenaldian jokatuta</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Emaitza onenak</string>
+  <string name="recentlyPlayed">Azkenaldian jokatuta</string>
+  <string name="bestResults">Emaitza onenak</string>
   <string name="tournamentStats">Txapelketaren estatistikak</string>
   <string name="rankAvgHelp">Sailkapenaren bataz bestekoa zure puntuazioaren ehuneko bat da. Baxuagoa hobe da.
 
@@ -84,5 +84,5 @@ Adibidez, 100 jokalariko txapelketa baten 3. sailkatzea = %3. 1000 jokalariko tx
   <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
   <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserk ratioa</string>
+  <string name="berserkRate">Berserk ratioa</string>
 </resources>

@@ -23,6 +23,7 @@ import {
   possibleMovesHandler,
   renderPockets,
   pocketsStr,
+  leaveSquareHandler,
 } from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
@@ -47,21 +48,22 @@ import { throttle } from 'lib/async';
 import { renderRetro } from '../retrospect/nvuiRetroView';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
-import { NvuiContext } from '../analyse.nvui';
+import type { AnalyseNvuiContext } from '../analyse.nvui';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function initNvui({ ctrl, notify }: NvuiContext): void {
+export function initNvui({ ctrl, notify }: AnalyseNvuiContext): void {
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
-  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl))); // ? is 'c' for chat or eval?
+  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 }
 
-export function renderNvui(ctx: NvuiContext): VNode {
+export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
   notify.redraw = ctrl.redraw;
   const d = ctrl.data,
@@ -232,15 +234,21 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
   };
 }
 
-function boardEventsHook({ ctrl, pieceStyle, prefixStyle }: NvuiContext, el: HTMLElement): void {
+function boardEventsHook(
+  { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
+  el: HTMLElement,
+): void {
   const $board = $(el);
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+  $buttons.on('blur', leaveSquareHandler($buttons));
   $buttons.on('click', selectionHandler(opponentColor, selectSound));
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    else if (e.key.match(/^x$/i))
+      scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
     else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
@@ -248,11 +256,15 @@ function boardEventsHook({ ctrl, pieceStyle, prefixStyle }: NvuiContext, el: HTM
       e.preventDefault();
       document.querySelector<HTMLElement>('input.move')?.focus();
     } else if (e.key === 'f') {
-      if (ctrl.data.game.variant.key !== 'racingKings') ctrl.flip();
+      if (ctrl.data.game.variant.key !== 'racingKings') {
+        notify.set('Flipping the board');
+        setTimeout(() => ctrl.flip(), 1000);
+      }
     } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
+    else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
   });
 }
 
@@ -283,7 +295,7 @@ const noEvalStr = (ctrl: CevalCtrl) =>
         ? 'local evaluation not enabled'
         : '';
 
-function renderBestMove({ ctrl, moveStyle }: NvuiContext): string {
+function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl.ceval);
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
@@ -312,7 +324,7 @@ function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   ];
 }
 
-function renderCurrentLine({ ctrl, moveStyle }: NvuiContext) {
+function renderCurrentLine({ ctrl, moveStyle }: AnalyseNvuiContext) {
   if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, moveStyle.get(), !ctrl.retro);
   else {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
@@ -320,7 +332,7 @@ function renderCurrentLine({ ctrl, moveStyle }: NvuiContext) {
   }
 }
 
-function onSubmit(ctx: NvuiContext, $input: Cash) {
+function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
   const { ctrl, notify } = ctx;
   return (e: SubmitEvent) => {
     e.preventDefault();
@@ -342,15 +354,21 @@ function onSubmit(ctx: NvuiContext, $input: Cash) {
   };
 }
 
-type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command = 'b' | 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
-  cb: (ctrl: NvuiContext, input: string) => void;
+  cb: (ctrl: AnalyseNvuiContext, input: string) => void;
   invalid?: (ctrl: AnalyseCtrl) => boolean;
 };
 
 const inputCommands: InputCommand[] = [
+  {
+    cmd: 'b',
+    help: commands().board.help,
+    cb: ({ ctrl, notify, moveStyle }, input) =>
+      notify.set(commands().board.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) || ''),
+  },
   {
     cmd: 'p',
     help: commands().piece.help,
@@ -433,7 +451,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
-function renderAcpl({ ctrl, moveStyle }: NvuiContext): LooseVNodes {
+function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysis = ctrl.data.analysis;
   if (!analysis || ctrl.retro) return undefined;
   const analysisGlyphs = ['?!', '?', '??'];
@@ -470,7 +488,7 @@ function renderAcpl({ ctrl, moveStyle }: NvuiContext): LooseVNodes {
   return res;
 }
 
-const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: NvuiContext) => {
+const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiContext) => {
   if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
   return analysisInProgress()
     ? hl('p', 'Server-side analysis in progress')
@@ -503,7 +521,7 @@ function renderLineIndex(ctrl: AnalyseCtrl): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode({ ctrl, moveStyle }: NvuiContext): string {
+function renderCurrentNode({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [
@@ -586,7 +604,7 @@ const redirectToSelectedHook = bind('change', (e: InputEvent) => {
   if (url) window.location.href = url;
 });
 
-function tourDetails({ ctrl, deps }: NvuiContext): VNode[] {
+function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), allowVideo: false } as RelayViewContext;
   const tour = ctx.relay.data.tour;
   ctx.relay.redraw = ctrl.redraw;

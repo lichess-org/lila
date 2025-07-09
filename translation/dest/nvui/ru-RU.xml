@@ -23,6 +23,7 @@
   <string name="moveToPieceByType">Перейти к фигуре, введя её тип. Верхний регистр меняет порядок.</string>
   <string name="moveToRank">Перейти на горизонталь 1–8.</string>
   <string name="moveToFile">Перейти на вертикаль a–h.</string>
+  <string name="announcePiecesOnRankOrFile">Объявить фигуры на вертикали или горизонтали. Пример: s a, s 1.</string>
   <string name="movePiece">Чтобы переместить фигуру, используйте стандартную алгебраическую нотацию.</string>
   <string name="king">король</string>
   <string name="whiteKing">белый король</string>

@@ -3,6 +3,7 @@
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Bekkir</string>
   <string name="features">Sérleikar</string>
   <string name="quicklyGenerateSafeUsernames">Búðu til örugg notendanöfn og lykilorð fyrir nemendur á fljótlegan hátt</string>
+  <string name="messageAllStudents">Senda öllum nemendum skilaboð um nýtt kennsluefni</string>
   <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Algerlega ókeypis fyrir alla, til eilífðarnóns, þar sem hvorki auglýsingar né njósnir eru til staðar</string>
   <string name="applyToBeLichessTeacher">Sækja um að verða kennari Lichess</string>
   <string name="noClassesYet">Engir bekkir eins og sakir standa.</string>
@@ -13,6 +14,7 @@
   <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Enduropna</string>
   <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Fjarlæga nemanda</string>
   <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Fjarlægðir</string>
+  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Bjóða nemandanum aftur</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
   <string name="className">Heiti bekkjar</string>
   <string name="classDescription">Lýsing bekkjar</string>
@@ -22,9 +24,35 @@
   <string name="resetPassword">Endurstilla lykilorð</string>
   <string name="passwordX">Lykilorð: %s</string>
   <string name="generateANewPassword">Búa til nýtt lykilorð fyrir nemandann</string>
+  <string name="invitedToXByY">Boðið í %1$s af %2$s</string>
   <string name="realName">Rétt nafn</string>
+  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Dulið. Verður aldrei sýnt utan bekkjar. Hjálpar þér að muna hver nemandinn er.</string>
   <string name="addStudent">Bæta nemanda</string>
+  <string name="lichessProfileXCreatedForY">Lichess-prófíll %1$s búinn til fyrir %2$s.</string>
+  <string name="inviteALichessAccount">Bjóða Lichess-aðgangi</string>
+  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
+  <string name="createDesc2">Ekki þarf að gefa upp netfang. Lykilorð myndast sjálfkrafa og þú þarft að senda það til nemandans svo hann geti skráð sig inn.</string>
+  <string name="createStudentWarning">Stofnaðu einungis aðganga fyrir þá sem eru virkilega nemendur. Ekki notfæra þér þetta til þess að stofna marga aðganga fyrir sjálfan þig. Þú gætir fengið bann.</string>
   <string name="lichessUsername">Lichess notendanafn</string>
+  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
+  <string name="invitationToClass">Þér er boðið að fara í bekkinn „%s“ sem nemandi.</string>
+  <string name="clickToViewInvitation">Smelltu á tengilinn til að skoða boðið:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Eitt boð í bið</item>
+    <item quantity="other">%s boð í bið</item>
+  </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Í bið</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Hafnað</string>
+  <string name="onlyVisibleToTeachers">Aðeins sýnilegt bekkjarkennurum</string>
+  <string name="lastActiveDate">Síðast álínís</string>
+  <string name="managed">Stýrður aðgangur</string>
+  <string name="thisStudentAccountIsManaged">Þessi nemendaaðgangur er stýrður</string>
+  <string name="upgradeFromManaged">Fara úr stýrðum yfir í sjálfstæðan</string>
+  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Útskrifa</string>
+  <string name="releaseDesc1">Ekki er hægt að stýra útskrifuðum aðgangi aftur. Nemandinn getur víxlað krakkaham og endurstillt lykilorðið sjálfur.</string>
+  <string name="realUniqueEmail">Ekta og einstakt netfang nemandans. Við munum senda staðfestingarpóst á það, með tengil til að ljúka við útskrift aðgangs.</string>
+  <string name="closeStudent">Loka aðgangi</string>
+  <string name="closeTheAccount">Loka nemendaaðganginum fyrir fullt og allt.</string>
   <string name="teachers">Kennarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Kennari</item>
@@ -51,6 +79,14 @@
   <string name="nothingHere">Ekkert hér eins og sakir standa.</string>
   <string name="newsEdit1">Allar bekkjarfréttir á einum stað.</string>
   <string name="invite">Bjóða</string>
+  <string name="youHaveBeenInvitedByX">Þér hefur verið boðið af %s.</string>
+  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Þú þáðir þetta boð.</string>
+  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Þú afþakkaðir þetta boð.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
+  <string name="createMultipleAccounts">Stofna marga Lichess-aðganga í einu</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">notað þetta eyðublað</string>
+  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Nöfn nemenda í alvöru, einn á línu</string>
+  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Boð hefur verið sent til %s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytja yfir í %s</string>
   <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
 </resources>

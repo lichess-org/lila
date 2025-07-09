@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Raddskipanir</string>
+  <string name="thisBlogPost">Þessi bloggfærsla</string>
+  <string name="moveToE4OrSelectE4Piece">Farðu á e4 eða veldu taflmann á e4</string>
+  <string name="takeRookWithQueen">Drepa hrók með drottningu</string>
+  <string name="phoneticAlphabetIsBest">Hljóðritunarstafróf er best</string>
+  <string name="sleep">Sofa (ef vekjaorð gildir)</string>
+  <string name="turnOffVoiceRecognition">Slökkva á talgreiningu</string>
+  <string name="showPuzzleSolution">Sýna lausn þrautarinnar</string>
+</resources>

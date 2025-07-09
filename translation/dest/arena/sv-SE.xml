@@ -61,8 +61,8 @@ Bärsärk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string
   <string name="whichTeamWillYouRepresentInThisBattle">Vilket lag ska du representera i denna tävling?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du måste gå med i ett av dessa lag för att delta!</string>
   <string name="created">Skapad</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Senast spelade</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Bästa resultat</string>
+  <string name="recentlyPlayed">Senast spelade</string>
+  <string name="bestResults">Bästa resultat</string>
   <string name="tournamentStats">Turneringsstatistik</string>
   <string name="rankAvgHelp">Rankningsgenomsnittet är en procentsats baserad på din rankning. Lägre är bättre.
 
@@ -78,5 +78,5 @@ Till exempel: Rankad 3 i en turnering på 100 spelare = 3%. Rankad 10 i en turne
   <string name="onlyTitled">Endast för spelare med schacktitlar</string>
   <string name="onlyTitledHelp">Kräv en officiell schacktitel för att delta i turneringen</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsmatchningarna är nu avslutade.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Bärsärk-frekvens</string>
+  <string name="berserkRate">Bärsärk-frekvens</string>
 </resources>

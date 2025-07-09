@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogg samfélagsins</string>
+  <string name="friendBlogs">Blogg vina</string>
+  <string name="lichessBlog">Lichess-blogg</string>
   <string name="myBlog">Bloggið mitt</string>
+  <string name="blogTopics">Bloggumræður</string>
   <plurals name="blogPosts">
     <item quantity="one">%s færsla á bloggi</item>
     <item quantity="other">%s færslur á bloggi</item>
   </plurals>
+  <string name="lichessOfficialBlog">Opinber bloggsíða Lichess</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-bloggfærslur árið %s</string>
+  <string name="xBlog">Blogg notandans %s</string>
   <string name="newPost">Ný færsla</string>
+  <string name="saveDraft">Vista drög</string>
+  <string name="postTitle">Titill færslu</string>
+  <string name="postIntro">Inngangur færslu</string>
+  <string name="drafts">Drög</string>
   <string name="published">Birt</string>
+  <string name="createBlogDiscussion">Leyfa athugasemdir</string>
+  <string name="publishOnYourBlog">Birta á blogginu þínu</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Líma færslu</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Birti bloggfærslu</item>
+    <item quantity="other">Birti %s bloggfærslur</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Einn skoðað</item>
+    <item quantity="other">%s skoðað</item>
+  </plurals>
+  <string name="thisPostIsPublished">Þessi færsla hefur verið birt</string>
+  <string name="thisIsADraft">Þetta er drag</string>
+  <string name="noPostsInThisBlogYet">Engar færslur á þessari bloggsíðu eins og sakir standa.</string>
+  <string name="noDrafts">Engin drög til sýnis.</string>
+  <string name="latestBlogPosts">Nýjustu bloggfærslur</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Skoða eina færslu</item>
+    <item quantity="other">Skoða allar %s færslur</item>
+  </plurals>
+  <string name="imageAlt">Annar texti myndar</string>
+  <string name="imageCredit">Höfundur myndar</string>
+  <string name="youBlockedByBlogAuthor">Höfundur bloggsins hefur lokað á þig.</string>
 </resources>

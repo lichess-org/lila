@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="crunchingData">Gagnaúrvinnslan er í fullum gangi, bara fyrir þig!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Biddu ef til vill viðkomanda um að breyta %s sínum?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ísæisstillingum</string>
+</resources>
