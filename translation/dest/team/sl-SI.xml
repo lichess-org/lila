@@ -48,6 +48,9 @@
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
   <string name="leadersChat">Klepet voditeljev</string>
+  <string name="introduction">Predstavitev</string>
+  <string name="teamIntroductionHelp">Kratek opis, viden v seznamih ekip. Do 200 znakov.</string>
+  <string name="teamDescriptionHelp">Celoten opis je viden na strani ekipe.</string>
   <string name="closeTeam">Zapri ekipo</string>
   <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
   <string name="entryCode">Koda za vstop v ekipo</string>
