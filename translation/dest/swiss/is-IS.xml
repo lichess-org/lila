@@ -15,21 +15,41 @@
     <item quantity="other">Ein umferð á %s daga fresti</item>
   </plurals>
   <string name="roundsAreStartedManually">Umferðir eru byrjaðar handvirkt</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekúnda á milli umferða</item>
+    <item quantity="other">%s sekúndur á milli umferða</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s mínúta á milli umferða</item>
+    <item quantity="other">%s mínútur á milli umferða</item>
+  </plurals>
   <string name="nextRound">Næsta umferð</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Skák í gangi</item>
     <item quantity="other">Skákir í gangi</item>
   </plurals>
   <string name="tournStartDate">Upphafsdagur móts</string>
+  <string name="numberOfRounds">Fjöldi umferða</string>
+  <string name="numberOfRoundsHelp">Heppilegast er að nota oddatölu fyrir fjölda umferða til að ná fram besta jafnvægi í litum.</string>
+  <string name="roundInterval">Tímabil á milli umferða</string>
   <string name="forbiddenPairings">Forboðnar mætingar</string>
   <string name="newSwiss">Nýtt Swiss-mót</string>
   <string name="pointsCalculationQ">Hvernig eru stig reiknuð út?</string>
+  <string name="tiebreaksCalculationQ">Hvernig eru bráðabanar reiknaðir út?</string>
+  <string name="sonnebornBergerScore">stigakerfi Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Notast er við %s.
+Leggur saman stig hvers andstæðings sem leikmaður sigrar og helming af stigi hvers andstæðings sem leikmaður gerir jafntefli við.</string>
   <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
+  <string name="dutchSystem">Hollenska kerfið</string>
   <string name="FIDEHandbook">Handbók alþjóðaskáksambandsins</string>
+  <string name="pairingsA">Notast er við %1$s, sem %2$s innleiddi, í samræmi við %3$s.</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
   <string name="numberOfByesQ">Hversu oft getur leikmaður verið stakur?</string>
+  <string name="numberOfByesA">Leikmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan leikmann til að mæta honum.
+Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaður mætir seint á mótið.</string>
+  <string name="earlyDrawsQ">Hvað gerist þegar jafntefli er gert of snemmt?</string>
   <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
   <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>

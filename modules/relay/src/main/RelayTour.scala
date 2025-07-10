@@ -57,6 +57,7 @@ case class RelayTour(
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
+  def isPublic  = visibility == Visibility.public
   def isPrivate = visibility == Visibility.`private`
 
 object RelayTour:
