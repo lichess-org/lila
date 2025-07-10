@@ -83,6 +83,12 @@
   <string name="searchPuzzles">Išči uganke</string>
   <string name="fromMyGamesNone">V bazi podatkov nimate ugank, vendar vas ima Lichess še vedno zelo rad.
 Igrajte hitre in klasične igre, da povečate možnosti za dodajanje svoje uganke!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Ena uganka, najdena v igrah igralca %2$s</item>
+    <item quantity="two">%1$s uganki, najdena v igrah igralca %2$s</item>
+    <item quantity="few">%1$s uganke, najdena v igrah igralca %2$s</item>
+    <item quantity="other">%1$s ugank, najdena v igrah igralca %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Trenirajte, analizirajte, izboljšajte</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s igrana</item>
