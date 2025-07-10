@@ -98,6 +98,10 @@
   <string name="loadAPositionFromFen">Hlaða inn stöðu úr FEN</string>
   <string name="loadAGameFromPgn">Hlaða inn skákum úr PGN</string>
   <string name="automatic">Sjálfvirkt</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Límdu inn PGN-texta þinn hér, allt að %s skák</item>
+    <item quantity="other">Límdu inn skákir sem PGN-texta hér. Fyrir hverja skák er nýr kafli búinn til. Stúdering getur haft allt að %s kafla.</item>
+  </plurals>
   <string name="urlOfTheGame">Vefslóð skákanna, ein í hverri línu</string>
   <string name="createChapter">Búa til kafla</string>
   <string name="createStudy">Búa til stúderingu</string>
