@@ -7,9 +7,7 @@ export class IdbTree {
   private moveDb?: ObjectStorage<MoveState>;
   private collapseDb?: ObjectStorage<Tree.Path[]>;
 
-  constructor(private ctrl: AnalyseCtrl) {
-    console.log(history.scrollRestoration);
-  }
+  constructor(private ctrl: AnalyseCtrl) {}
 
   isCollapsible(target: Tree.Path | Tree.Node, isMainline: boolean): boolean {
     const { tree, treeView, showComputer } = this.ctrl;
