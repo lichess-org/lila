@@ -9,7 +9,10 @@
   <string name="enableSpeechSynthesis">Kveikja á talgervingu</string>
   <string name="speechSynthesisVoice">Talgervilsrödd</string>
   <string name="announceAllMoves">Lesa alla leiki upphátt</string>
+  <string name="announceMoveFormat">Snið leikja í upplestri</string>
+  <string name="moveFormatDescription">SAN er staðallinn á Lichess t.d. „Nf6“. UCI er algengt í skákforritum t.d. „g8f6“.</string>
   <string name="keywords">Stikkorð</string>
+  <string name="keywordFormatDescription">Stikkorð eru í formi JSON. Þau eru notuð til að þýða leiki og úrslit yfir á þitt tungumál. Sjálfgefið tungumál er enska, en þér er velkomið að breyta því.</string>
   <string name="debug">Villuleit</string>
   <string name="verboseLogging">Fjölyrt skráning</string>
   <string name="configure">Stilla</string>
