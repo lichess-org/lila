@@ -4,7 +4,7 @@ import { chessgroundDests, lichessRules } from 'chessops/compat';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci } from 'chessops/util';
 import { destsToUcis, sanToUci, sanWriter } from '../game/chess';
-import { renderPieceStr, keyFromAttrs, isKey } from './render';
+import { renderPieceStr, keyFromAttrs, isKey, pieceStr } from './render';
 import type { PieceStyle, PrefixStyle } from './setting';
 
 /* Listen to interactions on the chessboard */
@@ -126,10 +126,18 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
 
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
-    const key = keyFromAttrs(ev.target as HTMLElement);
+    const target = ev.target as HTMLElement;
+    const key = keyFromAttrs(target);
     const $boardLive = $('.boardstatus');
-    if (ev.key === 'o' && key) $boardLive.text(key);
-    else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
+    if (ev.key === 'o' && key) {
+      const color = target.getAttribute('color');
+      const piece = target.getAttribute('piece');
+      const keyText =
+        color && piece && color != 'none' && piece != '-'
+          ? ' ' + pieceStr(charToRole(piece)!, color as Color)
+          : '';
+      $boardLive.text(key + '' + keyText);
+    } else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
     else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
   };
 }
