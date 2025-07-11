@@ -56,6 +56,9 @@
       font-weight: normal;
       color: white;
     }
+    .disclosure {
+      color: $c-font-dimmer;
+    }
   }
   &.parent {
     color: var(--c-primary);
