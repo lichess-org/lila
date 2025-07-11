@@ -111,6 +111,7 @@ Hér er tengillinn til að fá aðgang að bekknum.</string>
   <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s er nú nemandi í bekknum</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Boð hefur verið sent til %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s er nú þegar með boð í bið</string>
+  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s er krakkaaðgangur og getur ekki tekið á móti skilaboðunum þínum. Þú verður að segja þeim slóðina á boðið hjálparlaust: %2$s</string>
   <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytja yfir í %s</string>
   <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Færa í annan bekk</string>
 </resources>
