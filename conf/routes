@@ -182,6 +182,8 @@ POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: PuzzleId, theme)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id: PuzzleId)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme)
+# Woodpecker
+GET   /training/woodpecker             controllers.Puzzle.woodpecker
 GET   /$lang<\w\w\w?>/training            controllers.Puzzle.homeLang(lang: Language)
 GET   /$lang<\w\w\w?>/training/themes     controllers.Puzzle.themesLang(lang: Language)
 GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang: Language, angleOrId)
@@ -696,6 +698,9 @@ GET   /api/puzzle/next                 controllers.Puzzle.apiNext
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/puzzle/replay/$days<\d+>/:theme controllers.Puzzle.apiReplay(days: Days, theme)
+# Woodpecker API
+GET   /api/puzzle/woodpecker/list      controllers.Puzzle.woodpeckerList
+POST  /api/puzzle/woodpecker/complete  controllers.Puzzle.woodpeckerComplete
 GET   /api/user/:user/tournament/created controllers.UserTournament.apiTournamentsByOwner(user: UserStr, status: List[Int])
 GET   /api/user/:user/tournament/played  controllers.UserTournament.apiTournamentsByPlayer(user: UserStr)
 GET   /api/user/:user                  controllers.Api.user(user: UserStr)
