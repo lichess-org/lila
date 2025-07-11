@@ -65,12 +65,10 @@
   &.nongame {
     font-style: italic;
   }
-
   &.empty {
     color: $c-font-dimmer;
     cursor: default;
   }
-
   &.context-menu {
     border: 0;
     background: $c-accent !important;
@@ -94,6 +92,11 @@
   text-align: right;
   font-size: 0.8em;
   color: $c-font-dim;
+}
+
+.tview2 .active eval {
+  color: $c-font-clearer;
+  font-weight: bold;
 }
 
 .tview2 glyph {
