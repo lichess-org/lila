@@ -122,7 +122,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def zenZone(using Translate) = spaceless:
     s"""
 <div id="zenzone">
-  <a href="/" class="zen-home"></a>}
+  <a href="/" class="zen-home"></a>
   <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
