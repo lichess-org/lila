@@ -51,12 +51,17 @@
   <string name="inputMovesWithVoice">Leika leiki með rödd þinni</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Segja \"Good game, well played\" sjálfkrafa eftir tapi eða jafntefli</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
+  <string name="correspondenceEmailNotification">Daglegur tölvupóstur með lista yfir bréfskákirnar þínar</string>
   <string name="notifyStreamStart">Streymari hefur útsendingu í beinni</string>
   <string name="notifyInboxMsg">Ný innhólfsskilaboð</string>
+  <string name="notifyForumMention">Athugasemd á umræðukorkinum nefnir þig</string>
   <string name="notifyInvitedStudy">Boð í stúderingu</string>
+  <string name="notifyGameEvent">Bréfskákatíðindi</string>
   <string name="notifyChallenge">Áskoranir</string>
   <string name="notifyTournamentSoon">Mót hefst senn</string>
+  <string name="notifyTimeAlarm">Bréfaskákarklukkan rennur út</string>
   <string name="notifyBell">Innhólfstilkynningar innan Lichess</string>
+  <string name="notifyPush">Tilkynning í tæki þegar þú ert ekki á Lichess</string>
   <string name="notifyWeb">Vafri</string>
   <string name="notifyDevice">Tæki</string>
   <string name="bellNotificationSound">Innhólfstilkynningahljóð</string>
