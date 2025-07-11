@@ -115,12 +115,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">${trans.site.accessibility
         .txt()} - ${
         if ctx.blind then trans.site.disableBlindMode.txt() else trans.site.enableBlindMode.txt()
-      } </button></form>"""
+      } </button>&nbsp;-&nbsp;${a(href := "https://lichess.org/page/blind-mode-tutorial")("Blind mode tutorial")}</form>"""
 
   def zenZone(using Translate) = spaceless:
     s"""
 <div id="zenzone">
-  <a href="/" class="zen-home"></a>
+  <a href="/" class="zen-home"></a>}
   <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
