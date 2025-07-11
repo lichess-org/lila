@@ -194,6 +194,10 @@
   <string name="email">Email</string>
   <string name="passwordReset">Серсүзне алыштыру</string>
   <string name="forgotPassword">Серсүзне оныттыгыз?</string>
+  <string name="error.weakPassword">Бу серсүз бик таралган һәм аны танап булу бик ансат.</string>
+  <string name="error.namePassword">Кулланучы исемегезне серсүз итеп кулланмагыз.</string>
+  <string name="accountClosed">%s дигән хисап ябылган.</string>
+  <string name="accountRegisteredWithoutEmail">%s дигән хисап email адрессыз теркәлгән.</string>
   <string name="rank">Урын</string>
   <string name="rankX">Урын: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -206,6 +210,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">Сезнең белән %s уен</item>
   </plurals>
+  <string name="ok">Ярар</string>
   <string name="cancel">Булдыртмау</string>
   <string name="whiteTimeOut">Акларның вакыты чыкты</string>
   <string name="blackTimeOut">Караларның вакыты чыкты</string>
@@ -314,6 +319,7 @@
   <string name="siteDescription">Түләүсез онлайн шахмат серверы. Уңайлы интерфейс. Рекламасыз, регистрация һәм программаны йөкләү кирәкми. Компьютер, дусларыгыз я очраклы каршыдаш белән уйнагыз.</string>
   <string name="xJoinedTeamY">%1$s %2$s төркеменә кушылды</string>
   <string name="xCreatedTeamY">%1$s %2$s төркемен ясады</string>
+  <string name="startedStreaming">стрим башлады</string>
   <string name="xStartedStreaming">%s стрим башлады</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
@@ -341,6 +347,7 @@
   <string name="blackCheckmatesInOneMove">Каралар бер йөрүдә мат куялар</string>
   <string name="retry">Кабатлау</string>
   <string name="reconnecting">Яңадан бәйләнешү</string>
+  <string name="noNetwork">Тоташусыз</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s дус челтәрдә</item>
   </plurals>
@@ -348,6 +355,7 @@
   <string name="follow">Язылу</string>
   <string name="following">Язылгансыз</string>
   <string name="unfollow">Язылынмау</string>
+  <string name="followX">%s-га язылу</string>
   <string name="unfollowX">%s язылынмау</string>
   <string name="block">Блоклау</string>
   <string name="blocked">Блокланган</string>
@@ -386,6 +394,7 @@
   <string name="points">Баллар</string>
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
+  <string name="startingIn" comment="Displayed above a timer">Башлана</string>
   <string name="standByX">%s көтегез, уйнаучылар чиратлаштырыла, әзерләнегез!</string>
   <string name="pause">Туктату</string>
   <string name="resume">Дәвам итү</string>
@@ -411,9 +420,14 @@
   <string name="ifNoneLeaveEmpty">Булмаса, буш калдырыгыз</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
+  <string name="realName">Чын исем</string>
+  <string name="setFlair">Билге сайлап куегыз</string>
+  <string name="flair">Билге</string>
   <string name="biography">Үзең турында</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ил яки өлкә</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
+  <string name="oneUrlPerLine">Бер юлга бер URL.</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
   <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
   <string name="onlinePlayers">Юрдә уйнаучылар</string>
@@ -458,6 +472,7 @@
   <string name="blog">Шәлкемлек</string>
   <string name="notes">Искәрмәләр</string>
   <string name="typePrivateNotesHere">Шәхси язма монда калдырыгыз</string>
+  <string name="noNoteYet">Язмалар юк әле</string>
   <string name="invalidUsernameOrPassword">Кулланучы исеме яки серсүз яраксыз</string>
   <string name="incorrectPassword">Бозык серсүз</string>
   <string name="invalidAuthenticationCode">Аутһентикация коды яраксыз</string>
@@ -514,6 +529,7 @@
   <string name="increment">Артуы</string>
   <string name="error.required">Бу алан кирәкле</string>
   <string name="ifRatingIsPlusMinusX">Әгәр рейтингың ± %s</string>
+  <string name="ifRegistered">Теркәлгәннәр</string>
   <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
