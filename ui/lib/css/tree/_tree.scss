@@ -43,10 +43,15 @@
   }
 
   &.active {
+    color: white;
     font-weight: bold;
-    background: $c-primary;
     background: color-mix(in srgb, var(--base, $c-primary) 85%, transparent);
-    color: $c-font-clearer;
+
+    eval,
+    index {
+      font-weight: normal;
+      color: white;
+    }
   }
   &.parent {
     color: var(--c-primary);
@@ -92,11 +97,6 @@
   text-align: right;
   font-size: 0.8em;
   color: $c-font-dim;
-}
-
-.tview2 .active eval {
-  color: $c-font-clearer;
-  font-weight: bold;
 }
 
 .tview2 glyph {
@@ -260,13 +260,6 @@
   &::before {
     vertical-align: sub;
   }
-}
-
-.tview2 line move.active,
-.tview2-inline move.active {
-  color: $c-font-clearer; // !!
-  background: color-mix(in srgb, var(--base, var(--c-primary)) 40%, transparent);
-  outline: 1px solid color-mix(in srgb, var(--base, var(--c-primary)) 60%, transparent);
 }
 
 .tview2-inline {
