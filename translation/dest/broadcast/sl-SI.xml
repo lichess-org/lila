@@ -86,6 +86,9 @@
   <string name="optionalDetails">Neobvezne podrobnosti</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
+  <string name="backToLiveMove">Nazaj na živo potezo</string>
   <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
   <string name="liveboard">Živa deska</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Skupnostna oddaja</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Ustvaril in upravlja %s.</string>
 </resources>

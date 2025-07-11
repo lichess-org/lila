@@ -32,10 +32,10 @@
   <string name="queenComplete">Честитке! Даме немају тајне за тебе.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
-  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, партија је изгубљена.</string>
+  <string name="kingIntro">Ти си краљ. Ако паднеш у бици, партија је изгубљена.</string>
   <string name="theKingIsSlow">Краљ је спор.</string>
-  <string name="lastOne">Последњи!</string>
-  <string name="kingComplete">Сада можете командовати командиру!</string>
+  <string name="lastOne">Последња!</string>
+  <string name="kingComplete">Сада можеш командовати командиру!</string>
   <string name="theKnight">Скакач</string>
   <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
   <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>
