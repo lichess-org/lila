@@ -708,6 +708,7 @@
   <string name="keyGoToStartOrEnd">fara á byrjun/lok</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
+  <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
   <string name="keyNextLearnFromYourMistakes">Næst (Lærðu af mistökum þínum)</string>
   <string name="keyNextBlunder">Næsti afleikur</string>
   <string name="keyNextMistake">Næstu mistök</string>
@@ -761,8 +762,8 @@
   <string name="kidMode">Krakkahamur</string>
   <string name="kidModeIsEnabled">Krakkahamur er virkur.</string>
   <string name="kidModeExplanation">Þetta fjallar um öryggi. Í krakkaham er slökkt á öllum samskiptum á síðunni. Kveiktu á þessu fyrir börnin þín eða nemendur til að verja þau gegn öðrum netnotendum.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham fær lichess merkið %s merki svo þú veist að börnin þín eru örugg.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Aðgangur þinn er stýrður. Vinsamlegast leitaðu til skákkennara þíns varðandi að fjarlægja barnaham.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham mun Lichess-merkið fá %s merki svo þú veist að börnin þín eru örugg.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Aðgangur þinn er stýrður. Vinsamlegast leitaðu til skákkennara þíns varðandi að fjarlægja krakkaham.</string>
   <string name="enableKidMode">Kveikja á krakkaham</string>
   <string name="disableKidMode">Slökkva á krakkaham</string>
   <string name="security">Öryggi</string>
