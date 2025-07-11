@@ -440,17 +440,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       filterOpt.isDefined.option(
         span(
           "Show",
-          if Granter.opt(_.ModerateBlog) then
-            span(cls := "btn-rack")(
-              a(btnCls(filter == spam), href := route(spam, sort))("spam"),
-              a(btnCls(filter == weak), href := route(weak, sort))("weak"),
-              a(btnCls(filter == good), href := route(good, sort))("good")
-            )
-          else
-            span(cls := "btn-rack")(
-              a(btnCls(filter == good), href := route(good, sort))("most"),
-              a(btnCls(filter == weak), href := route(weak, sort))("all")
-            )
+          span(cls := "btn-rack")(
+            a(btnCls(filter == good), href := route(good, sort))("best"),
+            a(btnCls(filter == weak), href := route(weak, sort))("all")
+          )
         )
       ),
       sortOpt.map: by =>
