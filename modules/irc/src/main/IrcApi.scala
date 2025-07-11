@@ -80,6 +80,10 @@ final class IrcApi(
         .fold("spontaneously"): by =>
           s"while investigating a report created by ${markdown.userLink(by.into(UserName))}"
 
+  def permissionsLog(user: LightUser, details: String)(using mod: LightUser.Me): Funit =
+    zulip(_.mod.adminLog, "permission changes"):
+      s"${markdown.modLink(mod.name)} changed the permissions of ${markdown.userLink(user)}: $details"
+
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: MyId): Funit =
     lightUser(modId).flatMapz: mod =>
       zulip(_.mod.adminMonitor(tpe), mod.name.value):
