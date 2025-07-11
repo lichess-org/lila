@@ -15,6 +15,7 @@
   <string name="wantTitle">Ég vil að titillinn minn birtist á Lichess</string>
   <string name="wantCloseAccount">Ég vil loka aðganginum mínum</string>
   <string name="closeYourAccount">Þú getur lokað aðganginum þínum á þessari síðu</string>
+  <string name="doNotAskByEmail">Ekki biðja okkur í tölvupósti um að loka aðgangi, við gerum það ekki.</string>
   <string name="wantReopen">Ég vil opna aðgang minn á ný</string>
   <string name="reopenOnThisPage">Þú getur opnað aðgang þinn á ný á þessari síðu.</string>
   <string name="doNotAskByEmailToReopen">Ekki biðja okkur í tölvupósti um að opna aðgang á ný, við gerum það ekki.</string>
