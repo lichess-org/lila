@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Lærðu skák</string>
-  <string name="byPlaying">með að spila!</string>
+  <string name="byPlaying">með því að tefla!</string>
   <string name="menu">Valmynd</string>
   <string name="progressX">Framvinda: %s</string>
   <string name="resetMyProgress">Núllstilla framvindu</string>
@@ -66,7 +66,7 @@ en drepa á ská!</string>
   <string name="selectThePieceYouWant">Veldu taflmanninn sem þú vilt fá!</string>
   <string name="fundamentals">Grunnatriði</string>
   <string name="capture">Að drepa</string>
-  <string name="takeTheEnemyPieces">Náðu óvinunum</string>
+  <string name="takeTheEnemyPieces">Dreptu taflmenn andstæðingsins</string>
   <string name="captureIntro">Finndu óvarða taflmenn andstæðingsins, og dreptu þá!</string>
   <string name="takeTheBlackPieces">Taktu svörtu taflmennina!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Taktu svörtu taflmennina!
@@ -92,7 +92,7 @@ en þú getur varið!</string>
   <string name="checkInOneGoal">Miðaðu á kóng andstæðingsins
 í einum leik!</string>
   <string name="checkInOneComplete">Til hamingju! Þú skákaðir andstæðingnum svo nauðsynlegt var að verja kónginn!</string>
-  <string name="outOfCheck">Úr skák</string>
+  <string name="outOfCheck">Að forðast skák</string>
   <string name="defendYourKing">Verðu kónginn</string>
   <string name="outOfCheckIntro">Þú stendur í skák! Nú verðurðu að flýja eða stöðva árásina.</string>
   <string name="escapeWithTheKing">Flýðu með kónginum!</string>
@@ -111,7 +111,7 @@ eða verstu árásinni!</string>
   <string name="attackYourOpponentsKing">Ráðstu á kóng andstæðingsins
 þannig að hann getur ekki varist!</string>
   <string name="mateInOneComplete">Til hamingju! Svona vinnurðu í skák!</string>
-  <string name="intermediate">Miðlungur</string>
+  <string name="intermediate">Mitt á milli</string>
   <string name="boardSetup">Taflborðið</string>
   <string name="howTheGameStarts">Fyrstu skref skákar</string>
   <string name="boardSetupIntro">Herirnir beinast hvor að öðrum, tilbúnir í slaginn.</string>
