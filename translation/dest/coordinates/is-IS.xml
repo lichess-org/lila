@@ -18,5 +18,5 @@
   <string name="startTraining">Byrja að æfa</string>
   <string name="findSquare">Finna reit</string>
   <string name="nameSquare">Nefna reit</string>
-  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Æfðu aðeins sumar skrár &amp; stöður</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Æfðu aðeins sumar raðir &amp; stöður</string>
 </resources>
