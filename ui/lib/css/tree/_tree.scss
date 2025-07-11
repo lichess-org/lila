@@ -1,6 +1,10 @@
 .tview2 {
   white-space: normal;
+  --base: var(--c-font);
 
+  .active {
+    --base: var(--c-primary);
+  }
   .inaccuracy {
     --base: var(--c-inaccuracy);
   }
@@ -45,7 +49,7 @@
   &.active {
     color: white;
     font-weight: bold;
-    background: color-mix(in srgb, var(--base, $c-primary) 85%, transparent);
+    background: color-mix(in srgb, var(--base) 85%, transparent);
 
     eval,
     index {
@@ -61,11 +65,11 @@
   }
   &.pending-deletion {
     border-radius: unset;
-    background: color-mix(in srgb, var(--c-bad) 50%, transparent) !important;
+    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
   }
   &.pending-copy {
     border-radius: unset;
-    background: color-mix(in srgb, var(--c-good) 50%, transparent) !important;
+    background: color-mix(in srgb, $c-good 30%, transparent) !important;
   }
   &.nongame {
     font-style: italic;
@@ -405,14 +409,25 @@
 
 @media (hover: hover) {
   .tview2 move:hover {
-    background: color-mix(in srgb, var(--base, $c-font) 25%, transparent);
+    background: color-mix(in srgb, var(--base) 15%, transparent);
     color: $c-font-clear;
+
+    &.active {
+      background: color-mix(in srgb, var(--base) 30%, transparent);
+      color: c-font-clearer;
+    }
+    eval,
+    index {
+      color: $c-font;
+    }
+    .disclosure {
+      color: $c-font-dimmer;
+    }
+    .disclosure:hover {
+      color: $c-font-dim;
+    }
   }
   .tview2 move.empty:hover {
     background: transparent;
-  }
-
-  .tview2 .disclosure:hover {
-    color: $c-font;
   }
 }
