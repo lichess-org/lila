@@ -17,8 +17,7 @@ final class Push(env: Env) extends LilaController(env):
 
   def webSubscribe = AuthOrScopedBodyWithParser(parse.json)(_.Web.Mobile) { ctx ?=> me ?=>
     val currentSessionId =
-      if HTTPRequest.isLichessMobile(ctx.req) then
-        HTTPRequest.bearer(ctx.req).map(AccessToken.Id.from(_).value)
+      if ctx.isMobileOauth then HTTPRequest.bearer(ctx.req).map(AccessToken.Id.from(_).value)
       else env.security.api.reqSessionId(ctx.req)
 
     currentSessionId match
