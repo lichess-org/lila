@@ -153,7 +153,7 @@
     <item quantity="one">%s Ónákvæmni</item>
     <item quantity="other">%s Ónákvæmni</item>
   </plurals>
-  <string name="moveTimes">leiktími</string>
+  <string name="moveTimes">Leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
   <string name="claimADraw">Knýja fram jafntefli</string>
@@ -661,7 +661,7 @@
     <item quantity="one">%s færslur á korkinn</item>
     <item quantity="other">%s póstar á spjallborði</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Spilunartími: %s</string>
+  <string name="tpTimeSpentPlaying">Tími sem varið var í að tefla: %s</string>
   <string name="watchGames">Horfa á skákir</string>
   <string name="tpTimeSpentOnTV">Tími í sjónvarpi: %s</string>
   <string name="watch">Horfa</string>
@@ -783,7 +783,7 @@
   <string name="quickPairing">Flýtival</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
-  <string name="yourScore">Stigin þín: %s</string>
+  <string name="yourScore">Stigaskor ykkar: %s</string>
   <string name="language">Tungumál</string>
   <string name="allLanguages">Öll tungumál</string>
   <string name="background">Bakgrunnur</string>
