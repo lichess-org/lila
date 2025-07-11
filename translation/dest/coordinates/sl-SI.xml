@@ -18,4 +18,5 @@
   <string name="startTraining">Začnite trening</string>
   <string name="findSquare">Najdi polje</string>
   <string name="nameSquare">Poimenuj polje</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Vadite le nekatere stolpce in vrstice</string>
 </resources>

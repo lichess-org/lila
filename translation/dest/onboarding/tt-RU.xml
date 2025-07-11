@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s булып керү</string>
   <string name="welcome">Рәхим итегез!</string>
+  <string name="welcomeToLichess">Lichess.org сайтына рәхим итегез!</string>
+  <string name="thisIsYourProfilePage">Бу сезнеж хисап битегез.</string>
+  <string name="enabledKidModeSuggestion">Бу аккаунтны бала кулланачакмы? %s кабыза аласыз.</string>
+  <string name="whatNowSuggestions">Ә хәзер нәрсә? Менә берничә киңәш:</string>
+  <string name="learnChessRules">Шахмат кагыйдәләрен өйрәнегез</string>
+  <string name="improveWithChessTacticsPuzzles">Шахмат мәсьәләләре ярдәмендә остарыгыз.</string>
+  <string name="playTheArtificialIntelligence">Ясалма Акыл белән уйнагыз.</string>
+  <string name="playOpponentsFromAroundTheWorld">Бөтен дөнья буеннан көндәшләр белән уйнагыз.</string>
+  <string name="followYourFriendsOnLichess">Lichess-та дусларыгызга язылыгыз.</string>
+  <string name="playInTournaments">Турнирларда уйнагыз.</string>
+  <string name="learnFromXAndY">%1$s һәм %2$s кулланып өйрәнегез.</string>
+  <string name="configureLichess">Lichess-ны теләгәнчә көйләтегез.</string>
+  <string name="exploreTheSiteAndHaveFun">Сайт буенча сәяхәт итегез һәм күңел ачыгыз :)</string>
 </resources>
