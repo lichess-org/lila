@@ -38,11 +38,11 @@
   <string name="kingComplete">Сада можеш командовати командиру!</string>
   <string name="theKnight">Скакач</string>
   <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
-  <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>
+  <string name="knightIntro">Ево изазова за тебе. Скакач је... зезнута фигура.</string>
   <string name="knightsHaveAFancyWay">Скакачи имају елегантан начин
 скакања уоколо!</string>
   <string name="knightsCanJumpOverObstacles">Скакачи могу прескакати препреке!
-Побегните и савладајте звезде!</string>
+Побегни и савладај звезде!</string>
   <string name="knightComplete">Честитамо! Савладали сте скакача.</string>
   <string name="thePawn">Пешак</string>
   <string name="itMovesForwardOnly">Креће се само напред</string>
