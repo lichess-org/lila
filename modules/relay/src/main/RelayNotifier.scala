@@ -34,7 +34,7 @@ final private class RelayNotifier(
               )
             )
           case None =>
-            fuccess(lila.log("relay").warn(s"Missing player name for $color in game ${chapter.id}"))
+            fuccess(lila.log("relay").warn(s"Missing $color player name in ${rt.path(chapter.id)}"))
 
       dedupNotif(chapter.id).so:
         for
