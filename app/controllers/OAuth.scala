@@ -9,7 +9,7 @@ import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.net.Bearer
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
 import Api.ApiResult
 
@@ -100,7 +100,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer(ctx.req).so { token =>
-      env.oAuth.tokenApi.revoke(token).inject(NoContent)
+      for
+        _ <- env.oAuth.tokenApi.revoke(token)
+        _ <- ctx.isMobileOauth.soFu:
+          env.push.webSubscriptionApi.unsubscribeBySession(AccessToken.Id.from(token).value)
+      yield NoContent
     }
   }
 
