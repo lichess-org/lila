@@ -14,10 +14,10 @@ interface Opts {
 
 type ResizerElement = HTMLElement & { observer: MutationObserver };
 
-export function verticalResizeSeparator(o: Opts): VNode {
+export function verticalResize(o: Opts): VNode {
   // add these directly after the vnode they resize
   return hl(
-    'div.vertical-resize-separator',
+    'div.vertical-resize',
     {
       hook: {
         insert: vn => {
@@ -37,6 +37,8 @@ export function verticalResizeSeparator(o: Opts): VNode {
           divider.observer.observe(divider.parentElement!, { childList: true });
 
           divider.addEventListener('pointerdown', down => {
+            document.body.classList.add('prevent-select');
+
             const el = divider.previousElementSibling as HTMLElement;
             const beginFrom = el.getBoundingClientRect().height - down.clientY;
             divider.setPointerCapture(down.pointerId);
@@ -46,6 +48,8 @@ export function verticalResizeSeparator(o: Opts): VNode {
             };
 
             const up = () => {
+              document.body.classList.remove('prevent-select');
+
               divider.releasePointerCapture(down.pointerId);
               window.removeEventListener('pointermove', move);
               window.removeEventListener('pointerup', up);
