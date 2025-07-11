@@ -135,10 +135,22 @@ export const renderComment = (
   const by = !others[1] ? '' : `<span class="by">${commentAuthorText(comment.by)}</span>`,
     truncated = truncateComment(comment.text, maxLength, ctx),
     htmlHook = innerHTML(truncated, text => by + enrichText(text));
+  const classes = { long: truncated.includes('\n') || truncated.length > 48 };
   return truncated.length < comment.text.length
-    ? hl(`${sel}.truncated`, { hook: truncatedComment(path, ctx) }, [hl('span', { hook: htmlHook })])
-    : hl(sel, { hook: htmlHook });
+    ? hl(`${sel}.truncated`, { class: classes, hook: truncatedComment(path, ctx) }, [
+        hl('span', { hook: htmlHook }),
+      ])
+    : hl(sel, { class: classes, hook: htmlHook });
 };
+
+export function showConnector(nodes: false | MaybeVNodes): boolean {
+  if (!nodes) return true;
+  nodes = nodes.filter(n => n);
+  if (nodes.length === 0) return true;
+  if (nodes.length > 1) return false;
+  if (!nodes[0] || typeof nodes[0] === 'string') return true;
+  return 'data' in nodes[0] && !nodes[0].data?.class?.long;
+}
 
 export function truncateComment(text: string, len: number, ctx: Ctx) {
   return ctx.truncateComments && text.length > len ? text.slice(0, len - 10) + ' [...]' : text;

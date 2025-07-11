@@ -14,6 +14,7 @@ import {
   disclosureBtn,
   disclosureConnector,
   disclosureState,
+  showConnector,
 } from './components';
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
@@ -49,13 +50,14 @@ function renderDescendantsOf(ctx: Ctx, parent: Tree.Node, opts: Opts): LooseVNod
 function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const { parentPath, inline } = opts;
   const path = parentPath + node.id;
+  const comments = disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
   return [
     renderMove(ctx, node, opts),
-    disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path),
+    comments,
     inline && hl('inline', renderSubtree(ctx, inline, { parentPath, withIndex: true })),
     renderDescendantsOf(ctx, node, {
       parentPath: path,
-      anchor: disclosureState(node) === 'expanded' && 'lines',
+      anchor: disclosureState(node) === 'expanded' && showConnector(comments) && 'lines',
     }),
   ];
 }

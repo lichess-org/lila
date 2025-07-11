@@ -18,6 +18,7 @@ import {
   disclosureBtn,
   disclosureState,
   disclosureConnector,
+  showConnector,
 } from './components';
 
 export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () => () => null): VNode {
@@ -48,17 +49,17 @@ interface Opts extends BaseOpts {
 function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const { parentPath, isMainline, noConceal } = opts;
   const path = parentPath + node.id;
-
+  const comments = disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
   return [
     renderMove(ctx, node, opts),
-    disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path),
+    comments,
     opts.inline &&
       hl('inline', renderSubtree(ctx, opts.inline, { ...opts, withIndex: true, inline: undefined })),
     renderDescendantsOf(ctx, node, {
       parentPath: path,
       isMainline,
       noConceal,
-      anchor: disclosureState(node) === 'expanded' && 'lines',
+      anchor: disclosureState(node) === 'expanded' && showConnector(comments) && 'lines',
     }),
   ];
 }
