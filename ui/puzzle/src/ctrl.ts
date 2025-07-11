@@ -76,6 +76,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
+  cgVersion = 1;
   private report: Report;
 
   constructor(
@@ -636,6 +637,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   flip = () => {
     this.flipped.toggle();
+    this.cgVersion++;
     this.withGround(g => g.toggleOrientation());
     this.redraw();
   };

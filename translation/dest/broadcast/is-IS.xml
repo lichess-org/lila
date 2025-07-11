@@ -25,6 +25,8 @@
   <string name="tournamentDescription">Stutt lýsing á mótinu</string>
   <string name="fullDescription">Lýsing móts í heild sinni</string>
   <string name="sourceSingleUrl">PGN-upprunavefslóð</string>
+  <string name="sourceGameIds">Allt að 64 Lichess-skákarauðkenni, aðskilin með bilum.</string>
+  <string name="startDateTimeZone">Upphafsdagur mótsins, samkvæmt staðartíma: %s</string>
   <string name="startDateHelp">Valfrjálst, ef þú veist hvenær viðburðurinn hefst</string>
   <string name="currentGameUrl">Slóð núverandi skákar</string>
   <string name="downloadAllRounds">Hlaða niður öllum umferðum</string>

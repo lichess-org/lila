@@ -28,11 +28,14 @@
   <string name="introduction">Kynning</string>
   <string name="closeTeam">Loka liði</string>
   <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
+  <string name="entryCode">Aðgöngukóði liðs</string>
+  <string name="entryCodeDescriptionForLeader">(Valfrjálst) Aðgöngukóði sem nýir meðlimir verða að kunna til þess að fá inngöngu í þetta lið.</string>
   <string name="incorrectEntryCode">Rangur aðgöngukóði.</string>
   <string name="teamAlreadyExists">Þetta lið er nú þegar til.</string>
   <string name="upcomingTournaments">Mót á döfinni</string>
   <string name="completedTourns">Lokin mót</string>
   <string name="declinedRequests">Hafnaðar beiðnir</string>
+  <string name="joinLichessVariantTeam">Skráðu þig í opinbera liðið fyrir %s til þess að nálgast fréttir og viðburði</string>
   <string name="teamPage">Liðssíða</string>
   <string name="innerTeam">Innra liðið</string>
   <plurals name="nbLeadersPerTeam">

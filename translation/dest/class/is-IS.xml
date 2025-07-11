@@ -30,8 +30,14 @@
   <string name="addStudent">Bæta nemanda</string>
   <string name="lichessProfileXCreatedForY">Lichess-prófíll %1$s búinn til fyrir %2$s.</string>
   <string name="inviteALichessAccount">Bjóða Lichess-aðgangi</string>
+  <string name="inviteDesc2">Þeir munu fá skilaboð á Lichess með tengil til að taka þátt í bekknum.</string>
+  <string name="inviteDesc3">Mikilvægt: Bjóddu aðeins nemendum sem þú þekkir og vilja taka þátt í bekknum.</string>
+  <string name="inviteDesc4">Aldrei senda óumbeðin boð til leikmanna af handahófi.</string>
   <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
+  <string name="createDesc1">Ef nemandinn er ekki með Lichess-aðgang nú þegar, getur þú búið hann til hér.</string>
   <string name="createDesc2">Ekki þarf að gefa upp netfang. Lykilorð myndast sjálfkrafa og þú þarft að senda það til nemandans svo hann geti skráð sig inn.</string>
+  <string name="createDesc3">Mikilvægt: Nemandi má ekki hafa fjölmarga aðganga.</string>
+  <string name="createDesc4">Ef þeir eru nú þegar með einn skaltu nota boðseyðublaðið í staðinn.</string>
   <string name="createStudentWarning">Stofnaðu einungis aðganga fyrir þá sem eru virkilega nemendur. Ekki notfæra þér þetta til þess að stofna marga aðganga fyrir sjálfan þig. Þú gætir fengið bann.</string>
   <string name="lichessUsername">Lichess notendanafn</string>
   <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
@@ -85,6 +91,8 @@
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">eða</string>
   <string name="createMultipleAccounts">Stofna marga Lichess-aðganga í einu</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">notað þetta eyðublað</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Athugaðu að bekkur getur haft allt að %1$s nemendur. Til þess að hafa umsjón með fleiri nemendum skaltu %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">búa til fleiri bekki</string>
   <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Nöfn nemenda í alvöru, einn á línu</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Boð hefur verið sent til %s</string>
   <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Flytja yfir í %s</string>

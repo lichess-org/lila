@@ -11,6 +11,7 @@
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Starfsemi Lichess er fjármögnuð með gjöfum velunnara og vinnuframlagi sjálfboðaliða.</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn og færni, er hægt %3$s.</string>
+  <string name="beingAPatron">að gerast velunnari</string>
   <string name="breakdownOfOurCosts">sundurliðaðan heildarkostnað okkar</string>
   <string name="otherWaysToHelp">að hjálpa á ýmsa vegu</string>
   <string name="areThereWebsitesBasedOnLichess">Eru til vefsíður byggðar á Lichess?</string>
@@ -25,8 +26,12 @@
   <string name="fairPlayPage">síðu okkar um göfuglyndi</string>
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er helsti munurinn á reglum fyrir bréfskák sá að byrjanabók er leyfð. Notkun skákforrita er enn bönnuð og mun leiða til þess að maður verður merktur fyrir notkun skákforrits. Þó að ICCF leyfi notkun skákforrits í bréfskák gerir Lichess það ekki.</string>
   <string name="gameplay">Leikmáti</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvaða afbrigði get ég teflt á Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess býður upp á hefðbundna skák og %1$s.</string>
   <string name="eightVariants">8 skákafbrigði</string>
+  <string name="whatIsACPL">Hvert er meðaltalstap á sentipeði (ACPL)?</string>
   <string name="acplExplanation">Svokallaða sentipeð (e. centipawn) er sú mælieining sem notuð er í skák til að lýsa forskoti. Eitt sentipeð er jafnt og 1/100 af peði. Þar af leiðandi 100 sentipeð = 1 peð. Þessar tölur hafa ekki fest sig í sessi í beinlínis skák en eru nytsamlegar fyrir leikmenn, og nauðsynlegar í tölvuskák, til að meta stöður á taflborðinu.
 
 Besti leikur tölvunnar mun tapa núll sentipeðum, en lakari leikir munu gera stöðuna verri, mæld í sentipeðum.
@@ -61,6 +66,7 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="threeFoldHasToBeClaimed">Annar leikmannanna þarf að lýsa yfir endurtekningu. Þú getur gert það með því að smella á takkann sem birtist, eða með því að bjóða jafntefli áður en þú leikur síðasta endurtekna leikinn þinn; það skiptir engu máli þó andstæðingurinn hafni jafnteflisboðinu, jafnteflið vegna þrefaldrar endurtekningar gildir samt sem áður. Þú mátt einnig %1$s Lichess til að krefjast endurtekninga sjálfkrafa fyrir þig. Auk þess lýkur fimmföld endurtekning skákinni alltaf tafarlaust.</string>
   <string name="configure">stilla</string>
   <string name="accounts">Aðgangar</string>
+  <string name="titlesAvailableOnLichess">Hvaða titlar eru á Lichess?</string>
   <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvað getur notandanafnið mitt verið?</string>
@@ -105,6 +111,14 @@ Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er h
 2. Ýttu á Ctrl-i á Linux/Windows eða cmd-i á MacOS-stýrikerfi
 3. Smelltu á „Heimildir“ (e. Permissions) flipann
 4. Leyfðu hljóð- og myndgögn á lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Farðu á lichess.org
+2. Smelltu á lásinn í veffangsstikunni
+3. Smelltu á „Site Settings“
+4. Leyfa hljóð</string>
+  <string name="enableAutoplayForSoundsSafari">1. Farðu á lichess.org
+2. Smelltu á Safari í valmyndastikunni
+3. Smelltu á stillingar fyrir lichess.org ...
+4. Leyfa sjálfvirka spilun af öllu tagi (Auto-Play)</string>
   <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég spili?</string>
   <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
   <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>

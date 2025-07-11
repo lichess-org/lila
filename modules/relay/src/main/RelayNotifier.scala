@@ -72,7 +72,7 @@ final private class RelayNotifier(
   def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
     notifyTournamentSubscribers(rt)
       .zip:
-        rt.tour.tier.exists(_ >= RelayTour.Tier.normal).so(notifyPlayerFollowers(rt, chapter))
+        (rt.tour.isPublic && rt.tour.official).so(notifyPlayerFollowers(rt, chapter))
       .void
 
   def onUpdate = onCreate
