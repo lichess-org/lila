@@ -11,4 +11,33 @@
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Súperove hodiny</string>
   <string name="inputFormCommandList">Zadajte tieto príkazy do vstupného formulára príkazov.</string>
+  <string name="king">kráľ</string>
+  <string name="whiteKing">biely kráľ</string>
+  <string name="blackKing">čierny kráľ</string>
+  <string name="queen">dáma</string>
+  <string name="whiteQueen">biela dáma</string>
+  <string name="blackQueen">čierna dáma</string>
+  <string name="rook">veža</string>
+  <string name="whiteRook">biela veža</string>
+  <string name="blackRook">čierna veža</string>
+  <string name="bishop">strelec</string>
+  <string name="whiteBishop">biely strelec</string>
+  <string name="blackBishop">čierny strelec</string>
+  <string name="knight">jazdec</string>
+  <string name="whiteKnight">biely jazdec</string>
+  <string name="blackKnight">čierny jazdec</string>
+  <string name="pawn">pešiak</string>
+  <string name="whitePawn">biely pešiak</string>
+  <string name="blackPawn">čierny pešiak</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D V S J x</string>
+  <string name="sanTakes" comment="x in standard notation">berie</string>
+  <string name="sanCheck" comment="+ in standard notation">šach</string>
+  <string name="sanCheckmate" comment="# in standard notation">mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">stavia</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">malá rošáda</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">veľká rošáda</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">položený na</string>
+  <string name="invalidMove">Nemožný ťah</string>
+  <string name="premoveCancelled">Predťah zrušený</string>
+  <string name="premoveRecorded">Predťah zaznamenaný: %s. Stlačte enter pre jeho zrušenie</string>
 </resources>

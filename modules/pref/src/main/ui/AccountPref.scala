@@ -296,3 +296,26 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
       "gameEvent.bell",
       "challenge.bell"
     )
+
+  def network(cfRouting: Boolean)(using ctx: Context) =
+    AccountPage("Network", "network"):
+      div(cls := "box box-pad")(
+        standardFlash,
+        h1(cls := "box__top")("Network"),
+        flashMessage("quiet")(
+          "You are currently using ",
+          if cfRouting then "Content Delivery Network (CDN) routing."
+          else "direct routing.",
+          br,
+          if cfRouting
+          then "This feature is experimental but may improve reliability in some regions."
+          else "If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things."
+        ),
+        br,
+        postForm(action := routes.Pref.networkPost):
+          button(
+            name  := "cfRouting",
+            value := !cfRouting,
+            cls   := "button"
+          )(if cfRouting then "Use direct routing" else "Use CDN routing")
+      )

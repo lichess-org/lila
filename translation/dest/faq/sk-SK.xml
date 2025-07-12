@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Niektoré Lichess stránky majú k dispozícii klávesové skratky. Vyskúšajte stlačiť kláves \'?\' na stránke so štúdiou, analýzou, šachovou úlohou alebo partiou a zobrazí sa zoznam dostupných klávesových skratiek.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie ratingu od podvodníkov?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minútu po označení hráča sa pozrieme na jeho posledných 40 hodnotených partií za posledné 3 dni. Ak ste boli jeho súperom v týchto partiách, stratili ste rating (z dôvodu prehry alebo remízy) a Váš rating nebol provizórny, vrátime Vám ho. Výška vráteného ratingu je obmedzená Váším maximálnym ratingom a pohybom Vášho ratingu po tejto partii.
+  <string name="ratingRefundExplanation">Minútu po označení hráča sa pozrieme na jeho posledných 40 hodnotených partií za posledné 3 dni. Ak ste boli jeho súperom v týchto partiách, stratili ste rating (z dôvodu prehry alebo remízy) a Váš rating nebol provizórny, vrátime Vám ho. Výška vráteného ratingu je obmedzená Váším maximálnym ratingom a pohybom Vášho ratingu po tejto partii.
 (Napríklad, ak sa Váš rating po tejto partii výrazne zvýšil, je možné, že Vám bude vrátený len čiastočne alebo vôbec). Maximálna výška vráteného ratingu je 150 bodov.</string>
   <string name="preventLeavingGameWithoutResigning">Čo sa robí s hráčmi, ktorí odchádzajú z hry bez rezignácie?</string>
   <string name="leavingGameWithoutResigningExplanation">Ak váš súper často prerušuje / opúšťa hry, dostane \"herný ban\", čo znamená, že má dočasne zakázané hrať hry. Toto nie je verejne uvedené v ich profile. Ak toto správanie bude pokračovať, dĺžka herného banu sa zvýši - a dlhšie správanie tohto druhu môže viesť k uzavretiu účtu.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
   <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 
 Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
+  <string name="durationFormula">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Aké varianty môžem hrať na Lichessi?</string>
@@ -99,12 +99,11 @@ Nepýtajte si titul LM.</string>
   <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Môžem si zmeniť svoje užívateľské meno?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nie, užívateľské mená sa nemôžu meniť kvôli technickým a praktickým dôvodom. Užívateľské mená sú zhmotnené na príliš mnohých miestach: databázy, exporty, logy, a ľudské mysle. Môžete nastaviť veľkosť písmen jeden raz.</string>
+  <string name="usernamesCannotBeChanged">Nie, užívateľské mená sa nemôžu meniť kvôli technickým a praktickým dôvodom. Užívateľské mená sú zhmotnené na príliš mnohých miestach: databázy, exporty, logy, a ľudské mysle. Môžete nastaviť veľkosť písmen jeden raz.</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
-  <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
   <string name="aHourlyBulletTournament">hodinový Bullet turnaj</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
+  <string name="goldenZeeExplanation">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
   <string name="lichessRatings">Lichess ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratingy sa počítajú pomocou hodnotiacej metódy Glicko-2 vyvinutej Markom Glickmanom. Toto je veľmi populárna metóda hodnotenia a používa ju veľké množstvo šachových organizácií (FIDE je pozoruhodný protiklad, pretože stále používa datovaný systém hodnotenia Elo).
@@ -151,7 +150,7 @@ Potom vyberte, či chcete povoliť alebo blokovať upozornenia od Lichess.</stri
 Červená ikona stlmenia zvuku sa zobrazí, keď prehliadač zabráni prehrávaniu zvuku na stránke lichess.org. Zvyčajne sa toto obmedzenie zruší, keď na niečo kliknete. V niektorých mobilných prehliadačoch sa dotykové ťahanie figúrky nepovažuje za kliknutie. V takom prípade musíte na začiatku každej partie ťuknúť na šachovnicu, aby sa povolil zvuk.
 
 Zobrazíme červenú ikonu, aby sme vás upozornili, keď sa tak stane. Často môžete výslovne povoliť lichess.org prehrávanie zvukov. Tu nájdete návod, ako to urobiť v najnovších verziách niektorých populárnych prehliadačov.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">počítač</string>
+  <string name="desktop">počítač</string>
   <string name="enableAutoplayForSoundsFirefox">1. Prejdite na stránku lichess.org
 2. Stlačte Ctrl-i v systéme Linux/Windows alebo cmd-i v systéme MacOS
 3. Kliknite na kartu Oprávnenia
@@ -169,11 +168,11 @@ Zobrazíme červenú ikonu, aby sme vás upozornili, keď sa tak stane. Často m
 3. Kliknite na položku Súbory cookie a povolenia stránky
 4. Prejdite nadol a kliknite na položku Automatické prehrávanie médií
 5. Pridajte lichess.org do položky Povoliť</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Ako mám prestať hrať?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">samostatný stav duševného zdravia</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Používateľské štýly Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menej prednastavených partií na domovskej stránke</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Pravidelne dostávame správy od používateľov, ktorí nás žiadajú o pomoc, aby sme im zabránili hrať príliš veľa.
+  <string name="stopMyselfFromPlaying">Ako mám prestať hrať?</string>
+  <string name="mentalHealthCondition">samostatný stav duševného zdravia</string>
+  <string name="lichessUserstyles">Používateľské štýly Lichess</string>
+  <string name="fewerLobbyPools">menej prednastavených partií na domovskej stránke</string>
+  <string name="adviceOnMitigatingAddiction">Pravidelne dostávame správy od používateľov, ktorí nás žiadajú o pomoc, aby sme im zabránili hrať príliš veľa.
 
 Hoci spoločnosť Lichess nebanuje ani neblokuje hráčov s výnimkou porušenia podmienok služby, odporúčame používať externé nástroje na obmedzenie nadmerného správania pri hraní. Medzi bežné návrhy blokátorov webových stránok patria %1$s, %2$s a %3$s. Ak chcete naďalej používať stránku, ale nechcete sa nechať zlákať partiami s malými časovými dotáciami, mohli by vás tiež zaujímať %4$s, tu je jeden s %5$s.
 

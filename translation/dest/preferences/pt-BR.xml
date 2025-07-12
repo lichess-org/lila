@@ -16,10 +16,10 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="showPlayerRatings">Mostrar rating dos jogadores</string>
   <string name="showFlairs">Mostrar emotes de usuário</string>
-  <string name="explainShowPlayerRatings">Permite ocultar todas os ratings do site, para ajudar a se concentrar no jogo. As partidas continuam valendo rating.</string>
+  <string name="explainShowPlayerRatings">Permite ocultar todos os ratings do site, para ajudar a se concentrar no jogo. As partidas continuam valendo rating.</string>
   <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
-  <string name="inGameOnly">Durante partidas</string>
+  <string name="inGameOnly">Durante as partidas</string>
   <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceto durante a partida</string>
   <string name="chessClock">Relógio</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
@@ -54,19 +54,19 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Diga \"Bom jogo, bem jogado\" após a derrota ou empate</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Use o scroll do mouse no tabuleiro para ir passando as jogadas</string>
-  <string name="correspondenceEmailNotification">Email diário listando seus jogos por correspondência</string>
+  <string name="correspondenceEmailNotification">Email diário listando suas partidas por correspondência</string>
   <string name="notifyStreamStart">Streamer começou uma transmissão ao vivo</string>
   <string name="notifyInboxMsg">Nova mensagem na caixa de entrada</string>
   <string name="notifyForumMention">Você foi mencionado em um comentário do fórum</string>
-  <string name="notifyInvitedStudy">Convite para um estudo</string>
-  <string name="notifyGameEvent">Jogo por correspondência atualizado</string>
+  <string name="notifyInvitedStudy">Convite para estudo</string>
+  <string name="notifyGameEvent">Atualizações de partidas por correspondência</string>
   <string name="notifyChallenge">Desafios</string>
   <string name="notifyTournamentSoon">O torneio vai começar em breve</string>
-  <string name="notifyTimeAlarm">Está acabando o tempo no jogo por correspondência</string>
+  <string name="notifyTimeAlarm">Tempo de partida por correspondência esgotando</string>
   <string name="notifyBell">Notificação no Lichess</string>
   <string name="notifyPush">Notificação no dispositivo fora do Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
-  <string name="bellNotificationSound">Som da notificação</string>
+  <string name="bellNotificationSound">Som de notificação</string>
   <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Às cegas</string>
 </resources>

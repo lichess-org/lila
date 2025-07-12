@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Virkni</string>
+  <string name="hostedALiveStream">Var með útsendingu í beinni</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Studdi lichess.org í %1$s mánuð sem %2$s</item>
     <item quantity="other">Studdi lichess.org í %1$s mánuði sem %2$s</item>
@@ -28,6 +29,18 @@
   <plurals name="completedNbGames">
     <item quantity="one">Lauk %s bréfskák</item>
     <item quantity="other">Lauk %s bréfskákum</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Hóf að fylgja %s leikmanni</item>
+    <item quantity="other">Hóf að fylgja %s leikmönnum</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Eignaðist %s nýjan fylgjanda</item>
+    <item quantity="other">Eignaðist %s nýja fylgjendur</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Bjó til %s nýja stúderingu</item>
+    <item quantity="other">Bjó til %s nýjar stúderingar</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Tók þátt í %s Arena móti</item>

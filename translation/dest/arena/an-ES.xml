@@ -68,8 +68,8 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="whichTeamWillYouRepresentInThisBattle">Qué equipo representas en esta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ha d\'unir-te a uno d\'estes equipos pa participar!</string>
   <string name="created">Creau</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Chugau fa poco</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Millors resultaus</string>
+  <string name="recentlyPlayed">Chugau fa poco</string>
+  <string name="bestResults">Millors resultaus</string>
   <string name="tournamentStats">Estatiticas d\'o torneyo</string>
   <string name="rankAvgHelp">Lo ranking medio ye un percentache d\'o tuyo ranking. Menor ye millor. Per eixemplo, estar en el tercer puesto en un torneyo de 100 chugadors = 3%. Clasificar-se deceno/a en un torneyo de 1000 chugadors = 1%.</string>
   <string name="medians">medianas</string>

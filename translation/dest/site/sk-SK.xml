@@ -186,7 +186,7 @@
   <string name="drawByMutualAgreement">Remíza po vzájomnej dohode</string>
   <string name="fiftyMovesWithoutProgress">Päťdesiat ťahov bez posunu vpred</string>
   <string name="currentGames">Práve prebiehajúce partie</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Účet registrovaný %s</string>
+  <string name="joinedX">Účet registrovaný %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -565,7 +565,6 @@
   <string name="points">Bodov</string>
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
-  <string name="createdBy">Vytvorené</string>
   <string name="startingIn" comment="Displayed above a timer">Začína o</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="pause">Pozastaviť</string>

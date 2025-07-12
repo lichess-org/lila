@@ -36,18 +36,23 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api
-        .reachedMaxFollowing(me)
-        .flatMap:
-          if _ then
-            val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-            env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
+      for
+        reachedMax <- api.reachedMaxFollowing(me)
+        res        <-
+          if reachedMax then
+            val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow)
+            for
+              _   <- env.msg.api.postPreset(me, msg)
+              res <- rateLimited(msg.name)
+            yield res
           else
-            api.follow(me, user.id).recoverDefault >> negotiate(
-              renderActions(user.name, getBool("mini")),
-              jsonOkResult
-            )
+            for
+              _   <- api.follow(me, user.id).recoverDefault
+              res <- negotiate(renderActions(user.name, getBool("mini")), jsonOkResult)
+            yield res
+      yield res
   }
+
   def followBc = follow
 
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>

@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">בחלק מהעמודים ב־Lichess ישנם קיצורי מקלדת שאפשר להשתמש בהם. לחצו על מקש ה־׳?׳ בלוח למידה, בלוח הניתוחים, בחידה או במשחק כדי לקבל רשימה של קיצורי המקלדת הזמינים.</string>
   <string name="fairPlay">משחק הוגן</string>
   <string name="whenAmIEligibleRatinRefund">מתי אני זכאי/ת להחזר דירוג אוטומטי מהפסד לרמאים?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ־3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
+  <string name="ratingRefundExplanation">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ־3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
   (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל/י החזר או רק החזר חלקי). ההחזר לעולם לא יעלה על 150 נקודות.</string>
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
   <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל משחקים או עוזב אותם לעיתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שיאסר עליו באופן זמני לשחק. זה לא יצוין באופן פומבי בפרופיל שלו. אם התנהגות זו תמשיך, אורך ההשעיה יעלה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלו לצמיתות.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">איך Bullet, Blitz וזמני משחק אחרים נקבעים?</string>
   <string name="basedOnGameDuration">קטגוריות הזמן של לִיצֶ\'ס מבוססות על משך המשחק המשוער = %1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(זמן התחלתי בשעון) + 40 × (תוספת זמן לכל מהלך)</string>
+  <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת זמן לכל מהלך)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">אילו סוגי שחמט אני יכול/ה לשחק בליצ\'ס?</string>
@@ -95,12 +95,11 @@
   <string name="usernamesNotOffensive">ככלל, אין לבחור שם משתמש פוגעני, להתחזות באמצעות שם המשתמש לאדם אחר או לכלול בו תוכן שיווקי. מידע נוסף ניתן למצוא ב%1$s.</string>
   <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול/ה לשנות את שם המשתמש שלי?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים, דוחות ומסמכים מיוצאים. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
+  <string name="usernamesCannotBeChanged">לא, לא ניתן לשנות את שם המשתמש מסיבות פרקטיות וטכניות. שמות משתמש מופיעים במקומות רבים כגון מסדי נתונים, דוחות ומסמכים מיוצאים. הם גם צרובים במוחם של אנשים. ניתן להחליף בין אותיות גדולות ואותיות קטנות פעם אחת.</string>
   <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="ownerUniqueTrophies">הגביע הזה הוא ייחודי בהיסטוריה של Lichess, אף אחד מלבד %1$s לא יזכה בו.</string>
-  <string name="wayOfBerserkExplanation">כדי להשיג אותו, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר הBullet השעתי</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שאם יצליח לעשות זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את Stockfish וקוימה ההבטחה.</string>
+  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שאם יצליח לעשות זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את Stockfish וקוימה ההבטחה.</string>
   <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזו מערכת דירוג Lichess משתמש?</string>
   <string name="ratingSystemUsedByLichess">הדירוג מחושב באמצעות שיטת Glicko-2 שפותחה על ידי מארק גליקמן. זו שיטת דירוג מאוד פופולארית שגופי שחמט רבים עושים בה שימוש (FIDE היא יוצאת מן הכלל ומשתמשת בשיטת Elo).
@@ -143,7 +142,7 @@
   <string name="enableAutoplayForSoundsA">רוב דפדפני האינטרנט לא מאפשרים ניגון צלילים בעמודים חדשים כדי להגן על המשתמשים. כך, לא כל אתר קיקיוני יכול להפציץ אותנו בפרסומות קוליות. בדרך כלל ההגבלה הזאת מבוטלת ברגע שאנו לוחצים על משהו בתוך האתר. בחלק מהדפדפנים, הזזת הכלים בלוח לא נחשבת לחיצה, ואז יהיה עליהם ללחוץ במקום ריק על הלוח כדי לאפשר הפעלת צלילים. תאלצו לעשות זאת כל פעם שאתם מתחילים משחק.
 
 אנו מציגים סמליל אדום כדי להודיע לכם כשזה קורה. ברוב המקרים, ניתן לאפשר לדפדפן להפעיל צלילים ב־lichess.org כברירת מחדל ובכך לחסוך לחיצות מיותרות על הלוח. עקבו אחר ההוראות הבאות על פי הדפדפן שלכם.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">מחשבים</string>
+  <string name="desktop">מחשבים</string>
   <string name="enableAutoplayForSoundsFirefox">1. היכנסו ל־lichess.org
 2. לחצו על Ctrl-i ב־Linux או Windows או על cmd ב־MacOS
 3. לחצו על הלשונית ״הרשאות״ (Permissions)
@@ -161,11 +160,11 @@
 3. לחצו על ״עוגיות והרשאות״
 4. גללו למטה ולחצו על ״הפעלה אוטומטית של מדיה״
 5. הוסיפו את lichess.org לרשימת האתרים המורשים</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">למנוע מעצמי להמשיך לשחק?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">מצב נפשי</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">האפשרות של תוספים חיצוניים ל־Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">פחות אפשרויות משחק בלובי</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">לעיתים קרובות אנו מקבלים הודעות ממשתמשים שמבקשים שנעזור להם להפחית את תדירות המשחק שלהם.
+  <string name="stopMyselfFromPlaying">למנוע מעצמי להמשיך לשחק?</string>
+  <string name="mentalHealthCondition">מצב נפשי</string>
+  <string name="lichessUserstyles">האפשרות של תוספים חיצוניים ל־Lichess</string>
+  <string name="fewerLobbyPools">פחות אפשרויות משחק בלובי</string>
+  <string name="adviceOnMitigatingAddiction">לעיתים קרובות אנו מקבלים הודעות ממשתמשים שמבקשים שנעזור להם להפחית את תדירות המשחק שלהם.
 
 איננו חוסמים משתמשים למעט במצבים של הפרת תנאי השימוש. אנו ממליצים על התקנים חיצוניים, לרבות %1$s, %2$s ו־%3$s. אם אתם רוצים להמשיך לשחק אך לא להתפתות ליצור משחקים קצרים, בדקו את %4$s. הנה אחד עם %5$s. 
 

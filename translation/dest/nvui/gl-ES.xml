@@ -23,7 +23,7 @@
   <string name="moveToPieceByType">Ir ás casas usando os nomes das pezas. Por exemplo: premendo \"k\" (Knight=Cabalo) varias veces para seleccionar as casas ocupadas polos cabalos. Usando \"MAIÚSCULAS + k\" neste exemplo cambiaría a orde desta rotación.</string>
   <string name="moveToRank">Ir á fila 1 a 8.</string>
   <string name="moveToFile">Mover á columna a-h.</string>
-  <string name="announcePieceLocations">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro.</string>
+  <string name="announcePieceLocations">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro, \"p capital A\" para todas as pezas brancas.</string>
   <string name="announcePiecesOnRankOrFile">Anunciar as pezas dunha fila ou columna. Por exemplo: \"s a\" (canta as pezas da columna \"a\") ou \"s 1\" (canta as pezas da fila \"1\").</string>
   <string name="goToBoard">Ir ó taboleiro. A casa á que vai por defecto é \"e4\". Pódese especificar mediante as coordenadas: \"board a1\" ou \"b a1\" irá á casa \"a1\".</string>
   <string name="movePiece">Empregar a Notación Alxébrica Estándar para mover as pezas.</string>

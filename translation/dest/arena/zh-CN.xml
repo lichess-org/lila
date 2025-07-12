@@ -64,8 +64,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">你将代表哪个团队出战？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入这些团队之一才能参与！</string>
   <string name="created">创建于</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">最近结束</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">最佳结果</string>
+  <string name="recentlyPlayed">最近结束</string>
+  <string name="bestResults">最佳结果</string>
   <string name="tournamentStats">锦标赛统计</string>
   <string name="rankAvgHelp">等级平均值是您排名的百分比。较低的排名越好。
 
@@ -81,5 +81,5 @@
   <string name="onlyTitled">仅限有头衔玩家</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
   <string name="tournamentPairingsAreNowClosed">竞技场配对已关闭。</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">狂暴局比例</string>
+  <string name="berserkRate">狂暴局比例</string>
 </resources>

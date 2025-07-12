@@ -58,31 +58,33 @@
   <string name="subscribeTitle">Abonner for å bli varslet når hver runde starter. Du kan velge varselform i kontoinnstillingene dine.</string>
   <string name="uploadImage">Last opp bilde for turneringen</string>
   <string name="noBoardsYet">Ingen brett. De vises når partiene er lastet opp.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Brett kan lastes med en kilde eller via %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brett kan lastes med en kilde eller via %s</string>
   <string name="startsAfter">Starter etter %s</string>
   <string name="startVerySoon">Overføringen starter straks.</string>
   <string name="notYetStarted">Overføringen har ikke startet.</string>
   <string name="officialWebsite">Offisiell nettside</string>
   <string name="standings">Resultatliste</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Offisiell tabell</string>
+  <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere alternativer på %s</string>
   <string name="webmastersPage">administratorens side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig PGN-kilde i sanntid for denne runden. Vi tilbyr også en %s for raskere og mer effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Bygg inn denne overføringen på nettstedet ditt</string>
   <string name="embedThisRound">Bygg inn %s på nettstedet ditt</string>
   <string name="ratingDiff">Ratingdifferanse</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partier i denne turneringen</string>
+  <string name="gamesThisTournament">Partier i denne turneringen</string>
   <string name="score">Poengsum</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Alle lag</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turneringsformat</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turneringssted</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Toppspillere</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Tidssone</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE-ratingkategori</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Valgfrie detaljer</string>
+  <string name="allTeams">Alle lag</string>
+  <string name="tournamentFormat">Turneringsformat</string>
+  <string name="tournamentLocation">Turneringssted</string>
+  <string name="topPlayers">Toppspillere</string>
+  <string name="timezone">Tidssone</string>
+  <string name="fideRatingCategory">FIDE-ratingkategori</string>
+  <string name="optionalDetails">Valgfrie detaljer</string>
   <string name="pastBroadcasts">Tidligere overføringer</string>
   <string name="allBroadcastsByMonth">Vis alle overføringer etter måned</string>
   <string name="backToLiveMove">Tilbake til trekk på direkten</string>
   <string name="sinceHideResults">Du valgte å skjule resultatene, så alle forhåndsvisningene av brettene er tomme for å unngå å røpe noe.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Brett i sanntid</string>
+  <string name="liveboard">Brett i sanntid</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Fellesskapsoverføring</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Opprettet og forvaltet av %s.</string>
 </resources>

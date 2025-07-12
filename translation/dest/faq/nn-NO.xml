@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Nokre Lichess-sider har tastatursnarvegar. Trykk \'?\'-nøkkelen på sider med studie, analyse, oppgåve eller parti for å sjå ei liste med tilgjengelege tastatursnarvegar.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Når er eg kvalifisert til den automatiske refunderinga av rating-tap frå fuskarar?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Eit minutt etter at ein spelar er markert ser systemet over spelaren sine 40 siste rangerte sigrar. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
+  <string name="ratingRefundExplanation">Eit minutt etter at ein spelar er markert ser systemet over spelaren sine 40 siste rangerte sigrar. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
  (Til dømes: dersom ratinga di aukar sterkt etter desse spela kan det hende du får korkje heil eller delvis refusjon.) Refusjonen vil aldri overgå 150 ratingpoeng.</string>
   <string name="preventLeavingGameWithoutResigning">Kva hender med spelarar som forsvinn utan å resignere partiet?</string>
   <string name="leavingGameWithoutResigningExplanation">Dersom motspelaren din har som vane å bryte av/forsvinne frå partiet får vedkomande mellombels \"spelenekt\". Eit forbod av dette slaget vert ikkje kunngjort på spelarprofilen. Dersom spelaren held fram med denne framferda vert lengda på spelenekten lengre - og ei vedvarande åtferd av dette slaget kan føre til stenging av kontoen.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kor går skiljene mellom tidskontrollane for bullet, lyn, snøgg og klassisk sjakk?</string>
   <string name="basedOnGameDuration">Tidskontrollane på Lichess er basert på estimert total speletid = %1$s
   Til dømes er estimert lengd på eit 5+3 parti 5 * 60 + 40 * 3 = 420 sekund.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(starttid på sjakkuret) + 40 * (tilleggstid)</string>
+  <string name="durationFormula">(starttid på sjakkuret) + 40 * (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kva for variantar kan eg spele på Lichess?</string>
@@ -97,12 +97,11 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="usernamesNotOffensive">Brukernamnet skal ikkje vere støytande, det skal ikkje utgje deg for å vere ein annan og det kan ikkje vere reklame. Du kan lese meir om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
   <string name="canIChangeMyUsername">Kan eg endra brukarnamnet mitt?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nei, det er tekniske og praktiske grunnar til at brukarnamn ikkje kan endras. Brukarnamn vert nytta for mange stader: i databasar, eksportar, loggar og folks hovuder. Men du kan endra mellom store og små bokstavar éin gong.</string>
+  <string name="usernamesCannotBeChanged">Nei, det er tekniske og praktiske grunnar til at brukarnamn ikkje kan endras. Brukarnamn vert nytta for mange stader: i databasar, eksportar, loggar og folks hovuder. Men du kan endra mellom store og små bokstavar éin gong.</string>
   <string name="uniqueTrophies">Unike trofé</string>
   <string name="ownerUniqueTrophies">Dette troféet er unikt for Lichess, ingen andre enn %1$s vil nokon gong få det.</string>
-  <string name="wayOfBerserkExplanation">For å få det, utfordra hiimgosu seg sjølv til berserkgang og vann alle parti av %s.</string>
   <string name="aHourlyBulletTournament">timens Bullet-turnering</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict strøyma spela sine og dei siste to timane freista han utan hell å slå A.I. nivå 8 i 1+0 spel. Thibault gav han beskjed om at dersom han lukkas medan han strøymde skulle han få eit unikt trofé. Ein time seinare slo ZugAddict Stockfish og fekk troféet han var lova.</string>
+  <string name="goldenZeeExplanation">ZugAddict strøyma spela sine og dei siste to timane freista han utan hell å slå A.I. nivå 8 i 1+0 spel. Thibault gav han beskjed om at dersom han lukkas medan han strøymde skulle han få eit unikt trofé. Ein time seinare slo ZugAddict Stockfish og fekk troféet han var lova.</string>
   <string name="lichessRatings">Lichess-rating</string>
   <string name="whichRatingSystemUsedByLichess">Kva ratingsystem er i bruk på Lichess?</string>
   <string name="ratingSystemUsedByLichess">Rating vert berekna ved hjelp av Glicko-2-metoden utvikla av Mark Glickman. Mange sjakkorganisasjonar har tatt i bruk denne metoden (med FIDE som eit viktig unntak, dei nyttar framleis det forelda Elo-systemet).
@@ -149,7 +148,7 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
 Det røde mute-ikonet blir vist når weblesaren hindrar lichess.org i å spele av lyd. Til vanleg vert denne avgrensinga oppheva når du klikkar på noko. På nokre mobile weblesarar gjeld ikkje dette om du klikkar på ei brikke. I så fall skal du klikke på brettet for å tillata lyd i starten av kvart parti.
 
 Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du uttrykkjeleg tillata lichess.org å spele av lydar. Her er instrukjsjonar om korleis du gjer det i nyare versjonar av nokre mykje brukte weblesarar.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">skrivebord</string>
+  <string name="desktop">skrivebord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
 2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klikk på fanen Løyver
@@ -167,11 +166,11 @@ Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du 
 3. Klikk informasjonskapslar og rettar
 4. Rull ned og klikk Media autospel
 5. Legg til lichess.org for å tillate</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stoppa meg frå å spela?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">eigen mental tilstand</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess brukarstilar</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færre lobbysamlingar</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Vi får jamleg meldingar frå brukarar som ber oss om hjelp til å redusere spelinga.
+  <string name="stopMyselfFromPlaying">Stoppa meg frå å spela?</string>
+  <string name="mentalHealthCondition">eigen mental tilstand</string>
+  <string name="lichessUserstyles">Lichess brukarstilar</string>
+  <string name="fewerLobbyPools">færre lobbysamlingar</string>
+  <string name="adviceOnMitigatingAddiction">Vi får jamleg meldingar frå brukarar som ber oss om hjelp til å redusere spelinga.
 
 Med unntak av ved brot på brukarvilkåra vil ikkje Lichess blokkere eller utestengje spelarar. For dei som vil avgrense overdrive spelåtferd tilrår vi i staden bruk av eksterne verktøy. Nokre vanlege tilrådingar til nettstadblokkerarar er %1$s, %2$s og %3$s. Om du framleis vil bruke nettstaden, men ikkje bli frista av snøgge tidskontrollar, kan du vurdera %4$s, her er ein med %5$s.
 

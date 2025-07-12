@@ -22,6 +22,7 @@
   <string name="asBlack">sebagai hitam</string>
   <string name="randomColor">Pilihan rawak</string>
   <string name="createAGame">Mencipta permainan</string>
+  <string name="createTheGame">Chess</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
   <string name="youPlayTheWhitePieces">Mula dengan buah putih</string>
@@ -430,7 +431,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="points">Mata</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
-  <string name="createdBy">Dibuat oleh</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Sambung</string>

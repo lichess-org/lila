@@ -187,6 +187,7 @@
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">تم المشاركة والحفظ</string>
   <string name="sharedAndSavedText">يمكن للأعضاء الآخرين رؤية نقلاتك في الوقت الحقيقي!&lt;br&gt;زيادة على ذلك، يتم حفظ كل شيء إلى الأبد.</string>
   <string name="studyMembersTitle">أعضاء الدراسة</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">يمكن لـ%1$s متفرجين رؤية الدراسة والتكلم في المحادثة &lt;br&gt;&lt;br&gt;%2$s المساهمين يستطيعون القيام بالحركات وتحديث الدراسة.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">إضغط على زر %s.&lt;br&gt;ثم قرر من يمكنه المساهمة أو لا.</string>
   <string name="studyChaptersTitle">فصول الدراسة</string>
   <string name="studyChaptersText">يمكن للدراسة أن تحتوي علي عدة فصول.&lt;br&gt;كل فصل له موقف أولي مختلف وتفريع النقلات.</string>
@@ -195,12 +196,23 @@
   <string name="annotatePositionTitle">علق علي الموقف</string>
   <string name="annotatePositionText">اضغط على زر ?!, أو أضغط بزر الفأرة الأيمن علي قائمة النقلات علي اليمين.&lt;br&gt; رموز التعليق يتم مشاركتها وحفظها.</string>
   <string name="conclusionTitle">شكرًا على وقتك</string>
+  <string name="conclusionText">يمكنك إيجاد &lt;a href=\'/study/mine/hot\'&gt;الدراسات المسبقة&lt;/a&gt; من ملفك الشخصي. &lt;br&gt;هناك أيضاً &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; منشور على المدونة عن الدراسات &lt;/a&gt;.&lt;br&gt; المستخدمين المتقدمين يمكنهم الضغط على \"؟\" لرؤية اختصارات لوحة المفاتيح. &lt;br&gt; استمتع!</string>
   <string name="createChapterTitle">دعنا ننشئ فصل جديد</string>
+  <string name="createChapterText">يمكن للدراسة أن تحتوي على عدة فصول.&lt;br&gt;كل فصل لديه شجرة حركات مختلفة،&lt;br&gt; ويمكن إنشاؤها بطرق مختلفة.</string>
   <string name="fromInitialPositionTitle">البدء من وضع البداية</string>
   <string name="fromInitialPositionText">مجرد إعداد لوح للعبة جديدة.&lt;br&gt;مناسب لاستكشاف الافتتاحيات.</string>
   <string name="customPositionTitle">موضع مخصص</string>
+  <string name="customPositionText">قم بتهيئة اللوحة بطريقتك.&lt;br&gt; لتكون مناسبة لاستكشاف نهاية الألعاب.</string>
+  <string name="loadExistingLichessGameTitle">تحميل لعبة Lichess مسبقة</string>
+  <string name="loadExistingLichessGameText">قم بلصق رابط لعبة Lichess&lt;br&gt;(مثل lichess.org/7fHIU0XI)&lt;br&gt;لتحميل حركات اللعبة في الفصل.</string>
   <string name="fromFenStringTitle">من نص FEN</string>
+  <string name="fromFenStringText">الصق موقع لعبة بصيغة FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; لتبدأ الفصل من موقع محدد.</string>
   <string name="fromPgnGameTitle">من PGN لعبة</string>
+  <string name="fromPgnGameText">الصق لعبة بصيغة PGN.&lt;br&gt; لتحميل الحركات، الأوامر، والتغييرات في الفصل.</string>
+  <string name="variantsAreSupportedTitle">تدعم الدراسات أنماط الشطرنج المختلفة</string>
+  <string name="variantsAreSupportedText">نعم، يمكنك دراسة البيت المجنون&lt;br&gt;وجميع أنواع ألعاب Lichess!</string>
+  <string name="chapterConclusionText">يتم حفظ الفصول للأبد.&lt;br&gt; استمتعوا بتنظيم محتوى الشطرنج خاصتكم!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">هزيمة مزدوجة</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">الأسود مهزوم, لكن الأبيض لا يستطيع الفوز</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">الأبيض مهزوم, لكن الأسود لا يستطيع الفوز</string>
 </resources>

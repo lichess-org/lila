@@ -44,6 +44,9 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="teamsIlead">Yönettiğim takımlar</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Yaklaşan bu turnuvalardan birine link vermek ister miydiniz?</string>
   <string name="leadersChat">Liderler arası sohbet</string>
+  <string name="introduction">Giriş</string>
+  <string name="teamIntroductionHelp">Takım listesinde görünür olan kısa açıklama. 200 karaktere sınırlı.</string>
+  <string name="teamDescriptionHelp">Takım sayfasında görünen tam açıklama.</string>
   <string name="closeTeam">Takımı kapat</string>
   <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
   <string name="entryCode">Takıma giriş kodu</string>

@@ -21,6 +21,7 @@
   <string name="asBlack">sicut nigrum</string>
   <string name="randomColor">Latus fortuitus</string>
   <string name="createAGame">Ludum facere</string>
+  <string name="createTheGame">Ludum facere</string>
   <string name="whiteIsVictorious">Albus victor est</string>
   <string name="blackIsVictorious">Ater victor est</string>
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
@@ -141,6 +142,7 @@
   <string name="flipBoard">Tabulam vertere</string>
   <string name="threefoldRepetition">Triplex repetitio</string>
   <string name="claimADraw">Indutia asciscere</string>
+  <string name="drawClaimed">Consensum vindicatum est</string>
   <string name="offerDraw">Indutia offerre</string>
   <string name="draw">Indutia</string>
   <plurals name="nbPlayers">
@@ -150,6 +152,7 @@
   <string name="drawByMutualAgreement">Consensus ad idem</string>
   <string name="fiftyMovesWithoutProgress">Prosectus non est</string>
   <string name="currentGames">Nunc ludi luduntur</string>
+  <string name="joinedX">%s iunctus</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludus</item>
     <item quantity="other">%s ludi</item>
@@ -161,6 +164,7 @@
   <string name="viewInFullSize">Integro modo vide</string>
   <string name="logOut">Personam relinque</string>
   <string name="signIn">Personam adsume</string>
+  <string name="rememberMe">Custodi me apud log</string>
   <string name="youNeedAnAccountToDoThat">Tibi persona tenenda est ut illum agere possis</string>
   <string name="signUp">Personam crea</string>
   <string name="computersAreNotAllowedToPlay">Non licet computatris vel lusoribus ab computatro auxiliatis ludere. Obsecramus vos adiutos non esse ab machina scacchica, vel tabulis datis, vel lusoribus alteris. Nota bene etiam multos creare codices minime hortatur atque si nimis multis codices habeatis, exsulatos estis.</string>
@@ -170,6 +174,7 @@
   <string name="latestForumPosts">Recentes nuntii</string>
   <string name="players">Lusores</string>
   <string name="friends">Amici</string>
+  <string name="otherPlayers">alii lusores</string>
   <string name="discussions">Conlucutiones</string>
   <string name="today">Hodie</string>
   <string name="yesterday">heri</string>
@@ -177,7 +182,7 @@
   <string name="variant">Varietas</string>
   <string name="variants">variationes</string>
   <string name="timeControl">Temporis curatio</string>
-  <string name="realTime">Tempus reale</string>
+  <string name="realTime">Praesens tempus</string>
   <string name="correspondence">Ludus diutinus</string>
   <string name="daysPerTurn">Dies per motum</string>
   <string name="oneDay">Dies unus</string>
@@ -205,6 +210,8 @@
   <string name="email">Email</string>
   <string name="passwordReset">Recrea tesseram</string>
   <string name="forgotPassword">Tessera oblita?</string>
+  <string name="youAreLeavingLichess">Lichess relinquis</string>
+  <string name="proceedToX">Perge ad %s</string>
   <string name="rank">Ordo</string>
   <string name="rankX">Locus: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -220,6 +227,7 @@
     <item quantity="one">%s ludi tecum</item>
     <item quantity="other">%s ludi tecum</item>
   </plurals>
+  <string name="ok">Accepto</string>
   <string name="cancel">Anullare</string>
   <string name="whiteTimeOut">Tempus nullum est</string>
   <string name="blackTimeOut">Tempus nullum est</string>
@@ -251,12 +259,13 @@
   <string name="rematchOfferAccepted">Accepta est novae lusionis conditio</string>
   <string name="rematchOfferCanceled">Sublata est novae lusionis conditio</string>
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
-  <string name="cancelRematchOffer">Novae lusionis conditionem tollere</string>
+  <string name="cancelRematchOffer">Novae lusionis conditionem abroga</string>
   <string name="viewRematch">Novam lusionem videre</string>
   <string name="confirmMove">Motum confirma</string>
   <string name="play">Ludere</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Sermo</string>
+  <string name="loginToChat">Ini sessionem ut colloquaris</string>
   <string name="youHaveBeenTimedOut">Nunc existi.</string>
   <string name="spectatorRoom">Fenestra spectatorium</string>
   <string name="composeMessage">Epistulam scribere</string>
@@ -293,7 +302,15 @@
   <string name="openingExplorerAndTablebase">Explicatio initiorum et finitium</string>
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
+  <string name="whiteProposesTakeback">Albus motum reversionem proponit</string>
+  <string name="blackProposesTakeback">Niger motum reversionem proponit</string>
   <string name="takebackPropositionSent">Missa est motus reversionis conditio</string>
+  <string name="whiteDeclinesTakeback">Albus motum reversionem recusat</string>
+  <string name="blackDeclinesTakeback">Niger motum reversionem recusat</string>
+  <string name="whiteAcceptsTakeback">Albus motum reversionem accipit</string>
+  <string name="blackAcceptsTakeback">Niger motum reversionem accipit</string>
+  <string name="whiteCancelsTakeback">Albus motum reversionem recusat</string>
+  <string name="blackCancelsTakeback">Niger motum reversionem recusat</string>
   <string name="yourOpponentProposesATakeback">Motus reversionem adversarius offert</string>
   <string name="bookmarkThisGame">Lusionem bookmarkare</string>
   <string name="tournament">Certamen</string>
@@ -363,6 +380,7 @@
   <string name="notACheckmate">Non est mattus</string>
   <string name="retry">Adparare iterum</string>
   <string name="reconnecting">Reconectens</string>
+  <string name="noNetwork">Inconexus</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amicus praesens</item>
     <item quantity="other">%s amici praesens</item>
@@ -402,14 +420,16 @@
   <string name="standing">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
+  <string name="conditionOfEntry">Requisita ingressus:</string>
   <string name="advancedSettings">Occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
   <string name="wins">Victoriae</string>
   <string name="losses">Clades</string>
-  <string name="createdBy">Factum ab</string>
+  <string name="startingIn" comment="Displayed above a timer">Incipiens in</string>
   <string name="pause">Pausa</string>
+  <string name="resume">Resumere</string>
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
   <string name="performance">Gressus</string>
@@ -429,6 +449,7 @@
   <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
+  <string name="realName">Nomen verum</string>
   <string name="biography">Biographia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria aut regio</string>
   <string name="thankYou">Gratias tibi!</string>
@@ -444,10 +465,13 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Post movendum automatice progredi ad ludum sequentem</string>
   <string name="autoSwitch">Automatice ire</string>
   <string name="puzzles">Problema</string>
+  <string name="onlineBots">Automata conexa</string>
   <string name="name">Nomen</string>
   <string name="description">Descriptio</string>
   <string name="no">Non</string>
   <string name="yes">Ita</string>
+  <string name="website">Situs interretialis</string>
+  <string name="mobile">Mobilis</string>
   <string name="help">Auxilium:</string>
   <string name="createANewTopic">Creare themam novam</string>
   <string name="topics">Thema</string>

@@ -444,7 +444,6 @@
   <string name="points">Poin</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
-  <string name="createdBy">Dibuat oleh</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Lanjutkan</string>

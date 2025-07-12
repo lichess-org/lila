@@ -2,13 +2,13 @@ import {
   type VNode,
   type VNodeData,
   type VNodeChildElement,
+  type VNodeChildren,
   type Hooks,
   type Attrs,
   h as snabH,
 } from 'snabbdom';
 
-export type { Attrs, VNode };
-export type Redraw = () => void;
+export type { Attrs, VNode, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 
@@ -54,29 +54,34 @@ export const dataIcon = (icon: string): Attrs => ({
 
 export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
 
-export type LooseVNode = VNode | string | undefined | null | boolean;
-export type LooseVNodes = LooseVNode[];
-export type VNodeKids = LooseVNode | LooseVNodes;
+export type LooseVNode = VNodeChildElement | boolean;
+export type LooseVNodes = LooseVNode | LooseVNodes[];
 
 // '' may be falsy but it's a valid VNode
 // 0 may be falsy but it's a valid VNode
-const kidFilter = (x: VNodeData | VNodeKids): boolean => (x && x !== true) || x === '';
+const kidFilter = (x: VNodeData | LooseVNodes): boolean => (x && x !== true) || x === '' || x === 0;
 
-const filterKids = (children: VNodeKids): VNodeChildElement[] =>
-  (Array.isArray(children) ? children : [children]).filter(kidFilter) as VNodeChildElement[];
+const filterKids = (children: LooseVNodes): VNodeChildElement[] => {
+  const flatKids: LooseVNode[] = [];
+  flattenKids(children, flatKids);
+  return flatKids.filter(kidFilter) as VNodeChildElement[];
+};
 
-/* obviate need for some ternary expressions in renders.  Allows
-     looseH('div', [ kids && h('div', 'kid') ])
-   instead of
-     h('div', [ isKid ? h('div', 'kid') : null ])
-   'true' values are filtered out of children array same as 'false' (for || case)
-*/
-export function looseH(sel: string, dataOrKids?: VNodeData | VNodeKids, kids?: VNodeKids): VNode {
+// strip boolean results and flatten arrays in renders.  Allows
+//   hl('div', isDivEmpty || [ 'foo', fooHasKid && [ 'has', 'kid' ])
+export function hl(sel: string, dataOrKids?: VNodeData | LooseVNodes, kids?: LooseVNodes): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
   if (!kidFilter(dataOrKids)) return snabH(sel);
   if (Array.isArray(dataOrKids) || (typeof dataOrKids === 'object' && 'sel' in dataOrKids!))
-    return snabH(sel, filterKids(dataOrKids as VNodeKids));
+    return snabH(sel, filterKids(dataOrKids as LooseVNodes));
   else return snabH(sel, dataOrKids as VNodeData);
 }
+
+// for deep trees i think it's more efficient to flatten arrays here than to spread them in renders.
+// but we're mostly after cleaner syntax
+const flattenKids = (maybeArray: LooseVNodes, out: LooseVNode[]) => {
+  if (Array.isArray(maybeArray)) for (const el of maybeArray) flattenKids(el, out);
+  else out.push(maybeArray);
+};
 
 export const noTrans: (s: string) => VNode = s => snabH('span', { attrs: { lang: 'en' } }, s);

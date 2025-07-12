@@ -39,7 +39,7 @@ import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from '@lichess-org/chessground/util';
-import Persistence from './persistence';
+import { IdbTree } from './idbTree';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
@@ -57,7 +57,7 @@ export default class AnalyseCtrl {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  persistence?: Persistence;
+  idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
   isEmbed: boolean;
 
@@ -101,7 +101,6 @@ export default class AnalyseCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
-  treeVersion = 1; // increment to recreate vnode tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -154,8 +153,6 @@ export default class AnalyseCtrl {
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
     this.initialize(this.data, false);
-
-    this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.initCeval();
 
@@ -215,7 +212,10 @@ export default class AnalyseCtrl {
         redraw();
       }
     });
-    this.persistence?.merge();
+    this.idbTree.merge().then(() => {
+      this.treeView.hidden = false;
+      this.redraw();
+    });
     (window as any).lichess.analysis = api(this);
   }
 
@@ -223,6 +223,7 @@ export default class AnalyseCtrl {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
+    this.treeView.hidden = true;
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
@@ -246,7 +247,6 @@ export default class AnalyseCtrl {
   private makeInitialPath = (): string => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-
     const loc = window.location,
       hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
       startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
@@ -269,15 +269,14 @@ export default class AnalyseCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
-    for (let i = 0; i < this.nodeList.length; i++) {
-      this.nodeList[i].collapsed = false;
-    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
-    this.persistence?.save();
+    if (!this.idbTree) return;
+    this.idbTree.revealNode();
+    this.idbTree.saveMoves();
   };
 
   flip = () => {
@@ -291,7 +290,7 @@ export default class AnalyseCtrl {
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
-    this.persistence?.save(true);
+    this.idbTree.saveMoves(true);
     this.redraw();
   };
 
@@ -479,6 +478,10 @@ export default class AnalyseCtrl {
 
   reloadData(data: AnalyseData, merge: boolean): void {
     this.initialize(data, merge);
+    this.idbTree.merge().then(() => {
+      this.treeView.hidden = false;
+      this.redraw();
+    });
     this.redirecting = false;
     this.setPath(treePath.root);
     this.initCeval();
@@ -595,7 +598,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    this.persistence?.onAddNode(node, path);
+    this.idbTree.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -648,27 +651,14 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
-    this.treeVersion++;
-  }
-
-  setCollapsed(path: Tree.Path, collapsed: boolean): void {
-    this.tree.setCollapsedAt(path, collapsed);
-    this.redraw();
-  }
-
-  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
-    // Also update parent
-    const parentPath = treePath.init(path);
-    this.tree.setCollapsedAt(parentPath, collapsed);
-    this.tree.setCollapsedRecursive(path, collapsed);
-    this.redraw();
+    this.treeView.update();
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
-    this.treeVersion++;
+    this.treeView.update();
   }
 
   reset(): void {
@@ -692,7 +682,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.chessground?.setAutoShapes(computeAutoShapes(this));
+    if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
@@ -717,7 +707,7 @@ export default class AnalyseCtrl {
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
-        this.redraw();
+        if (!(site.blindMode && this.retro)) this.redraw();
       }
     });
   };

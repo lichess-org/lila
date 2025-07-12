@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
-  <string name="playWithTheMachine">Kompyuter bilan o\'ynang</string>
+  <string name="playWithTheMachine">Kompyuterga qarshi oʻynang</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">O\'zaro kelishuv asosida durrang natija qayd etildi</string>
   <string name="fiftyMovesWithoutProgress">Ellikta yurish birorta rivojsiz</string>
   <string name="currentGames">Joriy vaqtdagi o\'yinlar</string>
+  <string name="joinedX">%s qoʻshildi</string>
   <plurals name="nbGames">
     <item quantity="one">%s o\'yin</item>
     <item quantity="other">%s o\'yinlar</item>
@@ -492,7 +493,6 @@
   <string name="points">Ballar</string>
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
-  <string name="createdBy">Yaratgan tomon</string>
   <string name="startingIn" comment="Displayed above a timer">Boshlanishigacha</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>

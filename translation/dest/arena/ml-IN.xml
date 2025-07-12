@@ -64,8 +64,8 @@ berserk ഗെയിമിൽ 7 നീക്കങ്ങളിലധികം �
   <string name="whichTeamWillYouRepresentInThisBattle">ഈ പോരാട്ടത്തിൽ നിങ്ങൾ ഏത് ടീമിനെ പ്രതിനിധീകരിക്കും?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">പങ്കെടുക്കാൻ നിങ്ങൾ ഈ ടീമുകളിലൊന്നിൽ ചേരണം!</string>
   <string name="created">ഉണ്ടാകിയത്</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">പുതുതായ കളിച്ചത്</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">ഏറ്റവും നലത് ഫലങ്ങൾ</string>
+  <string name="recentlyPlayed">പുതുതായ കളിച്ചത്</string>
+  <string name="bestResults">ഏറ്റവും നലത് ഫലങ്ങൾ</string>
   <string name="tournamentStats">മത്സരസ്ഥിതിവിവരക്കണക്കു്</string>
   <string name="rankAvgHelp">റാങ്ക് ശരാശരി നിങ്ങളുടെ റാങ്കിംഗിന്റെ ഒരു ശതമാനമാണ്. താഴ്ന്നതാണ് നല്ലത്.
 
@@ -81,5 +81,5 @@ berserk ഗെയിമിൽ 7 നീക്കങ്ങളിലധികം �
   <string name="onlyTitled">പദവിനല്കിയ കളിക്കാർ മാത്രം</string>
   <string name="onlyTitledHelp">ടൂർണമെന്റിൽ ചേരാൻ ഒരു ഔദ്യോഗിക പദവി ആവശ്യമാണ്</string>
   <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് ജോടിയാക്കലുകൾ ഇപ്പോൾ അവസാനിച്ചു.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">ബെർസെർക്ക് നിരക്ക്</string>
+  <string name="berserkRate">ബെർസെർക്ക് നിരക്ക്</string>
 </resources>

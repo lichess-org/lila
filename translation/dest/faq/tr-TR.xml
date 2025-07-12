@@ -22,7 +22,7 @@
   <string name="keyboardShortcutsExplanation">Bazı Lichess sayfaları kullanabileceğiniz klavye kısayolları bulundurur. Bir çalışma, analiz, bulmaca veya oyun sayfasında geçerli klavye kısayollarının listelemek için \'?\' tuşuna basmayı deneyin.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
+  <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
 
 (Mesela puanınız bu maçlardan sonra büyük ölçüde artarsa, hiç puan iadesi almayabilir ya da kısmi bir iade alabilirsiniz). Tek seferde en fazla 150 puan iade edilir.</string>
   <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyunculara ne yapılır?</string>
@@ -37,7 +37,7 @@
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>
   <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
 Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
+  <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
@@ -100,12 +100,11 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları reklam veya taklit amaçlı olmamalı, insanları rahatsız etmemeli ve incitmemelidir. Bu konu hakkındaki %1$s göz atarak daha fazla bilgi edinebilirsiniz.</string>
   <string name="guidelines">detaylı kurallara</string>
   <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
+  <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
-  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için berserk açarak %s oynadığı oyunlarının hepsini kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasında</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
   <string name="lichessRatings">Lichess derecelendirmeleri</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 puanlama sistemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hâlâ tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
@@ -152,7 +151,7 @@ Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını engelleyince çıkar. Genellikle bu kısıtlama birşeye tıkladığınızda kalkar. Bazı mobil tarayıcılarda, bir satranç taşını sürüklemek tıklamak olarak algılanmayabilir. O durumda her bir oyunun başlangıcında ses için tahtaya dokunmanız gerekir.
 
 Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">masaüstü</string>
+  <string name="desktop">masaüstü</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org\'a git
 2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
 3. İzinler sekmesine tıkla
@@ -170,11 +169,11 @@ Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlu
 3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
 4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın
 5. İzin Ver listesine lichess.org\'u ekleyin</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Kendimi oynamaktan nasıl alıkoyabilirim?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">kendine özgü bir ruh sağlığı durumu</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess kullanıcı stilleri</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">daha az lobi havuzu seçeneği</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Kullanıcılardan, aşırı oynamayı durdurma konusunda düzenli olarak yardım isteyen mailler alıyoruz.
+  <string name="stopMyselfFromPlaying">Kendimi oynamaktan nasıl alıkoyabilirim?</string>
+  <string name="mentalHealthCondition">kendine özgü bir ruh sağlığı durumu</string>
+  <string name="lichessUserstyles">Lichess kullanıcı stilleri</string>
+  <string name="fewerLobbyPools">daha az lobi havuzu seçeneği</string>
+  <string name="adviceOnMitigatingAddiction">Kullanıcılardan, aşırı oynamayı durdurma konusunda düzenli olarak yardım isteyen mailler alıyoruz.
 
 Lichess, Kullanım Koşulları ihlalleri dışında oyuncuları yasaklamaz veya engellemez, ancak aşırı oynama davranışını sınırlamak için harici araçların kullanılmasını öneririz. Web sitesi engelleyiciler için yaygın önerilerden bazıları %1$s, %2$s ve %3$s içerir. Siteyi kullanmaya devam etmek istiyorsanız ancak hızlı zaman kontrolleriyle kendi kendinizi kandırmak istemiyorsanız, %4$s sizin için de ilginç olabilir, örneğin %5$s.
 

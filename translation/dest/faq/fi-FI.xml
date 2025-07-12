@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Joillakin Lichess-sivuilla voit käyttää pikanäppäimiä. Painamalla \"?\"-näppäintä tutkielma-, analyysi-, tehtävä- tai pelisivulla saat näkyviin käytettävissä olevien pikanäppäinten listan.</string>
   <string name="fairPlay">Reilu peli</string>
   <string name="whenAmIEligibleRatinRefund">Milloin voin saada huijaajilta automaattisen vahvuusluvun hyvityksen?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
+  <string name="ratingRefundExplanation">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
   (Jos esimerkiksi vahvuuslukusi on noussut kovasti noiden pelien jälkeen, et ehkä saa hyvitystä lainkaan tai vain osittaisen hyvityksen.) Hyvitys ei koskaan voi olla 150 pistettä enempää.</string>
   <string name="preventLeavingGameWithoutResigning">Mitä tehdään pelaajille, jotka jättävät pelejä kesken luovuttamatta?</string>
   <string name="leavingGameWithoutResigningExplanation">Jos vastustajasi lähtee usein peleistä tai jättää niitä kesken, he saavat pelikiellon, eli he eivät väliaikaisesti voi pelata pelejä. Tämä näkyy julkisesti heidän käyttäjäprofiilissaan. Jos tämä käytös jatkuu, pelikiellon pituus kasvaa – ja pitkittynyt tällainen käytös voi johtaa tunnuksen sulkemiseen.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Pikapeli ja muut aikakontrollit on määritelty?</string>
   <string name="basedOnGameDuration">Lichessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
+  <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lichessissä?</string>
@@ -97,12 +97,11 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="usernamesNotOffensive">Yleisesti ottaen käyttäjänimien ei pidä olla loukkaavia, eikä niillä saa esittää toista ihmistä eikä mainostaa. Voit lukea lisää %1$s.</string>
   <string name="guidelines">ohjeista</string>
   <string name="canIChangeMyUsername">Voinko vaihtaa käyttäjänimeni?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Et voi. Teknisistä ja käytännön syistä käyttäjänimiä ei voi muuttaa. Käyttäjänimet ovat liian monessa paikassa: tietokannoissa, vienti- ja lokitiedostoissa sekä ihmisten mielissä. Isojen ja pienten kirjainten käyttöä käyttäjänimessäsi voit muuttaa kerran.</string>
+  <string name="usernamesCannotBeChanged">Et voi. Teknisistä ja käytännön syistä käyttäjänimiä ei voi muuttaa. Käyttäjänimet ovat liian monessa paikassa: tietokannoissa, vienti- ja lokitiedostoissa sekä ihmisten mielissä. Isojen ja pienten kirjainten käyttöä käyttäjänimessäsi voit muuttaa kerran.</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa %s kaikki pelit.</string>
   <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
+  <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
   <string name="lichessRatings">Lichess-vahvuusluvut</string>
   <string name="whichRatingSystemUsedByLichess">Mitä vahvuuslukujärjestelmää Lichess käyttää?</string>
   <string name="ratingSystemUsedByLichess">Vahvuusluvut lasketaan käyttämällä Mark Glickmanin kehittämää Glicko-2-vahvuuslukujärjestelmää. Se on hyvin suosittu vahvuuslukujärjestelmä, ja sitä käyttää hyvin moni shakkijärjestö (FIDE on huomattava vastaesimerkki, sillä se käyttää vielä vanhaa ELO-järjestelmää).
@@ -149,7 +148,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
 Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen mykistyskuvake. Tavallisesti rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
 
 Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">tietokone</string>
+  <string name="desktop">tietokone</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
 2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
 3. Klikkaa käyttöoikeusvälilehteä
@@ -163,11 +162,11 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 3. Valitse Evästeet ja sivuston käyttöoikeudet
 4. Vieritä alas ja valitse Median automaattinen toisto
 4. Lisää lichess.org listalle \"Salli\"</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Estää itseäni pelaamasta?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">erilliseksi mielenterveyshäiriöksi</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichessin käyttäjäkohtaiset tyylit</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">aulassa vähemmän pelivaihtoehtoja</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Saamme käyttäjiltä säännöllisesti viestejä, joissa meitä pyydetään auttamaan heitä liiallisen pelaamisen estämisessä.
+  <string name="stopMyselfFromPlaying">Estää itseäni pelaamasta?</string>
+  <string name="mentalHealthCondition">erilliseksi mielenterveyshäiriöksi</string>
+  <string name="lichessUserstyles">Lichessin käyttäjäkohtaiset tyylit</string>
+  <string name="fewerLobbyPools">aulassa vähemmän pelivaihtoehtoja</string>
+  <string name="adviceOnMitigatingAddiction">Saamme käyttäjiltä säännöllisesti viestejä, joissa meitä pyydetään auttamaan heitä liiallisen pelaamisen estämisessä.
 
 Vaikka Lichess ei estä pelaajia muuten kuin käyttöehtojen rikkomisesta, suosittelemme käyttämään Lichessin ulkopuolisia työkaluja liiallisen pelaamisen rajoittamiseksi. Verkkosivujen esto-ohjelmiksi yleisiä ehdotuksia ovat mm. %1$s, %2$s ja %3$s. Jos haluat jatkaa sivustomme käyttöä, mutta vastustaa kiusausta pelata nopeilla siirtoajoilla, %4$s saattavat kiinnostaa sinua – tässä on yksi tyyli, jossa on %5$s.
 

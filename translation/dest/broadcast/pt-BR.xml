@@ -58,31 +58,33 @@
   <string name="subscribeTitle">Inscreva-se para ser notificado no início de cada rodada. Você pode configurar as notificações de transmissões nas suas preferências.</string>
   <string name="uploadImage">Enviar imagem de torneio</string>
   <string name="noBoardsYet">Sem tabuleiros ainda. Eles vão aparecer quando os jogos forem enviados.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Tabuleiros são carregados com uma fonte ou pelo %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tabuleiros são carregados com uma fonte ou pelo %s</string>
   <string name="startsAfter">Começa após %s</string>
   <string name="startVerySoon">A transmissão começará em breve.</string>
   <string name="notYetStarted">A transmissão ainda não começou.</string>
   <string name="officialWebsite">Site oficial</string>
   <string name="standings">Classificação</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Classificação oficial</string>
+  <string name="officialStandings">Classificação oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
   <string name="webmastersPage">página dos webmasters</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Uma fonte PGN pública ao vivo desta rodada. Há também a %s para uma sincronização mais rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incorporar essa transmissão em seu site</string>
   <string name="embedThisRound">Incorporar %s em seu site</string>
   <string name="ratingDiff">Diferência de pontos</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Jogos neste torneio</string>
+  <string name="gamesThisTournament">Jogos neste torneio</string>
   <string name="score">Pontuação</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Todas as equipes</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Formato do torneio</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Local do torneio</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Melhores jogadores</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Fuso horário</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Categoria de rating FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Detalhes opcionais</string>
+  <string name="allTeams">Todas as equipes</string>
+  <string name="tournamentFormat">Formato do torneio</string>
+  <string name="tournamentLocation">Local do torneio</string>
+  <string name="topPlayers">Melhores jogadores</string>
+  <string name="timezone">Fuso horário</string>
+  <string name="fideRatingCategory">Categoria de rating FIDE</string>
+  <string name="optionalDetails">Detalhes opcionais</string>
   <string name="pastBroadcasts">Transmissões passadas</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
   <string name="backToLiveMove">Voltar ao lance ao vivo</string>
   <string name="sinceHideResults">A opção de esconder os resultados deixa todas as prévias de partidas vazias para evitar spoilers.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Tabuleiro ao vivo</string>
+  <string name="liveboard">Tabuleiro ao vivo</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmissão da comunidade</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Criada e gerenciada por %s.</string>
 </resources>

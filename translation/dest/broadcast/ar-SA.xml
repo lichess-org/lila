@@ -66,31 +66,33 @@
   <string name="subscribeTitle">اشترك ليتم إعلامك عند بداية كل جولة. يمكنك تفعيل الجرس أو  الإشعارات للبث في إعدادات حسابك.</string>
   <string name="uploadImage">رفع صورة البطولة</string>
   <string name="noBoardsYet">لا توجد لوحات الآن. ستظهر بمجرد رفع المباريات.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">يمكن إضافة اللوحات عبر مصدرها أو عبر %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">يمكن إضافة اللوحات عبر مصدرها أو عبر %s</string>
   <string name="startsAfter">تبدأ بعد%s</string>
   <string name="startVerySoon">سيبدأ البث قريبا.</string>
   <string name="notYetStarted">البث لم يبدأ بعد.</string>
   <string name="officialWebsite">الموقع الرسمي</string>
   <string name="standings">الترتيب</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">الترتيب الرسمي</string>
+  <string name="officialStandings">الترتيب الرسمي</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">مصدر PGN عام وحقيقي لهذه الجولة. نحن أيضا نقدم %s لمزامنة أسرع وأحسن.</string>
   <string name="embedThisBroadcast">ادمج هذا البث في موقع الويب الخاص بك</string>
   <string name="embedThisRound">ادمج %s في موقع الويب الخاص بك</string>
   <string name="ratingDiff">فرق التقييم</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">الألعاب</string>
+  <string name="gamesThisTournament">الألعاب</string>
   <string name="score">النتيجة</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">كل الفرق</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">نظام البطولة</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">موقع البطولة</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">أفضل اللاعبين</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">المنطقة الزمنية</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">فئة تقيم FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">تفاصيل اختيارية</string>
+  <string name="allTeams">كل الفرق</string>
+  <string name="tournamentFormat">نظام البطولة</string>
+  <string name="tournamentLocation">موقع البطولة</string>
+  <string name="topPlayers">أفضل اللاعبين</string>
+  <string name="timezone">المنطقة الزمنية</string>
+  <string name="fideRatingCategory">فئة تقيم FIDE</string>
+  <string name="optionalDetails">تفاصيل اختيارية</string>
   <string name="pastBroadcasts">البثوث السابقة</string>
   <string name="allBroadcastsByMonth">اعرض البثوث حسب الشهر</string>
   <string name="backToLiveMove">العودة إلى الحرقات المباشرة</string>
   <string name="sinceHideResults">بما أنك اخترت إخفاء النتائج، فإن جميع لوحات المعاينة فارغة لتجنب الحرق.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">اللوحة الآن</string>
+  <string name="liveboard">اللوحة الآن</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">بث المجتمع</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">تم إنشاؤها وإدارتها بواسطة %s.</string>
 </resources>

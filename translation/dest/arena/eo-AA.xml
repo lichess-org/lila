@@ -67,8 +67,8 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   <string name="whichTeamWillYouRepresentInThisBattle">Kiu teamon vi reprezentos dum ĉi tiu batalo?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Vi devas aliĝi al unu el ĉi tiuj teamojn por partopreni!</string>
   <string name="created">Kreita</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Freŝdate ludita</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Plej bonaj rezultoj</string>
+  <string name="recentlyPlayed">Freŝdate ludita</string>
+  <string name="bestResults">Plej bonaj rezultoj</string>
   <string name="tournamentStats">Turniraj statistikoj</string>
   <string name="rankAvgHelp">La mezrango estas elcento de via rango. Ju pli malalta des pli bona.
 

@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Neke Lichess stranice imaju tipkovničke prečace koje možete koristiti. Pokušajte pritisnuti \'?\' tipku na stranici studija, analize, zagonetke ili igre za popis dostupnih tipkovničkih prečaca.</string>
   <string name="fairPlay">Poštena Igra</string>
   <string name="whenAmIEligibleRatinRefund">Kada ispunjavam uvjete za automatsko vraćanje rejtinga od varalica?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Nakon jedne minute što je igrač označen, njemu se uzima 40 rejtingiranih partija u posljednja tri dana. Ako ste mu Vi u tim partijama bili protivnik, past će vam rejting (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga temelji se na Vašem najvišem rejtingu i njegovom napretku nakon date partije.
+  <string name="ratingRefundExplanation">Nakon jedne minute što je igrač označen, njemu se uzima 40 rejtingiranih partija u posljednja tri dana. Ako ste mu Vi u tim partijama bili protivnik, past će vam rejting (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga temelji se na Vašem najvišem rejtingu i njegovom napretku nakon date partije.
 (npr., ako se nakon svih tih partija Vaš rejting značajno uvećao, dobiti ćete djelomičan ili možda nećete dobiti nikakav povrat rejtinga.) Povrat rejtinga nikad neće prekoračiti gornju granicu od 150 bodova.</string>
   <string name="preventLeavingGameWithoutResigning">Šta se čini s igračima koji napuste igru, a da je ne predaju?</string>
   <string name="leavingGameWithoutResigningExplanation">Ako Vaš protivnik često otkazuje ili napušta partije, dobiti će poruku o zabrani igranja, a to znači da mu je privremeno zabranjeno igranje šaha. To neće biti javno istaknuto na profilu igrača. Ako se takvo ponašanje nastavi, povećati će se trajanje zabrane, a produženo ponašanje takve prirode može dovesti do zatvaranja korisničkog računa.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Bullet, Blitz i druge šahovske varijante?</string>
   <string name="basedOnGameDuration">Kontrole vremena na Lichess-u su temeljene na procijenjenom trajanju igre = %1$s
 Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 420 sekundi.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(inicijalno vrijeme sata) + 40 x (pomak sata)</string>
+  <string name="durationFormula">(inicijalno vrijeme sata) + 40 x (pomak sata)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Koje varijente šaha mogu da igram na Lichess-u?</string>
@@ -97,12 +97,11 @@ Nemojte tražiti LM titulu.</string>
   <string name="usernamesNotOffensive">Općenito, korisničko ime ne bi trebala biti: uvredljivo, lažno predstavljanje nekog drugog ili oglašavanje. Više o %1$s korisničkog imena.</string>
   <string name="guidelines">smjernicama</string>
   <string name="canIChangeMyUsername">Mogu li promijeniti svoje korisničko ime?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne, korisnička imena se ne mogu mijenjati iz tehničkih i praktičnih razloga. Korisnička imena materijalizirana su na previše mjesta: u bazama podataka, izvozima, zapisnicima i umovima ljudi. Kapitalizaciju možete prilagoditi jednom.</string>
+  <string name="usernamesCannotBeChanged">Ne, korisnička imena se ne mogu mijenjati iz tehničkih i praktičnih razloga. Korisnička imena materijalizirana su na previše mjesta: u bazama podataka, izvozima, zapisnicima i umovima ljudi. Kapitalizaciju možete prilagoditi jednom.</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
   <string name="ownerUniqueTrophies">Taj trofej jedinstven je u povijesti Lichess-a. Nitko drugi osim %1$s ga nikad neće imati.</string>
-  <string name="wayOfBerserkExplanation">Da bi ga dobio, hiimgosu je izazvao sebe na berserk i pobijedio u 100%% igara %s.</string>
   <string name="aHourlyBulletTournament">satni turnir Bullet</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
+  <string name="goldenZeeExplanation">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
   <string name="lichessRatings">Lichess rajgovi</string>
   <string name="whichRatingSystemUsedByLichess">Kakav sistem rangiranja koristi Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ocjene se izračunavaju pomoću metode ocjenjivanja Glicko-2, koju je razvio Mark Glickman. Ovo je vrlo popularna metoda ocjenjivanja, a koristi je značajan broj šahovskih organizacija (FIDE je značajan kontra-primjer, jer još uvijek koriste datirani sustav ocjenjivanja Elo).
@@ -144,5 +143,5 @@ Kliknite ikonu lokota pored adrese lichess.org na URL traci vašeg preglednika.
 
 Zatim odaberite želite li dopustiti ili blokirati obavijesti od strane Lichess-a.</string>
   <string name="enableAutoplayForSoundsQ">Uključi automatsko uključivanje za zvuk?</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">stolno računalo</string>
+  <string name="desktop">stolno računalo</string>
 </resources>

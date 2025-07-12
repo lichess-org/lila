@@ -484,7 +484,6 @@
   <string name="points">புள்ளிகள்</string>
   <string name="wins">வெற்றிகள்</string>
   <string name="losses">தோல்விகள்</string>
-  <string name="createdBy">படைத்தவர்</string>
   <string name="standByX">%s உடன் நிற்க, ஆட்டக்காரர்கள் இணைக்கப்படுகிறார்கள், தயாராகுங்கள்!</string>
   <string name="pause">இடைநிறுத்தம்</string>
   <string name="resume">தொடரவும்</string>

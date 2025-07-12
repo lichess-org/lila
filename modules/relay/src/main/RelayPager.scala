@@ -28,7 +28,7 @@ final class RelayPager(
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selectors.ownerId(owner.id) ++ (!isMe).so(selectors.publicTour)) -> {
+              Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
                 List(Sort(Descending("createdAt"))) :::
                   tourRepo.aggregateRound(colls, framework, onlyKeepGroupFirst = false) :::
                   List(Skip(offset), Limit(length))
@@ -46,7 +46,7 @@ final class RelayPager(
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(selectors.privateTour) -> {
+            Match(selectors.officialNotPublic) -> {
               List(Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
@@ -117,8 +117,10 @@ final class RelayPager(
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
 
     val day = 1000L * 3600 * 24
+    // We add quotes to the query to perform an exact match even when the query contains whitespaces
+    val exactQuery = s"\"$query\""
 
-    val textSelector = $text(query) ++ selectors.officialPublic
+    val textSelector = $text(exactQuery) ++ selectors.officialPublic
 
     // Special case of querying so that users can filter broadcasts by year
     val yearOpt  = """\b(20)\d{2}\b""".r.findFirstIn(query)

@@ -5,8 +5,9 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
 import lila.core.id.RelayTourId
-import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel }
+import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayPlayer }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
@@ -23,8 +24,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           env.relay.pager
             .search(query, page)
             .flatMap: pager =>
-              Ok.async:
-                views.relay.tour.search(pager, query)
+              Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
             (active, past) <- env.relay.top(page)
@@ -155,8 +155,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     WithTour(id): tour =>
       env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
-  def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
-    env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
+  def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
+    for _ <- env.relay.api.subscribe(id, me.userId, isSubscribed)
+    yield jsonOkResult
   }
 
   def cloneTour(id: RelayTourId) = Secure(_.Relay) { _ ?=> me ?=>
@@ -171,20 +172,24 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def show(@nowarn slug: String, id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      env.relay.listing.defaultRoundToLink
-        .get(tour.id)
-        .flatMap:
-          case None =>
-            ctx.me
-              .soUse(env.relay.api.canUpdate(tour))
-              .flatMap:
-                if _ then Redirect(routes.RelayRound.form(tour.id))
-                else emptyBroadcastPage(tour)
-          case Some(round) => Redirect(round.withTour(tour).path)
+      if tour.isPrivate && ctx.isAnon
+      then Unauthorized.page(views.site.message.relayPrivate)
+      else
+        env.relay.listing.defaultRoundToLink
+          .get(tour.id)
+          .flatMap:
+            case None =>
+              ctx.me
+                .soUse(env.relay.api.canUpdate(tour))
+                .flatMap:
+                  if _ then Redirect(routes.RelayRound.form(tour.id))
+                  else emptyBroadcastPage(tour)
+            case Some(round) => Redirect(round.withTour(tour).path)
 
   def embedShow(@nowarn slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
-      FoundEmbed(env.relay.api.tourById(id)): tour =>
+      val tourFu = env.relay.api.tourById(id).map(_.filterNot(_.isPrivate))
+      FoundEmbed(tourFu): tour =>
         env.relay.listing.defaultRoundToLink
           .get(tour.id)
           .flatMap:
@@ -198,10 +203,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiShow(id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      for
-        trs   <- env.relay.api.withRounds(tour)
-        group <- env.relay.api.withTours.get(tour.id)
-      yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
+      if tour.isPrivate && ctx.isAnon
+      then Unauthorized(jsonError("This tournament is private"))
+      else
+        for
+          trs   <- env.relay.api.withRounds(tour)
+          group <- env.relay.api.withTours.get(tour.id)
+        yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
@@ -235,11 +243,17 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           yield res
         case None => JsonBadRequest("Search query cannot be empty")
 
-  def player(tourId: RelayTourId, id: String) = Anon:
+  def player(tourId: RelayTourId, id: String) = AnonOrScoped(_.Web.Mobile): ctx ?=>
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
-      val player  = env.relay.playerApi.player(tour, decoded)
-      Found(player)(JsonOk)
+      val json    =
+        for
+          player      <- env.relay.playerApi.player(tour, decoded)
+          fidePlayer  <- player.flatMap(_.fideId).so(env.fide.repo.player.fetch)
+          isFollowing <- (ctx.userId, fidePlayer.map(_.id)).tupled.soFu:
+            env.fide.repo.follower.isFollowing
+        yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
+      Found(json)(JsonOk)
 
   private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 

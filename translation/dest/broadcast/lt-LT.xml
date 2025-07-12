@@ -62,31 +62,31 @@
   <string name="subscribeTitle">Užsakykite pranešimą apie kiekvieno turo pradžią. Paskyros nustatymuose galite perjungti transliacijų skambėjimo signalą arba tiesioginius pranešimus.</string>
   <string name="uploadImage">Įkelkite turnyro paveikslėlį</string>
   <string name="noBoardsYet">Dar nėra lentų. Jos bus rodomos, kai bus įkeltos partijos.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Lentas galima įkelti iš šaltinio arba per %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Lentas galima įkelti iš šaltinio arba per %s</string>
   <string name="startsAfter">Pradedama po %s</string>
   <string name="startVerySoon">Transliacija prasidės visai netrukus.</string>
   <string name="notYetStarted">Transliacija dar neprasidėjo.</string>
   <string name="officialWebsite">Oficialus tinklapis</string>
   <string name="standings">Rezultatai</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Oficialūs rezultatai</string>
+  <string name="officialStandings">Oficialūs rezultatai</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Daugiau parinkčių %s</string>
   <string name="webmastersPage">žiniatinklio valdytojų puslapis</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Viešas realaus laiko PGN šaltinis šiam turui. Taip pat siūlome %s greitesniam ir efektyvesniam sinchronizavimui.</string>
   <string name="embedThisBroadcast">Įterpkite šią transliaciją į savo svetainę</string>
   <string name="embedThisRound">Įterpkite %s į savo svetainę</string>
   <string name="ratingDiff">Reitingo skirtumas</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partijos šiame turnyre</string>
+  <string name="gamesThisTournament">Partijos šiame turnyre</string>
   <string name="score">Taškų skaičius</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Visos komandos</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnyro formatas</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnyro vieta</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Geriausi žaidėjai</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Laiko juosta</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE reitingo kategorija</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Papildoma informacija</string>
+  <string name="allTeams">Visos komandos</string>
+  <string name="tournamentFormat">Turnyro formatas</string>
+  <string name="tournamentLocation">Turnyro vieta</string>
+  <string name="topPlayers">Geriausi žaidėjai</string>
+  <string name="timezone">Laiko juosta</string>
+  <string name="fideRatingCategory">FIDE reitingo kategorija</string>
+  <string name="optionalDetails">Papildoma informacija</string>
   <string name="pastBroadcasts">Ankstesnės transliacijos</string>
   <string name="allBroadcastsByMonth">Rodyti visas transliacijas pagal mėnesį</string>
   <string name="backToLiveMove">Grįžti prie esamo ėjimo</string>
   <string name="sinceHideResults">Kadangi pasirinkote nerodyti rezutatų, visos peržiūros lentos yra tuščios, kad neišduotų jų.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Esama lenta</string>
+  <string name="liveboard">Esama lenta</string>
 </resources>

@@ -11,6 +11,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - '.node-version'
   pull_request:
     paths:
       - '.github/workflows/assets.yml'
@@ -18,6 +19,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - '.node-version'
 
 jobs:
   assets:
@@ -34,8 +36,6 @@ jobs:
         with:
           node-version-file: .node-version
           cache: 'pnpm'
-      - name: Corepack (remove this step once https://github.com/pnpm/pnpm/issues/9029 is resolved)
-        run: pnpm install -g corepack@latest
       - name: Install pnpm dependencies
         run: pnpm install
       - name: Checkout ab (optional)

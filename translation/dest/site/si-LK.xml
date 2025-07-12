@@ -462,7 +462,6 @@
   <string name="points">ලකුණු</string>
   <string name="wins">ජය ලබයි</string>
   <string name="losses">Losses</string>
-  <string name="createdBy">නිර්මාණය කළේ</string>
   <string name="standByX">%s ළඟ සිටින්න, ක්‍රීඩකයන් යුගල කරන්න, සූදානම් වන්න!</string>
   <string name="pause">විරාමය</string>
   <string name="resume">යලි අරඹන්න</string>
@@ -541,6 +540,8 @@
   <string name="reportProcessedFasterInEnglish">ඉංග්‍රීසියන් ලීයූ දෑ ඉක්මනට සෝදිසි කරයි.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
   <string name="blog">බ්ලොග්</string>
+  <string name="privacyPolicy">Privacy Policy</string>
+  <string name="letOtherPlayersFollowYou">අනෙක් ක්‍රීඩකයන්ට ඔබව Follow කරන්න ඉඩ දෙන්න</string>
   <string name="sound">ශබ්දය</string>
   <string name="none">කිසිවක් නැත</string>
   <string name="fast">ඉක්මනින්</string>
@@ -626,6 +627,14 @@
   <string name="keyNextMistake">ඊලඟ වැරැද්ද</string>
   <string name="keyNextInaccuracy">ඊලඟ අතපසු වීම</string>
   <string name="keyPreviousBranch">පෙර ශාඛාව</string>
+  <string name="newTournament">නව Tournament එකක්</string>
   <string name="weeklyPerfTypeRatingDistribution">සතිපතා %s ශ්‍රේණි බෙදා හැරීම</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">අපි ඔබට Email පණිවුඩයක් එවා ඇත. එහි ඇති Link එක click කිරීමෙන් ඔබේ ගිණුම Activate කරන්න.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email පණිවුඩය සොයාගත නොහැකි නම් එය තිබිය හැකි ස්ථාන Spam, Junk, Social පරීක්ෂා කරන්න.</string>
+  <string name="ifYouDoNotGetTheEmail">ඔබට මිනිත්තු 5 ක් තුළ විද්‍යුත් තැපෑල නොලැබුණොත් :</string>
+  <string name="checkAllEmailFolders">සියලු පිටු වල පරීක්ෂා කරන්න</string>
+  <string name="verifyYourAddress">ඔබේ විද්‍යුත් තැපෑල %s ලෙස සහතික කරගන්න</string>
+  <string name="weHaveSentYouAnEmailTo">අපි ඔබට විද්‍යුත් තැපෑලක් %sට එවා ඇත. සබැදිය මගින් මුරපදය නැවත සෑදීම සිදු කළ හැක.</string>
+  <string name="opacity">පාරාන්ධතාව</string>
   <string name="pieceSet">ඉත්තන් පෙළ</string>
 </resources>

@@ -1,2 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Zuchlëscht</string>
+  <string name="gameInfo">Partieinformatiounen</string>
+  <string name="pieces">Figuren</string>
+  <string name="gameStatus">Status vun der Partie</string>
+  <string name="lastMove">Leschten Zuch</string>
+  <string name="inputForm">Formulaire fir Befeeler anzeginn</string>
+  <string name="actions">Aktiounen</string>
+  <string name="yourClock">Deng Auer</string>
+  <string name="opponentClock">Dem Géigner seng Auer</string>
+  <string name="gameStart">Ufank vun der Partie</string>
+  <string name="boardCommandList">Befeellëscht, wann d\'Briet am Fokus ass</string>
+  <string name="inputFormCommandList">Gëff dës Befeeler an de Formulaire fir Befeeler anzeginn an.</string>
+  <string name="movePiece">Benotz déi üblech algebraesch Notatioun fir eng Figur ze réckelen.</string>
+  <string name="promotion">Fir an eppes anescht wéi eng Damm ëmzewandelen, benotzt „equals“. Zum Beispill a-8-equals-n fir an e Sprénger ëmzewandelen.</string>
+  <string name="king">Kinnek</string>
+  <string name="whiteKing">wäisse Kinnek</string>
+  <string name="blackKing">schwaarze Kinnek</string>
+  <string name="queen">Damm</string>
+  <string name="whiteQueen">wäiss Damm</string>
+  <string name="blackQueen">schwaarz Damm</string>
+  <string name="rook">Tuerm</string>
+  <string name="whiteRook">wäissen Tuerm</string>
+  <string name="blackRook">schwaarzen Tuerm</string>
+  <string name="bishop">Leefer</string>
+  <string name="whiteBishop">wäisse Leefer</string>
+  <string name="blackBishop">schwaarze Leefer</string>
+  <string name="knight">Sprénger</string>
+  <string name="whiteKnight">wäisse Sprénger</string>
+  <string name="blackKnight">schwaarze Sprénger</string>
+  <string name="pawn">Bauer</string>
+  <string name="whitePawn">wäisse Bauer</string>
+  <string name="blackPawn">schwaarze Bauer</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">hëlt</string>
+  <string name="sanCheck" comment="+ in standard notation">Schach</string>
+  <string name="sanCheckmate" comment="# in standard notation">Schachmatt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">ëmgewandelt an</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kuerz Rochade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">laang Rochade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">agesat op</string>
+  <string name="invalidMove">Ongültegen Zuch</string>
+  <string name="premoveCancelled">Virauszuch ofgebrach</string>
+  <string name="premoveRecorded">Virauszuch enregistréiert: %s. Dréckt Enter fir ofzebriechen</string>
+</resources>

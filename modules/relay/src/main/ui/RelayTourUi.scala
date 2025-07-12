@@ -146,9 +146,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       main(cls := "relay-tour page-menu")(
         pageMenu("by", owner),
         div(cls := "page-menu__content box box-pad page")(
-          boxTop:
-            ui.broadcastH1(t.name)
-          ,
+          boxTop(ui.broadcastH1(t.name)),
           h2(t.info.toString),
           markup.map: html =>
             frag(

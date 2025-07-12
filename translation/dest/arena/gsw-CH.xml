@@ -69,8 +69,8 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
   <string name="whichTeamWillYouRepresentInThisBattle">Welles Team vertrittsch du, i dere Schlacht?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Zum Mitschpille, muesch du dich eim vu dene Teams aschlüsse!</string>
   <string name="created">Erschtellt</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Chürzlich gschpillt</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Die beschte Resultat</string>
+  <string name="recentlyPlayed">Chürzlich gschpillt</string>
+  <string name="bestResults">Die beschte Resultat</string>
   <string name="tournamentStats">Turnier - Schtatistike</string>
   <string name="rankAvgHelp">De Rangdurchschnitt isch en Prozäntsatz vu dim Rang. Niedriger isch besser.
 
@@ -86,5 +86,5 @@ Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler
   <string name="onlyTitled">Nur Schpiler mit Titel</string>
   <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserk-Wertig</string>
+  <string name="berserkRate">Berserk-Wertig</string>
 </resources>

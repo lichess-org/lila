@@ -22,6 +22,7 @@
   <string name="asBlack">ως μαύρος</string>
   <string name="randomColor">Τυχαίο χρώμα</string>
   <string name="createAGame">Δημιουργήστε παιχνίδι</string>
+  <string name="createTheGame">Νέα παρτίδα</string>
   <string name="whiteIsVictorious">Τα λευκά νίκησαν</string>
   <string name="blackIsVictorious">Τα μαύρα νίκησαν</string>
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
@@ -74,6 +75,7 @@
   <string name="expandVariations">Εμφάνιση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
+  <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας PGN</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -166,7 +168,7 @@
   <string name="drawByMutualAgreement">Ισοπαλία κατόπιν συμφωνίας</string>
   <string name="fiftyMovesWithoutProgress">Πενήντα κινήσεις χωρίς πρόοδο</string>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Έγινε μέλος %s</string>
+  <string name="joinedX">Έγινε μέλος %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s παιχνίδι</item>
     <item quantity="other">%s παιχνίδια</item>
@@ -362,10 +364,10 @@
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Τουρνουά</string>
   <string name="tournaments">Πρωταθλήματα</string>
-  <string name="tournamentPoints">Πόντοι από τουρνουά</string>
+  <string name="tournamentPoints">Βαθμοί από τουρνουά</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s πόντος τουρνουά</item>
-    <item quantity="other">%s πόντοι τουρνουά</item>
+    <item quantity="one">%s βαθμός τουρνουά</item>
+    <item quantity="other">%s βαθμοί τουρνουά</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s μελέτη</item>
@@ -423,7 +425,7 @@
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
-  <string name="toStudy">Μελέτη</string>
+  <string name="toStudy">Σπουδή</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
   <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
 ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
@@ -489,10 +491,9 @@
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
-  <string name="points">Πόντοι</string>
+  <string name="points">Βαθμοί</string>
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
-  <string name="createdBy">Δημιουργήθηκε από</string>
   <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
@@ -645,9 +646,9 @@
   <string name="error.unknown">Άκυρη τιμή</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
   <string name="error.email">Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη</string>
-  <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
+  <string name="error.email_acceptable">Αυτή η διεύθυνση email δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
   <string name="error.email_unique">Η διεύθυνση ηλεκτρονικού ταχυδρομείου είναι άκυρη ή υπάρχει ήδη</string>
-  <string name="error.email_different">Έχετε ήδη αυτήν την διεύθυνση ηλ. ταχυδρομείου</string>
+  <string name="error.email_different">Αυτή είναι η τρέχουσα διεύθυνση email σας</string>
   <string name="error.minLength">Πρέπει να περιέχει τουλάχιστον %s χαρακτήρες</string>
   <string name="error.maxLength">Πρέπει να περιέχει το πολύ %s χαρακτήρες</string>
   <string name="error.min">Πρέπει να είναι τουλάχιστον %s</string>
@@ -761,6 +762,7 @@
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
+  <string name="downloadAllGames">Λήψη όλων των παρτίδων</string>
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
@@ -799,8 +801,8 @@
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
-  <string name="light">Φωτεινό</string>
-  <string name="dark">Σκοτεινό</string>
+  <string name="light">Ανοιχτόχρωμο</string>
+  <string name="dark">Σκουρόχρωμο</string>
   <string name="transparent">Διάφανο</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
@@ -870,7 +872,7 @@
     <item quantity="other">%s δευτερόλεπτα</item>
   </plurals>
   <string name="opening">Άνοιγμα</string>
-  <string name="middlegame">Μέση φάση παιχνιδιού</string>
+  <string name="middlegame">Μέσο</string>
   <string name="endgame">Φινάλε</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
@@ -943,7 +945,7 @@
   <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
   <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
-  <string name="clickToRevealEmailAddress">[Κάντε κλικ για να δείτε τη διεύθυνση ηλεκτρονικού ταχυδρομείου]</string>
+  <string name="clickToRevealEmailAddress">[κάντε κλικ για να δείτε τη διεύθυνση email]</string>
   <string name="download">Λήψη</string>
   <string name="coachManager">Διαχειριστής προπονητή</string>
   <string name="streamerManager">Διαχειριστής streamer</string>
@@ -1005,4 +1007,7 @@
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Τίποτα για να δείτε εδώ αυτή τη στιγμή.</string>
   <string name="stats">Στατιστικά</string>
+  <string name="accessibility">Προσβασιμότητα</string>
+  <string name="enableBlindMode">Ενεργοποίηση λειτουργίας για τυφλούς</string>
+  <string name="disableBlindMode">Απενεργοποίηση λειτουργίας για τυφλούς</string>
 </resources>

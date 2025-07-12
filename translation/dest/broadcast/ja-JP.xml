@@ -56,31 +56,33 @@
   <string name="subscribeTitle">登録しておくと各ラウンドの開始時に通知が来ます。アカウント設定でベルやプッシュ通知の切り替えができます。</string>
   <string name="uploadImage">トーナメントの画像をアップロード</string>
   <string name="noBoardsYet">ボードはまだありません。棋譜がアップロードされると表示されます。</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">ボードはソースまたは %s 経由で読み込めます</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ボードはソースまたは %s 経由で読み込めます</string>
   <string name="startsAfter">%s 後に開始</string>
   <string name="startVerySoon">中継はまもなく始まります。</string>
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
   <string name="standings">順位</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">公式順位</string>
+  <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
   <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
   <string name="embedThisRound">%s をウェブサイトに埋め込む</string>
   <string name="ratingDiff">レーティングの差</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">このトーナメントの対局</string>
+  <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">すべてのチーム</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">トーナメント形式</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">開催地</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">トッププレイヤー</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">タイムゾーン</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE レーティング カテゴリー</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">その他詳細（オプション）</string>
+  <string name="allTeams">すべてのチーム</string>
+  <string name="tournamentFormat">トーナメント形式</string>
+  <string name="tournamentLocation">開催地</string>
+  <string name="topPlayers">トッププレイヤー</string>
+  <string name="timezone">タイムゾーン</string>
+  <string name="fideRatingCategory">FIDE レーティング カテゴリー</string>
+  <string name="optionalDetails">その他詳細（オプション）</string>
   <string name="pastBroadcasts">過去の中継</string>
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
   <string name="backToLiveMove">実際の手に戻る</string>
   <string name="sinceHideResults">結果を非表示にするよう選択したため、結果が見えないようプレビューボードはすべて空白です。</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">現局面</string>
+  <string name="liveboard">現局面</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">コミュニティ配信</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">作成・管理者は %s です。</string>
 </resources>

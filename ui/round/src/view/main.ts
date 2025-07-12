@@ -2,7 +2,7 @@ import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
 import { stepwiseScroll } from 'lib/view/controls';
-import { type VNode, looseH as h, bind } from 'lib/snabbdom';
+import { type VNode, hl, bind } from 'lib/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -25,9 +25,9 @@ export function main(ctrl: RoundController): VNode {
     );
   const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
   return ctrl.nvui
-    ? ctrl.nvui.render(ctrl)
-    : h('div.round__app.variant-' + d.game.variant.key, [
-        h(
+    ? ctrl.nvui.render()
+    : hl('div.round__app.variant-' + d.game.variant.key, [
+        hl(
           'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
           {
             hook:
@@ -52,7 +52,7 @@ export function main(ctrl: RoundController): VNode {
         ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
         ctrl.keyboardHelp && view(ctrl),
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
-        ...renderTable(ctrl),
+        renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       ]);

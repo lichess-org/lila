@@ -94,7 +94,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       checked: Boolean,
       disabled: Boolean = false,
       value: Value = "true",
-      title: Option[String] = None
+      title: Option[String] = None,
+      action: Option[String] = None
   ) =
     frag(
       (disabled && checked).option: // disabled checkboxes don't submit; need an extra hidden field
@@ -107,7 +108,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         tpe      := "checkbox",
         cls      := "form-control cmn-toggle",
         checked.option(st.checked),
-        disabled.option(st.disabled)
+        disabled.option(st.disabled),
+        action.map(st.data("action") := _)
       ),
       label(
         `for` := fieldId,
@@ -141,7 +143,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         st.id := id(field),
         name  := field.name,
         cls   := "form-control",
-        disabled.option(st.disabled := true),
+        disabled.option(st.disabled),
         required.option(st.required)
       )(validationModifiers(field))(
         default.map { option(value := "")(_) },

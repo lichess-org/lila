@@ -218,9 +218,6 @@ object BinaryFormat:
           intPiece(int).map(pos -> _)
         .to(Map)
 
-    // cache standard start position
-    val standard: ByteArray = write(chess.variant.Standard.initialPieces)
-
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match
         case 6 => Some(Pawn)

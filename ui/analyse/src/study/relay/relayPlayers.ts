@@ -1,4 +1,4 @@
-import { type Redraw, type VNode, bind, dataIcon, looseH as h, onInsert } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/snabbdom';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
@@ -133,63 +133,57 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
   const tc = tour.info.fideTc || 'standard';
   const age: number | undefined = p?.fide?.year && year - p.fide.year;
   const fidePageData = p && { attrs: fidePageLinkAttrs(p, ctrl.isEmbed) };
-  return h(
+  return hl(
     'div.relay-tour__player',
     {
       class: { loading: !show.player },
     },
     p
       ? [
-          h(`a.relay-tour__player__name`, fidePageData, [userTitle(p), p.name]),
+          hl(`a.relay-tour__player__name`, fidePageData, [userTitle(p), p.name]),
           p.team
-            ? h('div.relay-tour__player__team.text', { attrs: dataIcon(licon.Group) }, p.team)
+            ? hl('div.relay-tour__player__team.text', { attrs: dataIcon(licon.Group) }, p.team)
             : undefined,
-          h('div.relay-tour__player__cards', [
-            ...(p.fide?.ratings
-              ? ratingCategs.map(([key, name]) =>
-                  h(`div.relay-tour__player__card${key === tc ? '.active' : ''}`, [
-                    h('em', name),
-                    h('span', [p.fide?.ratings[key] || '-']),
-                  ]),
-                )
-              : []),
-            age
-              ? h('div.relay-tour__player__card', [h('em', i18n.broadcast.ageThisYear), h('span', [age])])
-              : undefined,
-            p.fed
-              ? h('div.relay-tour__player__card', [
-                  h('em', i18n.broadcast.federation),
-                  h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
-                    h('img.mini-game__flag', {
-                      attrs: { src: site.asset.url(`images/fide-fed-webp/${p.fed.id}.webp`) },
-                    }),
-                    p.fed.name,
-                  ]),
-                ])
-              : undefined,
-            p.fideId
-              ? h('div.relay-tour__player__card', [
-                  h('em', 'FIDE ID'),
-                  h('a', fidePageData, p.fideId.toString()),
-                ])
-              : undefined,
-            p.score
-              ? h('div.relay-tour__player__card', [
-                  h('em', i18n.broadcast.score),
-                  h('span', [p.score, ' / ', p.played]),
-                ])
-              : undefined,
-            p.performance
-              ? h('div.relay-tour__player__card', [
-                  h('em', i18n.site.performance),
-                  h('span', [p.performance, p.games.length < 4 ? '?' : '']),
-                ])
-              : undefined,
-            p.ratingDiff &&
-              h('div.relay-tour__player__card', [h('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
+          hl('div.relay-tour__player__cards', [
+            p.fide?.ratings &&
+              ratingCategs.map(([key, name]) =>
+                hl(`div.relay-tour__player__card${key === tc ? '.active' : ''}`, [
+                  hl('em', name),
+                  hl('span', [p.fide?.ratings[key] || '-']),
+                ]),
+              ),
+            !!age &&
+              hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.ageThisYear), hl('span', [age])]),
+            p.fed &&
+              hl('div.relay-tour__player__card', [
+                hl('em', i18n.broadcast.federation),
+                hl('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
+                  hl('img.mini-game__flag', {
+                    attrs: { src: site.asset.url(`images/fide-fed-webp/${p.fed.id}.webp`) },
+                  }),
+                  p.fed.name,
+                ]),
+              ]),
+            !!p.fideId &&
+              hl('div.relay-tour__player__card', [
+                hl('em', 'FIDE ID'),
+                hl('a', fidePageData, p.fideId.toString()),
+              ]),
+            p.score !== undefined &&
+              hl('div.relay-tour__player__card', [
+                hl('em', i18n.broadcast.score),
+                hl('span', [p.score, ' / ', p.played]),
+              ]),
+            !!p.performance &&
+              hl('div.relay-tour__player__card', [
+                hl('em', i18n.site.performance),
+                hl('span', [p.performance, p.games.length < 4 ? '?' : '']),
+              ]),
+            p.ratingDiff !== undefined &&
+              hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
           ]),
-          h('table.relay-tour__player__games.slist.slist-pad', [
-            h('thead', h('tr', h('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
+          hl('table.relay-tour__player__games.slist.slist-pad', [
+            hl('thead', hl('tr', hl('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
             renderPlayerGames(ctrl, p, true),
           ]),
         ]
@@ -198,7 +192,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
 };
 
 const playersList = (ctrl: RelayPlayers): VNode =>
-  h(
+  hl(
     'div.relay-tour__players',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.players },
@@ -211,50 +205,48 @@ const playersList = (ctrl: RelayPlayers): VNode =>
 
 const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
-  const withScores = !!players.find(p => p.score);
+  const withScores = !!players.find(p => p.score !== undefined);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
-  return h(
+  return hl(
     'table.relay-tour__players.slist.slist-invert.slist-pad',
     {
       hook: onInsert(tableAugment),
     },
     [
-      h(
+      hl(
         'thead',
-        h('tr', [
-          h('th', i18n.site.player),
-          withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
-          withScores ? h('th', defaultSort, i18n.broadcast.score) : undefined,
-          h('th', i18n.site.games),
+        hl('tr', [
+          hl('th', i18n.site.player),
+          withRating && hl('th', !withScores && defaultSort, 'Elo'),
+          withScores && hl('th', defaultSort, i18n.broadcast.score),
+          hl('th', i18n.site.games),
         ]),
       ),
-      h(
+      hl(
         'tbody',
         players.map(player =>
-          h('tr', [
-            h(
+          hl('tr', [
+            hl(
               'td.player-name',
               { attrs: { 'data-sort': player.name || '' } },
-              h('a', playerLinkConfig(ctrl, player, true), [
+              hl('a', playerLinkConfig(ctrl, player, true), [
                 playerFed(player.fed),
                 userTitle(player),
                 player.name,
               ]),
             ),
-            withRating
-              ? h(
-                  'td',
-                  sortByBoth(player.rating, (player.score || 0) * 10),
-                  player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined,
-                )
-              : undefined,
-            withScores
-              ? h('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score ?? 0}`)
-              : undefined,
-            h('td', sortByBoth(player.played, player.rating), `${player.played}`),
+            withRating &&
+              hl(
+                'td',
+                sortByBoth(player.rating, (player.score || 0) * 10),
+                !!player.rating && [`${player.rating}`, ratingDiff(player)],
+              ),
+            withScores &&
+              hl('td', sortByBoth((player.score || 0) * 10, player.rating), `${player.score ?? 0}`),
+            hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
           ]),
         ),
       ),
@@ -284,7 +276,7 @@ export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip:
                 ctrl.loadPlayerWithGames(id).then((p: RelayPlayerWithGames) => {
                   const vdom = renderPlayerTipWithGames(ctrl, p);
                   tipEl.innerHTML = '';
-                  patch(tipEl, h(`div#${playerTipId}`, vdom));
+                  patch(tipEl, hl(`div#${playerTipId}`, vdom));
                   $.powerTip.reposition(el);
                 });
               },
@@ -313,26 +305,23 @@ export const fidePageLinkAttrs = (p: StudyPlayer, blank?: boolean): Attrs | unde
 const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score' in p;
 
 const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
-  h('div.tpp__player', [
-    h(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
-    p.team ? h('div.tpp__player__team', p.team) : undefined,
-    h('div.tpp__player__info', [
-      h('div', [
-        playerFed(p.fed),
-        ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
-      ]),
-      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}`) : undefined,
+  hl('div.tpp__player', [
+    hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
+    p.team && hl('div.tpp__player__team', p.team),
+    hl('div.tpp__player__info', [
+      hl('div', [playerFed(p.fed), !!p.rating && [`${p.rating}`, isRelayPlayer(p) && ratingDiff(p)]]),
+      isRelayPlayer(p) && p.score !== undefined && hl('div', `${p.score}`),
     ]),
   ]);
 
 const renderPlayerTipWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): VNode =>
-  h('div.tpp', [
+  hl('div.tpp', [
     renderPlayerTipHead(ctrl, p),
-    h('div.tpp__games', h('table', renderPlayerGames(ctrl, p, false))),
+    hl('div.tpp__games', hl('table', renderPlayerGames(ctrl, p, false))),
   ]);
 
 const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips: boolean): VNode =>
-  h(
+  hl(
     'tbody',
     p.games.map((game, i) => {
       const op = game.opponent;
@@ -344,8 +333,8 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           ? formatPointsStr(points)
           : `${formatPointsStr(points)} (${customPoints})`;
       const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
-        h(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
-      return h(
+        hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
+      return hl(
         'tr',
         {
           hook: bind('click', e => {
@@ -356,10 +345,10 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           }),
         },
         [
-          h('td', `${i + 1}`),
-          h(
+          hl('td', `${i + 1}`),
+          hl(
             'td',
-            h(
+            hl(
               'a',
               {
                 hook: withTips ? playerLinkHook(ctrl, op, true) : {},
@@ -368,10 +357,10 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
               [playerFed(op.fed), userTitle(op), op.name],
             ),
           ),
-          h('td', op.rating?.toString()),
-          h('td.is.color-icon.' + game.color),
-          h('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
-          h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
+          hl('td', op.rating?.toString()),
+          hl('td.is.color-icon.' + game.color),
+          hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
+          hl('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],
       );
     }),
@@ -382,10 +371,10 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
   return !defined(rd)
     ? undefined
     : rd > 0
-      ? h('good.rp', '+' + rd)
+      ? hl('good.rp', '+' + rd)
       : rd < 0
-        ? h('bad.rp', '−' + -rd)
-        : h('span.rp--same', ' ==');
+        ? hl('bad.rp', '−' + -rd)
+        : hl('span.rp--same', ' ==');
 };
 
 const tableAugment = (el: HTMLTableElement) => {

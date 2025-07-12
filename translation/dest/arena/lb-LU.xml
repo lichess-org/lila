@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arena">Arena</string>
-  <string name="arenaTournaments">Arena Turnéier</string>
+  <string name="arenaTournaments">Arena-Turnéieren</string>
   <string name="isItRated">Ass et gewäert?</string>
   <string name="willBeNotified">Mir soen dir Bescheed wann den Turnéier ufänkt, du kanns also an der Zwëschenzäit an engem aneren Tab spillen.</string>
   <string name="isRated">Dësen Turnéier ass gewäert an beaflosst déng Wäertung.</string>
@@ -43,7 +43,7 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="drawStreakVariants">D\'minimal Partienlängt fir, bei Remis Punkten ze kréien hängt vun der Variant of. D\'Tabell ënnen lëscht d\'Grenzen fir all Varianten op.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimal Partienlängt</string>
-  <string name="history">Arena-Geschicht</string>
+  <string name="history">Arena-Historique</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ekipp ukucken</item>
     <item quantity="other">All %s Ekippen ukucken</item>
@@ -60,12 +60,12 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="noArenaStreaks">Keng Arena Serien</string>
   <string name="averagePerformance">Duerchschnëttlech Performance</string>
   <string name="averageScore">Duerchschnëttlech Punktzuel</string>
-  <string name="myTournaments">Meng Turnéier</string>
+  <string name="myTournaments">Meng Turnéieren</string>
   <string name="editTournament">Turnéier änneren</string>
   <string name="defender">Verdeedeger</string>
   <string name="pickYourTeam">Wiel deng Ekipp</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Viru Kuerzem gespillt</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Bescht Resultater</string>
+  <string name="recentlyPlayed">Viru Kuerzem gespillt</string>
+  <string name="bestResults">Bescht Resultater</string>
   <string name="tournamentStats">Turnéierstatistiken</string>
   <string name="medians">Median</string>
   <string name="allAveragesAreX">All Duerchschnëttswäerter op dëser Säit sinn %s.</string>
@@ -77,5 +77,5 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="onlyTitled">Just Spiller mat Titel</string>
   <string name="onlyTitledHelp">Et brauch een en offiziellen Titel fir um Turnéier deelhuelen ze kënnen</string>
   <string name="tournamentPairingsAreNowClosed">D\'Turnéierpaarunge sinn elo zou.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserker-Taux</string>
+  <string name="berserkRate">Berserker-Taux</string>
 </resources>

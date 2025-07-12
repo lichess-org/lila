@@ -423,7 +423,6 @@
   <string name="points">Stig</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tapt</string>
-  <string name="createdBy">Stovnað hevur</string>
   <string name="standByX">Bíða %s, telvarar verða greipaðir, ger teg til reiðar!</string>
   <string name="youArePlaying">Tú telvar!</string>
   <string name="winRate">Sigurslutfall</string>

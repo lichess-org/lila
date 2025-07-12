@@ -58,31 +58,31 @@
   <string name="subscribeTitle">Prenumerera för att meddelas när varje runda startar. Du kan växla mellan klock- eller push-meddelanden för sändningar i dina kontoinställningar.</string>
   <string name="uploadImage">Ladda upp turneringsbild</string>
   <string name="noBoardsYet">Inga partier ännu. Dessa kommer att visas när spelen är uppladdade.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Tavlor kan laddas med en källa eller via %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tavlor kan laddas med en källa eller via %s</string>
   <string name="startsAfter">Startar efter %s</string>
   <string name="startVerySoon">Sändningen kommer att starta mycket snart.</string>
   <string name="notYetStarted">Sändningen har ännu inte startat.</string>
   <string name="officialWebsite">Officiell webbplats</string>
   <string name="standings">Ställningar</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Officiella ställningar</string>
+  <string name="officialStandings">Officiella ställningar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fler alternativ på %s</string>
   <string name="webmastersPage">webbmasterns sida</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig PGN-källa i realtid för denna omgång. Vi erbjuder även en %s för snabbare och effektivare synkronisering.</string>
   <string name="embedThisBroadcast">Infoga denna sändning på din webbplats</string>
   <string name="embedThisRound">Infoga %s på din webbplats</string>
   <string name="ratingDiff">Rating diff</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Partier i denna turnering</string>
+  <string name="gamesThisTournament">Partier i denna turnering</string>
   <string name="score">Poäng</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Alla lag</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turneringens format</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turneringens plats</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Toppspelare</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Tidszon</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Kategori för FIDE-rating</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Valfri information</string>
+  <string name="allTeams">Alla lag</string>
+  <string name="tournamentFormat">Turneringens format</string>
+  <string name="tournamentLocation">Turneringens plats</string>
+  <string name="topPlayers">Toppspelare</string>
+  <string name="timezone">Tidszon</string>
+  <string name="fideRatingCategory">Kategori för FIDE-rating</string>
+  <string name="optionalDetails">Valfri information</string>
   <string name="pastBroadcasts">Tidigare sändningar</string>
   <string name="allBroadcastsByMonth">Visa alla sändningar efter månad</string>
   <string name="backToLiveMove">Tillbaka till nuvarande drag</string>
   <string name="sinceHideResults">Eftersom du valde att dölja resultatet är alla förhandsgransknings-bräden tomma, för att undvika spoilers.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Nuvarande position</string>
+  <string name="liveboard">Nuvarande position</string>
 </resources>
