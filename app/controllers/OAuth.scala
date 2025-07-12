@@ -111,7 +111,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def revokeClient = AuthBody { ctx ?=> _ ?=>
     bindForm(lila.oauth.AccessTokenRequest.revokeClientForm)(
       _ => BadRequest,
-      origin => env.oAuth.tokenApi.revokeByClientOrigin(origin).inject(NoContent)
+      origin =>
+        for
+          tokens <- env.oAuth.tokenApi.revokeByClientOrigin(origin)
+          _      <- ctx.isMobileOauth.soFu:
+            tokens.traverse(token => env.push.webSubscriptionApi.unsubscribeBySession(token.value))
+        yield NoContent
     )
   }
 
