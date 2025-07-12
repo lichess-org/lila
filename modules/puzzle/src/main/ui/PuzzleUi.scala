@@ -324,3 +324,21 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
           span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id}")
         )
       )
+
+  def woodpecker(userJson: JsObject, puzzleCount: Int)(using Context) =
+    Page("Woodpecker Training - Lichess")
+      .css("puzzle")
+      .js(
+        PageModule(
+          "puzzle.woodpecker",
+          Json.obj(
+            "user" -> userJson,
+            "puzzleCount" -> puzzleCount,
+            "i18n" -> i18nJsObject(bits.i18nKeys)
+          )
+        )
+      ):
+        main(cls := "puzzle-woodpecker")(
+          div(cls := "puzzle__board main-board"),
+          div(cls := "puzzle__tools")
+        )

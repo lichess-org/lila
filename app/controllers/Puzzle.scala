@@ -430,6 +430,29 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok.snip(lila.web.ui.help.puzzle)
 
+  def woodpecker = Auth { ctx ?=> me ?=>
+    NoBot:
+      WithPuzzlePerf:
+        for
+          count <- env.puzzle.api.puzzle.countByUser(me)
+          json = jsonView.userJson(me.user)
+          page <- renderPage(views.puzzle.ui.woodpecker(json, count))
+        yield Ok(page)
+  }
+
+  def woodpeckerList = Auth { ctx ?=> me ?=>
+    env.puzzle.woodpecker.puzzleList(me).map { puzzles =>
+      Ok(Json.obj("puzzles" -> puzzles.map(jsonView.base)))
+    }
+  }
+
+  def woodpeckerComplete = AuthBody { ctx ?=> me ?=>
+    NoBot:
+      ctx.body.body.get("puzzleId").flatMap(PuzzleId.from).so { puzzleId =>
+        env.puzzle.woodpecker.complete(me, puzzleId).inject(Ok(Json.obj("ok" -> true)))
+      }
+  }
+
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       meOrFetch(username)

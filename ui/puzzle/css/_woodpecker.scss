@@ -1,0 +1,34 @@
+.puzzle-woodpecker {
+  @extend %flex-column;
+  
+  .puzzle__board {
+    @extend %board;
+  }
+  
+  .puzzle__tools {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    padding: 2rem;
+    
+    .woodpecker-info {
+      h2 {
+        font-size: 1.6em;
+        margin-bottom: 1rem;
+      }
+      
+      .cycle-info {
+        font-size: 1.2em;
+        margin-bottom: 1rem;
+        
+        strong {
+          color: $c-primary;
+        }
+      }
+      
+      .progress {
+        font-size: 1.1em;
+        color: $c-font-dim;
+      }
+    }
+  }
+}

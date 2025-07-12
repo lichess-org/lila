@@ -79,6 +79,8 @@ final class Env(
 
   val streak = wire[PuzzleStreakApi]
 
+  val woodpecker = wire[PuzzleWoodpecker]
+
   val complete = wire[PuzzleComplete]
 
   private val tagger = wire[PuzzleTagger]
