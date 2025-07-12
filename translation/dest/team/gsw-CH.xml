@@ -13,7 +13,7 @@
   <string name="noTeamFound">Keis Team g\'funde</string>
   <string name="joinTeam">Tritt em Team bi</string>
   <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Leiter, bevor du gahsch - oder lös das Team uf.</string>
-  <string name="quitTeam">Team verloh</string>
+  <string name="quitTeam">Team verlah</string>
   <string name="manuallyReviewAdmissionRequests">Bitrittsafrage manuell überprüefe</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Afrag schribe, um em Team bizträte - wo du chasch ablähne oder akzeptiere.</string>
   <plurals name="teamLeaders">
