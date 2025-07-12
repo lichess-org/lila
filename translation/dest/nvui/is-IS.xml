@@ -45,6 +45,6 @@
   <string name="sanShortCastling" comment="O-O in standard notation">stutthrókun</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">langhrókun</string>
   <string name="invalidMove">Ógildur leikur</string>
-  <string name="premoveCancelled">Hætt við forskráðan leik</string>
-  <string name="premoveRecorded">Leikur forskráður: %s. Ýttu á Enter til þess að hætta við</string>
+  <string name="premoveCancelled">Hætt við forleik</string>
+  <string name="premoveRecorded">Foreikur skráður: %s. Ýttu á Enter til þess að hætta við</string>
 </resources>
