@@ -33,7 +33,7 @@ final class SwissApi(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.core.round.RoundApi
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
     extends lila.core.swiss.SwissApi:
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
@@ -167,34 +167,45 @@ final class SwissApi(
           given Perf = user.perf
           verify(swiss)
 
-  def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using me: Me): Fu[Boolean] =
+  private val initialJoin =
+    lila.memo.RateLimit.composite[UserId]("swiss.user.join")(("fast", 4, 1.hour), ("slow", 12, 1.day))
+
+  def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using
+      me: Me
+  ): Fu[Option[String]] =
     Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
-      if me.marks.prizeban && swiss.looksLikePrize then fuFalse
-      else if swiss.settings.password.forall(p =>
+      if me.marks.prizeban && swiss.looksLikePrize
+      then fuccess("You are not allowed to play in prized tournaments".some)
+      else if !isInTeam(swiss.teamId)
+      then fuccess("You are not in the team of this tournament".some)
+      else if !swiss.settings.password.forall: p =>
           MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
-        ) && isInTeam(swiss.teamId)
-      then
+      then fuccess("Wrong entry code".some)
+      else
         mongo.player // try a rejoin first
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
-            fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
+            if rejoin.n == 1 then fuccess(none) // if the match failed (not the update!), try a join
+            else if !initialJoin.test(me.userId) then fuccess("You are joining too many tournaments".some)
+            else
               for
                 user <- userApi.withPerf(me.value, swiss.perfType)
                 given Perf = user.perf
                 verified <- verify(swiss)
-                ok = verified.accepted && swiss.isEnterable
-                _ <- ok.so:
+                error =
+                  if !verified.accepted then "You don't satisfy the tournament requirements".some
+                  else if !swiss.isEnterable then "This tournament cannot be entered".some
+                  else none
+                _ <- error.isEmpty.so:
                   mongo.player.insert
                     .one(SwissPlayer.make(swiss.id, user))
                     .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)))
                     .void
               yield
                 cache.swissCache.clear(swiss.id)
-                ok
-            }
-      else fuFalse
-    .flatMap: res =>
-      recomputeAndUpdateAll(id).inject(res)
+                error
+          .flatMap: res =>
+            recomputeAndUpdateAll(id).inject(res)
 
   def gameIdSource(
       swissId: SwissId,

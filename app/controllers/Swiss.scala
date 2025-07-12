@@ -168,11 +168,11 @@ final class Swiss(
     bindForm(SwissForm.joinForm)(_ => none, identity)
 
   private def doJoin(id: SwissId, password: Option[String])(using ctx: Context, me: Me) =
-    limit.tourJoin(me, rateLimited):
+    limit.tourJoinOrResume(me, rateLimited):
       for
         teamIds <- env.team.cached.teamIds(me)
-        result  <- env.swiss.api.join(id, teamIds.contains, password)
-      yield if result then jsonOkResult else JsonBadRequest(jsonError("Could not join the tournament"))
+        error   <- env.swiss.api.join(id, teamIds.contains, password)
+      yield error.fold(jsonOkResult)(err => JsonBadRequest(jsonError(err)))
 
   def withdraw(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
     env.swiss.api.withdraw(id, me) >>
