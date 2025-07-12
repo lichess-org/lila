@@ -14,12 +14,9 @@ export type NvuiContext = Readonly<{
   boardStyle: s.Setting<s.BoardStyle>;
 }>;
 
-export function makeContext<T extends NvuiContext>(
-  ctx: Pick<T, Exclude<keyof T, keyof NvuiContext>>,
-  redraw?: Redraw,
-): T {
+export function makeContext<T extends NvuiContext>(ctx: Pick<T, Exclude<keyof T, keyof NvuiContext>>): T {
   return {
-    notify: new Notify(redraw),
+    notify: new Notify(),
     moveStyle: s.styleSetting(),
     pieceStyle: s.pieceSetting(),
     prefixStyle: s.prefixSetting(),
