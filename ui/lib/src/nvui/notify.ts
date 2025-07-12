@@ -19,9 +19,8 @@ export class Notify {
 }
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
-  const key = new Date().getTime().toString();
   const data: VNodeData = isMac()
-    ? { key, attrs: { role: 'alert' } }
-    : { key, attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+    ? { key: new Date().getTime().toString(), attrs: { role: 'alert' } }
+    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
   return h(sel, data, text);
 }
