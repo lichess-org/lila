@@ -119,8 +119,10 @@ const retroStateBtns = {
     return [
       liveText(
         prelude +
-          `Turn ${Math.floor((node.ply + 1) / 2)}. ${i18n.site[c]} ` +
-          `played ${renderSan(node.san, node.uci, ctx.moveStyle.get())}. ${trailer}`,
+          `Turn ${Math.floor((node.ply + 1) / 2)}, ${i18n.site[c]} ` +
+          `played ${renderSan(node.san, node.uci, ctx.moveStyle.get())}, ${trailer}`,
+        'assertive',
+        'p.retro',
       ),
       solveAndSkipBtns(ctx),
     ];
