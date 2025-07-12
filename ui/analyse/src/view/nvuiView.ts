@@ -56,19 +56,16 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function initNvui(ctx: AnalyseNvuiContext): void {
-  const { ctrl, notify } = ctx;
+export function initNvui({ ctrl, notify }: AnalyseNvuiContext): void {
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
-  site.mousetrap.unbind('c');
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
-  //site.mousetrap.unbind('space');
-  site.mousetrap.bind('space', () => notify.set(renderBestMove(ctx)));
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  notify.redraw = ctrl.redraw;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -109,9 +106,9 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl('h2', 'Current position'),
       hl(
         'p.position.lastMove',
-        { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+        ctrl.retro ? {} : { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
         // make sure consecutive positions are different so that they get re-read
-        !ctrl.retro && renderCurrentNode(ctx) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
+        renderCurrentNode(ctx) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
       ),
       clocks &&
         hl('div.clocks', [
