@@ -108,8 +108,8 @@ eða verstu árásinni!</string>
   <string name="mateInOne">Mát í einum</string>
   <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
   <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið gegn skák.</string>
-  <string name="attackYourOpponentsKing">Ráðstu á kóng andstæðingsins
-þannig að hann getur ekki varist!</string>
+  <string name="attackYourOpponentsKing">Gerðu árás á kóng andstæðingsins
+á þann hátt sem ekki er hægt að verja!</string>
   <string name="mateInOneComplete">Til hamingju! Svona vinnurðu í skák!</string>
   <string name="intermediate">Mitt á milli</string>
   <string name="boardSetup">Taflborðið</string>
@@ -204,7 +204,7 @@ Riddari = 3
 Peð = 1</string>
   <string name="checkInTwo">Skák í tveimur</string>
   <string name="twoMovesToGiveCheck">Tveir leikir til að gefa skák</string>
-  <string name="checkInTwoIntro">Finndu rétta samsetningu tveggja leikja sem skáka kónginum!</string>
+  <string name="checkInTwoIntro">Finndu rétta leikfléttu tveggja leikja sem skáka kónginum!</string>
   <string name="checkInTwoGoal">Hótaðu kóngi andstæðingsins
 í tveimur leikjum!</string>
   <string name="checkInTwoComplete">Til hamingju! Þú skákaðir andstæðingnum svo nauðsynlegt var að verja kónginn!</string>
