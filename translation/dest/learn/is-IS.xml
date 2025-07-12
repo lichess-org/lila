@@ -28,7 +28,7 @@ einn biskup fyrir svarta reiti.
   <string name="bishopComplete">Til lukku! Þú getur stjórnað biskupnum.</string>
   <string name="theQueen">Drottningin</string>
   <string name="queenCombinesRookAndBishop">Drottning = hrókur + biskup</string>
-  <string name="queenIntro">Öflugasti maðurinn kemur til leiks. Hennar hátign drottningin!</string>
+  <string name="queenIntro">Öflugasti taflmaðurinn kemur til leiks. Hennar hátign drottningin!</string>
   <string name="queenComplete">Til hamingju! Drottningar geta engu leynt fyrir þér.</string>
   <string name="theKing">Kóngurinn</string>
   <string name="theMostImportantPiece">Mikilvægasti maðurinn</string>
