@@ -114,7 +114,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       origin =>
         for
           tokens <- env.oAuth.tokenApi.revokeByClientOrigin(origin)
-          _      <- ctx.isMobileOauth.soFu:
+          _      <- (origin == "org.lichess.mobile://").soFu:
             tokens.traverse(token => env.push.webSubscriptionApi.unsubscribeBySession(token.value))
         yield NoContent
     )
