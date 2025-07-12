@@ -10,4 +10,15 @@
   <string name="actions">Toiminnot</string>
   <string name="yourClock">Sinun kellosi</string>
   <string name="opponentClock">Vastustajan kello</string>
+  <string name="announceLastMove">Ilmoita edellinen siirto.</string>
+  <string name="announceLastMoveCapture">Ilmoita edellisessä siirrossa lyöty nappula.</string>
+  <string name="announcePossibleMoves">Ilmoita valitun nappulan mahdolliset siirrot.</string>
+  <string name="announcePossibleCaptures">Ilmoita mahdolliset lyönnit valitulla nappulalla.</string>
+  <string name="moveWithArrows">Siirry viereiseen ruutuun vasemmalle, oikealle, ylös tai alas.</string>
+  <string name="moveToPieceByType">Siirry ruutuihin nappuloiden nimiä käyttäen. Esimerkki: k-kirjainta toistamalla siirrytään vuorotellen kuhunkin ruutuun, jossa on ratsu (engl. knight). Käänteisessä järjestyksessä toistamiseen voit käyttää isoja kirjaimia.</string>
+  <string name="moveToRank">Siirry riville 1-8.</string>
+  <string name="moveToFile">Siirry linjalle a-h.</string>
+  <string name="announcePieceLocations">Ilmoita nappuloiden sijainnit. Esimerkiksi valkoiset ratsut painamalla \"pN\", musta kuningas \"pk\" sekä kaikki valkeat nappulat \"pA\" (huomioi pienien ja isojen kirjainten käyttö).</string>
+  <string name="announcePiecesOnRankOrFile">Ilmoita tietyllä rivillä tai linjalla olevat nappulat. Esimerkiksi \"s a\" tai \"s 1\".</string>
+  <string name="goToBoard">Siirry pelilaudalle. Oletusruutu on e-4. Ruudun voi myös määritellä, esimerkiksi \"board a-1\" tai \"b a-1\" siirtyy ruutuun a-1.</string>
 </resources>
