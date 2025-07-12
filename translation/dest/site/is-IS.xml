@@ -153,7 +153,7 @@
     <item quantity="one">%s Ónákvæmni</item>
     <item quantity="other">%s Ónákvæmni</item>
   </plurals>
-  <string name="moveTimes">leiktími</string>
+  <string name="moveTimes">Leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
   <string name="claimADraw">Knýja fram jafntefli</string>
@@ -508,7 +508,7 @@
   <string name="setTheBoard">Uppstilling</string>
   <string name="popularOpenings">Vinsælar byrjanir</string>
   <string name="endgamePositions">Endataflsstöður</string>
-  <string name="chess960StartPosition">Skák960 byrjunarstaða: %s</string>
+  <string name="chess960StartPosition">Byrjunarstaða slembiskákar: %s</string>
   <string name="startPosition">Byrjunarstaða</string>
   <string name="clearBoard">Hreinsa borð</string>
   <string name="loadPosition">Hlaða stöðu</string>
@@ -661,7 +661,7 @@
     <item quantity="one">%s færslur á korkinn</item>
     <item quantity="other">%s póstar á spjallborði</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Spilunartími: %s</string>
+  <string name="tpTimeSpentPlaying">Tími sem varið var í að tefla: %s</string>
   <string name="watchGames">Horfa á skákir</string>
   <string name="tpTimeSpentOnTV">Tími í sjónvarpi: %s</string>
   <string name="watch">Horfa</string>
@@ -708,6 +708,7 @@
   <string name="keyGoToStartOrEnd">fara á byrjun/lok</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
+  <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
   <string name="keyNextLearnFromYourMistakes">Næst (Lærðu af mistökum þínum)</string>
   <string name="keyNextBlunder">Næsti afleikur</string>
   <string name="keyNextMistake">Næstu mistök</string>
@@ -717,7 +718,7 @@
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Örskák, hraðskák, hefðbundin skák, Chess960, King of the Hill, Threecheck, og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
+  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Leifturskák, hraðskák, kappskák, slembiskák (e. Chess960), yfirráðaskák (e. King of the Hill), þrískák (e. Threecheck), og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
   <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Mótinu kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
@@ -761,8 +762,8 @@
   <string name="kidMode">Krakkahamur</string>
   <string name="kidModeIsEnabled">Krakkahamur er virkur.</string>
   <string name="kidModeExplanation">Þetta fjallar um öryggi. Í krakkaham er slökkt á öllum samskiptum á síðunni. Kveiktu á þessu fyrir börnin þín eða nemendur til að verja þau gegn öðrum netnotendum.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham fær lichess merkið %s merki svo þú veist að börnin þín eru örugg.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Aðgangur þinn er stýrður. Vinsamlegast leitaðu til skákkennara þíns varðandi að fjarlægja barnaham.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Í krakkaham mun Lichess-merkið fá %s merki svo þú veist að börnin þín eru örugg.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Aðgangur þinn er stýrður. Vinsamlegast leitaðu til skákkennara þíns varðandi að fjarlægja krakkaham.</string>
   <string name="enableKidMode">Kveikja á krakkaham</string>
   <string name="disableKidMode">Slökkva á krakkaham</string>
   <string name="security">Öryggi</string>
@@ -782,7 +783,7 @@
   <string name="quickPairing">Flýtival</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
-  <string name="yourScore">Stigin þín: %s</string>
+  <string name="yourScore">Stigaskor ykkar: %s</string>
   <string name="language">Tungumál</string>
   <string name="allLanguages">Öll tungumál</string>
   <string name="background">Bakgrunnur</string>
@@ -859,9 +860,9 @@
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
   <string name="endgame">Endatafl</string>
-  <string name="conditionalPremoves">Skilyrtir fyrirframgefnir leikir</string>
+  <string name="conditionalPremoves">Skilyrtir forleikir</string>
   <string name="addCurrentVariation">Bæta núverandi afbrigði við</string>
-  <string name="noConditionalPremoves">Engir skilyrtir fyrirframgefnir leikir</string>
+  <string name="noConditionalPremoves">Engir skilyrtir forleikir</string>
   <string name="playX">Leika %s</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
@@ -883,11 +884,11 @@
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Örskák</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Leifturskák</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
   <string name="classical">Hefðbundin Skák</string>
-  <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
+  <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>

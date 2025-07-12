@@ -19,6 +19,7 @@
   <string name="keyboardShortcuts">Hvaða flýtilyklar eru til?</string>
   <string name="fairPlay">Göfuglyndi</string>
   <string name="whenAmIEligibleRatinRefund">Hvenær á ég rétt á að fá sjálfkrafa umbun fyrir skákstig sökum svindlara?</string>
+  <string name="leavingGameWithoutResigningExplanation">Ef andstæðingur þinn hættir/yfirgefur skákir oft fær hann „taflbann“, sem þýðir að hann er bannaður tímabundið frá því að tefla. Þetta er ekki opinberlega sýnilegt á prófílnum hans. Ef þessi hegðun heldur áfram lengist taflbannið – og langvarandi hegðun af þessu tagi getur leitt til þess að aðganginum verði lokað.</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
   <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
   <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>

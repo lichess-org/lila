@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Peð sem er langt komið</string>
+  <string name="advancedPawnDescription">Eitt af peðum þínum er komið langt inn á svæði andstæðingsins, jafnvel ógnar að vekja upp hættulegri taflmann.</string>
   <string name="advantage">Yfirhönd</string>
   <string name="anastasiaMate">Anastastíumát</string>
   <string name="arabianMate">Arabíumát</string>
+  <string name="attackingF2F7">Að sækja að f2 eða f7</string>
+  <string name="attackingF2F7Description">Sókn sem beinist að peðinu á f2 eða f7, eins og í Fegatello-byrjuninni.</string>
   <string name="backRankMate">Endaraðarmát</string>
   <string name="bishopEndgame">Biskups endatafl</string>
   <string name="bishopEndgameDescription">Endatafl með einungis biskupum og peðum.</string>
   <string name="bodenMate">Bodens mát</string>
   <string name="castling">Hrókering</string>
+  <string name="castlingDescription">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás.</string>
   <string name="capturingDefender">Dreptu varnarmanninn</string>
   <string name="equality">Jafnræði</string>
+  <string name="clearanceDescription">Leikur, yfirleitt með leikvinningi, sem nær stjórn á reit, línu eða skálínu með ráðsnjalla hugmynd í kjölfarið.</string>
   <string name="defensiveMove">Varnarleikur</string>
+  <string name="discoveredAttack">Fráleikur</string>
   <string name="doubleCheck">Tvöföld skák</string>
   <string name="endgame">Endatafl</string>
+  <string name="endgameDescription">Bragðvísi sem kemur upp á endastigi skákarinnar.</string>
   <string name="exposedKing">Óvarinn kóngur</string>
   <string name="fork">Gaffall</string>
   <string name="hookMate">Krókamát</string>
+  <string name="intermezzoDescription">Í stað þess að leika þann leik sem búist er við skaltu fyrst leika annan sem skapar tafarlausa ógn sem andstæðingurinn verður að svara. Þetta kallast „millileikur\" (e. Zwischenzug).</string>
   <string name="vukovicMate">Mát Vukovic</string>
   <string name="knightEndgame">Endatafl með riddurum</string>
   <string name="knightEndgameDescription">Endatafl með einungis riddurum og peðum.</string>
@@ -30,13 +39,16 @@
   <string name="mateIn4">Mát í 4</string>
   <string name="mateIn5">Mát í 5 eða fleiri</string>
   <string name="middlegame">Miðtafl</string>
+  <string name="middlegameDescription">Bragðvísi sem kemur upp á miðsstigi skákarinnar.</string>
   <string name="oneMove">Eins leiks þraut</string>
   <string name="oneMoveDescription">Þraut sem þarfnast eingöngu eins leiks.</string>
   <string name="opening">Byrjun</string>
+  <string name="openingDescription">Bragðvísi sem kemur upp á upphafsstigi skákarinnar.</string>
   <string name="pawnEndgame">Endatafl með peðum</string>
   <string name="pawnEndgameDescription">Endatafl með einungis peðum.</string>
-  <string name="pin">Leppun</string>
-  <string name="promotion">Uppvakning</string>
+  <string name="pin">Leppur</string>
+  <string name="promotion">Að vekja upp hættulegri taflmann</string>
+  <string name="promotionDescription">Vaktu upp drottningu eða minni háttar taflmann með einu peði þínu.</string>
   <string name="queenEndgame">Endatafl með drottningum</string>
   <string name="queenEndgameDescription">Endatafl með einungis drottningum og peðum.</string>
   <string name="queenRookEndgame">Drottning og hrók</string>
@@ -44,7 +56,15 @@
   <string name="rookEndgame">Endatafl með hrókum</string>
   <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
   <string name="sacrifice">Fórn</string>
+  <string name="short">Stutt þraut</string>
   <string name="shortDescription">Tveir leikir til sigurs.</string>
+  <string name="smotheredMate">Kæfingarmát</string>
+  <string name="smotheredMateDescription">Mátstef sem kemur upp þegar riddari skákar og mátar kóng sem er ófær um að hreyfa sig þar sem hann er umkringdur (eða kæfður) af eigin taflmönnum.</string>
+  <string name="superGM">Skákir þeirra bestu</string>
+  <string name="superGMDescription">Þrautir úr skákum þeirra bestu í heiminum.</string>
+  <string name="underPromotion">Að vekja upp máttlausari taflmann</string>
+  <string name="underPromotionDescription">Að vekja upp riddara, biskup eða hrók.</string>
+  <string name="veryLong">Mjög löng þraut</string>
   <string name="veryLongDescription">Sigur í fjórum eða fleiri leikjum.</string>
   <string name="xRayAttack">Gegnumhótun</string>
   <string name="zugzwang">Leikþröng</string>
@@ -52,4 +72,5 @@
   <string name="mix">Kyndugur samtíningur</string>
   <string name="mixDescription">Alls konar samtíningur. Þú veist ekki hverju á að búast við, svo þú hefur augun opin fyrir öllu! Einmitt eins og í alvöru skákum.</string>
   <string name="playerGames">Skákir leikmanns</string>
+  <string name="puzzleDownloadInformation">Þessar þrautir eru í almannaeigu og hægt er að sækja þær frá %s.</string>
 </resources>

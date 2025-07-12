@@ -3,8 +3,8 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-mót</string>
   <string name="isItRated">Er það reiknað til stiga?</string>
-  <string name="isRated">Þetta mót gildir til stiga og hefur áhrif á skákstig þín.</string>
-  <string name="isNotRated">Þetta mót er *ekki* reiknað til stiga og mun ekki *ekki* hafa áhrif á skákstigin þín.</string>
+  <string name="isRated">Þetta mót gildir til stiga og hefur áhrif á skákstigin þín.</string>
+  <string name="isNotRated">Þetta mót gildir *ekki* til stiga og hefur *ekki* áhrif á skákstigin þín.</string>
   <string name="someRated">Sum mót eru reiknuð til stiga og munu hafa áhrif á skákstigin þín.</string>
   <string name="howAreScoresCalculated">Hvernig eru stig reiknuð út?</string>
   <string name="howIsTheWinnerDecided">Hvernig er sigurvegarinn ákveðinn?</string>
@@ -16,6 +16,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="otherRules">Aðrar mikilvægar reglur</string>
   <string name="thereIsACountdown">Það er niðurtalning fyrir fyrsta leikinn þinn. Takist ekki að leika innan þess tíma fær andstæðingurinn þinn sigurinn.</string>
   <string name="thisIsPrivate">Þetta er einkamót</string>
+  <string name="shareUrl">Deildu þessari vefslóð til að leyfa fólki að taka þátt: %s</string>
   <string name="variant">Afbrigði</string>
   <string name="minimumGameLength">Lágmarkslengd skákar</string>
   <string name="history">Ferill á Arena</string>
@@ -27,6 +28,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="customStartDate">Sérsniðinn upphafsdagur</string>
   <string name="customStartDateHelp">Í þínu eigin tímabelti. Þetta hnekkir stillingunni „Tími áður en mót hefst.“</string>
   <string name="allowBerserk">Leyfa Berserk</string>
+  <string name="allowBerserkHelp">Leyfa leikmönnum að helminga tíma sinn á klukku til þess að fá aukastig</string>
   <string name="allowChatHelp">Leyfa leikmönnum að rabba í spjallherbergi</string>
   <string name="arenaStreaks">Arena-döngun</string>
   <string name="arenaStreaksHelp">Eftir 2 sigra gefa samfelldir sigrar 4 stig í stað 2.</string>
@@ -39,10 +41,14 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="editTeamBattle">Breyta liðsorrustu</string>
   <string name="defender">Núverandi meistari</string>
   <string name="pickYourTeam">Veldu lið þiit</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Hvaða lið munt þú keppa fyrir í þessari orrustu?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Til þess að taka þátt þarftu að vera meðlimur í einu af þessum liðum!</string>
   <string name="created">Stofnað</string>
   <string name="recentlyPlayed">Nýlega tekið þátt í</string>
   <string name="bestResults">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
+  <string name="rankAvgHelp">Meðalstaðan gefur til kynna hlutfall af stöðu þinni. Lægra er betra. 
+Til dæmis, ef þú ert í 3. sæti á móti með 100 leikmönnum jafngildir það 3%. Að vera í 10. sæti á móti með 1000 leikmönnum jafngildir 1%.</string>
   <string name="medians">miðgildi</string>
   <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
   <string name="total">Samtals</string>

@@ -85,4 +85,6 @@
   <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
   <string name="sinceHideResults">Koska olet päättänyt piilottaa tulokset ja koska vältämme spoilereita, ovat kaikkien lautojen esikatselut tyhjiä.</string>
   <string name="liveboard">Live-pelilauta</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Yhteisölähetys</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
 </resources>

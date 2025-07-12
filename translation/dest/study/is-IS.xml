@@ -178,6 +178,7 @@
   <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
   <string name="customPositionTitle">Sérsniðin staða</string>
   <string name="loadExistingLichessGameTitle">Hlaða inn tiltækri Lichess-skák</string>
+  <string name="loadExistingLichessGameText">Límdu inn slóð Lichess-skákar&lt;br&gt;(eins og lichess.org/7fHIU0XI)&lt;br&gt;til að hlaða inn leikjum skákar í kaflanum.</string>
   <string name="fromFenStringTitle">Útfrá Fen-streng</string>
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>

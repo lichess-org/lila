@@ -52,4 +52,7 @@
   <string name="sanPromotesTo" comment="= in standard notation">promuove a</string>
   <string name="sanShortCastling" comment="O-O in standard notation">arrocco corto</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">arrocco lungo</string>
+  <string name="invalidMove">Mossa non valida</string>
+  <string name="premoveCancelled">Pre mossa annullata</string>
+  <string name="premoveRecorded">Pre mossa registrata: %s. Enter per annullare</string>
 </resources>

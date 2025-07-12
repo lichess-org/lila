@@ -39,7 +39,7 @@
   <string name="hidden">nakakubli</string>
   <plurals name="playedXTimes">
     <item quantity="one">Naglaro ng %s beses</item>
-    <item quantity="other">Naglaro ng %s beses</item>
+    <item quantity="other">Naglaro ng %s (na) beses</item>
   </plurals>
   <string name="fromGameLink">Mula sa larong %s</string>
   <string name="continueTraining">Ipagpatuloy ang pagsasanay</string>
@@ -80,7 +80,7 @@
 Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na madagdag ang iyong mga palaisipan!</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Isang palaisipan natagpuan sa mga laro ni %2$s</item>
-    <item quantity="other">%1$s mga palaisipan natagpuan sa mga laro ni %2$s</item>
+    <item quantity="other">%1$s (na) palaisipan natagpuan sa mga laro ni %2$s</item>
   </plurals>
   <string name="puzzleDashboardDescription">Magsanay, pagsusuri, magpabuti</string>
   <plurals name="nbPlayed">

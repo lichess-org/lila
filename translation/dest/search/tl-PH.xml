@@ -4,11 +4,11 @@
   <string name="advancedSearch">Naunang paghanap</string>
   <plurals name="searchInXGames">
     <item quantity="one">Maghanap sa %s laro ng chess</item>
-    <item quantity="other">Maghanap sa %s mga laro ng chess</item>
+    <item quantity="other">Maghanap sa %s (na) laro ng chess</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Isang laro ang natagpuan</item>
-    <item quantity="other">%s laro ang natagpuan</item>
+    <item quantity="other">%s (na) laro ang natagpuan</item>
   </plurals>
   <string name="opponentName">Pangalan ng Kalaban</string>
   <string name="loser">Talunan</string>
@@ -33,7 +33,7 @@
   <string name="ascending">Pataas</string>
   <plurals name="gamesFound">
     <item quantity="one">%s laro ang natagpuan</item>
-    <item quantity="other">%s laro ang natagpuan</item>
+    <item quantity="other">%s (na) laro ang natagpuan</item>
   </plurals>
   <string name="ratingExplanation">Ang karaniwang marka ng parehong manlalaro</string>
 </resources>
