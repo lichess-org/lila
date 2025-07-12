@@ -508,7 +508,7 @@
   <string name="setTheBoard">Uppstilling</string>
   <string name="popularOpenings">Vinsælar byrjanir</string>
   <string name="endgamePositions">Endataflsstöður</string>
-  <string name="chess960StartPosition">Skák960 byrjunarstaða: %s</string>
+  <string name="chess960StartPosition">Byrjunarstaða slembiskákar: %s</string>
   <string name="startPosition">Byrjunarstaða</string>
   <string name="clearBoard">Hreinsa borð</string>
   <string name="loadPosition">Hlaða stöðu</string>
@@ -718,7 +718,7 @@
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Örskák, hraðskák, hefðbundin skák, Chess960, King of the Hill, Threecheck, og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
+  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Leifturskák, hraðskák, kappskák, slembiskák (e. Chess960), yfirráðaskák (e. King of the Hill), þrískák (e. Threecheck), og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
   <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Mótinu kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
@@ -860,9 +860,9 @@
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
   <string name="endgame">Endatafl</string>
-  <string name="conditionalPremoves">Skilyrtir fyrirframgefnir leikir</string>
+  <string name="conditionalPremoves">Skilyrtir forleikir</string>
   <string name="addCurrentVariation">Bæta núverandi afbrigði við</string>
-  <string name="noConditionalPremoves">Engir skilyrtir fyrirframgefnir leikir</string>
+  <string name="noConditionalPremoves">Engir skilyrtir forleikir</string>
   <string name="playX">Leika %s</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
@@ -888,7 +888,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
   <string name="classical">Hefðbundin Skák</string>
-  <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
+  <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
