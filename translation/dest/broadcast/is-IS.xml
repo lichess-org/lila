@@ -35,11 +35,11 @@
   <string name="editRoundStudy">Breyta umferðarstúderingu</string>
   <string name="deleteTournament">Eyða þessu móti</string>
   <string name="replacePlayerTags">Valfrjálst: skipta út nöfnum leikmanna, skákstigum og titlum</string>
-  <string name="fideFederations">Aðildarfélög alþjóðaskáksambandsins</string>
+  <string name="fideFederations">Aðildarfélög Alþjóðaskáksambandsins</string>
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
-  <string name="fidePlayers">Leikmenn alþjóðaskáksambandsins</string>
-  <string name="fidePlayerNotFound">Leikmaður alþjóðaskáksambandsins fannst ekki</string>
-  <string name="fideProfile">Prófill hjá alþjóðaskáksambandinu</string>
+  <string name="fidePlayers">Leikmenn Alþjóðaskáksambandsins</string>
+  <string name="fidePlayerNotFound">Skákmaður Alþjóðaskáksambandsins fannst ekki</string>
+  <string name="fideProfile">Prófill hjá Alþjóðaskáksambandinu</string>
   <string name="federation">Ríkjasamband</string>
   <string name="ageThisYear">Aldur í ár</string>
   <string name="unrated">Skák án stigagjafar</string>
