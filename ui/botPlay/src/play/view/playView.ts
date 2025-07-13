@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { bind, looseH as h, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/snabbdom';
+import { bind, hl, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/snabbdom';
 import { Chessground } from '@lichess-org/chessground';
 import { stepwiseScroll } from 'lib/view/controls';
 import type PlayCtrl from '../playCtrl';
@@ -17,10 +17,10 @@ import { type TopOrBottom } from 'lib/game/game';
 import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
-  h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
+  hl('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
     viewBoard(ctrl),
-    h('div.bot-game__table'),
-    ...viewTable(ctrl),
+    hl('div.bot-game__table'),
+    viewTable(ctrl),
   ]);
 
 const viewTable = (ctrl: PlayCtrl) => {
@@ -36,20 +36,20 @@ const viewTable = (ctrl: PlayCtrl) => {
 };
 
 const viewClockMat = (ctrl: PlayCtrl, position: TopOrBottom, material: VNode) =>
-  h(`div.bot-game__clock-mat.bot-game__clock-mat--${position}`, [
+  hl(`div.bot-game__clock-mat.bot-game__clock-mat--${position}`, [
     ctrl.clock && renderClock(ctrl.clock, ctrl.colorAt(position), position, () => []),
     material,
   ]);
 
 const viewActions = (ctrl: PlayCtrl) =>
-  h('div.bot-game__actions', [
-    ctrl.game.end && h('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
-    h(
+  hl('div.bot-game__actions', [
+    ctrl.game.end && hl('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
+    hl(
       'button.bot-game__close.text',
       { attrs: dataIcon(licon.Back), hook: bind('click', ctrl.opts.close) },
       'More opponents',
     ),
-    h(
+    hl(
       'button.bot-game__restart.text',
       { attrs: dataIcon(licon.Reload), hook: bind('click', ctrl.opts.rematch) },
       'New game',
@@ -68,9 +68,9 @@ const viewResult = (ctrl: PlayCtrl) => {
     variant: 'standard',
   };
   return result
-    ? h('div.result-wrap', [
-        h('p.result', result || ''),
-        h(
+    ? hl('div.result-wrap', [
+        hl('p.result', result || ''),
+        hl(
           'p.status',
           {
             hook: onInsert(() => {
@@ -91,13 +91,13 @@ const viewMoves = (ctrl: PlayCtrl) => {
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    els.push(h('turn', i + ''));
+    els.push(hl('turn', i + ''));
     els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
     els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
   }
   els.push(viewResult(ctrl));
 
-  return h(
+  return hl(
     'div.bot-game__moves',
     {
       hook: onInsert(el => {
@@ -122,20 +122,20 @@ const viewMoves = (ctrl: PlayCtrl) => {
 };
 
 const viewMove = (ply: number, san: San, curPly: number) =>
-  h('move', { class: { current: ply === curPly } }, san);
+  hl('move', { class: { current: ply === curPly } }, san);
 
 const viewNavigation = (ctrl: PlayCtrl) => {
-  return h('div.bot-game__nav', [
+  return hl('div.bot-game__nav', [
     boardMenu(ctrl),
-    h('div.noop'),
-    ...[
+    hl('div.noop'),
+    [
       [licon.JumpFirst, 0],
       [licon.JumpPrev, ctrl.board.onPly - 1],
       [licon.JumpNext, ctrl.board.onPly + 1],
       [licon.JumpLast, ctrl.game.ply()],
     ].map((b: [string, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
-      return h('button.fbt.repeatable', {
+      return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
@@ -158,22 +158,22 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
 };
 
 const viewOpponentImage = (bot: BotInfo) =>
-  bot.image && h('img', { attrs: { src: botAssetUrl('image', bot.image) } });
+  bot.image && hl('img', { attrs: { src: botAssetUrl('image', bot.image) } });
 
 const viewOpponent = (bot: BotInfo) =>
-  h('div.bot-game__opponent', [
-    h('div.bot-game__opponent__head', [
+  hl('div.bot-game__opponent', [
+    hl('div.bot-game__opponent__head', [
       viewOpponentImage(bot),
-      h('span.bot-game__opponent__name', bot.name),
-      h('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
+      hl('span.bot-game__opponent__name', bot.name),
+      hl('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
     ]),
-    h('div.bot-game__opponent__description', bot.description),
+    hl('div.bot-game__opponent__description', bot.description),
   ]);
 
 const viewBoard = (ctrl: PlayCtrl) =>
-  h(`div.bot-game__board.main-board${ctrl.blindfold() ? '.blindfold' : ''}`, { hook: boardScroll(ctrl) }, [
+  hl(`div.bot-game__board.main-board${ctrl.blindfold() ? '.blindfold' : ''}`, { hook: boardScroll(ctrl) }, [
     ctrl.promotion.view(),
-    h('div.cg-wrap', {
+    hl('div.cg-wrap', {
       hook: onInsert(el => ctrl.ground(Chessground(el, initialGround(ctrl)))),
     }),
   ]);

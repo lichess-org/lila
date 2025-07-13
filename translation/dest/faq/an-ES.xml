@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Bellas pachinas de Lichess tiene alcorces de teclau que puez fer servir. Preba de pretar la tecla \'?\' en una pachina d\'estudio, analisi, problema u partida pa veyer un listau d\'alcorces de teclau.</string>
   <string name="fairPlay">Chuego limpio</string>
   <string name="whenAmIEligibleRatinRefund">En qué casos se me tornan automaticament los puntos perdius contra un trapacero?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minuto dimpués de marcar a un chugador como trapacero, se prenen las suyas zagueras 40 partidas per puntos d\'os tres zaguers días. Si tu has estau lo suyo oponent en ixas partidas, has perdiu puntos en ellas (i has perdiu u empazau), y la tuya puntuación no yera provisional, alavez se te tornará puntos. Esta torna ye limitada per la tuya puntuación maxima y per cómo i haiga progresau la tuya puntuación dimpués d\'aquella partida.
+  <string name="ratingRefundExplanation">Un minuto dimpués de marcar a un chugador como trapacero, se prenen las suyas zagueras 40 partidas per puntos d\'os tres zaguers días. Si tu has estau lo suyo oponent en ixas partidas, has perdiu puntos en ellas (i has perdiu u empazau), y la tuya puntuación no yera provisional, alavez se te tornará puntos. Esta torna ye limitada per la tuya puntuación maxima y per cómo i haiga progresau la tuya puntuación dimpués d\'aquella partida.
 (Per eixemplo, si la tuya puntuación ha puyau muito dimpués d\'aquellas partidas, puede que no se te tornen los puntos u nomás se te\'n torne beluns). La torna en garra caso será de mas de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">Qué se fa con os chugadors que abandonan las partidas sin rendirse?</string>
   <string name="leavingGameWithoutResigningExplanation">Si lo tuyo oponent abandona habitualment partidas se le marca como \"prohibiu chugar\", lo que significa que ye temporalment suspendiu pa chugar. Esto no s\'indica publicament en o suyo perfil. Si persiste en este comportamiento, la duración d\'a suspensión aumenta y puede comportar que se zarre la suya cuenta.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en bala, lampado y atros?</string>
   <string name="basedOnGameDuration">Los controls de tiempo de Lichess se basan en a duración estimada d\'una partida = %1$s
  Per eixemplo, la duración estimada d\'una partida de 5+3 ye 5 × 60 + 40 × 3 = 420 segundos.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
+  <string name="durationFormula">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Qué variants puedo chugar en Lichess?</string>
@@ -97,12 +97,11 @@ No demandes d\'obtener lo titol de LM.</string>
   <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puez leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="canIChangeMyUsername">Puedo cambiar lo mío nombre d\'usuario?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puez cambiar las mayusclas y minusclas una vegada.</string>
+  <string name="usernamesCannotBeChanged">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puez cambiar las mayusclas y minusclas una vegada.</string>
   <string name="uniqueTrophies">Trofeyos unicos</string>
   <string name="ownerUniqueTrophies">Ixe trofeyo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
-  <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a él mesmo a berserk y ganó 100%% partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneyo bala per hora</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict yera emitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito mientres la emisión, obtendría un trofeyo unico. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict yera emitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito mientres la emisión, obtendría un trofeyo unico. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuacions se calculan emplegando lo metodo de clasificación Glicko-2 desenvuelto per Mark Glickman. Este ye un metodo de puntuación muito popular y utilizau per un numero significativo d\'organizacions d\'escaques (FIDE en ye un contraeixemplo notable, ya que fa servir encara lo sistema de puntuación Elo).
@@ -149,7 +148,7 @@ Dimpués podrás triar si permitir u blocar notificacions de Lichess.</string>
 L\'icono royo de silencio amaneix cuan lo tuyo navegador priva que lichess.org reproduzca un soniu. Per un regular, esta restricción se devanta cuan fas clic en bella cosa. En bels navegadors móbils, mover una pieza arrocegando-la no conta como un clic. En ixe caso, has de tocar lo taulero pa permitir lo soniu a l\'inicio de cada partida.
 
 Amostramos l\'icono royo pa avisar-te cuan ixo pasa. A sobén puez permitir que lichess.org reproduzca sonius explicitament. Aquí tiens las instruccions pa fer-lo en versions recients de bels navegadors populars.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritorio</string>
+  <string name="desktop">escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Dentra en lichess.org
 2. Preta Ctrl-i en Linux/Windows u cmd-i en MacOS
 3. Fe clic en a pestanya de permisos

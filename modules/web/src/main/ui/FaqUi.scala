@@ -253,17 +253,6 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
           question(
             "trophies",
             trf.uniqueTrophies.txt(),
-            h4("The way of Berserk"),
-            p(
-              trf.ownerUniqueTrophies(
-                a(href := "https://lichess.org/@/hiimgosu")("hiimgosu")
-              )
-            ),
-            p(
-              trf.wayOfBerserkExplanation(
-                a(href := "https://lichess.org/tournament/cDyjj1nL")(trf.aHourlyBulletTournament())
-              )
-            ),
             h4("The Golden Zee"),
             p(
               trf.ownerUniqueTrophies(

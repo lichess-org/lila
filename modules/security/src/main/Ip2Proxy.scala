@@ -50,14 +50,15 @@ final class Ip2ProxyServer(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[IsProxy]] =
-    ips.distinct.take(50) match // 50 * ipv6 length < max url length
+    ips.distinct.take(80) match
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => ofIp(ip).dmap(Seq(_))
       case ips     =>
         ips.flatMap(getCached).parallel.flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
-            val uncachedIps = ips.filterNot(cached.contains)
+            // 50 * ipv6 length < max url length
+            val uncachedIps = ips.filterNot(cached.contains).take(50)
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> uncachedIps.mkString(","))
               .get()

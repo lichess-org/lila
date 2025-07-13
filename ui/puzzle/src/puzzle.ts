@@ -8,15 +8,16 @@ const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: PuzzleOpts) {
   const element = document.querySelector('main.puzzle') as HTMLElement;
-  const nvui = site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('puzzle.nvui') : undefined;
-  const ctrl = new PuzzleCtrl(opts, redraw, nvui);
+  const ctrl = new PuzzleCtrl(opts, redraw);
+  const nvui = site.blindMode && (await site.asset.loadEsm<NvuiPlugin>('puzzle.nvui', { init: ctrl }));
+  const render = nvui ? nvui.render : () => view(ctrl);
 
-  const blueprint = view(ctrl);
+  const blueprint = render();
   element.innerHTML = '';
   let vnode = patch(element, blueprint);
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
+    vnode = patch(vnode, render());
   }
 
   menuHover();

@@ -554,7 +554,6 @@
   <string name="points">נקודות</string>
   <string name="wins">ניצחונות</string>
   <string name="losses">הפסדים</string>
-  <string name="createdBy">נוצר ע\"י</string>
   <string name="startingIn" comment="Displayed above a timer">מתחיל בעוד</string>
   <string name="standByX">%s, נא להמתין, משבצים לזוגות, היו מוכנים!</string>
   <string name="pause">השהה</string>

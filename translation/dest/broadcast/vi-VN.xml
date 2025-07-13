@@ -56,31 +56,33 @@
   <string name="subscribeTitle">Đăng ký để được thông báo khi mỗi vòng bắt đầu. Bạn có thể chuyển đổi chuông hoặc thông báo đẩy cho các chương trình phát sóng trong tùy chọn tài khoản của mình.</string>
   <string name="uploadImage">Tải hình ảnh giải đấu lên</string>
   <string name="noBoardsYet">Chưa có bàn nào. Chúng sẽ xuất hiện khi ván đấu được tải lên.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Bàn đấu có thể được tải bằng nguồn hoặc thông qua %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Bàn đấu có thể được tải bằng nguồn hoặc thông qua %s</string>
   <string name="startsAfter">Bắt đầu sau %s</string>
   <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>
   <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
   <string name="officialWebsite">Website chính thức</string>
   <string name="standings">Bảng xếp hạng</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Bảng xếp hạng Chính thức</string>
+  <string name="officialStandings">Bảng xếp hạng Chính thức</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
   <string name="webmastersPage">trang nhà phát triển web</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Nguồn PGN công khai, thời gian thực cho vòng này. Chúng tôi cũng cung cấp %s để đồng bộ hóa nhanh hơn và hiệu quả hơn.</string>
   <string name="embedThisBroadcast">Nhúng chương trình phát sóng này vào trang web của bạn</string>
   <string name="embedThisRound">Nhúng %s vào trang web của bạn</string>
   <string name="ratingDiff">Độ thay đổi hệ số</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Các ván đấu trong giải này</string>
+  <string name="gamesThisTournament">Các ván đấu trong giải này</string>
   <string name="score">Điểm số</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Tất cả đội</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Điều lệ giải đấu</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Địa điểm tổ chức giải đấu</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Những kỳ thủ hàng đầu</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Múi giờ</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Thể loại xếp hạng FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Tùy chọn chi tiết</string>
+  <string name="allTeams">Tất cả đội</string>
+  <string name="tournamentFormat">Điều lệ giải đấu</string>
+  <string name="tournamentLocation">Địa điểm tổ chức giải đấu</string>
+  <string name="topPlayers">Những kỳ thủ hàng đầu</string>
+  <string name="timezone">Múi giờ</string>
+  <string name="fideRatingCategory">Thể loại xếp hạng FIDE</string>
+  <string name="optionalDetails">Tùy chọn chi tiết</string>
   <string name="pastBroadcasts">Các phát sóng đã qua</string>
   <string name="allBroadcastsByMonth">Xem tất cả phát sóng theo tháng</string>
   <string name="backToLiveMove">Trở lại nước đi thực tế</string>
   <string name="sinceHideResults">Bởi vì bạn đã chọn ẩn kết quả, tất cả các bàn đấu xem trước sẽ trống để tránh lộ thông tin.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Bàn cờ trực tiếp</string>
+  <string name="liveboard">Bàn cờ trực tiếp</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Phát sóng cộng đồng</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Được tạo và quản lý bởi %s.</string>
 </resources>

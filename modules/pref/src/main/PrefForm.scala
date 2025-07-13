@@ -224,3 +224,5 @@ object PrefForm:
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
+
+  val cfRoutingForm = Form(single("cfRouting" -> boolean))

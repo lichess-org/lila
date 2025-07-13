@@ -43,16 +43,16 @@
   <string name="startsAfter">Encomienza dimpués de %s</string>
   <string name="officialWebsite">Puesto web oficial</string>
   <string name="standings">Clasificación</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Clasificación oficial</string>
+  <string name="officialStandings">Clasificación oficial</string>
   <string name="ratingDiff">Diferencia de puntuación</string>
   <string name="score">Puntuación</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Toz los equipos</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Formato de torneyo</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Puesto d\'o torneyo</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Millors chugadors</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Zona horaria</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Categoría de fading FIDE</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Detalles opcionals</string>
+  <string name="allTeams">Toz los equipos</string>
+  <string name="tournamentFormat">Formato de torneyo</string>
+  <string name="tournamentLocation">Puesto d\'o torneyo</string>
+  <string name="topPlayers">Millors chugadors</string>
+  <string name="timezone">Zona horaria</string>
+  <string name="fideRatingCategory">Categoría de fading FIDE</string>
+  <string name="optionalDetails">Detalles opcionals</string>
   <string name="pastBroadcasts">Retransmisions pasadas</string>
   <string name="allBroadcastsByMonth">Veyer totas las retransmisions per mes</string>
   <string name="backToLiveMove">Tornar ta movimiento en vivo</string>

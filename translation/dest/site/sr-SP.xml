@@ -22,6 +22,7 @@
   <string name="asBlack">као црни</string>
   <string name="randomColor">Насумична боја</string>
   <string name="createAGame">Започни нову партију</string>
+  <string name="createTheGame">Започни партију</string>
   <string name="whiteIsVictorious">Бели је поебдио</string>
   <string name="blackIsVictorious">Црни је победио</string>
   <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
@@ -112,21 +113,21 @@
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
   <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
   <string name="allSet">Све спремно!</string>
-  <string name="importPgn">Унеси PGN</string>
-  <string name="delete">Обриши</string>
-  <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
-  <string name="replayMode">Понављање партије</string>
-  <string name="realtimeReplay">Као уживо</string>
-  <string name="byCPL">По рачунару</string>
-  <string name="enable">Укључи</string>
+  <string name="importPgn">Увези PGN</string>
+  <string name="delete">Избриши</string>
+  <string name="deleteThisImportedGame">Избриши ову увезену партију?</string>
+  <string name="replayMode">Начин репризе</string>
+  <string name="realtimeReplay">Стварновремено</string>
+  <string name="byCPL">По ЦПГ-у</string>
+  <string name="enable">Омогући</string>
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
-  <string name="evaluationGauge">Линија за процену</string>
-  <string name="multipleLines">Више стрелица</string>
-  <string name="cpus">Процесори</string>
+  <string name="evaluationGauge">Мерило процене</string>
+  <string name="multipleLines">Више линија</string>
+  <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
-  <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
+  <string name="removesTheDepthLimit">Уклања ограничење дубине и држи твој рачунар топлим</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
@@ -159,7 +160,7 @@
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
   <string name="currentGames">Партије у току</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Придружио/ла се %s</string>
+  <string name="joinedX">Придружио/ла се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
@@ -430,8 +431,7 @@
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
-  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
-рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
+  <string name="importGameExplanation">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
   <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">
@@ -502,7 +502,6 @@
   <string name="points">Бодови</string>
   <string name="wins">Победе</string>
   <string name="losses">Порази</string>
-  <string name="createdBy">Направио/ла</string>
   <string name="startingIn" comment="Displayed above a timer">Почиње за</string>
   <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>

@@ -25,10 +25,16 @@ final class Fide(env: Env) extends LilaController(env):
           if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
           else
             for
-              user     <- env.title.api.publicUserOf(player.id)
-              tours    <- env.relay.playerTour.playerTours(player, page)
-              rendered <- renderPage(views.fide.player.show(player, user, tours))
+              user        <- env.title.api.publicUserOf(player.id)
+              tours       <- env.relay.playerTour.playerTours(player, page)
+              isFollowing <- ctx.me.soFu(me => env.fide.repo.follower.isFollowing(me.userId, id))
+              rendered    <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
             yield Ok(rendered)
+
+  def follow(fideId: chess.FideId, follow: Boolean) = AuthOrScopedBody(_.Web.Mobile): _ ?=>
+    me ?=>
+      val f = if follow then env.fide.repo.follower.follow else env.fide.repo.follower.unfollow
+      for _ <- f(me.userId, fideId) yield NoContent
 
   def apiShow(id: chess.FideId) = Anon:
     Found(env.fide.repo.player.fetch(id))(JsonOk)

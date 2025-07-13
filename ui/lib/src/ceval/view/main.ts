@@ -1,7 +1,7 @@
 import { povChances } from '../winningChances';
 import * as licon from '../../licon';
 import { stepwiseScroll } from '../../view/controls';
-import { type VNode, type LooseVNodes, onInsert, bind, looseH as h } from '../../snabbdom';
+import { type VNode, type LooseVNodes, onInsert, bind, hl } from '../../snabbdom';
 import { defined, notNull, requestIdleCallback } from '../../common';
 import { type ParentCtrl, type NodeEvals, CevalState } from '../types';
 import type { Position } from 'chessops/chess';
@@ -20,7 +20,7 @@ type EvalInfo = { knps: number; npsText: string; depthText: string };
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
-  h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
+  hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
 );
 
 function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
@@ -36,7 +36,7 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
   const t: Array<VNode | string> = [];
   if (ceval.canGoDeeper)
     t.push(
-      h('a.deeper', {
+      hl('a.deeper', {
         attrs: { title: i18n.site.goDeeper, 'data-icon': licon.PlusButton },
         hook: bind('click', ceval.goDeeper),
       }),
@@ -45,8 +45,8 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
 
   t.push(depthText);
   if (evs.client.cloud && !ceval.isComputing)
-    t.push(h('span.cloud', { attrs: { title: i18n.site.cloudAnalysis } }, 'Cloud'));
-  if (ceval.isInfinite) t.push(h('span.infinite', { attrs: { title: i18n.site.infiniteAnalysis } }, '∞'));
+    t.push(hl('span.cloud', { attrs: { title: i18n.site.cloudAnalysis } }, 'Cloud'));
+  if (ceval.isInfinite) t.push(hl('span.infinite', { attrs: { title: i18n.site.infiniteAnalysis } }, '∞'));
   if (npsText) t.push(' · ' + npsText);
   return t;
 }
@@ -83,7 +83,7 @@ function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
   if (ctrl.getCeval().download || ctrl.disableThreatMode?.()) return null;
-  return h('button.show-threat', {
+  return hl('button.show-threat', {
     class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
     attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
     hook: bind('click', ctrl.toggleThreatMode),
@@ -94,24 +94,24 @@ function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active;
   return engine
     ? [
-        h('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
+        hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
         ctrl.engines.isExternalEngineInfo(engine)
-          ? h(
+          ? hl(
               'span.technology.good',
               { attrs: { title: 'Engine running outside of the browser' } },
               engine.tech,
             )
           : engine.requires.includes('simd')
-            ? h(
+            ? hl(
                 'span.technology.good',
                 { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
                 engine.tech,
               )
             : engine.requires.includes('sharedMem')
-              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
+              ? hl('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
               : engine.requires.includes('wasm')
-                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
-                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
+                ? hl('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
+                : hl('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
       ]
     : [];
 }
@@ -126,14 +126,14 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  return h(
+  return hl(
     'div.eval-gauge',
     { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
-    [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks],
+    [hl('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), gaugeTicks],
   );
 }
 
-export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
+export function renderCeval(ctrl: ParentCtrl): VNode[] {
   const ceval = ctrl.getCeval();
   if (!ceval.allowed() || !ceval.possible) return [];
   if (!ctrl.showComputer()) return [analysisDisabled(ctrl)];
@@ -160,11 +160,11 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
     pearl = '#' + bestEv.mate;
     percent = 100;
   } else {
-    if (!enabled) pearl = h('i');
+    if (!enabled) pearl = hl('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
     else if (ceval.state === CevalState.Failed)
-      pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
-    else pearl = h('i.ddloader');
+      pearl = hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
+    else pearl = hl('i.ddloader');
     percent = 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -172,9 +172,9 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
-    h(
+    hl(
       'div.bar',
-      h('span', {
+      hl('span', {
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
         hook: {
@@ -194,10 +194,10 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
 
   const body: LooseVNodes = enabled
     ? [
-        h('pearl', [pearl]),
-        h('div.engine', [
-          ...(threatMode ? [i18n.site.showThreat] : engineName(ceval)),
-          h(
+        hl('pearl', [pearl]),
+        hl('div.engine', [
+          threatMode ? [i18n.site.showThreat] : engineName(ceval),
+          hl(
             'span.info',
             ctrl.outcome()
               ? [i18n.site.gameOver]
@@ -210,48 +210,52 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
         ]),
       ]
     : [
-        pearl && h('pearl', [pearl]),
-        h('div.engine', [
-          ...engineName(ceval),
-          h('br'),
+        pearl && hl('pearl', [pearl]),
+        hl('div.engine', [
+          engineName(ceval),
+          hl('br'),
           ceval.analysable ? i18n.site.inLocalBrowser : 'Illegal positions cannot be analyzed',
         ]),
       ];
 
   const switchButton: VNode | false =
     !ctrl.mandatoryCeval?.() &&
-    h('div.switch', { attrs: { title: i18n.site.toggleLocalEvaluation + ' (L)' } }, [
-      h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
+    hl('div.switch', { attrs: { role: 'button', title: i18n.site.toggleLocalEvaluation + ' (L)' } }, [
+      hl('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
         attrs: { type: 'checkbox', checked: enabled, disabled: !ceval.analysable },
         hook: onInsert((el: HTMLInputElement) => {
           el.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && ctrl.toggleCeval());
           el.addEventListener('change', () => ctrl.toggleCeval());
         }),
       }),
-      h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
+      hl('label', { attrs: { for: 'analyse-toggle-ceval' } }),
     ]);
 
-  const settingsGear = h('button.settings-gear', {
-    attrs: { 'data-icon': licon.Gear, title: 'Engine settings' },
+  const settingsGear = hl('button.settings-gear', {
+    attrs: { role: 'button', 'data-icon': licon.Gear, title: 'Engine settings' },
     class: { active: ctrl.getCeval().showEnginePrefs() }, // must use ctrl.getCeval() rather than ceval here
     hook: bind(
       'click',
-      () => ctrl.getCeval().showEnginePrefs.toggle(), // must use ctrl.getCeval() rather than ceval here
+      () => {
+        ctrl.getCeval().showEnginePrefs.toggle(); // must use ctrl.getCeval() rather than ceval here
+        if (ctrl.getCeval().showEnginePrefs())
+          setTimeout(() => document.querySelector<HTMLElement>('.select-engine')?.focus()); // nvui
+      },
       () => ctrl.getCeval().opts.redraw(), // must use ctrl.getCeval() rather than ceval here
       false,
     ),
   });
 
   return [
-    h('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
+    hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
       switchButton,
-      ...body,
+      body,
       threatButton(ctrl),
       settingsGear,
       progressBar,
     ]),
     renderCevalSettings(ctrl),
-  ];
+  ].filter((v): v is VNode => !!v);
 }
 
 function getElFen(el: HTMLElement): string {
@@ -314,7 +318,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   }
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
-  return h(
+  return hl(
     'div.pv_box',
     {
       attrs: { 'data-fen': node.fen },
@@ -367,7 +371,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       },
     },
     [
-      ...[...Array(multiPv).keys()].map(i =>
+      [...Array(multiPv).keys()].map(i =>
         renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined),
       ),
       renderPvBoard(ctrl),
@@ -382,14 +386,14 @@ function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Posi
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {
     if (!threat) data.attrs = { 'data-uci': pv.moves[0] };
-    if (multiPv > 1) children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+    if (multiPv > 1) children.push(hl('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
     if (pos) children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
   }
-  return h('div.pv.pv--nowrap', data, children);
+  return hl('div.pv.pv--nowrap', data, children);
 }
 
 function renderPvWrapToggle(): VNode {
-  return h('span.pv-wrap-toggle', {
+  return hl('span.pv-wrap-toggle', {
     hook: {
       insert: (vnode: VNode) => {
         const el = vnode.elm as HTMLElement;
@@ -412,14 +416,14 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     let text;
     if (pos.turn === 'white') text = `${pos.fullmoves}.`;
     else if (i === 0) text = `${pos.fullmoves}...`;
-    if (text) vnodes.push(h('span', { key: text }, text));
+    if (text) vnodes.push(hl('span', { key: text }, text));
     const uci = pv[i];
     const san = makeSanAndPlay(pos, parseUci(uci)!);
     const fen = makeBoardFen(pos.board); // Chessground uses only board fen
     if (san === '--') break;
     key += '|' + uci;
     vnodes.push(
-      h('span.pv-san', { key, attrs: { 'data-move-index': i, 'data-board': `${fen}|${uci}` } }, san),
+      hl('span.pv-san', { key, attrs: { 'data-move-index': i, 'data-board': `${fen}|${uci}` } }, san),
     );
   }
   return vnodes;
@@ -442,20 +446,20 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
       visible: false,
     },
   };
-  const cgVNode = h('div.cg-wrap.is2d', {
+  const cgVNode = hl('div.cg-wrap.is2d', {
     hook: {
       insert: (vnode: any) => (vnode.elm._cg = makeChessground(vnode.elm, cgConfig)),
       update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
       destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },
   });
-  return h('div.pv-board', h('div.pv-board-square', cgVNode));
+  return hl('div.pv-board', hl('div.pv-board-square', cgVNode));
 }
 
-const analysisDisabled = (ctrl: ParentCtrl): VNode | undefined =>
-  h('div.comp-off__hint', [
-    h('span', i18n.site.computerAnalysisDisabled),
-    h(
+const analysisDisabled = (ctrl: ParentCtrl): VNode =>
+  hl('div.comp-off__hint', [
+    hl('span', i18n.site.computerAnalysisDisabled),
+    hl(
       'button',
       { hook: bind('click', () => ctrl.toggleComputer?.(), ctrl.redraw), attrs: { type: 'button' } },
       i18n.site.enable,

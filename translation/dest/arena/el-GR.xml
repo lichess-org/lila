@@ -68,8 +68,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="whichTeamWillYouRepresentInThisBattle">Ποια ομάδα θα αντιπροσωπεύσετε σε αυτή τη μάχη;</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Πρέπει να μπείτε σε μία από αυτές τις ομάδες για να συμμετάσχετε!</string>
   <string name="created">Δημιουργήθηκε</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Παίχτηκαν πρόσφατα</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Καλύτερα αποτελέσματα</string>
+  <string name="recentlyPlayed">Παίχτηκαν πρόσφατα</string>
+  <string name="bestResults">Καλύτερα αποτελέσματα</string>
   <string name="tournamentStats">Στατιστικά τουρνουά</string>
   <string name="rankAvgHelp">Ο μέσος όρος κατάταξης είναι ένα ποσοστό της κατάταξης σας. Χαμηλότερο είναι καλύτερο.
 
@@ -77,12 +77,13 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="medians">διάμεσες τιμές</string>
   <string name="allAveragesAreX">Όλοι οι μέσοι όροι σε αυτήν τη σελίδα είναι %s.</string>
   <string name="total">Σύνολο</string>
-  <string name="pointsAvg">Μέσος όρος πόντων</string>
-  <string name="pointsSum">Σύνολο πόντων</string>
+  <string name="pointsAvg">Μέσος όρος βαθμών</string>
+  <string name="pointsSum">Σύνολο βαθμών</string>
   <string name="rankAvg">Μέσος όρος κατάταξης</string>
   <string name="tournamentWinners">Νικητές πρωταθλήματος</string>
   <string name="tournamentShields">Πρωταθλήματα Ασπίδας</string>
   <string name="onlyTitled">Μόνο τιτλούχοι παίκτες</string>
   <string name="onlyTitledHelp">Χρειάζεται ένας επίσημος τίτλος για συμμετοχή στο πρωτάθλημα</string>
   <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του τουρνουά έχουν κλείσει.</string>
+  <string name="berserkRate">Ποσοστό berserk</string>
 </resources>

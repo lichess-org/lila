@@ -67,8 +67,8 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="whichTeamWillYouRepresentInThisBattle">Welk team vertegenwoordig jij in dit toernooi?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Je moet lid worden van één van deze teams om deel te kunnen nemen!</string>
   <string name="created">Aangemaakt</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Onlangs gespeeld</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Beste resultaten</string>
+  <string name="recentlyPlayed">Onlangs gespeeld</string>
+  <string name="bestResults">Beste resultaten</string>
   <string name="tournamentStats">Toernooi statistieken</string>
   <string name="rankAvgHelp">Het gemiddelde klassering is een percentage van uw klassering. Lager is beter.
 
@@ -84,5 +84,5 @@ Bijvoorbeeld, wanneer je de derde plaats staat in een tornooi van 100 deelnemers
   <string name="onlyTitled">Alleen titelhouders</string>
   <string name="onlyTitledHelp">Officiële titel vereist voor deelname aan het toernooi</string>
   <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserk-percentage</string>
+  <string name="berserkRate">Berserk-percentage</string>
 </resources>

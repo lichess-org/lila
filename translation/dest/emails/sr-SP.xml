@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Потврди свој lichess.org налог, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Кликните на линк да активирате ваш Личес налог:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Кликни линк да активираш свој Lichess налог:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Уколико се ниси регистровао/ла са Lichess-ом, можеш ингорисати ову поруку без проблема. Непотврђени налог и сви трагови твоје имејл адресе ће бити обрисани из нашег система након 48 сати.</string>
   <string name="passwordReset_subject">Промени своју lichess.org лозинку, %s</string>
   <string name="passwordReset_intro">Примили смо захтев за измену лозинке твог налога.</string>
   <string name="passwordReset_clickOrIgnore">Ако си поднео/ла овај захтев, кликни линк испод. Ако ниси, можеш игнорисати овај имејл.</string>
@@ -16,6 +17,6 @@
 Забавите се, и нека ваше фигуре увек нађу пут ка противничком краљу!</string>
   <string name="logInToLichess">Улогуј се на lichess.org, %s</string>
   <string name="common_orPaste">(Кликање не ради? Пробај га налепити у свој претражовач!)</string>
-  <string name="common_note">Ово је сервисна е-пошта везана са Вашим коришћењем %s.</string>
+  <string name="common_note">Ово је сервисни имејл везан за твоје коришћење %s.</string>
   <string name="common_contact">Да бисте нас контактирали, молимо Вас користите %s.</string>
 </resources>

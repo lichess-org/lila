@@ -1,2 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Streymarar á Lichess</string>
+  <string name="lichessStreamer">Streymari á Lichess</string>
+  <string name="live">Í BEINNI!</string>
+  <string name="offline">AFLÍNIS</string>
+  <string name="currentlyStreaming">Nú að streyma: %s</string>
+  <string name="lastStream">Síðasta streymi %s</string>
+  <string name="becomeStreamer">Gerast streymari á Lichess</string>
+  <string name="doYouHaveStream">Ertu með Twitch eða YouTube-rás?</string>
+  <string name="hereWeGo">Nú byrjar ballið!</string>
+  <string name="allStreamers">Allir streymarar</string>
+  <string name="editPage">Breyta streymarasíðu</string>
+  <string name="yourPage">Streymarasíða þín</string>
+  <string name="downloadKit">Hlaða niður streymaratólum</string>
+  <string name="xIsStreaming">%s er að streyma</string>
+  <string name="rules">Reglur um að streyma</string>
+  <string name="rule1">Láttu leitarorðið „lichess.org“ fylgja með í titli streymisins þíns og notaðu flokkinn „Chess“ (Skák) þegar þú streymir á Lichess.</string>
+  <string name="rule2">Fjarlægðu leitarorðið þegar þú streymir efni sem hefur ekkert með Lichess að gera.</string>
+  <string name="rule3">Lichess greinir streymið þitt sjálfkrafa og virkjar eftirfarandi fríðindi:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lestu %s til þess að tryggja göfuglyndi allra í streyminu þínu.</string>
+  <string name="streamingFairplayFAQ">algengar spurningar okkar um göfuglyndi streymis</string>
+  <string name="perks">Kostir þess að streyma með leitarorðinu</string>
+  <string name="perk1">Færð logandi streymarateikn á Lichess-prófílinn þinn.</string>
+  <string name="perk2">Færð að vera efst uppi á streymaralistanum.</string>
+  <string name="perk3">Lætur fylgjendur þína á Lichess vita.</string>
+  <string name="perk4">Sýndu streymið þitt í skákum þínum, mótum og stúderingum.</string>
+  <string name="approved">Streymið þitt er samþykkt.</string>
+  <string name="pendingReview">Ritstjórar eru að skoða streymið þitt.</string>
+  <string name="pleaseFillIn">Vinsamlegast fylltu út streymaraupplýsingar um þig, og sendu inn mynd.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Þegar þér þykir kominn tími á að láta skrá þig á lista streymara á Lichess, %s</string>
+  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Setja í ritskoðun</string>
+  <string name="streamerLanguageSettings">Streymarasíða Lichess höfðar til áhorfenda þinna á því tungumáli sem streymisveitan þín býður upp á. Stilltu rétt sjálfgefið tungumál fyrir skákstreymi þín í forritinu eða þjónustunni sem þú notar til útsendingar.</string>
+  <string name="twitchUsername">Notandanafnið þitt eða vefslóð á Twitch</string>
+  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Nauðsynlegt er að nota annaðhvort Twitch eða YouTube</string>
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Breytingar á Twitch og YouTube verða að vera samþykktar.
+  
+  Streymismerkið þitt og listun verða lokuð á meðan farið er yfir. Þetta getur tekið allt að 72 klukkustundir.</string>
+  <string name="youTubeChannelId">YouTube-rásarauðkennið þitt</string>
+  <string name="streamerName">Streymaranafn þitt á Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Hafðu það stutt: %s stafur að hámarki</item>
+    <item quantity="other">Hafðu það stutt: %s stafir að hámarki</item>
+  </plurals>
+  <string name="visibility">Sýnilegt á síðu streymara</string>
+  <string name="whenApproved">Við samþykki umsjónarmanna</string>
+  <string name="headline">Fyrirsögn</string>
+  <string name="tellUsAboutTheStream">Segðu okkur frá streymi þínu í einni setningu</string>
+  <string name="longDescription">Ýtarleg lýsing</string>
+  <string name="xStreamerPicture">Streymaramynd %s</string>
+  <string name="changePicture">Breyta/eyða myndinni þinni</string>
+  <string name="uploadPicture">Hlaða inn mynd</string>
+  <string name="maxSize">Hámarksstærð: %s</string>
+</resources>

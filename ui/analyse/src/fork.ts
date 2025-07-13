@@ -1,9 +1,8 @@
 import { defined } from 'lib';
-import { onInsert } from 'lib/snabbdom';
-import { h } from 'snabbdom';
+import { onInsert, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
-import { renderIndexAndMove } from './view/moveView';
+import { renderIndexAndMove } from './treeView/components';
 
 export interface ForkCtrl {
   state(): {
@@ -69,7 +68,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
     },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : hovering ? hovering : selected;
+        it = it ?? hovering ?? selected;
 
         const childNode = ctrl.node.children[it];
         if (defined(childNode)) {
@@ -94,7 +93,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   const state = ctrl.fork.state();
   if (!state.displayed) return;
   const isMainline = concealOf && ctrl.onMainline;
-  return h(
+  return hl(
     'div.analyse__fork',
     {
       hook: onInsert(el => {
@@ -114,7 +113,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       };
       const conceal = isMainline && concealOf(true)(ctrl.path + node.id, node);
       if (!conceal)
-        return h(
+        return hl(
           'move',
           { class: classes, attrs: { 'data-it': it } },
           renderIndexAndMove(

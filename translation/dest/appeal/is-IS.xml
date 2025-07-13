@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Aðgangurinn þinn er ekki með merkimiða eða hömlur. Þú ert klár!</string>
+  <string name="engineMarked">Aðgangur þinn fékk merkimiða fyrir utanaðkomandi aðstoð í skákum.</string>
+  <string name="engineMarkedInfo">Þetta skilgreinum við sem notkun utanaðkomandi hjálpar til að efla þekkingu þína og/eða hæfni í útreikningi til að öðlast ósanngjarna yfirburði yfir andstæðing þinn. Sjá nánari upplýsingar á síðunni um %s.</string>
+  <string name="boosterMarked">Aðgangur þinn fékk merkimiða fyrir fölsun skákstiga.</string>
+  <string name="boosterMarkedInfo">Þetta er skilgreint sem að falsa skákstig vísvitandi með því að tapa skákum af ásettu ráði eða með því að tefla á móti öðrum aðgangi sem tapar skákum af ásettu ráði.</string>
+  <string name="accountMuted">Aðgangurinn þinn er þaggaður.</string>
+  <string name="closedByModerators">Aðganginum þínum var lokað af stjórnendum.</string>
+  <string name="hiddenBlog">Stjórnendur hafa falið bloggfærslur þínar.</string>
+  <string name="playTimeout">Þú ert í leikhlé.</string>
+  <string name="blogRules">reglur um blogg</string>
+  <string name="fairPlay">Göfuglyndi</string>
+</resources>

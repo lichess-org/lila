@@ -171,10 +171,16 @@
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Paylaşıldı ve kaydedildi</string>
   <string name="sharedAndSavedText">Diğer üyeler sizin hareketlerinizi gerçek zamanlı olarak görebilir!&lt;br&gt;Ayrıca, her şey sonsuza kadar kaydedilir.</string>
   <string name="studyMembersTitle">Çalışma üyeleri</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Seyirciler çalışmayı görüntüleyebilir ve sohbette konuşabilir.&lt;br&gt;&lt;br&gt;%2$s Katılımcılar hamle yapabilir ve çalışmayı güncelleyebilir.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s düğmesine tıklayın.&lt;br&gt;Sonra kimlerin katılabileceğine karar verin.</string>
   <string name="studyChaptersTitle">Çalışma bölümleri</string>
+  <string name="studyChaptersText">Bir çalışma birden fazla bölüm içerebilir.&lt;br&gt;Her bir bölüm ayrı bir başlangıç konumuna ve hamle ağacına sahiptir.</string>
   <string name="commentPositionTitle">Bir pozisyona yorum yap</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s düğmesine tıklayın veya sağdaki taşıma listesine sağ tıklayın.&lt;br&gt;Yorumlar paylaşılır ve kaydedilir.</string>
+  <string name="annotatePositionTitle">Konuma yorum ekleyin</string>
+  <string name="annotatePositionText">!? düğmesine tıklayın ya da sağdaki hamle listesine sağ tıklayın.&lt;br&gt; Yorum yazıları paylaşılır ve kaydedilir.</string>
   <string name="conclusionTitle">Vakit ayırdığınız için teşekkürler</string>
+  <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Önceki çalışmalarınızı&lt;/a&gt; profil sayfanızdan bulabilirsiniz.&lt;br&gt;Çalışmalar hakkında ayrıca bir &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; blog gönderisi&lt;/a&gt; mevcuttur.&lt;br&gt;Usta kullanıcılar klavye kısayollarını görmek için \"?\" basabilir.&lt;br&gt;İyi eğlenceler!</string>
   <string name="createChapterTitle">Bir çalışma bölümü oluşturalım</string>
   <string name="createChapterText">Bir çalışma birkaç bölümden oluşabilir.&lt;br&gt;Her bölümün kendine özgü bir hareket ağacı vardır&lt;br&gt;ve çeşitli şekillerde oluşturulabilir.</string>
   <string name="fromInitialPositionTitle">Başlangıç pozisyonundan</string>
@@ -183,5 +189,8 @@
   <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
   <string name="loadExistingLichessGameTitle">Mevcut bir lichess oyununu yükle</string>
   <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
+  <string name="fromFenStringTitle">Bir FEN dizisinden</string>
+  <string name="fromPgnGameTitle">PGN oyunundan</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Çift mağlubiyet</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Beyaz kaybeder fakat siyah kazanamaz</string>
 </resources>

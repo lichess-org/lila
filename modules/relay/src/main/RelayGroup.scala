@@ -2,6 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
+import lila.core.config.BaseUrl
 
 case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTourId])
 
@@ -25,31 +26,43 @@ object RelayGroup:
         tour.copy(name = group.name.shortTourName(tour.name))
     )
 
-  private[relay] object form:
-    import play.api.data.*
-    import play.api.data.Forms.*
-    import play.api.data.format.Formatter
-    import lila.common.Form.formatter
-    case class Data(name: RelayGroup.Name, tours: List[RelayTour.IdName]):
-      override def toString = s"$name\n${tours.map(t => s"${t.id} ${t.name}").mkString("\n")}"
-      def tourIds           = tours.map(_.id)
-      def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
-      def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tourIds)
-    object Data:
-      def apply(group: RelayGroup.WithTours): Data = Data(group.group.name, group.tours)
-      def parse(value: String): Option[Data]       =
-        value.split("\n").toList match
-          case Nil             => none
-          case name :: tourIds =>
-            val tours = tourIds
-              .take(50)
-              .map(_.trim.take(8))
-              .map: id =>
-                RelayTour.IdName(RelayTourId(id), RelayTour.Name(""))
-            Data(RelayGroup.Name(name.linesIterator.next.trim), tours).some
+private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.IdName]):
+  def tourIds                               = tours.map(_.id)
+  def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
+  def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tourIds)
 
-    given Formatter[Data]              = formatter.stringOptionFormatter(_.toString, Data.parse)
-    val mapping: Mapping[Option[Data]] = optional(of[Data])
+private final class RelayGroupForm(baseUrl: BaseUrl):
+  import play.api.data.*
+  import play.api.data.Forms.*
+  import play.api.data.format.Formatter
+  import lila.common.Form.formatter
+  def data(group: RelayGroup.WithTours)    = RelayGroupData(group.group.name, group.tours)
+  def asText(data: RelayGroupData): String =
+    s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
+  def parse(value: String): Option[RelayGroupData] =
+    value.split("\n").toList match
+      case Nil             => none
+      case name :: tourIds =>
+        val tours = tourIds
+          .take(50)
+          .map(_.trim.takeWhile(' ' != _))
+          .flatMap(parseId)
+          .map(RelayTour.IdName(_, RelayTour.Name("")))
+        RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours).some
+  private def parseId(str: String): Option[RelayTourId] =
+    def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
+    if looksLikeId(str) then RelayTourId(str).some
+    else
+      for
+        url <- lila.common.url.parse(str).toOption
+        id  <- url.path.split('/').filter(_.nonEmpty) match
+          case Array("broadcast", id, "edit") if looksLikeId(id) => id.some
+          case Array("broadcast", _, id) if looksLikeId(id)      => id.some
+          case _                                                 => none
+      yield RelayTourId(id)
+
+  given Formatter[RelayGroupData]              = formatter.stringOptionFormatter(asText, parse)
+  val mapping: Mapping[Option[RelayGroupData]] = optional(of[RelayGroupData])
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
@@ -67,7 +80,7 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
     byTour(tourId).map(_.fold(List(tourId))(_.tours))
 
-  def update(tourId: RelayTourId, data: RelayGroup.form.Data): Funit =
+  def update(tourId: RelayTourId, data: RelayGroupData): Funit =
     for
       prev  <- byTour(tourId)
       curId <- prev match

@@ -13,8 +13,8 @@
   <string name="configurationSection">Konfiguratiounssektioun</string>
   <string name="keepPlayPageOpen">D\'Spillsäit muss op bleiwen am Browser. Se muss net siichtbar sinn, du kanns se miniméieren oder nieft d\'Lichess-Partie-Säit zéien, mee du däerfs se net zou maachen, soss funktionéiert d\'Briet net méi.</string>
   <string name="boardWillAutoConnect">D\'Briet verbënnt sech automatesch mat all Partie, déi scho leeft, a mat all neier Partie, déi ugefaange gëtt. D\'Méiglechkeet ze wielen, mat wat fir enger Partie sech verbonne gëtt, kënnt geschwënn.</string>
-  <string name="timeControlsForCasualGames">Zäitkontrolle fir ongewäerte Partien: Klassesch, Korrespondenz a Schnellschach.</string>
-  <string name="timeControlsForRatedGames">Zäitkontrolle fir gewäerte Partien: Klassesch, Korrespondenz a verschidde Schnellschachformater wéi 15+10 an 20+0</string>
+  <string name="timeControlsForCasualGames">Kadenze fir ongewäerte Partien: Nëmme Klassesch, Fernschach a Schnellschach.</string>
+  <string name="timeControlsForRatedGames">Kadenze fir gewäerte Partien: Klassesch, Fernschach a verschidde Schnellschachformater wéi 15+10 an 20+0</string>
   <string name="whenReadySetupBoard">Wann s du prett bass, stell däi Briet op a klick dann op %s.</string>
   <string name="ifMoveNotDetected">Wa keen Zuch erkannt gouf</string>
   <string name="checkYouHaveMadeOpponentsMove">Kuck fir d\'éischt, ob s du dengem Géigner säin Zuch um DGT-Briet gemaach hues. Huel däin Zuch zeréck a maach en nach eng Kéier.</string>

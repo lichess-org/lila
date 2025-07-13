@@ -21,7 +21,7 @@
   <string name="keyboardShortcutsExplanation">هەندێک لە لاپەڕەکانی Lichess کورتکراوەی کیبۆردیان هەیە کە دەتوانیت بەکاری بهێنیت. هەوڵبدە \'؟\' کلیل لەسەر لاپەڕەی لێکۆڵینەوە، شیکاری، مەتەڵ، یان یاری بۆ لیستکردنی کورتکراوەی کیبۆرد بەکاربێنیت</string>
   <string name="fairPlay">یاری ئاگرین</string>
   <string name="whenAmIEligibleRatinRefund">کەی شایستەی گەڕاندنەوەی پارەی ئۆتۆماتیکی ڕیزبەندیم لە فێڵبازەکانەوە؟</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">دوای یەک خولەک دوای ئەوەی یاریزانێک نیشانە دەکرێت، ٤٠ دوایین یارییەکەی کە لە ٣ ڕۆژی ڕابردوودا ڕیزبەندی کراوە، دەگیرێت. ئەگەر لە یەکێک لەو یارییانەدا ڕکابەری ئەوان بوویت، ڕیتینگت لەدەستدا (بەهۆی دۆڕان یان یەکسانبوون)، و ڕیتینگەکەت کاتی نەبوو، ئەوا ڕیتینگەکەت بۆ دەگەڕێتەوە. گەڕاندنەوەی ڕەیتینگەکە بە پشتبەستن بە لوتکەی ڕیزبەندی و پێشکەوتنی ڕیزبەندیەکەت دوای یارییەکە کۆتایی پێدێت. (بۆ نموونە ئەگەر دوای ئەو یارییە ڕیزبەندیەکەت زۆر زیادی کرد، لەوانەیە هیچ ڕەیتینگێکت بۆ نەگەرێتەوە یان تەنها بەشێکی رەیتینگەکەت بۆ بگەڕێتەوە.) گەڕاندنەوەی رەیتینگەکەت هەرگیز لە ١٥٠ خاڵ زیاتر نابێت.</string>
+  <string name="ratingRefundExplanation">دوای یەک خولەک دوای ئەوەی یاریزانێک نیشانە دەکرێت، ٤٠ دوایین یارییەکەی کە لە ٣ ڕۆژی ڕابردوودا ڕیزبەندی کراوە، دەگیرێت. ئەگەر لە یەکێک لەو یارییانەدا ڕکابەری ئەوان بوویت، ڕیتینگت لەدەستدا (بەهۆی دۆڕان یان یەکسانبوون)، و ڕیتینگەکەت کاتی نەبوو، ئەوا ڕیتینگەکەت بۆ دەگەڕێتەوە. گەڕاندنەوەی ڕەیتینگەکە بە پشتبەستن بە لوتکەی ڕیزبەندی و پێشکەوتنی ڕیزبەندیەکەت دوای یارییەکە کۆتایی پێدێت. (بۆ نموونە ئەگەر دوای ئەو یارییە ڕیزبەندیەکەت زۆر زیادی کرد، لەوانەیە هیچ ڕەیتینگێکت بۆ نەگەرێتەوە یان تەنها بەشێکی رەیتینگەکەت بۆ بگەڕێتەوە.) گەڕاندنەوەی رەیتینگەکەت هەرگیز لە ١٥٠ خاڵ زیاتر نابێت.</string>
   <string name="preventLeavingGameWithoutResigning">چی ڕووئەدات ئەگەر یاریزانەکان یاریەکەیان جێ ھێشت بەبێ ئەوەی تەسلیم بن؟</string>
   <string name="leavingGameWithoutResigningExplanation">ئەگەر بەرامبەرەکەت یاریەکە پێش تەواو بون بەجێ بێڵێت و چەند جارێک دووبارەی بکاتەوە، یاریکردنی لێ قەدەغە ئەکرێت بۆ ماوەیەکی کاتی، ئەگەر ھات و وازی لەو ئسلوبەی نەھێنا و ھەر بەردەوام بوو ئەوە بۆ ھەمیشە یاریکردنی لێ قەدەغە ئەکرێت.</string>
   <string name="howCanIBecomeModerator">چۆن ئەتوانم ببم بە بەرێوبەر؟</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">چۆن کاتەکانی بولێت،بلێتز یاجۆرەکانی تری یاری کاتەکانیان دانراوە؟</string>
   <string name="basedOnGameDuration">کۆنتڕۆڵەکانی کاتی لیچێس لەسەر بنەمای ماوەی یارییە خەمڵێنراوەکان = %1$s.
 بۆ نموونە ماوەی خەمڵێنراوی یارییەکی 5+3 5 × 60 + 40 × 3 = 420 چرکە.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(کاتی سەرەتایی کاتژمێر بە چرکە) + 40 × (زیادبوونی کاتژمێر)</string>
+  <string name="durationFormula">(کاتی سەرەتایی کاتژمێر بە چرکە) + 40 × (زیادبوونی کاتژمێر)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$sسانیە= %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$sسانیە= %2$s</string>
   <string name="whatVariantsCanIplay">ئەو گۆڕانکاریانە چین کە من ئەتوانم یاری پێ بکەم لە لی چێس؟</string>
@@ -94,12 +94,11 @@
 دەتوانی زیاتر بزانی لەسەر %1$s.</string>
   <string name="guidelines">ڕێنماییەکان</string>
   <string name="canIChangeMyUsername">ئەتوانم ناوی بەکارھێنراوم بگۆڕم ؟</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
+  <string name="usernamesCannotBeChanged">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
   <string name="uniqueTrophies">جامە ناوازەکە</string>
   <string name="ownerUniqueTrophies">ئەو جامە لە مێژووی لیچێسدا ناوازەیە، جگە لە %1$s کەسی تر هەرگیز ئەو جامەی نابێت.</string>
-  <string name="wayOfBerserkExplanation">بۆ بەدەست هێنانی ئەوە، هیمگسۆ ڕکابەری خۆی دەکرد بە بریسێرگ وە بردنەوەی هەموو یاریەکان لە%s.</string>
   <string name="aHourlyBulletTournament">پاڵەوانێتی فیشەک ی سەعاتی</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict ستریمی دەکرد و لە ماوەی ٢ کاتژمێری ڕابردوودا هەوڵی شکستی بە A.I. ئاستی ٨ لە یارییەکی ١+٠، بەبێ سەرکەوتن. تیبۆڵ پێی وت ئەگەر بە سەرکەوتوویی لە ستریمدا ئەو کارە بکات، ئەوا جامێکی ناوازە بەدەست دەهێنێت. دوای کاتژمێرێک، ستۆکفیشی شکاند و بەڵێنەکە جێبەجێ کرا.</string>
+  <string name="goldenZeeExplanation">ZugAddict ستریمی دەکرد و لە ماوەی ٢ کاتژمێری ڕابردوودا هەوڵی شکستی بە A.I. ئاستی ٨ لە یارییەکی ١+٠، بەبێ سەرکەوتن. تیبۆڵ پێی وت ئەگەر بە سەرکەوتوویی لە ستریمدا ئەو کارە بکات، ئەوا جامێکی ناوازە بەدەست دەهێنێت. دوای کاتژمێرێک، ستۆکفیشی شکاند و بەڵێنەکە جێبەجێ کرا.</string>
   <string name="lichessRatings">ڕاھێنان کردن لە لیچێس</string>
   <string name="whichRatingSystemUsedByLichess">لیچێس چ سیستەمێک بەکار دێنێت بۆ پێدانی ڕەیتینگ ؟</string>
   <string name="ratingSystemUsedByLichess">هەڵسەنگاندنەکان بە بەکارهێنانی شێوازی هەڵسەنگاندنی گلیکۆ-٢ کە لەلایەن مارک گلیکمانەوە پەرەی پێدراوە، حیسابی بۆ دەکرێت. ئەمە شێوازێکی هەڵسەنگاندنی زۆر بەناوبانگە، و لەلایەن ژمارەیەکی بەرچاو لە ڕێکخراوەکانی شەترەنجەوە بەکاردەهێنرێت (FIDE نموونەیەکی دژە بەرچاوە، چونکە هێشتا سیستەمی هەڵسەنگاندنی ئیلۆی بەروارکراو بەکاردەهێنن).
@@ -140,5 +139,5 @@
 کرتە لە ئایکۆنی قفڵەکە بکە کە لەتەنیشت ئەدرەسی lichess.org لە بەستەرەکەدایە لە وێبگەڕەکەت.
 
 دواتر دیاری بکە گەر دەتەوێ ئاگادارکردنەوەکانی لیچێست بۆ بێت یاخود نا.</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">خۆم لە یاریکردن بوەستێنم?</string>
+  <string name="stopMyselfFromPlaying">خۆم لە یاریکردن بوەستێنم?</string>
 </resources>

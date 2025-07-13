@@ -24,6 +24,23 @@ export const commands: () => Commands = memoize(() => ({
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
+  board: {
+    help: i18n.nvui.goToBoard,
+    apply(c: string, _pieces: Pieces, _style: MoveStyle): string {
+      const words = c.split(' ');
+      const file = words[1]?.charAt(0) || 'e';
+      const rank = words[1]?.charAt(1) || '4';
+      const button =
+        (!words[1] && $('button.active').get(0)) ||
+        $('button[file="' + file + '"][rank="' + rank + '"]').get(0);
+      if (button) {
+        button.focus();
+        return '';
+      } else {
+        return file + '.' + rank + ' is not a valid square';
+      }
+    },
+  },
 }));
 
 function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A | undefined {
@@ -47,6 +64,7 @@ export const boardCommands = (): VNode[] => [
       `shift+1 to 8: ${i18n.nvui.moveToFile}`,
       `shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
       `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
+      'x: announce pieces around this square (try shift and alt)',
     ].reduce(addBreaks, []),
   ]),
 ];

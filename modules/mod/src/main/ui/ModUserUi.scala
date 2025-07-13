@@ -274,9 +274,10 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
-  def prefs(u: User, hasKeyboardMove: Boolean, botCompatible: Boolean)(using Context) =
+  def prefs(u: User, hasKeyboardMove: Boolean, hasVoice: Boolean, botCompatible: Boolean)(using Context) =
     val prefList = List(
       hasKeyboardMove.option(li("keyboard moves")),
+      hasVoice.option(li("voice moves")),
       botCompatible.option:
         li:
           strong:

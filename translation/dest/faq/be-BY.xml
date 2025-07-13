@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">На некаторых старонках Lichess ёсць спалучэнні клавіш, якія можна выкарыстоўваць. Паспрабуйце націснуць «?» клавішу на старонцы даследавання, аналізу, галаваломкі або гульні, каб пералічыць даступныя спалучэнні клавіш.</string>
   <string name="fairPlay">Сумленная гульня</string>
   <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
+  <string name="ratingRefundExplanation">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
  (Напрыклад, калі ваш рэйтынг значна ўзрос пасля такіх гульняў, вы можаце атрымаць частковую кампенсацыю або ўвогуле нічога.) Кампенсацыя ніколі не перавысіць 150 балаў рэйтынгу.</string>
   <string name="preventLeavingGameWithoutResigning">Якія меры прымаюцца супраць гульцоў, якія пакідаюць гульні без здачы?</string>
   <string name="leavingGameWithoutResigningExplanation">Калі ваш супернік(ца) часта скасоўвае/пакідае гульні, ён(яна) атрымае \"бан на гульню\", гэта значыць, што яны часова не могуць граць. Гэта не адлюстроўваецца ў іх профіле. Калі такія паводзіны працягваюцца, працяг гуллёвага бану павялічваецца - дальнейшая дзейнасць падобнага характару можа прывесці да закрыцця ўліковага запісу.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
   <string name="basedOnGameDuration">Кантролі часу на Lichess заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(пачатковы час) + 40 * (прыбаўка часу)</string>
+  <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
@@ -97,12 +97,11 @@
   <string name="usernamesNotOffensive">Увогуле, імёны карыстальнікай не павінны баць: абражаючымі, рэкламнымі, або выдаючымі вас за кагосьці іншага. Больш чытайце ў %1$s.</string>
   <string name="guidelines">рэкамендацыях</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
+  <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
   <string name="uniqueTrophies">Унікальныя трафеі</string>
   <string name="ownerUniqueTrophies">Гэта трэфей унікальны ў гісторыі Lichess, ніхто акрамя %1$s ніколі не будзе маць такі.</string>
-  <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
   <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
+  <string name="goldenZeeExplanation">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рэйтынгі падлючваюцца з дапамогай метада Glicko-2, распрацаванага Маркам Глікманам. Гэта вельмі папулярны метад падліку, які выкарыстоўваецца значнай колькасцю шахматных арганізацый (заўважальны працілеглы прыклад - ФІДЭ, яны працягваюць выкарыстанне састарэлай сістэмы Эло).
@@ -149,7 +148,7 @@
 Чырвоны значок адключэння гуку з\'яўляецца, калі ваш браўзер не дазваляе lichess.org прайграваць гук. Звычайна гэтае абмежаванне здымаецца, як толькі вы нешта націснеце. У некаторых мабільных браўзерах перацягванне фрагмента дотыкам не лічыцца клікам. У такім выпадку вы павінны дакрануцца да дошкі, каб уключыць гук у пачатку кожнай гульні.
 
 Мы паказваем чырвоны значок, каб папярэдзіць вас, калі гэта адбудзецца. Часта вы можаце яўна дазволіць lichess.org прайграваць гукі. Вось інструкцыі, як зрабіць гэта ў апошніх версіях некаторых папулярных браўзераў.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">працоўны стол</string>
+  <string name="desktop">працоўны стол</string>
   <string name="enableAutoplayForSoundsFirefox">1. Перайдзіце на lichess.org
 2. Націсніце Ctrl-i на Linux/Windows або cmd-i на MacOS
 3. Націсніце ўкладку Дазволы

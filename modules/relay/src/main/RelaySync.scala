@@ -14,7 +14,8 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     players: RelayPlayerApi,
-    notifier: RelayNotifier
+    notifier: RelayNotifier,
+    tagManualOverride: RelayTagManualOverride
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
@@ -48,11 +49,11 @@ final private class RelaySync(
       game: RelayGame,
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] = for
-    chapter             <- updateInitialPosition(study.id, chapter, game)
-    (tagUpdate, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
-    nbMoves             <- updateChapterTree(study, chapter, game)(using rt.tour)
-    _                   <- (nbMoves > 0).so(notifier.roundBegin(rt))
-  yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves, newEnd)
+    chapter           <- updateInitialPosition(study.id, chapter, game)
+    (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
+    nbMoves           <- updateChapterTree(study, chapter, game)(using rt.tour)
+    _ = if nbMoves > 0 then notifier.onUpdate(rt, newTags.foldLeft(chapter)(_.withTags(_)))
+  yield SyncResult.ChapterResult(chapter.id, newTags.isDefined, nbMoves, newEnd)
 
   private def createChapter(
       rt: RelayRound.WithTour,
@@ -64,6 +65,7 @@ final private class RelaySync(
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
+            if chapter.root.mainline.nonEmpty then notifier.onCreate(rt, chapter)
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size, false).some
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
@@ -148,7 +150,7 @@ final private class RelaySync(
       study: Study,
       chapter: Chapter,
       game: RelayGame
-  ): Fu[(Boolean, Boolean)] = // (newTags, newEnd)
+  ): Fu[(Option[Tags], Boolean)] = // (newTags, newEnd)
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
@@ -158,9 +160,12 @@ final private class RelaySync(
         !chapter.tags(_.Result).has(game.showResult)
     ).option(Tag(_.Result, game.showResult))
     val tags           = newEndTag.fold(gameTags)(gameTags + _)
-    val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
-      PgnTags(chapterTags + tag)
-    if chapterNewTags == chapter.tags then fuccess(false -> false)
+    val chapterNewTags = tags.value
+      .filterNot: tag =>
+        tagManualOverride.exists(chapter.id, tag.name)
+      .foldLeft(chapter.tags): (chapterTags, tag) =>
+        PgnTags(chapterTags + tag)
+    if chapterNewTags == chapter.tags then fuccess(none -> false)
     else
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
@@ -174,7 +179,7 @@ final private class RelaySync(
         )(who(chapter.ownerId))
         newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         _ <- newEnd.so(onChapterEnd(tour, study, chapter))
-      yield (true, newEnd)
+      yield (tags.some, newEnd)
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
     _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)

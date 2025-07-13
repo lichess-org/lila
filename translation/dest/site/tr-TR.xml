@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Karşılıklı anlaşma ile berabere</string>
   <string name="fiftyMovesWithoutProgress">Gelişme olmadan elli hamle</string>
   <string name="currentGames">Şu anda oynanan oyunlar</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">%s katıldı</string>
+  <string name="joinedX">%s katıldı</string>
   <plurals name="nbGames">
     <item quantity="one">%s oynanan oyun</item>
     <item quantity="other">%s oynanan oyun</item>
@@ -493,7 +493,6 @@
   <string name="points">Puanlar</string>
   <string name="wins">Galibiyetler</string>
   <string name="losses">Mağlubiyetler</string>
-  <string name="createdBy">Oluşturan kişi</string>
   <string name="startingIn" comment="Displayed above a timer">Başlamasına</string>
   <string name="standByX">Hazır ol %s, oyuncular eşleştiriliyor!</string>
   <string name="pause">Duraklat</string>

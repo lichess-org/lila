@@ -7,10 +7,8 @@ export function findInMainline(
   fromNode: Tree.Node,
   predicate: (node: Tree.Node) => boolean,
 ): Tree.Node | undefined {
-  const findFrom = function (node: Tree.Node): Tree.Node | undefined {
-    if (predicate(node)) return node;
-    return withMainlineChild(node, findFrom);
-  };
+  const findFrom = (node: Tree.Node): Tree.Node | undefined =>
+    predicate(node) ? node : withMainlineChild(node, findFrom);
   return findFrom(fromNode);
 }
 
@@ -26,8 +24,6 @@ export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.No
   return nodes;
 }
 
-const pickFirstChild = (node: Tree.Node): Tree.Node | undefined => node.children[0];
-
 export const childById = (node: Tree.Node, id: string): Tree.Node | undefined =>
   node.children.find(child => child.id === id);
 
@@ -38,17 +34,15 @@ export const nodeAtPly = (nodeList: Tree.Node[], ply: number): Tree.Node | undef
 
 export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
   let path = '';
-  for (const i in nodeList) {
-    if (predicate(nodeList[i])) path += nodeList[i].id;
+  for (const n of nodeList) {
+    if (predicate(n)) path += n.id;
     else break;
   }
   return path;
 }
 
 export function removeChild(parent: Tree.Node, id: string): void {
-  parent.children = parent.children.filter(function (n) {
-    return n.id !== id;
-  });
+  parent.children = parent.children.filter(n => n.id !== id);
 }
 
 export function countChildrenAndComments(node: Tree.Node): {
@@ -91,7 +85,7 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
 export const hasBranching = (node: Tree.Node, maxDepth: number): boolean =>
   maxDepth <= 0 || !!node.children[1] || (node.children[0] && hasBranching(node.children[0], maxDepth - 1));
 
-export const mainlineNodeList = (from: Tree.Node): Tree.Node[] => collect(from, pickFirstChild);
+export const mainlineNodeList = (from: Tree.Node): Tree.Node[] => collect(from, node => node.children[0]);
 
 export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
   // applies f recursively to all nodes

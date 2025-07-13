@@ -3,6 +3,7 @@ package fide
 
 import _root_.chess.{ FideId, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
+import lila.core.userId.UserId
 
 enum FideTC:
   case standard, rapid, blitz
@@ -29,9 +30,10 @@ trait Player:
   def kFactorOf(tc: FideTC): KFactor
   def ratingsMap: Map[FideTC, Elo]
 
-type PlayerToken = String
-type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]
-type GetPlayer   = FideId => Fu[Option[Player]]
+type PlayerToken        = String
+type GuessPlayer        = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]
+type GetPlayer          = FideId => Fu[Option[Player]]
+type GetPlayerFollowers = FideId => Fu[Set[UserId]]
 
 type Tokenize = String => PlayerToken
 

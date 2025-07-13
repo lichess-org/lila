@@ -12,5 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">D\'Zäit déi et brauch fir een Zuch vun dengem Computer un den Lichess Server ze schécken an eng Äntwert ze kréien. Hängt vun denger Distanz zu Lichess(Frankräich) an vun denger Internetverbindung of. Lichess Entwéckler kënnen däin WLAN net reparéieren oder Luucht méi schnell maachen.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du kanns dës zwee Werten zu all Zäitpunkt fannen, andeem du op däin Benutzernumm uewen riets klicks.</string>
   <string name="lagCompensation">Lag-Kompensatioun</string>
-  <string name="lagCompensationExplanation">Lichess kompenséiert den Netzwierk-Lag. Dozou gehéieren unhalend Verzögerungen an Lag-Spikes. Et ginn Grenzen an Heuristiken je no Zäitkontroll an bis dohin ausgeglachenem Lag, sou dass d\'Resultat sech fir béid Spiller raisonnabel ufillen misst. Demno ass en Netzwierk-Lag méi grouss wéi dengem Géigner sengem keen Handicap!</string>
+  <string name="lagCompensationExplanation">Lichess kompenséiert den Netzwierk-Lag. Dozou gehéieren unhalend Verzögerungen a geleeëntlech Lag-Spëtzten. Et gi Grenzen an Heuristiken jee no Kadenz an dem bis dohin ausgeglachene Lag, sou dass d\'Resultat fir béid Spiller räsonabel schénge sollt. Deemno ass et keen Handicap, wann ee méi e groussen Netzwierk-Lag huet wéi de Géigner!</string>
 </resources>

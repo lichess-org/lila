@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichesseko orri batzuk lasterteklak dituzte. \'?\' tekla azterlan, analisi, ariketa eta partida baten pantailan sakatuz gero, zerrendatuta agertuko dira.</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="whenAmIEligibleRatinRefund">Noiz jaso dezaket tranpa egin didaten jokalarien aurkako partidetako puntuazioa?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.
+  <string name="ratingRefundExplanation">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.
   (adibidez, zure puntuazioa partida horien ostean asko igo bada, agian ez duzu puntuazio osoa berreskuratuko). Itzulera ez da inoiz 150 puntutik pasatuko.</string>
   <string name="preventLeavingGameWithoutResigning">Zer egiten da partidak amore eman gabe uzten dituzten jokalariekin?</string>
   <string name="leavingGameWithoutResigningExplanation">Zure aurkariek sarri partidak bertan behera utzi edo joan egiten badira, \"jokatzeko debekua\" jasoko dute eta horrekin ezingo dute denbora baterako partidarik jokatu. Hau ez da beren profilean publikoki agertuko. Jarrera honek aurrera jarraitzen badu, jokatzeko debekuaren iraupena luzatu egingo da, eta horrelako jarrera iraunkorrak kontua ixtea ekar lezake.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
   Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
+  <string name="durationFormula">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket Lichessen?</string>
@@ -97,12 +97,11 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="usernamesNotOffensive">Normalean erabiltzaile izenak ez dira izan behar iraingarriak, beste norbaiten izenak edo iragarkiak. %1$s irakurri dezakezu gehiago honi buruz.</string>
   <string name="guidelines">Gidalerroetan</string>
   <string name="canIChangeMyUsername">Aldatu dezaket nire erabiltzaile-izena?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ez, erabiltzaile-izenak ezin dira aldatu arrazoi tekniko eta praktikoak direla-eta. Erabiltzaile-izenak hainbat lekutan gordetzen dira, hala nola, datu-basean, esportazioetan, logetan,...</string>
+  <string name="usernamesCannotBeChanged">Ez, erabiltzaile-izenak ezin dira aldatu arrazoi tekniko eta praktikoak direla-eta. Erabiltzaile-izenak hainbat lekutan gordetzen dira, hala nola, datu-basean, esportazioetan, logetan,...</string>
   <string name="uniqueTrophies">Garaikur bereziak</string>
   <string name="ownerUniqueTrophies">Garaikur hori Lichessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
-  <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %s partidatik 100%% irabazi.</string>
   <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
+  <string name="goldenZeeExplanation">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
   <string name="lichessRatings">Lichess puntuazioak</string>
   <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
   <string name="ratingSystemUsedByLichess">Puntuazioak Mark Glickmanek garatutako Glicko-2 puntuazio sistema erabiliz kalkulatzen dira. Hainbat erakundek erabilitako puntuazio sistema arrunta da (FIDEk aldiz Elo izeneko sistema erabiltzen du).
@@ -149,7 +148,7 @@ Ondoren aukeratu Lichessen jakinarazpenak blokeatu nahi dituzun ala ez.</string>
 Bozgorailu gorri bat agertzen da zure nabigatzaileak lichess.org-i horrelako soinu bat jotea galarazten dionean. Normalean debeku hau nonbaiten klik egin ostean desaktibatzen da. Eskuko gailuetako nabigatzaile batzuetan, pieza mugitzeko keinuak ez dira klik gisa ulertzen. Horrelako kasuetan taula sakatu beharko duzu partida hasi bezain laster.
 
 Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakezu soinuak entzun ahal izateko. Hemen dituzu horretarako argibideak.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">mahaigaina</string>
+  <string name="desktop">mahaigaina</string>
   <string name="enableAutoplayForSoundsFirefox">1. Joan lichess.org webgunera
 2. Sakatu Ctrl-i Linux/Windowsesn edo cmd-i MacOSen
 3. Sakatu Baimenen fitxa
@@ -167,11 +166,11 @@ Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakez
 3. Egin klik Cookieak eta Gunearen baimenetan
 4. Joan behera eta egin klik \"Media autoplay\" aukeran
 5. Gehitu lichess.org Baimenduen zerrendara</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Jokatzeari utzi?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">osasun metaleko egoera</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess erabiltzaile motak</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">egongela multzo txikiagoak</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Sarri hainbeste partida jokatzen uzteko laguntza eskatzen duten erabiltzaileen mezuak jasotzen ditugu.
+  <string name="stopMyselfFromPlaying">Jokatzeari utzi?</string>
+  <string name="mentalHealthCondition">osasun metaleko egoera</string>
+  <string name="lichessUserstyles">Lichess erabiltzaile motak</string>
+  <string name="fewerLobbyPools">egongela multzo txikiagoak</string>
+  <string name="adviceOnMitigatingAddiction">Sarri hainbeste partida jokatzen uzteko laguntza eskatzen duten erabiltzaileen mezuak jasotzen ditugu.
 
 Lichessek jokalariak bere Arauak haustegatik bakarrik blokeatzen dituen arren, asko jokatzea mugatzeko kanpoko tresnak erabiltzea gomendatzen dugu. Adibidez webguneak blokeatzeko %1$s, %2$s eta %3$s. Webgunea erabiltzen jarraitu nahi baduzu baina erritmo azkarreko partida gutxiago jokatu nahi baduzu %4$s eta %5$s begiratu ditzakezu.
 

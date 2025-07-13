@@ -70,8 +70,8 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
   <string name="created">Vytvořeno</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nedávno hrané</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Nejlepší výsledky</string>
+  <string name="recentlyPlayed">Nedávno hrané</string>
+  <string name="bestResults">Nejlepší výsledky</string>
   <string name="tournamentStats">Turnajové statistiky</string>
   <string name="rankAvgHelp">Průměrný rank je procento umístění. Nižší je lepší.
 
@@ -87,5 +87,5 @@ Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístí
   <string name="onlyTitled">Pouze hráči s titulem</string>
   <string name="onlyTitledHelp">Požadovat oficiální titul k připojení se do turnaje</string>
   <string name="tournamentPairingsAreNowClosed">Turnajové rozlosování je nyní uzavřeno.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkův mat</string>
+  <string name="berserkRate">Berserkův mat</string>
 </resources>

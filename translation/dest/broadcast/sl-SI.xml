@@ -62,30 +62,33 @@
   <string name="subscribeTitle">Naročite se in bodite obveščeni ob začetku kola. Lahko si nastavite zvonec ali potisna obvestila za prenos v živo v nastavitvah vašega računa.</string>
   <string name="uploadImage">Naloži sliko turnirja</string>
   <string name="noBoardsYet">Deske niso na voljo. Prikazane bodo, ko se igre naložijo.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Deske se lahko naložijo iz vira ali z \"%s\"</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Deske se lahko naložijo iz vira ali z \"%s\"</string>
   <string name="startsAfter">Začne se s \"%s\"</string>
   <string name="startVerySoon">Prenos v živo se bo začel kmalu.</string>
   <string name="notYetStarted">Prenos v živo se še ni začel.</string>
   <string name="officialWebsite">Uradna spletna stran</string>
   <string name="standings">Lestvica</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Uradna lestvica</string>
+  <string name="officialStandings">Uradna lestvica</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Več nastavitev s %s</string>
   <string name="webmastersPage">Stran administratorja turnirja</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javen, v realnem času dostopen PGN vir tega kola. Ponujamo tudi iskanje s %s za hitrejše iskanje in bolj učinkovito sinhronizacijo.</string>
   <string name="embedThisBroadcast">Vgradite prenos v živo v svojo spletno stran.</string>
   <string name="embedThisRound">Vgradite %s v svojo spletno stran.</string>
   <string name="ratingDiff">Razlika v ratingu</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Igre v tem turnirju</string>
+  <string name="gamesThisTournament">Igre v tem turnirju</string>
   <string name="score">Rezultat</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Vse ekipe</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Oblika turnirja</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Lokacija turnirja</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Najboljši igralci</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Časovni pas</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE rating kategorija</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Neobvezne podrobnosti</string>
+  <string name="allTeams">Vse ekipe</string>
+  <string name="tournamentFormat">Oblika turnirja</string>
+  <string name="tournamentLocation">Lokacija turnirja</string>
+  <string name="topPlayers">Najboljši igralci</string>
+  <string name="timezone">Časovni pas</string>
+  <string name="fideRatingCategory">FIDE rating kategorija</string>
+  <string name="optionalDetails">Neobvezne podrobnosti</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
+  <string name="backToLiveMove">Nazaj na živo potezo</string>
   <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Živa deska</string>
+  <string name="liveboard">Živa deska</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Skupnostna oddaja</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Ustvaril in upravlja %s.</string>
 </resources>

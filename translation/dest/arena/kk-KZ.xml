@@ -69,8 +69,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">Осы күресте қай топқа мүшесіз?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Қатысу үшін осы топтардың біріне қосылуыңыз керек!</string>
   <string name="created">Құрылды</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Кейінгі ойындар</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Үздік нәтиже</string>
+  <string name="recentlyPlayed">Кейінгі ойындар</string>
+  <string name="bestResults">Үздік нәтиже</string>
   <string name="tournamentStats">Жарыс статистикасы</string>
   <string name="rankAvgHelp">Орын орташасы деген орныңыздың пайыздық мөлшері. Азы жақсы.
 Мысалы, 100 ойыншы қатысқан жарыста орныңыз 3-інші болса, орын орташасы 3%-ға тең. 1000 ойыншының арасында 10-ыншы болсаңыз, 1%-ға тең.</string>
@@ -85,5 +85,5 @@
   <string name="onlyTitled">Тек атақты ойыншылар</string>
   <string name="onlyTitledHelp">Атақ болса ғана, қосылуға рұқсат</string>
   <string name="tournamentPairingsAreNowClosed">Жарыстағы жұптасу аяқталды.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Берсерк үлесі</string>
+  <string name="berserkRate">Берсерк үлесі</string>
 </resources>

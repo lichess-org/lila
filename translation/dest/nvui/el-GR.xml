@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Επιλεγμένες εκδηλώσεις</string>
   <string name="moveList">Λίστα κινήσεων</string>
-  <string name="gameInfo">Πληροφορίες παιχνιδιού</string>
+  <string name="gameInfo">Πληροφορίες παρτίδας</string>
   <string name="pieces">Κομμάτια</string>
-  <string name="gameStatus">Κατάσταση παιχνιδιού</string>
+  <string name="gameStatus">Κατάσταση παρτίδας</string>
   <string name="lastMove">Τελευταία κίνηση</string>
+  <string name="inputForm">Πεδίο εισαγωγής εντολών</string>
+  <string name="actions">Ενέργειες</string>
   <string name="yourClock">Ο χρόνος σας</string>
   <string name="opponentClock">Ο χρόνος του αντιπάλου</string>
-  <string name="gameStart">Έναρξη παιχνιδιού</string>
+  <string name="gameStart">Έναρξη παρτίδας</string>
+  <string name="inputFormCommandList">Πληκτρολογήστε αυτές τις εντολές στο πεδίο εισαγωγής εντολών.</string>
+  <string name="goToInputForm">Μετάβαση στο πεδίο εισαγωγής εντολών.</string>
+  <string name="announceLastMove">Ανακοίνωση τελευταίας κίνησης.</string>
+  <string name="king">βασιλιάς</string>
+  <string name="whiteKing">λευκός βασιλιάς</string>
+  <string name="blackKing">μαύρος βασιλιάς</string>
+  <string name="queen">βασίλισσα</string>
+  <string name="whiteQueen">λευκή βασίλισσα</string>
+  <string name="blackQueen">μαύρη βασίλισσα</string>
+  <string name="rook">πύργος</string>
+  <string name="whiteRook">λευκός πύργος</string>
+  <string name="blackRook">μαύρος πύργος</string>
+  <string name="bishop">αξιωματικός</string>
+  <string name="whiteBishop">λευκός αξιωματικός</string>
+  <string name="blackBishop">μαύρος αξιωματικός</string>
+  <string name="knight">ίππος</string>
+  <string name="whiteKnight">λευκός ίππος</string>
+  <string name="blackKnight">μαύρος ίππος</string>
+  <string name="pawn">πιόνι</string>
+  <string name="whitePawn">λευκό πιόνι</string>
+  <string name="blackPawn">μαύρο πιόνι</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">τρώει</string>
+  <string name="sanCheck" comment="+ in standard notation">σαχ</string>
+  <string name="sanCheckmate" comment="# in standard notation">ματ</string>
+  <string name="sanPromotesTo" comment="= in standard notation">προάγεται σε</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">μικρό ροκέ</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">μεγάλο ροκέ</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">τοποθετείται στο</string>
+  <string name="invalidMove">Αντικανονική κίνηση</string>
+  <string name="premoveCancelled">Το premove ακυρώθηκε</string>
+  <string name="premoveRecorded">Καταγράφηκε premove: %s. Πατήστε Enter για ακύρωση</string>
 </resources>
