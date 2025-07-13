@@ -34,9 +34,13 @@
   <string name="mate">Mát</string>
   <string name="mateDescription">Sigra taflið með glæsibrag.</string>
   <string name="mateIn1">Mát í 1</string>
+  <string name="mateIn1Description">Skákaðu og mátaðu í einum leik.</string>
   <string name="mateIn2">Mát í 2</string>
+  <string name="mateIn2Description">Skákaðu og mátaðu í tveimur leikjum.</string>
   <string name="mateIn3">Mát í 3</string>
+  <string name="mateIn3Description">Skákaðu og mátaðu í þremur leikjum.</string>
   <string name="mateIn4">Mát í 4</string>
+  <string name="mateIn4Description">Skákaðu og mátaðu í fjórum leikjum.</string>
   <string name="mateIn5">Mát í 5 eða fleiri</string>
   <string name="middlegame">Miðtafl</string>
   <string name="middlegameDescription">Bragðvísi sem kemur upp á miðsstigi skákarinnar.</string>
