@@ -524,7 +524,10 @@ function renderLineIndex(ctrl: AnalyseCtrl): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode({ ctrl, moveStyle }: AnalyseNvuiContext): string {
+export function renderCurrentNode({
+  ctrl,
+  moveStyle,
+}: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [

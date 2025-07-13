@@ -25,7 +25,7 @@ export function liveText(
   forceKey?: Date,
 ): VNode {
   const data: VNodeData = isMac()
-    ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert' } }
-    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+    ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert', 'tab-index': '-1' } }
+    : { attrs: { 'aria-live': live, 'aria-atomic': 'true', 'tab-index': '-1' } };
   return h(sel, data, text);
 }
