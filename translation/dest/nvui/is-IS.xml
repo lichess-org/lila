@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Tilgreindir viðburðir</string>
   <string name="moveList">Leikjalisti</string>
   <string name="gameInfo">Upplýsingar um skák</string>
   <string name="pieces">Taflmenn</string>
