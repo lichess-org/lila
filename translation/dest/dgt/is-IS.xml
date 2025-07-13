@@ -7,6 +7,7 @@
   <string name="reloadThisPage">Endurhlaða þessa síðu</string>
   <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
+  <string name="dgtBoardConnectivity">Tengjanleiki DGT-taflborðs</string>
   <string name="clickToGenerateOne">Smelltu til að búa til einn</string>
   <string name="textToSpeech">Talgervill</string>
   <string name="enableSpeechSynthesis">Kveikja á talgervingu</string>
