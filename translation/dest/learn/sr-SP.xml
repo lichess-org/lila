@@ -51,13 +51,13 @@
 Али када стигну до другог краја табле, постају јача фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева најбоље је промовисати у даму.
 Али понекад и скакач добро дође!</string>
-  <string name="pawnsMoveForward">Пешаци се крећу напред,
-али носе дијагонално!</string>
-  <string name="captureThenPromote">Носите, па онда промовишите!</string>
+  <string name="pawnsMoveForward">Пешаци се крећу право,
+али узимају дијагонално!</string>
+  <string name="captureThenPromote">Узми, онда промовиши!</string>
   <string name="useAllThePawns">Искористи све пешаке!
 Нема потребе за промоцијом.</string>
   <string name="aPawnOnTheSecondRank">Пешак у другом реду се може померити за 2 поља одједном!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
+  <string name="grabAllTheStarsNoNeedToPromote">Покупи све звезде!
 Нема потребе за промоцијом.</string>
   <string name="pawnComplete">Честитамо! Пешаци немају тајне за Вас.</string>
   <string name="pawnPromotion">Промоција пешака</string>
