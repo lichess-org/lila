@@ -2,6 +2,7 @@
 <resources>
   <string name="newAccessToken">Nýr persónuleikur aðgöngutóki forritaskila</string>
   <string name="tokenDescription">Lýsing tóka</string>
+  <string name="doNotShareIt">Tókinn veitir aðgang að aðganginum þínum. ALLS EKKI deila honum með neinum!</string>
   <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lesa tölvupóstsfang</string>
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lesa aðsendar áskoranir</string>
   <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lesa lokaðar stúderingar og útsendingar</string>
