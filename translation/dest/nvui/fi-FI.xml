@@ -10,6 +10,10 @@
   <string name="actions">Toiminnot</string>
   <string name="yourClock">Sinun kellosi</string>
   <string name="opponentClock">Vastustajan kello</string>
+  <string name="boardCommandList">Komentoluettelo, kun on kohdennettu lautaan</string>
+  <string name="inputFormCommandList">Nämä komennot kirjoitetaan komentojen syöttökenttään.</string>
+  <string name="goToInputForm">Siirry komentojen syöttökenttään.</string>
+  <string name="announceCurrentSquare">Ilmoita valittuna oleva ruutu.</string>
   <string name="announceLastMove">Ilmoita edellinen siirto.</string>
   <string name="announceLastMoveCapture">Ilmoita edellisessä siirrossa lyöty nappula.</string>
   <string name="announcePossibleMoves">Ilmoita valitun nappulan mahdolliset siirrot.</string>
@@ -21,4 +25,5 @@
   <string name="announcePieceLocations">Ilmoita nappuloiden sijainnit. Esimerkiksi valkoiset ratsut painamalla \"pN\", musta kuningas \"pk\" sekä kaikki valkeat nappulat \"pA\" (huomioi pienien ja isojen kirjainten käyttö).</string>
   <string name="announcePiecesOnRankOrFile">Ilmoita tietyllä rivillä tai linjalla olevat nappulat. Esimerkiksi \"s a\" tai \"s 1\".</string>
   <string name="goToBoard">Siirry pelilaudalle. Oletusruutu on e-4. Ruudun voi myös määritellä, esimerkiksi \"board a-1\" tai \"b a-1\" siirtyy ruutuun a-1.</string>
+  <string name="movePiece">Käytä nappuloiden siirtämiseen normaalia algebrallista merkitsemistapaa.</string>
 </resources>
