@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Alls engar auglýsingar, engar njósnir</string>
-  <string name="correspondenceWithConditionalPremoves">Bréfaskák með skilyrtum forleikjum</string>
+  <string name="correspondenceWithConditionalPremoves">Bréfskák með skilyrtum forleikjum</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Hefðbundin skák og %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Ýtarleg greining á netþjóni með aðstoð %s</string>
   <plurals name="gamesPerDay">
@@ -21,7 +21,7 @@
   <string name="downloadOrUploadAnyGameAsPgn">Hlaða niður/upp alls konar skákir sem PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogg, umræðukorkur, lið, sjónvarp, skilaboð, vinir, áskoranir</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Ljóst/dökkt þema, sérsníðanleg taflborð, taflmenn og bakgrunnur</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Örskák, leifturskák, hraðskák, atskák, kappskák, bréfaskák</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Örskák, leifturskák, hraðskák, atskák, kappskák, bréfskák</string>
   <string name="allFeaturesToCome">Allir sérleikar fylgja með, til eilífðarnóns!</string>
   <string name="landscapeSupportOnApp">iPhone &amp; Android-símar og spjaldtölvur, langsniðsstuðningur</string>
   <string name="everybodyGetsAllFeaturesForFree">Já, báðir aðgangar hafa sömu sérleikana!</string>
