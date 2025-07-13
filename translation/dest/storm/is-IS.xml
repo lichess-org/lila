@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Gerðu til að byrja</string>
+  <string name="puzzlesSolved">þrautir leystar</string>
   <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
   <string name="playAgain">Tefla aftur</string>
   <plurals name="xRuns">
@@ -13,6 +14,7 @@
   <string name="combo">Leikflétta</string>
   <string name="time">Tími</string>
   <string name="puzzlesPlayed">Þrautir tefldar</string>
+  <string name="highscores">Stigamet</string>
   <string name="viewBestRuns">Skoða bestar lotur</string>
   <string name="bestRunOfDay">Besta lota dagsins</string>
   <string name="runs">Lotur</string>
