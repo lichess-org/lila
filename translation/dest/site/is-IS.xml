@@ -416,7 +416,7 @@
   <string name="reset">Hreinsa</string>
   <string name="apply">Virkja</string>
   <string name="save">Vista</string>
-  <string name="leaderboard">Stigaborð</string>
+  <string name="leaderboard">Stigatafla</string>
   <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
   <string name="gameAsGIF">Skák sem GIF-snið</string>
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
@@ -751,7 +751,7 @@
   <string name="downloadRaw">Hlaða niður óunnu eintaki</string>
   <string name="downloadImported">Niðurhali hlaðið inn</string>
   <string name="downloadAllGames">Hlaða niður öllum skákum</string>
-  <string name="crosstable">Stigatafla</string>
+  <string name="crosstable">Mótstafla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
   <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
@@ -891,7 +891,7 @@
   <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
-  <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
+  <string name="rapidDesc">Atskákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
   <string name="correspondenceDesc">Bréfskák: einn eða fleiri dagar á leik</string>
   <string name="puzzleDesc">Þjálfari í grunnatriðum skákar</string>
@@ -930,7 +930,7 @@
   <string name="cancelTournament">Aflýsa mótinu</string>
   <string name="tournDescription">Lýsing móts</string>
   <string name="tournDescriptionHelp">Er nokkuð sérstakt sem óskað er eftir að upplýsa þátttakendur um? Reyndu að hafa það stutt. Tenglar sem styðja Markdown eru í boði: [heiti](https://url)</string>
-  <string name="ratedFormHelp">Leikir gilda til stiga og hafa áhrif á stig leikmanna</string>
+  <string name="ratedFormHelp">Skákir gilda til stiga og hafa áhrif á stig leikmanna</string>
   <string name="onlyMembersOfTeam">Eingöngu meðlimir liðs</string>
   <string name="noRestriction">Engar hömlur</string>
   <string name="minimumRatedGames">Lágmarksfjöldi leikja með stigagjöf</string>
