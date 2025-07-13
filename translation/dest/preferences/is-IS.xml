@@ -42,7 +42,7 @@
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Þegar tími eftir er undir 30 sekúndum</string>
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="explainCanThenBeTemporarilyDisabled">Hægt er að slökkva á þessu á meðan teflt er útfrá borðsvalmyndinni</string>
-  <string name="inCorrespondenceGames">Bréfaskákleikir</string>
+  <string name="inCorrespondenceGames">Bréfskákir</string>
   <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>
   <string name="confirmResignationAndDrawOffers">Staðfesta uppgjöf og boð um jafntefli</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Hrókunaraðferð</string>
@@ -60,7 +60,7 @@
   <string name="notifyGameEvent">Bréfskákatíðindi</string>
   <string name="notifyChallenge">Áskoranir</string>
   <string name="notifyTournamentSoon">Mót hefst senn</string>
-  <string name="notifyTimeAlarm">Bréfaskákarklukkan rennur út</string>
+  <string name="notifyTimeAlarm">Bréfskákarklukkan rennur út</string>
   <string name="notifyBell">Innhólfstilkynningar innan Lichess</string>
   <string name="notifyPush">Tilkynning í tæki þegar þú ert ekki á Lichess</string>
   <string name="notifyWeb">Vafri</string>
