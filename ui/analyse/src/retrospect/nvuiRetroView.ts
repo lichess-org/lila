@@ -19,37 +19,18 @@ export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
 
   return [
     hl(
-      'button',
-      ctx.hook(ctrl.toggleRetro),
+      'button.retro-toggle',
+      ctx.focusFriendlyHook(ctrl.toggleRetro),
       ctrl.retro ? 'Stop learning from mistakes' : i18n.site.learnFromYourMistakes,
     ),
-    hl(
-      'div',
+    hl('div.retro-view', { key: 'retro-view' }, [
       hl('label', mistakes && `Mistake ${Math.min(mistakes[0] + 1, mistakes[1])} of ${mistakes[1]}`),
       retroStateView[state ?? 'none'](ctx),
-    ),
+    ]),
   ];
 }
 
-interface RetroContext extends AnalyseNvuiContext {
-  readonly ctrl: AnalyseCtrl & { retro: RetroCtrl };
-  spoken: (text: string) => LooseVNodes;
-  hook(callback: () => void): VNodeData;
-}
-
-function makeContext(nvuiCtx: AnalyseNvuiContext): RetroContext {
-  return {
-    ...nvuiCtx,
-    spoken: (text: string) => liveText(text, 'assertive', 'p.retro-spoken'),
-    hook: (callback: () => void): VNodeData =>
-      clickHook(callback, () => {
-        document.querySelector<HTMLElement>('p.retro-spoken')?.focus();
-        nvuiCtx.ctrl.redraw();
-      }),
-  } as RetroContext;
-}
-
-function doneWithMistakes({ spoken, ctrl, hook }: RetroContext, prelude = ''): LooseVNodes {
+function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, prelude = ''): LooseVNodes {
   const noMistakes = !ctrl.retro.completion()[1];
   return [
     spoken(
@@ -64,10 +45,10 @@ function doneWithMistakes({ spoken, ctrl, hook }: RetroContext, prelude = ''): L
               : 'doneReviewingBlackMistakes'
         ],
     ),
-    !noMistakes && hl('button.retro-again', hook(ctrl.retro.reset), i18n.site.doItAgain),
+    !noMistakes && hl('button.retro-again', focusFriendlyHook(ctrl.retro.reset), i18n.site.doItAgain),
     hl(
       'button.retro-flip',
-      hook(ctrl.retro.flip),
+      focusFriendlyHook(ctrl.retro.flip),
       i18n.site[ctrl.retro.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
     ),
   ];
@@ -76,10 +57,10 @@ function doneWithMistakes({ spoken, ctrl, hook }: RetroContext, prelude = ''): L
 let debounceRedraw: number;
 
 const retroStateView = {
-  offTrack({ spoken, ctrl, moveStyle, hook }: RetroContext): LooseVNodes {
+  offTrack({ spoken, ctrl, moveStyle, focusFriendlyHook }: RetroContext): LooseVNodes {
     return [
       spoken(i18n.site.youBrowsedAway + ', ' + renderCurrentNode({ ctrl, moveStyle }) + '.'),
-      hl('button.retro-resume', hook(ctrl.retro.jumpToNext), i18n.site.resumeLearning),
+      hl('button.retro-resume', focusFriendlyHook(ctrl.retro.jumpToNext), i18n.site.resumeLearning),
     ];
   },
   fail(ctx: RetroContext): LooseVNodes {
@@ -90,16 +71,16 @@ const retroStateView = {
     return retroStateView.find(ctx, `${i18n.study.goodMove}, `);
   },
   view(ctx: RetroContext): LooseVNodes {
-    const { ctrl, spoken, hook } = ctx;
+    const { ctrl, spoken, focusFriendlyHook } = ctx;
     if (!ctrl.retro.current()) return doneWithMistakes(ctx);
     const node = ctrl.retro.current()!.solution.node;
     const solution = `${i18n.site.solution} ${renderSan(node.san, node.uci, ctx.moveStyle.get())}.`;
     return ctrl.retro.current()
-      ? [spoken(solution), hl('button.retro-next', hook(ctrl.retro.skip), i18n.site.next)]
+      ? [spoken(solution), hl('button.retro-next', focusFriendlyHook(ctrl.retro.skip), i18n.site.next)]
       : doneWithMistakes(ctx, solution);
   },
   find(ctx: RetroContext, prelude = '', tryAgain = false): LooseVNodes {
-    const { ctrl, spoken, hook } = ctx;
+    const { ctrl, spoken, focusFriendlyHook } = ctx;
     const node = ctrl.retro.current()?.fault.node;
     if (!node) return doneWithMistakes(ctx, prelude);
     const c = ctrl.retro.color;
@@ -119,10 +100,10 @@ const retroStateView = {
       ),
       hl(
         'button.retro-solve',
-        hook(() => ctrl.retro.feedback('view')),
+        focusFriendlyHook(() => ctrl.retro.feedback('view')),
         i18n.site.viewTheSolution,
       ),
-      hl('button.retro-skip', hook(ctrl.retro.skip), i18n.site.skipThisMove),
+      hl('button.retro-skip', focusFriendlyHook(ctrl.retro.skip), i18n.site.skipThisMove),
       ,
     ];
   },
@@ -135,3 +116,21 @@ const retroStateView = {
     return ctx.spoken('');
   },
 };
+
+function makeContext(nvuiCtx: AnalyseNvuiContext): RetroContext {
+  return {
+    ...nvuiCtx,
+    spoken: (text: string) => liveText(text, 'assertive', 'p.retro-spoken'),
+    focusFriendlyHook: (callback: () => void): VNodeData =>
+      clickHook(callback, () => {
+        document.querySelector<HTMLElement>('p.retro-spoken')?.focus();
+        nvuiCtx.ctrl.redraw();
+      }),
+  } as RetroContext;
+}
+
+interface RetroContext extends AnalyseNvuiContext {
+  readonly ctrl: AnalyseCtrl & { retro: RetroCtrl };
+  spoken: (text: string) => LooseVNodes;
+  focusFriendlyHook(callback: () => void): VNodeData;
+}
