@@ -6,7 +6,9 @@ import chess.format.pgn.PgnMovesStr
 
 class OpeningSearchTest extends munit.FunSuite:
 
-  def search(q: String) = OpeningSearch(q, 10)
+  val max = 10
+
+  def search(q: String) = OpeningSearch(q, max)
 
   test("tokenize"):
     assertEquals(tokenize("foo"), Set("foo"))
@@ -46,3 +48,4 @@ class OpeningSearchTest extends munit.FunSuite:
 
   test("piece letter in notation"):
     assertEquals(search("1. d4 Nf6").headOption.map(_.pgn), PgnMovesStr("1. d4 Nf6").some)
+    assert(search("Nc6").size == max)
