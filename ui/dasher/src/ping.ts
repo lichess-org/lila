@@ -6,8 +6,15 @@ import { pubsub } from 'lib/pubsub';
 export class PingCtrl {
   ping: number | undefined;
   server: number | undefined;
+  socketName: string | undefined;
 
-  constructor(readonly root: DasherCtrl) {}
+  constructor(readonly root: DasherCtrl) {
+    pubsub.on('socket.open', this.onOpen);
+    pubsub.on('socket.close', this.onClose);
+    pubsub
+      .after('socket.hasConnected')
+      .then((url: string) => (this.socketName = new URL(url).hostname.split('.')[0]));
+  }
 
   onLag = (lag: number): void => {
     this.ping = Math.round(lag);
@@ -17,7 +24,16 @@ export class PingCtrl {
     this.server = lat;
     this.root.redraw();
   };
-
+  onOpen = (urlstr: string): void => {
+    this.socketName = new URL(urlstr).hostname.split('.')[0];
+    this.root.redraw();
+  };
+  onClose = (): void => {
+    this.socketName = undefined;
+    this.ping = undefined;
+    this.server = undefined;
+    this.root.redraw();
+  };
   connect = (): void => {
     pubsub.emit('socket.send', 'moveLat', true);
     pubsub.on('socket.lag', this.onLag);
@@ -32,6 +48,7 @@ export class PingCtrl {
   render = (): VNode =>
     h('a.status', { attrs: { href: '/lag' }, hook: { insert: this.connect, destroy: this.disconnect } }, [
       this.signalBars(),
+      h('span.socket', this.socketName ?? 'offline'),
       h(
         'span.ping',
         { attrs: { title: 'PING: ' + i18n.site.networkLagBetweenYouAndLichess } },

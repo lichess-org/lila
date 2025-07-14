@@ -24,8 +24,16 @@
     signal {
       position: absolute;
       @include inline-end(1rem);
-      top: 1rem;
+      top: 0.6rem;
       font-size: 1.7rem;
+    }
+
+    .socket {
+      position: absolute;
+      @include inline-end(1.1rem);
+      bottom: 0.6rem;
+      color: $c-font-dim;
+      font-size: 0.8em;
     }
 
     .ping,

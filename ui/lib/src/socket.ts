@@ -166,7 +166,7 @@ class WsSocket {
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
-        pubsub.emit('socket.open');
+        pubsub.emit('socket.open', this.lastUrl);
         this.ackable.resend();
       };
       ws.onmessage = e => {
@@ -352,7 +352,7 @@ class WsSocket {
   private onSuccess = (): void => {
     if (pubsub.past('socket.hasConnected')) return;
 
-    pubsub.complete('socket.hasConnected');
+    pubsub.complete('socket.hasConnected', this.lastUrl!);
     let disconnectTimeout: Timeout | undefined;
     idleTimer(
       10 * 60 * 1000,
