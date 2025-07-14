@@ -188,5 +188,5 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
               trans.site.stats()
             )
           ),
-          div(cls := "page-menu__tournament box")(body)
+          div(cls := "page-menu__content box")(body)
         )
