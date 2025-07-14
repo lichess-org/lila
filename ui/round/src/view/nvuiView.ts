@@ -17,6 +17,7 @@ import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
 import { opposite } from 'chessops';
+import { isTouchDevice } from 'lib/device';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -26,11 +27,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   const d = ctrl.data,
-    nvui = ctrl.nvui!,
-    step = plyStep(d, ctrl.ply),
-    style = moveStyle.get(),
-    pockets = step.crazy?.pockets,
-    clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
+    nvui = ctrl.nvui!;
   if (!ctrl.chessground) {
     ctrl.setChessground(
       makeChessground(document.createElement('div'), {
@@ -42,37 +39,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     );
   }
   return hl('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
-    hl('h1', gameText(ctrl)),
-    hl('h2', i18n.nvui.gameInfo),
-    ['white', 'black'].map((color: Color) =>
-      hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
-    ),
-    hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
-    d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
-    hl('h2', i18n.nvui.moveList),
-    hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
-    hl('h2', i18n.nvui.pieces),
-    hl('div.pieces', nv.renderPieces(ctrl.chessground.state.pieces, style)),
-    pockets && hl('div.pockets', nv.renderPockets(pockets)),
-    hl('h2', i18n.nvui.gameStatus),
-    hl('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
-      ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
-    ]),
-    hl('h2', i18n.nvui.lastMove),
-    hl(
-      'p.lastMove',
-      { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-      // make sure consecutive moves are different so that they get re-read
-      nv.renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
-    ),
-    clocks.some(c => !!c) &&
-      hl('div.clocks', [
-        hl('h2', i18n.nvui.yourClock),
-        hl('div.botc', clocks[0]),
-        hl('h2', i18n.nvui.opponentClock),
-        hl('div.topc', clocks[1]),
-      ]),
-    notify.render(),
+    !isTouchDevice() && gameInfo(ctx),
     ctrl.isPlaying() &&
       hl('div.move-input', [
         hl('h2', i18n.nvui.inputForm),
@@ -107,6 +74,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     pageStyle.get() === 'actions-board'
       ? [renderActions(ctx), renderBoard(ctx)]
       : [renderBoard(ctx), renderActions(ctx)],
+    isTouchDevice() && gameInfo(ctx),
     hl('h2', i18n.site.advancedSettings),
     hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
     hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
@@ -129,6 +97,49 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     ]),
     boardCommands(),
   ]);
+}
+
+function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
+  const { ctrl, notify, moveStyle } = ctx;
+  const d = ctrl.data,
+    step = plyStep(d, ctrl.ply),
+    style = moveStyle.get(),
+    pockets = step.crazy?.pockets,
+    clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
+
+  return [
+    hl('h1', gameText(ctrl)),
+    hl('h2', i18n.nvui.gameInfo),
+    ['white', 'black'].map((color: Color) =>
+      hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
+    ),
+    hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
+    d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
+    hl('h2', i18n.nvui.moveList),
+    hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
+    hl('h2', i18n.nvui.pieces),
+    hl('div.pieces', nv.renderPieces(ctrl.chessground.state.pieces, style)),
+    pockets && hl('div.pockets', nv.renderPockets(pockets)),
+    hl('h2', i18n.nvui.gameStatus),
+    hl('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
+      ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
+    ]),
+    hl('h2', i18n.nvui.lastMove),
+    hl(
+      'p.lastMove',
+      { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+      // make sure consecutive moves are different so that they get re-read
+      nv.renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
+    ),
+    clocks.some(c => !!c) &&
+      hl('div.clocks', [
+        hl('h2', i18n.nvui.yourClock),
+        hl('div.botc', clocks[0]),
+        hl('h2', i18n.nvui.opponentClock),
+        hl('div.topc', clocks[1]),
+      ]),
+    notify.render(),
+  ];
 }
 
 function renderActions({ ctrl }: RoundNvuiContext): LooseVNodes {
