@@ -94,7 +94,7 @@ function view({ root: ctrl, path }: Opts, coords: Coords): VNode {
     inline = treeView.inline(),
     expand = inline || !onMainline ? path : path.slice(0, -2),
     collapse = idbTree.getCollapseTarget(expand);
-  console.log(expand, collapse, onMainline);
+
   return hl(
     'div#' + elementId + '.visible',
     {

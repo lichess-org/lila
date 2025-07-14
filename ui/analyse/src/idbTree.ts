@@ -3,26 +3,15 @@ import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
 import { hasBranching } from 'lib/tree/ops';
 
 export class IdbTree {
+  private noCollapse = localStorage.getItem('analyse.disclosure.enabled') === 'false';
   private dirty = false;
   private moveDb?: ObjectStorage<MoveState>;
   private collapseDb?: ObjectStorage<Tree.Path[]>;
 
   constructor(private ctrl: AnalyseCtrl) {}
 
-  isCollapsible(target: Tree.Path | Tree.Node, isMainline: boolean): boolean {
-    const { tree, treeView, showComputer } = this.ctrl;
-    const node = typeof target === 'string' ? tree.nodeAtPath(target) : target;
-    if (!node) return false;
-    if (node === tree.root && treeView.inline()) return false;
-    const [main, second, third] = node.children.filter(x => showComputer() || !x.comp);
-    return Boolean(
-      third ||
-        (main && Boolean(main.comments?.length) && isMainline && !treeView.inline()) ||
-        (second && ((isMainline && !treeView.inline()) || hasBranching(second, 6))),
-    );
-  }
-
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
+    if (this.noCollapse) return false;
     return this.ctrl.tree.walkUntilTrue(
       (n, m) => this.isCollapsible(n, m) && collapsed === Boolean(n.collapsed),
       path,
@@ -31,6 +20,7 @@ export class IdbTree {
   }
 
   getCollapseTarget(path: Tree.Path): Tree.Path | undefined {
+    if (this.noCollapse) return undefined;
     const { tree } = this.ctrl;
     const depth = (n: Tree.Node) => n.ply - tree.root.ply;
 
@@ -63,16 +53,21 @@ export class IdbTree {
   }
 
   revealNode(path?: string): void {
-    let dirty = false;
+    let save = false;
     const nodes = path === undefined ? this.ctrl.nodeList : this.ctrl.tree.getNodeList(path);
     for (let i = 0; i < nodes.length; i++) {
       const kid = nodes[i].children[0];
       if (nodes[i].collapsed && kid && nodes[i + 1] && kid !== nodes[i + 1]) {
         nodes[i].collapsed = false;
-        dirty = true;
+        save = true;
       }
     }
-    if (dirty) this.saveCollapsed();
+    if (save) this.saveCollapsed();
+  }
+
+  discloseOf(node: Tree.Node | undefined, mainColumn = false): false | 'expanded' | 'collapsed' {
+    if (!node || this.noCollapse) return false;
+    return node.collapsed ? 'collapsed' : this.isCollapsible(node, mainColumn) ? 'expanded' : false;
   }
 
   onAddNode(node: Tree.Node, path: Tree.Path): void {
@@ -97,7 +92,7 @@ export class IdbTree {
   }
 
   async merge(): Promise<void> {
-    if (!('indexedDB' in window)) return;
+    if (!('indexedDB' in window) || !window.indexedDB) return;
     try {
       if (!this.ctrl.study && !this.ctrl.synthetic) {
         this.moveDb ??= await objectStorage<MoveState>({ store: 'analyse-state', db: 'lichess' });
@@ -111,7 +106,6 @@ export class IdbTree {
       for (const path of (await this.collapseDb.getOpt(this.id)) ?? []) {
         this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
       }
-      if (this.ctrl.study) return;
     } catch (e) {
       console.log('IDB error.', e);
     }
@@ -122,11 +116,23 @@ export class IdbTree {
   }
 
   private get id(): string {
-    return this.ctrl.study?.vm.chapterId ?? this.ctrl.data.game.id;
+    return this.ctrl.study?.data.chapter.id ?? this.ctrl.data.game.id;
   }
 
   private async saveCollapsed() {
     return this.collapseDb?.put(this.id, this.getCollapsed());
+  }
+
+  private isCollapsible(node: Tree.Node, isMainline: boolean): boolean {
+    if (this.noCollapse || !node) return false;
+    const { tree, treeView, showComputer } = this.ctrl;
+    if (node === tree.root && treeView.inline()) return false;
+    const [main, second, third] = node.children.filter(x => showComputer() || !x.comp);
+    return Boolean(
+      third ||
+        (main && Boolean(main.comments?.length) && isMainline && !treeView.inline()) ||
+        (second && ((isMainline && !treeView.inline()) || hasBranching(second, 6))),
+    );
   }
 
   private getCollapsed(): Tree.Path[] {

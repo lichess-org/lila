@@ -7,7 +7,7 @@ import { bindMobileTapHold, isTouchDevice, isSafari } from 'lib/device';
 import { type Hooks } from 'snabbdom';
 import { isEmpty, defined } from 'lib';
 import { type LooseVNodes, type MaybeVNodes, type VNode, hl } from 'lib/snabbdom';
-import { path as treePath, ops as treeOps } from 'lib/tree/tree';
+import { path as treePath } from 'lib/tree/tree';
 import { playable } from 'lib/game/game';
 import { PlusButton, MinusButton } from 'lib/licon';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
@@ -67,15 +67,7 @@ export const renderingCtx = (ctrl: AnalyseCtrl): Ctx => ({
   currentPath: findCurrentPath(ctrl),
 });
 
-export interface NodeClasses {
-  active: boolean;
-  'context-menu': boolean;
-  current: boolean;
-  nongame: boolean;
-  [key: string]: boolean;
-}
-
-export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeClasses {
+export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): Record<string, boolean> {
   const glyphIds = ctx.showGlyphs && node.glyphs ? node.glyphs.map(g => g.id) : [];
   return {
     active: path === ctx.ctrl.path,
@@ -143,13 +135,13 @@ export const renderComment = (
     : hl(sel, { class: classes, hook: htmlHook });
 };
 
-export function showConnector(nodes: false | MaybeVNodes): boolean {
-  if (!nodes) return true;
-  nodes = nodes.filter(n => n);
-  if (nodes.length === 0) return true;
-  if (nodes.length > 1) return false;
-  if (!nodes[0] || typeof nodes[0] === 'string') return true;
-  return 'data' in nodes[0] && !nodes[0].data?.class?.long;
+export function showConnector(comments: false | MaybeVNodes): boolean {
+  if (!comments) return true;
+  comments = comments.filter(n => n);
+  if (comments.length === 0) return true;
+  if (comments.length > 1) return false;
+  if (!comments[0] || typeof comments[0] === 'string') return true;
+  return 'data' in comments[0] && !comments[0].data?.class?.long;
 }
 
 export function truncateComment(text: string, len: number, ctx: Ctx) {
@@ -168,37 +160,41 @@ export const renderGlyph = (glyph: Tree.Glyph): VNode =>
 export const renderIndex = (ply: Ply, withDots?: boolean): VNode =>
   hl(`index.sbhint${ply}`, renderIndexText(ply, withDots));
 
-export function renderMove(ctx: MoveCtx, node: Tree.Node, withKid?: VNode): LooseVNodes {
-  const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
+export function moveNodes(ctx: MoveCtx, node: Tree.Node, withEval = false): LooseVNodes {
+  const ev = withEval && ctx.showEval && cevalView.getBestEval({ client: node.ceval, server: node.eval });
   return [
-    withKid,
     hl('san', fixCrazySan(node.san!)),
     ctx.showGlyphs && node.glyphs?.map(renderGlyph),
-    node.shapes && node.shapes.length > 0 && hl('shapes'),
+    withEval && node.shapes && node.shapes.length > 0 && hl('shapes'),
     ev &&
-      ctx.showEval &&
       ((defined(ev.cp) && renderEval(normalizeEval(ev.cp))) ||
         (defined(ev.mate) && renderEval('#' + ev.mate))),
   ];
 }
 
+export function renderInlineMove(
+  ctx: Ctx,
+  node: Tree.Node,
+  opts: Opts,
+  classes?: Record<string, boolean>,
+): VNode {
+  const p = opts.parentPath + node.id;
+
+  return hl('move', { attrs: { p }, class: classes ?? nodeClasses(ctx, node, p) }, [
+    (opts.withIndex || node.ply % 2 === 1) && renderIndex(node.ply, true),
+    moveNodes(ctx, node, false),
+    ctx.ctrl.idbTree.discloseOf(node) && disclosureBtn(ctx, node, p),
+  ]);
+}
+
 export const renderIndexAndMove = (ctx: MoveCtx, node: Tree.Node): LooseVNodes =>
-  node.san ? [renderIndex(node.ply, ctx.withDots), renderMove(ctx, node)] : undefined;
+  node.san ? [renderIndex(node.ply, ctx.withDots), moveNodes(ctx, node, true)] : undefined;
 
 export function disclosureBtn(ctx: Ctx, node: Tree.Node, path: Tree.Path): VNode | undefined {
   return hl('a.disclosure', {
     attrs: { 'data-icon': node.collapsed ? PlusButton : MinusButton },
     on: { click: () => ctx.ctrl.idbTree.setCollapsed(path, !node.collapsed) },
   });
-}
-
-export function disclosureState(node?: Tree.Node, isMainline = false): false | 'expanded' | 'collapsed' {
-  if (!node) return false;
-  return node.collapsed
-    ? 'collapsed'
-    : node.children[2] || (node.children[1] && (treeOps.hasBranching(node.children[1], 6) || isMainline))
-      ? 'expanded'
-      : false;
 }
 
 export function disclosureConnector(): VNode {

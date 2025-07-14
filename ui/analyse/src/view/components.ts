@@ -374,10 +374,7 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
   hl('div.analyse__moves.areplay', { hook: mainHook(ctrl) }, [
-    hl(`div.areplay__v${ctrl.treeView.version}`, { classes: { hidden: ctrl.treeView.hidden } }, [
-      renderTreeView(ctrl, concealOf),
-      renderResult(ctrl),
-    ]),
+    hl(`div.areplay__v${ctrl.treeView.version}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 

@@ -1,22 +1,20 @@
 import { isEmpty } from 'lib';
 import { type VNode, type LooseVNode, type LooseVNodes, hl } from 'lib/snabbdom';
-import { fixCrazySan } from 'lib/game/chess';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf, Conceal } from '../interfaces';
 import {
   type Ctx as BaseCtx,
   type Opts as BaseOpts,
+  moveNodes,
   nodeClasses,
   renderInlineCommentsOf,
+  renderInlineMove,
   retroLine,
-  renderMove as renderMoveWithEval,
   renderIndex,
-  renderGlyph,
   renderComment,
   renderingCtx,
   disclosureBtn,
-  disclosureState,
   disclosureConnector,
   showConnector,
 } from './components';
@@ -27,7 +25,7 @@ export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () =>
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
   const blackStarts = (root.ply & 1) === 1;
 
-  return hl('div.tview2.tview2-column', [
+  return hl('div.tview2.tview2-column', { class: { hidden: ctrl.treeView.hidden } }, [
     !isEmpty(commentTags) && hl('interrupt', commentTags),
     blackStarts && renderIndex(root.ply, false),
     blackStarts && emptyMove(),
@@ -49,7 +47,8 @@ interface Opts extends BaseOpts {
 function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const { parentPath, isMainline, noConceal } = opts;
   const path = parentPath + node.id;
-  const comments = disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
+  const disclose = ctx.ctrl.idbTree.discloseOf(node, isMainline);
+  const comments = disclose !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
   return [
     renderMove(ctx, node, opts),
     comments,
@@ -59,7 +58,7 @@ function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
       parentPath: path,
       isMainline,
       noConceal,
-      anchor: disclosureState(node) === 'expanded' && showConnector(comments) && 'lines',
+      anchor: disclose === 'expanded' && showConnector(comments) && 'lines',
     }),
   ];
 }
@@ -77,17 +76,17 @@ function renderMainlineDescendantsOf(
   [main, ...variations]: Tree.Node[],
   opts: Opts,
 ): LooseVNodes {
-  const { parentPath } = opts;
+  const { parentPath, noConceal } = opts;
   const path = parentPath + main.id;
-  const conceal = opts.noConceal ? null : opts.conceal || ctx.concealOf(true)(path, main);
+  const conceal = noConceal ? null : opts.conceal || ctx.concealOf(true)(path, main);
   if (conceal === 'hide') return;
   const isWhite = main.ply % 2 === 1;
-
-  if (main.forceVariation)
+  const disclose = ctx.ctrl.idbTree.discloseOf(parent, !main.forceVariation);
+  if (main.forceVariation) {
     return [
       isWhite && renderIndex(main.ply, false),
-      hl('move.empty', [disclosureBtn(ctx, parent, opts.parentPath), '...']),
-      disclosureState(parent) !== 'collapsed' &&
+      hl('move.empty', [disclose && disclosureBtn(ctx, parent, parentPath), '...']),
+      disclose !== 'collapsed' &&
         hl(
           'interrupt',
           renderLines(ctx, [main, ...variations], {
@@ -98,22 +97,23 @@ function renderMainlineDescendantsOf(
           }),
         ),
     ];
+  }
   const stdOpts: Opts = { parentPath, conceal, isMainline: true };
   const commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, path).filter(Boolean);
   return [
     isWhite && renderIndex(main.ply, false),
     isEmpty(variations) && isEmpty(commentTags)
-      ? renderSubtree(ctx, main, { ...stdOpts, parentPath })
+      ? renderSubtree(ctx, main, stdOpts)
       : [
-          renderMove(ctx, main, { ...stdOpts, branch: parent }),
-          disclosureState(parent) !== 'collapsed' && [
+          renderMove(ctx, main, { ...stdOpts, branch: disclose ? parent : undefined }),
+          disclose !== 'collapsed' && [
             isWhite && emptyMove(conceal),
-            hl('interrupt', { class: { anchor: disclosureState(parent, true) === 'expanded' } }, [
+            hl('interrupt', { class: { anchor: disclose === 'expanded' } }, [
               commentTags,
               renderLines(ctx, variations, {
                 ...stdOpts,
                 noConceal: !conceal,
-                anchor: disclosureState(parent, true) === 'expanded' ? 'interrupt' : undefined,
+                anchor: disclose === 'expanded' ? 'interrupt' : undefined,
               }),
             ]),
             isWhite && main.children.length > 0 && [renderIndex(main.ply, false), emptyMove(conceal)],
@@ -132,7 +132,7 @@ function renderVariationDescendantsOf(
   const [main, second, third] = kids;
   if (second && !third && !treeOps.hasBranching(second, 6))
     return renderSubtree(ctx, main, { ...opts, inline: second });
-  else if ((main && !second) || disclosureState(parent) === 'collapsed')
+  else if ((main && !second) || ctx.ctrl.idbTree.discloseOf(parent) === 'collapsed')
     return renderSubtree(ctx, main, opts);
   else return renderLines(ctx, kids, opts);
 }
@@ -153,21 +153,16 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes {
 }
 
 function renderMove(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id;
+  const { isMainline, conceal, branch, parentPath } = opts;
+  const path = parentPath + node.id;
   const classes = nodeClasses(ctx, node, path);
-  if (opts.conceal) classes[opts.conceal] = true;
-  return hl(
-    'move',
-    { attrs: { p: path }, class: classes },
-    opts.isMainline
-      ? renderMoveWithEval(ctx, node, opts.branch && disclosureBtn(ctx, opts.branch, opts.parentPath))
-      : [
-          (opts.withIndex || node.ply % 2 === 1) && renderIndex(node.ply, true),
-          hl('san', fixCrazySan(node.san!)),
-          node.glyphs?.map(renderGlyph),
-          disclosureState(node) && disclosureBtn(ctx, node, path),
-        ],
-  );
+  if (conceal) classes[conceal] = true;
+  return isMainline
+    ? hl('move', { attrs: { p: path }, class: classes }, [
+        branch && disclosureBtn(ctx, branch, parentPath),
+        moveNodes(ctx, node, opts.isMainline),
+      ])
+    : renderInlineMove(ctx, node, opts, classes);
 }
 
 function renderMainlineCommentsOf(

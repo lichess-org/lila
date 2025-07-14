@@ -212,10 +212,7 @@ export default class AnalyseCtrl {
         redraw();
       }
     });
-    this.idbTree.merge().then(() => {
-      this.treeView.hidden = false;
-      this.redraw();
-    });
+    this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -224,7 +221,6 @@ export default class AnalyseCtrl {
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
     this.treeView.hidden = true;
-
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
@@ -274,9 +270,7 @@ export default class AnalyseCtrl {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
-    if (!this.idbTree) return;
     this.idbTree.revealNode();
-    this.idbTree.saveMoves();
   };
 
   flip = () => {
@@ -290,7 +284,6 @@ export default class AnalyseCtrl {
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
-    this.idbTree.saveMoves(true);
     this.redraw();
   };
 
@@ -478,15 +471,12 @@ export default class AnalyseCtrl {
 
   reloadData(data: AnalyseData, merge: boolean): void {
     this.initialize(data, merge);
-    this.idbTree.merge().then(() => {
-      this.treeView.hidden = false;
-      this.redraw();
-    });
     this.redirecting = false;
     this.setPath(treePath.root);
     this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
+    this.mergeIdbThenShowTreeView();
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
@@ -1042,4 +1032,11 @@ export default class AnalyseCtrl {
     if (!fen.startsWith(this.chessground?.getFen())) return;
     this.keyboardMove?.update({ fen, canMove: true });
   };
+
+  private async mergeIdbThenShowTreeView() {
+    await this.idbTree.merge();
+    this.treeView.hidden = false;
+    this.idbTree.revealNode();
+    this.redraw();
+  }
 }

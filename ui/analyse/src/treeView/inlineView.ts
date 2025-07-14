@@ -1,26 +1,21 @@
 import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
-import { fixCrazySan } from 'lib/game/chess';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from '../ctrl';
 import {
-  nodeClasses,
   renderInlineCommentsOf,
-  renderIndex,
-  renderGlyph,
+  renderInlineMove,
   retroLine,
   Ctx,
   Opts,
   renderingCtx,
-  disclosureBtn,
   disclosureConnector,
-  disclosureState,
   showConnector,
 } from './components';
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const ctx = renderingCtx(ctrl);
   ctrl.tree.root.collapsed = false;
-  return hl('div.tview2.tview2-inline', [
+  return hl('div.tview2.tview2-inline', { class: { hidden: ctrl.treeView.hidden } }, [
     renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
     renderDescendantsOf(ctx, ctrl.tree.root, { parentPath: '' }),
   ]);
@@ -34,7 +29,7 @@ function renderDescendantsOf(ctx: Ctx, parent: Tree.Node, opts: Opts): LooseVNod
 
   if (second && !third && !treeOps.hasBranching(second, 6))
     return renderSubtree(ctx, main, { ...opts, inline: second });
-  else if ((main && !second) || disclosureState(parent) === 'collapsed')
+  else if ((main && !second) || ctx.ctrl.idbTree.discloseOf(parent) === 'collapsed')
     return renderSubtree(ctx, main, opts);
   else
     return hl('lines', { class: { anchor: anchor === 'lines' } }, [
@@ -49,26 +44,16 @@ function renderDescendantsOf(ctx: Ctx, parent: Tree.Node, opts: Opts): LooseVNod
 
 function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const { parentPath, inline } = opts;
+  const disclose = ctx.ctrl.idbTree.discloseOf(node);
   const path = parentPath + node.id;
-  const comments = disclosureState(node) !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
+  const comments = disclose !== 'collapsed' && renderInlineCommentsOf(ctx, node, path);
   return [
-    renderMove(ctx, node, opts),
+    renderInlineMove(ctx, node, opts),
     comments,
     inline && hl('inline', renderSubtree(ctx, inline, { parentPath, withIndex: true })),
     renderDescendantsOf(ctx, node, {
       parentPath: path,
-      anchor: disclosureState(node) === 'expanded' && showConnector(comments) && 'lines',
+      anchor: disclose === 'expanded' && showConnector(comments) && 'lines',
     }),
   ];
-}
-
-function renderMove(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id;
-
-  return hl('move', { attrs: { p: path }, class: nodeClasses(ctx, node, path) }, [
-    (opts.withIndex || node.ply % 2 === 1) && renderIndex(node.ply, true),
-    hl('san', fixCrazySan(node.san!)),
-    node.glyphs?.map(renderGlyph),
-    disclosureState(node) && disclosureBtn(ctx, node, path),
-  ]);
 }
