@@ -23,10 +23,14 @@ final class ChallengeApi(
   def allFor(userId: UserId, max: Int = 50): Fu[AllChallenges] =
     createdByDestId(userId, max).zip(createdByChallengerId(userId)).dmap((AllChallenges.apply).tupled)
 
+  def delayedCreate(c: Challenge): Fu[Option[() => Funit]] =
+    isLimitedByMaxPlaying(c).not.map:
+      _.option(() => doCreate(c))
+
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
-    isLimitedByMaxPlaying(c).flatMap:
-      if _ then fuFalse else doCreate(c).inject(true)
+    delayedCreate(c).flatMapz: f =>
+      for _ <- f() yield true
 
   def createOpen(config: lila.core.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
     val c = Challenge.make(
@@ -138,8 +142,10 @@ final class ChallengeApi(
         val color = openFixedColor.orElse(requestedColor)
         if c.challengerIsOpen
         then
-          withPerf.flatMap: me =>
-            repo.setChallenger(c.setChallenger(me, sid), color).inject(none.asRight)
+          for
+            me <- withPerf
+            _  <- repo.setChallenger(c.setChallenger(me, sid), color)
+          yield none.asRight
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Left("This color has already been chosen"))
         else
@@ -148,14 +154,13 @@ final class ChallengeApi(
             join   <- joiner(c, me)
             result <- join match
               case Right(pov) =>
-                repo
-                  .accept(c)
-                  .inject:
-                    uncacheAndNotify(c)
-                    Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
-                    c.rematchOf.foreach: gameId =>
-                      Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
-                    Right(pov.some)
+                for _ <- repo.accept(c)
+                yield
+                  uncacheAndNotify(c)
+                  Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
+                  c.rematchOf.foreach: gameId =>
+                    Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
+                  Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result
 
@@ -181,8 +186,7 @@ final class ChallengeApi(
     repo.byId(gameId.into(ChallengeId)).flatMap(_.so(remove))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if c.clock.isEmpty then fuFalse
-    else
+    c.clock.nonEmpty.so:
       c.userIds.existsM: userId =>
         gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 

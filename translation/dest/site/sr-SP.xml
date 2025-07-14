@@ -22,7 +22,7 @@
   <string name="asBlack">као црни</string>
   <string name="randomColor">Насумична боја</string>
   <string name="createAGame">Започни нову партију</string>
-  <string name="createTheGame">Креирај игру</string>
+  <string name="createTheGame">Започни партију</string>
   <string name="whiteIsVictorious">Бели је поебдио</string>
   <string name="blackIsVictorious">Црни је победио</string>
   <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
@@ -113,7 +113,7 @@
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
   <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
   <string name="allSet">Све спремно!</string>
-  <string name="importPgn">Унеси PGN</string>
+  <string name="importPgn">Увези PGN</string>
   <string name="delete">Избриши</string>
   <string name="deleteThisImportedGame">Избриши ову увезену партију?</string>
   <string name="replayMode">Начин репризе</string>
@@ -431,8 +431,7 @@
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
-  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
-рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
+  <string name="importGameExplanation">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
   <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">

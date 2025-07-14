@@ -5,6 +5,12 @@ import lila.core.id.GameId
 import lila.core.userId.*
 import lila.core.user.Me
 
+trait AtInstant[A]:
+  def apply(a: A): Instant
+  extension (a: A) inline def atInstant: Instant = apply(a)
+object AtInstant:
+  given atInstantOrdering: [A: AtInstant] => Ordering[A] = Ordering.by[A, Instant](_.atInstant)
+
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
 

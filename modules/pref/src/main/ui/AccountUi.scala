@@ -118,7 +118,7 @@ final class AccountUi(helpers: Helpers):
             trans.site.security()
           ),
           div(cls := "sep"),
-          a(activeCls("network"), href := routes.Account.network(none))(
+          a(activeCls("network"), href := routes.Pref.network)(
             "Network"
           ),
           ctx.noBot.option(

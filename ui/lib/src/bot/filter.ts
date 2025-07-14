@@ -62,7 +62,7 @@ export function quantizeFilter(f: Filter): void {
   }
 }
 
-export function filterParameter(f: Filter, x: FilterValue): FilterValue {
+export function evaluateFilter(f: Filter, x: FilterValue): FilterValue {
   const value: FilterValue = {};
   facetIteration: for (const facet of filterFacets) {
     if (!f[facet] || !x[facet]) continue;

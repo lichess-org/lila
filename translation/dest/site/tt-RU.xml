@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Ак</string>
   <string name="black">Кара</string>
+  <string name="asWhite">ак өчен</string>
+  <string name="asBlack">кара өчен</string>
   <string name="randomColor">Очраклы төс</string>
   <string name="createAGame">Уен башларга</string>
   <string name="whiteIsVictorious">Ак җиңде</string>
@@ -46,9 +48,12 @@
   <string name="blackResigned">Каралар истифа итте</string>
   <string name="whiteLeftTheGame">Ак уеннан чыкты</string>
   <string name="blackLeftTheGame">Кара уеннан чыкты</string>
+  <string name="whiteDidntMove">Аклар йөрмәде</string>
+  <string name="blackDidntMove">Каралар йөрмәде</string>
   <string name="requestAComputerAnalysis">Компьютер тикшеревен итү</string>
   <string name="computerAnalysis">Компьютер тикшереве</string>
   <string name="computerAnalysisAvailable">Компьютер тикшеревен итә аласыз</string>
+  <string name="computerAnalysisDisabled">Компьютерлы анализ сүндерелгән</string>
   <string name="analysis">Тикшерү тактасы</string>
   <string name="depthX">Тирәнлек %s</string>
   <string name="usingServerAnalysis">Сервер анализын куллану</string>
@@ -143,6 +148,7 @@
   <string name="viewInFullSize">Тулысынча күрү</string>
   <string name="logOut">Чыгу</string>
   <string name="signIn">Керү</string>
+  <string name="rememberMe">Хисаптан чыкмаска</string>
   <string name="youNeedAnAccountToDoThat">Моның өчен аккаунт кирәк</string>
   <string name="signUp">Теркәлү</string>
   <string name="computersAreNotAllowedToPlay">Компьютер булышы тыелган. Зинһар, уйнаганда, шахмат программалары, мәглүмәт базалары я башка уенчылар булышы белән файдаланмагыз. Күп аккаунтлар ясау киңәш ителми һәм кирәк булмаган күп аккаунтлар ясау сезне банга китерер.</string>
@@ -152,6 +158,7 @@
   <string name="latestForumPosts">Соңгы форум язулары</string>
   <string name="players">Уенчылар</string>
   <string name="friends">Дуслар</string>
+  <string name="otherPlayers">башка уенчылар</string>
   <string name="discussions">Әңгәмәләр</string>
   <string name="today">Бүген</string>
   <string name="yesterday">Кичә</string>
@@ -180,6 +187,7 @@
   <string name="changeUsername">Кулланучы исемен үзгәртү</string>
   <string name="changeUsernameNotSame">Хәрефләр регистрын гына үзгәртеп була. Мәсәлән, \"johndoe\"ны \"JohnDoe\"га.</string>
   <string name="changeUsernameDescription">Кулланучы исемегезне үзгәртегез. Сез моны бер тапкыр гына ясый аласыз һәм хәрефләрнен зурлыгын гына үзгәртә аласыз.</string>
+  <string name="signupEmailHint">Без аны серсүзне яңарту өчен генә кулланырбыз.</string>
   <string name="password">Серсүз</string>
   <string name="changePassword">Серсүзне үзгәртү</string>
   <string name="changeEmail">Emailны үзгәртү</string>

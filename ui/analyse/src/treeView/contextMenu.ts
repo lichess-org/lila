@@ -86,11 +86,15 @@ function action(
   );
 }
 
-function view(opts: Opts, coords: Coords): VNode {
-  const ctrl = opts.root,
-    node = ctrl.tree.nodeAtPath(opts.path),
-    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
+function view({ root: ctrl, path }: Opts, coords: Coords): VNode {
+  const { tree, treeView, idbTree } = ctrl;
+  const node = tree.nodeAtPath(path),
+    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path),
+    extendedPath = tree.extendPath(path, onMainline),
+    inline = treeView.inline(),
+    expand = inline || !onMainline ? path : path.slice(0, -2),
+    collapse = idbTree.getCollapseTarget(expand);
+  console.log(expand, collapse, onMainline);
   return hl(
     'div#' + elementId + '.visible',
     {
@@ -105,38 +109,48 @@ function view(opts: Opts, coords: Coords): VNode {
     [
       hl('p.title', nodeFullName(node)),
 
-      !onMainline &&
-        action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(opts.path, false)),
+      !onMainline && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
 
-      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
+      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
 
-      action(
-        licon.Trash,
-        i18n.site.deleteFromHere,
-        () => ctrl.deleteNode(opts.path),
-        () => ctrl.pendingDeletionPath(opts.path),
-        () => ctrl.pendingDeletionPath(null),
-      ),
+      path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
-      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
+      path &&
+        onMainline &&
+        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
-      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
+      collapse !== undefined &&
+        action(licon.MinusButton, 'Collapse branch', () => idbTree.setCollapsedFrom(collapse!, true, true)),
 
-      ctrl.study && studyView.contextMenu(ctrl.study, opts.path, node),
+      (expand || !inline) &&
+        idbTree.someCollapsedOf(true, expand) &&
+        action(licon.PlusButton, 'Expand branch', () => idbTree.setCollapsedFrom(expand, false, true)),
 
-      onMainline &&
-        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
+      idbTree.someCollapsedOf(false) &&
+        action(licon.MinusButton, 'Hide all variations', () => idbTree.setCollapsedFrom('', true)),
+
+      idbTree.someCollapsedOf(true) &&
+        action(licon.PlusButton, 'Show all variations', () => idbTree.setCollapsedFrom('', false)),
 
       action(
         licon.Clipboard,
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
-            renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
+            renderVariationPgn(ctrl.data.game, ctrl.tree.getNodeList(extendedPath)),
           ),
         () => ctrl.pendingCopyPath(extendedPath),
         () => ctrl.pendingCopyPath(null),
       ),
+
+      path &&
+        action(
+          licon.Trash,
+          i18n.site.deleteFromHere,
+          () => ctrl.deleteNode(path),
+          () => ctrl.pendingDeletionPath(path),
+          () => ctrl.pendingDeletionPath(null),
+        ),
     ],
   );
 }

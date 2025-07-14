@@ -17,12 +17,15 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="thereIsACountdown">Það er niðurtalning fyrir fyrsta leikinn þinn. Takist ekki að leika innan þess tíma fær andstæðingurinn þinn sigurinn.</string>
   <string name="thisIsPrivate">Þetta er einkamót</string>
   <string name="variant">Afbrigði</string>
+  <string name="minimumGameLength">Lágmarkslengd skákar</string>
   <string name="history">Ferill á Arena</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Skoða liðið</item>
     <item quantity="other">Skoða öll %s lið</item>
   </plurals>
+  <string name="newTeamBattle">Ný liðsorrusta</string>
   <string name="customStartDate">Sérsniðinn upphafsdagur</string>
+  <string name="customStartDateHelp">Í þínu eigin tímabelti. Þetta hnekkir stillingunni „Tími áður en mót hefst.“</string>
   <string name="allowBerserk">Leyfa Berserk</string>
   <string name="allowChatHelp">Leyfa leikmönnum að rabba í spjallherbergi</string>
   <string name="arenaStreaks">Arena-döngun</string>
@@ -33,14 +36,22 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="averageScore">Meðalstig</string>
   <string name="myTournaments">Mótin mín</string>
   <string name="editTournament">Breyta móti</string>
+  <string name="editTeamBattle">Breyta liðsorrustu</string>
   <string name="defender">Núverandi meistari</string>
   <string name="pickYourTeam">Veldu lið þiit</string>
   <string name="created">Stofnað</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nýlega tekið þátt í</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Besti árangurinn</string>
+  <string name="recentlyPlayed">Nýlega tekið þátt í</string>
+  <string name="bestResults">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
+  <string name="medians">miðgildi</string>
+  <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
   <string name="total">Samtals</string>
   <string name="pointsAvg">Meðalstig</string>
   <string name="pointsSum">Stigasumma</string>
   <string name="rankAvg">Meðalstaða</string>
+  <string name="tournamentWinners">Sigurvegarar móts</string>
+  <string name="onlyTitled">Eingöngu leikmenn með titil</string>
+  <string name="onlyTitledHelp">Krefjast opinbers titils til þess að taka þátt í mótinu</string>
+  <string name="tournamentPairingsAreNowClosed">Nú er hætt að ákvarða mætingar móts.</string>
+  <string name="berserkRate">Berserk-hlutfall</string>
 </resources>

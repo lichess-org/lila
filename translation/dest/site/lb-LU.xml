@@ -363,7 +363,7 @@
   <string name="yourOpponentProposesATakeback">Däi Géigner schléit vir fir en Zuch zeréckzehuelen</string>
   <string name="bookmarkThisGame">Dës Partie als Lieszeeche späicheren</string>
   <string name="tournament">Turnéier</string>
-  <string name="tournaments">Turnéier</string>
+  <string name="tournaments">Turnéieren</string>
   <string name="tournamentPoints">Turnéierpunkten</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnéierpunkt</item>
@@ -476,12 +476,12 @@
     <item quantity="other">Manner wéi %s Minutten</item>
   </plurals>
   <string name="required">Obligatoresch.</string>
-  <string name="openTournaments">Oppen Turnéier</string>
+  <string name="openTournaments">Oppen Turnéieren</string>
   <string name="duration">Dauer</string>
   <string name="winner">Gewënner</string>
   <string name="standing">Stand</string>
   <string name="createANewTournament">Neien Turnéier kreéieren</string>
-  <string name="tournamentCalendar">Turnéier Kalenner</string>
+  <string name="tournamentCalendar">Turnéierkalenner</string>
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
   <string name="advancedSettings">Erweidert Astellungen</string>
   <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
@@ -699,7 +699,7 @@
   <string name="simulHostExtraTime">Host extra Zäit</string>
   <string name="simulAddExtraTimePerPlayer">Gëff denger Auer zousätzlech Zäit fir all Spiller deen der Simultan bäitrëtt.</string>
   <string name="simulHostExtraTimePerPlayer">Gëff all Spiller zousätzlech Bedenkzäit</string>
-  <string name="lichessTournaments">Lichess Turnéier</string>
+  <string name="lichessTournaments">Lichess-Turnéieren</string>
   <string name="tournamentFAQ">Arena-Turnéier-FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>

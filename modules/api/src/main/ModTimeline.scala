@@ -30,7 +30,7 @@ case class ModTimeline(
     val concat: List[Event]          =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: accountCreation
     // latest first
-    concat.sorted(using Ordering.by(at).reverse)
+    concat.sortedReverse(using Ordering.by(at))
 
 object ModTimeline:
 

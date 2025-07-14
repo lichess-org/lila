@@ -121,7 +121,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
 
-  val tourJoin = RateLimit[UserId](credits = 60, duration = 10.minutes, key = "tournament.user.join")
+  val tourJoinOrResume =
+    RateLimit[UserId](credits = 30, duration = 10.minutes, key = "tournament.user.joinOrResume")
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 

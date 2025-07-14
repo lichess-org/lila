@@ -12,6 +12,7 @@ import lila.report.{ Mod, Report, Suspect }
 import lila.user.UserRepo
 import lila.core.chat.TimeoutReason
 import lila.core.user.KidMode
+import lila.core.LightUser
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -186,15 +187,20 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def chatTimeout(user: UserId, reason: TimeoutReason, text: String)(using MyId) = add:
     Modlog(user.some, Modlog.chatTimeout, details = s"${reason.key}: $text".some)
 
-  def setPermissions(user: UserId, permissions: Map[Permission, Boolean])(using Me) = add:
-    Modlog(
-      user.some,
-      Modlog.permissions,
-      details = permissions
-        .map: (p, dir) =>
-          s"${if dir then "+" else "-"}${p}"
-        .mkString(", ")
-        .some
+  def setPermissions(user: LightUser, permissions: Map[Permission, Boolean])(using Me) =
+    val details = permissions
+      .map: (p, dir) =>
+        s"${if dir then "+" else "-"}${p}"
+      .mkString(", ")
+    add:
+      Modlog(
+        user.id.some,
+        Modlog.permissions,
+        details.some
+      )
+    >> ircApi.permissionsLog(
+      user,
+      details
     )
 
   def wasUnteachered(user: UserId): Fu[Boolean] =

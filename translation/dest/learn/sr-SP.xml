@@ -5,37 +5,37 @@
   <string name="menu">Мени</string>
   <string name="progressX">Напредак: %s</string>
   <string name="resetMyProgress">Ресетуј мој напредак</string>
-  <string name="youWillLoseAllYourProgress">Изгубићете сав ваш напредак!</string>
+  <string name="youWillLoseAllYourProgress">Изгубићеш сав свој напредак!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играј!</string>
   <string name="chessPieces">Шаховске фигуре</string>
   <string name="theRook">Топ</string>
-  <string name="itMovesInStraightLines">Креће се у правим линијама</string>
-  <string name="rookIntro">Топ је снажна фигура. Да ли сте спремни да га управљате?</string>
-  <string name="rookGoal">Кликните на топа
-да га доведете до звезде!</string>
-  <string name="grabAllTheStars">Зграбите све звезде!</string>
-  <string name="theFewerMoves">Што мање потеза направите,
-више ћете добити поена!</string>
-  <string name="useTwoRooks">Користите два топа
-да убрзате ствари!</string>
-  <string name="rookComplete">Честитамо! Успешно сте савладали топом.</string>
+  <string name="itMovesInStraightLines">Креће се у равним линијама</string>
+  <string name="rookIntro">Топ је моћна фигура. Да ли си спреман/на командовати њиме?</string>
+  <string name="rookGoal">Кликни на топа
+да га доведеш до звезде!</string>
+  <string name="grabAllTheStars">Покупи све звезде!</string>
+  <string name="theFewerMoves">Што мање потеза направиш,
+то више бодова освојиш!</string>
+  <string name="useTwoRooks">Користи два топа
+да убрзаш ствари!</string>
+  <string name="rookComplete">Честитке! Успешно си савладао/ла топа.</string>
   <string name="theBishop">Ловац</string>
   <string name="itMovesDiagonally">Креће се дијагонално</string>
   <string name="bishopIntro">Сада ћемо научити како да маневришемо ловцем!</string>
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
-  <string name="bishopComplete">Честитамо! Сада можете управљати ловцем.</string>
+  <string name="bishopComplete">Честитке! Можеш командовати ловца.</string>
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
   <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
-  <string name="queenComplete">Честитамо! Даме немају тајне за Вас.</string>
+  <string name="queenComplete">Честитке! Даме немају тајне за тебе.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
-  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, партија је изгубљена.</string>
+  <string name="kingIntro">Ти си краљ. Ако паднеш у бици, партија је изгубљена.</string>
   <string name="theKingIsSlow">Краљ је спор.</string>
-  <string name="lastOne">Последњи!</string>
-  <string name="kingComplete">Сада можете командовати командиру!</string>
+  <string name="lastOne">Последња!</string>
+  <string name="kingComplete">Сада можеш командовати командиру!</string>
   <string name="theKnight">Скакач</string>
   <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
   <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>

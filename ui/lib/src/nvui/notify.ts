@@ -1,38 +1,27 @@
-import { h, type VNode } from 'snabbdom';
+import { h, type VNode, type VNodeData } from 'snabbdom';
 import { requestIdleCallback } from '../common';
-import { isApple } from '../device';
-
-type Notification = {
-  text: string;
-  date: Date;
-};
+import { isMac } from '../device';
 
 export class Notify {
-  notification: Notification | undefined;
-  redraw?: () => void;
+  text = '';
 
-  constructor() {}
+  constructor(public redraw: Redraw | undefined = undefined) {}
 
   set = (msg: string): void => {
-    // make sure it's different from previous, so it gets read again
-    if (this.notification && this.notification.text === msg) msg += ' ';
-    this.notification = { text: msg, date: new Date() };
-    requestIdleCallback(() => this.redraw && this.redraw(), 500);
+    this.text = msg;
+    requestIdleCallback(() => {
+      this.redraw?.();
+      this.text = '';
+    }, 500);
   };
 
-  currentText = (): string =>
-    this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
-
-  render = (): VNode => {
-    return liveText(this.currentText(), 'assertive', 'div.notify');
-  };
+  render = (): VNode => liveText(this.text, 'assertive', 'div.notify');
 }
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
-  const liveAction = (vnode: VNode) => setTimeout(() => (vnode.elm!.textContent = text), 50);
-  return h(sel, {
-    key: text,
-    attrs: isApple() ? { role: 'alert' } : { 'aria-live': live, 'aria-atomic': 'true' },
-    hook: { insert: liveAction },
-  });
+  const key = new Date().getTime().toString();
+  const data: VNodeData = isMac()
+    ? { key, attrs: { role: 'alert' } }
+    : { key, attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+  return h(sel, data, text);
 }

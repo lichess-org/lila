@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
+import lila.core.study.Visibility
 import chess.tiebreaker.Tiebreaker
 
 case class FormNavigation(
@@ -555,7 +556,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Features",
             toggle = tg
               .map(_.tour)
-              .exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable || t.tiebreaks.isDefined)
+              .exists(t =>
+                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic || t.tiebreaks.isDefined
+              )
               .some
           )(
             form3.split(
@@ -576,6 +579,20 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 trans.team.teamTournament(),
                 help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
+              ),
+              form3.group(
+                form("visibility"),
+                trans.study.visibility(),
+                half = true
+              )(
+                form3.select(
+                  _,
+                  List(
+                    Visibility.public.key    -> "Public",
+                    Visibility.unlisted.key  -> "Unlisted (from URL only)",
+                    Visibility.`private`.key -> "Private (invited members only)"
+                  )
+                )
               )
             ),
             form3.split(
@@ -646,7 +663,7 @@ Team Dogs ; Scooby Doo"""),
                 form3.group(
                   form("tier"),
                   raw("Official Lichess broadcast tier"),
-                  help = raw("Feature on /broadcast - for admins only").some,
+                  help = raw("Priority and ranking - for admins only").some,
                   half = true
                 )(form3.select(_, RelayTour.Tier.options)),
                 Granter
@@ -754,14 +771,17 @@ Team Dogs ; Scooby Doo"""),
         form("grouping"),
         "Optional: assign tournaments to a group",
         help = frag( // do not translate
-          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+          "First line is the group name.",
+          br,
+          "Subsequent lines are URLs of tournaments that will be part of the group.",
           br,
           "You can add, remove, and re-order tournaments; and you can rename the group.",
           br,
           "Example:",
-          pre("""Youth Championship 2024
-tour1-id Youth Championship 2024 | G20
-tour2-id Youth Championship 2024 | G16
+          pre("""Dutch Championships 2025
+https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
+https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
+https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
 """)
         ).some
       )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))

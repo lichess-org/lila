@@ -69,8 +69,8 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="whichTeamWillYouRepresentInThisBattle">Ktorý tím budete v tomto turnaji reprezentovať?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ak sa chcete zúčastniť, musíte sa pridať k jednému z týchto tímov!</string>
   <string name="created">Vytvorené</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Naposledy odohrané</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Najlepšie výsledky</string>
+  <string name="recentlyPlayed">Naposledy odohrané</string>
+  <string name="bestResults">Najlepšie výsledky</string>
   <string name="tournamentStats">Turnajové štatistiky</string>
   <string name="rankAvgHelp">Priemerná pozícia je percentuálny podiel vášho hodnotenia. Nižšia hodnota je lepšia.
 
@@ -86,5 +86,5 @@ Napríklad 3. miesto v turnaji so 100 hráčmi = 3 %. Byť na 10. mieste v turna
   <string name="onlyTitled">Iba hráči s titulom</string>
   <string name="onlyTitledHelp">Na účasť v turnaji je potrebný oficiálny titul</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Miera besnenia</string>
+  <string name="berserkRate">Miera besnenia</string>
 </resources>

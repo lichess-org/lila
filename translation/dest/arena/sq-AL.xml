@@ -65,8 +65,8 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>
   <string name="created">Të krijuar</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Luajtur së fundi</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Përfundimet më të mira</string>
+  <string name="recentlyPlayed">Luajtur së fundi</string>
+  <string name="bestResults">Përfundimet më të mira</string>
   <string name="tournamentStats">Statistika turneu</string>
   <string name="rankAvgHelp">Renditja mesatare është një përqindje e renditjes tuaj. Sa më e ulët, aq më mirë.
 

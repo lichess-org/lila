@@ -47,9 +47,9 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="averageScore">Karaniwang puntos</string>
   <string name="defender">Tagapagtanggol</string>
   <string name="pickYourTeam">Piliin ang iyong koponan</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Mga pinakamagandang resulta</string>
+  <string name="bestResults">Mga pinakamagandang resulta</string>
   <string name="total">Kabuuan</string>
   <string name="onlyTitled">Mga titulong manlalaro lamang</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Porsyento na magberserk</string>
+  <string name="berserkRate">Porsyento na magberserk</string>
 </resources>

@@ -93,4 +93,6 @@
   <string name="backToLiveMove">العودة إلى الحرقات المباشرة</string>
   <string name="sinceHideResults">بما أنك اخترت إخفاء النتائج، فإن جميع لوحات المعاينة فارغة لتجنب الحرق.</string>
   <string name="liveboard">اللوحة الآن</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">بث المجتمع</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">تم إنشاؤها وإدارتها بواسطة %s.</string>
 </resources>

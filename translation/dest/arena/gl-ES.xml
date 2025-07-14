@@ -3,7 +3,7 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneos Arena</string>
   <string name="isItRated">É puntuado?</string>
-  <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes xogar sen problema noutra lapela mentres agardas.</string>
+  <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes cambiar de lapela sen problema.</string>
   <string name="isRated">Este torneo é puntuado e afectará á túa puntuación.</string>
   <string name="isNotRated">Este torneo *non* é puntuado e *non* afectará á túa puntuación.</string>
   <string name="someRated">Algúns torneos son puntuados e afectarán á túa puntuación.</string>
@@ -67,8 +67,8 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="whichTeamWillYouRepresentInThisBattle">A que equipo representarás nesta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Tes que unirte a algún destes equipos para participar!</string>
   <string name="created">Creado</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Xogado recentemente</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Mellores resultados</string>
+  <string name="recentlyPlayed">Xogado recentemente</string>
+  <string name="bestResults">Mellores resultados</string>
   <string name="tournamentStats">Estatísticas do torneo</string>
   <string name="rankAvgHelp">A clasificación media é unha porcentaxe da túa clasificación. Canto máis baixa, mellor.
 
@@ -84,5 +84,5 @@ Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun
   <string name="onlyTitled">Só xogadores titulados</string>
   <string name="onlyTitledHelp">Esixir un título oficial para unirse ó torneo</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Porcentaxe de Berserk</string>
+  <string name="berserkRate">Porcentaxe de Berserk</string>
 </resources>

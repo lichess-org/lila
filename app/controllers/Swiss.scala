@@ -167,20 +167,16 @@ final class Swiss(
   private def bodyPassword(using Request[?]) =
     bindForm(SwissForm.joinForm)(_ => none, identity)
 
-  private def doJoin(id: SwissId, password: Option[String])(using me: Me) =
-    env.team.cached.teamIds(me).flatMap { teamIds =>
-      env.swiss.api.join(id, teamIds.contains, password).flatMap { result =>
-        if result then jsonOkResult
-        else JsonBadRequest(jsonError("Could not join the tournament"))
-      }
-    }
+  private def doJoin(id: SwissId, password: Option[String])(using ctx: Context, me: Me) =
+    limit.tourJoinOrResume(me, rateLimited):
+      for
+        teamIds <- env.team.cached.teamIds(me)
+        error   <- env.swiss.api.join(id, teamIds.contains, password)
+      yield error.fold(jsonOkResult)(err => JsonBadRequest(jsonError(err)))
 
   def withdraw(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
     env.swiss.api.withdraw(id, me) >>
-      negotiate(
-        Redirect(routes.Swiss.show(id)),
-        jsonOkResult
-      )
+      negotiate(Redirect(routes.Swiss.show(id)), jsonOkResult)
   }
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
@@ -192,7 +188,7 @@ final class Swiss(
     WithEditableSwiss(id): swiss =>
       bindForm(env.swiss.forms.edit(me, swiss))(
         err => BadRequest.page(views.swiss.form.edit(swiss, err)),
-        data => env.swiss.api.update(swiss.id, data) >> Redirect(routes.Swiss.show(id))
+        data => for _ <- env.swiss.api.update(swiss.id, data) yield Redirect(routes.Swiss.show(id))
       )
   }
 

@@ -176,7 +176,7 @@ final class ModApi(
         // only add permissions the mod can actually grant
         permissions.filter(canGrant)
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
-        logApi.setPermissions(user.id, permDiff(Permission(user), finalPermissions))
+        logApi.setPermissions(user.light, permDiff(Permission(user), finalPermissions))
 
   private def permDiff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

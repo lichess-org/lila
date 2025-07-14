@@ -69,10 +69,13 @@ trait LilaLibraryExtensions extends CoreExports:
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
-    def tailSafe: List[A]         = tailOption.getOrElse(Nil)
-    def indexOption(a: A)         = Option(list.indexOf(a)).filter(0 <= _)
-    def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
-    def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
+    def tailSafe: List[A]                              = tailOption.getOrElse(Nil)
+    def indexOption(a: A)                              = Option(list.indexOf(a)).filter(0 <= _)
+    def previous(a: A): Option[A]                      = indexOption(a).flatMap(i => list.lift(i - 1))
+    def next(a: A): Option[A]                          = indexOption(a).flatMap(i => list.lift(i + 1))
+    def sortedReverse(using ord: Ordering[A]): List[A] = list.sorted(using ord.reverse)
+    def sortByReverse[B](f: A => B)(using ord: Ordering[B]): List[A] =
+      list.sortBy(f)(using ord.reverse)
 
     def sequentially[B](f: A => Fu[B])(using Executor): Fu[List[B]] =
       list
