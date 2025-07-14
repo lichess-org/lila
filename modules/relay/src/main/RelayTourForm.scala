@@ -103,6 +103,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       tier = tour.tier,
       showScores = tour.showScores,
       showRatingDiffs = tour.showRatingDiffs,
+      tiebreaks = tour.tiebreaks,
       teamTable = tour.teamTable,
       players = tour.players,
       teams = tour.teams,
@@ -182,25 +183,3 @@ object RelayTourForm:
       RelayTour.Name(""),
       RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
     )
-
-    def make(tg: RelayTour.WithGroupTours) =
-      import tg.*
-      Data(
-        name = tour.name,
-        info = tour.info.copy(
-          fideTc = tour.info.fideTcOrGuess.some,
-          timeZone = tour.info.timeZoneOrDefault.some
-        ),
-        markup = tour.markup,
-        tier = tour.tier,
-        showScores = tour.showScores,
-        showRatingDiffs = tour.showRatingDiffs,
-        tiebreaks = tour.tiebreaks,
-        teamTable = tour.teamTable,
-        players = tour.players,
-        teams = tour.teams,
-        spotlight = tour.spotlight,
-        grouping = group.map(RelayGroup.form.Data.apply),
-        pinnedStream = tour.pinnedStream,
-        note = tour.note
-      )
