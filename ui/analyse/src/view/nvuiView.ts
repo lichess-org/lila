@@ -81,14 +81,13 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   return hl('main.analyse', [
     hl('div.nvui', [
       studyDetails(ctrl),
-      hl('h1', 'Textual representation'),
-      hl('h2', 'Game info'),
+      hl('h2', i18n.nvui.gameInfo),
       ...['white', 'black'].map((color: Color) =>
         hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
       ),
       hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-      hl('h2', 'Moves'),
+      hl('h2', i18n.nvui.moveList),
       hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
       !ctrl.studyPractice && [
         hl(
@@ -101,7 +100,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         ),
         explorerView(ctrl),
       ],
-      hl('h2', 'Pieces'),
+      hl('h2', i18n.nvui.pieces),
       hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
       hl('div.pockets', pockets && renderPockets(pockets)),
       renderAriaResult(ctrl),
@@ -112,7 +111,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           hl('h2', `${i18n.site.clock}`),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
-      hl('h2', 'Move form'),
+      hl('h2', i18n.nvui.inputForm),
       hl(
         'form#move-form',
         {
@@ -126,7 +125,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         },
         [
           hl('label', [
-            'Command input',
+            i18n.nvui.inputForm,
             hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off' },
             }),
@@ -136,12 +135,12 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       notify.render(),
       renderRetro(ctx),
       !ctrl.retro && [
-        hl('h2', 'Computer analysis'),
+        hl('h2', i18n.site.computerAnalysis),
         cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
-      hl('h2', 'Board'),
+      hl('h2', i18n.site.board),
       hl(
         'div.board',
         { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
@@ -195,7 +194,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         ].reduce(addBreaks, []),
       ),
       boardCommands(),
-      hl('h2', 'Commands'),
+      hl('h2', i18n.nvui.inputFormCommandList),
       hl(
         'p',
         [
