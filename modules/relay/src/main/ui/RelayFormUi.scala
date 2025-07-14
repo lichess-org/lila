@@ -604,7 +604,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 )(
                   form3.select(
                     _,
-                    Tiebreaker.values
+                    Tiebreaker.all
                       .sortBy(_.name)
                       .map: t =>
                         t.code -> s"${t.name} (${t.code})",

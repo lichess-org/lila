@@ -50,7 +50,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
   private given Formatter[Tiebreaker] =
     formatter.stringOptionFormatter(_.code, Tiebreaker.byCode.get)
 
-  private val optionalTb       = optional(typeIn(Tiebreaker.values.toSet))
+  private val optionalTb       = optional(typeIn(Tiebreaker.all.toSet))
   private val tiebreaksMapping =
     mapping(
       "tiebreak1" -> optionalTb,
