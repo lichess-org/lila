@@ -38,10 +38,8 @@ interface Ctx extends BaseCtx {
 }
 
 interface Opts extends BaseOpts {
-  isMainline: boolean;
   conceal?: Conceal;
   noConceal?: boolean;
-  branch?: Tree.Node;
 }
 
 function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {

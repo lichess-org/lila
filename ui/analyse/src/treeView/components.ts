@@ -12,12 +12,17 @@ import { playable } from 'lib/game/game';
 import { PlusButton, MinusButton } from 'lib/licon';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
+import type { ConcealOf, Conceal } from '../interfaces';
 
 export interface Opts {
+  isMainline: boolean;
   parentPath: Tree.Path;
   inline?: Tree.Node;
   withIndex?: boolean;
   anchor?: 'interrupt' | 'lines' | false;
+  branch?: Tree.Node;
+  conceal?: Conceal; // <- TODO
+  noConceal?: boolean; // <- TODO
 }
 
 export interface Ctx extends MoveCtx {
@@ -25,6 +30,7 @@ export interface Ctx extends MoveCtx {
   showComputer: boolean;
   truncateComments: boolean;
   currentPath: Tree.Path | undefined;
+  concealOf?: ConcealOf;
 }
 
 export function mainHook(ctrl: AnalyseCtrl): Hooks {
@@ -37,8 +43,8 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         ctrl.redraw();
         return false;
       };
-      el.oncontextmenu = ctxMenuCallback;
-      if (isTouchDevice()) el.ondblclick = ctxMenuCallback; // long press horribad
+      //el.oncontextmenu = ctxMenuCallback;
+      /*if (isTouchDevice())*/ el.ondblclick = ctxMenuCallback; // long press horribad
       bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
 
       el.addEventListener('mousedown', (e: MouseEvent) => {
