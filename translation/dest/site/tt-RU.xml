@@ -211,6 +211,9 @@
   <string name="forgotPassword">Серсүзне оныттыгыз?</string>
   <string name="error.weakPassword">Бу серсүз бик таралган һәм аны танап булу бик ансат.</string>
   <string name="error.namePassword">Кулланучы исемегезне серсүз итеп кулланмагыз.</string>
+  <string name="youAreLeavingLichess">Сез Lichess сайтыннан чыгып китәсез</string>
+  <string name="neverTypeYourPassword">Lichess серсүзегезне башка сайтларда кертмәгез!</string>
+  <string name="proceedToX">%s -га дәвам итү</string>
   <string name="copyTextToEmail">Югары текстны копияләп %s адресына җибәрегез</string>
   <string name="accountConfirmed">%s кулланучысы теркәлүе расланды.</string>
   <string name="accountCanLogin">Хәзер %s булып теркәлә аласыз.</string>
