@@ -13,11 +13,10 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
-import chess.tiebreaker.Tiebreaker.*
-import chess.tiebreaker.TieBreakPoints
+import chess.tiebreak.Tiebreak.*
 import cats.syntax.all.*
 import cats.data.NonEmptySeq
-import chess.tiebreaker.Tiebreaker
+import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -25,7 +24,7 @@ case class RelayPlayer(
     score: Option[Float],
     ratingDiff: Option[IntRatingDiff],
     performance: Option[IntRating],
-    tiebreaks: Option[SeqMap[Tiebreaker, TieBreakPoints]],
+    tiebreaks: Option[SeqMap[Tiebreak, TiebreakPoint]],
     rank: Option[Int],
     games: Vector[RelayPlayer.Game]
 ):
@@ -56,9 +55,9 @@ object RelayPlayer:
       .map(_.value)
       .orElse(playerPoints.map(_.value))
 
-    def toTiebreakerGame: Option[Tiebreaker.Game] =
+    def toTiebreakGame: Option[Tiebreak.Game] =
       opponent.id.map: (opponentId) =>
-        Tiebreaker.Game(
+        Tiebreak.Game(
           color = color,
           opponent = Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
           points = playerPoints,
@@ -75,16 +74,16 @@ object RelayPlayer:
 
   object json:
     import JsonView.given
-    given Writes[Outcome]                            = Json.writes
-    given Writes[Outcome.Points]                     = writeAs(_.show)
-    given Writes[Outcome.GamePoints]                 = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[RelayPlayer.Game]                   = Json.writes
-    given Writes[SeqMap[Tiebreaker, TieBreakPoints]] = Writes { tbs =>
+    given Writes[Outcome]                         = Json.writes
+    given Writes[Outcome.Points]                  = writeAs(_.show)
+    given Writes[Outcome.GamePoints]              = writeAs(points => Outcome.showPoints(points.some))
+    given Writes[RelayPlayer.Game]                = Json.writes
+    given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes { tbs =>
       JsObject(
         tbs.map { case (tb, tbv) =>
           tb.code -> Json.obj(
-            "name"   -> tb.name,
-            "points" -> Json.toJson(tbv)
+            "name"   -> tb.extendedCode,
+            "points" -> tbv.value
           )
         }
       )
@@ -254,17 +253,17 @@ private final class RelayPlayerApi(
             id -> (newPlayer | player)
       .map(_.to(SeqMap))
 
-  private def computeTiebreaks(players: RelayPlayers, tiebreakers: Seq[Tiebreaker]): RelayPlayers =
-    val tbGames: Map[String, Tiebreaker.PlayerWithGames] =
+  private def computeTiebreaks(players: RelayPlayers, tiebreaks: Seq[Tiebreak]): RelayPlayers =
+    val tbGames: Map[String, Tiebreak.PlayerWithGames] =
       players.view.values
         .flatMap: p =>
           p.toTieBreakPlayer.map: tbPlayer =>
-            tbPlayer.id -> Tiebreaker.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakerGame))
+            tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val tiebreaks = Tiebreaker.compute(tbGames, tiebreakers.toList).zipWithIndex
+    val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
     players.map: (id, rp) =>
-      val found = tiebreaks.find((p, rank) => p.player.id == id.toString)
+      val found = result.find((p, rank) => p.player.id == id.toString)
       id -> rp.copy(
-        tiebreaks = found.map(t => tiebreakers.zip(t._1.tiebreakers).to(SeqMap)),
+        tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
         rank = found.map(_._2 + 1)
       )

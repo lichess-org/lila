@@ -10,7 +10,7 @@ import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn,
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
-import chess.tiebreaker.Tiebreaker
+import chess.tiebreak.{ Tiebreak, CutModifier, LimitModifier }
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
@@ -47,10 +47,23 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
-  private given Formatter[Tiebreaker] =
-    formatter.stringOptionFormatter(_.code, Tiebreaker.byCode.get)
+  private given Formatter[Tiebreak.Code] =
+    formatter.stringOptionFormatter[Tiebreak.Code](_.toString, c => Tiebreak.Code.all.find(_ == c))
+  private given Formatter[CutModifier] =
+    formatter.stringOptionFormatter[CutModifier](_.name, c => CutModifier.values.find(_.name == c))
 
-  private val optionalTb       = optional(typeIn(Tiebreaker.all.toSet))
+  private val tiebreakMapping =
+    mapping(
+      "code"     -> typeIn(Tiebreak.Code.all),
+      "modifier" -> optional(
+        typeIn(CutModifier.values.toSet)
+      ),
+      "limit" -> optional(number(min = 0, max = 100))
+    )((code, modifier, limit) =>
+      Tiebreak(code, () => modifier, () => limit.flatMap(l => LimitModifier.apply(l / 100f)))
+    )(t => (t.map(_.code), t.modifier, t.limit.map(_.value)))
+
+  private val optionalTb       = optional(tiebreakMapping)
   private val tiebreaksMapping =
     mapping(
       "tiebreak1" -> optionalTb,
@@ -123,7 +136,7 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
-      tiebreaks: Option[Seq[Tiebreaker]] = none,
+      tiebreaks: Option[Seq[Tiebreak]] = none,
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,

@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
-import chess.tiebreaker.Tiebreaker
+import chess.tiebreak.Tiebreak
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -604,10 +604,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 )(
                   form3.select(
                     _,
-                    Tiebreaker.all
-                      .sortBy(_.name)
+                    Tiebreak.preset
+                      .sortBy(_.description)
                       .map: t =>
-                        t.code -> s"${t.name} (${t.code})",
+                        t.code -> s"${t.description} (${t.code})",
                     default = "Optional. Select a tiebreak".some
                   )
                 )

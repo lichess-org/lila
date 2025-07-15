@@ -5,7 +5,9 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.core.fide.FideTC
-import chess.tiebreaker.Tiebreaker
+import chess.tiebreak.Tiebreak
+import chess.tiebreak.{ CutModifier, LimitModifier }
+import scala.reflect.Selectable.reflectiveSelectable
 
 object BSONHandlers:
 
@@ -67,8 +69,31 @@ object BSONHandlers:
     }
   )
 
-  given BSONHandler[FideTC]     = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
-  given BSONHandler[Tiebreaker] = stringAnyValHandler[Tiebreaker](_.code, Tiebreaker.byCode(_))
+  given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
+
+  given BSONHandler[Tiebreak] = new BSONHandler[Tiebreak]:
+    def reads(r: BSON.Reader): Tiebreak =
+      def readCode: Option[Tiebreak.Code]        = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
+      def readCutModifier(): Option[CutModifier] =
+        r.getO[String]("cutModifier").flatMap(c => CutModifier.values.find(_.code == c))
+      def readLimitModifier(): Option[LimitModifier] =
+        r.getO[Float]("limitModifier").flatMap(LimitModifier(_))
+      readCode
+        .flatMap: code =>
+          Tiebreak.apply[Option](code, () => readCutModifier(), () => readLimitModifier())
+        .getOrElse(sys.error("Invalid Tiebreak BSON"))
+
+    def writes(w: BSON.Writer, t: Tiebreak) =
+      val base    = $doc("code" -> t.code)
+      val withCut = t match
+        case t: { def modifier: CutModifier } =>
+          base ++ $doc("cutModifier" -> t.modifier.code)
+        case _ => base
+      val withLimit = t match
+        case t: { def limit: LimitModifier } =>
+          withCut ++ $doc("limitModifier" -> t.limit.value)
+        case _ => withCut
+      withLimit
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound]       = Macros.handler
