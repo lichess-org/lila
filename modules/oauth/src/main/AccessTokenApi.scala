@@ -176,29 +176,26 @@ final class AccessTokenApi(
       .runWith(Sink.ignore)
       .void
 
-  def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Fu[List[AccessToken.Id]] =
-    for
-      tokens <- coll
-        .find(
-          $doc(
-            F.userId       -> me,
-            F.clientOrigin -> clientOrigin
-          ),
-          $doc(F.id -> 1).some
-        )
-        .sort($sort.desc(F.usedAt))
-        .cursor[Bdoc]()
-        .list(100)
-        .flatMap: invalidate =>
-          coll.delete
-            .one:
-              $doc(
-                F.userId       -> me,
-                F.clientOrigin -> clientOrigin
-              )
-            .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)))
-      _ = tokens.foreach(onRevoke(_))
-    yield tokens
+  def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
+    coll
+      .find(
+        $doc(
+          F.userId       -> me,
+          F.clientOrigin -> clientOrigin
+        ),
+        $doc(F.id -> 1).some
+      )
+      .sort($sort.desc(F.usedAt))
+      .cursor[Bdoc]()
+      .list(100)
+      .flatMap: invalidate =>
+        coll.delete
+          .one:
+            $doc(
+              F.userId       -> me,
+              F.clientOrigin -> clientOrigin
+            )
+          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.Id.from(bearer)
