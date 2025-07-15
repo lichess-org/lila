@@ -209,6 +209,8 @@ export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   return isKey(maybeKey) ? maybeKey : undefined;
 };
 
+export const pieceStr = (role: Role, color: Color): string => transPieceStr(role, color, i18n);
+
 export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;
 

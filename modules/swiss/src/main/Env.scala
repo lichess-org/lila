@@ -32,7 +32,8 @@ final class Env(
     akka.stream.Materializer,
     lila.core.game.IdGenerator,
     play.api.Mode,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private val mongo = new SwissMongo(

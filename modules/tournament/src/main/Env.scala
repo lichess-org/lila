@@ -33,7 +33,8 @@ final class Env(
     ActorSystem,
     akka.stream.Materializer,
     lila.core.game.IdGenerator,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   lazy val forms = wire[TournamentForm]
