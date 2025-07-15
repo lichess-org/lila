@@ -302,10 +302,22 @@ export class Bot implements BotInfo, MoveSource {
     const pawnScore = this.applyFilter('pawnStructure', args) ?? 0;
     for (const mv of sorted) {
       const chess = args.chess.clone();
-      normalMove(chess, mv.uci);
+      chess.play(normalMove(chess, mv.uci)!.move);
       const score = pawnStructure(chess);
-      mv.weights.pawnStructure = clamp(score * pawnScore, { min: 0, max: 2 });
+      mv.weights.pawnStructure = clamp(score * pawnScore, { min: 0, max: 1 });
     }
+    const grouped = sorted.reduce((groups, mv) => {
+      const group = groups.get(mv.weights.pawnStructure!) ?? [];
+      group.push(mv);
+      groups.set(mv.weights.pawnStructure!, group);
+      return groups;
+    }, new Map<number, SearchMove[]>());
+    const vals = [...grouped.keys()].sort((a, b) => b - a);
+    vals.forEach((val, i) => {
+      for (const mv of grouped.get(val)!) {
+        mv.weights.pawnStructure = (vals.length - i) / vals.length;
+      }
+    });
   }
 
   private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
