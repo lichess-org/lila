@@ -26,8 +26,6 @@ const errorSound = () => site.sound.play('error');
 export function renderNvui(ctx: RoundNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
-  const d = ctrl.data,
-    nvui = ctrl.nvui!;
   if (!ctrl.chessground) {
     ctrl.setChessground(
       makeChessground(document.createElement('div'), {
@@ -40,40 +38,10 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
   }
   return hl('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
     !isTouchDevice() && gameInfo(ctx),
-    ctrl.isPlaying() &&
-      hl('div.move-input', [
-        hl('h2', i18n.nvui.inputForm),
-        hl(
-          'form#move-form',
-          {
-            hook: onInsert(el => {
-              const $form = $(el as HTMLFormElement),
-                $input = $form.find('.move').val('');
-              nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
-              $form.on('submit', (ev: SubmitEvent) => {
-                ev.preventDefault();
-                nvui.submitMove?.();
-              });
-            }),
-          },
-          [
-            hl('label', [
-              d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
-              hl('input.move.mousetrap', {
-                attrs: {
-                  name: 'move',
-                  type: 'text',
-                  autocomplete: 'off',
-                  autofocus: true,
-                },
-              }),
-            ]),
-          ],
-        ),
-      ]),
+    !isTouchDevice() && ctrl.isPlaying() && inputForm(ctx),
     pageStyle.get() === 'actions-board'
-      ? [renderActions(ctx), renderBoard(ctx)]
-      : [renderBoard(ctx), renderActions(ctx)],
+      ? [isTouchDevice() && ctrl.isPlaying() && inputForm(ctx), renderActions(ctx), renderBoard(ctx)]
+      : [renderBoard(ctx), renderActions(ctx), isTouchDevice() && ctrl.isPlaying() && inputForm(ctx)],
     isTouchDevice() && gameInfo(ctx),
     hl('h2', i18n.site.advancedSettings),
     hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
@@ -96,6 +64,42 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
         .flatMap(cmd => [`${cmd.cmd}${cmd.alt ? ` / ${cmd.alt}` : ''}: `, cmd.help, hl('br')]),
     ]),
     boardCommands(),
+  ]);
+}
+
+function inputForm(ctx: RoundNvuiContext): LooseVNodes {
+  const { ctrl, notify, moveStyle } = ctx;
+  const d = ctrl.data,
+    nvui = ctrl.nvui!;
+  return hl('div.move-input', [
+    hl('h2', i18n.nvui.inputForm),
+    hl(
+      'form#move-form',
+      {
+        hook: onInsert(el => {
+          const $form = $(el as HTMLFormElement),
+            $input = $form.find('.move').val('');
+          nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
+          $form.on('submit', (ev: SubmitEvent) => {
+            ev.preventDefault();
+            nvui.submitMove?.();
+          });
+        }),
+      },
+      [
+        hl('label', [
+          d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
+          hl('input.move.mousetrap', {
+            attrs: {
+              name: 'move',
+              type: 'text',
+              autocomplete: 'off',
+              autofocus: true,
+            },
+          }),
+        ]),
+      ],
+    ),
   ]);
 }
 
