@@ -1,6 +1,7 @@
 package lila.racer
 
 import lila.common.Bus
+import lila.core.id.SessionId
 import lila.core.LightUser
 import lila.memo.CacheApi
 import lila.storm.StormSelector
@@ -19,7 +20,7 @@ final class RacerApi(
 
   def get(id: Id): Option[RacerRace] = store.getIfPresent(id)
 
-  def playerId(sessionId: String, user: Option[User]) = user match
+  def playerId(sessionId: SessionId, user: Option[User]) = user match
     case Some(u) => RacerPlayer.Id.User(u.id)
     case None    => RacerPlayer.Id.Anon(sessionId)
 

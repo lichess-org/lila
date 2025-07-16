@@ -7,6 +7,7 @@ import views.account.pages
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.SessionId
 import lila.security.SecurityForm.Reopen
 import lila.web.AnnounceApi
 import lila.core.user.KidMode
@@ -148,7 +149,7 @@ final class Account(
     _         <- env.push.webSubscriptionApi.unsubscribeByUser(me)
     _         <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion)
-  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
 
   private def emailForm(using me: Me) =
     env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
@@ -323,7 +324,7 @@ final class Account(
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
       clients              <- env.oAuth.tokenApi.listClients(50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal
-      currentSessionId = ~env.security.api.reqSessionId(req)
+      currentSessionId = env.security.api.reqSessionId(req)
       page <- Ok.async:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
     yield page.hasPersonalData
@@ -334,8 +335,8 @@ final class Account(
     then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
       for
-        _ <- env.security.store.closeUserAndSessionId(me, sessionId)
-        _ <- env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+        _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
+        _ <- env.push.webSubscriptionApi.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
   }
 

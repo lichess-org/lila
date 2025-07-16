@@ -2,16 +2,18 @@ package lila.push
 
 import reactivemongo.api.bson.*
 
+import lila.core.id.SessionId
+import lila.core.misc.oauth.AccessTokenId
 import lila.db.dsl.{ *, given }
 
 final class WebSubscriptionApi(coll: Coll)(using Executor):
 
   import WebSubscription.given
 
-  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit =
+  def subscribe(user: User, subscription: WebSubscription, id: SessionId | AccessTokenId): Funit =
     coll.update
       .one(
-        $id(sessionId),
+        $id(subscriptionId(id)),
         $doc(
           "userId"   -> user.id,
           "endpoint" -> subscription.endpoint,
@@ -23,8 +25,13 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       )
       .void
 
-  def unsubscribeBySession(sessionId: String): Funit =
-    coll.delete.one($id(sessionId)).void
+  def unsubscribeBySession(id: SessionId | AccessTokenId): Funit =
+    coll.delete.one($id(subscriptionId(id))).void
+
+  private def subscriptionId(id: SessionId | AccessTokenId): String =
+    id match
+      case sessionId: SessionId         => sessionId.value
+      case accessTokenId: AccessTokenId => accessTokenId.value
 
   def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void

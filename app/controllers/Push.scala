@@ -2,6 +2,7 @@ package controllers
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.misc.oauth.AccessTokenId
 import lila.push.WebSubscription
 import lila.oauth.AccessToken
 
@@ -17,7 +18,7 @@ final class Push(env: Env) extends LilaController(env):
 
   def webSubscribe = AuthOrScopedBodyWithParser(parse.json)(_.Web.Mobile) { ctx ?=> me ?=>
     val currentSessionId =
-      if ctx.isMobileOauth then HTTPRequest.bearer(ctx.req).map(AccessToken.Id.from(_).value)
+      if ctx.isMobileOauth then HTTPRequest.bearer(ctx.req).map(AccessTokenId.from)
       else env.security.api.reqSessionId(ctx.req)
 
     currentSessionId match

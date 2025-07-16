@@ -1,12 +1,12 @@
 package lila.oauth
 
-import com.roundeights.hasher.Algo
 import reactivemongo.api.bson.*
 
 import lila.core.net.Bearer
+import lila.core.misc.oauth.AccessTokenId
 
 case class AccessToken(
-    id: AccessToken.Id,
+    id: AccessTokenId,
     plain: Bearer,
     userId: UserId,
     createdAt: Option[Instant],
@@ -22,14 +22,10 @@ case class AccessToken(
 
 object AccessToken:
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]:
-    def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
-
   case class ForAuth(
       userId: UserId,
       scopes: TokenScopes,
-      tokenId: AccessToken.Id,
+      tokenId: AccessTokenId,
       clientOrigin: Option[String]
   )
 
@@ -56,7 +52,7 @@ object AccessToken:
 
   given BSONDocumentReader[ForAuth] = new:
     def readDocument(doc: BSONDocument) = for
-      tokenId <- doc.getAsTry[AccessToken.Id](BSONFields.id)
+      tokenId <- doc.getAsTry[AccessTokenId](BSONFields.id)
       userId  <- doc.getAsTry[UserId](BSONFields.userId)
       scopes  <- doc.getAsTry[TokenScopes](BSONFields.scopes)
       origin = doc.getAsOpt[String](BSONFields.clientOrigin)
@@ -68,7 +64,7 @@ object AccessToken:
 
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
-        id = r.get[Id](id),
+        id = r.get[AccessTokenId](id),
         plain = r.get[Bearer](plain),
         userId = r.get[UserId](userId),
         createdAt = r.getO[Instant](createdAt),
