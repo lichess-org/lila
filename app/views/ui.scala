@@ -1,6 +1,7 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
+import lila.ui.bits.modMenu
 export lila.web.ui.bits
 
 val captcha = lila.web.ui.CaptchaUi(helpers)
@@ -19,7 +20,7 @@ val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
 val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
-val irwin = lila.irwin.IrwinUi(helpers)(menu = mod.ui.menu)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = modMenu)
 
 val dgt = lila.web.ui.DgtUi(helpers)
 
@@ -37,9 +38,9 @@ val feed =
     env.executor
   )
 
-val cms = lila.cms.ui.CmsUi(helpers)(mod.ui.menu("cms"))
+val cms = lila.cms.ui.CmsUi(helpers)(modMenu("cms"))
 
-val event = lila.event.ui.EventUi(helpers)(mod.ui.menu("event"))(using env.executor)
+val event = lila.event.ui.EventUi(helpers)(modMenu("event"))(using env.executor)
 
 val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 
@@ -53,7 +54,7 @@ object account:
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.bits.cspExternalEngine,
   views.analyse.ui.explorerAndCevalConfig,
-  modMenu = mod.ui.menu("practice")
+  modMenu = modMenu("practice")
 )
 
 object forum:
@@ -85,7 +86,7 @@ val racer = lila.racer.ui.RacerUi(helpers)
 
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
-val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
+val dev = lila.web.ui.DevUi(helpers)(modMenu)
 
 val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 

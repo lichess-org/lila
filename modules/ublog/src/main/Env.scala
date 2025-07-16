@@ -2,10 +2,20 @@ package lila.ublog
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
-
+import play.api.{ ConfigLoader, Configuration }
 import lila.core.config.*
 import lila.db.dsl.Coll
+import lila.common.autoconfig.{ *, given }
+import lila.common.config.given
 import lila.common.Bus
+
+@Module
+final private class UblogConfig(
+    val searchPageSize: MaxPerPage,
+    val carouselSize: Int,
+    val automod: AutomodConfig
+)
+final private class AutomodConfig(val url: String, val apiKey: Secret, val model: String)
 
 @Module
 final class Env(
@@ -20,26 +30,27 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
     net: NetConfig,
-    appConfig: play.api.Configuration,
+    appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
-    ws: play.api.libs.ws.StandaloneWSClient
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+    ws: play.api.libs.ws.StandaloneWSClient,
+    client: lila.search.client.SearchClient
+)(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
-  private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
+  private given ConfigLoader[AutomodConfig] = AutoConfig.loader[AutomodConfig]
+  private val config                        = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
+  private val colls = UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
   val topic = wire[UblogTopicApi]
-
-  val rank: UblogRank = wire[UblogRank]
 
   val automod = wire[UblogAutomod]
 
   val api: UblogApi = wire[UblogApi]
 
-  val paginator = wire[UblogPaginator]
+  val search: UblogSearch = wire[UblogSearch]
 
-  val bestOf = wire[UblogBestOf]
+  val paginator = wire[UblogPaginator]
 
   val markup = wire[UblogMarkup]
 
@@ -50,25 +61,11 @@ final class Env(
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
-        import scalalib.ThreadLocalRandom
-        val lookInto = 15
-        val keep     = 9
-        api
-          .pinnedPosts(2)
-          .zip:
-            api
-              .latestPosts(lookInto)
-              .map:
-                _.groupBy(_.blog)
-                  .flatMap(_._2.headOption)
-              .map(ThreadLocalRandom.shuffle)
-              .map(_.take(keep).toList)
-          .map(_ ++ _)
+        api.fetchCarouselFromDb().map(_.shuffled)
 
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>
-      api.setShadowban(userId, v) >>
-        rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
+      api.setShadowban(userId, v)
 
   import lila.core.security.ReopenAccount
   Bus.sub[ReopenAccount]:

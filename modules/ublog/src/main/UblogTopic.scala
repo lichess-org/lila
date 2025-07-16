@@ -1,9 +1,9 @@
 package lila.ublog
 
-import reactivemongo.api.bson.BSONNull
-
+import scalalib.ThreadLocalRandom.shuffle
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.core.ublog.Quality
 
 opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
@@ -44,44 +44,26 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]]:
-      _.refreshAfterWrite(30.seconds).buildAsyncFuture: _ =>
-        colls.post
-          .aggregateList(UblogTopic.all.size, _.sec): framework =>
-            import framework.*
-            Facet(
-              UblogTopic.all.map: topic =>
-                topic.value -> List(
-                  Match($doc("live" -> true, "topics" -> topic)),
-                  Sort(Descending("rank")),
-                  Project(previewPostProjection ++ $doc("rank" -> true)),
-                  Group(BSONNull)("nb" -> SumAll, "posts" -> PushField("$ROOT")),
-                  Project:
-                    $doc(
-                      "_id"   -> false,
-                      "nb"    -> true,
-                      "posts" -> $doc(
-                        "$filter" -> $doc(
-                          "input" -> $doc("$slice" -> $arr("$posts", 4)),
-                          "as"    -> "post",
-                          "cond"  -> $doc("$gt" -> $arr("$$post.rank", nowInstant))
-                        )
-                      )
-                    )
-                )
-            ) -> List(
-              Project($doc("all" -> $doc("$objectToArray" -> "$$ROOT"))),
-              UnwindField("all"),
-              ReplaceRootField("all"),
-              Unwind("v"),
-              Project($doc("k" -> true, "nb" -> "$v.nb", "posts" -> "$v.posts"))
-            )
-          .map: docs =>
+      _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
+        UblogTopic.all
+          .map: topic =>
             for
-              doc   <- docs
-              t     <- doc.string("k")
-              topic <- UblogTopic.get(t)
-              nb    <- doc.int("nb")
-              posts <- doc.getAsOpt[List[UblogPost.PreviewPost]]("posts")
-            yield UblogTopic.WithPosts(topic, posts, nb)
+              count <- colls.post.secondary.countSel:
+                $doc("live" -> true, "topics" -> topic, "automod.quality" -> $ne(0))
+              posts <- colls.post
+                .find(
+                  $doc(
+                    "live"            -> true,
+                    "topics"          -> topic,
+                    "automod.quality" -> $gte(Quality.good.ordinal),
+                    "likes"           -> $gt(50)
+                  ),
+                  previewPostProjection.some
+                )
+                .sort($doc("lived.at" -> -1))
+                .cursor[UblogPost.PreviewPost](ReadPref.sec)
+                .list(16)
+            yield UblogTopic.WithPosts(topic, shuffle(posts).take(4), count)
+          .parallel
 
   def withPosts: Fu[List[UblogTopic.WithPosts]] = withPostsCache.get {}
