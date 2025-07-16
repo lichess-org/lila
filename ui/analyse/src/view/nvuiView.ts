@@ -101,8 +101,9 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         explorerView(ctrl),
       ],
       hl('h2', i18n.nvui.pieces),
-      hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-      hl('div.pockets', pockets && renderPockets(pockets)),
+      renderPieces(ctrl.chessground.state.pieces, style),
+      pockets && hl('h2', i18n.nvui.pockets),
+      pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
       hl('h2', 'Current position'),
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
@@ -321,7 +322,7 @@ function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   const result = renderResult(ctrl);
   const res = result.length ? result : 'No result';
   return [
-    hl('h3', 'Game status'),
+    hl('h2', 'Game status'),
     hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
   ];
 }

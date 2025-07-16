@@ -958,6 +958,7 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `pockets`: I18nKey = "nvui:pockets"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

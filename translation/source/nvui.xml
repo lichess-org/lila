@@ -57,4 +57,5 @@
   <string name="invalidMove">Invalid move</string>
   <string name="premoveCancelled">Premove cancelled</string>
   <string name="premoveRecorded">Premove recorded: %s. Hit enter to cancel</string>
+  <string name="pockets" command="Crazyhouse pockets">Pockets</string>
 </resources>

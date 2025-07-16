@@ -1815,6 +1815,8 @@ interface I18n {
     pawn: string;
     /** Pieces */
     pieces: string;
+    /** Pockets */
+    pockets: string;
     /** Premove cancelled */
     premoveCancelled: string;
     /** Premove recorded: %s. Hit enter to cancel */
