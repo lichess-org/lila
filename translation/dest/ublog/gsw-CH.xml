@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">G\'meinschaft</string>
+  <string name="byMonth">Mündlich</string>
+  <string name="byTopic">Nach Thema</string>
+  <string name="byLichess">Vu Lichess</string>
+  <string name="myFriends">Mini Fründ*inne</string>
+  <string name="myLikes">Mini Bevorzugte</string>
   <string name="myBlog">Min Blog</string>
   <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
   <plurals name="blogPosts">
