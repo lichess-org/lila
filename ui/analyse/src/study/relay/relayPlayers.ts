@@ -22,7 +22,7 @@ import { isTouchDevice } from 'lib/device';
 export type RelayPlayerId = FideId | string;
 
 interface Tiebreak {
-  [code: string]: { code: string; description: string; points: number };
+  [code: string]: { extendedCode: string; description: string; points: number };
 }
 
 interface RelayPlayer extends StudyPlayer {
@@ -270,7 +270,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                       title: player.tiebreaks
                         ? 'TBs: ' +
                           Object.values(player.tiebreaks)
-                            .map(tb => `${tb.code}:${tb.points}`)
+                            .map(tb => `${tb.extendedCode}:${tb.points}`)
                             .join(', ')
                         : '',
                       'data-sort': player.rank

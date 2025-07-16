@@ -607,7 +607,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                     Tiebreak.preset
                       .sortBy(_.extendedCode)
                       .map: t =>
-                        t.code -> s"${t.description} (${t.code})",
+                        t.extendedCode -> s"${t.description} (${t.extendedCode})",
                     default = "Optional. Select a tiebreak".some
                   )
                 )

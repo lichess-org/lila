@@ -81,10 +81,10 @@ object RelayPlayer:
     given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes { tbs =>
       JsObject(
         tbs.map { case (tb, tbv) =>
-          tb.code -> Json.obj(
-            "code"        -> tb.extendedCode,
-            "description" -> tb.description,
-            "points"      -> tbv.value
+          tb.extendedCode -> Json.obj(
+            "extendedCode" -> tb.extendedCode,
+            "description"  -> tb.description,
+            "points"       -> tbv.value
           )
         }
       )
