@@ -56,14 +56,14 @@
   <string name="captureThenPromote">Узми, онда промовиши!</string>
   <string name="useAllThePawns">Искористи све пешаке!
 Нема потребе за промоцијом.</string>
-  <string name="aPawnOnTheSecondRank">Пешак у другом реду се може померити за 2 поља одједном!</string>
+  <string name="aPawnOnTheSecondRank">Пешак на другом реду се може померити за 2 поља одједном!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Покупи све звезде!
 Нема потребе за промоцијом.</string>
-  <string name="pawnComplete">Честитамо! Пешаци немају тајне за Вас.</string>
+  <string name="pawnComplete">Честитке! Пешаци немају тајне за тебе.</string>
   <string name="pawnPromotion">Промоција пешака</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Твој пешак је стигао до краја табле!</string>
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
-  <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
+  <string name="selectThePieceYouWant">Изабери фигуру коју желиш!</string>
   <string name="fundamentals">Основе</string>
   <string name="capture">Ношење</string>
   <string name="takeTheEnemyPieces">Однесите противничке фигуре</string>
