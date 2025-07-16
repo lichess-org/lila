@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Komunumaj blogoj</string>
-  <string name="friendBlogs">Blogoj de amikoj</string>
   <string name="likedBlogs">Ŝatitaj blogafiŝoj</string>
-  <string name="blogTopics">Blogaj temoj</string>
-  <string name="lichessOfficialBlog">Lichess Oficiala Blogo</string>
   <string name="continueReadingPost">Daŭri legi ĉi tiun afiŝon</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogafiŝojn en %s</string>
   <string name="previousBlogPosts">Antaŭaj blogafiŝoj</string>
