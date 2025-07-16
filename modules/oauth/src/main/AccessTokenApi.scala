@@ -182,20 +182,13 @@ final class AccessTokenApi(
         $doc(
           F.userId       -> me,
           F.clientOrigin -> clientOrigin
-        ),
-        $doc(F.id -> 1).some
+        )
       )
-      .sort($sort.desc(F.usedAt))
-      .cursor[Bdoc]()
-      .list(100)
-      .flatMap: invalidate =>
-        coll.delete
-          .one:
-            $doc(
-              F.userId       -> me,
-              F.clientOrigin -> clientOrigin
-            )
-          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
+      .cursor[AccessToken]()
+      .documentSource()
+      .mapAsyncUnordered(4)(token => revokeById(token.id))
+      .runWith(Sink.ignore)
+      .void
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.Id.from(bearer)
