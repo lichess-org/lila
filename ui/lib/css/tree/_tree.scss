@@ -33,6 +33,7 @@
   @extend %san, %nowrap-hidden;
   display: inline-block;
   color: var(--base, $c-font);
+  font-weight: bold;
   padding: 0.25em 0.17em;
   white-space: nowrap;
   font-size: 1.092em;
@@ -50,9 +51,6 @@
   }
   &.parent {
     color: var(--c-primary);
-  }
-  &.current {
-    border: 1px solid $c-accent;
   }
   &.pending-deletion {
     border-radius: unset;
@@ -240,12 +238,12 @@
 .tview2 .connector {
   position: absolute;
   display: none;
-  top: -12px;
   height: 12px;
   width: 400px;
   border: 2px solid $c-border;
   border-inline-start: none;
   border-top: none;
+  top: -12px;
 }
 
 .tview2 .disclosure {
