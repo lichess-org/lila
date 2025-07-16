@@ -1773,6 +1773,10 @@ interface I18n {
     blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
+    /** %s copied to clipboard */
+    copiedToClipboard: I18nFormat;
+    /** Copy %s to clipboard */
+    copyToClipboard: I18nFormat;
     /** Featured events */
     featuredEvents: string;
     /** Game info */

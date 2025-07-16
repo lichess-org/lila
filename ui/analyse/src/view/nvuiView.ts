@@ -162,14 +162,14 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
             root.append($('.blind-content').removeClass('none'));
             root.find('.copy-pgn').on('click', function (this: HTMLElement) {
               navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                notify.set('PGN copied into clipboard.');
+                notify.set(i18n.nvui.copiedToClipboard('PGN'));
               });
             });
             root.find('.copy-fen').on('click', function (this: HTMLElement) {
               const inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement;
               const fen = inputFen.value;
               navigator.clipboard.writeText(fen).then(() => {
-                notify.set('FEN copied into clipboard.');
+                notify.set(i18n.nvui.copiedToClipboard('FEN'));
               });
             });
           },
