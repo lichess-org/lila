@@ -215,8 +215,7 @@ export function build(root: Tree.Node): TreeWrapper {
     setClockAt: (clock: Tree.Clock | undefined, path: Tree.Path) =>
       updateAt(path, node => {
         node.clock = clock;
-      });
-    },
+      }),
     setCollapsedAt,
     setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean) {
       // Also update parent
