@@ -75,7 +75,9 @@ object BSONHandlers:
     def reads(r: BSON.Reader): Tiebreak =
       def readCode: Option[Tiebreak.Code]        = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
       def readCutModifier(): Option[CutModifier] =
-        r.getO[String]("cutModifier").flatMap(c => CutModifier.values.find(_.code == c))
+        r.getO[String]("cutModifier")
+          .flatMap(c => CutModifier.values.find(_.code == c))
+          .orElse(CutModifier.None.some)
       def readLimitModifier(): Option[LimitModifier] =
         r.getO[Float]("limitModifier").flatMap(LimitModifier(_))
       readCode
@@ -86,6 +88,7 @@ object BSONHandlers:
     def writes(w: BSON.Writer, t: Tiebreak) =
       val base = $doc("code" -> t.code)
       t.cutModifier
+        .filter(_ != CutModifier.None)
         .orElse(t.limitModifier.map(_.value))
         .fold(base): modifier =>
           base ++ (modifier match
