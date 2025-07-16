@@ -25,14 +25,15 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.7.1.RELEASE"
-  val nettyTransport = ("io.netty" % s"netty-transport-native-$notifier" % "4.2.3.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "com.github.schlawg.lila-search" %% "client"        % "v3.2.1-UBLOG"
-  val munit       = "org.scalameta"                  %% "munit"         % "1.1.1" % Test
-  val uaparser    = "org.uaparser"                   %% "uap-scala"     % "0.20.0"
-  val apacheText  = "org.apache.commons"              % "commons-text"  % "1.13.1"
-  val apacheMath  = "org.apache.commons"              % "commons-math3" % "3.6.1"
-  val bloomFilter = "com.github.alexandrnikitin"     %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"                  %% "kittens"       % "3.5.0"
+  val nettyTransport =
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.3.Final").classifier(s"$os-$arch")
+  val lilaSearch  = "com.github.lichess-org.lila-search" %% "client"        % "3.2.0"
+  val munit       = "org.scalameta"                      %% "munit"         % "1.1.1" % Test
+  val uaparser    = "org.uaparser"                       %% "uap-scala"     % "0.20.0"
+  val apacheText  = "org.apache.commons"                  % "commons-text"  % "1.13.1"
+  val apacheMath  = "org.apache.commons"                  % "commons-math3" % "3.6.1"
+  val bloomFilter = "com.github.alexandrnikitin"         %% "bloom-filter"  % "0.13.1_lila-1"
+  val kittens     = "org.typelevel"                      %% "kittens"       % "3.5.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.1.0"  % Test
