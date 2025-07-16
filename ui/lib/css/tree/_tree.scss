@@ -1,138 +1,309 @@
+@import 'extend';
+
 .tview2 {
   white-space: normal;
-  --base: var(--c-font);
 
-  .active {
-    --base: var(--c-primary);
-  }
-  .inaccuracy {
-    --base: var(--c-inaccuracy);
-  }
-  .mistake {
-    --base: var(--c-mistake);
-  }
-  .blunder {
-    --base: var(--c-blunder);
-  }
-  .good {
-    --base: var(--c-good);
-  }
-  .brilliant {
-    --base: var(--c-brilliant);
-  }
-  .interesting {
-    --base: var(--c-interesting);
+  &-column {
+    @extend %flex-wrap;
   }
 
-  * {
-    overflow-y: visible;
-  }
-}
-
-.tview2.hidden {
-  visibility: hidden;
-}
-
-.tview2 move {
-  @extend %san, %nowrap-hidden;
-  display: inline-block;
-  color: var(--base, $c-font);
-  padding: 0.25em 0.17em;
-  white-space: nowrap;
-  font-size: 1.092em;
-  cursor: pointer;
-
-  @media (hover: none) {
-    @include prevent-select;
+  &-inline {
+    @include padding-direction(7px, 3px, 7px, 7px);
   }
 
-  &.active {
-    color: white;
+  move:not(.empty):hover {
+    &,
+    index,
+    eval {
+      background: $c-primary;
+      color: $c-over;
+    }
+  }
+
+  move {
+    @extend %move;
+
+    @media (hover: none) {
+      @include prevent-select;
+    }
+
+    &.inaccuracy {
+      color: $c-inaccuracy;
+      &.active {
+        background: $m-inaccuracy_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-inaccuracy;
+        }
+      }
+    }
+    &.mistake {
+      color: $c-mistake;
+      &.active {
+        background: $m-mistake_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-mistake;
+        }
+      }
+    }
+    &.blunder {
+      color: $c-blunder;
+      &.active {
+        background: $m-blunder_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-blunder;
+        }
+      }
+    }
+    &.good {
+      color: $c-good;
+      &.active {
+        background: $m-good_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-good;
+        }
+      }
+    }
+    &.brilliant {
+      color: $c-brilliant;
+      &.active {
+        background: $m-brilliant_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-brilliant;
+        }
+      }
+    }
+    &.interesting {
+      color: $c-interesting;
+      &.active {
+        background: $m-interesting_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-interesting;
+        }
+      }
+    }
+    &.pending-deletion {
+      background-color: $m-bad_bg--mix-50 !important;
+    }
+    &.pending-copy {
+      background-color: $m-good_bg--mix-50 !important;
+    }
+  }
+
+  &-column move {
+    font-size: 1.092em;
+    padding: 0 2px;
+  }
+
+  &-inline move {
+    padding: 0.25em 0.17em;
+    white-space: nowrap;
     font-weight: bold;
-    background: color-mix(in srgb, var(--base) 85%, transparent);
+  }
 
-    eval,
-    index {
-      font-weight: normal;
-      color: white;
-    }
-    .disclosure {
-      color: $c-font-dimmer;
-    }
+  move.parent {
+    color: $c-primary;
   }
-  &.parent {
-    color: var(--c-primary);
+
+  comment.truncated {
+    cursor: pointer;
   }
-  &.current {
+
+  move.current {
     border: 1px solid $c-accent;
   }
-  &.pending-deletion {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
+
+  move.active {
+    font-weight: bold;
+    background: $m-primary_bg--mix-25;
+    color: $c-font-clear;
   }
-  &.pending-copy {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-good 30%, transparent) !important;
+
+  &-inline move.active,
+  line move.active {
+    @extend %box-radius;
+    background: $m-primary_bg--mix-40;
+    color: $c-font-clearer;
+    outline: 1px solid $m-primary_bg--mix-60;
+    &.inaccuracy {
+      outline: 1px solid $m-inaccuracy_bg--mix-60;
+    }
+    &.mistake {
+      outline: 1px solid $m-mistake_bg--mix-60;
+    }
+    &.blunder {
+      outline: 1px solid $m-blunder_bg--mix-60;
+    }
+    &.good {
+      outline: 1px solid $m-good_bg--mix-60;
+    }
+    &.brilliant {
+      outline: 1px solid $m-brilliant_bg--mix-60;
+    }
+    &.interesting {
+      outline: 1px solid $m-interesting_bg--mix-60;
+    }
   }
-  &.nongame {
+
+  move.nongame {
     font-style: italic;
   }
-  &.empty {
+
+  &-inline move:hover {
+    @extend %box-radius;
+  }
+
+  move.empty {
     color: $c-font-dimmer;
     cursor: default;
   }
-  &.context-menu {
-    border: 0;
-    background: $c-accent !important;
-    color: $c-over !important;
+
+  move index {
+    font-size: 90%;
+    color: $c-font-dim;
+  }
+
+  move.context-menu {
+    background: $c-accent;
+    color: $c-over;
 
     index {
       color: $c-over;
     }
   }
-}
 
-.tview2 move index {
-  font-size: 90%;
-  color: $c-font-dim;
-}
-
-.tview2 eval {
-  @extend %roboto;
-
-  flex: 3 0 auto;
-  text-align: right;
-  font-size: 0.8em;
-  color: $c-font-dim;
-}
-
-.tview2 glyph {
-  @extend %base-font;
-
-  margin-inline-start: 0.08em;
-  vertical-align: bottom;
-}
-
-.tview2 shapes {
-  font-size: 0.7em;
-  margin-inline-start: 0.4em;
-  text-align: right;
-  color: $c-good;
-  &::before {
-    @extend %data-icon;
-    content: $licon-DiscBigOutline;
+  &-column move index {
+    padding-inline-start: 5px;
   }
-}
 
-.tview2 > interrupt {
-  font-size: 95%;
-}
+  &-column move index:first-child {
+    padding-inline-start: 0;
+  }
 
-.tview2 comment {
-  color: var(--base);
-  display: inline;
+  &-inline move index {
+    padding-inline-end: 0.2em;
+    line-height: 111.11%;
+  }
 
-  &.by {
+  line move {
+    color: $c-font;
+  }
+
+  &-column > move {
+    flex: 0 0 43.5%;
+    display: flex;
+    font-size: 1.185em;
+    line-height: 1.75em;
+    padding: 0 0.3em 0 0.5em;
+  }
+
+  &-column > index + move {
+    border-inline-end: $c-border;
+  }
+
+  eval {
+    @extend %roboto;
+
+    flex: 3 0 auto;
+    text-align: right;
+    font-size: 0.8em;
+    color: $c-font-dim;
+  }
+
+  glyph {
+    @extend %base-font;
+
+    margin-inline-start: 0.08em;
+    vertical-align: bottom;
+  }
+
+  shapes {
+    font-size: 0.7em;
+    margin-inline-start: 0.4em;
+    text-align: right;
+    color: $c-good;
+    &::before {
+      @extend %data-icon;
+      content: $licon-DiscBigOutline;
+    }
+  }
+
+  &-column > move glyph {
+    flex: 0 1 auto;
+    text-align: center;
+    overflow: hidden;
+    font-size: 0.82em;
+  }
+
+  &-column > index {
+    flex: 0 0 13%;
+    display: flex;
+    justify-content: center;
+    border-inline-end: $border;
+    background: $c-bg-zebra;
+    line-height: 2.07em;
+    color: $c-font-dimmer;
+  }
+
+  > interrupt {
+    font-size: 95%;
+  }
+
+  &-column > interrupt {
+    flex: 0 0 100%;
+    background: $c-bg-zebra;
+    border-top: 1px solid $c-border;
+    border-bottom: 1px solid $c-border;
+    max-width: 100%;
+  }
+
+  &-column > interrupt > comment {
+    @extend %break-word;
+
+    display: block;
+    padding: 3px 5px;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
+  }
+
+  &-inline comment {
+    vertical-align: 45%;
+    word-wrap: break-word;
+    margin: 0 0.2em 0 0.1em;
+    font-size: 0.9em;
+  }
+
+  comment .by {
     @extend %nowrap-ellipsis, %roboto;
 
     display: inline-block;
@@ -142,22 +313,80 @@
     margin-inline-end: 0.4em;
     max-width: 9em;
   }
-}
 
-.tview2 line {
-  display: block;
-  padding-inline-start: 7px;
-  position: relative;
-
-  comment {
-    font-size: 90%;
-    .by {
-      font-size: 1em;
-      vertical-align: top;
-    }
+  &-column comment.white {
+    border-inline-start: 3px solid;
   }
 
-  > branch {
+  &-column comment.black {
+    border-inline-end: 3px solid;
+    overflow-x: hidden;
+  }
+
+  &-column comment.inaccuracy {
+    border-color: $c-inaccuracy;
+  }
+
+  &-column comment.mistake {
+    border-color: $c-mistake;
+  }
+
+  &-column comment.blunder {
+    border-color: $c-blunder;
+  }
+
+  &-column comment.undefined {
+    border-color: #66558c;
+  }
+
+  line comment {
+    font-size: 90%;
+  }
+
+  &-column line comment {
+    display: inline;
+    color: $c-font-dim;
+    word-wrap: break-word;
+    padding: 0 5px 0 3px;
+    vertical-align: top;
+  }
+
+  line comment .by {
+    font-size: 1em;
+    vertical-align: top;
+  }
+
+  lines {
+    display: block;
+    margin-top: 2px;
+    margin-inline-start: 6px;
+    margin-bottom: 0.8em;
+    padding-inline-start: 2px;
+  }
+
+  > interrupt > lines {
+    margin-inline-start: 0px;
+  }
+
+  lines.single {
+    border-inline-start: none;
+  }
+
+  lines:last-child {
+    margin-bottom: 0;
+  }
+
+  line {
+    display: block;
+    padding-inline-start: 7px;
+    position: relative;
+  }
+
+  &-column line {
+    margin: 2px 0;
+  }
+
+  line > branch {
     border-inline-start: 2px solid $c-border;
     margin-inline-start: -9px;
     position: absolute;
@@ -165,7 +394,12 @@
     height: 100%;
   }
 
-  > branch::before {
+  line:last-child > branch,
+  line.expand > branch {
+    height: calc(0.8em + 2px);
+  }
+
+  line > branch::before {
     margin-top: 0.8em;
     content: ' ';
     border-top: 2px solid $c-border;
@@ -174,263 +408,65 @@
     height: 6px;
   }
 
-  &:last-child > branch,
-  &.expand > branch {
-    height: calc(0.8em + 2px);
-  }
-}
-
-.tview2 > interrupt > lines {
-  margin-inline-start: 0px;
-}
-
-.tview2 lines {
-  display: block;
-  margin-top: 2px;
-  margin-inline-start: 6px;
-  margin-bottom: 0.8em;
-  padding-inline-start: 2px;
-  overflow-x: clip;
-
-  &.single {
-    border-inline-start: none;
+  &-column line > branch {
+    margin-top: -2px;
+    height: calc(100% + 2px);
   }
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  lines move {
+  lines lines move {
     font-size: 13px;
   }
 
-  lines {
+  lines lines {
     margin-inline-start: 1px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
-}
 
-.tview2 inline {
-  display: inline;
-  font-style: italic;
-  font-size: 0.9em;
-  opacity: 0.8;
+  lines lines:last-child {
+    margin-bottom: 0;
+  }
 
-  &::before,
-  &::after {
+  line.expand > a {
+    color: $c-font-dim;
+  }
+
+  line.expand > a:hover {
+    color: $c-font;
+  }
+
+  inline {
+    display: inline;
+    font-style: italic;
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+
+  inline::before,
+  inline::after {
     vertical-align: 0.4em;
     opacity: 0.7;
     font-size: 0.9em;
   }
 
-  &::before {
+  inline::before {
     content: '(';
     margin-inline-start: 2px;
   }
 
-  &::after {
+  inline::after {
     content: ')';
     margin-inline-end: 2px;
   }
-}
 
-.tview2 .conceal {
-  opacity: 0.4;
-}
-
-.tview2 .hide {
-  display: none;
-}
-
-.tview2 .anchor {
-  position: relative;
-}
-
-.tview2 .connector {
-  position: absolute;
-  display: none;
-  top: -12px;
-  height: 12px;
-  width: 400px;
-  border: 2px solid $c-border;
-  border-inline-start: none;
-  border-top: none;
-}
-
-.tview2 .disclosure {
-  color: $c-border;
-  font-size: 13px;
-  padding-inline-start: 4px;
-
-  &::before {
-    vertical-align: sub;
-  }
-}
-
-.tview2-inline {
-  @include padding-direction(7px, 3px, 7px, 7px);
-
-  move {
-    @extend %box-radius;
-    font-size: 13px;
-  }
-  move index {
-    padding-inline-end: 0.2em;
-    line-height: 111.11%;
-  }
-  comment {
-    vertical-align: 45%;
-    word-wrap: break-word;
-    margin: 0 0.2em 0 0.1em;
-    font-size: 0.9em;
-  }
-  inline::before,
-  inline::after {
+  &-inline inline::before,
+  &-inline inline::after {
     vertical-align: 0.7em;
   }
-}
 
-.tview2-inline > .disclosure,
-.tview2-column > move > .disclosure {
-  align-self: center;
-  @include padding-direction(0, 4px, 0, 0);
-}
-
-.tview2-column {
-  @extend %flex-wrap;
-}
-.tview2-column move {
-  font-size: 1.092em;
-  padding: 0 2px;
-}
-
-.tview2-column > move {
-  flex: 0 0 43.5%;
-  display: flex;
-  font-size: 1.185em;
-  line-height: 1.75em;
-  padding: 0 0.3em 0 0.5em;
-
-  index {
-    padding-inline-start: 5px;
-    &:first-child {
-      padding-inline-start: 0;
-    }
-  }
-  glyph {
-    flex: 0 1 auto;
-    text-align: center;
-    overflow: hidden;
-    font-size: 0.82em;
-  }
-}
-
-.tview2-column > index {
-  flex: 0 0 13%;
-  display: flex;
-  justify-content: center;
-  border-inline-end: $border;
-  background: $c-bg-zebra;
-  line-height: 2.07em;
-  color: $c-font-dimmer;
-  + move {
-    border-inline-end: $c-border;
-  }
-}
-
-.tview2-column comment {
-  &.inaccuracy,
-  &.mistake,
-  &.blunder {
-    border-color: var(--base);
-  }
-  &.undefined {
-    border-color: #66558c;
-  }
-  &.white {
-    border-inline-start: 3px solid;
+  .conceal {
+    opacity: 0.4;
   }
 
-  &.black {
-    border-inline-end: 3px solid;
-    border-inline-start: 2px solid $c-border;
-    overflow-x: hidden;
-  }
-}
-
-.tview2-column line {
-  margin: 2px 0;
-
-  move {
-    @extend %box-radius;
-  }
-
-  comment {
-    display: inline;
-    color: $c-font-dim;
-    word-wrap: break-word;
-    padding: 0 5px 0 3px;
-    vertical-align: top;
-  }
-
-  > branch {
-    margin-top: -2px;
-    height: calc(100% + 2px);
-  }
-}
-
-.tview2-column > interrupt {
-  flex: 0 0 100%;
-  background: $c-bg-zebra;
-  border-top: 1px solid $c-border;
-  border-bottom: 1px solid $c-border;
-  max-width: 100%;
-
-  > comment {
-    @extend %break-word;
-
-    display: block;
-    padding: 3px 5px;
-  }
-}
-
-@media (pointer: coarse) {
-  .tview2 .disclosure {
-    line-height: 16px;
-    font-size: 16px;
-    padding-inline-start: 10px;
-  }
-  .tview2-inline .disclosure {
-    font-size: 20px;
-  }
-  .tview2-column > move > .disclosure::before {
-    align-self: center;
-  }
-}
-
-@media (hover: hover) {
-  .tview2 move:hover {
-    background: color-mix(in srgb, var(--base) 15%, transparent);
-    color: $c-font-clear;
-
-    &.active {
-      background: color-mix(in srgb, var(--base) 30%, transparent);
-      color: c-font-clearer;
-    }
-    eval,
-    index {
-      color: $c-font;
-    }
-    .disclosure {
-      color: $c-font-dimmer;
-    }
-    .disclosure:hover {
-      color: $c-font-dim;
-    }
-  }
-  .tview2 move.empty:hover {
-    background: transparent;
+  .hide {
+    display: none;
   }
 }

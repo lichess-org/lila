@@ -6,7 +6,7 @@ import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { fixCrazySan } from 'lib/game/chess';
-import { findCurrentPath } from '../treeView/components';
+import { findCurrentPath } from '../treeView/common';
 import type ForecastCtrl from './forecastCtrl';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
