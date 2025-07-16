@@ -406,7 +406,7 @@ final class RelayApi(
       ownerIds = NonEmptyList.one(me.userId),
       createdAt = nowInstant,
       syncedAt = none,
-      visibility = lila.core.study.Visibility.`private`
+      visibility = if from.official then lila.core.study.Visibility.`private` else from.visibility
     )
     for
       _ <- tourRepo.coll.insert.one(tour)
