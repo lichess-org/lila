@@ -105,7 +105,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       pockets && hl('h2', i18n.nvui.pockets),
       pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
-      hl('h2', 'Current position'),
+      hl('h2', i18n.nvui.lastMove),
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
@@ -320,9 +320,9 @@ function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
 
 function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   const result = renderResult(ctrl);
-  const res = result.length ? result : 'No result';
+  const res = result.length ? result : i18n.site.none;
   return [
-    hl('h2', 'Game status'),
+    hl('h2', i18n.nvui.gameStatus),
     hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
   ];
 }
@@ -529,7 +529,7 @@ export function renderCurrentNode({
   moveStyle,
 }: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
   const node = ctrl.node;
-  if (!node.san || !node.uci) return 'Initial position';
+  if (!node.san || !node.uci) return i18n.nvui.gameStart;
   return [
     plyToTurn(node.ply),
     renderSan(node.san, node.uci, moveStyle.get()),
