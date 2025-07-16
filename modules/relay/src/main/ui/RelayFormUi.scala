@@ -610,7 +610,11 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                         t.extendedCode -> s"${t.description} (${t.extendedCode})",
                     default = "Optional. Select a tiebreak".some
                   )
-                )
+                ),
+              p(dataIcon := Icon.InfoCircle, cls := "text")(
+                "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. " +
+                  "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
+              )
             )
           ),
         form3.fieldset(

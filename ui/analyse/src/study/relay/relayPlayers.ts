@@ -221,7 +221,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   return hl('div.table', [
     hl(
       'p.relay-tour__standings--disclaimer',
-      'Standings are based on broadcasted games and may not tally with official results.',
+      { attrs: { 'data-icon': licon.InfoCircle } },
+      'Standings are calculated using broadcasted games and may differ from official results.',
     ),
     hl(
       'table.relay-tour__players.slist.slist-invert.slist-pad',
