@@ -22,7 +22,7 @@ import { isTouchDevice } from 'lib/device';
 export type RelayPlayerId = FideId | string;
 
 interface Tiebreak {
-  [code: string]: { name: string; points: number };
+  [code: string]: { code: string; description: string; points: number };
 }
 
 interface RelayPlayer extends StudyPlayer {
@@ -238,7 +238,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
             withScores && hl('th.score', defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             Array.from({ length: tbs.length }, (_, i) =>
-              hl('th', { attrs: { 'data-sort': i + 1, title: tbs[i][1].name } }, `${tbs[i][0]}`),
+              hl('th', { attrs: { 'data-sort': i + 1, title: tbs[i][1].description } }, `${tbs[i][0]}`),
             ),
           ]),
         ),
@@ -270,7 +270,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                       title: player.tiebreaks
                         ? 'TBs: ' +
                           Object.values(player.tiebreaks)
-                            .map(tb => `${tb.name}:${tb.points}`)
+                            .map(tb => `${tb.code}:${tb.points}`)
                             .join(', ')
                         : '',
                       'data-sort': player.rank
@@ -287,7 +287,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                   {
                     attrs: {
                       'data-sort': i + 1,
-                      title: `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].name ?? undefined) : undefined}`,
+                      title: `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].description ?? undefined) : undefined}`,
                     },
                   },
                   `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].points ?? 0) : 0}`,

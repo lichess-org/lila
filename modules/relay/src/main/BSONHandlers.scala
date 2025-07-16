@@ -71,7 +71,7 @@ object BSONHandlers:
 
   given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
 
-  given BSONHandler[Tiebreak] = new BSONHandler[Tiebreak]:
+  given BSONHandler[Tiebreak] = new BSON[Tiebreak]:
     def reads(r: BSON.Reader): Tiebreak =
       def readCode: Option[Tiebreak.Code]        = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
       def readCutModifier(): Option[CutModifier] =
@@ -84,16 +84,13 @@ object BSONHandlers:
         .getOrElse(sys.error("Invalid Tiebreak BSON"))
 
     def writes(w: BSON.Writer, t: Tiebreak) =
-      val base    = $doc("code" -> t.code)
-      val withCut = t match
-        case t: { def modifier: CutModifier } =>
-          base ++ $doc("cutModifier" -> t.modifier.code)
-        case _ => base
-      val withLimit = t match
-        case t: { def limit: LimitModifier } =>
-          withCut ++ $doc("limitModifier" -> t.limit.value)
-        case _ => withCut
-      withLimit
+      val base = $doc("code" -> t.code)
+      t.cutModifier
+        .orElse(t.limitModifier.map(_.value))
+        .fold(base): modifier =>
+          base ++ (modifier match
+            case cut: CutModifier => $doc("cutModifier" -> cut.code)
+            case limit: Float     => $doc("limitModifier" -> limit))
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound]       = Macros.handler

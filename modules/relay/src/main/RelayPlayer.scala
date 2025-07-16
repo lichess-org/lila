@@ -82,8 +82,9 @@ object RelayPlayer:
       JsObject(
         tbs.map { case (tb, tbv) =>
           tb.code -> Json.obj(
-            "name"   -> tb.extendedCode,
-            "points" -> tbv.value
+            "code"        -> tb.extendedCode,
+            "description" -> tb.description,
+            "points"      -> tbv.value
           )
         }
       )

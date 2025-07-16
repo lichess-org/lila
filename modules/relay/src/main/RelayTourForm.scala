@@ -47,21 +47,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
-  private given Formatter[Tiebreak.Code] =
-    formatter.stringOptionFormatter[Tiebreak.Code](_.toString, c => Tiebreak.Code.all.find(_ == c))
-  private given Formatter[CutModifier] =
-    formatter.stringOptionFormatter[CutModifier](_.name, c => CutModifier.values.find(_.name == c))
+  private given Formatter[Tiebreak] =
+    formatter.stringOptionFormatter(_.code, Tiebreak.preset.mapBy(_.extendedCode).get)
 
-  private val tiebreakMapping =
-    mapping(
-      "code"     -> typeIn(Tiebreak.Code.all),
-      "modifier" -> optional(
-        typeIn(CutModifier.values.toSet)
-      ),
-      "limit" -> optional(number(min = 0, max = 100))
-    )((code, modifier, limit) =>
-      Tiebreak(code, () => modifier, () => limit.flatMap(l => LimitModifier.apply(l / 100f)))
-    )(t => (t.map(_.code), t.modifier, t.limit.map(_.value)))
+  private val tiebreakMapping = typeIn(Tiebreak.preset.toSet)
 
   private val optionalTb       = optional(tiebreakMapping)
   private val tiebreaksMapping =
