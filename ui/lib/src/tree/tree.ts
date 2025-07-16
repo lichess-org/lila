@@ -28,7 +28,7 @@ export interface TreeWrapper {
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
-  setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
+  setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -189,6 +189,9 @@ export function build(root: Tree.Node): TreeWrapper {
   const getParentClock = (node: Tree.Node, path: Tree.Path): Tree.Clock | undefined =>
     path ? parentNode(path).clock : node.clock;
 
+  const setCollapsedAt = (path: Tree.Path, collapsed: boolean) =>
+    updateAt(path, node => (node.collapsed = collapsed));
+
   return {
     root,
     lastPly: (): number => lastNode()?.ply || root.ply,
@@ -213,14 +216,12 @@ export function build(root: Tree.Node): TreeWrapper {
       updateAt(path, node => {
         node.clock = clock;
       }),
-    setCollapsedAt: (path: Tree.Path, collapsed: boolean) =>
-      updateAt(path, node => {
-        node.collapsed = collapsed;
-      }),
-    setCollapsedRecursive: (path: Tree.Path, collapsed: boolean) =>
-      updateRecursive(path, node => {
-        node.collapsed = collapsed;
-      }),
+    setCollapsedAt,
+    setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean) {
+      // Also update parent
+      setCollapsedAt(treePath.init(path), collapsed);
+      updateRecursive(path, node => (node.collapsed = collapsed));
+    },
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
