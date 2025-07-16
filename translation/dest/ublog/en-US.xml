@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Community</string>
+  <string name="byMonth">By month</string>
+  <string name="byTopic">By topic</string>
+  <string name="byLichess">By Lichess</string>
+  <string name="myFriends">My friends</string>
+  <string name="myLikes">My likes</string>
   <string name="myBlog">My blog</string>
   <string name="likedBlogs">Liked blog posts</string>
   <plurals name="blogPosts">
