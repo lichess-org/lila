@@ -662,11 +662,15 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  wouldCtxCollapseAffectView(path: Tree.Path, collapsed: boolean): boolean {
-    if (typeof structuredClone !== 'function') return true;
+  // whether [collapsing, expanding] the path, would affect the rendered view
+  wouldCollapseAffectView(path: Tree.Path): [boolean, boolean] {
+    if (typeof structuredClone !== 'function') return [true, true];
     const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
-    ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
-    return !isEquivalent(renderTreeView(this), renderTreeView(ctrlWithDiffTree), ['function']);
+    const currentView = renderTreeView(this);
+    return [true, false].map(collapsed => {
+      ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+      return !isEquivalent(currentView, renderTreeView(ctrlWithDiffTree), ['function']);
+    }) as [boolean, boolean];
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {

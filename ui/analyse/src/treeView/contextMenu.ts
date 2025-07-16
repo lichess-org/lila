@@ -90,7 +90,8 @@ function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
+    extendedPath = opts.root.tree.extendPath(opts.path, onMainline),
+    [collapeAffectsView, expandAffectsView] = ctrl.wouldCollapseAffectView(opts.path);
   return hl(
     'div#' + elementId + '.visible',
     {
@@ -118,12 +119,12 @@ function view(opts: Opts, coords: Coords): VNode {
         () => ctrl.pendingDeletionPath(null),
       ),
 
-      ctrl.wouldCtxCollapseAffectView(opts.path, false) &&
+      expandAffectsView &&
         action(licon.PlusButton, i18n.site.expandVariations, () =>
           ctrl.setCollapsedForCtxMenu(opts.path, false),
         ),
 
-      ctrl.wouldCtxCollapseAffectView(opts.path, true) &&
+      collapeAffectsView &&
         action(licon.MinusButton, i18n.site.collapseVariations, () =>
           ctrl.setCollapsedForCtxMenu(opts.path, true),
         ),
