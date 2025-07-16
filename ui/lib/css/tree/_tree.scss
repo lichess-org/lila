@@ -120,7 +120,6 @@
 
 .tview2 comment {
   color: var(--base);
-  display: inline;
 
   &.by {
     @extend %nowrap-ellipsis, %roboto;
