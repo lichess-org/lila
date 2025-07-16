@@ -1,6 +1,6 @@
 import type AnalyseCtrl from '../ctrl';
-import { renderColumnView as column } from './columnView';
-import { renderInlineView as inline } from './inlineView';
+import column from './columnView';
+import inline from './inlineView';
 import { displayColumns } from 'lib/device';
 import type { VNode } from 'snabbdom';
 import type { ConcealOf } from '../interfaces';
@@ -10,8 +10,6 @@ export type TreeViewKey = 'column' | 'inline';
 
 export class TreeView {
   value: StoredProp<TreeViewKey>;
-  hidden = true;
-  private treeVersion = 1;
 
   constructor(initialValue: TreeViewKey = 'column') {
     this.value = storedProp<TreeViewKey>(
@@ -22,17 +20,8 @@ export class TreeView {
     );
   }
   inline = () => this.value() === 'inline';
+  set = (inline: boolean) => this.value(inline ? 'inline' : 'column');
   toggle = () => this.set(!this.inline());
-  set = (inline: boolean) => {
-    this.value(inline ? 'inline' : 'column');
-    this.update();
-  };
-  update = () => {
-    this.treeVersion++;
-  };
-  get version() {
-    return this.treeVersion;
-  }
 }
 
 // entry point, dispatching to selected view
