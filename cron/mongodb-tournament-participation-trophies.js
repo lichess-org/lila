@@ -6,10 +6,8 @@ try {
   db.trophyKind.insertOne({
     _id: tourId,
     name: 'FIDE\'s Social Chess Day',
-    icon: '',
-    klass: 'icon3d',
     order: NumberInt(102),
-    withCustomImage: false
+    withCustomImage: true
   });
 } catch (e) {
   if (e.code !== 11000) throw e; // Ignore duplicate key error
