@@ -56,6 +56,9 @@
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>
+  <string name="introduction">مقدمة</string>
+  <string name="teamIntroductionHelp">وصف موجز يمكن رؤيته في قوائم الفرق. يصل إلى 200 حرف.</string>
+  <string name="teamDescriptionHelp">وصف كامل يمكن رؤيته في صفحة الفريق.</string>
   <string name="closeTeam">إغلاق الفريق</string>
   <string name="closeTeamDescription">يغلق الفريق إلى الأبد.</string>
   <string name="entryCode">رمز دخول الفريق</string>

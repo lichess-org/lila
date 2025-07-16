@@ -26,10 +26,10 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.7.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.2.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.3.Final").classifier(s"$os-$arch")
   val lilaSearch  = "com.github.lichess-org.lila-search" %% "client"        % "3.1.9"
   val munit       = "org.scalameta"                      %% "munit"         % "1.1.1" % Test
-  val uaparser    = "org.uaparser"                       %% "uap-scala"     % "0.19.0"
+  val uaparser    = "org.uaparser"                       %% "uap-scala"     % "0.20.0"
   val apacheText  = "org.apache.commons"                  % "commons-text"  % "1.13.1"
   val apacheMath  = "org.apache.commons"                  % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin"         %% "bloom-filter"  % "0.13.1_lila-1"
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.8.3"
+    val version  = "17.8.5"
     val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
     val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
@@ -89,7 +89,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.22"
-    val json        = "org.playframework" %% "play-json"         % "3.0.4"
+    val json        = "org.playframework" %% "play-json"         % "3.0.5"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion

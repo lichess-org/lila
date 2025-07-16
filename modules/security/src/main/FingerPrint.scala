@@ -8,7 +8,7 @@ object FingerPrint extends OpaqueString[FingerPrint]:
 
 object FingerHash:
 
-  val length = 8
+  val length = 12
 
   def from(print: FingerPrint): Option[FingerHash] =
     try

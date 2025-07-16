@@ -129,9 +129,9 @@ object ServerEval:
     end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val position        = chess.Position.AndFullMoveNumber(variant, root.fen.some)
-      val (result, error) = position.position
-        .foldRight(info.variation.take(20), position.ply)(
+      val setup           = chess.Position.AndFullMoveNumber(variant, root.fen)
+      val (result, error) = setup.position
+        .foldRight(info.variation.take(20), setup.ply)(
           none[Branch],
           (step, acc) =>
             inline def branch = makeBranch(step.move, step.ply)

@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 import monocle.syntax.all.*
+import alleycats.Zero
 
 import lila.common.Bus
 import lila.core.perm.Granter
@@ -432,7 +433,8 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          for _ <- doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, setTag.tag))
 
   def setTagsAndRename(
       studyId: StudyId,
@@ -751,7 +753,7 @@ final class StudyApi(
                 name = Study.toName(data.name),
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
-                visibility = data.vis,
+                visibility = data.visibility,
                 description = settings.description.option:
                   study.description.filter(_.nonEmpty) | "-"
               )
@@ -824,7 +826,7 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)
 
-  private def Contribute[A](userId: UserId, study: Study)(f: => A)(using alleycats.Zero[A]): A =
+  private def Contribute[A: Zero](userId: UserId, study: Study)(f: => A): A =
     study.canContribute(userId).so(f)
 
   // work around circular dependency

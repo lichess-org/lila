@@ -11,7 +11,6 @@ import type {
   MoveTest,
   ThemeKey,
   ReplayEnd,
-  NvuiPlugin,
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
@@ -77,12 +76,12 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
+  cgVersion = 1;
   private report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin,
   ) {
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
@@ -638,6 +637,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   flip = () => {
     this.flipped.toggle();
+    this.cgVersion++;
     this.withGround(g => g.toggleOrientation());
     this.redraw();
   };

@@ -14,7 +14,8 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     players: RelayPlayerApi,
-    notifier: RelayNotifier
+    notifier: RelayNotifier,
+    tagManualOverride: RelayTagManualOverride
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
@@ -159,8 +160,11 @@ final private class RelaySync(
         !chapter.tags(_.Result).has(game.showResult)
     ).option(Tag(_.Result, game.showResult))
     val tags           = newEndTag.fold(gameTags)(gameTags + _)
-    val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
-      PgnTags(chapterTags + tag)
+    val chapterNewTags = tags.value
+      .filterNot: tag =>
+        tagManualOverride.exists(chapter.id, tag.name)
+      .foldLeft(chapter.tags): (chapterTags, tag) =>
+        PgnTags(chapterTags + tag)
     if chapterNewTags == chapter.tags then fuccess(none -> false)
     else
       if vs(chapterNewTags) != vs(chapter.tags) then

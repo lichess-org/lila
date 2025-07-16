@@ -25,8 +25,9 @@ trait Study:
 
 enum Visibility:
   case `private`, unlisted, public
+  def key = toString
 object Visibility:
-  val byKey = values.mapBy(_.toString)
+  val byKey = values.mapBy(_.key)
 
 trait StudyApi:
   def publicIdNames(ids: List[StudyId]): Fu[List[IdName]]

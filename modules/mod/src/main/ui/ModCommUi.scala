@@ -56,7 +56,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
             .toList
             .flatMap: (source, lines) =>
               lines.toNel.map(source -> _)
-            .sortBy(_._2.head.date)(using Ordering[Instant].reverse)
+            .sortByReverse(_._2.head.date)
             .map: (source, lines) =>
               div(cls := "game")(
                 sourceOf(source)(cls := "title")(

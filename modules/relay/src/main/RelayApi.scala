@@ -219,6 +219,7 @@ final class RelayApi(
           "name"            -> tour.name.some,
           "info"            -> tour.info.some,
           "markup"          -> tour.markup,
+          "visibility"      -> tour.visibility.some,
           "tier"            -> tour.tier,
           "showScores"      -> tour.showScores.some,
           "showRatingDiffs" -> tour.showRatingDiffs.some,
@@ -233,14 +234,14 @@ final class RelayApi(
       )
       _        <- data.grouping.so(updateGrouping(tour, _))
       _        <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
-      _        <- (tour.tier != prev.tier).so(studyPropagation.onTierChange(tour))
+      _        <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
-  private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
+  private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
     Granter(_.Relay).so:
       val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
       canGroup.flatMapz(groupRepo.update(tour.id, data))
@@ -270,7 +271,7 @@ final class RelayApi(
         me,
         withRatings = true,
         _.copy(
-          visibility = tour.studyVisibility,
+          visibility = tour.visibility,
           members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
         )
       )
@@ -405,7 +406,7 @@ final class RelayApi(
       ownerIds = NonEmptyList.one(me.userId),
       createdAt = nowInstant,
       syncedAt = none,
-      tier = from.tier.map(_ => RelayTour.Tier.`private`)
+      visibility = if from.official then lila.core.study.Visibility.`private` else from.visibility
     )
     for
       _ <- tourRepo.coll.insert.one(tour)
@@ -431,7 +432,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = to.studyVisibility,
+                visibility = to.visibility,
                 from = Study.From.Relay(s.id.some)
               )
             ) >>

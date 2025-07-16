@@ -71,8 +71,8 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   <string name="whichTeamWillYouRepresentInThisBattle">Kuriai komandai atstovausite šiame mūšyje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Norėdami dalyvauti, turite prisijungti prie vienos iš šių komandų!</string>
   <string name="created">Sukurtas</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Neseniai žaista</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Geriausi rezultatai</string>
+  <string name="recentlyPlayed">Neseniai žaista</string>
+  <string name="bestResults">Geriausi rezultatai</string>
   <string name="tournamentStats">Turnyro statistika</string>
   <string name="rankAvgHelp">Reitingo vidurkis-tai jūsų reitingas procentais. Mažesnis yra geresnis.
 
@@ -88,5 +88,5 @@ Pavyzdžiui, užėmus 3 vietą 100 žaidėjų turnyre = 3%. Užėmus 10-ą viet�
   <string name="onlyTitled">Tik tituluoti žaidėjai</string>
   <string name="onlyTitledHelp">Prisijungti į turnyrą būtinas oficialus titulas</string>
   <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Įsiūčio dažnis</string>
+  <string name="berserkRate">Įsiūčio dažnis</string>
 </resources>

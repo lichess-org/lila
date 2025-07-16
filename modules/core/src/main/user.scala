@@ -14,6 +14,7 @@ import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
+import lila.core.misc.AtInstant
 
 object user:
 
@@ -141,7 +142,8 @@ object user:
     val default = Profile()
 
   object User:
-    given UserIdOf[User] = _.id
+    given UserIdOf[User]  = _.id
+    given AtInstant[User] = _.createdAt
 
   case class Count(
       ai: Int,

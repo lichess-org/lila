@@ -61,8 +61,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">لەم شەڕەدا نوێنەرایەتی کامە تیم دەکەیت?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">پێویستە لە یەکێک لەم تیمانەدا بیت بۆ بەشداریکردن!</string>
   <string name="created">دروستکراوە</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">بەم دواییە یاری کردووە</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">باشترین ئەنجام</string>
+  <string name="recentlyPlayed">بەم دواییە یاری کردووە</string>
+  <string name="bestResults">باشترین ئەنجام</string>
   <string name="tournamentStats">ئاماری پاڵەوانیەتیەکە</string>
   <string name="rankAvgHelp">تێکڕای پلە یەک لەسەدی ڕیزبەندییەکەتە. نزمتر باشترە.</string>
   <string name="medians">مامناوەندەکان</string>
@@ -76,5 +76,5 @@
   <string name="onlyTitled">تەنیا یاریزانە خاوەن نازناوەکان</string>
   <string name="onlyTitledHelp">داوای نازناوێکی فەرمی بکە بۆ بەشداریکردن لەم پاڵەوانێتییە</string>
   <string name="tournamentPairingsAreNowClosed">بەشداربوون لەپاڵەوانێتییەکە تەواوبوو.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">رێژەی مەترسی</string>
+  <string name="berserkRate">رێژەی مەترسی</string>
 </resources>

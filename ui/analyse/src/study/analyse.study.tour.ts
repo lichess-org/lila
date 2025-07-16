@@ -1,6 +1,6 @@
 import type AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
-import type { ChapterTab, StudyTour, Tab } from '../study/interfaces';
+import type { ChapterTab, StudyTour, Tab } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import * as licon from 'lib/licon';
 

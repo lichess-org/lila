@@ -61,8 +61,8 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket lag vil du spille for i denne kampen?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du må bli med i et av disse lagene for å kunne delta!</string>
   <string name="created">Opprettet</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Nylig spilt</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Beste resultater</string>
+  <string name="recentlyPlayed">Nylig spilt</string>
+  <string name="bestResults">Beste resultater</string>
   <string name="tournamentStats">Turneringsstatistikk</string>
   <string name="rankAvgHelp">Prosentrangering er plasseringen din uttrykt som en prosentverdi. Lavere er bedre.
 
@@ -78,5 +78,5 @@ For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En ti
   <string name="onlyTitled">Kun spillere med sjakktittel</string>
   <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å kunne bli med i turneringen</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparingene er nå lukket.</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Berserkrate</string>
+  <string name="berserkRate">Berserkrate</string>
 </resources>
