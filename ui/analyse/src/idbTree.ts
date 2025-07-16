@@ -126,11 +126,12 @@ export class IdbTree {
   private isCollapsible(node: Tree.Node, isMainline: boolean): boolean {
     if (this.noCollapse || !node) return false;
     const { tree, treeView, showComputer } = this.ctrl;
-    if (node === tree.root && treeView.inline()) return false;
+    //if (node === tree.root && treeView.inline()) return false;
     const [main, second, third] = node.children.filter(x => showComputer() || !x.comp);
     return Boolean(
       third ||
         (main && Boolean(main.comments?.length) && isMainline && !treeView.inline()) ||
+        (main && main.forceVariation && treeView.inline()) ||
         (second && ((isMainline && !treeView.inline()) || hasBranching(second, 6))),
     );
   }

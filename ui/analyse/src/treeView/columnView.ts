@@ -97,17 +97,17 @@ function renderMainlineDescendantsOf(
     ];
   }
   const stdOpts: Opts = { parentPath, conceal, isMainline: true };
-  const commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, path).filter(Boolean);
+  const comments = renderMainlineCommentsOf(ctx, main, conceal, true, path).filter(Boolean);
   return [
     isWhite && renderIndex(main.ply, false),
-    isEmpty(variations) && isEmpty(commentTags)
+    isEmpty(variations) && isEmpty(comments)
       ? renderSubtree(ctx, main, stdOpts)
       : [
           renderMove(ctx, main, { ...stdOpts, branch: disclose ? parent : undefined }),
           disclose !== 'collapsed' && [
             isWhite && emptyMove(conceal),
             hl('interrupt', { class: { anchor: disclose === 'expanded' } }, [
-              commentTags,
+              comments,
               renderLines(ctx, variations, {
                 ...stdOpts,
                 noConceal: !conceal,

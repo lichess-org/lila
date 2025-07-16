@@ -275,7 +275,10 @@
   move {
     @extend %box-radius;
     font-size: 13.5px;
-    font-weight: bold;
+    &.m {
+      //color: color-mix(in srgb, var(--base) 70%, $c-secondary);
+      font-weight: bold;
+    }
   }
   move index {
     padding-inline-end: 0.2em;
@@ -291,6 +294,11 @@
   inline::after {
     vertical-align: 0.7em;
   }
+}
+
+.tview2-inline interrupt + move:has(.disclosure),
+.tview2-inline lines + move:has(.disclosure) {
+  margin-inline-start: -10px;
 }
 
 .tview2-inline .disclosure,

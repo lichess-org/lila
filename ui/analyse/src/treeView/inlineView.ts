@@ -1,5 +1,4 @@
-import { isEmpty } from 'lib';
-import { type VNode, type LooseVNode, type LooseVNodes, hl } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from '../ctrl';
 import {
@@ -8,7 +7,6 @@ import {
   moveNodes,
   nodeClasses,
   renderInlineCommentsOf,
-  renderInlineMove,
   retroLine,
   renderIndex,
   renderingCtx,
@@ -19,7 +17,6 @@ import {
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = { ...renderingCtx(ctrl) };
-  ctx.ctrl.tree.root.collapsed = false;
   return hl('div.tview2.tview2-inline', { class: { hidden: ctrl.treeView.hidden } }, [
     renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
     renderDescendantsOf(ctx, ctrl.tree.root, { parentPath: '', isMainline: true }),
@@ -30,8 +27,7 @@ function renderSubtree(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes {
   const { parentPath, isMainline } = opts;
   const path = parentPath + node.id;
   const disclose = ctx.ctrl.idbTree.discloseOf(node, isMainline);
-  const comments = /*disclose !== 'collapsed' &&*/ renderInlineCommentsOf(ctx, node, path);
-  if (disclose) console.log(node.ply, node.uci, 'is branch');
+  const comments = renderInlineCommentsOf(ctx, node, path);
   return [
     renderMove(ctx, node, opts),
     comments,
@@ -62,34 +58,43 @@ function renderMainlineDescendantsOf(
   const { parentPath } = opts;
   const path = parentPath + main.id;
   const disclose = ctx.ctrl.idbTree.discloseOf(parent, !main.forceVariation);
+  const branch = disclose ? parent : undefined;
+  const comments = renderInlineCommentsOf(ctx, main, path).filter(Boolean); // ??
   if (main.forceVariation) {
     return [
+      disclose && hl('move.empty', disclosureBtn(ctx, parent, parentPath)),
       disclose !== 'collapsed' &&
-        hl('interrupt', renderLines(ctx, [main, ...variations], { ...opts, isMainline: false })),
+        hl(
+          'interrupt',
+          renderLines(ctx, [main, ...variations], {
+            ...opts,
+            isMainline: false,
+            anchor: disclose === 'expanded' && showConnector(comments) ? 'lines' : undefined,
+          }),
+        ),
     ];
   }
-  const stdOpts: Opts = { parentPath, isMainline: true };
-  const commentTags = renderInlineCommentsOf(ctx, main, path).filter(Boolean); // ??
-  const interrupt = (nodes: LooseVNodes) => (disclose === 'expanded' ? hl('interrupt', nodes) : nodes);
+  const maybeInterrupt = (nodes: LooseVNodes) => (disclose === 'expanded' ? hl('interrupt', nodes) : nodes);
   return [
     !disclose
-      ? [
-          renderMove(ctx, main, { ...stdOpts, branch: disclose ? parent : undefined }),
-          commentTags,
-          renderDescendantsOf(ctx, main, { ...stdOpts, parentPath: path }),
-        ]
+      ? renderSubtree(ctx, main, { parentPath, isMainline: true, branch, inline: variations[0] })
       : [
-          renderMove(ctx, main, { ...stdOpts, branch: disclose ? parent : undefined }),
+          renderMove(ctx, main, { parentPath, isMainline: true, branch }),
+          comments,
           disclose !== 'collapsed' && [
-            commentTags,
-            interrupt([
+            maybeInterrupt([
               renderLines(ctx, variations, {
-                ...stdOpts,
-                anchor: disclose === 'expanded' && showConnector(commentTags) ? 'lines' : undefined, // TODO 'interrupt' : undefined,
+                parentPath,
+                isMainline: disclose === 'expanded',
+                anchor: disclose === 'expanded' && showConnector(comments) ? 'lines' : undefined, // TODO 'interrupt' : undefined,
               }),
             ]),
           ],
-          renderDescendantsOf(ctx, main, { ...stdOpts, parentPath: path }),
+          renderDescendantsOf(ctx, main, {
+            isMainline: true,
+            parentPath: path,
+            withIndex: disclose === 'expanded',
+          }),
         ],
   ];
 }
@@ -103,36 +108,50 @@ function renderVariationDescendantsOf(
   const [main, second, third] = kids;
   const disclose = ctx.ctrl.idbTree.discloseOf(parent);
   const opts = { ...oldOpts, branch: disclose ? parent : undefined };
-  if (disclose) console.log(parent.ply, parent.uci, 'subtree variation is branch');
   if (second && !third && !treeOps.hasBranching(second, 6))
     return renderSubtree(ctx, main, { ...opts, inline: second });
-  else if ((main && !second) || ctx.ctrl.idbTree.discloseOf(parent) === 'collapsed')
-    return renderSubtree(ctx, main, opts);
-  else return renderLines(ctx, kids, opts);
+  else if ((main && !second) || disclose === 'collapsed') return renderSubtree(ctx, main, opts);
+  const comments = renderInlineCommentsOf(ctx, main, parent.id + main.id).filter(Boolean);
+  const flatTail = disclose === 'expanded' && !treeOps.hasBranching(main, 6);
+  return [
+    flatTail ? renderSubtree(ctx, main, opts) : renderMove(ctx, main, opts),
+    comments,
+    renderLines(ctx, kids.slice(1), opts),
+    !flatTail &&
+      renderDescendantsOf(ctx, main, {
+        isMainline: false,
+        parentPath: opts.parentPath + main.id,
+        anchor: disclose === 'expanded' && showConnector(comments) && 'lines',
+        withIndex: disclose === 'expanded',
+      }),
+  ];
 }
 
-function renderLines(ctx: Ctx, [main, ...variations]: Tree.Node[], opts: Opts): LooseVNodes {
+function renderLines(ctx: Ctx, lines: Tree.Node[], opts: Opts): LooseVNodes {
   const { parentPath, anchor } = opts;
   return hl('lines', { class: { anchor: anchor === 'lines' } }, [
     anchor && disclosureConnector(),
-    retroLine(ctx, main) ||
-      hl('line', [hl('branch'), renderSubtree(ctx, main, { ...opts, withIndex: true })]),
-    variations.map(
-      n =>
-        retroLine(ctx, n) ||
-        hl('line', [hl('branch'), renderSubtree(ctx, n, { parentPath, isMainline: false, withIndex: true })]),
+    lines.map(
+      line =>
+        retroLine(ctx, line) ||
+        hl('line', [
+          hl('branch'),
+          renderSubtree(ctx, line, {
+            parentPath,
+            isMainline: false,
+            withIndex: true,
+          }),
+        ]),
     ),
   ]);
 }
 
 function renderMove(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const { isMainline, conceal, branch, parentPath } = opts;
+  const { branch, parentPath } = opts;
   const p = parentPath + node.id;
-  const classes = nodeClasses(ctx, node, p);
-  if (branch) console.log(node.ply, node.uci, 'drawing disclosure button for next child');
-  return hl('move', { attrs: { p }, class: classes }, [
+  return hl('move', { attrs: { p }, class: { ...nodeClasses(ctx, node, p), m: opts.isMainline } }, [
     branch && disclosureBtn(ctx, branch, parentPath),
     (branch || opts.withIndex || node.ply % 2 === 1) && renderIndex(node.ply, true),
-    moveNodes(ctx, node, opts.isMainline),
+    moveNodes(ctx, node),
   ]);
 }
