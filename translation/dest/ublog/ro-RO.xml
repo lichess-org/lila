@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Comunitate</string>
+  <string name="byTopic">După subiect</string>
+  <string name="myFriends">Prietenii mei</string>
   <string name="myBlog">Blogul meu</string>
   <string name="likedBlogs">Postări plăcute pe blog</string>
   <plurals name="blogPosts">
