@@ -274,7 +274,8 @@
 
   move {
     @extend %box-radius;
-    font-size: 13px;
+    font-size: 13.5px;
+    font-weight: bold;
   }
   move index {
     padding-inline-end: 0.2em;
@@ -292,7 +293,7 @@
   }
 }
 
-.tview2-inline > .disclosure,
+.tview2-inline .disclosure,
 .tview2-column > move > .disclosure {
   align-self: center;
   @include padding-direction(0, 4px, 0, 0);
