@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">커뮤니티 블로그</string>
-  <string name="friendBlogs">친구 블로그</string>
-  <string name="lichessBlog">Lichess 블로그</string>
   <string name="myBlog">내 블로그</string>
   <string name="likedBlogs">좋아요 표시한 블로그 글</string>
-  <string name="blogTopics">블로그 주제</string>
   <plurals name="blogPosts">
     <item quantity="other">블로그 %s개</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess 공식 블로그</string>
   <string name="continueReadingPost">이 게시글 계속 읽기</string>
   <string name="lichessBlogPostsFromXYear">%s년 블로그 게시글</string>
   <string name="previousBlogPosts">이전 블로그 게시글</string>
