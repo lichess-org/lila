@@ -13,7 +13,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   def subscribe(user: User, subscription: WebSubscription, id: SessionId | AccessTokenId): Funit =
     coll.update
       .one(
-        $id(subscriptionId(id)),
+        $id(id.toString),
         $doc(
           "userId"   -> user.id,
           "endpoint" -> subscription.endpoint,
@@ -26,12 +26,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       .void
 
   def unsubscribeBySession(id: SessionId | AccessTokenId): Funit =
-    coll.delete.one($id(subscriptionId(id))).void
-
-  private def subscriptionId(id: SessionId | AccessTokenId): String =
-    id match
-      case sessionId: SessionId         => sessionId.value
-      case accessTokenId: AccessTokenId => accessTokenId.value
+    coll.delete.one($id(id.toString)).void
 
   def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void
