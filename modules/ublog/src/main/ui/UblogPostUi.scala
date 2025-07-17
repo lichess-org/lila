@@ -199,8 +199,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           lila.core.ublog.Quality.values.map: q =>
             button(
               cls   := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.ordinal.toString
-            )(q.toString.capitalize)
+              value := q.name
+            )(q.name.capitalize)
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),
