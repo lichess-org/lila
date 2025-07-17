@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT-taflborð</string>
+  <string name="lichessAndDgt">Lichess og DGT-taflborð</string>
+  <string name="dgtBoardLimitations">Takmarkanir DGT-taflborðs</string>
+  <string name="configurationSection">Stillingarstef</string>
   <string name="timeControlsForCasualGames">Tímaskorður fyrir æfingarskákir: Kappskákir, bréfskákir og atskákir eingöngu.</string>
   <string name="timeControlsForRatedGames">Tímaskorður fyrir stigaskákir: Kappskákir, bréfskákir og sumar atskákir þ. á m. 15+10 og 20+0</string>
   <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
@@ -9,6 +12,7 @@
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
   <string name="dgtBoardConnectivity">Tengjanleiki DGT-taflborðs</string>
   <string name="clickToGenerateOne">Smelltu til að búa til einn</string>
+  <string name="webSocketUrl">Veftóftarslóð fyrir %s</string>
   <string name="textToSpeech">Talgervill</string>
   <string name="enableSpeechSynthesis">Kveikja á talgervingu</string>
   <string name="speechSynthesisVoice">Talgervilsrödd</string>
