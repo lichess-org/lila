@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">社群部落格</string>
-  <string name="friendBlogs">好友的部落格</string>
-  <string name="lichessBlog">Lichess 部落格</string>
   <string name="myBlog">我的部落格</string>
   <string name="likedBlogs">已喜歡的部落格</string>
-  <string name="blogTopics">部落格主題</string>
   <plurals name="blogPosts">
     <item quantity="other">%s則貼文</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess 官方部落格</string>
   <string name="continueReadingPost">繼續閱讀此貼文</string>
   <string name="lichessBlogPostsFromXYear">位於 %s 的 Lichess 部落格貼文</string>
   <string name="previousBlogPosts">上一則貼文</string>

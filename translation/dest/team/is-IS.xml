@@ -12,7 +12,10 @@
   <string name="myTeams">Liðin mín</string>
   <string name="noTeamFound">Ekkert lið fannst</string>
   <string name="joinTeam">Ganga í lið</string>
+  <string name="onlyLeaderLeavesTeam">Vinsamlegast bættu við nýjum liðsstjóra áður en þú ferð, eða lokaðu liðinu.</string>
   <string name="quitTeam">Ganga úr liði</string>
+  <string name="manuallyReviewAdmissionRequests">Fara handvirkt yfir umsóknir um inngöngu</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ef hakað er við þetta þurfa leikmenn að senda inn beiðni um að gerast meðlimur, sem þú getur annaðhvort hafnað eða samþykkt.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Liðsstjóri</item>
     <item quantity="other">Liðsstjórar</item>
@@ -20,8 +23,17 @@
   <string name="teamRecentMembers">Nýjustu liðsmenn</string>
   <string name="kickSomeone">Reka einhvern úr liðinu</string>
   <string name="whoToKick">Hvern viltu reka út úr liðinu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s beiðni um að gerast meðlimur</item>
+    <item quantity="other">%s beiðnir um að gerast meðlimur</item>
+  </plurals>
+  <string name="willBeReviewed">Liðsstjóri mun fara yfir beiðni þína um að gerast meðlimur.</string>
+  <string name="beingReviewed">Liðsstjóri er að fara yfir beiðni þína um að gerast meðlimur.</string>
+  <string name="requestDeclined">Liðsstjóri hafnaði beiðni þinni um að gerast meðlimur.</string>
+  <string name="subToTeamMessages">Fáðu fregnir af liðsskilaboðum</string>
   <string name="teamBattle">Liðsorrusta</string>
   <string name="teamTournament">Liðsmót</string>
+  <string name="swissTournamentOverview">Swiss-mót sem eingöngu meðlimir liðs þíns geta tekið þátt í</string>
   <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
   <string name="teamsIlead">Lið sem ég stjórna</string>
   <string name="leadersChat">Liðsstjóraspjall</string>
@@ -37,6 +49,11 @@
   <string name="declinedRequests">Hafnaðar beiðnir</string>
   <string name="joinLichessVariantTeam">Skráðu þig í opinbera liðið fyrir %s til þess að nálgast fréttir og viðburði</string>
   <string name="teamPage">Liðssíða</string>
+  <string name="listTheTeamsThatWillCompete">Skráðu liðin sem munu keppa í þessari orrustu.</string>
+  <string name="oneTeamPerLine">Eitt lið á línu. Notfærðu þér sjálfvirka útfyllinguna.</string>
+  <string name="oneTeamPerLineHelp">Þú getur afritað og límt þennan lista frá einu móti yfir á annað!
+
+Þú getur ekki fjarlægt lið ef meðlimur liðs hefur þegar tekið þátt í mótinu.</string>
   <string name="innerTeam">Innra liðið</string>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Einn liðstjóri á lið</item>

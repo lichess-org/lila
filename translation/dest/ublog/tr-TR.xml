@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Topluluk blogları</string>
-  <string name="friendBlogs">Arkadaş blogları</string>
-  <string name="lichessBlog">Lichess bloğu</string>
   <string name="myBlog">Bloğum</string>
   <string name="likedBlogs">Beğenilen blog gönderileri</string>
-  <string name="blogTopics">Blog konuları</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blog gönderisi</item>
     <item quantity="other">%s blog gönderisi</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess Resmi Blog</string>
   <string name="continueReadingPost">Bu gönderiyi okumaya devam et</string>
   <string name="lichessBlogPostsFromXYear">%s yılından Lichess blog gönderileri</string>
   <string name="previousBlogPosts">Önceki blog gönderileri</string>

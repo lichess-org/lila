@@ -13,8 +13,10 @@
   <string name="doPasswordReset">Ljúktu við að endurstilla lykilorð til þess að fjarlægja tveggja þátta auðkenningu þína</string>
   <string name="accountSupport">Ég þarfnast aðstoðar við aðganginn</string>
   <string name="wantTitle">Ég vil að titillinn minn birtist á Lichess</string>
+  <string name="visitTitleConfirmation">Til þess að sýna titilinn þinn á Lichess-prófílnum þínum og taka þátt í titilmótum, farðu á titilsstaðfestingarsíðuna</string>
   <string name="wantCloseAccount">Ég vil loka aðganginum mínum</string>
   <string name="closeYourAccount">Þú getur lokað aðganginum þínum á þessari síðu</string>
+  <string name="doNotAskByEmail">Ekki biðja okkur í tölvupósti um að loka aðgangi, við gerum það ekki.</string>
   <string name="wantReopen">Ég vil opna aðgang minn á ný</string>
   <string name="reopenOnThisPage">Þú getur opnað aðgang þinn á ný á þessari síðu.</string>
   <string name="doNotAskByEmailToReopen">Ekki biðja okkur í tölvupósti um að opna aðgang á ný, við gerum það ekki.</string>
@@ -44,8 +46,12 @@
   <string name="castlingPrevented">Aðeins er komið í veg fyrir hrókeringu ef kóngurinn fer í gegnum stjórnaðan reit.</string>
   <string name="castlingRules">Gakktu úr skugga um að þú skiljir reglurnar um að hrókera</string>
   <string name="tryCastling">Prófaðu þennan minni háttar gagnvirka leik til að æfa hrókeringu í skák</string>
+  <string name="castlingImported">Ef þú fluttir inn skákina, eða byrjaðir hana frá ákveðinni stöðu, vertu viss um að þú hafir stillt hrókunarréttinn á réttan hátt.</string>
   <string name="insufficientMaterial">Skortir mannafla til að máta</string>
+  <string name="fideMate">Samkvæmt leikreglubók Alþjóðaskáksambandsins §6.9, ef hægt er að skáka og máta með einhverri löglegri leikfléttu, þá lýkur skákin ekki með jafntefli</string>
+  <string name="knightMate">Það er hægt að máta bara með riddara eða biskup ef andstæðingurinn hefur fleiri taflmenn en einungis kóng á taflborðinu.</string>
   <string name="noRatingPoints">Engin skákstig voru gefin</string>
+  <string name="ratedGame">Gakktu úr skugga um að þú hafir teflt með stigagjöf. Æfingarskákir hafa ekki áhrif á skákstig skákmanns.</string>
   <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur skák með stigagjöf ekki gefið stig ef það er ákveðið að leikmaðurinn sé að misnota tölvuna til að fá stig.</string>
   <string name="errorPage">Villusíða</string>
   <string name="reportErrorPage">Hafi villusíða komið upp, máttu tilkynna slíkt:</string>

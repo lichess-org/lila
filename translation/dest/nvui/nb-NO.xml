@@ -36,4 +36,6 @@
   <string name="sanShortCastling" comment="O-O in standard notation">kort rokade</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokade</string>
   <string name="invalidMove">Ulovlig trekk</string>
+  <string name="premoveCancelled">Forhåndstrekk avbrutt</string>
+  <string name="premoveRecorded">Forhåndstrekk registrert: %s. Trykk enter-tasten for å avbryte</string>
 </resources>

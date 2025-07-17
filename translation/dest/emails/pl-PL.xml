@@ -2,10 +2,10 @@
 <resources>
   <string name="emailConfirm_subject">Potwierdź swoje konto na lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Użyj poniższego odnośnika, aby aktywować swoje konto Lichess:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Jeśli nie zarejestrowałeś się w Lichess, możesz bezpiecznie zignorować tę wiadomość. Niepotwierdzone konto i wszystkie ślady Twojego adresu e-mail zostaną usunięte z naszego systemu po 48 godzinach.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Jeśli nie rejestrowałeś(-aś) się w serwisie Lichess, możesz bezpiecznie zignorować tę wiadomość. Niepotwierdzone konto oraz wszelkie ślady Twojego adresu e-mail zostaną usunięte z naszego systemu po upływie 48 godzin.</string>
   <string name="passwordReset_subject">%s, zresetuj swoje hasło na lichess.org</string>
-  <string name="passwordReset_intro">Otrzymaliśmy prośbę o zmianę hasła do Twojego konta.</string>
-  <string name="passwordReset_clickOrIgnore">Jeśli Ty ją wysłałeś, użyj poniższego odnośnika. W przeciwnym razie możesz zignorować ten e-mail.</string>
+  <string name="passwordReset_intro">Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta.</string>
+  <string name="passwordReset_clickOrIgnore">Jeśli to Ty wysłałeś tę prośbę, użyj poniższego odnośnika. W przeciwnym razie możesz zignorować tę wiadomość.</string>
   <string name="emailChange_subject">Potwierdzenie nowego adresu e-mail użytkownika %s</string>
   <string name="emailChange_intro">Poprosiłeś o zmianę swojego adresu e-mail.</string>
   <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego adresu email, użyj poniższego odnośnika:</string>

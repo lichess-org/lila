@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Komunitní blogy</string>
-  <string name="friendBlogs">Blogy přátel</string>
-  <string name="lichessBlog">Lichess blog</string>
   <string name="myBlog">Můj blog</string>
   <string name="likedBlogs">Oblíbené příspěvky blogu</string>
-  <string name="blogTopics">Témata blogů</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogový příspěvek</item>
     <item quantity="few">%s blogových příspěvků</item>
     <item quantity="many">%s blogových příspěvků</item>
     <item quantity="other">%s blogových příspěvků</item>
   </plurals>
-  <string name="lichessOfficialBlog">Oficiální blog Lichess</string>
   <string name="continueReadingPost">Pokračovat ve čtení tohoto příspěvku</string>
   <string name="lichessBlogPostsFromXYear">Příspěvky blogu Lichess v %s</string>
   <string name="previousBlogPosts">Předchozí příspěvky blogu</string>

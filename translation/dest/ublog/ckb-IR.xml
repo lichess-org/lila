@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">بڵۆگەکانی کۆمەڵگا</string>
-  <string name="friendBlogs">بڵۆگەکانی ھاوڕێیان</string>
-  <string name="lichessBlog">بڵۆگی لیچێس</string>
   <string name="myBlog">بڵۆگی خۆم</string>
   <string name="likedBlogs">بڵاوکراوەکانی بڵۆگە دڵخوازەکان</string>
-  <string name="blogTopics">بابەتەکانی بڵۆگ</string>
   <plurals name="blogPosts">
     <item quantity="one">%s بڵاوکراوەی بڵۆگ</item>
     <item quantity="other">%s بڵاوکراوەی بڵۆگ</item>
   </plurals>
-  <string name="lichessOfficialBlog">بڵۆگی فەرمیی لیچێس</string>
   <string name="continueReadingPost">بەردەوام بە لە خوێندنەوەی ئەم بڵاوکراوەیە</string>
   <string name="lichessBlogPostsFromXYear">بڵاوکراوەکانی بڵۆگی لیچێس لە %s</string>
   <string name="previousBlogPosts">بڵاوکراوەکانی بڵۆگی پێشوو</string>
