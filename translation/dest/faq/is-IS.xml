@@ -75,6 +75,8 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="guidelines">viðmiðunarreglur</string>
   <string name="canIChangeMyUsername">Get ég breytt notandanafni mínu?</string>
   <string name="usernamesCannotBeChanged">Nei, ekki er unnt að breyta notendanafnum vegna tæknilegra og hagnýtra ástæðna. Notendanöfn eru að finna á of mörgum stöðum: í gagnagrunnum, útflutningi, dagálum og í huga fólks. Þú getur einu sinni lagað stafsetningu hvað varðar stóra og litla stafi.</string>
+  <string name="uniqueTrophies">Fágætir bikarar</string>
+  <string name="ownerUniqueTrophies">Þessi bikar er fágætur í sögu Lichess, enginn annar en %1$s mun nokkurn tímann eiga hann.</string>
   <string name="goldenZeeExplanation">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
   <string name="lichessRatings">Skákstyrkur á Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Hvers konar stigakerfi notar Lichess?</string>
