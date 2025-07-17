@@ -1,6 +1,7 @@
 package lila.oauth
 
 import reactivemongo.api.bson.*
+import com.roundeights.hasher.Algo
 
 import lila.core.net.Bearer
 import lila.core.misc.oauth.AccessTokenId
@@ -39,6 +40,8 @@ object AccessToken:
     val scopes       = "scopes"
     val clientOrigin = "clientOrigin"
     val expires      = "expires"
+
+  def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }

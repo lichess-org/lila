@@ -1,8 +1,6 @@
 package lila.core
 package misc
 
-import com.roundeights.hasher.Algo
-
 import lila.core.id.GameId
 import lila.core.net.Bearer
 import lila.core.userId.*
@@ -63,8 +61,7 @@ package push:
 
 package oauth:
   opaque type AccessTokenId = String
-  object AccessTokenId extends OpaqueString[AccessTokenId]:
-    def from(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
+  object AccessTokenId extends OpaqueString[AccessTokenId]
 
   case class TokenRevoke(id: AccessTokenId)
 

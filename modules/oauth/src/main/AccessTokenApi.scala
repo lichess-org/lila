@@ -37,7 +37,7 @@ final class AccessTokenApi(
     noBot <- fuccess(isStudent) >>| userApi.isManaged(me)
     plain = Bearer.randomPersonal()
     token = AccessToken(
-      id = AccessTokenId.from(plain),
+      id = AccessToken.idFrom(plain),
       plain = plain,
       userId = me,
       description = setup.description.some,
@@ -59,7 +59,7 @@ final class AccessTokenApi(
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
-        id = AccessTokenId.from(plain),
+        id = AccessToken.idFrom(plain),
         plain = plain,
         userId = granted.userId,
         description = None,
@@ -87,7 +87,7 @@ final class AccessTokenApi(
           val plain = Bearer.randomPersonal()
           createAndRotate:
             AccessToken(
-              id = AccessTokenId.from(plain),
+              id = AccessToken.idFrom(plain),
               plain = plain,
               userId = user.id,
               description = s"Challenge admin: ${admin.username}".some,
@@ -191,15 +191,15 @@ final class AccessTokenApi(
       .void
 
   def revoke(bearer: Bearer) =
-    val id = AccessTokenId.from(bearer)
+    val id = AccessToken.idFrom(bearer)
     for _ <- coll.delete.one($id(id)) yield onRevoke(id)
 
-  private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessTokenId.from(bearer))
+  private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.idFrom(bearer))
 
   def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
     coll
       .optionsByOrderedIds[AccessToken, AccessTokenId](
-        bearers.map(AccessTokenId.from),
+        bearers.map(AccessToken.idFrom),
         readPref = _.sec
       )(_.id)
       .flatMap: tokens =>
