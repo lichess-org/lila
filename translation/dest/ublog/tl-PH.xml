@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Mga blog ng komunidad</string>
-  <string name="friendBlogs">Mga blog ng mga kaibigan</string>
-  <string name="lichessBlog">Blog ni Lichess</string>
   <string name="myBlog">Ang aking blog</string>
   <string name="likedBlogs">Mga blog post na ni-like</string>
-  <string name="blogTopics">Mga blog topic</string>
-  <string name="lichessOfficialBlog">Opisyal na blog ng Lichess</string>
   <string name="continueReadingPost">Ituloy ang pagbabasa sa post na ito</string>
   <string name="xBlog">Blog ni %s</string>
   <string name="newPost">Bagong post</string>

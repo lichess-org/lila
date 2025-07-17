@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogg samfélagsins</string>
-  <string name="friendBlogs">Blogg vina</string>
-  <string name="lichessBlog">Lichess-blogg</string>
   <string name="myBlog">Bloggið mitt</string>
-  <string name="blogTopics">Bloggumræður</string>
   <plurals name="blogPosts">
     <item quantity="one">%s færsla á bloggi</item>
     <item quantity="other">%s færslur á bloggi</item>
   </plurals>
-  <string name="lichessOfficialBlog">Opinber bloggsíða Lichess</string>
   <string name="lichessBlogPostsFromXYear">Lichess-bloggfærslur árið %s</string>
   <string name="xBlog">Blogg notandans %s</string>
   <string name="newPost">Ný færsla</string>

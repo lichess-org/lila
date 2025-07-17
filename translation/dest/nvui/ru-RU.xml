@@ -23,8 +23,11 @@
   <string name="moveToPieceByType">Перейти к фигуре, введя её тип. Верхний регистр меняет порядок.</string>
   <string name="moveToRank">Перейти на горизонталь 1–8.</string>
   <string name="moveToFile">Перейти на вертикаль a–h.</string>
+  <string name="announcePieceLocations">Объявить расположение фигур. Например, p заглавная N для белого коня, p строчная k для чёрного короля, p заглавная A для всех белых фигур.</string>
   <string name="announcePiecesOnRankOrFile">Объявить фигуры на вертикали или горизонтали. Пример: s a, s 1.</string>
+  <string name="goToBoard">Перейти на доску. Поле по умолчанию: e4. Вы можете указать поле: board a-1 или b a-1 переместит вас на поле a-1.</string>
   <string name="movePiece">Чтобы переместить фигуру, используйте стандартную алгебраическую нотацию.</string>
+  <string name="promotion">Чтобы превратиться в фигуру, отличную от ферзя, используйте знак «равно». Например, a-8-=-n превращает в коня.</string>
   <string name="king">король</string>
   <string name="whiteKing">белый король</string>
   <string name="blackKing">чёрный король</string>
@@ -50,5 +53,8 @@
   <string name="sanPromotesTo" comment="= in standard notation">превращается в</string>
   <string name="sanShortCastling" comment="O-O in standard notation">короткая рокировка</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">длинная рокировка</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">поставлен на</string>
   <string name="invalidMove">Невозможный ход</string>
+  <string name="premoveCancelled">Предход отменён</string>
+  <string name="premoveRecorded">Предход записан: %s. Нажмите Enter для отмены</string>
 </resources>

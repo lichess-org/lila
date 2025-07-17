@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">وبنوشت‌های همدارگان</string>
-  <string name="friendBlogs">وبنوشت‌های دوستان</string>
   <string name="likedBlogs">وبنوشته‌های پسندیده</string>
-  <string name="blogTopics">موضوع‌های وبنوشت</string>
-  <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
   <string name="continueReadingPost">ادامهٔ خواندن این فرسته</string>
   <string name="lichessBlogPostsFromXYear">وبنوشته‌های Lichess در %s</string>
   <string name="previousBlogPosts">وبنوشته‌های پیشین</string>

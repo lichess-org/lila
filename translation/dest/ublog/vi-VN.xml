@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Các Blog của cộng đồng</string>
-  <string name="friendBlogs">Các Blog của bạn bè</string>
-  <string name="lichessBlog">Blog của Lichess</string>
+  <string name="community">Cộng đồng</string>
+  <string name="byMonth">Theo tháng</string>
+  <string name="byTopic">Theo chủ đề</string>
+  <string name="byLichess">Bởi Lichess</string>
+  <string name="myFriends">Của bạn bè</string>
+  <string name="myLikes">Đã thích</string>
   <string name="myBlog">Blog của tôi</string>
   <string name="likedBlogs">Các bài Blog đã thích</string>
-  <string name="blogTopics">Các chủ đề Blog</string>
   <plurals name="blogPosts">
     <item quantity="other">%s bài đăng blog</item>
   </plurals>
-  <string name="lichessOfficialBlog">Blog Chính thức của Lichess</string>
   <string name="continueReadingPost">Tiếp tục đọc bài đăng này</string>
   <string name="lichessBlogPostsFromXYear">Bài blog của Lichess đăng trong năm %s</string>
   <string name="previousBlogPosts">Những bài blog trước</string>

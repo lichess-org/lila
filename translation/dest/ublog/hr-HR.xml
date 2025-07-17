@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogovi zajednice</string>
-  <string name="friendBlogs">Blogovi prijatelja</string>
   <string name="likedBlogs">Pozitivno ocjenjeni blogovi</string>
-  <string name="blogTopics">Teme blogova</string>
-  <string name="lichessOfficialBlog">Službeni Lichess blog</string>
   <string name="continueReadingPost">Nastavi čitati ovu objavu</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogovi u %s</string>
   <string name="previousBlogPosts">Prijašnji blogovi</string>

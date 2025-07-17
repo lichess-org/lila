@@ -7,7 +7,7 @@
   <string name="pieceAnimation">Hreyfing taflmanna</string>
   <string name="materialDifference">Liðsmunur</string>
   <string name="boardHighlights">Upplýsa borð (á síðasta leik og skák)</string>
-  <string name="pieceDestinations">Áningarstaðir (gildir leikir og fyrirframgefnir leikir)</string>
+  <string name="pieceDestinations">Ætlunarstaðir (gildir leikir og forleikir)</string>
   <string name="boardCoordinates">Borðahnit (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Leikjalisti meðan skák er í gangi</string>
   <string name="pgnPieceNotation">Tákn fyrir leiki</string>
@@ -32,16 +32,17 @@
   <string name="clickTwoSquares">Veldu tvo reiti</string>
   <string name="dragPiece">Dragðu taflmann</string>
   <string name="bothClicksAndDrag">Annaðhvort</string>
-  <string name="premovesPlayingDuringOpponentTurn">Fyrirframgefnir leikir (leiknir á meðan andstæðingur á leik)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Forleikir (leiknir á meðan andstæðingur á leik)</string>
   <string name="takebacksWithOpponentApproval">Afturkallanir (með samþykki andstæðings)</string>
   <string name="inCasualGamesOnly">Einungis í stigalausum leikjum</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
+  <string name="explainPromoteToQueenAutomatically">Haltu niðri &lt;ctrl&gt;-lyklinum á meðan þú ert að vekja upp til þess að ákveða handvirkt</string>
   <string name="whenPremoving">Við fyrirframgefna leiki</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Þegar tími eftir er undir 30 sekúndum</string>
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="explainCanThenBeTemporarilyDisabled">Hægt er að slökkva á þessu á meðan teflt er útfrá borðsvalmyndinni</string>
-  <string name="inCorrespondenceGames">Bréfaskákleikir</string>
+  <string name="inCorrespondenceGames">Bréfskákir</string>
   <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>
   <string name="confirmResignationAndDrawOffers">Staðfesta uppgjöf og boð um jafntefli</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Hrókunaraðferð</string>
@@ -51,12 +52,17 @@
   <string name="inputMovesWithVoice">Leika leiki með rödd þinni</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Segja \"Good game, well played\" sjálfkrafa eftir tapi eða jafntefli</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
+  <string name="correspondenceEmailNotification">Daglegur tölvupóstur með lista yfir bréfskákirnar þínar</string>
   <string name="notifyStreamStart">Streymari hefur útsendingu í beinni</string>
   <string name="notifyInboxMsg">Ný innhólfsskilaboð</string>
+  <string name="notifyForumMention">Athugasemd á umræðukorkinum nefnir þig</string>
   <string name="notifyInvitedStudy">Boð í stúderingu</string>
+  <string name="notifyGameEvent">Bréfskákatíðindi</string>
   <string name="notifyChallenge">Áskoranir</string>
   <string name="notifyTournamentSoon">Mót hefst senn</string>
+  <string name="notifyTimeAlarm">Bréfskákarklukkan rennur út</string>
   <string name="notifyBell">Innhólfstilkynningar innan Lichess</string>
+  <string name="notifyPush">Tilkynning í tæki þegar þú ert ekki á Lichess</string>
   <string name="notifyWeb">Vafri</string>
   <string name="notifyDevice">Tæki</string>
   <string name="bellNotificationSound">Innhólfstilkynningahljóð</string>

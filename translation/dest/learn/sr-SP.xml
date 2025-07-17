@@ -38,32 +38,32 @@
   <string name="kingComplete">Сада можеш командовати командиру!</string>
   <string name="theKnight">Скакач</string>
   <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
-  <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>
+  <string name="knightIntro">Ево изазова за тебе. Скакач је... зезнута фигура.</string>
   <string name="knightsHaveAFancyWay">Скакачи имају елегантан начин
 скакања уоколо!</string>
   <string name="knightsCanJumpOverObstacles">Скакачи могу прескакати препреке!
-Побегните и савладајте звезде!</string>
-  <string name="knightComplete">Честитамо! Савладали сте скакача.</string>
+Побегни и савладај звезде!</string>
+  <string name="knightComplete">Честитке! Савладао/ла си скакача.</string>
   <string name="thePawn">Пешак</string>
   <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro">Пешаци су слаби, али имају много потенцијала.</string>
-  <string name="pawnsMoveOneSquareOnly">Пешаци се крећу за само једно поље.
-Али када стигну на други крај табле, постају јача фигура!</string>
+  <string name="pawnsMoveOneSquareOnly">Пешаци се крећу по само једно поље.
+Али када стигну до другог краја табле, постају јача фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева најбоље је промовисати у даму.
-Али понекад скакач може бити користан!</string>
-  <string name="pawnsMoveForward">Пешаци се крећу напред,
-али носе дијагонално!</string>
-  <string name="captureThenPromote">Носите, па онда промовишите!</string>
+Али понекад и скакач добро дође!</string>
+  <string name="pawnsMoveForward">Пешаци се крећу право,
+али узимају дијагонално!</string>
+  <string name="captureThenPromote">Узми, онда промовиши!</string>
   <string name="useAllThePawns">Искористи све пешаке!
 Нема потребе за промоцијом.</string>
-  <string name="aPawnOnTheSecondRank">Пешак у другом реду се може померити за 2 поља одједном!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
+  <string name="aPawnOnTheSecondRank">Пешак на другом реду се може померити за 2 поља одједном!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Покупи све звезде!
 Нема потребе за промоцијом.</string>
-  <string name="pawnComplete">Честитамо! Пешаци немају тајне за Вас.</string>
+  <string name="pawnComplete">Честитке! Пешаци немају тајне за тебе.</string>
   <string name="pawnPromotion">Промоција пешака</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Твој пешак је стигао до краја табле!</string>
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
-  <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
+  <string name="selectThePieceYouWant">Изабери фигуру коју желиш!</string>
   <string name="fundamentals">Основе</string>
   <string name="capture">Ношење</string>
   <string name="takeTheEnemyPieces">Однесите противничке фигуре</string>

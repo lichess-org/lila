@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessOfficialBlog">Blog Lichess ofisiel</string>
   <string name="continueReadingPost">Derc\'hel da lenn an embann-mañ</string>
   <string name="xBlog">Blog %s</string>
   <string name="newPost">Pennad nevez</string>
