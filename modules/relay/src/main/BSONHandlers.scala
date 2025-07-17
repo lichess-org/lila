@@ -73,16 +73,16 @@ object BSONHandlers:
 
   given BSONHandler[Tiebreak] = new BSON[Tiebreak]:
     def reads(r: BSON.Reader): Tiebreak =
-      def readCode: Option[Tiebreak.Code]        = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
-      def readCutModifier(): Option[CutModifier] =
+      def readCode: Option[Tiebreak.Code]      = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
+      def readCutModifier: Option[CutModifier] =
         r.getO[String]("cutModifier")
           .flatMap(c => CutModifier.values.find(_.code == c))
           .orElse(CutModifier.None.some)
-      def readLimitModifier(): Option[LimitModifier] =
+      def readLimitModifier: Option[LimitModifier] =
         r.getO[Float]("limitModifier").flatMap(LimitModifier(_))
       readCode
         .flatMap: code =>
-          Tiebreak.apply[Option](code, () => readCutModifier(), () => readLimitModifier())
+          Tiebreak(code, readCutModifier, readLimitModifier)
         .getOrElse(sys.error("Invalid Tiebreak BSON"))
 
     def writes(w: BSON.Writer, t: Tiebreak) =
