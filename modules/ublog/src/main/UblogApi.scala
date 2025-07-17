@@ -254,7 +254,7 @@ final class UblogApi(
     else
       val base       = post.automod.getOrElse(Assessment(quality = Quality.good))
       val assessment = Assessment(
-        quality = d.quality.flatMap(Quality.fromName).getOrElse(base.quality),
+        quality = d.quality | base.quality,
         evergreen = d.evergreen.orElse(base.evergreen),
         flagged = maybeCopy(d.flagged, base.flagged),
         commercial = maybeCopy(d.commercial, base.commercial)

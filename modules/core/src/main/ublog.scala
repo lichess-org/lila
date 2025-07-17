@@ -29,7 +29,7 @@ object BlogsBy:
 
 enum Quality:
   case spam, weak, good, great
+  def name = toString
 
 object Quality:
-  def fromName(name: String): Option[Quality] =
-    values.find(_.toString.equalsIgnoreCase(name))
+  def fromName(name: String): Option[Quality] = values.find(_.name == name)

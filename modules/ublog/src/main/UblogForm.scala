@@ -120,7 +120,7 @@ object UblogForm:
       tierMapping
 
   case class ModPostData(
-      quality: Option[String] = none,
+      quality: Option[Quality] = none,
       evergreen: Option[Boolean] = none,
       flagged: Option[String] = none,
       commercial: Option[String] = none,
@@ -141,11 +141,15 @@ object UblogForm:
     ).mkString(", ")
 
   object ModPostData:
+    given Reads[Quality] = Reads
+      .of[String]
+      .map(Quality.fromName)
+      .map(_.toTry("Invalid quality"))
+      .flatMapResult(JsResult.fromTry(_))
     def reads: Reads[ModPostData] =
       (
         (JsPath \ "quality")
-          .readNullable[String]
-          .filter(JsonValidationError(s"bad quality"))(_.forall(Quality.fromName(_).isDefined))
+          .readNullable[Quality]
           .and((JsPath \ "evergreen").readNullable[Boolean])
           .and((JsPath \ "flagged").readNullable[String].map(_.map(_.take(200))))
           .and((JsPath \ "commercial").readNullable[String].map(_.map(_.take(200))))
