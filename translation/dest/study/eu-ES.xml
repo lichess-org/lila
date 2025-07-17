@@ -166,5 +166,19 @@
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s orrialde bakoitzean</string>
   <string name="getTheTour">Laguntzarik behar? Etorri gurekin!</string>
+  <string name="welcomeToLichessStudyTitle">Ongi etorri Lichess Study-ra!</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Partekatuta eta gordeta</string>
+  <string name="studyMembersTitle">Azterlanaren kideak</string>
+  <string name="studyChaptersTitle">Azterlanaren kapituluak</string>
+  <string name="commentPositionTitle">Posizio bat komentatu</string>
   <string name="conclusionTitle">Eskerrik asko zure denboragatik</string>
+  <string name="createChapterTitle">Azterlan kapitulu berri bat sortu dezagun</string>
+  <string name="fromInitialPositionTitle">Hasierako posiziotik aurrera</string>
+  <string name="customPositionTitle">Posizio pertsonalizatua</string>
+  <string name="loadExistingLichessGameTitle">Igo Lichess-en dagoen joko bat</string>
+  <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
+  <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Porrot bikoitza</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Beltzen porrota, baina Txuriek irabazi ezin</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Txurien porrota, baina Beltzek irabazi ezin</string>
 </resources>
