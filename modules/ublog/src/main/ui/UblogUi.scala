@@ -155,9 +155,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                   posts,
                   p =>
                     language
-                      .fold(routes.Ublog.communityAll(filter.some, p))(l =>
+                      .fold(routes.Ublog.communityAll(filter.some, p)): l =>
                         routes.Ublog.communityLang(l, filter.some, p)
-                      )
                       .url
                 )
               )
@@ -237,8 +236,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         lila.ui.bits.calendarMselect(
           helpers,
           "by-month",
-          UblogByMonth.allYears,
-          (y, m) => routes.Ublog.byMonth(y, m, filter.some, by)
+          allYears = UblogByMonth.allYears,
+          firstMonth = monthOfFirstPost,
+          url = (y, m) => routes.Ublog.byMonth(y, m, filter.some, by)
         )(yearMonth),
         filterAndSort(
           filter.some,
@@ -434,8 +434,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   )(using Context) =
     import BlogsBy.*
     import Quality.*
-    val sort   = sortOpt.getOrElse(newest)
-    val filter = filterOpt.getOrElse(weak)
+    val sort   = sortOpt | newest
+    val filter = filterOpt | weak
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
         span(
@@ -463,7 +463,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )
 
   private def btnCls(active: Boolean, other: String = ""): Modifier =
-    cls := s"btn-rack__btn $other " + (if active then "lit" else "")
+    cls := s"btn-rack__btn $other" + (if active then " lit" else "")
 
   private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)):
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)

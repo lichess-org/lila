@@ -38,17 +38,23 @@ object bits:
       helpers: Helpers,
       id: String,
       allYears: List[Int],
+      firstMonth: YearMonth,
       url: (Int, Int) => play.api.mvc.Call
-  )(at: YearMonth)(using
-      Lang
-  ) =
+  )(at: YearMonth)(using Lang) =
     import helpers.showMonth
-    val prefix                   = s"calendar-mselect"
-    def prefixed(suffix: String) = s"${prefix}$suffix"
+    val prefix                        = s"calendar-mselect"
+    def prefixed(suffix: String)      = s"${prefix}$suffix"
+    def nonEmptyDate(date: YearMonth) =
+      val ok = date.isAfter(firstMonth.minusMonths(1)) && date.isBefore(YearMonth.now.plusMonths(1))
+      Option.when(ok)(date)
+    val prev                 = nonEmptyDate(at.minusMonths(1))
+    val next                 = nonEmptyDate(at.plusMonths(1))
+    def urlOf(ym: YearMonth) = url(ym.getYear, ym.getMonthValue)
     div(cls := s"$prefix $prefix--$id")(
       a(
-        href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonthValue),
-        dataIcon := Icon.LessThan
+        href     := prev.map(urlOf),
+        dataIcon := Icon.LessThan,
+        cls      := List("disabled" -> prev.isEmpty)
       ),
       div(cls := prefixed("__selects"))(
         mselect(
@@ -71,8 +77,9 @@ object bits:
         )
       ),
       a(
-        href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonthValue),
-        dataIcon := Icon.GreaterThan
+        href     := next.map(urlOf),
+        dataIcon := Icon.GreaterThan,
+        cls      := List("disabled" -> next.isEmpty)
       )
     )
 
