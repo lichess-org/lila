@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Cộng đồng</string>
+  <string name="byMonth">Theo tháng</string>
+  <string name="byTopic">Theo chủ đề</string>
+  <string name="byLichess">Bởi Lichess</string>
+  <string name="myFriends">Của bạn bè</string>
+  <string name="myLikes">Đã thích</string>
   <string name="myBlog">Blog của tôi</string>
   <string name="likedBlogs">Các bài Blog đã thích</string>
   <plurals name="blogPosts">
