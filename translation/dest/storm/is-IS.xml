@@ -22,6 +22,8 @@
   <string name="waitingForMorePlayers">Bíð eftir að fleiri leikmenn bætist í hópinn...</string>
   <string name="raceComplete">Lokið við kapphlaup!</string>
   <string name="spectating">Horfir á</string>
+  <string name="joinTheRace">Taktu þátt í kapphlaupinu!</string>
+  <string name="startTheRace">Byrja kapphlaupið</string>
   <string name="waitForRematch">Bíddu eftir að fá að tefla á ný</string>
   <string name="nextRace">Næsta kapphlaup</string>
   <string name="joinRematch">Tefla aftur</string>
