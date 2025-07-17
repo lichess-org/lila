@@ -32,15 +32,16 @@
     }
   }
   &__topic {
-    display: block;
-    padding: 1.2em var(---box-padding) 2.3em var(---box-padding);
+    @extend %flex-column;
+    gap: 1em;
+    padding: 1em 1.5em 1.5em;
+    border-radius: $box-radius-size;
     @include transition(background);
     &:hover {
       background: $m-primary_bg--mix-18;
     }
     h2 {
       @extend %flex-between;
-      margin-bottom: 1rem;
       span {
         font-size: 1rem;
       }
