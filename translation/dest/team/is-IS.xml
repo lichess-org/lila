@@ -55,6 +55,10 @@
 
 Þú getur ekki fjarlægt lið ef meðlimur liðs hefur þegar tekið þátt í mótinu.</string>
   <string name="innerTeam">Innra liðið</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Orrusta á milli %s liðs</item>
+    <item quantity="other">Orrusta á milli %s liða</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Einn liðstjóri á lið</item>
     <item quantity="other">%s liðsstjórar á lið</item>
