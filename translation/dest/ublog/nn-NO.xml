@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Fellesskap</string>
+  <string name="byMonth">Etter månad</string>
+  <string name="byTopic">Etter emne</string>
+  <string name="byLichess">Av Lichess</string>
+  <string name="myFriends">Mine vener</string>
+  <string name="myLikes">Artiklar eg likar</string>
   <string name="myBlog">Min blogg</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
   <plurals name="blogPosts">
