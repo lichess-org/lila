@@ -2,6 +2,7 @@ package lila.racer
 
 import scalalib.cuteName.CuteNameGenerator
 
+import lila.core.id.SessionId
 import lila.core.LightUser
 
 case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: Instant, score: Int):
@@ -15,10 +16,10 @@ case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: I
 object RacerPlayer:
   enum Id:
     case User(id: UserId)
-    case Anon(sessionId: String)
+    case Anon(sessionId: SessionId)
   object Id:
     def apply(str: String) =
-      if str.startsWith("@") then Anon(str.drop(1))
+      if str.startsWith("@") then Anon(SessionId(str.drop(1)))
       else User(UserId(str))
     def userIdOf(id: Id) = id match
       case User(uid) => uid.some
