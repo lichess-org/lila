@@ -13,6 +13,8 @@
   <string name="specialMoves">Sérstakir leikir</string>
   <string name="didYouLikeThisPuzzle">Fannst þér þrautin góð?</string>
   <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
+  <string name="upVote">Ýta undir þraut</string>
+  <string name="downVote">Ýta burt þraut</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
   <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
@@ -66,5 +68,10 @@
 
 Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s leikin</item>
+    <item quantity="other">%s leiknar</item>
+  </plurals>
+  <string name="percentSolved">%s leystar</string>
   <string name="improvementAreasDescription">Temdu þér eftirfarandi til þess að hámarka framfarir þínar!</string>
 </resources>
