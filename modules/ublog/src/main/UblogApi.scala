@@ -156,9 +156,9 @@ final class UblogApi(
       tier: Tier,
       mod: Option[UblogAutomod.Assessment]
   ): Funit =
-    val source = tier match
-      case Tier.UNLISTED => "unlisted"
-      case _             => mod.fold(Tier.name(tier).toLowerCase())(_.quality.toString + " quality")
+    val source =
+      if tier == Tier.UNLISTED then "unlisted tier"
+      else mod.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
     val automodNotes = mod.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n")
