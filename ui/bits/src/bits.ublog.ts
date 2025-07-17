@@ -48,18 +48,13 @@ site.load.then(() => {
 });
 
 type SubmitForm = {
-  quality?: string;
+  quality?: number;
   evergreen?: boolean;
   flagged?: string;
   commercial?: string;
   featured?: boolean;
   featuredUntil?: number;
 };
-
-function temporaryHotFixQualityValue(v: string): string {
-  // case spam, weak, good, great
-  return v === '0' ? 'spam' : v === '1' ? 'weak' : v === '2' ? 'good' : v === '3' ? 'great' : v;
-}
 
 function rewireModTools() {
   const modToolsContainer = document.querySelector<HTMLElement>('#mod-tools-container');
@@ -79,9 +74,7 @@ function rewireModTools() {
 
   modTools
     .querySelectorAll<HTMLButtonElement>('.quality-btn')
-    .forEach(btn =>
-      btn.addEventListener('click', () => submit({ quality: temporaryHotFixQualityValue(btn.value) })),
-    );
+    .forEach(btn => btn.addEventListener('click', () => submit({ quality: Number(btn.value) })));
 
   const submitFields = modTools.querySelector<HTMLElement>('.submit-fields')!;
   submitFields.querySelectorAll<HTMLInputElement>('input').forEach(input =>

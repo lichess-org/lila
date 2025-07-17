@@ -156,6 +156,9 @@ final class UblogApi(
       tier: Tier,
       mod: Option[UblogAutomod.Assessment]
   ): Funit =
+    val source = tier match
+      case Tier.UNLISTED => "unlisted"
+      case _             => mod.fold(Tier.name(tier).toLowerCase())(_.quality.toString + " quality")
     val automodNotes = mod.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n")
@@ -165,7 +168,7 @@ final class UblogApi(
       slug = post.slug,
       title = post.title,
       intro = post.intro,
-      topic = mod.fold(Tier.name(tier).toLowerCase())(_.quality.toString + " quality") + " new posts",
+      topic = s"$source new posts",
       automodNotes
     )
 

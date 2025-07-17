@@ -199,7 +199,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           lila.core.ublog.Quality.values.map: q =>
             button(
               cls   := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.name
+              value := q.ordinal.toString
             )(q.name.capitalize)
         ),
         fieldset(cls := "carousel-fields")(
@@ -217,7 +217,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),
         span(
           "Evergreen",
-          input(tpe := "checkbox", evergreen.option(checked)),
+          input(id := "evergreen", tpe := "checkbox", evergreen.option(checked)),
           "(for recommendations)"
         ),
         span(cls := s"commercial ${comm.isEmpty.so("empty")}", title := comm)(

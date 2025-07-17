@@ -142,10 +142,8 @@ object UblogForm:
 
   object ModPostData:
     given Reads[Quality] = Reads
-      .of[String]
-      .map(Quality.fromName)
-      .map(_.toTry("Invalid quality"))
-      .flatMapResult(JsResult.fromTry(_))
+      .of[Int]
+      .map(Quality.fromOrdinal)
     def reads: Reads[ModPostData] =
       (
         (JsPath \ "quality")
