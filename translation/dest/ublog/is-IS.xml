@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Samfélag</string>
+  <string name="byLichess">Eftir Lichess</string>
+  <string name="myFriends">Vinir mínir</string>
   <string name="myBlog">Bloggið mitt</string>
   <plurals name="blogPosts">
     <item quantity="one">%s færsla á bloggi</item>
