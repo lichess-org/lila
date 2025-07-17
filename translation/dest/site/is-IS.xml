@@ -186,7 +186,7 @@
   <string name="rememberMe">Muna eftir innskráningunni minni</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Nýskráning</string>
-  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum leikmönnum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að stofna marga aðganga og þarflaus stofnun of margra aðganga verður að banni.</string>
+  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum leikmönnum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti því að stofna marga aðganga og þarflaus stofnun of margra aðganga verður að banni.</string>
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
   <string name="xPostedInForumY">%1$s póstað í umræðu %2$s</string>
@@ -887,7 +887,7 @@
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Leifturskák</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
-  <string name="classical">Hefðbundin Skák</string>
+  <string name="classical">Kappskák</string>
   <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
