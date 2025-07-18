@@ -171,11 +171,16 @@
   <string name="studyMembersTitle">Azterlanaren kideak</string>
   <string name="studyChaptersTitle">Azterlanaren kapituluak</string>
   <string name="commentPositionTitle">Posizio bat komentatu</string>
+  <string name="annotatePositionTitle">Iruzkindu posizioa</string>
   <string name="conclusionTitle">Eskerrik asko zure denboragatik</string>
   <string name="createChapterTitle">Azterlan kapitulu berri bat sortu dezagun</string>
   <string name="fromInitialPositionTitle">Hasierako posiziotik aurrera</string>
   <string name="customPositionTitle">Posizio pertsonalizatua</string>
   <string name="loadExistingLichessGameTitle">Igo Lichess-en dagoen joko bat</string>
+  <string name="fromFenStringTitle">FEN kate batetik</string>
+  <string name="fromFenStringText">Itsatsu FEN formatuko posizio bat&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
+  <string name="fromPgnGameTitle">PGN partida batetik</string>
+  <string name="fromPgnGameText">Itsatsu PGN formatuan dagoen partida bat&lt;br&gt;bertatik jokaldiak, komentarioak eta barianteak kapitulura kargatzeko.</string>
   <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
   <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Porrot bikoitza</string>
