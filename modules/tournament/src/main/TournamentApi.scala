@@ -272,9 +272,9 @@ final class TournamentApi(
             verify(tour.conditions, tour.perfType)
 
   private val initialJoin =
-    lila.memo.RateLimit.composite[UserId]("tournament.user.join")(("fast", 6, 1.hour), ("slow", 20, 1.day))
+    lila.memo.RateLimit.composite[UserId]("tournament.user.join")(("fast", 1, 1.hour), ("slow", 20, 1.day))
 
-  private[tournament] def join(
+  private def join(
       tourId: TourId,
       data: TournamentForm.TournamentJoin,
       asLeader: Boolean,
@@ -283,55 +283,54 @@ final class TournamentApi(
     Parallel(tourId, "join")(cached.tourCache.enterable): tour =>
       import Tournament.JoinResult
       playerRepo.find(tour.id, me).flatMap { prevPlayer =>
-        if prevPlayer.isEmpty && !initialJoin.test(me.userId)
-        then fuccess(JoinResult.RateLimited)
-        else
-          val fuResult: Fu[JoinResult] =
-            if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
-            else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
-            else if prevPlayer.nonEmpty || tour.password.forall: p =>
-                // plain text access code
-                MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
-                  // user-specific access code: HMAC-SHA256(access code, user id)
-                  MessageDigest.isEqual(
-                    Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
-                    (~data.password).getBytes(UTF_8)
-                  )
-            then
-              getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
-                if !verdicts.accepted then fuccess(JoinResult.Verdicts)
-                else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
-                else
-                  def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
-                    user <- userApi.withPerf(me.value, tour.perfType)
-                    _    <- playerRepo.join(tour.id, user, team, prevPlayer)
-                    _    <- updateNbPlayers(tour.id)
-                  yield
-                    publish()
-                    JoinResult.Ok
-                  tour.teamBattle.fold(proceedWithTeam(none)): battle =>
-                    if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
-                    else
-                      data.team match
-                        case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
-                        case Some(team) if battle.teams.contains(team) =>
-                          getMyTeamIds(me.lightMe).flatMap: myTeams =>
-                            if myTeams.has(team) then proceedWithTeam(team.some)
-                            else fuccess(JoinResult.MissingTeam)
-                        case _ => fuccess(JoinResult.MissingTeam)
-            else fuccess(JoinResult.WrongEntryCode)
-          fuResult.map: result =>
-            if result.ok then
-              data.team
-                .ifTrue(asLeader && tour.isTeamBattle)
-                .foreach:
-                  tournamentRepo.setForTeam(tour.id, _)
-              if ~data.pairMeAsap then
-                pairingRepo.isPlaying(tourId, me).foreach { isPlaying =>
-                  if !isPlaying then waitingUsers.addApiUser(tour, me)
-                }
-            socket.reload(tour.id)
-            promise.foreach(_.success(result))
+        val fuResult: Fu[JoinResult] =
+          if prevPlayer.isEmpty && !initialJoin.test(me.userId)
+          then fuccess(JoinResult.RateLimited)
+          else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+          else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
+          else if prevPlayer.nonEmpty || tour.password.forall: p =>
+              // plain text access code
+              MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
+                // user-specific access code: HMAC-SHA256(access code, user id)
+                MessageDigest.isEqual(
+                  Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
+                  (~data.password).getBytes(UTF_8)
+                )
+          then
+            getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
+              if !verdicts.accepted then fuccess(JoinResult.Verdicts)
+              else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
+              else
+                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
+                  user <- userApi.withPerf(me.value, tour.perfType)
+                  _    <- playerRepo.join(tour.id, user, team, prevPlayer)
+                  _    <- updateNbPlayers(tour.id)
+                yield
+                  publish()
+                  JoinResult.Ok
+                tour.teamBattle.fold(proceedWithTeam(none)): battle =>
+                  if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
+                  else
+                    data.team match
+                      case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
+                      case Some(team) if battle.teams.contains(team) =>
+                        getMyTeamIds(me.lightMe).flatMap: myTeams =>
+                          if myTeams.has(team) then proceedWithTeam(team.some)
+                          else fuccess(JoinResult.MissingTeam)
+                      case _ => fuccess(JoinResult.MissingTeam)
+          else fuccess(JoinResult.WrongEntryCode)
+        fuResult.map: result =>
+          if result.ok then
+            data.team
+              .ifTrue(asLeader && tour.isTeamBattle)
+              .foreach:
+                tournamentRepo.setForTeam(tour.id, _)
+            if ~data.pairMeAsap then
+              pairingRepo.isPlaying(tourId, me).foreach { isPlaying =>
+                if !isPlaying then waitingUsers.addApiUser(tour, me)
+              }
+          socket.reload(tour.id)
+          promise.foreach(_.success(result))
       }
 
   def joinWithResult(
@@ -340,7 +339,7 @@ final class TournamentApi(
       isLeader: Boolean
   )(using GetMyTeamIds, Me): Fu[Tournament.JoinResult] =
     val promise = Promise[Tournament.JoinResult]()
-    join(tourId, data, isLeader, promise.some)
+    join(tourId, data, isLeader, promise.some).thenPp
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
