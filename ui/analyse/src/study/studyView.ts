@@ -44,7 +44,12 @@ import {
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { gamebookPlayView, gaugeOn } = ctx;
-  console.log(deps.studyPracticeView, 'ohnoes');
+
+  let oldColumns = displayColumns();
+  window.addEventListener('resize', () => {
+    if (oldColumns !== displayColumns()) ctrl.redraw();
+    oldColumns = displayColumns();
+  });
   return renderMain(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
