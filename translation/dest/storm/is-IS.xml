@@ -19,6 +19,7 @@
   <string name="combo">Leikflétta</string>
   <string name="time">Tími</string>
   <string name="timePerMove">Tími á leik</string>
+  <string name="highestSolved">Flestu skákstig</string>
   <string name="puzzlesPlayed">Þrautir tefldar</string>
   <string name="newRun">Ný lota (flýtilykill: Bilslá)</string>
   <string name="endRun">Ljúka lotu (flýtilykill: Færslulykill)</string>
