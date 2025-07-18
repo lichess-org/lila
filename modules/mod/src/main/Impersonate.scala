@@ -6,24 +6,19 @@ import lila.user.{ Me, User, UserRepo }
 
 final class ImpersonateApi(userRepo: UserRepo):
 
-  private var modToUser = Map.empty[ModId, UserId]
-  private var userToMod = Map.empty[UserId, ModId]
+  private var impersonations = Map.empty[ModId, UserId]
 
-  def start(mod: ModId, user: User): Unit =
-    stop(user)
-    modToUser = modToUser + (mod     -> user.id)
-    userToMod = userToMod + (user.id -> mod)
-    logger.info(s"$mod starts impersonating ${user.username}")
-    Bus.pub(Impersonate(user.id, mod.some))
+  def start(modId: ModId, user: User): Unit =
+    stop(modId)
+    impersonations = impersonations + (modId -> user.id)
+    logger.info(s"$modId starts impersonating ${user.username}")
+    Bus.pub(Impersonate(modId, user.id, true))
 
-  def stop(user: User): Unit =
-    userToMod.get(user.id).so { modId =>
-      modToUser = modToUser - modId
-      userToMod = userToMod - user.id
-      logger.info(s"$modId stops impersonating ${user.username}")
-      Bus.pub(Impersonate(user.id, none))
+  def stop(modId: ModId): Unit =
+    impersonations.get(modId).foreach { userId =>
+      impersonations = impersonations - modId
+      logger.info(s"$modId stops impersonating $userId")
+      Bus.pub(Impersonate(modId, userId, false))
     }
 
-  def impersonating(me: Me): Fu[Option[User]] = modToUser.get(me.modId).so(userRepo.byId)
-
-  def isImpersonated(user: User) = userToMod contains user.id
+  def impersonating(modId: ModId): Fu[Option[User]] = impersonations.get(modId).so(userRepo.byId)
