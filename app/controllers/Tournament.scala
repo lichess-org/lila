@@ -204,7 +204,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     data.team
       .so(env.team.api.isGranted(_, me, _.Tour))
       .flatMap: isLeader =>
-        api.joinWithResult(tourId, data = data, isLeader)
+        api.join(tourId, data = data, asLeader = isLeader)
 
   def pause(id: TourId) = Auth { ctx ?=> me ?=>
     Found(cachedTour(id)): tour =>
