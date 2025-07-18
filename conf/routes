@@ -80,6 +80,7 @@ GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: UserS
 GET   /@/:username/all                 controllers.User.gamesAll(username: UserStr, page: Int ?= 1)
 GET   /@/:username/download            controllers.User.download(username: UserStr)
 GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /@/:username/:filterName         controllers.User.games(username: UserStr, filterName, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
@@ -124,7 +125,6 @@ GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr,
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
 POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
-GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
