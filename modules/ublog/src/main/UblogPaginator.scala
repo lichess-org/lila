@@ -48,7 +48,7 @@ final class UblogPaginator(
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
         val select =
-          $doc("live" -> true, selectQuality(filter.quality), "topics".$ne(UblogTopic.offTopic)) ++
+          $doc("live" -> true, selectQuality(filter), "topics".$ne(UblogTopic.offTopic)) ++
             language.so(l => $doc("language" -> l))
         def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
@@ -76,12 +76,16 @@ final class UblogPaginator(
       by: BlogsBy,
       page: Int
   ): Fu[Paginator[PreviewPost]] =
-    val q = if topic == UblogTopic.offTopic then filter.offTopicQuality else filter.quality
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
         def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic, selectQuality(q)), offset, length, by)
+          aggregateVisiblePosts(
+            $doc("topics" -> topic, selectQuality(filter, topic == UblogTopic.offTopic)),
+            offset,
+            length,
+            by
+          )
       ,
       currentPage = page,
       maxPerPage = maxPerPage
@@ -102,7 +106,7 @@ final class UblogPaginator(
             def slice(offset: Int, length: Int) =
               // topics included to hit prod index
               aggregateVisiblePosts(
-                UblogByMonth.selector(month) ++ selectQuality(filter.quality),
+                UblogByMonth.selector(month) ++ selectQuality(filter),
                 offset,
                 length,
                 by
@@ -112,7 +116,12 @@ final class UblogPaginator(
           maxPerPage = maxPerPage
         )
 
-  private def selectQuality(q: Quality): Bdoc = $doc("automod.quality".$gte(q))
+  private def selectQuality(filter: QualityFilter, offTopic: Boolean = false): Bdoc =
+    filter match
+      case QualityFilter.all  => $doc("automod.quality".$gte(if offTopic then Quality.spam else Quality.weak))
+      case QualityFilter.best => $doc("automod.quality".$gte(if offTopic then Quality.weak else Quality.good))
+      case QualityFilter.weak => $doc("automod.quality".$eq(Quality.weak))
+      case QualityFilter.spam => $doc("automod.quality".$eq(Quality.spam))
 
   object liveByFollowed:
 
