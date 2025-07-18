@@ -45,5 +45,8 @@
   </plurals>
   <string name="imageAlt">Annar texti myndar</string>
   <string name="imageCredit">Höfundur myndar</string>
+  <string name="safeToUseImages">Óhætt er að notfæra sér myndir frá þessum vefsíðum: </string>
+  <string name="inappropriateContentAccountClosed">Allt sem telst óviðeigandi gæti haft í för með sér að aðgangurinn þinn verði lokaður.</string>
+  <string name="blogTips">Hagnýt ráð okkar til að skrifa frábærar bloggfærslur</string>
   <string name="youBlockedByBlogAuthor">Höfundur bloggsins hefur lokað á þig.</string>
 </resources>
