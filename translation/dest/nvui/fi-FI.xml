@@ -26,4 +26,31 @@
   <string name="announcePiecesOnRankOrFile">Ilmoita tietyllä rivillä tai linjalla olevat nappulat. Esimerkiksi \"s a\" tai \"s 1\".</string>
   <string name="goToBoard">Siirry pelilaudalle. Oletusruutu on e-4. Ruudun voi myös määritellä, esimerkiksi \"board a-1\" tai \"b a-1\" siirtyy ruutuun a-1.</string>
   <string name="movePiece">Käytä nappuloiden siirtämiseen normaalia algebrallista merkitsemistapaa.</string>
+  <string name="king">kuningas</string>
+  <string name="whiteKing">valkea kuningas</string>
+  <string name="blackKing">musta kuningas</string>
+  <string name="queen">daami</string>
+  <string name="whiteQueen">valkea daami</string>
+  <string name="blackQueen">musta daami</string>
+  <string name="rook">torni</string>
+  <string name="whiteRook">valkea torni</string>
+  <string name="blackRook">musta torni</string>
+  <string name="bishop">lähetti</string>
+  <string name="whiteBishop">valkea lähetti</string>
+  <string name="blackBishop">musta lähetti</string>
+  <string name="knight">ratsu</string>
+  <string name="whiteKnight">valkea ratsu</string>
+  <string name="blackKnight">musta ratsu</string>
+  <string name="pawn">sotilas</string>
+  <string name="whitePawn">valkea sotilas</string>
+  <string name="blackPawn">musta sotilas</string>
+  <string name="sanTakes" comment="x in standard notation">lyö</string>
+  <string name="sanCheck" comment="+ in standard notation">shakki</string>
+  <string name="sanCheckmate" comment="# in standard notation">matti</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">lyhyt linnoitus</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">pitkä linnoitus</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">pudotetaan</string>
+  <string name="invalidMove">Virheellinen siirto</string>
+  <string name="premoveCancelled">Esisiirto peruutettu</string>
+  <string name="premoveRecorded">Esisiirto tallennettu: %s. Peru painamalla Enteriä</string>
 </resources>
