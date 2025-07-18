@@ -76,7 +76,9 @@ Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaðu
   <string name="pause">Pása</string>
   <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="similarToOTB">Svipað og á raunverulegum skákmótum (e. OTB)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
+  <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
   <string name="playYourGames">Tefldu skákir þínar</string>
   <string name="byes">Stökur</string>
   <string name="absences">Fjarvistir</string>
