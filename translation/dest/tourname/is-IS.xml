@@ -11,6 +11,7 @@
   <string name="dailyX">Daglegt %s</string>
   <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Austur-mót í atskák</string>
   <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Austur-atskák</string>
+  <string name="easternClassicalArena">Austur-mót í kappskák</string>
   <string name="easternClassical">Austan kappskák</string>
   <string name="easternXArena">Austur-mót í %s</string>
   <string name="easternX">Austan %s</string>
