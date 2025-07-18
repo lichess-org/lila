@@ -27,6 +27,7 @@
   <string name="color">Litur</string>
   <string name="evaluation">Stöðumat</string>
   <string name="maxNumber">Hámarksfjöldi</string>
+  <string name="maxNumberExplanation">Hámarksfjöldi leikja til að skila</string>
   <string name="include">Láta fylgja</string>
   <string name="descending">Lækkandi</string>
   <string name="ascending">Hækkandi</string>
