@@ -261,7 +261,7 @@ object RemoteSocket:
         s"disconnect/user $userId"
       def setTroll(userId: UserId, v: Boolean) =
         s"mod/troll/set $userId ${boolean(v)}"
-      def impersonate(userId: UserId, by: Option[UserId]) =
+      def impersonate(userId: UserId, by: Option[lila.core.userId.ModId]) =
         s"mod/impersonate $userId ${optional(by.map(_.value))}"
       def follow(u1: UserId, u2: UserId)                      = s"rel/follow $u1 $u2"
       def unfollow(u1: UserId, u2: UserId)                    = s"rel/unfollow $u1 $u2"

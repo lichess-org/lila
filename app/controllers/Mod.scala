@@ -154,7 +154,7 @@ final class Mod(
         .so: username =>
           if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
             Found(env.user.repo.byId(username)): user =>
-              env.mod.impersonate.start(me, user)
+              env.mod.impersonate.start(me.modId, user)
               Redirect(routes.User.show(user.username))
           else notFound
   }
