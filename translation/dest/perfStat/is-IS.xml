@@ -25,6 +25,7 @@
   <string name="currentStreak">Núverandi döngun: %s</string>
   <string name="bestRated">Bestu sigrar eftir skákstigum</string>
   <string name="gamesInARow">Skákir tefldar í röð</string>
+  <string name="lessThanOneHour">Minna en ein klukkustund á milli skáka</string>
   <string name="maxTimePlaying">Hámarkstími sem varið var í að tefla</string>
   <string name="now">núna</string>
 </resources>
