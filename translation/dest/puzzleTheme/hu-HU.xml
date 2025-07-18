@@ -12,7 +12,7 @@
   <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
   <string name="attraction">Ráterelés</string>
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
-  <string name="backRankMate">Matt a hátsó soron</string>
+  <string name="backRankMate">Alapsori matt</string>
   <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
   <string name="bishopEndgame">Futó végjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
@@ -38,7 +38,7 @@
   <string name="defensiveMoveDescription">Olyan precíz lépés vagy lépéssorozat amivel elkerülhető anyagveszteség vagy más hátrányos helyzet.</string>
   <string name="deflection">Elterelés</string>
   <string name="deflectionDescription">Egy lépés amivel az ellenfél figurája kimozdítható aktuális feladatából, például egy kulcsmező felügyelete.</string>
-  <string name="discoveredAttack">Felfedés</string>
+  <string name="discoveredAttack">Felfedett támadás</string>
   <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
   <string name="doubleCheck">Kettős sakk</string>
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
