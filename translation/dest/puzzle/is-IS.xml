@@ -67,6 +67,10 @@
   <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
 
 Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Ein þraut fundin í skákum notandans %2$s</item>
+    <item quantity="other">%1$s þrautir fundnar í skákum notandans %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s leikin</item>
