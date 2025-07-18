@@ -1817,6 +1817,8 @@ interface I18n {
     opponentClock: string;
     /** pawn */
     pawn: string;
+    /** PGN and FEN */
+    pgnAndFen: string;
     /** Pieces */
     pieces: string;
     /** Pockets */

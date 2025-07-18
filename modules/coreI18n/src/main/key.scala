@@ -961,6 +961,7 @@ object I18nKey:
     val `pockets`: I18nKey = "nvui:pockets"
     val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
     val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
+    val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
