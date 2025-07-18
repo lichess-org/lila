@@ -63,6 +63,7 @@ Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaðu
   <string name="startingSoon">Hefst senn</string>
   <string name="comparison">Samanburður</string>
   <string name="numberOfGames">Fjöldi skáka</string>
+  <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla leikmenn</string>
   <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
@@ -71,7 +72,9 @@ Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaðu
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
   <string name="lateJoin">Seinlegar þátttökur</string>
+  <string name="lateJoinUntil">Já þar til meira en helmingur umferðanna er hafinn</string>
   <string name="pause">Pása</string>
+  <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
   <string name="playYourGames">Tefldu skákir þínar</string>
