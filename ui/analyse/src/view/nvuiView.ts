@@ -81,14 +81,13 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   return hl('main.analyse', [
     hl('div.nvui', [
       studyDetails(ctrl),
-      hl('h1', 'Textual representation'),
-      hl('h2', 'Game info'),
+      hl('h2', i18n.nvui.gameInfo),
       ...['white', 'black'].map((color: Color) =>
         hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
       ),
       hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-      hl('h2', 'Moves'),
+      hl('h2', i18n.nvui.moveList),
       hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
       !ctrl.studyPractice && [
         hl(
@@ -101,18 +100,19 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         ),
         explorerView(ctrl),
       ],
-      hl('h2', 'Pieces'),
-      hl('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-      hl('div.pockets', pockets && renderPockets(pockets)),
+      hl('h2', i18n.nvui.pieces),
+      renderPieces(ctrl.chessground.state.pieces, style),
+      pockets && hl('h2', i18n.nvui.pockets),
+      pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
-      hl('h2', 'Current position'),
+      hl('h2', i18n.nvui.lastMove),
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
           hl('h2', `${i18n.site.clock}`),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
-      hl('h2', 'Move form'),
+      hl('h2', i18n.nvui.inputForm),
       hl(
         'form#move-form',
         {
@@ -126,7 +126,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         },
         [
           hl('label', [
-            'Command input',
+            i18n.nvui.inputForm,
             hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off' },
             }),
@@ -136,12 +136,12 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       notify.render(),
       renderRetro(ctx),
       !ctrl.retro && [
-        hl('h2', 'Computer analysis'),
+        hl('h2', i18n.site.computerAnalysis),
         cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
-      hl('h2', 'Board'),
+      hl('h2', i18n.site.board),
       hl(
         'div.board',
         { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
@@ -162,14 +162,14 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
             root.append($('.blind-content').removeClass('none'));
             root.find('.copy-pgn').on('click', function (this: HTMLElement) {
               navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                notify.set('PGN copied into clipboard.');
+                notify.set(i18n.nvui.copiedToClipboard('PGN'));
               });
             });
             root.find('.copy-fen').on('click', function (this: HTMLElement) {
               const inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement;
               const fen = inputFen.value;
               navigator.clipboard.writeText(fen).then(() => {
-                notify.set('FEN copied into clipboard.');
+                notify.set(i18n.nvui.copiedToClipboard('FEN'));
               });
             });
           },
@@ -195,7 +195,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         ].reduce(addBreaks, []),
       ),
       boardCommands(),
-      hl('h2', 'Commands'),
+      hl('h2', i18n.nvui.inputFormCommandList),
       hl(
         'p',
         [
@@ -320,9 +320,9 @@ function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
 
 function renderAriaResult(ctrl: AnalyseCtrl): VNode[] {
   const result = renderResult(ctrl);
-  const res = result.length ? result : 'No result';
+  const res = result.length ? result : i18n.site.none;
   return [
-    hl('h3', 'Game status'),
+    hl('h2', i18n.nvui.gameStatus),
     hl('div', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
   ];
 }
@@ -529,7 +529,7 @@ export function renderCurrentNode({
   moveStyle,
 }: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
   const node = ctrl.node;
-  if (!node.san || !node.uci) return 'Initial position';
+  if (!node.san || !node.uci) return i18n.nvui.gameStart;
   return [
     plyToTurn(node.ply),
     renderSan(node.san, node.uci, moveStyle.get()),

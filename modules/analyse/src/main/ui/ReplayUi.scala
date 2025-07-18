@@ -192,12 +192,12 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
           ),
           ctx.blind.option:
             div(cls := "blind-content none")(
-              h2("PGN and FEN downloads"),
+              h2(trans.nvui.pgnAndFen()),
               button(cls := "copy-pgn", attr("data-pgn") := pgn):
-                "Copy PGN to clipboard"
+                trans.nvui.copyToClipboard("PGN")
               ,
               button(cls := "copy-fen"):
-                "Copy FEN to clipboard"
+                trans.nvui.copyToClipboard("FEN")
               ,
               pgnLinks,
               div(

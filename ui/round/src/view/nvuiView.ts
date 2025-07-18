@@ -52,8 +52,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     hl('h2', i18n.nvui.moveList),
     hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
     hl('h2', i18n.nvui.pieces),
-    hl('div.pieces', nv.renderPieces(ctrl.chessground.state.pieces, style)),
-    pockets && hl('div.pockets', nv.renderPockets(pockets)),
+    nv.renderPieces(ctrl.chessground.state.pieces, style),
+    pockets && hl('h2', i18n.nvui.pockets),
+    pockets && nv.renderPockets(pockets),
     hl('h2', i18n.nvui.gameStatus),
     hl('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
       ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),

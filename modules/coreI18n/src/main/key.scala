@@ -958,6 +958,10 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `pockets`: I18nKey = "nvui:pockets"
+    val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
+    val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
+    val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
