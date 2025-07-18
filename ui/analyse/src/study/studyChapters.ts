@@ -24,7 +24,6 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
