@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Berdinketa horrela adostu delako</string>
   <string name="fiftyMovesWithoutProgress">50 jokaldi aurrera egin gabe</string>
   <string name="currentGames">Oraingo partidak</string>
+  <string name="joinedX">Noiz sartu zen %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partida</item>
