@@ -5,7 +5,7 @@ import java.time.YearMonth
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
-import lila.core.ublog.{ BlogsBy, Quality }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
@@ -110,7 +110,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def community(
       language: Option[Language],
-      filter: Quality,
+      filter: QualityFilter,
       posts: Paginator[UblogPost.PreviewPost],
       langSelections: List[(Language, String)]
   )(using ctx: Context) =
@@ -207,8 +207,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
-      Context
+  def topic(top: UblogTopic, filter: QualityFilter, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(
+      using Context
   ) =
     list(
       title = s"$top posts",
@@ -220,7 +220,12 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       byOpt = by.some
     )
 
-  def month(yearMonth: YearMonth, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
+  def month(
+      yearMonth: YearMonth,
+      filter: QualityFilter,
+      by: BlogsBy,
+      posts: Paginator[UblogPost.PreviewPost]
+  )(using
       Context
   ) =
     list(
@@ -401,9 +406,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
       menuItem: String,
-      route: (Int, Quality, BlogsBy) => Call,
+      route: (Int, QualityFilter, BlogsBy) => Call,
       onEmpty: => Frag,
-      filterOpt: Option[Quality] = none,
+      filterOpt: Option[QualityFilter] = none,
       byOpt: Option[BlogsBy] = none,
       header: Option[Frag] = none
   )(using ctx: Context) =
@@ -421,29 +426,27 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
                 posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
-                pagerNext(posts, np => route(np, filterOpt.getOrElse(Quality.spam), by).url)
+                pagerNext(posts, np => route(np, filterOpt.getOrElse(QualityFilter.all), by).url)
               )
             else div(cls := "ublog-index__posts--empty")(onEmpty)
           )
         )
 
   private def filterAndSort(
-      filterOpt: Option[Quality],
+      filterOpt: Option[QualityFilter],
       sortOpt: Option[BlogsBy],
-      route: (Quality, BlogsBy) => Call
+      route: (QualityFilter, BlogsBy) => Call
   )(using Context) =
     import BlogsBy.*
-    import Quality.*
     val sort   = sortOpt | newest
-    val filter = filterOpt | weak
+    val filter = filterOpt | QualityFilter.best
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
         span(
           "Show",
-          span(cls := "btn-rack")(
-            a(btnCls(filter == good), href := route(good, sort))("best"),
-            a(btnCls(filter == weak), href := route(weak, sort))("all")
-          )
+          span(cls := "btn-rack"):
+            QualityFilter.values.map: f =>
+              a(btnCls(filter == f), href := route(f, sort))(f.name)
         )
       ),
       sortOpt.map: by =>
