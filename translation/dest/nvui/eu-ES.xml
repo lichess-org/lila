@@ -1,2 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Destakatutako ebentuak</string>
+  <string name="moveList">Jokaldi zerrenda</string>
+  <string name="gameInfo">Partidaren informazioa</string>
+  <string name="pieces">Piezak</string>
+  <string name="gameStatus">Partidaren egoera</string>
+  <string name="lastMove">Azken jokaldia</string>
+  <string name="inputForm">Komandoa sartzeko formularioa</string>
+  <string name="actions">Akzioak</string>
+  <string name="yourClock">Zure erlojua</string>
+  <string name="opponentClock">Aurkariaren erlojua</string>
+  <string name="gameStart">Partidaren hasiera</string>
+  <string name="boardCommandList">Taulak fokua duenerako komando-zerrenda</string>
+  <string name="inputFormCommandList">Idatzi komando hauek komandoak sartzeko formularioan.</string>
+  <string name="goToInputForm">Joan komandoak sartzeko formulariora.</string>
+  <string name="announceCurrentSquare">Iragarri uneko laukia.</string>
+  <string name="announceLastMove">Iragarri azken jokaldia.</string>
+  <string name="announceLastMoveCapture">Iragarri azken jokaldian pieza harrapatu dela.</string>
+  <string name="announcePossibleMoves">Iragarri aukeratutako piezaren jokaldi posibleak.</string>
+  <string name="announcePossibleCaptures">Iragarri aukeratutako piezaren harrapaketa posibleak.</string>
+  <string name="moveWithArrows">Mugiku aldameneko laukira ezkerrera, eskumara, gora edo behera.</string>
+  <string name="moveToPieceByType">Mugitu laukietara piezen izenak erabiliz. Adibidez: z errepikatuz gero, zaldia dagoen lauki batera mugituko da. Erabili maiuskulak alderantzizko ordena erabiltzeko.</string>
+  <string name="moveToRank">Mugitu 1etik 8 errenkadara.</string>
+  <string name="moveToFile">Mugitu atik h zutabera.</string>
+  <string name="announcePieceLocations">Iragarri piezen kokalekuak: Adibidez: p Z maiuskula zaldi zurientzat, p k minuskulua errege baltza, p A pieza zuri guztiak.</string>
+  <string name="announcePiecesOnRankOrFile">Iragarri errenkada edo zutabe bateko piezak. Adibidez: s a, s 1.</string>
+  <string name="goToBoard">Taulara joan. Defektuzko laukia e-4 da. Lauki bat zehazteko: board a-1 edo b a-1-ek a-1 laukira eramango zaitu.</string>
+  <string name="movePiece">Pieza bat mugitzeko, erabili notazio algebraiko estandarra.</string>
+  <string name="promotion">Dama ez den zerbait sustatzeko erabili berdin. Adibidez: a-8-berdin-z, zalduna sustatuko du.</string>
+  <string name="king">erregea</string>
+  <string name="whiteKing">errege zuria</string>
+  <string name="blackKing">errege beltza</string>
+  <string name="queen">dama</string>
+  <string name="whiteQueen">dama zuria</string>
+  <string name="blackQueen">dama beltza</string>
+  <string name="rook">gaztelua</string>
+  <string name="whiteRook">gaztelu zuria</string>
+  <string name="blackRook">gaztelu beltza</string>
+  <string name="bishop">alfila</string>
+  <string name="whiteBishop">alfil zuria</string>
+  <string name="blackBishop">alfil beltza</string>
+  <string name="knight">zaldia</string>
+  <string name="whiteKnight">zaldi zuria</string>
+  <string name="blackKnight">zaldi beltza</string>
+  <string name="pawn">peoia</string>
+  <string name="whitePawn">peoi zuria</string>
+  <string name="blackPawn">peoi beltza</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">E D G A Z x</string>
+  <string name="sanTakes" comment="x in standard notation">harrapatu</string>
+  <string name="sanCheck" comment="+ in standard notation">xake</string>
+  <string name="sanCheckmate" comment="# in standard notation">mate</string>
+  <string name="sanPromotesTo" comment="= in standard notation">sustatu</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">endroke laburra</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">endroke luzea</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">hemen utzi da</string>
+  <string name="invalidMove">Jokaldia ez da zuzena</string>
+  <string name="premoveCancelled">Aurrejokaldia bertan behera utzi da</string>
+  <string name="premoveRecorded">Aurrejokaldia gorde da: %s. Sakatu enter bertan behera uzteko</string>
+</resources>
