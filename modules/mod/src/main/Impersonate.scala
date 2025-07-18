@@ -3,6 +3,7 @@ package lila.mod
 import lila.common.Bus
 import lila.core.mod.Impersonate
 import lila.user.{ Me, User, UserRepo }
+import lila.core.perm.Granter
 
 final class ImpersonateApi(userRepo: UserRepo):
 
@@ -22,3 +23,8 @@ final class ImpersonateApi(userRepo: UserRepo):
     }
 
   def impersonating(modId: ModId): Fu[Option[User]] = impersonations.get(modId).so(userRepo.byId)
+
+def canImpersonate(user: UserId)(using Me): Boolean =
+  Granter(_.Impersonate) ||
+    (user.is(UserId.lichess) && Granter(_.Admin)) ||
+    (user.is(UserId.broadcaster) && Granter(_.StudyAdmin))

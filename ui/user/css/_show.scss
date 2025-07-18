@@ -65,7 +65,8 @@
         body.blind-mode & {
           visibility: visible;
         }
-        a {
+        a,
+        button {
           @extend %flex-center-nowrap;
           width: 20em;
           padding: 0.7rem 1rem;
