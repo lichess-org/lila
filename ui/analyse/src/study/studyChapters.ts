@@ -186,61 +186,58 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
-  return hl(
-    'div.study__chapters',
-    {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).addEventListener('click', e => {
-            const target = e.target as HTMLElement;
-            const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-            if (!id) return;
-            if (target.className === 'act') {
-              const chapter = ctrl.chapters.list.get(id);
-              if (chapter) ctrl.chapters.editForm.toggle(chapter);
-            } else ctrl.setChapter(id);
-          });
-          vnode.data!.li = {};
-          update(vnode);
-        },
-        postpatch(old, vnode) {
-          vnode.data!.li = old.data!.li;
-          update(vnode);
-        },
-        destroy: vnode => {
-          const sortable: Sortable = vnode.data!.li!.sortable;
-          if (sortable) sortable.destroy();
+  return hl('div.study__chapters', [
+    hl(
+      'div.study-list',
+      {
+        hook: {
+          insert(vnode) {
+            (vnode.elm as HTMLElement).addEventListener('click', e => {
+              const target = e.target as HTMLElement;
+              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
+              if (!id) return;
+              if (target.className === 'act') {
+                const chapter = ctrl.chapters.list.get(id);
+                if (chapter) ctrl.chapters.editForm.toggle(chapter);
+              } else ctrl.setChapter(id);
+            });
+            vnode.data!.li = {};
+            update(vnode);
+          },
+          postpatch(old, vnode) {
+            vnode.data!.li = old.data!.li;
+            update(vnode);
+          },
+          destroy: vnode => {
+            const sortable: Sortable = vnode.data!.li!.sortable;
+            if (sortable) sortable.destroy();
+          },
         },
       },
-    },
-    [
-      hl(
-        'div.study-list',
-        ctrl.chapters.list.all().map((chapter, i) => {
-          const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-            active = !ctrl.vm.loading && current?.id === chapter.id;
-          return hl(
-            'button',
-            {
-              key: chapter.id,
-              attrs: { 'data-id': chapter.id },
-              class: { active, editing, draggable: canContribute },
-            },
-            [
-              hl('span', (i + 1).toString()),
-              hl('h3', chapter.name),
-              chapter.status && hl('res', chapter.status),
-              canContribute &&
-                hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
-            ],
-          );
-        }),
-      ),
-      ctrl.members.canContribute() &&
-        hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-          hl('span', iconTag(licon.PlusButton)),
-          hl('h3', i18n.study.addNewChapter),
-        ]),
-    ],
-  );
+      ctrl.chapters.list.all().map((chapter, i) => {
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
+          active = !ctrl.vm.loading && current?.id === chapter.id;
+        return hl(
+          'button',
+          {
+            key: chapter.id,
+            attrs: { 'data-id': chapter.id },
+            class: { active, editing, draggable: canContribute },
+          },
+          [
+            hl('span', (i + 1).toString()),
+            hl('h3', chapter.name),
+            chapter.status && hl('res', chapter.status),
+            canContribute &&
+              hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
+          ],
+        );
+      }),
+    ),
+    ctrl.members.canContribute() &&
+      hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+        hl('span', iconTag(licon.PlusButton)),
+        hl('h3', i18n.study.addNewChapter),
+      ]),
+  ]);
 }
