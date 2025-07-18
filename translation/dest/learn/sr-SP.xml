@@ -69,11 +69,11 @@
   <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
   <string name="captureIntro">Пронађи небрањене противничке фигуре и однеси их!</string>
   <string name="takeTheBlackPieces">Узми црне фигуре!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Носите црне фигуре!
-И немојте изгубити своје.</string>
-  <string name="captureComplete">Честитамо! Знате како да се борите шаховским фигурама!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Узми црне фигуре!
+И немој изгубити своје.</string>
+  <string name="captureComplete">Честитке! Знаш како да се бориш шаховским фигурама!</string>
   <string name="protection">Заштита</string>
-  <string name="keepYourPiecesSafe">Заштитите своје фигуре</string>
+  <string name="keepYourPiecesSafe">Чувај своје фигуре</string>
   <string name="protectionIntro">Видите које фигуре Ваш противник напада и одбраните их!</string>
   <string name="protectionComplete">Честитамо! Фигура коју не изгубите је фигура коју добијете!</string>
   <string name="escape">Ви сте под нападом!
