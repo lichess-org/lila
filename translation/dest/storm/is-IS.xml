@@ -5,6 +5,8 @@
   <string name="newDailyHighscore">Nýtt dagsmet!</string>
   <string name="newWeeklyHighscore">Nýtt vikumet!</string>
   <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
+  <string name="newAllTimeHighscore">Nýtt sögulegt stigamet!</string>
+  <string name="previousHighscoreWasX">Fyrra stigamet var %s</string>
   <string name="playAgain">Tefla aftur</string>
   <plurals name="xRuns">
     <item quantity="one">1 lota</item>
