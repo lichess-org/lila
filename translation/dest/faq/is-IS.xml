@@ -17,8 +17,10 @@
   <string name="areThereWebsitesBasedOnLichess">Eru til vefsíður byggðar á Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Já. Lichess hefur sannarlega veitt öðrum vefsíðum sem nota opinn hugbúnað innblástur, sem nota %1$s okkar, %2$s eða %3$s.</string>
   <string name="keyboardShortcuts">Hvaða flýtilyklar eru til?</string>
+  <string name="keyboardShortcutsExplanation">Sumar Lichess-síður gera þér kleift að nota flýtilykla. Prófaðu að ýta á \'?\' lykilinn á stúderingar-, greiningar-, þrautar- eða skákarsíðu til að sýna lista yfir tiltæka flýtilykla.</string>
   <string name="fairPlay">Göfuglyndi</string>
   <string name="whenAmIEligibleRatinRefund">Hvenær á ég rétt á að fá sjálfkrafa umbun fyrir skákstig sökum svindlara?</string>
+  <string name="preventLeavingGameWithoutResigning">Hvað er tekið til bragðs þegar leikmenn yfirgefa skákir án uppgjafar?</string>
   <string name="leavingGameWithoutResigningExplanation">Ef andstæðingur þinn hættir/yfirgefur skákir oft fær hann „taflbann“, sem þýðir að hann er bannaður tímabundið frá því að tefla. Þetta er ekki opinberlega sýnilegt á prófílnum hans. Ef þessi hegðun heldur áfram lengist taflbannið – og langvarandi hegðun af þessu tagi getur leitt til þess að aðganginum verði lokað.</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
   <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
@@ -27,6 +29,7 @@
   <string name="fairPlayPage">síðu okkar um göfuglyndi</string>
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er helsti munurinn á reglum fyrir bréfskák sá að byrjanabók er leyfð. Notkun skákforrita er enn bönnuð og mun leiða til þess að maður verður merktur fyrir notkun skákforrits. Þó að ICCF leyfi notkun skákforrits í bréfskák gerir Lichess það ekki.</string>
   <string name="gameplay">Leikmáti</string>
+  <string name="howBulletBlitzEtcDecided">Hvernig eru tímamörk leifturskáka, hraðskáka og annarra kappskáka ákvörðuð?</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvaða afbrigði get ég teflt á Lichess?</string>
@@ -40,13 +43,14 @@ Besti leikur tölvunnar mun tapa núll sentipeðum, en lakari leikir munu gera s
 Með þessu gildi er hægt að meta hversu góð taflmennskan er. Því færri sentipeð sem tapast á leik, því betri er leikurinn.
 
 Tölvugreiningin á Lichess er drifin af Stockfish.</string>
+  <string name="insufficientMaterial">Að falla á tíma, gera jafntefli og skorta mannafla</string>
   <string name="lichessFollowFIDErules">Verði annar leikmaður uppiskroppa með tíma á klukku, mun sá leikmaður yfirleitt tapa leiknum. Hins vegar er jafntefli ef staðan er þannig að andstæðingurinn getur ekki mátað kóng leikmannsins með neinum fjölda leikja (%1$s).
 
 Stundum getur verið flókið að ráða sjálfkrafa (þvingaðir leikir, leikþröng). Við tökum þó vanalega alltaf afstöðu með þeim leikmanni sem ekki kláraði tímann á klukku.
 
 Þess má geta að mögulegt er að máta með stökum riddara eða biskupi ef andstæðingurinn býr yfir taflmanni sem gæti lokað leið kóngsins.</string>
   <string name="fideHandbook">Leikreglubók Alþjóðaskáksambandsins</string>
-  <string name="fideHandbookX">FIDE handbókin %s</string>
+  <string name="fideHandbookX">Leikreglubók Alþjóðaskáksambandsins %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
   <string name="explainingEnPassant">Þetta er löglegur leikur er kallast „framhjáhlaup“. Wikipedíugreinin sýnir %1$s.
 
@@ -69,7 +73,15 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="configure">stilla</string>
   <string name="accounts">Aðgangar</string>
   <string name="titlesAvailableOnLichess">Hvaða titlar eru á Lichess?</string>
-  <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess viðurkennir alla FIDE-titla sem áunnust í staðarskákum (e. OTB), auk %1$s. Hér er listi yfir FIDE-titla:</string>
+  <string name="showYourTitle">Ef þú ert með OTB-titil geturðu óskað eftir því að fá hann birtan á aðganginum þínum með því að fylla út %1$s, þar sem skýr mynd af skilríkjum og sjálfsmynd af þér að halda á skilríkjunum eiga að fylgja með.
+
+Að staðfesta sig sem skákmann með titil á Lichess veitir aðgang að þátttöku í mótum titilhafa.
+
+Loks er til heiðurstitillinn %2$s.</string>
+  <string name="asWellAsManyNMtitles">margra meistaratitla þjóða</string>
+  <string name="verificationForm">staðfestingareyðublaðið</string>
+  <string name="canIbecomeLM">Get ég fengið titilinn „Lichess-meistari (LM)“?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvað getur notandanafnið mitt verið?</string>
   <string name="usernamesNotOffensive">Almennt séð ættu notendanöfn ekki að vera: móðgandi, þykjast vera einhver annar eða auglýsingar. Þú getur lesið meira um þessar %1$s.</string>
@@ -90,6 +102,9 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
 Annað sem þarf að athuga er að með tímanum mun bilið á vissustuðlinum stækka. Þetta leiðir til þess að þú getur unnið eða tapað stigum hraðar, sem endurspeglar breytingar á kunnáttu þinni á því tímabili.</string>
   <string name="whatIsProvisionalRating">Hvers vegna er spurningarmerki (?) við hliðina á skákstigatölu?</string>
   <string name="similarOpponents">andstæðingar af svipuðum styrk</string>
+  <string name="inOrderToAppearsYouMust">Til þess að komast á %1$s verður þú að:</string>
+  <string name="ratingLeaderboards">skákstigatöfluna</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">hafa teflt a.m.k. 30 stigaskákir innan tiltekins skákstyrkaflokks,</string>
   <string name="whyAreRatingHigher">Hvers vegna eru skákstigin hærri samanborið við aðrar síður og stofnanir eins og FIDE, USCF og ICC?</string>
   <string name="whyAreRatingHigherExplanation">Ekki er best er að líta á skákstig sem algildar tölur, né bera þær saman við önnur skáksambönd. Ólík sambönd hafa misgóða leikmenn og ólík stigakerfi (Elo, Glicko, Glicko-2, eða umbreytta gerð af framangreindu). Þessir þættir geta stórlega breytt algildum tölum (skákstigum).
 
