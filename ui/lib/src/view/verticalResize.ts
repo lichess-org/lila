@@ -4,6 +4,7 @@ import { storedMap } from '@/storage';
 import { myUserId } from '@/common';
 
 interface Opts {
+  selector?: string; // selector for element to resize, defaults to the previous sibling
   key: string; // key to store the size (a generic category when id is present)
   id?: string; // optional id to store the size for a specific instance
   min: () => number;
@@ -23,7 +24,9 @@ export function verticalResize(o: Opts): VNode {
         insert: vn => {
           const divider = vn.elm as ResizerElement;
           const onDomChange = () => {
-            const el = divider.previousElementSibling as HTMLElement;
+            const el = o.selector
+              ? document.querySelector<HTMLElement>(o.selector)!
+              : (divider.previousElementSibling as HTMLElement);
             if (el.style.height) return;
             let height = o.id && heightStore(`${o.key}.${o.id}`);
             if (typeof height !== 'number') height = heightStore(o.key) ?? o.initialMaxHeight;
@@ -39,7 +42,9 @@ export function verticalResize(o: Opts): VNode {
           divider.addEventListener('pointerdown', down => {
             document.body.classList.add('prevent-select');
 
-            const el = divider.previousElementSibling as HTMLElement;
+            const el = o.selector
+              ? document.querySelector<HTMLElement>(o.selector)!
+              : (divider.previousElementSibling as HTMLElement);
             const beginFrom = el.getBoundingClientRect().height - down.clientY;
             divider.setPointerCapture(down.pointerId);
 

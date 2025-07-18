@@ -18,6 +18,7 @@ $span-width: 1.7em;
     unicode-bidi: plaintext;
   }
 
+  .study-list > button,
   > button {
     @extend %button-none;
     width: 100%;

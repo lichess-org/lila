@@ -333,11 +333,12 @@ function sideTrailerNodes(study: StudyCtrl): LooseVNode[] {
   return [
     resizeId &&
       verticalResize({
+        selector: '.study-list',
         key: 'study-list',
         id: resizeId,
-        min: () => 48,
-        max: () => 48 * 64,
-        initialMaxHeight: window.innerHeight / 3,
+        min: () => 28,
+        max: () => 28 * 64,
+        initialMaxHeight: 28 * 6,
       }),
     showChat && renderChat(study.ctrl.chatCtrl!),
     showChat &&

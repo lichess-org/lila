@@ -203,7 +203,6 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;
@@ -215,36 +214,34 @@ export function view(ctrl: StudyCtrl): VNode {
         },
       },
     },
-    ctrl.chapters.list
-      .all()
-      .map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          active = !ctrl.vm.loading && current?.id === chapter.id;
-        return hl(
-          'button',
-          {
-            key: chapter.id,
-            attrs: { 'data-id': chapter.id },
-            class: { active, editing, draggable: canContribute },
-          },
-          [
-            hl('span', (i + 1).toString()),
-            hl('h3', chapter.name),
-            chapter.status && hl('res', chapter.status),
-            canContribute &&
-              hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
-          ],
-        );
-      })
-      .concat(
-        ctrl.members.canContribute()
-          ? [
-              hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-                hl('span', iconTag(licon.PlusButton)),
-                hl('h3', i18n.study.addNewChapter),
-              ]),
-            ]
-          : [],
+    [
+      hl(
+        'div.study-list',
+        ctrl.chapters.list.all().map((chapter, i) => {
+          const editing = ctrl.chapters.editForm.isEditing(chapter.id),
+            active = !ctrl.vm.loading && current?.id === chapter.id;
+          return hl(
+            'button',
+            {
+              key: chapter.id,
+              attrs: { 'data-id': chapter.id },
+              class: { active, editing, draggable: canContribute },
+            },
+            [
+              hl('span', (i + 1).toString()),
+              hl('h3', chapter.name),
+              chapter.status && hl('res', chapter.status),
+              canContribute &&
+                hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
+            ],
+          );
+        }),
       ),
+      ctrl.members.canContribute() &&
+        hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+          hl('span', iconTag(licon.PlusButton)),
+          hl('h3', i18n.study.addNewChapter),
+        ]),
+    ],
   );
 }
