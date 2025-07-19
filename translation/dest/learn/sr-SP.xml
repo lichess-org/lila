@@ -74,13 +74,13 @@
   <string name="captureComplete">Честитке! Знаш како да се бориш шаховским фигурама!</string>
   <string name="protection">Заштита</string>
   <string name="keepYourPiecesSafe">Чувај своје фигуре</string>
-  <string name="protectionIntro">Видите које фигуре Ваш противник напада и одбраните их!</string>
-  <string name="protectionComplete">Честитамо! Фигура коју не изгубите је фигура коју добијете!</string>
-  <string name="escape">Ви сте под нападом!
-Избегните претњу!</string>
+  <string name="protectionIntro">Пронађи фигуре које твој противник напада и одбрани их!</string>
+  <string name="protectionComplete">Честитке! Фигура коју не изгубиш је фигура коју добијеш!</string>
+  <string name="escape">Под нападом си!
+Избегни претњу!</string>
   <string name="noEscape">Нема излаза,
-али можете бранити!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да Вам однесу
+али можеш бранити!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволи им да ти узму
 ниједну небрањену фигуру!</string>
   <string name="combat">Борба</string>
   <string name="captureAndDefendPieces">Однесите и одбраните фигуре</string>
