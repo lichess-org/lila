@@ -438,15 +438,15 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       route: (QualityFilter, BlogsBy) => Call
   )(using Context) =
     import BlogsBy.*
-    val sort   = sortOpt | newest
-    val filter = filterOpt | QualityFilter.best
+    val sort      = sortOpt | newest
+    val filter    = filterOpt | QualityFilter.best
+    val filterBtn = (f: QualityFilter) => a(btnCls(filter == f), href := route(f, sort))(f.name)
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
         span(
           "Show",
-          span(cls := "btn-rack"):
-            QualityFilter.values.map: f =>
-              a(btnCls(filter == f), href := route(f, sort))(f.name)
+          if Granter.opt(_.ModerateBlog) then span(cls := "btn-rack")(QualityFilter.values.map(filterBtn))
+          else span(cls := "btn-rack")(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
         )
       ),
       sortOpt.map: by =>

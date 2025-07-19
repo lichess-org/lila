@@ -35,7 +35,7 @@ object Quality:
   def fromName(name: String): Option[Quality] = values.find(_.name == name)
 
 enum QualityFilter:
-  case all, best
+  case all, best, weak, spam
   def name = toString
 
 object QualityFilter:
