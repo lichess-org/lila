@@ -233,13 +233,17 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         hl(
           'thead',
           hl('tr', [
-            withRank && hl('th', i18n.site.rank),
+            withRank && hl('th.rank', i18n.site.rank),
             hl('th.player-name', i18n.site.player),
             withRating && hl('th', !withScores && defaultSort, 'Elo'),
             withScores && hl('th.score', defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             Array.from({ length: tbs.length }, (_, i) =>
-              hl('th', { attrs: { 'data-sort': i + 1, title: tbs[i][1].description } }, `${tbs[i][0]}`),
+              hl(
+                'th.tiebreak',
+                { attrs: { 'data-sort': i + 1, title: tbs[i][1].description } },
+                `${tbs[i][0]}`,
+              ),
             ),
           ]),
         ),
@@ -247,7 +251,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
           'tbody',
           players.map(player =>
             hl('tr', [
-              withRank && hl('td', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
+              withRank && hl('td.rank', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
               hl(
                 'td.player-name',
                 { attrs: { 'data-sort': player.name || '' } },
@@ -284,7 +288,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
               hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
               Array.from({ length: tbs.length }, (_, i) =>
                 hl(
-                  'td',
+                  'td.tiebreak',
                   {
                     attrs: {
                       'data-sort': i + 1,
