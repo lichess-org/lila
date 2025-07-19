@@ -2,6 +2,7 @@ package lila.core
 package misc
 
 import lila.core.id.GameId
+import lila.core.net.Bearer
 import lila.core.userId.*
 import lila.core.user.Me
 
@@ -59,7 +60,10 @@ package push:
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
 
 package oauth:
-  case class TokenRevoke(id: String)
+  opaque type AccessTokenId = String
+  object AccessTokenId extends OpaqueString[AccessTokenId]
+
+  case class TokenRevoke(id: AccessTokenId)
 
 package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])

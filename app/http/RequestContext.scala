@@ -94,7 +94,7 @@ trait RequestContext(using Executor):
         case None    => fuccess(LoginContext.anon)
         case Some(d) =>
           env.mod.impersonate
-            .impersonating(d.me)
+            .impersonating(d.me.modId)
             .map:
               _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
-                LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)
+                LoginContext(Me(impersonated).some, needsFp = false, d.me.modId.some, none)

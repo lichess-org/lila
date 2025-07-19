@@ -50,6 +50,9 @@ final class Env(
     f.logFailure(logger)
     ()
 
+  Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
+    webSubscriptionApi.unsubscribeBySession(token.id)
+
   Bus.sub[lila.core.game.FinishGame]: f =>
     logUnit { pushApi.finish(f.game) }
 

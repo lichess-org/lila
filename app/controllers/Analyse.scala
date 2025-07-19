@@ -7,6 +7,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
+import lila.core.misc.oauth.AccessTokenId
 import lila.game.PgnDump
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions
@@ -160,11 +161,11 @@ final class Analyse(
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     HTTPRequest.bearer(ctx.req).so { bearer =>
-      val tokenId = AccessToken.Id.from(bearer)
+      val tokenId = AccessToken.idFrom(bearer)
       bindForm(lila.analyse.ExternalEngine.form)(
         jsonFormError,
         data =>
-          env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
+          env.analyse.externalEngine.create(me, data, tokenId).map { engine =>
             Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )

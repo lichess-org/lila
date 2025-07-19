@@ -25,6 +25,7 @@ import {
   pocketsStr,
   leaveSquareHandler,
 } from 'lib/nvui/chess';
+import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import explorerView from '../explorer/explorerView';
@@ -63,8 +64,6 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
   });
   site.mousetrap.unbind('c');
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
-  //site.mousetrap.unbind('space');
-  site.mousetrap.bind('space', () => notify.set(renderBestMove(ctx)));
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
@@ -107,12 +106,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl('div.pockets', pockets && renderPockets(pockets)),
       renderAriaResult(ctrl),
       hl('h2', 'Current position'),
-      hl(
-        'p.position.lastMove',
-        { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-        // make sure consecutive positions are different so that they get re-read
-        !ctrl.retro && renderCurrentNode(ctx) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
-      ),
+      !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
           hl('h2', `${i18n.site.clock}`),
@@ -231,6 +225,12 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
         el.addEventListener('click', () => {
           main?.(el);
           post?.();
+        });
+        el.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter') {
+            main?.(el);
+            post?.();
+          }
         });
       },
     },
@@ -524,7 +524,10 @@ function renderLineIndex(ctrl: AnalyseCtrl): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode({ ctrl, moveStyle }: AnalyseNvuiContext): string {
+export function renderCurrentNode({
+  ctrl,
+  moveStyle,
+}: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [

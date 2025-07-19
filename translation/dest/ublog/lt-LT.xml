@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Bendruomenės tinklaraščiai</string>
-  <string name="friendBlogs">Draugų dienoraščiai</string>
-  <string name="lichessBlog">Lichess tinklaraštis</string>
   <string name="myBlog">Mano tinklaraštis</string>
   <string name="likedBlogs">Patinkantys draugų dienoraščiai</string>
-  <string name="blogTopics">Tinklaraščių temos</string>
   <plurals name="blogPosts">
     <item quantity="one">%s tinklaraščio įrašas</item>
     <item quantity="few">%s tinklaraščio įrašai</item>
     <item quantity="many">%s tinklaraščio įrašų</item>
     <item quantity="other">%s tinklaraščio įrašų</item>
   </plurals>
-  <string name="lichessOfficialBlog">Oficialus Lichess tinklaraštis</string>
   <string name="continueReadingPost">Toliau skaityti šį įrašą</string>
   <string name="lichessBlogPostsFromXYear">Lichess tinklaraščių įrašai %s</string>
   <string name="previousBlogPosts">Praėję įrašai</string>

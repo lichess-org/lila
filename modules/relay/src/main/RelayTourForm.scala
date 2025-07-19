@@ -149,7 +149,7 @@ object RelayTourForm:
           teamTable = teamTable,
           players = players,
           teams = teams,
-          spotlight = spotlight.filterNot(_.isEmpty),
+          spotlight = if Granter(_.StudyAdmin) then spotlight.filterNot(_.isEmpty) else tour.spotlight,
           pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
           note = note
         )
@@ -174,8 +174,8 @@ object RelayTourForm:
         teamTable = teamTable,
         players = players,
         teams = teams,
-        spotlight = spotlight.filterNot(_.isEmpty),
-        pinnedStream = pinnedStream,
+        spotlight = spotlight.filterNot(_.isEmpty).ifTrue(Granter(_.StudyAdmin)),
+        pinnedStream = pinnedStream.ifTrue(Granter(_.StudyAdmin)),
         note = note
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 

@@ -144,19 +144,20 @@ final class Mod(
       api.setPrizeban(sus, v).dmap(some)
   }(actionResult(username))
 
-  def impersonate(username: String) = Auth { _ ?=> me ?=>
-    if env.mod.impersonate.isImpersonated(me) then
-      env.mod.impersonate.stop(me)
-      Redirect(routes.User.show(me.username))
-    else
-      UserStr
-        .read(username)
-        .so: username =>
-          if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
-            Found(env.user.repo.byId(username)): user =>
-              env.mod.impersonate.start(me, user)
-              Redirect(routes.User.show(user.username))
-          else notFound
+  def impersonate(username: String) = Auth { ctx ?=> me ?=>
+    ctx.impersonatedBy match
+      case Some(modId) =>
+        env.mod.impersonate.stop(modId)
+        Redirect(routes.User.show(me.username))
+      case None =>
+        UserStr
+          .read(username)
+          .so: username =>
+            if lila.mod.canImpersonate(username.id) then
+              Found(env.user.repo.byId(username)): user =>
+                env.mod.impersonate.start(me.modId, user)
+                Redirect(routes.User.show(user.username))
+            else notFound
   }
 
   def setTitle(username: UserStr) = SecureBody(_.SetTitle) { ctx ?=> me ?=>

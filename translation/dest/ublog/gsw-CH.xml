@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Gemeinschafts Blogs</string>
-  <string name="friendBlogs">Blogs vu Fründe</string>
-  <string name="lichessBlog">Lichess Blog</string>
+  <string name="community">G\'meinschaft</string>
+  <string name="byMonth">Mündlich</string>
+  <string name="byTopic">Nach Thema</string>
+  <string name="byLichess">Vu Lichess</string>
+  <string name="myFriends">Mini Fründ*inne</string>
+  <string name="myLikes">Mini Bevorzugte</string>
   <string name="myBlog">Min Blog</string>
   <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
-  <string name="blogTopics">Blog Theme</string>
   <plurals name="blogPosts">
     <item quantity="one">%s Blog-Bitrag</item>
     <item quantity="other">%s Blog-Biträg</item>
   </plurals>
-  <string name="lichessOfficialBlog">Offizielle Lichess Blog</string>
   <string name="continueReadingPost">De Bitrag witer läse</string>
   <string name="lichessBlogPostsFromXYear">Lichess Blog-Biträg im Jahr %s</string>
   <string name="previousBlogPosts">Vorherigi Blog-Biträg</string>

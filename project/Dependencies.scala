@@ -19,15 +19,15 @@ object Dependencies {
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val compression = "com.github.lichess-org"        % "compression"                     % "3.1.1"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.1" % "compile"
+  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.2" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.37.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.7.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.2.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "com.github.lichess-org.lila-search" %% "client"        % "3.1.9"
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.3.Final").classifier(s"$os-$arch")
+  val lilaSearch  = "com.github.lichess-org.lila-search" %% "client"        % "3.2.0"
   val munit       = "org.scalameta"                      %% "munit"         % "1.1.1" % Test
   val uaparser    = "org.uaparser"                       %% "uap-scala"     % "0.20.0"
   val apacheText  = "org.apache.commons"                  % "commons-text"  % "1.13.1"
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.8.5"
+    val version  = "17.9.0"
     val core     = "com.github.lichess-org.scalachess" %% "scalachess"           % version
     val testKit  = "com.github.lichess-org.scalachess" %% "scalachess-test-kit"  % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version

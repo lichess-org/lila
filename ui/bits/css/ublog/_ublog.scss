@@ -1,15 +1,50 @@
-@import '../../../lib/css/component/ublog-card';
 @import 'markup';
 @import 'topic';
 @import 'post';
 
 .ublog-index {
-  &__calendar {
-    margin-bottom: 2em;
+  @extend %flex-column;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  > * {
+    padding: 0;
+    margin: 0;
+  }
+
+  #form3-tier {
+    border: none;
+    background: none;
+  }
+}
+
+.ublog-index .box__top {
+  padding: 0;
+  min-height: 5rem;
+  gap: 2rem;
+
+  // forgive all the overrides, container gap is easier for me than the element margin hats and chins
+  * {
+    margin: 0;
+  }
+
+  div,
+  span,
+  form,
+  h1,
+  a {
+    @extend %flex-center;
   }
 
   .box__top__actions {
-    @extend %flex-center;
+    justify-content: center;
+    gap: 2rem;
+
+    .mselect__label {
+      padding: 0.6rem 1em;
+    }
+
     .atom {
       font-size: 2.6em;
       color: $c-font-dimmer;
@@ -18,19 +53,142 @@
       }
     }
   }
-  h1 {
-    .user-link {
-      color: $c-link;
+
+  .search {
+    flex: auto;
+    gap: 2rem;
+
+    .search-input {
+      align-items: stretch;
+      flex: auto;
+
+      input {
+        @extend %box-radius-inline-start;
+        flex: auto;
+        font-size: 1.2em;
+      }
+
+      .button {
+        @extend %box-radius-inline-end;
+        padding: 0 1rem;
+        border-inline-start: 0;
+      }
+    }
+
+    &:focus-within .button {
+      outline: auto;
+    }
+
+    .search-sort {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      gap: 0.6em;
     }
   }
-  #form3-tier {
-    border: none;
-    background: none;
+
+  .filter-and-sort {
+    gap: 2rem;
+
+    > span {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      gap: 0.6em;
+    }
   }
-  &__posts {
-    &--empty {
-      margin: 20vh auto;
-      text-align: center;
+
+  .calendar-mselect {
+    flex: auto;
+    padding: 0.2em;
+    gap: 0;
+    div {
+      gap: 0.5em;
+    }
+    label {
+      padding: 0.2em;
+    }
+  }
+
+  .descending::after {
+    margin-inline-start: 1ch;
+    font-family: 'lichess';
+    content: $licon-DownTriangle;
+  }
+  .ascending::after {
+    margin-inline-start: 1ch;
+    font-family: 'lichess';
+    content: $licon-UpTriangle;
+  }
+
+  @media (max-width: at-most($x-large)) {
+    h1.collapsible {
+      display: none;
+    }
+    .filter-and-sort,
+    .search-sort,
+    .box__top__actions {
+      margin: 0 auto;
+    }
+  }
+}
+
+.ublog-mod-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  grid-gap: 3rem;
+  div {
+    @extend %flex-column;
+    gap: 1rem;
+  }
+  span {
+    @extend %flex-between;
+    font-size: 0.9em;
+  }
+  label {
+    display: flex;
+    gap: 4px;
+  }
+  .pull {
+    padding: 2px;
+    font-family: 'lichess';
+    font-size: 1rem;
+    color: $c-bad;
+    padding: 1.5px;
+    border-radius: 50%;
+    border: 2px solid $c-bad;
+    cursor: pointer;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+  .user-link {
+    display: flex;
+    color: $c-primary;
+  }
+}
+
+.ublog-index__posts--empty {
+  margin: 20vh auto;
+  text-align: center;
+}
+
+#mod-tools,
+.filter-and-sort {
+  .btn-rack {
+    border: none;
+  }
+
+  .btn-rack__btn {
+    border: solid 1px $m-border--fade-50;
+    padding: 0.2em 0.8em;
+
+    &:last-child {
+      border: solid 1px $m-border--fade-50;
+    }
+
+    &.lit {
+      color: #fff;
+      background: $m-primary--fade-10;
+      border-color: $m-primary--fade-50;
     }
   }
 }

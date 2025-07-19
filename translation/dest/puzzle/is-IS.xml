@@ -4,7 +4,7 @@
   <string name="puzzleThemes">Þrautaþemu</string>
   <string name="recommended">Mælt með</string>
   <string name="phases">Töfl</string>
-  <string name="motifs">Grunnhugmyndir</string>
+  <string name="motifs">Stef</string>
   <string name="advanced">Lengra komnir</string>
   <string name="lengths">Lengdir</string>
   <string name="mates">Mát</string>
@@ -13,6 +13,8 @@
   <string name="specialMoves">Sérstakir leikir</string>
   <string name="didYouLikeThisPuzzle">Fannst þér þrautin góð?</string>
   <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
+  <string name="upVote">Ýta undir þraut</string>
+  <string name="downVote">Ýta burt þraut</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
   <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
@@ -65,6 +67,15 @@
   <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
 
 Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því að þraut þinni verði bætt við!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Ein þraut fundin í skákum notandans %2$s</item>
+    <item quantity="other">%1$s þrautir fundnar í skákum notandans %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s leikin</item>
+    <item quantity="other">%s leiknar</item>
+  </plurals>
+  <string name="percentSolved">%s leystar</string>
   <string name="improvementAreasDescription">Temdu þér eftirfarandi til þess að hámarka framfarir þínar!</string>
 </resources>

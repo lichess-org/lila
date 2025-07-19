@@ -8,6 +8,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.mod.ModActivity.{ Period, Who }
 import lila.ui.*
+import lila.ui.bits.modMenu
 
 import lila.report.Mod
 
@@ -19,11 +20,9 @@ final class ModUi(helpers: Helpers):
   def impersonate(user: User)(using Translate) =
     div(id := "impersonate")(
       div(cls := "meat")("You are impersonating ", userLink(user, withOnline = false)),
-      div(cls := "actions")(
-        postForm(action := routes.Mod.impersonate("-"))(
+      div(cls := "actions"):
+        postForm(action := routes.Mod.impersonate("-")):
           submitButton(cls := "button button-empty")("Quit")
-        )
-      )
     )
 
   def gdprEraseButton(u: User)(using Context) =
@@ -40,8 +39,8 @@ final class ModUi(helpers: Helpers):
 
   def logs(logs: List[lila.mod.Modlog], mod: Option[Mod], query: Option[UserStr])(using Context) =
     Page("Mod logs").css("mod.misc"):
-      main(cls := "page-menu")(
-        menu("log"),
+      main(cls := "page-menu.modMenu")(
+        modMenu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
           boxTop(cls := "box__top")(
             h1(mod.fold(frag("All logs"))(of => span("Logs of ", userLink(of.user)))),
@@ -130,8 +129,8 @@ final class ModUi(helpers: Helpers):
 
   def presets(group: String, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
-      main(cls := "page-menu")(
-        menu("presets"),
+      main(cls := "page-menu.modMenu")(
+        modMenu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           boxTop(
             h1(
@@ -164,8 +163,8 @@ final class ModUi(helpers: Helpers):
     Page("Email confirmation")
       .css("mod.misc")
       .js(Esm("mod.emailConfirmation")):
-        main(cls := "page-menu")(
-          menu("email"),
+        main(cls := "page-menu.modMenu")(
+          modMenu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(
             h1(cls := "box__top")("Confirm a user email"),
             p(
@@ -216,8 +215,8 @@ final class ModUi(helpers: Helpers):
     Page("Queues stats")
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
-        main(cls := "page-menu")(
-          menu("queues"),
+        main(cls := "page-menu.modMenu")(
+          modMenu("queues"),
           div(cls := "page-menu__content index box mod-queues")(
             boxTop(
               h1(
@@ -266,7 +265,7 @@ final class ModUi(helpers: Helpers):
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> ModActivity.json(p)))):
         main(cls := "page-menu")(
-          menu("activity"),
+          modMenu("activity"),
           div(cls := "page-menu__content index box mod-activity")(
             boxTop(h1(whoSelector, " activity this ", periodSelector)),
             div(cls := "chart chart-reports"),
@@ -274,45 +273,7 @@ final class ModUi(helpers: Helpers):
           )
         )
 
-  def reportMenu(using Context) = menu("report")
-
-  def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag): me ?=>
-    lila.ui.bits.pageMenuSubnav(
-      Granter(_.SeeReport)
-        .option(a(cls := active.active("report"), href := routes.Report.list)("Reports")),
-      Granter(_.PublicChatView)
-        .option(a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats")),
-      Granter(_.GamifyView)
-        .option(a(cls := active.active("activity"), href := routes.Mod.activity)("Mod activity")),
-      Granter(_.GamifyView)
-        .option(a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats")),
-      Granter(_.GamifyView)
-        .option(a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame")),
-      Granter(_.GamifyView)
-        .option(a(cls := active.active("log"), href := routes.Mod.log(me.username.some))("Mod logs")),
-      Granter(_.UserSearch)
-        .option(a(cls := active.active("search"), href := routes.Mod.search)("Search users")),
-      Granter(_.Admin).option(a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes")),
-      Granter(_.SetEmail)
-        .option(a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm")),
-      Granter(_.Pages).option(a(cls := active.active("cms"), href := routes.Cms.index)("Pages")),
-      Granter(_.PracticeConfig)
-        .option(a(cls := active.active("practice"), href := routes.Practice.config)("Practice")),
-      Granter(_.ManageTournament)
-        .option(a(cls := active.active("tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
-      Granter(_.ManageEvent)
-        .option(a(cls := active.active("event"), href := routes.Event.manager)("Events")),
-      Granter(_.MarkEngine)
-        .option(a(cls := active.active("irwin"), href := routes.Irwin.dashboard)("Irwin dashboard")),
-      Granter(_.MarkEngine)
-        .option(a(cls := active.active("kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard")),
-      Granter(_.Admin).option(a(cls := active.active("mods"), href := routes.Mod.table)("Mods")),
-      Granter(_.Presets)
-        .option(a(cls := active.active("presets"), href := routes.Mod.presets("PM"))("Msg presets")),
-      Granter(_.Settings)
-        .option(a(cls := active.active("setting"), href := routes.Dev.settings)("Settings")),
-      Granter(_.Cli).option(a(cls := active.active("cli"), href := routes.Dev.cli)("CLI"))
-    )
+  def reportMenu(using Context) = modMenu("report")
 
   def modUserSearchResult(r: ModUserSearchResult) =
     div(cls := "box__pad")(

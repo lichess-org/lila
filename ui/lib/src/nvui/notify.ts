@@ -4,24 +4,28 @@ import { isMac } from '../device';
 
 export class Notify {
   text = '';
+  date: Date | undefined;
 
   constructor(public redraw: Redraw | undefined = undefined) {}
 
   set = (msg: string): void => {
-    this.text = msg;
-    requestIdleCallback(() => {
-      this.redraw?.();
-      this.text = '';
-    }, 500);
+    this.text = msg + (this.text === msg ? ' ' : '');
+    this.date = new Date();
+
+    requestIdleCallback(() => this.redraw?.(), 500);
   };
 
-  render = (): VNode => liveText(this.text, 'assertive', 'div.notify');
+  render = (): VNode => liveText(this.text, 'assertive', 'div.notify', this.date);
 }
 
-export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel: string = 'p'): VNode {
-  const key = new Date().getTime().toString();
+export function liveText(
+  text: string,
+  live: 'assertive' | 'polite' = 'polite',
+  sel: string = 'p',
+  forceKey?: Date,
+): VNode {
   const data: VNodeData = isMac()
-    ? { key, attrs: { role: 'alert' } }
-    : { key, attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+    ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert' } }
+    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
   return h(sel, data, text);
 }

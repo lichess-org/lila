@@ -25,7 +25,7 @@ case class ChatTimeout(mod: UserId, user: UserId, reason: TimeoutReason, text: S
 case class Shadowban(user: UserId, value: Boolean)
 case class KickFromRankings(userId: UserId)
 case class AutoWarning(userId: UserId, subject: String)
-case class Impersonate(userId: UserId, by: Option[UserId])
+case class Impersonate(modId: ModId, userId: UserId, v: Boolean)
 case class SelfReportMark(userId: UserId, name: String, gameId: GameFullId)
 case class BoardApiMark(userId: UserId, name: String)
 case class LoginWithWeakPassword(userId: UserId)

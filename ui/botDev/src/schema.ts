@@ -273,7 +273,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'pawn structure',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 2 }, by: 'avg' },
+      value: { range: { min: 0, max: 1 }, by: 'avg' },
       requires: {
         some: [
           'behavior_fish_multipv > 1',
@@ -282,10 +282,10 @@ export const schema: Schema = deepFreeze<Schema>({
         ],
       },
       title:
-        condense(`pawn structure assigns weights from 0 to the graph value for pawns that support each other, control the center,
+        condense(`pawn structure assigns weights up to the graph value for pawns that support each other, control the center,
         and are not doubled or isolated.
         
-        This filter assigns a weight between 0 and 2.`),
+        This filter assigns a weight between 0 and 1.`),
     },
     moveDecay: {
       label: 'move quality decay',

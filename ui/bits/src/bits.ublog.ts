@@ -1,6 +1,6 @@
 import * as xhr from 'lib/xhr';
+import { alert, prompt } from 'lib/view/dialogs';
 import { throttlePromiseDelay } from 'lib/async';
-import { info } from 'lib/view/dialogs';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -44,7 +44,61 @@ site.load.then(() => {
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();
   });
-  document
-    .querySelectorAll<HTMLElement>('.automod *[title]')
-    .forEach(el => el.addEventListener('click', () => info(el.title)));
+  rewireModTools();
 });
+
+type SubmitForm = {
+  quality?: number;
+  evergreen?: boolean;
+  flagged?: string;
+  commercial?: string;
+  featured?: boolean;
+  featuredUntil?: number;
+};
+
+function rewireModTools() {
+  const modToolsContainer = document.querySelector<HTMLElement>('#mod-tools-container');
+  if (!modToolsContainer?.firstElementChild) return;
+  const modTools = modToolsContainer.firstElementChild as HTMLElement;
+  const submitBtn = modTools.querySelector<HTMLButtonElement>('.submit')!;
+  const submit = async (o: SubmitForm) => {
+    const rsp = await xhr.textRaw(modTools.dataset.url!, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify(o),
+    });
+    if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
+    modToolsContainer.innerHTML = await rsp.text();
+    rewireModTools();
+  };
+
+  modTools
+    .querySelectorAll<HTMLButtonElement>('.quality-btn')
+    .forEach(btn => btn.addEventListener('click', () => submit({ quality: Number(btn.value) })));
+
+  const submitFields = modTools.querySelector<HTMLElement>('.submit-fields')!;
+  submitFields.querySelectorAll<HTMLInputElement>('input').forEach(input =>
+    input.addEventListener('input', () => {
+      input.parentElement!.classList.toggle('empty', !input.value.trim());
+      submitBtn.classList.remove('none');
+      submitBtn.disabled = false;
+    }),
+  );
+  submitBtn.addEventListener('click', () => {
+    const form: Record<string, any> = {};
+    for (const input of submitFields.querySelectorAll<HTMLInputElement>('input')) {
+      form[input.id] = input.type === 'checkbox' ? input.checked : input.value;
+    }
+    submit(form);
+  });
+  modTools
+    .querySelector<HTMLElement>('.carousel-add-btn')
+    ?.addEventListener('click', () => submit({ featured: true }));
+  modTools
+    .querySelector<HTMLElement>('.carousel-remove-btn')
+    ?.addEventListener('click', () => submit({ featured: false }));
+  modTools.querySelector<HTMLElement>('.carousel-pin-btn')?.addEventListener('click', async () => {
+    const days = await prompt('How many days?', '7', (n: string) => Number(n) > 0 && Number(n) < 31);
+    if (days) submit({ featured: true, featuredUntil: Number(days) });
+  });
+}

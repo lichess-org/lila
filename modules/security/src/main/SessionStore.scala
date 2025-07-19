@@ -7,7 +7,9 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNul
 import scala.concurrent.blocking
 
 import lila.common.HTTPRequest
+import lila.core.id.SessionId
 import lila.core.net.{ ApiVersion, IpAddress, UserAgent }
+import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.FingerHash
 import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }
@@ -18,8 +20,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   import SessionStore.*
   import FingerHash.given
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](65_536, "security.authCache"):
-    _.expireAfterAccess(5.minutes).buildAsyncFuture[String, Option[AuthInfo]]: id =>
+  private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.authCache"):
+    _.expireAfterAccess(5.minutes).buildAsyncFuture[SessionId, Option[AuthInfo]]: id =>
       coll
         .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
         .one[Bdoc]
@@ -29,22 +31,22 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
               coll.updateFieldUnchecked($id(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
 
-  def authInfo(sessionId: String) = authCache.get(sessionId)
+  def authInfo(sessionId: SessionId) = authCache.get(sessionId)
 
-  private val authInfoProjection         = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
-  private def uncache(sessionId: String) =
+  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private def uncache(sessionId: SessionId) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
-    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)).map { ids =>
+    coll.distinctEasy[SessionId, Seq]("_id", $doc("user" -> userId)).map { ids =>
       blocking:
         ids.foreach(blockingUncache)
     }
   // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
-  private def blockingUncache(sessionId: String) =
+  private def blockingUncache(sessionId: SessionId) =
     authCache.underlying.synchronous.invalidate(sessionId)
 
   private[security] def save(
-      sessionId: String,
+      sessionId: SessionId,
       userId: UserId,
       req: RequestHeader,
       apiVersion: Option[ApiVersion],
@@ -69,7 +71,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   private[security] def upsertOAuth(
       userId: UserId,
-      tokenId: AccessToken.Id,
+      tokenId: AccessTokenId,
       mobile: Option[lila.core.net.LichessMobileUa],
       req: RequestHeader
   ): Funit =
@@ -94,15 +96,15 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       )
       .void
 
-  def delete(sessionId: String): Funit =
+  def delete(sessionId: SessionId): Funit =
     for _ <- coll.update.one($id(sessionId), $set("up" -> false))
     yield uncache(sessionId)
 
-  def closeUserAndSessionId(userId: UserId, sessionId: String): Funit =
+  def closeUserAndSessionId(userId: UserId, sessionId: SessionId): Funit =
     for _ <- coll.update.one($doc("user" -> userId, "_id" -> sessionId, "up" -> true), $set("up" -> false))
     yield uncache(sessionId)
 
-  def closeUserExceptSessionId(userId: UserId, sessionId: String): Funit =
+  def closeUserExceptSessionId(userId: UserId, sessionId: SessionId): Funit =
     for _ <- coll.update.one(
         $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
         $set("up"   -> false),
@@ -136,7 +138,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .sort($doc("date" -> -1))
       .cursor[UserSession](ReadPref.sec)
 
-  def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
+  def setFingerPrint(id: SessionId, fp: FingerPrint): Fu[FingerHash] =
     lila.security.FingerHash.from(fp) match
       case None       => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
@@ -164,11 +166,11 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   private[security] def deletePreviousSessions(user: User) =
     coll.delete.one($doc("user" -> user.id, "date".$lt(user.createdAt))).void
 
-  private case class DedupInfo(_id: String, ip: String, ua: String):
+  private case class DedupInfo(_id: SessionId, ip: String, ua: String):
     def compositeKey = s"$ip $ua"
   private given BSONDocumentReader[DedupInfo] = Macros.reader
 
-  def dedup(userId: UserId, keepSessionId: String): Funit =
+  def dedup(userId: UserId, keepSessionId: SessionId): Funit =
     coll
       .find(
         $doc(

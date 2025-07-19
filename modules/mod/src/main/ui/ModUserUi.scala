@@ -44,7 +44,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       emails: lila.core.user.Emails,
       deleted: Boolean,
       pmPresets: ModPresets
-  )(using Context): Frag =
+  )(using Context, Me): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         Granter.opt(_.ModMessage).option {
@@ -205,10 +205,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             cls    := "xhr"
           ):
             submitButton(cls := "btn-rack__btn yes-no-confirm")("Disable 2FA")
-        },
-        (Granter.opt(_.Impersonate) || (Granter.opt(_.Admin) && u.id == UserId.lichess)).option {
-          postForm(action := routes.Mod.impersonate(u.username.value)):
-            submitButton(cls := "btn-rack__btn")("Impersonate")
         }
       ),
       Granter

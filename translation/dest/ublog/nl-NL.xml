@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogs uit de gemeenschap</string>
-  <string name="friendBlogs">Blogs van vrienden</string>
-  <string name="lichessBlog">Lichess-blog</string>
+  <string name="community">Gemeenschap</string>
+  <string name="byMonth">Per maand</string>
+  <string name="byTopic">Per onderwerp</string>
+  <string name="byLichess">Door Lichess</string>
+  <string name="myFriends">Mijn vrienden</string>
+  <string name="myLikes">Mijn vind ik leuks</string>
   <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
-  <string name="blogTopics">Blog onderwerpen</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogberichten</item>
     <item quantity="other">%s Deze blogposts</item>
   </plurals>
-  <string name="lichessOfficialBlog">Officiële blog van Lichess</string>
   <string name="continueReadingPost">Doorgaan met lezen van dit bericht</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogberichten uit %s</string>
   <string name="previousBlogPosts">Eerdere blogberichten</string>

@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app.{ *, given }
+import lila.core.misc.oauth.AccessTokenId
 import lila.oauth.{ AccessToken, OAuthTokenForm }
 
 final class OAuthToken(env: Env) extends LilaController(env):
@@ -35,5 +36,5 @@ final class OAuthToken(env: Env) extends LilaController(env):
   }
 
   def delete(id: String) = Auth { _ ?=> _ ?=>
-    tokenApi.revokeById(AccessToken.Id(id)).inject(Redirect(routes.OAuthToken.index).flashSuccess)
+    tokenApi.revokeById(AccessTokenId(id)).inject(Redirect(routes.OAuthToken.index).flashSuccess)
   }
