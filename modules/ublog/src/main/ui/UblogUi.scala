@@ -2,6 +2,7 @@ package lila.ublog
 package ui
 
 import java.time.YearMonth
+import java.time.temporal.ChronoUnit.DAYS
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
@@ -32,7 +33,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: ShowAt = ShowAt.none,
-      showIntro: Boolean = true
+      showIntro: Boolean = true,
+      strictDate: Boolean = true
   )(using Context) =
     a(
       cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
@@ -40,7 +42,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        post.lived.map { live =>
+          if strictDate || DAYS.between(live.at, nowInstant) < 30 then
+            semanticDate(live.at)(cls := "ublog-post-card__over-image")
+          else span(cls := "ublog-post-card__over-image")("Timeless")
+        },
         if showAuthor != ShowAt.none
         then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
         else if ~post.sticky
