@@ -7,7 +7,6 @@ import lila.db.dsl.{ *, given }
 import lila.core.fide.FideTC
 import chess.tiebreak.Tiebreak
 import chess.tiebreak.{ CutModifier, LimitModifier }
-import scala.reflect.Selectable.reflectiveSelectable
 
 object BSONHandlers:
 

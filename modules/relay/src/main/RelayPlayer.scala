@@ -14,8 +14,6 @@ import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
 import chess.tiebreak.Tiebreak.*
-import cats.syntax.all.*
-import cats.data.NonEmptySeq
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
 // Player in a tournament with current performance rating and list of games
