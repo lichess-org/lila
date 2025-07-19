@@ -22,7 +22,9 @@ import { isTouchDevice } from 'lib/device';
 export type RelayPlayerId = FideId | string;
 
 interface Tiebreak {
-  [code: string]: { extendedCode: string; description: string; points: number };
+  extendedCode: string;
+  description: string;
+  points: number;
 }
 
 interface RelayPlayer extends StudyPlayer {
@@ -30,7 +32,7 @@ interface RelayPlayer extends StudyPlayer {
   played?: number;
   ratingDiff?: number;
   performance?: number;
-  tiebreaks?: Tiebreak;
+  tiebreaks?: Tiebreak[];
   rank?: number;
 }
 
@@ -214,7 +216,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withScores = !!players.find(p => p.score !== undefined);
   const withRank = !!players.find(p => p.rank);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
-  const tbs = !!players.length && players[0].tiebreaks ? Object.entries(players[0].tiebreaks) : [];
+  const tbs = players?.[0].tiebreaks;
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
@@ -238,11 +240,11 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
             withRating && hl('th', !withScores && defaultSort, 'Elo'),
             withScores && hl('th.score', defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
-            Array.from({ length: tbs.length }, (_, i) =>
+            tbs?.map(tb =>
               hl(
                 'th.tiebreak',
-                { attrs: { 'data-sort': i + 1, title: tbs[i][1].description } },
-                `${tbs[i][0]}`,
+                { attrs: { 'data-sort': tb.points, title: tb.description, 'aria-label': tb.description } },
+                `${tb.extendedCode}`,
               ),
             ),
           ]),
@@ -272,12 +274,6 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                   'td.score',
                   {
                     attrs: {
-                      title: player.tiebreaks
-                        ? 'TBs: ' +
-                          Object.values(player.tiebreaks)
-                            .map(tb => `${tb.extendedCode}:${tb.points}`)
-                            .join(', ')
-                        : '',
                       'data-sort': player.rank
                         ? -player.rank // so that I don't have to insert a data-sort-reverse also
                         : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
@@ -286,16 +282,17 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                   `${player.score ?? 0}`,
                 ),
               hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
-              Array.from({ length: tbs.length }, (_, i) =>
+              player.tiebreaks?.map(tb =>
                 hl(
                   'td.tiebreak',
                   {
                     attrs: {
-                      'data-sort': i + 1,
-                      title: `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].description ?? undefined) : undefined}`,
+                      'data-sort': tb.points,
+                      title: tb.description,
+                      'aria-label': tb.description,
                     },
                   },
-                  `${player.tiebreaks ? (Object.values(player.tiebreaks)[i].points ?? 0) : 0}`,
+                  `${tb.points}`,
                 ),
               ),
             ]),

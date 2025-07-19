@@ -79,14 +79,14 @@ object RelayPlayer:
     given Writes[Outcome.GamePoints]              = writeAs(points => Outcome.showPoints(points.some))
     given Writes[RelayPlayer.Game]                = Json.writes
     given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes { tbs =>
-      JsObject(
+      Json.toJson(
         tbs.map { case (tb, tbv) =>
-          tb.extendedCode -> Json.obj(
+          Json.obj(
             "extendedCode" -> tb.extendedCode,
             "description"  -> tb.description,
             "points"       -> tbv.value
           )
-        }
+        }.toSeq
       )
     }
     given OWrites[RelayPlayer] = OWrites: p =>
