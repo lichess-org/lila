@@ -5,6 +5,7 @@ import play.api.data.Form
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
+import chess.tiebreak.Tiebreak
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -555,7 +556,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Features",
             toggle = tg
               .map(_.tour)
-              .exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic)
+              .exists(t =>
+                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic || t.tiebreaks.isDefined
+              )
               .some
           )(
             form3.split(
@@ -590,6 +593,27 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                     Visibility.`private`.key -> "Private (invited members only)"
                   )
                 )
+              )
+            ),
+            form3.split(
+              (1 to 5).map: i =>
+                form3.group(
+                  form(s"tiebreaks.tiebreak$i"),
+                  s"Tiebreak $i",
+                  half = true
+                )(
+                  form3.select(
+                    _,
+                    Tiebreak.preset
+                      .sortBy(_.extendedCode)
+                      .map: t =>
+                        t.extendedCode -> s"${t.description} (${t.extendedCode})",
+                    default = "Optional. Select a tiebreak".some
+                  )
+                ),
+              p(dataIcon := Icon.InfoCircle, cls := "text")(
+                "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. " +
+                  "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
               )
             )
           ),
