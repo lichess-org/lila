@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Svájci verseny</string>
   <string name="swissTournaments">Svájci rendszerű versenyek</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Forduló megtekintése</item>
@@ -37,6 +38,7 @@
   <string name="roundInterval">Fordulók közötti szünet</string>
   <string name="forbiddenPairings">Tiltott párosítások</string>
   <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
+  <string name="manualPairings">Kézi párosítás a következő fordulóban</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
   <string name="swissVsArenaQ">Mikor érdemes svájci rendszerű versenyt indítani aréna helyett?</string>
   <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik és minden ellenféllel csak egyszer.

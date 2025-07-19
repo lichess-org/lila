@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Ariketak bilatu</string>
   <string name="fromMyGamesNone">Ez duzu ariketarik datu-basean, hala ere Lichessek asko maite zaitu.
 Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izateko!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Ariketa bat aurkitu da %2$s erabiltzailearen partidetan</item>
+    <item quantity="other">%1$s ariketa aurkitu dira %2$s erabiltzailearen partidetan</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Entrenatu, aztertu, hobetu</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jokatuta</item>

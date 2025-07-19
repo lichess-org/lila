@@ -35,9 +35,12 @@
   <string name="teamTournament">Liðsmót</string>
   <string name="swissTournamentOverview">Swiss-mót sem eingöngu meðlimir liðs þíns geta tekið þátt í</string>
   <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
+  <string name="messageAllMembersOverview">Senda einkaskilaboð til allra meðlima liðsins</string>
   <string name="teamsIlead">Lið sem ég stjórna</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Viltu kannski deila tengli á eitt af þessum væntanlegu mótum?</string>
   <string name="leadersChat">Liðsstjóraspjall</string>
   <string name="introduction">Kynning</string>
+  <string name="teamDescriptionHelp">Lýsinguna í heild sinni má sjá á síðu liðsins.</string>
   <string name="closeTeam">Loka liði</string>
   <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
   <string name="entryCode">Aðgöngukóði liðs</string>
@@ -49,12 +52,18 @@
   <string name="declinedRequests">Hafnaðar beiðnir</string>
   <string name="joinLichessVariantTeam">Skráðu þig í opinbera liðið fyrir %s til þess að nálgast fréttir og viðburði</string>
   <string name="teamPage">Liðssíða</string>
+  <string name="thisTeamBattleIsOver">Þessu móti er lokið, og ekki er lengur hægt að uppfæra liðin.</string>
   <string name="listTheTeamsThatWillCompete">Skráðu liðin sem munu keppa í þessari orrustu.</string>
   <string name="oneTeamPerLine">Eitt lið á línu. Notfærðu þér sjálfvirka útfyllinguna.</string>
   <string name="oneTeamPerLineHelp">Þú getur afritað og límt þennan lista frá einu móti yfir á annað!
 
 Þú getur ekki fjarlægt lið ef meðlimur liðs hefur þegar tekið þátt í mótinu.</string>
+  <string name="numberOfLeadsPerTeam">Fjöldi liðsstjóra í hverju liði. Summa stiga þeirra er stig liðsins.</string>
   <string name="innerTeam">Innra liðið</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Orrusta á milli %s liðs</item>
+    <item quantity="other">Orrusta á milli %s liða</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Einn liðstjóri á lið</item>
     <item quantity="other">%s liðsstjórar á lið</item>

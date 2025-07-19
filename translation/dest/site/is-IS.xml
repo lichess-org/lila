@@ -92,7 +92,7 @@
   <string name="averageRatingX">Meðal Elo: %s</string>
   <string name="recentGames">Síðustu skákir</string>
   <string name="topGames">Bestu skákir</string>
-  <string name="masterDbExplanation">OTB skákir %1$s+ FIDE-stiga skákmanna frá %2$s til %3$s</string>
+  <string name="masterDbExplanation">Staðarskákir með skákmönnum sem hafa %1$s+ í skákstigum frá árinu %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mát í %s hálfleik</item>
     <item quantity="other">Mát í %s hálfleikum</item>
@@ -186,7 +186,7 @@
   <string name="rememberMe">Muna eftir innskráningunni minni</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Nýskráning</string>
-  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum leikmönnum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að stofna marga aðganga og þarflaus stofnun of margra aðganga verður að banni.</string>
+  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum leikmönnum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti því að stofna marga aðganga og þarflaus stofnun of margra aðganga verður að banni.</string>
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
   <string name="xPostedInForumY">%1$s póstað í umræðu %2$s</string>
@@ -755,6 +755,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
   <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
+  <string name="receiveForumNotifications">Fá tilkynningar þegar minnst er á mann á umræðukorkinum</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
   <string name="withNobody">Með engum</string>
   <string name="withFriends">Með vinum</string>
@@ -864,6 +865,7 @@
   <string name="addCurrentVariation">Bæta núverandi afbrigði við</string>
   <string name="noConditionalPremoves">Engir skilyrtir forleikir</string>
   <string name="playX">Leika %s</string>
+  <string name="showUnreadLichessMessage">Þú hefur fengið einkaskilaboð frá Lichess.</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
@@ -887,7 +889,7 @@
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Leifturskák</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
-  <string name="classical">Hefðbundin Skák</string>
+  <string name="classical">Kappskák</string>
   <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>

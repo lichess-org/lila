@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Спільнота</string>
   <string name="myBlog">Мій блог</string>
   <string name="likedBlogs">Вподобані дописи</string>
   <plurals name="blogPosts">
