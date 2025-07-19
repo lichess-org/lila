@@ -356,8 +356,9 @@ final class Ublog(env: Env) extends LilaController(env):
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
 
   private def updateFilter(filterOpt: Option[QualityFilter])(using ctx: Context): QualityFilter =
-    filterOpt match
-      case Some(f) if f != ctx.pref.blogFilter =>
-        discard { ctx.me.so(env.pref.api.setPref(_, ctx.pref.copy(blogFilter = f))) }
-        f
-      case _ => filterOpt.getOrElse(ctx.pref.blogFilter)
+    for
+      filter <- filterOpt
+      if filter != ctx.pref.blogFilter
+      me <- ctx.me
+    do env.pref.api.setPref(me, _.copy(blogFilter = filter))
+    filterOpt | ctx.pref.blogFilter
