@@ -76,15 +76,12 @@ final class ModUi(helpers: Helpers):
                   td(log.showAction.capitalize),
                   td(
                     shorten(~log.details, 100) + " ",
-                    log.context.flatMap { c =>
+                    log.context.flatMap: c =>
+                      val shortText = c.text.map(t => frag(shorten(t, 40)))
                       c.url
-                        .map(u =>
-                          a(href := u, target := "_blank")(
-                            c.text.fold[String](u)(t => s"(${shorten(t, 40)})")
-                          )
-                        )
-                        .orElse(c.text.map(t => frag(shorten(t, 40))))
-                    }
+                        .map: u =>
+                          a(href := u, target := "_blank")(shortText | u)
+                        .orElse(shortText)
                   )
                 )
             )

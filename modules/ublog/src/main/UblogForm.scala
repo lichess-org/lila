@@ -141,24 +141,23 @@ object UblogForm:
     ).flatten.mkString(", ")
 
     def diff(post: UblogPost): String =
+
       def diffString(label: String, optFrom: Option[String], to: String) =
-        (optFrom) match
+        optFrom match
           case None                     => s"$label = \"$to\"".some
           case Some(from) if from == to => none
           case Some(from)               => s"$label \"$from\" -> ${if to == "" then "\"\"" else to}".some
 
-      post.automod match
-        case None    => text
-        case Some(p) =>
-          List(
-            evergreen.flatMap(e => if e == ~p.evergreen then None else s"evergreen = $e".some),
-            quality.flatMap(q => diffString("quality", p.quality.toString.some, q.toString)),
-            flagged.flatMap(f => diffString("flagged", p.flagged, f)),
-            commercial.flatMap(c => diffString("commercial", p.commercial, c)),
-            featured.map: isFeatured =>
-              if isFeatured then s"add to carousel" + ~featuredUntil.map(days => s" $days days")
-              else "remove from carousel"
-          ).flatten.mkString(", ")
+      post.automod.fold(text): p =>
+        List(
+          evergreen.filter(_ != ~p.evergreen).map(e => s"evergreen = $e"),
+          quality.flatMap(q => diffString("quality", p.quality.name.some, q.name)),
+          flagged.flatMap(f => diffString("flagged", p.flagged, f)),
+          commercial.flatMap(c => diffString("commercial", p.commercial, c)),
+          featured.map: isFeatured =>
+            if isFeatured then s"add to carousel" + featuredUntil.so(days => s" $days days")
+            else "remove from carousel"
+        ).flatten.mkString(", ")
 
   object ModPostData:
     given Reads[Quality] = Reads
