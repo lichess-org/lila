@@ -285,7 +285,7 @@ final class TournamentApi(
       playerRepo
         .find(tour.id, me)
         .flatMap: prevPlayer =>
-          if prevPlayer.isEmpty && !initialJoin.test(me.userId)
+          if prevPlayer.isEmpty && !initialJoin.test(me.userId, cost = if asLeader then 0 else 1)
           then fuccess(JoinResult.RateLimited)
           else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
