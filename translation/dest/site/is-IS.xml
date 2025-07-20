@@ -431,9 +431,9 @@
     <item quantity="one">%s innhlaðin skák</item>
     <item quantity="other">%s innhlaðnar skákir</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Þetta er skák CAPTCHA.</string>
+  <string name="thisIsAChessCaptcha">Þetta er CAPTCHA-skynpróf í formi skákþrautar.</string>
   <string name="clickOnTheBoardToMakeYourMove">Smelltu á borðið til að leika, og sannaðu að þú sért manneskja.</string>
-  <string name="captcha.fail">Vinsamlegast leystu skákþrautina til að halda áfram.</string>
+  <string name="captcha.fail">Vinsamlegast leystu skákþrautina til þess að halda áfram.</string>
   <string name="notACheckmate">Ekki mát</string>
   <string name="whiteCheckmatesInOneMove">Hvítur mátar í einum leik</string>
   <string name="blackCheckmatesInOneMove">Svartur mátar í einum leik</string>
