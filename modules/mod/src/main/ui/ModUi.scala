@@ -39,7 +39,7 @@ final class ModUi(helpers: Helpers):
 
   def logs(logs: List[lila.mod.Modlog], mod: Option[Mod], query: Option[UserStr])(using Context) =
     Page("Mod logs").css("mod.misc"):
-      main(cls := "page-menu.modMenu")(
+      main(cls := "page-menu modMenu")(
         modMenu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
           boxTop(cls := "box__top")(
@@ -74,7 +74,19 @@ final class ModUi(helpers: Helpers):
                     userIdLink(u.some, params = "?mod")
                   }),
                   td(log.showAction.capitalize),
-                  td(shorten(~log.details, 100))
+                  td(
+                    shorten(~log.details, 100) + " ",
+                    log.context.flatMap { c =>
+                      c.url
+                        .map(u =>
+                          a(href := u, target := "_blank")(
+                            c.text.fold[String](u)(t => s"(${shorten(t, 40)})")
+                          )
+                        )
+                        .orElse(c.text.map(t => frag(shorten(t, 40))))
+                        .orElse(c.id.map(id => frag(s"#$id")))
+                    }
+                  )
                 )
             )
           )
@@ -129,7 +141,7 @@ final class ModUi(helpers: Helpers):
 
   def presets(group: String, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
-      main(cls := "page-menu.modMenu")(
+      main(cls := "page-menu modMenu")(
         modMenu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           boxTop(
@@ -163,7 +175,7 @@ final class ModUi(helpers: Helpers):
     Page("Email confirmation")
       .css("mod.misc")
       .js(Esm("mod.emailConfirmation")):
-        main(cls := "page-menu.modMenu")(
+        main(cls := "page-menu modMenu")(
           modMenu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(
             h1(cls := "box__top")("Confirm a user email"),
@@ -215,7 +227,7 @@ final class ModUi(helpers: Helpers):
     Page("Queues stats")
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
-        main(cls := "page-menu.modMenu")(
+        main(cls := "page-menu modMenu")(
           modMenu("queues"),
           div(cls := "page-menu__content index box mod-queues")(
             boxTop(

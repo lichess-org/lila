@@ -20,6 +20,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
+  private given BSONHandler[Modlog.Context]           = Macros.handler[Modlog.Context]
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
   private given Conversion[Me, ModId]                 = _.modId
 
@@ -46,8 +47,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def blogTier(sus: Suspect, tier: String)(using MyId) = add:
     Modlog.make(sus, Modlog.blogTier, tier.some)
 
-  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, action: String)(using MyId) = add:
-    Modlog.make(sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
+  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, details: String)(using MyId) = add:
+    Modlog.make(
+      sus,
+      Modlog.blogPostEdit,
+      details.some,
+      Modlog.Context(postName.some, s"/ublog/$postId/redirect".some).some
+    )
 
   def practiceConfig(using MyId) = add:
     Modlog(none, Modlog.practiceConfig)
@@ -324,7 +330,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .cursor[Modlog]()
       .list(200)
 
-  def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
+  def withModlogs(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.secondary
       .find(
         $doc(

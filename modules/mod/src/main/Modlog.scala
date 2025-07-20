@@ -8,7 +8,8 @@ case class Modlog(
     action: String,
     details: Option[String] = None,
     date: Instant = nowInstant,
-    index: Option[String] = None
+    index: Option[String] = None,
+    context: Option[Modlog.Context] = None
 ):
   def isLichess = mod.is(UserId.lichess)
 
@@ -99,18 +100,25 @@ case class Modlog(
 
 object Modlog:
 
+  case class UserEntry(user: UserId, action: String, date: Instant)
+
+  case class Context(text: Option[String] = None, url: Option[String] = None, id: Option[String] = None)
+
   def apply(user: Option[UserId], action: String, details: Option[String])(using me: MyId): Modlog =
     Modlog(me.modId, user, action, details)
 
   def apply(user: Option[UserId], action: String)(using me: MyId): Modlog =
     Modlog(me.modId, user, action, none)
 
-  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: MyId): Modlog =
+  def make(sus: Suspect, action: String, details: Option[String] = None, context: Option[Context] = None)(
+      using me: MyId
+  ): Modlog =
     Modlog(
       mod = me.modId,
       user = sus.user.id.some,
       action = action,
-      details = details
+      details = details,
+      context = context
     )
 
   def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.contains("Warning:"))
@@ -164,8 +172,6 @@ object Modlog:
       "unrankban",
       "unprizeban"
     )
-
-  case class UserEntry(user: UserId, action: String, date: Instant)
 
   val alt                 = "alt"
   val unalt               = "unalt"
