@@ -57,4 +57,7 @@
   <string name="invalidMove">Mutarea nu e validă</string>
   <string name="premoveCancelled">Premutare anulată</string>
   <string name="premoveRecorded">Premutare înregistrată: %s. Apăsați enter pentru a anula</string>
+  <string name="copyToClipboard">Copiază %s în memorie</string>
+  <string name="copiedToClipboard">%s a fost copiat în memorie</string>
+  <string name="pgnAndFen">PGN și FEN</string>
 </resources>
