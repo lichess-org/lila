@@ -83,11 +83,11 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволи им да ти узму
 ниједну небрањену фигуру!</string>
   <string name="combat">Борба</string>
-  <string name="captureAndDefendPieces">Однесите и одбраните фигуре</string>
+  <string name="captureAndDefendPieces">Узми и одбрани фигуре</string>
   <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
-  <string name="combatComplete">Честитамо! Знате како да се борите са шаховским фигурама!</string>
+  <string name="combatComplete">Честитке! Знаш како да се бориш са шаховским фигурама!</string>
   <string name="checkInOne">Шах у један</string>
-  <string name="attackTheOpponentsKing">Нападните противничког краља</string>
+  <string name="attackTheOpponentsKing">Нападни противничког краља</string>
   <string name="checkInOneIntro">Да би дали шах противнику, нападните њиховог краља. Морају га одбранити!</string>
   <string name="checkInOneGoal">Циљајте на противничког краља
 у једном потезу!</string>
