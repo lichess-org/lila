@@ -52,7 +52,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       sus,
       Modlog.blogPostEdit,
       details.some,
-      Modlog.Context(postName.some, s"/ublog/$postId/redirect".some).some
+      Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some).some
     )
 
   def practiceConfig(using MyId) = add:
