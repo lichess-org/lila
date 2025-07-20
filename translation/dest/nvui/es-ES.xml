@@ -57,4 +57,8 @@
   <string name="invalidMove">Movimiento no válido</string>
   <string name="premoveCancelled">Movimiento anticipado cancelado</string>
   <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona enter para cancelar</string>
+  <string name="pockets" comment="Crazyhouse pockets">Bolsillos</string>
+  <string name="copyToClipboard">Copiar %s al portapapeles</string>
+  <string name="copiedToClipboard">%s copiado al portapapeles</string>
+  <string name="pgnAndFen">PGN y FEN</string>
 </resources>
