@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">మీ lichess.org ఖాతా %s, ధ్రువపరచండి</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">మీ Lichess ఖాతాను వాడడం మొదలుపెట్టడానికి ఈ లంకెను నొక్కండి:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">మీరు Lichessలో నమోదు చేసుకోకపోతే, మీరు ఈ సందేశాన్ని సురక్షితంగా విస్మరించవచ్చు. నిర్ధారించబడని ఖాతా మరియు మీ ఇమెయిల్ చిరునామా యొక్క అన్ని జాడలు 48 గంటల తర్వాత మా సిస్టమ్ నుండి తొలగించబడతాయి.</string>
   <string name="passwordReset_subject">మీ lichess రహస్యపదాన్ని మార్చండి, %s</string>
   <string name="passwordReset_intro">మీ ఖాతాకు ప్రస్తుతమున్న రహస్యపదాన్ని తుడిచిపెట్టి, కొత్త రహస్యపదాన్ని సృష్టించమని అభ్యర్థన వచ్చింది.</string>
   <string name="passwordReset_clickOrIgnore">మీరు ఈ అభ్యర్థన చేసియున్నట్లయితే, కింది లంకె ను నొక్కండి. లేదంటే, ఈ ఈమెయిల్ ను పట్టించుకోనవసరం లేదు.</string>

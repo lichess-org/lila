@@ -3,7 +3,7 @@ import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, hl } from 'lib/snabbdom';
 import { copyMeInput } from 'lib/view/controls';
 import { text as xhrText, url as xhrUrl } from 'lib/xhr';
-import { renderIndexAndMove } from '../treeView/components';
+import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';

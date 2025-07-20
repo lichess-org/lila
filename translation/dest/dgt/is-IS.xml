@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT-taflborð</string>
+  <string name="lichessAndDgt">Lichess og DGT-taflborð</string>
+  <string name="dgtBoardLimitations">Takmarkanir DGT-taflborðs</string>
+  <string name="configurationSection">Stillingarstef</string>
+  <string name="timeControlsForCasualGames">Tímaskorður fyrir æfingarskákir: Kappskákir, bréfskákir og atskákir eingöngu.</string>
+  <string name="timeControlsForRatedGames">Tímaskorður fyrir stigaskákir: Kappskákir, bréfskákir og sumar atskákir þ. á m. 15+10 og 20+0</string>
   <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
   <string name="reloadThisPage">Endurhlaða þessa síðu</string>
   <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
+  <string name="dgtBoardConnectivity">Tengjanleiki DGT-taflborðs</string>
+  <string name="clickToGenerateOne">Smelltu til að búa til einn</string>
+  <string name="webSocketUrl">Veftóftarslóð fyrir %s</string>
   <string name="textToSpeech">Talgervill</string>
   <string name="enableSpeechSynthesis">Kveikja á talgervingu</string>
   <string name="speechSynthesisVoice">Talgervilsrödd</string>
   <string name="announceAllMoves">Lesa alla leiki upphátt</string>
+  <string name="selectAnnouncePreference">Veldu JÁ til að lesa upphátt bæði leiki þína og leiki andstæðingsins. Veldu NEI til að einungis lesa upphátt leiki andstæðingsins.</string>
+  <string name="announceMoveFormat">Snið leikja í upplestri</string>
+  <string name="moveFormatDescription">SAN er staðallinn á Lichess t.d. „Nf6“. UCI er algengt í skákforritum t.d. „g8f6“.</string>
   <string name="keywords">Stikkorð</string>
+  <string name="keywordFormatDescription">Stikkorð eru í formi JSON. Þau eru notuð til að þýða leiki og úrslit yfir á þitt tungumál. Sjálfgefið tungumál er enska, en þér er velkomið að breyta því.</string>
   <string name="debug">Villuleit</string>
   <string name="verboseLogging">Fjölyrt skráning</string>
+  <string name="playWithDgtBoard">Tefla með DGT-taflborði</string>
   <string name="configure">Stilla</string>
 </resources>

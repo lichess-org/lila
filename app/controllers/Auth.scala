@@ -6,6 +6,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
+import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
@@ -17,7 +18,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
+  private def mobileUserOk(u: UserModel, sessionId: SessionId)(using Context): Fu[Result] = for
     povs  <- env.round.proxyRepo.urgentGames(u)
     perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(u))
   yield Ok:
@@ -53,12 +54,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           redirect(url)
       .recoverWith(authRecovery)
 
-  private def authenticateCookie(sessionId: String, remember: Boolean)(
+  private def authenticateCookie(sessionId: SessionId, remember: Boolean)(
       result: Result
   )(using RequestHeader) =
     result.withCookies(
       env.security.lilaCookie.withSession(remember = remember) {
-        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - EmailConfirm.cookie.name
+        _ + (api.sessionIdKey -> sessionId.value) - api.AccessUri - EmailConfirm.cookie.name
       }
     )
 
@@ -141,9 +142,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         )
 
   def logout = Open:
-    val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
-    env.security.store.delete(currentSessionId) >>
-      env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
+    env.security.api
+      .reqSessionId(ctx.req)
+      .so: currentSessionId =>
+        env.security.store.delete(currentSessionId) >>
+          env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId)
+    >>
       negotiate(
         Redirect(routes.Auth.login),
         jsonOkResult
@@ -153,8 +157,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def logoutGet = Auth { ctx ?=> _ ?=>
     negotiate(
       html = Ok.page(views.auth.logout),
-      json =
-        ctx.req.session.get(api.sessionIdKey).foreach(env.security.store.delete)
+      json = ctx.req.session.get(api.sessionIdKey).map(SessionId.apply).so(env.security.store.delete) >>
         jsonOkResult.withCookies(env.security.lilaCookie.newSession)
     )
   }

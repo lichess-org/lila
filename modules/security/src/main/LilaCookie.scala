@@ -5,15 +5,16 @@ import play.api.mvc.*
 import scalalib.SecureRandom
 
 import lila.core.config.{ NetDomain, NetConfig }
+import lila.core.id.SessionId
 import lila.core.security.LilaCookie
 
 final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lila.core.security.LilaCookie:
 
   private val cookieDomain = config.domain.value.split(":").head
 
-  def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId())
+  def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId().value)
 
-  def generateSessionId() = SecureRandom.nextString(22)
+  def generateSessionId(): SessionId = SessionId(SecureRandom.nextString(22))
 
   def session(name: String, value: String, remember: Boolean = true)(using RequestHeader): Cookie =
     withSession(remember):
@@ -31,7 +32,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
             (if remember then req.session - LilaCookie.noRemember
              else
                req.session + (LilaCookie.noRemember -> "1")
-            ) + (LilaCookie.sessionId -> generateSessionId())
+            ) + (LilaCookie.sessionId -> generateSessionId().value)
           )
         )
       ),
@@ -64,10 +65,10 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
     if req.session.data.contains(LilaCookie.sessionId) then res
     else res.withCookies(makeSessionId(using req))
 
-  def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using Executor): Fu[Result] =
-    req.session.data.get(LilaCookie.sessionId) match
-      case Some(sessionId) => res(sessionId)
+  def ensureAndGet(req: RequestHeader)(res: SessionId => Fu[Result])(using Executor): Fu[Result] =
+    LilaCookie.sid(req) match
+      case Some(sessionId) => res(SessionId(sessionId))
       case None            =>
         val sid = generateSessionId()
         res(sid).map:
-          _.withCookies(session(LilaCookie.sessionId, sid)(using req))
+          _.withCookies(session(LilaCookie.sessionId, sid.value)(using req))

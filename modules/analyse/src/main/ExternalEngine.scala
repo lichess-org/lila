@@ -9,6 +9,7 @@ import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
 import lila.common.Json.given
+import lila.core.misc.oauth.AccessTokenId
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 
@@ -94,7 +95,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def list(by: UserId): Fu[List[ExternalEngine]] = userCache.get(by)
 
-  def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
+  def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: AccessTokenId): Fu[ExternalEngine] =
     val engine = data.make(by)
     val bson   =
       engineHandler.writeOpt(engine).err("external engine bson") ++ $doc("oauthToken" -> oauthTokenId)
@@ -127,7 +128,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
       .map: engines =>
         engines.nonEmpty.so(Json.obj("externalEngines" -> engines))
 
-  private[analyse] def onTokenRevoke(id: String) =
+  private[analyse] def onTokenRevoke(id: AccessTokenId) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>
       for _ <- coll.delete.one($doc("oauthToken" -> id)) yield reloadCache(userId)
     }

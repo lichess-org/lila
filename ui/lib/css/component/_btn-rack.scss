@@ -30,11 +30,11 @@
     }
 
     &:first-child {
-      @extend %box-radius-left;
+      @extend %box-radius-inline-start;
     }
 
     &:last-child {
-      @extend %box-radius-right;
+      @extend %box-radius-inline-end;
 
       border: 0;
     }

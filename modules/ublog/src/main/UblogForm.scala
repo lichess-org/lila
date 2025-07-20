@@ -2,15 +2,18 @@ package lila.ublog
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.libs.json.*
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, into, stringIn, given }
+import lila.common.Form.{ cleanNonEmptyText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
+import lila.core.ublog.Quality
 
 final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
-  import UblogForm.*
+  import UblogForm.UblogPostData
 
   private val base =
     mapping(
@@ -84,11 +87,10 @@ object UblogForm:
         created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
+        featured = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0),
         similar = none,
-        rankAdjustDays = none,
-        pinned = none,
         automod = none
       )
 
@@ -110,17 +112,49 @@ object UblogForm:
       )
 
   private val tierMapping =
-    "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
-      .into[UblogRank.Tier]
+    "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+      .into[UblogBlog.Tier]
 
   val tier = Form:
     single:
       tierMapping
 
-  val adjust = Form:
-    tuple(
-      "pinned" -> boolean,
-      tierMapping,
-      "days"       -> optional(number(min = -180, max = 180)),
-      "assessment" -> optional(stringIn(UblogAutomod.classifications.toSet))
-    )
+  case class ModPostData(
+      quality: Option[Quality] = none,
+      evergreen: Option[Boolean] = none,
+      flagged: Option[String] = none,
+      commercial: Option[String] = none,
+      featured: Option[Boolean] = none,
+      featuredUntil: Option[Int] = none
+  ):
+
+    def hasUpdates: Boolean =
+      List(quality, evergreen, flagged, commercial, featured, featuredUntil).exists(_.isDefined)
+
+    def text = List(
+      quality.so(q => s"quality = $q") ++
+        evergreen.so(e => s"evergreen = $e") ++
+        flagged.so(f => "flagged = " + (if f == "" then "none" else s"\"$f\"")) ++
+        commercial.so(c => "commercial = " + (if c == "" then "none" else s"\"$c\"")) ++
+        featured.so(f => s"featured = $f") ++
+        featuredUntil.so(d => s"featured days = $d")
+    ).mkString(", ")
+
+  object ModPostData:
+    given Reads[Quality] = Reads
+      .of[Int]
+      .map(Quality.fromOrdinal)
+    def reads: Reads[ModPostData] =
+      (
+        (JsPath \ "quality")
+          .readNullable[Quality]
+          .and((JsPath \ "evergreen").readNullable[Boolean])
+          .and((JsPath \ "flagged").readNullable[String].map(_.map(_.take(200))))
+          .and((JsPath \ "commercial").readNullable[String].map(_.map(_.take(200))))
+          .and((JsPath \ "featured").readNullable[Boolean])
+          .and(
+            (JsPath \ "featuredUntil")
+              .readNullable[Int]
+              .filter(JsonValidationError(s"bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
+          )
+      )(ModPostData.apply)

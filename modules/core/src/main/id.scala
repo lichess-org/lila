@@ -6,6 +6,9 @@ import scalalib.newtypes.OpaqueString
 // to makes sure opaque types don't leak out
 object id:
 
+  opaque type SessionId = String
+  object SessionId extends OpaqueString[SessionId]
+
   opaque type GameId = String
   object GameId extends OpaqueString[GameId]:
     def size                              = 8

@@ -10,11 +10,11 @@ import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -39,7 +39,7 @@ import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from '@lichess-org/chessground/util';
-import { IdbTree } from './idbTree';
+import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
@@ -48,6 +48,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { isEquivalent } from 'lib/algo';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -57,7 +58,7 @@ export default class AnalyseCtrl {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  idbTree: IdbTree = new IdbTree(this);
+  persistence?: Persistence;
   actionMenu: Toggle = toggle(false);
   isEmbed: boolean;
 
@@ -101,6 +102,7 @@ export default class AnalyseCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
+  treeVersion = 1; // increment to recreate vnode tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -153,6 +155,8 @@ export default class AnalyseCtrl {
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
     this.initialize(this.data, false);
+
+    this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.initCeval();
 
@@ -212,10 +216,7 @@ export default class AnalyseCtrl {
         redraw();
       }
     });
-    this.idbTree.merge().then(() => {
-      this.treeView.hidden = false;
-      this.redraw();
-    });
+    this.persistence?.merge();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -223,7 +224,6 @@ export default class AnalyseCtrl {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
-    this.treeView.hidden = true;
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
@@ -247,6 +247,7 @@ export default class AnalyseCtrl {
   private makeInitialPath = (): string => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+
     const loc = window.location,
       hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
       startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
@@ -269,14 +270,15 @@ export default class AnalyseCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
+    for (let i = 0; i < this.nodeList.length; i++) {
+      this.nodeList[i].collapsed = false;
+    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
-    if (!this.idbTree) return;
-    this.idbTree.revealNode();
-    this.idbTree.saveMoves();
+    this.persistence?.save();
   };
 
   flip = () => {
@@ -290,7 +292,7 @@ export default class AnalyseCtrl {
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
-    this.idbTree.saveMoves(true);
+    this.persistence?.save(true);
     this.redraw();
   };
 
@@ -478,10 +480,6 @@ export default class AnalyseCtrl {
 
   reloadData(data: AnalyseData, merge: boolean): void {
     this.initialize(data, merge);
-    this.idbTree.merge().then(() => {
-      this.treeView.hidden = false;
-      this.redraw();
-    });
     this.redirecting = false;
     this.setPath(treePath.root);
     this.initCeval();
@@ -598,7 +596,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    this.idbTree.onAddNode(node, path);
+    this.persistence?.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -651,14 +649,35 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
-    this.treeView.update();
+    this.treeVersion++;
+  }
+
+  setCollapsed(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedAt(path, collapsed);
+    this.redraw();
+  }
+
+  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+    this.redraw();
+  }
+
+  // whether [collapsing, expanding] the path, would affect the rendered view
+  wouldCollapseAffectView(path: Tree.Path): [boolean, boolean] {
+    if (typeof structuredClone !== 'function') return [true, true];
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
+    const currentView = renderTreeView(this);
+    return [true, false].map(collapsed => {
+      ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+      return !isEquivalent(currentView, renderTreeView(ctrlWithDiffTree), ['function']);
+    }) as [boolean, boolean];
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
-    this.treeView.update();
+    this.treeVersion++;
   }
 
   reset(): void {

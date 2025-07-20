@@ -1,5 +1,6 @@
 package lila.security
 
+import lila.core.id.SessionId
 import lila.core.net.{ IpAddress, UserAgent }
 import lila.core.misc.AtInstant
 
@@ -18,7 +19,7 @@ case class FingerPrintedUser(me: Me, hasFingerPrint: Boolean)
 case class AppealUser(me: Me)
 
 case class UserSession(
-    _id: String,
+    _id: SessionId,
     ip: IpAddress,
     ua: UserAgent,
     api: Option[Int],

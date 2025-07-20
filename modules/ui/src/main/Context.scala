@@ -44,7 +44,7 @@ object Context:
 trait PageContext extends Context:
   val me: Option[Me]
   val needsFp: Boolean
-  val impersonatedBy: Option[User]
+  val impersonatedBy: Option[lila.core.userId.ModId]
   def teamNbRequests: Int
   def nbChallenges: Int
   def nbNotifications: UnreadCount
