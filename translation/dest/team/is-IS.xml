@@ -40,6 +40,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Viltu kannski deila tengli á eitt af þessum væntanlegu mótum?</string>
   <string name="leadersChat">Liðsstjóraspjall</string>
   <string name="introduction">Kynning</string>
+  <string name="teamIntroductionHelp">Stutt lýsing sýnileg á liðalistum. Allt að 200 stafir.</string>
   <string name="teamDescriptionHelp">Lýsinguna í heild sinni má sjá á síðu liðsins.</string>
   <string name="closeTeam">Loka liði</string>
   <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>

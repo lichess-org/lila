@@ -51,7 +51,7 @@
   <string name="addAnotherTheme">Bæta við annan þema</string>
   <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
-  <string name="puzzleDashboard">Þrautastjórnborð</string>
+  <string name="puzzleDashboard">Þrautalesborð</string>
   <string name="improvementAreas">Þar sem hægt er að bæta</string>
   <string name="strengths">Styrkleikar</string>
   <string name="history">Þrautsaga</string>
@@ -77,5 +77,7 @@ Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því a
     <item quantity="other">%s leiknar</item>
   </plurals>
   <string name="percentSolved">%s leystar</string>
-  <string name="improvementAreasDescription">Temdu þér eftirfarandi til þess að hámarka framfarir þínar!</string>
+  <string name="noPuzzlesToShow">Ekkert til að sýna, farðu og leystu nokkrar þrautir fyrst!</string>
+  <string name="improvementAreasDescription">Æfðu eftirfarandi til þess að hámarka framfarir þínar!</string>
+  <string name="strengthDescription">Þú stendur þig best í þessum þemum</string>
 </resources>

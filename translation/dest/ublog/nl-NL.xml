@@ -5,7 +5,7 @@
   <string name="byTopic">Per onderwerp</string>
   <string name="byLichess">Door Lichess</string>
   <string name="myFriends">Mijn vrienden</string>
-  <string name="myLikes">Mijn vind ik leuks</string>
+  <string name="myLikes">Mijn vind-ik-leuks</string>
   <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <plurals name="blogPosts">

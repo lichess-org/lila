@@ -43,7 +43,7 @@ Lykilorð: %3$s</string>
   <string name="createDesc3">Mikilvægt: Nemandi má ekki hafa fjölmarga aðganga.</string>
   <string name="createDesc4">Ef þeir eru nú þegar með einn skaltu nota boðseyðublaðið í staðinn.</string>
   <string name="createStudentWarning">Stofnaðu einungis aðganga fyrir þá sem eru virkilega nemendur. Ekki notfæra þér þetta til þess að stofna marga aðganga fyrir sjálfan þig. Þú gætir fengið bann.</string>
-  <string name="lichessUsername">Lichess notendanafn</string>
+  <string name="lichessUsername">Lichess-notandanafn</string>
   <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
   <string name="welcomeToClass">Velkomin(n) í bekkinn þinn: %s.
 Hér er tengillinn til að fá aðgang að bekknum.</string>

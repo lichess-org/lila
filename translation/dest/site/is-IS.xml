@@ -5,10 +5,10 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
-  <string name="orLetYourOpponentScanQrCode">Eða láttu andstæðing þinn skanna þennan QR kóða</string>
+  <string name="orLetYourOpponentScanQrCode">Eða láttu andstæðing þinn skanna þennan QR-kóða</string>
   <string name="waiting">Bið</string>
   <string name="yourTurn">Þú átt leik</string>
-  <string name="aiNameLevelAiLevel">%1$s erfiðleiki %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s erfiðleikastig %2$s</string>
   <string name="level">Stig</string>
   <string name="strength">Styrkleiki</string>
   <string name="toggleTheChat">Virkja spjall</string>
@@ -32,7 +32,7 @@
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
   <string name="raceFinished">Kapphlaupi lokið</string>
-  <string name="variantEnding">Ending afbrigðis</string>
+  <string name="variantEnding">Lok afbrigðisins</string>
   <string name="newOpponent">Nýr andstæðingur</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Andstæðingur þinn vill tefla aðra skák við þig</string>
   <string name="joinTheGame">Hefja skák</string>
@@ -431,9 +431,9 @@
     <item quantity="one">%s innhlaðin skák</item>
     <item quantity="other">%s innhlaðnar skákir</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Þetta er skák CAPTCHA.</string>
+  <string name="thisIsAChessCaptcha">Þetta er CAPTCHA-skynpróf í formi skákþrautar.</string>
   <string name="clickOnTheBoardToMakeYourMove">Smelltu á borðið til að leika, og sannaðu að þú sért manneskja.</string>
-  <string name="captcha.fail">Vinsamlegast leystu skákþrautina til að halda áfram.</string>
+  <string name="captcha.fail">Vinsamlegast leystu skákþrautina til þess að halda áfram.</string>
   <string name="notACheckmate">Ekki mát</string>
   <string name="whiteCheckmatesInOneMove">Hvítur mátar í einum leik</string>
   <string name="blackCheckmatesInOneMove">Svartur mátar í einum leik</string>
