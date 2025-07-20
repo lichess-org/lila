@@ -37,7 +37,14 @@ final class ModUi(helpers: Helpers):
       (!allowed).option(disabled)
     )("GDPR erasure")
 
-  def logs(logs: List[lila.mod.Modlog], mod: Option[Mod], query: Option[UserStr])(using Context) =
+  def logs(
+      logs: List[lila.mod.Modlog],
+      mod: Option[Mod],
+      whichMod: Option[UserStr],
+      artifactId: Option[String]
+  )(using
+      Context
+  ) =
     Page("Mod logs").css("mod.misc"):
       main(cls := "page-menu modMenu")(
         modMenu("log"),
@@ -50,8 +57,15 @@ final class ModUi(helpers: Helpers):
                 div(cls := "box__top__actions")(
                   st.form(cls := "search", action := routes.Mod.log())(
                     input(
+                      st.name     := "id",
+                      value       := artifactId,
+                      placeholder := "filter by id"
+                    )
+                  ),
+                  st.form(cls := "search", action := routes.Mod.log())(
+                    input(
                       st.name     := "mod",
-                      value       := query,
+                      value       := whichMod,
                       placeholder := "filter by mod"
                     )
                   )
@@ -70,18 +84,19 @@ final class ModUi(helpers: Helpers):
               logs.map: log =>
                 tr(
                   td(momentFromNow(log.date)),
-                  td(log.user.map { u =>
-                    userIdLink(u.some, params = "?mod")
-                  }),
+                  td(log.user.map { u => userIdLink(u.some, params = "?mod") }),
                   td(log.showAction.capitalize),
                   td(
-                    shorten(~log.details, 100) + " ",
-                    log.context.flatMap: c =>
-                      val shortText = c.text.map(t => frag(shorten(t, 40)))
-                      c.url
-                        .map: u =>
-                          a(href := u, target := "_blank")(shortText | u)
-                        .orElse(shortText)
+                    shorten(~log.details, 100),
+                    log.context.map { c =>
+                      val shortText = c.text.map(t => frag(" " + shorten(t, 40)))
+                      frag(
+                        c.url
+                          .map(u => a(href := u, target := "_blank")(shortText | frag(" " + u).some))
+                          .orElse(shortText),
+                        c.id.map(id => frag(s" #$id "))
+                      )
+                    }
                   )
                 )
             )

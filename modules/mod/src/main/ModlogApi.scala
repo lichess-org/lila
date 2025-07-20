@@ -52,7 +52,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       sus,
       Modlog.blogPostEdit,
       details.some,
-      Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some).some
+      Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some, postId.value.some).some
     )
 
   def practiceConfig(using MyId) = add:
@@ -316,9 +316,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         "date".$gte(nowInstant.minusMonths(6))
       )
 
-  def recentHuman =
+  def recentOf(id: Option[String] = None) =
     coll.secondary
-      .find($doc("mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin))))
+      .find(
+        "mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
+          $doc("context.id" -> cid)
+        )
+      )
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)

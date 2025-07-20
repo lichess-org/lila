@@ -102,7 +102,7 @@ object Modlog:
 
   case class UserEntry(user: UserId, action: String, date: Instant)
 
-  case class Context(text: Option[String] = None, url: Option[String] = None)
+  case class Context(text: Option[String] = None, url: Option[String] = None, id: Option[String] = None)
 
   def apply(user: Option[UserId], action: String, details: Option[String])(using me: MyId): Modlog =
     Modlog(me.modId, user, action, details)
