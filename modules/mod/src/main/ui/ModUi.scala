@@ -84,7 +84,6 @@ final class ModUi(helpers: Helpers):
                           )
                         )
                         .orElse(c.text.map(t => frag(shorten(t, 40))))
-                        .orElse(c.id.map(id => frag(s"#$id")))
                     }
                   )
                 )
