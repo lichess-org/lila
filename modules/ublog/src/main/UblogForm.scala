@@ -146,7 +146,7 @@ object UblogForm:
         optFrom match
           case None                     => s"$label = \"$to\"".some
           case Some(from) if from == to => none
-          case Some(from)               => s"$label $from -> ${if to == "" then "\"\"" else to}".some
+          case Some(from)               => s"$label \"$from\" -> \"$to\"".some
 
       post.automod.fold(text): p =>
         List(
