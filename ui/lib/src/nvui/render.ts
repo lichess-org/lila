@@ -49,12 +49,17 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
     ),
   );
 
-export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode[] =>
-  COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
+export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode =>
+  h(
+    'div.pieces',
+    COLORS.map((color, i) =>
+      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), `${pocketsStr(pockets[i])}` || '0']),
+    ),
+  );
 
 export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
   Object.entries(pocket)
-    .map(([role, count]) => `${role}: ${count}`)
+    .map(([role, count]) => `${i18n.nvui[role as Role]}: ${count}`)
     .join(', ');
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
@@ -208,6 +213,8 @@ export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
 };
+
+export const pieceStr = (role: Role, color: Color): string => transPieceStr(role, color, i18n);
 
 export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;

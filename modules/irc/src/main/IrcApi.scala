@@ -80,6 +80,10 @@ final class IrcApi(
         .fold("spontaneously"): by =>
           s"while investigating a report created by ${markdown.userLink(by.into(UserName))}"
 
+  def permissionsLog(user: LightUser, details: String)(using mod: LightUser.Me): Funit =
+    zulip(_.mod.adminLog, "permission changes"):
+      s"${markdown.modLink(mod.name)} changed the permissions of ${markdown.userLink(user)}: $details"
+
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: MyId): Funit =
     lightUser(modId).flatMapz: mod =>
       zulip(_.mod.adminMonitor(tpe), mod.name.value):
@@ -96,11 +100,12 @@ final class IrcApi(
       slug: String,
       title: String,
       intro: String,
-      topic: String
+      topic: String,
+      automod: Option[String]
   ): Funit =
     zulip(_.blog, topic):
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
-      s":note: $link $intro - by ${markdown.userLink(user)}"
+      s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
 
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):

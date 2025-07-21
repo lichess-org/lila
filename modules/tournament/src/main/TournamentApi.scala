@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import scalalib.paginator.Paginator
 import scalalib.Debouncer
 import chess.{ IntRating, ByColor }
+import alleycats.Zero
 
 import lila.common.Bus
 import lila.core.game.LightPov
@@ -45,7 +46,8 @@ final class TournamentApi(
     Executor,
     akka.actor.ActorSystem,
     akka.stream.Materializer,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   export tournamentRepo.byId as get
@@ -64,7 +66,7 @@ final class TournamentApi(
           tournamentRepo.setForTeam(tour.id, teamId).void
       _ <- (andJoin && !me.isBot && !me.lame).so:
         val req = TournamentForm.TournamentJoin(setup.teamBattleByTeam, tour.password)
-        join(tour.id, req, asLeader = false, none)(using _ => fuccess(leaderTeams.map(_.id)))
+        join(tour.id, req, asLeader = false)(using _ => fuccess(leaderTeams.map(_.id)))
     yield tour
 
   def update(old: Tournament, data: TournamentSetup): Fu[Tournament] =
@@ -270,17 +272,22 @@ final class TournamentApi(
           .usingPerfOf(me, tour.perfType):
             verify(tour.conditions, tour.perfType)
 
-  private[tournament] def join(
+  private val initialJoin =
+    lila.memo.RateLimit.composite[UserId]("tournament.user.join")(("fast", 6, 1.hour), ("slow", 20, 1.day))
+
+  def join(
       tourId: TourId,
       data: TournamentForm.TournamentJoin,
-      asLeader: Boolean,
-      promise: Option[Promise[Tournament.JoinResult]]
-  )(using getMyTeamIds: GetMyTeamIds, me: Me): Funit =
+      asLeader: Boolean
+  )(using getMyTeamIds: GetMyTeamIds, me: Me): Fu[Tournament.JoinResult] =
     Parallel(tourId, "join")(cached.tourCache.enterable): tour =>
-      playerRepo.find(tour.id, me).flatMap { prevPlayer =>
-        import Tournament.JoinResult
-        val fuResult: Fu[JoinResult] =
-          if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+      import Tournament.JoinResult
+      playerRepo
+        .find(tour.id, me)
+        .flatMap: prevPlayer =>
+          if prevPlayer.isEmpty && !initialJoin.test(me.userId, cost = if asLeader then 0 else 1)
+          then fuccess(JoinResult.RateLimited)
+          else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
           else if prevPlayer.nonEmpty || tour.password.forall: p =>
               // plain text access code
@@ -313,7 +320,7 @@ final class TournamentApi(
                           else fuccess(JoinResult.MissingTeam)
                       case _ => fuccess(JoinResult.MissingTeam)
           else fuccess(JoinResult.WrongEntryCode)
-        fuResult.map: result =>
+        .addEffect: result =>
           if result.ok then
             data.team
               .ifTrue(asLeader && tour.isTeamBattle)
@@ -324,17 +331,6 @@ final class TournamentApi(
                 if !isPlaying then waitingUsers.addApiUser(tour, me)
               }
           socket.reload(tour.id)
-          promise.foreach(_.success(result))
-      }
-
-  def joinWithResult(
-      tourId: TourId,
-      data: TournamentForm.TournamentJoin,
-      isLeader: Boolean
-  )(using GetMyTeamIds, Me): Fu[Tournament.JoinResult] =
-    val promise = Promise[Tournament.JoinResult]()
-    join(tourId, data, isLeader, promise.some)
-    promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
     cached
@@ -745,9 +741,9 @@ final class TournamentApi(
       .map:
         _.flatMap { LightPov(_, userId) }
 
-  private def Parallel(tourId: TourId, action: String)(
+  private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
-  )(run: Tournament => Funit): Funit =
+  )(run: Tournament => Fu[A]): Fu[A] =
     fetch(tourId).flatMapz { tour =>
       if tour.nbPlayers > 3000
       then run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
@@ -758,9 +754,8 @@ final class TournamentApi(
     private val debouncer = Debouncer[Unit](scheduler.scheduleOnce(15.seconds, _), 1): _ =>
       given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
-        Bus.pub(
+        Bus.pub:
           lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json))
-        )
       }
     def apply() = debouncer.push(())
 

@@ -35,13 +35,13 @@ final class DisposableEmailDomain(
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
-  def apply(domain: Domain): Boolean =
+  def isDisposable(domain: Domain): Boolean =
     !DisposableEmailDomain.whitelisted(domain) && (
       regex.find(domain.lower.value) || domainFragmentRegex.find(domain.lower.value)
     )
 
   def asMxRecord(domain: Domain): Boolean =
-    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain)
+    isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
 
   def mightBeTypo(domain: Domain): Boolean =
     // gmail.com is very often misspelled

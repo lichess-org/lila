@@ -16,7 +16,7 @@ import lila.ui.Nonce
 final class LoginContext(
     val me: Option[Me],
     val needsFp: Boolean,
-    val impersonatedBy: Option[User],
+    val impersonatedBy: Option[lila.core.userId.ModId],
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }

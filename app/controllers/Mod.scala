@@ -144,19 +144,20 @@ final class Mod(
       api.setPrizeban(sus, v).dmap(some)
   }(actionResult(username))
 
-  def impersonate(username: String) = Auth { _ ?=> me ?=>
-    if env.mod.impersonate.isImpersonated(me) then
-      env.mod.impersonate.stop(me)
-      Redirect(routes.User.show(me.username))
-    else
-      UserStr
-        .read(username)
-        .so: username =>
-          if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
-            Found(env.user.repo.byId(username)): user =>
-              env.mod.impersonate.start(me, user)
-              Redirect(routes.User.show(user.username))
-          else notFound
+  def impersonate(username: String) = Auth { ctx ?=> me ?=>
+    ctx.impersonatedBy match
+      case Some(modId) =>
+        env.mod.impersonate.stop(modId)
+        Redirect(routes.User.show(me.username))
+      case None =>
+        UserStr
+          .read(username)
+          .so: username =>
+            if lila.mod.canImpersonate(username.id) then
+              Found(env.user.repo.byId(username)): user =>
+                env.mod.impersonate.start(me.modId, user)
+                Redirect(routes.User.show(user.username))
+            else notFound
   }
 
   def setTitle(username: UserStr) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
@@ -214,7 +215,7 @@ final class Mod(
       api.allMods.map(views.mod.userTable.mods(_))
   }
 
-  def log(modReq: Option[UserStr]) = Secure(_.GamifyView) { ctx ?=> me ?=>
+  def log(modReq: Option[UserStr], id: Option[String]) = Secure(_.GamifyView) { ctx ?=> me ?=>
     val whichMod: Option[UserStr] =
       if isGranted(_.Admin) then modReq
       else me.userId.into(UserStr).some
@@ -224,13 +225,13 @@ final class Mod(
           // strictly speaking redundant because it should never be
           // empty for non-admins, but feels safer to keep
           isGranted(_.Admin)
-            .so(env.mod.logApi.recentHuman)
-            .map(views.mod.ui.logs(_, none, whichMod))
+            .so(env.mod.logApi.recentOf(id))
+            .map(views.mod.ui.logs(_, none, whichMod, id))
         case Some(mod) =>
           for
             modOpt <- env.report.api.getMod(mod)
             logs   <- modOpt.so(logsOf)
-          yield views.mod.ui.logs(logs, modOpt, whichMod)
+          yield views.mod.ui.logs(logs, modOpt, whichMod, id)
   }
 
   private def logsOf(mod: AsMod)(using me: Me): Fu[List[Modlog]] =

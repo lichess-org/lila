@@ -204,4 +204,7 @@
   <string name="variantsAreSupportedTitle">Študije podpirajo variante</string>
   <string name="variantsAreSupportedText">Da, lahko študiraš Crazyhouse&lt;br&gt;in vse različice Lichessa!</string>
   <string name="chapterConclusionText">Poglavja so shranjena za vedno.&lt;br&gt;Zabavajte se z organiziranjem svoje šahovske vsebine!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvojni poraz</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Črni poraz, beli pa ne more zmagati</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Beli poraz, a črni ne more zmagati</string>
 </resources>

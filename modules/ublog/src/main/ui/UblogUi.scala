@@ -2,9 +2,11 @@ package lila.ublog
 package ui
 
 import java.time.YearMonth
+import java.time.temporal.ChronoUnit.DAYS
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
@@ -31,7 +33,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: ShowAt = ShowAt.none,
-      showIntro: Boolean = true
+      showIntro: Boolean = true,
+      strictDate: Boolean = true
   )(using Context) =
     a(
       cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
@@ -39,7 +42,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        post.lived.map { live =>
+          if strictDate || DAYS.between(live.at, nowInstant) < 30 then
+            semanticDate(live.at)(cls := "ublog-post-card__over-image")
+          else span(cls := "ublog-post-card__over-image")("Timeless")
+        },
         if showAuthor != ShowAt.none
         then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
         else if ~post.sticky
@@ -82,7 +89,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-index")(
             boxTop(
-              h1(trans.ublog.xBlog(userLink(user))),
+              h1(trans.ublog.xBlog(userLink(user, withFlair = false))),
               div(cls := "box__top__actions")(
                 blog.allows.moderate.option(tierForm(blog)),
                 blog.allows.draft.option(
@@ -109,6 +116,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def community(
       language: Option[Language],
+      filter: QualityFilter,
       posts: Paginator[UblogPost.PreviewPost],
       langSelections: List[(Language, String)]
   )(using ctx: Context) =
@@ -122,13 +130,14 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           st.title := "Lichess community blogs"
         ).some
       )
-      .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll()))):
+      .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
           menu(Right("community")),
           div(cls := "page-menu__content box box-pad ublog-index")(
             boxTop(
-              h1(trans.ublog.communityBlogs()),
+              h1(cls := "collapsible")("Recent posts"),
               div(cls := "box__top__actions")(
+                filterAndSort(filter.some, none, (f, _) => routes.Ublog.communityLang(languageOrAll, f.some)),
                 lila.ui.bits.mselect(
                   "ublog-lang",
                   language.fold(trans.site.allLanguages.txt())(langList.nameByLanguage),
@@ -136,8 +145,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                     .map: (languageSel, name) =>
                       a(
                         href := {
-                          if languageSel == Language("all") then routes.Ublog.communityAll()
-                          else routes.Ublog.communityLang(languageSel)
+                          if languageSel == Language("all") then routes.Ublog.communityAll(filter.some)
+                          else routes.Ublog.communityLang(languageSel, filter.some)
                         },
                         cls := (languageSel == languageOrAll).option("current")
                       )(name)
@@ -152,7 +161,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                   posts,
                   p =>
                     language
-                      .fold(routes.Ublog.communityAll(p))(l => routes.Ublog.communityLang(l, p))
+                      .fold(routes.Ublog.communityAll(filter.some, p)): l =>
+                        routes.Ublog.communityLang(l, filter.some, p)
                       .url
                 )
               )
@@ -169,7 +179,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           div(cls := "page-menu__content box box-pad ublog-index")(
             boxTop(
               h1(
-                ctx.isnt(user).option(frag(userLink(user), "'s ")),
+                ctx.isnt(user).option(frag(userLink(user, withFlair = false), "'s ")),
                 trans.ublog.drafts()
               ),
               div(cls := "box__top__actions")(
@@ -183,88 +193,145 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                 posts.currentPageResults.map { card(_, url) },
                 pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
               )
-            else
-              div(cls := "ublog-index__posts--empty"):
-                trans.ublog.noDrafts()
+            else div(cls := "ublog-index__posts--empty")(trans.ublog.noDrafts())
           )
         )
 
   def friends(posts: Paginator[UblogPost.PreviewPost])(using Context) = list(
-    title = "Friends blogs",
+    title = "Blog posts by friends",
     posts = posts,
     menuItem = "friends",
-    route = (p, _) => routes.Ublog.friends(p),
+    route = (p, _, _) => routes.Ublog.friends(p),
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
   def liked(posts: Paginator[UblogPost.PreviewPost])(using Context) = list(
-    title = "Liked blog posts",
+    title = trans.ublog.likedBlogs.txt(),
     posts = posts,
     menuItem = "liked",
-    route = (p, _) => routes.Ublog.liked(p),
+    route = (p, _, _) => routes.Ublog.liked(p),
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost], byDate: Boolean)(using Context) =
+  def topic(top: UblogTopic, filter: QualityFilter, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(
+      using Context
+  ) =
     list(
-      title = s"Blog posts about $top",
+      title = s"$top posts",
       posts = posts,
       menuItem = "topics",
-      route = (p, bd) => routes.Ublog.topic(top.value, p, ~bd),
+      route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
       onEmpty = "Nothing to show.",
-      byDate.some
+      filterOpt = filter.some,
+      byOpt = by.some
     )
 
-  def month(yearMonth: YearMonth, posts: Paginator[UblogPost.PreviewPost])(using Context) =
+  def month(
+      yearMonth: YearMonth,
+      filter: QualityFilter,
+      by: BlogsBy,
+      posts: Paginator[UblogPost.PreviewPost]
+  )(using
+      Context
+  ) =
     list(
-      title = s"Top posts of $yearMonth",
+      title = s"$yearMonth posts",
       posts = posts,
-      menuItem = "best-of",
-      route = (p, _) => routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue, p),
+      menuItem = "by-month",
+      route = (p, f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f.some, b, p),
       onEmpty = "Nothing to show.",
-      header = div(cls := "ublog-index__calendar")(
-        h1(cls := "box__top")("Best blog posts by month"),
+      filterOpt = filter.some,
+      byOpt = by.some,
+      header = boxTop(cls := "ublog-index__calendar")(
+        h1(cls := "collapsible")(trans.ublog.byMonth()),
         lila.ui.bits.calendarMselect(
           helpers,
-          "best-of",
-          UblogBestOf.allYears,
-          (y, m) => routes.Ublog.bestOfMonth(y, m)
-        )(yearMonth)
+          "by-month",
+          allYears = UblogByMonth.allYears,
+          firstMonth = monthOfFirstPost,
+          url = (y, m) => routes.Ublog.byMonth(y, m, filter.some, by)
+        )(yearMonth),
+        filterAndSort(
+          filter.some,
+          by.some,
+          (f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f.some, b, 1)
+        )
       ).some
     )
 
-  private def list(
-      title: String,
-      posts: Paginator[UblogPost.PreviewPost],
-      menuItem: String,
-      route: (Int, Option[Boolean]) => Call,
-      onEmpty: => Frag,
-      byDate: Option[Boolean] = None,
-      header: Option[Frag] = None
+  def search(
+      text: String,
+      by: BlogsBy,
+      paginator: Option[Paginator[UblogPost.PreviewPost]] = none
   )(using Context) =
-    Page(title)
+    import BlogsBy.*
+    Page("Search")
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
+      .js(paginator.exists(_.hasNextPage).option(infiniteScrollEsmInit)):
         main(cls := "page-menu")(
-          menu(Right(menuItem)),
+          menu(Right("search")),
           div(cls := "page-menu__content box box-pad ublog-index")(
-            header | boxTop(
-              h1(title),
-              byDate.map: v =>
-                span(
-                  "Sort by ",
+            boxTop(
+              form(action := routes.Ublog.search(), cls := "search", method := "get")(
+                h1(cls := "collapsible")("Search"),
+                span(cls := "search-input")(
+                  input(name := "text", value := text, size := "8", enterkeyhint := "search"),
+                  submitButton(cls := "button", name := "by", value := by.toString)(dataIcon := Icon.Search)
+                ),
+                span(cls := "search-sort")(
+                  "Sort",
                   span(cls := "btn-rack")(
-                    a(cls := s"btn-rack__btn${(!v).so(" active")}", href := route(1, false.some))("rank"),
-                    a(cls := s"btn-rack__btn${v.so(" active")}", href := route(1, true.some))("date")
+                    List(score, likes).map: btnBy =>
+                      submitButton(btnCls(by == btnBy), name := "by", value := btnBy.name)(btnBy.name),
+                    by match
+                      case BlogsBy.newest =>
+                        submitButton(btnCls(true, "descending"), name := "by", value := "oldest")("date")
+                      case BlogsBy.oldest =>
+                        submitButton(btnCls(true, "ascending"), name := "by", value := "newest")("date")
+                      case _ =>
+                        submitButton(btnCls(false, "descending"), name := "by", value := "newest")("date")
                   )
                 )
-            ),
-            if posts.nbResults > 0 then
-              div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
-                pagerNext(posts, np => route(np, byDate).url)
               )
-            else div(cls := "ublog-index__posts--empty")(onEmpty)
+            ),
+            paginator match
+              case Some(pager) if pager.nbResults > 0 =>
+                div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+                  pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
+                  pagerNext(pager, np => routes.Ublog.search(text, by, np).url)
+                )
+              case _ => div(cls := "ublog-index__posts--empty")("No results")
+          )
+        )
+
+  def modShowCarousel(posts: UblogPost.CarouselPosts)(using Context) =
+    Page("Blog carousel")
+      .css("bits.ublog")
+      .js(Esm("bits.ublog")):
+        main(cls := "page-menu")(
+          bits.modMenu("carousel"),
+          div(cls := "page-menu__content box box-pad")(
+            div(cls := "ublog-index__posts ublog-mod-carousel")(
+              (posts.pinned ++ posts.queue).map: p =>
+                val by = userIdLink(
+                  p.featured.map(_.by),
+                  withFlair = false,
+                  withOnline = false,
+                  withPowerTip = false
+                )
+                div(
+                  span(
+                    p.featured
+                      .so(_.until)
+                      .map(until => label("Pinned by ", by, s" until ${showDate(until)}")),
+                    p.featured.so(_.at).map(at => label("Added by ", by, s" ${showDate(at)}")),
+                    form(action := routes.Ublog.modPull(p.id), method := "POST")(
+                      input(tpe := "submit", cls := "pull", value := Icon.X)
+                    )
+                  ),
+                  card(p, showAuthor = ShowAt.top, showIntro = false)
+                )
+            )
           )
         )
 
@@ -272,8 +339,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     Page("All blog topics").css("bits.ublog"):
       main(cls := "page-menu")(
         menu(Right("topics")),
-        div(cls := "page-menu__content box")(
-          boxTop(h1(trans.ublog.blogTopics())),
+        div(cls := "page-menu__content box box-pad ublog-index")(
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
@@ -290,42 +356,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )
       )
 
-  def year(bests: Paginator[UblogBestOf.WithPosts])(using Context) =
-    Page("Best blogs by month")
-      .css("bits.ublog")
-      .js(infiniteScrollEsmInit):
-        main(cls := "page-menu")(
-          menu(Right("best-of")),
-          div(cls := "page-menu__content box")(
-            boxTop(h1("Best blog posts by month")),
-            div(cls := "ublog-topics infinite-scroll")(
-              bests.currentPageResults.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
-                a(
-                  cls  := "ublog-topics__topic",
-                  href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
-                )(
-                  h2(
-                    s"Best of ${showYearMonth(yearMonth)}",
-                    span(cls := "ublog-topics__topic__nb")(trans.site.more(), " »")
-                  ),
-                  span(cls := "ublog-topics__topic__posts ublog-post-cards")(posts.map(miniCard))
-                )
-              },
-              pagerNext(bests, np => routes.Ublog.bestOfYear(np).url)
-            )
-          )
-        )
-
   def urlOfBlog(blog: UblogBlog): Call      = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))
-
-  private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)):
-    val form = lila.ublog.UblogForm.tier.fill(blog.tier)
-    frag(
-      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
-      form3.select(form("tier"), lila.ublog.UblogRank.Tier.options)
-    )
 
   def menu(active: Either[UserId, String])(using ctx: Context) =
     def isRight(s: String)  = active.fold(_ => false, _ == s)
@@ -336,40 +369,116 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     lila.ui.bits.pageMenuSubnav(
       cls := "force-ltr",
       ctx.kid.no.option(
-        a(
-          cls  := community.option("active"),
-          href := langHref(routes.Ublog.communityAll())
-        )(trans.ublog.communityBlogs())
-      ),
-      ctx.kid.no.option(
-        a(
-          cls  := isActive("best-of"),
-          href := langHref(routes.Ublog.bestOfYear())
-        )("Best of")
-      ),
-      ctx.kid.no.option(
-        a(cls := isActive("topics"), href := routes.Ublog.topics)(
-          trans.ublog.blogTopics()
+        frag(
+          a(
+            cls  := community.option("active"),
+            href := langHref(routes.Ublog.communityAll())
+          )(trans.ublog.community()),
+          a(
+            cls  := isActive("search"),
+            href := langHref(routes.Ublog.search())
+          )("Search"),
+          a(
+            cls  := isActive("by-month"),
+            href := langHref(routes.Ublog.thisMonth())
+          )(trans.ublog.byMonth()),
+          a(cls := isActive("topics"), href := routes.Ublog.topics)(
+            trans.ublog.byTopic()
+          )
         )
       ),
-      (ctx.isAuth && ctx.kid.no).option(
-        a(
-          cls  := isActive("friends"),
-          href := routes.Ublog.friends()
-        )(trans.ublog.friendBlogs())
-      ),
-      ctx.kid.no.option(
-        a(cls := isActive("liked"), href := routes.Ublog.liked())(
-          trans.ublog.likedBlogs()
-        )
-      ),
-      ctx.me
-        .ifTrue(ctx.kid.no)
-        .map: me =>
-          a(cls := mine.option("active"), href := routes.Ublog.index(me.username))(trans.ublog.myBlog()),
       a(cls := lichess.option("active"), href := routes.Ublog.index(UserName.lichess))(
-        trans.ublog.lichessBlog()
+        trans.ublog.byLichess()
+      ),
+      ctx.kid.no.option(
+        frag(
+          div(cls := "sep"),
+          a(cls := isActive("liked"), href := routes.Ublog.liked())(
+            trans.ublog.myLikes()
+          ),
+          ctx.me.map: me =>
+            frag(
+              a(
+                cls  := isActive("friends"),
+                href := routes.Ublog.friends()
+              )(trans.ublog.myFriends()),
+              a(cls := mine.option("active"), href := routes.Ublog.index(me.username))(trans.ublog.myBlog())
+            )
+        )
       )
+    )
+
+  private def list(
+      title: String,
+      posts: Paginator[UblogPost.PreviewPost],
+      menuItem: String,
+      route: (Int, QualityFilter, BlogsBy) => Call,
+      onEmpty: => Frag,
+      filterOpt: Option[QualityFilter] = none,
+      byOpt: Option[BlogsBy] = none,
+      header: Option[Frag] = none
+  )(using ctx: Context) =
+    val by = byOpt.getOrElse(BlogsBy.newest)
+    Page(title)
+      .css("bits.ublog")
+      .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
+        main(cls := "page-menu")(
+          menu(Right(menuItem)),
+          div(cls := "page-menu__content box box-pad ublog-index")(
+            header | boxTop(
+              h1(cls := "collapsible")(title),
+              filterAndSort(filterOpt, byOpt, (f, b) => route(1, f, b))
+            ),
+            if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
+              div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
+                pagerNext(posts, np => route(np, filterOpt.getOrElse(QualityFilter.all), by).url)
+              )
+            else div(cls := "ublog-index__posts--empty")(onEmpty)
+          )
+        )
+
+  private def filterAndSort(
+      filterOpt: Option[QualityFilter],
+      sortOpt: Option[BlogsBy],
+      route: (QualityFilter, BlogsBy) => Call
+  )(using Context) =
+    import BlogsBy.*
+    val sort      = sortOpt | newest
+    val filter    = filterOpt | QualityFilter.best
+    val filterBtn = (f: QualityFilter) => a(btnCls(filter == f), href := route(f, sort))(f.name)
+    div(cls := "filter-and-sort")(
+      filterOpt.isDefined.option(
+        span(
+          "Show",
+          if Granter.opt(_.ModerateBlog) then span(cls := "btn-rack")(QualityFilter.values.map(filterBtn))
+          else span(cls := "btn-rack")(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
+        )
+      ),
+      sortOpt.map: by =>
+        span(
+          "Sort",
+          span(cls := "btn-rack")(
+            a(btnCls(by == likes), href := route(filter, likes))("likes"),
+            by match
+              case BlogsBy.newest =>
+                a(btnCls(true, "descending"), href := route(filter, oldest))("date")
+              case BlogsBy.oldest =>
+                a(btnCls(true, "ascending"), href := route(filter, newest))("date")
+              case _ =>
+                a(btnCls(false, "descending"), href := route(filter, newest))("date")
+          )
+        )
+    )
+
+  private def btnCls(active: Boolean, other: String = ""): Modifier =
+    cls := s"btn-rack__btn $other" + (if active then " lit" else "")
+
+  private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)):
+    val form = lila.ublog.UblogForm.tier.fill(blog.tier)
+    frag(
+      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
+      form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
     )
 
   object atom:

@@ -129,14 +129,14 @@ function eventCountdown() {
       const distance = target - new Date().getTime();
 
       if (distance > 0) {
-        $el.find('.days').text(Math.floor(distance / day).toString()),
-          $el.find('.hours').text(Math.floor((distance % day) / hour).toString()),
-          $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString()),
-          $el.find('.seconds').text(
-            Math.floor((distance % minute) / second)
-              .toString()
-              .padStart(2, '0'),
-          );
+        $el.find('.days').text(Math.floor(distance / day).toString());
+        $el.find('.hours').text(Math.floor((distance % day) / hour).toString());
+        $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString());
+        $el.find('.seconds').text(
+          Math.floor((distance % minute) / second)
+            .toString()
+            .padStart(2, '0'),
+        );
       } else {
         clearInterval(interval);
         site.reload();

@@ -28,7 +28,7 @@
   <string name="highestSolved">Beste løsning</string>
   <string name="puzzlesPlayed">Spilte sjakknøtter</string>
   <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
-  <string name="endRun">Avslutt runden (hurtigtast: linjeskift)</string>
+  <string name="endRun">Avslutt runden (hurtigtast: enter)</string>
   <string name="highscores">Rekorder</string>
   <string name="viewBestRuns">Vis beste runder</string>
   <string name="bestRunOfDay">Dagens beste runde</string>

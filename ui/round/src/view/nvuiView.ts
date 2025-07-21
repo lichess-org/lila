@@ -52,8 +52,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     hl('h2', i18n.nvui.moveList),
     hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
     hl('h2', i18n.nvui.pieces),
-    hl('div.pieces', nv.renderPieces(ctrl.chessground.state.pieces, style)),
-    pockets && hl('div.pockets', nv.renderPockets(pockets)),
+    nv.renderPieces(ctrl.chessground.state.pieces, style),
+    pockets && hl('h2', i18n.nvui.pockets),
+    pockets && nv.renderPockets(pockets),
     hl('h2', i18n.nvui.gameStatus),
     hl('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
       ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
@@ -143,65 +144,13 @@ function renderActions({ ctrl }: RoundNvuiContext): LooseVNodes {
 }
 
 function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
-  const { ctrl, prefixStyle, pieceStyle, positionStyle, moveStyle, boardStyle, notify } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, positionStyle, boardStyle } = ctx;
 
   return [
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      {
-        hook: onInsert(el => {
-          const $board = $(el);
-          const $buttons = $board.find('button');
-          $buttons.on('blur', nv.leaveSquareHandler($buttons));
-          $buttons.on(
-            'click',
-            nv.selectionHandler(() => ctrl.data.opponent.color, selectSound),
-          );
-          $buttons.on('keydown', (e: KeyboardEvent) => {
-            if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-            else if (e.key.match(/^x$/i))
-              scanDirectionsHandler(
-                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
-                ctrl.chessground.state.pieces,
-                moveStyle.get(),
-              )(e);
-            else if (e.key.toLowerCase() === 'f') {
-              if (ctrl.data.game.variant.key !== 'racingKings') {
-                notify.set('Flipping the board');
-                setTimeout(() => {
-                  ctrl.flip = !ctrl.flip;
-                  ctrl.redraw();
-                }, 1000);
-              }
-            } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
-            else if (e.key.startsWith('Arrow'))
-              nv.arrowKeyHandler(
-                ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
-                borderSound,
-              )(e);
-            else if (e.key === 'c')
-              nv.lastCapturedCommandHandler(
-                () => ctrl.data.steps.map(step => step.fen),
-                pieceStyle.get(),
-                prefixStyle.get(),
-              )();
-            else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-            else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
-            else if (e.key.toLowerCase() === 'm')
-              nv.possibleMovesHandler(
-                ctrl.data.player.color,
-                ctrl.chessground,
-                ctrl.data.game.variant.key,
-                ctrl.data.steps,
-              )(e);
-            else if (e.key === 'i') {
-              e.preventDefault();
-              $('input.move').get(0)?.focus();
-            }
-          });
-        }),
-      },
+      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings'
@@ -217,6 +166,60 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
     ),
     hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
   ];
+}
+
+function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
+  const { ctrl, prefixStyle, pieceStyle, moveStyle, notify } = ctx;
+
+  const $board = $(el);
+  const $buttons = $board.find('button');
+  $buttons.on('blur', nv.leaveSquareHandler($buttons));
+  $buttons.on(
+    'click',
+    nv.selectionHandler(() => ctrl.data.opponent.color, selectSound),
+  );
+  $buttons.on('keydown', (e: KeyboardEvent) => {
+    if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+    else if (e.key.match(/^x$/i))
+      scanDirectionsHandler(
+        ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+        ctrl.chessground.state.pieces,
+        moveStyle.get(),
+      )(e);
+    else if (e.key.toLowerCase() === 'f') {
+      if (ctrl.data.game.variant.key !== 'racingKings') {
+        notify.set('Flipping the board');
+        setTimeout(() => {
+          ctrl.flip = !ctrl.flip;
+          ctrl.redraw();
+        }, 1000);
+      }
+    } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
+    else if (e.key.startsWith('Arrow'))
+      nv.arrowKeyHandler(
+        ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
+        borderSound,
+      )(e);
+    else if (e.key === 'c')
+      nv.lastCapturedCommandHandler(
+        () => ctrl.data.steps.map(step => step.fen),
+        pieceStyle.get(),
+        prefixStyle.get(),
+      )();
+    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
+    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (e.key.toLowerCase() === 'm')
+      nv.possibleMovesHandler(
+        ctrl.data.player.color,
+        ctrl.chessground,
+        ctrl.data.game.variant.key,
+        ctrl.data.steps,
+      )(e);
+    else if (e.key === 'i') {
+      e.preventDefault();
+      $('input.move').get(0)?.focus();
+    }
+  });
 }
 
 function createSubmitHandler(

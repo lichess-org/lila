@@ -81,11 +81,16 @@ final private class SandbagWatch(
 
     def loserRatingGt(r: Int) = game.loser.flatMap(_.rating).exists(_ > IntRating(r))
 
-    val minTurns =
-      if game.variant == chess.variant.Atomic then 3
-      else if loserRatingGt(1800) then 20
+    val baseMinTurns =
+      if loserRatingGt(1800) then 20
       else if loserRatingGt(1600) then 12
       else 8
+
+    import chess.variant.*
+    val minTurns = game.variant match
+      case Atomic                     => baseMinTurns / 4
+      case KingOfTheHill | ThreeCheck => baseMinTurns / 2
+      case _                          => baseMinTurns
 
     game.playedPlies <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
 

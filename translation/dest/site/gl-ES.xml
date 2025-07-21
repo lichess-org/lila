@@ -105,7 +105,7 @@
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Xogar o primeiro movemento do explorador de aperturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
@@ -714,7 +714,7 @@
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
+  <string name="keyRequestComputerAnalysis">Solicitar unha análise por computador, Aprende dos teus erros</string>
   <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
@@ -982,7 +982,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
-  <string name="showHelpDialog">Amosa este diálogo de axuda</string>
+  <string name="showHelpDialog">Amosar este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="reopenYourAccountDescription">Se pechaches a túa conta pero mudaches de idea, tes a posibilidade de recuperala.</string>
   <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>

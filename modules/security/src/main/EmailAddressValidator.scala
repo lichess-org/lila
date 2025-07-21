@@ -45,7 +45,7 @@ final class EmailAddressValidator(
 
   private[security] def validateDomain(domain: Domain.Lower): Fu[Result] =
     if DisposableEmailDomain.whitelisted(domain.into(Domain)) then fuccess(Result.Passlist)
-    else if disposable(domain.into(Domain)) then fuccess(Result.Blocklist)
+    else if disposable.isDisposable(domain.into(Domain)) then fuccess(Result.Blocklist)
     else
       dnsApi
         .mx(domain)
@@ -96,12 +96,21 @@ final class EmailAddressValidator(
     if variations.isEmpty then List(email) else variations
 
   private def isInfiniteAlias(e: EmailAddress) =
-    duckAliases.is(e)
+    duckAliases.is(e) || randomPlus.is(e)
 
   private object duckAliases:
     private val domain      = Domain.Lower.from("duck.com")
     private val regex       = """^\w{3,}-\w{3,}-\w{3,}$""".r
     def is(e: EmailAddress) = e.nameAndDomain.exists((n, d) => d.lower == domain && regex.matches(n))
+
+  private object randomPlus:
+    /* used by a few recidivists
+     * uwdvohl4088z+e56qy5bu@outlook.com
+     * b.rockerenzo.ni49+6mb1fgfpy@googlemail.com
+     * hrsnti211146+yhuj2y@hotmail.com
+     * luzkruegel.xnp17+mtcwg275w2@gmail.com */
+    private val regex = """\+(\w{4,10})@(outlook|gmail|googlemail|hotmail)\.com$""".r.unanchored
+    def is(e: EmailAddress): Boolean = regex.matches(e.value)
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
     userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|

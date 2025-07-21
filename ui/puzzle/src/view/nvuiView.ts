@@ -13,6 +13,7 @@ import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { opposite } from 'chessops';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { Api } from '@lichess-org/chessground/api';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -98,45 +99,24 @@ export function renderNvui({
       h(
         'div.board',
         {
-          hook: onInsert(el => {
-            const $board = $(el);
-            const $buttons = $board.find('button');
-            const steps = ctrl.tree.getNodeList(ctrl.path);
-            const fenSteps = () => steps.map(step => step.fen);
-            const opponentColor = opposite(ctrl.pov);
-
-            $buttons.on('blur', nv.leaveSquareHandler($buttons));
-            $buttons.on(
-              'click',
-              nv.selectionHandler(() => opponentColor, selectSound),
-            );
-            $buttons.on('keydown', (e: KeyboardEvent) => {
-              if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-              else if (e.key.match(/^x$/i))
-                scanDirectionsHandler(
-                  ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-                  ground.state.pieces,
-                  moveStyle.get(),
-                )(e);
-              else if (e.key.toLowerCase() === 'f') {
-                notify.set('Flipping the board');
-                setTimeout(() => ctrl.flip(), 1000);
-              } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
-              else if (e.key.startsWith('Arrow'))
-                nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
-              else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-              else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
-              else if (e.key.toLowerCase() === 'm')
-                nv.possibleMovesHandler(ctrl.pov, ground, 'standard', steps)(e);
-              else if (e.key === 'c')
-                nv.lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
-              else if (e.key === 'i') {
-                e.preventDefault();
-                $('input.move').get(0)?.focus();
-              }
-            });
-          }),
+          hook: {
+            insert: el =>
+              boardEventsHook(
+                {
+                  ctrl,
+                  notify,
+                  moveStyle,
+                  pieceStyle,
+                  prefixStyle,
+                  positionStyle,
+                  boardStyle,
+                },
+                ground,
+                el.elm as HTMLElement,
+              ),
+          },
         },
+
         nv.renderBoard(
           ground.state.pieces,
           ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
@@ -181,6 +161,44 @@ export function renderNvui({
       ]),
     ]),
   );
+}
+
+function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): void {
+  const { ctrl, moveStyle, pieceStyle, prefixStyle, notify } = ctx;
+  const $board = $(el);
+  const $buttons = $board.find('button');
+  const steps = ctrl.tree.getNodeList(ctrl.path);
+  const fenSteps = () => steps.map(step => step.fen);
+  const opponentColor = opposite(ctrl.pov);
+
+  $buttons.on('blur', nv.leaveSquareHandler($buttons));
+  $buttons.on(
+    'click',
+    nv.selectionHandler(() => opponentColor, selectSound),
+  );
+  $buttons.on('keydown', (e: KeyboardEvent) => {
+    if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+    else if (e.key.match(/^x$/i))
+      scanDirectionsHandler(
+        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        ground.state.pieces,
+        moveStyle.get(),
+      )(e);
+    else if (e.key.toLowerCase() === 'f') {
+      notify.set('Flipping the board');
+      setTimeout(() => ctrl.flip(), 1000);
+    } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
+    else if (e.key.startsWith('Arrow'))
+      nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
+    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
+    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (e.key.toLowerCase() === 'm') nv.possibleMovesHandler(ctrl.pov, ground, 'standard', steps)(e);
+    else if (e.key === 'c') nv.lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
+    else if (e.key === 'i') {
+      e.preventDefault();
+      $('input.move').get(0)?.focus();
+    }
+  });
 }
 
 function lastMove(ctrl: PuzzleCtrl, style: nv.MoveStyle): string {

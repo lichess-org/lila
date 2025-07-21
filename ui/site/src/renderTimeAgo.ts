@@ -29,6 +29,10 @@ export const renderTimeAgo = (parent?: HTMLElement): number =>
           node.textContent = formatAgo(diff);
           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
         }
+        if (site.blindMode) {
+          node.removeAttribute('title');
+          node.removeAttribute('datetime');
+        }
       });
   });
 

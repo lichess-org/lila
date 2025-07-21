@@ -27,6 +27,7 @@ trait IrcApi:
       boardName: StudyChapterName
   ): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
+  def permissionsLog(user: LightUser, details: String)(using mod: LightUser.Me): Funit
   def publicForumLog(icon: String, text: String)(using MyId): Funit
   def ublogPost(
       user: LightUser,
@@ -34,5 +35,6 @@ trait IrcApi:
       slug: String,
       title: String,
       intro: String,
-      topic: String
+      topic: String,
+      automod: Option[String]
   ): Funit

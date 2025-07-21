@@ -23,7 +23,7 @@
   <string name="lifetime">Liewenslaang</string>
   <string name="payLifetimeOnce">Eemol %s bezuehlen. Fir ëmmer Lichess-Ënnerstëtzer sinn!</string>
   <string name="lifetimePatron">Liewenslaange Lichess-Ënnerstëtzer</string>
-  <string name="monthly">Méintlech</string>
+  <string name="monthly">Monatlech</string>
   <string name="recurringBilling">Widderhuelend Rechnung, erneiert deng Ënnerstëtzer-Flilleken all Mount.</string>
   <string name="onetime">Eemoleg</string>
   <string name="singleDonation">Eng eemoleg Spend, déi dir fir ee Mount Ennerstëtzer-Flilleken gëtt.</string>
@@ -39,7 +39,7 @@ Dann bezuelen mir och en Vollzäit-Entwéckler: %s, den Grënner vun Lichess.</s
   <string name="costBreakdown">Detailléiert Käschtenzesummenstellung kucken</string>
   <string name="officialNonProfit">Ass Lichess eng offiziell Non-Profit?</string>
   <string name="actOfCreation">Jo, hei ass den acte de création (op Franséisch)</string>
-  <string name="changeMonthlySupport">Kann ech meng méintlech Ënnerstëtzung änneren/annuléieren?</string>
+  <string name="changeMonthlySupport">Kann ech meng monatlech Ënnerstëtzung änneren/annuléieren?</string>
   <string name="changeOrContact">Jo, zu all Zäitpunkt, op dëser Säit.
 Oder du kanns %s.</string>
   <string name="contactSupport">de Lichess-Support kontaktéieren</string>
@@ -64,7 +64,7 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="giftPatronWingsShort">Ënnerstëtzer-Flilleke verschenken</string>
   <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleke schenken</string>
   <string name="update">Update</string>
-  <string name="changeMonthlyAmount">Méintleche Montant änneren (%s)</string>
+  <string name="changeMonthlyAmount">De monatleche Montant änneren (%s)</string>
   <string name="cancelSupport">deng Ënnerstëtzung ofbriechen</string>
   <string name="xOrY">%1$s oder %2$s</string>
   <string name="decideHowMuch">Decidéier wat Lichess dir wert ass:</string>

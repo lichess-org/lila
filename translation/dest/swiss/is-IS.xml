@@ -6,6 +6,10 @@
     <item quantity="one">Skoða umferðina</item>
     <item quantity="other">Skoða allar %s umferðir</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s umferð</item>
+    <item quantity="other">%s umferðir</item>
+  </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Swiss-umferð</item>
     <item quantity="other">%s Swiss-umferðir</item>
@@ -15,21 +19,41 @@
     <item quantity="other">Ein umferð á %s daga fresti</item>
   </plurals>
   <string name="roundsAreStartedManually">Umferðir eru byrjaðar handvirkt</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekúnda á milli umferða</item>
+    <item quantity="other">%s sekúndur á milli umferða</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s mínúta á milli umferða</item>
+    <item quantity="other">%s mínútur á milli umferða</item>
+  </plurals>
   <string name="nextRound">Næsta umferð</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Skák í gangi</item>
     <item quantity="other">Skákir í gangi</item>
   </plurals>
   <string name="tournStartDate">Upphafsdagur móts</string>
+  <string name="numberOfRounds">Fjöldi umferða</string>
+  <string name="numberOfRoundsHelp">Heppilegast er að nota oddatölu fyrir fjölda umferða til að ná fram besta jafnvægi í litum.</string>
+  <string name="roundInterval">Tímabil á milli umferða</string>
   <string name="forbiddenPairings">Forboðnar mætingar</string>
   <string name="newSwiss">Nýtt Swiss-mót</string>
   <string name="pointsCalculationQ">Hvernig eru stig reiknuð út?</string>
+  <string name="tiebreaksCalculationQ">Hvernig eru bráðabanar reiknaðir út?</string>
+  <string name="sonnebornBergerScore">stigakerfi Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Notast er við %s.
+Leggur saman stig hvers andstæðings sem leikmaður sigrar og helming af stigi hvers andstæðings sem leikmaður gerir jafntefli við.</string>
   <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
-  <string name="FIDEHandbook">Handbók alþjóðaskáksambandsins</string>
+  <string name="dutchSystem">Hollenska kerfið</string>
+  <string name="FIDEHandbook">Leikreglubók Alþjóðaskáksambandsins</string>
+  <string name="pairingsA">Notast er við %1$s, sem %2$s innleiddi, í samræmi við %3$s.</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
   <string name="numberOfByesQ">Hversu oft getur leikmaður verið stakur?</string>
+  <string name="numberOfByesA">Leikmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan leikmann til að mæta honum.
+Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaður mætir seint á mótið.</string>
+  <string name="earlyDrawsQ">Hvað gerist þegar jafntefli er gert of snemmt?</string>
   <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
   <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
@@ -39,6 +63,7 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
   <string name="startingSoon">Hefst senn</string>
   <string name="comparison">Samanburður</string>
   <string name="numberOfGames">Fjöldi skáka</string>
+  <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla leikmenn</string>
   <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
@@ -47,9 +72,13 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
   <string name="lateJoin">Seinlegar þátttökur</string>
+  <string name="lateJoinUntil">Já þar til meira en helmingur umferðanna er hafinn</string>
   <string name="pause">Pása</string>
+  <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="similarToOTB">Svipað og á raunverulegum skákmótum (e. OTB)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
+  <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
   <string name="playYourGames">Tefldu skákir þínar</string>
   <string name="byes">Stökur</string>
   <string name="absences">Fjarvistir</string>

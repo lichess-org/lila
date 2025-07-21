@@ -13,10 +13,13 @@ export type AnalyseNvuiContext = NvuiContext &
   }>;
 
 export function initModule(ctrl: AnalyseCtrl): NvuiPlugin {
-  const ctx = makeContext<AnalyseNvuiContext>({
-    ctrl,
-    analysisInProgress: prop(false),
-  });
+  const ctx = makeContext<AnalyseNvuiContext>(
+    {
+      ctrl,
+      analysisInProgress: prop(false),
+    },
+    ctrl.redraw,
+  );
   initNvui(ctx);
   return { render: deps => renderNvui({ ...ctx, deps }) };
 }

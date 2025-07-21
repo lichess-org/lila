@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">சமூக வலைப்பதிவுகள்</string>
-  <string name="friendBlogs">நண்பர்களின் வலைப்பதிவுகள்</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
-  <string name="blogTopics">வலைப்பதிவின் தலைப்புகள்</string>
   <plurals name="blogPosts">
     <item quantity="one">%s வலைப்பதிவு இடுகை</item>
     <item quantity="other">%s வலைப்பதிவு இடுகைகள்</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess-ன் அதிகாரப்பூர்வ வலைப்பதிவு</string>
   <string name="continueReadingPost">இந்த இடுகையைத் தொடர்ந்து படிக்கவும்</string>
   <string name="lichessBlogPostsFromXYear">%s ஆண்டின் Lichess வலைப்பதிவுகள்</string>
   <string name="previousBlogPosts">முந்தைய வலைப்பதிவு இடுகைகள்</string>

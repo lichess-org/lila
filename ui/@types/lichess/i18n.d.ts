@@ -1773,6 +1773,10 @@ interface I18n {
     blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
+    /** %s copied to clipboard */
+    copiedToClipboard: I18nFormat;
+    /** Copy %s to clipboard */
+    copyToClipboard: I18nFormat;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
@@ -1813,8 +1817,12 @@ interface I18n {
     opponentClock: string;
     /** pawn */
     pawn: string;
+    /** PGN and FEN */
+    pgnAndFen: string;
     /** Pieces */
     pieces: string;
+    /** Pockets */
+    pockets: string;
     /** Premove cancelled */
     premoveCancelled: string;
     /** Premove recorded: %s. Hit enter to cancel */
@@ -5597,10 +5605,14 @@ interface I18n {
     blogPosts: I18nPlural;
     /** Our simple tips to write great blog posts */
     blogTips: string;
-    /** Blog topics */
-    blogTopics: string;
-    /** Community blogs */
-    communityBlogs: string;
+    /** By Lichess */
+    byLichess: string;
+    /** By month */
+    byMonth: string;
+    /** By topic */
+    byTopic: string;
+    /** Community */
+    community: string;
     /** Continue reading this post */
     continueReadingPost: string;
     /** Enable comments */
@@ -5615,8 +5627,6 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
-    /** Friends blogs */
-    friendBlogs: string;
     /** Image alternative text */
     imageAlt: string;
     /** Image credit */
@@ -5625,16 +5635,16 @@ interface I18n {
     inappropriateContentAccountClosed: string;
     /** Latest blog posts */
     latestBlogPosts: string;
-    /** Lichess blog */
-    lichessBlog: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
-    /** Lichess Official Blog */
-    lichessOfficialBlog: string;
     /** Liked blog posts */
     likedBlogs: string;
     /** My blog */
     myBlog: string;
+    /** My friends */
+    myFriends: string;
+    /** My likes */
+    myLikes: string;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */

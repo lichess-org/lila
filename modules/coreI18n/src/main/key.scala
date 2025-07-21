@@ -958,6 +958,10 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `pockets`: I18nKey = "nvui:pockets"
+    val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
+    val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
+    val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
@@ -2846,13 +2850,14 @@ object I18nKey:
     val `xArena`: I18nKey = "tourname:xArena"
 
   object ublog:
-    val `communityBlogs`: I18nKey = "ublog:communityBlogs"
-    val `friendBlogs`: I18nKey = "ublog:friendBlogs"
-    val `lichessBlog`: I18nKey = "ublog:lichessBlog"
+    val `community`: I18nKey = "ublog:community"
+    val `byMonth`: I18nKey = "ublog:byMonth"
+    val `byTopic`: I18nKey = "ublog:byTopic"
+    val `byLichess`: I18nKey = "ublog:byLichess"
+    val `myFriends`: I18nKey = "ublog:myFriends"
+    val `myLikes`: I18nKey = "ublog:myLikes"
     val `myBlog`: I18nKey = "ublog:myBlog"
     val `likedBlogs`: I18nKey = "ublog:likedBlogs"
-    val `blogTopics`: I18nKey = "ublog:blogTopics"
-    val `lichessOfficialBlog`: I18nKey = "ublog:lichessOfficialBlog"
     val `continueReadingPost`: I18nKey = "ublog:continueReadingPost"
     val `lichessBlogPostsFromXYear`: I18nKey = "ublog:lichessBlogPostsFromXYear"
     val `previousBlogPosts`: I18nKey = "ublog:previousBlogPosts"

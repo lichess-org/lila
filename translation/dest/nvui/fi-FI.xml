@@ -10,4 +10,47 @@
   <string name="actions">Toiminnot</string>
   <string name="yourClock">Sinun kellosi</string>
   <string name="opponentClock">Vastustajan kello</string>
+  <string name="boardCommandList">Komentoluettelo, kun on kohdennettu lautaan</string>
+  <string name="inputFormCommandList">Nämä komennot kirjoitetaan komentojen syöttökenttään.</string>
+  <string name="goToInputForm">Siirry komentojen syöttökenttään.</string>
+  <string name="announceCurrentSquare">Ilmoita valittuna oleva ruutu.</string>
+  <string name="announceLastMove">Ilmoita edellinen siirto.</string>
+  <string name="announceLastMoveCapture">Ilmoita edellisessä siirrossa lyöty nappula.</string>
+  <string name="announcePossibleMoves">Ilmoita valitun nappulan mahdolliset siirrot.</string>
+  <string name="announcePossibleCaptures">Ilmoita mahdolliset lyönnit valitulla nappulalla.</string>
+  <string name="moveWithArrows">Siirry viereiseen ruutuun vasemmalle, oikealle, ylös tai alas.</string>
+  <string name="moveToPieceByType">Siirry ruutuihin nappuloiden nimiä käyttäen. Esimerkki: k-kirjainta toistamalla siirrytään vuorotellen kuhunkin ruutuun, jossa on ratsu (engl. knight). Käänteisessä järjestyksessä toistamiseen voit käyttää isoja kirjaimia.</string>
+  <string name="moveToRank">Siirry riville 1-8.</string>
+  <string name="moveToFile">Siirry linjalle a-h.</string>
+  <string name="announcePieceLocations">Ilmoita nappuloiden sijainnit. Esimerkiksi valkoiset ratsut painamalla \"pN\", musta kuningas \"pk\" sekä kaikki valkeat nappulat \"pA\" (huomioi pienien ja isojen kirjainten käyttö).</string>
+  <string name="announcePiecesOnRankOrFile">Ilmoita tietyllä rivillä tai linjalla olevat nappulat. Esimerkiksi \"s a\" tai \"s 1\".</string>
+  <string name="goToBoard">Siirry pelilaudalle. Oletusruutu on e-4. Ruudun voi myös määritellä, esimerkiksi \"board a-1\" tai \"b a-1\" siirtyy ruutuun a-1.</string>
+  <string name="movePiece">Käytä nappuloiden siirtämiseen normaalia algebrallista merkitsemistapaa.</string>
+  <string name="king">kuningas</string>
+  <string name="whiteKing">valkea kuningas</string>
+  <string name="blackKing">musta kuningas</string>
+  <string name="queen">daami</string>
+  <string name="whiteQueen">valkea daami</string>
+  <string name="blackQueen">musta daami</string>
+  <string name="rook">torni</string>
+  <string name="whiteRook">valkea torni</string>
+  <string name="blackRook">musta torni</string>
+  <string name="bishop">lähetti</string>
+  <string name="whiteBishop">valkea lähetti</string>
+  <string name="blackBishop">musta lähetti</string>
+  <string name="knight">ratsu</string>
+  <string name="whiteKnight">valkea ratsu</string>
+  <string name="blackKnight">musta ratsu</string>
+  <string name="pawn">sotilas</string>
+  <string name="whitePawn">valkea sotilas</string>
+  <string name="blackPawn">musta sotilas</string>
+  <string name="sanTakes" comment="x in standard notation">lyö</string>
+  <string name="sanCheck" comment="+ in standard notation">shakki</string>
+  <string name="sanCheckmate" comment="# in standard notation">matti</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">lyhyt linnoitus</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">pitkä linnoitus</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">pudotetaan</string>
+  <string name="invalidMove">Virheellinen siirto</string>
+  <string name="premoveCancelled">Esisiirto peruutettu</string>
+  <string name="premoveRecorded">Esisiirto tallennettu: %s. Peru painamalla Enteriä</string>
 </resources>

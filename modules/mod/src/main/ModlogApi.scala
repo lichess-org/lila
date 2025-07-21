@@ -12,6 +12,7 @@ import lila.report.{ Mod, Report, Suspect }
 import lila.user.UserRepo
 import lila.core.chat.TimeoutReason
 import lila.core.user.KidMode
+import lila.core.LightUser
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -19,6 +20,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
+  private given BSONHandler[Modlog.Context]           = Macros.handler[Modlog.Context]
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
   private given Conversion[Me, ModId]                 = _.modId
 
@@ -45,8 +47,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def blogTier(sus: Suspect, tier: String)(using MyId) = add:
     Modlog.make(sus, Modlog.blogTier, tier.some)
 
-  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, action: String)(using MyId) = add:
-    Modlog.make(sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
+  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, details: String)(using MyId) = add:
+    Modlog.make(
+      sus,
+      Modlog.blogPostEdit,
+      details.some,
+      Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some, postId.value.some).some
+    )
 
   def practiceConfig(using MyId) = add:
     Modlog(none, Modlog.practiceConfig)
@@ -186,15 +193,20 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def chatTimeout(user: UserId, reason: TimeoutReason, text: String)(using MyId) = add:
     Modlog(user.some, Modlog.chatTimeout, details = s"${reason.key}: $text".some)
 
-  def setPermissions(user: UserId, permissions: Map[Permission, Boolean])(using Me) = add:
-    Modlog(
-      user.some,
-      Modlog.permissions,
-      details = permissions
-        .map: (p, dir) =>
-          s"${if dir then "+" else "-"}${p}"
-        .mkString(", ")
-        .some
+  def setPermissions(user: LightUser, permissions: Map[Permission, Boolean])(using Me) =
+    val details = permissions
+      .map: (p, dir) =>
+        s"${if dir then "+" else "-"}${p}"
+      .mkString(", ")
+    add:
+      Modlog(
+        user.id.some,
+        Modlog.permissions,
+        details.some
+      )
+    >> ircApi.permissionsLog(
+      user,
+      details
     )
 
   def wasUnteachered(user: UserId): Fu[Boolean] =
@@ -304,9 +316,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         "date".$gte(nowInstant.minusMonths(6))
       )
 
-  def recentHuman =
+  def recentOf(id: Option[String] = None) =
     coll.secondary
-      .find($doc("mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin))))
+      .find(
+        "mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
+          $doc("context.id" -> cid)
+        )
+      )
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
@@ -318,7 +334,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .cursor[Modlog]()
       .list(200)
 
-  def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
+  def withModlogs(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.secondary
       .find(
         $doc(

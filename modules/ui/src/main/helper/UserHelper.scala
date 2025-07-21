@@ -51,7 +51,9 @@ trait UserHelper:
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
-      modIcon: Boolean = false
+      modIcon: Boolean = false,
+      withFlair: Boolean = true,
+      withPowerTip: Boolean = true
   )(using Translate): Tag =
     userIdOption
       .flatMap(u => lightUserSync(u.id))
@@ -61,12 +63,13 @@ trait UserHelper:
           username = user.name,
           isPatron = user.isPatron,
           title = user.title.ifTrue(withTitle),
-          flair = user.flair,
+          flair = if withFlair then user.flair else none,
           cssClass = cssClass,
           withOnline = withOnline,
           truncate = truncate,
           params = params,
-          modIcon = modIcon
+          modIcon = modIcon,
+          withPowerTip = withPowerTip
         )
 
   def lightUserLink(
@@ -112,12 +115,13 @@ trait UserHelper:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      params: String = ""
+      params: String = "",
+      withFlair: Boolean = true
   )(using Translate): Tag =
     a(
       cls  := userClass(user.id, none, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
 
   def userSpan(
       user: User,
@@ -138,12 +142,13 @@ trait UserHelper:
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      name: Option[Frag] = None
+      name: Option[Frag] = None,
+      withFlair: Boolean = true
   )(using Translate) = frag(
     withOnline.so(lineIcon(user)),
     withTitle.option(titleTag(user.title)),
     name | user.username,
-    userFlair(user),
+    withFlair.so(userFlair(user)),
     withPerfRating.map(userRating)
   )
 
@@ -157,10 +162,11 @@ trait UserHelper:
       title: Option[PlayerTitle],
       flair: Option[Flair],
       params: String,
-      modIcon: Boolean
+      modIcon: Boolean,
+      withPowerTip: Boolean = true
   )(using Translate): Tag =
     a(
-      cls  := userClass(userId, cssClass, withOnline),
+      cls  := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
       withOnline.so(if modIcon then moderatorIcon else lineIcon(isPatron)),
