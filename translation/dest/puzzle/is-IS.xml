@@ -87,6 +87,10 @@ Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því a
     <item quantity="one">%s leikin</item>
     <item quantity="other">%s leiknar</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s til að endurtaka</item>
+    <item quantity="other">%s til að endurtaka</item>
+  </plurals>
   <string name="percentSolved">%s leystar</string>
   <string name="noPuzzlesToShow">Ekkert til að sýna, farðu og leystu nokkrar þrautir fyrst!</string>
   <string name="improvementAreasDescription">Æfðu eftirfarandi til þess að hámarka framfarir þínar!</string>
