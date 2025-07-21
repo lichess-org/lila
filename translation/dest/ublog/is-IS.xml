@@ -12,6 +12,7 @@
     <item quantity="one">%s færsla á bloggi</item>
     <item quantity="other">%s færslur á bloggi</item>
   </plurals>
+  <string name="continueReadingPost">Halda áfram að lesa þessa færslu</string>
   <string name="lichessBlogPostsFromXYear">Lichess-bloggfærslur árið %s</string>
   <string name="previousBlogPosts">Fyrri bloggfærslur</string>
   <string name="xBlog">Blogg notandans %s</string>
@@ -34,6 +35,7 @@
     <item quantity="one">Einn skoðað</item>
     <item quantity="other">%s skoðað</item>
   </plurals>
+  <string name="xPublishedY">%1$s birti %2$s</string>
   <string name="thisPostIsPublished">Þessi færsla hefur verið birt</string>
   <string name="thisIsADraft">Þetta er drag</string>
   <string name="noPostsInThisBlogYet">Engar færslur á þessari bloggsíðu eins og sakir standa.</string>
@@ -43,9 +45,12 @@
     <item quantity="one">Skoða eina færslu</item>
     <item quantity="other">Skoða allar %s færslur</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Hladdu inn mynd fyrir færsluna þína</string>
   <string name="imageAlt">Annar texti myndar</string>
   <string name="imageCredit">Höfundur myndar</string>
+  <string name="deleteBlog">Eyða þessari bloggfærslu til frambúðar</string>
   <string name="safeToUseImages">Óhætt er að notfæra sér myndir frá þessum vefsíðum: </string>
+  <string name="safeAndRespectfulContent">Þess er vænst að efnið sem þú birtir sé öruggt og tillitssamt. Alls ekki apa eftir efni annarra.</string>
   <string name="inappropriateContentAccountClosed">Allt sem telst óviðeigandi gæti haft í för með sér að aðgangurinn þinn verði lokaður.</string>
   <string name="blogTips">Hagnýt ráð okkar til að skrifa frábærar bloggfærslur</string>
   <string name="discussThisBlogPostInTheForum">Fjallaðu um þessa bloggfærslu á umræðukorkinum</string>
