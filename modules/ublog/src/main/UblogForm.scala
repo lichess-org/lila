@@ -156,7 +156,7 @@ object UblogForm:
           commercial.flatMap(c => diffString("commercial", p.commercial, c)),
           featured.map: isFeatured =>
             if isFeatured then s"add to carousel" + featuredUntil.so(days => s" $days days")
-            else "remove from carousel"
+            else "pull from carousel"
         ).flatten.mkString(", ")
 
   object ModPostData:
