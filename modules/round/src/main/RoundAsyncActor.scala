@@ -268,16 +268,16 @@ final private class RoundAsyncActor(
           if game.abortable then finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
-    case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
-    case RoundBus.DrawClaimForce(playerId)  =>
+    case RoundBus.Draw(playerId, draw)     => handle(playerId)(drawer(_, draw))
+    case RoundBus.DrawClaimForce(playerId) =>
       handle(playerId): pov =>
         (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn).so:
           getPlayer(!pov.color).isLongGone.flatMap:
             if _ then drawer.force(pov.game)
             else fuccess(List(Event.Reload))
 
-    case DrawClaim(playerId)           => handle(playerId)(drawer.claim)
-    case Cheat(color)                  =>
+    case DrawClaim(playerId) => handle(playerId)(drawer.claim)
+    case Cheat(color)        =>
       handle: game =>
         (game.playable && !game.sourceIs(_.Import)).so:
           finisher.other(game, _.Cheat, Some(!color))
