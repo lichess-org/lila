@@ -110,6 +110,7 @@
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
   <string name="winOr50MovesByPriorMistake">Sigur eða 50 leikir vegna fyrri mistaka</string>
   <string name="lossOr50MovesByPriorMistake">Tap eða 50 leikir vegna fyrri mistaka</string>
+  <string name="unknownDueToRounding">Sigur/tap er einungis tryggt ef leikfléttutillaga úr endataflsútreikningasafni hefur verið fylgd frá síðustu drápi eða peðshreyfingu, vegna hugsanlegrar námundunar á DTZ-gildum í Syzygy-endataflsútreikningasöfnum.</string>
   <string name="allSet">Allt tilbúið!</string>
   <string name="importPgn">Hlaða inn PGN</string>
   <string name="delete">Eyða</string>
@@ -258,7 +259,7 @@
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
   <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
   <string name="accountRegisteredWithoutEmail">Aðgangurinn %s var skráður með engu netfangi.</string>
-  <string name="rank">Staða</string>
+  <string name="rank">Sæti</string>
   <string name="rankX">Sæti: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Sæti eru uppfærð á mínútu fresti</item>
