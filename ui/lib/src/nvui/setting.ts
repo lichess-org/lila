@@ -72,7 +72,7 @@ export function boardSetting(): Setting<BoardStyle> {
 export function styleSetting(): Setting<MoveStyle> {
   return makeSetting<MoveStyle>({
     choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', 'g1f3', s)}`]),
-    default: 'literate', 
+    default: 'literate',
     storage: storage.make('nvui.moveNotation'),
   });
 }
