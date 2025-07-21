@@ -427,6 +427,8 @@
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>
   <string name="importGameExplanation">Límdu inn PGN skákar til að fá möguleika á endursýningu, tölvugreiningu, spjalli og deilanlegri vefslóð.</string>
+  <string name="importGameCaveat">Afbrigði verða strokuð út. Til þess að halda þeim skaltu flytja inn PGN-skák í gegnum stúderingu.</string>
+  <string name="importGameDataPrivacyWarning">Þessi PGN-skák er aðgengileg almenningi. Til þess að flytja inn skák í trúnaði skaltu notfæra þér stúderasérleikann.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s innhlaðin skák</item>
     <item quantity="other">%s innhlaðnar skákir</item>
@@ -698,6 +700,8 @@
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
   <string name="simulHostExtraTime">Aukatími á klukku þess sem hýsir.</string>
+  <string name="simulAddExtraTimePerPlayer">Bæta viðbótartíma við klukkuna þína fyrir hvern skákmann sem tekur þátt í fjöltefli.</string>
+  <string name="simulHostExtraTimePerPlayer">Viðbótartími á klukku gestgjafa á skákmann</string>
   <string name="lichessTournaments">Lichess mót</string>
   <string name="tournamentFAQ">Arena-mót - Algengar spurningar</string>
   <string name="timeBeforeTournamentStarts">Tími áður en mót hefst</string>
@@ -706,6 +710,7 @@
   <string name="keyboardShortcuts">Stjórna með lyklaborði</string>
   <string name="keyMoveBackwardOrForward">áfram/aftur á bak</string>
   <string name="keyGoToStartOrEnd">fara á byrjun/lok</string>
+  <string name="keyCycleSelectedVariation">Fletta í gegnum valda afbrigðið</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
   <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
@@ -715,6 +720,11 @@
   <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
+  <string name="toggleVariationArrows">Víxla afbrigðisörvum</string>
+  <string name="cyclePreviousOrNextVariation">Fara í fyrra/næsta afbrigði</string>
+  <string name="toggleGlyphAnnotations">Víxla leiksglósum</string>
+  <string name="togglePositionAnnotations">Víxla stöðuglósum</string>
+  <string name="variationArrowsInfo">Afbrigðisörvar gera þér kleift að fletta án þess að nota leikjalistann.</string>
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
@@ -753,6 +763,7 @@
   <string name="downloadAllGames">Hlaða niður öllum skákum</string>
   <string name="crosstable">Mótstafla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Skrunaðu yfir tölvuafbrigði til að forskoða þau.</string>
   <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
   <string name="receiveForumNotifications">Fá tilkynningar þegar minnst er á mann á umræðukorkinum</string>
@@ -863,13 +874,20 @@
   <string name="endgame">Endatafl</string>
   <string name="conditionalPremoves">Skilyrtir forleikir</string>
   <string name="addCurrentVariation">Bæta núverandi afbrigði við</string>
+  <string name="playVariationToCreateConditionalPremoves">Veldu afbrigði til þess að búa til skilyrta forleiki</string>
   <string name="noConditionalPremoves">Engir skilyrtir forleikir</string>
   <string name="playX">Leika %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og vista %s forleikfléttu</item>
+    <item quantity="other">og vista %s forleikfléttur</item>
+  </plurals>
   <string name="showUnreadLichessMessage">Þú hefur fengið einkaskilaboð frá Lichess.</string>
   <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
+  <string name="pleasantChessExperience">Við leggjum áherslu á að allir fái notið þess að tefla.</string>
+  <string name="goodPractice">Til að svo megi verða, verðum við að tryggja að allir skákmenn fylgi góðum siðum.</string>
   <string name="potentialProblem">Þegar hugsanlegt vandamál greinist birtum við þessi skilaboð.</string>
   <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>
@@ -938,6 +956,10 @@
   <string name="minimumRatedGames">Lágmarksfjöldi leikja með stigagjöf</string>
   <string name="minimumRating">Lágmarksstig</string>
   <string name="maximumWeeklyRating">Hámark vikulegra stiga</string>
+  <string name="positionInputHelp">Líma skal inn gildan FEN-streng til að hefja sérhverja skák úr ákveðinni stöðu.
+Þetta á einungis við um hefðbundna skák, ekki afbrigði.
+Þú getur nýtt %s til að mynda FEN-stöðu og límt hana svo hér.
+Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="cancelSimul">Hætta fjöltefli</string>
   <string name="simulHostcolor">Litur gestgjafa fyrir hvern leik</string>
   <string name="estimatedStart">Áætlaður upphafstími</string>
