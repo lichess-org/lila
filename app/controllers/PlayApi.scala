@@ -95,6 +95,9 @@ final class PlayApi(env: Env) extends LilaController(env):
         case Array("game", id, "claim-victory") =>
           as(GameAnyId(id).gameId): pov =>
             env.bot.player.claimVictory(pov).pipe(toResult)
+        case Array("game", id, "claim-draw") =>
+          as(GameAnyId(id).gameId): pov =>
+            env.bot.player.claimDraw(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
             if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult

@@ -102,6 +102,18 @@ final class BotPlayer(
             if _ then funit
             else clientError("You cannot claim the win on this game")
 
+  def claimDraw(pov: Pov): Funit =
+    pov.game.drawable.so:
+      tellRound(pov.gameId, RoundBus.DrawClaimForce(pov.playerId))
+      lila.common.LilaFuture.delay(500.millis):
+        gameRepo
+          .finished(pov.gameId)
+          .map:
+            _.exists(_.drawn)
+          .flatMap:
+            if _ then funit
+            else clientError("You cannot claim draw on this game")
+
   def berserk(game: Game)(using me: Me): Boolean =
     game.berserkable.so:
       Bus.pub(Berserk(game.id, me))

@@ -28,6 +28,7 @@ enum RoundBus extends NotBuseable:
   case Resign(playerId: GamePlayerId)
   case ResignForce(playerId: GamePlayerId)
   case Takeback(playerId: GamePlayerId, takeback: Boolean)
+  case DrawClaimForce(playerId: GamePlayerId)
 
 case class Tell(id: GameId, msg: RoundBus)
 case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlag.type)
