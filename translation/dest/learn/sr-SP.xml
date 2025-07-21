@@ -88,12 +88,12 @@
   <string name="combatComplete">Честитке! Знаш како да се бориш са шаховским фигурама!</string>
   <string name="checkInOne">Шах у један</string>
   <string name="attackTheOpponentsKing">Нападни противничког краља</string>
-  <string name="checkInOneIntro">Да би дали шах противнику, нападните њиховог краља. Морају га одбранити!</string>
-  <string name="checkInOneGoal">Циљајте на противничког краља
+  <string name="checkInOneIntro">Да би дао/ла шах противнику, нападни му краља. Мора га одбранити!</string>
+  <string name="checkInOneGoal">Циљај на противничког краља
 у једном потезу!</string>
-  <string name="checkInOneComplete">Честитамо! Дали сте шах Вашем противнику, терајући га да одбране њиховог краља!</string>
+  <string name="checkInOneComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
   <string name="outOfCheck">Излазак из шаха</string>
-  <string name="defendYourKing">Одбраните вашег краља</string>
+  <string name="defendYourKing">Одбрани свог краља</string>
   <string name="outOfCheckIntro">У шаху сте! Морате избећи или блокирати напад.</string>
   <string name="escapeWithTheKing">Побегните са краљем!</string>
   <string name="theKingCannotEscapeButBlock">Краљ не може побећи, али ви можете блокирати напад!</string>
