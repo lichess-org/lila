@@ -20,6 +20,7 @@
   <string name="keyboardShortcutsExplanation">Sumar Lichess-síður gera þér kleift að nota flýtilykla. Prófaðu að ýta á \'?\' lykilinn á stúderingar-, greiningar-, þrautar- eða skákarsíðu til að sýna lista yfir tiltæka flýtilykla.</string>
   <string name="fairPlay">Göfuglyndi</string>
   <string name="whenAmIEligibleRatinRefund">Hvenær á ég rétt á að fá sjálfkrafa umbun fyrir skákstig sökum svindlara?</string>
+  <string name="ratingRefundExplanation">Einni mínútu eftir að notandi fær merkimiða eru 40 nýlegustu stigaskákir hans á síðustu 5 dögum teknar. Ef þú varst mótherji viðkomanda í einni af þessum skákum, tapaðir skákstigum (sökum taps eða jafnteflis), og skákstigin þín voru ekki tímabundin, færðu þau stig til baka. Umbunin er takmörkuð miðað við hápunkt skákstiganna þinna og skákstigaframvindu þína eftir skákina. (Til dæmis, ef skákstigatala þín hækkaði mikið eftir skákina, gætirðu fengið enga umbun eða aðeins að hluta til.) Umbun mun aldrei vera meira en 150 stig.</string>
   <string name="preventLeavingGameWithoutResigning">Hvað er tekið til bragðs þegar leikmenn yfirgefa skákir án uppgjafar?</string>
   <string name="leavingGameWithoutResigningExplanation">Ef andstæðingur þinn hættir/yfirgefur skákir oft fær hann „taflbann“, sem þýðir að hann er bannaður tímabundið frá því að tefla. Þetta er ekki opinberlega sýnilegt á prófílnum hans. Ef þessi hegðun heldur áfram lengist taflbannið – og langvarandi hegðun af þessu tagi getur leitt til þess að aðganginum verði lokað.</string>
   <string name="howCanIBecomeModerator">Hvernig get ég orðið stjórnandi?</string>
@@ -30,6 +31,8 @@
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er helsti munurinn á reglum fyrir bréfskák sá að byrjanabók er leyfð. Notkun skákforrita er enn bönnuð og mun leiða til þess að maður verði merktur fyrir notkun skákforrits. Þó að ICCF leyfi notkun skákforrits í bréfskák gerir Lichess það ekki.</string>
   <string name="gameplay">Leikmáti</string>
   <string name="howBulletBlitzEtcDecided">Hvernig eru tímamörk leifturskáka, hraðskáka og annarra kappskáka ákvörðuð?</string>
+  <string name="basedOnGameDuration">Tímamörk Lichess miðast við áætlaða tímalengd skákar = %1$s.
+Til dæmis er áætluð tímalengd 5+3 skákar 5 × 60 + 40 × 3 = 420 sekúndur.</string>
   <string name="durationFormula">(upphafstími klukku í sekúndum) + 40 × (viðbótartími á klukku)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
@@ -96,6 +99,7 @@ Alls ekki biðja um LM-titilinn.</string>
   <string name="usernamesCannotBeChanged">Nei, ekki er unnt að breyta notendanöfnum vegna tæknilegra og hagnýtra ástæðna. Notendanöfn eru að finna á of mörgum stöðum: í gagnagrunnum, útflutningi, dagálum og í huga fólks. Þú getur einu sinni lagað stafsetningu hvað varðar stóra og litla stafi.</string>
   <string name="uniqueTrophies">Fágætir bikarar</string>
   <string name="ownerUniqueTrophies">Þessi bikar er fágætur í sögu Lichess, enginn annar en %1$s mun nokkurn tímann eiga hann.</string>
+  <string name="aHourlyBulletTournament">klukkustundarleifturskákarmóti</string>
   <string name="goldenZeeExplanation">ZugAddict var að streyma og hafði í tvo klukkutíma reynt að vinna tölvuna á stigi 8 í 1+0 skák, án árangurs. Thibault sagði honum að ef honum tækist það í beinni útsendingu myndi hann fá fágætan bikar. Klukkustund síðar gersigraði hann Stockfish, og loforðið var uppfyllt.</string>
   <string name="lichessRatings">Skákstyrkur á Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Hvers konar stigakerfi notar Lichess?</string>
@@ -156,6 +160,11 @@ Hið rauða tákn birtist til þess að vekja athygli þína á þessu. Oft er h
 2. Smelltu á Safari í valmyndastikunni
 3. Smelltu á stillingar fyrir lichess.org ...
 4. Leyfa sjálfvirka spilun af öllu tagi (Auto-Play)</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Smelltu á punktana þrjá efst í hægra horninu
+2. Smelltu á „Stillingar“
+3. Smelltu á „Heimildir fyrir svæði“
+4. Skrunaðu niður og smelltu á „Sjálfvirk spilun á efni“
+5. Bættu við lichess.org til að Leyfa</string>
   <string name="stopMyselfFromPlaying">Koma í veg fyrir að ég tefli netskák?</string>
   <string name="mentalHealthCondition">í sjálfu sér geðröskun</string>
   <string name="lichessUserstyles">Notendastíla fyrir Lichess</string>
