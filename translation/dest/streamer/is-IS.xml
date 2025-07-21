@@ -43,7 +43,7 @@
     <item quantity="other">Hafðu það stutt: %s stafir að hámarki</item>
   </plurals>
   <string name="visibility">Sýnilegt á síðu streymara</string>
-  <string name="whenApproved">Við samþykki umsjónarmanna</string>
+  <string name="whenApproved">Við samþykki ritstjóra</string>
   <string name="headline">Fyrirsögn</string>
   <string name="tellUsAboutTheStream">Segðu okkur frá streymi þínu í einni setningu</string>
   <string name="longDescription">Ýtarleg lýsing</string>
