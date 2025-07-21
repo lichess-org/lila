@@ -48,5 +48,6 @@
   <string name="safeToUseImages">Óhætt er að notfæra sér myndir frá þessum vefsíðum: </string>
   <string name="inappropriateContentAccountClosed">Allt sem telst óviðeigandi gæti haft í för með sér að aðgangurinn þinn verði lokaður.</string>
   <string name="blogTips">Hagnýt ráð okkar til að skrifa frábærar bloggfærslur</string>
+  <string name="discussThisBlogPostInTheForum">Fjallaðu um þessa bloggfærslu á umræðukorkinum</string>
   <string name="youBlockedByBlogAuthor">Höfundur bloggsins hefur lokað á þig.</string>
 </resources>
