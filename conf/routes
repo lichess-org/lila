@@ -80,6 +80,7 @@ GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: UserS
 GET   /@/:username/all                 controllers.User.gamesAll(username: UserStr, page: Int ?= 1)
 GET   /@/:username/download            controllers.User.download(username: UserStr)
 GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /@/:username/:filterName         controllers.User.games(username: UserStr, filterName, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
@@ -108,15 +109,15 @@ GET   /dasher                          controllers.Dasher.get
 # Blog/Ublog
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Option[BlogQuality] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
-GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Option[BlogQuality] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
-GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Option[BlogQuality] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.score, page: Int ?= 1)
-GET   /blog/community                  controllers.Ublog.communityAll(filter: Option[BlogQuality] ?= None, page: Int ?= 1)
-GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, filter: Option[BlogQuality] ?= None, page: Int ?= 1)
+GET   /blog/community                  controllers.Ublog.communityAll(filter: Option[BlogQualityFilter] ?= None, page: Int ?= 1)
+GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, filter: Option[BlogQualityFilter] ?= None, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: Language ?= Language("all"))
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: Language)
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
@@ -124,7 +125,6 @@ GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr,
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
 POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
-GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
@@ -593,7 +593,7 @@ POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: Str
 GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
 POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table
-GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None)
+GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None, id: Option[String] ?= None)
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: UserStr)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: UserStr)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip

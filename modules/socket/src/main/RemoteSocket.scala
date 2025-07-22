@@ -98,8 +98,8 @@ final class RemoteSocket(
       send.exec(Out.setTroll(userId, v))
 
   Bus.sub[lila.core.mod.Impersonate]:
-    case lila.core.mod.Impersonate(userId, modId) =>
-      send.exec(Out.impersonate(userId, modId))
+    case lila.core.mod.Impersonate(modId, userId, v) =>
+      send.exec(Out.impersonate(modId, userId, v))
 
   Bus.sub[ApiUserIsOnline]:
     case ApiUserIsOnline(userId, value) =>
@@ -261,8 +261,8 @@ object RemoteSocket:
         s"disconnect/user $userId"
       def setTroll(userId: UserId, v: Boolean) =
         s"mod/troll/set $userId ${boolean(v)}"
-      def impersonate(userId: UserId, by: Option[UserId]) =
-        s"mod/impersonate $userId ${optional(by.map(_.value))}"
+      def impersonate(modId: lila.core.userId.ModId, userId: UserId, v: Boolean) =
+        s"mod/impersonate $modId $userId ${boolean(v)}"
       def follow(u1: UserId, u2: UserId)                      = s"rel/follow $u1 $u2"
       def unfollow(u1: UserId, u2: UserId)                    = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: UserId, v: Boolean)                = s"api/online $u ${boolean(v)}"

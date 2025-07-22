@@ -2,7 +2,7 @@ package lila.pref
 
 import reactivemongo.api.bson.*
 
-import lila.core.ublog.Quality
+import lila.core.ublog.QualityFilter as BlogQualityFilter
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -55,7 +55,7 @@ private object PrefHandlers:
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
         board = r.getD("board", Pref.default.board),
-        blogFilter = Quality.fromOrdinal(r.getD("blogFilter", Pref.default.blogFilter.ordinal)),
+        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | Pref.default.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         tags = r.getD("tags", Pref.default.tags)
       )

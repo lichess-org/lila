@@ -49,12 +49,17 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
     ),
   );
 
-export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode[] =>
-  COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
+export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode =>
+  h(
+    'div.pieces',
+    COLORS.map((color, i) =>
+      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), `${pocketsStr(pockets[i])}` || '0']),
+    ),
+  );
 
 export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
   Object.entries(pocket)
-    .map(([role, count]) => `${role}: ${count}`)
+    .map(([role, count]) => `${i18n.nvui[role as Role]}: ${count}`)
     .join(', ');
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {

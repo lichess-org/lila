@@ -132,13 +132,32 @@ object UblogForm:
       List(quality, evergreen, flagged, commercial, featured, featuredUntil).exists(_.isDefined)
 
     def text = List(
-      quality.so(q => s"quality = $q") ++
-        evergreen.so(e => s"evergreen = $e") ++
-        flagged.so(f => "flagged = " + (if f == "" then "none" else s"\"$f\"")) ++
-        commercial.so(c => "commercial = " + (if c == "" then "none" else s"\"$c\"")) ++
-        featured.so(f => s"featured = $f") ++
-        featuredUntil.so(d => s"featured days = $d")
-    ).mkString(", ")
+      quality.so(q => s"quality = $q"),
+      evergreen.so(e => s"evergreen = $e"),
+      flagged.so(f => "flagged = " + (if f == "" then "none" else s"\"$f\"")),
+      commercial.so(c => "commercial = " + (if c == "" then "none" else s"\"$c\"")),
+      featured.so(f => s"featured = $f"),
+      featuredUntil.so(d => s"featured days = $d")
+    ).flatten.mkString(", ")
+
+    def diff(post: UblogPost): String =
+
+      def diffString(label: String, optFrom: Option[String], to: String) =
+        optFrom match
+          case None                     => s"$label = \"$to\"".some
+          case Some(from) if from == to => none
+          case Some(from)               => s"$label \"$from\" -> \"$to\"".some
+
+      post.automod.fold(text): p =>
+        List(
+          evergreen.filter(_ != ~p.evergreen).map(e => s"evergreen = $e"),
+          quality.flatMap(q => diffString("quality", p.quality.name.some, q.name)),
+          flagged.flatMap(f => diffString("flagged", p.flagged, f)),
+          commercial.flatMap(c => diffString("commercial", p.commercial, c)),
+          featured.map: isFeatured =>
+            if isFeatured then s"add to carousel" + featuredUntil.so(days => s" $days days")
+            else "pull from carousel"
+        ).flatten.mkString(", ")
 
   object ModPostData:
     given Reads[Quality] = Reads

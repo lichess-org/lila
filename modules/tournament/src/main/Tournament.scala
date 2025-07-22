@@ -5,6 +5,7 @@ import chess.format.Fen
 import chess.{ Rated, Speed }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
+import alleycats.Zero
 
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
@@ -218,4 +219,7 @@ object Tournament:
     case ArenaBanned    extends JoinResult("You are not allowed to join arenas".some)
     case PrizeBanned    extends JoinResult("You are not allowed to play in prized tournaments".some)
     case RateLimited    extends JoinResult("You are joining too many tournaments".some)
+    case NotFound       extends JoinResult("This tournament no longer exists".some)
     case Nope           extends JoinResult("Couldn't join for some reason?".some)
+  object JoinResult:
+    given Zero[Tournament.JoinResult] = Zero(NotFound)

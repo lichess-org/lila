@@ -252,7 +252,10 @@ final class UblogApi(
 
   def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
-      v.filter(_.nonEmpty).orElse(base) // form sends empty string to unset
+      v match
+        case Some("") => none // form sends empty string to unset
+        case None     => base
+        case _        => v
     if !d.hasUpdates then fuccess(post.automod)
     else
       val base       = post.automod.getOrElse(Assessment(quality = Quality.good))

@@ -171,17 +171,25 @@
   text-align: center;
 }
 
-.btn-rack {
-  border: none;
-}
+#mod-tools,
+.filter-and-sort {
+  .btn-rack {
+    border: none;
+  }
 
-.btn-rack__btn {
-  border: solid 1px $m-border--fade-50;
-  padding: 0.2em 0.8em;
+  .btn-rack__btn {
+    border: solid 1px $m-border--fade-50;
+    padding: 0.2em 0.8em;
 
-  &.lit {
-    color: #fff;
-    background: $m-primary--fade-10;
-    border-color: $m-primary--fade-50;
+    &:last-child {
+      border: solid 1px $m-border--fade-50;
+    }
+
+    &.lit {
+      color: #fff;
+      background: $m-primary--fade-10;
+      border-color: $m-primary--fade-50;
+      text-shadow: none;
+    }
   }
 }

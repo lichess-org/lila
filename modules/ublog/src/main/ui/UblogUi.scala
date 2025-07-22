@@ -2,10 +2,11 @@ package lila.ublog
 package ui
 
 import java.time.YearMonth
+import java.time.temporal.ChronoUnit.DAYS
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
-import lila.core.ublog.{ BlogsBy, Quality }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
@@ -32,7 +33,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: ShowAt = ShowAt.none,
-      showIntro: Boolean = true
+      showIntro: Boolean = true,
+      strictDate: Boolean = true
   )(using Context) =
     a(
       cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
@@ -40,7 +42,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        post.lived.map { live =>
+          if strictDate || DAYS.between(live.at, nowInstant) < 30 then
+            semanticDate(live.at)(cls := "ublog-post-card__over-image")
+          else span(cls := "ublog-post-card__over-image")("Timeless")
+        },
         if showAuthor != ShowAt.none
         then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
         else if ~post.sticky
@@ -110,7 +116,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def community(
       language: Option[Language],
-      filter: Quality,
+      filter: QualityFilter,
       posts: Paginator[UblogPost.PreviewPost],
       langSelections: List[(Language, String)]
   )(using ctx: Context) =
@@ -207,8 +213,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
-      Context
+  def topic(top: UblogTopic, filter: QualityFilter, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(
+      using Context
   ) =
     list(
       title = s"$top posts",
@@ -220,7 +226,12 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       byOpt = by.some
     )
 
-  def month(yearMonth: YearMonth, filter: Quality, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(using
+  def month(
+      yearMonth: YearMonth,
+      filter: QualityFilter,
+      by: BlogsBy,
+      posts: Paginator[UblogPost.PreviewPost]
+  )(using
       Context
   ) =
     list(
@@ -401,9 +412,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
       menuItem: String,
-      route: (Int, Quality, BlogsBy) => Call,
+      route: (Int, QualityFilter, BlogsBy) => Call,
       onEmpty: => Frag,
-      filterOpt: Option[Quality] = none,
+      filterOpt: Option[QualityFilter] = none,
       byOpt: Option[BlogsBy] = none,
       header: Option[Frag] = none
   )(using ctx: Context) =
@@ -421,29 +432,27 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
                 posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
-                pagerNext(posts, np => route(np, filterOpt.getOrElse(Quality.spam), by).url)
+                pagerNext(posts, np => route(np, filterOpt.getOrElse(QualityFilter.all), by).url)
               )
             else div(cls := "ublog-index__posts--empty")(onEmpty)
           )
         )
 
   private def filterAndSort(
-      filterOpt: Option[Quality],
+      filterOpt: Option[QualityFilter],
       sortOpt: Option[BlogsBy],
-      route: (Quality, BlogsBy) => Call
+      route: (QualityFilter, BlogsBy) => Call
   )(using Context) =
     import BlogsBy.*
-    import Quality.*
-    val sort   = sortOpt | newest
-    val filter = filterOpt | weak
+    val sort      = sortOpt | newest
+    val filter    = filterOpt | QualityFilter.best
+    val filterBtn = (f: QualityFilter) => a(btnCls(filter == f), href := route(f, sort))(f.name)
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
         span(
           "Show",
-          span(cls := "btn-rack")(
-            a(btnCls(filter == good), href := route(good, sort))("best"),
-            a(btnCls(filter == weak), href := route(weak, sort))("all")
-          )
+          if Granter.opt(_.ModerateBlog) then span(cls := "btn-rack")(QualityFilter.values.map(filterBtn))
+          else span(cls := "btn-rack")(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
         )
       ),
       sortOpt.map: by =>

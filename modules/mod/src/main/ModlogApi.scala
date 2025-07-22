@@ -20,6 +20,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
+  private given BSONHandler[Modlog.Context]           = Macros.handler[Modlog.Context]
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
   private given Conversion[Me, ModId]                 = _.modId
 
@@ -46,8 +47,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def blogTier(sus: Suspect, tier: String)(using MyId) = add:
     Modlog.make(sus, Modlog.blogTier, tier.some)
 
-  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, action: String)(using MyId) = add:
-    Modlog.make(sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
+  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, details: String)(using MyId) = add:
+    Modlog.make(
+      sus,
+      Modlog.blogPostEdit,
+      details.some,
+      Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some, postId.value.some).some
+    )
 
   def practiceConfig(using MyId) = add:
     Modlog(none, Modlog.practiceConfig)
@@ -310,9 +316,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         "date".$gte(nowInstant.minusMonths(6))
       )
 
-  def recentHuman =
+  def recentOf(id: Option[String] = None) =
     coll.secondary
-      .find($doc("mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin))))
+      .find(
+        "mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
+          $doc("context.id" -> cid)
+        )
+      )
       .sort($sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
@@ -324,7 +334,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .cursor[Modlog]()
       .list(200)
 
-  def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
+  def withModlogs(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.secondary
       .find(
         $doc(

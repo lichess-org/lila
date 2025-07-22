@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Comunitat</string>
+  <string name="byMonth">Per més</string>
+  <string name="byTopic">Per tema</string>
+  <string name="byLichess">De lichess</string>
+  <string name="myFriends">Els meus amics</string>
+  <string name="myLikes">Els que m\'agraden</string>
   <string name="myBlog">El meu blog</string>
   <string name="likedBlogs">Entrades del blog que t\'han agradat</string>
   <string name="continueReadingPost">Continua llegint aquesta entrada</string>

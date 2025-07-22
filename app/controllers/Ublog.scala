@@ -10,7 +10,7 @@ import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, Quality }
+import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.ModPostData
 
@@ -18,7 +18,6 @@ final class Ublog(env: Env) extends LilaController(env):
 
   import views.ublog.ui.{ editUrlOfPost, urlOfPost, urlOfBlog }
   import scalalib.paginator.Paginator.given
-  import Quality.*
 
   def index(username: UserStr, page: Int) = Open:
     NotForKidsUnlessOfficial(username):
@@ -224,7 +223,7 @@ final class Ublog(env: Env) extends LilaController(env):
             featured <- env.ublog.api.setFeatured(post, data)
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
-            if data.hasUpdates then logModAction(post, data.text)
+            if data.hasUpdates then logModAction(post, data.diff(post))
             Ok.snip(
               views.ublog.post.modTools(
                 post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),
@@ -259,7 +258,7 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
 
-  def communityLang(language: Language, filterOpt: Option[Quality], page: Int = 1) = Open:
+  def communityLang(language: Language, filterOpt: Option[QualityFilter], page: Int = 1) = Open:
     import LangPicker.ByHref
     LangPicker.byHref(language, ctx.req) match
       case ByHref.NotFound        => Redirect(routes.Ublog.communityAll(filterOpt, page))
@@ -269,10 +268,10 @@ final class Ublog(env: Env) extends LilaController(env):
         if ctx.isAuth then communityIndex(lang.some, filterOpt, page)
         else communityIndex(lang.some, filterOpt, page)(using ctx.withLang(lang))
 
-  def communityAll(filterOpt: Option[Quality], page: Int) = Open:
+  def communityAll(filterOpt: Option[QualityFilter], page: Int) = Open:
     communityIndex(none, filterOpt, page)
 
-  private def communityIndex(l: Option[Lang], filterOpt: Option[Quality], page: Int)(using Context) =
+  private def communityIndex(l: Option[Lang], filterOpt: Option[QualityFilter], page: Int)(using Context) =
     NotForKids:
       Reasonable(page, Max(200)):
         pageHit
@@ -287,7 +286,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityAtom(language: Language) = Anon:
     val found: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
     env.ublog.paginator
-      .liveByCommunity(found.map(toLanguage), Quality.good, page = 1)
+      .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
         Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 
@@ -303,7 +302,7 @@ final class Ublog(env: Env) extends LilaController(env):
       Ok.async:
         env.ublog.topic.withPosts.map(views.ublog.ui.topics)
 
-  def topic(str: String, filterOpt: Option[Quality], by: BlogsBy, page: Int) = Open:
+  def topic(str: String, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open:
     NotForKids:
       Reasonable(page, Max(50)):
         Found(lila.ublog.UblogTopic.fromUrl(str)): top =>
@@ -314,11 +313,11 @@ final class Ublog(env: Env) extends LilaController(env):
               .map:
                 views.ublog.ui.topic(top, filter, by, _)
 
-  def thisMonth(filter: Option[Quality], by: BlogsBy, page: Int) =
+  def thisMonth(filter: Option[QualityFilter], by: BlogsBy, page: Int) =
     val now = nowInstant.date
     byMonth(now.getYear(), now.getMonth().getValue(), filter, by, page)
 
-  def byMonth(year: Int, month: Int, filterOpt: Option[Quality], by: BlogsBy, page: Int) = Open: ctx ?=>
+  def byMonth(year: Int, month: Int, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open: ctx ?=>
     NotForKids:
       Reasonable(page, Max(50)):
         Found(UblogByMonth.readYearMonth(year, month)): yearMonth =>
@@ -343,7 +342,7 @@ final class Ublog(env: Env) extends LilaController(env):
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids   <- env.ublog.search.fetchResults(queryText, by, weak.some, page)
+        ids   <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page  <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
@@ -356,8 +355,10 @@ final class Ublog(env: Env) extends LilaController(env):
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def updateFilter(filterOpt: Option[Quality])(using ctx: Context): Quality = filterOpt match
-    case Some(f) if f != ctx.pref.blogFilter =>
-      discard { ctx.me.so(env.pref.api.setPref(_, ctx.pref.copy(blogFilter = f))) }
-      f
-    case _ => filterOpt.getOrElse(ctx.pref.blogFilter)
+  private def updateFilter(filterOpt: Option[QualityFilter])(using ctx: Context): QualityFilter =
+    for
+      filter <- filterOpt
+      if filter != ctx.pref.blogFilter
+      me <- ctx.me
+    do env.pref.api.setPref(me, _.copy(blogFilter = filter))
+    filterOpt | ctx.pref.blogFilter

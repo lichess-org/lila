@@ -333,7 +333,7 @@ final class User(
           .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
-      otherUsers <- env.mod.logApi.addModlog(otherUsers)
+      otherUsers <- env.mod.logApi.withModlogs(otherUsers)
       others = othersWithEmail.withUsers(otherUsers)
     yield UserLogins.TableData(userLogins, others, notes, bans, max)
 
