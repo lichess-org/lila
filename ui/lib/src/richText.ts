@@ -13,7 +13,7 @@ export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
 
 const linkHtml = (href: string, content: string, expandable: boolean = true): string =>
-  `<a ${expandable ? '' : 'class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
+  `<a${expandable ? '' : ' class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
