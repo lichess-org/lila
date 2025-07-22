@@ -165,9 +165,10 @@ final class ModTimelineApi(
     else if l.action == Modlog.teamEdit && !modsList.contains(l.mod) then false
     else true
 
-  private def filterNote(note: Note): Boolean =
+  private def filterNote(note: Note)(using me: Me): Boolean =
     if note.from.is(UserId.irwin) then false
     else if note.text.startsWith("Appeal reply:") then false
+    else if note.to.is(me) then false
     else true
 
   private def filterReport(r: Report): Boolean =
