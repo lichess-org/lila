@@ -74,8 +74,7 @@ object RelayUpdatePlan:
     )
 
   private[relay] def isSameGame(game: RelayGame, chapter: Chapter): Boolean =
-    isSameGameBasedOnTags(game.tags, chapter.tags) ||
-      isSameGameBasedOnTagsAndFirstMoves(game, chapter)
+    isSameGameBasedOnTags(game.tags, chapter.tags) || isSameGameBasedOnTagsAndFirstMoves(game, chapter)
 
   // We don't use tags.boardNumber.
   // Organizers change it at any time while reordering the boards.

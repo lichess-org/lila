@@ -8,13 +8,17 @@ import lila.tree.Root
 
 private object RelayUpdatePlanFixtures:
 
-  def mkChapter(order: Chapter.Order, tags: Tags): Chapter =
+  def mkChapter(
+      order: Chapter.Order,
+      tags: Tags,
+      root: Root = Root.default(chess.variant.Standard)
+  ): Chapter =
     Chapter(
       id = StudyChapterId(s"chapterId$order"),
       studyId = StudyId("studyId"),
       name = StudyChapterName(s"chapterName$order"),
       setup = Chapter.Setup(gameId = none, variant = chess.variant.Standard, orientation = chess.Color.White),
-      root = Root.default(chess.variant.Standard),
+      root = root,
       tags = tags,
       order = order,
       ownerId = UserId.lichess,
@@ -23,6 +27,10 @@ private object RelayUpdatePlanFixtures:
 
   def readPgns(pgns: String) = RelayGame.iso.to:
     MultiPgn.split(PgnStr(pgns), Max(64))
+
+  def gameChapters(games: RelayGames) =
+    games.zipWithIndex.toList.map: (game, i) =>
+      mkChapter(i + 1, game.tags, game.root)
 
   val initialChapter = mkChapter(1, Tags.empty)
 
@@ -102,8 +110,7 @@ private object RelayUpdatePlanFixtures:
 1. d4 { [%eval 0.16] [%clk 1:27:11] } 1... f5 { [%eval 0.5] [%clk 1:30:31] } 
 """)
 
-  lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-    mkChapter(i + 1, game.tags)
+  val chapters: List[Chapter] = gameChapters(games)
 
   object repeatedPairings:
     val games: RelayGames = readPgns("""
@@ -142,8 +149,7 @@ private object RelayUpdatePlanFixtures:
 1. d4 { [%eval 0.16] [%clk 1:27:11] } 1... f5 { [%eval 0.5] [%clk 1:30:31] } 
   """)
 
-    lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-      mkChapter(i + 1, game.tags)
+    val chapters: List[Chapter] = gameChapters(games)
 
   object switchedBoards:
 
@@ -170,8 +176,7 @@ e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6
 
   """)
 
-    val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-      mkChapter(i + 1, game.tags)
+    val chapters: List[Chapter] = gameChapters(games)
 
     val switchedGames = readPgns("""
 [White "EEE"]

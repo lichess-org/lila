@@ -107,7 +107,7 @@ class RelayUpdatePlanTest extends munit.FunSuite:
         assert(append.isEmpty)
         assert(orphans.isEmpty)
 
-  test("switched boards".only):
+  test("switched boards"):
     import switchedBoards.*
     assertEquals(games.size, 3)
     output(Input(chapters, games)):
@@ -118,8 +118,8 @@ class RelayUpdatePlanTest extends munit.FunSuite:
         assert(orphans.isEmpty)
     output(Input(chapters, switchedGames)):
       case Plan(_, reorder, update, append, orphans) =>
-        assert(reorder.isEmpty)
-        assertEquals(update, chapters.zip(switchedGames))
+        assertEquals(reorder, chapters.reverse.map(_.id).some)
+        assertEquals(update, chapters.reverse.zip(switchedGames))
         assert(append.isEmpty)
         assert(orphans.isEmpty)
 
