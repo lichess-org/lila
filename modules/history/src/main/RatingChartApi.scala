@@ -49,11 +49,13 @@ object RatingChartApi:
 
   import lila.rating.PerfType.*
   private val perfTypes = List(
+    UltraBullet,
     Bullet,
     Blitz,
     Rapid,
     Classical,
     Correspondence,
+    Crazyhouse,
     Chess960,
     KingOfTheHill,
     ThreeCheck,
@@ -61,7 +63,5 @@ object RatingChartApi:
     Atomic,
     Horde,
     RacingKings,
-    Crazyhouse,
-    Puzzle,
-    UltraBullet
+    Puzzle
   )
