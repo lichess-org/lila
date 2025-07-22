@@ -5,7 +5,7 @@ import * as licon from 'lib/licon';
 import type * as studyDeps from '../study/studyDeps';
 import type AnalyseCtrl from '../ctrl';
 import type { Tab, ToolTab } from './interfaces';
-import { type VNode, iconTag, bind, dataIcon, type LooseVNode, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -80,7 +80,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
   );
 }
 
-export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode[] {
+export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNodes {
   const activeTab = ctrl.vm.tab();
 
   const makeTab = (key: Tab, name: string) =>
@@ -114,10 +114,10 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
   ]);
 
   const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
-  const trailer = sideTrailerNodes(ctrl);
+  const trailer = withSearch && sideTrailerNodes(ctrl);
   return [
-    hl('div.study__side', [tabs, content, ...(displayColumns() > 2 ? trailer : [])]),
-    ...(displayColumns() < 3 ? trailer : []),
+    hl('div.study__side', [tabs, content, displayColumns() > 2 && trailer]),
+    displayColumns() < 3 && trailer,
   ];
 }
 
@@ -164,7 +164,7 @@ export const overboard = (ctrl: StudyCtrl) =>
               ? searchView(ctrl.search)
               : undefined;
 
-export function underboard(ctrl: AnalyseCtrl): LooseVNode[] {
+export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
@@ -332,7 +332,7 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-function sideTrailerNodes(study: StudyCtrl): LooseVNode[] {
+function sideTrailerNodes(study: StudyCtrl): LooseVNodes {
   const showChat = study.ctrl.chatCtrl && study?.data.settings.chat !== 'nobody';
   const resizeId = !isTouchDevice() && displayColumns() > 2 && `studySide/${study?.data.id}`;
   return [
