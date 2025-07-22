@@ -94,12 +94,15 @@
   <string name="checkInOneComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
   <string name="outOfCheck">Излазак из шаха</string>
   <string name="defendYourKing">Одбрани свог краља</string>
-  <string name="outOfCheckIntro">У шаху сте! Морате избећи или блокирати напад.</string>
-  <string name="escapeWithTheKing">Побегните са краљем!</string>
-  <string name="theKingCannotEscapeButBlock">Краљ не може побећи, али ви можете блокирати напад!</string>
-  <string name="youCanGetOutOfCheckByTaking">Можете изаћи из шаха узимајући нападачку фигуру.</string>
+  <string name="outOfCheckIntro">У шаху си! Мораш избећи или блокирати напад.</string>
+  <string name="escapeWithTheKing">Побегни са краљем!</string>
+  <string name="theKingCannotEscapeButBlock">Краљ не може побећи,
+али можеш блокирати напад!</string>
+  <string name="youCanGetOutOfCheckByTaking">Можеш изаћи из шаха
+узимајући нападачку фигуру.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Скакач даје шах кроз вашу одбрану!</string>
-  <string name="escapeOrBlock">Побегните са краљем или блокирајте напад!</string>
+  <string name="escapeOrBlock">Побегни са краљем
+или блокирај напад!</string>
   <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
