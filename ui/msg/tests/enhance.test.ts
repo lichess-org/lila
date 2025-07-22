@@ -23,3 +23,11 @@ describe('test imgur matching', () => {
     expect(enhance(input)).toBe(`<a target="_blank" rel="nofollow noreferrer" href="${input}">${link}</a>`);
   });
 });
+
+describe('test bulk message ids should have a text class', () =>
+  test.each(['Your game with @somebody is ready: #gameIdXX.'])('should have a text class', input => {
+    expect(enhance(input)).toBe(
+      'Your game with <a target="_blank" rel="nofollow noreferrer" href="/@/somebody">@somebody</a> is ready: ' +
+      '<a class="text" target="_blank" rel="nofollow noreferrer" href="/gameIdXX">#gameIdXX</a>.',
+    );
+  }));
