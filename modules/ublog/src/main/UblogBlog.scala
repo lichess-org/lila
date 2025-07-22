@@ -28,7 +28,7 @@ object UblogBlog:
 
     def default(user: User) =
       if user.marks.troll then Tier.HIDDEN
-      else Tier.NORMAL
+      else Tier.LOW
 
     val options = List(
       HIDDEN   -> "Hidden",
