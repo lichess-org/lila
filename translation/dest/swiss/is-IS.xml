@@ -42,7 +42,7 @@
   <string name="tiebreaksCalculationQ">Hvernig eru bráðabanar reiknaðir út?</string>
   <string name="sonnebornBergerScore">stigakerfi Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Notast er við %s.
-Leggur saman stig hvers andstæðings sem leikmaður sigrar og helming af stigi hvers andstæðings sem leikmaður gerir jafntefli við.</string>
+Leggur saman stig hvers andstæðings sem skákmaður sigrar og helming af stigi hvers andstæðings sem skákmaður gerir jafntefli við.</string>
   <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
   <string name="dutchSystem">Hollenska kerfið</string>
   <string name="FIDEHandbook">Leikreglubók Alþjóðaskáksambandsins</string>
@@ -50,9 +50,9 @@ Leggur saman stig hvers andstæðings sem leikmaður sigrar og helming af stigi 
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
-  <string name="numberOfByesQ">Hversu oft getur leikmaður verið stakur?</string>
-  <string name="numberOfByesA">Leikmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan leikmann til að mæta honum.
-Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaður mætir seint á mótið.</string>
+  <string name="numberOfByesQ">Hversu oft getur skákmaður verið stakur?</string>
+  <string name="numberOfByesA">Skákmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan skákmann til að mæta honum.
+Að auki er hálft stig gefið ef skákmaður skyldi vera stakur þegar skákmaður mætir seint á mótið.</string>
   <string name="earlyDrawsQ">Hvað gerist þegar jafntefli er gert of snemmt?</string>
   <string name="whatIfOneDoesntPlayQ">Hvað gerist ef skákmaður teflir ekki eina einustu skák?</string>
   <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
@@ -83,7 +83,7 @@ Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaðu
   <string name="lateJoinUntil">Já þar til meira en helmingur umferðanna er hafinn</string>
   <string name="pause">Pása</string>
   <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
-  <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="streaksAndBerserk">Hrina og Berserk-stig</string>
   <string name="similarToOTB">Svipað og á raunverulegum skákmótum (e. OTB)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
   <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
