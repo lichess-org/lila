@@ -54,6 +54,16 @@ object HTTPRequest:
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
+  def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
+    isLichessMobile(ua).so:
+      for
+        uaRest <- ua.value.split("/", 2).lift(1)
+        versionStr = uaRest.takeWhile(' ' != _)
+        version <- versionStr.split('.') match
+          case Array(major, minor, _) =>
+            (major.toIntOption, minor.toIntOption).mapN(LichessMobileVersion(_, _))
+          case _ => none
+      yield version
 
   def origin(req: RequestHeader): Option[String]  = req.headers.get(HeaderNames.ORIGIN)
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
