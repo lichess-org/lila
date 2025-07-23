@@ -33,6 +33,12 @@
   <string name="yearlyClassical">Árleg kappskák</string>
   <string name="yearlyXArena">Árlegt mót í %s</string>
   <string name="yearlyX">Árlegt %s</string>
+  <string name="rapidShieldArena">%s Arena-mót í atskák með verðlaunaskjöld</string>
+  <string name="rapidShield">Atskák með verðlaunaskjöld</string>
+  <string name="classicalShieldArena">Arena-mót í hefðbundinni skák með verðlaunaskjöld</string>
+  <string name="classicalShield">Hefðbundin skák með verðlaunaskjöld</string>
+  <string name="xShieldArena">%s Arena-mót með verðlaunaskjöld</string>
+  <string name="xShield">%s Skjöldur</string>
   <string name="eliteX">Einvala %s</string>
   <string name="xArena">Mót í %s</string>
 </resources>
