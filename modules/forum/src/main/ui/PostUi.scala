@@ -97,7 +97,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               )
             )
           ),
-          if !ctx.blind then a(cls := "anchor", href := url)(s"#${post.number}")
+          ctx.blind.not.option:
+            a(cls := "anchor", href := url)(s"#${post.number}")
         ),
         frag:
           val postFrag = div(cls := s"forum-post__message expand-text")(
