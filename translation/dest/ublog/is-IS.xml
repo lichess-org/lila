@@ -50,6 +50,7 @@
   <string name="imageCredit">Höfundur myndar</string>
   <string name="deleteBlog">Eyða þessari bloggfærslu til frambúðar</string>
   <string name="safeToUseImages">Óhætt er að notfæra sér myndir frá þessum vefsíðum: </string>
+  <string name="useImagesYouMadeYourself">Þú getur líka notað myndir sem þú bjóst til sjálfur/sjálf/sjálft, myndir sem þú tókst, skjáskot af Lichess... allt sem er ekki í eigu einhvers annars.</string>
   <string name="safeAndRespectfulContent">Þess er vænst að efnið sem þú birtir sé öruggt og tillitssamt. Alls ekki apa eftir efni annarra.</string>
   <string name="inappropriateContentAccountClosed">Allt sem telst óviðeigandi gæti haft í för með sér að aðgangurinn þinn verði lokaður.</string>
   <string name="blogTips">Hagnýt ráð okkar til að skrifa frábærar bloggfærslur</string>
