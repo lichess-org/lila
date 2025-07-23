@@ -85,5 +85,6 @@
   <string name="backToLiveMove">Terug naar de actuele stelling</string>
   <string name="sinceHideResults">Omdat je ervoor kiest om de resultaten te verbergen, zijn alle borden leeg om spoilers te voorkomen.</string>
   <string name="liveboard">Live-bord</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Gemeenschapsuitzending</string>
   <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Aangemaakt en beheerd door %s.</string>
 </resources>

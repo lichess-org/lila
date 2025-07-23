@@ -3,6 +3,7 @@
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-mót</string>
   <string name="isItRated">Er það reiknað til stiga?</string>
+  <string name="willBeNotified">Þú færð tilkynningu þegar mótið hefst, svo ekki hika við að skilja þennan flipa eftir aðgerðalausan.</string>
   <string name="isRated">Þetta mót gildir til stiga og hefur áhrif á skákstigin þín.</string>
   <string name="isNotRated">Þetta mót gildir *ekki* til stiga og hefur *ekki* áhrif á skákstigin þín.</string>
   <string name="someRated">Sum mót eru reiknuð til stiga og munu hafa áhrif á skákstigin þín.</string>

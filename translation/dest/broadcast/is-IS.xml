@@ -16,6 +16,7 @@
   <string name="subscribedBroadcasts">Áskriftarútsendingar</string>
   <string name="aboutBroadcasts">Um útsendingar</string>
   <string name="howToUseLichessBroadcasts">Hvernig á að nota Lichess-útsendingar.</string>
+  <string name="theNewRoundHelp">Nýja umferðin mun hafa sömu meðlimi og þátttakendur og sú fyrri.</string>
   <string name="addRound">Bæta við umferð</string>
   <string name="ongoing">Yfirstandandi</string>
   <string name="upcoming">Framundan</string>
@@ -24,7 +25,9 @@
   <string name="tournamentName">Heiti móts</string>
   <string name="tournamentDescription">Stutt lýsing á mótinu</string>
   <string name="fullDescription">Lýsing móts í heild sinni</string>
+  <string name="fullDescriptionHelp">Valfrjáls ýtarleg lýsing á mótinu. %1$s er í boði. Lengdin verður að vera styttri en %2$s stafir.</string>
   <string name="sourceSingleUrl">PGN-upprunavefslóð</string>
+  <string name="sourceUrlHelp">Vefslóð sem Lichess mun athuga til þess að afla sér PGN-uppfærslur. Hún verður að vera aðgengileg öllum á netinu.</string>
   <string name="sourceGameIds">Allt að 64 Lichess-skákarauðkenni, aðskilin með bilum.</string>
   <string name="startDateTimeZone">Upphafsdagur mótsins, samkvæmt staðartíma: %s</string>
   <string name="startDateHelp">Valfrjálst, ef þú veist hvenær viðburðurinn hefst</string>
@@ -32,8 +35,12 @@
   <string name="downloadAllRounds">Hlaða niður öllum umferðum</string>
   <string name="resetRound">Endurvekja þessa umferð</string>
   <string name="deleteRound">Eyða þessari umferð</string>
+  <string name="definitivelyDeleteRound">Eyða umferðinni og öllum skákum hennar fortakslaust.</string>
+  <string name="deleteAllGamesOfThisRound">Eyða öllum skákum þessarar umferðar. Skeytagjafinn þarf að vera virkur til þess að geta endurskapað þær.</string>
   <string name="editRoundStudy">Breyta umferðarstúderingu</string>
   <string name="deleteTournament">Eyða þessu móti</string>
+  <string name="definitivelyDeleteTournament">Eyða fortakslaust öllu mótinu, öllum umferðum þess og öllum skákum þess.</string>
+  <string name="showScores">Sýna stig leikmanna út frá úrslitum</string>
   <string name="replacePlayerTags">Valfrjálst: skipta út nöfnum leikmanna, skákstigum og titlum</string>
   <string name="fideFederations">Aðildarfélög Alþjóðaskáksambandsins</string>
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
@@ -51,6 +58,7 @@
   <string name="subscribeTitle">Gerstu áskrifandi til þess að fá að vita þegar hver ný umferð hefst. Þér er frjálst að virkja ósjálfvirkar og sjálfvirkar tilkynningar um útsendingar í stillingum á aðgangi þínum.</string>
   <string name="uploadImage">Hlaða inn mynd fyrir mót</string>
   <string name="noBoardsYet">Engin borð eins og sakir standa. Þau munu birtast þegar skákum hefur verið hlaðið inn.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Hægt er að hlaða inn borðum með skeytagjafa eða í gegnum %s</string>
   <string name="startsAfter">Byrjar eftir %s</string>
   <string name="startVerySoon">Útsendingin hefst innan skamms.</string>
   <string name="notYetStarted">Útsendingin er ekki enn hafin.</string>
@@ -59,6 +67,7 @@
   <string name="officialStandings">Opinberar stöður</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleiri valkostir á %s</string>
   <string name="webmastersPage">síðu vefstjóra</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Opinber, rauntímatengdur PGN-skeytagjafi fyrir þessa umferð. Við bjóðum einnig upp á %s fyrir hraðari og skilvirkari samstillingu.</string>
   <string name="embedThisBroadcast">Ívefðu þessa útsendingu inn í vefsíðu þína</string>
   <string name="embedThisRound">Ívefja %s inn í vefsíðuna þína</string>
   <string name="ratingDiff">Mismunur á skákstigum</string>
@@ -69,10 +78,12 @@
   <string name="tournamentLocation">Staðsetning móts</string>
   <string name="topPlayers">Bestu leikmennirnir</string>
   <string name="timezone">Tímabelti</string>
+  <string name="fideRatingCategory">FIDE-skákstyrkleikaflokkur</string>
   <string name="optionalDetails">Valfrjálsar upplýsingar</string>
   <string name="pastBroadcasts">Fyrri útsendingar</string>
   <string name="allBroadcastsByMonth">Skoða allar útsendingar eftir mánuði</string>
   <string name="backToLiveMove">Aftur í að fylgjast með leikjum í beinni</string>
+  <string name="sinceHideResults">Þar sem þú kaust að fela niðurstöðurnar, eru öll borðin sem eru til forskoðunar auð til þess að forðast að gefa upp lausnir.</string>
   <string name="liveboard">Taflborð í beinni</string>
   <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Útsendingar samfélagsins</string>
   <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Stofnuð og skipulögð af %s.</string>

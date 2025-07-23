@@ -13,7 +13,7 @@
   <string name="pgnPieceNotation">Tákn fyrir leiki</string>
   <string name="chessPieceSymbol">Taflmannatákn</string>
   <string name="pgnLetter">Bókstafir (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Lágmarka truflanir á meðan teflt er</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Einbeitingarhamur</string>
   <string name="showPlayerRatings">Sýna skákstig leikmanns</string>
   <string name="showFlairs">Sýna brellur leikmanns</string>
   <string name="explainShowPlayerRatings">Þetta felur öll skákstig fyrir Lichess, til þess að hjálpa þér að einbeita þér að skákinni. Stigaskákir hafa samt áhrif á skákstigin þín, þetta snýst bara um það sem þú færð að sjá.</string>
@@ -50,8 +50,10 @@
   <string name="castleByMovingOntoTheRook">Færa kóng á hrókinn</string>
   <string name="inputMovesWithTheKeyboard">Leika með lyklaborðinu</string>
   <string name="inputMovesWithVoice">Leika leiki með rödd þinni</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Fella örvar að gildum leikjum</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Segja \"Good game, well played\" sjálfkrafa eftir tapi eða jafntefli</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
+  <string name="scrollOnTheBoardToReplayMoves">Skruna á borðinu til að endursýna leiki</string>
   <string name="correspondenceEmailNotification">Daglegur tölvupóstur með lista yfir bréfskákirnar þínar</string>
   <string name="notifyStreamStart">Streymari hefur útsendingu í beinni</string>
   <string name="notifyInboxMsg">Ný innhólfsskilaboð</string>
