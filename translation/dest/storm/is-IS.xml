@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Gerðu til að byrja</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Þú átt leik með hvítu mönnunum í öllum þrautum</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Þú átt leik með svörtu mönnunum í öllum þrautum</string>
   <string name="puzzlesSolved">þrautir leystar</string>
   <string name="newDailyHighscore">Nýtt dagsmet!</string>
   <string name="newWeeklyHighscore">Nýtt vikumet!</string>
@@ -12,11 +14,15 @@
     <item quantity="one">1 lota</item>
     <item quantity="other">%s lotur</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Lék eina lotu af %2$s</item>
+    <item quantity="other">Lék %1$s lotur af %2$s</item>
+  </plurals>
   <string name="highscoreX">Stigamet: %s</string>
   <string name="score">Stig</string>
   <string name="moves">Leikir</string>
   <string name="accuracy">Nákvæmni</string>
-  <string name="combo">Leikflétta</string>
+  <string name="combo">Leikfléttusæld</string>
   <string name="time">Tími</string>
   <string name="timePerMove">Tími á leik</string>
   <string name="highestSolved">Flestu skákstig</string>
@@ -43,6 +49,7 @@
   <string name="raceYourFriends">Kepptu við vini þína</string>
   <string name="skip">sleppa</string>
   <string name="skipHelp">Þú getur sleppt einum leik á kapphlaup:</string>
+  <string name="skipExplanation">Slepptu þessum leik til að varðveita leikfléttusæld þína! Virkar aðeins einu sinni í hverju kapphlaupi.</string>
   <string name="failedPuzzles">Misheppnaðar þrautir</string>
   <string name="slowPuzzles">Hægar þrautir</string>
   <string name="skippedPuzzle">Sleppt þraut</string>
