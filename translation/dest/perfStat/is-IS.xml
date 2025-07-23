@@ -20,10 +20,10 @@
   <string name="highestRating">Flestu skákstig: %s</string>
   <string name="lowestRating">Fæstu skákstig: %s</string>
   <string name="fromXToY">frá %1$s til %2$s</string>
-  <string name="winningStreak">Sigurdöngun</string>
-  <string name="losingStreak">Ósigurdöngun</string>
-  <string name="longestStreak">Lengsta döngun: %s</string>
-  <string name="currentStreak">Núverandi döngun: %s</string>
+  <string name="winningStreak">Sigurhrina</string>
+  <string name="losingStreak">Taphrina</string>
+  <string name="longestStreak">Lengsta hrina: %s</string>
+  <string name="currentStreak">Núverandi hrina: %s</string>
   <string name="bestRated">Bestu sigrar eftir skákstigum</string>
   <string name="gamesInARow">Skákir tefldar í röð</string>
   <string name="lessThanOneHour">Minna en ein klukkustund á milli skáka</string>
