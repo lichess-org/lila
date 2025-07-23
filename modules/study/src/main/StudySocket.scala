@@ -129,8 +129,9 @@ final private class StudySocket(
 
         case "addChapter" =>
           reading[ChapterMaker.Data](o): data =>
-            val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-            applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = true))
+            val sticky      = o.obj("d").flatMap(_.boolean("sticky")) | true
+            val withRatings = o.obj("d").flatMap(_.boolean("showRatings")) | true
+            applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = withRatings))
 
         case "setChapter" =>
           o.get[StudyChapterId]("d")
