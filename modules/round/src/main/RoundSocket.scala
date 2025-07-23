@@ -117,7 +117,7 @@ final class RoundSocket(
         case "resign-force"  => forward(RoundBus.ResignForce(_))
         case "blindfold-yes" => forward(Blindfold(_, true))
         case "blindfold-no"  => forward(Blindfold(_, false))
-        case "draw-force"    => forward(DrawForce(_))
+        case "draw-force"    => forward(RoundBus.DrawForce(_))
         case "abort"         => forward(RoundBus.Abort(_))
         case "outoftime"     => forward(_ => RoundBus.QuietFlag) // mobile app BC
         case t               => logger.warn(s"Unhandled round socket message: $t")
