@@ -9,7 +9,6 @@ export type PubsubEvent =
   | 'challenge-app.open'
   | 'chart.panning'
   | 'chat.permissions'
-  | 'chat.resize'
   | 'chat.writeable'
   | 'content-loaded'
   | 'flip'

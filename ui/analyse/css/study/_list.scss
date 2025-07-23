@@ -1,14 +1,9 @@
 %study-list {
   @extend %box-neat;
   @include prevent-select;
-
-  max-height: 18em;
   background: $c-bg-box;
-  overflow: hidden;
-  overflow-y: auto;
-  position: relative;
 
-  > div,
+  .study-list > div,
   button {
     @extend %flex-between-nowrap;
 
@@ -35,12 +30,13 @@
     justify-content: center;
     font-size: 0.9em;
     opacity: 0.15;
-    padding: 0.4em;
+    padding: 0.3em;
+    margin-inline-end: 0.5em;
 
     @include transition;
   }
 
-  > button:hover .act {
+  .study-list > :hover .act {
     opacity: 0.7;
 
     &:hover {
@@ -65,4 +61,15 @@
     color: $c-bad;
     margin-inline-end: 0.7rem;
   }
+}
+
+.study-list {
+  @include mq-less-than-col3 {
+    min-height: 16em;
+    max-height: 16em;
+  }
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
 }

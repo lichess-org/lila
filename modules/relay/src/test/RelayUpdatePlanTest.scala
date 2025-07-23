@@ -1,13 +1,13 @@
 package lila.relay
 
 import lila.relay.RelayUpdatePlan.*
-import lila.study.Chapter
-import chess.format.pgn.{ Tag, Tags }
+import lila.study.{ Chapter, MultiPgn }
+import chess.format.pgn.{ Tag, Tags, Parser, PgnStr }
 
 class RelayUpdatePlanTest extends munit.FunSuite:
 
-  import RelayPlanUpdateFixtures.*
-  import RelayUpdatePlan.isSameGame
+  import RelayUpdatePlanFixtures.*
+  import RelayUpdatePlan.isSameGameBasedOnTags
 
   def output(input: Input)(check: PartialFunction[Plan, Unit])(using munit.Location): Unit =
     val out = RelayUpdatePlan(input)
@@ -107,40 +107,85 @@ class RelayUpdatePlanTest extends munit.FunSuite:
         assert(append.isEmpty)
         assert(orphans.isEmpty)
 
+  test("switched boards"):
+    import switchedBoards.*
+    assertEquals(games.size, 3)
+    output(Input(chapters, games)):
+      case Plan(_, reorder, update, append, orphans) =>
+        assert(reorder.isEmpty)
+        assertEquals(update, chapters.zip(games))
+        assert(append.isEmpty)
+        assert(orphans.isEmpty)
+    output(Input(chapters, switchedGames)):
+      case Plan(_, reorder, update, append, orphans) =>
+        assertEquals(reorder, chapters.reverse.map(_.id).some)
+        assertEquals(update, chapters.reverse.zip(switchedGames))
+        assert(append.isEmpty)
+        assert(orphans.isEmpty)
+
   def mkTags(w: String, b: String) = Tags(List(Tag(_.White, w), Tag(_.Black, b)))
 
   test("isSameGame based on names only"):
-    assert(isSameGame(mkTags("a", "b"), mkTags("a", "b")), "same names")
-    assert(!isSameGame(mkTags("a", "b"), mkTags("a", "c")), "different names")
+    assert(isSameGameBasedOnTags(mkTags("a", "b"), mkTags("a", "b")), "same names")
+    assert(!isSameGameBasedOnTags(mkTags("a", "b"), mkTags("a", "c")), "different names")
 
   test("isSameGame based on names and round"):
     assert(
-      isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.1")),
+      isSameGameBasedOnTags(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.1")),
       "same names and round.board"
     )
     assert(
-      isSameGame(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "1")),
+      isSameGameBasedOnTags(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "1")),
       "same names and round"
     )
     assert(
-      !isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b")),
+      !isSameGameBasedOnTags(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b")),
       "same names and missing round"
     )
     assert(
-      !isSameGame(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "2")),
+      !isSameGameBasedOnTags(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "2")),
       "same names and different round"
     )
     assert(
-      !isSameGame(
+      !isSameGameBasedOnTags(
         mkTags("a", "b") + Tag(_.Round, "1.1"),
         mkTags("a", "b") + Tag(_.Round, "1.2")
       ),
       "same names and different round.board"
     )
     assert(
-      !isSameGame(
+      !isSameGameBasedOnTags(
         mkTags("a", "b") + Tag(_.Round, "1") + Tag(_.Board, 1),
         mkTags("a", "b") + Tag(_.Round, "1") + Tag(_.Board, 2)
       ),
       "same names and different board"
+    )
+
+  test("isSameGame based on some tags and first moves"):
+    def mainline(moves: String) =
+      if moves.isEmpty then List(lila.tree.Root.default(chess.variant.Standard))
+      else RelayGame.iso.to(MultiPgn.split(PgnStr(moves), Max(1))).head.root.mainlineNodeList
+
+    assert(sameFirstMoves(mainline("e4 e5"), mainline("e4 e5")))
+    assert(sameFirstMoves(mainline("e4 e5"), mainline("e4")))
+    assert(sameFirstMoves(mainline("e4 e5"), mainline("")))
+    assert(sameFirstMoves(mainline("e4 d6"), mainline("e4")))
+    assert(!sameFirstMoves(mainline("e3 d6"), mainline("e4")))
+    assert(
+      sameFirstMoves(
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d4 Ng6 Bg5"),
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d4")
+      )
+    )
+    assert(
+      sameFirstMoves(
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d4 Ng6 Bg5"),
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6")
+      )
+    )
+    assert(
+      !sameFirstMoves(
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d4 Ng6 Bg5"),
+        mainline("e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d3")
+      )
     )
