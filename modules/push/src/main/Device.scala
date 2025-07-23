@@ -11,6 +11,12 @@ final private case class Device(
 ):
   def isMobile = ua.exists(lila.common.HTTPRequest.isLichessMobile)
 
+  def isMobileVersionCompatible(version: String): Boolean =
+    ua.exists { userAgent =>
+      lila.common.HTTPRequest.isLichessMobile(userAgent) &&
+      userAgent.value.split('/').lift(1).exists(_.split(' ').headOption.exists(_ >= version))
+    }
+
   def deviceId = platform match
     case "ios" => _id.grouped(8).mkString("<", " ", ">")
     case _     => _id
