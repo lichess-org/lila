@@ -57,4 +57,8 @@
   <string name="invalidMove">Coup illégal</string>
   <string name="premoveCancelled">Coup anticipé annulé</string>
   <string name="premoveRecorded">Coup anticipé enregistré : %s. Appuyer sur la touche Entrée pour annuler.</string>
+  <string name="pockets" comment="Crazyhouse pockets">Réserve de pièces</string>
+  <string name="copyToClipboard">Copier %s dans le presse-papiers</string>
+  <string name="copiedToClipboard">%s copié dans le presse-papiers</string>
+  <string name="pgnAndFen">PGN et FEN</string>
 </resources>

@@ -56,4 +56,8 @@
   <string name="invalidMove">Ugyldigt træk</string>
   <string name="premoveCancelled">Forhåndstræk annulleret</string>
   <string name="premoveRecorded">Forhåndstræk registreret: %s. Tryk enter for at annullere</string>
+  <string name="pockets" comment="Crazyhouse pockets">Lommer</string>
+  <string name="copyToClipboard">Kopier %s til udklipsholder</string>
+  <string name="copiedToClipboard">%s kopieret til udklipsholder</string>
+  <string name="pgnAndFen">PGN og FEN</string>
 </resources>

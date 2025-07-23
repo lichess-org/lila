@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">コミュニティ</string>
+  <string name="byMonth">月別</string>
+  <string name="byTopic">トピック別</string>
+  <string name="byLichess">Lichess 公式</string>
+  <string name="myFriends">友達</string>
+  <string name="myLikes">お気に入り</string>
   <string name="myBlog">自分のブログ</string>
   <string name="likedBlogs">いいねを押したブログ投稿</string>
   <plurals name="blogPosts">
