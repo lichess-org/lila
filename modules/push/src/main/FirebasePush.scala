@@ -39,8 +39,8 @@ final private class FirebasePush(
             for
               data <- data.value
               _    <-
-                if !data.mobileCompatible && device.isMobile
-                then funit // mobile doesn't yet support all messages
+                if !data.mobileCompatible.exists(device.isMobileVersionCompatible)
+                then funit // don't send to mobile if incompatible version
                 else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
                 then funit // don't send data messages to lichobile
                 else
