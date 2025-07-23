@@ -37,7 +37,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     );
   }
   if (isTouchDevice()) {
-    pieceStyle.set('white uppercase letter');
+    pieceStyle.set('name');
     prefixStyle.set('name');
     positionStyle.set('before');
     boardStyle.set('plain');
