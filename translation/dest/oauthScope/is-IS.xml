@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Nýr persónuleikur aðgöngutóki forritaskila</string>
+  <string name="tokenGrantsPermission">Tóki veitir öðrum heimild til að nota aðganginn þinn.</string>
+  <string name="carefullySelect">Veldu vandlega hvað honum er heimilt að gera fyrir þína hönd.</string>
   <string name="tokenDescription">Lýsing tóka</string>
+  <string name="whatTheTokenCanDo">Það sem tókinn getur gert fyrir þína hönd:</string>
   <string name="doNotShareIt">Tókinn veitir aðgang að aðganginum þínum. ALLS EKKI deila honum með neinum!</string>
   <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Lesa kjörstillingar</string>
   <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Skrifa kjörstillingar</string>
   <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lesa tölvupóstsfang</string>
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lesa aðsendar áskoranir</string>
   <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Senda, þiggja og hafna áskorunum</string>
+  <string name="challengeBulk">Gera margar skákir í senn fyrir hönd annarra notenda</string>
   <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lesa lokaðar stúderingar og útsendingar</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Búa til, uppfæra, eyða stúderingum og útsendingum</string>
+  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Búa til, uppfæra og taka þátt í mótum</string>
+  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Búa til og taka þátt í þrautakapphlaupum</string>
   <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Lesa þrautavirkni</string>
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lesa upplýsingar um persónuleg lið</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Gerast meðlimur og segja liði upp</string>
