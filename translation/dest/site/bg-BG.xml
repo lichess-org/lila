@@ -22,6 +22,7 @@
   <string name="asBlack">с черните</string>
   <string name="randomColor">Произволна страна</string>
   <string name="createAGame">Създай игра</string>
+  <string name="createTheGame">Създай играта</string>
   <string name="whiteIsVictorious">Белите победиха</string>
   <string name="blackIsVictorious">Черните победиха</string>
   <string name="youPlayTheWhitePieces">Вие играете с белите фигури</string>
@@ -987,4 +988,7 @@
   <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="stats">Статистика</string>
+  <string name="accessibility">Достъпност</string>
+  <string name="enableBlindMode">Включи режима за незрящи</string>
+  <string name="disableBlindMode">Изключи режима за незрящи</string>
 </resources>
