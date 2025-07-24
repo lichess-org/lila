@@ -28,4 +28,5 @@
   <string name="pawn">пешка</string>
   <string name="whitePawn">бяла пешка</string>
   <string name="blackPawn">черна пешка</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
 </resources>
