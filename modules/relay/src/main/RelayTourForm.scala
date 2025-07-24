@@ -48,7 +48,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
   private given Formatter[Tiebreak] =
-    formatter.stringOptionFormatter(_.code, Tiebreak.preset.mapBy(_.extendedCode).get)
+    formatter.stringOptionFormatter(_.extendedCode, Tiebreak.preset.mapBy(_.extendedCode).get)
 
   private val tiebreaksMapping: Mapping[List[Tiebreak]] = list(optional(typeIn(Tiebreak.preset.toSet)))
     .transform[List[Tiebreak]](_.flatten, _.map(some))
