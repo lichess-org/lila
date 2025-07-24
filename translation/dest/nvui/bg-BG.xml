@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="gameStart">Начало на играта</string>
+  <string name="boardCommandList">Списък на командите, когда фокусът е на дъската</string>
+  <string name="announceCurrentSquare">Обяви избраното поле.</string>
+  <string name="announceLastMove">Обяви последния ход.</string>
+  <string name="announceLastMoveCapture">Обяви фигурата, взета на последния ход.</string>
+  <string name="announcePossibleMoves">Обяви възможните ходове на избраната фигура.</string>
+  <string name="announcePossibleCaptures">Обяви възможните вземания с избраната фигура.</string>
+  <string name="moveWithArrows">Премини на съседно поле - на ляво, дясно, горе или долу.</string>
+  <string name="moveToRank">Премини на хоризонтала 1–8.</string>
+  <string name="moveToFile">Премини на вертикала a–h.</string>
+  <string name="king">цар</string>
+  <string name="whiteKing">бял цар</string>
+  <string name="blackKing">черен цар</string>
+  <string name="queen">дама</string>
+  <string name="whiteQueen">бяла дама</string>
+  <string name="blackQueen">черна дама</string>
+  <string name="rook">топ</string>
+  <string name="whiteRook">бял топ</string>
+  <string name="blackRook">черен топ</string>
+  <string name="bishop">офицер</string>
+  <string name="whiteBishop">бял офицер</string>
+  <string name="blackBishop">черен офицер</string>
+  <string name="knight">кон</string>
+  <string name="whiteKnight">бял кон</string>
+  <string name="blackKnight">черен кон</string>
+  <string name="pawn">пешка</string>
+  <string name="whitePawn">бяла пешка</string>
+  <string name="blackPawn">черна пешка</string>
+</resources>
