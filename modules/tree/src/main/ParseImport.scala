@@ -45,7 +45,7 @@ object ParseImport:
       Parser
         .mainline(pgn)
         .map: parsed =>
-          val result = Replay.makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
+          val result = Replay.makeReplay(parsed.toGame, parsed.moves.take(maxPlies))
           extractData(result.replay, parsed.tags)
 
   type ImportGameResult = (
