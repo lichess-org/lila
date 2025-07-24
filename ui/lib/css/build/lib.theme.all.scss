@@ -1,10 +1,10 @@
 @import '../theme/font-face';
-@import '../theme/default';
+@import '../theme/theme.default';
 
 :root {
   @include shared-color-defs;
   @include default-mix;
 }
 
-@import '../theme/light';
-@import '../theme/transp';
+@import '../theme/theme.light';
+@import '../theme/theme.transp';

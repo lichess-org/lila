@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { relative, join, resolve } from 'node:path';
-import { task } from './task.ts';
+import { makeTask } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { env, c } from './env.ts';
 import { type Package, isClose } from './parse.ts';
@@ -23,7 +23,7 @@ export async function hash(): Promise<void> {
   const symlinkHashes = await symlinkTargetHashes();
   await Promise.all(
     hashRuns.map(({ glob, update, pkg }) =>
-      task({
+      makeTask({
         pkg,
         ctx: 'hash',
         debounce: 300,
