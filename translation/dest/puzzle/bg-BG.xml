@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Търсене на задачи</string>
   <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но Lichess разчита на Вас.
 Играйте още ускорени и класически партии за да увеличите шансовете задачи от Ваши партии да бъдат добавени!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Една задача е намерена в игрите на %2$s</item>
+    <item quantity="other">%1$s задачи са намерени в игрите на %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Тренирай, анализирай, усъвършенствай се</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s решена</item>
