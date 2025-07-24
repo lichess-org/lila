@@ -415,7 +415,7 @@ final private class PushApi(
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus
-      .safeAsk[Boolean, Tell]: p =>
+      .ask[Boolean, Tell]: p =>
         Tell(pov.gameId, RoundBus.IsOnGame(pov.color, p))
       .flatMap:
         if _ then funit

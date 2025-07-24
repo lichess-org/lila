@@ -343,9 +343,9 @@ final class SwissApi(
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
-      .safeAsk[List[TeamId], lila.core.team.TeamIdsJoinedBy](lila.core.team.TeamIdsJoinedBy(userId, _))
-      .flatMap { joinedPlayableSwissIds(userId, _) }
-      .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
+      .ask[List[TeamId], lila.core.team.TeamIdsJoinedBy](lila.core.team.TeamIdsJoinedBy(userId, _))
+      .flatMap(joinedPlayableSwissIds(userId, _))
+      .flatMap(kickFromSwissIds(userId, _, forfeit = true))
 
   def joinedPlayableSwissIds(userId: UserId, teamIds: List[TeamId]): Fu[List[SwissId]] =
     mongo.swiss
