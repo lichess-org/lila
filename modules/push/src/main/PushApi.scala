@@ -12,6 +12,7 @@ import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
+import lila.core.net.LichessMobileVersion
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -68,7 +69,7 @@ final private class PushApi(
                 "gameId" -> game.id.value,
                 "fullId" -> pov.fullId.value
               ),
-              mobileCompatible = true,
+              mobileCompatible = LichessMobileVersion.zero.some,
               iosBadge = nbMyTurn.some,
               firebaseMod = offlineRoundNotif
             )
@@ -101,7 +102,7 @@ final private class PushApi(
                       stacking = Stacking.GameMove,
                       urgency = if pov.isMyTurn then Urgency.Normal else Urgency.Low,
                       payload = payload,
-                      mobileCompatible = true,
+                      mobileCompatible = LichessMobileVersion.zero.some,
                       iosBadge = nbMyTurn.some,
                       firebaseMod = offlineRoundNotif
                     )
@@ -132,7 +133,7 @@ final private class PushApi(
                       stacking = Stacking.GameTakebackOffer,
                       urgency = Urgency.Normal,
                       payload = payload,
-                      mobileCompatible = true,
+                      mobileCompatible = LichessMobileVersion.zero.some,
                       firebaseMod = offlineRoundNotif
                     )
                   IfAway(pov)(maybePushNotif(userId, _.takeback, PrefEvent.gameEvent, data)) >>
@@ -161,7 +162,7 @@ final private class PushApi(
                       urgency = Urgency.Normal,
                       payload = payload,
                       firebaseMod = offlineRoundNotif,
-                      mobileCompatible = true
+                      mobileCompatible = LichessMobileVersion.zero.some
                     )
                   IfAway(pov)(maybePushNotif(userId, _.draw, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.draw, data)
@@ -179,7 +180,7 @@ final private class PushApi(
           stacking = Stacking.GameMove,
           urgency = Urgency.High,
           payload = payload,
-          mobileCompatible = true,
+          mobileCompatible = LichessMobileVersion.zero.some,
           firebaseMod = offlineRoundNotif
         )
       maybePushNotif(userId, _.corresAlarm, PrefEvent.gameEvent, data) >>
@@ -206,7 +207,7 @@ final private class PushApi(
           body = text,
           stacking = Stacking.PrivateMessage,
           urgency = Urgency.Normal,
-          mobileCompatible = false,
+          mobileCompatible = LichessMobileVersion(0, 17).some,
           payload = payload(to.userId)(
             "type"     -> "newMessage",
             "threadId" -> senderId.value
@@ -224,7 +225,7 @@ final private class PushApi(
           body = s"$invitedBy invited you to $studyName",
           stacking = Stacking.InvitedStudy,
           urgency = Urgency.Normal,
-          mobileCompatible = false,
+          mobileCompatible = None,
           payload = payload(to.userId)(
             "type"      -> "invitedStudy",
             "invitedBy" -> invitedBy,
@@ -255,7 +256,7 @@ final private class PushApi(
                     "type"        -> "challengeCreate",
                     "challengeId" -> c.id.value
                   ),
-                  mobileCompatible = false
+                  mobileCompatible = None
                 )
             )
 
@@ -276,7 +277,7 @@ final private class PushApi(
                   body = describeChallenge(c),
                   stacking = Stacking.ChallengeAccept,
                   urgency = Urgency.Normal,
-                  mobileCompatible = false,
+                  mobileCompatible = None,
                   payload = payload(challenger.id)(
                     "type"        -> "challengeAccept",
                     "challengeId" -> c.id.value
@@ -296,7 +297,7 @@ final private class PushApi(
             body = "The tournament is about to start!",
             stacking = Stacking.ChallengeAccept,
             urgency = Urgency.Normal,
-            mobileCompatible = false,
+            mobileCompatible = None,
             payload = payload(userId)(
               "type"     -> "tourSoon",
               "tourId"   -> tour.tourId,
@@ -319,7 +320,7 @@ final private class PushApi(
               body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
               stacking = Stacking.ForumMention,
               urgency = Urgency.Low,
-              mobileCompatible = false,
+              mobileCompatible = None,
               payload = payload(to.userId)(
                 "type"        -> "forumMention",
                 "mentionedBy" -> mentionedBy,
@@ -342,7 +343,7 @@ final private class PushApi(
           "streamerId" -> streamerId.value,
           "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
         ),
-        mobileCompatible = false
+        mobileCompatible = None
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     for _ <- webPush(webRecips, pushData).addEffects: res =>
@@ -368,7 +369,7 @@ final private class PushApi(
         stacking = Stacking.Generic,
         urgency = Urgency.Normal,
         payload = payload("url" -> url),
-        mobileCompatible = false
+        mobileCompatible = None
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     for _ <- webPush(webRecips, pushData).addEffects: res =>
@@ -414,7 +415,7 @@ final private class PushApi(
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus
-      .safeAsk[Boolean, Tell]: p =>
+      .ask[Boolean, Tell]: p =>
         Tell(pov.gameId, RoundBus.IsOnGame(pov.color, p))
       .flatMap:
         if _ then funit
@@ -431,7 +432,7 @@ private object PushApi:
       stacking: Stacking,
       urgency: Urgency,
       payload: Data.Payload,
-      mobileCompatible: Boolean,
+      mobileCompatible: Option[LichessMobileVersion] = None,
       iosBadge: Option[Int] = None,
       // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
       firebaseMod: Option[Data.FirebaseMod] = None

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Bekkir</string>
+  <string name="teachClassesOfChessStudents">Kenndu bekkjum skáknema með Lichess-bekkjatólasettinu.</string>
   <string name="features">Sérleikar</string>
   <string name="quicklyGenerateSafeUsernames">Búðu til örugg notendanöfn og lykilorð fyrir nemendur á fljótlegan hátt</string>
+  <string name="trackStudentProgress">Fylgstu með framförum nemenda í skákum og þrautum</string>
   <string name="messageAllStudents">Senda öllum nemendum skilaboð um nýtt kennsluefni</string>
   <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Algerlega ókeypis fyrir alla, til eilífðarnóns, þar sem hvorki auglýsingar né njósnir eru til staðar</string>
   <string name="applyToBeLichessTeacher">Sækja um að verða kennari Lichess</string>
@@ -16,12 +18,14 @@
   <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Fjarlægðir</string>
   <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Bjóða nemandanum aftur</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
+  <string name="aLinkToTheClassWillBeAdded">Tengli á bekkinn verður sjálfkrafa bætt við í lok skeytisins, svo þú þarft ekki að láta hann fylgja með handvirkt.</string>
   <string name="className">Heiti bekkjar</string>
   <string name="classDescription">Lýsing bekkjar</string>
   <string name="visibleByBothStudentsAndTeachers">Bæði kennarar og nemendur bekkjarins geta lesið hana</string>
   <string name="teachersOfTheClass">Kennarar bekkjarins</string>
   <string name="addLichessUsernames">Bættu við notendanöfnum fyrir Lichess til að bjóða þeim sem kennara. Eitt í hverri línu.</string>
   <string name="resetPassword">Endurstilla lykilorð</string>
+  <string name="makeSureToCopy">Mikilvægt er að þú afritir eða skrifir niður lykilorðið núna. Þú munt aldrei sjá það aftur!</string>
   <string name="passwordX">Lykilorð: %s</string>
   <string name="generateANewPassword">Búa til nýtt lykilorð fyrir nemandann</string>
   <string name="invitedToXByY">Boðið í %1$s af %2$s</string>
@@ -43,7 +47,7 @@ Lykilorð: %3$s</string>
   <string name="createDesc3">Mikilvægt: Nemandi má ekki hafa fjölmarga aðganga.</string>
   <string name="createDesc4">Ef þeir eru nú þegar með einn skaltu nota boðseyðublaðið í staðinn.</string>
   <string name="createStudentWarning">Stofnaðu einungis aðganga fyrir þá sem eru virkilega nemendur. Ekki notfæra þér þetta til þess að stofna marga aðganga fyrir sjálfan þig. Þú gætir fengið bann.</string>
-  <string name="lichessUsername">Lichess notendanafn</string>
+  <string name="lichessUsername">Lichess-notandanafn</string>
   <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Skapa nýtt notandanafn</string>
   <string name="welcomeToClass">Velkomin(n) í bekkinn þinn: %s.
 Hér er tengillinn til að fá aðgang að bekknum.</string>

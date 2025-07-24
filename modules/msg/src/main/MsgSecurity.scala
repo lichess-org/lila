@@ -172,7 +172,7 @@ final private class MsgSecurity(
       else
         (orig.isKid, dest.isKid) match
           case (true, true) =>
-            Bus.safeAsk[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
+            Bus.ask[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _             => fuFalse
@@ -181,10 +181,10 @@ final private class MsgSecurity(
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.safeAsk[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
+    Bus.ask[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: Contacts) =
-    Bus.safeAsk[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
+    Bus.ask[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
 
 private object MsgSecurity:
 

@@ -57,4 +57,8 @@
   <string name="invalidMove">Ungültiger Zug</string>
   <string name="premoveCancelled">Vorrauszug abgebrochen</string>
   <string name="premoveRecorded">Vorrauszug aufgenommen: %s. Drücke Enter um ihn abzubrechen</string>
+  <string name="pockets" comment="Crazyhouse pockets">Taschen</string>
+  <string name="copyToClipboard">Kopiere %s in die Zwischenablage</string>
+  <string name="copiedToClipboard">%s in die Zwischenablage kopiert</string>
+  <string name="pgnAndFen">PGN und FEN</string>
 </resources>

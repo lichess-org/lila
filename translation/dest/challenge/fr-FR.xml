@@ -10,7 +10,7 @@
   <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
   <string name="yourXRatingIsTooFarFromY">Votre classement de %1$s est trop différent de celui de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Défi refusé à cause de la cote %s provisoire.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses ami(e)s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses amis.</string>
   <string name="declineGeneric">Je n\'accepte pas de défis pour le moment.</string>
   <string name="declineLater">Ce n\'est pas un bon moment pour moi, réessayez plus tard, svp.</string>
   <string name="declineTooFast">Ce contrôle de temps est trop rapide pour moi, réessayez avec un contrôle de temps plus lent, svp.</string>

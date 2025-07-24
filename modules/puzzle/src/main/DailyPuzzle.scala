@@ -32,9 +32,8 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     lila.common.Bus
-      .safeAsk[Html, DailyPuzzle.Render](
+      .ask[Html, DailyPuzzle.Render]:
         DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
-      )
       .map: html =>
         DailyPuzzle.WithHtml(puzzle, html).some
   }.recover { case e: Exception =>

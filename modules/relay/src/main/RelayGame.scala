@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.Outcome
+import chess.{ Centis, Outcome }
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
@@ -41,18 +41,17 @@ case class RelayGame(
     val clocks = tags.clocks
     if clocks.forall(_.isEmpty) then this
     else
-      val mainlinePath = root.mainlinePath
-      val turn         = root.lastMainlineNode.ply.turn
-      val newRoot      = List(
+      val mainlinePath                                      = root.mainlinePath
+      val turn                                              = root.lastMainlineNode.ply.turn
+      val lastTwoPathsAndTagClocks: List[(UciPath, Centis)] = List(
         mainlinePath.nonEmpty.option(mainlinePath.parent) -> turn,
         mainlinePath.some                                 -> !turn
       ).flatMap:
         case (Some(path), color) => clocks(color).map(path -> _)
         case _                   => none
-      .foldLeft(root):
-          case (root, (path, centis)) =>
-            if root.nodeAt(path).exists(_.clock.isDefined) then root
-            else root.setClockAt(Clock(centis, true.some).some, path) | root
+      val newRoot = lastTwoPathsAndTagClocks.foldLeft(root):
+        case (root, (path, centis)) =>
+          root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
   def showResult = Outcome.showPoints(points)
@@ -127,7 +126,7 @@ private object RelayGame:
             .map(g => PgnDump.rootToPgn(g.root, g.tags, InitialComments.empty).render)
             .toList
       ,
-      mul => RelayFetch.multiPgnToGames.either(mul).fold(e => throw e, identity)
+      mul => RelayFetch.multiPgnToGames.parseAndCache(mul).fold(e => throw e, identity)
     )
 
   def filter(onlyRound: Option[Either[String, Int]])(games: RelayGames): RelayGames =

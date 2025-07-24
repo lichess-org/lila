@@ -51,4 +51,8 @@
   <string name="invalidMove">無効な手</string>
   <string name="premoveCancelled">プリムーブをキャンセルしました</string>
   <string name="premoveRecorded">プリムーブ %s を登録しました。Enterキーでキャンセルします</string>
+  <string name="pockets" comment="Crazyhouse pockets">持ち駒</string>
+  <string name="copyToClipboard">%s をクリップボードにコピー</string>
+  <string name="copiedToClipboard">%s をクリップボードにコピーしました</string>
+  <string name="pgnAndFen">PGN と FEN</string>
 </resources>

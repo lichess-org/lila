@@ -117,7 +117,7 @@ final class RoundSocket(
         case "resign-force"  => forward(RoundBus.ResignForce(_))
         case "blindfold-yes" => forward(Blindfold(_, true))
         case "blindfold-no"  => forward(Blindfold(_, false))
-        case "draw-force"    => forward(DrawForce(_))
+        case "draw-force"    => forward(RoundBus.DrawForce(_))
         case "abort"         => forward(RoundBus.Abort(_))
         case "outoftime"     => forward(_ => RoundBus.QuietFlag) // mobile app BC
         case t               => logger.warn(s"Unhandled round socket message: $t")
@@ -297,7 +297,7 @@ object RoundSocket:
   val tickSeconds       = 5
   val tickInterval      = tickSeconds.seconds
   val ragequitTimeout   = 10.seconds
-  val disconnectTimeout = 40.seconds
+  val disconnectTimeout = 30.seconds
 
   def povDisconnectTimeout(pov: Pov): FiniteDuration =
     if !pov.game.hasClock
@@ -305,8 +305,9 @@ object RoundSocket:
     else
       disconnectTimeout * {
         pov.game.speed match
-          case Speed.Classical => 3
-          case Speed.Rapid     => 2
+          case Speed.Classical => 10
+          case Speed.Rapid     => 4
+          case Speed.Blitz     => 2
           case _               => 1
       } / {
         import chess.variant.*

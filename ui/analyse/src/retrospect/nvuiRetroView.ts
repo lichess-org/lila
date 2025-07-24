@@ -21,7 +21,7 @@ export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
     hl(
       'button.retro-toggle',
       ctx.focusFriendlyHook(ctrl.toggleRetro),
-      ctrl.retro ? 'Stop learning from mistakes' : i18n.site.learnFromYourMistakes,
+      ctrl.retro ? i18n.site.finished : i18n.site.learnFromYourMistakes,
     ),
     hl('div.retro-view', { key: 'retro-view' }, [
       hl('label', mistakes && `Mistake ${Math.min(mistakes[0] + 1, mistakes[1])} of ${mistakes[1]}`),

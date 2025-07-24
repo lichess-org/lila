@@ -92,15 +92,26 @@ final class BotPlayer(
 
   def claimVictory(pov: Pov): Funit =
     pov.mightClaimWin.so:
-      tellRound(pov.gameId, RoundBus.ResignForce(pov.playerId))
-      lila.common.LilaFuture.delay(500.millis):
-        gameRepo
-          .finished(pov.gameId)
-          .map:
-            _.exists(_.winner.map(_.id).has(pov.playerId))
-          .flatMap:
-            if _ then funit
-            else clientError("You cannot claim the win on this game")
+      finishRoundThenFetchGame(pov, RoundBus.ResignForce(pov.playerId))
+        .map:
+          _.exists(_.winner.map(_.id).has(pov.playerId))
+        .flatMap:
+          if _ then funit
+          else clientError("You cannot claim the win on this game")
+
+  def claimDraw(pov: Pov): Funit =
+    pov.game.drawable.so:
+      finishRoundThenFetchGame(pov, RoundBus.DrawForce(pov.playerId))
+        .map:
+          _.exists(_.drawn)
+        .flatMap:
+          if _ then funit
+          else clientError("You cannot claim draw on this game")
+
+  private def finishRoundThenFetchGame(pov: Pov, event: RoundBus): Fu[Option[Game]] =
+    tellRound(pov.gameId, event)
+    lila.common.LilaFuture.delay(500.millis):
+      gameRepo.finished(pov.gameId)
 
   def berserk(game: Game)(using me: Me): Boolean =
     game.berserkable.so:

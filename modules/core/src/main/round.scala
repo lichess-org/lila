@@ -27,6 +27,7 @@ enum RoundBus extends NotBuseable:
   case Rematch(playerId: GamePlayerId, rematch: Boolean)
   case Resign(playerId: GamePlayerId)
   case ResignForce(playerId: GamePlayerId)
+  case DrawForce(playerId: GamePlayerId)
   case Takeback(playerId: GamePlayerId, takeback: Boolean)
 
 case class Tell(id: GameId, msg: RoundBus)
@@ -59,7 +60,6 @@ case class SocketExists(gameId: GameId, promise: Promise[Boolean])
 
 case object Threefold
 case object ResignAi
-case class DrawForce(playerId: GamePlayerId)
 case class DrawClaim(playerId: GamePlayerId)
 case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
 object Moretime:

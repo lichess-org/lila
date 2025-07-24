@@ -19,12 +19,12 @@
   <string name="rule2">Fjarlægðu leitarorðið þegar þú streymir efni sem hefur ekkert með Lichess að gera.</string>
   <string name="rule3">Lichess greinir streymið þitt sjálfkrafa og virkjar eftirfarandi fríðindi:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lestu %s til þess að tryggja göfuglyndi allra í streyminu þínu.</string>
-  <string name="streamingFairplayFAQ">algengar spurningar okkar um göfuglyndi streymis</string>
+  <string name="streamingFairplayFAQ">algengar spurningar og svör okkar varðandi göfuglyndi streymis</string>
   <string name="perks">Kostir þess að streyma með leitarorðinu</string>
   <string name="perk1">Færð logandi streymarateikn á Lichess-prófílinn þinn.</string>
   <string name="perk2">Færð að vera efst uppi á streymaralistanum.</string>
   <string name="perk3">Lætur fylgjendur þína á Lichess vita.</string>
-  <string name="perk4">Sýndu streymið þitt í skákum þínum, mótum og stúderingum.</string>
+  <string name="perk4">Sýnir streymið þitt í skákum þínum, mótum og stúderingum.</string>
   <string name="approved">Streymið þitt er samþykkt.</string>
   <string name="pendingReview">Ritstjórar eru að skoða streymið þitt.</string>
   <string name="pleaseFillIn">Vinsamlegast fylltu út streymaraupplýsingar um þig, og sendu inn mynd.</string>
@@ -43,7 +43,7 @@
     <item quantity="other">Hafðu það stutt: %s stafir að hámarki</item>
   </plurals>
   <string name="visibility">Sýnilegt á síðu streymara</string>
-  <string name="whenApproved">Við samþykki umsjónarmanna</string>
+  <string name="whenApproved">Við samþykki ritstjóra</string>
   <string name="headline">Fyrirsögn</string>
   <string name="tellUsAboutTheStream">Segðu okkur frá streymi þínu í einni setningu</string>
   <string name="longDescription">Ýtarleg lýsing</string>

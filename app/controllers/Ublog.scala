@@ -223,7 +223,7 @@ final class Ublog(env: Env) extends LilaController(env):
             featured <- env.ublog.api.setFeatured(post, data)
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
-            if data.hasUpdates then logModAction(post, data.text)
+            if data.hasUpdates then logModAction(post, data.diff(post))
             Ok.snip(
               views.ublog.post.modTools(
                 post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),

@@ -47,7 +47,7 @@ export type StudySocketSendParams =
   | [t: 'explorerGame', d: ReqPosition & { gameId: string; insert: boolean }]
   | [t: 'setChapter', chapterId: string]
   | [t: 'setRole', d: { userId: string; role: string }]
-  | [t: 'addChapter', d: ChapterData & { sticky?: boolean }]
+  | [t: 'addChapter', d: ChapterData & { sticky?: boolean; showRatings?: boolean }]
   | [t: 'editChapter', d: EditChapterData]
   | [t: 'descStudy', desc: string]
   | [t: 'descChapter', d: { id: string; desc: string }]
