@@ -166,6 +166,7 @@
   <string name="drawByMutualAgreement">Реми по взаимно съгласие</string>
   <string name="fiftyMovesWithoutProgress">Петдесет хода без напредък</string>
   <string name="currentGames">Текущи игри</string>
+  <string name="joinedX">Присъедини се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Партия</item>
     <item quantity="other">%s Партии</item>
@@ -347,7 +348,15 @@
   <string name="openingExplorerAndTablebase">&amp; - Изследовател на дебютите</string>
   <string name="takeback">Върни ход</string>
   <string name="proposeATakeback">Предложи връщане на ход</string>
+  <string name="whiteProposesTakeback">Белите предлагат връщане на хода</string>
+  <string name="blackProposesTakeback">Черните предлагат връщане на хода</string>
   <string name="takebackPropositionSent">Предложение за връщане на ход изпратено</string>
+  <string name="whiteDeclinesTakeback">Белите отказаха връщането на хода</string>
+  <string name="blackDeclinesTakeback">Черните отказаха връщането на хода</string>
+  <string name="whiteAcceptsTakeback">Белите приеха връщането на хода</string>
+  <string name="blackAcceptsTakeback">Черните приеха връщането на хода</string>
+  <string name="whiteCancelsTakeback">Белите отмениха предложението за връщане</string>
+  <string name="blackCancelsTakeback">Черните отмениха предложението за връщане</string>
   <string name="yourOpponentProposesATakeback">Вашият противник предлага връщане</string>
   <string name="bookmarkThisGame">Отбележи тази игра</string>
   <string name="tournament">Турнир</string>
@@ -662,6 +671,7 @@
   <string name="really">наистина</string>
   <string name="contribute">Принос</string>
   <string name="termsOfService">Условия</string>
+  <string name="titleVerification">Потвърждение на титлата</string>
   <string name="sourceCode">Изходен код</string>
   <string name="simultaneousExhibitions">Сеанси</string>
   <string name="host">Домакин</string>
