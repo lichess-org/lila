@@ -71,18 +71,20 @@ object BSONHandlers:
   given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
 
   given BSONHandler[Tiebreak] = new BSON[Tiebreak]:
-    def reads(r: BSON.Reader): Tiebreak =
-      def readCode: Option[Tiebreak.Code]      = r.getO[String]("code").flatMap(Tiebreak.Code.fromString)
-      def readCutModifier: Option[CutModifier] =
-        r.getO[String]("cutModifier")
-          .flatMap(c => CutModifier.values.find(_.code == c))
-          .orElse(CutModifier.None.some)
-      def readLimitModifier: Option[LimitModifier] =
-        r.getO[Float]("limitModifier").flatMap(LimitModifier(_))
-      readCode
-        .flatMap: code =>
-          Tiebreak(code, readCutModifier, readLimitModifier)
-        .getOrElse(sys.error("Invalid Tiebreak BSON"))
+
+    def reads(r: BSON.Reader): Tiebreak = {
+      for
+        code <- r.getO[String]("code").flatMap(Tiebreak.Code.byStr.get): Option[Tiebreak.Code]
+        tb   <- Tiebreak(
+          code,
+          mkCutModifier = r
+            .getO[String]("cutModifier")
+            .flatMap(CutModifier.byCode.get)
+            .orElse(CutModifier.None.some),
+          mkLimitModifier = r.getO[Float]("limitModifier").flatMap(LimitModifier(_))
+        )
+      yield tb
+    }.err(s"Invalid tiebreak ${r.debug}")
 
     def writes(w: BSON.Writer, t: Tiebreak) =
       val base = $doc("code" -> t.code)
@@ -90,9 +92,9 @@ object BSONHandlers:
         .filter(_ != CutModifier.None)
         .orElse(t.limitModifier.map(_.value))
         .fold(base): modifier =>
-          base ++ (modifier match
+          base ++ modifier.match
             case cut: CutModifier => $doc("cutModifier" -> cut.code)
-            case limit: Float     => $doc("limitModifier" -> limit))
+            case limit: Float     => $doc("limitModifier" -> limit)
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound]       = Macros.handler
