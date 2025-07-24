@@ -64,7 +64,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -132,7 +132,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.isDirty &&
+      ctrl.persistence?.isDirty &&
         hl(
           'a',
           {
@@ -140,7 +140,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.idbTree.clear),
+            hook: bind('click', ctrl.persistence.clear),
           },
           i18n.site.clearSavedMoves,
         ),

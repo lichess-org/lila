@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="keyboardInputCommands">Billentyűparancsok</string>
+  <string name="keyboardInputCommands">Billentyűzetbeviteli parancsok</string>
   <string name="performAMove">Lépés</string>
   <string name="movePieceFromE2ToE4">A bábu e2-ről e4-re lép</string>
   <string name="moveKnightToC3">A huszár c3-ra lép</string>
-  <string name="kingsideCastle">Sáncolás királyszárnyra</string>
-  <string name="queensideCastle">Sáncolás vezérszárnyra</string>
+  <string name="kingsideCastle">Rövidsánc</string>
+  <string name="queensideCastle">Hosszúsánc</string>
   <string name="promoteC8ToQueen">Gyalogátváltozás c8-on vezérré</string>
   <string name="dropARookAtB4">Bástya berakása b4-re (csak Crazyhouse variánsban)</string>
   <string name="offerOrAcceptDraw">Döntetlen ajánlása vagy elfogadása</string>

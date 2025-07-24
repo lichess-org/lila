@@ -44,6 +44,9 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="teamsIlead">Kapitain naizen taldeak</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Jokatuko diren txapelketa hauetakoren baten lotura bidali nahi duzu?</string>
   <string name="leadersChat">Kapitainen txata</string>
+  <string name="introduction">Sarrera</string>
+  <string name="teamIntroductionHelp">Taldeen zerrendetan erakusten den deskribapen laburra. 200 karaktere gehienez.</string>
+  <string name="teamDescriptionHelp">Taldearen orrialdean ikusiko den deskribapen osoa.</string>
   <string name="closeTeam">Taldea itxi</string>
   <string name="closeTeamDescription">Taldea betiko itxi.</string>
   <string name="entryCode">Taldean sartzeko kodea</string>

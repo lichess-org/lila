@@ -24,7 +24,6 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
@@ -187,37 +186,35 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
-  return hl(
-    'div.study__chapters',
-    {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).addEventListener('click', e => {
-            const target = e.target as HTMLElement;
-            const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-            if (!id) return;
-            if (target.className === 'act') {
-              const chapter = ctrl.chapters.list.get(id);
-              if (chapter) ctrl.chapters.editForm.toggle(chapter);
-            } else ctrl.setChapter(id);
-          });
-          vnode.data!.li = {};
-          update(vnode);
-          pubsub.emit('chat.resize');
-        },
-        postpatch(old, vnode) {
-          vnode.data!.li = old.data!.li;
-          update(vnode);
-        },
-        destroy: vnode => {
-          const sortable: Sortable = vnode.data!.li!.sortable;
-          if (sortable) sortable.destroy();
+  return hl('div.study__chapters', [
+    hl(
+      'div.study-list',
+      {
+        hook: {
+          insert(vnode) {
+            (vnode.elm as HTMLElement).addEventListener('click', e => {
+              const target = e.target as HTMLElement;
+              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
+              if (!id) return;
+              if (target.className === 'act') {
+                const chapter = ctrl.chapters.list.get(id);
+                if (chapter) ctrl.chapters.editForm.toggle(chapter);
+              } else ctrl.setChapter(id);
+            });
+            vnode.data!.li = {};
+            update(vnode);
+          },
+          postpatch(old, vnode) {
+            vnode.data!.li = old.data!.li;
+            update(vnode);
+          },
+          destroy: vnode => {
+            const sortable: Sortable = vnode.data!.li!.sortable;
+            if (sortable) sortable.destroy();
+          },
         },
       },
-    },
-    ctrl.chapters.list
-      .all()
-      .map((chapter, i) => {
+      ctrl.chapters.list.all().map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return hl(
@@ -235,16 +232,12 @@ export function view(ctrl: StudyCtrl): VNode {
               hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
           ],
         );
-      })
-      .concat(
-        ctrl.members.canContribute()
-          ? [
-              hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-                hl('span', iconTag(licon.PlusButton)),
-                hl('h3', i18n.study.addNewChapter),
-              ]),
-            ]
-          : [],
-      ),
-  );
+      }),
+    ),
+    ctrl.members.canContribute() &&
+      hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+        hl('span', iconTag(licon.PlusButton)),
+        hl('h3', i18n.study.addNewChapter),
+      ]),
+  ]);
 }

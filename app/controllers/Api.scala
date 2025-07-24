@@ -238,8 +238,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      env.game.gamesByIdsStream.addGameIds(streamId, ids)
-      jsonOkResult
+      if env.game.gamesByIdsStream.exists(streamId) then
+        env.game.gamesByIdsStream.addGameIds(streamId, ids)
+        jsonOkResult
+      else notFoundJson()
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>

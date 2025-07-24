@@ -6,26 +6,35 @@ import lila.core.study.data.StudyChapterName
 import lila.study.{ Chapter, MultiPgn }
 import lila.tree.Root
 
-private object RelayPlanUpdateFixtures:
+private object RelayUpdatePlanFixtures:
 
-  def mkChapter(order: Chapter.Order, tags: Tags): Chapter =
+  def mkChapter(
+      order: Chapter.Order,
+      tags: Tags,
+      root: Root = Root.default(chess.variant.Standard)
+  ): Chapter =
     Chapter(
       id = StudyChapterId(s"chapterId$order"),
       studyId = StudyId("studyId"),
       name = StudyChapterName(s"chapterName$order"),
       setup = Chapter.Setup(gameId = none, variant = chess.variant.Standard, orientation = chess.Color.White),
-      root = Root.default(chess.variant.Standard),
+      root = root,
       tags = tags,
       order = order,
       ownerId = UserId.lichess,
       createdAt = nowInstant
     )
 
+  def readPgns(pgns: String) = RelayGame.iso.to:
+    MultiPgn.split(PgnStr(pgns), Max(64))
+
+  def gameChapters(games: RelayGames) =
+    games.zipWithIndex.toList.map: (game, i) =>
+      mkChapter(i + 1, game.tags, game.root)
+
   val initialChapter = mkChapter(1, Tags.empty)
 
-  val games: RelayGames = RelayGame.iso.to:
-    MultiPgn.split(
-      PgnStr("""
+  val games: RelayGames = readPgns("""
 [Event "SixDays Budapest June GMA"]
 [Site "Budapest"]
 [Round "9.1"]
@@ -99,17 +108,12 @@ private object RelayPlanUpdateFixtures:
 [BlackFideId "1141058"]
 
 1. d4 { [%eval 0.16] [%clk 1:27:11] } 1... f5 { [%eval 0.5] [%clk 1:30:31] } 
-"""),
-      Max(64)
-    )
+""")
 
-  lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-    mkChapter(i + 1, game.tags)
+  val chapters: List[Chapter] = gameChapters(games)
 
   object repeatedPairings:
-    val games: RelayGames = RelayGame.iso.to:
-      MultiPgn.split(
-        PgnStr("""
+    val games: RelayGames = readPgns("""
 [White "Banh Gia Huy"]
 [Black "Yaniv, Yuval"]
 [Round "1.1"]
@@ -143,9 +147,56 @@ private object RelayPlanUpdateFixtures:
 [Round "1.2"]
 
 1. d4 { [%eval 0.16] [%clk 1:27:11] } 1... f5 { [%eval 0.5] [%clk 1:30:31] } 
-  """),
-        Max(64)
-      )
+  """)
 
-    lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-      mkChapter(i + 1, game.tags)
+    val chapters: List[Chapter] = gameChapters(games)
+
+  object switchedBoards:
+
+    val games: RelayGames = readPgns("""
+[White "AAA"]
+[Black "BBB"]
+[Round "1.1"]
+
+e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6
+
+
+[White "CCC"]
+[Black "DDD"]
+[Round "1.2"]
+
+1. e4 { [%eval 0.15] [%clk 1:20:10] } 1... c5 { [%eval 0.25] [%clk 1:30:56] } 
+
+
+[White "EEE"]
+[Black "FFF"]
+[Round "1.3"]
+
+1. c4 { [%eval 0.13] [%clk 1:27:40] } 1... e6 
+
+  """)
+
+    val chapters: List[Chapter] = gameChapters(games)
+
+    val switchedGames = readPgns("""
+[White "EEE"]
+[Black "FFF"]
+[Round "1.1"]
+
+1. c4 { [%eval 0.13] [%clk 1:27:40] } 1... e6 
+
+
+[White "CCC"]
+[Black "DDD"]
+[Round "1.2"]
+
+1. e4 { [%eval 0.15] [%clk 1:20:10] } 1... c5 { [%eval 0.25] [%clk 1:30:56] } 
+
+
+[White "AAA"]
+[Black "BBB"]
+[Round "1.3"]
+
+e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6
+
+  """)

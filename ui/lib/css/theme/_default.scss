@@ -10,7 +10,7 @@
 
 $site-hue: 37;
 
-// top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
+// top level $c-variables must be valid css format (rgba, hsla, hex) to be mixable by ui/build
 
 $c-bg: hsl(37, 7%, 14%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%);
@@ -19,9 +19,11 @@ $c-bg-zebra: hsl(37, 5%, 19%);
 $c-bg-zebra2: hsl(37, 5%, 24%);
 $c-bg-popup: hsl(37, 7%, 22%);
 $c-body-gradient: hsl(37, 12%, 16%);
+$c-border: hsl(0, 0%, 25%);
 $c-font: hsl(0, 0%, 73%);
 $c-primary: hsl(209, 79%, 56%);
 $c-secondary: hsl(88, 62%, 37%);
+$c-good: hsl(88, 62%, 37%);
 $c-accent: hsl(22, 100%, 42%);
 $c-bad: hsl(0, 60%, 50%);
 $c-brag: hsl(37, 74%, 43%);
@@ -30,7 +32,6 @@ $c-shade: hsl(0, 0%, 30%);
 $c-inaccuracy: hsl(202, 78%, 62%);
 $c-mistake: hsl(41, 100%, 45%);
 $c-blunder: hsl(0, 69%, 60%);
-$c-good: hsl(88, 62%, 37%);
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
 $c-paper: hsl(60, 56%, 91%);
@@ -82,7 +83,7 @@ $c-clearer: #fff;
   --c-chat-mention-bg: rgba(59, 92, 22, 0.4);
   --c-fancy: hsl(294, 62%, 48%);
 
-  --c-border: hsl(0, 0%, 25%);
+  --c-border: #{$c-border};
   --c-border-page: hsl(0, 0%, 22%);
   --c-border-tour: #{mix(hsl(0, 0%, 22%), $c-bg-page, 50)};
   --c-border-light: hsl(0, 0%, 40%);
@@ -91,6 +92,7 @@ $c-clearer: #fff;
   --c-secondary: #{$c-secondary};
   --c-secondary-dim: #{_dim($c-secondary, 20%)};
   --c-secondary-dimmer: #{_dim($c-secondary, 40%)};
+  --c-good: #{$c-secondary};
   --c-accent: #{$c-accent};
   --c-link: #{$c-primary};
   --c-link-dim: var(--c-primary-dim);
@@ -119,7 +121,7 @@ $c-clearer: #fff;
   --c-inaccuracy: #{$c-inaccuracy};
   --c-mistake: #{$c-mistake};
   --c-blunder: #{$c-blunder};
-  --c-good-move: #{$c-good};
+  --c-good-move: #{$c-secondary};
   --c-brilliant: #{$c-brilliant};
   --c-interesting: #{$c-interesting};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};

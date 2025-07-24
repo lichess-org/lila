@@ -3,6 +3,7 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.id.SessionId
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -16,7 +17,7 @@ final class AccountSecurity(helpers: Helpers)(
   def apply(
       u: User,
       sessions: List[lila.security.LocatedSession],
-      curSessionId: String,
+      curSessionId: Option[SessionId],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using Context) =
@@ -45,13 +46,13 @@ final class AccountSecurity(helpers: Helpers)(
               )
             )
           ),
-          table(sessions, curSessionId.some, clients, personalAccessTokens)
+          table(sessions, curSessionId, clients, personalAccessTokens)
         )
       )
 
   private def table(
       sessions: List[lila.security.LocatedSession],
-      curSessionId: Option[String],
+      curSessionId: Option[SessionId],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using Translate) =
@@ -78,8 +79,8 @@ final class AccountSecurity(helpers: Helpers)(
           ),
           curSessionId.map { cur =>
             td(
-              (s.session.id != cur).option(
-                postForm(action := routes.Account.signout(s.session.id))(
+              (s.session != cur).option(
+                postForm(action := routes.Account.signout(s.session.id.value))(
                   submitButton(
                     cls      := "button button-red",
                     title    := trans.site.logOut.txt(),

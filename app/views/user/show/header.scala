@@ -162,7 +162,12 @@ object header:
                 a(href := s"${routes.User.opponents}?u=${u.username}", dataIcon := Icon.User)(
                   trans.site.favoriteOpponents()
                 )
-              )
+              ),
+              ctx.me
+                .soUse(lila.mod.canImpersonate(u.id))
+                .option:
+                  postForm(action := routes.Mod.impersonate(u.username.value)):
+                    submitButton(cls := "btn-rack__btn")("Impersonate")
             )
           )
         )

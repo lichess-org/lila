@@ -46,10 +46,15 @@
   <string name="pawn">兵</string>
   <string name="whitePawn">白兵</string>
   <string name="blackPawn">黑兵</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">移动</string>
   <string name="sanCheck" comment="+ in standard notation">将军</string>
   <string name="sanCheckmate" comment="# in standard notation">将死</string>
   <string name="sanPromotesTo" comment="= in standard notation">升变成</string>
   <string name="sanShortCastling" comment="O-O in standard notation">短易位</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">长易位</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">丢弃</string>
   <string name="invalidMove">违规着法</string>
+  <string name="premoveCancelled">预先走棋已取消</string>
+  <string name="premoveRecorded">预先走棋已记录：%s。按回车键以取消</string>
 </resources>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogje bashkësie</string>
-  <string name="friendBlogs">Blogje shokësh</string>
-  <string name="lichessBlog">Blogu i Lichess-it</string>
   <string name="myBlog">Blogu im</string>
   <string name="likedBlogs">Postime të pëlqyer në blogje</string>
-  <string name="blogTopics">Tema blogjesh</string>
   <plurals name="blogPosts">
     <item quantity="one">%s postim blog</item>
     <item quantity="other">%s postime blogu</item>
   </plurals>
-  <string name="lichessOfficialBlog">Blogu Zyrtar i Lichess-it</string>
   <string name="continueReadingPost">Vazhdoni me leximin e këtij postimi</string>
   <string name="lichessBlogPostsFromXYear">Postime blogu Lichess në %s</string>
   <string name="previousBlogPosts">Postime të mëparshëm blogu</string>

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Блоги сообщества</string>
-  <string name="friendBlogs">Блоги друзей</string>
-  <string name="lichessBlog">Блог Lichess</string>
+  <string name="community">Сообщество</string>
+  <string name="byMonth">По месяцам</string>
+  <string name="byTopic">По темам</string>
+  <string name="byLichess">От Lichess</string>
+  <string name="myFriends">Мои друзья</string>
+  <string name="myLikes">Отмеченные мной</string>
   <string name="myBlog">Мой блог</string>
   <string name="likedBlogs">Понравившиеся публикации блогов</string>
-  <string name="blogTopics">Темы блогов</string>
   <plurals name="blogPosts">
     <item quantity="one">Запись в блоге %s</item>
     <item quantity="few">Записи в блоге %s</item>
     <item quantity="many">Записи в блоге %s</item>
     <item quantity="other">Записи в блоге %s</item>
   </plurals>
-  <string name="lichessOfficialBlog">Официальный блог Lichess</string>
   <string name="continueReadingPost">Продолжить чтение этой публикации</string>
   <string name="lichessBlogPostsFromXYear">Записи в блоге Lichess за %s</string>
   <string name="previousBlogPosts">Предыдущие записи блога</string>

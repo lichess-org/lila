@@ -87,7 +87,7 @@ final private class TvSyncActor(
       Bus.pub(lila.core.game.TvSelect(game.id, game.speed, channel.key, data))
       if channel == Tv.Channel.Best then
         lila.common.Bus
-          .safeAsk[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
+          .ask[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
           .foreach: html =>
             Bus.pub:
               lila.core.game.ChangeFeatured:

@@ -73,4 +73,4 @@ final private class FarmBoostDetection(
       game.userIdPair.sequence
         .map(_.toPair)
         .so: userIds =>
-          lila.common.Bus.safeAsk(lila.core.security.AskAreRelated(userIds, _))
+          lila.common.Bus.ask(lila.core.security.AskAreRelated(userIds, _))

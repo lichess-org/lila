@@ -107,12 +107,12 @@ final class ChatApi(
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
-        Bus.safeAsk(GetLinkCheck(line, s, _))
+        Bus.ask(GetLinkCheck(line, s, _))
 
     private object isChatFresh:
       private val cache = cacheApi[PublicSource, Boolean](256, "chat.fresh"):
         _.expireAfterWrite(3.minutes).buildAsyncFuture: source =>
-          Bus.safeAsk(IsChatFresh(source, _))
+          Bus.ask(IsChatFresh(source, _))
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)
 

@@ -6,6 +6,10 @@
     <item quantity="one">Skoða umferðina</item>
     <item quantity="other">Skoða allar %s umferðir</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s umferð</item>
+    <item quantity="other">%s umferðir</item>
+  </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Swiss-umferð</item>
     <item quantity="other">%s Swiss-umferðir</item>
@@ -41,7 +45,7 @@
 Leggur saman stig hvers andstæðings sem leikmaður sigrar og helming af stigi hvers andstæðings sem leikmaður gerir jafntefli við.</string>
   <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
   <string name="dutchSystem">Hollenska kerfið</string>
-  <string name="FIDEHandbook">Handbók alþjóðaskáksambandsins</string>
+  <string name="FIDEHandbook">Leikreglubók Alþjóðaskáksambandsins</string>
   <string name="pairingsA">Notast er við %1$s, sem %2$s innleiddi, í samræmi við %3$s.</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
@@ -50,16 +54,25 @@ Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan lið
   <string name="numberOfByesA">Leikmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan leikmann til að mæta honum.
 Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaður mætir seint á mótið.</string>
   <string name="earlyDrawsQ">Hvað gerist þegar jafntefli er gert of snemmt?</string>
+  <string name="whatIfOneDoesntPlayQ">Hvað gerist ef skákmaður teflir ekki eina einustu skák?</string>
   <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
   <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
   <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir spilarar leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. 
 Það sem líkist hringhana á netinu best er að spila Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar spilaðar áður en mótinu lýkur.</string>
+  <string name="joinOrCreateTeam">Gerast meðlimur eða búa til lið</string>
   <string name="nowPlaying">Í afspilun núna</string>
   <string name="startingSoon">Hefst senn</string>
   <string name="comparison">Samanburður</string>
+  <string name="tournDuration">Lengd mótsins</string>
+  <string name="predefinedDuration">Fyrirframskilgreind lengd í mínútum</string>
+  <string name="durationUnknown">Fyrirframskilgreindur hámarksfjöldi umferða, en lengd óþekkt</string>
   <string name="numberOfGames">Fjöldi skáka</string>
+  <string name="numberOfGamesAsManyAsPossible">Eins margar og hægt er að tefla innan úthlutaðs tíma</string>
+  <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla leikmenn</string>
   <string name="pairingSystem">Mætingakerfi</string>
+  <string name="pairingSystemArena">Allir tiltækir andstæðingar í svipuðu sæti</string>
+  <string name="pairingSystemSwiss">Mætingar best ákvarðaðar miðað við stigafjölda og bráðabana</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
   <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum leikmönnum</string>
@@ -67,9 +80,14 @@ Að auki er hálft stig gefið ef leikmaður skyldi vera stakur þegar leikmaðu
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
   <string name="lateJoin">Seinlegar þátttökur</string>
+  <string name="lateJoinUntil">Já þar til meira en helmingur umferðanna er hafinn</string>
   <string name="pause">Pása</string>
+  <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
   <string name="streaksAndBerserk">Döngun og Berserk-stig</string>
+  <string name="similarToOTB">Svipað og á raunverulegum skákmótum (e. OTB)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
+  <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
+  <string name="forbiddedUsers">Ef þessi listi er ekki tómur, þá verður notendum sem eru fjarverandi á þessum lista bannað að vera með. Eitt notandanafn á línu.</string>
   <string name="playYourGames">Tefldu skákir þínar</string>
   <string name="byes">Stökur</string>
   <string name="absences">Fjarvistir</string>

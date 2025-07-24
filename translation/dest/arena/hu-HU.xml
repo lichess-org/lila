@@ -51,7 +51,7 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="customStartDate">Kezdés időpontja</string>
   <string name="customStartDateHelp">Saját időzóna szerint. Ez felülbírálja a \"Hátralévő idő a verseny kezdetéig\" beállítást</string>
   <string name="allowBerserk">Berserk engedélyezése</string>
-  <string name="allowBerserkHelp">A játékosok saját idejük feléért cserébe többletpontot kapnak</string>
+  <string name="allowBerserkHelp">A játékosok felezhetik játékidejüket, hogy szerezhessenek egy extra versenypontot</string>
   <string name="allowChatHelp">Chatszoba engedélyezése a játékosoknak</string>
   <string name="arenaStreaks">Aréna sorozatok</string>
   <string name="arenaStreaksHelp">A második nyert játszmát követően minden nyert játszma 4 pontot ér 2 helyett.</string>
@@ -61,11 +61,11 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="averageScore">Átlagos pontszám</string>
   <string name="myTournaments">Versenyeim</string>
   <string name="editTournament">Verseny módosítása</string>
-  <string name="editTeamBattle">Csapat csata módosítása</string>
+  <string name="editTeamBattle">Csapatverseny módosítása</string>
   <string name="defender">Védő</string>
   <string name="pickYourTeam">Válaszd ki a csapatodat</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod reprezentálni ebben a versenyben?</string>
-  <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz hogy részt vehess!</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz, hogy részt vehess!</string>
   <string name="created">Létrehozva</string>
   <string name="recentlyPlayed">Nemrég játszott</string>
   <string name="bestResults">Legjobb eredmények</string>
@@ -83,4 +83,5 @@ Például ha 3. helyezett lettél egy versenyen 100 játékos közül, az 3%. Ha
   <string name="tournamentShields">Verseny pajzsok</string>
   <string name="onlyTitled">Csak címmel rendelkező játékosok</string>
   <string name="onlyTitledHelp">A részvétel feltétele a hivatalos cím megléte</string>
+  <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
 </resources>

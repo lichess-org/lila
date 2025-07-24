@@ -192,7 +192,6 @@ export default class Mousetrap {
 
   unbind = (key: string): void => {
     this.bindings[key]?.forEach((b, i) => {
-      console.log(b);
       if (b.modifiers.length === 0) this.bindings[key].splice(i, 1);
     });
   };

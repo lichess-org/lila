@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Yhteisön blogit</string>
-  <string name="friendBlogs">Ystävien blogit</string>
-  <string name="lichessBlog">Lichessin blogi</string>
+  <string name="community">Yhteisön blogit</string>
+  <string name="byMonth">Kuukausittain</string>
+  <string name="byTopic">Aiheen mukaan</string>
+  <string name="byLichess">Lichessin kirjoittamat</string>
+  <string name="myFriends">Ystävieni blogit</string>
+  <string name="myLikes">Tykkäämäni</string>
   <string name="myBlog">Oma blogi</string>
   <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
-  <string name="blogTopics">Blogin aiheet</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogikirjoitus</item>
     <item quantity="other">%s blogikirjoitusta</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
   <string name="continueReadingPost">Jatka tämän kirjoituksen lukemista</string>
   <string name="lichessBlogPostsFromXYear">Lichess-blogikirjoitukset vuodelta %s</string>
   <string name="previousBlogPosts">Edelliset blogikirjoitukset</string>

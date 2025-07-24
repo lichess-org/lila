@@ -60,6 +60,12 @@ object net:
       osVersion: String,
       device: String
   )
+  case class LichessMobileVersion(major: Int, minor: Int)
+  object LichessMobileVersion:
+    val zero = LichessMobileVersion(0, 0)
+    given Ordering[LichessMobileVersion] with
+      def compare(x: LichessMobileVersion, y: LichessMobileVersion): Int =
+        (x.major, x.minor).compare((y.major, y.minor))
 
   opaque type ApiVersion = Int
   object ApiVersion extends RichOpaqueInt[ApiVersion]:

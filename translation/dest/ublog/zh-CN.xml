@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">社区博客</string>
-  <string name="friendBlogs">好友的博客</string>
-  <string name="lichessBlog">Lichess 博客</string>
+  <string name="community">社区</string>
+  <string name="byMonth">按月份</string>
+  <string name="byTopic">按主题</string>
+  <string name="byLichess">由Lichess创建</string>
+  <string name="myFriends">我的好友</string>
+  <string name="myLikes">我的点赞</string>
   <string name="myBlog">我的博客</string>
   <string name="likedBlogs">赞过的博客</string>
-  <string name="blogTopics">博客主题</string>
   <plurals name="blogPosts">
     <item quantity="other">%s 篇博客文章</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichess 官方博客</string>
   <string name="continueReadingPost">继续阅读这篇文章</string>
   <string name="lichessBlogPostsFromXYear">Lichess 博客于 %s 年发布的文章</string>
   <string name="previousBlogPosts">之前发布的文章</string>

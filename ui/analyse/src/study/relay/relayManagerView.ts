@@ -3,7 +3,7 @@ import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
-import { side as studyViewSide } from '../studyView';
+import { studySideNodes } from '../studyView';
 import type StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
@@ -24,7 +24,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
               : statePush(),
             renderLog(ctrl),
           ]),
-        (contributor || study.data.admin) && studyViewSide(study, false),
+        (contributor || study.data.admin) && studySideNodes(study, false),
       ])
     : undefined;
 }

@@ -175,7 +175,6 @@
         .button {
           flex: 1 1 auto;
           font-weight: normal;
-          margin-inline-end: 1em;
           height: $button-height;
         }
 
@@ -183,6 +182,7 @@
           display: flex;
           height: $button-height;
           overflow: hidden;
+          margin-inline-start: 1em;
 
           iframe {
             color-scheme: normal;

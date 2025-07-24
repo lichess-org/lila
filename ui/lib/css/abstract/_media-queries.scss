@@ -23,6 +23,11 @@
     @content;
   }
 }
+@mixin mq-less-than-col3 {
+  @media (max-width: at-most($x-large)) {
+    @content;
+  }
+}
 @mixin mq-site-header-tall {
   @media (min-height: at-least($tall)) {
     @content;

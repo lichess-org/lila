@@ -43,7 +43,7 @@ final class UblogMarkup(
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (id, markdown, max) =>
         Bus
-          .safeAsk(LpvBus.AllPgnsFromText(markdown.value, max, _))
+          .ask(LpvBus.AllPgnsFromText(markdown.value, max, _))
           .andThen { case scala.util.Success(pgns) =>
             pgnCache.putAll(pgns)
           }
