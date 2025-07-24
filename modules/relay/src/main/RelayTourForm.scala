@@ -50,19 +50,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
   private given Formatter[Tiebreak] =
     formatter.stringOptionFormatter(_.code, Tiebreak.preset.mapBy(_.extendedCode).get)
 
-  private val tiebreakMapping = typeIn(Tiebreak.preset.toSet)
-
-  private val optionalTb       = optional(tiebreakMapping)
-  private val tiebreaksMapping =
-    mapping(
-      "tiebreak1" -> optionalTb,
-      "tiebreak2" -> optionalTb,
-      "tiebreak3" -> optionalTb,
-      "tiebreak4" -> optionalTb,
-      "tiebreak5" -> optionalTb
-    )((tb1, tb2, tb3, tb4, tb5) => Seq(tb1, tb2, tb3, tb4, tb5).flatten)(seq =>
-      (seq.lift(0), seq.lift(1), seq.lift(2), seq.lift(3), seq.lift(4)).some
-    )
+  private val tiebreaksMapping: Mapping[List[Tiebreak]] = list(optional(typeIn(Tiebreak.preset.toSet)))
+    .transform[List[Tiebreak]](_.flatten, _.map(some))
 
   val form = Form(
     mapping(
@@ -125,7 +114,7 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
-      tiebreaks: Option[Seq[Tiebreak]] = none,
+      tiebreaks: Option[List[Tiebreak]] = none,
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,

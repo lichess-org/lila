@@ -27,7 +27,7 @@ case class RelayTour(
     spotlight: Option[RelayTour.Spotlight] = None,
     showScores: Boolean = true,
     showRatingDiffs: Boolean = true,
-    tiebreaks: Option[Seq[Tiebreak]] = None,
+    tiebreaks: Option[List[Tiebreak]] = None,
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,

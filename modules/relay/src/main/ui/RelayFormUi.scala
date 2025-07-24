@@ -470,6 +470,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         )
 
+    private val sortedTiebreaks = Tiebreak.preset.sortBy(_.extendedCode)
+
     private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
@@ -556,9 +558,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Features",
             toggle = tg
               .map(_.tour)
-              .exists(t =>
+              .exists: t =>
                 !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic || t.tiebreaks.isDefined
-              )
               .some
           )(
             form3.split(
@@ -596,24 +597,18 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               )
             ),
             form3.split(
-              (1 to 5).map: i =>
-                form3.group(
-                  form(s"tiebreaks.tiebreak$i"),
-                  s"Tiebreak $i",
-                  half = true
-                )(
+              (0 until 5).map: i =>
+                form3.group(form(s"tiebreaks[$i]"), s"Tiebreak ${i + 1}", half = true):
                   form3.select(
                     _,
-                    Tiebreak.preset
-                      .sortBy(_.extendedCode)
-                      .map: t =>
-                        t.extendedCode -> s"${t.description} (${t.extendedCode})",
+                    sortedTiebreaks.map: t =>
+                      t.extendedCode -> s"${t.description} (${t.extendedCode})",
                     default = "Optional. Select a tiebreak".some
                   )
-                ),
+              ,
               p(dataIcon := Icon.InfoCircle, cls := "text")(
-                "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. " +
-                  "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
+                "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
+                "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
               )
             )
           ),
