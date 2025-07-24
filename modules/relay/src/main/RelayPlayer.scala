@@ -13,7 +13,6 @@ import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
-import chess.tiebreak.Tiebreak.*
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
 // Player in a tournament with current performance rating and list of games
@@ -27,10 +26,10 @@ case class RelayPlayer(
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
-  def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
-  def eloGames: Vector[Elo.Game]       = games.flatMap(_.eloGame)
-  def toTieBreakPlayer: Option[Player] = player.id.map: id =>
-    Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
+  def withGame(game: RelayPlayer.Game)          = copy(games = games :+ game)
+  def eloGames: Vector[Elo.Game]                = games.flatMap(_.eloGame)
+  def toTieBreakPlayer: Option[Tiebreak.Player] = player.id.map: id =>
+    Tiebreak.Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
 
 object RelayPlayer:
 
@@ -58,10 +57,10 @@ object RelayPlayer:
       .orElse(playerPoints.map(_.value))
 
     def toTiebreakGame: Option[Tiebreak.Game] =
-      opponent.id.map: (opponentId) =>
+      opponent.id.map: opponentId =>
         Tiebreak.Game(
           color = color,
-          opponent = Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
+          opponent = Tiebreak.Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
           points = playerPoints,
           roundId = round.value.some
         )
@@ -260,9 +259,9 @@ private final class RelayPlayerApi(
           p.toTieBreakPlayer.map: tbPlayer =>
             tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val result: List[(PlayerWithScore, Int)] = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
+    val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
     players.map: (id, rp) =>
-      val found: Option[(PlayerWithScore, Int)] = result.find((p, rank) => p.player.id == id.toString)
+      val found = result.find((p, rank) => p.player.id == id.toString)
       id -> rp.copy(
         tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
         rank = Rank.from(found.map(_._2 + 1))
