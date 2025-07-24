@@ -38,6 +38,7 @@
   <string name="long">Lögn þraut</string>
   <string name="longDescription">Þrír leikir til sigurs.</string>
   <string name="master">Skákir meistara</string>
+  <string name="masterVsMaster">Meistari-móti-meistara-skákir</string>
   <string name="mate">Mát</string>
   <string name="mateDescription">Sigra taflið með glæsibrag.</string>
   <string name="mateIn1">Mát í 1</string>
