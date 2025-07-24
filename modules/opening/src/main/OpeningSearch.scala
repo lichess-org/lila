@@ -58,10 +58,11 @@ private object OpeningSearch:
         .map(t => replace.getOrElse(t, t))
         .toSet
         .diff(exclude)
+
     def apply(opening: Opening): Set[Token] =
       opening.key.value.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
         opening.eco.value.toLowerCase ++
-        opening.pgn.value.split(' ').take(6).toSet
+        opening.pgn.value.toLowerCase.split(' ').take(6).toSet
 
   case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
   def makeQuery(userInput: String): Query =
@@ -89,12 +90,11 @@ private object OpeningSearch:
     }.toList
 
   private def scoreOf(query: Query, entry: Entry): Option[Score] =
-    val entryPgnLower            = entry.opening.pgn.value.toLowerCase()
-    val entryUciLower            = entry.opening.uci.value.toLowerCase()
-    val entryTokensLower         = entry.tokens.map(_.toLowerCase)
+    val entryPgnLower            = entry.opening.pgn.value.toLowerCase
+    val entryUciLower            = entry.opening.uci.value.toLowerCase
     def exactMatch(token: Token) =
-      entryTokensLower(token) ||
-        entryTokensLower(s"${token}s") // kings and queens can be matched by king and queen
+      entry.tokens(token) ||
+        entry.tokens(s"${token}s") // kings and queens can be matched by king and queen
     if entryPgnLower.startsWith(query.raw) ||
       entryPgnLower.startsWith(query.numberedPgn) ||
       entryUciLower.startsWith(query.raw)
@@ -107,7 +107,7 @@ private object OpeningSearch:
         } match
         case (remaining, score) =>
           (score + remaining.map { t =>
-            entryTokensLower.map { e =>
+            entry.tokens.map { e =>
               if e.startsWith(t) then t.size * 50
               else if e.contains(t) then t.size * 20
               else 0
