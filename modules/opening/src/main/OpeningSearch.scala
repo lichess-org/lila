@@ -81,23 +81,21 @@ private object OpeningSearch:
           s"${index + 1}. ${moves.mkString(" ")}"
         .mkString(" ")
     Query(clean, numberedPgn, tokenize(clean))
-  private case class Entry(opening: Opening, tokens: Set[Token])
+  private case class Entry(opening: Opening, tokens: Set[Token], pgnLower: String, uciLower: String)
   private case class Match(opening: Opening, score: Score)
 
   private val index: List[Entry] =
     openings.view.map { op =>
-      Entry(op, tokenize(op))
+      Entry(op, tokenize(op), op.pgn.value.toLowerCase, op.uci.value.toLowerCase)
     }.toList
 
   private def scoreOf(query: Query, entry: Entry): Option[Score] =
-    val entryPgnLower            = entry.opening.pgn.value.toLowerCase
-    val entryUciLower            = entry.opening.uci.value.toLowerCase
     def exactMatch(token: Token) =
       entry.tokens(token) ||
         entry.tokens(s"${token}s") // kings and queens can be matched by king and queen
-    if entryPgnLower.startsWith(query.raw) ||
-      entryPgnLower.startsWith(query.numberedPgn) ||
-      entryUciLower.startsWith(query.raw)
+    if entry.pgnLower.startsWith(query.raw) ||
+      entry.pgnLower.startsWith(query.numberedPgn) ||
+      entry.uciLower.startsWith(query.raw)
     then (query.raw.size * 1000 - entry.opening.nbMoves).some.filter(_ > 0)
     else
       query.tokens
