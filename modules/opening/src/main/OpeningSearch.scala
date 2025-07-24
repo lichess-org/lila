@@ -62,7 +62,7 @@ private object OpeningSearch:
     def apply(opening: Opening): Set[Token] =
       opening.key.value.toLowerCase.replace("-", "_").split('_').view.filterNot(exclude.contains).toSet +
         opening.eco.value.toLowerCase ++
-        opening.pgn.value.toLowerCase.split(' ').take(6).toSet
+        opening.pgn.value.toLowerCase.split(' ').filterNot(_.headOption.exists(_.isDigit)).take(6).toSet
 
   case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
   def makeQuery(userInput: String): Query =
