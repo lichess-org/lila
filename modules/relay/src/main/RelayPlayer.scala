@@ -23,7 +23,7 @@ case class RelayPlayer(
     ratingDiff: Option[IntRatingDiff],
     performance: Option[IntRating],
     tiebreaks: Option[SeqMap[Tiebreak, TiebreakPoint]],
-    rank: Option[Int],
+    rank: Option[RelayPlayer.Rank],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
@@ -33,6 +33,10 @@ case class RelayPlayer(
     Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
 
 object RelayPlayer:
+
+  opaque type Rank = Int
+  object Rank extends OpaqueInt[Rank]
+
   case class Game(
       round: RelayRoundId,
       id: StudyChapterId,
@@ -76,17 +80,14 @@ object RelayPlayer:
     given Writes[Outcome.Points]                  = writeAs(_.show)
     given Writes[Outcome.GamePoints]              = writeAs(points => Outcome.showPoints(points.some))
     given Writes[RelayPlayer.Game]                = Json.writes
-    given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes { tbs =>
-      Json.toJson(
-        tbs.map { case (tb, tbv) =>
+    given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes: tbs =>
+      Json.toJson:
+        tbs.map: (tb, tbv) =>
           Json.obj(
             "extendedCode" -> tb.extendedCode,
             "description"  -> tb.description,
             "points"       -> tbv.value
           )
-        }.toSeq
-      )
-    }
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
@@ -211,7 +212,7 @@ private final class RelayPlayerApi(
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
             else fuccess(withScore)
-          withTiebreaks = tour.tiebreaks.fold(withRatingDiff)(computeTiebreaks(withRatingDiff, _))
+          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks)
         yield withTiebreaks
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
@@ -259,10 +260,10 @@ private final class RelayPlayerApi(
           p.toTieBreakPlayer.map: tbPlayer =>
             tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
+    val result: List[(PlayerWithScore, Int)] = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
     players.map: (id, rp) =>
-      val found = result.find((p, rank) => p.player.id == id.toString)
+      val found: Option[(PlayerWithScore, Int)] = result.find((p, rank) => p.player.id == id.toString)
       id -> rp.copy(
         tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
-        rank = found.map(_._2 + 1)
+        rank = Rank.from(found.map(_._2 + 1))
       )
