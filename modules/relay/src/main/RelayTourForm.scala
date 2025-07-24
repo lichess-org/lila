@@ -52,6 +52,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
 
   private val tiebreaksMapping: Mapping[List[Tiebreak]] = list(optional(typeIn(Tiebreak.preset.toSet)))
     .transform[List[Tiebreak]](_.flatten, _.map(some))
+    .verifying("Too many tiebreaks", _.sizeIs <= 5)
 
   val form = Form(
     mapping(

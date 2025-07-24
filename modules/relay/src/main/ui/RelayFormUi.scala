@@ -559,7 +559,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic || t.tiebreaks.isDefined
+                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic
               .some
           )(
             form3.split(
@@ -594,21 +594,6 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                     Visibility.`private`.key -> "Private (invited members only)"
                   )
                 )
-              )
-            ),
-            form3.split(
-              (0 until 5).map: i =>
-                form3.group(form(s"tiebreaks[$i]"), s"Tiebreak ${i + 1}", half = true):
-                  form3.select(
-                    _,
-                    sortedTiebreaks.map: t =>
-                      t.extendedCode -> s"${t.description} (${t.extendedCode})",
-                    default = "Optional. Select a tiebreak".some
-                  )
-              ,
-              p(dataIcon := Icon.InfoCircle, cls := "text")(
-                "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
-                "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
               )
             )
           ),
@@ -654,6 +639,23 @@ Team Dogs ; Scooby Doo"""),
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace"))
           )
         ),
+        form3.fieldset("Tiebreaks", toggle = tg.map(_.tour).exists(_.tiebreaks.isDefined).some):
+          form3.split(
+            (0 until 5).map: i =>
+              form3.group(form(s"tiebreaks[$i]"), s"Tiebreak ${i + 1}", half = true):
+                form3.select(
+                  _,
+                  sortedTiebreaks.map: t =>
+                    t.extendedCode -> s"${t.description} (${t.extendedCode})",
+                  default = "Optional. Select a tiebreak".some
+                )
+            ,
+            p(dataIcon := Icon.InfoCircle, cls := "text")(
+              "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
+              "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
+            )
+          )
+        ,
         if Granter.opt(_.Relay) then
           frag(
             form3.fieldset("Broadcast admin", toggle = true.some)(
