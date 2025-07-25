@@ -181,7 +181,9 @@
   <string name="loadExistingLichessGameTitle">Hlaða inn tiltækri Lichess-skák</string>
   <string name="loadExistingLichessGameText">Límdu inn slóð Lichess-skákar&lt;br&gt;(eins og lichess.org/7fHIU0XI)&lt;br&gt;til að hlaða inn leikjum skákar í kaflanum.</string>
   <string name="fromFenStringTitle">Útfrá Fen-streng</string>
+  <string name="fromFenStringText">Límdu inn stöðu í formi FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;til að hefja kaflann útfrá ákveðinni stöðu.</string>
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
+  <string name="fromPgnGameText">Límdu inn skák í formi PGN.&lt;br&gt;til að hlaða inn leikjum, athugasemdum og afbrigðum í kaflanum.</string>
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
   <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
