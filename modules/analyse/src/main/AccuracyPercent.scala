@@ -17,10 +17,10 @@ object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
   given Percent[AccuracyPercent] = Percent.of(AccuracyPercent)
 
   extension (a: AccuracyPercent)
-    inline def +(inline d: Double)                 = apply(a.value + d)
-    inline def *(inline weight: Double)            = apply(a.value * weight)
+    inline def +(inline d: Double) = apply(a.value + d)
+    inline def *(inline weight: Double) = apply(a.value * weight)
     inline def mean(inline other: AccuracyPercent) = apply((a.value + other.value) / 2)
-    inline def toInt                               = Percent.toInt(a)
+    inline def toInt = Percent.toInt(a)
 
   inline def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
 
@@ -49,13 +49,13 @@ for x in xs:
     else
       {
         val winDiff = before.value - after.value
-        val raw     = 103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411
+        val raw = 103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411
         raw + 1 // uncertainty bonus (due to imperfect analysis)
       }.atMost(100).atLeast(0)
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
-    val alignedEvals    =
+    val alignedEvals =
       if pov.color == pov.startColor
       then lila.tree.evals.initial :: subjectiveEvals
       else subjectiveEvals
@@ -65,7 +65,7 @@ for x in xs:
         case List(e1, e2) =>
           for
             before <- e1.score.map(WinPercent.fromScore)
-            after  <- e2.score.map(WinPercent.fromScore)
+            after <- e2.score.map(WinPercent.fromScore)
           yield AccuracyPercent.fromWinPercents(before, after)
       .flatten
       .toList
@@ -78,10 +78,10 @@ for x in xs:
 
   // a mean of volatility-weighted mean and harmonic mean
   def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents      = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
-    val windowSize          = (cps.size / 10).atLeast(2).atMost(8)
+    val allWinPercents = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
+    val windowSize = (cps.size / 10).atLeast(2).atMost(8)
     val allWinPercentValues = WinPercent.raw(allWinPercents)
-    val windows             =
+    val windows =
       List
         .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues.take(windowSize))
         ::: allWinPercentValues.sliding(windowSize).toList
@@ -91,7 +91,7 @@ for x in xs:
       .zip(weights)
       .zipWithIndex
       .collect { case ((List(prev, next), weight), i) =>
-        val color    = Color.fromWhite((i % 2 == 0) == startColor.white)
+        val color = Color.fromWhite((i % 2 == 0) == startColor.white)
         val accuracy =
           AccuracyPercent.fromWinPercents(color.fold(prev, next), color.fold(next, prev)).value
         ((accuracy, weight), color)

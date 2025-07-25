@@ -20,7 +20,7 @@ private final class BoardReport(settingStore: SettingStore.Builder)(using
   )
 
   def move(game: Game)(using ctx: Context) = for
-    me     <- ctx.me
+    me <- ctx.me
     rating <- game.player(me).flatMap(_.rating)
     if checkNow(game)
     ref <- HTTPRequest.referer(ctx.req)

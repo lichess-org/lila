@@ -19,10 +19,10 @@ final class JsonView(
   private object Writers:
     given OWrites[TimeInterval] = OWrites: i =>
       Json.obj("start" -> i.start, "end" -> i.end)
-    given Writes[PerfType]   = writeAs(_.key)
+    given Writes[PerfType] = writeAs(_.key)
     given Writes[RatingProg] = Json.writes
-    given Writes[Score]      = Json.writes
-    given OWrites[Games]     = OWrites: games =>
+    given Writes[Score] = Json.writes
+    given OWrites[Games] = OWrites: games =>
       JsObject:
         games.value.toList
           .sortBy((_, s) => -s.size)
@@ -39,26 +39,26 @@ final class JsonView(
       val name = getTourName.sync(e.tourId).orZero
       Json.obj(
         "tournament" -> Json.obj(
-          "id"   -> e.tourId,
+          "id" -> e.tourId,
           "name" -> name
         ),
-        "nbGames"     -> e.nbGames,
-        "score"       -> e.score,
-        "rank"        -> e.rank,
+        "nbGames" -> e.nbGames,
+        "score" -> e.score,
+        "rank" -> e.rank,
         "rankPercent" -> e.rankRatio
       )
     given (using Lang): Writes[ActivityView.Tours] = Json.writes
-    given Writes[Puzzles]                          = writeWrap("score")(_.value)
-    given Writes[Storm]                            = Json.writes
-    given Writes[Racer]                            = Json.writes
-    given Writes[Streak]                           = Json.writes
-    def simulWrites(user: User)                    = OWrites[Simul]: s =>
+    given Writes[Puzzles] = writeWrap("score")(_.value)
+    given Writes[Storm] = Json.writes
+    given Writes[Racer] = Json.writes
+    given Writes[Streak] = Json.writes
+    def simulWrites(user: User) = OWrites[Simul]: s =>
       Json.obj(
-        "id"       -> s.id,
-        "name"     -> s.name,
-        "isHost"   -> (s.hostId == user.id),
+        "id" -> s.id,
+        "name" -> s.name,
+        "isHost" -> (s.hostId == user.id),
         "variants" -> s.variants,
-        "score"    -> s.hostScore
+        "score" -> s.hostScore
       )
     given lightPlayerWrites: OWrites[lila.core.game.LightPlayer] = OWrites: p =>
       Json
@@ -71,21 +71,21 @@ final class JsonView(
 
     given OWrites[LightPov] = OWrites: p =>
       Json.obj(
-        "id"       -> p.game.id,
-        "color"    -> p.color,
-        "url"      -> s"/${p.game.id}/${p.color.name}",
+        "id" -> p.game.id,
+        "color" -> p.color,
+        "url" -> s"/${p.game.id}/${p.color.name}",
         "opponent" -> p.opponent
       )
     given Writes[FollowList] = Json.writes
-    given Writes[Follows]    = Json.writes
-    given Writes[Teams]      = Writes: s =>
+    given Writes[Follows] = Json.writes
+    given Writes[Teams] = Writes: s =>
       JsArray(s.value.flatMap(getLightTeam(_)).map { team =>
         Json.obj("url" -> s"/team/${team.id}", "name" -> team.name).add("flair" -> team.flair)
       })
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
-  private given OWrites[lila.core.study.IdName]                    = Json.writes
+  private given OWrites[lila.core.study.IdName] = Json.writes
   def apply(a: ActivityView, user: User)(using Lang): Fu[JsObject] =
     fuccess:
       Json
@@ -100,8 +100,8 @@ final class JsonView(
           "practice",
           a.practice.map(_.toList.sortBy(-_._2).map { (study, nb) =>
             Json.obj(
-              "url"         -> s"/practice/-/${study.slug}/${study.id}",
-              "name"        -> study.name,
+              "url" -> s"/practice/-/${study.slug}/${study.id}",
+              "name" -> study.name,
               "nbPositions" -> nb
             )
           })
@@ -124,11 +124,11 @@ final class JsonView(
         .add("teams" -> a.teams)
         .add("posts" -> a.forumPosts.map(_.map { (topic, posts) =>
           Json.obj(
-            "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
+            "topicUrl" -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,
-            "posts"     -> posts.map { p =>
+            "posts" -> posts.map { p =>
               Json.obj(
-                "url"  -> s"/forum/redirect/post/${p.id}",
+                "url" -> s"/forum/redirect/post/${p.id}",
                 "text" -> p.text.take(500)
               )
             }

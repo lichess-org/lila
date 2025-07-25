@@ -11,7 +11,7 @@ final class Feed(env: Env) extends LilaController(env):
   def index(page: Int) = Open: ctx ?=>
     Reasonable(page):
       for
-        updates      <- env.feed.paginator.recent(isGrantedOpt(_.Feed), page)
+        updates <- env.feed.paginator.recent(isGrantedOpt(_.Feed), page)
         renderedPage <- renderPage(views.feed.index(updates))
       yield Ok(renderedPage)
 

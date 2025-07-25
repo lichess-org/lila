@@ -8,12 +8,12 @@ import lila.user.AuthData
 
 class AuthTest extends munit.FunSuite:
 
-  given Conversion[String, UserId]           = UserId(_)
-  given Executor                             = scala.concurrent.ExecutionContextOpportunistic
-  given lila.core.config.RateLimit           = lila.core.config.RateLimit.No
+  given Conversion[String, UserId] = UserId(_)
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
+  given lila.core.config.RateLimit = lila.core.config.RateLimit.No
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
-  val secret                                    = Secret(Array.fill(32)(1.toByte).toBase64)
+  val secret = Secret(Array.fill(32)(1.toByte).toBase64)
   final def getAuth(passHasher: PasswordHasher) =
     new Authenticator(
       passHasher = passHasher,

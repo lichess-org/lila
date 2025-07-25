@@ -35,9 +35,9 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
             List(PipelineOperator($doc("$sortByCount" -> "$fed")))
         .map: objs =>
           for
-            obj       <- objs
-            code      <- obj.getAsOpt[Federation.Id]("_id")
-            name      <- lila.fide.Federation.names.get(code)
+            obj <- objs
+            code <- obj.getAsOpt[Federation.Id]("_id")
+            name <- lila.fide.Federation.names.get(code)
             nbPlayers <- obj.int("count")
             if nbPlayers >= 5
           yield (code, name, nbPlayers)
@@ -47,7 +47,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
           .aggregateOne(_.sec): framework =>
             import framework.*
             val facets = for
-              tc    <- FideTC.values.toList
+              tc <- FideTC.values.toList
               facet <- List(
                 "top" -> List(
                   Project($doc("_id" -> 0, tc.toString -> 1)),
@@ -99,7 +99,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
   private object playersFromHttpFile:
     def apply(): Funit = for
       httpStream <- ws.url(listUrl).stream()
-      _          <-
+      _ <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
         else
@@ -131,19 +131,19 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     private def parseLine(line: String): Option[FidePlayer] =
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
-      def rating(start: Int)           = Elo.from(number(start, start + 4).filter(_ >= 1400))
-      def kFactor(start: Int)          = KFactor.from(number(start, start + 2).filter(_ > 0))
-      val nowYear                      = nowDateTime.getYear
+      def rating(start: Int) = Elo.from(number(start, start + 4).filter(_ >= 1400))
+      def kFactor(start: Int) = KFactor.from(number(start, start + 2).filter(_ > 0))
+      val nowYear = nowDateTime.getYear
       for
-        id    <- number(0, 15)
+        id <- number(0, 15)
         name1 <- string(15, 76)
         name = name1.trim
         if name.sizeIs > 2
-        title  = string(84, 89).flatMap(PlayerTitle.get)
+        title = string(84, 89).flatMap(PlayerTitle.get)
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
-        year   = number(152, 156).filter(_ > 1000).filter(_ < nowYear)
-        flags  = string(158, 160)
-        token  = FidePlayer.tokenize(name)
+        year = number(152, 156).filter(_ > 1000).filter(_ < nowYear)
+        flags = string(158, 160)
+        token = FidePlayer.tokenize(name)
         if token.sizeIs > 2
       yield FidePlayer(
         id = FideId(id),
@@ -166,7 +166,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         .fetch(players.map(_.id))
         .flatMap: inDb =>
           val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
-          val changed                          = players.filter: p =>
+          val changed = players.filter: p =>
             inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)

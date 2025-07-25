@@ -10,10 +10,10 @@ object RageSit:
   object extensions:
     extension (a: RageSit)
       inline def counter: Int = a.value
-      def isBad               = a.value <= -40
-      def isVeryBad           = a.value <= -80
-      def isTerrible          = a.value <= -160
-      def isLethal            = a.value <= -200
+      def isBad = a.value <= -40
+      def isVeryBad = a.value <= -80
+      def isTerrible = a.value <= -160
+      def isLethal = a.value <= -200
 
   val empty = lila.core.playban.RageSit(0)
 
@@ -27,9 +27,9 @@ object RageSit:
       import chess.variant.*
       (game.chess.position.materialImbalance, game.variant) match
         case (_, Crazyhouse | Horde | Antichess) => 0
-        case (a, _) if a >= 4                    => 1
-        case (a, _) if a <= -4                   => -1
-        case _                                   => 0
+        case (a, _) if a >= 4 => 1
+        case (a, _) if a <= -4 => -1
+        case _ => 0
     } * {
       if loser.white then 1 else -1
     } * {
@@ -41,6 +41,6 @@ object RageSit:
   def redeem(game: Game) = Update.Inc:
     game.speed match
       case s if s < Speed.Bullet => 0
-      case Speed.Bullet          => ThreadLocalRandom.nextInt(2)
-      case Speed.Blitz           => 1
-      case _                     => 2
+      case Speed.Bullet => ThreadLocalRandom.nextInt(2)
+      case Speed.Blitz => 1
+      case _ => 2

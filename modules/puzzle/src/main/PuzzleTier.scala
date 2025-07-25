@@ -1,7 +1,7 @@
 package lila.puzzle
 
 enum PuzzleTier:
-  def key      = toString
+  def key = toString
   def stepDown = PuzzleTier.stepDown(this)
   case top, good, all
 

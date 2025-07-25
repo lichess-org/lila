@@ -73,7 +73,7 @@ private object ChallengeJoiner:
         clock = tc.realTime.map(_.toClock)
       )
       if variant.fromPosition && Fen.write(game).isInitial then makeChess(chess.variant.Standard) -> none
-      else game                                                                                   -> baseState
+      else game -> baseState
 
   def addGameHistory(position: Option[Position.AndFullMoveNumber])(game: Game): Game =
     position.fold(game): sp =>

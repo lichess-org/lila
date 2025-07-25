@@ -15,7 +15,7 @@ import ScalatagsTemplate.{ *, given }
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
-  val empty           = FormPrefix(none)
+  val empty = FormPrefix(none)
   def make(s: String) = FormPrefix(s.some)
 
 extension (f: Form[?])
@@ -31,7 +31,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
 
   def create(form: Form[?], leaderTeams: List[LightTeam])(using Context) =
     given prefix: FormPrefix = FormPrefix.empty
-    val fields               = tourFields(form, none)
+    val fields = tourFields(form, none)
     Page(trans.site.newTournament.txt())
       .css("tournament.form", "bits.page")
       .js(Esm("bits.tourForm")):
@@ -45,8 +45,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               div(cls := "form-group")(
                 a(
                   dataIcon := Icon.InfoCircle,
-                  cls      := "text",
-                  href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
+                  cls := "text",
+                  href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
               ),
               setupCreate(form, leaderTeams),
@@ -136,7 +136,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         fields.entryCode,
         (tour.isEmpty && teams.nonEmpty).option {
           val baseField = form.prefix("conditions.teamMember.teamId")
-          val field     = ctx.req.queryString
+          val field = ctx.req.queryString
             .get("team")
             .flatMap(_.headOption)
             .foldLeft(baseField): (field, team) =>
@@ -262,8 +262,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               h1("Tournament manager"),
               div(cls := "box__top__actions")(
                 a(
-                  cls      := "button button-green",
-                  href     := routes.TournamentCrud.form,
+                  cls := "button button-green",
+                  href := routes.TournamentCrud.form,
                   dataIcon := Icon.PlusButton
                 )
               )
@@ -295,9 +295,9 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
                     td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                     td(
                       a(
-                        href     := routes.Tournament.show(tour.id),
+                        href := routes.Tournament.show(tour.id),
                         dataIcon := Icon.Eye,
-                        title    := "View on site"
+                        title := "View on site"
                       )
                     )
                   ),
@@ -316,7 +316,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               span("Created by ", titleNameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
             ),
             st.form(
-              cls    := "box__top__actions",
+              cls := "box__top__actions",
               action := routes.TournamentCrud.cloneT(tour.id),
               method := "get"
             )(form3.submit("Clone", Icon.Trophy.some)(cls := "button-green button-empty"))

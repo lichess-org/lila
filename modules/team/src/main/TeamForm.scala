@@ -83,7 +83,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
   val processRequest = Form:
     tuple(
       "process" -> nonEmptyText,
-      "url"     -> nonEmptyText
+      "url" -> nonEmptyText
     )
 
   val selectMember = Form:
@@ -157,7 +157,7 @@ private[team] case class RequestSetup(
 object TeamForm:
   object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
-    val password                  = "password" -> optional(cleanText(maxLength = 60))
+    val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",
       pw => team.passwordMatches(pw.so(_.trim))
@@ -171,13 +171,13 @@ object TeamForm:
       "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
       "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
-    val request                            = "request"     -> boolean
-    val gameId                             = "gameId"      -> of[GameId]
-    val move                               = "move"        -> text
+    val request = "request" -> boolean
+    val gameId = "gameId" -> of[GameId]
+    val move = "move" -> text
     private def inAccess(cs: List[Access]) = numberIn(cs.map(_.id)).transform[Access](Access.byId, _.id)
-    val chat                               = "chat"        -> inAccess(Access.allInTeam)
-    val forum                              = "forum"       -> inAccess(Access.all)
-    val hideMembers                        = "hideMembers" -> boolean
+    val chat = "chat" -> inAccess(Access.allInTeam)
+    val forum = "forum" -> inAccess(Access.all)
+    val hideMembers = "hideMembers" -> boolean
 
 object TeamSingleChange:
 

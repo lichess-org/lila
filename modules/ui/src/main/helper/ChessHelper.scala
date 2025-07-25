@@ -16,17 +16,17 @@ trait ChessHelper:
 
   export ChessHelper.*
 
-  private val cgWrap      = div(cls := "cg-wrap")
+  private val cgWrap = div(cls := "cg-wrap")
   private val cgContainer = tag("cg-container")
-  private val cgBoard     = tag("cg-board")
-  private val dataState   = attr("data-state")
-  val cgWrapContent       = cgContainer(cgBoard)
+  private val cgBoard = tag("cg-board")
+  private val dataState = attr("data-state")
+  val cgWrapContent = cgContainer(cgBoard)
 
   def chessgroundMini(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None)(
       tag: Tag
   ): Tag =
     tag(
-      cls       := "mini-board mini-board--init cg-wrap is2d",
+      cls := "mini-board mini-board--init cg-wrap is2d",
       dataState := s"${fen.value},${color.name},${lastMove.so(_.uci)}"
     )(cgWrapContent)
 
@@ -42,9 +42,9 @@ trait ChessHelper:
         raw:
           if pref.is3d then ""
           else
-            def top(p: Square)  = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
+            def top(p: Square) = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
             def left(p: Square) = orient.fold(p.file.value, 7 - p.file.value) * 12.5
-            val highlights      = pref.highlight
+            val highlights = pref.highlight
               .so(lastMove.distinct.map { pos =>
                 s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
               })

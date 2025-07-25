@@ -44,13 +44,13 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   def render(p: CmsPage.RenderOpt)(using Context): Frag =
     p.render match
       case Some(r) => render(r)
-      case None    =>
+      case None =>
         Granter
           .opt(_.Pages)
           .option(
             a(
-              href     := routes.Cms.createForm(p.key.some),
-              cls      := "button button-empty text",
+              href := routes.Cms.createForm(p.key.some),
+              cls := "button button-empty text",
               dataIcon := Icon.Pencil
             )("Create this page")
           )
@@ -60,8 +60,8 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
       .opt(_.Pages)
       .option(
         a(
-          href     := routes.Cms.edit(p),
-          cls      := "button button-empty text",
+          href := routes.Cms.edit(p),
+          cls := "button button-empty text",
           dataIcon := Icon.Pencil
         )("Edit")
       )
@@ -81,8 +81,8 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           div(cls := "box__top__actions")(
             input(cls := "cms__pages__search", placeholder := trans.search.search.txt(), autofocus),
             a(
-              href     := routes.Cms.createForm(none),
-              cls      := "button button-green",
+              href := routes.Cms.createForm(none),
+              cls := "button button-green",
               dataIcon := Icon.PlusButton
             )
           )
@@ -141,8 +141,8 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.key),
           div(cls := "box__top__actions"):
             a(
-              href     := page.canonicalPath.getOrElse(routes.Cms.lonePage(page.key).url),
-              cls      := "button button-green",
+              href := page.canonicalPath.getOrElse(routes.Cms.lonePage(page.key).url),
+              cls := "button button-green",
               dataIcon := Icon.Eye
             )
         ),

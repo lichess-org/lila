@@ -26,7 +26,7 @@ case class Team(
     flair: Option[Flair]
 ):
 
-  inline def slug     = id
+  inline def slug = id
   inline def disabled = !enabled
 
   def isChatFor(f: Access.type => Access) =
@@ -49,7 +49,7 @@ object Team:
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
     def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.hasPerm(_.Admin))
-    def publicLeaders   = leaders.filter(_.hasPerm(_.Public))
+    def publicLeaders = leaders.filter(_.hasPerm(_.Public))
 
   case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
 
@@ -65,8 +65,8 @@ object Team:
       v.key -> LightTeam(nameToId(name), name, none)
   }.toMap
 
-  val maxLeaders      = Max(10)
-  val maxJoin         = Max(50)
+  val maxLeaders = Max(10)
+  val maxJoin = Max(50)
   val verifiedMaxJoin = Max(150)
 
   def maxJoin(u: User): Max =
@@ -86,10 +86,10 @@ object Team:
         value.contains(s"$separator$teamId$separator")
 
     def toArray: Array[TeamId] = TeamId.from(value.split(IdsStr.separator))
-    def toList                 = value.nonEmpty.so(toArray.toList)
-    def toSet                  = value.nonEmpty.so(toArray.toSet)
-    def size                   = value.count(_ == separator) + 1
-    def nonEmpty               = value.nonEmpty
+    def toList = value.nonEmpty.so(toArray.toList)
+    def toSet = value.nonEmpty.so(toArray.toSet)
+    def size = value.count(_ == separator) + 1
+    def nonEmpty = value.nonEmpty
 
   object IdsStr:
 

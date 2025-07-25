@@ -45,7 +45,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
       .path:
         _.aggregateOne(_.pri): framework =>
           import framework.*
-          val rating     = perf.glicko.intRating.map(_ + difficulty.ratingDelta)
+          val rating = perf.glicko.intRating.map(_ + difficulty.ratingDelta)
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
           Match(
             select(angle, actualTier, (rating.value - ratingFlex) to (rating.value + ratingFlex)) ++
@@ -56,7 +56,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
           )
         .dmap(_.flatMap(_.getAsOpt[Id]("_id")))
       .flatMap:
-        case Some(path)                        => fuccess(path.some)
+        case Some(path) => fuccess(path.some)
         case _ if actualTier == PuzzleTier.top =>
           nextFor(requester)(angle, PuzzleTier.good, difficulty, previousPaths)
         case _ if actualTier == PuzzleTier.good && compromise == 2 =>

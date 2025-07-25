@@ -82,8 +82,8 @@ final class AccountSecurity(helpers: Helpers)(
               (s.session != cur).option(
                 postForm(action := routes.Account.signout(s.session.id.value))(
                   submitButton(
-                    cls      := "button button-red",
-                    title    := trans.site.logOut.txt(),
+                    cls := "button button-red",
+                    title := trans.site.logOut.txt(),
                     dataIcon := Icon.X
                   )
                 )
@@ -114,7 +114,7 @@ final class AccountSecurity(helpers: Helpers)(
           ),
           td(
             postForm(action := routes.OAuth.revokeClient)(
-              input(tpe        := "hidden", name             := "origin", value    := client.origin),
+              input(tpe := "hidden", name := "origin", value := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := Icon.X)
             )
           )
@@ -129,9 +129,9 @@ final class AccountSecurity(helpers: Helpers)(
           ),
           td(
             a(
-              href     := routes.OAuthToken.index,
-              cls      := "button",
-              title    := trans.oauthScope.apiAccessTokens.txt(),
+              href := routes.OAuthToken.index,
+              cls := "button",
+              title := trans.oauthScope.apiAccessTokens.txt(),
               dataIcon := Icon.Gear
             )
           )

@@ -26,7 +26,7 @@ final class DisposableEmailDomain(
       }
       checked <- verifyMailBlocked()
     do
-      val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
+      val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
       val nbDomains = regexStr.count('|' ==)
       lila.mon.email.disposableDomain.update(nbDomains)
       regex = finalizeRegex(s"$staticRegex|$regexStr")
@@ -55,12 +55,12 @@ private object DisposableEmailDomain:
     def withoutSubdomainOpt: Option[Domain] =
       a.value.split('.').toList.reverse match
         case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
-        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
-        case _                                            => none
+        case tld :: sld :: _ => Domain.from(s"$sld.$tld")
+        case _ => none
     def withoutSubdomain: Domain = withoutSubdomainOpt | a
 
   def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.lower)
-  def isOutlook(domain: Domain)   = outlookDomains.contains(domain.withoutSubdomain.lower)
+  def isOutlook(domain: Domain) = outlookDomains.contains(domain.withoutSubdomain.lower)
 
   private val mxRecordPasslist =
     Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))

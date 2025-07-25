@@ -37,8 +37,8 @@ object SwissCondition:
       list
         .parallel:
           case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
-          case c: MaxRating  => c(perfType).map(c.withVerdict)
-          case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+          case c: MaxRating => c(perfType).map(c.withVerdict)
+          case c: FlatCond => fuccess(c.withVerdict(c(perfType)))
           case c: AccountAge => c.apply.map { c.withVerdict(_) }
         .dmap(WithVerdicts.apply)
 
@@ -47,7 +47,7 @@ object SwissCondition:
     def isDefault = this == All.empty
 
   object All:
-    val empty       = All(none, none, none, none, none, none, PlayYourGames.some)
+    val empty = All(none, none, none, none, none, none, PlayYourGames.some)
     given Zero[All] = Zero(empty)
 
   final class Verify(historyApi: lila.core.history.HistoryApi, banApi: SwissBanApi, userApi: UserApi)(using
@@ -55,8 +55,8 @@ object SwissCondition:
   ):
     def apply(swiss: Swiss)(using me: LightUser.Me)(using Perf): Fu[WithVerdicts] =
       val getBan: GetBannedUntil = banApi.bannedUntil
-      given GetMaxRating         = historyApi.lastWeekTopRating(me.userId, _)
-      given GetAge               = me => userApi.accountAge(me.userId)
+      given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
+      given GetAge = me => userApi.accountAge(me.userId)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getBan)
 
   object form:
@@ -65,12 +65,12 @@ object SwissCondition:
 
     def all =
       mapping(
-        "nbRatedGame"   -> nbRatedGame,
-        "maxRating"     -> maxRating,
-        "minRating"     -> minRating,
-        "titled"        -> titled,
-        "accountAge"    -> accountAge,
-        "allowList"     -> allowList,
+        "nbRatedGame" -> nbRatedGame,
+        "maxRating" -> maxRating,
+        "minRating" -> minRating,
+        "titled" -> titled,
+        "accountAge" -> accountAge,
+        "allowList" -> allowList,
         "playYourGames" -> optional(boolean)
           .transform(_.contains(true).option(PlayYourGames), _.isDefined.option(true))
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)

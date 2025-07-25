@@ -53,16 +53,16 @@ final private class GameProxy(
   def withGame[A](f: Game => Fu[A]): Fu[A] =
     cache.value match
       case Some(Success(Some(g))) => f(g)
-      case Some(Success(None))    => fufail(s"No proxy game: $id")
-      case _                      =>
+      case Some(Success(None)) => fufail(s"No proxy game: $id")
+      case _ =>
         cache.flatMap:
-          case None    => fufail(s"No proxy game: $id")
+          case None => fufail(s"No proxy game: $id")
           case Some(g) => f(g)
 
   def withGameOptionSync[A](f: Game => A): Option[A] =
     cache.value match
       case Some(Success(Some(g))) => Some(f(g))
-      case _                      => None
+      case _ => None
 
   def terminate() = flushProgress()
 
@@ -75,7 +75,7 @@ final private class GameProxy(
   // internals
 
   private var dirtyProgress: Option[Progress] = None
-  private var scheduledFlush: Cancellable     = emptyCancellable
+  private var scheduledFlush: Cancellable = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
     p.statusChanged || p.game.isSimul || (p.game.hasCorrespondenceClock && p.game.rated.yes)
@@ -96,5 +96,5 @@ private object GameProxy:
   private val scheduleDelay = 30.seconds
 
   private val emptyCancellable = new Cancellable:
-    def cancel()    = true
+    def cancel() = true
     def isCancelled = true

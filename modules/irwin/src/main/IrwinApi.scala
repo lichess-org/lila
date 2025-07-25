@@ -74,8 +74,8 @@ final class IrwinApi(
         else if report.activation >= thresholds.get().report then
           for
             suspect <- getSuspect(report.suspectId.value)
-            irwin   <- userApi.byId(UserId.irwin).orFail("Irwin user not found").dmap(Mod.apply)
-            _       <- reportApi.create(
+            irwin <- userApi.byId(UserId.irwin).orFail("Irwin user not found").dmap(Mod.apply)
+            _ <- reportApi.create(
               Report.Candidate(
                 reporter = Reporter(irwin.user),
                 suspect = suspect,
@@ -99,7 +99,7 @@ final class IrwinApi(
       suspect.user.noBot.so:
         for
           analyzed <- getAnalyzedGames(suspect, 15)
-          more     <- getMoreGames(suspect, 20 - analyzed.size)
+          more <- getMoreGames(suspect, 20 - analyzed.size)
           all = analyzed.map { (game, analysis) =>
             game -> analysis.some
           } ::: more.map(_ -> none)

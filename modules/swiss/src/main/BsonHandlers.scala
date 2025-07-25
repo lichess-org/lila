@@ -10,8 +10,8 @@ import lila.db.dsl.{ *, given }
 object BsonHandlers:
 
   given BSONHandler[chess.variant.Variant] = variantByKeyHandler
-  given BSONHandler[chess.Clock.Config]    = clockConfigHandler
-  given BSONHandler[SwissPoints]           = intAnyValHandler(_.doubled, SwissPoints.fromDoubled)
+  given BSONHandler[chess.Clock.Config] = clockConfigHandler
+  given BSONHandler[SwissPoints] = intAnyValHandler(_.doubled, SwissPoints.fromDoubled)
 
   given BSON[SwissPlayer] with
     import SwissPlayer.Fields.*
@@ -31,17 +31,17 @@ object BsonHandlers:
       )
     def writes(w: BSON.Writer, o: SwissPlayer) =
       $doc(
-        id          -> o.id,
-        swissId     -> o.swissId,
-        userId      -> o.userId,
-        rating      -> o.rating,
+        id -> o.id,
+        swissId -> o.swissId,
+        userId -> o.userId,
+        rating -> o.rating,
         provisional -> w.yesnoO(o.provisional),
-        points      -> o.points,
-        tieBreak    -> o.tieBreak,
+        points -> o.points,
+        tieBreak -> o.tieBreak,
         performance -> o.performance,
-        score       -> o.score,
-        absent      -> w.boolO(o.absent),
-        byes        -> o.byes.some.filter(_.nonEmpty)
+        score -> o.score,
+        absent -> w.boolO(o.absent),
+        byes -> o.byes.some.filter(_.nonEmpty)
       )
 
   /* true = ongoing
@@ -51,14 +51,14 @@ object BsonHandlers:
    */
   given BSONHandler[SwissPairing.Status] = lila.db.dsl.quickHandler(
     {
-      case BSONBoolean(true)  => Left(SwissPairing.Ongoing)
+      case BSONBoolean(true) => Left(SwissPairing.Ongoing)
       case BSONInteger(index) => Right(Color.fromWhite(index == 0).some)
-      case _                  => Right(none)
+      case _ => Right(none)
     },
     {
-      case Left(_)        => BSONBoolean(true)
+      case Left(_) => BSONBoolean(true)
       case Right(Some(c)) => BSONInteger(c.fold(0, 1))
-      case _              => BSONNull
+      case _ => BSONNull
     }
   )
   given BSON[SwissPairing] with
@@ -78,11 +78,11 @@ object BsonHandlers:
         case _ => sys.error("Invalid swiss pairing users")
     def writes(w: BSON.Writer, o: SwissPairing) =
       $doc(
-        id        -> o.id,
-        swissId   -> o.swissId,
-        round     -> o.round,
-        players   -> o.players,
-        status    -> o.status,
+        id -> o.id,
+        swissId -> o.swissId,
+        round -> o.round,
+        players -> o.players,
+        status -> o.status,
         isForfeit -> w.boolO(o.isForfeit)
       )
 
@@ -104,14 +104,14 @@ object BsonHandlers:
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
-        "n"  -> s.nbRounds,
-        "r"  -> s.rated.no.option(false),
-        "d"  -> s.description,
-        "f"  -> s.position,
-        "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
-        "i"  -> s.roundInterval.toSeconds.toInt,
-        "p"  -> s.password,
-        "o"  -> s.conditions,
+        "n" -> s.nbRounds,
+        "r" -> s.rated.no.option(false),
+        "d" -> s.description,
+        "f" -> s.position,
+        "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
+        "i" -> s.roundInterval.toSeconds.toInt,
+        "p" -> s.password,
+        "o" -> s.conditions,
         "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty),
         "mp" -> s.manualPairings.some.filter(_.nonEmpty)
       )
@@ -124,10 +124,10 @@ object BsonHandlers:
       s.isNotFinished.so(
         $doc(
           "featurable" -> true,
-          "garbage"    -> s.unrealisticSettings.option(true)
+          "garbage" -> s.unrealisticSettings.option(true)
         )
       )
     }
 
   given BSONDocumentHandler[lila.core.swiss.IdName] = Macros.handler
-  given BSONDocumentHandler[SwissBan]               = Macros.handler
+  given BSONDocumentHandler[SwissBan] = Macros.handler

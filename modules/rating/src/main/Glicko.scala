@@ -14,7 +14,7 @@ object GlickoExt:
 
     def intervalMin = (g.rating - g.deviation * 2).toInt
     def intervalMax = (g.rating + g.deviation * 2).toInt
-    def interval    = g.intervalMin -> g.intervalMax
+    def interval = g.intervalMin -> g.intervalMax
 
     def rankable(variant: chess.variant.Variant) =
       g.deviation <= {
@@ -43,13 +43,13 @@ object Glicko:
   val minRating: IntRating = IntRating(400)
   val maxRating: IntRating = IntRating(4000)
 
-  val minDeviation              = 45
-  val variantRankableDeviation  = 65
+  val minDeviation = 45
+  val variantRankableDeviation = 65
   val standardRankableDeviation = 75
-  val maxDeviation              = 500d
+  val maxDeviation = 500d
 
   // past this, it might not stabilize ever again
-  val maxVolatility     = 0.1d
+  val maxVolatility = 0.1d
   val defaultVolatility = 0.09d
 
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
@@ -59,7 +59,7 @@ object Glicko:
   val pairingDefault = new Glicko(1450d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
-  val defaultManaged       = new Glicko(800d, 400d, defaultVolatility)
+  val defaultManaged = new Glicko(800d, 400d, defaultVolatility)
   val defaultManagedPuzzle = new Glicko(800d, 400d, defaultVolatility)
 
   // bot accounts (usually a stockfish instance)
@@ -95,7 +95,7 @@ object Glicko:
     OWrites: p =>
       Json
         .obj(
-          "rating"    -> roundDownAt(p.rating, 2),
+          "rating" -> roundDownAt(p.rating, 2),
           "deviation" -> roundDownAt(p.deviation, 2)
         )
         .add("provisional" -> p.provisional)

@@ -11,7 +11,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
   def index = Auth { ctx ?=> me ?=>
     for
       tokens <- tokenApi.listPersonal
-      page   <- Ok.page(views.oAuth.token.index(tokens))
+      page <- Ok.page(views.oAuth.token.index(tokens))
     yield page.hasPersonalData
   }
 

@@ -26,20 +26,20 @@ final class TitleApi(
   given lila.db.BSON[Status] with
     def reads(r: lila.db.BSON.Reader) =
       r.str("n") match
-        case "pending"  => Status.pending(r.strD("t"))
+        case "pending" => Status.pending(r.strD("t"))
         case "approved" => Status.approved
         case "rejected" => Status.rejected
         case "feedback" => Status.feedback(r.str("t"))
         case "imported" => Status.imported
-        case _          => Status.building
+        case _ => Status.building
     def writes(w: lila.db.BSON.Writer, s: Status) =
       s.textOpt match
         case Some(t) => $doc("n" -> s.name, "t" -> t)
-        case None    => $doc("n" -> s.name)
-  private given BSONDocumentHandler[StatusAt]     = Macros.handler
+        case None => $doc("n" -> s.name)
+  private given BSONDocumentHandler[StatusAt] = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
-  private val statusField                         = "history.0.status"
-  private val updatedAtField                      = "history.0.at"
+  private val statusField = "history.0.status"
+  private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
     coll.find($doc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
@@ -90,7 +90,7 @@ final class TitleApi(
     val newReq = req.pushStatus(data.status)
     newReq.status match
       case Status.feedback(feedback) => sendFeedback(req.userId, feedback)
-      case _                         =>
+      case _ =>
     coll.update.one($id(req.id), newReq).inject(newReq)
 
   def tryAgain(req: TitleRequest) =
@@ -112,7 +112,7 @@ final class TitleApi(
         coll
           .find(
             $doc(
-              "userId"      -> id,
+              "userId" -> id,
               "data.public" -> true,
               "data.fideId".$exists(true),
               s"$statusField.n" -> Status.approved.toString
@@ -122,8 +122,8 @@ final class TitleApi(
           .one[Bdoc]
           .dmap: docOpt =>
             for
-              doc    <- docOpt
-              data   <- doc.child("data")
+              doc <- docOpt
+              data <- doc.child("data")
               fideId <- data.getAsOpt[FideId]("fideId")
             yield fideId
 
@@ -150,7 +150,7 @@ $baseUrl/verify-title
       else
         for
           image <- picfitApi.uploadFile(rel(req, tag), picture, userId = me.userId)
-          _     <- coll.updateField($id(req.id), tag, image.id)
+          _ <- coll.updateField($id(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 
     def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for

@@ -22,7 +22,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
         $push(
           $doc(
             s"${color.name}${(mode == CoordMode.nameSquare).so("NameSquare")}" -> $doc(
-              "$each"  -> $arr(hits),
+              "$each" -> $arr(hits),
               "$slice" -> -20
             )
           )

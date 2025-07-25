@@ -24,7 +24,7 @@ def communication(
         commUi.commsHeader(u, priv),
         isGranted(_.UserModView).option:
           frag(
-            div(cls                                           := "mod-zone mod-zone-full none"),
+            div(cls := "mod-zone mod-zone-full none"),
             views.user.mod.otherUsers(u, logins, appeals)(cls := "mod-zone communication__logins")
           )
         ,

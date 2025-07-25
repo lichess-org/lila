@@ -49,9 +49,9 @@ def player(
         "round",
         Json
           .obj(
-            "data"   -> data,
+            "data" -> data,
             "userId" -> ctx.userId,
-            "chat"   -> chatJson
+            "chat" -> chatJson
           )
           .add("noab" -> ctx.me.exists(_.marks.engine))
       )

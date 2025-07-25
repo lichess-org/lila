@@ -12,14 +12,14 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def simulNotFound(using Context) = NotFound.page(views.simul.ui.notFound)
 
-  def home     = Open(serveHome)
+  def home = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
     for
       (pending, created, started, finished) <- fetchSimuls
-      _                                     <- env.simul.api.checkOngoingSimuls(started)
-      page                                  <- Ok.page(views.simul.home(pending, created, started, finished))
+      _ <- env.simul.api.checkOngoingSimuls(started)
+      page <- Ok.page(views.simul.home(pending, created, started, finished))
     yield page
 
   val apiList = OpenOrScoped(): ctx ?=>
@@ -46,11 +46,11 @@ final class Simul(env: Env) extends LilaController(env):
           WithMyPerf(sim.mainPerfType):
             for
               verdicts <- env.simul.api.getVerdicts(sim)
-              version  <- env.simul.version(sim.id)
-              json     <- env.simul.jsonView(sim, verdicts)
-              chat     <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
-              stream   <- env.streamer.liveStreamApi.one(sim.hostId)
-              page     <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
+              version <- env.simul.version(sim.id)
+              json <- env.simul.jsonView(sim, verdicts)
+              chat <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
+              stream <- env.streamer.liveStreamApi.one(sim.hostId)
+              page <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
             yield Ok(page).noCache
 
   private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
@@ -109,7 +109,7 @@ final class Simul(env: Env) extends LilaController(env):
     NoLameOrBot:
       for
         teams <- env.team.api.lightsOf(me)
-        res   <- bindForm(forms.create(teams))(
+        res <- bindForm(forms.create(teams))(
           err => BadRequest.page(views.simul.form.create(err, teams)),
           setup =>
             for simul <- env.simul.api.create(setup)

@@ -19,9 +19,9 @@ final class TournamentCache(
         .maximumSize(256)
         .buildAsyncFuture(tournamentRepo.byId)
     export cache.get as byId
-    def clear(id: TourId)     = cache.invalidate(id)
-    def created(id: TourId)   = byId(id).dmap(_.filter(_.isCreated))
-    def started(id: TourId)   = byId(id).dmap(_.filter(_.isStarted))
+    def clear(id: TourId) = cache.invalidate(id)
+    def created(id: TourId) = byId(id).dmap(_.filter(_.isCreated))
+    def started(id: TourId) = byId(id).dmap(_.filter(_.isStarted))
     def enterable(id: TourId) = byId(id).dmap(_.filter(_.isEnterable))
 
   val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](

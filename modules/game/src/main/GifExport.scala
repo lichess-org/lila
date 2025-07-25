@@ -25,7 +25,7 @@ final class GifExport(
     url: String
 )(using Executor):
   private val targetMedianTime = Centis(80)
-  private val targetMaxTime    = Centis(200)
+  private val targetMaxTime = Centis(200)
 
   def fromPov(
       pov: Pov,
@@ -47,10 +47,10 @@ final class GifExport(
             ),
             "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
             "orientation" -> pov.color.name,
-            "delay"       -> targetMedianTime.centis, // default delay for frames
-            "frames"      -> frames(pov.game, initialFen),
-            "theme"       -> theme,
-            "piece"       -> piece
+            "delay" -> targetMedianTime.centis, // default delay for frames
+            "frames" -> frames(pov.game, initialFen),
+            "theme" -> theme,
+            "piece" -> piece
           )
         )
         .stream()).pipe(upstreamResponse(s"pov ${pov.game.id}"))
@@ -82,10 +82,10 @@ final class GifExport(
       .withMethod("GET")
       .withQueryStringParameters(
         List(
-          "fen"         -> Fen.write(position).value,
+          "fen" -> Fen.write(position).value,
           "orientation" -> orientation.name,
-          "theme"       -> theme,
-          "piece"       -> piece
+          "theme" -> theme,
+          "piece" -> piece
         ) ::: List(
           white.map { "white" -> _ },
           black.map { "black" -> _ },
@@ -138,7 +138,7 @@ final class GifExport(
   private def frame(position: Position, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
-        "fen"      -> (Fen.write(position)),
+        "fen" -> (Fen.write(position)),
         "lastMove" -> uci.map(_.uci)
       )
       .add("check", position.checkSquare.map(_.key))

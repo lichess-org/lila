@@ -23,7 +23,7 @@ final class Mailer(
   private given blockingExecutor: Executor =
     system.dispatchers.lookup("blocking-smtp-dispatcher")
 
-  private val primaryClient   = SMTPMailer(config.primary.toClientConfig)
+  private val primaryClient = SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
 
   private def randomClientFor(recipient: EmailAddress): (SMTPMailer, Mailer.Smtp) =
@@ -48,7 +48,7 @@ final class Mailer(
     else
       Future:
         val (client, config) = randomClientFor(msg.to)
-        val email            = Email(
+        val email = Email(
           subject = msg.subject,
           from = config.sender,
           to = Seq(msg.to.value),
@@ -65,7 +65,7 @@ final class Mailer(
           case e: Exception =>
             retry.again match
               case None if orFail => throw e
-              case None           =>
+              case None =>
                 logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
                 funit
               case Some(nextTry) =>
@@ -125,22 +125,22 @@ $serviceNote"""
   object html:
 
     private val itemscope = attr("itemscope").empty
-    private val itemtype  = attr("itemtype")
-    private val itemprop  = attr("itemprop")
+    private val itemtype = attr("itemtype")
+    private val itemprop = attr("itemprop")
 
-    val emailMessage    = div(itemscope, itemtype := "http://schema.org/EmailMessage")
-    val pDesc           = p(itemprop := "description")
+    val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
+    val pDesc = p(itemprop := "description")
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
-    val publisher   = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
       span(itemprop := "name")("lichess.org/contact")
     )
 
     private val noteLink = a(
       itemprop := "url",
-      href     := "https://lichess.org/"
+      href := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
     def serviceNote(using Translate) =
@@ -177,7 +177,7 @@ $serviceNote"""
         htmlTag(
           head(
             meta(httpEquiv := "Content-Type", content := "text/html; charset=utf-8"),
-            meta(name      := "viewport", content     := "width=device-width"),
+            meta(name := "viewport", content := "width=device-width"),
             titleTag(subject)
           ),
           body(htmlBody)

@@ -50,9 +50,9 @@ final class Env(
 
   private lazy val socket: StudySocket = wire[StudySocket]
 
-  val studyRepo             = StudyRepo(studyDb(CollName("study")))
-  val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
-  private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
+  val studyRepo = StudyRepo(studyDb(CollName("study")))
+  val chapterRepo = ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  private val topicRepo = StudyTopicRepo(studyDb(CollName("study_topic")))
   private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
@@ -109,7 +109,7 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
       studyIds <- studyRepo.deletePrivateByOwner(del.id)
-      _        <- chapterRepo.deleteByStudyIds(studyIds)
-      _        <- studyRepo.anonymizeAllOf(del.id)
-      _        <- topicApi.userTopicsDelete(del.id)
+      _ <- chapterRepo.deleteByStudyIds(studyIds)
+      _ <- studyRepo.anonymizeAllOf(del.id)
+      _ <- topicApi.userTopicsDelete(del.id)
     yield ()

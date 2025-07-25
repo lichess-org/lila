@@ -56,11 +56,11 @@ enum Propagation extends NotBuseable:
 import Propagation.*
 
 case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
-  def toUsers(ids: List[UserId])       = add(Users(ids))
-  def toUser(id: UserId)               = add(Users(List(id)))
-  def toFollowersOf(id: UserId)        = add(Followers(id))
-  def toFriendsOf(id: UserId)          = add(Friends(id))
+  def toUsers(ids: List[UserId]) = add(Users(ids))
+  def toUser(id: UserId) = add(Users(List(id)))
+  def toFollowersOf(id: UserId) = add(Followers(id))
+  def toFriendsOf(id: UserId) = add(Friends(id))
   def withTeam(teamId: Option[TeamId]) = teamId.fold(this)(id => add(WithTeam(id)))
-  def exceptUser(id: UserId)           = add(ExceptUser(id))
-  def modsOnly(value: Boolean)         = add(ModsOnly(value))
-  private def add(p: Propagation)      = copy(propagations = p :: propagations)
+  def exceptUser(id: UserId) = add(ExceptUser(id))
+  def modsOnly(value: Boolean) = add(ModsOnly(value))
+  private def add(p: Propagation) = copy(propagations = p :: propagations)

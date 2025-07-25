@@ -6,7 +6,7 @@ import lila.core.net.{ UserAgent, LichessMobileVersion }
 import LichessMobileVersion.given
 
 final private case class Device(
-    _id: String,      // Firebase token
+    _id: String, // Firebase token
     platform: String, // cordova platform (android, ios, firebase)
     userId: UserId,
     seenAt: Instant,
@@ -23,4 +23,4 @@ final private case class Device(
 
   def deviceId = platform match
     case "ios" => _id.grouped(8).mkString("<", " ", ">")
-    case _     => _id
+    case _ => _id

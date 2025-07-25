@@ -15,9 +15,9 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   import ModPresets.setting.given
 
   def get(group: String): Option[SettingStore[ModPresets]] = group match
-    case "PM"     => pmPresets.some
+    case "PM" => pmPresets.some
     case "appeal" => appealPresets.some
-    case _        => none
+    case _ => none
 
   def getPmPresets(using Me): ModPresets =
     ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
@@ -38,17 +38,17 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   )
 
 case class ModPresets(value: List[ModPreset]):
-  def named(name: String)                            = value.find(_.name == name)
+  def named(name: String) = value.find(_.name == name)
   def byPermission: Map[Permission, List[ModPreset]] =
     value.flatMap(v => v.permissions.map(_ -> v)).groupBy(_._1).view.mapValues(_.map(_._2)).toMap
 
 case class ModPreset(name: String, text: String, permissions: Set[Permission]):
-  def isNameClose       = name.contains(ModPresets.nameClosePresetName)
+  def isNameClose = name.contains(ModPresets.nameClosePresetName)
   override def toString = name
 
 object ModPresets:
 
-  val groups              = List("PM", "appeal")
+  val groups = List("PM", "appeal")
   val nameClosePresetName = "Account closure for name in 48h"
 
   private[mod] object setting:
@@ -84,9 +84,9 @@ object ModPresets:
       val roles = RoleDbKey.from(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList)
       Permission.ofDbKeys(roles) match
         case set if set.nonEmpty => set
-        case _                   => Set(Permission.Admin)
+        case _ => Set(Permission.Admin)
 
     given Iso.StringIso[ModPresets] = Iso.string(read, write)
-    given BSONHandler[ModPresets]   = lila.db.dsl.isoHandler
-    given StringReader[ModPresets]  = StringReader.fromIso
-    given Formable[ModPresets]      = Formable(presets => Form(single("v" -> text)).fill(write(presets)))
+    given BSONHandler[ModPresets] = lila.db.dsl.isoHandler
+    given StringReader[ModPresets] = StringReader.fromIso
+    given Formable[ModPresets] = Formable(presets => Form(single("v" -> text)).fill(write(presets)))

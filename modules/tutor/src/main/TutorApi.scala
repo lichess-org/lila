@@ -20,10 +20,10 @@ final class TutorApi(
       .flatMap:
         case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
         case Some(report) => queue.status(user).dmap(some).map { TutorFullReport.Available(report, _) }
-        case None         =>
+        case None =>
           builder.eligiblePerfKeysOf(user) match
             case Nil => fuccess(TutorFullReport.InsufficientGames)
-            case _   => queue.status(user).map(TutorFullReport.Empty.apply)
+            case _ => queue.status(user).map(TutorFullReport.Empty.apply)
 
   def request(user: User, availability: TutorFullReport.Availability): Fu[TutorFullReport.Availability] =
     availability match
@@ -58,7 +58,7 @@ final class TutorApi(
         userId,
         built match
           case Some(report) => fuccess(report.some)
-          case None         => findLatest(userId)
+          case None => findLatest(userId)
       )
       queue.remove(userId)
 

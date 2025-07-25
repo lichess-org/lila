@@ -6,4 +6,4 @@ export lila.common.extensions.*
 private val logger = lila.log("opening")
 
 type PopularityHistoryAbsolute = List[Long]
-type PopularityHistoryPercent  = List[Float]
+type PopularityHistoryPercent = List[Float]

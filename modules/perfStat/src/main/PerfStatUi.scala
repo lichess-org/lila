@@ -42,9 +42,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
               ),
               div(cls := "box__top__actions")(
                 a(
-                  cls      := "button button-empty text",
+                  cls := "button button-empty text",
                   dataIcon := perfType.icon,
-                  href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+                  href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
                 )(tps.viewTheGames())
               )
             ),
@@ -105,7 +105,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             " ",
             span(
               title := tps.notEnoughRatedGames.txt(),
-              cls   := "details"
+              cls := "details"
             )("(", tps.provisional(), ")")
           )
         ),
@@ -220,7 +220,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
         a(
-          cls  := "glpt",
+          cls := "glpt",
           href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${u.username}"
         ):
           (absClientInstant(r.at))
@@ -242,7 +242,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       case Some(from) =>
         tps.fromXToY(
           a(
-            cls  := "glpt",
+            cls := "glpt",
             href := s"${routes.Round.watcher(from.gameId, Color.white)}?pov=${u.username}"
           ):
             (absClientInstant(from.at))
@@ -250,7 +250,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
           s.to match
             case Some(to) =>
               a(
-                cls  := "glpt",
+                cls := "glpt",
                 href := s"${routes.Round.watcher(to.gameId, Color.white)}?pov=${u.username}"
               ):
                 (absClientInstant(to.at))
@@ -298,7 +298,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
                 a(
-                  cls  := "glpt",
+                  cls := "glpt",
                   href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${user.username}"
                 ):
                   absClientInstant(r.at)
@@ -378,8 +378,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         PageModule(
           "chart.ratingDistribution",
           Json.obj(
-            "freq"        -> data,
-            "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
+            "freq" -> data,
+            "myRating" -> myVisiblePerfs.map(_(perfType).intRating),
             "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
             "otherPlayer" -> otherUser.map(_.username)
           )
@@ -399,8 +399,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
                       .map: pt =>
                         a(
                           dataIcon := pt.icon,
-                          cls      := (perfType == pt).option("current"),
-                          href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                          cls := (perfType == pt).option("current"),
+                          href := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
                         )(pt.trans)
                   )
                 )

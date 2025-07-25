@@ -19,14 +19,14 @@ private object IrwinThresholds:
     .map[IrwinThresholds](
       {
         case Ints(List(r, m)) => IrwinThresholds(r, m)
-        case _                => defaultThresholds
+        case _ => defaultThresholds
       },
       t => Ints(List(t.report, t.mark))
     )
 
-  given BSONHandler[IrwinThresholds]  = lila.db.dsl.isoHandler
+  given BSONHandler[IrwinThresholds] = lila.db.dsl.isoHandler
   given StringReader[IrwinThresholds] = StringReader.fromIso
-  given Formable[IrwinThresholds]     = new Formable(t => Form(single("v" -> text)).fill(iso.to(t)))
+  given Formable[IrwinThresholds] = new Formable(t => Form(single("v" -> text)).fill(iso.to(t)))
 
   def makeSetting(name: String, store: lila.memo.SettingStore.Builder) =
     store[IrwinThresholds](

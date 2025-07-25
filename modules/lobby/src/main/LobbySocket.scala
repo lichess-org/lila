@@ -32,16 +32,16 @@ final class LobbySocket(
   type SocketController = PartialFunction[(String, JsObject), Unit]
 
   private var lastCounters = LobbyCounters(0, 0)
-  def counters             = lastCounters
+  def counters = lastCounters
 
   private val actor: SyncActor = new SyncActor:
 
     private val members = lila.memo.CacheApi.scaffeine
       .expireAfterWrite(1.hour)
       .build[SriStr, Member]()
-    private val idleSris           = collection.mutable.Set[SriStr]()
+    private val idleSris = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
-    private val removedHookIds     = new collection.mutable.StringBuilder(1024)
+    private val removedHookIds = new collection.mutable.StringBuilder(1024)
 
     val process: SyncActor.Receive =
 
@@ -60,7 +60,7 @@ final class LobbySocket(
       case Join(member) => members.put(member.sri.value, member)
 
       case LeaveBatch(sris) => sris.foreach(quit)
-      case LeaveAll         =>
+      case LeaveAll =>
         members.invalidateAll()
         idleSris.clear()
         hookSubscriberSris.clear()
@@ -106,10 +106,10 @@ final class LobbySocket(
 
       case ChangeFeatured(msg) => tellActive(msg)
 
-      case SetIdle(sri, true)  => idleSris += sri.value
+      case SetIdle(sri, true) => idleSris += sri.value
       case SetIdle(sri, false) => idleSris -= sri.value
 
-      case HookSub(member, false)     => hookSubscriberSris -= member.sri.value
+      case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send.exec(
           P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
@@ -132,7 +132,7 @@ final class LobbySocket(
       "redirect",
       Json
         .obj(
-          "id"  -> pov.fullId,
+          "id" -> pov.fullId,
           "url" -> s"/${pov.fullId}"
         )
         .add("cookie" -> gameApi.anonCookieJson(pov))
@@ -173,13 +173,13 @@ final class LobbySocket(
     case ("joinSeek", o) if !member.bot =>
       HookPoolLimit(member, cost = 5, msg = s"joinSeek $o"):
         for
-          id   <- o.str("d")
+          id <- o.str("d")
           user <- member.user
         do lobby ! BiteSeek(id, user)
     case ("cancelSeek", o) =>
       HookPoolLimit(member, cost = 1, msg = s"cancelSeek $o"):
         for
-          id   <- o.str("d")
+          id <- o.str("d")
           user <- member.user
         do lobby ! CancelSeek(id, user)
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o.boolean("d")))
@@ -189,17 +189,17 @@ final class LobbySocket(
     case ("poolIn", o) =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o"):
         for
-          user     <- member.user
-          d        <- o.obj("d")
-          id       <- d.str("id")
+          user <- member.user
+          d <- o.obj("d")
+          id <- d.str("id")
           perfType <- poolApi.poolPerfKeys.get(PoolConfigId(id))
           ratingRange = d.str("range").flatMap(RatingRange.parse)
-          blocking    = d.get[UserId]("blocking")
+          blocking = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
           for
             glicko <- userApi.glicko(user.id, perfType)
-            trust  <-
+            trust <-
               if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
           do
             poolApi.join(
@@ -217,7 +217,7 @@ final class LobbySocket(
     case ("poolOut", o) =>
       HookPoolLimit(member, cost = 1, msg = s"poolOut $o"):
         for
-          id   <- o.str("d")
+          id <- o.str("d")
           user <- member.user
         do poolApi.leave(PoolConfigId(id), user.id)
     // entering the hooks view
@@ -277,7 +277,7 @@ private object LobbySocket:
   type SriStr = String
 
   case class Member(sri: Sri, user: Option[LobbyUser]):
-    def bot    = user.exists(_.bot)
+    def bot = user.exists(_.bot)
     def userId = user.map(_.id)
     def isAuth = userId.isDefined
 
@@ -300,12 +300,12 @@ private object LobbySocket:
       def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
-          color   <- Color.all
-          sri    = pairing.players(color)._1
+          color <- Color.all
+          sri = pairing.players(color)._1
           fullId = pairing.players(color)._2
         yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
-      def tellLobby(payload: JsObject)       = s"tell/lobby ${Json.stringify(payload)}"
+      def tellLobby(payload: JsObject) = s"tell/lobby ${Json.stringify(payload)}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json.stringify(payload)}"
       def tellLobbyUsers(userIds: Iterable[UserId], payload: JsObject) =
         s"tell/lobby/users ${P.Out.commas(userIds)} ${Json.stringify(payload)}"

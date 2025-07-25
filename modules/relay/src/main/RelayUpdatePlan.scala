@@ -50,7 +50,7 @@ object RelayUpdatePlan:
 
     val updates: List[(Chapter, RelayGame)] = replaceInitialChapter match
       case Some(initial) => List(initial.swap)
-      case None          => likelyMatches.map(_.swap)
+      case None => likelyMatches.map(_.swap)
 
     val appends: Vector[RelayGame] = games.filterNot: g =>
       updates.exists(_._2 == g)
@@ -91,15 +91,15 @@ object RelayUpdatePlan:
   private[relay] def isSameGameBasedOnTagsAndFirstMoves(game: RelayGame, chapter: Chapter): Boolean =
     allSame(RelayGame.eventTags)(game.tags, chapter.tags) &&
       game.tags.roundNumber == chapter.tags.roundNumber && {
-        val gameMoves    = game.root.mainlineNodeList
+        val gameMoves = game.root.mainlineNodeList
         val chapterMoves = chapter.root.mainlineNodeList
         sameFirstMoves(gameMoves, chapterMoves)
       }
 
   private[relay] def sameFirstMoves(game: List[Node], chapter: List[Node]): Boolean =
-    val maxMoves    = Math.min(game.size, chapter.size)
+    val maxMoves = Math.min(game.size, chapter.size)
     val checkMoveAt = Math.max(0, maxMoves - 1)
-    val found       = for
+    val found = for
       g <- game.lift(checkMoveAt)
       c <- chapter.lift(checkMoveAt)
     yield g.fen == c.fen

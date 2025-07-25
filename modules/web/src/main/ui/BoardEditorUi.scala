@@ -42,8 +42,8 @@ final class BoardEditorUi(helpers: Helpers):
   def jsData(fen: Option[Fen.Full] = None)(using ctx: Context) =
     Json
       .obj(
-        "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
+        "baseUrl" -> s"$netBaseUrl${routes.Editor.index}",
         "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-        "is3d"      -> ctx.pref.is3d
+        "is3d" -> ctx.pref.is3d
       )
       .add("fen" -> fen)

@@ -25,9 +25,9 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   ): Fu[RelayGames] = for
     latest <- source match
       case UrlSource(url) => dedupCache(url, round, doFetch)
-      case _              => doFetch()
+      case _ => doFetch()
     delayed <- round.sync.delayMinusLag match
-      case None        => fuccess(latest)
+      case None => fuccess(latest)
       case Some(delay) =>
         store.putIfNew(source.cacheKey, latest)
         store.get(source.cacheKey, delay).map(_ | latest.map(_.resetToSetup))
@@ -61,13 +61,13 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   private object store:
 
     private def idOf(key: CacheKey, at: Instant) = s"$key ${at.toSeconds}"
-    private val longPast                         = java.time.Instant.ofEpochMilli(0)
+    private val longPast = java.time.Instant.ofEpochMilli(0)
 
     def putIfNew(key: CacheKey, games: RelayGames): Funit =
       val newPgn = RelayGame.iso.from(games).toPgnStr
       getLatestPgn(key).flatMap:
         case Some(latestPgn) if latestPgn == newPgn => funit
-        case _                                      =>
+        case _ =>
           val now = nowInstant
           val doc = $doc("_id" -> idOf(key, now), "at" -> now, "pgn" -> newPgn)
           colls.delay:

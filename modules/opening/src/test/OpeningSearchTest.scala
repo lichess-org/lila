@@ -30,7 +30,7 @@ class OpeningSearchTest extends munit.FunSuite:
     assertEquals(makeQuery("1. e4 e5 2. d4").numberedPgn, "1. e4 e5 2. d4")
 
   test("makeQuery works without spaces"):
-    val querySpaces   = makeQuery("1. e4 e5 2. d4")
+    val querySpaces = makeQuery("1. e4 e5 2. d4")
     val queryNoSpaces = makeQuery("1.e4 e5 2.d4")
     assertEquals(querySpaces.numberedPgn, queryNoSpaces.numberedPgn)
     assertEquals(querySpaces.tokens, queryNoSpaces.tokens)

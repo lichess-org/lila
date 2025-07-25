@@ -13,7 +13,7 @@ class TotpTest extends munit.FunSuite:
 
   test("authenticate"):
     val secret = random
-    val token  = secret.currentTotp
+    val token = secret.currentTotp
     assert(secret.verify(token))
 
   test("not authenticate"):

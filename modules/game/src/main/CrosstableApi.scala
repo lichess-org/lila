@@ -40,7 +40,7 @@ final class CrosstableApi(
       .one[Bdoc]
       .dmap: res =>
         ~(for
-          o  <- res
+          o <- res
           s1 <- o.int("s1")
           s2 <- o.int("s2")
         yield (s1 + s2) / 10)
@@ -48,15 +48,15 @@ final class CrosstableApi(
   def add(game: Game): Funit =
     game.userIds.distinct.sorted(using stringOrdering) match
       case List(u1, u2) =>
-        val result                        = Result(game.id, game.winnerUserId)
-        val bsonResult                    = Crosstable.crosstableHandler.writeResult(result, u1)
+        val result = Result(game.id, game.winnerUserId)
+        val bsonResult = Crosstable.crosstableHandler.writeResult(result, u1)
         def incScore(userId: UserId): Int =
           game.winnerUserId match
             case Some(u) if u == userId => 10
-            case None                   => 5
-            case _                      => 0
-        val inc1             = incScore(u1)
-        val inc2             = incScore(u2)
+            case None => 5
+            case _ => 0
+        val inc1 = incScore(u1)
+        val inc2 = incScore(u2)
         val updateCrosstable = coll.update.one(
           select(u1, u2),
           $inc(
@@ -64,7 +64,7 @@ final class CrosstableApi(
             F.score2 -> inc2
           ) ++ $push(
             Crosstable.BSONFields.results -> $doc(
-              "$each"  -> List(bsonResult),
+              "$each" -> List(bsonResult),
               "$slice" -> -Crosstable.maxGames
             )
           ),

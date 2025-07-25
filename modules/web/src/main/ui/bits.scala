@@ -7,7 +7,7 @@ import ScalatagsTemplate.{ *, given }
 object bits:
 
   lazy val stage = a(
-    href  := "https://lichess.org",
+    href := "https://lichess.org",
     style := """
 background: #7f1010;
 color: #fff;

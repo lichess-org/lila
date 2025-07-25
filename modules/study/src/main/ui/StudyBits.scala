@@ -25,9 +25,9 @@ final class StudyBits(helpers: Helpers):
   def newForm()(using Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(
-        cls      := "button button-green",
+        cls := "button button-green",
         dataIcon := Icon.PlusButton,
-        title    := trans.study.createStudy.txt()
+        title := trans.study.createStudy.txt()
       )
     )
 

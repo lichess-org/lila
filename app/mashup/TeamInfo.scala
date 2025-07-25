@@ -19,7 +19,7 @@ case class TeamInfo(
 ):
   export withLeaders.{ team, leaders, publicLeaders }
 
-  def mine    = member.isDefined
+  def mine = member.isDefined
   def ledByMe = member.exists(_.perms.nonEmpty)
 
   def hasRequests = requests.nonEmpty
@@ -27,18 +27,18 @@ case class TeamInfo(
   def userIds = forum.so(_.flatMap(_.post.userId))
 
 object TeamInfo:
-  val pmAllCost    = 5
+  val pmAllCost = 5
   val pmAllCredits = 7
-  val pmAllDays    = 7
+  val pmAllDays = 7
   opaque type AnyTour = Either[Tournament, Swiss]
   object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
     extension (e: AnyTour)
       def isEnterable = e.fold(_.isEnterable, _.isEnterable)
-      def startsAt    = e.fold(_.startsAt, _.startsAt)
+      def startsAt = e.fold(_.startsAt, _.startsAt)
       def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
-      def nbPlayers   = e.fold(_.nbPlayers, _.nbPlayers)
+      def nbPlayers = e.fold(_.nbPlayers, _.nbPlayers)
     def apply(tour: Tournament): AnyTour = Left(tour)
-    def apply(swiss: Swiss): AnyTour     = Right(swiss)
+    def apply(swiss: Swiss): AnyTour = Right(swiss)
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
@@ -56,7 +56,7 @@ final class TeamInfoApi(
   import TeamInfo.*
 
   object pmAll:
-    val dedup   = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
+    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
     val limiter = mongoRateLimitApi[TeamId](
       "team.pm.all",
       credits = pmAllCredits * pmAllCost,
@@ -73,13 +73,13 @@ final class TeamInfoApi(
       me: Option[User],
       withForum: Option[TeamMember] => Boolean
   ): Fu[TeamInfo] = for
-    member     <- me.so(api.memberOf(team.id, _))
-    requests   <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
-    myRequest  <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
+    member <- me.so(api.memberOf(team.id, _))
+    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member).soFu(forumRecent(team.id))
-    tours      <- tournaments(team.team, 5, 5)
-    simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
+    tours <- tournaments(team.team, 5, 5)
+    simuls <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
   yield TeamInfo(
     withLeaders = team,
     member = member,

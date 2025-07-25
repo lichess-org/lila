@@ -18,14 +18,14 @@ trait TeamApi:
   def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamData]
 
 enum Access(val id: Int):
-  case None     extends Access(0)
-  case Leaders  extends Access(10)
-  case Members  extends Access(20)
+  case None extends Access(0)
+  case Leaders extends Access(10)
+  case Members extends Access(20)
   case Everyone extends Access(30)
 object Access:
   val allInTeam = List(None, Leaders, Members)
-  val all       = Everyone :: allInTeam
-  val byId      = all.mapBy(_.id)
+  val all = Everyone :: allInTeam
+  val byId = all.mapBy(_.id)
 
 case class LightTeam(@Key("_id") id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]):
   def pair = id -> name
@@ -38,11 +38,11 @@ object LightTeam:
     def sync: GetterSync
     def preload(ids: Set[TeamId]): Funit
 
-  private type GetterType          = TeamId => Fu[Option[LightTeam]]
+  private type GetterType = TeamId => Fu[Option[LightTeam]]
   opaque type Getter <: GetterType = GetterType
   object Getter extends TotalWrapper[Getter, GetterType]
 
-  private type GetterSyncType              = TeamId => Option[LightTeam]
+  private type GetterSyncType = TeamId => Option[LightTeam]
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 

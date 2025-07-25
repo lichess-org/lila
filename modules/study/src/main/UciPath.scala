@@ -9,10 +9,10 @@ extension (e: UciPath)
   @annotation.tailrec
   def isMainline(node: Node): Boolean =
     e.split match
-      case None           => true
+      case None => true
       case Some(id, rest) =>
         node.children.mainlineFirst match
-          case None        => false
+          case None => false
           case Some(child) => child.id == id && rest.isMainline(child)
 
   def toDbField =

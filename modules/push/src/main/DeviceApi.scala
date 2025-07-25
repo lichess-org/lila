@@ -20,7 +20,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
       .find(
         $doc(
           "platform" -> platform,
-          "userId"   -> userId
+          "userId" -> userId
         )
       )
       .sort($doc("seenAt" -> -1))

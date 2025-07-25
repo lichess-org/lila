@@ -46,7 +46,7 @@ final class Env(
             .channelUserIdRecentExists(channel, me)
             .map:
               if _ then Some(false) // subbed
-              else None             // not applicable
+              else None // not applicable
 
   private val api = wire[TimelineApi]
 

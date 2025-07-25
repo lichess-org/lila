@@ -2,8 +2,8 @@ package lila.core.lilaism
 
 trait CoreExports:
 
-  type Fu[A]     = Future[A]
-  type Funit     = Fu[Unit]
+  type Fu[A] = Future[A]
+  type Funit = Fu[Unit]
   type PairOf[A] = (A, A)
   type Update[A] = A => A
 

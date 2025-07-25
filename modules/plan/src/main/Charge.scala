@@ -16,9 +16,9 @@ case class Charge(
 
   inline def id = _id
 
-  def isPayPalLegacy   = payPal.nonEmpty
+  def isPayPalLegacy = payPal.nonEmpty
   def isPayPalCheckout = payPalCheckout.nonEmpty
-  def isStripe         = stripe.nonEmpty
+  def isStripe = stripe.nonEmpty
 
   def serviceName =
     if isStripe then "stripe"

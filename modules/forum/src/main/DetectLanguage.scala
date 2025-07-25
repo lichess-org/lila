@@ -34,7 +34,7 @@ final class DetectLanguage(
         .post(
           Map(
             "key" -> config.key.value,
-            "q"   -> message.take(messageMaxLength)
+            "q" -> message.take(messageMaxLength)
           )
         )
         .map { response =>

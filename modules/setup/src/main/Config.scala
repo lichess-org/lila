@@ -53,7 +53,7 @@ private[setup] trait Config:
   def makeSpeed: Speed = chess.Speed(makeClock)
 
   def perfType: PerfType = lila.rating.PerfType(variant, makeSpeed)
-  def perfKey            = perfType.key
+  def perfKey = perfType.key
 
 trait WithColor:
   self: Config =>
@@ -88,7 +88,7 @@ trait Positional:
           clock = makeClock.map(_.toClock)
         )
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
-        else game                                                          -> baseState
+        else game -> baseState
     builder(chessGame).dmap { game =>
       state.fold(game) { case sit @ Position.AndFullMoveNumber(position, _) =>
         game.copy(
@@ -106,11 +106,11 @@ trait Positional:
 object Config extends BaseConfig
 
 trait BaseConfig:
-  val variants       = List(chess.variant.Standard.id, chess.variant.Chess960.id)
+  val variants = List(chess.variant.Standard.id, chess.variant.Chess960.id)
   val variantDefault = chess.variant.Standard
 
   val variantsWithFen = variants :+ FromPosition.id
-  val aiVariants      = variants :+
+  val aiVariants = variants :+
     chess.variant.Crazyhouse.id :+
     chess.variant.KingOfTheHill.id :+
     chess.variant.ThreeCheck.id :+
@@ -133,12 +133,12 @@ trait BaseConfig:
 
   val speeds = Speed.all.map(_.id)
 
-  private val timeMin             = 0
-  private val timeMax             = 180
+  private val timeMin = 0
+  private val timeMax = 180
   private val acceptableFractions = Set(1 / 4d, 1 / 2d, 3 / 4d, 3 / 2d)
-  def validateTime(t: Double)     =
+  def validateTime(t: Double) =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
-  private val incrementMin                         = Clock.IncrementSeconds(0)
-  private val incrementMax                         = Clock.IncrementSeconds(180)
+  private val incrementMin = Clock.IncrementSeconds(0)
+  private val incrementMax = Clock.IncrementSeconds(180)
   def validateIncrement(i: Clock.IncrementSeconds) = i >= incrementMin && i <= incrementMax

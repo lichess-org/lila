@@ -16,13 +16,13 @@ final class RecapApi(
     import Recap.Availability.*
     get(user.id).flatMap:
       case Some(recap) => recapJson(recap, user).map(Available(_))
-      case None        => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
+      case None => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
 
   // waits until the recap is computed
   def awaiter(user: User, counter: Int = 0): Fu[JsObject] =
     availability(user).flatMap:
       case Recap.Availability.Available(data) => fuccess(data)
-      case Recap.Availability.Queued(_)       =>
+      case Recap.Availability.Queued(_) =>
         if counter < 100
         then delay(1.second)(awaiter(user, counter + 1))
         else fufail(LilaException(s"Recap awaiter timeout for ${user.id}"))

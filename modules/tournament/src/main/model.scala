@@ -84,9 +84,9 @@ object RankedPlayer:
     }
 
 case class RankedPlayerWithColorHistory(rank: Rank, player: Player, colorHistory: ColorHistory):
-  def is(other: RankedPlayer)                         = player.is(other.player)
+  def is(other: RankedPlayer) = player.is(other.player)
   def sameTeamAs(other: RankedPlayerWithColorHistory) = player.team.exists(other.player.team.contains)
-  override def toString                               = s"$rank. ${player.userId}[${player.rating}]"
+  override def toString = s"$rank. ${player.userId}[${player.rating}]"
 
 case class FeaturedGame(
     game: Game,
@@ -96,6 +96,6 @@ case class FeaturedGame(
 
 final class GetTourName(cache: lila.memo.Syncache[(TourId, Lang), Option[String]])
     extends lila.core.tournament.GetTourName:
-  def sync(id: TourId)(using lang: Lang)               = cache.sync(id -> lang)
-  def async(id: TourId)(using lang: Lang)              = cache.async(id -> lang)
+  def sync(id: TourId)(using lang: Lang) = cache.sync(id -> lang)
+  def async(id: TourId)(using lang: Lang) = cache.async(id -> lang)
   def preload(ids: Iterable[TourId])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)

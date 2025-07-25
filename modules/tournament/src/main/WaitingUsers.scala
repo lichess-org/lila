@@ -22,7 +22,7 @@ private case class WaitingUsers(
     else if clock.estimateTotalSeconds < 60 then 10
     else (clock.estimateTotalSeconds / 10 + 6).atMost(50).atLeast(15)
 
-  lazy val all  = hash.keySet
+  lazy val all = hash.keySet
   lazy val size = hash.size
 
   def isOdd = size % 2 == 1
@@ -34,14 +34,14 @@ private case class WaitingUsers(
 
   lazy val haveWaitedEnough: Boolean =
     size > 100 || {
-      val since                      = date.minusSeconds(waitSeconds)
+      val since = date.minusSeconds(waitSeconds)
       val nbConnectedLongEnoughUsers = hash.count { case (_, d) => d.isBefore(since) }
       nbConnectedLongEnoughUsers > 1
     }
 
   def update(fromWebSocket: Set[UserId]) =
     val newDate = nowInstant
-    val all     = fromWebSocket ++ apiUsers.so(_.keySet)
+    val all = fromWebSocket ++ apiUsers.so(_.keySet)
     copy(
       date = newDate,
       hash = {

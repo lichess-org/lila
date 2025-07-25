@@ -72,7 +72,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
         then ByHref.Found(lang)
         else ByHref.Refused(lang)
       case Some(lang) => ByHref.Redir(fixJavaLanguage(lang))
-      case None       => ByHref.NotFound
+      case None => ByHref.NotFound
 
   enum ByHref:
     case Found(lang: Lang)

@@ -14,7 +14,7 @@ trait GameHelper:
   def netBaseUrl: BaseUrl
 
   def titleGame(g: Game) =
-    val speed   = chess.Speed(g.clock.map(_.config)).name
+    val speed = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic.so(s" ${g.variant.name}")
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
 
@@ -87,8 +87,8 @@ trait GameHelper:
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match
             case (Some(level), _) => aiNameFrag(level)
-            case (_, Some(name))  => name
-            case _                => trans.site.anonymous()
+            case (_, Some(name)) => name
+            case _ => trans.site.anonymous()
           ,
           player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
@@ -190,7 +190,7 @@ trait GameHelper:
   )(using Translate): Frag =
 
     def link(href: String, title: String, name: String) = a(
-      cls     := "variant-link",
+      cls := "variant-link",
       st.href := href,
       targetBlank,
       st.title := title

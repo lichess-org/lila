@@ -5,5 +5,5 @@ final case class SimulApplicant(
     accepted: Boolean
 ):
 
-  def is(userId: UserId): Boolean     = player.is(userId)
+  def is(userId: UserId): Boolean = player.is(userId)
   def is(other: SimulPlayer): Boolean = player.is(other)

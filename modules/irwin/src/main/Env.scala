@@ -40,7 +40,7 @@ final class Env(
 
     scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
       (for
-        leaders  <- tournamentApi.allCurrentLeadersInStandard
+        leaders <- tournamentApi.allCurrentLeadersInStandard
         suspects <-
           leaders.toList
             .traverse: (tour, top) =>

@@ -16,9 +16,9 @@ case class FormNavigation(
     targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
-  def tourWithGroup   = RelayTour.WithGroupTours(tour, group)
-  def tourWithRounds  = RelayTour.WithRounds(tour, rounds)
-  def round           = roundId.flatMap(id => rounds.find(_.id == id))
+  def tourWithGroup = RelayTour.WithGroupTours(tour, group)
+  def tourWithRounds = RelayTour.WithRounds(tour, rounds)
+  def round = roundId.flatMap(id => rounds.find(_.id == id))
   def featurableRound = round
     .ifTrue(targetRound.isEmpty)
     .filter: r =>
@@ -31,12 +31,12 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   private def navigationMenu(nav: FormNavigation)(using Context) =
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
-        href     := routes.RelayTour.edit(nav.tour.id),
+        href := routes.RelayTour.edit(nav.tour.id),
         dataIcon := Icon.RadioTower,
-        cls      := List(
-          "text"                            -> true,
+        cls := List(
+          "text" -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
-          "active"                          -> (nav.round.isEmpty && !nav.newRound)
+          "active" -> (nav.round.isEmpty && !nav.newRound)
         )
       )(
         shortName.fold(frag(nav.tour.name))(strong(_))
@@ -44,8 +44,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       frag(
         nav.rounds.map: r =>
           a(
-            href     := routes.RelayRound.edit(r.id),
-            cls      := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
+            href := routes.RelayRound.edit(r.id),
+            cls := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
               if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
@@ -54,10 +54,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(r.name),
         a(
           href := routes.RelayRound.create(nav.tour.id),
-          cls  := List(
+          cls := List(
             "subnav__subitem text" -> true,
-            "active"               -> nav.newRound,
-            "button"               -> (nav.rounds.isEmpty && !nav.newRound)
+            "active" -> nav.newRound,
+            "button" -> (nav.rounds.isEmpty && !nav.newRound)
           ),
           dataIcon := Icon.PlusButton
         )(trb.addRound())
@@ -66,7 +66,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     lila.ui.bits.pageMenuSubnav(
       cls := "relay-form__subnav",
       nav.group match
-        case None    => tourAndRounds(none)
+        case None => tourAndRounds(none)
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
@@ -155,8 +155,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav: FormNavigation
     )(using ctx: Context) =
       val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
-      val lccWarning            = for
-        round    <- nav.round
+      val lccWarning = for
+        round <- nav.round
         upstream <- round.sync.upstream
         if upstream.hasLcc
       yield flashMessage("box relay-form__warning")(
@@ -179,9 +179,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           p(trans.contact.sendEmailAt(broadcastEmailContact))
         )
       val httpWarning = for
-        round    <- nav.round
+        round <- nav.round
         upstream <- round.sync.upstream
-        http     <- upstream.hasUnsafeHttp
+        http <- upstream.hasUnsafeHttp
         https = http.withScheme("https").withPort(-1) // else it adds :80 for some reason
       yield flashMessage("box relay-form__warning")(
         p(
@@ -238,7 +238,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                     br,
                     event.error match
                       case Some(err) => s"❌ $err"
-                      case _         => s"✅ ${event.moves} moves"
+                      case _ => s"✅ ${event.moves} moves"
                   )
               )
           ),
@@ -589,8 +589,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 form3.select(
                   _,
                   List(
-                    Visibility.public.key    -> "Public",
-                    Visibility.unlisted.key  -> "Unlisted (from URL only)",
+                    Visibility.public.key -> "Public",
+                    Visibility.unlisted.key -> "Unlisted (from URL only)",
                     Visibility.`private`.key -> "Private (invited members only)"
                   )
                 )
@@ -748,11 +748,11 @@ Team Dogs ; Scooby Doo"""),
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
       div(
-        cls              := "form-group relay-image-edit",
+        cls := "form-group relay-image-edit",
         data("post-url") := routes.RelayTour.image(t.id)
       )(
         ui.thumbnail(t.image, _.Size.Small)(
-          cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
+          cls := List("drop-target" -> true, "user-image" -> t.image.isDefined),
           attr("draggable") := "true"
         ),
         div(

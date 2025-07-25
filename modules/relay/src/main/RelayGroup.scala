@@ -27,21 +27,21 @@ object RelayGroup:
     )
 
 private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.IdName]):
-  def tourIds                               = tours.map(_.id)
+  def tourIds = tours.map(_.id)
   def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
-  def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tourIds)
+  def make: RelayGroup = RelayGroup(RelayGroup.Id.make, name, tourIds)
 
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
   import play.api.data.Forms.*
   import play.api.data.format.Formatter
   import lila.common.Form.formatter
-  def data(group: RelayGroup.WithTours)    = RelayGroupData(group.group.name, group.tours)
+  def data(group: RelayGroup.WithTours) = RelayGroupData(group.group.name, group.tours)
   def asText(data: RelayGroupData): String =
     s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
   def parse(value: String): Option[RelayGroupData] =
     value.split("\n").toList match
-      case Nil             => none
+      case Nil => none
       case name :: tourIds =>
         val tours = tourIds
           .take(50)
@@ -55,13 +55,13 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
     else
       for
         url <- lila.common.url.parse(str).toOption
-        id  <- url.path.split('/').filter(_.nonEmpty) match
+        id <- url.path.split('/').filter(_.nonEmpty) match
           case Array("broadcast", id, "edit") if looksLikeId(id) => id.some
-          case Array("broadcast", _, id) if looksLikeId(id)      => id.some
-          case _                                                 => none
+          case Array("broadcast", _, id) if looksLikeId(id) => id.some
+          case _ => none
       yield RelayTourId(id)
 
-  given Formatter[RelayGroupData]              = formatter.stringOptionFormatter(asText, parse)
+  given Formatter[RelayGroupData] = formatter.stringOptionFormatter(asText, parse)
   val mapping: Mapping[Option[RelayGroupData]] = optional(of[RelayGroupData])
 
 import lila.db.dsl.{ *, given }
@@ -82,11 +82,11 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   def update(tourId: RelayTourId, data: RelayGroupData): Funit =
     for
-      prev  <- byTour(tourId)
+      prev <- byTour(tourId)
       curId <- prev match
         case Some(prev) if data.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
         case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
-        case None       =>
+        case None =>
           val newGroup = data.make
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
@@ -110,7 +110,7 @@ final class RelayGroupCrowdSumCache(
   private def compute(tourId: RelayTourId): Fu[Crowd] = Crowd.from:
     for
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
-      res     <- colls.round
+      res <- colls.round
         .aggregateOne(_.sec): framework =>
           import framework.*
           Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->

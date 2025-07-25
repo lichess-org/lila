@@ -39,7 +39,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
             h1("Title verification by ", userLink(user), " ", showStatus(req.status)),
             div(cls := "box__top__actions")(
               a(
-                cls  := "button button-empty mod-zone-toggle",
+                cls := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(user.id),
                 titleOrText("Mod zone (Hotkey: m)"),
                 dataIcon := Icon.Agent
@@ -86,7 +86,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
                     case Some(id) =>
                       fide match
                         case Some(found) => found
-                        case None        => badTag("Invalid FIDE ID: ", strong(id))
+                        case None => badTag("Invalid FIDE ID: ", strong(id))
                     case None => "None"
                 )
               ),
@@ -94,7 +94,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
                 th("National federation"),
                 td(req.data.federationUrl match
                   case Some(url) => a(href := url.toString, targetBlank)(url.toString)
-                  case None      => "None")
+                  case None => "None")
               ),
               pictureIfGranted(req.idDocument).map: idPic =>
                 tr(
@@ -121,23 +121,23 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
                     )(form3.textarea(_)(rows := 2, required)),
                   form3.actions(
                     submitButton(
-                      cls   := "button button-red button-empty button-fat",
-                      name  := "action",
+                      cls := "button button-red button-empty button-fat",
+                      name := "action",
                       value := "reject",
                       if req.status.is(_.rejected)
                       then disabled := true
                       else attr("formnovalidate").empty
                     )("Reject request"),
                     submitButton(
-                      cls   := "button button-blue button-fat",
-                      name  := "action",
+                      cls := "button button-blue button-fat",
+                      name := "action",
                       value := "feedback"
                     )(
                       "Ask for modifications"
                     ),
                     submitButton(
-                      cls   := "button button-green button-fat",
-                      name  := "action",
+                      cls := "button button-green button-fat",
+                      name := "action",
                       value := "approve",
                       attr("formnovalidate").empty
                     )(

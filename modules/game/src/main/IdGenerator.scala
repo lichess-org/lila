@@ -20,7 +20,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
       .monValue: collisions =>
         _.game.idGenerator(collisions.size)
       .map:
-        case Nil        => ids
+        case Nil => ids
         case collisions => ids.filterNot(collisions.contains)
 
   def game: Fu[GameId] = batchProvider.one
@@ -50,5 +50,5 @@ object IdGenerator:
   def player(color: Color): GamePlayerId =
     // Trick to avoid collisions between player ids in the same game.
     val suffixChars = color.fold(whiteSuffixChars, blackSuffixChars)
-    val suffix      = suffixChars(SecureRandom.nextInt(suffixChars.length))
+    val suffix = suffixChars(SecureRandom.nextInt(suffixChars.length))
     GamePlayerId(SecureRandom.nextString(GamePlayerId.size - 1) + suffix)

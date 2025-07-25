@@ -4,9 +4,9 @@ import lila.core.data.Strings
 
 class SpamTest extends munit.FunSuite:
 
-  val spam   = new Spam(() => Strings(Nil))
+  val spam = new Spam(() => Strings(Nil))
   val foobar = """foo bar"""
-  val _c2    = """https://aimchess.com/try?ref=spammyboy"""
+  val _c2 = """https://aimchess.com/try?ref=spammyboy"""
 
   test("detect"):
     assert(!spam.detect(foobar))

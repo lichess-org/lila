@@ -35,7 +35,7 @@ class RelayFetchTest extends munit.FunSuite:
     )
     assertEquals(in(tc)(p2), p2)
 
-  given Mode                = Mode.Prod
+  given Mode = Mode.Prod
   def parseUrl(str: String) = lila.common.url.parse(str).toOption
 
   test("clean source urls"):

@@ -12,5 +12,5 @@ trait Study:
   val name: StudyName
   def slug: String
 
-type Studies    = StudyId => Option[Study]
+type Studies = StudyId => Option[Study]
 type GetStudies = () => Fu[Studies]

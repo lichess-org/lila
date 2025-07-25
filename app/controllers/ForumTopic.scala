@@ -43,17 +43,17 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         then notFound
         else
           for
-            unsub        <- ctx.me.soUse(env.timeline.status(s"forum:${topic.id}"))
-            canRead      <- access.isGrantedRead(categ.id)
-            canWrite     <- access.isGrantedWrite(categ.id, tryingToPostAsMod = true)
-            canModCateg  <- access.isGrantedMod(categ.id)
+            unsub <- ctx.me.soUse(env.timeline.status(s"forum:${topic.id}"))
+            canRead <- access.isGrantedRead(categ.id)
+            canWrite <- access.isGrantedWrite(categ.id, tryingToPostAsMod = true)
+            canModCateg <- access.isGrantedMod(categ.id)
             replyBlocked <- ctx.me.soUse(access.isReplyBlockedOnUBlog(topic, canModCateg))
-            inOwnTeam    <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
+            inOwnTeam <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
             form = ctx.me
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>
                 forms.postWithCaptcha(inOwnTeam).some
-            _   <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
+            _ <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
             res <-
               if canRead then
                 Ok.page(
@@ -82,7 +82,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     */
   def participants(topicId: ForumTopicId) = Auth { _ ?=> _ ?=>
     for
-      userIds   <- postApi.allUserIds(topicId)
+      userIds <- postApi.allUserIds(topicId)
       usernames <- env.user.repo.usernamesByIds(userIds)
     yield Ok(Json.toJson(usernames.sortBy(_.value.toLowerCase)))
   }

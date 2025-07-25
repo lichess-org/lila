@@ -16,16 +16,16 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
       SafeAnd(u.id)
     })
   def withFilter(f: Filter) = if f == filter then this else new ForumTopicRepo(coll, f)
-  def unsafe                = withFilter(Unsafe)
+  def unsafe = withFilter(Unsafe)
 
-  private val noTroll     = $doc("troll" -> false)
+  private val noTroll = $doc("troll" -> false)
   private val trollFilter = filter match
-    case Safe       => noTroll
+    case Safe => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
-    case Unsafe     => $empty
+    case Unsafe => $empty
 
   private lazy val notStickyQuery = $doc("sticky".$ne(true))
-  private lazy val stickyQuery    = $doc("sticky" -> true)
+  private lazy val stickyQuery = $doc("sticky" -> true)
 
   def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
 
@@ -64,5 +64,5 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
       else fuccess(slug)
     }
 
-  def byCategQuery(categ: ForumCategId)          = $doc("categId" -> categ) ++ trollFilter
+  def byCategQuery(categ: ForumCategId) = $doc("categId" -> categ) ++ trollFilter
   def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ notStickyQuery

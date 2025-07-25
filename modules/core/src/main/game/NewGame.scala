@@ -25,7 +25,7 @@ def newImportedGame(
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game):
   def withId(id: GameId): Game = sloppy.copy(id = id)
-  def start: NewGame           = NewGame(sloppy.start)
+  def start: NewGame = NewGame(sloppy.start)
 
 def newGame(
     chess: ChessGame,

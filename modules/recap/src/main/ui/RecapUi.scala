@@ -15,7 +15,7 @@ final class RecapUi(helpers: Helpers):
   def home(av: Availability, user: User)(using Context) =
     val data = av match
       case Availability.Available(data) => data
-      case Availability.Queued(data)    => data
+      case Availability.Queued(data) => data
     Page(title(user))
       .css("recap")
       .js(esmInit("recap", data))

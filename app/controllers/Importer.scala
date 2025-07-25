@@ -13,12 +13,12 @@ import lila.common.Json.given
 final class Importer(env: Env) extends LilaController(env):
 
   def importGame = OpenBody:
-    val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+    val pgn = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
     val data = lila.game.importer.ImportData(PgnStr(pgn), None)
     Ok.page(views.game.ui.importer(lila.game.importer.form.fill(data)))
 
-  def sendGame                                        = OpenOrScopedBody(parse.anyContent)()(doSendGame)
-  def apiSendGame                                     = AnonOrScopedBody(parse.anyContent)()(doSendGame)
+  def sendGame = OpenOrScopedBody(parse.anyContent)()(doSendGame)
+  def apiSendGame = AnonOrScopedBody(parse.anyContent)()(doSendGame)
   private def doSendGame(using ctx: BodyContext[Any]) =
     bindForm(lila.game.importer.form)(
       err =>
@@ -60,7 +60,7 @@ final class Importer(env: Env) extends LilaController(env):
                     else
                       JsonOk:
                         Json.obj(
-                          "id"  -> game.id,
+                          "id" -> game.id,
                           "url" -> s"${env.net.baseUrl}/${game.id}"
                         )
                 )
@@ -74,6 +74,6 @@ final class Importer(env: Env) extends LilaController(env):
 
   def masterGame(id: GameId, orientation: Color) = Open:
     Found(env.explorer.importer(id)): game =>
-      val url      = routes.Round.watcher(game.id, orientation).url
+      val url = routes.Round.watcher(game.id, orientation).url
       val fenParam = get("fen").so(f => s"?fen=$f")
       Redirect(s"$url$fenParam")

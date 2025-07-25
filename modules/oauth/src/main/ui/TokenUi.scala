@@ -22,7 +22,7 @@ final class TokenUi(helpers: Helpers)(
           h1(ot.personalAccessTokens()),
           st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
             submitButton(
-              cls      := "button frameless",
+              cls := "button frameless",
               st.title := ot.newAccessToken.txt(),
               dataIcon := Icon.PlusButton
             )
@@ -53,7 +53,7 @@ final class TokenUi(helpers: Helpers)(
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
             if token.isDangerous then iconTag(Icon.CautionTriangle)(cls := "is-red")
-            else iconTag(Icon.Checkmark)(cls                            := "is-green"),
+            else iconTag(Icon.Checkmark)(cls := "is-green"),
             div(
               if token.isDangerous
               then p(strong(ot.doNotShareIt()))
@@ -116,7 +116,7 @@ final class TokenUi(helpers: Helpers)(
                     me.isBot && scope == OAuthScope.Board.Play
                   }
                   val hidden = scope == OAuthScope.Web.Mod && !OAuthScope.canUseWebMod
-                  val id     = s"oauth-scope-${scope.key.replace(":", "_")}"
+                  val id = s"oauth-scope-${scope.key.replace(":", "_")}"
                   (!hidden).option(
                     div(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(
                       span(

@@ -19,7 +19,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       JsonOk:
         for
           pager <- paginator.popularTeamsWithPublicLeaders(page)
-          _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
+          _ <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
         yield pager
 
   def show(id: TeamId) = OpenOrScoped(): ctx ?=>
@@ -28,16 +28,16 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .teamEnabled(id)
         .flatMapz: team =>
           for
-            joined      <- ctx.userId.so { api.belongsTo(id, _) }
-            requested   <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
+            joined <- ctx.userId.so { api.belongsTo(id, _) }
+            requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
             withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
-            _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
+            _ <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
           yield some:
             import env.team.jsonView.given
             import lila.common.Json.given
             Json.toJsObject(withLeaders) ++ Json
               .obj(
-                "joined"    -> joined,
+                "joined" -> joined,
                 "requested" -> requested
               )
               .add("descriptionPrivate" -> team.descPrivate.ifTrue(joined))
@@ -66,7 +66,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         then paginator.popularTeamsWithPublicLeaders(page)
         else
           for
-            ids   <- env.teamSearch(text, page)
+            ids <- env.teamSearch(text, page)
             teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
@@ -76,10 +76,10 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       import env.team.jsonView.given
       JsonOk:
         for
-          ids   <- api.joinedTeamIdsOfUserAsSeenBy(user)
+          ids <- api.joinedTeamIdsOfUserAsSeenBy(user)
           teams <- api.teamsByIds(ids)
           teams <- env.team.memberRepo.addPublicLeaderIds(teams)
-          _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
+          _ <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
         yield teams
 
   def requests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
@@ -107,7 +107,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       api
         .request(lila.team.TeamRequest.makeId(team.id, userId.id))
         .flatMap:
-          case None      => fuccess(ApiResult.ClientError("No such team join request"))
+          case None => fuccess(ApiResult.ClientError("No such team join request"))
           case Some(req) => api.processRequest(team, req, decision).inject(ApiResult.Done)
   }
 

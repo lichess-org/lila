@@ -27,22 +27,22 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.RequestContext(using env.executor)
     with lila.web.CtrlErrors:
 
-  def controllerComponents                           = env.controllerComponents
-  given Executor                                     = env.executor
-  given Scheduler                                    = env.scheduler
-  given FormBinding                                  = parse.formBinding(parse.DefaultMaxTextLength)
-  given lila.core.i18n.Translator                    = env.translator
+  def controllerComponents = env.controllerComponents
+  given Executor = env.executor
+  given Scheduler = env.scheduler
+  given FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
+  given lila.core.i18n.Translator = env.translator
   given reqBody(using r: BodyContext[?]): Request[?] = r.body
 
   given (using codec: Codec, pc: PageContext): Writeable[Page] =
     Writeable(page => codec.encode(views.base.page(page).html))
 
-  given Conversion[Page, Fu[Page]]       = fuccess(_)
+  given Conversion[Page, Fu[Page]] = fuccess(_)
   given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
-  inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
+  inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
   val limit = lila.web.Limiters(using env.executor, env.net.rateLimit)
@@ -256,7 +256,7 @@ abstract private[controllers] class LilaController(val env: Env)
     env.security.api
       .oauthScoped(req, accepted)
       .flatMap:
-        case Left(e)       => handleScopedFail(accepted, e)
+        case Left(e) => handleScopedFail(accepted, e)
         case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError) = e match
@@ -336,10 +336,10 @@ abstract private[controllers] class LilaController(val env: Env)
     else
       import LangPicker.ByHref
       LangPicker.byHref(language, ctx.req) match
-        case ByHref.NotFound    => notFound(using ctx)
+        case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
-        case ByHref.Refused(_)  => redirectWithQueryString(path)
+        case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
           f(using ctx.withLang(lang))
 

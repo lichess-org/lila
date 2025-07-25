@@ -80,9 +80,9 @@ object bits:
       br,
       br,
       a(
-        cls      := "text button button-fat",
+        cls := "text button button-fat",
         dataIcon := Icon.PlayTriangle,
-        href     := routes.Round.player(current.pov.fullId)
+        href := routes.Round.player(current.pov.fullId)
       )(
         trans.site.joinTheGame()
       ),
@@ -109,9 +109,9 @@ object bits:
   def spotlight(e: lila.event.Event)(using Context) =
     a(
       href := (if e.isNow || !e.countdown then e.url else routes.Event.show(e.id).url),
-      cls  := List(
+      cls := List(
         s"tour-spotlight event-spotlight id_${e.id}" -> true,
-        "invert"                                     -> e.isNowOrSoon
+        "invert" -> e.isNowOrSoon
       )
     )(
       views.event.iconOf(e),

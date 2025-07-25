@@ -22,14 +22,14 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
     (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10).so:
       val query = List(
         "game_id" -> "743", // chess
-        "first"   -> "100"  // max results per page
+        "first" -> "100" // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
       ).flatten
       ws.url(config.endpoint)
         .withQueryStringParameters(query*)
         .withHttpHeaders(
-          "Client-ID"     -> config.clientId,
+          "Client-ID" -> config.clientId,
           "Authorization" -> s"Bearer ${tmpToken.value}"
         )
         .get()
@@ -37,7 +37,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
           case res if res.status == 200 =>
             res.body[JsValue].validate[Twitch.Result] match
               case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
+              case JsError(err) => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
           case res if res.status == 401 && res.body.contains("Invalid OAuth token") =>
             logger.warn("Renewing twitch API token")
             renewToken >> fuccess(Twitch.Result(None, None))
@@ -56,9 +56,9 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
   private def renewToken: Funit =
     ws.url("https://id.twitch.tv/oauth2/token")
       .withQueryStringParameters(
-        "client_id"     -> config.clientId,
+        "client_id" -> config.clientId,
         "client_secret" -> config.secret.value,
-        "grant_type"    -> "client_credentials"
+        "grant_type" -> "client_credentials"
       )
       .post(Map.empty[String, String])
       .flatMap:

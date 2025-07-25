@@ -15,9 +15,9 @@ class SchedulerTest extends munit.FunSuite:
     import lila.tournament.Schedule.Speed.*
     import lila.tournament.Schedule.Freq.*
 
-    val start           = LocalDateTime.of(2024, 9, 1, 0, 0)
-    val wholeMonth      = TimeInterval(start.instant, start.plusMonths(1).instant)
-    val daysInSept      = 30
+    val start = LocalDateTime.of(2024, 9, 1, 0, 0)
+    val wholeMonth = TimeInterval(start.instant, start.plusMonths(1).instant)
+    val daysInSept = 30
     val allSeptTourneys = ExperimentalPruner
       .pruneConflictsFailOnUsurp(
         List.empty,
@@ -85,7 +85,7 @@ class SchedulerTest extends munit.FunSuite:
       List.empty,
       TournamentScheduler.allWithConflicts(LocalDateTime.of(2024, 7, 31, 23, 0))
     )
-    val start       = LocalDateTime.of(2024, 8, 1, 0, 0)
+    val start = LocalDateTime.of(2024, 8, 1, 0, 0)
     val allTourneys = (0 to 23).flatMap { hours =>
       TournamentScheduler.allWithConflicts(start.plusHours(hours))
     }

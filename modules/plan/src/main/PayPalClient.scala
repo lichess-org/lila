@@ -29,17 +29,17 @@ final private class PayPalClient(
   given moneyWrites: OWrites[Money] = OWrites[Money] { money =>
     Json.obj(
       "currency_code" -> money.currencyCode,
-      "value"         -> money.amount
+      "value" -> money.amount
     )
   }
 
   private object path:
-    val orders                     = "v2/checkout/orders"
+    val orders = "v2/checkout/orders"
     def capture(id: PayPalOrderId) = s"$orders/$id/capture"
-    val plans                      = "v1/billing/plans"
-    val subscriptions              = "v1/billing/subscriptions"
-    val token                      = "v1/oauth2/token"
-    val events                     = "v1/notifications/webhooks-events"
+    val plans = "v1/billing/plans"
+    val subscriptions = "v1/billing/subscriptions"
+    val token = "v1/oauth2/token"
+    val events = "v1/notifications/webhooks-events"
 
   private val patronMonthProductId = "PATRON-MONTH"
 
@@ -54,11 +54,11 @@ final private class PayPalClient(
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
     path.orders,
     Json.obj(
-      "intent"         -> "CAPTURE",
+      "intent" -> "CAPTURE",
       "purchase_units" -> List(
         Json.obj(
           "custom_id" -> data.makeCustomId,
-          "amount"    -> {
+          "amount" -> {
             moneyWrites.writes(data.checkout.money) ++ Json.obj(
               "breakdown" -> Json.obj(
                 "item_total" -> data.checkout.money
@@ -71,7 +71,7 @@ final private class PayPalClient(
               "name" -> "One-time Patron",
               "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
               "unit_amount" -> data.checkout.money,
-              "quantity"    -> 1
+              "quantity" -> 1
             )
           )
         )
@@ -88,13 +88,13 @@ final private class PayPalClient(
       postOne[PayPalSubscriptionCreated](
         path.subscriptions,
         Json.obj(
-          "plan_id"   -> plan.id.value,
+          "plan_id" -> plan.id.value,
           "custom_id" -> user.id,
-          "plan"      -> Json.obj(
+          "plan" -> Json.obj(
             "billing_cycles" -> Json.arr(
               Json.obj(
-                "sequence"       -> 1,
-                "total_cycles"   -> 0,
+                "sequence" -> 1,
+                "total_cycles" -> 0,
                 "pricing_scheme" -> Json.obj(
                   "fixed_price" -> checkout.money
                 )
@@ -141,28 +141,28 @@ final private class PayPalClient(
       path.plans,
       Json.obj(
         "product_id" -> patronMonthProductId,
-        "name"       -> s"Monthly Patron $currency",
+        "name" -> s"Monthly Patron $currency",
         "description" -> s"Support Lichess and get Patron wings. The subscription is renewed every month. Currency: $currency",
-        "status"         -> "ACTIVE",
+        "status" -> "ACTIVE",
         "billing_cycles" -> Json.arr(
           Json.obj(
             "frequency" -> Json.obj(
-              "interval_unit"  -> "MONTH",
+              "interval_unit" -> "MONTH",
               "interval_count" -> 1
             ),
-            "tenure_type"    -> "REGULAR",
-            "sequence"       -> 1,
-            "total_cycles"   -> 0,
+            "tenure_type" -> "REGULAR",
+            "sequence" -> 1,
+            "total_cycles" -> 0,
             "pricing_scheme" -> Json.obj(
               "fixed_price" -> Json.obj(
-                "value"         -> "1",
+                "value" -> "1",
                 "currency_code" -> currency.getCurrencyCode
               )
             )
           )
         ),
         "payment_preferences" -> Json.obj(
-          "auto_bill_outstanding"     -> true,
+          "auto_bill_outstanding" -> true,
           "payment_failure_threshold" -> 3
         )
       )
@@ -193,8 +193,8 @@ final private class PayPalClient(
     ws.url(s"${config.endpoint}/$url")
       .withHttpHeaders(
         "Authorization" -> s"Bearer $bearer",
-        "Content-Type"  -> "application/json",
-        "Prefer"        -> "return=representation" // important for plans and orders
+        "Content-Type" -> "application/json",
+        "Prefer" -> "return=representation" // important for plans and orders
       )
   }
 
@@ -210,7 +210,7 @@ final private class PayPalClient(
       case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
-          case None        => fufail { new InvalidRequestException(status, res.body) }
+          case None => fufail { new InvalidRequestException(status, res.body) }
           case Some(error) => fufail { new InvalidRequestException(status, error) }
       case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
 
@@ -224,7 +224,7 @@ final private class PayPalClient(
             fufail(s"PayPal access token ${res.statusText} ${res.body[String].take(200)}")
           case res =>
             (res.body[JsValue] \ "access_token").validate[String] match
-              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
+              case JsError(err) => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
     }
@@ -233,9 +233,9 @@ object PayPalClient:
 
   case class AccessToken(value: String) extends StringValue
 
-  class PayPalException(msg: String)                      extends Exception(msg)
-  class StatusException(status: Int, msg: String)         extends PayPalException(s"$status $msg")
-  class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
+  class PayPalException(msg: String) extends Exception(msg)
+  class StatusException(status: Int, msg: String) extends PayPalException(s"$status $msg")
+  class NotFoundException(status: Int, msg: String) extends StatusException(status, msg)
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
   case class CantParseException(json: JsValue, err: JsError)
       extends PayPalException(s"[payPal] Can't parse $json --- ${err.errors}")

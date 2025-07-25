@@ -18,9 +18,9 @@ final class JsonView(
     else simul.gameIds.parallel(gameProxy.game).dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
-    games          <- fetchGames(simul)
-    lightHost      <- getLightUser(simul.hostId)
-    applicants     <- simul.applicants.sortBy(-_.player.rating.value).sequentially(applicantJson)
+    games <- fetchGames(simul)
+    lightHost <- getLightUser(simul.hostId)
+    applicants <- simul.applicants.sortBy(-_.player.rating.value).sequentially(applicantJson)
     pairingOptions <-
       simul.pairings
         .sortBy(-_.player.rating.value)
@@ -28,9 +28,9 @@ final class JsonView(
     pairings = pairingOptions.flatten
   yield baseSimul(simul, lightHost) ++ Json
     .obj(
-      "canJoin"    -> verdicts.accepted,
+      "canJoin" -> verdicts.accepted,
       "applicants" -> applicants,
-      "pairings"   -> pairings
+      "pairings" -> pairings
     )
     .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
 
@@ -39,7 +39,7 @@ final class JsonView(
       baseSimul(simul, lightHost) ++ Json
         .obj(
           "nbApplicants" -> simul.applicants.size,
-          "nbPairings"   -> simul.pairings.size
+          "nbPairings" -> simul.pairings.size
         )
         .add("estimatedStartAt" -> simul.startedAt)
         .add("startedAt" -> simul.startedAt)
@@ -55,20 +55,20 @@ final class JsonView(
       finished: List[Simul]
   ): Fu[JsObject] =
     for
-      pendingJson  <- api(pending)
-      createdJson  <- api(created)
-      startedJson  <- api(started)
+      pendingJson <- api(pending)
+      createdJson <- api(created)
+      startedJson <- api(started)
       finishedJson <- api(finished)
     yield Json.obj(
-      "pending"  -> pendingJson,
-      "created"  -> createdJson,
-      "started"  -> startedJson,
+      "pending" -> pendingJson,
+      "created" -> createdJson,
+      "started" -> startedJson,
       "finished" -> finishedJson
     )
 
   private def baseSimul(simul: Simul, host: LightUser) =
     Json.obj(
-      "id"   -> simul.id,
+      "id" -> simul.id,
       "host" -> {
         Json.toJsObject(host) ++ Json
           .obj("rating" -> simul.hostRating)
@@ -76,18 +76,18 @@ final class JsonView(
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("online" -> isOnline.exec(host.id))
       },
-      "name"       -> simul.name,
-      "fullName"   -> simul.fullName,
-      "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
-      "isCreated"  -> simul.isCreated,
-      "isRunning"  -> simul.isRunning,
+      "name" -> simul.name,
+      "fullName" -> simul.fullName,
+      "variants" -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
+      "isCreated" -> simul.isCreated,
+      "isRunning" -> simul.isRunning,
       "isFinished" -> simul.isFinished,
-      "text"       -> simul.text
+      "text" -> simul.text
     )
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
-      "key"  -> v.key,
+      "key" -> v.key,
       "icon" -> lila.rating.PerfType(v, speed).icon.toString,
       "name" -> v.name
     )
@@ -102,8 +102,8 @@ final class JsonView(
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =
     playerJson(app.player).map { player =>
       Json.obj(
-        "player"   -> player,
-        "variant"  -> app.player.variant.key,
+        "player" -> player,
+        "variant" -> app.player.variant.key,
         "accepted" -> app.accepted
       )
     }
@@ -111,11 +111,11 @@ final class JsonView(
   private def gameJson(hostId: UserId, g: Game) =
     Json
       .obj(
-        "id"       -> g.id,
-        "status"   -> g.status.id,
-        "fen"      -> chess.format.Fen.writeBoardAndColor(g.position),
+        "id" -> g.id,
+        "status" -> g.status.id,
+        "fen" -> chess.format.Fen.writeBoardAndColor(g.position),
         "lastMove" -> (g.lastMoveKeys.orZero: String),
-        "orient"   -> g.player(hostId).map(_.color)
+        "orient" -> g.player(hostId).map(_.color)
       )
       .add(
         "clock" -> g.clock
@@ -135,9 +135,9 @@ final class JsonView(
         playerJson(p.player).map: player =>
           Json
             .obj(
-              "player"    -> player,
-              "variant"   -> p.player.variant.key,
+              "player" -> player,
+              "variant" -> p.player.variant.key,
               "hostColor" -> p.hostColor,
-              "game"      -> gameJson(hostId, game)
+              "game" -> gameJson(hostId, game)
             )
             .some

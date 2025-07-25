@@ -64,6 +64,6 @@ final private class StartedOrganizer(
   private def fetchWaitingBots(tour: Tournament): Fu[Set[UserId]] =
     tour.conditions.allowsBots.so:
       for
-        activeBots   <- playerRepo.activeBotIds(tour.id)
+        activeBots <- playerRepo.activeBotIds(tour.id)
         playingUsers <- activeBots.nonEmpty.so(pairingRepo.playingUserIds(tour.id))
       yield activeBots.diff(playingUsers)

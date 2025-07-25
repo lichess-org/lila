@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.app.UiEnv.{ *, given }
 import lila.clas.{ Clas, Student }
 
-lazy val ui             = lila.clas.ui.ClasUi(helpers)(lila.ui.bits.modMenu("search"))
+lazy val ui = lila.clas.ui.ClasUi(helpers)(lila.ui.bits.modMenu("search"))
 private lazy val dashUi = lila.clas.ui.DashboardUi(helpers, ui)
 
 export dashUi.student.apply as studentDashboard
@@ -14,7 +14,7 @@ export dashUi.teacher as teacherDashboard
 lazy val clas = lila.clas.ui.ClasPages(helpers, ui, dashUi)
 
 object student:
-  lazy val ui     = lila.clas.ui.StudentUi(helpers, views.clas.ui)
+  lazy val ui = lila.clas.ui.StudentUi(helpers, views.clas.ui)
   lazy val formUi = lila.clas.ui.StudentFormUi(helpers, views.clas.ui, ui)
 
   export ui.invite

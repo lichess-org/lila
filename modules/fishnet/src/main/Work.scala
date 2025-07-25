@@ -19,12 +19,12 @@ sealed trait Work:
 
   inline def id = _id
 
-  def acquiredAt                   = acquired.map(_.date)
-  def acquiredByKey                = acquired.map(_.clientKey)
+  def acquiredAt = acquired.map(_.date)
+  def acquiredByKey = acquired.map(_.clientKey)
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
-  def isAcquired                   = acquired.isDefined
-  def nonAcquired                  = !isAcquired
-  def canAcquire(client: Client)   = lastTryByKey.forall(client.key !=)
+  def isAcquired = acquired.isDefined
+  def nonAcquired = !isAcquired
+  def canAcquire(client: Client) = lastTryByKey.forall(client.key !=)
 
   def acquiredBefore(date: Instant) = acquiredAt.so(_.isBefore(date))
 
@@ -38,7 +38,7 @@ object Work:
       userId: UserId,
       date: Instant
   ):
-    def ageInMillis       = nowMillis - date.toMillis
+    def ageInMillis = nowMillis - date.toMillis
     override def toString = s"by $userId at $date"
 
   private[fishnet] case class Game(
@@ -69,9 +69,9 @@ object Work:
 
   enum Origin(val nodesPerMove: Int, val slowOk: Boolean):
     case officialBroadcast extends Origin(5_000_000, false)
-    case manualRequest     extends Origin(1_000_000, false) // games & studies
-    case autoHunter        extends Origin(300_000, true)
-    case autoTutor         extends Origin(150_000, true)
+    case manualRequest extends Origin(1_000_000, false) // games & studies
+    case autoHunter extends Origin(300_000, true)
+    case autoTutor extends Origin(150_000, true)
   object Origin:
     val slowOk = values.filter(_.slowOk)
 

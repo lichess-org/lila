@@ -27,6 +27,6 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil):
 
 object Progress:
 
-  def apply(game: Game): Progress                      = Progress(game, game)
+  def apply(game: Game): Progress = Progress(game, game)
   def apply(game: Game, events: List[Event]): Progress = Progress(game, game, events)
-  def apply(game: Game, events: Event): Progress       = Progress(game, game, events :: Nil)
+  def apply(game: Game, events: Event): Progress = Progress(game, game, events :: Nil)

@@ -17,9 +17,9 @@ object StormHigh:
 
   enum NewHigh(val key: String):
     val previous: Int
-    case Day(previous: Int)     extends NewHigh("day")
-    case Week(previous: Int)    extends NewHigh("week")
-    case Month(previous: Int)   extends NewHigh("month")
+    case Day(previous: Int) extends NewHigh("day")
+    case Week(previous: Int) extends NewHigh("week")
+    case Month(previous: Int) extends NewHigh("month")
     case AllTime(previous: Int) extends NewHigh("allTime")
 
 final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
@@ -47,15 +47,15 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
       .aggregateOne(_.sec): framework =>
         import framework.*
         def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id".$gte(sinceId(userId))))
-        val scoreSort                                  = Sort(Descending("score"))
+        val scoreSort = Sort(Descending("score"))
         Match($doc("_id".$lte(StormDay.Id.today(userId)).$gt(StormDay.Id.allTime(userId)))) -> List(
           Project($doc("score" -> true)),
           Sort(Descending("_id")),
           Facet(
             List(
-              "day"     -> List(Limit(1), matchSince(StormDay.Id.today)),
-              "week"    -> List(Limit(7), matchSince(StormDay.Id.lastWeek), scoreSort, Limit(1)),
-              "month"   -> List(Limit(30), matchSince(StormDay.Id.lastMonth), scoreSort, Limit(1)),
+              "day" -> List(Limit(1), matchSince(StormDay.Id.today)),
+              "week" -> List(Limit(7), matchSince(StormDay.Id.lastWeek), scoreSort, Limit(1)),
+              "month" -> List(Limit(30), matchSince(StormDay.Id.lastMonth), scoreSort, Limit(1)),
               "allTime" -> List(scoreSort, Limit(1))
             )
           )

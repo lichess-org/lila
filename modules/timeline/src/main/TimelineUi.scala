@@ -33,12 +33,12 @@ final class TimelineUi(helpers: Helpers)(
 
   private def userLink(userId: UserId)(using ctx: Context) = ctx.me match
     case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
-    case _                         => userIdLink(userId.some, withOnline = true)
+    case _ => userIdLink(userId.some, withOnline = true)
 
   private def renderEntry(e: Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag]:
-        case Follow(u1, u2)           => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
+        case Follow(u1, u2) => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
         case TeamJoin(userId, teamId) =>
           trans.site.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case TeamCreate(userId, teamId) =>
@@ -47,7 +47,7 @@ final class TimelineUi(helpers: Helpers)(
           trans.site.xPostedInForumY(
             userLink(userId),
             a(
-              href  := routes.ForumPost.redirect(postId),
+              href := routes.ForumPost.redirect(postId),
               title := topicName
             )(shorten(topicName, 30))
           )
@@ -55,7 +55,7 @@ final class TimelineUi(helpers: Helpers)(
           trans.ublog.xPublishedY(
             userLink(userId),
             a(
-              href     := routes.Ublog.post(usernameOrId(userId), slug, id),
+              href := routes.Ublog.post(usernameOrId(userId), slug, id),
               st.title := title
             )(shorten(title, 40))
           )
@@ -76,18 +76,18 @@ final class TimelineUi(helpers: Helpers)(
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
           (win match
-            case Some(true)  => trans.site.victoryVsYInZ
+            case Some(true) => trans.site.victoryVsYInZ
             case Some(false) => trans.site.defeatVsYInZ
-            case None        => trans.site.drawVsYInZ
+            case None => trans.site.drawVsYInZ
           )(
             a(
-              href     := routes.Round.player(playerId),
+              href := routes.Round.player(playerId),
               dataIcon := perfKey.perfIcon,
-              cls      := "text glpt"
+              cls := "text glpt"
             )(win match
-              case Some(true)  => trans.site.victory()
+              case Some(true) => trans.site.victory()
               case Some(false) => trans.site.defeat()
-              case None        => trans.site.draw()),
+              case None => trans.site.draw()),
             userIdLink(opponent),
             perfKey.perfTrans
           )

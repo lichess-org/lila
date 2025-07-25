@@ -17,10 +17,10 @@ final private[video] class Youtube(
 
   import Youtube.*
 
-  private given Reads[Snippet]               = Json.reads
-  private given Reads[Statistics]            = Json.reads
-  private given Reads[ContentDetails]        = Json.reads
-  private val readEntry: Reads[Entry]        = Json.reads
+  private given Reads[Snippet] = Json.reads
+  private given Reads[Statistics] = Json.reads
+  private given Reads[ContentDetails] = Json.reads
+  private val readEntry: Reads[Entry] = Json.reads
   private val readEntries: Reads[Seq[Entry]] = (__ \ "items").read(using Reads.seq(using readEntry))
 
   def updateAll: Funit =
@@ -51,15 +51,15 @@ final private[video] class Youtube(
     api.video.allIds.flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
+          "id" -> ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
-          "key"  -> apiKey.value
+          "key" -> apiKey.value
         )
         .get()
         .flatMap:
           case res if res.status == 200 =>
             readEntries.reads(res.body[JsValue]) match
-              case JsError(err)          => fufail(err.toString)
+              case JsError(err) => fufail(err.toString)
               case JsSuccess(entries, _) => fuccess(entries.toList)
           case res =>
             fufail(s"[video youtube] fetch ${res.status}")

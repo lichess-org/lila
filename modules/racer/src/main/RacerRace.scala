@@ -48,7 +48,7 @@ case class RacerRace(
 
 object RacerRace:
 
-  val duration   = 90
+  val duration = 90
   val maxPlayers = 10
 
   opaque type Id = String

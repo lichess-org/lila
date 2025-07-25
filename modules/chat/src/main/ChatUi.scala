@@ -17,8 +17,8 @@ object ChatUi:
   )
 
   val spectatorsFrag = div(
-    cls           := "chat__members none",
-    aria.live     := "off",
+    cls := "chat__members none",
+    aria.live := "off",
     aria.relevant := "additions removals text"
   )
 
@@ -74,9 +74,9 @@ object ChatUi:
         .obj(
           "data" -> Json
             .obj(
-              "id"         -> chat.id,
-              "name"       -> name,
-              "lines"      -> lines,
+              "id" -> chat.id,
+              "name" -> name,
+              "lines" -> lines,
               "resourceId" -> resourceId.value
             )
             .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
@@ -84,8 +84,8 @@ object ChatUi:
             .add("loginRequired" -> chat.loginRequired)
             .add("restricted" -> restricted)
             .add("voiceChat" -> (voiceChat && ctx.isAuth)),
-          "writeable"   -> writeable,
-          "public"      -> public,
+          "writeable" -> writeable,
+          "public" -> public,
           "permissions" -> Json
             .obj("local" -> (public && localMod))
             .add("broadcast" -> (public && broadcastMod))

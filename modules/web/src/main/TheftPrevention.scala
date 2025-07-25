@@ -17,9 +17,9 @@ trait TheftPrevention:
   protected def isTheft(pov: Pov)(using ctx: Context) =
     pov.game.isPgnImport || pov.player.isAi || {
       (pov.player.userId, ctx.userId) match
-        case (Some(_), None)                    => true
+        case (Some(_), None) => true
         case (Some(playerUserId), Some(userId)) => playerUserId != userId
-        case (None, _)                          =>
+        case (None, _) =>
           lila.common.HTTPRequest.apiVersion(ctx.req).isEmpty &&
           !ctx.req.cookies.get(anonCookieName).exists(_.value == pov.playerId.value)
     }

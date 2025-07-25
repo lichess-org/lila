@@ -25,28 +25,28 @@ object compare:
       " ",
       comp.reference match
         case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
-        case TutorCompare.Peers(_)  => frag("your peers'")
+        case TutorCompare.Peers(_) => frag("your peers'")
       ,
       "."
     )
 
   private def otherDims[D](dimension: InsightDimension[D]) = dimension match
-    case InsightDimension.Phase         => "other phases"
+    case InsightDimension.Phase => "other phases"
     case InsightDimension.OpeningFamily => "other openings"
-    case _                              => "others"
+    case _ => "others"
 
   private[tutor] def showQuality(quality: Grade) =
     (if quality.better then goodTag else if quality.worse then badTag else span) (quality.wording.value)
 
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =
     comp.metric match
-      case TutorMetric.GlobalClock     => "global speed"
-      case TutorMetric.ClockUsage      => "clock usage"
+      case TutorMetric.GlobalClock => "global speed"
+      case TutorMetric.ClockUsage => "clock usage"
       case TutorMetric.Resourcefulness => "resourcefulness"
-      case TutorMetric.Conversion      => "ability to convert won games"
-      case metric                      => metric.metric.name.toLowerCase
+      case TutorMetric.Conversion => "ability to convert won games"
+      case metric => metric.metric.name.toLowerCase
 
   private[tutor] def showDimension[D](dimension: D): String = dimension match
     case d: LilaOpeningFamily => s"the ${d.name.value}"
-    case d: Phase             => d.name.toLowerCase
-    case d                    => d.toString.toLowerCase
+    case d: Phase => d.name.toLowerCase
+    case d => d.toString.toLowerCase

@@ -15,7 +15,7 @@ final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetR
 ):
 
   type AlmostFileName = String
-  type JsBotAssets    = Map[AssetType, List[AlmostFileName]]
+  type JsBotAssets = Map[AssetType, List[AlmostFileName]]
 
   @volatile private var cachedAssets: Option[(JsBotAssets, JsonStr)] = None
 
@@ -32,15 +32,15 @@ final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetR
         case e: Exception => Left(s"Exception: ${e.getMessage}")
 
   def getBoth: (JsBotAssets, JsonStr) = cachedAssets.getOrElse(updateAssets)
-  def getAssets: JsBotAssets          = getBoth._1
-  def getJson: JsonStr                = getBoth._2
+  def getAssets: JsBotAssets = getBoth._1
+  def getJson: JsonStr = getBoth._2
 
   def devGetAssets: Fu[JsObject] =
     repo.getAssets.map: m =>
       Json.toJsObject:
         getAssets.map: (categ, keys) =>
           categ -> (for
-            key  <- keys
+            key <- keys
             name <- m.get(key)
           yield Json.obj("key" -> key, "name" -> name))
 
@@ -58,9 +58,9 @@ final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetR
   def updateAssets: (JsBotAssets, JsonStr) =
     val data: JsBotAssets = Map(
       "image" -> listFiles("image", "webp"),
-      "net"   -> listFiles("net", "pb"),
+      "net" -> listFiles("net", "pb"),
       "sound" -> listFiles("sound", "mp3"),
-      "book"  -> listFiles("book", "png").map(_.dropRight(4))
+      "book" -> listFiles("book", "png").map(_.dropRight(4))
     )
     val newAssets = (data, JsonStr(Json.stringify(Json.toJson(data))))
     cachedAssets = newAssets.some

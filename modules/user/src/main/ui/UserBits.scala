@@ -13,7 +13,7 @@ final class UserBits(helpers: Helpers):
     lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
-        cls  := active.active("ratings"),
+        cls := active.active("ratings"),
         href := routes.User.ratingDistribution(PerfKey.blitz)
       )(
         trans.site.ratingStats()
@@ -37,9 +37,9 @@ final class UserBits(helpers: Helpers):
         .exists(!_.isFollow)
         .option(
           a(
-            cls      := "btn-rack__btn relation-button text aclose",
-            title    := trans.site.unblock.txt(),
-            href     := s"${routes.Relation.unblock(u.id)}?mini=1",
+            cls := "btn-rack__btn relation-button text aclose",
+            title := trans.site.unblock.txt(),
+            href := s"${routes.Relation.unblock(u.id)}?mini=1",
             dataIcon := Icon.NotAllowed
           )(trans.site.blocked())
         ),
@@ -47,9 +47,9 @@ final class UserBits(helpers: Helpers):
         .exists(_.isFollow)
         .option(
           a(
-            cls      := "btn-rack__btn relation-button text aclose",
-            title    := trans.site.unfollow.txt(),
-            href     := s"${routes.Relation.unfollow(u.id)}?mini=1",
+            cls := "btn-rack__btn relation-button text aclose",
+            title := trans.site.unfollow.txt(),
+            href := s"${routes.Relation.unfollow(u.id)}?mini=1",
             dataIcon := Icon.ThumbsUp
           )(trans.site.following())
         )

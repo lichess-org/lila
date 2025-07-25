@@ -9,7 +9,7 @@ import lila.core.socket.SocketVersion
 import lila.core.study.{ IdName, Order }
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
-lazy val ui   = lila.study.ui.StudyUi(helpers)
+lazy val ui = lila.study.ui.StudyUi(helpers)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
@@ -60,10 +60,10 @@ def show(
           "study" -> data.study
             .add("admin", isGranted(_.StudyAdmin))
             .add("showRatings", ctx.pref.showRatings),
-          "data"     -> data.analysis,
+          "data" -> data.analysis,
           "tagTypes" -> lila.study.PgnTags.typesToString,
-          "userId"   -> ctx.userId,
-          "chat"     -> chatOption.map: c =>
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map: c =>
             views.chat.json(
               c.chat,
               c.lines,
@@ -75,7 +75,7 @@ def show(
               voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),
-          "socketUrl"     -> socketUrl(s.id),
+          "socketUrl" -> socketUrl(s.id),
           "socketVersion" -> socketVersion
         ) ++ views.analyse.ui.explorerAndCevalConfig
       )
@@ -112,7 +112,7 @@ def privateStudy(study: lila.study.Study)(using Context) =
 object embed:
 
   def apply(s: lila.study.Study, chapterId: StudyChapterId, pgn: PgnStr)(using ctx: EmbedContext) =
-    val canGetPgn  = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
+    val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     val isGamebook = pgn.value.contains("""[ChapterMode "gamebook"]""")
     views.analyse.embed.lpv(
       pgn,

@@ -20,7 +20,7 @@ final class Env(
 )(using Executor, Scheduler):
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
-  val repo      = UserRepo(db(CollName("user4")))
+  val repo = UserRepo(db(CollName("user4")))
 
   val api = wire[UserApi]
 
@@ -44,7 +44,7 @@ final class Env(
 
   lazy val rankingApi = wire[RankingApi]
 
-  lazy val cached: Cached                           = wire[Cached]
+  lazy val cached: Cached = wire[Cached]
   def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
 
   lazy val forms = wire[UserForm]

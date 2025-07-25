@@ -37,7 +37,7 @@ final class Env(
 
   lazy val categRepo = new ForumCategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new ForumTopicRepo(db(CollName("f_topic")))
-  lazy val postRepo  = new ForumPostRepo(db(CollName("f_post")))
+  lazy val postRepo = new ForumPostRepo(db(CollName("f_post")))
 
   private lazy val detectLanguage =
     DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
@@ -55,7 +55,7 @@ final class Env(
   lazy val delete: ForumDelete = wire[ForumDelete]
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
-  lazy val forms                            = wire[ForumForm]
+  lazy val forms = wire[ForumForm]
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
@@ -68,6 +68,6 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     postRepo.eraseAllBy(del.id)
 
-private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
+private type RecentTeamPostsType = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType
 object RecentTeamPosts extends TotalWrapper[RecentTeamPosts, RecentTeamPostsType]

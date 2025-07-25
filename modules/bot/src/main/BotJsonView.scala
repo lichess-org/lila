@@ -19,7 +19,7 @@ final class BotJsonView(
   def gameFull(wf: WithInitialFen)(using Translate): Fu[JsObject] =
     gameState(wf).map: state =>
       gameImmutable(wf) ++ Json.obj(
-        "type"  -> "gameFull",
+        "type" -> "gameFull",
         "state" -> state
       )
 
@@ -27,14 +27,14 @@ final class BotJsonView(
     import wf.*
     Json
       .obj(
-        "id"         -> game.id,
-        "variant"    -> game.variant,
-        "speed"      -> game.speed.key,
-        "perf"       -> Json.obj("name" -> game.perfType.trans),
-        "rated"      -> game.rated,
-        "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.pov(Color.white)),
-        "black"      -> playerJson(game.pov(Color.black)),
+        "id" -> game.id,
+        "variant" -> game.variant,
+        "speed" -> game.speed.key,
+        "perf" -> Json.obj("name" -> game.perfType.trans),
+        "rated" -> game.rated,
+        "createdAt" -> game.createdAt,
+        "white" -> playerJson(game.pov(Color.white)),
+        "black" -> playerJson(game.pov(Color.black)),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("clock" -> game.clock.map(_.config))
@@ -46,12 +46,12 @@ final class BotJsonView(
     chess.format.UciDump(game.sans, fen, game.variant).toFuture.map { uciMoves =>
       Json
         .obj(
-          "type"   -> "gameState",
-          "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> millisRemaining(game, Color.white),
-          "btime"  -> millisRemaining(game, Color.black),
-          "winc"   -> game.clock.so[Long](_.config.increment.millis),
-          "binc"   -> game.clock.so[Long](_.config.increment.millis),
+          "type" -> "gameState",
+          "moves" -> uciMoves.mkString(" "),
+          "wtime" -> millisRemaining(game, Color.white),
+          "btime" -> millisRemaining(game, Color.black),
+          "winc" -> game.clock.so[Long](_.config.increment.millis),
+          "binc" -> game.clock.so[Long](_.config.increment.millis),
           "status" -> game.status.name
         )
         .add("wdraw" -> game.whitePlayer.isOfferingDraw)
@@ -70,15 +70,15 @@ final class BotJsonView(
 
   def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(
-      "type"     -> "chatLine",
-      "room"     -> (if player then "player" else "spectator"),
+      "type" -> "chatLine",
+      "room" -> (if player then "player" else "spectator"),
       "username" -> username,
-      "text"     -> text
+      "text" -> text
     )
 
   def opponentGoneClaimIn(seconds: Int) = Json.obj(
-    "type"              -> "opponentGone",
-    "gone"              -> true,
+    "type" -> "opponentGone",
+    "gone" -> true,
     "claimWinInSeconds" -> seconds
   )
   def opponentGoneIsBack = Json.obj(
@@ -99,6 +99,6 @@ final class BotJsonView(
 
   private given OWrites[chess.Clock.Config] = OWrites: c =>
     Json.obj(
-      "initial"   -> c.limit.millis,
+      "initial" -> c.limit.millis,
       "increment" -> c.increment.millis
     )

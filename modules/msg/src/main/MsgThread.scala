@@ -14,8 +14,8 @@ case class MsgThread(
 
   def users = List(user1, user2)
 
-  def other(userId: UserId): UserId  = if user1 == userId then user2 else user1
-  def other(using me: Me): UserId    = other(me.userId)
+  def other(userId: UserId): UserId = if user1 == userId then user2 else user1
+  def other(using me: Me): UserId = other(me.userId)
   def other(user: LightUser): UserId = other(user.id)
 
   def delBy(userId: UserId) = del.exists(_ contains userId)

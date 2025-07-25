@@ -21,9 +21,9 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
 
   def apply: Fu[PuzzleSet] = current.get {}
 
-  private val theme              = lila.puzzle.PuzzleTheme.mix.key
-  private val tier               = lila.puzzle.PuzzleTier.good.key
-  private val maxDeviation       = 85
+  private val theme = lila.puzzle.PuzzleTheme.mix.key
+  private val tier = lila.puzzle.PuzzleTier.good.key
+  private val maxDeviation = 85
   private val setsPerAggregation = 20
 
   /* for path boundaries:
@@ -101,7 +101,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
         $doc:
           "$match" -> $expr:
             $and(
-              $doc("$eq"  -> $arr("$_id", "$$id")),
+              $doc("$eq" -> $arr("$_id", "$$id")),
               $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
               $doc(
                 "$regexMatch" -> $doc(
@@ -113,8 +113,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
         ,
         $doc:
           "$project" -> $doc(
-            "fen"    -> true,
-            "line"   -> true,
+            "fen" -> true,
+            "line" -> true,
             "rating" -> $doc("$toInt" -> "$glicko.r")
           )
       )

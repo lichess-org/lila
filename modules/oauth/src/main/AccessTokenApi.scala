@@ -79,9 +79,9 @@ final class AccessTokenApi(
       coll
         .one[AccessToken]:
           $doc(
-            F.userId       -> user.id,
+            F.userId -> user.id,
             F.clientOrigin -> setup.description,
-            F.scopes       -> scope.key
+            F.scopes -> scope.key
           )
         .getOrElse:
           val plain = Bearer.randomPersonal()
@@ -103,7 +103,7 @@ final class AccessTokenApi(
     coll
       .find:
         $doc(
-          F.userId       -> me,
+          F.userId -> me,
           F.clientOrigin -> $exists(false)
         )
       .sort($sort.desc(F.createdAt)) // c.f. isBrandNew
@@ -125,14 +125,14 @@ final class AccessTokenApi(
   def countPersonal(using me: MyId): Fu[Int] =
     coll.countSel:
       $doc(
-        F.userId       -> me,
+        F.userId -> me,
         F.clientOrigin -> $exists(false)
       )
 
   def findCompatiblePersonal(scopes: OAuthScopes)(using me: MyId): Fu[Option[AccessToken]] =
     coll.one[AccessToken]:
       $doc(
-        F.userId       -> me,
+        F.userId -> me,
         F.clientOrigin -> $exists(false),
         F.scopes.$all(scopes.value)
       )
@@ -143,7 +143,7 @@ final class AccessTokenApi(
         import framework.*
         Match(
           $doc(
-            F.userId       -> me,
+            F.userId -> me,
             F.clientOrigin -> $exists(true)
           )
         ) -> List(
@@ -157,7 +157,7 @@ final class AccessTokenApi(
         )
       .map: docs =>
         for
-          doc    <- docs
+          doc <- docs
           origin <- doc.getAsOpt[String]("_id")
           usedAt = doc.getAsOpt[Instant](F.usedAt)
           scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
@@ -180,7 +180,7 @@ final class AccessTokenApi(
     coll
       .find(
         $doc(
-          F.userId       -> me,
+          F.userId -> me,
           F.clientOrigin -> clientOrigin
         )
       )
@@ -210,7 +210,7 @@ final class AccessTokenApi(
 
   def secretScanning(scans: List[AccessTokenApi.GithubSecretScan]): Fu[List[(AccessToken, String)]] = for
     found <- test(scans.map(_.token))
-    res   <- scans.sequentially: scan =>
+    res <- scans.sequentially: scan =>
       val compromised = found.get(scan.token).flatten
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match

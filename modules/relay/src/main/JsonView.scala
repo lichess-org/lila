@@ -19,7 +19,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[FideTC]           = writeAs(_.toString)
+  given Writes[FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes
@@ -30,12 +30,12 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
-        "id"        -> t.id,
-        "name"      -> t.name,
-        "slug"      -> t.slug,
-        "info"      -> t.info,
+        "id" -> t.id,
+        "name" -> t.name,
+        "slug" -> t.slug,
+        "info" -> t.info,
         "createdAt" -> t.createdAt,
-        "url"       -> s"$baseUrl${t.path}"
+        "url" -> s"$baseUrl${t.path}"
       )
       .add("tier" -> t.tier)
       .add("dates" -> t.dates)
@@ -45,7 +45,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
-      "name"  -> g.group.name,
+      "name" -> g.group.name,
       "tours" -> g.withShorterTourNames.tours
     )
 
@@ -61,7 +61,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
       .obj(
-        "tour"   -> fullTour(trs.tour),
+        "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
@@ -69,18 +69,18 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
-    case tour: RelayTour   => Json.obj("tour" -> fullTour(tour))
+    case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
         .obj(
-          "tour"  -> fullTour(tr.tour),
+          "tour" -> fullTour(tr.tour),
           "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
         )
         .add("group" -> tr.group)
     case tr: RelayCard =>
       Json
         .obj(
-          "tour"  -> fullTour(tr.tour),
+          "tour" -> fullTour(tr.tour),
           "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)
         )
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
@@ -115,7 +115,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
-      "tour"  -> r.tour,
+      "tour" -> r.tour,
       "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
     )
 
@@ -151,9 +151,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       past: Paginator[WithLastRound]
   )(using Config) =
     Json.obj(
-      "active"   -> active.map(tourWithAnyRound(_)),
+      "active" -> active.map(tourWithAnyRound(_)),
       "upcoming" -> Json.arr(), // BC
-      "past"     -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
+      "past" -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
     )
 
   def search(tours: Paginator[WithLastRound])(using Config) =
@@ -175,11 +175,11 @@ object JsonView:
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
-        "id"        -> r.id,
-        "name"      -> r.name,
-        "slug"      -> r.slug,
+        "id" -> r.id,
+        "name" -> r.name,
+        "slug" -> r.slug,
         "createdAt" -> r.createdAt,
-        "rated"     -> r.rated
+        "rated" -> r.rated
       )
       .add("finishedAt" -> r.finishedAt)
       .add("finished" -> r.isFinished) // BC
@@ -202,13 +202,13 @@ object JsonView:
     Json
       .obj(
         "ongoing" -> s.ongoing,
-        "log"     -> s.log.events
+        "log" -> s.log.events
       )
       .add("filter" -> s.onlyRound)
       .add("slices" -> s.slices.map(RelayGame.Slices.show))
       .add("delay" -> s.delay) ++
       s.upstream.so:
-        case Sync.Upstream.Url(url)     => Json.obj("url" -> url)
-        case Sync.Upstream.Urls(urls)   => Json.obj("urls" -> urls)
-        case Sync.Upstream.Ids(ids)     => Json.obj("ids" -> ids)
+        case Sync.Upstream.Url(url) => Json.obj("url" -> url)
+        case Sync.Upstream.Urls(urls) => Json.obj("urls" -> urls)
+        case Sync.Upstream.Ids(ids) => Json.obj("ids" -> ids)
         case Sync.Upstream.Users(users) => Json.obj("users" -> users)

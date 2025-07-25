@@ -14,7 +14,7 @@ import lila.core.misc.lpv.LinkRender
 object RawHtml:
 
   def nl2br(s: String): Html =
-    val sb      = jStringBuilder(s.length)
+    val sb = jStringBuilder(s.length)
     var counter = 0
     for char <- s do
       if char == '\n' then
@@ -26,11 +26,11 @@ object RawHtml:
     Html(sb.toString)
 
   private val urlPattern = (
-    """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
-      """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" +     // http(s) links
+    """(?i)\b[a-z](?>""" + // pull out first char for perf.
+      """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" + // http(s) links
       """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lichess.org", etc
-      """([/?#][-–—\w/.~!$&'()*+,;=:#?@%]{0,300}+)?""" +       // path, params
-      """(?![\w/~$&*+=#@%])"""                                 // neg lookahead
+      """([/?#][-–—\w/.~!$&'()*+,;=:#?@%]{0,300}+)?""" + // path, params
+      """(?![\w/~$&*+=#@%])""" // neg lookahead
   ).r.pattern
 
   private val USER_LINK = """/@/([\w-]{2,30}+)?""".r
@@ -70,8 +70,8 @@ object RawHtml:
 
       if !m.find then escapeHtmlRaw(expanded) // preserve fast case!
       else
-        val sb            = new jStringBuilder(expanded.length + 200)
-        val sArr          = expanded.toCharArray
+        val sb = new jStringBuilder(expanded.length + 200)
+        val sArr = expanded.toCharArray
         var lastAppendIdx = 0
 
         while
@@ -79,7 +79,7 @@ object RawHtml:
           escapeHtmlRawInPlace(sb, sArr, lastAppendIdx, start)
 
           val domainS = Math.max(m.start(1), start)
-          val pathS   = m.start(2)
+          val pathS = m.start(2)
 
           val end =
             val e = m.end
@@ -90,7 +90,7 @@ object RawHtml:
             domainS,
             pathS match
               case -1 => end
-              case _  => pathS
+              case _ => pathS
           )
 
           val isTldInternal = netDomain.value == domain
@@ -102,9 +102,9 @@ object RawHtml:
             csb.append(sArr, pathS, end - pathS)
 
           val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
-          lazy val isHttp  = domainS - start == 7
-          lazy val url     = (if isHttp then "http://" else "https://") + allButScheme
-          lazy val text    = if isHttp then url else allButScheme
+          lazy val isHttp = domainS - start == 7
+          lazy val url = (if isHttp then "http://" else "https://") + allButScheme
+          lazy val text = if isHttp then url else allButScheme
 
           sb.append:
             if isTldInternal then
@@ -115,7 +115,7 @@ object RawHtml:
                     else allButScheme
                   }">${allButScheme match
                     case USER_LINK(user) => "@" + user
-                    case _               => s"${netDomain}$allButScheme"
+                    case _ => s"${netDomain}$allButScheme"
                   }</a>""")
             else
               {
@@ -132,13 +132,13 @@ object RawHtml:
         sb.toString
     } match
       case one :: Nil => Html(one)
-      case many       => Html(many.mkString(""))
+      case many => Html(many.mkString(""))
 
   private def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
     var last = end - 1
     while (sArr(last): @switch) match
         case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' | '(' => true
-        case _                                                                => false
+        case _ => false
     do last -= 1
 
     if sArr(last) == ')' then
@@ -150,14 +150,14 @@ object RawHtml:
             acc + (sArr(idx) match
               case '(' => 1
               case ')' => -1
-              case _   => 0)
+              case _ => 0)
           )
       var parenCnt = pCnter(start, -1)
       while (sArr(last): @switch).match
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
-          case '('                                                        => parenCnt -= 1; true
-          case ')'                                                        => parenCnt += 1; parenCnt <= 0
-          case _                                                          => false
+          case '(' => parenCnt -= 1; true
+          case ')' => parenCnt += 1; parenCnt <= 0
+          case _ => false
       do last -= 1
     last + 1
 
@@ -169,21 +169,21 @@ object RawHtml:
   private def imgUrl(url: String): Option[Html] =
     url
       .match
-        case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
-        case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
+        case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
+        case giphyRegex(id) => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
         case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
-        case _                => None
+        case _ => None
       .map { img =>
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")
       }
 
-  private val markdownLinkRegex                  = """\[([^]]++)\]\((https?://[^)]++)\)""".r
+  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
   def justMarkdownLinks(escapedHtml: Html): Html = Html:
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
       m =>
         val content = Matcher.quoteReplacement(m.group(1))
-        val href    = removeUrlTrackingParameters(m.group(2))
+        val href = removeUrlTrackingParameters(m.group(2))
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
 

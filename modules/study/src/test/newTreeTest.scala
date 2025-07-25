@@ -13,7 +13,7 @@ class NewTreeTest extends munit.FunSuite:
 
   test("tree <-> newTree conversion"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = StudyPgnImport.result(pgn, Nil).toOption.get
+      val x = StudyPgnImport.result(pgn, Nil).toOption.get
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 

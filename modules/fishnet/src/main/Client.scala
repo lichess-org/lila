@@ -8,9 +8,9 @@ import scala.util.{ Failure, Success, Try }
 import lila.core.net.IpAddress
 
 case class Client(
-    _id: Client.Key,                   // API key used to authenticate and assign move or analysis
-    userId: UserId,                    // lichess user ID
-    skill: Client.Skill,               // what can this client do
+    _id: Client.Key, // API key used to authenticate and assign move or analysis
+    userId: UserId, // lichess user ID
+    skill: Client.Skill, // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: Instant
@@ -80,7 +80,7 @@ object Client:
     def accept(v: Client.Version): Try[Unit] =
       Try(SemVer(v.value)) match
         case Success(version) if version >= minVersion => Success(())
-        case Success(_)                                =>
+        case Success(_) =>
           Failure(
             new Exception(
               s"Version $v is no longer supported. Please restart fishnet to upgrade."

@@ -19,10 +19,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 ) extends lila.core.mod.LogApi:
   import repo.coll
 
-  private given BSONDocumentHandler[Modlog]           = Macros.handler
-  private given BSONHandler[Modlog.Context]           = Macros.handler[Modlog.Context]
+  private given BSONDocumentHandler[Modlog] = Macros.handler
+  private given BSONHandler[Modlog.Context] = Macros.handler[Modlog.Context]
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
-  private given Conversion[Me, ModId]                 = _.modId
+  private given Conversion[Me, ModId] = _.modId
 
   private val markActions =
     List(
@@ -216,7 +216,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     coll.secondary.exists:
       $doc(
         "user" -> user,
-        "mod"  -> me.userId,
+        "mod" -> me.userId,
         "action".$in(markActions)
       )
 
@@ -245,7 +245,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   private[mod] def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for
     prevCount <- countRecentCheatDetected(user)
-    _         <- cheatDetected(user, gameId)
+    _ <- cheatDetected(user, gameId)
   yield prevCount + 1
 
   def cli(command: String)(using by: MyId) = add:
@@ -271,13 +271,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
-      "user"   -> sus.user.id,
+      "user" -> sus.user.id,
       "action" -> Modlog.unengine
     )
 
   def wasUnbooster(userId: UserId) = coll.exists:
     $doc(
-      "user"   -> userId,
+      "user" -> userId,
       "action" -> Modlog.unbooster
     )
 
@@ -285,7 +285,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     coll.secondary
       .find(
         $doc(
-          "user"   -> userId,
+          "user" -> userId,
           "action" -> Modlog.chatTimeout
         )
       )
@@ -299,7 +299,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
       $doc(
-        "user"   -> userId,
+        "user" -> userId,
         "action" -> Modlog.cheatDetected,
         "date".$gte(nowInstant.minusMonths(6))
       )
@@ -307,7 +307,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
       $doc(
-        "user"   -> userId,
+        "user" -> userId,
         "action" -> Modlog.modMessage,
         $or(
           $doc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
@@ -373,22 +373,22 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M
     given MyId = m.mod.into(MyId)
-    val icon   = m.action match
+    val icon = m.action match
       case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.isolate | M.closeAccount => "thorhammer"
       case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.unisolate | M.reopenAccount =>
         "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament => "x"
-      case M.chatTimeout                                       => "hourglass_flowing_sand"
-      case M.closeTopic | M.disableTeam                        => "locked"
-      case M.openTopic | M.enableTeam                          => "unlocked"
-      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod    => "left_speech_bubble"
-      case M.blogTier | M.blogPostEdit                         => "note"
-      case _                                                   => "gear"
+      case M.chatTimeout => "hourglass_flowing_sand"
+      case M.closeTopic | M.disableTeam => "locked"
+      case M.openTopic | M.enableTeam => "unlocked"
+      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod => "left_speech_bubble"
+      case M.blogTier | M.blogPostEdit => "note"
+      case _ => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
       import lila.core.irc.ModDomain as domain
       val monitorType = m.action match
-        case M.closeAccount | M.alt                            => None
+        case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
           Some(domain.Cheat)
         case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
@@ -400,9 +400,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       import Permission.*
       monitorType.so: dom =>
         val monitorable = dom match
-          case domain.Cheat                             => permissions(MonitoredCheatMod)
-          case domain.Boost                             => permissions(MonitoredBoostMod)
-          case domain.Comm                              => permissions(MonitoredCommMod)
+          case domain.Cheat => permissions(MonitoredCheatMod)
+          case domain.Boost => permissions(MonitoredBoostMod)
+          case domain.Comm => permissions(MonitoredCommMod)
           case domain.Other if m.action == M.modMessage =>
             val presetPerms = m.details.so(presetsApi.permissionsByName)
             if presetPerms(Permission.Shusher) then permissions(MonitoredCommMod)

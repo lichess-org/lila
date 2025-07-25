@@ -20,7 +20,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       past: Seq[WithLastRound]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector) =
-      val tier     = RelayTour.Tier(selector)
+      val tier = RelayTour.Tier(selector)
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
@@ -180,7 +180,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       ctx.me.map: me =>
         a(
           href := routes.RelayTour.by(me.username, 1),
-          cls  := (menu == "new" || by.exists(_.is(me))).option("active")
+          cls := (menu == "new" || by.exists(_.is(me))).option("active")
         ):
           trc.myBroadcasts()
       ,
@@ -214,10 +214,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   private object card:
     private def link(t: RelayTour, url: String, live: Boolean) = a(
       href := url,
-      cls  := List(
-        "relay-card"         -> true,
+      cls := List(
+        "relay-card" -> true,
         "relay-card--active" -> t.active,
-        "relay-card--live"   -> live
+        "relay-card--live" -> live
       )
     )
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
@@ -299,14 +299,14 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       owner: Option[LightUser] = None
   )(using Context): Tag = renderPager(pager): page =>
     owner match
-      case None    => routes.RelayTour.index(page, query)
+      case None => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)
 
   def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
         case w: WithLastRound => card.render(w, live = _ => false, crowd = Crowd(0))(cls := "paginated")
-        case t: RelayTour     => card.empty(t)(cls := "paginated")
+        case t: RelayTour => card.empty(t)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)
     )

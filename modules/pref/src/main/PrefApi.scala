@@ -47,7 +47,7 @@ final class PrefApi(
 
   def get(user: Option[User], req: RequestHeader): Fu[Pref] = user match
     case Some(u) => get(u).dmap(RequestPref.queryParamOverride(req))
-    case None    => fuccess(RequestPref.fromRequest(req))
+    case None => fuccess(RequestPref.fromRequest(req))
 
   def byId(userId: UserId): Fu[Pref] = cache
     .get(userId)
@@ -63,10 +63,10 @@ final class PrefApi(
       .map: opponent =>
         myPov.fold(ByColor(myPref, opponent), ByColor(opponent, myPref))
 
-  def getMessage(userId: UserId): Future[Int]      = get(userId, _.message)
+  def getMessage(userId: UserId): Future[Int] = get(userId, _.message)
   def getInsightShare(userId: UserId): Future[Int] = get(userId, _.insightShare)
-  def getChallenge(userId: UserId): Future[Int]    = get(userId, _.challenge)
-  def getStudyInvite(userId: UserId): Future[Int]  = get(userId, _.studyInvite)
+  def getChallenge(userId: UserId): Future[Int] = get(userId, _.challenge)
+  def getStudyInvite(userId: UserId): Future[Int] = get(userId, _.studyInvite)
 
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)

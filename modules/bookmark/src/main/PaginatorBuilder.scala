@@ -33,9 +33,9 @@ final class PaginatorBuilder(
             PipelineOperator(
               $doc(
                 "$lookup" -> $doc(
-                  "from"         -> gameRepo.coll.name,
-                  "as"           -> "game",
-                  "localField"   -> "g",
+                  "from" -> gameRepo.coll.name,
+                  "as" -> "game",
+                  "localField" -> "g",
                   "foreignField" -> "_id"
                 )
               )

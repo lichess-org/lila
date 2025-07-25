@@ -28,8 +28,8 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> cleanNonEmptyText(minLength = 5),
-      "msgs"   -> list(nonEmptyText)
+      "text" -> cleanNonEmptyText(minLength = 5),
+      "msgs" -> list(nonEmptyText)
     ) { (username, reason, text, msgs) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
@@ -45,7 +45,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
     mapping(
       "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
-      "text"     -> text(minLength = 1, maxLength = 140)
+      "text" -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
   private def blockingFetchUser(username: UserStr) =
@@ -53,7 +53,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
-  def gameLinks(text: String)(using NetDomain)       =
+  def gameLinks(text: String)(using NetDomain) =
     gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
   def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 
@@ -70,4 +70,4 @@ case class ReportSetup(
     msgs: List[lila.core.msg.ID] = Nil
 ):
   def suspect = SuspectId(user.id)
-  def values  = (user.name.into(UserStr), reason, text, msgs)
+  def values = (user.name.into(UserStr), reason, text, msgs)

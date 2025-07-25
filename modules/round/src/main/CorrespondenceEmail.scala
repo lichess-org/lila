@@ -43,7 +43,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
               local = "_id",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc("enabled" -> true)),
+                $doc("$match" -> $doc("enabled" -> true)),
                 $doc("$project" -> $id(true))
               )
             )
@@ -63,7 +63,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
         import lila.game.BSONHandlers.given
         (for
           userId <- doc.getAsOpt[UserId]("_id")
-          games  <- doc.getAsOpt[List[Game]]("games")
+          games <- doc.getAsOpt[List[Game]]("games")
           povs = games
             .flatMap(Pov(_, userId))
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)

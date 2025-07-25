@@ -27,11 +27,11 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
 
   lazy val paginator = wire[FidePaginator]
 
-  def federationsOf: hub.Federation.FedsOf       = playerApi.federationsOf
-  def federationNamesOf: hub.Federation.NamesOf  = playerApi.federationNamesOf
-  def tokenize: hub.Tokenize                     = FidePlayer.tokenize
-  def guessPlayer: hub.GuessPlayer               = playerApi.guessPlayer.apply
-  def getPlayer: hub.GetPlayer                   = playerApi.get
+  def federationsOf: hub.Federation.FedsOf = playerApi.federationsOf
+  def federationNamesOf: hub.Federation.NamesOf = playerApi.federationNamesOf
+  def tokenize: hub.Tokenize = FidePlayer.tokenize
+  def guessPlayer: hub.GuessPlayer = playerApi.guessPlayer.apply
+  def getPlayer: hub.GetPlayer = playerApi.get
   def getPlayerFollowers: hub.GetPlayerFollowers = repo.follower.followers
 
   def search(q: Option[String], page: Int = 1): Fu[Either[FidePlayer, Paginator[FidePlayer]]] =
@@ -41,7 +41,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
       .so(playerApi.fetch)
       .flatMap:
         case Some(player) => fuccess(Left(player))
-        case None         => paginator.best(page, query).map(Right(_))
+        case None => paginator.best(page, query).map(Right(_))
 
   private lazy val fideSync = wire[FidePlayerSync]
 

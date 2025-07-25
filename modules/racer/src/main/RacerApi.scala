@@ -22,7 +22,7 @@ final class RacerApi(
 
   def playerId(sessionId: SessionId, user: Option[User]) = user match
     case Some(u) => RacerPlayer.Id.User(u.id)
-    case None    => RacerPlayer.Id.Anon(sessionId)
+    case None => RacerPlayer.Id.Anon(sessionId)
 
   def createKeepOwnerAndJoin(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] =
     create(race.owner, 10).map { id =>
@@ -57,7 +57,7 @@ final class RacerApi(
 
   def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
     case Some(found) if found.finished => rematch(found, player)
-    case Some(found)                   =>
+    case Some(found) =>
       join(found.id, player)
       fuccess(found.id)
     case None =>
@@ -112,5 +112,5 @@ final class RacerApi(
     socket.foreach(_.publishState(race))
 
   // work around circular dependency
-  private var socket: Option[RacerSocket]           = None
+  private var socket: Option[RacerSocket] = None
   private[racer] def registerSocket(s: RacerSocket) = socket = s.some

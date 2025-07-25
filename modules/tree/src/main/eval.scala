@@ -17,12 +17,12 @@ case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
 
   def forceAsCp: Option[Ev.Cp] = cp.orElse(mate.map {
     case m if m.negative => Ev.Cp(Int.MinValue - m.value)
-    case m               => Ev.Cp(Int.MaxValue - m.value)
+    case m => Ev.Cp(Int.MaxValue - m.value)
   })
 
 object evals:
-  val initial                 = Eval(Some(Ev.Cp.initial), None, None)
-  val empty                   = Eval(None, None, None)
+  val initial = Eval(Some(Ev.Cp.initial), None, None)
+  val empty = Eval(None, None, None)
   def fromScore(score: Score) = Eval(score.cp, score.mate, None)
 
   import play.api.libs.json.*

@@ -9,7 +9,7 @@ import Forecast.Step
 
 final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Executor):
 
-  private given BSONDocumentHandler[Step]     = Macros.handler
+  private given BSONDocumentHandler[Step] = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit =
@@ -28,9 +28,9 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
 
   def save(pov: Pov, steps: Forecast.Steps): Funit =
     firstStep(steps) match
-      case None                                       => coll.delete.one($id(pov.fullId)).void
+      case None => coll.delete.one($id(pov.fullId)).void
       case Some(step) if pov.game.ply == step.ply - 1 => saveSteps(pov, steps)
-      case _                                          => fufail(Forecast.OutOfSync)
+      case _ => fufail(Forecast.OutOfSync)
 
   def playAndSave(
       pov: Pov,
@@ -65,7 +65,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
     pov.game.forecastable
       .so(coll.byId[Forecast](pov.fullId))
       .flatMap:
-        case None     => fuccess(none)
+        case None => fuccess(none)
         case Some(fc) =>
           if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov).inject(none)
           else fuccess(fc.some)
@@ -78,7 +78,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
           case Some(newFc, uciMove) if newFc.steps.nonEmpty =>
             coll.update.one($id(fc._id), newFc).inject(uciMove.some)
           case Some(_, uciMove) => clearPov(pov).inject(uciMove.some)
-          case _                => clearPov(pov).inject(none)
+          case _ => clearPov(pov).inject(none)
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 

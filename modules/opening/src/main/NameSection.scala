@@ -23,10 +23,10 @@ object NameSection extends OpaqueString[NameSection]:
   def variationName(prev: Option[Opening], next: Option[Opening]): Option[NameSection] =
     (prev, next) match
       case (Some(p), Some(n)) => variationName(p.name, n.name).some
-      case (None, Some(n))    => n.family.name.into(NameSection).some
-      case _                  => none
+      case (None, Some(n)) => n.family.name.into(NameSection).some
+      case _ => none
 
   def sectionsOf(openingName: OpeningName): NonEmptyList[NameSection] =
     openingName.value.split(":", 2) match
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
-      case _           => NonEmptyList(openingName.into(NameSection), Nil)
+      case _ => NonEmptyList(openingName.into(NameSection), Nil)

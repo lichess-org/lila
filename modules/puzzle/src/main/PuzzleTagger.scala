@@ -33,7 +33,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         val theme = Divider(List(position.board)) match
           case Division(None, Some(_), _) => PuzzleTheme.endgame
           case Division(Some(_), None, _) => PuzzleTheme.middlegame
-          case _                          => PuzzleTheme.opening
+          case _ => PuzzleTheme.opening
         colls.puzzle:
           _.update
             .one(
@@ -49,7 +49,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
     for
       init <- puzzle.boardAfterInitialMove
       if !puzzle.hasTheme(PuzzleTheme.mateIn1)
-      move  <- puzzle.line.tail.headOption
+      move <- puzzle.line.tail.headOption
       first <- init.move(move).toOption.map(_.after)
     yield first.check
   }.exists(_.yes)

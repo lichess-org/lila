@@ -31,7 +31,7 @@ final class Syncache[K, V](
       .pipe: c =>
         expireAfter match
           case ExpireAfter.Access(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
-          case ExpireAfter.Write(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfter.Write(duration) => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
       .recordStats
       .build[K, Fu[V]](
         new CacheLoader[K, Fu[V]]:
@@ -53,13 +53,13 @@ final class Syncache[K, V](
     val future = cache.get(k)
     future.value match
       case Some(Success(v)) => v
-      case Some(_)          =>
+      case Some(_) =>
         cache.invalidate(k)
         default(k)
       case _ =>
         incMiss()
         strategy match
-          case Strategy.NeverWait                         => default(k)
+          case Strategy.NeverWait => default(k)
           case Strategy.WaitAfterUptime(duration, uptime) =>
             if Uptime.startedSinceSeconds(uptime) then waitForResult(k, future, duration)
             else default(k)
@@ -73,7 +73,7 @@ final class Syncache[K, V](
 
   // maybe optimize later with cache batching
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.parallelVoid(preloadOne)
-  def preloadSet(ks: Set[K]): Funit  = ks.toSeq.parallelVoid(preloadOne)
+  def preloadSet(ks: Set[K]): Funit = ks.toSeq.parallelVoid(preloadOne)
 
   def set(k: K, v: V): Unit = cache.put(k, fuccess(v))
 
@@ -86,9 +86,9 @@ final class Syncache[K, V](
         incTimeout()
         default(k)
 
-  private val incMiss    = (() => lila.mon.syncache.miss(name).increment())
+  private val incMiss = (() => lila.mon.syncache.miss(name).increment())
   private val incTimeout = (() => lila.mon.syncache.timeout(name).increment())
-  private val recWait    = lila.mon.syncache.wait(name)
+  private val recWait = lila.mon.syncache.wait(name)
   private val recCompute = lila.mon.syncache.compute(name)
 
 object Syncache:

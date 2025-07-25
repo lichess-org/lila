@@ -12,7 +12,7 @@ trait StringHelper:
   def showNumber(n: Int): String = if n > 0 then s"+$n" else n.toString
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
-  private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
+  private val NumberLastRegex = """\s(\d++)$""".r.unanchored
 
   def splitNumber(s: Frag)(using Translate): Frag =
     val rendered = s.render
@@ -33,12 +33,12 @@ trait StringHelper:
 
   def fragList(frags: List[Frag], separator: String = ", "): Frag =
     frags match
-      case Nil           => emptyFrag
-      case one :: Nil    => one
+      case Nil => emptyFrag
+      case one :: Nil => one
       case first :: rest =>
         RawFrag:
           frag(first :: rest.map { frag(separator, _) }).render
 
   extension (e: String)
-    def active(other: String)  = if e == other then "active" else ""
+    def active(other: String) = if e == other then "active" else ""
     def activeO(other: String) = Option.when(e == other)("active")

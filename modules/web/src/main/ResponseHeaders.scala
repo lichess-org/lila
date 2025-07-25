@@ -10,7 +10,7 @@ trait ResponseHeaders extends HeaderNames:
   def headersForApiOrApp(using req: RequestHeader) =
     val appOrigin = HTTPRequest.appOrigin(req)
     List(
-      "Access-Control-Allow-Origin"  -> appOrigin.getOrElse("*"),
+      "Access-Control-Allow-Origin" -> appOrigin.getOrElse("*"),
       "Access-Control-Allow-Methods" -> allowMethods,
       "Access-Control-Allow-Headers" -> {
         List(
@@ -27,14 +27,14 @@ trait ResponseHeaders extends HeaderNames:
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
-  val allowMethods   = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
+  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
   val optionsHeaders = List(
-    "Allow"                  -> allowMethods,
+    "Allow" -> allowMethods,
     "Access-Control-Max-Age" -> "86400"
   )
 
   val assetsHeaders = List(
-    "Service-Worker-Allowed"       -> "/",
+    "Service-Worker-Allowed" -> "/",
     "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
   )
 
@@ -62,14 +62,14 @@ trait ResponseHeaders extends HeaderNames:
       import HTTPRequest.*
       isChrome113Plus(req)
 
-    def unsafe         = headers("unsafe-none")
+    def unsafe = headers("unsafe-none")
     def credentialless = headers("credentialless")
-    def requireCorp    = headers("require-corp")
+    def requireCorp = headers("require-corp")
 
-    private val openerPolicyHeader   = "Cross-Origin-Opener-Policy"
+    private val openerPolicyHeader = "Cross-Origin-Opener-Policy"
     private val embedderPolicyHeader = "Cross-Origin-Embedder-Policy"
 
     private def headers(policy: "credentialless" | "require-corp" | "unsafe-none") = List(
-      openerPolicyHeader   -> (if policy == "unsafe-none" then "unsafe-none" else "same-origin"),
+      openerPolicyHeader -> (if policy == "unsafe-none" then "unsafe-none" else "same-origin"),
       embedderPolicyHeader -> policy
     )

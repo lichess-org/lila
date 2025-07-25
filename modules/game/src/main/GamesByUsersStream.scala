@@ -13,11 +13,11 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
     if userIds.sizeIs < 2 then Source.empty
     else
       val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
-      val startStream  =
+      val startStream =
         Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
           def matches(game: Game) = game.userIds match
             case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-            case _                        => false
+            case _ => false
           val subStart = Bus.sub[StartGame]:
             case StartGame(game) if matches(game) => queue.offer(game)
           val subFinish = Bus.sub[FinishGame]:
@@ -42,15 +42,15 @@ private object GameStream:
     case WithInitialFen(g, initialFen) =>
       Json
         .obj(
-          "id"         -> g.id,
-          "rated"      -> g.rated,
-          "variant"    -> g.variant.key,
-          "speed"      -> g.speed.key,
-          "perf"       -> g.perfKey,
-          "createdAt"  -> g.createdAt,
-          "status"     -> g.status.id,
+          "id" -> g.id,
+          "rated" -> g.rated,
+          "variant" -> g.variant.key,
+          "speed" -> g.speed.key,
+          "perf" -> g.perfKey,
+          "createdAt" -> g.createdAt,
+          "status" -> g.status.id,
           "statusName" -> g.status.name,
-          "players"    -> JsObject(g.players.mapList: p =>
+          "players" -> JsObject(g.players.mapList: p =>
             p.color.name -> Json
               .obj(
                 "userId" -> p.userId,
@@ -63,7 +63,7 @@ private object GameStream:
         .add("initialFen" -> initialFen)
         .add("clock" -> g.clock.map: clock =>
           Json.obj(
-            "initial"   -> clock.limitSeconds,
+            "initial" -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds
           ))
         .add("daysPerTurn" -> g.daysPerTurn)

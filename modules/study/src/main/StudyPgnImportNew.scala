@@ -26,9 +26,9 @@ object StudyPgnImportNew:
       val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
-          val tc            = parsedPgn.tags.timeControl
-          val clock         = tc.map(_.limit).map(Clock(_, true.some))
-          val setup         = Context(replay.setup.position, ByColor.fill(clock), tc, replay.setup.ply)
+          val tc = parsedPgn.tags.timeControl
+          val clock = tc.map(_.limit).map(Clock(_, true.some))
+          val setup = Context(replay.setup.position, ByColor.fill(clock), tc, replay.setup.ply)
           val root: NewRoot =
             NewRoot(
               Metas(
@@ -90,14 +90,14 @@ object StudyPgnImportNew:
     data
       .san(context.currentPosition)
       .map(moveOrDrop =>
-        val game                           = moveOrDrop.after
-        val currentPly                     = context.ply.next
-        val uci                            = moveOrDrop.toUci
-        val id                             = UciCharPair(uci)
-        val sanStr                         = moveOrDrop.toSanStr
+        val game = moveOrDrop.after
+        val currentPly = context.ply.next
+        val uci = moveOrDrop.toUci
+        val id = UciCharPair(uci)
+        val sanStr = moveOrDrop.toSanStr
         val (shapes, clock, emt, comments) = StudyPgnImport.parseComments(data.metas.comments, annotator)
-        val mover                          = !game.color
-        val computedClock: Option[Clock]   = clock
+        val mover = !game.color
+        val computedClock: Option[Clock] = clock
           .map(Clock(_, trust = true.some))
           .orElse:
             (context.clocks(mover), emt)
@@ -131,4 +131,4 @@ object StudyPgnImportNew:
       .toOption
       .match
         case Some(branch) => branch
-        case None         => (context, None)
+        case None => (context, None)

@@ -26,47 +26,47 @@ object PrefForm:
     number.verifying(Pref.BooleanPref.verify)
 
   object fields:
-    val theme      = "theme"      -> text.verifying(Theme.contains(_))
-    val theme3d    = "theme3d"    -> text.verifying(Theme3d.contains(_))
-    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet.contains(_))
+    val theme = "theme" -> text.verifying(Theme.contains(_))
+    val theme3d = "theme3d" -> text.verifying(Theme3d.contains(_))
+    val pieceSet = "pieceSet" -> text.verifying(PieceSet.contains(_))
     val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d.contains(_))
-    val soundSet   = "soundSet"   -> text.verifying(SoundSet.contains(_))
-    val bg         = "bg"         -> stringIn(Pref.Bg.fromString.keySet)
-    val bgImg      = "bgImg"      -> text(maxLength = 400).verifying(
+    val soundSet = "soundSet" -> text.verifying(SoundSet.contains(_))
+    val bg = "bg" -> stringIn(Pref.Bg.fromString.keySet)
+    val bgImg = "bgImg" -> text(maxLength = 400).verifying(
       "URL must use https",
       url => url.isBlank || url.startsWith("https://") || url.startsWith("//")
     )
-    val is3d          = "is3d"          -> tolerantBoolean
-    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
-    val voice         = "voice"         -> booleanNumber
-    val keyboardMove  = "keyboardMove"  -> booleanNumber
-    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
-    val premove       = "premove"       -> booleanNumber
-    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
+    val is3d = "is3d" -> tolerantBoolean
+    val zen = "zen" -> checkedNumber(Pref.Zen.choices)
+    val voice = "voice" -> booleanNumber
+    val keyboardMove = "keyboardMove" -> booleanNumber
+    val autoQueen = "autoQueen" -> checkedNumber(Pref.AutoQueen.choices)
+    val premove = "premove" -> booleanNumber
+    val takeback = "takeback" -> checkedNumber(Pref.Takeback.choices)
     val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
-    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val submitMove = "submitMove" -> bitCheckedNumber(Pref.SubmitMove.choices)
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
-    val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
-    val clockSound    = "clockSound"    -> booleanNumber
+    val moretime = "moretime" -> checkedNumber(Pref.Moretime.choices)
+    val clockSound = "clockSound" -> booleanNumber
     val pieceNotation = "pieceNotation" -> booleanNumber
-    val ratings       = "ratings"       -> checkedNumber(Pref.Ratings.choices)
-    val flairs        = "flairs"        -> boolean
-    val follow        = "follow"        -> booleanNumber
-    val challenge     = "challenge"     -> checkedNumber(Pref.Challenge.choices)
+    val ratings = "ratings" -> checkedNumber(Pref.Ratings.choices)
+    val flairs = "flairs" -> boolean
+    val follow = "follow" -> booleanNumber
+    val challenge = "challenge" -> checkedNumber(Pref.Challenge.choices)
     object board:
       val brightness = "boardBrightness" -> number(0, 150)
-      val opacity    = "boardOpacity"    -> number(0, 100)
-      val hue        = "boardHue"        -> number(0, 100)
+      val opacity = "boardOpacity" -> number(0, 100)
+      val hue = "boardHue" -> number(0, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
       "display" -> mapping(
-        "animation"     -> numberIn(Set(0, 1, 2, 3)),
-        "captured"      -> booleanNumber,
-        "highlight"     -> booleanNumber,
-        "destination"   -> booleanNumber,
-        "coords"        -> checkedNumber(Pref.Coords.choices),
-        "replay"        -> checkedNumber(Pref.Replay.choices),
+        "animation" -> numberIn(Set(0, 1, 2, 3)),
+        "captured" -> booleanNumber,
+        "highlight" -> booleanNumber,
+        "destination" -> booleanNumber,
+        "coords" -> checkedNumber(Pref.Coords.choices),
+        "replay" -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
         "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices))
@@ -89,14 +89,14 @@ object PrefForm:
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
         "tenths" -> checkedNumber(Pref.ClockTenths.choices),
-        "bar"    -> booleanNumber,
-        "sound"  -> booleanNumber,
+        "bar" -> booleanNumber,
+        "sound" -> booleanNumber,
         fields.moretime
       )(ClockData.apply)(unapply),
       fields.follow,
       fields.challenge,
-      "message"      -> checkedNumber(Pref.Message.choices),
-      "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "message" -> checkedNumber(Pref.Message.choices),
+      "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
       fields.flairs.map2(optional)

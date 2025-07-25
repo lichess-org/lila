@@ -82,18 +82,18 @@ object Puzzle:
   )
 
   object BSONFields:
-    val id       = "_id"
-    val gameId   = "gameId"
-    val fen      = "fen"
-    val line     = "line"
-    val glicko   = "glicko"
-    val vote     = "vote"
-    val voteUp   = "vu"
+    val id = "_id"
+    val gameId = "gameId"
+    val fen = "fen"
+    val line = "line"
+    val glicko = "glicko"
+    val vote = "vote"
+    val voteUp = "vu"
     val voteDown = "vd"
-    val plays    = "plays"
-    val themes   = "themes"
-    val opening  = "opening"
-    val day      = "day"
-    val issue    = "issue"
-    val dirty    = "dirty" // themes need to be denormalized
-    val tagMe    = "tagMe" // pending phase & opening
+    val plays = "plays"
+    val themes = "themes"
+    val opening = "opening"
+    val day = "day"
+    val issue = "issue"
+    val dirty = "dirty" // themes need to be denormalized
+    val tagMe = "tagMe" // pending phase & opening

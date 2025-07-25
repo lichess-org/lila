@@ -18,12 +18,12 @@ def index(
       PageModule(
         "insight",
         Json.obj(
-          "ui"              -> ui,
+          "ui" -> ui,
           "initialQuestion" -> question,
-          "myUserId"        -> ctx.userId,
-          "user"            -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
+          "myUserId" -> ctx.userId,
+          "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
             "nbGames" -> insightUser.count,
-            "stale"   -> stale,
+            "stale" -> stale,
             "shareId" -> prefId
           )),
           "pageUrl" -> routes.Insight.index(u.username).url,

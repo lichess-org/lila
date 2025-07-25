@@ -22,5 +22,5 @@ object GameToRoot:
     game.finished.option:
       val result = Outcome.showResult(Outcome(game.winnerColor).some)
       val status = lila.tree.StatusText(game.status, game.winnerColor, game.variant)
-      val text   = s"$result $status"
+      val text = s"$result $status"
       Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)

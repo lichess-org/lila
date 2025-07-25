@@ -56,7 +56,7 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
           .map: line =>
             div(
               cls := List(
-                "line"    -> true,
+                "line" -> true,
                 "lichess" -> line.isLichess
               )
             )(

@@ -98,7 +98,7 @@ final private class PoolActor(
         sris contains m.sri
 
   val monitor = lila.mon.lobby.pool.wave
-  val monId   = config.id.value.replace('+', '_')
+  val monId = config.id.value.replace('+', '_')
 
 private object PoolActor:
 

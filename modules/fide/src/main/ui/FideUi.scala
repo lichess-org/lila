@@ -15,8 +15,8 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   private val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
     List(
       FideTC.standard -> trs.classical,
-      FideTC.rapid    -> trs.rapid,
-      FideTC.blitz    -> trs.blitz
+      FideTC.rapid -> trs.rapid,
+      FideTC.blitz -> trs.blitz
     )
 
   private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
@@ -91,9 +91,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       """All reference to Kosovo, whether to the territory, institutions or population, in this text shall be understood in full compliance with United Nations Security Council Resolution 1244 and without prejudice to the status of Kosovo"""
 
     def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
-      cls      := "flag",
+      cls := "flag",
       st.title := title.getOrElse(id.value),
-      src      := assetUrl(s"images/fide-fed-webp/${id}.webp")
+      src := assetUrl(s"images/fide-fed-webp/${id}.webp")
     )
 
     private def card(name: Frag, value: Frag) =
@@ -139,13 +139,13 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def searchForm(q: String) =
       st.form(cls := "fide-players__search-form", action := routes.Fide.index(1), method := "get")(
         input(
-          cls            := "fide-players__search-form__input",
-          name           := "q",
+          cls := "fide-players__search-form__input",
+          name := "q",
           st.placeholder := "Search for players",
-          st.value       := q,
-          autofocus      := true,
-          autocomplete   := "off",
-          spellcheck     := "false"
+          st.value := q,
+          autofocus := true,
+          autocomplete := "off",
+          spellcheck := "false"
         ),
         submitButton(cls := "button", dataIcon := Icon.Search)
       )

@@ -128,13 +128,13 @@ final class SwissApi(
 
   private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
-    perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
+    perfs <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
     elements <- perfs.parallel: (userId, perf) =>
       update.element(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
         u = $set(
-          SwissPlayer.Fields.rating      -> perf.intRating,
+          SwissPlayer.Fields.rating -> perf.intRating,
           SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
         )
       )
@@ -153,7 +153,7 @@ final class SwissApi(
         _ <- (!old.isFinished && old.nbOngoing == 0)
           .so(mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void)
         formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-        showDate  = formatter.print(date)
+        showDate = formatter.print(date)
       yield
         systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $showDate UTC")
         cache.swissCache.clear(swiss.id)
@@ -441,7 +441,7 @@ final class SwissApi(
           case Some(days) =>
             lastGame match
               case Some(g) => fuccess(g.createdAt.plusDays(days))
-              case None    => lastRoundAt(swiss).map(_ | nowInstant)
+              case None => lastRoundAt(swiss).map(_ | nowInstant)
           case None => fuccess(nowInstant.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt))
         _ <- mongo.swiss.updateField($id(swiss.id), "nextRoundAt", nextRoundAt)
       yield systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
@@ -473,7 +473,7 @@ final class SwissApi(
         $unset("nextRoundAt", "lastRoundAt", "featurable") ++ $set(
           "settings.n" -> swiss.round,
           "finishedAt" -> nowInstant,
-          "winnerId"   -> winnerUserId
+          "winnerId" -> winnerUserId
         )
       )
     pairingDelete <- SwissPairing.fields: f =>
@@ -510,11 +510,11 @@ final class SwissApi(
       name: Option[String]
   ) =
     val statusSel = status.so:
-      case Swiss.Status.created  => $doc("round" -> 0)
-      case Swiss.Status.started  => $doc("round".$gt(0), "finishedAt" -> $exists(false))
+      case Swiss.Status.created => $doc("round" -> 0)
+      case Swiss.Status.started => $doc("round".$gt(0), "finishedAt" -> $exists(false))
       case Swiss.Status.finished => $doc("finishedAt" -> $exists(true))
     val creatorSel = createdBy.so(u => $doc("createdBy" -> u))
-    val nameSel    = name.so(n => $doc("name" -> n))
+    val nameSel = name.so(n => $doc("name" -> n))
     mongo.swiss
       .find:
         $doc("teamId" -> teamId) ++ statusSel ++ creatorSel ++ nameSel
@@ -568,7 +568,7 @@ final class SwissApi(
                 else
                   for
                     next <- director.startRound(swiss)
-                    _    <- next match
+                    _ <- next match
                       case None =>
                         systemChat(swiss.id, "All possible pairings were played.")
                         doFinish(swiss)
@@ -618,10 +618,10 @@ final class SwissApi(
             roundApi
               .getGames(gameIds)
               .map: pairs =>
-                val games               = pairs.collect { case (_, Some(g)) => g }
+                val games = pairs.collect { case (_, Some(g)) => g }
                 val (finished, ongoing) = games.partition(_.finishedOrAborted)
-                val flagged             = ongoing.filter(_.outoftime(true))
-                val missingIds          = pairs.collect { case (id, None) => id }
+                val flagged = ongoing.filter(_.outoftime(true))
+                val missingIds = pairs.collect { case (id, None) => id }
                 lila.mon.swiss.games("finished").record(finished.size)
                 lila.mon.swiss.games("ongoing").record(ongoing.size)
                 lila.mon.swiss.games("flagged").record(flagged.size)
@@ -714,7 +714,7 @@ final class SwissApi(
     players <- mongo.player.list[SwissPlayer]($inIds(playerIds), _.sec)
     // here we use a single ghost ID for all swiss players and pairings,
     // because the mapping of swiss player to swiss pairings must be preserved
-    ghostId    = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
+    ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
     newPlayers = players.map: p =>
       p.copy(id = SwissPlayer.makeId(p.swissId, ghostId), userId = ghostId)
     _ <- mongo.player.delete.one($inIds(playerIds))

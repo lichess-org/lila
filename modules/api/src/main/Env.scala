@@ -95,7 +95,7 @@ final class Env(
   lazy val cli = wire[Cli]
 
   private lazy val linkCheck = wire[LinkCheck]
-  lazy val chatFreshness     = wire[ChatFreshness]
+  lazy val chatFreshness = wire[ChatFreshness]
 
   Bus.sub[GetLinkCheck]:
     case GetLinkCheck(line, source, promise) =>
@@ -105,7 +105,7 @@ final class Env(
       promise.completeWith(chatFreshness.of(source))
   Bus.sub[Lpv]:
     case Lpv.AllPgnsFromText(text, max, p) => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
-    case Lpv.LinkRenderFromText(text, p)   => p.completeWith(textLpvExpand.linkRenderFromText(text))
+    case Lpv.LinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
   Bus.sub[lila.core.security.GarbageCollect]:
     case lila.core.security.GarbageCollect(userId) =>
       accountTermination.garbageCollect(userId)

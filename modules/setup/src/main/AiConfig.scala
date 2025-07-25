@@ -107,11 +107,11 @@ object AiConfig extends BaseConfig:
 
     def writes(w: BSON.Writer, o: AiConfig) =
       $doc(
-        "v"  -> o.variant.id,
+        "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
-        "t"  -> o.time,
-        "i"  -> o.increment,
-        "d"  -> o.days,
-        "l"  -> o.level,
-        "f"  -> o.fen
+        "t" -> o.time,
+        "i" -> o.increment,
+        "d" -> o.days,
+        "l" -> o.level,
+        "f" -> o.fen
       )

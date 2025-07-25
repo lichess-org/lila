@@ -24,12 +24,12 @@ final private class OpeningExplorer(
   def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Try[Option[Position]]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "since"   -> OpeningQuery.firstMonth,
-        "play"    -> play.map(_.uci).mkString(","),
+        "since" -> OpeningQuery.firstMonth,
+        "play" -> play.map(_.uci).mkString(","),
         "ratings" -> config.ratings.mkString(","),
-        "speeds"  -> config.speeds.map(_.key).mkString(","),
+        "speeds" -> config.speeds.map(_.key).mkString(","),
         "history" -> "yes",
-        "source"  -> (if crawler.yes then "openingCrawler" else "opening")
+        "source" -> (if crawler.yes then "openingCrawler" else "opening")
       )
       .withRequestTimeout(requestTimeout)
       .get()
@@ -54,12 +54,12 @@ final private class OpeningExplorer(
   def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
-        "since"       -> OpeningQuery.firstMonth,
-        "play"        -> opening.uci.value.replace(" ", ","),
-        "moves"       -> "0",
-        "topGames"    -> "0",
+        "since" -> OpeningQuery.firstMonth,
+        "play" -> opening.uci.value.replace(" ", ","),
+        "moves" -> "0",
+        "topGames" -> "0",
         "recentGames" -> "0",
-        "source"      -> "opening"
+        "source" -> "opening"
       )
       .withRequestTimeout(requestTimeout)
       .get()
@@ -91,9 +91,9 @@ object OpeningExplorer:
       recentGames: List[GameRef],
       history: List[Stats]
   ):
-    val sum      = white + draws + black
+    val sum = white + draws + black
     val movesSum = moves.foldLeft(0L)(_ + _.sum)
-    val games    = topGames ::: recentGames
+    val games = topGames ::: recentGames
 
     def popularityHistory: PopularityHistoryAbsolute =
       history.map(_.sum)
@@ -111,7 +111,7 @@ object OpeningExplorer:
     def sum = white + draws + black
 
   import lila.common.Json.given
-  private given Reads[Move]     = Json.reads
-  private given Reads[GameRef]  = Json.reads
+  private given Reads[Move] = Json.reads
+  private given Reads[GameRef] = Json.reads
   private given Reads[Position] = Json.reads
-  private given Reads[Stats]    = Json.reads
+  private given Reads[Stats] = Json.reads

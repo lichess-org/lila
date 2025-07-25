@@ -20,9 +20,9 @@ case class Money(amount: BigDecimal, currency: Currency):
     format.setCurrency(currency)
     format.format(amount)
   def display(using lang: Lang): String = display(lang.locale)
-  def currencyCode                      = currency.getCurrencyCode
-  def code                              = s"${currencyCode}_$amount"
-  override def toString                 = code
+  def currencyCode = currency.getCurrencyCode
+  def code = s"${currencyCode}_$amount"
+  override def toString = code
 
 opaque type Usd = BigDecimal
 object Usd extends TotalWrapper[Usd, BigDecimal]:
@@ -67,7 +67,7 @@ case class StripeItem(id: String, price: StripePrice)
 
 case class StripePrice(product: String, unit_amount: StripeAmount, currency: Currency):
   def amount = unit_amount
-  def money  = unit_amount.toMoney(currency)
+  def money = unit_amount.toMoney(currency)
 
 case class StripeSession(id: StripeSessionId, payment_intent: Option[StripePaymentIntent]):
   def clientSecret = payment_intent.map(_.client_secret)
@@ -99,11 +99,11 @@ case class StripeSubscription(
     default_payment_method: Option[String],
     ip: Option[IpAddress]
 ) extends StripeSessionData:
-  def renew      = !cancel_at_period_end
-  def isActive   = status == "active"
+  def renew = !cancel_at_period_end
+  def isActive = status == "active"
   def customerId = customer
-  def currency   = item.price.currency
-  def ipOption   = ip
+  def currency = item.price.currency
+  def ipOption = ip
 
 case class StripeCustomer(
     id: StripeCustomerId,
@@ -112,7 +112,7 @@ case class StripeCustomer(
 ):
 
   def firstSubscription = subscriptions.data.headOption
-  def renew             = firstSubscription.so(_.renew)
+  def renew = firstSubscription.so(_.renew)
 
 case class StripeCharge(
     id: StripeChargeId,
@@ -122,9 +122,9 @@ case class StripeCharge(
     billing_details: Option[StripeCharge.BillingDetails],
     metadata: Map[String, String]
 ):
-  def country                = billing_details.flatMap(_.address).flatMap(_.country)
+  def country = billing_details.flatMap(_.address).flatMap(_.country)
   def giftTo: Option[UserId] = UserId.from(metadata.get("giftTo"))
-  def ip: Option[IpAddress]  = metadata.get("ipAddress").flatMap(IpAddress.from)
+  def ip: Option[IpAddress] = metadata.get("ipAddress").flatMap(IpAddress.from)
 
 object StripeCharge:
   case class Address(country: Option[Country])
@@ -137,7 +137,7 @@ case class StripeInvoice(
     created: Long,
     paid: Boolean
 ):
-  def money    = amount_due.toMoney(currency)
+  def money = amount_due.toMoney(currency)
   def dateTime = millisToInstant(created * 1000)
 
 case class StripePaymentMethod(card: Option[StripeCard])
@@ -151,8 +151,8 @@ case class StripeCompletedSession(
     amount_total: StripeAmount,
     currency: Currency
 ):
-  def freq                   = if mode == "subscription" then Freq.Monthly else Freq.Onetime
-  def money                  = amount_total.toMoney(currency)
+  def freq = if mode == "subscription" then Freq.Monthly else Freq.Onetime
+  def money = amount_total.toMoney(currency)
   def giftTo: Option[UserId] = UserId.from(metadata.get("giftTo"))
 
 case class StripeSetupIntent(payment_method: String)
@@ -169,7 +169,7 @@ object StripeCanUse extends YesNo[StripeCanUse]
 
 case class PayPalAmount(value: BigDecimal, currency_code: Currency):
   def money = Money(value, currency_code)
-case class PayPalOrderId(value: String)        extends AnyVal with StringValue
+case class PayPalOrderId(value: String) extends AnyVal with StringValue
 case class PayPalSubscriptionId(value: String) extends AnyVal with StringValue
 case class PayPalOrder(
     id: PayPalOrderId,
@@ -180,12 +180,12 @@ case class PayPalOrder(
 ):
   val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).so(_.trim) match
     case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
-    case s"$userId"         => (UserId(userId).some, none)
-    case _                  => (none, none)
-  def isCompleted        = status == "COMPLETED"
+    case s"$userId" => (UserId(userId).some, none)
+    case _ => (none, none)
+  def isCompleted = status == "COMPLETED"
   def isCompletedCapture = isCompleted && intent == "CAPTURE"
-  def capturedMoney      = isCompletedCapture.so(purchase_units.headOption.map(_.amount.money))
-  def country            = payer.address.flatMap(_.country_code)
+  def capturedMoney = isCompletedCapture.so(purchase_units.headOption.map(_.amount.money))
+  def country = payer.address.flatMap(_.country_code)
 case class PayPalPayment(amount: PayPalAmount)
 case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: Instant)
 case class PayPalSubscription(
@@ -194,10 +194,10 @@ case class PayPalSubscription(
     subscriber: PayPalPayer,
     billing_info: PayPalBillingInfo
 ):
-  def country       = subscriber.address.flatMap(_.country_code)
+  def country = subscriber.address.flatMap(_.country_code)
   def capturedMoney = billing_info.last_payment.amount.money
-  def nextChargeAt  = billing_info.next_billing_time
-  def isActive      = status == "ACTIVE"
+  def nextChargeAt = billing_info.next_billing_time
+  def isActive = status == "ACTIVE"
 case class CreatePayPalOrder(
     checkout: PlanCheckout,
     user: User,
@@ -215,18 +215,18 @@ case class PayPalAddress(country_code: Option[Country])
 
 case class PayPalEventId(value: String) extends AnyVal with StringValue
 case class PayPalEvent(id: PayPalEventId, event_type: String, resource_type: String, resource: JsObject):
-  def tpe         = event_type
+  def tpe = event_type
   def resourceTpe = resource_type
-  def resourceId  = resource.str("id")
+  def resourceId = resource.str("id")
 
 case class PayPalPlanId(value: String) extends AnyVal with StringValue
 case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cycles: JsArray):
   import JsonHandlers.payPal.given
-  def active   = status == "ACTIVE"
+  def active = status == "ACTIVE"
   val currency = for
-    cycle   <- billing_cycles.value.headOption
+    cycle <- billing_cycles.value.headOption
     pricing <- cycle.obj("pricing_scheme")
-    price   <- pricing.get[PayPalAmount]("fixed_price")
+    price <- pricing.get[PayPalAmount]("fixed_price")
   yield price.money.currency
 case class PayPalTransactionId(value: String) extends AnyVal with StringValue
 case class PayPalCapture(
@@ -236,9 +236,9 @@ case class PayPalCapture(
     status: String,
     billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def isCompleted    = status.toUpperCase == "COMPLETED"
-  def capturedMoney  = isCompleted.option(amount.money)
-  def userId         = UserId(custom_id)
+  def isCompleted = status.toUpperCase == "COMPLETED"
+  def capturedMoney = isCompleted.option(amount.money)
+  def userId = UserId(custom_id)
   def subscriptionId = billing_agreement_id
 case class PayPalSaleAmount(total: BigDecimal, currency: Currency):
   def amount = PayPalAmount(total, currency)

@@ -602,7 +602,7 @@ object GreatPlayer:
     ("Żytogórski", "Adolf_Zytogorski")
   )
 
-  private val size                  = all.size
+  private val size = all.size
   private val names: Vector[String] =
     all.view.map { (k, _) => k }.toVector
 

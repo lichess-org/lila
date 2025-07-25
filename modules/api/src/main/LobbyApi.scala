@@ -26,13 +26,13 @@ final class LobbyApi(
           .inject(
             Json
               .obj(
-                "seeks"        -> seeks.map(_.render),
-                "nowPlaying"   -> displayedPovs.map(nowPlaying),
+                "seeks" -> seeks.map(_.render),
+                "nowPlaying" -> displayedPovs.map(nowPlaying),
                 "nbNowPlaying" -> povs.size,
-                "nbMyTurn"     -> povs.count(_.isMyTurn),
-                "counters"     -> Json.obj(
+                "nbMyTurn" -> povs.count(_.isMyTurn),
+                "counters" -> Json.obj(
                   "members" -> lobbySocket.counters.members,
-                  "rounds"  -> lobbySocket.counters.rounds
+                  "rounds" -> lobbySocket.counters.rounds
                 )
               )
               .add("ratingMap", me.map(_.perfs).map(ratingMap))

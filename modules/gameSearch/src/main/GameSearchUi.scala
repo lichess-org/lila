@@ -29,7 +29,7 @@ final class GameSearchUi(helpers: Helpers)(
           h1(cls := "box__top")(trs.advancedSearch()),
           st.form(
             noFollow,
-            cls    := "box__pad search__form",
+            cls := "box__pad search__form",
             action := s"${routes.Search.index()}#results",
             method := "GET"
           )(f.dataReqs)(
@@ -110,7 +110,7 @@ final class GameSearchUi(helpers: Helpers)(
     val f = SearchForm(helpers)(form)
     st.form(
       noFollow,
-      cls    := "search__form",
+      cls := "search__form",
       action := routes.User.games(u.username, "search"),
       method := "GET"
     )(f.dataReqs)(
@@ -130,7 +130,7 @@ final class GameSearchUi(helpers: Helpers)(
         tr(cls := "opponentName")(
           th(label(`for` := form3.id(form("players")("b")))(trs.opponentName())),
           td(cls := "usernames")(
-            st.input(tpe                          := "hidden", value := u.id, name := "players.a"),
+            st.input(tpe := "hidden", value := u.id, name := "players.a"),
             form3.input(form("players")("b"))(tpe := "text")
           )
         ),
@@ -152,8 +152,8 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
   import helpers.*
   import trans.search as trs
 
-  private val dateFormatter              = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-  private val dateMin                    = "2011-01-01"
+  private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+  private val dateMin = "2011-01-01"
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 
@@ -171,7 +171,7 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
         ),
         td(
           st.select(
-            id   := form3.id(form("players")(color.name)),
+            id := form3.id(form("players")(color.name)),
             name := form("players")(color.name).name
           )(
             st.option(cls := "blank", value := "")

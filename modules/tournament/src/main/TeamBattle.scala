@@ -6,15 +6,15 @@ case class TeamBattle(
     teams: Set[TeamId],
     nbLeaders: Int
 ):
-  def hasEnoughTeams             = teams.sizeIs > 1
+  def hasEnoughTeams = teams.sizeIs > 1
   private given Ordering[TeamId] = stringOrdering
-  lazy val sortedTeamIds         = teams.toList.sorted
+  lazy val sortedTeamIds = teams.toList.sorted
 
   def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
 
 object TeamBattle:
 
-  val maxTeams     = 200
+  val maxTeams = 200
   val displayTeams = 10
 
   val blacklist: Set[TeamId] =
@@ -33,7 +33,7 @@ object TeamBattle:
     private def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
     def this(rank: Int, teamId: TeamId, leaders: List[TeamLeader]) =
       this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.score))
-    def updateRank(newRank: Int)           = new RankedTeam(newRank, teamId, leaders, score)
+    def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, score)
     override def compare(that: RankedTeam) =
       if this.score > that.score then -1
       else if this.score < that.score then 1
@@ -55,7 +55,7 @@ object TeamBattle:
     import play.api.data.Forms.*
 
     val fields = mapping(
-      "teams"     -> nonEmptyText,
+      "teams" -> nonEmptyText,
       "nbLeaders" -> number(min = 1, max = 20)
     )(Setup.apply)(lila.common.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
@@ -72,7 +72,7 @@ object TeamBattle:
     case class Setup(teams: String, nbLeaders: Int):
       // guess if newline or comma separated
       def potentialTeamIds: Set[TeamId] =
-        val lines    = teams.linesIterator.toList
+        val lines = teams.linesIterator.toList
         val dirtyIds =
           if lines.sizeIs > 1 then lines.map(_.takeWhile(' ' !=))
           else lines.headOption.so(_.split(',').toList)

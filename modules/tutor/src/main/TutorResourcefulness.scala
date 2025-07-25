@@ -14,7 +14,7 @@ object TutorResourcefulness:
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
-    val perfs    = users.toList.map(_.perfType)
+    val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.MeanAccuracy,
@@ -22,11 +22,11 @@ object TutorResourcefulness:
     )
     val select = $doc(
       F.analysed -> true,
-      F.moves    -> $doc("$elemMatch" -> $doc("w".$lt(WinPercent(33.3)), "i".$lt(-1)))
+      F.moves -> $doc("$elemMatch" -> $doc("w".$lt(WinPercent(33.3)), "i".$lt(-1)))
     )
     val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness): docs =>
       for
-        doc  <- docs
+        doc <- docs
         perf <- doc.getAsOpt[PerfType]("_id")
         loss <- doc.getAsOpt[Int]("loss")
         size <- doc.int("nb")

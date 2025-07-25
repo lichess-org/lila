@@ -7,9 +7,9 @@ case class CategView(
 ):
   export categ.{ id as slug, name, desc }
 
-  def nbTopics       = categ.nbTopics(forUser)
-  def nbPosts        = categ.nbPosts(forUser)
-  def lastPostId     = categ.lastPostId(forUser)
+  def nbTopics = categ.nbTopics(forUser)
+  def nbPosts = categ.nbPosts(forUser)
+  def lastPostId = categ.lastPostId(forUser)
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
 case class TopicView(
@@ -20,19 +20,19 @@ case class TopicView(
     forUser: Option[User]
 ):
 
-  def updatedAt      = topic.updatedAt(forUser)
-  def nbPosts        = topic.nbPosts(forUser)
-  def nbReplies      = topic.nbReplies(forUser)
-  def lastPostId     = topic.lastPostId(forUser)
+  def updatedAt = topic.updatedAt(forUser)
+  def nbPosts = topic.nbPosts(forUser)
+  def nbReplies = topic.nbReplies(forUser)
+  def lastPostId = topic.lastPostId(forUser)
   def lastPostUserId = lastPost.flatMap(_.userId)
 
-  def id        = topic.id
-  def slug      = topic.slug
-  def name      = topic.name
+  def id = topic.id
+  def slug = topic.slug
+  def name = topic.name
   def createdAt = topic.createdAt
 
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
-  def show         = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
   def logFormatted = "%s / %s#%s / %s".format(categ.name, topic.name, post.number, post.text)
 
 object PostView:

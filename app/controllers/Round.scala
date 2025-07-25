@@ -29,7 +29,7 @@ final class Round(
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi.so(env.fishnet.player(pov.game))
     for
-      tour  <- env.tournament.api.gameView.player(pov)
+      tour <- env.tournament.api.gameView.player(pov)
       users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
       _ = gameC.preloadUsers(users)
       res <- negotiateApi(
@@ -66,8 +66,8 @@ final class Round(
           if isTheft(pov) then theftResponse
           else
             for
-              data   <- env.api.roundApi.player(pov, Preload(users), tour)
-              chat   <- getPlayerChat(pov.game, none)
+              data <- env.api.roundApi.player(pov, Preload(users), tour)
+              chat <- getPlayerChat(pov.game, none)
               jsChat <- chat.flatMap(_.game).map(_.chat).soFu(lila.chat.JsonView.asyncLines)
             yield Ok(data.add("chat", jsChat)).noCache
       )
@@ -78,7 +78,7 @@ final class Round(
       .pov(fullId)
       .flatMap:
         case Some(pov) => renderPlayer(pov)
-        case None      => userC.tryRedirect(fullId.into(UserStr)).getOrElse(notFound)
+        case None => userC.tryRedirect(fullId.into(UserStr)).getOrElse(notFound)
 
   private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me.so: user =>
@@ -109,10 +109,10 @@ final class Round(
         .map(_.orElse(Pov(currentGame, me)))
         .flatMap:
           case Some(next) => renderPlayer(next)
-          case None       =>
+          case None =>
             Redirect(currentGame.simulId match
               case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, Color.white))
+              case None => routes.Round.watcher(gameId, Color.white))
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
@@ -154,10 +154,10 @@ final class Round(
                 if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
                 else if HTTPRequest.isHuman(ctx.req) then
                   for
-                    users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                    tour       <- env.tournament.api.gameView.watcher(pov.game)
-                    simul      <- pov.game.simulId.so(env.simul.repo.find)
-                    chat       <- getWatcherChat(pov.game)
+                    users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                    tour <- env.tournament.api.gameView.watcher(pov.game)
+                    simul <- pov.game.simulId.so(env.simul.repo.find)
+                    chat <- getWatcherChat(pov.game)
                     crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
                     bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
                     tv = userTv.map: u =>
@@ -178,19 +178,19 @@ final class Round(
                 else
                   for // web crawlers don't need the full thing
                     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                    pgn        <- env.api
+                    pgn <- env.api
                       .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
                     page <- renderPage(views.round.crawler(pov, initialFen, pgn))
                   yield Ok(page)
               ,
               api = _ =>
                 for
-                  users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                  tour     <- env.tournament.api.gameView.watcher(pov.game)
-                  data     <- env.api.roundApi.watcher(pov, users, tour, tv = none)
+                  users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                  tour <- env.tournament.api.gameView.watcher(pov.game)
+                  data <- env.api.roundApi.watcher(pov, users, tour, tv = none)
                   analysis <- env.analyse.analyser.get(pov.game)
-                  chat     <- getWatcherChat(pov.game)
-                  jsChat   <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+                  chat <- getWatcherChat(pov.game)
+                  jsChat <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
                 yield Ok:
                   data
                     .add("chat" -> jsChat)
@@ -237,7 +237,7 @@ final class Round(
       case _ =>
         game.hasChat.so:
           for
-            chat  <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
+            chat <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
             lines <- lila.chat.JsonView.asyncLines(chat)
           yield Chat
             .GameOrEvent:

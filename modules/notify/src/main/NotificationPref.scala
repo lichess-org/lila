@@ -29,12 +29,12 @@ case class NotificationPref(
 ):
   def allows(event: PrefEvent): Allows = event match
     case PrefEvent.privateMessage => privateMessage
-    case PrefEvent.challenge      => challenge
-    case PrefEvent.mention        => mention
-    case PrefEvent.streamStart    => streamStart
+    case PrefEvent.challenge => challenge
+    case PrefEvent.mention => mention
+    case PrefEvent.streamStart => streamStart
     case PrefEvent.tournamentSoon => tournamentSoon
-    case PrefEvent.gameEvent      => gameEvent
-    case PrefEvent.invitedStudy   => invitedStudy
+    case PrefEvent.gameEvent => gameEvent
+    case PrefEvent.invitedStudy => invitedStudy
     case PrefEvent.broadcastRound => broadcastRound
 
 object NotificationPref:
@@ -63,14 +63,14 @@ object NotificationPref:
 
     val form = Form(
       mapping(
-        "privateMessage"      -> allowsMapping,
-        "challenge"           -> allowsMapping,
-        "mention"             -> allowsMapping,
-        "streamStart"         -> allowsMapping,
-        "tournamentSoon"      -> allowsMapping,
-        "gameEvent"           -> allowsMapping,
-        "invitedStudy"        -> allowsMapping,
-        "broadcastRound"      -> allowsMapping,
+        "privateMessage" -> allowsMapping,
+        "challenge" -> allowsMapping,
+        "mention" -> allowsMapping,
+        "streamStart" -> allowsMapping,
+        "tournamentSoon" -> allowsMapping,
+        "gameEvent" -> allowsMapping,
+        "invitedStudy" -> allowsMapping,
+        "broadcastRound" -> allowsMapping,
         "correspondenceEmail" -> boolean
       )(NotificationPref.apply)(lila.notify.unapply)
     )

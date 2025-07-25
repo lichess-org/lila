@@ -28,8 +28,8 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       words: List[String],
       icon: Icon = Icon.InfoCircle
   ) =
-    val title        = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
-    val text         = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
+    val title = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
+    val text = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
     val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.value)
     userIds
       .grouped(20)
@@ -46,9 +46,9 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       .find(
         $doc(
           BSONFields.enabled -> true,
-          BSONFields.title   -> $doc(
+          BSONFields.title -> $doc(
             "$exists" -> true,
-            "$nin"    -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
+            "$nin" -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
           )
         ),
         proj

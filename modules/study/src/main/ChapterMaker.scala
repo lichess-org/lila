@@ -29,7 +29,7 @@ final private class ChapterMaker(
             .so(pgnFetch.fromUrl)
             .flatMap:
               case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
-              case _         => fromFenOrPgnOrBlank(study, data, order, userId)
+              case _ => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
       .map: c =>
         if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
@@ -37,7 +37,7 @@ final private class ChapterMaker(
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.value.trim.nonEmpty) match
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-      case None      => fuccess(fromFenOrBlank(study, data, order, userId))
+      case None => fuccess(fromFenOrBlank(study, data, order, userId))
 
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for
@@ -77,7 +77,7 @@ final private class ChapterMaker(
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
     def isMe(name: Option[chess.PlayerName]) = name.flatMap(n => UserStr.read(n.value)).exists(_.is(userId))
     data.orientation match
-      case Orientation.Fixed(color)    => color
+      case Orientation.Fixed(color) => color
       case _ if isMe(tags.names.white) => Color.white
       case _ if isMe(tags.names.black) => Color.black
       // If it is a concealed chapter (puzzles from a coach/book/course), start from side which moves first
@@ -90,7 +90,7 @@ final private class ChapterMaker(
       case _ => root.lastMainlineNode.color
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
-    val variant           = data.variant | Variant.default
+    val variant = data.variant | Variant.default
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
         case Some(game) =>
@@ -145,7 +145,7 @@ final private class ChapterMaker(
         (!game.synthetic).option(game.id),
         game.variant,
         data.orientation match
-          case Orientation.Auto         => Color.white
+          case Orientation.Auto => Color.white
           case Orientation.Fixed(color) => color
       ),
       root = root,
@@ -182,7 +182,7 @@ final private class ChapterMaker(
         val fromGame = GameToRoot(game, goodFen, withClocks = true)
         pgnOpt.flatMap(StudyPgnImport.result(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
-          case None    => fromGame
+          case None => fromGame
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
@@ -192,10 +192,10 @@ final private class ChapterMaker(
   @scala.annotation.tailrec
   private def parseGame(str: String): Fu[Option[Game]] =
     str match
-      case s if s.lengthIs == GameId.size     => gameRepo.game(GameId(s))
+      case s if s.lengthIs == GameId.size => gameRepo.game(GameId(s))
       case s if s.lengthIs == GameFullId.size => gameRepo.game(GameId.take(s))
-      case UrlRegex(id)                       => parseGame(id)
-      case _                                  => fuccess(none)
+      case UrlRegex(id) => parseGame(id)
+      case _ => fuccess(none)
 
 private[study] object ChapterMaker:
 
@@ -212,11 +212,11 @@ private[study] object ChapterMaker:
     def mode: ChapterMaker.Mode
     def isPractice = mode == Mode.Practice
     def isGamebook = mode == Mode.Gamebook
-    def isConceal  = mode == Mode.Conceal
+    def isConceal = mode == Mode.Conceal
 
   enum Orientation(val key: String, val resolve: Option[Color]):
     case Fixed(color: Color) extends Orientation(color.name, color.some)
-    case Auto                extends Orientation("automatic", none)
+    case Auto extends Orientation("automatic", none)
   object Orientation:
     def apply(str: String) = Color.fromName(str.toLowerCase()).fold[Orientation](Auto)(Fixed.apply)
 

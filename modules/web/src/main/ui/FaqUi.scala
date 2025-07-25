@@ -19,7 +19,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
-      cls   := "question"
+      cls := "question"
     )(
       h3(a(href := s"#$id")(title)),
       div(cls := "answer")(answer)

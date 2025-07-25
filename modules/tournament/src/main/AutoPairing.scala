@@ -16,9 +16,9 @@ final class AutoPairing(
 )(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
-    val clock                              = tour.clock.toClock
+    val clock = tour.clock.toClock
     val fen: Option[chess.format.Fen.Full] = tour.position.map(_.into(chess.format.Fen.Full))
-    val game                               = lila.core.game
+    val game = lila.core.game
       .newGame(
         chess = chess
           .Game(

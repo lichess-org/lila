@@ -47,14 +47,14 @@ object GameFilterMenu:
     filter match
       case Bookmark => nbs.map(_.bookmark)
       case Imported => nbs.map(_.imported)
-      case All      => user.count.game.some
-      case Me       => nbs.flatMap(_.withMe)
-      case Rated    => user.count.rated.some
-      case Win      => user.count.win.some
-      case Loss     => user.count.loss.some
-      case Draw     => user.count.draw.some
-      case Search   => user.count.game.some
-      case Playing  => nbs.map(_.playing)
+      case All => user.count.game.some
+      case Me => nbs.flatMap(_.withMe)
+      case Rated => user.count.rated.some
+      case Win => user.count.win.some
+      case Loss => user.count.loss.some
+      case Draw => user.count.draw.some
+      case Search => user.count.game.some
+      case Playing => nbs.map(_.playing)
 
   final class PaginatorBuilder(
       userGameSearch: lila.gameSearch.UserGameSearch,
@@ -71,7 +71,7 @@ object GameFilterMenu:
         me: Option[User],
         page: Int
     )(using Request[?], FormBinding, Lang): Fu[Paginator[Game]] =
-      val nb               = cachedNbOf(user, nbs, filter)
+      val nb = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match
         case Bookmark => bookmarkApi.gamePaginatorByUser(user, page)
@@ -84,11 +84,11 @@ object GameFilterMenu:
         case All =>
           std(Query.started(user.id)).flatMap:
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-        case Me      => std(Query.opponents(user, me | user))
-        case Rated   => std(Query.rated(user.id))
-        case Win     => std(Query.win(user.id))
-        case Loss    => std(Query.loss(user.id))
-        case Draw    => std(Query.draw(user.id))
+        case Me => std(Query.opponents(user, me | user))
+        case Rated => std(Query.rated(user.id))
+        case Win => std(Query.win(user.id))
+        case Loss => std(Query.loss(user.id))
+        case Draw => std(Query.draw(user.id))
         case Playing =>
           pagBuilder(
             selector = Query.nowPlaying(user.id),

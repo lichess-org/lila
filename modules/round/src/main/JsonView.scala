@@ -47,7 +47,7 @@ final class JsonView(
           val p = withFlags.rating.option(KeyedPerf(g.perfKey, perf))
           userJsonView.roundPlayer(user, p).some
         case _ if p.hasUser => userJsonView.ghost.some
-        case _              => none)
+        case _ => none)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
@@ -68,17 +68,17 @@ final class JsonView(
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
     moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs), force = false)
-    socket       <- getSocketStatus(pov.game)
+    socket <- getSocketStatus(pov.game)
     pref = prefs(pov.color)
   yield
     import pov.*
     Json
       .obj(
-        "game"   -> gameJsonView.baseWithChessDenorm(game, initialFen),
+        "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
         "player" -> {
           commonPlayerJson(game, player, users(pov.color), flags) ++ Json
             .obj(
-              "id"      -> playerId,
+              "id" -> playerId,
               "version" -> socket.version
             )
             .add("onGame" -> (player.isAi || socket.onGame(player.color)))
@@ -94,20 +94,20 @@ final class JsonView(
         "url" -> flags.lichobileCompat.option:
           Json.obj(
             "socket" -> s"/play/$fullId/v${ApiVersion.lichobile}",
-            "round"  -> s"/$fullId"
+            "round" -> s"/$fullId"
           )
         ,
         "pref" ->
           Json
             .obj(
               "animationDuration" -> animationMillis(pov, pref),
-              "coords"            -> pref.coords,
-              "resizeHandle"      -> pref.resizeHandle,
-              "replay"            -> pref.replay,
-              "autoQueen"         -> (if pov.game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER
+              "coords" -> pref.coords,
+              "resizeHandle" -> pref.resizeHandle,
+              "replay" -> pref.replay,
+              "autoQueen" -> (if pov.game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER
                               else pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
-              "moveEvent"   -> pref.moveEvent
+              "moveEvent" -> pref.moveEvent
             )
             .add("is3d" -> pref.is3d)
             .add("clockBar" -> pref.clockBar)
@@ -131,7 +131,7 @@ final class JsonView(
       .add("possibleDrops" -> possibleDrops(pov))
       .add("expiration" -> game.expirable.option:
         Json.obj(
-          "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
+          "idleMillis" -> (nowMillis - game.movedAt.toMillis),
           "millisToMove" -> game.timeForFirstMove.millis
         ))
 
@@ -144,13 +144,13 @@ final class JsonView(
     Json
       .obj(
         "color" -> p.color.name,
-        "name"  -> p.name
+        "name" -> p.name
       )
       .add("user" -> user.match
         case Some(WithPerf(user, perf)) =>
           userJsonView.roundPlayer(user, withFlags.rating.option(KeyedPerf(g.perfKey, perf))).some
         case _ if p.hasUser => userJsonView.ghost.some
-        case _              => none)
+        case _ => none)
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -178,12 +178,12 @@ final class JsonView(
             .add("division" -> flags.division.option(divider(game, initialFen)))
             .add("opening" -> game.opening)
             .add("importedBy" -> game.pgnImport.flatMap(_.user)),
-          "clock"          -> game.clock.map(clockJson),
+          "clock" -> game.clock.map(clockJson),
           "correspondence" -> game.correspondenceClock,
-          "player"         -> {
+          "player" -> {
             commonWatcherJson(game, player, users(pov.color), flags) ++ Json
               .obj(
-                "version"   -> socket.version,
+                "version" -> socket.version,
                 "spectator" -> true
               )
               .add("id" -> flags.lichobileCompat.so(me.flatMap(game.player).map(_.id)))
@@ -192,21 +192,21 @@ final class JsonView(
             "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
           ),
           "orientation" -> pov.color.name,
-          "url"         -> flags.lichobileCompat.option:
+          "url" -> flags.lichobileCompat.option:
             Json.obj(
               "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
-              "round"  -> s"/$gameId/${color.name}"
+              "round" -> s"/$gameId/${color.name}"
             )
           ,
           "pref" -> pref.map: pref =>
             Json
               .obj(
                 "animationDuration" -> animationMillis(pov, pref),
-                "coords"            -> pref.coords,
-                "resizeHandle"      -> pref.resizeHandle,
-                "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths,
-                "keyboardMove"      -> pref.hasKeyboardMove
+                "coords" -> pref.coords,
+                "resizeHandle" -> pref.resizeHandle,
+                "replay" -> pref.replay,
+                "clockTenths" -> pref.clockTenths,
+                "keyboardMove" -> pref.hasKeyboardMove
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -236,13 +236,13 @@ final class JsonView(
                   "pgn" -> pov.game.sans.mkString(" ")
                 )
               },
-              "white"       -> Json.obj("user" -> white),
-              "black"       -> Json.obj("user" -> black),
+              "white" -> Json.obj("user" -> white),
+              "black" -> Json.obj("user" -> black),
               "orientation" -> pov.color.name,
-              "pref"        -> Json
+              "pref" -> Json
                 .obj(
                   "animationDuration" -> animationMillis(pov, pref),
-                  "coords"            -> pref.coords
+                  "coords" -> pref.coords
                 )
                 .add("highlight" -> pref.highlight)
             )
@@ -263,33 +263,33 @@ final class JsonView(
       .obj(
         "game" -> Json
           .obj(
-            "id"      -> gameId,
+            "id" -> gameId,
             "variant" -> game.variant,
             "opening" -> game.opening,
-            "fen"     -> fen,
-            "turns"   -> game.ply,
-            "player"  -> game.turnColor.name,
-            "status"  -> game.status
+            "fen" -> fen,
+            "turns" -> game.ply,
+            "player" -> game.turnColor.name,
+            "status" -> game.status
           )
           .add("initialFen", initialFen)
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
         "player" -> Json.obj(
-          "id"    -> owner.option(pov.playerId),
+          "id" -> owner.option(pov.playerId),
           "color" -> color.name
         ),
         "opponent" -> Json.obj(
           "color" -> opponent.color.name,
-          "ai"    -> opponent.aiLevel
+          "ai" -> opponent.aiLevel
         ),
         "orientation" -> orientation.name,
-        "pref"        -> Json
+        "pref" -> Json
           .obj(
             "animationDuration" -> animationMillis(pov, pref),
-            "coords"            -> pref.coords,
-            "moveEvent"         -> pref.moveEvent,
-            "showCaptured"      -> pref.captured,
-            "keyboardMove"      -> pref.hasKeyboardMove
+            "coords" -> pref.coords,
+            "moveEvent" -> pref.moveEvent,
+            "showCaptured" -> pref.captured,
+            "keyboardMove" -> pref.hasKeyboardMove
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
@@ -301,13 +301,13 @@ final class JsonView(
   def submitMovePref(pref: Pref, game: Game, nvui: Boolean) =
     import Pref.SubmitMove.*
     pref.submitMove match
-      case _ if game.hasAi || nvui                                       => false
-      case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
+      case _ if game.hasAi || nvui => false
+      case n if (n & UNLIMITED) != 0 && game.isUnlimited => true
       case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
-      case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
-      case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
-      case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
-      case _                                                             => false
+      case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical) => true
+      case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid) => true
+      case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz) => true
+      case _ => false
 
   private def blurs(game: Game, player: GamePlayer) =
     import lila.game.Blurs.nonEmpty
