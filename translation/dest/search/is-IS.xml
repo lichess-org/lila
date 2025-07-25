@@ -35,5 +35,5 @@
     <item quantity="one">%s skák fundin</item>
     <item quantity="other">%s skákir fundnar</item>
   </plurals>
-  <string name="ratingExplanation">Meðalskákstig beggja leikmanna</string>
+  <string name="ratingExplanation">Meðalskákstig beggja skákmanna</string>
 </resources>
