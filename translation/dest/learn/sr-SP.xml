@@ -119,18 +119,18 @@
 Направи било који потез да наставиш.</string>
   <string name="firstPlaceTheRooks">Прво стави топове!
 Они иду у ћошкове.</string>
-  <string name="thenPlaceTheKnights">Затим поставите скакаче!
+  <string name="thenPlaceTheKnights">Затим стави скакаче!
 Они иду поред топова.</string>
-  <string name="placeTheBishops">Поставите ловце!
+  <string name="placeTheBishops">Стави ловце!
 Они иду поред скакача.</string>
   <string name="placeTheQueen">Поставите даму!
 Она иде на своју боју.</string>
-  <string name="placeTheKing">Поставите краља!
-Одмах поред његове краљице.</string>
+  <string name="placeTheKing">Стави краља!
+Одмах поред његове даме.</string>
   <string name="pawnsFormTheFrontLine">Пешаци формирају линију фронта.
-Направите било који потез да наставите.</string>
+Направи било који потез да наставиш.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
-  <string name="castling">Рокада</string>
+  <string name="castling">Рокадирање</string>
   <string name="theSpecialKingMove">Посебан краљев потез</string>
   <string name="castlingIntro">Доведите свог краља на сигурно и развијте свог топа за напад!</string>
   <string name="castleKingSide">Померите свог краља за два поља
