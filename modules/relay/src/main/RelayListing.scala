@@ -88,7 +88,10 @@ final class RelayListing(
     private def nextRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
       round <- t.rounds.find(!_.isFinished)
       tier <- t.tour.tier
-      startAt <- round.startedAt.orElse(round.startsAtTime)
+      startAt <- round.startedAt
+        .orElse(round.startsAtTime)
+        .orElse:
+          round.startsAfterPrevious.option(nowInstant)
       days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, startAt)
       newTier <-
         import RelayTour.Tier.*
