@@ -26,7 +26,9 @@
   <string name="published">Birt</string>
   <string name="createBlogDiscussion">Leyfa athugasemdir</string>
   <string name="publishOnYourBlog">Birta á blogginu þínu</string>
+  <string name="publishHelp">Ef hakað er við verður færslan birt á blogginu þínu. Ef ekki verður hún lokuð, og verður áfram í færsludrögum þínum</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Líma færslu</string>
+  <string name="stickyPostHelp">Ef hakað er við, þá birtist þessi færsla fyrst í nýlegum færslum á prófílnum þínum og á blogginu þínu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Birti bloggfærslu</item>
     <item quantity="other">Birti %s bloggfærslur</item>
