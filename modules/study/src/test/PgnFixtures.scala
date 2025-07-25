@@ -699,4 +699,4 @@ Now we move on to the tie breaks. In the rapid portion, the match should be bala
 """
   )
   val roundTrip = List(pgn1, pgn2, pgn3, pgn4, pgn5, pgn6, pgn7, pgn8).map(PgnStr(_))
-  val all       = roundTrip ++ wcc2023.map(PgnStr(_))
+  val all = roundTrip ++ wcc2023.map(PgnStr(_))

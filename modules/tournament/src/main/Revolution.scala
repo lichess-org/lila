@@ -36,10 +36,10 @@ final class RevolutionApi(
           .map { docOpt =>
             val awards =
               for
-                doc     <- docOpt
-                winner  <- doc.getAsOpt[UserId]("winner")
+                doc <- docOpt
+                winner <- doc.getAsOpt[UserId]("winner")
                 variant <- doc.getAsOpt[Variant.Id]("variant").map(Variant.orDefault)
-                id      <- doc.getAsOpt[TourId]("_id")
+                id <- doc.getAsOpt[TourId]("_id")
               yield Award(
                 owner = winner,
                 variant = variant,
@@ -52,7 +52,7 @@ final class RevolutionApi(
 object Revolution:
 
   val namePattern = """ Revolution #\d+$"""
-  val nameRegex   = namePattern.r
+  val nameRegex = namePattern.r
 
   def is(tour: Tournament) = tour.isUnique && nameRegex.pattern.matcher(tour.name).find
 

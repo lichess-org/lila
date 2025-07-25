@@ -10,24 +10,24 @@ import lila.db.dsl.{ *, given }
 opaque type StudyTopic = String
 object StudyTopic extends OpaqueString[StudyTopic]:
 
-  val minLength             = 2
-  val maxLength             = 50
+  val minLength = 2
+  val maxLength = 50
   val broadcast: StudyTopic = "Broadcast"
 
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match
       case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
-      case _                                                       => none
+      case _ => none
 
 opaque type StudyTopics = List[StudyTopic]
 object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
   extension (e: StudyTopics)
     def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
-    def ++(other: StudyTopics): StudyTopics   = e.toSet.++(other.value.toSet).toList
+    def ++(other: StudyTopics): StudyTopics = e.toSet.++(other.value.toSet).toList
 
   val empty: StudyTopics = Nil
-  val studyMax           = 30
-  val userMax            = 128
+  val studyMax = 30
+  val userMax = 128
 
   def fromStrs(strs: Seq[String], max: Int): StudyTopics =
     strs.view.flatMap(StudyTopic.fromStr).take(max).toList.distinct
@@ -74,7 +74,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       else
         Json.parse(json).validate[List[TagifyTopic]] match
           case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)
-          case _                    => StudyTopics.empty
+          case _ => StudyTopics.empty
     userTopicRepo
       .coll:
         _.update.one(

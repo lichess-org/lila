@@ -26,10 +26,10 @@ private object BsonHandlers:
         case x => sys.error(s"Invalid MsgThread users: $x")
     def writes(w: BSON.Writer, t: MsgThread) =
       $doc(
-        "_id"      -> t.id,
-        "users"    -> t.users.sorted(using stringOrdering),
-        "lastMsg"  -> t.lastMsg,
-        "maskFor"  -> t.maskFor,
+        "_id" -> t.id,
+        "users" -> t.users.sorted(using stringOrdering),
+        "lastMsg" -> t.lastMsg,
+        "maskFor" -> t.maskFor,
         "maskWith" -> t.maskWith
       )
 

@@ -23,7 +23,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKidsUnlessOfficial(username):
       FoundPage(meOrFetch(username)): user =>
         for
-          blog  <- env.ublog.api.getUserBlog(user)
+          blog <- env.ublog.api.getUserBlog(user)
           posts <- canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))
         yield views.ublog.ui.blogPage(user, blog, posts)
 
@@ -32,7 +32,7 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(username, _.draft): (user, blog) =>
         for
           posts <- env.ublog.paginator.byBlog(blog.id, false, page)
-          page  <- renderPage(views.ublog.ui.drafts(user, blog, posts))
+          page <- renderPage(views.ublog.ui.drafts(user, blog, posts))
         yield Ok(page).hasPersonalData
   }
 
@@ -48,12 +48,12 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(createdBy): (user, blog) =>
         (canViewBlogOf(user, blog) && post.canView).so:
           for
-            otherPosts     <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
-            liked          <- ctx.user.so(env.ublog.api.liked(post))
-            followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+            otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
+            liked <- ctx.user.so(env.ublog.api.liked(post))
+            followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-            blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-            isInCarousel   <- isGrantedOpt(_.ModerateBlog)
+            blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+            isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
             markup <- env.ublog.markup(post)
@@ -76,7 +76,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
-      val redirect  = Redirect(routes.ForumTopic.show(ublogId, topicSlug))
+      val redirect = Redirect(routes.ForumTopic.show(ublogId, topicSlug))
       env.forum.topicRepo
         .existsByTree(ublogId, topicSlug)
         .flatMap:
@@ -99,7 +99,7 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(meOrFetch(u)): user =>
       for
         blog <- env.ublog.api.getUserBlog(user)
-        res  <- f(user, blog)
+        res <- f(user, blog)
       yield res
 
   private def WithBlogOf[U: UserIdOf](u: U, allows: UblogBlog.Allows => Boolean)(
@@ -192,8 +192,8 @@ final class Ublog(env: Env) extends LilaController(env):
         tier =>
           for
             user <- env.user.repo.byId(blog.userId).orFail("Missing blog user!").dmap(Suspect.apply)
-            _    <- env.ublog.api.setModTier(blog.id, tier)
-            _    <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
+            _ <- env.ublog.api.setModTier(blog.id, tier)
+            _ <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
           yield Redirect(urlOfBlog(blog)).flashSuccess
       )
   }
@@ -216,10 +216,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
       ctx.body.body.validate(using ModPostData.reads) match
-        case JsError(errors)    => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
+        case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
         case JsSuccess(data, _) =>
           for
-            mod      <- env.ublog.api.setModAdjust(post, data)
+            mod <- env.ublog.api.setModAdjust(post, data)
             featured <- env.ublog.api.setFeatured(post, data)
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
@@ -261,10 +261,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityLang(language: Language, filterOpt: Option[QualityFilter], page: Int = 1) = Open:
     import LangPicker.ByHref
     LangPicker.byHref(language, ctx.req) match
-      case ByHref.NotFound        => Redirect(routes.Ublog.communityAll(filterOpt, page))
+      case ByHref.NotFound => Redirect(routes.Ublog.communityAll(filterOpt, page))
       case ByHref.Redir(language) => Redirect(routes.Ublog.communityLang(language, filterOpt, page))
-      case ByHref.Refused(lang)   => communityIndex(lang.some, filterOpt, page)
-      case ByHref.Found(lang)     =>
+      case ByHref.Refused(lang) => communityIndex(lang.some, filterOpt, page)
+      case ByHref.Found(lang) =>
         if ctx.isAuth then communityIndex(lang.some, filterOpt, page)
         else communityIndex(lang.some, filterOpt, page)(using ctx.withLang(lang))
 
@@ -277,7 +277,7 @@ final class Ublog(env: Env) extends LilaController(env):
         pageHit
         Ok.async:
           val language = l.map(toLanguage)
-          val filter   = updateFilter(filterOpt)
+          val filter = updateFilter(filterOpt)
           env.ublog.paginator
             .liveByCommunity(language, filter, page)
             .map:
@@ -330,7 +330,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def userAtom(username: UserStr) = Anon:
     Found(env.user.repo.enabledById(username)): user =>
       for
-        blog  <- env.ublog.api.getUserBlog(user)
+        blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
       yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
@@ -342,9 +342,9 @@ final class Ublog(env: Env) extends LilaController(env):
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids   <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
+        ids <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
-        page  <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
+        page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible

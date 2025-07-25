@@ -57,5 +57,5 @@ final class UblogMarkup(
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:
-    private val regex           = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
+    private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
     val apply: Update[Markdown] = _.map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))

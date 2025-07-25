@@ -18,7 +18,7 @@ object gamesContent:
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map: f =>
           a(
-            cls  := s"nm-item to-${f.name}${(filters.current == f).so(" active")}",
+            cls := s"nm-item to-${f.name}${(filters.current == f).so(" active")}",
             href := routes.User.games(u.username, f.name)
           )(page.userGameFilterTitle(u, nbs, f))
       ),
@@ -45,7 +45,7 @@ object gamesContent:
           div(
             cls := List(
               "games infinite-scroll" -> true,
-              "now-playing center"    -> (filterName == "playing" && pager.nbResults > 2)
+              "now-playing center" -> (filterName == "playing" && pager.nbResults > 2)
             )
           )(
             if filterName == "playing" && pager.nbResults > 2 then

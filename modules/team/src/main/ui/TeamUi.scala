@@ -16,7 +16,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache    = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10.minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
@@ -48,9 +48,9 @@ final class TeamUi(helpers: Helpers)(using Executor):
       td(cls := "subject")(
         a(
           dataIcon := Icon.Group,
-          cls      := List(
+          cls := List(
             "team-name text" -> true,
-            "mine"           -> isMine
+            "mine" -> isMine
           ),
           href := routes.Team.show(t.id)
         )(
@@ -199,7 +199,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
       asMod: Boolean
   )(using ctx: Context) =
     def hasPerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
-    val canManage                                       = asMod && Granter.opt(_.ManageTeam)
+    val canManage = asMod && Granter.opt(_.ManageTeam)
     div(cls := "team-show__actions")(
       (team.enabled && member.isEmpty).option(
         frag(
@@ -219,7 +219,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
       ),
       (team.enabled && member.isDefined).option(
         postForm(
-          cls    := "team-show__subscribe form3",
+          cls := "team-show__subscribe form3",
           action := routes.Team.subscribe(team.id)
         )(
           div(
@@ -236,8 +236,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
       (team.enabled && hasPerm(_.Tour)).option(
         frag(
           a(
-            href     := routes.Tournament.teamBattleForm(team.id),
-            cls      := "button button-empty text",
+            href := routes.Tournament.teamBattleForm(team.id),
+            cls := "button button-empty text",
             dataIcon := Icon.Trophy
           ):
             span(
@@ -246,8 +246,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
             )
           ,
           a(
-            href     := s"${routes.Tournament.form}?team=${team.id}",
-            cls      := "button button-empty text",
+            href := s"${routes.Tournament.form}?team=${team.id}",
+            cls := "button button-empty text",
             dataIcon := Icon.Trophy
           ):
             span(
@@ -256,8 +256,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
             )
           ,
           a(
-            href     := s"${routes.Swiss.form(team.id)}",
-            cls      := "button button-empty text",
+            href := s"${routes.Swiss.form(team.id)}",
+            cls := "button button-empty text",
             dataIcon := Icon.Trophy
           ):
             span(
@@ -269,8 +269,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
       (team.enabled && hasPerm(_.PmAll)).option(
         frag(
           a(
-            href     := routes.Team.pmAll(team.id),
-            cls      := "button button-empty text",
+            href := routes.Team.pmAll(team.id),
+            cls := "button button-empty text",
             dataIcon := Icon.Envelope
           ):
             span(
@@ -281,8 +281,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
       ),
       ((team.enabled && hasPerm(_.Settings)) || canManage).option(
         a(
-          href     := routes.Team.edit(team.id),
-          cls      := "button button-empty text",
+          href := routes.Team.edit(team.id),
+          cls := "button button-empty text",
           dataIcon := Icon.Gear
         )(
           trans.settings.settings()
@@ -290,29 +290,29 @@ final class TeamUi(helpers: Helpers)(using Executor):
       ),
       ((team.enabled && hasPerm(_.Admin)) || canManage).option(
         a(
-          cls      := "button button-empty text",
-          href     := routes.Team.leaders(team.id),
+          cls := "button button-empty text",
+          href := routes.Team.leaders(team.id),
           dataIcon := Icon.Group
         )(trt.teamLeaders())
       ),
       ((team.enabled && hasPerm(_.Kick)) || canManage).option(
         a(
-          cls      := "button button-empty text",
-          href     := routes.Team.kick(team.id),
+          cls := "button button-empty text",
+          href := routes.Team.kick(team.id),
           dataIcon := Icon.InternalArrow
         )(trt.kickSomeone())
       ),
       ((team.enabled && hasPerm(_.Request)) || canManage).option(
         a(
-          cls      := "button button-empty text",
-          href     := routes.Team.declinedRequests(team.id),
+          cls := "button button-empty text",
+          href := routes.Team.declinedRequests(team.id),
           dataIcon := Icon.Cancel
         )(trt.declinedRequests())
       ),
       ((Granter.opt(_.ManageTeam) || Granter.opt(_.Shusher)) && !asMod).option(
         a(
           href := routes.Team.show(team.id, 1, mod = true),
-          cls  := "button button-red"
+          cls := "button button-red"
         ):
           "View team as Mod"
       )
@@ -322,8 +322,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
   private def joinButton(t: Team)(using Context) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-      case "ecf"                   => joinAt(routes.Team.show(TeamId("english-chess-players")).url)
-      case _                       =>
+      case "ecf" => joinAt(routes.Team.show(TeamId("english-chess-players")).url)
+      case _ =>
         postForm(cls := "inline", action := routes.Team.join(t.id))(
           submitButton(cls := "button button-green")(trt.joinTeam())
         )

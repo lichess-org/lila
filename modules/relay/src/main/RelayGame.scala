@@ -41,14 +41,14 @@ case class RelayGame(
     val clocks = tags.clocks
     if clocks.forall(_.isEmpty) then this
     else
-      val mainlinePath                                      = root.mainlinePath
-      val turn                                              = root.lastMainlineNode.ply.turn
+      val mainlinePath = root.mainlinePath
+      val turn = root.lastMainlineNode.ply.turn
       val lastTwoPathsAndTagClocks: List[(UciPath, Centis)] = List(
         mainlinePath.nonEmpty.option(mainlinePath.parent) -> turn,
-        mainlinePath.some                                 -> !turn
+        mainlinePath.some -> !turn
       ).flatMap:
         case (Some(path), color) => clocks(color).map(path -> _)
-        case _                   => none
+        case _ => none
       val newRoot = lastTwoPathsAndTagClocks.foldLeft(root):
         case (root, (path, centis)) =>
           root.setClockAt(Clock(centis, true.some).some, path) | root
@@ -61,11 +61,11 @@ private object RelayGame:
   val lichessDomains = List("lichess.org", "lichess.dev")
 
   type TagNames = List[Tag.type => TagType]
-  val eventTags: TagNames  = List(_.Event, _.Site)
-  val nameTags: TagNames   = List(_.White, _.Black)
+  val eventTags: TagNames = List(_.Event, _.Site)
+  val nameTags: TagNames = List(_.White, _.Black)
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
-  val whiteTags: TagNames  = List(_.White, _.WhiteFideId)
-  val blackTags: TagNames  = List(_.Black, _.BlackFideId)
+  val whiteTags: TagNames = List(_.White, _.WhiteFideId)
+  val blackTags: TagNames = List(_.Black, _.BlackFideId)
 
   def fromChapter(c: lila.study.Chapter) = RelayGame(
     tags = c.tags,
@@ -131,7 +131,7 @@ private object RelayGame:
 
   def filter(onlyRound: Option[Either[String, Int]])(games: RelayGames): RelayGames =
     onlyRound.fold(games):
-      case Left(r)  => games.filter(_.tags(_.Round).has(r))
+      case Left(r) => games.filter(_.tags(_.Round).has(r))
       case Right(r) => games.filter(_.tags.roundNumber.has(r))
 
   // 1-indexed, both inclusive
@@ -154,14 +154,14 @@ private object RelayGame:
       .map(_.trim)
       .flatMap: s =>
         s.split('-').toList.map(_.trim) match
-          case Nil             => none
-          case from :: Nil     => from.toIntOption.map(f => Slice(f, f))
+          case Nil => none
+          case from :: Nil => from.toIntOption.map(f => Slice(f, f))
           case from :: to :: _ => (from.toIntOption, to.toIntOption).mapN(Slice.apply)
 
     def show(slices: List[Slice]): String = slices
       .map:
         case Slice(f, t) if f == t => f.toString
-        case Slice(f, t)           => s"$f-$t"
+        case Slice(f, t) => s"$f-$t"
       .mkString(", ")
 
     val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)

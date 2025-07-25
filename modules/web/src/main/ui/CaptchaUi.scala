@@ -13,7 +13,7 @@ final class CaptchaUi(helpers: Helpers):
   import helpers.{ *, given }
 
   private val dataCheckUrl = attr("data-check-url")
-  private val dataMoves    = attr("data-moves")
+  private val dataMoves = attr("data-moves")
   private val dataPlayable = attr("data-playable")
 
   def apply(form: Form[?] | Field, captcha: Captcha)(using ctx: Context) =
@@ -25,14 +25,14 @@ final class CaptchaUi(helpers: Helpers):
         div(
           cls := List(
             "captcha form-group" -> true,
-            "is-invalid"         -> formErrors(form).exists(_.messages.has(lila.core.captcha.failMessage))
+            "is-invalid" -> formErrors(form).exists(_.messages.has(lila.core.captcha.failMessage))
           ),
           dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
         )(
           div(cls := "challenge")(
             chessgroundMini(captcha.fen, captcha.color) {
               div(
-                dataMoves    := safeJsonValue(Json.toJson(captcha.moves)),
+                dataMoves := safeJsonValue(Json.toJson(captcha.moves)),
                 dataPlayable := 1
               )
             }
@@ -66,7 +66,7 @@ final class CaptchaUi(helpers: Helpers):
 
   private def formField(form: Form[?] | Field, name: String) = form match
     case f: Form[?] => f(name)
-    case f: Field   => f(name)
+    case f: Field => f(name)
   private def formErrors(form: Form[?] | Field) = form match
     case f: Form[?] => f.errors
-    case f: Field   => f.errors
+    case f: Field => f.errors

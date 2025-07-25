@@ -15,7 +15,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
   def any: Captcha = Impl.challenges.head
 
   def get(id: GameId): Fu[Captcha] = Impl.find(id) match
-    case None    => Impl.getFromDb(id).dmap(_ | Impl.default).addEffect(Impl.add)
+    case None => Impl.getFromDb(id).dmap(_ | Impl.default).addEffect(Impl.add)
     case Some(c) => fuccess(c)
 
   def validate(gameId: GameId, move: String): Fu[Boolean] =
@@ -39,7 +39,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     def refresh = createFromDb.andThen:
       case Success(Some(captcha)) => add(captcha)
 
-    var challenges       = NonEmptyList.one(default)
+    var challenges = NonEmptyList.one(default)
     private val capacity = 256
 
     def add(c: Captcha): Unit =
@@ -65,7 +65,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
 
     def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
       for
-        rewinded  <- rewind(moves)
+        rewinded <- rewind(moves)
         solutions <- solve(rewinded.position)
         moves = rewinded.position.destinations.map: (from, dests) =>
           from.key -> dests.map(_.key).mkString

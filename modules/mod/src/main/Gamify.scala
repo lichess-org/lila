@@ -19,17 +19,17 @@ final class Gamify(
 
   import Gamify.*
 
-  private given BSONDocumentHandler[ModMixed]     = Macros.handler
+  private given BSONDocumentHandler[ModMixed] = Macros.handler
   private given BSONDocumentHandler[HistoryMonth] = Macros.handler
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] =
-    val until  = nowDateTime.minusMonths(1).withDayOfMonth(1)
+    val until = nowDateTime.minusMonths(1).withDayOfMonth(1)
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthValue)
     historyRepo.coll
       .find($empty)
       .sort(
         $doc(
-          "year"  -> -1,
+          "year" -> -1,
           "month" -> -1
         )
       )
@@ -38,9 +38,9 @@ final class Gamify(
       .flatMap { months =>
         months.headOption match
           case Some(m) if m._id == lastId => fuccess(months)
-          case _ if !orCompute            => fuccess(months)
-          case Some(m)                    => buildHistoryAfter(m.year, m.month, until) >> history(false)
-          case _                          => buildHistoryAfter(2017, 6, until) >> history(false)
+          case _ if !orCompute => fuccess(months)
+          case Some(m) => buildHistoryAfter(m.year, m.month, until) >> history(false)
+          case _ => buildHistoryAfter(2017, 6, until) >> history(false)
       }
 
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: LocalDateTime): Funit =
@@ -109,7 +109,7 @@ final class Gamify(
         Match(
           $doc(
             "date" -> dateRange(after, before),
-            "mod"  -> $nin(hidden)
+            "mod" -> $nin(hidden)
           )
         ) -> List(
           GroupField("mod")("nb" -> SumAll),
@@ -128,7 +128,7 @@ final class Gamify(
           $doc(
             "done.at" -> dateRange(after, before),
             "done.by" -> $nin(hidden),
-            "open"    -> false
+            "open" -> false
           )
         ) -> List(
           GroupField("done.by")(
@@ -143,8 +143,8 @@ final class Gamify(
       .map: docs =>
         for
           doc <- docs
-          id  <- doc.getAsOpt[UserId]("_id")
-          nb  <- doc.int("nb")
+          id <- doc.getAsOpt[UserId]("_id")
+          nb <- doc.int("nb")
         yield ModCount(id, nb)
 
 object Gamify:
@@ -163,8 +163,8 @@ object Gamify:
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]):
     def apply(period: Period) =
       period match
-        case Period.Day   => daily
-        case Period.Week  => weekly
+        case Period.Day => daily
+        case Period.Week => weekly
         case Period.Month => monthly
 
   case class ModCount(modId: UserId, count: Int)

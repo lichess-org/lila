@@ -36,7 +36,7 @@ final class ShutupApi(
       .getSourceAndUserIds(GameId(chatId))
       .flatMap:
         case (source, _) if source.has(lila.core.game.Source.Friend) => funit // ignore challenges
-        case (_, userIds)                                            =>
+        case (_, userIds) =>
           record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
 
   def privateMessage(userId: UserId, toUserId: UserId, text: String) =
@@ -62,14 +62,14 @@ final class ShutupApi(
               pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                 $doc(
                   "pub" -> $doc(
-                    "$each"  -> List(lila.shutup.PublicLine.make(text, source)),
+                    "$each" -> List(lila.shutup.PublicLine.make(text, source)),
                     "$slice" -> -20
                   )
                 )
               }
               push = $doc(
                 textType.key -> $doc(
-                  "$each"  -> List(BSONDouble(analysed.ratio)),
+                  "$each" -> List(BSONDouble(analysed.ratio)),
                   "$slice" -> -textType.rotation
                 )
               ) ++ pushPublicLine
@@ -80,7 +80,7 @@ final class ShutupApi(
                 upsert = true
               )
               _ <- res match
-                case None             => fufail(s"can't find user record for $userId")
+                case None => fufail(s"can't find user record for $userId")
                 case Some(userRecord) => legiferate(userRecord, analysed)
             yield ()
 

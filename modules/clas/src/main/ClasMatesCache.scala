@@ -41,7 +41,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                       ),
                       $doc(
                         "$group" -> $doc(
-                          "_id"   -> BSONNull,
+                          "_id" -> BSONNull,
                           "mates" -> $doc("$addToSet" -> "$userId")
                         )
                       )
@@ -51,7 +51,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                 ReplaceRoot:
                   $ifNull(
                     $doc("$arrayElemAt" -> $arr("$mates", 0)),
-                    $doc("mates"        -> $arr())
+                    $doc("mates" -> $arr())
                   )
               ),
               "teachers" -> List(
@@ -61,11 +61,11 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                     as = "teachers",
                     let = $doc("ids" -> "$classes"),
                     pipe = List(
-                      $doc("$match"  -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
+                      $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
                       $doc("$unwind" -> "$teachers"),
                       $doc(
                         "$group" -> $doc(
-                          "_id"      -> BSONNull,
+                          "_id" -> BSONNull,
                           "teachers" -> $doc("$addToSet" -> "$teachers")
                         )
                       )
@@ -75,7 +75,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                 ReplaceRoot:
                   $ifNull(
                     $doc("$arrayElemAt" -> $arr("$teachers", 0)),
-                    $doc("teachers"     -> $arr())
+                    $doc("teachers" -> $arr())
                   )
               )
             )
@@ -90,8 +90,8 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
         )
       .map: docO =>
         for
-          doc      <- docO
-          mates    <- doc.getAsOpt[Set[UserId]]("mates")
+          doc <- docO
+          mates <- doc.getAsOpt[Set[UserId]]("mates")
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         yield mates ++ teachers
       .dmap(~_)

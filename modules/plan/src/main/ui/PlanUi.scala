@@ -14,9 +14,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
   import trans.patron as trp
 
-  private val stripeScript  = script(src := "https://js.stripe.com/v3/")
+  private val stripeScript = script(src := "https://js.stripe.com/v3/")
   private val namespaceAttr = attr("data-namespace")
-  private val dataForm      = attr("data-form")
+  private val dataForm = attr("data-form")
 
   def index(
       email: Option[EmailAddress],
@@ -106,17 +106,17 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                 ),
                 div(cls := "content")(
                   div(
-                    cls                          := "plan_checkout",
-                    attr("data-email")           := email.so(_.value),
+                    cls := "plan_checkout",
+                    attr("data-email") := email.so(_.value),
                     attr("data-lifetime-amount") := pricing.lifetime.amount
                   )(
                     ctx.me.map { me =>
                       st.group(cls := "radio buttons dest")(
                         div(
                           input(
-                            tpe  := "radio",
+                            tpe := "radio",
                             name := "dest",
-                            id   := "dest_me",
+                            id := "dest_me",
                             checked,
                             value := "me"
                           ),
@@ -124,9 +124,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                         ),
                         div(
                           input(
-                            tpe   := "radio",
-                            name  := "dest",
-                            id    := "dest_gift",
+                            tpe := "radio",
+                            name := "dest",
+                            id := "dest_gift",
                             value := "gift"
                           ),
                           label(`for` := "dest_gift")(trp.giftPatronWings())
@@ -135,13 +135,13 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                     },
                     div(cls := "gift complete-parent none")(
                       st.input(
-                        name         := "giftUsername",
-                        value        := "",
-                        cls          := "user-autocomplete",
-                        placeholder  := trans.clas.lichessUsername.txt(),
+                        name := "giftUsername",
+                        value := "",
+                        cls := "user-autocomplete",
+                        placeholder := trans.clas.lichessUsername.txt(),
                         autocomplete := "off",
-                        spellcheck   := false,
-                        dataTag      := "span",
+                        spellcheck := false,
+                        dataTag := "span",
                         autofocus
                       )
                     ),
@@ -149,9 +149,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       div(
                         st.title := trp.singleDonation.txt(),
                         input(
-                          tpe   := "radio",
-                          name  := "freq",
-                          id    := "freq_onetime",
+                          tpe := "radio",
+                          name := "freq",
+                          id := "freq_onetime",
                           value := "onetime"
                         ),
                         label(`for` := "freq_onetime")(trp.onetime())
@@ -159,9 +159,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       div(
                         st.title := trp.recurringBilling.txt(),
                         input(
-                          tpe  := "radio",
+                          tpe := "radio",
                           name := "freq",
-                          id   := "freq_monthly",
+                          id := "freq_monthly",
                           checked,
                           value := "monthly"
                         ),
@@ -170,12 +170,12 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       div(
                         st.title := trp.payLifetimeOnce.txt(pricing.lifetime.display),
                         input(
-                          tpe  := "radio",
+                          tpe := "radio",
                           name := "freq",
-                          id   := "freq_lifetime",
+                          id := "freq_lifetime",
                           patron.exists(_.isLifetime).option(disabled),
                           value := "lifetime",
-                          cls   := List("lifetime-check" -> patron.exists(_.isLifetime))
+                          cls := List("lifetime-check" -> patron.exists(_.isLifetime))
                         ),
                         label(`for` := "freq_lifetime")(trp.lifetime())
                       )
@@ -186,12 +186,12 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                           val id = s"plan_${money.code}"
                           div(
                             input(
-                              cls   := (money == pricing.default).option("default"),
-                              tpe   := "radio",
-                              name  := "plan",
+                              cls := (money == pricing.default).option("default"),
+                              tpe := "radio",
+                              name := "plan",
                               st.id := id,
                               (money == pricing.default).option(checked),
-                              value               := money.amount,
+                              value := money.amount,
                               attr("data-amount") := money.amount
                             ),
                             label(`for` := id)(money.display)
@@ -200,8 +200,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                         div(cls := "other")(
                           input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                           label(
-                            `for`                    := "plan_other",
-                            title                    := trp.pleaseEnterAmountInX.txt(pricing.currencyCode),
+                            `for` := "plan_other",
+                            title := trp.pleaseEnterAmountInX.txt(pricing.currencyCode),
                             attr("data-trans-other") := trp.otherAmount.txt()
                           )(trp.otherAmount())
                         )
@@ -228,7 +228,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                           )
                         else
                           a(
-                            cls  := "button",
+                            cls := "button",
                             href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
                           )(trp.logInToDonate())
                       ),
@@ -455,14 +455,14 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       p(trp.decideHowMuch()),
                       strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
                       input(
-                        tpe  := "number",
-                        min  := pricing.min.amount,
-                        max  := pricing.max.amount,
+                        tpe := "number",
+                        min := pricing.min.amount,
+                        max := pricing.max.amount,
                         step := {
                           if CurrencyApi.zeroDecimalCurrencies contains pricing.currency then "1"
                           else "0.01"
                         },
-                        name  := "amount",
+                        name := "amount",
                         value := {
                           (info.subscription.item.price.currency == pricing.currency)
                             .so(info.subscription.item.price.money.amount.toString)

@@ -39,7 +39,7 @@ final class Opening(env: Env) extends LilaController(env):
           env.opening.api
             .lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler)
             .flatMap:
-              case None       => Redirect(routes.Opening.index(key.some))
+              case None => Redirect(routes.Opening.index(key.some))
               case Some(page) =>
                 val query = page.query.query
                 if query.key.isEmpty then Redirect(routes.Opening.index(key.some))

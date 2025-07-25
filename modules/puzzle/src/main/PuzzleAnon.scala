@@ -46,7 +46,7 @@ final class PuzzleAnon(
             if count > 5000 then PuzzleTier.top
             else if count > 2000 then PuzzleTier.good
             else PuzzleTier.all
-          def rd(rating: Int)    = rating + difficulty.ratingDelta
+          def rd(rating: Int) = rating + difficulty.ratingDelta
           val ratingRange: Range =
             if count > 9000 then rd(1300) to rd(1600)
             else if count > 5000 then rd(1100) to rd(1800)
@@ -67,10 +67,10 @@ final class PuzzleAnon(
                 PipelineOperator:
                   $doc(
                     "$lookup" -> $doc(
-                      "from"         -> colls.puzzle.name.value,
-                      "localField"   -> "puzzleId",
+                      "from" -> colls.puzzle.name.value,
+                      "localField" -> "puzzleId",
                       "foreignField" -> "_id",
-                      "as"           -> "puzzle"
+                      "as" -> "puzzle"
                     )
                   )
                 ,

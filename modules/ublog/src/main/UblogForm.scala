@@ -17,19 +17,19 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
   private val base =
     mapping(
-      "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
-      "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+      "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+      "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
+      "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language"    -> optional(langList.popularLanguagesForm.mapping),
-      "topics"      -> optional(text),
-      "live"        -> boolean,
-      "discuss"     -> boolean,
-      "sticky"      -> boolean,
-      "ads"         -> boolean,
-      "gameId"      -> of[GameId],
-      "move"        -> text
+      "language" -> optional(langList.popularLanguagesForm.mapping),
+      "topics" -> optional(text),
+      "live" -> boolean,
+      "discuss" -> boolean,
+      "sticky" -> boolean,
+      "ads" -> boolean,
+      "gameId" -> of[GameId],
+      "move" -> text
     )(UblogPostData.apply)(unapply)
 
   val create = Form:
@@ -144,9 +144,9 @@ object UblogForm:
 
       def diffString(label: String, optFrom: Option[String], to: String) =
         optFrom match
-          case None                     => s"$label = \"$to\"".some
+          case None => s"$label = \"$to\"".some
           case Some(from) if from == to => none
-          case Some(from)               => s"$label \"$from\" -> \"$to\"".some
+          case Some(from) => s"$label \"$from\" -> \"$to\"".some
 
       post.automod.fold(text): p =>
         List(

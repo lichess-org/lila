@@ -10,13 +10,13 @@ import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(
     families: List[PuzzleOpening.FamilyWithCount], // most popular first
-    openings: List[PuzzleOpening.WithCount]        // most popular first
+    openings: List[PuzzleOpening.WithCount] // most popular first
 ):
 
   import SimpleOpening.*
   import PuzzleOpening.*
 
-  val familyMap  = families.mapBy(_.family.key)
+  val familyMap = families.mapBy(_.family.key)
   val openingMap = openings.mapBy(_.opening.key)
 
   val treeMap: TreeMap = openings.foldLeft[TreeMap](Map.empty): (tree, op) =>
@@ -41,7 +41,7 @@ case class PuzzleOpeningCollection(
     .sortBy(_._1.family.name.value)
 
   def treeList(order: Order): TreeList = order match
-    case Order.Popular      => treePopular
+    case Order.Popular => treePopular
     case Order.Alphabetical => treeAlphabetical
 
   def makeMine(myFams: List[LilaOpeningFamily], myVars: List[SimpleOpening]) = Mine(
@@ -82,7 +82,7 @@ final class PuzzleOpeningApi(
                 .fold(acc): keyStr =>
                   LilaOpeningFamily.find(keyStr) match
                     case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
-                    case None      =>
+                    case None =>
                       SimpleOpening
                         .find(keyStr)
                         .filter(_.ref.variation != SimpleOpening.otherVariations)
@@ -148,24 +148,24 @@ object PuzzleOpening:
   val maxOpenings = 1000
 
   type Count = Int
-  type Name  = String
+  type Name = String
 
   case class WithCount(opening: SimpleOpening, count: Count)
   case class FamilyWithCount(family: LilaOpeningFamily, count: Count)
 
-  type TreeMap  = Map[LilaOpeningFamily, (Count, Set[WithCount])]
+  type TreeMap = Map[LilaOpeningFamily, (Count, Set[WithCount])]
   type TreeList = List[(FamilyWithCount, List[WithCount])]
 
   case class Mine(families: List[LilaOpeningFamily], variations: List[SimpleOpening]):
-    lazy val familyKeys    = families.view.map(_.key).toSet
+    lazy val familyKeys = families.view.map(_.key).toSet
     lazy val variationKeys = variations.view.map(_.key).toSet
 
   enum Order(val key: String, val name: I18nKey):
-    case Popular      extends Order("popular", I18nKey.study.mostPopular)
+    case Popular extends Order("popular", I18nKey.study.mostPopular)
     case Alphabetical extends Order("alphabetical", I18nKey.study.alphabetical)
 
   object Order:
-    val default                   = Popular
-    val list                      = values.toList
-    private val byKey             = values.mapBy(_.key)
+    val default = Popular
+    val list = values.toList
+    private val byKey = values.mapBy(_.key)
     def apply(key: String): Order = byKey.getOrElse(key, default)

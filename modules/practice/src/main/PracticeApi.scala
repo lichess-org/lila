@@ -16,11 +16,11 @@ final class PracticeApi(
 
   def get(user: Option[User]): Fu[UserPractice] = for
     struct <- structure.get
-    prog   <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
+    prog <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
   yield UserPractice(struct, prog)
 
   def getStudyWithFirstOngoingChapter(user: Option[User], studyId: StudyId): Fu[Option[UserStudy]] = for
-    up       <- get(user)
+    up <- get(user)
     chapters <- studyApi.chapterPreviews(studyId)
     chapter = up.progress.firstOngoingIn(chapters)
     studyOption <- chapter.fold(studyApi.byIdWithFirstChapter(studyId)) { chapter =>
@@ -33,8 +33,8 @@ final class PracticeApi(
       studyId: StudyId,
       chapterId: StudyChapterId
   ): Fu[Option[UserStudy]] = for
-    up          <- get(user)
-    chapters    <- studyApi.chapterPreviews(studyId)
+    up <- get(user)
+    chapters <- studyApi.chapterPreviews(studyId)
     studyOption <- studyApi.byIdWithChapterOrFallback(studyId, chapterId)
   yield makeUserStudy(studyOption, up, chapters)
 
@@ -49,7 +49,7 @@ final class PracticeApi(
       chapter = rawSc.chapter.withoutChildrenIfPractice
     )
     practiceStudy <- up.structure.study(sc.study.id)
-    section       <- up.structure.findSection(sc.study.id)
+    section <- up.structure.findSection(sc.study.id)
     publishedChapters = chapters.filterNot: c =>
       PracticeStructure.isChapterNameCommented(c.name)
     if publishedChapters.exists(_.id == sc.chapter.id)
@@ -60,18 +60,18 @@ final class PracticeApi(
   yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object config:
-    def get  = configStore.get.dmap(_ | PracticeConfig.empty)
-    def set  = configStore.set
+    def get = configStore.get.dmap(_ | PracticeConfig.empty)
+    def set = configStore.set
     def form = configStore.makeForm
 
   object structure:
     private val cache = cacheApi.unit[PracticeStructure]:
       _.expireAfterAccess(3.hours).buildAsyncFuture: _ =>
         for
-          conf     <- config.get
+          conf <- config.get
           chapters <- studyApi.chapterIdNames(conf.studyIds)
         yield PracticeStructure.make(conf, chapters)
-    def get     = cache.getUnit
+    def get = cache.getUnit
     def clear() = cache.invalidateUnit()
 
     val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
@@ -90,8 +90,8 @@ final class PracticeApi(
       coll.update.one($id(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit = for
-      prog    <- get(user)
-      _       <- save(prog.withNbMoves(chapterId, score))
+      prog <- get(user)
+      _ <- save(prog.withNbMoves(chapterId, score))
       studyId <- studyApi.studyIdOf(chapterId)
     yield studyId.so: studyId =>
       Bus.pub(lila.core.practice.OnComplete(user.id, studyId, chapterId))

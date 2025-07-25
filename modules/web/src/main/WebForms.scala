@@ -7,6 +7,6 @@ object WebForms:
 
   val blind = Form:
     tuple(
-      "enable"   -> nonEmptyText,
+      "enable" -> nonEmptyText,
       "redirect" -> nonEmptyText
     )

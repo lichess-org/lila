@@ -93,8 +93,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
           local = "_id",
           foreign = "tourId",
           pipe = roundPipeline | List(
-            $doc("$sort"      -> RelayRoundRepo.sort.desc),
-            $doc("$limit"     -> 1),
+            $doc("$sort" -> RelayRoundRepo.sort.desc),
+            $doc("$limit" -> 1),
             $doc("$addFields" -> $doc("sync.log" -> $arr()))
           )
         )
@@ -116,8 +116,8 @@ private object RelayTourRepo:
         $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$tourId", "$tours")))),
         $doc:
           "$project" -> $doc(
-            "_id"     -> false,
-            "name"    -> true,
+            "_id" -> false,
+            "name" -> true,
             "isFirst" -> $doc("$eq" -> $arr("$$tourId", $doc("$first" -> "$tours")))
           )
       )
@@ -138,26 +138,26 @@ private object RelayTourRepo:
   object selectors:
     val official = $doc("tier".$exists(true))
     object vis:
-      val public    = $doc("visibility" -> Visibility.public)
+      val public = $doc("visibility" -> Visibility.public)
       val notPublic = $doc("visibility".$ne(Visibility.public))
       val `private` = $doc("visibility" -> Visibility.`private`)
-    val officialPublic          = official ++ vis.public
-    val officialNotPublic       = official ++ vis.notPublic
-    val active                  = $doc("active" -> true)
-    val inactive                = $doc("active" -> false)
-    def ownerId(u: UserId)      = $doc("ownerIds" -> u)
+    val officialPublic = official ++ vis.public
+    val officialNotPublic = official ++ vis.notPublic
+    val active = $doc("active" -> true)
+    val inactive = $doc("active" -> false)
+    def ownerId(u: UserId) = $doc("ownerIds" -> u)
     def subscriberId(u: UserId) = $doc("subscribers" -> u)
-    val officialActive          = officialPublic ++ active
-    val officialInactive        = officialPublic ++ inactive
-    def inMonth(at: YearMonth)  =
+    val officialActive = officialPublic ++ active
+    val officialInactive = officialPublic ++ inactive
+    def inMonth(at: YearMonth) =
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
 
   def readToursWithRound[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
   )(docs: List[Bdoc]): List[A] = for
-    doc   <- docs
-    tour  <- doc.asOpt[RelayTour]
+    doc <- docs
+    tour <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
     g = group.readFrom(doc)
   yield as(tour, round, g)

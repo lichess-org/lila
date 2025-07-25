@@ -43,19 +43,19 @@ object GameMod:
       } ++ $and(
         Query.user(user),
         filter.opponentIds.match
-          case Nil      => Query.noAnon
+          case Nil => Query.noAnon
           case List(id) => Query.user(id)
-          case ids      => Query.users(ids)
+          case ids => Query.users(ids)
       )
 
   val maxGames = 500
 
   val filterForm = Form:
     mapping(
-      "arena"      -> optional(nonEmptyText),
-      "swiss"      -> optional(nonEmptyText),
-      "perf"       -> optional(perfKey),
-      "opponents"  -> optional(nonEmptyText),
+      "arena" -> optional(nonEmptyText),
+      "swiss" -> optional(nonEmptyText),
+      "perf" -> optional(perfKey),
+      "opponents" -> optional(nonEmptyText),
       "nbGamesOpt" -> optional(
         number(min = 1).transform(
           _.atMost(maxGames),
@@ -66,6 +66,6 @@ object GameMod:
 
   val actionForm = Form:
     tuple(
-      "game"   -> formList(of[GameId]),
+      "game" -> formList(of[GameId]),
       "action" -> optional(stringIn(Set("pgn", "analyse")))
     )

@@ -38,7 +38,7 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     StatusText(status, winner, chess.variant.Standard) match
-      case ""   => p
+      case "" => p
       case text => p.updateLastPly(_.copy(result = text.some))
 
   private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =

@@ -28,7 +28,7 @@ final class Env(
 )(using Executor, Scheduler, play.api.Mode):
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
-  val config                       = appConfig.get[MemoConfig]("memo")(using AutoConfig.loader)
+  val config = appConfig.get[MemoConfig]("memo")(using AutoConfig.loader)
 
   val cacheApi = wire[CacheApi]
 

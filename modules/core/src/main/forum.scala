@@ -33,7 +33,7 @@ case class ForumTopicMini(
 case class ForumPostMiniView(post: ForumPostMini, topic: ForumTopicMini)
 
 object ForumCateg:
-  def isTeamSlug(id: ForumCategId)               = id.value.startsWith("team-")
+  def isTeamSlug(id: ForumCategId) = id.value.startsWith("team-")
   def toTeamId(id: ForumCategId): Option[TeamId] = isTeamSlug(id).option(TeamId(id.value.drop(5)))
 
 trait ForumPostApi:

@@ -13,11 +13,11 @@ object AccessTokenRequest:
 
   val form = Form(
     mapping(
-      "grant_type"    -> optional(text),
-      "code"          -> optional(text),
+      "grant_type" -> optional(text),
+      "code" -> optional(text),
       "code_verifier" -> optional(text),
-      "client_id"     -> optional(text.into[ClientId]),
-      "redirect_uri"  -> optional(text),
+      "client_id" -> optional(text.into[ClientId]),
+      "redirect_uri" -> optional(text),
       "client_secret" -> optional(text)
     )(AccessTokenRequest.Raw.apply)(unapply)
   )
@@ -34,20 +34,20 @@ object AccessTokenRequest:
   ):
     def prepare: Either[Error, Prepared] =
       for
-        _            <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
-        code         <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
+        _ <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
         codeVerifier <- codeVerifier
           .toRight(Protocol.Error.CodeVerifierRequired)
           .flatMap(Protocol.CodeVerifier.from)
-        clientId    <- clientId.toRight(Error.ClientIdRequired)
+        clientId <- clientId.toRight(Error.ClientIdRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toRight(Error.RedirectUriRequired)
       yield Prepared(code, codeVerifier.some, clientId, redirectUri, None)
 
     def prepareLegacy(auth: Option[BasicAuth]): Either[Error, Prepared] =
       for
-        _            <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
-        code         <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
-        clientId     <- clientId.orElse(auth.map(_.clientId)).toRight(Error.ClientIdRequired)
+        _ <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
+        clientId <- clientId.orElse(auth.map(_.clientId)).toRight(Error.ClientIdRequired)
         clientSecret <- clientSecret
           .map(LegacyClientApi.ClientSecret.apply)
           .orElse(auth.map(_.clientSecret))

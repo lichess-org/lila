@@ -21,7 +21,7 @@ object SocketVersion extends OpaqueInt[SocketVersion]:
 opaque type SocketSend = String => Unit
 object SocketSend extends FunctionWrapper[SocketSend, String => Unit]
 
-type Channel     = String
+type Channel = String
 type Parallelism = Int
 type ChannelSend = Channel => SocketSend
 
@@ -91,11 +91,11 @@ object protocol:
   trait In
   object In:
 
-    type Reader     = PartialFunction[RawMsg, Option[In]]
+    type Reader = PartialFunction[RawMsg, Option[In]]
     type FullReader = RawMsg => Option[In]
 
-    def commas(str: String): Array[String]    = if str == "-" then Array.empty else str.split(',')
-    def boolean(str: String): Boolean         = str == "+"
+    def commas(str: String): Array[String] = if str == "-" then Array.empty else str.split(',')
+    def boolean(str: String): Boolean = str == "+"
     def optional(str: String): Option[String] = if str == "-" then None else Some(str)
 
     def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
@@ -105,38 +105,38 @@ object protocol:
       yield TellSri(Sri(sri), UserId.from(optional(user)), typ, obj)
     }
 
-    case object WsBoot                                                               extends In
-    case class ConnectUser(userId: UserId)                                           extends In
-    case class ConnectUsers(userIds: Iterable[UserId])                               extends In
-    case class DisconnectUsers(userIds: Iterable[UserId])                            extends In
-    case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
-    case class DisconnectSris(sris: Iterable[Sri])                                   extends In
-    case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
-    case class Lag(userId: UserId, lag: Centis)                                      extends In
-    case class Lags(lags: Map[UserId, Centis])                                       extends In
+    case object WsBoot extends In
+    case class ConnectUser(userId: UserId) extends In
+    case class ConnectUsers(userIds: Iterable[UserId]) extends In
+    case class DisconnectUsers(userIds: Iterable[UserId]) extends In
+    case class ConnectSris(cons: Iterable[(Sri, Option[UserId])]) extends In
+    case class DisconnectSris(sris: Iterable[Sri]) extends In
+    case class NotifiedBatch(userIds: Iterable[UserId]) extends In
+    case class Lag(userId: UserId, lag: Centis) extends In
+    case class Lags(lags: Map[UserId, Centis]) extends In
     case class TellSri(sri: Sri, userId: Option[UserId], typ: String, msg: JsObject) extends In
-    case class TellUser(userId: UserId, typ: String, msg: JsObject)                  extends In
-    case class ReqResponse(reqId: Int, response: String)                             extends In
-    case class Ping(id: String)                                                      extends In
+    case class TellUser(userId: UserId, typ: String, msg: JsObject) extends In
+    case class ReqResponse(reqId: Int, response: String) extends In
+    case class Ping(id: String) extends In
 
   object Out:
 
-    def boot                                = "boot"
-    def pong(id: String)                    = s"pong $id"
+    def boot = "boot"
+    def pong(id: String) = s"pong $id"
     def tellSri(sri: Sri, payload: JsValue) =
       s"tell/sri $sri ${Json.stringify(payload)}"
     def tellSris(sris: Iterable[Sri], payload: JsValue) =
       s"tell/sris ${commas(sris)} ${Json.stringify(payload)}"
 
     def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs.mkString(",")
-    def boolean(v: Boolean): String         = if v then "+" else "-"
-    def optional(str: Option[String])       = str.getOrElse("-")
-    def color(c: Color): String             = c.fold("w", "b")
-    def color(c: Option[Color]): String     = optional(c.map(color))
+    def boolean(v: Boolean): String = if v then "+" else "-"
+    def optional(str: Option[String]) = str.getOrElse("-")
+    def color(c: Color): String = c.fold("w", "b")
+    def color(c: Option[Color]): String = optional(c.map(color))
 
 object userLag:
   type GetLagRating = UserId => Option[Int]
-  type Put          = (UserId, Centis) => Unit
+  type Put = (UserId, Centis) => Unit
 
 type SocketRequest[R] = (Int => Unit, String => R) => Fu[R]
 trait SocketRequester:
@@ -152,4 +152,4 @@ object remote:
     def make(userId: UserId, msg: JsObject, typ: String): Option[TellUserIn] = typ match
       case "msgRead" => Some(Read(userId, msg))
       case "msgSend" => Some(Send(userId, msg))
-      case _         => None
+      case _ => None

@@ -43,13 +43,13 @@ object TreeBuilderTest:
   case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String):
 
     given Executor = scala.concurrent.ExecutionContextOpportunistic
-    val annotator  = Annotator(NetDomain("l.org"))
-    val builder    = AnalysisBuilder(FishnetEvalCache.mock)
+    val annotator = Annotator(NetDomain("l.org"))
+    val builder = AnalysisBuilder(FishnetEvalCache.mock)
 
-    lazy val parsedPgn      = Parser.full(pgn).toOption.get
+    lazy val parsedPgn = Parser.full(pgn).toOption.get
     def logError(s: String) = ()
-    val variant             = parsedPgn.tags.variant.getOrElse(Standard)
-    val fen                 = parsedPgn.tags.fen.getOrElse(variant.initialFen)
+    val variant = parsedPgn.tags.variant.getOrElse(Standard)
+    val fen = parsedPgn.tags.fen.getOrElse(variant.initialFen)
 
     def makeGame(g: chess.Game) =
       lila.core.game
@@ -62,9 +62,9 @@ object TreeBuilderTest:
         )
         .sloppy
 
-    val ply           = chess.Game(variant.some, fen.some).ply
+    val ply = chess.Game(variant.some, fen.some).ply
     val (game, moves) = AnnotatorTest.gameWithMoves(sans, fen, variant)
-    val analysis      = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
+    val analysis = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
 
     def test =
       val x = NewRoot(
@@ -75,14 +75,14 @@ object TreeBuilderTest:
 
     val exportOptions: List[ExportOptions] =
       for
-        opening         <- List(true, false)
-        movetimes       <- List(true, false)
-        division        <- List(true, false)
-        clocks          <- List(true, false)
-        blurs           <- List(true, false)
-        rating          <- List(true, false)
-        puzzles         <- List(true, false)
-        nvui            <- List(true, false)
+        opening <- List(true, false)
+        movetimes <- List(true, false)
+        division <- List(true, false)
+        clocks <- List(true, false)
+        blurs <- List(true, false)
+        rating <- List(true, false)
+        puzzles <- List(true, false)
+        nvui <- List(true, false)
         lichobileCompat <- List(true, false)
       yield ExportOptions(
         opening,
@@ -101,7 +101,7 @@ object TreeBuilderTest:
 
     def testJson: List[(JsValue, JsValue)] =
       for
-        option   <- takeRandomN(11)(exportOptions)
+        option <- takeRandomN(11)(exportOptions)
         analysis <- List(analysis.some, none)
       yield
         val x = Node.minimalNodeJsonWriter.writes:

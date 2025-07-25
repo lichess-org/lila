@@ -18,16 +18,16 @@ object NewTreeBuilder:
       logChessError: TreeBuilder.LogChessError
   ): NewRoot =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
-    val drawOfferPlies                     = game.drawOffers.normalizedPlies
+    val drawOfferPlies = game.drawOffers.normalizedPlies
 
-    val setup                = chess.Position.AndFullMoveNumber(game.variant, initialFen)
+    val setup = chess.Position.AndFullMoveNumber(game.variant, initialFen)
     val openingOf: OpeningOf =
       if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
       then OpeningDb.findByFullFen
       else _ => None
 
-    val fen                       = Fen.write(setup)
-    val infos: Vector[Info]       = analysis.so(_.infos.toVector)
+    val fen = Fen.write(setup)
+    val infos: Vector[Info] = analysis.so(_.infos.toVector)
     val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
 
     val metas = Metas(
@@ -44,9 +44,9 @@ object NewTreeBuilder:
 
     def makeBranch(move: chess.MoveOrDrop, ply: Ply): NewTree =
 
-      val fen    = Fen.write(move.after, ply.fullMoveNumber)
-      val index  = (ply - setup.ply - 1).value
-      val info   = infos.lift(index)
+      val fen = Fen.write(move.after, ply.fullMoveNumber)
+      val index = (ply - setup.ply - 1).value
+      val info = infos.lift(index)
       val advice = advices.get(ply)
 
       val value = NewBranch(

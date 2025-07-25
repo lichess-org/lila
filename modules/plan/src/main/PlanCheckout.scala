@@ -36,10 +36,10 @@ final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
 
   def form(pricing: PlanPricing) = Form[PlanCheckout](
     mapping(
-      "email"  -> optional(email),
+      "email" -> optional(email),
       "amount" -> PlanCheckout.amountField(pricing),
-      "freq"   -> nonEmptyText,
-      "gift"   -> optional(lila.common.Form.username.historicalField)
+      "freq" -> nonEmptyText,
+      "gift" -> optional(lila.common.Form.username.historicalField)
         .verifying("Unknown receiver", n => n.forall { blockingFetchUser(_).isDefined })
         .verifying(
           "Receiver is already a Patron",

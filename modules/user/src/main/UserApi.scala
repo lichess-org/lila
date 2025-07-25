@@ -86,7 +86,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         else fetch(_.pri)(ids.map(some).toPair, perf)
       users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
-        case _                         => none
+        case _ => none
 
     def analysis(game: Game): Fu[GameUsers] = fetch(_.sec)(game.userIdPair.toPair, game.perfKey)
 
@@ -115,7 +115,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           PipelineOperator(perfsRepo.aggregate.lookup)
       .map: docO =>
         for
-          doc  <- docO
+          doc <- docO
           user <- doc.asOpt[User]
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield UserWithPerfs(user, perfs)
@@ -136,7 +136,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           )
         .map: docs =>
           for
-            doc  <- docs
+            doc <- docs
             user <- doc.asOpt[User]
             perfs = perfsRepo.aggregate.readFirst(doc, user)
           yield UserWithPerfs(user, perfs)
@@ -164,7 +164,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         )
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           user <- doc.asOpt[User]
           perf = perfsRepo.aggregate.readFirst(doc, pk)
         yield WithPerf(user, perf)
@@ -177,7 +177,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo
       .byIdOrGhost(id)
       .flatMapz:
-        case Left(g)  => fuccess(g.some)
+        case Left(g) => fuccess(g.some)
         case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
 
   def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]] =
@@ -194,7 +194,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .list[Bdoc]($inIds(users.map(_.id)), _.sec)
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           user <- summon[BSONHandler[User]].readOpt(doc)
         yield WithEmails(user, readEmails(doc))
 
@@ -207,7 +207,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .list[Bdoc]($inIds(users.map(_.id)), _.sec)
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           user <- summon[BSONReader[User]].readOpt(doc)
         yield WithPerfsAndEmails(lila.rating.UserWithPerfs(user, perfs.get(user.id)), readEmails(doc))
   yield users
@@ -234,7 +234,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         )
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           user <- doc.asOpt[User]
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield UserWithPerfs(user, perfs)
@@ -269,7 +269,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         )
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           user <- doc.getAsOpt[User]("user")
           perfs = perfsRepo.aggregate.readFrom(doc, user)
         yield UserWithPerfs(user, perfs)

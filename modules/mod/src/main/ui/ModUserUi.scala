@@ -16,18 +16,18 @@ def mzSection(key: String) =
 final class ModUserUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
 
-  val dataValue       = attr("data-value")
-  val dataTags        = attr("data-tags")
-  val playban         = iconTag(Icon.Clock)
-  val alt: Frag       = i("A")
+  val dataValue = attr("data-value")
+  val dataTags = attr("data-tags")
+  val playban = iconTag(Icon.Clock)
+  val alt: Frag = i("A")
   val shadowban: Frag = iconTag(Icon.BubbleSpeech)
-  val boosting: Frag  = iconTag(Icon.LineGraph)
-  val engine: Frag    = iconTag(Icon.Cogs)
-  val closed: Frag    = iconTag(Icon.NotAllowed)
-  val clean: Frag     = iconTag(Icon.User)
-  val reportban       = iconTag(Icon.CautionTriangle)
-  val notesText       = iconTag(Icon.Pencil)
-  val rankban         = i("R")
+  val boosting: Frag = iconTag(Icon.LineGraph)
+  val engine: Frag = iconTag(Icon.Cogs)
+  val closed: Frag = iconTag(Icon.NotAllowed)
+  val clean: Frag = iconTag(Icon.User)
+  val reportban = iconTag(Icon.CautionTriangle)
+  val notesText = iconTag(Icon.Pencil)
+  val rankban = i("R")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),
@@ -55,22 +55,22 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         Granter.opt(_.UserEvaluate).option {
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
-            title  := "Collect data and ask irwin and Kaladin",
-            cls    := "xhr"
+            title := "Collect data and ask irwin and Kaladin",
+            cls := "xhr"
           ):
             submitButton(cls := "btn-rack__btn")("Evaluate")
         },
         Granter.opt(_.GamesModView).option {
           a(
-            cls   := "btn-rack__btn",
-            href  := routes.GameMod.index(u.username),
+            cls := "btn-rack__btn",
+            href := routes.GameMod.index(u.username),
             title := "View games"
           )("Games")
         },
         Granter.opt(_.Shadowban).option {
           a(
-            cls   := "btn-rack__btn",
-            href  := routes.Mod.communicationPublic(u.id),
+            cls := "btn-rack__btn",
+            href := routes.Mod.communicationPublic(u.id),
             title := "View communications"
           )("Comms")
         }
@@ -79,24 +79,24 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         ModUserTableUi.canCloseAlt.option {
           postForm(
             action := routes.Mod.alt(u.username, !u.marks.alt),
-            title  := "Preemptively close unauthorized alt.",
-            cls    := "xhr"
+            title := "Preemptively close unauthorized alt.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.alt))("Alt")
         },
         Granter.opt(_.MarkEngine).option {
           postForm(
             action := routes.Mod.engine(u.username, !u.marks.engine),
-            title  := "This user is clearly cheating.",
-            cls    := "xhr"
+            title := "This user is clearly cheating.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine))("Engine")
         },
         Granter.opt(_.MarkBooster).option {
           postForm(
             action := routes.Mod.booster(u.username, !u.marks.boost),
-            title  := "Marks the user as a booster or sandbagger.",
-            cls    := "xhr"
+            title := "Marks the user as a booster or sandbagger.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost))("Booster")
         },
@@ -106,8 +106,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             frag(
               postForm(
                 action := routes.Mod.troll(u.username, !u.marks.troll),
-                title  := "Enable/disable communication features for this user.",
-                cls    := "xhr"
+                title := "Enable/disable communication features for this user.",
+                cls := "xhr"
               )(
                 submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
               ),
@@ -115,15 +115,15 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 frag(
                   postForm(
                     action := routes.Mod.deletePmsAndChats(u.username),
-                    title  := "Delete all PMs and public chat messages",
-                    cls    := "xhr"
+                    title := "Delete all PMs and public chat messages",
+                    cls := "xhr"
                   ):
                     submitButton(cls := "btn-rack__btn yes-no-confirm")("Clear PMs & chats")
                   ,
                   postForm(
                     action := routes.Mod.isolate(u.username, !u.marks.isolate),
-                    title  := "Isolate user by preventing all PMs, follows and challenges",
-                    cls    := "xhr"
+                    title := "Isolate user by preventing all PMs, follows and challenges",
+                    cls := "xhr"
                   )(
                     submitButton(
                       cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate)
@@ -135,40 +135,40 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         Granter.opt(_.SetKidMode).option {
           postForm(
             action := routes.Mod.kid(u.username, !u.kid.value),
-            title  := "Activate kid mode if not already the case",
-            cls    := "xhr"
+            title := "Activate kid mode if not already the case",
+            cls := "xhr"
           ):
             submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.yes.option("active"))("Kid")
         },
         Granter.opt(_.RemoveRanking).option {
           postForm(
             action := routes.Mod.rankban(u.username, !u.marks.rankban),
-            title  := "Include/exclude this user from the rankings.",
-            cls    := "xhr"
+            title := "Include/exclude this user from the rankings.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
         },
         Granter.opt(_.ArenaBan).option {
           postForm(
             action := routes.Mod.arenaBan(u.username, !u.marks.arenaBan),
-            title  := "Enable/disable this user from joining all arenas.",
-            cls    := "xhr"
+            title := "Enable/disable this user from joining all arenas.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.arenaBan))("Arena ban")
         },
         Granter.opt(_.PrizeBan).option {
           postForm(
             action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
-            title  := "Enable/disable this user from joining prized tournaments.",
-            cls    := "xhr"
+            title := "Enable/disable this user from joining prized tournaments.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban))("Prizeban")
         },
         Granter.opt(_.ReportBan).option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
-            title  := "Enable/disable the report feature for this user.",
-            cls    := "xhr"
+            title := "Enable/disable the report feature for this user.",
+            cls := "xhr"
           ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
         }
@@ -180,8 +180,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             if u.enabled.yes then
               postForm(
                 action := routes.Mod.closeAccount(u.username),
-                title  := "Disables this account.",
-                cls    := "xhr"
+                title := "Disables this account.",
+                cls := "xhr"
               )(
                 submitButton(cls := "btn-rack__btn")("Close")
               )
@@ -190,8 +190,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               frag(
                 postForm(
                   action := routes.Mod.reopenAccount(u.username),
-                  title  := "Re-activates this account.",
-                  cls    := "xhr"
+                  title := "Re-activates this account.",
+                  cls := "xhr"
                 )(submitButton(cls := "btn-rack__btn active")("Closed")),
                 Granter.opt(_.GdprErase).option(gdprEraseForm(u))
               )
@@ -201,8 +201,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         (u.totpSecret.isDefined && Granter.opt(_.DisableTwoFactor)).option {
           postForm(
             action := routes.Mod.disableTwoFactor(u.username),
-            title  := "Disables two-factor authentication for this account.",
-            cls    := "xhr"
+            title := "Disables two-factor authentication for this account.",
+            cls := "xhr"
           ):
             submitButton(cls := "btn-rack__btn yes-no-confirm")("Disable 2FA")
         }
@@ -233,10 +233,10 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           frag(
             postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
               st.input(
-                tpe          := "email",
-                value        := emails.current.so(_.value),
-                name         := "email",
-                placeholder  := "Email address",
+                tpe := "email",
+                value := emails.current.so(_.value),
+                name := "email",
+                placeholder := "Email address",
                 autocomplete := "off"
               ),
               submitButton(cls := "button", dataIcon := Icon.Checkmark)
@@ -245,8 +245,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               s"Previously $email",
             postForm(
               action := routes.Mod.blankPassword(u.username),
-              title  := "Blank the password",
-              cls    := "btn-rack"
+              title := "Blank the password",
+              cls := "btn-rack"
             ):
               submitButton(cls := "btn-rack__btn yes-no-confirm")("Blank password")
           )
@@ -254,8 +254,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       Granter.opt(_.FreePatron).option {
         postForm(
           action := routes.Mod.freePatron(u.username),
-          title  := "Give free Patron wings for a month",
-          cls    := "btn-rack"
+          title := "Give free Patron wings for a month",
+          cls := "btn-rack"
         ):
           submitButton(cls := "btn-rack__btn yes-no-confirm")("Free Patron")
       }
@@ -264,7 +264,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   private def gdprEraseForm(u: User)(using Context) =
     postForm(
       action := routes.Mod.gdprErase(u.username),
-      cls    := "gdpr-erasure"
+      cls := "gdpr-erasure"
     )(modUi.gdprEraseButton(u)(cls := "btn-rack__btn yes-no-confirm"))
 
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
@@ -278,9 +278,9 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         li:
           strong:
             a(
-              cls      := "text",
+              cls := "text",
               dataIcon := Icon.CautionCircle,
-              href     := lila.common.String.base64
+              href := lila.common.String.base64
                 .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
             )("BOT-COMPATIBLE SETTINGS")
     ).flatten
@@ -559,7 +559,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                   td(
                     (!u.marks.alt).option(
                       button(
-                        cls  := "button button-empty button-thin button-red mark-alt",
+                        cls := "button button-empty button-thin button-red mark-alt",
                         href := routes.Mod.alt(u.id, !u.marks.alt)
                       )("ALT")
                     )

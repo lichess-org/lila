@@ -38,7 +38,7 @@ final class RatingChartApi(
         .map2: history =>
           RatingChartApi.perfTypes.map: pt =>
             Json.obj(
-              "name"   -> pt.trans,
+              "name" -> pt.trans,
               "points" -> ratingsMapToJson(createdAt, history(pt))
             )
         .map2(Json.toJson)

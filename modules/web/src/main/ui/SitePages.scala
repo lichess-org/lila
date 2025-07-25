@@ -17,8 +17,8 @@ final class SitePages(helpers: Helpers):
       )
 
   def menu(active: String)(using Translate) =
-    val sep                  = div(cls := "sep")
-    val external             = frag(" ", i(dataIcon := Icon.ExternalArrow))
+    val sep = div(cls := "sep")
+    val external = frag(" ", i(dataIcon := Icon.ExternalArrow))
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
@@ -174,7 +174,7 @@ final class SitePages(helpers: Helpers):
           },
           br,
           st.section(cls := "box box-pad developers", id := "analysis") {
-            val args   = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
+            val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
             val iframe =
               s"""<iframe src="https://lichess.org/embed/analysis" $args></iframe>"""
             frag(
@@ -301,10 +301,10 @@ final class SitePages(helpers: Helpers):
               href := "https://slack.com/oauth/v2/authorize?client_id=17688987239.964622027363&scope=commands,incoming-webhook"
             )(
               img(
-                alt     := "Add to Slack",
+                alt := "Add to Slack",
                 heightA := 40,
-                widthA  := 139,
-                src     := assetUrl("images/add-to-slack.png")
+                widthA := 139,
+                src := assetUrl("images/add-to-slack.png")
               )
             ),
             h2("Summary"),
@@ -355,7 +355,7 @@ final class SitePages(helpers: Helpers):
         main:
           iframe(
             src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
-            style          := "width:100%;height:1400px",
+            style := "width:100%;height:1400px",
             st.frameborder := 0,
             frame.credentialless
           )(spinner)

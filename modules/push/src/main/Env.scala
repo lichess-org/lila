@@ -35,7 +35,7 @@ final class Env(
 
   def vapidPublicKey = config.web.vapidPublicKey
 
-  private val deviceApi  = DeviceApi(db(config.deviceColl))
+  private val deviceApi = DeviceApi(db(config.deviceColl))
   val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
 
   export deviceApi.{ register as registerDevice, unregister as unregisterDevices }

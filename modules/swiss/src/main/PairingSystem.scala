@@ -25,9 +25,9 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
         else if swiss.nbPlayers < 700 then "burstein"
         else "fast"
       val command = s"$executable --$flavour $file -p"
-      val stdout  = new collection.mutable.ListBuffer[String]
-      val stderr  = new StringBuilder
-      val status  = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
+      val stdout = new collection.mutable.ListBuffer[String]
+      val stderr = new StringBuilder
+      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
         blocking:
           command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then

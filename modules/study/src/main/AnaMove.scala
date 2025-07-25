@@ -29,9 +29,9 @@ case class AnaMove(
     chess
       .Game(variant.some, fen.some)(orig, dest, promotion)
       .map: (game, move) =>
-        val uci     = Uci(move)
+        val uci = Uci(move)
         val movable = game.position.playable(false)
-        val fen     = chess.format.Fen.write(game)
+        val fen = chess.format.Fen.write(game)
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
@@ -50,10 +50,10 @@ object AnaMove:
   def parse(o: JsObject) =
     import chess.variant.Variant
     for
-      d    <- o.obj("d")
+      d <- o.obj("d")
       orig <- d.str("orig").flatMap(chess.Square.fromKey)
       dest <- d.str("dest").flatMap(chess.Square.fromKey)
-      fen  <- d.get[Fen.Full]("fen")
+      fen <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
     yield AnaMove(

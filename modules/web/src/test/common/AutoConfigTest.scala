@@ -52,7 +52,7 @@ class AutoConfigTest extends munit.FunSuite:
     )
 
     object BarApiConfig:
-      given ConfigLoader[BarApiConfig]           = AutoConfig.loader
+      given ConfigLoader[BarApiConfig] = AutoConfig.loader
       def fromConfiguration(conf: Configuration) = conf.get[BarApiConfig]("api.foo")
 
     val conf = parse("""
@@ -88,7 +88,7 @@ class AutoConfigTest extends munit.FunSuite:
       assert(c >= 0)
 
     given ConfigLoader[Bar] = AutoConfig.loader
-    val config              = parse("""
+    val config = parse("""
           |bar = {
           |  a = hello
           |  b = goodbye

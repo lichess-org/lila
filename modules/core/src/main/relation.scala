@@ -7,7 +7,7 @@ import lila.core.userId.*
 
 enum Relation(val isFollow: Boolean) derives Eq:
   case Follow extends Relation(true)
-  case Block  extends Relation(false)
+  case Block extends Relation(false)
 
 case class Relations(in: Option[Relation], out: Option[Relation])
 

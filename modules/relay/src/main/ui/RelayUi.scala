@@ -54,13 +54,13 @@ final class RelayUi(helpers: Helpers)(
       "analyse.study",
       Json
         .obj(
-          "relay"         -> data.relay,
-          "study"         -> data.study.add("admin" -> Granter.opt(_.StudyAdmin)),
-          "data"          -> data.analysis,
-          "tagTypes"      -> lila.study.PgnTags.typesToString,
-          "userId"        -> ctx.userId,
-          "chat"          -> chatOption.map(_._1),
-          "socketUrl"     -> socketUrl(rt.study.id),
+          "relay" -> data.relay,
+          "study" -> data.study.add("admin" -> Granter.opt(_.StudyAdmin)),
+          "data" -> data.analysis,
+          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map(_._1),
+          "socketUrl" -> socketUrl(rt.study.id),
           "socketVersion" -> socketVersion
         )
         .add("embed" -> embed) ++ explorerAndCevalConfig
@@ -89,10 +89,10 @@ final class RelayUi(helpers: Helpers)(
     def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(
-          cls     := "relay-image",
-          widthA  := size(RelayTour.thumbnail).width,
+          cls := "relay-image",
+          widthA := size(RelayTour.thumbnail).width,
           heightA := size(RelayTour.thumbnail).height,
-          src     := url(id, size)
+          src := url(id, size)
         )
     def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
@@ -107,7 +107,7 @@ final class RelayUi(helpers: Helpers)(
   def spotlight(tr: RelayCard)(using Translate): Tag =
     a(
       href := tr.path,
-      cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
+      cls := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
       i(cls := "img", dataIcon := Icon.RadioTower),
       span(cls := "content")(

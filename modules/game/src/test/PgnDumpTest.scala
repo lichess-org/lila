@@ -8,13 +8,13 @@ class PgnDumpTest extends munit.FunSuite:
 
   def assertPgnDump(pgn: String) =
     val sanStrs = pgn.split(' ').toList.map(SanStr(_))
-    val output  = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
-    val clean   = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
+    val output = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
+    val clean = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
     assertEquals(clean, pgn)
 
   def assertPgnDumpWithMoveNumbers(pgn: String) =
     val sanStrs = pgn.split(' ').toList.grouped(3).map(_.drop(1)).flatten.map(SanStr(_)).toList
-    val output  = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
+    val output = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
     assertEquals(output, pgn)
 
   test("roundtrip pgns"):

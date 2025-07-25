@@ -19,7 +19,7 @@ final class StormJson(sign: StormSign):
       .obj()
       .add("newHigh" -> n.map { nh =>
         Json.obj(
-          "key"  -> nh.key,
+          "key" -> nh.key,
           "prev" -> nh.previous
         )
       })
@@ -44,22 +44,22 @@ object StormJson:
 
   given OWrites[StormPuzzle] = OWrites { p =>
     Json.obj(
-      "id"     -> p.id,
-      "fen"    -> p.fen.value,
-      "line"   -> p.line.toList.map(_.uci).mkString(" "),
+      "id" -> p.id,
+      "fen" -> p.fen.value,
+      "line" -> p.line.toList.map(_.uci).mkString(" "),
       "rating" -> p.rating
     )
   }
 
   given Writes[lila.core.pref.Pref] = Writes { p =>
     Json.obj(
-      "coords"      -> p.coords,
-      "rookCastle"  -> p.rookCastle,
+      "coords" -> p.coords,
+      "rookCastle" -> p.rookCastle,
       "destination" -> p.destination,
-      "moveEvent"   -> p.moveEvent,
-      "highlight"   -> p.highlight,
-      "is3d"        -> p.is3d,
-      "animation"   -> p.animationMillisForSpeedPuzzles,
-      "ratings"     -> p.showRatings
+      "moveEvent" -> p.moveEvent,
+      "highlight" -> p.highlight,
+      "is3d" -> p.is3d,
+      "animation" -> p.animationMillisForSpeedPuzzles,
+      "ratings" -> p.showRatings
     )
   }

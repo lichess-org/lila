@@ -44,8 +44,8 @@ final class UserLoginsApi(
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user).flatMap { infos =>
-      val ips                                    = distinctRecent(infos.map(_.datedIp))
-      val fps                                    = distinctRecent(infos.flatMap(_.datedFp))
+      val ips = distinctRecent(infos.map(_.datedIp))
+      val fps = distinctRecent(infos.flatMap(_.datedFp))
       val fpClients: Map[FingerHash, UserClient] = infos.view
         .flatMap: i =>
           i.fp.map(_ -> UserClient(i.ua))
@@ -145,17 +145,17 @@ final class UserLoginsApi(
           import lila.user.BSONHandlers.userHandler
           import FingerHash.given
           for
-            doc  <- docs
+            doc <- docs
             user <- doc.getAsOpt[User]("user")
-            ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(using collectionReader)
-            fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(using collectionReader)
+            ips <- doc.getAsOpt[Set[IpAddress]]("ips")(using collectionReader)
+            fps <- doc.getAsOpt[Set[FingerHash]]("fps")(using collectionReader)
           yield OtherUser(user, ips.intersect(ipSet), fps.intersect(fpSet))
     )
 
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for
       (ips, fps) <- nextValues("ip", userId).zip(nextValues("fp", userId))
-      users      <- (ips.nonEmpty && fps.nonEmpty).so(
+      users <- (ips.nonEmpty && fps.nonEmpty).so(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
           $doc(
@@ -185,18 +185,18 @@ object UserLogins:
     all
       .foldLeft(Map.empty[V, Instant]):
         case (acc, Dated(v, _)) if acc.contains(v) => acc
-        case (acc, Dated(v, date))                 => acc + (v -> date)
+        case (acc, Dated(v, date)) => acc + (v -> date)
       .view
       .map(Dated.apply)
 
   case class Alts(users: Set[User]):
     lazy val boosters = users.count(_.marks.boost)
-    lazy val engines  = users.count(_.marks.engine)
-    lazy val trolls   = users.count(_.marks.troll)
-    lazy val alts     = users.count(_.marks.alt)
-    lazy val closed   = users.count(u => u.enabled.no && u.marks.clean)
-    lazy val cleans   = users.count(u => u.enabled.yes && u.marks.clean)
-    def score         =
+    lazy val engines = users.count(_.marks.engine)
+    lazy val trolls = users.count(_.marks.troll)
+    lazy val alts = users.count(_.marks.alt)
+    lazy val closed = users.count(u => u.enabled.no && u.marks.clean)
+    lazy val cleans = users.count(u => u.enabled.yes && u.marks.clean)
+    def score =
       (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last
         case n => n

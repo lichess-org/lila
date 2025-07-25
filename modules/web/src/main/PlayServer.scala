@@ -32,7 +32,7 @@ object PlayServer:
         .log("boot")
         .info:
           val java = System.getProperty("java.version")
-          val mem  = Runtime.getRuntime.maxMemory() / 1024 / 1024
+          val mem = Runtime.getRuntime.maxMemory() / 1024 / 1024
           s"lila ${config.mode} / java $java, memory: ${mem}MB"
 
       val environment: Environment = Environment(config.rootDir, process.classLoader, config.mode)
@@ -67,11 +67,11 @@ object PlayServer:
       server
     catch
       case ServerStartException(message, cause) => process.exit(message, cause)
-      case e: Throwable                         => process.exit("Oops, cannot start the server.", Some(e))
+      case e: Throwable => process.exit("Oops, cannot start the server.", Some(e))
 
   private def readServerConfigSettings(process: ServerProcess): ServerConfig =
     val configuration: Configuration =
-      val rootDirArg    = process.args.headOption.map(new File(_))
+      val rootDirArg = process.args.headOption.map(new File(_))
       val rootDirConfig = rootDirArg.so(ServerConfig.rootDirConfig(_))
       Configuration.load(process.classLoader, process.properties, rootDirConfig, true)
 
@@ -84,8 +84,8 @@ object PlayServer:
       file
 
     val httpPort = configuration.getOptional[String]("play.server.http.port").flatMap(_.toIntOption) | 9663
-    val address  = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
-    val mode     =
+    val address = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
+    val mode =
       if configuration.getOptional[String]("play.mode").contains("prod") then Mode.Prod
       else Mode.Dev
 

@@ -13,7 +13,7 @@ import lila.fishnet.{ JsonApi, Work }
 
 final class Fishnet(env: Env) extends LilaController(env):
 
-  private def api    = env.fishnet.api
+  private def api = env.fishnet.api
   private val logger = lila.log("fishnet")
 
   def acquire(slow: Boolean = false) =
@@ -38,13 +38,13 @@ final class Fishnet(env: Env) extends LilaController(env):
             env.round.proxyRepo.updateIfPresent(GameId(analysis.id.value)): g =>
               g.focus(_.metadata.analysed).replace(true)
             onComplete
-          case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
+          case _: PostAnalysisResult.Partial => fuccess(Left(NoContent))
           case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
         .recoverWith:
           case WorkNotFound => onComplete
           case GameNotFound => onComplete
-          case NotAcquired  => onComplete
-          case e            => fuccess(Left(InternalServerError(e.getMessage)))
+          case NotAcquired => onComplete
+          case e => fuccess(Left(InternalServerError(e.getMessage)))
     }
 
   def abort(workId: String) =
@@ -75,12 +75,12 @@ final class Fishnet(env: Env) extends LilaController(env):
           ,
           data =>
             api.authenticateClient(data, req.ipAddress).flatMap {
-              case Failure(msg)    => Unauthorized(jsonError(msg.getMessage))
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json.toJson(work))
-                  case Right(None)       => NoContent
-                  case Left(result)      => result
+                  case Right(None) => NoContent
+                  case Left(result) => result
                 }
             }
         )

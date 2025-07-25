@@ -12,10 +12,10 @@ import lila.tree.Node.Comment.Text
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 
-val studyId      = StudyId("studyId")
-val chapterId    = StudyChapterId("chapterId")
-val userId       = UserId("nt9")
-val user         = Comment.Author.User(userId, "nt9")
+val studyId = StudyId("studyId")
+val chapterId = StudyChapterId("chapterId")
+val userId = UserId("nt9")
+val user = Comment.Author.User(userId, "nt9")
 val studyInstant = Instant.ofEpochSecond(1685031726L)
 
 class StudyIntegrationTest extends munit.FunSuite:
@@ -47,7 +47,7 @@ class StudyIntegrationTest extends munit.FunSuite:
   test("all actions"):
     TestCase.all.foreach: testCase =>
       val chapter = defaultChapter(testCase.variant)
-      val output  = chapter.execute(testCase.actions).get
+      val output = chapter.execute(testCase.actions).get
       assertEquals(rootToPgn(output.root).value, testCase.expected)
 
 case class TestCase(variant: Variant, actions: List[StudyAction], expected: String)
@@ -84,10 +84,10 @@ object StudyAction:
       .flatMap { o =>
         for
           brush <- o.str("brush")
-          orig  <- o.get[Square]("orig")
+          orig <- o.get[Square]("orig")
         yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _          => Shape.Circle(brush, orig)
+          case _ => Shape.Circle(brush, orig)
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
 
@@ -102,19 +102,19 @@ object StudyAction:
       case Some("deleteNode") =>
         DeleteNode(jsObject.get[AtPosition]("d").get)
       case Some("shapes") =>
-        val p      = jsObject.get[AtPosition]("d").get
+        val p = jsObject.get[AtPosition]("d").get
         val shapes = (jsObject \ "d" \ "shapes").asOpt[List[Shape]].get
         SetShapes(p, shapes)
       case Some("setComment") =>
-        val p    = jsObject.get[AtPosition]("d").get
+        val p = jsObject.get[AtPosition]("d").get
         val text = (jsObject \ "d" \ "text").asOpt[String].get
         SetComment(p, Comment.sanitize(text))
       case Some("promote") =>
-        val p          = jsObject.get[AtPosition]("d").get
+        val p = jsObject.get[AtPosition]("d").get
         val toMainline = (jsObject \ "d" \ "toMainline").asOpt[Boolean].get
         Promote(p, toMainline)
       case Some("toggleGlyph") =>
-        val p     = jsObject.get[AtPosition]("d").get
+        val p = jsObject.get[AtPosition]("d").get
         val glyph = (jsObject \ "d" \ "id").asOpt[Int].flatMap(Glyph.find).get
         ToggleGlyph(p, glyph)
       case Some("clearAnnotations") =>
@@ -188,7 +188,7 @@ object StudyAction:
 
 object Fixtures:
 
-  val m0   = ""
+  val m0 = ""
   val pgn0 = ""
 
   val m1 = """
@@ -270,15 +270,15 @@ object Fixtures:
   val pgn4 =
     "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5!! $15 { We have French exchange, the most exciting opening ever } 4. Bd3) (3. e5 c5 { French Defence: Advance Variation, another better position for Black } { [%cal Gc5d4,Gh2h4] }) 3... dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } (3... Bb4) 4. Nxe4 Nd7"
 
-  val m5   = s"""$m4\n{"t":"clearAnnotations","d":"kMOZO15F"}"""
+  val m5 = s"""$m4\n{"t":"clearAnnotations","d":"kMOZO15F"}"""
   val pgn5 = "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5 4. Bd3) (3. e5 c5) 3... dxe4 (3... Bb4) 4. Nxe4 Nd7"
 
-  val m6   = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
+  val m6 = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
-  val ms        = List(m0, m1, m2, m3, m4, m5, m6)
-  val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
+  val ms = List(m0, m1, m2, m3, m4, m5, m6)
+  val ps = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
   val standards = ms.zip(ps)
 
   val m7 = """

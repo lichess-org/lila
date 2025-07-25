@@ -14,7 +14,7 @@ final class Cms(env: Env) extends LilaController(env):
 
   def index = Secure(_.Pages): ctx ?=>
     for
-      pages        <- api.list
+      pages <- api.list
       renderedPage <- renderPage(views.cms.index(pages))
     yield Ok(renderedPage)
 
@@ -56,7 +56,7 @@ final class Cms(env: Env) extends LilaController(env):
   // pages
 
   val help = menuPage(CmsPageKey("help"))
-  val tos  = menuPage(CmsPageKey("tos"))
+  val tos = menuPage(CmsPageKey("tos"))
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
     FoundPage(env.cms.render(key)): p =>
@@ -67,7 +67,7 @@ final class Cms(env: Env) extends LilaController(env):
     orCreateOrNotFound(key): page =>
       page.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
         case Some(path) => Redirect(path)
-        case None       =>
+        case None =>
           pageHit
           Ok.async(views.cms.lone(page))
 
@@ -76,7 +76,7 @@ final class Cms(env: Env) extends LilaController(env):
       .render(key)
       .flatMap:
         case Some(page) => f(page)
-        case None       =>
+        case None =>
           import lila.ui.Context.ctxMe // no idea why this is needed here
           if isGrantedOpt(_.Pages)
           then Ok.async(views.cms.create(env.cms.form.create, key.some))

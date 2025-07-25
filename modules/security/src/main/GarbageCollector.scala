@@ -54,14 +54,14 @@ final class GarbageCollector(
       .userHasPrint(data.user)
       .flatMap:
         case false => fufail(LilaNoStackTrace(s"never got a print for ${data.user.username}"))
-        case _     => funit
+        case _ => funit
 
   private def apply(data: ApplyData): Funit =
     import data.*
     for
-      alts   <- userLogins(user, 300)
+      alts <- userLogins(user, 300)
       ipSusp <- ipTrust.isSuspicious(ip)
-      _      <-
+      _ <-
         val printOpt = alts.prints.headOption
         logger.debug(s"apply ${data.user.username} print=$printOpt")
         Bus.pub(UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp))
@@ -76,8 +76,8 @@ final class GarbageCollector(
 
   private def allRecentAltsAreMarked(alts: UserLogins): Option[List[User]] =
     val minBadRecentAlts = 5
-    val latestAlts       = alts.otherUsers.sortByReverse(_.atInstant).take(minBadRecentAlts).map(_.user)
-    val found            = latestAlts.size == minBadRecentAlts &&
+    val latestAlts = alts.otherUsers.sortByReverse(_.atInstant).take(minBadRecentAlts).map(_.user)
+    val found = latestAlts.size == minBadRecentAlts &&
       latestAlts.forall(isBadAccount) &&
       latestAlts.forall(_.atInstant.isAfter(nowInstant.minusDays(7)))
     found.option(latestAlts)
@@ -88,7 +88,7 @@ final class GarbageCollector(
     justOnce(user.id).so:
       hasBeenCollectedBefore(user).not.mapz:
         val armed = isArmed()
-        val wait  = if quickly then 3.seconds else (10 + ThreadLocalRandom.nextInt(20)).minutes
+        val wait = if quickly then 3.seconds else (10 + ThreadLocalRandom.nextInt(20)).minutes
         logger.info:
           s"Will dispose of https://lichess.org/${user.username} in $wait. $msg${(!armed).so(" [DRY]")}"
         noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")

@@ -14,7 +14,7 @@ case class InsightPerfStats(
     dates: Option[TimeInterval]
 ):
   def totalNbGames = nbGames.white + nbGames.black
-  def peers        = Question.Peers(rating)
+  def peers = Question.Peers(rating)
 
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
@@ -39,26 +39,26 @@ final class InsightPerfStatsApi(
           Limit(pipeline.maxGames.value),
           Project(
             $doc(
-              F.perf   -> true,
+              F.perf -> true,
               F.rating -> true,
-              F.color  -> true,
-              F.date   -> true,
-              "t"      -> $doc("$sum" -> s"$$${F.moves("t")}")
+              F.color -> true,
+              F.date -> true,
+              "t" -> $doc("$sum" -> s"$$${F.moves("t")}")
             )
           ),
           GroupField(F.perf)(
-            "r"    -> AvgField(F.rating),
-            "nw"   -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
-            "nb"   -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
-            "t"    -> SumField("t"),
-            "ids"  -> PushField("_id"),
+            "r" -> AvgField(F.rating),
+            "nw" -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
+            "nb" -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
+            "t" -> SumField("t"),
+            "ids" -> PushField("_id"),
             "from" -> LastField(F.date),
-            "to"   -> FirstField(F.date)
+            "to" -> FirstField(F.date)
           ),
           AddFields(
             $doc(
               "total" -> $doc("$add" -> $arr("$nw", "$nb")),
-              "ids"   -> $doc("$slice" -> $arr("$ids", gameIdsPerPerf.value))
+              "ids" -> $doc("$slice" -> $arr("$ids", gameIdsPerPerf.value))
             )
           ),
           Match($doc("total".$gte(5)))
@@ -66,17 +66,17 @@ final class InsightPerfStatsApi(
       .map: docs =>
         for
           doc <- docs
-          id  <- doc.getAsOpt[PerfId]("_id")
-          pt  <- PerfType(id)
-          ra  <- doc.double("r")
+          id <- doc.getAsOpt[PerfId]("_id")
+          pt <- PerfType(id)
+          ra <- doc.double("r")
           nw = ~doc.int("nw")
           nb = ~doc.int("nb")
-          t   <- doc.getAsOpt[Centis]("t")
+          t <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds  = ids.map(GameId.take)
+          gameIds = ids.map(GameId.take)
           interval = for
             start <- doc.getAsOpt[Instant]("from")
-            end   <- doc.getAsOpt[Instant]("to")
+            end <- doc.getAsOpt[Instant]("to")
           yield TimeInterval(start, end)
         yield pt -> InsightPerfStats
           .WithGameIds(

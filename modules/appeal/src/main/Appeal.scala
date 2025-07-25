@@ -9,7 +9,7 @@ import lila.ui.Icon
 case class Appeal(
     @Key("_id") id: AppealId,
     msgs: Vector[AppealMsg], // chronological order, oldest first
-    status: Appeal.Status,   // from the moderators POV
+    status: Appeal.Status, // from the moderators POV
     createdAt: Instant,
     updatedAt: Instant,
     // date of first player message without a mod reply
@@ -17,9 +17,9 @@ case class Appeal(
     firstUnrepliedAt: Instant
 ):
   def userId: UserId = id.into(UserId)
-  def isRead         = status == Appeal.Status.Read
-  def isMuted        = status == Appeal.Status.Muted
-  def isUnread       = status == Appeal.Status.Unread
+  def isRead = status == Appeal.Status.Read
+  def isMuted = status == Appeal.Status.Muted
+  def isUnread = status == Appeal.Status.Unread
 
   def isAbout(userId: UserId) = id.is(userId)
 
@@ -39,15 +39,15 @@ case class Appeal(
 
   def canAddMsg: Boolean =
     val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]):
-      case (_, msg) if isByMod(msg)                               => Vector.empty
+      case (_, msg) if isByMod(msg) => Vector.empty
       case (acc, msg) if msg.at.isAfter(nowInstant.minusWeeks(1)) => acc :+ msg
-      case (acc, _)                                               => acc
+      case (acc, _) => acc
 
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength
 
-  def unread     = copy(status = Appeal.Status.Unread)
-  def read       = copy(status = Appeal.Status.Read)
+  def unread = copy(status = Appeal.Status.Unread)
+  def read = copy(status = Appeal.Status.Read)
   def toggleMute = if isMuted then read else copy(status = Appeal.Status.Muted)
 
   lazy val mutedSince: Option[Instant] = isMuted.so:
@@ -67,7 +67,7 @@ object Appeal:
 
   case class WithUser(appeal: Appeal, user: User)
 
-  val maxLength       = 1100
+  val maxLength = 1100
   val maxLengthClient = 1000
 
   import play.api.data.*
@@ -78,7 +78,7 @@ object Appeal:
 
   val modForm = Form:
     tuple(
-      "text"    -> lila.common.Form.cleanNonEmptyText,
+      "text" -> lila.common.Form.cleanNonEmptyText,
       "process" -> boolean
     )
 
@@ -91,14 +91,14 @@ object Appeal:
     extension (filter: Filter)
       def toggle(to: Filter) = (to != filter).option(to)
       def is(mark: UserMark) = filter.contains(mark)
-      def key                = filter.fold("clean")(_.key)
+      def key = filter.fold("clean")(_.key)
 
     val allWithIcon = List[(Filter, Either[Icon, String])](
-      UserMark.troll.some  -> Left(Icon.BubbleSpeech),
-      UserMark.boost.some  -> Left(Icon.LineGraph),
+      UserMark.troll.some -> Left(Icon.BubbleSpeech),
+      UserMark.boost.some -> Left(Icon.LineGraph),
       UserMark.engine.some -> Left(Icon.Cogs),
-      UserMark.alt.some    -> Right("A"),
-      none                 -> Left(Icon.User)
+      UserMark.alt.some -> Right("A"),
+      none -> Left(Icon.User)
     )
     val byName: Map[String, Filter] =
       UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))

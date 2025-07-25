@@ -90,7 +90,7 @@ final class Analyser(
         if _ then fuccess(Analyser.Result.NoChapter)
         else
           import req.*
-          val sender  = Sender(req.userId, none, mod = false, system = false)
+          val sender = Sender(req.userId, none, mod = false, system = false)
           val limitFu =
             if req.official then fuccess(Analyser.Result.Ok)
             else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)
@@ -162,12 +162,12 @@ object Analyser:
 
   enum Result(val error: Option[String]):
     def ok = error.isEmpty
-    case Ok                 extends Result(none)
-    case NoGame             extends Result("Game not found".some)
-    case NoChapter          extends Result("Chapter not found".some)
-    case AlreadyAnalysed    extends Result("This game is already analysed".some)
-    case NotAnalysable      extends Result("This game is not analysable".some)
+    case Ok extends Result(none)
+    case NoGame extends Result("Game not found".some)
+    case NoChapter extends Result("Chapter not found".some)
+    case AlreadyAnalysed extends Result("This game is already analysed".some)
+    case NotAnalysable extends Result("This game is not analysable".some)
     case ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
-    case WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
-    case DailyLimit         extends Result("You have reached the daily analysis limit".some)
-    case DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
+    case WeeklyLimit extends Result("You have reached the weekly analysis limit".some)
+    case DailyLimit extends Result("You have reached the daily analysis limit".some)
+    case DailyIpLimit extends Result("You have reached the daily analysis limit on this IP".some)

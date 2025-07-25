@@ -20,8 +20,8 @@ final class ModTimelineUi(helpers: Helpers)(
   import ModTimeline.*
 
   def renderGeneral(t: ModTimeline)(using Translate) = render(t)(using Angle.None)
-  def renderComm(t: ModTimeline)(using Translate)    = render(t)(using Angle.Comm)
-  def renderPlay(t: ModTimeline)(using Translate)    = render(t)(using Angle.Play)
+  def renderComm(t: ModTimeline)(using Translate) = render(t)(using Angle.Comm)
+  def renderPlay(t: ModTimeline)(using Translate) = render(t)(using Angle.Play)
 
   private def render(t: ModTimeline)(using angle: Angle)(using Translate) = div(cls := "mod-timeline"):
     val today = nowInstant.date
@@ -30,7 +30,7 @@ final class ModTimelineUi(helpers: Helpers)(
       .map: e =>
         if e.at.date == today
         then momentFromNowServerText(e.at) -> e
-        else daysFromNow(e.at.date)        -> e
+        else daysFromNow(e.at.date) -> e
       .groupBy(_._1)
       .view
       .mapValues(_.map(_._2))
@@ -50,9 +50,9 @@ final class ModTimelineUi(helpers: Helpers)(
     val isRecent = e.at.isAfter(nowInstant.minusMonths(6))
     div(
       cls := List(
-        "mod-timeline__event"            -> true,
+        "mod-timeline__event" -> true,
         s"mod-timeline__event--${e.key}" -> true,
-        "mod-timeline__event--recent"    -> isRecent
+        "mod-timeline__event--recent" -> isRecent
       )
     )(
       a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
@@ -63,12 +63,12 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderEventBody(t: ModTimeline)(e: Event)(using Translate): Frag =
     e match
-      case e: Modlog          => renderModlog(t.user)(e)
-      case e: AppealMsg       => renderAppeal(t)(e)
-      case e: Note            => renderNote(e)
-      case e: ReportNewAtom   => renderReportNew(e)
-      case e: PlayBans        => renderPlayBans(e)
-      case e: ReportLineFlag  => renderReportLineFlag(e)
+      case e: Modlog => renderModlog(t.user)(e)
+      case e: AppealMsg => renderAppeal(t)(e)
+      case e: Note => renderNote(e)
+      case e: ReportNewAtom => renderReportNew(e)
+      case e: PlayBans => renderPlayBans(e)
+      case e: ReportLineFlag => renderReportLineFlag(e)
       case AccountCreation(_) => renderAccountCreation(t.user)
 
   private def renderMod(userId: ModId)(using Translate) =
@@ -111,7 +111,7 @@ final class ModTimelineUi(helpers: Helpers)(
       then renderMod(UserId.lichess.into(ModId))
       else
         strong(
-          cls   := "mod-timeline__event__from",
+          cls := "mod-timeline__event__from",
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
         )(
           if r.atoms.size > 3
@@ -128,7 +128,7 @@ final class ModTimelineUi(helpers: Helpers)(
           cls := List("mod-timeline__report-form" -> true, "mod-timeline__report-form--open" -> r.report.open)
         )(
           submitButton(strong(atoms.head.reason.name), " report")(
-            cls   := "button button-thin",
+            cls := "button button-thin",
             title := r.report.done.fold("Open")(d => s"Closed by ${usernameOrId(d.by.id)}")
           )
         )
@@ -144,12 +144,12 @@ final class ModTimelineUi(helpers: Helpers)(
       author,
       span(
         cls := List(
-          "mod-timeline__event__action"                   -> true,
-          s"mod-timeline__event__action--${e.action}"     -> true,
-          "mod-timeline__event__action--warning"          -> Modlog.isWarning(e),
-          "mod-timeline__event__action--sentence"         -> Modlog.isSentence(e.action),
+          "mod-timeline__event__action" -> true,
+          s"mod-timeline__event__action--${e.action}" -> true,
+          "mod-timeline__event__action--warning" -> Modlog.isWarning(e),
+          "mod-timeline__event__action--sentence" -> Modlog.isSentence(e.action),
           "mod-timeline__event__action--account-sentence" -> Modlog.isAccountSentence(e.action),
-          "mod-timeline__event__action--undo"             -> Modlog.isUndo(e.action)
+          "mod-timeline__event__action--undo" -> Modlog.isUndo(e.action)
         )
       ):
         if Modlog.isWarning(e) then strong("sends warning")

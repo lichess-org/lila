@@ -15,11 +15,11 @@ final class GameUi(helpers: Helpers):
   import helpers.{ *, given }
 
   object mini:
-    private val dataState       = attr("data-state")
-    private val dataLive        = attr("data-live")
-    private val dataTime        = attr("data-time")
+    private val dataState = attr("data-state")
+    private val dataLive = attr("data-live")
+    private val dataTime = attr("data-time")
     private val dataTimeControl = attr("data-tc")
-    val cgWrap                  = span(cls := "cg-wrap")(cgWrapContent)
+    val cgWrap = span(cls := "cg-wrap")(cgWrapContent)
 
     def apply(
         pov: Pov,
@@ -53,12 +53,12 @@ final class GameUi(helpers: Helpers):
         showRatings: Boolean = true
     )(using Translate, Option[Me]): Tag =
       import pov.game
-      val tag                                    = if link.isDefined then a else span
+      val tag = if link.isDefined then a else span
       def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
       tag(
-        href            := link,
-        cls             := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
-        dataLive        := game.isBeingPlayed.option(game.id),
+        href := link,
+        cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
+        dataLive := game.isBeingPlayed.option(game.id),
         dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl(_)),
         renderState(pov)
       )(
@@ -85,7 +85,7 @@ final class GameUi(helpers: Helpers):
     private def renderClock(clock: chess.Clock, color: Color) =
       val s = clock.remainingTime(color).roundSeconds.value
       span(
-        cls      := s"mini-game__clock mini-game__clock--${color.name}",
+        cls := s"mini-game__clock mini-game__clock--${color.name}",
         dataTime := s
       ):
         f"${s / 60}:${s % 60}%02d"
@@ -103,16 +103,16 @@ final class GameUi(helpers: Helpers):
     import lila.game.GameExt.drawReason
     game.status match
       case S.Aborted => trans.site.gameAborted.txt()
-      case S.Mate    => trans.site.checkmate.txt()
-      case S.Resign  =>
+      case S.Mate => trans.site.checkmate.txt()
+      case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
           .txt()
       case S.UnknownFinish => trans.site.finished.txt()
-      case S.Stalemate     => trans.site.stalemate.txt()
-      case S.Timeout       =>
+      case S.Stalemate => trans.site.stalemate.txt()
+      case S.Timeout =>
         (game.loser, game.turnColor) match
           case (Some(p), _) if p.color.white => trans.site.whiteLeftTheGame.txt()
-          case (Some(_), _)                  => trans.site.blackLeftTheGame.txt()
+          case (Some(_), _) => trans.site.blackLeftTheGame.txt()
           case (None, White) => trans.site.whiteLeftTheGame.txt() + " • " + trans.site.draw.txt()
           case (None, Black) => trans.site.blackLeftTheGame.txt() + " • " + trans.site.draw.txt()
       case S.Draw =>
@@ -128,19 +128,19 @@ final class GameUi(helpers: Helpers):
       case S.Outoftime =>
         (game.turnColor, game.loser) match
           case (White, Some(_)) => trans.site.whiteTimeOut.txt()
-          case (White, None)    => trans.site.whiteTimeOut.txt() + " • " + trans.site.draw.txt()
+          case (White, None) => trans.site.whiteTimeOut.txt() + " • " + trans.site.draw.txt()
           case (Black, Some(_)) => trans.site.blackTimeOut.txt()
-          case (Black, None)    => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
+          case (Black, None) => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
         (if game.loser.exists(_.color.white) then trans.site.whiteDidntMove else trans.site.blackDidntMove)
           .txt()
-      case S.Cheat      => trans.site.cheatDetected.txt()
+      case S.Cheat => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match
           case chess.variant.KingOfTheHill => trans.site.kingInTheCenter.txt()
-          case chess.variant.ThreeCheck    => trans.site.threeChecks.txt()
-          case chess.variant.RacingKings   => trans.site.raceFinished.txt()
-          case _                           => trans.site.variantEnding.txt()
+          case chess.variant.ThreeCheck => trans.site.threeChecks.txt()
+          case chess.variant.RacingKings => trans.site.raceFinished.txt()
+          case _ => trans.site.variantEnding.txt()
       case _ => ""
 
   object crosstable:
@@ -155,7 +155,7 @@ final class GameUi(helpers: Helpers):
     def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[GameId])(using
         Context
     ): Tag =
-      val matchup                   = trueMatchup.filter(_.users != ct.users)
+      val matchup = trueMatchup.filter(_.users != ct.users)
       val matchupSepAt: Option[Int] = matchup.map: m =>
         (ct.nbGames.min(Crosstable.maxGames)) - m.users.nbGames
 
@@ -164,15 +164,15 @@ final class GameUi(helpers: Helpers):
         ct.results.mapWithIndex: (r, i) =>
           tag("povs")(
             cls := List(
-              "sep"     -> matchupSepAt.has(i),
+              "sep" -> matchupSepAt.has(i),
               "current" -> currentId.has(r.gameId)
             )
           ):
             ct.users.toList.map: u =>
               val (linkClass, text) = r.winnerId match
-                case Some(w) if w == u.id => "glpt win"  -> "1"
-                case None                 => "glpt"      -> "½"
-                case _                    => "glpt loss" -> "0"
+                case Some(w) if w == u.id => "glpt win" -> "1"
+                case None => "glpt" -> "½"
+                case _ => "glpt loss" -> "0"
               a(href := s"""${routes.Round.watcher(r.gameId, Color.white)}?pov=${u.id}""", cls := linkClass)(
                 text
               )
@@ -249,7 +249,7 @@ final class GameUi(helpers: Helpers):
     def apply(g: Game, note: Option[String], user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
     )(using Context): Frag =
-      val fromPlayer  = user.flatMap(g.player)
+      val fromPlayer = user.flatMap(g.player)
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
@@ -357,8 +357,8 @@ final class GameUi(helpers: Helpers):
             .zipWithIndex
             .map:
               case (Vector(w, b), i) => s"${i + 1}. $w $b"
-              case (Vector(w), i)    => s"${i + 1}. $w"
-              case _                 => ""
+              case (Vector(w), i) => s"${i + 1}. $w"
+              case _ => ""
             .mkString(" "),
           (g.ply > 6).option(s" ... ${1 + (g.ply.value - 1) / 2} moves ")
         )

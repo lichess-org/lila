@@ -39,16 +39,16 @@ final class FishnetApi(
     if config.offlineMode then repo.getOfflineClient.map(some)
     else repo.getEnabledClient(req.fishnet.apikey)
   }.map {
-    case None         => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
+    case None => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
     case Some(client) => clientVersion.accept(req.fishnet.version).map(_ => client)
   }.flatMap:
     case Success(client) => repo.updateClientInstance(client, req.instance(ip)).map(Success.apply)
-    case invalid         => fuccess(invalid)
+    case invalid => fuccess(invalid)
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     client.skill
       .match
-        case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
+        case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
         case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
       .monSuccess(_.fishnet.acquire)
       .recover { case e: Exception =>
@@ -69,7 +69,7 @@ final class FishnetApi(
         .sort(
           $doc(
             "sender.system" -> 1, // user requests first, then lichess auto analysis
-            "createdAt"     -> 1  // oldest requests first
+            "createdAt" -> 1 // oldest requests first
           )
         )
         .one[Work.Analysis]
@@ -116,12 +116,12 @@ final class FishnetApi(
       .chronometer
       .logIfSlow(200, logger):
         case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
-        case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
+        case PostAnalysisResult.Partial(res) => s"partial analysis for ${res.id}"
         case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
       .result
       .flatMap:
         case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
-        case r @ PostAnalysisResult.Partial(res)  => sink.progress(res).inject(r)
+        case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
 
   def abort(workId: Work.Id, client: Client): Funit =
@@ -134,7 +134,7 @@ final class FishnetApi(
   def userAnalysisExists(gameId: GameId) =
     analysisColl.exists(
       $doc(
-        "game.id"       -> gameId,
+        "game.id" -> gameId,
         "sender.system" -> false
       )
     )

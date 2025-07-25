@@ -7,7 +7,7 @@ final class FavoriteOpponents(
 )(using Executor):
 
   val opponentLimit = 30
-  val gameLimit     = lila.core.game.favOpponentOverGames
+  val gameLimit = lila.core.game.favOpponentOverGames
 
   private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents"):
     _.expireAfterWrite(15.minutes)

@@ -15,7 +15,7 @@ final class ModerationUi(helpers: Helpers, ui: TournamentUi):
         lila.ui.bits.pageMenuSubnav(
           View.values.map: v =>
             a(
-              cls  := v.toString.active(view.toString),
+              cls := v.toString.active(view.toString),
               href := routes.Tournament.moderation(tour.id, v.toString)
             )(v.name)
         ),

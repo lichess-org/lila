@@ -37,14 +37,14 @@ object ContentSecurityPolicy:
     List(
       "default-src " -> defaultSrc,
       "connect-src " -> connectSrc,
-      "style-src "   -> styleSrc,
-      "frame-src "   -> frameSrc,
-      "worker-src "  -> workerSrc,
-      "img-src "     -> imgSrc,
-      "media-src "   -> mediaSrc,
-      "script-src "  -> scriptSrc,
-      "font-src "    -> fontSrc,
-      "base-uri "    -> baseUri
+      "style-src " -> styleSrc,
+      "frame-src " -> frameSrc,
+      "worker-src " -> workerSrc,
+      "img-src " -> imgSrc,
+      "media-src " -> mediaSrc,
+      "script-src " -> scriptSrc,
+      "font-src " -> fontSrc,
+      "base-uri " -> baseUri
     ).collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")

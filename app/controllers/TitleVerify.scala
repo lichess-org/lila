@@ -16,7 +16,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
       api.getCurrent.flatMap:
         case Some(req) => Redirect(routes.TitleVerify.show(req.id))
-        case None      => Ok.async(ui.index(inSiteMenu(page.title), views.cms.pageContent(page)))
+        case None => Ok.async(ui.index(inSiteMenu(page.title), views.cms.pageContent(page)))
   }
 
   def form = Auth { _ ?=> _ ?=>
@@ -43,18 +43,18 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         else Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
       else
         for
-          data    <- getModData(req)
+          data <- getModData(req)
           similar <- api.findSimilar(req)
-          page    <- renderPage(views.title.mod.show(req, similar, data))
+          page <- renderPage(views.title.mod.show(req, similar, data))
         yield Ok(page)
   }
 
   private def getModData(req: TitleRequest)(using Context)(using me: Me) =
     for
-      user   <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
-      users  <- env.security.userLogins(user, 100)
+      user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
+      users <- env.security.userLogins(user, 100)
       logins <- userC.loginsTableData(user, users, 100)
-      fide   <- req.data.fideId.so(env.fide.playerApi.fetch)
+      fide <- req.data.fideId.so(env.fide.playerApi.fetch)
     yield views.title.mod.ModData(
       mod = me,
       user = user,
@@ -101,9 +101,9 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
 
   def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>
     for
-      reqs              <- api.queue(30)
+      reqs <- api.queue(30)
       (scores, pending) <- reportC.getScores
-      page              <- renderPage(views.title.mod.queue(reqs, scores, pending))
+      page <- renderPage(views.title.mod.queue(reqs, scores, pending))
     yield Ok(page)
   }
 
@@ -113,8 +113,8 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         err => Redirect(routes.TitleVerify.show(req.id)).flashFailure(err.toString),
         data =>
           for
-            req  <- api.process(req, data)
-            _    <- req.approved.so(onApproved(req))
+            req <- api.process(req, data)
+            _ <- req.approved.so(onApproved(req))
             next <- api.queue(1).map(_.headOption)
           yield Redirect(next.fold(routes.TitleVerify.queue)(r => routes.TitleVerify.show(r.id))).flashSuccess
       )
@@ -123,8 +123,8 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   private def onApproved(req: TitleRequest)(using Me) =
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
-      _    <- modC.doSetTitle(user.id, req.data.title.some)
-      url  = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
+      _ <- modC.doSetTitle(user.id, req.data.title.some)
+      url = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)
       _ <- req.data.public.so:

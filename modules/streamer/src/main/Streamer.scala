@@ -16,7 +16,7 @@ case class Streamer(
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
-    seenAt: Instant,         // last seen online
+    seenAt: Instant, // last seen online
     liveAt: Option[Instant], // last seen streaming
     createdAt: Instant,
     updatedAt: Instant,
@@ -76,10 +76,10 @@ object Streamer:
     )
 
   case class Approval(
-      requested: Boolean,   // user requests a mod to approve
-      granted: Boolean,     // a mod approved
-      ignored: Boolean,     // further requests are ignored
-      tier: Int,            // homepage featuring tier
+      requested: Boolean, // user requests a mod to approve
+      granted: Boolean, // a mod approved
+      ignored: Boolean, // further requests are ignored
+      tier: Int, // homepage featuring tier
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[Instant],
       reason: Option[String]
@@ -87,27 +87,27 @@ object Streamer:
 
   case class Twitch(userId: String) derives Eq:
     def fullUrl = s"https://www.twitch.tv/$userId"
-    def minUrl  = s"twitch.tv/$userId"
+    def minUrl = s"twitch.tv/$userId"
   object Twitch:
     private val UserIdRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
-    private val UrlRegex    = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
+    private val UrlRegex = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
     // https://www.twitch.tv/chessnetwork
     def parseUserId(str: String): Option[String] =
       str match
         case UserIdRegex(u) => u.some
-        case UrlRegex(u)    => u.some
-        case _              => none
+        case UrlRegex(u) => u.some
+        case _ => none
 
   case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
       derives Eq:
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
-    def minUrl  = s"youtube.com/channel/$channelId/live"
+    def minUrl = s"youtube.com/channel/$channelId/live"
   object YouTube:
-    private val ChannelIdRegex                      = """^([\w-]{24})$""".r
+    private val ChannelIdRegex = """^([\w-]{24})$""".r
     def parseChannelId(str: String): Option[String] =
       str match
         case ChannelIdRegex(c) => c.some
-        case _                 => none
+        case _ => none
 
   trait WithContext:
     def streamer: Streamer

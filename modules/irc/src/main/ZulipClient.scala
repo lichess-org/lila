@@ -42,9 +42,9 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
         .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
         .post(
           Map(
-            "type"    -> "stream",
-            "to"      -> msg.stream,
-            "topic"   -> msg.topic,
+            "type" -> "stream",
+            "to" -> msg.stream,
+            "topic" -> msg.topic,
             "content" -> msg.content
           )
         )
@@ -52,7 +52,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
           case res if res.status == 200 =>
             (res.body[JsValue] \ "id").validate[ZulipMessage.ID] match
               case JsSuccess(result, _) => fuccess(result.some)
-              case JsError(err)         => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
+              case JsError(err) => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
           case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
         .monSuccess(_.irc.zulip.say(msg.stream))
         .logFailure(lila.log("zulip"))
@@ -68,26 +68,26 @@ private object ZulipClient:
 
   object stream:
     object mod:
-      val log                          = "mod-log"
-      val adminLog                     = "mod-admin-log"
-      val adminGeneral                 = "mod-admin-general"
-      val commsPublic                  = "mod-comms-public"
-      val commsPrivate                 = "mod-comms-private"
-      val hunterCheat                  = "mod-hunter-cheat"
-      val hunterBoost                  = "mod-hunter-boost"
-      val adminAppeal                  = "mod-admin-appeal"
-      val cafeteria                    = "mod-cafeteria"
-      val usernames                    = "mod-usernames"
-      val trustSafety                  = "org-trustsafety"
+      val log = "mod-log"
+      val adminLog = "mod-admin-log"
+      val adminGeneral = "mod-admin-general"
+      val commsPublic = "mod-comms-public"
+      val commsPrivate = "mod-comms-private"
+      val hunterCheat = "mod-hunter-cheat"
+      val hunterBoost = "mod-hunter-boost"
+      val adminAppeal = "mod-admin-appeal"
+      val cafeteria = "mod-cafeteria"
+      val usernames = "mod-usernames"
+      val trustSafety = "org-trustsafety"
       def adminMonitor(tpe: ModDomain) = tpe match
-        case ModDomain.Comm  => "mod-admin-monitor-comm"
+        case ModDomain.Comm => "mod-admin-monitor-comm"
         case ModDomain.Cheat => "mod-admin-monitor-cheat"
         case ModDomain.Boost => "mod-admin-monitor-boost"
-        case _               => "mod-admin-monitor-other"
-    val general   = "general"
+        case _ => "mod-admin-monitor-other"
+    val general = "general"
     val broadcast = "content-broadcast"
-    val blog      = "content-blog"
-    val content   = "content-site"
+    val blog = "content-blog"
+    val content = "content-site"
     type Selector = ZulipClient.stream.type => String
 
 private case class ZulipMessage(

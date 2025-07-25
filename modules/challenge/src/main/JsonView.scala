@@ -21,8 +21,8 @@ final class JsonView(
     val light = getLightUser(r.id)
     Json
       .obj(
-        "id"     -> r.id,
-        "name"   -> light.fold(r.id.into(UserName))(_.name),
+        "id" -> r.id,
+        "name" -> light.fold(r.id.into(UserName))(_.name),
         "rating" -> r.rating.int
       )
       .add("title" -> light.map(_.title))
@@ -34,8 +34,8 @@ final class JsonView(
 
   def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
-      "in"      -> a.in.map(apply(Direction.In.some)),
-      "out"     -> a.out.map(apply(Direction.Out.some)),
+      "in" -> a.in.map(apply(Direction.In.some)),
+      "out" -> a.out.map(apply(Direction.Out.some)),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
@@ -46,7 +46,7 @@ final class JsonView(
       direction: Option[Direction]
   )(using Translate) =
     Json.obj(
-      "challenge"     -> apply(direction)(challenge),
+      "challenge" -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
     )
 
@@ -65,32 +65,32 @@ final class JsonView(
   def apply(direction: Option[Direction])(c: Challenge)(using Translate): JsObject =
     Json
       .obj(
-        "id"          -> c.id,
-        "url"         -> s"$baseUrl/${c.id}",
-        "status"      -> c.status.name,
-        "challenger"  -> c.challengerUser,
-        "destUser"    -> c.destUser,
-        "variant"     -> c.variant,
-        "rated"       -> c.rated,
-        "speed"       -> c.speed.key,
+        "id" -> c.id,
+        "url" -> s"$baseUrl/${c.id}",
+        "status" -> c.status.name,
+        "challenger" -> c.challengerUser,
+        "destUser" -> c.destUser,
+        "variant" -> c.variant,
+        "rated" -> c.rated,
+        "speed" -> c.speed.key,
         "timeControl" -> c.timeControl.match
           case TimeControl.Clock(clock) =>
             Json.obj(
-              "type"      -> "clock",
-              "limit"     -> clock.limitSeconds,
+              "type" -> "clock",
+              "limit" -> clock.limitSeconds,
               "increment" -> clock.incrementSeconds,
-              "show"      -> clock.show
+              "show" -> clock.show
             )
           case TimeControl.Correspondence(d) =>
             Json.obj(
-              "type"        -> "correspondence",
+              "type" -> "correspondence",
               "daysPerTurn" -> d
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
         ,
-        "color"      -> c.colorChoice.toString.toLowerCase,
+        "color" -> c.colorChoice.toString.toLowerCase,
         "finalColor" -> c.finalColor.toString.toLowerCase,
-        "perf"       -> Json.obj(
+        "perf" -> Json.obj(
           "icon" -> iconOf(c),
           "name" -> c.perfType.trans
         )

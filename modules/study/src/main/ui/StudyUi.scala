@@ -17,9 +17,9 @@ final class StudyUi(helpers: Helpers):
       p("Deleting one study will ", strong("not"), " delete the other study."),
       p(
         submitButton(
-          cls      := "submit button large text",
+          cls := "submit button large text",
           dataIcon := Icon.StudyBoard,
-          style    := "margin: 30px auto; display: block; font-size: 2em;"
+          style := "margin: 30px auto; display: block; font-size: 2em;"
         )("Clone the study")
       ),
       p(
@@ -41,17 +41,17 @@ final class StudyUi(helpers: Helpers):
   )(using Context) =
     div(cls := "study-create")(
       postForm(action := routes.Study.create)(
-        input(tpe := "hidden", name := "gameId", value      := data.gameId),
+        input(tpe := "hidden", name := "gameId", value := data.gameId),
         input(tpe := "hidden", name := "orientation", value := data.orientation.map(_.key)),
-        input(tpe := "hidden", name := "fen", value         := data.fen.map(_.value)),
-        input(tpe := "hidden", name := "pgn", value         := data.pgnStr),
-        input(tpe := "hidden", name := "variant", value     := data.variant.map(_.key)),
+        input(tpe := "hidden", name := "fen", value := data.fen.map(_.value)),
+        input(tpe := "hidden", name := "pgn", value := data.pgnStr),
+        input(tpe := "hidden", name := "variant", value := data.variant.map(_.key)),
         h2(trans.study.whereDoYouWantToStudyThat()),
         p(
           submitButton(
-            name     := "as",
-            value    := "study",
-            cls      := "submit button large new text",
+            name := "as",
+            value := "study",
+            cls := "submit button large new text",
             dataIcon := Icon.StudyBoard
           )(trans.study.createStudy())
         ),

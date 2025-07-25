@@ -103,7 +103,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     )
 
   private def boostMenu(using Context): Branch =
-    val accept     = "I accept that I manipulated my rating."
+    val accept = "I accept that I manipulated my rating."
     val acceptFull =
       "I accept that I deliberately manipulated my rating by losing games on purpose, or by playing another account that was deliberately losing games. I am sorry and I would like another chance."
     val deny =
@@ -135,7 +135,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     )
 
   private def muteMenu(using Context): Branch =
-    val accept     = "I accept that I have not followed the communication guidelines"
+    val accept = "I accept that I have not followed the communication guidelines"
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
     val deny =
@@ -177,7 +177,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def rankBanMenu(using Context): Branch =
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
-    val deny   =
+    val deny =
       "I deny having manipulated my account to get on the leaderboard."
     Branch(
       "root",
@@ -204,9 +204,9 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     )
 
   private def arenaBanMenu(using Context): Branch =
-    val noPlay  = "I have joined many arenas without playing in them"
+    val noPlay = "I have joined many arenas without playing in them"
     val noStart = "I did not move in many arenas games"
-    val deny    = "I have followed fair-play and arenas rules"
+    val deny = "I have followed fair-play and arenas rules"
     Branch(
       "root",
       tap.arenaBanned(),
@@ -269,7 +269,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def prizebanMenu(using Context): Branch =
     val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
-    val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
+    val deny = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
       tap.prizeBanned(),
@@ -355,7 +355,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
   )
 
   def page(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: Context) =
-    val query    = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)
+    val query = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)
     val isMarked =
       playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
     ui.page("Appeal a moderation decision"):

@@ -14,10 +14,10 @@ object StreamerForm:
 
   lazy val emptyUserForm = Form(
     mapping(
-      "name"        -> nameField,
-      "headline"    -> optional(of[Headline]),
+      "name" -> nameField,
+      "headline" -> optional(of[Headline]),
       "description" -> optional(of[Description]),
-      "twitch"      -> optional(
+      "twitch" -> optional(
         text
           .verifying(
             Constraints.minLength(2),
@@ -28,15 +28,15 @@ object StreamerForm:
       "youTube" -> optional(
         text.verifying("Invalid YouTube channel ID", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
-      "listed"   -> of[Listed],
+      "listed" -> of[Listed],
       "approval" ->
         mapping(
-          "granted"   -> boolean,
-          "tier"      -> optional(number(min = 0, max = Streamer.maxTier)),
+          "granted" -> boolean,
+          "tier" -> optional(number(min = 0, max = Streamer.maxTier)),
           "requested" -> boolean,
-          "ignored"   -> boolean,
-          "chat"      -> boolean,
-          "quick"     -> optional:
+          "ignored" -> boolean,
+          "chat" -> boolean,
+          "quick" -> optional:
             text.partial[QuickDecision](_.toString):
               case ok: QuickDecision => ok,
           "reason" -> optional(text)
@@ -78,12 +78,12 @@ object StreamerForm:
   ):
 
     def apply(streamer: Streamer, asMod: Boolean) =
-      val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
+      val liveVideoId = streamer.youTube.flatMap(_.liveVideoId)
       val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
-      val newTwitch     = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply)
-      val newYouTube    =
+      val newTwitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply)
+      val newYouTube =
         youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId))
-      val urlChanges                     = newTwitch != streamer.twitch || newYouTube != streamer.youTube
+      val urlChanges = newTwitch != streamer.twitch || newYouTube != streamer.youTube
       val newApproval: Streamer.Approval =
         if asMod then
           val m = approval.resolve

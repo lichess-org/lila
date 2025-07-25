@@ -63,7 +63,7 @@ final private class Takebacker(
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
           for
             _ <- proxy.save(progress)
-            _      = publishTakebackOffer(progress.game)
+            _ = publishTakebackOffer(progress.game)
             events = List(Event.TakebackOffers(pov.color.white, pov.color.black))
           yield events -> board
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
@@ -79,7 +79,7 @@ final private class Takebacker(
           g.updatePlayer(color, _.removeTakebackProposition)
         for
           _ <- proxy.save(progress)
-          _      = publishTakebackOffer(progress.game)
+          _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
         yield events -> board.decline
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
@@ -91,7 +91,7 @@ final private class Takebacker(
           g.updatePlayer(!color, _.removeTakebackProposition)
         for
           _ <- proxy.save(progress)
-          _      = publishTakebackOffer(progress.game)
+          _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
         yield events -> board.decline
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
@@ -119,23 +119,23 @@ final private class Takebacker(
 
   private def single(pov: Pov)(using GameProxy): Fu[Events] =
     for
-      fen      <- gameRepo.initialFen(pov.game)
+      fen <- gameRepo.initialFen(pov.game)
       progress <- Rewind(pov.game, fen).toFuture
-      _        <- fuccess(uciMemo.drop(pov.game, 1))
-      events   <- saveAndNotify(progress, pov)
+      _ <- fuccess(uciMemo.drop(pov.game, 1))
+      events <- saveAndNotify(progress, pov)
     yield events
 
   private def double(pov: Pov)(using GameProxy): Fu[Events] =
     for
-      fen    <- gameRepo.initialFen(pov.game)
-      prog1  <- Rewind(pov.game, fen).toFuture
-      prog2  <- Rewind(prog1.game, fen).toFuture.dmap(progress => prog1.withGame(progress.game))
-      _      <- fuccess(uciMemo.drop(pov.game, 2))
+      fen <- gameRepo.initialFen(pov.game)
+      prog1 <- Rewind(pov.game, fen).toFuture
+      prog2 <- Rewind(prog1.game, fen).toFuture.dmap(progress => prog1.withGame(progress.game))
+      _ <- fuccess(uciMemo.drop(pov.game, 2))
       events <- saveAndNotify(prog2, pov)
     yield events
 
   private def saveAndNotify(p1: Progress, pov: Pov)(using proxy: GameProxy): Fu[Events] =
-    val p2       = p1 + Event.Reload
+    val p2 = p1 + Event.Reload
     val accepter = if pov.opponent.isProposingTakeback then pov.color else !pov.color
     messenger.system(
       p2.game,

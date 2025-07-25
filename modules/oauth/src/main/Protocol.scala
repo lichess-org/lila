@@ -11,7 +11,7 @@ import lila.common.String.urlencode
 
 object Protocol:
   case class AuthorizationCode(secret: String) extends AnyVal:
-    def hashed            = Algo.sha256(secret).hex
+    def hashed = Algo.sha256(secret).hex
     override def toString = "AuthorizationCode(***)"
   object AuthorizationCode:
     def random() = AuthorizationCode(s"liu_${SecureRandom.nextString(32)}")
@@ -26,7 +26,7 @@ object Protocol:
     def from(codeChallengeMethod: String): Either[Error, Unit] =
       codeChallengeMethod match
         case "S256" => ().asRight
-        case _      => Error.UnsupportedCodeChallengeMethod.asLeft
+        case _ => Error.UnsupportedCodeChallengeMethod.asLeft
 
   opaque type CodeChallenge = String
   object CodeChallenge extends OpaqueString[CodeChallenge]
@@ -46,13 +46,13 @@ object Protocol:
     def from(responseType: String): Either[Error, Unit] =
       responseType match
         case "code" => ().asRight
-        case _      => Error.UnsupportedResponseType.asLeft
+        case _ => Error.UnsupportedResponseType.asLeft
 
   object GrantType:
     def from(grantType: String): Either[Error, Unit] =
       grantType match
         case "authorization_code" => ().asRight
-        case _                    => Error.UnsupportedGrantType.asLeft
+        case _ => Error.UnsupportedGrantType.asLeft
 
   case class RedirectUri(value: URL) extends AnyVal:
 
@@ -111,7 +111,7 @@ object Protocol:
   sealed abstract class Error(val error: String):
     def description: String
     def toJson = Json.obj(
-      "error"             -> error,
+      "error" -> error,
       "error_description" -> description
     )
   object Error:
@@ -123,20 +123,20 @@ object Protocol:
       val description = "supports only grant_type 'authorization_code'"
 
     abstract class InvalidRequest(val description: String) extends Error("invalid_request")
-    case object ClientIdRequired    extends InvalidRequest("client_id required (choose any)")
+    case object ClientIdRequired extends InvalidRequest("client_id required (choose any)")
     case object RedirectUriRequired extends InvalidRequest("redirect_uri required")
-    case object RedirectUriInvalid  extends InvalidRequest("redirect_uri invalid")
+    case object RedirectUriInvalid extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
         extends InvalidRequest(
           "exotic redirect_uri scheme not allowed (use reverse domain notation like com.example:// for custom applications)"
         )
-    case object ResponseTypeRequired        extends InvalidRequest("response_type required")
-    case object CodeChallengeRequired       extends InvalidRequest("code_challenge required")
+    case object ResponseTypeRequired extends InvalidRequest("response_type required")
+    case object CodeChallengeRequired extends InvalidRequest("code_challenge required")
     case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
-    case object GrantTypeRequired           extends InvalidRequest("grant_type required")
-    case object CodeRequired                extends InvalidRequest("code required")
-    case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
-    case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
+    case object GrantTypeRequired extends InvalidRequest("grant_type required")
+    case object CodeRequired extends InvalidRequest("code required")
+    case object CodeVerifierRequired extends InvalidRequest("code_verifier required")
+    case object CodeVerifierTooShort extends InvalidRequest("code_verifier too short")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope"):
       def description = s"invalid scope: ${urlencode(key)}"

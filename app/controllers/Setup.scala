@@ -42,8 +42,8 @@ final class Setup(
             for
               origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
-              result   <- denied match
+              denied <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
+              result <- denied match
                 case Some(denied) =>
                   val message = lila.challenge.ChallengeDenied.translated(denied)
                   negotiate(
@@ -55,13 +55,13 @@ final class Setup(
                   import lila.challenge.Challenge.*
                   (origUser, ctx.req.sid)
                     .match
-                      case (Some(orig), _)                       => toRegistered(orig).some
-                      case (_, Some(sid))                        => Challenger.Anonymous(sid).some
+                      case (Some(orig), _) => toRegistered(orig).some
+                      case (_, Some(sid)) => Challenger.Anonymous(sid).some
                       case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
-                      case _                                     => none
+                      case _ => none
                     .so: challenger =>
                       val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
-                      val challenge   = lila.challenge.Challenge.make(
+                      val challenge = lila.challenge.Challenge.make(
                         variant = config.variant,
                         initialFen = config.fen,
                         timeControl = timeControl,
@@ -91,7 +91,7 @@ final class Setup(
     case HookResult.Created(id) =>
       JsonOk:
         Json.obj(
-          "ok"   -> true,
+          "ok" -> true,
           "hook" -> Json.obj("id" -> id)
         )
     case HookResult.Refused => JsonBadRequest(("Game was not created"))
@@ -108,7 +108,7 @@ final class Setup(
                   me <- ctx.user.soFu(env.user.api.withPerfs)
                   given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                   blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-                  res      <- processor.hook(
+                  res <- processor.hook(
                     userConfig.withinLimits,
                     sri,
                     req.sid,
@@ -123,9 +123,9 @@ final class Setup(
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
-              orig     <- ctx.user.soFu(env.user.api.withPerfs)
+              orig <- ctx.user.soFu(env.user.api.withPerfs)
               blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-              hookConfig           = lila.setup.HookConfig.default(ctx.isAuth)
+              hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
               hookConfigWithRating = get("rr")
                 .fold(
                   hookConfig.withRatingRange(
@@ -148,17 +148,17 @@ final class Setup(
         doubleJsonFormError,
         config =>
           for
-            me       <- ctx.me.so(env.user.api.withPerfs)
+            me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
-            ua     = HTTPRequest.userAgent(req).fold("?")(_.value)
-            _      = lila.mon.lobby.hook
+            ua = HTTPRequest.userAgent(req).fold("?")(_.value)
+            _ = lila.mon.lobby.hook
               .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
               .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
-            res         <- forcedColor.match
+            res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
-              case None         =>
+              case None =>
                 config
                   .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
                   .match
@@ -171,10 +171,10 @@ final class Setup(
                           .toFuccess
                     case Right(Some(seek)) =>
                       author match
-                        case Left(_)   => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
+                        case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
                         case Right(me) =>
                           env.setup.processor.createSeekIfAllowed(seek, me.id).map {
-                            case HookResult.Refused     => JsonBadRequest("Already playing too many games")
+                            case HookResult.Refused => JsonBadRequest("Already playing too many games")
                             case HookResult.Created(id) => Ok(Json.obj("id" -> id))
                           }
                     case Right(None) => notFoundJson().toFuccess
@@ -196,17 +196,17 @@ final class Setup(
         val reqSri = getAs[Sri]("sri")
         ctx.me match
           case Some(u) => f(Right(u), reqSri)
-          case None    =>
+          case None =>
             reqSri match
               case Some(sri) => f(Left(sri), reqSri)
-              case None      => JsonBadRequest("Authentication required")
+              case None => JsonBadRequest("Authentication required")
 
   def filterForm = Open:
     Ok.snip(views.setup.filter(forms.filter))
 
   def validateFen = Open:
     (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
-      case None    => BadRequest
+      case None => BadRequest
       case Some(v) => Ok.snip(views.analyse.ui.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>

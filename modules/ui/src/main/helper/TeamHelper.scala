@@ -21,9 +21,9 @@ trait TeamHelper:
 
   def teamLink(team: LightTeam, withIcon: Boolean): Tag =
     a(
-      href     := routes.Team.show(team.id),
+      href := routes.Team.show(team.id),
       dataIcon := withIcon.option(lila.ui.Icon.Group),
-      cls      := withIcon.option("text")
+      cls := withIcon.option("text")
     )(team.name, teamFlair(team))
 
   def teamFlair(team: LightTeam): Option[Tag] = team.flair.map(teamFlair)

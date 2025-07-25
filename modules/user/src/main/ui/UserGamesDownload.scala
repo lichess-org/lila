@@ -15,7 +15,7 @@ final class UserGamesDownload(helpers: Helpers):
         main(cls := "box page-small search")(
           boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
           form(
-            id  := "dl-form",
+            id := "dl-form",
             cls := "box__pad search__form"
           )(
             table(
@@ -31,7 +31,7 @@ final class UserGamesDownload(helpers: Helpers):
                 th(label(`for` := "dl-api-url")("API URL")),
                 td(
                   copyMeInput("")(
-                    id                    := "dl-api-url",
+                    id := "dl-api-url",
                     attr("data-api-path") := routes.Game.apiExportByUser(user.username)
                   )
                 )
@@ -39,8 +39,8 @@ final class UserGamesDownload(helpers: Helpers):
               tr(
                 td(cls := "action", colspan := "2")(
                   a(
-                    id   := "dl-button",
-                    cls  := "button",
+                    id := "dl-button",
+                    cls := "button",
                     href := routes.Game.exportByUser(user.username),
                     downloadAttr
                   )(trans.site.download())

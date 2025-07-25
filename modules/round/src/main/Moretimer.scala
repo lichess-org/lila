@@ -42,7 +42,7 @@ final class Moretimer(
         if unchecked < minTime then minTime
         else if unchecked > maxTime then maxTime
         else unchecked
-      val centis   = duration.toCentis
+      val centis = duration.toCentis
       val newClock = colors.foldLeft(clock): (c, color) =>
         c.giveTime(color, centis)
       colors.foreach: c =>

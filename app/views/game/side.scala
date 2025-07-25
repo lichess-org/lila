@@ -4,9 +4,9 @@ package side
 import lila.app.UiEnv.{ *, given }
 import lila.game.GameExt.perfType
 
-private val separator  = " • "
+private val separator = " • "
 private val dataUserTv = attr("data-user-tv")
-private val dataTime   = attr("data-time")
+private val dataTime = attr("data-time")
 
 def apply(
     pov: Pov,
@@ -65,7 +65,7 @@ def meta(
                     .is(importedBy)
                     .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                       submitButton(
-                        cls   := "button-link yes-no-confirm",
+                        cls := "button-link yes-no-confirm",
                         title := trans.site.deleteThisImportedGame.txt()
                       )(trans.site.delete.txt()))
                 )

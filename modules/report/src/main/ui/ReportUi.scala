@@ -22,7 +22,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
 
   def filterReason(from: Option[String])(reason: Reason): Boolean = from match
     case Some("forum" | "inbox" | "ublog") => reason.isComm
-    case _                                 => true
+    case _ => true
 
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
@@ -31,7 +31,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
-            cls    := "form3",
+            cls := "form3",
             action := routes.Report.inboxCreate(user.username)
           )(
             div(cls := "form-group")(aboutReports),
@@ -71,7 +71,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
-            cls    := "form3",
+            cls := "form3",
             action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
           )(
             div(cls := "form-group")(
@@ -116,9 +116,9 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
 
   private val aboutReports = p(
     a(
-      href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
+      href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
       dataIcon := Icon.InfoCircle,
-      cls      := "text"
+      cls := "text"
     ):
       "Read more about Lichess reports"
   )
@@ -174,8 +174,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
               "In the meantime, you can block this user: ",
               submitButton(
                 attr("data-action") := routes.Relation.block(userId),
-                cls                 := "report-block button",
-                st.title            := trans.site.block.txt()
+                cls := "report-block button",
+                st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
             )
           ),
@@ -201,7 +201,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.SeeReport).option:
                     a(
                       href := routes.Report.listWithFilter("all"),
-                      cls  := List("active" -> (filter == "all"))
+                      cls := List("active" -> (filter == "all"))
                     )(
                       "All",
                       scoreTag(scores.highest)
@@ -212,8 +212,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     .map { room =>
                       a(
                         href := routes.Report.listWithFilter(room.key),
-                        cls  := List(
-                          "active"            -> (filter == room.key),
+                        cls := List(
+                          "active" -> (filter == room.key),
                           s"room-${room.key}" -> true
                         )
                       )(
@@ -225,8 +225,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.Appeals).option(
                     a(
                       href := routes.Appeal.queue(),
-                      cls  := List(
-                        "new"    -> true,
+                      cls := List(
+                        "new" -> true,
                         "active" -> (filter == "appeal")
                       )
                     )(
@@ -243,8 +243,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.TitleRequest).option(
                     a(
                       href := routes.TitleVerify.queue,
-                      cls  := List(
-                        "new"    -> true,
+                      cls := List(
+                        "new" -> true,
                         "active" -> (filter == "title")
                       )
                     )(
@@ -298,7 +298,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                         ),
                         p(
                           cls := List(
-                            "text"  -> true,
+                            "text" -> true,
                             "large" -> (a.text.length > 100 || a.text.linesIterator.size > 3)
                           )
                         )(shorten(a.text, 200))

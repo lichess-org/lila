@@ -15,9 +15,9 @@ case class ModUserSearchResult(
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
   def apply(query: String): Fu[ModUserSearchResult] = for
-    users     <- EmailAddress.from(query).map(searchEmail).getOrElse(searchUsername(UserStr(query)))
+    users <- EmailAddress.from(query).map(searchEmail).getOrElse(searchUsername(UserStr(query)))
     withPerfs <- userApi.withPerfsAndEmails(users)
-    userStr  = UserStr.read(query)
+    userStr = UserStr.read(query)
     userName = userStr.map(_.into(UserName))
     exists <- userStr.so(userRepo.exists)
   yield ModUserSearchResult(

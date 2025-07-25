@@ -19,9 +19,9 @@ final class GifExport(
       .addHttpHeaders("Content-Type" -> "application/json")
       .withBody(
         Json.obj(
-          "delay"       -> 80,
+          "delay" -> 80,
           "orientation" -> chapter.setup.orientation.name,
-          "white"       -> List(
+          "white" -> List(
             chapter.tags(_.WhiteTitle),
             chapter.tags(_.White),
             chapter.tags(_.WhiteElo).map(elo => s"($elo)")
@@ -32,15 +32,15 @@ final class GifExport(
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
           "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr()),
-          "theme"  -> theme.|("brown"),
-          "piece"  -> piece.|("cburnett")
+          "theme" -> theme.|("brown"),
+          "piece" -> piece.|("cburnett")
         )
       )
       .stream()
       .flatMap:
         case res if res.status == 200 => fuccess(res.bodyAsSource)
         case res if res.status == 400 => fufail(LilaInvalid(res.body))
-        case res                      =>
+        case res =>
           logger.warn(s"GifExport study ${chapter.studyId}/${chapter.id} ${res.status}")
           fufail(res.statusText)
 

@@ -23,7 +23,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     )
 
   def header(s: Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: Context) =
-    val isMe  = ctx.is(s.streamer)
+    val isMe = ctx.is(s.streamer)
     val isMod = Granter.opt(_.ModLog)
     div(cls := "streamer-header")(
       thumbnail(s.streamer, s.user),
@@ -39,7 +39,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
               a(
                 cls := List(
                   "service twitch" -> true,
-                  "live"           -> s.stream.exists(_.twitch)
+                  "live" -> s.stream.exists(_.twitch)
                 ),
                 href := twitch.fullUrl
               )(twitch.minUrl)
@@ -50,7 +50,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
               a(
                 cls := List(
                   "service youTube" -> true,
-                  "live"            -> s.stream.exists(_.youTube)
+                  "live" -> s.stream.exists(_.youTube)
                 ),
                 href := youTube.fullUrl
               )(youTube.minUrl)
@@ -89,16 +89,16 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   object thumbnail:
     def apply(s: Streamer, u: User) =
       img(
-        widthA  := Streamer.imageSize,
+        widthA := Streamer.imageSize,
         heightA := Streamer.imageSize,
-        cls     := "picture",
-        src     := url(s),
-        alt     := s"${u.titleUsername} Lichess streamer picture"
+        cls := "picture",
+        src := url(s),
+        alt := s"${u.titleUsername} Lichess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match
         case Some(image) => picfitUrl.thumbnail(image, Streamer.imageSize, Streamer.imageSize)
-        case _           => assetUrl("images/placeholder.png")
+        case _ => assetUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =
     lila.ui.bits.subnav(
@@ -119,14 +119,14 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         .opt(_.Streamers)
         .option(
           a(
-            cls  := active.active("requests"),
+            cls := active.active("requests"),
             href := s"${routes.Streamer.index()}?requests=1"
           )("Approval requests")
         ),
       a(
         dataIcon := Icon.InfoCircle,
-        cls      := "text",
-        href     := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
+        cls := "text",
+        href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
       )(
         "Streamer community"
       ),
@@ -136,12 +136,12 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None): Tag =
     isStreaming match
       case Some(false) => a(href := routes.Streamer.show(username))
-      case _           => a(href := routes.Streamer.redirect(username), targetBlank, noFollow)
+      case _ => a(href := routes.Streamer.redirect(username), targetBlank, noFollow)
 
   def liveStreams(l: LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.into(UserStr))(
-        cls   := "stream highlight",
+        cls := "stream highlight",
         title := s.status
       )(
         strong(cls := "text", dataIcon := Icon.Mic)(l.titleName(s)),

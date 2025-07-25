@@ -35,15 +35,15 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
 
   def teacherIndex(classes: List[Clas], closed: Boolean)(using Context) =
     val (active, archived) = classes.partition(_.isActive)
-    val (current, others)  = if closed then (archived, active) else (active, archived)
+    val (current, others) = if closed then (archived, active) else (active, archived)
     ClasPage(trans.clas.lichessClasses.txt(), Right("classes"))(cls := "clas-index"):
       frag(
         div(cls := "box__top")(
           h1(cls := "box__top")(trans.clas.lichessClasses()),
           a(
-            href     := routes.Clas.form,
-            cls      := "new button button-empty",
-            title    := trans.clas.newClass.txt(),
+            href := routes.Clas.form,
+            cls := "new button button-empty",
+            title := trans.clas.newClass.txt(),
             dataIcon := Icon.PlusButton
           )
         ),
@@ -72,7 +72,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
     div(cls := "classes")(
       classes.map { clas =>
         div(
-          cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
+          cls := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
           dataIcon := Icon.Group
         )(
           a(cls := "overlay", href := routes.Clas.show(clas.id)),
@@ -116,7 +116,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
         c.isActive.option(
           postForm(
             action := routes.Clas.archive(c.id, v = true),
-            cls    := "clas-edit__archive"
+            cls := "clas-edit__archive"
           )(
             form3.submit(trans.clas.closeClass(), icon = none)(
               cls := "yes-no-confirm button-red button-empty"
@@ -136,7 +136,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
         help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
       clas match
-        case None    => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
+        case None => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
         case Some(_) =>
           form3.group(
             form("teachers"),

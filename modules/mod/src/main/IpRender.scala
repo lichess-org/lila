@@ -12,7 +12,7 @@ import lila.memo.CacheApi
 
 object IpRender:
 
-  type Raw      = String
+  type Raw = String
   type Rendered = String
   type RenderIp = IpAddress => Rendered
 

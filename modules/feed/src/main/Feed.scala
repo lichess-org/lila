@@ -27,13 +27,13 @@ object Feed:
       flair: Option[Flair]
   ):
     lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
-    lazy val dateStr        = dateFormatter.print(at)
-    lazy val title          = "Daily update - " + dateStr
-    def published           = public && at.isBeforeNow
-    def future              = at.isAfterNow
+    lazy val dateStr = dateFormatter.print(at)
+    lazy val title = "Daily update - " + dateStr
+    def published = public && at.isBeforeNow
+    def future = at.isAfterNow
 
-  private val renderer              = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
-  private val dateFormatter         = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+  private val renderer = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
   given BSONDocumentHandler[Update] = Macros.handler
 
   type GetLastUpdates = () => List[Update]
@@ -49,7 +49,7 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
-    val store                                    = cacheApi.unit[List[Update]]:
+    val store = cacheApi.unit[List[Update]]:
       _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
@@ -86,9 +86,9 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
     val form = Form:
       mapping(
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
-        "public"  -> boolean,
-        "at"      -> ISOInstantOrTimestamp.mapping,
-        "flair"   -> flairApi.formField(anyFlair = true, asAdmin = true)
+        "public" -> boolean,
+        "at" -> ISOInstantOrTimestamp.mapping,
+        "flair" -> flairApi.formField(anyFlair = true, asAdmin = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
 

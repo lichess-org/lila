@@ -36,7 +36,7 @@ final private[api] class Cli(
       Bus.pub(AssetVersion.Changed(current))
       fuccess(s"Changed to ${AssetVersion.current}")
     case "announce" :: words => lila.web.AnnounceApi.cli(words)
-    case "threads" :: Nil    =>
+    case "threads" :: Nil =>
       fuccess:
         val threads = scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"

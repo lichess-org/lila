@@ -24,22 +24,22 @@ case class History(
 
   def apply(pk: PerfKey): RatingsMap =
     pk match
-      case PerfKey.standard       => standard
-      case PerfKey.bullet         => bullet
-      case PerfKey.blitz          => blitz
-      case PerfKey.rapid          => rapid
-      case PerfKey.classical      => classical
+      case PerfKey.standard => standard
+      case PerfKey.bullet => bullet
+      case PerfKey.blitz => blitz
+      case PerfKey.rapid => rapid
+      case PerfKey.classical => classical
       case PerfKey.correspondence => correspondence
-      case PerfKey.chess960       => chess960
-      case PerfKey.kingOfTheHill  => kingOfTheHill
-      case PerfKey.antichess      => antichess
-      case PerfKey.threeCheck     => threeCheck
-      case PerfKey.atomic         => atomic
-      case PerfKey.horde          => horde
-      case PerfKey.racingKings    => racingKings
-      case PerfKey.crazyhouse     => crazyhouse
-      case PerfKey.puzzle         => puzzle
-      case PerfKey.ultraBullet    => ultraBullet
+      case PerfKey.chess960 => chess960
+      case PerfKey.kingOfTheHill => kingOfTheHill
+      case PerfKey.antichess => antichess
+      case PerfKey.threeCheck => threeCheck
+      case PerfKey.atomic => atomic
+      case PerfKey.horde => horde
+      case PerfKey.racingKings => racingKings
+      case PerfKey.crazyhouse => crazyhouse
+      case PerfKey.puzzle => puzzle
+      case PerfKey.ultraBullet => ultraBullet
 
 object History:
 
@@ -50,7 +50,7 @@ object History:
       doc.elements
         .flatMap:
           case BSONElement(k, BSONInteger(v)) => k.toIntOption.map(_ -> IntRating(v))
-          case _                              => none
+          case _ => none
         .sortBy(_._1)
         .toList
 

@@ -16,15 +16,15 @@ final class Swiss(
 
   private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
 
-  def home     = Open(serveHome)
+  def home = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
   private def serveHome(using Context) = NoBot:
     for
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
-      swiss   <- env.swiss.feature.get(teamIds)
-      _       <- env.team.lightTeamApi.preload(swiss.teamIds)
-      page    <- renderPage(views.swiss.home.page(swiss))
+      swiss <- env.swiss.feature.get(teamIds)
+      _ <- env.team.lightTeamApi.preload(swiss.teamIds)
+      page <- renderPage(views.swiss.home.page(swiss))
     yield Ok(page)
 
   def show(id: SwissId) = Open:
@@ -35,9 +35,9 @@ final class Swiss(
         html = swissOption.fold(swissNotFound): (swiss, team) =>
           for
             verdicts <- env.swiss.api.verdicts(swiss)
-            version  <- env.swiss.version(swiss.id)
+            version <- env.swiss.version(swiss.id)
             isInTeam <- isUserInTheTeam(swiss.teamId)
-            json     <- env.swiss.json(
+            json <- env.swiss.json(
               swiss = swiss,
               me = ctx.me,
               verdicts = verdicts,
@@ -47,21 +47,21 @@ final class Swiss(
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss.roundInfo)
-            chat    <- canChat.soFu:
+            chat <- canChat.soFu:
               env.chat.api.userChat.cached
                 .findMine(swiss.id.into(ChatId))
                 .map:
                   _.copy(locked = !env.api.chatFreshness.of(swiss))
-            streamers  <- streamerCache.get(swiss.id)
+            streamers <- streamerCache.get(swiss.id)
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
           for
-            isInTeam      <- isUserInTheTeam(swiss.teamId)
-            verdicts      <- env.swiss.api.verdicts(swiss)
+            isInTeam <- isUserInTheTeam(swiss.teamId)
+            verdicts <- env.swiss.api.verdicts(swiss)
             socketVersion <- getBool("socketVersion").soFu(env.swiss.version(swiss.id))
-            playerInfo    <- getUserStr("playerInfo").so: u =>
+            playerInfo <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
             json <- env.swiss.json(
               swiss = swiss,
@@ -80,12 +80,12 @@ final class Swiss(
       .byId(id)
       .flatMap:
         case Some(swiss) => JsonOk(apiJson(swiss))
-        case _           => notFoundJson()
+        case _ => notFoundJson()
 
   private def apiJson(swiss: SwissModel)(using Context) =
     for
       verdicts <- env.swiss.api.verdicts(swiss)
-      json     <- env.swiss.json.api(swiss, verdicts)
+      json <- env.swiss.json.api(swiss, verdicts)
     yield json
 
   private def isUserInTheTeam(teamId: lila.team.TeamId)(using me: Option[Me]) =
@@ -171,7 +171,7 @@ final class Swiss(
     limit.tourJoinOrResume(me, rateLimited):
       for
         teamIds <- env.team.cached.teamIds(me)
-        error   <- env.swiss.api.join(id, teamIds.contains, password)
+        error <- env.swiss.api.join(id, teamIds.contains, password)
       yield error.fold(jsonOkResult)(err => JsonBadRequest(jsonError(err)))
 
   def withdraw(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
@@ -238,7 +238,7 @@ final class Swiss(
     env.swiss.cache.swissCache
       .byId(id)
       .map:
-        case None        => NotFound("Tournament not found")
+        case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
             .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
@@ -271,11 +271,11 @@ final class Swiss(
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
     (ctx.kid.no && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
       swiss.chatFor match
-        case ChatFor.NONE                     => fuFalse
+        case ChatFor.NONE => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue
-        case ChatFor.LEADERS                  => ctx.me.so { env.team.api.isLeader(swiss.teamId, _) }
-        case ChatFor.MEMBERS                  => ctx.me.so { env.team.api.belongsTo(swiss.teamId, _) }
-        case _                                => fuTrue
+        case ChatFor.LEADERS => ctx.me.so { env.team.api.isLeader(swiss.teamId, _) }
+        case ChatFor.MEMBERS => ctx.me.so { env.team.api.belongsTo(swiss.teamId, _) }
+        case _ => fuTrue
 
   private val streamerCache =
     env.memo.cacheApi[SwissId, List[UserId]](64, "swiss.streamers"):

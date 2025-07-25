@@ -14,19 +14,19 @@ private case class Contact(
     roles: Option[List[RoleDbKey]],
     createdAt: Instant
 ):
-  def isKid                                = ~kid
-  def isTroll                              = marks.exists(_.troll)
-  def isVerified                           = Granter.ofDbKeys(_.Verified, ~roles)
-  def isApiHog                             = Granter.ofDbKeys(_.ApiHog, ~roles)
-  def isBroadcastManager                   = Granter.ofDbKeys(_.Relay, ~roles)
-  def isDaysOld(days: Int)                 = createdAt.isBefore(nowInstant.minusDays(days))
-  def isHoursOld(hours: Int)               = createdAt.isBefore(nowInstant.minusHours(hours))
-  def isLichess                            = id.is(UserId.lichess)
+  def isKid = ~kid
+  def isTroll = marks.exists(_.troll)
+  def isVerified = Granter.ofDbKeys(_.Verified, ~roles)
+  def isApiHog = Granter.ofDbKeys(_.ApiHog, ~roles)
+  def isBroadcastManager = Granter.ofDbKeys(_.Relay, ~roles)
+  def isDaysOld(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
+  def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
+  def isLichess = id.is(UserId.lichess)
   def isGranted(perm: Permission.Selector) = Granter.ofDbKeys(perm, ~roles)
 
 private case class Contacts(orig: Contact, dest: Contact):
-  def hasKid                     = orig.isKid || dest.isKid
-  def userIds                    = List(orig.id, dest.id)
+  def hasKid = orig.isKid || dest.isKid
+  def userIds = List(orig.id, dest.id)
   def any(f: Contact => Boolean) = f(orig) || f(dest)
 
 private final class ContactApi(userColl: Coll)(using Executor):
@@ -42,4 +42,4 @@ private final class ContactApi(userColl: Coll)(using Executor):
       )(_.id)
       .map:
         case List(o, d) => Contacts(o, d).some
-        case _          => none
+        case _ => none

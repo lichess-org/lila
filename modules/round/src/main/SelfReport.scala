@@ -54,7 +54,7 @@ final class SelfReport(
                   ))
                 then roundApi.tell(pov.gameId, lila.core.round.Cheat(pov.color))
                 if markUserSetting.get().matches(name) then
-                  val rating    = u.perfs.bestRating
+                  val rating = u.perfs.bestRating
                   val delayBase =
                     if rating > IntRating(2500) then 0
                     else if rating > IntRating(2300) then 1

@@ -7,11 +7,11 @@ object ColorHistoryTest:
         case 'W' => acc.inc(chess.White)
         case 'B' => acc.inc(chess.Black)
     }
-  def toTuple2(history: ColorHistory): (Int, Int)                = (history.strike, history.balance)
-  def unpack(s: String): (Int, Int)                              = toTuple2(apply(s))
+  def toTuple2(history: ColorHistory): (Int, Int) = (history.strike, history.balance)
+  def unpack(s: String): (Int, Int) = toTuple2(apply(s))
   def couldPlay(s1: String, s2: String, maxStreak: Int): Boolean = apply(s1).couldPlay(apply(s2), maxStreak)
-  def sameColors(s1: String, s2: String): Boolean                = apply(s1).sameColors(apply(s2))
-  def firstGetsWhite(s1: String, s2: String): Boolean            =
+  def sameColors(s1: String, s2: String): Boolean = apply(s1).sameColors(apply(s2))
+  def firstGetsWhite(s1: String, s2: String): Boolean =
     apply(s1).firstGetsWhite(apply(s2)) { () =>
       true
     }

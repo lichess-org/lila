@@ -62,9 +62,9 @@ final class AppealApi(
         )
       .map: docs =>
         for
-          doc    <- docs
+          doc <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          msg    <- doc.getAsOpt[AppealMsg]("msgs")
+          msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
   def myQueue(filter: Option[Filter])(using me: Me) =
@@ -117,16 +117,16 @@ final class AppealApi(
       .map: docs =>
         import userRepo.userHandler
         for
-          doc    <- docs
+          doc <- docs
           appeal <- doc.asOpt[Appeal]
-          user   <- doc.getAsOpt[User]("user")
+          user <- doc.getAsOpt[User]("user")
         yield Appeal.WithUser(appeal, user)
 
   def filterSelector(filter: Filter) =
     import lila.core.user.BSONFields as F
     filter.value match
       case Some(mark) => $doc(F.marks.$in(List(mark.key)))
-      case None       => $doc(F.marks.$nin(UserMark.bannable))
+      case None => $doc(F.marks.$nin(UserMark.bannable))
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void
@@ -149,7 +149,7 @@ final class AppealApi(
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
   object modFilter:
-    private var store                                                = Map.empty[UserId, Option[Filter]]
+    private var store = Map.empty[UserId, Option[Filter]]
     def fromQuery(str: Option[String])(using me: Me): Option[Filter] =
       if str.has("reset") then store = store - me.userId
       val filter = str.map(Filter.byName.get) | store.get(me.userId).flatten

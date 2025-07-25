@@ -25,9 +25,9 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
           for
             (prevPlayers, pairings) <- fetchPlayers(swiss).zip(fetchPairings(swiss))
             pairingMap = SwissPairing.toMap(pairings)
-            sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
+            sheets = SwissSheet.many(swiss, prevPlayers, pairingMap)
             withSheets = prevPlayers.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
-            players    = SwissScoring.computePlayers(swiss.round, withSheets, pairingMap)
+            players = SwissScoring.computePlayers(swiss.round, withSheets, pairingMap)
             _ <- SwissPlayer.fields: f =>
               prevPlayers
                 .zip(players)
@@ -37,10 +37,10 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
                     .one(
                       $id(player.id),
                       $set(
-                        f.points      -> player.points,
-                        f.tieBreak    -> player.tieBreak,
+                        f.points -> player.points,
+                        f.tieBreak -> player.tieBreak,
                         f.performance -> player.performance,
-                        f.score       -> player.score
+                        f.score -> player.score
                       )
                     )
                 .parallelVoid
@@ -105,11 +105,11 @@ private object SwissScoring:
               }
         val (tieBreak, perfSum) = pairingsAndByes.foldLeft(0f -> 0f):
           case ((tieBreak, perfSum), (_, Some(pairing: SwissPairing))) =>
-            val opponent       = playerMap.get(pairing.opponentOf(player.userId))
+            val opponent = playerMap.get(pairing.opponentOf(player.userId))
             val opponentPoints = opponent.so(_.points.value)
-            val result         = pairing.resultFor(player.userId)
-            val newTieBreak    = tieBreak + result.fold(opponentPoints / 2)(_.so(opponentPoints))
-            val newPerf        = perfSum + opponent.so(_.rating.value) + result.so:
+            val result = pairing.resultFor(player.userId)
+            val newTieBreak = tieBreak + result.fold(opponentPoints / 2)(_.so(opponentPoints))
+            val newPerf = perfSum + opponent.so(_.rating.value) + result.so:
               if _ then 500 else -500
             newTieBreak -> newPerf
           case ((tieBreak, perfSum), (round, Some(_: SwissPairing.Bye))) =>

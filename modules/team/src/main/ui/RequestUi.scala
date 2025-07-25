@@ -64,8 +64,8 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
                 input(
-                  tpe   := "hidden",
-                  name  := "url",
+                  tpe := "hidden",
+                  name := "url",
                   value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
@@ -96,14 +96,14 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
               trans.team.declinedRequests()
             ),
             st.form(
-              cls    := "search team-declined-request",
+              cls := "search team-declined-request",
               method := "GET",
               action := routes.Team.declinedRequests(team.id, 1)
             )(
               div(
                 input(
-                  st.name     := "search",
-                  value       := search,
+                  st.name := "search",
+                  value := search,
                   placeholder := trans.search.search.txt()
                 ),
                 submitButton(cls := "button", dataIcon := Icon.Search)
@@ -120,12 +120,12 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
                   td(momentFromNow(request.date)),
                   td(cls := "process")(
                     postForm(
-                      cls    := "process-request",
+                      cls := "process-request",
                       action := routes.Team.requestProcess(request.id)
                     )(
                       input(
-                        tpe   := "hidden",
-                        name  := "url",
+                        tpe := "hidden",
+                        name := "url",
                         value := routes.Team.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(

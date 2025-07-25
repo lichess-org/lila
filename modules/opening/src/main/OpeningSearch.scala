@@ -10,7 +10,7 @@ import lila.common.Chronometer
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):
-  def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
+  def pgn = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
 final class OpeningSearch(using Executor):
@@ -30,7 +30,7 @@ final class OpeningSearch(using Executor):
 private object OpeningSearch:
 
   object removePgnMoveNumbers:
-    private val numbersRegex    = """\d{1,2}\.{1,3}\s?""".r
+    private val numbersRegex = """\d{1,2}\.{1,3}\s?""".r
     def apply(pgn: PgnMovesStr) = pgn.map(_.replaceAllIn(numbersRegex, "").trim)
 
   private val openings: Vector[Opening] = OpeningDb.shortestLines.values.toVector
@@ -39,9 +39,9 @@ private object OpeningSearch:
   private type Score = Int
 
   private[opening] object tokenize:
-    private val nonLetterRegex         = """[^a-zA-Z0-9]+""".r
-    private val exclude                = Set("opening", "variation")
-    private val replace                = Map("defence" -> "defense")
+    private val nonLetterRegex = """[^a-zA-Z0-9]+""".r
+    private val exclude = Set("opening", "variation")
+    private val replace = Map("defence" -> "defense")
     def apply(str: String): Set[Token] =
       str
         .take(200)
@@ -66,7 +66,7 @@ private object OpeningSearch:
 
   case class Query(raw: String, numberedPgn: String, tokens: Set[Token])
   def makeQuery(userInput: String): Query =
-    val clean       = userInput.trim.toLowerCase
+    val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
       clean
         .replace('.', ' ')

@@ -115,7 +115,7 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
 
   private def angleCard(title: Frag, url: Option[Call])(content: Modifier*) =
     st.article(
-      cls      := List("tutor__perf__angle tutor-card" -> true, "tutor-card--link" -> url.isDefined),
+      cls := List("tutor__perf__angle tutor-card" -> true, "tutor-card--link" -> url.isDefined),
       dataHref := url
     )(
       div(cls := "tutor-card__top")(
@@ -132,9 +132,9 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
         boxTop(
           h1(
             a(
-              href     := routes.Tutor.perf(user.username, report.perf.key),
+              href := routes.Tutor.perf(user.username, report.perf.key),
               dataIcon := Icon.LessThan,
-              cls      := "text"
+              cls := "text"
             ),
             bits.otherUser(user),
             report.perf.trans,
@@ -155,14 +155,14 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
                 grade.peerGradeWithDetail(concept.tacticalAwareness, phase.awareness, InsightPosition.Move),
                 div(cls := "tutor__phases__phase__buttons")(
                   a(
-                    cls      := "button button-no-upper text",
+                    cls := "button button-no-upper text",
                     dataIcon := Icon.ArcheryTarget,
-                    href     := routes.Puzzle.show(phase.phase.name)
+                    href := routes.Puzzle.show(phase.phase.name)
                   )("Train with ", phase.phase.name, " puzzles"),
                   a(
-                    cls      := "button button-no-upper text",
+                    cls := "button button-no-upper text",
                     dataIcon := Icon.AnalogTv,
-                    href     := s"${routes.Video.index}?tags=${phase.phase.name}"
+                    href := s"${routes.Video.index}?tags=${phase.phase.name}"
                   )("Watch ", phase.phase.name, " videos")
                 ),
                 (phase.phase == Phase.Opening).option(
@@ -183,9 +183,9 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
         boxTop(
           h1(
             a(
-              href     := routes.Tutor.perf(user.username, report.perf.key),
+              href := routes.Tutor.perf(user.username, report.perf.key),
               dataIcon := Icon.LessThan,
-              cls      := "text"
+              cls := "text"
             ),
             bits.otherUser(user),
             report.perf.trans,
@@ -209,9 +209,9 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
         boxTop(
           h1(
             a(
-              href     := routes.Tutor.perf(user.username, report.perf.key),
+              href := routes.Tutor.perf(user.username, report.perf.key),
               dataIcon := Icon.LessThan,
-              cls      := "text"
+              cls := "text"
             ),
             bits.otherUser(user),
             report.perf.trans,

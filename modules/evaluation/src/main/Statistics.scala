@@ -7,7 +7,7 @@ object Statistics:
 
   case class IntAvgSd(avg: Int, sd: Int):
     override def toString = s"$avg ± $sd"
-    def /(div: Int)       = IntAvgSd(avg / div, sd / div)
+    def /(div: Int) = IntAvgSd(avg / div, sd / div)
 
   def intAvgSd(values: List[Int]) = IntAvgSd(
     avg = listAverage(values).toInt,
@@ -31,7 +31,7 @@ object Statistics:
 
   def moveTimeCoefVariation(pov: Pov): Option[Float] =
     for
-      mt   <- moveTimes(pov)
+      mt <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
     yield coef
 
@@ -61,7 +61,7 @@ object Statistics:
   def moderatelyConsistentMoveTimes(pov: Pov): Boolean =
     moveTimeCoefVariation(pov).so { cvIndicatesModeratelyFlatTimes(_) }
 
-  private val fastMove               = Centis(50)
+  private val fastMove = Centis(50)
   def noFastMoves(pov: Pov): Boolean =
     val moveTimes = ~lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
     moveTimes.count(fastMove > _) <= (moveTimes.size / 20) + 2

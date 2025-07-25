@@ -15,6 +15,6 @@ opaque type SwissPoints = Int
 object SwissPoints:
   def fromDoubled(d: Int): SwissPoints = d
   extension (p: SwissPoints)
-    def doubled: Int                   = p
-    def value: Float                   = p / 2f
+    def doubled: Int = p
+    def value: Float = p / 2f
     def +(o: SwissPoints): SwissPoints = SwissPoints.doubled(p + o)

@@ -62,7 +62,7 @@ final class Env(
     if config.hcaptcha.enabled then wire[HcaptchaReal]
     else wire[HcaptchaSkip]
 
-  lazy val forms                                = wire[SecurityForm]
+  lazy val forms = wire[SecurityForm]
   def signupForm: lila.core.security.SignupForm = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]

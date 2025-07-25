@@ -39,14 +39,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         flags = requestPgnFlags(extended = true)
       )
       for
-        content  <- env.api.gameApiV2.exportOne(game, config)
+        content <- env.api.gameApiV2.exportOne(game, config)
         filename <- env.api.gameApiV2.filename(game, config.format)
       yield Ok(content)
         .asAttachment(filename)
         .withHeaders(headersForApiOrApp*)
         .as(gameContentType(config))
 
-  def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
+  def exportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
@@ -62,7 +62,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
               else 25)
             .flatMap: perSecond =>
               val finished = getBoolOpt("finished") | true
-              val config   = GameApiV2.ByUserConfig(
+              val config = GameApiV2.ByUserConfig(
                 user = user,
                 format = format,
                 vs = vs,
@@ -130,7 +130,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
-    val config          = GameApiV2.ByIdsConfig(
+    val config = GameApiV2.ByIdsConfig(
       ids = GameId.from(ctx.body.body.split(',').view.take(limit).toSeq),
       format = GameApiV2.Format.byRequest,
       flags = requestPgnFlags(extended = false),
@@ -168,11 +168,11 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match
-      case GameApiV2.Format.PGN  => pgnContentType
+      case GameApiV2.Format.PGN => pgnContentType
       case GameApiV2.Format.JSON =>
         config match
           case _: GameApiV2.OneConfig => JSON
-          case _                      => ndJson.contentType
+          case _ => ndJson.contentType
 
   private[controllers] def preloadUsers(game: lila.core.game.Game): Funit =
     env.user.lightUserApi.preloadMany(game.userIds)

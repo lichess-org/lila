@@ -76,8 +76,8 @@ object JsonApi:
       val cappedPv = pv.take(lila.analyse.Info.LineMaxPlies)
 
       def isCheckmate = score.mate.has(Mate(0))
-      def mateFound   = score.mate.isDefined
-      def deadDraw    = score.cp.has(Cp(0))
+      def mateFound = score.mate.isDefined
+      def deadDraw = score.cp.has(Cp(0))
 
     object Evaluation:
 
@@ -86,7 +86,7 @@ object JsonApi:
         case Evaluated(eval: Evaluation)
 
       case class Score(cp: Option[Cp], mate: Option[Mate]):
-        def invert                  = copy(cp.map(_.invert), mate.map(_.invert))
+        def invert = copy(cp.map(_.invert), mate.map(_.invert))
         def invertIf(cond: Boolean) = if cond then invert else this
 
       val npsCeil = 10_000_000
@@ -128,11 +128,11 @@ object JsonApi:
   object readers:
     import play.api.libs.functional.syntax.*
     import Request.Evaluation.EvalOrSkip
-    given Reads[Request.Stockfish]        = Json.reads
-    given Reads[Request.Fishnet]          = Json.reads
-    given Reads[Request.Acquire]          = Json.reads
+    given Reads[Request.Stockfish] = Json.reads
+    given Reads[Request.Fishnet] = Json.reads
+    given Reads[Request.Acquire] = Json.reads
     given Reads[Request.Evaluation.Score] = Json.reads
-    given Reads[List[Uci]]                = Reads.of[String].map(Uci.readList(_).getOrElse(Nil))
+    given Reads[List[Uci]] = Reads.of[String].map(Uci.readList(_).getOrElse(Nil))
 
     given EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv")
@@ -146,24 +146,24 @@ object JsonApi:
     )(Request.Evaluation.apply)
     given Reads[Option[EvalOrSkip]] = Reads:
       case JsNull => JsSuccess(None)
-      case obj    =>
+      case obj =>
         if ~(obj.boolean("skipped")) then JsSuccess(EvalOrSkip.Skipped.some)
         else EvaluationReads.reads(obj).map(EvalOrSkip.Evaluated(_).some)
     given Reads[Request.PostAnalysis] = Json.reads
 
   object writers:
     given Writes[Variant] = writeAs(_.key)
-    given Writes[Game]    = Json.writes
-    given OWrites[Work]   = OWrites { work =>
+    given Writes[Game] = Json.writes
+    given OWrites[Work] = OWrites { work =>
       (work match
         case a: Analysis =>
           Json.obj(
             "work" -> Json.obj(
-              "type"  -> "analysis",
-              "id"    -> a.id,
+              "type" -> "analysis",
+              "id" -> a.id,
               "nodes" -> Json.obj(
-                "sf17_1"    -> a.nodes,
-                "sf16"      -> a.nodes,
+                "sf17_1" -> a.nodes,
+                "sf16" -> a.nodes,
                 "classical" -> a.nodes * 3
               ),
               "timeout" -> Cleaner.timeoutPerPly.toMillis

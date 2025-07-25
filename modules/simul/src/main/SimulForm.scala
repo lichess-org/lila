@@ -25,20 +25,20 @@ object SimulForm:
   val clockIncrementDefault = IncrementSeconds(60)
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
-  val clockExtras         = clockExtrasPositive.tail.map(-_).reverse.concat(clockExtrasPositive)
-  val clockExtraChoices   = options(clockExtras, "%d minute{s}").map:
+  val clockExtras = clockExtrasPositive.tail.map(-_).reverse.concat(clockExtrasPositive)
+  val clockExtraChoices = options(clockExtras, "%d minute{s}").map:
     case (d, str) if d > 0 => (d, s"+$str")
-    case pair              => pair
+    case pair => pair
   val clockExtraDefault = LimitMinutes(0)
 
   val clockExtraPerPlayerChoices = options((0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300), "%d second{s}")
   val clockExtraPerPlayerDefault = LimitSeconds(0)
 
-  val colors       = List("white", "random", "black")
+  val colors = List("white", "random", "black")
   val colorChoices = List(
-    "white"  -> "White",
+    "white" -> "White",
     "random" -> "Random",
-    "black"  -> "Black"
+    "black" -> "Black"
   )
   val colorDefault = "white"
 
@@ -96,20 +96,20 @@ object SimulForm:
   private def baseForm(teams: List[LightTeam])(using host: Me) =
     Form(
       mapping(
-        "name"                -> nameType,
-        "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
-        "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
-        "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],
+        "name" -> nameType,
+        "clockTime" -> numberIn(clockTimeChoices).into[LimitMinutes],
+        "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+        "clockExtra" -> numberIn(clockExtraChoices).into[LimitMinutes],
         "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitSeconds],
-        "variants"            -> list {
+        "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
-        "color"            -> stringIn(colorChoices),
-        "text"             -> cleanText,
+        "position" -> optional(lila.common.Form.fen.playableStrict),
+        "color" -> stringIn(colorChoices),
+        "text" -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
-        "featured"         -> optional(boolean),
-        "conditions"       -> SimulCondition.form.all(teams)
+        "featured" -> optional(boolean),
+        "conditions" -> SimulCondition.form.all(teams)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )

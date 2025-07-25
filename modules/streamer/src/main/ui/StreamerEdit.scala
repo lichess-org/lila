@@ -22,7 +22,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
         esmInitObj(
           "bits.streamerEdit",
           "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
-          "twitch"  -> wasListed.so(s.streamer.twitch).so[String](_.userId)
+          "twitch" -> wasListed.so(s.streamer.twitch).so[String](_.userId)
         )
       ):
         main(cls := "page-menu")(
@@ -44,14 +44,14 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
               )
             else bits.header(s, modZone.isDefined),
             div(cls := "box-pad") {
-              val granted      = s.streamer.approval.granted
-              val requested    = s.streamer.approval.requested
-              val declined     = s.streamer.approval.reason.nonEmpty
+              val granted = s.streamer.approval.granted
+              val requested = s.streamer.approval.requested
+              val declined = s.streamer.approval.reason.nonEmpty
               val (clas, icon) = (granted, requested, declined) match
-                case (true, true, _)       => ("status is-green", Icon.Search)
-                case (true, false, _)      => ("status is-green", Icon.Checkmark)
-                case (false, true, _)      => ("status is-gold", Icon.CautionTriangle)
-                case (false, false, true)  => ("status is-red", Icon.X)
+                case (true, true, _) => ("status is-green", Icon.Search)
+                case (true, false, _) => ("status is-green", Icon.Checkmark)
+                case (false, true, _) => ("status is-gold", Icon.CautionTriangle)
+                case (false, false, true) => ("status is-red", Icon.X)
                 case (false, false, false) => ("status is", Icon.InfoCircle)
               frag(
                 (ctx.is(s.user) && s.streamer.listed.value)
@@ -112,7 +112,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                     )
                   ),
                 postForm(
-                  cls    := "form3",
+                  cls := "form3",
                   action := s"${routes.Streamer.edit}${ctx.isnt(s.user).so(s"?u=${s.user.id}")}"
                 )(
                   Granter
@@ -157,13 +157,13 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                         form3.actions(
                           form3
                             .submit("Approve and next")(
-                              cls   := "button-green",
-                              name  := "approval.quick",
+                              cls := "button-green",
+                              name := "approval.quick",
                               value := "approve"
                             ),
                           form3.submit("Decline and next", icon = Icon.X.some)(
-                            cls   := "button-red",
-                            name  := "approval.quick",
+                            cls := "button-red",
+                            name := "approval.quick",
                             value := "decline"
                           ),
                           form3.submit(trans.site.apply())
@@ -208,8 +208,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                   form3.actions(
                     a(href := routes.Streamer.show(s.user.username))(trans.site.cancel()),
                     button(
-                      tpe   := "submit",
-                      cls   := "submit button text approval-request-submit",
+                      tpe := "submit",
+                      cls := "submit button text approval-request-submit",
                       title := "You must provide an image, a streamer name, and a Twitch or YouTube channel."
                     )(trs.submitForReview())
                   )

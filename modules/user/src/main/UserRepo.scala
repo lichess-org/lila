@@ -58,7 +58,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         Left(LightUser.ghost).some
       }
 
-  def me(id: UserId): Fu[Option[Me]]        = enabledById(id).dmap(Me.from(_))
+  def me(id: UserId): Fu[Option[Me]] = enabledById(id).dmap(Me.from(_))
   def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
@@ -128,7 +128,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
             _.child(F.count).flatMap(_.int("game"))
           .flatMap(_.getAsOpt[UserId]("_id")) match
           case List(u1, u2) => (u1, u2).some
-          case _            => none
+          case _ => none
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll
@@ -191,18 +191,18 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def getPlayTime(id: UserId): Fu[Option[PlayTime]] =
     coll.primitiveOne[PlayTime]($id(id), F.playTime)
 
-  val enabledSelect                                = $doc(F.enabled -> true)
-  val disabledSelect                               = $doc(F.enabled -> false)
+  val enabledSelect = $doc(F.enabled -> true)
+  val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
-  def engineSelect       = markSelect(UserMark.engine)
-  def trollSelect        = markSelect(UserMark.troll)
-  val lame               = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
-  val lameOrTroll        = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
-  val notLame            = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
+  def engineSelect = markSelect(UserMark.engine)
+  def trollSelect = markSelect(UserMark.troll)
+  val lame = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
-  val patronSelect       = $doc(s"${F.plan}.active" -> true)
+  val patronSelect = $doc(s"${F.plan}.active" -> true)
 
   val sortCreatedAtDesc = $sort.desc(F.createdAt)
 
@@ -220,15 +220,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       ai.option("count.ai"),
       (result match
         case -1 => "count.loss".some
-        case 1  => "count.win".some
-        case 0  => "count.draw".some
-        case _  => none
+        case 1 => "count.win".some
+        case 0 => "count.draw".some
+        case _ => none
       ),
       (result match
         case -1 => "count.lossH".some
-        case 1  => "count.winH".some
-        case 0  => "count.drawH".some
-        case _  => none
+        case 1 => "count.winH".some
+        case 0 => "count.drawH".some
+        case _ => none
       ).ifFalse(ai)
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime.map(v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
@@ -238,7 +238,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.update.one($id(id), $inc($doc(incs*)))
 
   def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
-  def removeAllToints                       = coll.update.one($empty, $unset("toints"), multi = true)
+  def removeAllToints = coll.update.one($empty, $unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -277,15 +277,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = setMark(UserMark.engine)
-  def setBoost     = setMark(UserMark.boost)
-  def setTroll     = setMark(UserMark.troll)
-  def setIsolate   = setMark(UserMark.isolate)
+  def setEngine = setMark(UserMark.engine)
+  def setBoost = setMark(UserMark.boost)
+  def setTroll = setMark(UserMark.troll)
+  def setIsolate = setMark(UserMark.isolate)
   def setReportban = setMark(UserMark.reportban)
-  def setRankban   = setMark(UserMark.rankban)
-  def setArenaBan  = setMark(UserMark.arenaban)
-  def setPrizeban  = setMark(UserMark.prizeban)
-  def setAlt       = setMark(UserMark.alt)
+  def setRankban = setMark(UserMark.rankban)
+  def setArenaBan = setMark(UserMark.arenaban)
+  def setPrizeban = setMark(UserMark.prizeban)
+  def setAlt = setMark(UserMark.alt)
 
   def setKid(user: User, v: KidMode) = coll.updateField($id(user.id), F.kid, v).void
 
@@ -348,7 +348,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean, forever: Boolean): Funit =
-    val sets   = $doc(F.enabled -> false).++(forever.so($doc(F.foreverClosed -> true)))
+    val sets = $doc(F.enabled -> false).++(forever.so($doc(F.foreverClosed -> true)))
     val unsets = List(F.roles.some, keepEmail.option(F.mustConfirmEmail)).flatten
     coll.update
       .one(
@@ -389,7 +389,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     def nowFully(user: User) = for
       lockEmail <- emailOrPrevious(user.id)
-      _         <- coll.update.one(
+      _ <- coll.update.one(
         $id(user.id),
         $doc(
           "prevEmail" -> lockEmail,
@@ -455,9 +455,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one[Bdoc]
       .map: maybeDoc =>
         for
-          doc         <- maybeDoc
+          doc <- maybeDoc
           storedEmail <- anyEmail(doc)
-          user        <- summon[BSONHandler[User]].readOpt(doc)
+          user <- summon[BSONHandler[User]].readOpt(doc)
         yield (user, storedEmail)
 
   def prevEmail(id: UserId): Fu[Option[EmailAddress]] =
@@ -480,9 +480,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .listAll()
       .map: docs =>
         for
-          doc   <- docs
+          doc <- docs
           email <- anyEmailOrPrevious(doc)
-          id    <- doc.getAsOpt[UserId](F.id)
+          id <- doc.getAsOpt[UserId](F.id)
         yield id -> email
       .dmap(_.toMap)
 
@@ -490,7 +490,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def botSelect(v: Boolean) =
     if v then $doc(F.title -> PlayerTitle.BOT)
-    else $doc(F.title      -> $ne(PlayerTitle.BOT))
+    else $doc(F.title -> $ne(PlayerTitle.BOT))
 
   def botWithBioSelect = botSelect(true) ++ $doc(s"${F.profile}.bio" -> $exists(true))
 
@@ -545,7 +545,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)))
 
   def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] = for
-    res   <- coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
+    res <- coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
     email <- (res.nModified == 1).so(email(id))
   yield email
 
@@ -578,20 +578,20 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       lang: Option[LangTag]
   ) =
     val normalizedEmail = email.normalize
-    val now             = nowInstant
+    val now = nowInstant
     $doc(
-      F.id                    -> name.id,
-      F.username              -> name.value,
-      F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(now),
-      F.bpass                 -> passwordHash,
-      F.count                 -> defaultCount,
-      F.enabled               -> true,
-      F.createdAt             -> now,
+      F.id -> name.id,
+      F.username -> name.value,
+      F.email -> normalizedEmail,
+      F.mustConfirmEmail -> mustConfirmEmail.option(now),
+      F.bpass -> passwordHash,
+      F.count -> defaultCount,
+      F.enabled -> true,
+      F.createdAt -> now,
       F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt                -> now,
-      F.playTime              -> PlayTime(0, 0),
-      F.lang                  -> lang
+      F.seenAt -> now,
+      F.playTime -> PlayTime(0, 0),
+      F.lang -> lang
     ) ++ {
       (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))
     } ++ {

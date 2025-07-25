@@ -11,7 +11,7 @@ object UblogByMonth:
   private val ublogOrigin = YearMonth.of(2021, 9)
 
   private def currentYearMonth = YearMonth.now(ZoneOffset.UTC)
-  def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear).toList
+  def allYears = (ublogOrigin.getYear to currentYearMonth.getYear).toList
 
   def selector(month: YearMonth) =
     val (start, until) = boundsOfMonth(month)

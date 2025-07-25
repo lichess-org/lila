@@ -24,11 +24,11 @@ final class ChatTimeout(
         coll.insert
           .one(
             $doc(
-              "_id"       -> ThreadLocalRandom.nextString(8),
-              "chat"      -> chat.id,
-              "mod"       -> mod.id,
-              "user"      -> user.id,
-              "reason"    -> reason,
+              "_id" -> ThreadLocalRandom.nextString(8),
+              "chat" -> chat.id,
+              "mod" -> mod.id,
+              "user" -> user.id,
+              "reason" -> reason,
               "createdAt" -> nowInstant,
               "expiresAt" -> nowInstant.plusSeconds(duration.toSeconds.toInt)
             )
@@ -54,7 +54,7 @@ final class ChatTimeout(
         )
       )
       .flatMap:
-        case Nil  => fuccess(Nil)
+        case Nil => fuccess(Nil)
         case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true).inject(objs)
 
 object ChatTimeout:
@@ -76,10 +76,10 @@ object ChatTimeout:
   val form = Form(
     mapping(
       "roomId" -> of[RoomId],
-      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
+      "chan" -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
       "userId" -> lila.common.Form.username.historicalField,
       "reason" -> nonEmptyText,
-      "text"   -> nonEmptyText
+      "text" -> nonEmptyText
     )(TimeoutFormData.apply)(unapply)
   )
 

@@ -29,7 +29,7 @@ case class PuzzleSettings(
     color: Option[Color]
 )
 object PuzzleSettings:
-  val default                       = PuzzleSettings(PuzzleDifficulty.default, none)
+  val default = PuzzleSettings(PuzzleDifficulty.default, none)
   def default(color: Option[Color]) = PuzzleSettings(PuzzleDifficulty.default, color)
 
 final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using Executor):

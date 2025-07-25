@@ -13,8 +13,8 @@ final private[team] class PaginatorBuilder(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
-  private val maxPerPage         = MaxPerPage(15)
-  private val maxUserPerPage     = MaxPerPage(30)
+  private val maxPerPage = MaxPerPage(15)
+  private val maxUserPerPage = MaxPerPage(30)
   private val maxRequestsPerPage = MaxPerPage(10)
 
   import BSONHandlers.given
@@ -58,8 +58,8 @@ final private[team] class PaginatorBuilder(
   private trait MembersAdapter:
     val team: Team
     val nbResults = fuccess(team.nbMembers)
-    val sorting   = $sort.desc("date")
-    val selector  = memberRepo.teamQuery(team.id)
+    val sorting = $sort.desc("date")
+    val selector = memberRepo.teamQuery(team.id)
 
   final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
@@ -88,7 +88,7 @@ final private[team] class PaginatorBuilder(
             .cursor[Bdoc]()
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
-        dates   = docs.flatMap(_.getAsOpt[Instant]("date"))
+        dates = docs.flatMap(_.getAsOpt[Instant]("date"))
         users <- lightUserApi.asyncManyFallback(userIds)
       yield users.zip(dates).map(TeamMember.UserAndDate.apply)
 
@@ -104,9 +104,9 @@ final private[team] class PaginatorBuilder(
     )
   final private class DeclinedRequestAdapter(team: Team, userQuery: Option[UserStr] = None)
       extends AdapterLike[RequestWithUser]:
-    val nbResults        = requestRepo.countDeclinedByTeam(team.id)
+    val nbResults = requestRepo.countDeclinedByTeam(team.id)
     private def selector = requestRepo.teamDeclinedQuery(team.id, userQuery)
-    private def sorting  = $sort.desc("date")
+    private def sorting = $sort.desc("date")
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
       for

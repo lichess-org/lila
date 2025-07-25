@@ -51,7 +51,7 @@ final class EntryApi(
     coll.exists:
       $doc(
         "users" -> userId,
-        "chan"  -> channel,
+        "chan" -> channel,
         "date".$gt(nowInstant.minusDays(7))
       )
 
@@ -63,7 +63,7 @@ final class EntryApi(
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        $doc("typ"  -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
+        $doc("typ" -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
         $set("date" -> nowInstant.minusDays(365)),
         multi = true
       )

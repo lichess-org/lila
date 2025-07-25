@@ -72,7 +72,7 @@ final class SwissFeature(
             "featurable" -> true,
             "settings.i".$lte(600), // hits the partial index
             "settings.o.playYourGames" -> true,
-            "startsAt"                 -> startsAtRange,
+            "startsAt" -> startsAtRange,
             "garbage".$ne(true)
           )
         ) -> List(
@@ -85,7 +85,7 @@ final class SwissFeature(
               local = "teamId",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc("open" -> true, "password".$exists(false))),
+                $doc("$match" -> $doc("open" -> true, "password".$exists(false))),
                 $doc("$project" -> $id(true))
               )
             )

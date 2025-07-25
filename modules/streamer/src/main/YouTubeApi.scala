@@ -26,8 +26,8 @@ final private class YouTubeApi(
 
   def fetchStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
     val maxResults = 50
-    val tubers     = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
-    val idPages    = tubers
+    val tubers = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
+    val idPages = tubers
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
@@ -36,10 +36,10 @@ final private class YouTubeApi(
         idPages.toList.sequentially: idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
             .withQueryStringParameters(
-              "part"       -> "snippet",
-              "id"         -> idPage.mkString(","),
+              "part" -> "snippet",
+              "id" -> idPage.mkString(","),
               "maxResults" -> s"$maxResults",
-              "key"        -> cfg.googleApiKey.value
+              "key" -> cfg.googleApiKey.value
             )
             .get()
             .map: rsp =>
@@ -52,7 +52,7 @@ final private class YouTubeApi(
       .map(_.flatten)
       .addEffect: streams =>
         if streams != lastResults then
-          val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
+          val newStreams = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
           val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
           if newStreams.nonEmpty then
             logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
@@ -73,7 +73,7 @@ final private class YouTubeApi(
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
-    val video   = (xml \ "entry" \ "videoId").text
+    val video = (xml \ "entry" \ "videoId").text
     if channel.nonEmpty && video.nonEmpty
     then onVideo(channel, video)
     else
@@ -107,8 +107,8 @@ final private class YouTubeApi(
         .url("https://youtube.googleapis.com/youtube/v3/videos")
         .withQueryStringParameters(
           "part" -> "snippet",
-          "id"   -> videoId,
-          "key"  -> cfg.googleApiKey.value
+          "id" -> videoId,
+          "key" -> cfg.googleApiKey.value
         )
         .get()
         .map { rsp =>
@@ -128,10 +128,10 @@ final private class YouTubeApi(
     .addHttpHeaders("content-type" -> "application/x-www-form-urlencoded")
     .post(
       asFormBody(
-        "hub.callback"      -> s"https://${net.domain}/api/x/streamer/youtube-pubsub",
-        "hub.topic"         -> s"https://www.youtube.com/xml/feeds/videos.xml?channel_id=$channelId",
-        "hub.verify"        -> "async",
-        "hub.mode"          -> (if subscribe then "subscribe" else "unsubscribe"),
+        "hub.callback" -> s"https://${net.domain}/api/x/streamer/youtube-pubsub",
+        "hub.topic" -> s"https://www.youtube.com/xml/feeds/videos.xml?channel_id=$channelId",
+        "hub.verify" -> "async",
+        "hub.mode" -> (if subscribe then "subscribe" else "unsubscribe"),
         "hub.lease_seconds" -> s"${3600 * 24 * 10}" // 10 days seems to be the max
       )
     )
@@ -158,7 +158,7 @@ final private class YouTubeApi(
           u = $doc(
             liveVid match
               case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
-              case None    => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
+              case None => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
           )
         )
       .map(bulk.many(_))

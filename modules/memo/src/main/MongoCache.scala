@@ -54,7 +54,7 @@ final class MongoCache[K, V: BSONHandler] private (
 
 object MongoCache:
 
-  type Loader[K, V]        = K => Fu[V]
+  type Loader[K, V] = K => Fu[V]
   type LoaderWrapper[K, V] = Loader[K, V] => Loader[K, V]
 
   final class Api(

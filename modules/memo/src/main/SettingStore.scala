@@ -64,47 +64,47 @@ object SettingStore:
 
   object StringReader:
     given StringReader[Boolean] = StringReader[Boolean]:
-      case "on" | "yes" | "true" | "1"  => true.some
+      case "on" | "yes" | "true" | "1" => true.some
       case "off" | "no" | "false" | "0" => false.some
-      case _                            => none
-    given StringReader[Int]                     = StringReader(_.toIntOption)
-    given StringReader[Float]                   = StringReader(_.toFloatOption)
-    given StringReader[String]                  = StringReader(some)
+      case _ => none
+    given StringReader[Int] = StringReader(_.toIntOption)
+    given StringReader[Float] = StringReader(_.toFloatOption)
+    given StringReader[String] = StringReader(some)
     def fromIso[A](using iso: Iso.StringIso[A]) = StringReader(v => iso.from(v).some)
 
   private type CredOption = Option[lila.core.config.Credentials]
   private type HostOption = Option[lila.core.config.HostPort]
 
   object Strings:
-    val stringsIso              = lila.common.Iso.strings(",")
-    given BSONHandler[Strings]  = lila.db.dsl.isoHandler(using stringsIso)
+    val stringsIso = lila.common.Iso.strings(",")
+    given BSONHandler[Strings] = lila.db.dsl.isoHandler(using stringsIso)
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
     val userIdsIso = Strings.stringsIso.map[lila.core.data.UserIds](
       strs => lila.core.data.UserIds(UserStr.from(strs.value).map(_.id)),
       uids => lila.core.data.Strings(UserId.raw(uids.value))
     )
-    given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)
+    given BSONHandler[UserIds] = lila.db.dsl.isoHandler(using userIdsIso)
     given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
   object Ints:
-    val intsIso              = lila.common.Iso.ints(",")
-    given BSONHandler[Ints]  = lila.db.dsl.isoHandler(using intsIso)
+    val intsIso = lila.common.Iso.ints(",")
+    given BSONHandler[Ints] = lila.db.dsl.isoHandler(using intsIso)
     given StringReader[Ints] = StringReader.fromIso(using intsIso)
   object Regex:
-    val regexIso              = Iso.string[Regex](_.r, _.toString)
-    given BSONHandler[Regex]  = lila.db.dsl.isoHandler(using regexIso)
+    val regexIso = Iso.string[Regex](_.r, _.toString)
+    given BSONHandler[Regex] = lila.db.dsl.isoHandler(using regexIso)
     given StringReader[Regex] = StringReader.fromIso(using regexIso)
   object CredentialsOption:
-    val credentialsIso             = Iso.string[CredOption](lila.core.config.Credentials.read, _.so(_.show))
-    given BSONHandler[CredOption]  = lila.db.dsl.isoHandler(using credentialsIso)
+    val credentialsIso = Iso.string[CredOption](lila.core.config.Credentials.read, _.so(_.show))
+    given BSONHandler[CredOption] = lila.db.dsl.isoHandler(using credentialsIso)
     given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
   object HostPortOption:
-    val hostPortIso                = Iso.string[HostOption](lila.core.config.HostPort.read, _.so(_.show))
-    given BSONHandler[HostOption]  = lila.db.dsl.isoHandler(using hostPortIso)
+    val hostPortIso = Iso.string[HostOption](lila.core.config.HostPort.read, _.so(_.show))
+    given BSONHandler[HostOption] = lila.db.dsl.isoHandler(using hostPortIso)
     given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
   object Text:
-    val textIso              = Iso.string[Text](lila.core.data.Text(_), _.value)
-    given BSONHandler[Text]  = lila.db.dsl.isoHandler(using textIso)
+    val textIso = Iso.string[Text](lila.core.data.Text(_), _.value)
+    given BSONHandler[Text] = lila.db.dsl.isoHandler(using textIso)
     given StringReader[Text] = StringReader.fromIso(using textIso)
 
   final class Formable[A](val form: A => Form[?])
@@ -113,9 +113,9 @@ object SettingStore:
     given Formable[Regex] =
       Formable(v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))).fill(v.toString))
     given Formable[Boolean] = Formable[Boolean](v => Form(single("v" -> boolean)).fill(v))
-    given Formable[Int]     = Formable[Int](v => Form(single("v" -> number)).fill(v))
-    given Formable[Float]   = Formable[Float](v => Form(single("v" -> bigDecimal)).fill(BigDecimal(v)))
-    given Formable[String]  = Formable[String](v => Form(single("v" -> text)).fill(v))
+    given Formable[Int] = Formable[Int](v => Form(single("v" -> number)).fill(v))
+    given Formable[Float] = Formable[Float](v => Form(single("v" -> bigDecimal)).fill(BigDecimal(v)))
+    given Formable[String] = Formable[String](v => Form(single("v" -> text)).fill(v))
     given Formable[Strings] = Formable[Strings](v => Form(single("v" -> text)).fill(Strings.stringsIso.to(v)))
     given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)).fill(UserIds.userIdsIso.to(v)))
     given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)

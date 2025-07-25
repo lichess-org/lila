@@ -49,5 +49,5 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
 
 object FishnetEvalCache:
   val mock: IFishnetEvalCache = new:
-    def skipPositions(game: Work.Game): Fu[List[Int]]        = fuccess(Nil)
+    def skipPositions(game: Work.Game): Fu[List[Int]] = fuccess(Nil)
     def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] = fuccess(Map.empty)

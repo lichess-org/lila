@@ -74,8 +74,8 @@ final class ChallengeApi(
       .dmap(_.filter { c =>
         c.active && c.challenger.match
           case Challenger.Registered(orig, _) if maker.is(orig) => true
-          case Challenger.Open if isOpenBy(id, maker)           => true
-          case _                                                => false
+          case Challenger.Open if isOpenBy(id, maker) => true
+          case _ => false
       })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor"):
@@ -103,7 +103,7 @@ final class ChallengeApi(
       .flatMap:
         case Some(Status.Created) => repo.setSeen(id)
         case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _.foreach(uncacheAndNotify) }
-        case _                    => fuccess(socketReload(id))
+        case _ => fuccess(socketReload(id))
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
@@ -135,8 +135,8 @@ final class ChallengeApi(
       then fuccess(Left("The challenge is not for you to accept."))
       else
         val openFixedColor = for
-          me      <- me
-          open    <- c.open
+          me <- me
+          open <- c.open
           userIds <- open.userIds
         yield Color.fromWhite(me.is(userIds._1))
         val color = openFixedColor.orElse(requestedColor)
@@ -144,14 +144,14 @@ final class ChallengeApi(
         then
           for
             me <- withPerf
-            _  <- repo.setChallenger(c.setChallenger(me, sid), color)
+            _ <- repo.setChallenger(c.setChallenger(me, sid), color)
           yield none.asRight
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Left("This color has already been chosen"))
         else
           for
-            me     <- withPerf
-            join   <- joiner(c, me)
+            me <- withPerf
+            join <- joiner(c, me)
             result <- join match
               case Right(pov) =>
                 for _ <- repo.accept(c)
@@ -209,16 +209,16 @@ final class ChallengeApi(
     socket.foreach(_.reload(id))
 
   private object notifyUser:
-    private val throttler           = new lila.common.EarlyMultiThrottler[UserId](logger)
+    private val throttler = new lila.common.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
-        all  <- allFor(userId)
+        all <- allFor(userId)
         lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
-        _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
+        _ <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang
         Bus.pub(SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all))))
 
   // work around circular dependency
-  private var socket: Option[ChallengeSocket]               = None
+  private var socket: Option[ChallengeSocket] = None
   private[challenge] def registerSocket(s: ChallengeSocket) = socket = s.some

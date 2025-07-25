@@ -25,7 +25,7 @@ object Question:
   case class Peers(rating: MeanRating):
     lazy val ratingRange: Range =
       val cdf = peerDistribution.cdf(rating.value) // percentile of player given rating
-      val proportion     = 0.01 // probability density function, i.e. proportion of players
+      val proportion = 0.01 // probability density function, i.e. proportion of players
       val (lower, upper) = (cdf - proportion, cdf + proportion)
       Range(
         peerDistribution.inverseCdf(lower.atLeast(0)).toInt.atLeast(0),

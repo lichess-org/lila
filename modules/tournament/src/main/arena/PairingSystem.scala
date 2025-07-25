@@ -28,8 +28,8 @@ final private[tournament] class PairingSystem(
         if tour.isRecentlyStarted then fuccess(Pairing.LastOpponents(Map.empty))
         else pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
       onlyTwoActivePlayers = smallTourNbActivePlayers.exists(2 ==)
-      data                 = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
-      preps    <- evenOrAll(data, users)
+      data = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
+      preps <- evenOrAll(data, users)
       pairings <- prepsToPairings(tour, preps)
     yield pairings
   }.chronometer
@@ -41,7 +41,7 @@ final private[tournament] class PairingSystem(
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber).flatMap:
       case Nil if users.isOdd => makePreps(data, users.all)
-      case x                  => fuccess(x)
+      case x => fuccess(x)
 
   private val maxGroupSize = 100
 

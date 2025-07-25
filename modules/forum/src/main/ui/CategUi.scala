@@ -72,9 +72,9 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
           boxTop(
             h1(
               a(
-                href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+                href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
                 dataIcon := Icon.LessThan,
-                cls      := "text"
+                cls := "text"
               ),
               categ.team.fold(frag(categ.name))(teamLink(_, true))
             ),
@@ -84,13 +84,13 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 .option(
                   a(
                     href := routes.ForumCateg.modFeed(categ.id),
-                    cls  := "button button-empty text"
+                    cls := "button button-empty text"
                   )("Mod feed")
                 ),
               canWrite.option(
                 a(
-                  href     := routes.ForumTopic.form(categ.id),
-                  cls      := "button button-empty button-green text",
+                  href := routes.ForumTopic.form(categ.id),
+                  cls := "button button-empty button-green text",
                   dataIcon := Icon.Pencil
                 )(trans.site.createANewTopic())
               )
@@ -138,8 +138,8 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               )
             case Some((topic, post, page)) =>
               val canBrowse = isMod || !view.categ.hidden
-              val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
-              val categUrl  =
+              val postUrl = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
+              val categUrl =
                 if canBrowse then routes.ForumCateg.show(view.slug)
                 else routes.ForumTopic.show(view.slug, topic.slug, 1)
               tr(
@@ -167,9 +167,9 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
           boxTop(
             h1(
               a(
-                href     := routes.ForumCateg.show(categ.id),
+                href := routes.ForumCateg.show(categ.id),
                 dataIcon := Icon.LessThan,
-                cls      := "text"
+                cls := "text"
               )(categ.name),
               " mod feed"
             )

@@ -28,16 +28,16 @@ final private class TutorBuilder(
   val maxTime = fishnet.maxTime + 5.minutes
 
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
-    user     <- userApi.withPerfs(userId).orFail(s"No such user $userId")
+    user <- userApi.withPerfs(userId).orFail(s"No such user $userId")
     hasFresh <- hasFreshReport(user)
-    report   <- (!hasFresh).so:
+    report <- (!hasFresh).so:
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for
-        lap    <- chrono.lap
+        lap <- chrono.lap
         report <- Future.fromTry(lap.result)
         doc = bsonWriteObjTry(report).get ++ $doc(
-          "_id"    -> s"${report.user}:${dateFormatter.print(report.at)}",
+          "_id" -> s"${report.user}:${dateFormatter.print(report.at)}",
           "millis" -> lap.millis
         )
         _ <- colls.report.insert.one(doc).void
@@ -45,7 +45,7 @@ final private class TutorBuilder(
   yield report
 
   private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
-    _         <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
+    _ <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
     perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
@@ -53,7 +53,7 @@ final private class TutorBuilder(
       .map { (pt, stats) => TutorUser(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
-    _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
+    _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
     perfs <- (tutorUsers.toNel.so(TutorPerfReport.compute)).monSuccess(_.tutor.buildSegment("perf-reports"))
   yield TutorFullReport(user.id, nowInstant, perfs)
 
@@ -84,9 +84,9 @@ final private class TutorBuilder(
           )
           .map: docO =>
             for
-              doc     <- docO
+              doc <- docO
               reports <- doc.getAsOpt[List[TutorPerfReport]](TutorFullReport.F.perfs)
-              report  <- reports.headOption
+              report <- reports.headOption
               if report.perf == pt
             yield TutorPerfReport.PeerMatch(report)
       .parallel
@@ -101,7 +101,7 @@ private object TutorBuilder:
 
   type Value = Double
   type Count = Int
-  type Pair  = ValueCount[Value]
+  type Pair = ValueCount[Value]
 
   val peerNbGames = Max(5_000)
 
@@ -155,7 +155,7 @@ private object TutorBuilder:
     final lazy val map: Map[Dim, Pair] = list.toMap
     export map.get
 
-    def dimensions      = list.map(_._1)
+    def dimensions = list.map(_._1)
     def alignedQuestion = answer.question.filter(Filter(answer.question.dimension, dimensions))
 
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
@@ -167,6 +167,6 @@ private object TutorBuilder:
 
     def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
 
-  def colorFilter(color: Color)                  = Filter(InsightDimension.Color, List(color))
-  def perfFilter(perfType: PerfType)             = Filter(InsightDimension.Perf, List(perfType))
+  def colorFilter(color: Color) = Filter(InsightDimension.Color, List(color))
+  def perfFilter(perfType: PerfType) = Filter(InsightDimension.Perf, List(perfType))
   def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)

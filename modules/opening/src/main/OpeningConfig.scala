@@ -23,8 +23,8 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
   // 1600 to 2200
   // or 1600, 2000, 2200
   private def showContiguous(list: List[String], reference: String): String = list match
-    case Nil           => "All"
-    case List(single)  => single
+    case Nil => "All"
+    case List(single) => single
     case first :: rest =>
       val many = first :: rest
       val hash = many.mkString(",")
@@ -47,7 +47,7 @@ final class OpeningConfigStore(baker: LilaCookie):
 
 object OpeningConfig:
 
-  val allRatings        = List[Int](400, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500)
+  val allRatings = List[Int](400, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500)
   val contiguousRatings = allRatings.mkString(",")
 
   val allSpeeds =
@@ -64,8 +64,8 @@ object OpeningConfig:
   val default = OpeningConfig(allRatings.drop(1).toSet, allSpeeds.drop(1).toSet)
 
   private[opening] object cookie:
-    val name     = "opening"
-    val maxAge   = 31536000 // one year
+    val name = "opening"
+    val maxAge = 31536000 // one year
     val valueSep = '/'
     val fieldSep = '!'
 
@@ -85,9 +85,9 @@ object OpeningConfig:
   val form = Form(
     mapping(
       "ratings" -> set(numberIn(allRatings)),
-      "speeds"  -> set(typeIn(allSpeeds.map(_.id).toSet).transform[Speed](s => Speed(s).get, _.id))
+      "speeds" -> set(typeIn(allSpeeds.map(_.id).toSet).transform[Speed](s => Speed(s).get, _.id))
     )(OpeningConfig.apply)(lila.common.unapply)
   )
 
   val ratingChoices = allRatings.zip(allRatings.map(_.toString))
-  val speedChoices  = allSpeeds.map(_.id).zip(allSpeeds.map(_.name))
+  val speedChoices = allSpeeds.map(_.id).zip(allSpeeds.map(_.name))

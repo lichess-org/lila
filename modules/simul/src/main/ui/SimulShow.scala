@@ -28,11 +28,11 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
         PageModule(
           "simul",
           Json.obj(
-            "data"          -> data,
+            "data" -> data,
             "socketVersion" -> socketVersion,
-            "userId"        -> ctx.userId,
-            "chat"          -> chatOption.map(_._1),
-            "showRatings"   -> ctx.pref.showRatings
+            "userId" -> ctx.userId,
+            "chat" -> chatOption.map(_._1),
+            "showRatings" -> ctx.pref.showRatings
           )
         )
       ):
@@ -66,7 +66,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
                     trans.site.simulHostExtraTimePerPlayer(),
                     ": ",
                     time match
-                      case Left(minutes)  => pluralize("minute", minutes.value)
+                      case Left(minutes) => pluralize("minute", minutes.value)
                       case Right(seconds) => pluralize("second", seconds.value)
                     ,
                     br
@@ -74,7 +74,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
                 trans.site.hostColorX(sim.color match
                   case Some("white") => trans.site.white()
                   case Some("black") => trans.site.black()
-                  case _             => trans.site.randomColor()),
+                  case _ => trans.site.randomColor()),
                 sim.position
                   .flatMap(p => lila.gathering.Thematic.byFen(p.opening))
                   .map { pos =>

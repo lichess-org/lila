@@ -20,13 +20,13 @@ object JsonView extends lila.tree.AnalysisJson:
         .add("judgment" -> adviceOption.map { a =>
           Json
             .obj(
-              "name"    -> a.judgment.name,
+              "name" -> a.judgment.name,
               "comment" -> a.makeComment(withEval = false, withBestMove = true)
             )
             .add(
               "glyph" -> withGlyph.option(
                 Json.obj(
-                  "name"   -> a.judgment.glyph.name,
+                  "name" -> a.judgment.glyph.name,
                   "symbol" -> a.judgment.glyph.symbol
                 )
               )
@@ -49,7 +49,7 @@ object JsonView extends lila.tree.AnalysisJson:
   def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true) =
     val accuracy = withAccuracy.so(AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis))
     Json.obj(
-      "id"    -> analysis.id.value,
+      "id" -> analysis.id.value,
       "white" -> player(SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
       "black" -> player(SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
     )
@@ -64,5 +64,5 @@ object JsonView extends lila.tree.AnalysisJson:
   def mobile(game: Game, analysis: Analysis) =
     Json.obj(
       "summary" -> bothPlayers(game.startedAtPly, analysis, withAccuracy = false),
-      "moves"   -> moves(analysis)
+      "moves" -> moves(analysis)
     )

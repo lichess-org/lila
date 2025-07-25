@@ -18,11 +18,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   import helpers.{ *, given }
   import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
-  val doctype                   = raw("<!DOCTYPE html>")
+  val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
-  val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-  val charset                   = raw("""<meta charset="utf-8">""")
-  val viewport                  = raw:
+  val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+  val charset = raw("""<meta charset="utf-8">""")
+  val viewport = raw:
     """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
@@ -57,7 +57,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =
     val challengeTitle = trans.challenge.challengesX.txt(challenges)
-    val notifTitle     = trans.site.notificationsX.txt(notifs)
+    val notifTitle = trans.site.notificationsX.txt(notifs)
     spaceless:
       s"""
 <div>
@@ -78,10 +78,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     div(id := "clinput")(
       a(cls := "link", dataIcon := Icon.Search),
       input(
-        spellcheck   := "false",
+        spellcheck := "false",
         autocomplete := ctx.blind.toString,
-        aria.label   := label,
-        placeholder  := label,
+        aria.label := label,
+        placeholder := label,
         enterkeyhint := "search"
       )
     )
@@ -92,7 +92,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src   := staticAssetUrl("images/icons/bot.png"),
+    src := staticAssetUrl("images/icons/bot.png"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
@@ -139,7 +139,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
       div(cls := "dasher")(
         button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
-        div(id     := "dasher_app", cls         := "dropdown")
+        div(id := "dasher_app", cls := "dropdown")
       )
     )
 
@@ -188,32 +188,32 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   } | 80
 
   val dailyNewsAtom = link(
-    href     := routes.Feed.atom,
+    href := routes.Feed.atom,
     st.title := "Lichess Updates Feed",
-    tpe      := "application/atom+xml",
-    rel      := "alternate"
+    tpe := "application/atom+xml",
+    rel := "alternate"
   )
 
-  val dataVapid         = attr("data-vapid")
+  val dataVapid = attr("data-vapid")
   def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
-  val dataNonce         = attr("data-nonce")
-  val dataAnnounce      = attr("data-announce")
-  val dataSoundSet      = attr("data-sound-set")
-  val dataTheme         = attr("data-theme")
-  val dataDirection     = attr("data-direction")
-  val dataBoard         = attr("data-board")
-  val dataPieceSet      = attr("data-piece-set")
-  val dataBoard3d       = attr("data-board3d")
-  val dataPieceSet3d    = attr("data-piece-set3d")
-  val dataAssetUrl      = attr("data-asset-url")      := netConfig.assetBaseUrl.value
-  val dataAssetVersion  = attr("data-asset-version")
+  val dataNonce = attr("data-nonce")
+  val dataAnnounce = attr("data-announce")
+  val dataSoundSet = attr("data-sound-set")
+  val dataTheme = attr("data-theme")
+  val dataDirection = attr("data-direction")
+  val dataBoard = attr("data-board")
+  val dataPieceSet = attr("data-piece-set")
+  val dataBoard3d = attr("data-board3d")
+  val dataPieceSet3d = attr("data-piece-set3d")
+  val dataAssetUrl = attr("data-asset-url") := netConfig.assetBaseUrl.value
+  val dataAssetVersion = attr("data-asset-version")
 
   val spinnerMask = raw:
     """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
   val networkAlert = a(id := "network-status", cls := "link text", dataIcon := Icon.ChasingArrows)
 
-  private val spaceRegex      = """\s{2,}+""".r
+  private val spaceRegex = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
   def lichessFontFaceCss = spaceless:
@@ -254,31 +254,31 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     private def privileges(using Context) =
       if Granter.opt(_.SeeReport) then
         val threshold = reportScoreThreshold()
-        val maxScore  = reportScore()
+        val maxScore = reportScore()
         a(
           cls := List(
             "link data-count report-maxScore link-center" -> true,
-            "report-maxScore--high"                       -> (maxScore > threshold.high),
-            "report-maxScore--low"                        -> (maxScore <= threshold.mid)
+            "report-maxScore--high" -> (maxScore > threshold.high),
+            "report-maxScore--low" -> (maxScore <= threshold.mid)
           ),
-          title     := "Moderation",
-          href      := routes.Report.list,
+          title := "Moderation",
+          href := routes.Report.list,
           dataCount := maxScore,
-          dataIcon  := Icon.Agent
+          dataIcon := Icon.Agent
         ).some
       else if Granter.opt(_.PublicChatView) then
         a(
-          cls      := "link",
-          title    := "Moderation",
-          href     := routes.Mod.publicChat,
+          cls := "link",
+          title := "Moderation",
+          href := routes.Mod.publicChat,
           dataIcon := Icon.Agent
         ).some
       else
         (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
           a(
-            cls      := "link",
-            title    := "Content",
-            href     := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            cls := "link",
+            title := "Content",
+            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
             dataIcon := Icon.InkQuill
           )
         )
@@ -286,11 +286,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     private def teamRequests(nb: Int)(using Translate) =
       Option.when(nb > 0):
         a(
-          cls       := "link data-count link-center",
-          href      := routes.Team.requests,
+          cls := "link data-count link-center",
+          href := routes.Team.requests,
           dataCount := nb,
-          dataIcon  := Icon.Group,
-          title     := trans.team.teams.txt()
+          dataIcon := Icon.Group,
+          title := trans.team.teams.txt()
         )
 
     private val siteNameFrag: Frag =

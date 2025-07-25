@@ -30,14 +30,14 @@ final class Signup(
 )(using Executor, lila.core.config.RateLimit):
 
   private enum MustConfirmEmail(val value: Boolean):
-    case Nope                   extends MustConfirmEmail(false)
-    case YesBecausePrintExists  extends MustConfirmEmail(true)
+    case Nope extends MustConfirmEmail(false)
+    case YesBecausePrintExists extends MustConfirmEmail(true)
     case YesBecausePrintMissing extends MustConfirmEmail(true)
-    case YesBecauseIpExists     extends MustConfirmEmail(true)
-    case YesBecauseIpSusp       extends MustConfirmEmail(true)
-    case YesBecauseMobile       extends MustConfirmEmail(true)
-    case YesBecauseUA           extends MustConfirmEmail(true)
-    case YesBecauseEmailDomain  extends MustConfirmEmail(true)
+    case YesBecauseIpExists extends MustConfirmEmail(true)
+    case YesBecauseIpSusp extends MustConfirmEmail(true)
+    case YesBecauseMobile extends MustConfirmEmail(true)
+    case YesBecauseUA extends MustConfirmEmail(true)
+    case YesBecauseEmailDomain extends MustConfirmEmail(true)
 
   private object MustConfirmEmail:
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
@@ -77,12 +77,12 @@ final class Signup(
           ,
           data =>
             for
-              suspIp  <- ipTrust.isSuspicious(ip)
-              ipData  <- ipTrust.reqData(req)
+              suspIp <- ipTrust.isSuspicious(ip)
+              ipData <- ipTrust.reqData(req)
               captcha <- hcaptcha.verify()
-              result  <- captcha match
+              result <- captcha match
                 case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
-                case _                    =>
+                case _ =>
                   signupRateLimit(
                     data.username.id,
                     suspIp = suspIp,
@@ -247,7 +247,7 @@ final class Signup(
 
   private def signupErrLog(err: Form[?]) = for
     username <- err("username").value
-    email    <- err("email").value
+    email <- err("email").value
   yield
     if err.errors.exists(_.messages.contains("error.email_acceptable")) &&
       err("email").value.exists(EmailAddress.isValid)

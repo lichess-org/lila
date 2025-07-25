@@ -13,7 +13,7 @@ object PracticeConfig:
   val empty = PracticeConfig(Nil)
 
   private given studyLoader: ConfigLoader[PracticeConfigStudy] = AutoConfig.loader
-  private given ConfigLoader[PracticeConfigSection]            = AutoConfig.loader
+  private given ConfigLoader[PracticeConfigSection] = AutoConfig.loader
 
   given ConfigLoader[PracticeConfig] = AutoConfig.loader
 

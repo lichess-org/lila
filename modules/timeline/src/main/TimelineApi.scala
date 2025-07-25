@@ -28,12 +28,12 @@ private final class TimelineApi(
   private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =
     Future
       .traverse(propagations):
-        case Propagation.Users(ids)    => fuccess(ids)
+        case Propagation.Users(ids) => fuccess(ids)
         case Propagation.Followers(id) => relationApi.freshFollowersFromSecondary(id)
-        case Propagation.Friends(id)   => relationApi.fetchFriends(id)
-        case Propagation.WithTeam(_)   => fuccess(Nil)
+        case Propagation.Friends(id) => relationApi.fetchFriends(id)
+        case Propagation.WithTeam(_) => fuccess(Nil)
         case Propagation.ExceptUser(_) => fuccess(Nil)
-        case Propagation.ModsOnly(_)   => fuccess(Nil)
+        case Propagation.ModsOnly(_) => fuccess(Nil)
       .flatMap: users =>
         propagations.foldLeft(fuccess(users.flatten.distinct)):
           case (fus, Propagation.ExceptUser(id)) => fus.dmap(_.filter(id !=))

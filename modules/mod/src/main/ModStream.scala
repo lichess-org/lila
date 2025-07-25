@@ -37,21 +37,21 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
         .map {
           case UserSignup(user, email, req, fp, suspIp) =>
             Json.obj(
-              "t"           -> "signup",
-              "username"    -> user.username,
-              "email"       -> email.value,
-              "ip"          -> HTTPRequest.ipAddress(req).value,
-              "suspIp"      -> suspIp,
-              "userAgent"   -> HTTPRequest.userAgent(req),
+              "t" -> "signup",
+              "username" -> user.username,
+              "email" -> email.value,
+              "ip" -> HTTPRequest.ipAddress(req).value,
+              "suspIp" -> suspIp,
+              "userAgent" -> HTTPRequest.userAgent(req),
               "fingerPrint" -> fp
             )
           case TeamCreate(team) =>
             Json.obj(
-              "t"           -> "teamCreate",
-              "teamId"      -> team.id,
-              "name"        -> team.name,
+              "t" -> "teamCreate",
+              "teamId" -> team.id,
+              "name" -> team.name,
               "description" -> team.description,
-              "creator"     -> team.userId
+              "creator" -> team.userId
             )
         }
         .map: js =>

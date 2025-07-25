@@ -14,8 +14,8 @@ final private[video] class VideoApi(
 )(using Executor):
 
   private given BSONDocumentHandler[Youtube.Metadata] = Macros.handler
-  private given BSONDocumentHandler[Video]            = Macros.handler
-  private given BSONDocumentHandler[TagNb]            = Macros.handler
+  private given BSONDocumentHandler[Video] = Macros.handler
+  private given BSONDocumentHandler[TagNb] = Macros.handler
   import View.given
 
   private def videoViews(userOption: Option[UserId])(videos: Seq[Video]): Fu[Seq[VideoView]] =

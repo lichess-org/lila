@@ -23,7 +23,7 @@ final class ApiMoveStream(
         initialFen <- gameRepo.initialFen(game)
         lightUsers <- lightUserApi.asyncManyOptions(game.players.mapList(_.userId))
       yield
-        val buffer                = scala.collection.mutable.Queue.empty[JsObject]
+        val buffer = scala.collection.mutable.Queue.empty[JsObject]
         def makeGameJson(g: Game) =
           gameJsonView.baseWithChessDenorm(g, initialFen) ++ Json.obj(
             "players" -> JsObject(g.players.all.zip(lightUsers).map { (p, user) =>
@@ -36,7 +36,7 @@ final class ApiMoveStream(
             .mapMaterializedValue: queue =>
               val clocks =
                 for
-                  clk        <- game.clock
+                  clk <- game.clock
                   clkHistory <- game.clockHistory
                 yield ByColor(
                   Vector(clk.config.initTime) ++ clkHistory.white,
@@ -48,7 +48,7 @@ final class ApiMoveStream(
                 .foreach {
                   _.zipWithIndex.foreach: (s, index) =>
                     val clk = for
-                      c     <- clocks
+                      c <- clocks
                       white <- c.white.lift((index + 1 - clockOffset) >> 1)
                       black <- c.black.lift((index + clockOffset) >> 1)
                     yield ByColor(white, black)
@@ -64,7 +64,7 @@ final class ApiMoveStream(
                 queue.offer(makeGameJson(game))
                 queue.complete()
               else
-                val chan     = MoveGameEvent.makeChan(game.id)
+                val chan = MoveGameEvent.makeChan(game.id)
                 val subEvent = Bus.subscribeFunDyn(chan):
                   case MoveGameEvent(g, fen, move) =>
                     queue.offer(toJson(g, fen, move.some))

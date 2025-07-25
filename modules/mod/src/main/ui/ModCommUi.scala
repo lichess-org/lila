@@ -16,7 +16,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
       div(cls := "title")(userLink(u, params = "?mod"), " communications"),
       div(cls := "actions")(
         a(
-          cls  := "button button-empty mod-zone-toggle",
+          cls := "button button-empty mod-zone-toggle",
           href := routes.User.mod(u.username),
           titleOrText("Mod zone (Hotkey: m)"),
           dataIcon := Icon.Agent
@@ -26,8 +26,8 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
             a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
           else
             a(
-              cls   := "priv button",
-              href  := routes.Mod.communicationPrivate(u.username),
+              cls := "priv button",
+              href := routes.Mod.communicationPrivate(u.username),
               title := "View private messages. This will be logged in #commlog"
             )("PMs")
         ,
@@ -81,8 +81,8 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
           div(cls := "game")(
             a(
               href := routes.Round.player(pov.fullId),
-              cls  := List(
-                "title"        -> true,
+              cls := List(
+                "title" -> true,
                 "friend_title" -> pov.game.sourceIs(_.Friend)
               ),
               title := pov.game.sourceIs(_.Friend).option("Friend game")
@@ -95,7 +95,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
               chat.lines.map: line =>
                 div(
                   cls := List(
-                    "line"   -> true,
+                    "line" -> true,
                     "author" -> UserStr(line.author).is(u)
                   )
                 )(

@@ -20,24 +20,24 @@ final class Coach(env: Env) extends LilaController(env):
     searchResults(l, o, c, page)
 
   private def searchResults(l: String, o: String, c: FlagCode, page: Int)(using Context) =
-    val order   = CoachPager.Order(o)
-    val lang    = (l != "all").so(play.api.i18n.Lang.get(l))
+    val order = CoachPager.Order(o)
+    val lang = (l != "all").so(play.api.i18n.Lang.get(l))
     val country = Flags.info(c)
     for
       langCodes <- env.coach.api.allLanguages
       countries <- env.coach.api.countrySelection
-      pager     <- env.coach.pager(lang, order, country, page)
-      page      <- renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country))
+      pager <- env.coach.pager(lang, order, country, page)
+      page <- renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country))
     yield Ok(page)
 
   def show(username: UserStr) = Open:
     Found(api.find(username)): c =>
       WithVisibleCoach(c):
         for
-          stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
+          stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
           studies <- env.study.pager.withChaptersAndLiking(4)(stu)
-          posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-          page    <- renderPage(views.coach.show(c, studies, posts))
+          posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+          page <- renderPage(views.coach.show(c, studies, posts))
         yield Ok(page)
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =

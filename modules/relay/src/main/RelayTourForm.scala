@@ -21,23 +21,23 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       RelayTour.Spotlight.apply
     )(unapply)
 
-  private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  private given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
   private val fideTcMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   private val infoMapping = mapping(
-    "format"    -> optional(cleanText(maxLength = 80)),
-    "tc"        -> optional(cleanText(maxLength = 80)),
-    "fideTc"    -> optional(fideTcMapping),
-    "location"  -> optional(cleanText(maxLength = 80)),
-    "timeZone"  -> optional(lila.common.Form.timeZone.field),
-    "players"   -> optional(cleanText(maxLength = 120)),
-    "website"   -> optional(url.field),
+    "format" -> optional(cleanText(maxLength = 80)),
+    "tc" -> optional(cleanText(maxLength = 80)),
+    "fideTc" -> optional(fideTcMapping),
+    "location" -> optional(cleanText(maxLength = 80)),
+    "timeZone" -> optional(lila.common.Form.timeZone.field),
+    "players" -> optional(cleanText(maxLength = 120)),
+    "website" -> optional(url.field),
     "standings" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(
     "name" -> cleanNonEmptyText(maxLength = 100),
-    "url"  -> url.field
+    "url" -> url.field
       .verifying("Invalid stream URL", url => RelayPinnedStream("", url, None).upstream.isDefined),
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
@@ -56,25 +56,25 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
 
   val form = Form(
     mapping(
-      "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
-      "info"            -> infoMapping,
-      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "visibility"      -> optional(typeIn(Visibility.values.toSet)),
-      "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
-      "showScores"      -> boolean,
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
+      "info" -> infoMapping,
+      "markdown" -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "visibility" -> optional(typeIn(Visibility.values.toSet)),
+      "tier" -> optional(typeIn(RelayTour.Tier.values.toSet)),
+      "showScores" -> boolean,
       "showRatingDiffs" -> boolean,
-      "tiebreaks"       -> optional(tiebreaksMapping),
-      "teamTable"       -> boolean,
-      "players"         -> optional(
+      "tiebreaks" -> optional(tiebreaksMapping),
+      "teamTable" -> boolean,
+      "players" -> optional(
         of(using formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
       ),
       "teams" -> optional(
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight"    -> optional(spotlightMapping),
-      "grouping"     -> groupForm.mapping,
+      "spotlight" -> optional(spotlightMapping),
+      "grouping" -> groupForm.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping),
-      "note"         -> optional(nonEmptyText(maxLength = 20_000))
+      "note" -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
   ).fill(Data.empty)
 

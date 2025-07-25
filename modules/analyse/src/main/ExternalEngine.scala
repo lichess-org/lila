@@ -24,8 +24,8 @@ case class ExternalEngine(
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
-    userId: UserId,               // The user it has been registered for
-    clientSecret: String          // Secret unique id of the registration
+    userId: UserId, // The user it has been registered for
+    clientSecret: String // Secret unique id of the registration
 )
 
 object ExternalEngine:
@@ -59,26 +59,26 @@ object ExternalEngine:
 
   val form = Form(
     mapping(
-      "name"              -> cleanNonEmptyText(1, 200),
-      "maxThreads"        -> number(1, 65_536),
-      "maxHash"           -> number(1, 1_048_576),
-      "variants"          -> optional(list(typeIn(Variant.list.all.map(_.uciKey).toSet))),
+      "name" -> cleanNonEmptyText(1, 200),
+      "maxThreads" -> number(1, 65_536),
+      "maxHash" -> number(1, 1_048_576),
+      "variants" -> optional(list(typeIn(Variant.list.all.map(_.uciKey).toSet))),
       "officialStockfish" -> optional(boolean),
-      "providerSecret"    -> nonEmptyText(16, 1024),
-      "providerData"      -> optional(text(maxLength = 8192)),
-      "defaultDepth"      -> optional(number)
+      "providerSecret" -> nonEmptyText(16, 1024),
+      "providerData" -> optional(text(maxLength = 8192)),
+      "defaultDepth" -> optional(number)
     )(FormData.apply)(lila.common.unapply)
   )
 
   given jsonWrites: OWrites[ExternalEngine] = OWrites { e =>
     Json
       .obj(
-        "id"           -> e._id,
-        "name"         -> e.name,
-        "userId"       -> e.userId,
-        "maxThreads"   -> e.maxThreads,
-        "maxHash"      -> e.maxHash,
-        "variants"     -> e.variants,
+        "id" -> e._id,
+        "name" -> e.name,
+        "userId" -> e.userId,
+        "maxThreads" -> e.maxThreads,
+        "maxHash" -> e.maxHash,
+        "variants" -> e.variants,
         "providerData" -> e.providerData,
         "clientSecret" -> e.clientSecret
       )
@@ -97,7 +97,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: AccessTokenId): Fu[ExternalEngine] =
     val engine = data.make(by)
-    val bson   =
+    val bson =
       engineHandler.writeOpt(engine).err("external engine bson") ++ $doc("oauthToken" -> oauthTokenId)
     for
       _ <- coll.insert.one(bson)

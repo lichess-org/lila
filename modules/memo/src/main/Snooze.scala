@@ -4,10 +4,10 @@ object Snooze:
 
   enum Duration(val value: FiniteDuration, val name: String):
     case TwentyMinutes extends Duration(20.minutes, "20 minutes")
-    case OneHour       extends Duration(1.hour, "one hour")
-    case ThreeHours    extends Duration(3.hours, "three hours")
-    case OneDay        extends Duration(1.day, "one day")
-    case NextDeploy    extends Duration(30.days, "until next deploy")
+    case OneHour extends Duration(1.hour, "one hour")
+    case ThreeHours extends Duration(3.hours, "three hours")
+    case OneDay extends Duration(1.day, "one day")
+    case NextDeploy extends Duration(30.days, "until next deploy")
   object Duration:
     def apply(key: String) = Duration.values.find(_.toString == key)
 

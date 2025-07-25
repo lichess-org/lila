@@ -30,14 +30,14 @@ private final class RecapJson(lightUserApi: LightUserApi)(using Executor):
   given Writes[SimpleOpening] = new:
     def writes(o: SimpleOpening): JsObject =
       Json.obj(
-        "key"  -> o.key,
+        "key" -> o.key,
         "name" -> o.name,
-        "pgn"  -> o.ref.pgn
+        "pgn" -> o.ref.pgn
       )
 
-  given Writes[NbWin]        = Json.writes
-  given Writes[PuzzleVotes]  = Json.writes
+  given Writes[NbWin] = Json.writes
+  given Writes[PuzzleVotes] = Json.writes
   given Writes[RecapPuzzles] = Json.writes
-  given Writes[Recap.Perf]   = Json.writes
-  given Writes[RecapGames]   = Json.writes
-  given Writes[Recap]        = Json.writes
+  given Writes[Recap.Perf] = Json.writes
+  given Writes[RecapGames] = Json.writes
+  given Writes[Recap] = Json.writes

@@ -21,7 +21,7 @@ final class MongoRateLimit[K](
 
   private def makeClearAt = nowInstant.plus(duration)
 
-  private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
+  private lazy val logger = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
   private lazy val sequencer = AsyncActorSequencers[K](
@@ -39,7 +39,7 @@ final class MongoRateLimit[K](
       .one[Entry]($id(makeDbKey(k)))
       .map:
         case Some(v) => v
-        case _       => Entry(k.toString(), 0, makeClearAt)
+        case _ => Entry(k.toString(), 0, makeClearAt)
 
   def apply[A <: Matchable](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]

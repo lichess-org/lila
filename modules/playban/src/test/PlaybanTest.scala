@@ -6,9 +6,9 @@ class PlaybanTest extends munit.FunSuite:
 
   import Outcome.*
 
-  val userId    = UserId("user")
-  val brandNew  = Days(scalalib.time.daysBetween(nowInstant.minusHours(1), nowInstant)) // 0
-  val trusted   = lila.core.security.UserTrust.Yes
+  val userId = UserId("user")
+  val brandNew = Days(scalalib.time.daysBetween(nowInstant.minusHours(1), nowInstant)) // 0
+  val trusted = lila.core.security.UserTrust.Yes
   val untrusted = lila.core.security.UserTrust.No
 
   test("empty"):
@@ -29,22 +29,22 @@ class PlaybanTest extends munit.FunSuite:
 
   test("new account abuse"):
     val outcomes = Vector(Abort, Good, Abort, Abort)
-    val rec      = UserRecord(userId, Some(outcomes), none, none)
+    val rec = UserRecord(userId, Some(outcomes), none, none)
     assert(rec.bannable(brandNew, trusted).isDefined)
 
   test("older account"):
     val outcomes = Vector(Abort, Good, Abort, Abort)
-    val rec      = UserRecord(userId, Some(outcomes), none, none)
+    val rec = UserRecord(userId, Some(outcomes), none, none)
     assert(rec.bannable(Days(1), trusted).isEmpty)
 
   test("good and aborts"):
     val outcomes = Vector(Good, Abort, Good, Abort, Abort)
-    val rec      = UserRecord(userId, outcomes.some, none, none)
+    val rec = UserRecord(userId, outcomes.some, none, none)
     assert(rec.bannable(brandNew, trusted).isDefined)
 
   test("sandbag and aborts"):
     val outcomes = Vector(Sandbag, Sandbag, Abort, Sandbag, Abort, Abort)
-    val rec      = UserRecord(userId, outcomes.some, none, none)
+    val rec = UserRecord(userId, outcomes.some, none, none)
     assert(rec.bannable(brandNew, trusted).isDefined)
 
   test("untrusted new single abort"):

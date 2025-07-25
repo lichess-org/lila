@@ -156,11 +156,11 @@ final class DgtUi(helpers: Helpers):
               div(cls := "form-group")(
                 st.label(`for` := name, cls := "form-label")(trd.keywords()),
                 st.textarea(
-                  id        := name,
-                  st.name   := name,
-                  cls       := "form-control",
+                  id := name,
+                  st.name := name,
+                  cls := "form-control",
                   maxlength := 600,
-                  rows      := 10
+                  rows := 10
                 ),
                 st.small(cls := "form-help")(
                   trd.keywordFormatDescription()
@@ -191,9 +191,9 @@ final class DgtUi(helpers: Helpers):
         val id = s"${name}_${v._1}"
         div(
           input(
-            st.id   := id,
-            tpe     := "radio",
-            value   := v._1.toString,
+            st.id := id,
+            tpe := "radio",
+            value := v._1.toString,
             st.name := name
           ),
           label(`for` := id)(v._2)

@@ -106,7 +106,7 @@ final class RelayRound(
             .firstId(rt.round.studyId)
             .flatMap:
               // there might be no chapter after a round reset, let a new one be created
-              case None              => env.study.api.byIdWithChapter(rt.round.studyId)
+              case None => env.study.api.byIdWithChapter(rt.round.studyId)
               case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
           sc.orNotFound: study =>
             env.relay.videoEmbed.withCookie:
@@ -133,8 +133,8 @@ final class RelayRound(
           studyC.CanView(oldSc.study)(
             for
               (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-              rounds          <- env.relay.api.byTourOrdered(rt.tour)
-              group           <- env.relay.api.withTours.get(rt.tour.id)
+              rounds <- env.relay.api.byTourOrdered(rt.tour)
+              group <- env.relay.api.withTours.get(rt.tour.id)
               data = env.relay.jsonView.makeData(
                 rt.tour.withRounds(rounds.map(_.round)),
                 rt.round.id,
@@ -146,7 +146,7 @@ final class RelayRound(
                 pinned = none
               )
               sVersion <- NoCrawlers(env.study.version(sc.study.id))
-              embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+              embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
             yield Ok(embed).enforceCrossSiteIsolation
           )(
             studyC.privateUnauthorizedFu(oldSc.study),
@@ -160,11 +160,11 @@ final class RelayRound(
     Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
       studyC.CanView(study)(
         for
-          group        <- env.relay.api.withTours.get(rt.tour.id)
-          previews     <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-          targetRound  <- env.relay.api.officialTarget(rt.round)
+          group <- env.relay.api.withTours.get(rt.tour.id)
+          previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+          targetRound <- env.relay.api.officialTarget(rt.round)
           isSubscribed <- ctx.me.soFu(me => env.relay.api.isSubscribed(rt.tour.id, me.userId))
-          sVersion     <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
+          sVersion <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
         yield JsonOk:
           env.relay.jsonView
             .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
@@ -176,7 +176,7 @@ final class RelayRound(
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.relay.pgnStream.parseExportDate(id) match
       case Some(since) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
-      case _                                         => pgnWithFlags("-", "-", id)
+      case _ => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(
@@ -271,9 +271,9 @@ final class RelayRound(
     studyC.CanView(oldSc.study)(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-        rounds          <- env.relay.api.byTourOrdered(rt.tour)
-        group           <- env.relay.api.withTours.get(rt.tour.id)
-        isSubscribed    <- ctx.me.soFu: me =>
+        rounds <- env.relay.api.byTourOrdered(rt.tour)
+        group <- env.relay.api.withTours.get(rt.tour.id)
+        isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
@@ -301,9 +301,9 @@ final class RelayRound(
           videoUrls,
           rt.tour.pinnedStream
         )
-        chat     <- NoCrawlers(studyC.chatOf(sc.study))
+        chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
-        page     <- renderPage:
+        page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation

@@ -11,7 +11,7 @@ case class AfterSetTagOnRelayChapter(chapterId: StudyChapterId, tag: Tag)
 
 case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, insert: Boolean):
   def chapterId = ch
-  val position  = Position.Ref(chapterId, path)
+  val position = Position.Ref(chapterId, path)
 
 case class Who(u: UserId, sri: lila.core.socket.Sri):
   def myId = u.into(MyId)

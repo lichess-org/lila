@@ -21,7 +21,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
       .one[Game]($doc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn)))
       .flatMap:
         case Some(game) => fuccess(game)
-        case None       =>
+        case None =>
           for
             g <- parseImport(pgn, me).toFuture
             game = forceId.fold(g.sloppy)(g.withId)
@@ -39,7 +39,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String])
 
 val form = Form:
   mapping(
-    "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => parseImport(p, none).isRight),
+    "pgn" -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => parseImport(p, none).isRight),
     "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(unapply)
 

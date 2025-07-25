@@ -91,7 +91,7 @@ Today's date is [current date]""")
       statusFlair(req),
       div(cls := "title__status__body")(
         req.status match
-          case Status.building   => frag("Please upload the required documents to confirm your identity.")
+          case Status.building => frag("Please upload the required documents to confirm your identity.")
           case Status.pending(_) =>
             frag(
               h2("All set! Your request is pending."),
@@ -99,8 +99,8 @@ Today's date is [current date]""")
             )
           case Status.approved =>
             h2("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
-          case Status.rejected    => h2("Your request has been rejected.")
-          case Status.imported    => h2("Your request has been archived.")
+          case Status.rejected => h2("Your request has been rejected.")
+          case Status.imported => h2("Your request has been archived.")
           case Status.feedback(t) => frag("Moderator feedback:", br, br, strong(t))
       )
     )
@@ -112,7 +112,7 @@ Today's date is [current date]""")
         case "rejected" => "symbols.cross-mark"
         case "feedback" => "symbols.speech-balloon"
         case "imported" => "objects.books"
-        case _          => "objects.hourglass-not-done"
+        case _ => "objects.hourglass-not-done"
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     frag(
@@ -180,7 +180,7 @@ Today's date is [current date]""")
     div(cls := "title-image-edit", data("post-url") := routes.TitleVerify.image(t.id, tag))(
       h2(name),
       thumbnail(image, 200)(
-        cls               := List("drop-target" -> true, "user-image" -> image.isDefined),
+        cls := List("drop-target" -> true, "user-image" -> image.isDefined),
         attr("draggable") := "true"
       ),
       help
@@ -190,6 +190,6 @@ Today's date is [current date]""")
     def apply(image: Option[ImageId], height: Int): Tag =
       image.fold(fallback): id =>
         img(cls := "title-image", src := url(id, height))
-    def fallback                      = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
+    def fallback = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
     def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
-    def raw(id: ImageId)              = picfitUrl.raw(id)
+    def raw(id: ImageId) = picfitUrl.raw(id)

@@ -35,15 +35,15 @@ case class Chapter(
 
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
-    val newDenorm     = looksLikeGame.option:
-      val node   = relay.map(_.path).filterNot(_.isEmpty).flatMap(root.nodeAt) | root.lastMainlineNode
+    val newDenorm = looksLikeGame.option:
+      val node = relay.map(_.path).filterNot(_.isEmpty).flatMap(root.nodeAt) | root.lastMainlineNode
       val clocks = relay.so: r =>
-        val path       = r.path
+        val path = r.path
         val parentPath = path.parent.some.filter(_ != path)
         val parentNode = parentPath.flatMap(root.nodeAt)
-        val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+        val clockSwap = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
         if node.color.black then clockSwap else clockSwap.swap
-      val uci   = node.moveOption.map(_.uci)
+      val uci = node.moveOption.map(_.uci)
       val check = node.moveOption
         .flatMap(_.san.value.lastOption)
         .collect:
@@ -106,7 +106,7 @@ case class Chapter(
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
-  def isConceal  = conceal.isDefined
+  def isConceal = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
 
@@ -162,7 +162,7 @@ object Chapter:
 
   def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
 
-  private val defaultNameRegex           = """Chapter \d+""".r
+  private val defaultNameRegex = """Chapter \d+""".r
   def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))

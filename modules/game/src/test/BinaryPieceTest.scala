@@ -8,7 +8,7 @@ import lila.db.ByteArray
 
 class BinaryPieceTest extends munit.FunSuite:
 
-  val noop                               = "00000000"
+  val noop = "00000000"
   def write(all: PieceMap): List[String] =
     (BinaryFormat.piece.write(all)).showBytes.split(',').toList
   def read(bytes: List[String]): PieceMap =

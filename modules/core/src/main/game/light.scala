@@ -16,13 +16,13 @@ case class LightGame(
     win: Option[Color],
     variant: Variant
 ):
-  def playable                                            = status < Status.Aborted
-  def player(color: Color): LightPlayer                   = color.fold(whitePlayer, blackPlayer)
-  def players                                             = List(whitePlayer, blackPlayer)
+  def playable = status < Status.Aborted
+  def player(color: Color): LightPlayer = color.fold(whitePlayer, blackPlayer)
+  def players = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: UserId): Option[LightPlayer] = players.find(_.userId contains userId)
-  def finished                                            = status >= Status.Mate
-  def winner: Option[LightPlayer]                         = win.map(_.fold(whitePlayer, blackPlayer))
-  def winnerUserId: Option[UserId]                        = winner.flatMap(_.userId)
+  def finished = status >= Status.Mate
+  def winner: Option[LightPlayer] = win.map(_.fold(whitePlayer, blackPlayer))
+  def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
 case class LightPlayer(
     color: Color,
@@ -36,7 +36,7 @@ case class LightPlayer(
 
 case class LightPov(game: LightGame, color: Color):
   export game.id as gameId
-  def player   = game.player(color)
+  def player = game.player(color)
   def opponent = game.player(!color)
 
 object LightPov:

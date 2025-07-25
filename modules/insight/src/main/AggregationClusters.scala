@@ -13,10 +13,10 @@ object AggregationClusters:
 
   private def single[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     for
-      doc   <- aggDocs
-      x     <- getId[X](doc)(question.dimension.bson)
+      doc <- aggDocs
+      x <- getId[X](doc)(question.dimension.bson)
       value <- doc.double("v")
-      nb    <- doc.int("nb")
+      nb <- doc.int("nb")
       ids = ~doc.getAsOpt[List[String]]("ids")
     yield Cluster(x, Insight.Single(Point(value)), nb, ids)
 
@@ -30,12 +30,12 @@ object AggregationClusters:
     for
       doc <- aggDocs
       metricValues = InsightMetric.valuesOf(question.metric)
-      x     <- getId[X](doc)(question.dimension.bson)
+      x <- getId[X](doc)(question.dimension.bson)
       stack <- doc.getAsOpt[List[StackEntry]]("stack")
       points = metricValues.map { case InsightMetric.MetricValue(id, name) =>
         name -> Point(stack.find(_.metric == id).so(_.v.toDouble.get))
       }
-      total    = stack.map(_.v.toInt.get).sum
+      total = stack.map(_.v.toInt.get).sum
       percents =
         if total == 0 then points
         else
@@ -47,6 +47,6 @@ object AggregationClusters:
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
     q.dimension match
-      case InsightDimension.OpeningFamily    => clusters
+      case InsightDimension.OpeningFamily => clusters
       case InsightDimension.OpeningVariation => clusters
-      case _                                 => clusters.sortLike(InsightDimension.valuesOf(q.dimension), _.x)
+      case _ => clusters.sortLike(InsightDimension.valuesOf(q.dimension), _.x)

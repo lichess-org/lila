@@ -15,13 +15,13 @@ final class Timeline(env: Env) extends LilaController(env):
         if HTTPRequest.isXhr(ctx.req) then
           for
             entries <- env.timeline.entryApi.userEntries(me)
-            _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
+            _ <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
           yield Ok.snip(views.timeline.entries(entries))
         else
           for
             entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
-            _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-            res     <- Ok.page(views.timeline.more(entries))
+            _ <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
+            res <- Ok.page(views.timeline.more(entries))
           yield res
       ,
       json =
@@ -37,7 +37,7 @@ final class Timeline(env: Env) extends LilaController(env):
 
   private def apiOutput(max: Max)(using ctx: Context, me: Me) = for
     entries <- env.timeline.entryApi.moreUserEntries(me, max, since = getTimestamp("since"))
-    users   <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
+    users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
     userMap = users.mapBy(_.id)
   yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
 

@@ -20,7 +20,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
           funit
         case Some(event) =>
           ~(for
-            id   <- event.str("id")
+            id <- event.str("id")
             name <- event.str("type")
             data <- (event \ "data" \ "object").asOpt[JsObject]
           yield

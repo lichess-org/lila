@@ -22,11 +22,11 @@ final class ChallengeBulkApi(
 )(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
-  private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
-  private given BSONHandler[chess.variant.Variant]      = variantByKeyHandler
-  private given BSONHandler[Clock.Config]               = clockConfigHandler
+  private given BSONDocumentHandler[ScheduledGame] = Macros.handler
+  private given BSONHandler[chess.variant.Variant] = variantByKeyHandler
+  private given BSONHandler[Clock.Config] = clockConfigHandler
   private given BSONHandler[Either[Clock.Config, Days]] = eitherHandler[Clock.Config, Days]
-  private given BSONDocumentHandler[ScheduledBulk]      = Macros.handler
+  private given BSONDocumentHandler[ScheduledBulk] = Macros.handler
 
   private val coll = colls.bulk
 

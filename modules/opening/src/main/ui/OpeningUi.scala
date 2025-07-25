@@ -81,13 +81,13 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           h1(cls := "opening__title")(
             page.query.prev match
               case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := Icon.LessThan)
-              case None       => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
+              case None => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
             ,
             span(cls := "opening__name")(
               page.nameParts.mapWithIndex: (part, i) =>
                 frag(
                   part match
-                    case Left(move)         => span(cls := "opening__name__move")((i > 0).option(", "), move)
+                    case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
                     case Right((name, key)) =>
                       val className = s"opening__name__section opening__name__section--${i + 1}"
                       frag(
@@ -105,8 +105,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                 resultSegments(exp.result)
               }),
               div(
-                cls              := "lpv lpv--todo lpv--moves-bottom is2d",
-                st.data("pgn")   := page.query.pgnString,
+                cls := "lpv lpv--todo lpv--moves-bottom is2d",
+                st.data("pgn") := page.query.pgnString,
                 st.data("title") := page.closestOpening.map(_.name)
               )(lpvPreload)
             ),
@@ -122,9 +122,9 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                     )
                   },
                   a(
-                    cls      := "button text",
+                    cls := "button text",
                     dataIcon := Icon.Book,
-                    href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
+                    href := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
                 page.explored.fold(
@@ -172,13 +172,13 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
   private def searchForm(q: String, focus: Boolean) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
-        cls            := "opening__search-form__input",
-        name           := "q",
+        cls := "opening__search-form__input",
+        name := "q",
         st.placeholder := "Search for openings",
-        st.value       := q,
-        autofocus      := focus.option("true"),
-        autocomplete   := "off",
-        spellcheck     := "false"
+        st.value := q,
+        autofocus := focus.option("true"),
+        autocomplete := "off",
+        spellcheck := "false"
       ),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )
@@ -205,10 +205,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   private def renderChildren(node: OpeningTree, level: Int): Frag =
     node.children.map { case (op, node) =>
-      val fold    = level < 4 && node.children.nonEmpty
+      val fold = level < 4 && node.children.nonEmpty
       val content = frag(
         (if fold then summary else div) (op match
-          case (name, None)     => name
+          case (name, None) => name
           case (name, Some(op)) => a(href := openingUrl(op))(name)),
         renderChildren(node, level + 1)
       )
@@ -218,9 +218,9 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
   private def exampleGames(page: OpeningPage) =
     div(cls := "opening__games")(page.exploredOption.so(_.games).map { game =>
       div(
-        cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
-        st.data("pgn")   := game.pgn.toString,
-        st.data("ply")   := page.query.sans.size + 1,
+        cls := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
+        st.data("pgn") := game.pgn.toString,
+        st.data("ply") := page.query.sans.size + 1,
         st.data("title") := titleGame(game.game)
       )(lpvPreload)
     })

@@ -37,7 +37,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         div(cls := "show")(
           div(cls := "embed")(
             iframe(
-              id  := "ytplayer",
+              id := "ytplayer",
               tpe := "text/html",
               src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
               st.frameborder := "0",
@@ -47,23 +47,23 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ),
           h1(cls := "box__pad")(
             a(
-              cls      := "is4 text",
+              cls := "is4 text",
               dataIcon := Icon.Back,
-              href     := s"${routes.Video.index}?${control.queryString}"
+              href := s"${routes.Video.index}?${control.queryString}"
             ),
             video.title
           ),
           div(cls := "meta box__pad")(
             div(cls := "target")(video.targets.map(Target.name).mkString(", ")),
             a(
-              cls  := "author",
+              cls := "author",
               href := s"${routes.Video.author(video.author)}?${control.queryString}"
             )(video.author),
             video.tags.map: tag =>
               a(
-                cls      := "tag",
+                cls := "tag",
                 dataIcon := Icon.Tag,
-                href     := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
+                href := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
               )(tag.capitalize),
             video.metadata.description.map: desc =>
               p(cls := "description")(richText(desc))
@@ -130,8 +130,8 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           a(
             cls := List(
               "checked" -> checked,
-              "full"    -> (checked || t.nb > 0),
-              "empty"   -> !(checked || t.nb > 0)
+              "full" -> (checked || t.nb > 0),
+              "empty" -> !(checked || t.nb > 0)
             ),
             href := (checked || t.nb > 0)
               .option(s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}")
@@ -168,9 +168,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         boxTop(
           h1(
             a(
-              cls      := "is4 text",
+              cls := "is4 text",
               dataIcon := Icon.Back,
-              href     := s"${routes.Video.index}?${control.queryString}"
+              href := s"${routes.Video.index}?${control.queryString}"
             ),
             name
           ),
@@ -190,9 +190,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       boxTop(
         h1(
           a(
-            cls      := "is4 text",
+            cls := "is4 text",
             dataIcon := Icon.Back,
-            href     := s"${routes.Video.index}"
+            href := s"${routes.Video.index}"
           ),
           "Video Not Found!"
         )

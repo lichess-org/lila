@@ -37,7 +37,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                 ,
                 postForm(action := routes.Clas.studentClosePost(clas.id, s.user.username)):
                   form3.submit(trans.clas.removeStudent(), icon = none)(
-                    cls   := "yes-no-confirm button-red button-empty",
+                    cls := "yes-no-confirm button-red button-empty",
                     title := "Fully erase the student from the class archives."
                   )
               )
@@ -55,14 +55,14 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                       s.student.isArchived.option(disabled),
                       cls := List(
                         "yes-no-confirm button button-empty" -> true,
-                        "disabled"                           -> s.student.isArchived
+                        "disabled" -> s.student.isArchived
                       ),
                       title := trans.clas.generateANewPassword.txt()
                     )
                   ),
                   a(
-                    href  := routes.Clas.studentRelease(clas.id, s.user.username),
-                    cls   := "button button-empty",
+                    href := routes.Clas.studentRelease(clas.id, s.user.username),
+                    cls := "button button-empty",
                     title := trans.clas.upgradeFromManaged.txt()
                   )(trans.clas.release())
                 )
@@ -103,26 +103,26 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
         div(
           a(
             href := routes.Msg.convo(s.user.username),
-            cls  := "button button-empty"
+            cls := "button button-empty"
           )(trans.site.message()),
           a(
             href := routes.Clas.studentEdit(clas.id, s.user.username),
-            cls  := "button button-empty"
+            cls := "button button-empty"
           )(trans.site.edit()),
           a(
             href := routes.User.show(s.user.username),
-            cls  := "button button-empty"
+            cls := "button button-empty"
           )(trans.site.profile()),
           a(
             href := routes.Puzzle.dashboard(Days(7), "home", s.user.username.some),
-            cls  := "button button-empty"
+            cls := "button button-empty"
           )(trans.puzzle.puzzleDashboard()),
           Granter
             .opt(_.Beta)
             .option(
               a(
                 href := routes.Tutor.user(s.user.username),
-                cls  := "button button-empty"
+                cls := "button button-empty"
               )("Tutor")
             )
         )

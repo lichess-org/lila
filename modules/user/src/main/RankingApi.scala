@@ -34,10 +34,10 @@ final class RankingApi(
           .one(
             $id(makeId(user.id, perfType)),
             $doc(
-              "perf"      -> perfType.id,
-              "rating"    -> perf.intRating,
-              "prog"      -> perf.progress,
-              "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
+              "perf" -> perfType.id,
+              "rating" -> perf.intRating,
+              "prog" -> perf.progress,
+              "stable" -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
               "expiresAt" -> nowInstant.plusDays(7)
             ),
             upsert = true
@@ -75,19 +75,19 @@ final class RankingApi(
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
-      ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
-      bullet        <- topPerf(PerfType.Bullet.id, nb)
-      blitz         <- topPerf(PerfType.Blitz.id, nb)
-      rapid         <- topPerf(PerfType.Rapid.id, nb)
-      classical     <- topPerf(PerfType.Classical.id, nb)
-      chess960      <- topPerf(PerfType.Chess960.id, nb)
+      ultraBullet <- topPerf(PerfType.UltraBullet.id, nb)
+      bullet <- topPerf(PerfType.Bullet.id, nb)
+      blitz <- topPerf(PerfType.Blitz.id, nb)
+      rapid <- topPerf(PerfType.Rapid.id, nb)
+      classical <- topPerf(PerfType.Classical.id, nb)
+      chess960 <- topPerf(PerfType.Chess960.id, nb)
       kingOfTheHill <- topPerf(PerfType.KingOfTheHill.id, nb)
-      threeCheck    <- topPerf(PerfType.ThreeCheck.id, nb)
-      antichess     <- topPerf(PerfType.Antichess.id, nb)
-      atomic        <- topPerf(PerfType.Atomic.id, nb)
-      horde         <- topPerf(PerfType.Horde.id, nb)
-      racingKings   <- topPerf(PerfType.RacingKings.id, nb)
-      crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
+      threeCheck <- topPerf(PerfType.ThreeCheck.id, nb)
+      antichess <- topPerf(PerfType.Antichess.id, nb)
+      atomic <- topPerf(PerfType.Atomic.id, nb)
+      horde <- topPerf(PerfType.Horde.id, nb)
+      racingKings <- topPerf(PerfType.RacingKings.id, nb)
+      crazyhouse <- topPerf(PerfType.Crazyhouse.id, nb)
     yield lila.rating.UserPerfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,

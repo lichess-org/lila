@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 class BCryptTest extends munit.FunSuite:
 
   // From jBcrypt test suite.
-  val pass    = "abc"
+  val pass = "abc"
   val b64Hash = "$2a$06$If6bvum7DFjUnE9p2uDeDu0YHzrHM6tf.iqN8.yx.jNN1ILEf7h0i"
 
   test("accept correct pass"):

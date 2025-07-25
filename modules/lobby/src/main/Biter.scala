@@ -26,7 +26,7 @@ final private class Biter(
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner, joiner, hook.color)
-      game       <- idGenerator.withUniqueId:
+      game <- idGenerator.withUniqueId:
         makeGame(
           hook,
           ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
@@ -43,7 +43,7 @@ final private class Biter(
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner.some, joiner.some, TriColor.Random)
-      game       <- idGenerator.withUniqueId:
+      game <- idGenerator.withUniqueId:
         makeGame(
           seek,
           ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
@@ -58,7 +58,7 @@ final private class Biter(
   ): Fu[Color] =
     color match
       case TriColor.Random => userApi.firstGetsWhite(creator.map(_.id), joiner.map(_.id)).map(Color.fromWhite)
-      case fixed           =>
+      case fixed =>
         creator.map(_.id).foreach(userApi.incColor(_, fixed.resolve()))
         fuccess(fixed.resolve())
 

@@ -22,13 +22,13 @@ private object I18nQuantity:
 
   def fromString(s: String): Option[I18nQuantity] =
     s match
-      case "zero"  => Some(Zero)
-      case "one"   => Some(One)
-      case "two"   => Some(Two)
-      case "few"   => Some(Few)
-      case "many"  => Some(Many)
+      case "zero" => Some(Zero)
+      case "one" => Some(One)
+      case "two" => Some(Two)
+      case "few" => Some(Few)
+      case "many" => Some(Many)
       case "other" => Some(Other)
-      case _       => None
+      case _ => None
 
   def apply(lang: Lang, c: Count): I18nQuantity =
     langMap.getOrElse(toLanguage(lang), selectors.default)(c)
@@ -50,7 +50,7 @@ private object I18nQuantity:
 
     def balkan(c: Count) =
       val rem100 = c % 100
-      val rem10  = c % 10
+      val rem10 = c % 10
       if rem10 == 1 && rem100 != 11 then One
       else if rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14) then Few
       else if rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14) then Many
@@ -63,14 +63,14 @@ private object I18nQuantity:
 
     def lithuanian(c: Count) =
       val rem100 = c % 100
-      val rem10  = c % 10
+      val rem10 = c % 10
       if rem10 == 1 && !(rem100 >= 11 && rem100 <= 19) then One
       else if rem10 >= 2 && rem10 <= 9 && !(rem100 >= 11 && rem100 <= 19) then Few
       else Other
 
     def polish(c: Count) =
       val rem100 = c % 100
-      val rem10  = c % 10
+      val rem10 = c % 10
       if c == 1 then One
       else if rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14) then Few
       else Other
