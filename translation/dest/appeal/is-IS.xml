@@ -8,10 +8,14 @@
   <string name="boosterMarked">Aðgangur þinn fékk merkimiða fyrir fölsun skákstiga.</string>
   <string name="boosterMarkedInfo">Þetta er skilgreint sem að falsa skákstig vísvitandi með því að tapa skákum af ásettu ráði eða með því að tefla á móti öðrum aðgangi sem tapar skákum af ásettu ráði.</string>
   <string name="accountMuted">Aðgangurinn þinn er þaggaður.</string>
+  <string name="accountMutedInfo">Lestu %s okkar. Ef samskiptareglum er ekki fylgt getur það leitt til þess að aðgangur verði þaggaður.</string>
   <string name="excludedFromLeaderboards">Aðgangurinn þinn er ekki lengur meðtalinn á stigatöflum.</string>
+  <string name="excludedFromLeaderboardsInfo">Með þessu er átt við að notfæra sér ósanngjarnar aðfarir til að tryggja sér sæti á stigatöflunni.</string>
   <string name="closedByModerators">Aðganginum þínum var lokað af stjórnendum.</string>
   <string name="hiddenBlog">Stjórnendur hafa falið bloggfærslur þínar.</string>
+  <string name="hiddenBlogInfo">Kynntu þér enn og aftur %s okkar.</string>
   <string name="playTimeout">Þú ert í leikhlé.</string>
+  <string name="communicationGuidelines">samskiptareglur</string>
   <string name="blogRules">reglur um blogg</string>
   <string name="fairPlay">Göfuglyndi</string>
 </resources>

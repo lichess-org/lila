@@ -51,6 +51,7 @@
   <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á meginleikjunum.</string>
   <string name="makeSureTheChapterIsComplete">Gakktu úr skugga um að kaflanum sé lokið. Þú getur aðeins beðið um greiningu einu sinni.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
+  <string name="shareChanges">Deila breytingum með áhorfendum og vista þær á netþjóninum</string>
   <string name="playing">Í gangi</string>
   <string name="showResults">Niðurstöður</string>
   <string name="showEvalBar">Stöðumatsstikur</string>

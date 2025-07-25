@@ -52,7 +52,7 @@
   <string name="knightMate">Það er hægt að máta bara með riddara eða biskup ef andstæðingurinn hefur fleiri taflmenn en einungis kóng á taflborðinu.</string>
   <string name="noRatingPoints">Engin skákstig voru gefin</string>
   <string name="ratedGame">Gakktu úr skugga um að þú hafir teflt með stigagjöf. Æfingarskákir hafa ekki áhrif á skákstig skákmanns.</string>
-  <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur skák með stigagjöf ekki gefið stig ef það er ákveðið að leikmaðurinn sé að misnota tölvuna til að fá stig.</string>
+  <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur stigaskák ekki gefið stig ef það er ákveðið að notandinn sé að misnota tölvuna til að fá stig.</string>
   <string name="errorPage">Villusíða</string>
   <string name="reportErrorPage">Hafi villusíða komið upp, máttu tilkynna slíkt:</string>
   <string name="learnHowToMakeBroadcasts">Lærðu hvernig á að gera þínar eigin útsendingar á Lichess</string>

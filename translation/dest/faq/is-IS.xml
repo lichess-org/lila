@@ -48,9 +48,9 @@ Með þessu gildi er hægt að meta hversu góð taflmennskan er. Því færri s
 
 Tölvugreiningin á Lichess er drifin af Stockfish.</string>
   <string name="insufficientMaterial">Að falla á tíma, gera jafntefli og skorta mannafla</string>
-  <string name="lichessFollowFIDErules">Verði annar leikmaður uppiskroppa með tíma á klukku, mun sá leikmaður yfirleitt tapa leiknum. Hins vegar er jafntefli ef staðan er þannig að andstæðingurinn getur ekki mátað kóng leikmannsins með neinum fjölda leikja (%1$s).
+  <string name="lichessFollowFIDErules">Verði annar skákmaður uppiskroppa með tíma á klukku, mun sá skákmaður yfirleitt tapa leiknum. Hins vegar er jafntefli ef staðan er þannig að andstæðingurinn getur ekki mátað kóng leikmannsins með neinum fjölda leikja (%1$s).
 
-Stundum getur verið flókið að ráða sjálfkrafa (þvingaðir leikir, leikþröng). Við tökum þó vanalega alltaf afstöðu með þeim leikmanni sem ekki kláraði tímann á klukku.
+Stundum getur verið flókið að ráða sjálfkrafa (þvingaðir leikir, leikþröng). Við tökum þó vanalega alltaf afstöðu með þeim skákmanni sem ekki kláraði tímann á klukku.
 
 Þess má geta að mögulegt er að máta með stökum riddara eða biskupi ef andstæðingurinn býr yfir taflmanni sem gæti lokað leið kóngsins.</string>
   <string name="fideHandbook">Leikreglubók Alþjóðaskáksambandsins</string>

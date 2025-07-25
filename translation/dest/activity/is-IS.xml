@@ -18,6 +18,10 @@
     <item quantity="one">Tefldi %1$s %2$s skák</item>
     <item quantity="other">Tefldi %1$s %2$s skákir</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Birti %1$s skilaboð í %2$s</item>
+    <item quantity="other">Birti %1$s skilaboð í %2$s</item>
+  </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Lék %1$s leik</item>
     <item quantity="other">Lék %1$s leiki</item>
@@ -30,6 +34,10 @@
     <item quantity="one">Lauk %s bréfskák</item>
     <item quantity="other">Lauk %s bréfskákum</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Lauk við %1$s %2$s-bréfskák</item>
+    <item quantity="other">Lauk við %1$s %2$s-bréfskákir</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Hóf að fylgja %s leikmanni</item>
     <item quantity="other">Hóf að fylgja %s leikmönnum</item>
@@ -37,6 +45,14 @@
   <plurals name="gainedNbFollowers">
     <item quantity="one">Eignaðist %s nýjan fylgjanda</item>
     <item quantity="other">Eignaðist %s nýja fylgjendur</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Var gestgjafi %s fjölteflis</item>
+    <item quantity="other">Var gestgjafi %s fjöltefla</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Tók þátt í %s fjöltefli</item>
+    <item quantity="other">Tók þátt í %s fjöltefli</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Bjó til %s nýja stúderingu</item>

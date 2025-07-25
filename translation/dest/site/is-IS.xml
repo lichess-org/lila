@@ -162,8 +162,8 @@
   <string name="offerDraw">Bjóða jafntefli</string>
   <string name="draw">Jafntefli</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s leikmaður</item>
-    <item quantity="other">%s leikmenn</item>
+    <item quantity="one">%s notandi</item>
+    <item quantity="other">%s notendur</item>
   </plurals>
   <string name="drawByMutualAgreement">Samið um jafntefli</string>
   <string name="fiftyMovesWithoutProgress">Fimmtíu leikir án framvindu</string>
@@ -693,7 +693,7 @@
   <string name="aboutSimul">Fjöltefli felur í sér einn leikmann gegn mörgum í einu.</string>
   <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við tvo og tapaði gegn einum.</string>
   <string name="aboutSimulRealLife">Hugmyndin er fengin úr raunheiminum. Í raunheiminum felst þetta í því að gestgjafi fjölteflisins gengur á milli borða og leikur einn leik í senn.</string>
-  <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver taflmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
+  <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver skákmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
   <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru ekki í boði.</string>
   <string name="create">Búa til</string>
   <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga leikmenn samtímis.</string>
@@ -736,8 +736,8 @@
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
   <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s leikmaður í þessari viku.</item>
-    <item quantity="other">%1$s %2$s leikmenn í þessari viku.</item>
+    <item quantity="one">%1$s %2$s notandi í þessari viku.</item>
+    <item quantity="other">%1$s %2$s notendur í þessari viku.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>

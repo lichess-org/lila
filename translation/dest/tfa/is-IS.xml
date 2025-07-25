@@ -4,11 +4,15 @@
   <string name="twoFactorHelp">Tveggja þátta auðkenning bætir við enn einu öryggislagi fyrir aðganginn þinn.</string>
   <string name="twoFactorAppRecommend">Sæktu þér app fyrir tveggja þátta auðkenningu. Við mælum með eftirfarandi öppum:</string>
   <string name="scanTheCode">Skannaðu QR-kóðann með appinu.</string>
+  <string name="enterPassword">Sláðu inn lykilorðið þitt og auðkenningarkóðann sem appið getur af sér til þess að ljúka við uppsetninguna. Þú þarft auðkenningarkóða í hvert skipti sem þú skráir þig inn.</string>
+  <string name="ifYouCannotScanEnterX">Ef þú getur ekki skannað kóðann skaltu slá inn leynilykilinn %s í appið þitt.</string>
   <string name="authenticationCode">Auðkenningarkóði</string>
   <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Ath: Ef þú missir aðgang að tveggja þátta auðkenningarkóðunum þínum leyfist þér að biðja um %s í tölvupósti.</string>
   <string name="enableTwoFactor">Virkja tveggja þátta auðkenningu</string>
   <string name="disableTwoFactor">Afvirkja tveggja þátta auðkenningu</string>
   <string name="twoFactorEnabled">Tveggja þátta auðkenning er virk</string>
+  <string name="twoFactorToDisable">Þú þarft lykilorðið þitt og auðkenningarkóða úr auðkenningarappinu þínu til þess að slökkva á tveggja þátta auðkenningu.</string>
+  <string name="openTwoFactorApp">Opnaðu tveggja-þátta-auðkenningarforritið í tækinu þínu til þess að sjá auðkenningarkóðann þinn og staðfesta hver þú ert.</string>
   <string name="setupReminder">Vinsamlegast virkjaðu tveggja þátta auðkenningu til að tryggja aðganginn þinn á https://lichess.org/account/twofactor.
-Þú fékkst þessi skilaboð vegna þess að aðgangur þinn gegnir sérstöku hlutverki svo sem leikmaður með titil, liðsstjóri, þjálfari, kennari eða streymari.</string>
+Þú fékkst þessi skilaboð vegna þess að aðgangur þinn gegnir sérstöku hlutverki svo sem skákmaður með titil, liðsstjóri, þjálfari, kennari eða streymari.</string>
 </resources>

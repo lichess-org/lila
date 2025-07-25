@@ -51,4 +51,6 @@
   <string name="timezone">Часова зона</string>
   <string name="pastBroadcasts">Минали излъчвания</string>
   <string name="allBroadcastsByMonth">Виж всички излъчвания по месец</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Излъчване от общността</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Създадено и управлявано от %s.</string>
 </resources>

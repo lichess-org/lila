@@ -105,19 +105,19 @@
 или блокирај напад!</string>
   <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
-  <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
+  <string name="defeatTheOpponentsKing">Порази противничког краља</string>
   <string name="mateInOneIntro">Ви добијате када ваш противник не може да се одбрани од шаха.</string>
-  <string name="attackYourOpponentsKing">Нападните противничког краља
+  <string name="attackYourOpponentsKing">Нападни противничког краља
 на начин који се не може одбранити!</string>
-  <string name="mateInOneComplete">Честитамо! Тако се добијају шаховске партије!</string>
+  <string name="mateInOneComplete">Честитке! Овако се побеђују шаховске партије!</string>
   <string name="intermediate">Средње</string>
   <string name="boardSetup">Поставка табле</string>
   <string name="howTheGameStarts">Како партија почиње</string>
   <string name="boardSetupIntro">Две армије се суочавају, спремне за битку.</string>
   <string name="thisIsTheInitialPosition">Ово је почетна позиција
 сваке шаховске партије!
-Направите било који потез да наставите.</string>
-  <string name="firstPlaceTheRooks">Прво поставите топове!
+Направи било који потез да наставиш.</string>
+  <string name="firstPlaceTheRooks">Прво стави топове!
 Они иду у ћошкове.</string>
   <string name="thenPlaceTheKnights">Затим поставите скакаче!
 Они иду поред топова.</string>

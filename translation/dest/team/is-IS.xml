@@ -32,10 +32,15 @@
   <string name="requestDeclined">Liðsstjóri hafnaði beiðni þinni um að gerast meðlimur.</string>
   <string name="subToTeamMessages">Fáðu fregnir af liðsskilaboðum</string>
   <string name="teamBattle">Liðsorrusta</string>
+  <string name="teamBattleOverview">Orrusta margra liða, hver skákmaður skorar stig fyrir sitt lið</string>
   <string name="teamTournament">Liðsmót</string>
+  <string name="teamTournamentOverview">Arena-mót sem aðeins meðlimir liðsins þíns geta tekið þátt í</string>
   <string name="swissTournamentOverview">Swiss-mót sem eingöngu meðlimir liðs þíns geta tekið þátt í</string>
   <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
   <string name="messageAllMembersOverview">Senda einkaskilaboð til allra meðlima liðsins</string>
+  <string name="messageAllMembersLongDescription">Senda einkaskilaboð til ALLRA meðlima liðsins.
+Þú getur notað þetta til að kalla á leikmenn til að taka þátt í móti eða liðsorrustu.
+Skákmenn sem vilja ekki fá skilaboð frá þér gætu yfirgefið liðið.</string>
   <string name="teamsIlead">Lið sem ég stjórna</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Viltu kannski deila tengli á eitt af þessum væntanlegu mótum?</string>
   <string name="leadersChat">Liðsstjóraspjall</string>
@@ -60,6 +65,7 @@
 
 Þú getur ekki fjarlægt lið ef meðlimur liðs hefur þegar tekið þátt í mótinu.</string>
   <string name="numberOfLeadsPerTeam">Fjöldi liðsstjóra í hverju liði. Summa stiga þeirra er stig liðsins.</string>
+  <string name="numberOfLeadsPerTeamHelp">Þú ættir alls ekki að breyta þessu gildi eftir að mótið er hafið!</string>
   <string name="innerTeam">Innra liðið</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Orrusta á milli %s liðs</item>

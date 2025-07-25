@@ -11,7 +11,7 @@
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taflborðsritill og greiningarborð ásamt tölvuaðstoð %s</string>
   <string name="cloudEngineAnalysis">Greining með tölvuforriti í netskýi</string>
   <string name="studies">Stúderingar (sem hægt er að deila og varanleg tölvugreining)</string>
-  <string name="chessInsights">Ísæistafl (ýtarlegar greiningar á taflmennsku þinni)</string>
+  <string name="chessInsights">Skákinnsæi (ýtarlegar greiningar á taflmennsku þinni)</string>
   <string name="allChessBasicsLessons">Öll námsefni í grunnatriðum skákar</string>
   <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
   <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>

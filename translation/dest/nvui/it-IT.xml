@@ -6,14 +6,14 @@
   <string name="pieces">Pezzo</string>
   <string name="gameStatus">Stato della partita</string>
   <string name="lastMove">Ultima mossa</string>
-  <string name="inputForm">Campo di immissione dei comandi</string>
+  <string name="inputForm">Campo inserimento comandi</string>
   <string name="actions">Azioni</string>
   <string name="yourClock">Il tuo orologio</string>
   <string name="opponentClock">Orologio dell\'avversario</string>
   <string name="gameStart">Inizio partita</string>
   <string name="boardCommandList">Elenco comandi quando il focus è sulla scacchiera</string>
-  <string name="inputFormCommandList">Digita questi comandi nel campo di immissione comandi.</string>
-  <string name="goToInputForm">Porta sul campo di immissione dei comandi.</string>
+  <string name="inputFormCommandList">Digita questi comandi nel campo inserimento comandi.</string>
+  <string name="goToInputForm">Porta sul campo di inserimento comandi.</string>
   <string name="announceCurrentSquare">Annuncia la casa attuale.</string>
   <string name="announceLastMove">Annuncia l\'ultima mossa.</string>
   <string name="announceLastMoveCapture">Annuncia il pezzo catturato nell\'ultima mossa.</string>
@@ -31,7 +31,7 @@
   <string name="whiteKing">re bianco</string>
   <string name="blackKing">re nero</string>
   <string name="queen">donna</string>
-  <string name="whiteQueen">dnna bianca</string>
+  <string name="whiteQueen">donna bianca</string>
   <string name="blackQueen">donna nera</string>
   <string name="rook">torre</string>
   <string name="whiteRook">torre bianca</string>
@@ -55,4 +55,7 @@
   <string name="invalidMove">Mossa non valida</string>
   <string name="premoveCancelled">Pre mossa annullata</string>
   <string name="premoveRecorded">Pre mossa registrata: %s. Enter per annullare</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copia %s negli appunti</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copiato negli appunti</string>
+  <string name="pgnAndFen">PGN e FEN</string>
 </resources>

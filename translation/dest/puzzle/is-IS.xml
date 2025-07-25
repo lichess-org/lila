@@ -67,11 +67,11 @@
   <string name="history">Þrautsaga</string>
   <string name="solved">leyst</string>
   <string name="failed">vitlaust</string>
-  <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurdöngun. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
-  <string name="yourStreakX">Döngun þín: %s</string>
-  <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>
-  <string name="continueTheStreak">Halda dönguninni áfram</string>
-  <string name="newStreak">Ný döngun</string>
+  <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurhrinu. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
+  <string name="yourStreakX">Hrina þín: %s</string>
+  <string name="streakSkipExplanation">Slepptu þessum leik til þess að varðveita hrinu þína! Virkar aðeins einu sinni í hverri umferð.</string>
+  <string name="continueTheStreak">Halda áfram með hrinu</string>
+  <string name="newStreak">Ný hrina</string>
   <string name="fromMyGames">Úr skákum mínum</string>
   <string name="lookupOfPlayer">Fletta upp þrautum útfrá skákum notanda</string>
   <string name="searchPuzzles">Leita að þrautum</string>
