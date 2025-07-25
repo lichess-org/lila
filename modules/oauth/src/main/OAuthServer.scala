@@ -13,7 +13,7 @@ final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecret: Secret @@ MobileSecret
+    mobileSecrets: List[Secret] @@ MobileSecrets
 )(using Executor):
 
   import OAuthServer.*
@@ -86,10 +86,15 @@ final class OAuthServer(
         case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
         case _ => Right(a)
 
-  private val bearerSigner = Algo.hmac(mobileSecret.value)
+  private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
+
+  private def checkSignedBearer(bearer: String, signed: String): Boolean =
+    bearerSigners.exists: signer =>
+      signer.sha1(bearer).hash_=(signed)
+
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
     val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if bearerSigner.sha1(bearer).hash_=(signed) => (Bearer(bearer), true)
+      case Array(bearer, signed) if checkSignedBearer(bearer, signed) => (Bearer(bearer), true)
       case _ => (full, false)
     tokenApi
       .get(bearer)
