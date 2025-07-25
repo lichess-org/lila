@@ -54,7 +54,7 @@
   <string name="middlegame">Miðtafl</string>
   <string name="middlegameDescription">Bragðvísi sem kemur upp á miðsstigi skákarinnar.</string>
   <string name="oneMove">Eins leiks þraut</string>
-  <string name="oneMoveDescription">Þraut sem þarfnast eingöngu eins leiks.</string>
+  <string name="oneMoveDescription">Þraut sem þarfnast bara eins leiks.</string>
   <string name="opening">Byrjun</string>
   <string name="openingDescription">Bragðvísi sem kemur upp á upphafsstigi skákarinnar.</string>
   <string name="pawnEndgame">Endatafl með peðum</string>
@@ -87,7 +87,7 @@
   <string name="zugzwangDescription">Fátt stendur andstæðingnum til boða að leika, og hver einasti leikur versnar stöðu hans.</string>
   <string name="mix">Kyndugur samtíningur</string>
   <string name="mixDescription">Alls konar samtíningur. Þú veist ekki hverju á að búast við, svo þú hefur augun opin fyrir öllu! Einmitt eins og í alvöru skákum.</string>
-  <string name="playerGames">Skákir leikmanns</string>
+  <string name="playerGames">Skákir notanda</string>
   <string name="playerGamesDescription">Flettu upp þrautum sem myndaðar eru útfrá skákunum þínum eða skákunum annars notanda.</string>
   <string name="puzzleDownloadInformation">Þessar þrautir eru í almannaeigu og hægt er að sækja þær frá %s.</string>
 </resources>
