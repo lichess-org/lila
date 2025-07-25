@@ -13,8 +13,8 @@ object Blurs:
   private[game] given blursHandler: BSONHandler[Blurs] = lila.db.dsl.tryHandler[Blurs](
     {
       case BSONInteger(bits) => Success(apply(bits & 0xffffffffL))
-      case BSONLong(bits)    => Success(apply(bits))
-      case v                 => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
+      case BSONLong(bits) => Success(apply(bits))
+      case v => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
     },
     blurs => blurs.asInt.fold[BSONValue](BSONLong(blurs.value))(BSONInteger.apply)
   )

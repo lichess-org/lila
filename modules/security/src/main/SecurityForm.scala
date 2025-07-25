@@ -86,19 +86,19 @@ final class SecurityForm(
 
     private val agreement = mapping(
       "assistance" -> agreementBool,
-      "nice"       -> agreementBool,
-      "account"    -> agreementBool,
-      "policy"     -> agreementBool
+      "nice" -> agreementBool,
+      "account" -> agreementBool,
+      "policy" -> agreementBool
     )(AgreementData.apply)(unapply)
 
     def website(using RequestHeader) = hcaptcha.form:
       Form:
         mapping(
-          "username"  -> username,
-          "password"  -> newPasswordField,
-          "email"     -> emailField,
+          "username" -> username,
+          "password" -> newPasswordField,
+          "email" -> emailField,
           "agreement" -> agreement,
-          "fp"        -> optional(nonEmptyText)
+          "fp" -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
           .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
 
@@ -106,7 +106,7 @@ final class SecurityForm(
       mapping(
         "username" -> username,
         "password" -> newPasswordField,
-        "email"    -> emailField
+        "email" -> emailField
       )(MobileSignupData.apply)(_ => None)
         .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
 
@@ -138,7 +138,7 @@ final class SecurityForm(
     authenticator.loginCandidate.map: candidate =>
       Form:
         mapping(
-          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+          "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
           "newPasswd1" -> newPasswordFieldForMe,
           "newPasswd2" -> newPasswordFieldForMe
         )(Passwd.apply)(unapply)
@@ -157,7 +157,7 @@ final class SecurityForm(
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),
-          "email"  -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
+          "email" -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
         )(ChangeEmail.apply)(unapply)
       ).fillOption(old.map { ChangeEmail("", _) })
 
@@ -167,7 +167,7 @@ final class SecurityForm(
         mapping(
           "secret" -> nonEmptyText,
           "passwd" -> passwordMapping(candidate),
-          "token"  -> nonEmptyText
+          "token" -> nonEmptyText
         )(TwoFactor.apply)(unapply).verifying(
           "invalidAuthenticationCode",
           _.tokenValid
@@ -185,7 +185,7 @@ final class SecurityForm(
       Form:
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token"  -> text.verifying(
+          "token" -> text.verifying(
             "invalidAuthenticationCode",
             t => me.totpSecret.so(_.verify(TotpToken(t)))
           )
@@ -209,8 +209,8 @@ final class SecurityForm(
       Form:
         mapping(
           "username" -> myUsernameField,
-          "passwd"   -> passwordMapping(candidate),
-          "forever"  -> boolean
+          "passwd" -> passwordMapping(candidate),
+          "forever" -> boolean
         )((_, _, forever) => forever)(_ => None)
 
   def toggleKid(using Me) = passwordProtected
@@ -219,7 +219,7 @@ final class SecurityForm(
     Form:
       mapping(
         "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
-        "email"    -> sendableEmail // allow unacceptable emails for BC
+        "email" -> sendableEmail // allow unacceptable emails for BC
       )(Reopen.apply)(_ => None)
   )
 
@@ -227,8 +227,8 @@ final class SecurityForm(
     authenticator.loginCandidate.map: candidate =>
       Form:
         mapping(
-          "username"   -> myUsernameField,
-          "passwd"     -> passwordMapping(candidate),
+          "username" -> myUsernameField,
+          "passwd" -> passwordMapping(candidate),
           "understand" -> boolean.verifying("It's an important point.", identity[Boolean])
         )((_, _, _) => ())(_ => None)
 
@@ -256,7 +256,7 @@ object SecurityForm:
       agreement: AgreementData,
       fp: Option[String]
   ) extends AnySignupData:
-    def fingerPrint   = FingerPrint.from(fp.filter(_.nonEmpty))
+    def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
 
   case class MobileSignupData(

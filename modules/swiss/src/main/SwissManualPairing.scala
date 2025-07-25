@@ -16,9 +16,9 @@ final private class SwissManualPairing(mongo: SwissMongo)(using Executor):
               SwissPairing.Pending(UserId(u1), UserId(u2)).some
             case _ => none
           val paired = pairings.flatMap { p => List(p.white, p.black) }.toSet
-          val byes   = parsedLines.flatMap:
+          val byes = parsedLines.flatMap:
             case Array(u1, "1") if !paired(UserId(u1)) => SwissPairing.Bye(UserId(u1)).some
-            case _                                     => none
+            case _ => none
           pairings.map(Right.apply) ::: byes.map(Left.apply)
         }
       }

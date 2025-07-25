@@ -77,17 +77,17 @@ case class NewBranch(
     clock,
     crazyData
   }
-  override def toString                    = s"$ply, $id, ${move.uci}"
-  def withClock(clock: Option[Clock])      = this.focus(_.metas.clock).replace(clock)
-  def withForceVariation(force: Boolean)   = copy(forceVariation = force)
-  def isCommented                          = metas.comments.value.nonEmpty
-  def setComment(comment: Comment)         = this.focus(_.metas).modify(_.setComment(comment))
+  override def toString = s"$ply, $id, ${move.uci}"
+  def withClock(clock: Option[Clock]) = this.focus(_.metas.clock).replace(clock)
+  def withForceVariation(force: Boolean) = copy(forceVariation = force)
+  def isCommented = metas.comments.value.nonEmpty
+  def setComment(comment: Comment) = this.focus(_.metas).modify(_.setComment(comment))
   def deleteComment(commentId: Comment.Id) = this.focus(_.metas).modify(_.deleteComment(commentId))
-  def deleteComments                       = this.focus(_.metas.comments).replace(Comments.empty)
-  def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).replace(gamebook.some)
-  def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).replace(s)
-  def toggleGlyph(glyph: Glyph)            = this.focus(_.metas).modify(_.toggleGlyph(glyph))
-  def clearAnnotations                     = this
+  def deleteComments = this.focus(_.metas.comments).replace(Comments.empty)
+  def setGamebook(gamebook: Gamebook) = this.focus(_.metas.gamebook).replace(gamebook.some)
+  def setShapes(s: Shapes) = this.focus(_.metas.shapes).replace(s)
+  def toggleGlyph(glyph: Glyph) = this.focus(_.metas).modify(_.toggleGlyph(glyph))
+  def clearAnnotations = this
     .focus(_.metas)
     .modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty, comments = Comments.empty))
   def setComp = copy(comp = true)
@@ -261,7 +261,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def withTree(t: Option[NewTree]): NewRoot =
     copy(tree = t)
 
-  inline def isEmpty  = tree.isEmpty
+  inline def isEmpty = tree.isEmpty
   inline def nonEmpty = tree.nonEmpty
 
   def size = tree.fold(0L)(_.size)
@@ -269,8 +269,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def mainlinePath = tree.fold(UciPath.root)(x => UciPath.fromIds(x.mainlinePath))
 
   def lastMainlineNode: Option[ChessNode[NewBranch]] = tree.map(_.lastMainlineNode)
-  def lastMainlineMetas: Option[Metas]               = lastMainlineNode.map(_.value.metas)
-  def lastMainlineMetasOrRoots: Metas                = lastMainlineMetas | metas
+  def lastMainlineMetas: Option[Metas] = lastMainlineNode.map(_.value.metas)
+  def lastMainlineMetasOrRoots: Metas = lastMainlineMetas | metas
 
   def takeMainlineWhile(f: NewBranch => Boolean): NewRoot =
     tree.fold(this)(t => copy(tree = t.takeMainlineWhile(f)))
@@ -286,9 +286,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   override def toString = s"$tree"
 
 object NewRoot:
-  def default(variant: Variant)                       = NewRoot(Metas.default(variant), None)
+  def default(variant: Variant) = NewRoot(Metas.default(variant), None)
   def apply(sit: Position.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
-  def apply(root: Root): NewRoot                      = NewRoot(NewTree.fromNode(root), NewTree(root))
+  def apply(root: Root): NewRoot = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import lila.tree.evals.jsonWrites
   import Node.given
@@ -322,10 +322,10 @@ object NewRoot:
       .add("comp", branch.comp)
       .add("forceVariation", branch.forceVariation)
 
-  given defaultNodeJsonWriter: Writes[NewRoot]         = makeRootJsonWriter(alwaysChildren = true)
-  val minimalNodeJsonWriter: Writes[NewRoot]           = makeRootJsonWriter(alwaysChildren = false)
+  given defaultNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(alwaysChildren = true)
+  val minimalNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(alwaysChildren = false)
   given defaultTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = true)
-  val minimalTreeJsonWriter: Writes[Tree[NewBranch]]   = makeTreeWriter(alwaysChildren = false)
+  val minimalTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = false)
 
   def makeTreeWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
@@ -383,6 +383,6 @@ object NewRoot:
 
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
     val rootWithoutChild = root.updateTree(_.withoutChild.some)
-    val mainLineWriter   = makeMainlineWriter[NewBranch]
+    val mainLineWriter = makeMainlineWriter[NewBranch]
     JsArray:
       mainlineWriterForRoot.writes(rootWithoutChild) +: root.mainline.map(mainLineWriter.writes)

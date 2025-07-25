@@ -22,7 +22,7 @@ final class EmailChange(
       tokener.make(TokenPayload(user.id, email)).flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-        val url                  = s"$baseUrl/account/email/confirm/$token"
+        val url = s"$baseUrl/account/email/confirm/$token"
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
         mailer.sendOrFail:
           Mailer.Message(
@@ -50,8 +50,8 @@ ${trans.common_orPaste.txt()}
     tokener.read(token).flatMapz { case TokenPayload(userId, email) =>
       for
         previous <- userRepo.email(userId)
-        _        <- userRepo.setEmail(userId, email).recoverDefault
-        me       <- userRepo.me(userId)
+        _ <- userRepo.setEmail(userId, email).recoverDefault
+        me <- userRepo.me(userId)
       yield
         logger.info(s"Change email for $userId: ${previous | "none"} -> $email")
         me.map(_ -> previous)
@@ -61,12 +61,12 @@ ${trans.common_orPaste.txt()}
 
   private given Iso.StringIso[TokenPayload] with
     private val sep = ' '
-    val from        = str =>
+    val from = str =>
       str
         .split(sep)
         .match
           case Array(id, email) => EmailAddress.from(email).map { TokenPayload(UserId(id), _) }
-          case _                => none
+          case _ => none
         .err("Invalid token payload")
     val to = a => s"${a.userId}$sep${a.email}"
 

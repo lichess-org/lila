@@ -119,8 +119,8 @@ private object TutorPerfReport:
 
   import TutorBuilder.*
 
-  private val accuracyQuestion    = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
-  private val awarenessQuestion   = Question(InsightDimension.Perf, InsightMetric.Awareness)
+  private val accuracyQuestion = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
+  private val awarenessQuestion = Question(InsightDimension.Perf, InsightMetric.Awareness)
   private val globalClockQuestion = Question(
     InsightDimension.Perf,
     InsightMetric.ClockPercent,
@@ -130,17 +130,17 @@ private object TutorPerfReport:
 
   def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
-      accuracy        <- answerManyPerfs(accuracyQuestion, users)
-      awareness       <- answerManyPerfs(awarenessQuestion, users)
+      accuracy <- answerManyPerfs(accuracyQuestion, users)
+      awareness <- answerManyPerfs(awarenessQuestion, users)
       resourcefulness <- TutorResourcefulness.compute(users)
-      conversion      <- TutorConversion.compute(users)
+      conversion <- TutorConversion.compute(users)
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.soFu(answerManyPerfs(globalClockQuestion, _))
-      clockUsage  <- clockUsers.soFu(TutorClockUsage.compute)
+      clockUsage <- clockUsers.soFu(TutorClockUsage.compute)
       perfReports <- Future.sequence(users.toList.map { user =>
         for
           openings <- TutorOpening.compute(user)
-          phases   <- TutorPhases.compute(user)
+          phases <- TutorPhases.compute(user)
           flagging <- hasClock(user.perfType).so(TutorFlagging.compute(user))
         yield TutorPerfReport(
           user.perfType,

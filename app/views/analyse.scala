@@ -91,11 +91,11 @@ object embed:
     val opts = Json.obj(
       "menu" -> Json.obj("getPgn" -> Json.obj("enabled" -> getPgn)),
       "i18n" -> Json.obj(
-        "flipTheBoard"         -> trans.site.flipBoard.txt(),
-        "analysisBoard"        -> trans.site.analysis.txt(),
+        "flipTheBoard" -> trans.site.flipBoard.txt(),
+        "analysisBoard" -> trans.site.analysis.txt(),
         "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
-        "getPgn"               -> trans.study.copyChapterPgn.txt(),
-        "download"             -> trans.site.download.txt()
+        "getPgn" -> trans.study.copyChapterPgn.txt(),
+        "download" -> trans.site.download.txt()
       )
     ) ++ args
     views.base.embed.minimal(

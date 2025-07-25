@@ -15,7 +15,7 @@ object Player:
         .raw(p.name)
         .map:
           case Player.nameSplitRegex(n, r) => PlayerName(n.trim) -> r.toIntOption
-          case n                           => PlayerName(n)      -> none
+          case n => PlayerName(n) -> none
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
@@ -67,9 +67,9 @@ object Player:
     def suspicious = HoldAlert.suspicious(ply)
   object HoldAlert:
     type Map = ByColor[Option[HoldAlert]]
-    val emptyMap: Map                 = ByColor(none, none)
+    val emptyMap: Map = ByColor(none, none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
-    def suspicious(m: Map): Boolean   = m.exists { _.exists(_.suspicious) }
+    def suspicious(m: Map): Boolean = m.exists { _.exists(_.suspicious) }
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }
@@ -78,17 +78,17 @@ object Player:
 
   object BSONFields:
 
-    val aiLevel           = "ai"
-    val isOfferingDraw    = "od"
+    val aiLevel = "ai"
+    val isOfferingDraw = "od"
     val proposeTakebackAt = "ta"
-    val rating            = "e"
-    val ratingDiff        = "d"
-    val provisional       = "p"
-    val blursBits         = "l"
-    val holdAlert         = "h"
-    val berserk           = "be"
-    val blindfold         = "bf"
-    val name              = "na"
+    val rating = "e"
+    val ratingDiff = "d"
+    val provisional = "p"
+    val blursBits = "l"
+    val holdAlert = "h"
+    val berserk = "be"
+    val blindfold = "bf"
+    val name = "na"
 
   def from(light: LightGame, color: Color, ids: String, doc: Bdoc): Player =
     import BSONFields.*
@@ -113,13 +113,13 @@ object Player:
   def playerWrite(p: Player) =
     import BSONFields.*
     $doc(
-      aiLevel           -> p.aiLevel,
-      isOfferingDraw    -> p.isOfferingDraw.option(true),
+      aiLevel -> p.aiLevel,
+      isOfferingDraw -> p.isOfferingDraw.option(true),
       proposeTakebackAt -> p.proposeTakebackAt.some.filter(_ > 0),
-      rating            -> p.rating,
-      ratingDiff        -> p.ratingDiff,
-      provisional       -> p.provisional.yes.option(true),
-      blursBits         -> p.blurs.nonEmpty.so(p.blurs),
-      blindfold         -> p.blindfold,
-      name              -> p.name
+      rating -> p.rating,
+      ratingDiff -> p.ratingDiff,
+      provisional -> p.provisional.yes.option(true),
+      blursBits -> p.blurs.nonEmpty.so(p.blurs),
+      blindfold -> p.blindfold,
+      name -> p.name
     )

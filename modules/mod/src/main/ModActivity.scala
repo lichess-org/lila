@@ -22,9 +22,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
     _.expireAfter[CacheKey, Result](
       create = (key, _) =>
         key match
-          case (_, Period.Week)  => 15.seconds
+          case (_, Period.Week) => 15.seconds
           case (_, Period.Month) => 5.minutes
-          case (_, Period.Year)  => 1.day
+          case (_, Period.Year) => 1.day
       ,
       update = (_, _, current) => current,
       read = (_, _, current) => current
@@ -45,7 +45,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by".$nin(List(UserId.lichess, UserId.irwin))
+                case Who.Team => "done.by".$nin(List(UserId.lichess, UserId.irwin))
               ,
               "done.at".$gt(Period.dateSince(period))
             )
@@ -59,13 +59,13 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
             "date".$gt(Period.dateSince(period))
           ) ++ who.match
             case Who.Me(userId) => $doc("mod" -> userId)
-            case Who.Team       => $empty
+            case Who.Team => $empty
         ) -> List(
           Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
           PipelineOperator(
             $doc(
               "$unionWith" -> $doc(
-                "coll"     -> reportApi.coll.name,
+                "coll" -> reportApi.coll.name,
                 "pipeline" -> reportPipeline
               )
             )
@@ -75,11 +75,11 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         )
       .map: docs =>
         for
-          doc  <- docs
-          id   <- doc.getAsOpt[List[String]]("_id")
+          doc <- docs
+          id <- doc.getAsOpt[List[String]]("_id")
           date <- id.headOption
-          key  <- id.lift(1)
-          nb   <- doc.int("nb")
+          key <- id.lift(1)
+          nb <- doc.int("nb")
         yield (date, key, nb)
       .map:
         _.foldLeft(Map.empty[String, Day]):
@@ -112,7 +112,7 @@ object ModActivity:
 
   case class Day(actions: Map[Action, Int], reports: Map[Room, Int]):
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
-    def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
+    def set(room: Room, nb: Int) = copy(reports = reports.updated(room, nb))
 
   val dateFormat = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -125,13 +125,13 @@ object ModActivity:
       else if str == "month" then Month
       else Week
     def dateSince(period: Period) = period match
-      case Period.Week  => nowInstant.minusWeeks(1)
+      case Period.Week => nowInstant.minusWeeks(1)
       case Period.Month => nowInstant.minusMonths(1)
-      case Period.Year  => nowInstant.minusYears(1)
+      case Period.Year => nowInstant.minusYears(1)
 
   enum Who(val key: String):
     case Me(userId: UserId) extends Who("me")
-    case Team               extends Who("team")
+    case Team extends Who("team")
   object Who:
     def apply(who: String, me: User) = if who == "me" then Me(me.id) else Team
 
@@ -150,23 +150,23 @@ object ModActivity:
 
   object Action:
     val dbMap = Map(
-      "modMessage"      -> Message,
-      "engine"          -> MarkCheat,
-      "troll"           -> MarkTroll,
-      "booster"         -> MarkBoost,
-      "alt"             -> CloseAccount,
-      "closeAccount"    -> CloseAccount,
-      "chatTimeout"     -> ChatTimeout,
-      "appealClose"     -> Appeal,
-      "setEmail"        -> SetEmail,
-      "streamerList"    -> Streamer,
+      "modMessage" -> Message,
+      "engine" -> MarkCheat,
+      "troll" -> MarkTroll,
+      "booster" -> MarkBoost,
+      "alt" -> CloseAccount,
+      "closeAccount" -> CloseAccount,
+      "chatTimeout" -> ChatTimeout,
+      "appealClose" -> Appeal,
+      "setEmail" -> SetEmail,
+      "streamerList" -> Streamer,
       "streamerDecline" -> Streamer,
-      "streamerunlist"  -> Streamer,
-      "streamerTier"    -> Streamer,
-      "blogTier"        -> Blog,
-      "blogPostEdit"    -> Blog,
-      "deletePost"      -> ForumAdmin,
-      "closeTopic"      -> ForumAdmin
+      "streamerunlist" -> Streamer,
+      "streamerTier" -> Streamer,
+      "blogTier" -> Blog,
+      "blogPostEdit" -> Blog,
+      "deletePost" -> ForumAdmin,
+      "closeTopic" -> ForumAdmin
     )
     val all = dbMap.values.toList.distinct.sortBy(_.toString)
 

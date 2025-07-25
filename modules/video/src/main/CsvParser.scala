@@ -22,21 +22,21 @@ object CSVParser:
   class MalformedCSVException(message: String) extends Exception(message)
 
   private type State = Int
-  final private val Start       = 0
-  final private val Field       = 1
-  final private val Delimiter   = 2
-  final private val End         = 3
-  final private val QuoteStart  = 4
-  final private val QuoteEnd    = 5
+  final private val Start = 0
+  final private val Field = 1
+  final private val Delimiter = 2
+  final private val End = 3
+  final private val QuoteStart = 4
+  final private val QuoteEnd = 5
   final private val QuotedField = 6
 
   def apply(input: String, escapeChar: Char, delimiter: Char, quoteChar: Char): Option[List[String]] =
-    val buf: Array[Char]       = input.toCharArray
+    val buf: Array[Char] = input.toCharArray
     var fields: Vector[String] = Vector()
-    var field                  = new StringBuilder
-    var state: State           = Start
-    var pos                    = 0
-    val buflen                 = buf.length
+    var field = new StringBuilder
+    var state: State = Start
+    var pos = 0
+    val buflen = buf.length
 
     if buf.length > 0 && buf(0) == '\uFEFF' then pos += 1
 

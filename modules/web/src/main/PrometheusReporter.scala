@@ -17,7 +17,7 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
   import PrometheusReporter.readSettings
   import kamon.prometheus.PrometheusSettings.environmentTags
 
-  private val stalePeriod          = Duration.ofSeconds(2 * 24 * 60 * 60 + 1) // 2 days + 1 second
+  private val stalePeriod = Duration.ofSeconds(2 * 24 * 60 * 60 + 1) // 2 days + 1 second
   private val _snapshotAccumulator =
     PeriodSnapshot.accumulator(stalePeriod, Duration.ZERO, stalePeriod)
 
@@ -39,7 +39,7 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   override def reportPeriodSnapshot(snapshot: PeriodSnapshot): Unit =
     _snapshotAccumulator.add(snapshot)
-    val currentData       = _snapshotAccumulator.peek()
+    val currentData = _snapshotAccumulator.peek()
     val scrapeDataBuilder =
       new ScrapeDataBuilder(_reporterSettings.generic, environmentTags(_reporterSettings.generic))
 

@@ -30,9 +30,9 @@ final class ForumPostApi(
   )(using me: Me): Fu[ForumPost] =
     detectLanguage(data.text).zip(recentUserIds(topic, topic.nbPosts)).flatMap { (lang, topicUserIds) =>
       val publicMod = MasterGranter(_.PublicMod)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
-      val anonMod   = modIcon && !publicMod
-      val post      = ForumPost.make(
+      val modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
+      val anonMod = modIcon && !publicMod
+      val post = ForumPost.make(
         topicId = topic.id,
         userId = (!anonMod).option(me),
         text = spam.replace(data.text),
@@ -46,7 +46,7 @@ final class ForumPostApi(
         .findDuplicate(post)
         .flatMap:
           case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-          case _                                           =>
+          case _ =>
             for
               _ <- postRepo.coll.insert.one(post)
               _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
@@ -85,7 +85,7 @@ final class ForumPostApi(
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(nowInstant, spam.replace(newText))
-          val save    = (newPost.text != post.text).so:
+          val save = (newPost.text != post.text).so:
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
@@ -95,7 +95,7 @@ final class ForumPostApi(
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId).flatMap:
       case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-      case Some(topic, post)                         =>
+      case Some(topic, post) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number).dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
@@ -123,7 +123,7 @@ final class ForumPostApi(
             selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
             update =
               if v then $addToSet(s"reactions.$reaction" -> me.userId)
-              else $pull(s"reactions.$reaction"          -> me.userId),
+              else $pull(s"reactions.$reaction" -> me.userId),
             fetchNewObject = true
           )
         _ =
@@ -152,7 +152,7 @@ final class ForumPostApi(
 
   def miniViews(postIds: List[ForumPostId]): Fu[List[ForumPostMiniView]] = postIds.nonEmpty.so:
     for
-      posts  <- postRepo.miniByIds(postIds)
+      posts <- postRepo.miniByIds(postIds)
       topics <- topicRepo.coll.byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
     yield posts.flatMap: post =>
       topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
@@ -187,9 +187,9 @@ final class ForumPostApi(
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
-      categs     <- categRepo.visibleWithTeams(teams, isMod)
+      categs <- categRepo.visibleWithTeams(teams, isMod)
       diagnostic <- if isMod then fuccess(none) else forUser.so(diagnosticForUser)
-      views      <- categs
+      views <- categs
         .parallel: categ =>
           get(categ.lastPostId(forUser)).map: topicPost =>
             CategView(
@@ -203,9 +203,9 @@ final class ForumPostApi(
     for
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
       topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, s"${user.id.value}-problem-report")
-      postOpt  <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
+      postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
     yield for
-      post  <- postOpt
+      post <- postOpt
       topic <- topicOpt
       categ <- categOpt
     yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)

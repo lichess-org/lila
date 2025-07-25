@@ -34,9 +34,9 @@ final class MentionNotifier(
     */
   private def filterValidUsers(candidates: Set[UserId], mentionedBy: UserId): Fu[List[UserId]] =
     for
-      existingUsers    <- userApi.filterExists(candidates.take(10)).map(_.take(5).toSet)
+      existingUsers <- userApi.filterExists(candidates.take(10)).map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users            <- mentionableUsers.toList.filterA(relationApi.fetchBlocks(_, mentionedBy).not)
+      users <- mentionableUsers.toList.filterA(relationApi.fetchBlocks(_, mentionedBy).not)
     yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =

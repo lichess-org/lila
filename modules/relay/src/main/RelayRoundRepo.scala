@@ -44,7 +44,7 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
     coll
       .primitiveOne[RelayRound.Order]($doc("tourId" -> tourId), sort.desc, "order")
       .dmap:
-        case None        => RelayRound.Order(1)
+        case None => RelayRound.Order(1)
         case Some(order) => order.map(_ + 1)
 
   def orderOf(roundId: RelayRoundId): Fu[RelayRound.Order] =
@@ -57,7 +57,7 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
     coll.update
       .one(
         $doc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
-        $set("sync.nextAt"                                        -> nowInstant)
+        $set("sync.nextAt" -> nowInstant)
       )
       .void
 
@@ -77,9 +77,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .cursor[RelayRound]()
       .uno
     nextOrder <- next.soFu(n => orderOf(n.id))
-    curOrder  <- next.isDefined.soFu(orderOf(round.id))
+    curOrder <- next.isDefined.soFu(orderOf(round.id))
   yield for
-    n  <- next
+    n <- next
     no <- nextOrder
     co <- curOrder
     if no == co.map(_ + 1)
@@ -88,9 +88,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 private object RelayRoundRepo:
 
   object sort:
-    val asc  = $doc("order" -> 1)
+    val asc = $doc("order" -> 1)
     val desc = $doc("order" -> -1)
 
   object selectors:
     def tour(id: RelayTourId) = $doc("tourId" -> id)
-    def finished(v: Boolean)  = $doc("finishedAt".$exists(v))
+    def finished(v: Boolean) = $doc("finishedAt".$exists(v))

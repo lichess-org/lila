@@ -65,13 +65,13 @@ final private class ChannelSyncActor(
     sortedCandidates = topNToList(freshCandidates, 64)(using ratingOrdering)
     cheaters <- userApi.filterEngines(sortedCandidates.flatMap(_.userIds))
     candidates = sortedCandidates.filterNot(_.userIds.toSet.intersect(cheaters).nonEmpty)
-    _          = lila.mon.tv.selector.cheats(channel.name).record(sortedCandidates.size - candidates.size)
+    _ = lila.mon.tv.selector.cheats(channel.name).record(sortedCandidates.size - candidates.size)
     currentBest <- oneId.so(gameProxy.gameIfPresent)
-    newBest     <- currentBest match
+    newBest <- currentBest match
       case Some(current) if channel.isFresh(current) =>
         fuccess(wayBetter(current, candidates)).orElse(rematch(current))
       case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates)))
-      case _             => fuccess(bestOf(candidates))
+      case _ => fuccess(bestOf(candidates))
   yield newBest -> candidates.map(_.id)
 
   private def wayBetter(game: Game, candidates: List[Game]) =

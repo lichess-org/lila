@@ -106,7 +106,7 @@ case class Simul(
       )
     else this
 
-  def gameIds        = pairings.map(_.gameId)
+  def gameIds = pairings.map(_.gameId)
   def ongoingGameIds = pairings.filter(_.ongoing).map(_.gameId)
 
   def perfTypes: List[PerfType] =
@@ -124,7 +124,7 @@ case class Simul(
   def variantRich = variants.sizeIs > 3
 
   def isHost(userOption: Option[User]): Boolean = userOption.so(isHost)
-  def isHost(user: User): Boolean               = user.id == hostId
+  def isHost(user: User): Boolean = user.id == hostId
 
   def playingPairings = pairings.filterNot(_.finished)
 
@@ -135,14 +135,14 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if isCreated then s else this
 
-  def wins    = pairings.count(p => p.finished && p.wins.has(false))
-  def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
-  def losses  = pairings.count(p => p.finished && p.wins.has(true))
+  def wins = pairings.count(p => p.finished && p.wins.has(false))
+  def draws = pairings.count(p => p.finished && p.wins.isEmpty)
+  def losses = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 
-  def pairingOf(userId: UserId)   = pairings.find(_.is(userId))
-  def playerIds                   = pairings.map(_.player.user)
-  def hostScore                   = lila.core.rating.Score(wins, losses, draws, none)
+  def pairingOf(userId: UserId) = pairings.find(_.is(userId))
+  def playerIds = pairings.map(_.player.user)
+  def hostScore = lila.core.rating.Score(wins, losses, draws, none)
   def playerScore(userId: UserId) = pairingOf(userId).map: p =>
     Score(p.wins.has(true).so(1), p.wins.has(false).so(1), p.wins.isEmpty.so(1), none)
 

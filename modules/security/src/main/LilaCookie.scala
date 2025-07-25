@@ -68,7 +68,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
   def ensureAndGet(req: RequestHeader)(res: SessionId => Fu[Result])(using Executor): Fu[Result] =
     LilaCookie.sid(req) match
       case Some(sessionId) => res(SessionId(sessionId))
-      case None            =>
+      case None =>
         val sid = generateSessionId()
         res(sid).map:
           _.withCookies(session(LilaCookie.sessionId, sid.value)(using req))

@@ -17,8 +17,8 @@ object home:
           "lobby",
           Json
             .obj(
-              "data"                    -> data,
-              "showRatings"             -> ctx.pref.showRatings,
+              "data" -> data,
+              "showRatings" -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
             .add("bots", /* Granter.opt(_.Beta) || */ Granter.opt(_.BotEditor))
@@ -43,7 +43,7 @@ object home:
         given Option[UserWithPerfs] = homepage.me
         main(
           cls := List(
-            "lobby"      -> true,
+            "lobby" -> true,
             "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
           )
         )(

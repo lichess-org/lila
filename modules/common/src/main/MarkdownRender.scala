@@ -80,7 +80,7 @@ final class MarkdownRender(
 
   private val immutableOptions = options.toImmutable
 
-  private val parser   = Parser.builder(immutableOptions).build()
+  private val parser = Parser.builder(immutableOptions).build()
   private val renderer = HtmlRenderer.builder(immutableOptions).build()
 
   private val logger = lila.log("markdown")
@@ -89,7 +89,7 @@ final class MarkdownRender(
     Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
   // https://github.com/vsch/flexmark-java/issues/496
-  private val tooManyUnderscoreRegex               = """(_{4,})""".r
+  private val tooManyUnderscoreRegex = """(_{4,})""".r
   private def preventStackOverflow(text: Markdown) = Markdown:
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
 
@@ -107,7 +107,7 @@ final class MarkdownRender(
 
 object MarkdownRender:
 
-  type Key         = String
+  type Key = String
   type PgnSourceId = String
 
   case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
@@ -145,7 +145,7 @@ object MarkdownRender:
     yield url.toString
 
     def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
-      override def rendererOptions(options: MutableDataHolder)                             = ()
+      override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder.nodeRendererFactory:
           new:
@@ -159,8 +159,8 @@ object MarkdownRender:
           context.renderChildren(node)
         else
           val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url          = resolvedLink.getUrl()
-          val altText      = new TextCollectingVisitor().collectAndGetText(node)
+          val url = resolvedLink.getUrl()
+          val altText = new TextCollectingVisitor().collectAndGetText(node)
           whitelistedSrc(url, assetDomain) match
             case Some(src) =>
               html
@@ -182,7 +182,7 @@ object MarkdownRender:
                 .tag("/a")
 
   private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
-    override def rendererOptions(options: MutableDataHolder)                             = ()
+    override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.nodeRendererFactory:
         new:
@@ -219,7 +219,7 @@ object MarkdownRender:
       if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
         context.renderChildren(node)
       else
-        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        val link = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case pgnRegexes.game(id, color, ply) =>
@@ -287,7 +287,7 @@ object MarkdownRender:
             .tag("/a")
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
-    override def rendererOptions(options: MutableDataHolder)                             = ()
+    override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.attributeProviderFactory:
         new IndependentAttributeProviderFactory:
@@ -301,7 +301,7 @@ object MarkdownRender:
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
-    override def rendererOptions(options: MutableDataHolder)                 = ()
+    override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
       new NodeRendererFactory:
         override def apply(options: DataHolder) = new NodeRenderer:

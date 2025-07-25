@@ -13,7 +13,7 @@ case class InsightEntry(
     perf: PerfKey,
     opening: Option[SimpleOpening],
     myCastling: Castling,
-    rating: Option[IntRating],         // stable rating only
+    rating: Option[IntRating], // stable rating only
     opponentRating: Option[IntRating], // stable rating only
     opponentStrength: Option[RelativeStrength],
     opponentCastling: Castling,
@@ -33,25 +33,25 @@ case object InsightEntry:
   def povToId(pov: Pov) = s"${pov.gameId}${pov.color.letter}"
 
   object BSONFields:
-    val id                       = "_id"
-    val number                   = "n"
-    val userId                   = "u"
-    val color                    = "c"
-    val perf                     = "p"
-    val opening                  = "op"
-    val openingFamily            = "of"
-    val myCastling               = "mc"
-    val rating                   = "mr"
-    val opponentRating           = "or"
-    val opponentStrength         = "os"
-    val opponentCastling         = "oc"
-    val moves: String            = "m"
+    val id = "_id"
+    val number = "n"
+    val userId = "u"
+    val color = "c"
+    val perf = "p"
+    val opening = "op"
+    val openingFamily = "of"
+    val myCastling = "mc"
+    val rating = "mr"
+    val opponentRating = "or"
+    val opponentStrength = "os"
+    val opponentCastling = "oc"
+    val moves: String = "m"
     def moves(f: String): String = s"$moves.$f"
-    val queenTrade               = "q"
-    val result                   = "r"
-    val termination              = "t"
-    val ratingDiff               = "rd"
-    val analysed                 = "a"
-    val provisional              = "pr"
-    val source                   = "so"
-    val date                     = "d"
+    val queenTrade = "q"
+    val result = "r"
+    val termination = "t"
+    val ratingDiff = "rd"
+    val analysed = "a"
+    val provisional = "pr"
+    val source = "so"
+    val date = "d"

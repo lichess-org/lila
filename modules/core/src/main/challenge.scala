@@ -19,22 +19,22 @@ trait Challenge:
   val finalColor: Color
   val destUser: Option[Challenger.Registered]
   val challenger: Challenger
-  def destUserId     = destUser.map(_.id)
+  def destUserId = destUser.map(_.id)
   def challengerUser = challenger match
     case u: Challenger.Registered => u.some
-    case _                        => none
+    case _ => none
   def challengerIsAnon = challenger.isInstanceOf[Challenger.Anonymous]
-  def clock            = timeControl match
+  def clock = timeControl match
     case c: Challenge.TimeControl.Clock => c.some
-    case _                              => none
+    case _ => none
 
 object Challenge:
 
   sealed trait TimeControl:
     def realTime: Option[_root_.chess.Clock.Config] = none
   object TimeControl:
-    case object Unlimited                               extends TimeControl
-    case class Correspondence(days: Days)               extends TimeControl
+    case object Unlimited extends TimeControl
+    case class Correspondence(days: Days) extends TimeControl
     case class Clock(config: _root_.chess.Clock.Config) extends TimeControl:
       override def realTime = config.some
       // All durations are expressed in seconds

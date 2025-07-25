@@ -16,7 +16,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
   def federations(page: Int): Fu[Paginator[Federation]] =
     Paginator(
       adapter = new AdapterLike[Federation]:
-        def nbResults: Fu[Int]              = fuccess(Federation.names.size)
+        def nbResults: Fu[Int] = fuccess(Federation.names.size)
         def slice(offset: Int, length: Int) =
           repo.federationColl
             .find($empty)
@@ -32,7 +32,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
   def federationPlayers(fed: Federation, page: Int): Fu[Paginator[FidePlayer]] =
     Paginator(
       adapter = new AdapterLike[FidePlayer]:
-        def nbResults: Fu[Int]              = fuccess(100 * maxPerPage.value)
+        def nbResults: Fu[Int] = fuccess(100 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           repo.playerColl
             .find(repo.player.selectActive ++ repo.player.selectFed(fed.id))

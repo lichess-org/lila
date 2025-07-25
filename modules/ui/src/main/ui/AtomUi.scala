@@ -21,8 +21,8 @@ final class AtomUi(netBaseUrl: BaseUrl):
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(s"$netBaseUrl$htmlCall"),
-      link(rel := "alternate", tpe := "text/html", href            := s"${netBaseUrl}$htmlCall"),
-      link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
+      link(rel := "alternate", tpe := "text/html", href := s"${netBaseUrl}$htmlCall"),
+      link(rel := "self", tpe := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
       tag("updated")(updated.map(atomDate)),
       elems.map: el =>
@@ -30,24 +30,24 @@ final class AtomUi(netBaseUrl: BaseUrl):
       raw("</feed>")
     )
 
-  def atomDate(date: Instant): String   = isoDateTimeFormatter.print(date)
+  def atomDate(date: Instant): String = isoDateTimeFormatter.print(date)
   def atomDate(date: LocalDate): String =
     java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone).print(date)
 
   def atomLink(url: Call) = a(
-    cls      := "atom",
+    cls := "atom",
     st.title := "Atom RSS feed",
-    href     := url,
+    href := url,
     dataIcon := Icon.RssFeed
   )
 
-  private val termAttr   = attr("term")
-  private val labelAttr  = attr("label")
+  private val termAttr = attr("term")
+  private val labelAttr = attr("label")
   private val schemeAttr = attr("scheme")
 
   def category(term: String, label: String, scheme: Option[String] = None) =
     tag("category")(
-      termAttr   := term,
-      labelAttr  := label,
+      termAttr := term,
+      labelAttr := label,
       schemeAttr := scheme
     )

@@ -2,7 +2,7 @@ package lila.common
 
 class LameNameTest extends munit.FunSuite:
 
-  def isLame(str: String)  = LameName.username(UserName(str))
+  def isLame(str: String) = LameName.username(UserName(str))
   def explain(str: String) = LameName.explain(UserName(str))
 
   test("disallow separated titles"):

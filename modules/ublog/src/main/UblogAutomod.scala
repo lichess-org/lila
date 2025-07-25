@@ -66,28 +66,28 @@ final class UblogAutomod(
     val prompt = promptSetting.get().value
     (config.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
-        "model"       -> config.model,
+        "model" -> config.model,
         "temperature" -> temperatureSetting.get(),
-        "messages"    -> Json.arr(
+        "messages" -> Json.arr(
           Json.obj("role" -> "system", "content" -> prompt),
-          Json.obj("role" -> "user", "content"   -> userText)
+          Json.obj("role" -> "user", "content" -> userText)
         )
       )
       ws.url(config.url)
         .withHttpHeaders(
           "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type"  -> "application/json"
+          "Content-Type" -> "application/json"
         )
         .post(body)
         .flatMap: rsp =>
           (for
             choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
             if rsp.status == 200
-            best      <- choices.headOption
+            best <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
-            result    <- normalize(resultStr)
+            result <- normalize(resultStr)
           yield result) match
-            case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
+            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.quality(res.quality.toString).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
@@ -116,4 +116,4 @@ final class UblogAutomod(
     val isBad = (v: String) => Set("none", "false", "").exists(_.equalsIgnoreCase(v))
     field match
       case Some(JsString(value)) => value.trim().some.filterNot(isBad)
-      case _                     => none
+      case _ => none

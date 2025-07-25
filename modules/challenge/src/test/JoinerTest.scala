@@ -21,7 +21,7 @@ final class JoinerTest extends munit.FunSuite:
     )
     assertEquals(ChallengeJoiner.createGame(challenge, None, None).chess.startedAtPly, Ply.initial)
   test("started at turn from position"):
-    val position  = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
+    val position = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
     val challenge = Challenge.make(
       variant = FromPosition,
       initialFen = Some(chess.format.Fen.Full(position)),

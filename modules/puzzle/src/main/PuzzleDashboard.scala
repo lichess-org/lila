@@ -42,17 +42,17 @@ object PuzzleDashboard:
   case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: IntRating):
 
     def firstWins = wins - fixed
-    def unfixed   = nb - wins
-    def failed    = fixed + unfixed
+    def unfixed = nb - wins
+    def failed = fixed + unfixed
 
-    def winPercent      = wins * 100 / nb
-    def fixedPercent    = fixed * 100 / nb
+    def winPercent = wins * 100 / nb
+    def fixedPercent = fixed * 100 / nb
     def firstWinPercent = firstWins * 100 / nb
 
     lazy val performance: IntRating =
       puzzleRatingAvg.map(_ - 500 + math.round(1000 * (firstWins.toFloat / nb)))
 
-    def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
+    def clear = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
 
     def canReplay = unfixed > 0
@@ -97,9 +97,9 @@ final class PuzzleDashboardApi(
       _.aggregateOne(_.sec): framework =>
         import framework.*
         val resultsGroup = List(
-          "nb"     -> SumAll,
-          "wins"   -> Sum(countField("w")),
-          "fixes"  -> Sum(countField("f")),
+          "nb" -> SumAll,
+          "wins" -> Sum(countField("w")),
+          "fixes" -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
         Match($doc("u" -> userId, "d".$gt(nowInstant.minusDays(days.value)))) -> List(
@@ -114,7 +114,7 @@ final class PuzzleDashboardApi(
           Unwind("puzzle"),
           Facet(
             List(
-              "global"  -> List(Group(BSONNull)(resultsGroup*)),
+              "global" -> List(Group(BSONNull)(resultsGroup*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),
@@ -125,16 +125,16 @@ final class PuzzleDashboardApi(
         )
       .map: r =>
         for
-          result     <- r
+          result <- r
           globalDocs <- result.getAsOpt[List[Bdoc]]("global")
-          globalDoc  <- globalDocs.headOption
-          global     <- readResults(globalDoc)
-          themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
+          globalDoc <- globalDocs.headOption
+          global <- readResults(globalDoc)
+          themeDocs <- result.getAsOpt[List[Bdoc]]("byTheme")
           byTheme = for
-            doc      <- themeDocs
+            doc <- themeDocs
             themeStr <- doc.string("_id")
-            theme    <- PuzzleTheme.find(themeStr)
-            results  <- readResults(doc)
+            theme <- PuzzleTheme.find(themeStr)
+            results <- readResults(doc)
           yield theme.key -> results
         yield PuzzleDashboard(
           global = global,
@@ -145,9 +145,9 @@ final class PuzzleDashboardApi(
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
 
   private def readResults(doc: Bdoc) = for
-    nb     <- doc.int("nb")
-    wins   <- doc.int("wins")
-    fixes  <- doc.int("fixes")
+    nb <- doc.int("nb")
+    wins <- doc.int("wins")
+    fixes <- doc.int("fixes")
     rating <- doc.double("rating")
   yield Results(nb, wins, fixes, IntRating(rating.toInt))
 

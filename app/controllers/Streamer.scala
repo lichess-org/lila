@@ -18,23 +18,23 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         val requests = getBool("requests") && isGrantedOpt(_.Streamers)
         for
           liveStreams <- env.streamer.liveStreamApi.all
-          live        <- api.withUsers(liveStreams)
-          pager       <- env.streamer.pager.get(page, liveStreams, requests)
-          page        <- renderPage(views.streamer.index(live, pager, requests))
+          live <- api.withUsers(liveStreams)
+          pager <- env.streamer.pager.get(page, liveStreams, requests)
+          page <- renderPage(views.streamer.index(live, pager, requests))
         yield Ok(page)
 
   def featured = Anon: ctx ?=>
     env.streamer.liveStreamApi.all.map: streams =>
-      val max      = env.streamer.homepageMaxSetting.get()
+      val max = env.streamer.homepageMaxSetting.get()
       val featured = streams.homepage(max, ctx.acceptLanguages).withTitles(env.user.lightUserApi)
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(
-            "url"    -> routes.Streamer.redirect(s.streamer.userId).absoluteURL(),
+            "url" -> routes.Streamer.redirect(s.streamer.userId).absoluteURL(),
             "status" -> s.status,
-            "user"   -> Json
+            "user" -> Json
               .obj(
-                "id"   -> s.streamer.userId,
+                "id" -> s.streamer.userId,
                 "name" -> s.streamer.name
               )
               .add("title" -> featured.titles.get(s.streamer.userId))
@@ -42,7 +42,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def live = apiC.ApiRequest:
     for
-      s     <- env.streamer.liveStreamApi.all
+      s <- env.streamer.liveStreamApi.all
       users <- env.user.lightUserApi.asyncManyFallback(s.streams.map(_.streamer.userId))
     yield apiC.toApiResult:
       (s.streams
@@ -55,10 +55,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         for
-          sws      <- env.streamer.liveStreamApi.of(s)
+          sws <- env.streamer.liveStreamApi.of(s)
           activity <- env.activity.read.recentAndPreload(sws.user)
-          perfs    <- env.user.perfsRepo.perfsOf(sws.user)
-          page     <- renderPage(views.streamer.show(sws, perfs, activity))
+          perfs <- env.user.perfsRepo.perfsOf(sws.user)
+          page <- renderPage(views.streamer.show(sws, perfs, activity))
         yield Ok(page)
 
   def redirect(username: UserStr) = Open:
@@ -75,7 +75,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           .find(me)
           .flatMap:
             case None => api.create(me).inject(Redirect(routes.Streamer.edit))
-            case _    => Redirect(routes.Streamer.edit)
+            case _ => Redirect(routes.Streamer.edit)
   }
 
   private def modData(streamer: StreamerModel)(using ctx: Context) =
@@ -88,10 +88,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def edit = Auth { ctx ?=> _ ?=>
     AsStreamer: s =>
       for
-        _      <- env.msg.twoFactorReminder(s.user.id)
-        sws    <- env.streamer.liveStreamApi.of(s)
+        _ <- env.msg.twoFactorReminder(s.user.id)
+        sws <- env.streamer.liveStreamApi.of(s)
         forMod <- modData(s.streamer)
-        page   <- renderPage(views.streamer.edit(sws, StreamerForm.userForm(sws.streamer), forMod))
+        page <- renderPage(views.streamer.edit(sws, StreamerForm.userForm(sws.streamer), forMod))
       yield Ok(page).noCache
   }
 
@@ -147,7 +147,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def checkOnline(streamer: UserStr) = Auth { _ ?=> me ?=>
-    val uid   = streamer.id
+    val uid = streamer.id
     val isMod = isGranted(_.ModLog)
     if ctx.is(uid) || isMod then
       limit
@@ -165,7 +165,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def youTubePubSubChallenge = Anon:
     get("hub.challenge").fold(BadRequest): challenge =>
-      val days      = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+      val days = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
       lila
         .log("streamer")

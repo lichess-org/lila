@@ -213,14 +213,14 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             ),
             s.student.managed.option(
               a(
-                href  := routes.Clas.studentClose(clas.id, s.user.username),
-                cls   := "button button-empty button-red",
+                href := routes.Clas.studentClose(clas.id, s.user.username),
+                cls := "button button-empty button-red",
                 title := trans.clas.closeDesc1.txt()
               )(trans.clas.closeStudent())
             ),
             a(
               href := routes.Clas.studentMove(clas.id, s.user.username),
-              cls  := "button button-empty"
+              cls := "button button-empty"
             )(trans.clas.moveToAnotherClass())
           )
         )
@@ -264,7 +264,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       val classForms: Frag = otherClasses.map: toClass =>
         postForm(action := routes.Clas.studentMovePost(clas.id, s.student.userId, toClass.id))(
           form3.submit(toClass.name, icon = Icon.InternalArrow.some)(
-            cls   := "yes-no-confirm button-blue button-empty",
+            cls := "yes-no-confirm button-blue button-empty",
             title := trans.clas.moveToClass.txt(toClass.name)
           )
         )

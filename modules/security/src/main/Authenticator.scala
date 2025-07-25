@@ -27,13 +27,13 @@ case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean
 object LoginCandidate:
   enum Result(val toOption: Option[User]):
     def success = toOption.isDefined
-    case Success(user: User)       extends Result(user.some)
+    case Success(user: User) extends Result(user.some)
     case InvalidUsernameOrPassword extends Result(none)
-    case Must2fa                   extends Result(none)
-    case BlankedPassword           extends Result(none)
-    case WeakPassword              extends Result(none)
-    case MissingTotpToken          extends Result(none)
-    case InvalidTotpToken          extends Result(none)
+    case Must2fa extends Result(none)
+    case BlankedPassword extends Result(none)
+    case WeakPassword extends Result(none)
+    case MissingTotpToken extends Result(none)
+    case InvalidTotpToken extends Result(none)
 
 final class Authenticator(
     passHasher: PasswordHasher,
@@ -92,5 +92,5 @@ final class Authenticator(
           LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.bytes.isEmpty).some
         case _ => none
   }.recover:
-    case _: reactivemongo.api.bson.exceptions.HandlerException           => none
+    case _: reactivemongo.api.bson.exceptions.HandlerException => none
     case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // erased user

@@ -19,8 +19,8 @@ final class Env(
     db: lila.db.Db
 )(using Executor, akka.stream.Materializer):
 
-  lazy val teamRepo    = TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))
+  lazy val teamRepo = TeamRepo(db(CollName("team")))
+  lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))
   lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]

@@ -22,8 +22,8 @@ private case class SocketStatus(
     blackOnGame: Boolean,
     blackIsGone: Boolean
 ):
-  def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
-  def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
+  def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
+  def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 private object SocketStatus:
   val default = SocketStatus(SocketVersion(0), false, false, false, false)

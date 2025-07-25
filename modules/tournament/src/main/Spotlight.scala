@@ -20,7 +20,7 @@ object Spotlight:
   private given Ordering[Tournament] = Ordering.by[Tournament, (Int, Int)]: tour =>
     tour.scheduleFreq match
       case Some(freq) => (freq.importance, -tour.secondsToStart.value)
-      case None       => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart.value)
+      case None => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart.value)
 
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(tours.filter(selectForMe).distinct).topN(max)
@@ -41,16 +41,16 @@ object Spotlight:
     tour.isTeamRelated || tour.scheduleFreq.so: freq =>
       def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
       freq match
-        case Hourly                               => canMaybeJoinLimited(tour) && playedSinceWeeks(2)
-        case Daily | Eastern                      => playedSinceWeeks(2)
-        case Weekly | Weekend                     => playedSinceWeeks(4)
-        case Unique                               => playedSinceWeeks(4)
+        case Hourly => canMaybeJoinLimited(tour) && playedSinceWeeks(2)
+        case Daily | Eastern => playedSinceWeeks(2)
+        case Weekly | Weekend => playedSinceWeeks(4)
+        case Unique => playedSinceWeeks(4)
         case Monthly | Shield | Marathon | Yearly => true
-        case ExperimentalMarathon                 => false
+        case ExperimentalMarathon => false
 
   private def canMaybeJoinLimited(tour: Tournament)(using me: UserWithPerfs): Boolean =
     given LightUser.Me = LightUser.Me(me.user.light)
-    given Perf         = me.perfs(tour.perfType)
+    given Perf = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
     tour.conditions.nbRatedGame.forall { c =>
       c(tour.perfType).accepted

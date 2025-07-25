@@ -11,16 +11,16 @@ import lila.rating.PerfType.GamePerf
 final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
 
   private given ratingAtHandler: BSONDocumentHandler[RatingAt] = Macros.handler
-  private given BSONDocumentHandler[GameAt]                    = Macros.handler
-  private given BSONDocumentHandler[Result]                    = Macros.handler
-  private given resultsHandler: BSONDocumentHandler[Results]   = Macros.handler
-  private given streakHandler: BSONDocumentHandler[Streak]     = Macros.handler
-  private given BSONDocumentHandler[Streaks]                   = Macros.handler
-  private given BSONDocumentHandler[PlayStreak]                = Macros.handler
-  private given BSONDocumentHandler[ResultStreak]              = Macros.handler
-  private given BSONDocumentHandler[Avg]                       = Macros.handler
-  private given BSONDocumentHandler[Count]                     = Macros.handler
-  private given BSONDocumentHandler[PerfStat]                  = Macros.handler
+  private given BSONDocumentHandler[GameAt] = Macros.handler
+  private given BSONDocumentHandler[Result] = Macros.handler
+  private given resultsHandler: BSONDocumentHandler[Results] = Macros.handler
+  private given streakHandler: BSONDocumentHandler[Streak] = Macros.handler
+  private given BSONDocumentHandler[Streaks] = Macros.handler
+  private given BSONDocumentHandler[PlayStreak] = Macros.handler
+  private given BSONDocumentHandler[ResultStreak] = Macros.handler
+  private given BSONDocumentHandler[Avg] = Macros.handler
+  private given BSONDocumentHandler[Count] = Macros.handler
+  private given BSONDocumentHandler[PerfStat] = Macros.handler
 
   def find(userId: UserId, perf: GamePerf): Fu[Option[PerfStat]] =
     coll(_.byId[PerfStat](PerfStat.makeId(userId, perf)))

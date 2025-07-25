@@ -10,7 +10,7 @@ final class GamifyUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
 
   def index(leaderboards: Gamify.Leaderboards, history: List[Gamify.HistoryMonth])(using ctx: Context) =
-    val title                 = "Moderator hall of fame"
+    val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
         th(year),

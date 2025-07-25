@@ -12,16 +12,16 @@ object LameName:
     else
       simplify(name) match
         case usernameExplainRegex(found) => s"""Lame username: "$found"""".some
-        case _                           => None
+        case _ => None
 
   private def simplify(name: UserName): String = name.value.toLowerCase.replaceIf('_', "")
 
-  private val titlePattern       = "W*(?:[NCFI1L]|I?G)"
+  private val titlePattern = "W*(?:[NCFI1L]|I?G)"
   private val containsTitleRegex = (
     "(?i:" + titlePattern + "M[^a-z].*)|" // title at start, separated by non-letter
       + "(?:(?i:" + titlePattern + ")m[^a-z].*)|" // title at start with lowercase m, not followed by lowercase letter
-      + "(?:" + titlePattern + "M.*)|"                // uppercase title at start
-      + "(?i:.*[^a-z]" + titlePattern + "M)|"         // title at end, separated by non-letter
+      + "(?:" + titlePattern + "M.*)|" // uppercase title at start
+      + "(?i:.*[^a-z]" + titlePattern + "M)|" // title at end, separated by non-letter
       + "(?i:.*[^a-z]" + titlePattern + "M[^a-z].*)|" // title in middle, surrounded by non-letters
       + "(?:.*[^A-Z]" + titlePattern + "M(?:[A-Z]?[^A-Z].*)?)" // uppercase title not preceded by uppercase letter, either at end or followed by at most one uppercase letter and then something else
   ).r

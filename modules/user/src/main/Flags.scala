@@ -4,7 +4,7 @@ import lila.core.user.{ Flag, FlagCode, FlagName, FlagApi }
 
 object Flags extends FlagApi:
 
-  private inline def F(code: String, name: FlagName)                    = new Flag(FlagCode(code), name, none)
+  private inline def F(code: String, name: FlagName) = new Flag(FlagCode(code), name, none)
   private inline def F(code: String, name: FlagName, shortName: String) =
     new Flag(FlagCode(code), name, shortName.some)
 
@@ -301,4 +301,4 @@ object Flags extends FlagApi:
     List("_united-nations", "_earth")
 
   def info(code: FlagCode): Option[Flag] = map.get(code)
-  def name(flag: Flag): FlagName         = nameMap.getOrElse(flag, flag.name)
+  def name(flag: Flag): FlagName = nameMap.getOrElse(flag, flag.name)

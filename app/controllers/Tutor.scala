@@ -79,10 +79,10 @@ final class Tutor(env: Env) extends LilaController(env):
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
           for
             waitGames <- env.tutor.queue.waitingGames(user)
-            user      <- env.user.api.withPerfs(user)
-            page      <- renderPage(views.tutor.home.empty.queued(in, user, waitGames))
+            user <- env.user.api.withPerfs(user)
+            page <- renderPage(views.tutor.home.empty.queued(in, user, waitGames))
           yield Accepted(page)
-        case TutorFullReport.Empty(_)             => Accepted.page(views.tutor.home.empty.start(user))
+        case TutorFullReport.Empty(_) => Accepted.page(views.tutor.home.empty.start(user))
         case available: TutorFullReport.Available => f(user)(available)
     }
 

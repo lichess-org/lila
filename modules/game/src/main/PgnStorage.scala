@@ -67,9 +67,9 @@ private object PgnStorage:
       sans: Vector[SanStr],
       board: Board,
       positionHashes: PositionHash, // irrelevant after game ends
-      unmovedRooks: UnmovedRooks,   // irrelevant after game ends
+      unmovedRooks: UnmovedRooks, // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles,            // irrelevant after game ends
+      castles: Castles, // irrelevant after game ends
       halfMoveClock: HalfMoveClock // irrelevant after game ends
   )
 

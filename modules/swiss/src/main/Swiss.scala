@@ -30,14 +30,14 @@ case class Swiss(
     if round.value == 0 then Swiss.Status.created
     else if finishedAt.isDefined then Swiss.Status.finished
     else Swiss.Status.started
-  def isCreated            = status == Swiss.Status.created
-  def isStarted            = status == Swiss.Status.started
-  def isFinished           = status == Swiss.Status.finished
-  def isNotFinished        = !isFinished
-  def isNowOrSoon          = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
+  def isCreated = status == Swiss.Status.created
+  def isStarted = status == Swiss.Status.started
+  def isFinished = status == Swiss.Status.finished
+  def isNotFinished = !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
   def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
-  def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
-  def isEnterable          =
+  def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
+  def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRoundNumber] = SwissRoundNumber.from((1 to round.value).toList)
@@ -78,9 +78,9 @@ case class Swiss(
 
 object Swiss:
 
-  val maxPlayers           = 4000
+  val maxPlayers = 4000
   val maxForbiddenPairings = 1000
-  val maxManualPairings    = 10_000
+  val maxManualPairings = 10_000
 
   opaque type Round = Int
   object Round extends OpaqueInt[Round]
@@ -107,19 +107,19 @@ object Swiss:
       manualPairings: String
   ):
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
-    def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
+    def manualRounds = intervalSeconds == Swiss.RoundInterval.manual
     def dailyInterval = (!manualRounds && intervalSeconds >= 24 * 3600).option(intervalSeconds / 3600 / 24)
 
   type ChatFor = Int
   object ChatFor:
-    val NONE    = 0
+    val NONE = 0
     val LEADERS = 10
     val MEMBERS = 20
-    val ALL     = 30
+    val ALL = 30
     val default = MEMBERS
 
   object RoundInterval:
-    val auto   = -1
+    val auto = -1
     val manual = 99999999
 
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =

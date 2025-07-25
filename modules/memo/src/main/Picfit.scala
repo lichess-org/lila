@@ -39,7 +39,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
-    val source          = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
+    val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     uploadSource(rel, source, userId)
 
   private def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
@@ -49,10 +49,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       part.contentType
         .collect:
           case "image/webp" => "webp"
-          case "image/png"  => "png"
+          case "image/png" => "png"
           case "image/jpeg" => "jpg"
         .match
-          case None            => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
+          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
               id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
@@ -81,7 +81,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    val sizePx                                                                 = Left(800)
+    val sizePx = Left(800)
     def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
       rel.contains(idSep).not.so {
         uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
@@ -98,7 +98,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         )
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
-          case _                        =>
+          case _ =>
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
             // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
@@ -118,14 +118,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
       for
         ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-        _   <- deleteByIdsAndUser(ids, del.id)
+        _ <- deleteByIdsAndUser(ids, del.id)
       yield ()
 
 object PicfitApi:
 
   val uploadMaxMb = 6
 
-  type FilePart           = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type FilePart = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
@@ -135,7 +135,7 @@ object PicfitApi:
     import play.api.libs.ws.SourceBody
     import play.core.formatters.Multipart
     given bodyWritable: BodyWritable[Source[MultipartFormData.Part[Source[ByteString, ?]], ?]] =
-      val boundary    = Multipart.randomBoundary()
+      val boundary = Multipart.randomBoundary()
       val contentType = s"multipart/form-data; boundary=$boundary"
       BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 
@@ -183,7 +183,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
   private object signQueryString:
-    private val signer                              = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
+    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10.minutes)

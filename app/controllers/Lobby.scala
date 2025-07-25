@@ -12,7 +12,7 @@ final class Lobby(env: Env) extends LilaController(env):
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pools"   -> lila.pool.PoolList.json
+      "pools" -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
       "domain" -> env.net.assetDomain

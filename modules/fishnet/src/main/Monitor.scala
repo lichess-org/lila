@@ -101,14 +101,14 @@ object Monitor:
       def statusFor(s: Monitor.StatusFor) =
         Json.obj(
           "acquired" -> s.acquired,
-          "queued"   -> s.queued,
-          "oldest"   -> s.oldest
+          "queued" -> s.queued,
+          "oldest" -> s.oldest
         )
       JsonStr(
         Json.stringify(
           Json.obj(
             "analysis" -> Json.obj(
-              "user"   -> statusFor(user),
+              "user" -> statusFor(user),
               "system" -> statusFor(system)
             )
           )

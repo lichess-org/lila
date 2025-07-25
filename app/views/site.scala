@@ -4,7 +4,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.cms.CmsPage
 
 val message = lila.web.ui.SiteMessage(helpers)
-val ui      = lila.web.ui.SitePages(helpers)
+val ui = lila.web.ui.SitePages(helpers)
 
 object page:
 
@@ -59,10 +59,10 @@ object variant:
         div(cls := "variants")(
           lila.rating.PerfType.variants.map: pk =>
             val variant = lila.rating.PerfType.variantOf(pk)
-            val pt      = lila.rating.PerfType(pk)
+            val pt = lila.rating.PerfType(pk)
             a(
-              cls      := "variant text box__pad",
-              href     := routes.Cms.variant(variant.key),
+              cls := "variant text box__pad",
+              href := routes.Cms.variant(variant.key),
               dataIcon := pt.icon
             ):
               span(
@@ -82,8 +82,8 @@ object variant:
             lila.rating.PerfType.variants.map: pk =>
               val variant = lila.rating.PerfType.variantOf(pk)
               a(
-                cls      := List("text" -> true, "active" -> active.contains(pk)),
-                href     := routes.Cms.variant(variant.key),
+                cls := List("text" -> true, "active" -> active.contains(pk)),
+                href := routes.Cms.variant(variant.key),
                 dataIcon := pk.perfIcon
               )(pk.perfTrans)
           ),

@@ -26,8 +26,8 @@ trait LilaCookie:
   ): Cookie
 
 object LilaCookie:
-  val sessionId                               = "sid"
-  val noRemember                              = "noRemember"
+  val sessionId = "sid"
+  val noRemember = "noRemember"
   def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
 
 trait SecurityApi:
@@ -36,10 +36,10 @@ trait SecurityApi:
 
 case class HcaptchaPublicConfig(key: String, enabled: Boolean)
 case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
-  def enabled                 = config.enabled && !skip
-  def apply(key: String)      = form(key)
+  def enabled = config.enabled && !skip
+  def apply(key: String) = form(key)
   def withForm[B](f: Form[B]) = copy(form = f)
-  def fill(data: A)           = copy(form = form.fill(data))
+  def fill(data: A) = copy(form = form.fill(data))
 
 trait Hcaptcha:
   def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
@@ -84,22 +84,22 @@ trait PromotionApi:
 opaque type IsProxy = String
 object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
-    def is                                  = a.value.nonEmpty
+    def is = a.value.nonEmpty
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
-    def isSafeish: Boolean                  = in(_.empty, _.vpn, _.privacy)
-    def name                                = a.value.nonEmpty.option(a.value)
+    def isSafeish: Boolean = in(_.empty, _.vpn, _.privacy)
+    def name = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
-  val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
-  val privacy     = IsProxy("CPN") // consumer privacy network (akin vpn)
-  val tor         = IsProxy("TOR") // tor exit node
-  val server      = IsProxy("DCH") // servers
-  val enterprise  = IsProxy("EPN") // enterprise private network
-  val public      = IsProxy("PUB") // public proxies (unsafe for users)
-  val web         = IsProxy("WEB") // web proxies (garbage)
-  val search      = IsProxy("SES") // search engine crawlers
+  val vpn = IsProxy("VPN") // paid VPNs (safe for users)
+  val privacy = IsProxy("CPN") // consumer privacy network (akin vpn)
+  val tor = IsProxy("TOR") // tor exit node
+  val server = IsProxy("DCH") // servers
+  val enterprise = IsProxy("EPN") // enterprise private network
+  val public = IsProxy("PUB") // public proxies (unsafe for users)
+  val web = IsProxy("WEB") // web proxies (garbage)
+  val search = IsProxy("SES") // search engine crawlers
   val residential = IsProxy("RES") // residential proxies (suspect)
-  val empty       = IsProxy("")
+  val empty = IsProxy("")
 
 trait Ip2ProxyApi:
   def ofReq(req: RequestHeader): Fu[IsProxy]

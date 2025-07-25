@@ -27,7 +27,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
               local = "u1",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(10))))),
+                $doc("$match" -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(10))))),
                 $doc("$project" -> $id(true))
               )
             )
@@ -64,10 +64,10 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
       $doc("u1" -> userId, "r" -> relation)
     )
 
-  def follow(u1: UserId, u2: UserId): Funit   = save(u1, u2, Follow)
+  def follow(u1: UserId, u2: UserId): Funit = save(u1, u2, Follow)
   def unfollow(u1: UserId, u2: UserId): Funit = remove(u1, u2)
-  def block(u1: UserId, u2: UserId): Funit    = save(u1, u2, Block)
-  def unblock(u1: UserId, u2: UserId): Funit  = remove(u1, u2)
+  def block(u1: UserId, u2: UserId): Funit = save(u1, u2, Block)
+  def unblock(u1: UserId, u2: UserId): Funit = remove(u1, u2)
 
   def unfollowMany(u1: UserId, u2s: Iterable[UserId]): Funit =
     coll.delete.one($inIds(u2s.map { makeId(u1, _) })).void

@@ -20,7 +20,7 @@ case class UserWithModlog(user: UserWithPerfs, log: List[Modlog.UserEntry]):
     log.find(_.action == action(Modlog)).map(_.date)
 
 object UserWithModlog:
-  given UserIdOf[UserWithModlog]  = _.user.id
+  given UserIdOf[UserWithModlog] = _.user.id
   given AtInstant[UserWithModlog] = _.user.createdAt
 
 def canGrant(permission: Permission)(using Me): Boolean =

@@ -60,13 +60,13 @@ object Form:
       .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
-      case None          =>
+      case None =>
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
 
   def empty[T]: FieldMapping[Option[T]] =
     given Formatter[Option[T]] = new:
       def bind(key: String, data: Map[String, String]) = Right(None)
-      def unbind(key: String, value: Option[T])        = Map.empty
+      def unbind(key: String, value: Option[T]) = Map.empty
     FieldMapping()
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
@@ -79,10 +79,10 @@ object Form:
         .map(if keepSymbols then String.softCleanUp else String.fullCleanUp)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
-  val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)
+  val cleanTextFormatter: Formatter[String] = makeCleanTextFormatter(keepSymbols = false)
   val cleanTextFormatterWithSymbols: Formatter[String] = makeCleanTextFormatter(keepSymbols = true)
 
-  val cleanText: Mapping[String]            = of(using cleanTextFormatter)
+  val cleanText: Mapping[String] = of(using cleanTextFormatter)
   val cleanTextWithSymbols: Mapping[String] = of(using cleanTextFormatterWithSymbols)
 
   val nonEmptyOrSpace = V.Constraint[String]: t =>
@@ -92,8 +92,8 @@ object Form:
   private def addLengthConstraints(m: Mapping[String], minLength: Int, maxLength: Int) =
     (minLength, maxLength) match
       case (min, Int.MaxValue) => m.verifying(Constraints.minLength(min))
-      case (0, max)            => m.verifying(Constraints.maxLength(max))
-      case (min, max)          => m.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+      case (0, max) => m.verifying(Constraints.maxLength(max))
+      case (min, max) => m.verifying(Constraints.minLength(min), Constraints.maxLength(max))
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanText, minLength, maxLength)
@@ -182,12 +182,12 @@ object Form:
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if nb == 1 then "" else "s")
 
-  given intBase: Formatter[Int]      = intFormat
-  given strBase: Formatter[String]   = stringFormat
+  given intBase: Formatter[Int] = intFormat
+  given strBase: Formatter[String] = stringFormat
   given boolBase: Formatter[Boolean] = booleanFormat
 
   object formatter:
-    def string[A <: String](to: String => A): Formatter[A]                   = strBase.transform(to, identity)
+    def string[A <: String](to: String => A): Formatter[A] = strBase.transform(to, identity)
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = strBase.transform(to, from)
     def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] = new:
       def bind(key: String, data: Map[String, String]) = strBase.bind(key, data).flatMap { str =>
@@ -205,7 +205,7 @@ object Form:
             from(bound).left.map: err =>
               Seq(FormError(key, err, Nil))
         def unbind(key: String, value: A) = strBase.unbind(key, to(value))
-    def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
+    def int[A <: Int](to: Int => A): Formatter[A] = intBase.transform(to, identity)
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = intBase.transform(to, from)
     def intOptionFormatter[A](from: A => Int, to: Int => Option[A]): Formatter[A] = new:
       def bind(key: String, data: Map[String, String]) = strBase.bind(key, data).flatMap { str =>
@@ -213,7 +213,7 @@ object Form:
       }
       def unbind(key: String, value: A) = strBase.unbind(key, from(value).toString)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
-      override val format                              = Some(("format.boolean", Nil))
+      override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
         Right(data.getOrElse(key, "false")).flatMap { v =>
           Right(trueish(v))
@@ -234,11 +234,11 @@ object Form:
 
   object fen:
     import chess.format.Fen
-    val mapping                   = trim(of[String]).into[Fen.Full]
+    val mapping = trim(of[String]).into[Fen.Full]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
       .transform[Fen.Full](if strict then truncateMoveNumber else identity, identity)
-    val playableStrict                    = playable(strict = true)
+    val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= chess.FullMoveNumber(150) then
@@ -280,10 +280,10 @@ object Form:
       formatter.stringTryFormatter(s =>
         s.toIntOption match
           case Some(i) => Right(FideId(i))
-          case None    =>
+          case None =>
             s match
               case urlRegex(id) => Right(FideId(id.toInt))
-              case _            => Left("Invalid FIDE ID")
+              case _ => Left("Invalid FIDE ID")
       )
     val field = of[FideId]
 
@@ -298,26 +298,26 @@ object Form:
       base: Formatter[A]
   ): Formatter[T] with
     def bind(key: String, data: Map[String, String]) = base.bind(key, data).map(sr.apply)
-    def unbind(key: String, value: T)                = base.unbind(key, rs(value))
+    def unbind(key: String, value: T) = base.unbind(key, rs(value))
 
   given Formatter[chess.variant.Variant] =
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
 
-  given Formatter[PerfKey]      = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
+  given Formatter[PerfKey] = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
   val perfKey: Mapping[PerfKey] = typeIn[PerfKey](PerfKey.all)
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:
       def bind(key: String, data: Map[String, String]) = f.bind(key, data).map(to)
-      def unbind(key: String, value: B)                = f.unbind(key, from(value))
+      def unbind(key: String, value: B) = f.unbind(key, from(value))
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Formatter[B] =
       transform(sr.apply, rs.apply)
 
   extension [A](m: Mapping[A])
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
       m.transform(sr.apply, rs.apply)
-    def iso[B](using iso: Iso[A, B]): Mapping[B]                      = m.transform(iso.from, iso.to)
+    def iso[B](using iso: Iso[A, B]): Mapping[B] = m.transform(iso.from, iso.to)
     def partial[B](f2: B => A)(f1: PartialFunction[A, B]): Mapping[B] =
       m.verifying("Invalid value", f1.isDefinedAt).transform(f1, f2)
 
@@ -339,30 +339,30 @@ object Form:
       .verifying(s"The date must be set before ${dateHumanFormatter.print(max)}", _.isBefore(max))
 
   object ISODate:
-    val pattern                      = "yyyy-MM-dd"
+    val pattern = "yyyy-MM-dd"
     val format: Formatter[LocalDate] = localDateFormat(pattern)
-    val mapping: Mapping[LocalDate]  = of[LocalDate](using format)
+    val mapping: Mapping[LocalDate] = of[LocalDate](using format)
   object ISODateTime:
     val format: Formatter[LocalDateTime] = new:
-      val formatter                                    = isoInstantFormatter
-      def localDateTimeParse(data: String)             = java.time.LocalDateTime.parse(data, formatter)
+      val formatter = isoInstantFormatter
+      def localDateTimeParse(data: String) = java.time.LocalDateTime.parse(data, formatter)
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
       def unbind(key: String, value: LocalDateTime) = Map(key -> formatter.print(value))
     val mapping: Mapping[LocalDateTime] = of[LocalDateTime](using format)
   private object ISOInstant:
     val format: Formatter[Instant] = ISODateTime.format.transform(_.instant, _.dateTime)
-    val mapping: Mapping[Instant]  = of[Instant](using format)
+    val mapping: Mapping[Instant] = of[Instant](using format)
   object PrettyDateTime:
-    val pattern                          = "yyyy-MM-dd HH:mm"
+    val pattern = "yyyy-MM-dd HH:mm"
     val format: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
-    val mapping: Mapping[LocalDateTime]  = of[LocalDateTime](using format)
+    val mapping: Mapping[LocalDateTime] = of[LocalDateTime](using format)
   object Timestamp:
     val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) = {
         for
-          str     <- stringFormat.bind(key, data)
-          long    <- Try(java.lang.Long.parseLong(str)).toEither
+          str <- stringFormat.bind(key, data)
+          long <- Try(java.lang.Long.parseLong(str)).toEither
           instant <- Try(millisToInstant(long)).toEither
         yield instant
       }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
@@ -383,7 +383,7 @@ object Form:
   final class LocalDateTimeOrTimestamp(zone: ZoneId):
     val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
     def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
-    val format: Formatter[Instant]       = new:
+    val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
           .map(_.atZone(zone).toInstant)

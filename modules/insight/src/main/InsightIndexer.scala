@@ -34,7 +34,7 @@ final private class InsightIndexer(
   def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional).flatMap:
       case Right(e) => storage.update(e)
-      case _        => funit
+      case _ => funit
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user).flatMapz: g =>
@@ -70,7 +70,7 @@ final private class InsightIndexer(
     storage
       .nbByPerf(user.id)
       .flatMap: nbs =>
-        var nbByPerf                                      = nbs
+        var nbByPerf = nbs
         def toEntry(game: Game): Fu[Option[InsightEntry]] =
           val nb = nbByPerf.getOrElse(game.perfKey, 0) + 1
           nbByPerf = nbByPerf.updated(game.perfKey, nb)

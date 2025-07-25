@@ -13,18 +13,18 @@ final class EventForm(langList: LangList):
 
   val form = Form(
     mapping(
-      "title"         -> text(minLength = 3, maxLength = 40),
-      "headline"      -> text(minLength = 5, maxLength = 30),
-      "description"   -> optional(text(minLength = 5, maxLength = 4000).into[Markdown]),
+      "title" -> text(minLength = 3, maxLength = 40),
+      "headline" -> text(minLength = 5, maxLength = 30),
+      "description" -> optional(text(minLength = 5, maxLength = 4000).into[Markdown]),
       "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
-      "url"           -> nonEmptyText,
-      "lang"          -> langList.popularLanguagesForm.mapping,
-      "enabled"       -> boolean,
-      "startsAt"      -> PrettyDateTime.mapping,
-      "finishesAt"    -> PrettyDateTime.mapping,
-      "hostedBy"      -> optional(lila.common.Form.username.historicalField),
-      "icon"          -> stringIn(icon.choices),
-      "countdown"     -> boolean
+      "url" -> nonEmptyText,
+      "lang" -> langList.popularLanguagesForm.mapping,
+      "enabled" -> boolean,
+      "startsAt" -> PrettyDateTime.mapping,
+      "finishesAt" -> PrettyDateTime.mapping,
+      "hostedBy" -> optional(lila.common.Form.username.historicalField),
+      "icon" -> stringIn(icon.choices),
+      "countdown" -> boolean
     )(Data.apply)(unapply)
   ).fill(
     Data(
@@ -44,13 +44,13 @@ final class EventForm(langList: LangList):
 object EventForm:
 
   object icon:
-    val default   = ""
+    val default = ""
     val broadcast = "broadcast.icon"
-    val choices   = List(
-      default               -> "Microphone",
-      "lichess.event.png"   -> "Lichess",
-      "trophy.event.png"    -> "Trophy",
-      broadcast             -> "Broadcast",
+    val choices = List(
+      default -> "Microphone",
+      "lichess.event.png" -> "Lichess",
+      "trophy.event.png" -> "Trophy",
+      broadcast -> "Broadcast",
       "offerspill.logo.png" -> "Offerspill"
     )
 

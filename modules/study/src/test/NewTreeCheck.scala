@@ -23,46 +23,46 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
-  given Conversion[Bdoc, Reader]   = Reader(_)
+  given Conversion[Bdoc, Reader] = Reader(_)
 
   //
   // BSONHandlers
   //
 
-  val treeBson    = summon[BSON[Root]]
+  val treeBson = summon[BSON[Root]]
   val newTreeBson = summon[BSON[NewRoot]]
-  val w           = new Writer
+  val w = new Writer
 
   test("Tree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
       val root = x.toRoot
       val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
+      val y = treeBson.reads(bdoc)
       assertEquals(y, root.withoutClockTrust)
 
   test("NewTree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = newTreeBson.writes(w, x)
-      val y    = treeBson.reads(bdoc).toNewRoot
+      val y = treeBson.reads(bdoc).toNewRoot
       assertEquals(y, x.withoutClockTrust)
 
   test("Tree.writes.NewTree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = treeBson.writes(w, x.toRoot)
-      val y    = newTreeBson.reads(bdoc)
+      val y = newTreeBson.reads(bdoc)
       assertEquals(y, x.withoutClockTrust)
 
   test("NewTree.writes.NewTree.reads == identity"):
     forAll: (x: NewRoot) =>
       val bdoc = newTreeBson.writes(w, x)
-      val y    = newTreeBson.reads(bdoc)
+      val y = newTreeBson.reads(bdoc)
       assertEquals(y, x.withoutClockTrust)
 
   test("Tree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>
       val root = x.toRoot
       val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
+      val y = treeBson.reads(bdoc)
       assertEquals(y, root.withoutClockTrust)
 
   test("Root conversion check"):
@@ -74,25 +74,25 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
   test("path exists"):
     forAll: (rp: RootWithPath) =>
       val (root, path) = rp
-      val oldRoot      = root.toRoot
+      val oldRoot = root.toRoot
       oldRoot.pathExists(path) == root.pathExists(path)
 
   test("setShapesAt"):
     forAll: (rp: RootWithPath, shapes: Shapes) =>
       val (root, path) = rp
-      val oldRoot      = root.toRoot
+      val oldRoot = root.toRoot
       oldRoot.setShapesAt(shapes, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(shapes = shapes))
 
   test("toggleGlyphAt"):
     forAll: (rp: RootWithPath, glyph: Glyph) =>
       val (root, path) = rp
-      val oldRoot      = root.toRoot
+      val oldRoot = root.toRoot
       oldRoot.toggleGlyphAt(glyph, path).map(_.toNewRoot) == root.modifyAt(path, _.toggleGlyph(glyph))
 
   test("setClockAt"):
     forAll: (rp: RootWithPath, clock: Option[Clock]) =>
       val (root, path) = rp
-      val oldRoot      = root.toRoot
+      val oldRoot = root.toRoot
       oldRoot.setClockAt(clock, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(clock = clock))
 
   test("forceVariationAt"):
@@ -121,7 +121,7 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
   //     c.tree.exists(b => f(b.value.clock)) ==> (x == y)
 
   test("current tree's bug with takeMainlineWhile".ignore):
-    val pgn     = "1. d4 d5 2. e4 e5"
+    val pgn = "1. d4 d5 2. e4 e5"
     val newRoot = StudyPgnImportNew(pgn, Nil).toOption.get.root
     val oldRoot = newRoot.toRoot
     assert(oldRoot.takeMainlineWhile(_.clock.isDefined).children.isEmpty)
@@ -144,7 +144,7 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
   test("lastMainlinePlyOf"):
     forAll: (rp: RootWithPath) =>
       val (root, path) = rp
-      val oldRoot      = root.toRoot
+      val oldRoot = root.toRoot
       oldRoot.lastMainlinePlyOf(path) == root.lastMainlinePlyOf(path)
 
   test("mainlinePath"):
@@ -172,10 +172,10 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
       val (root, path) = rp
 
       oTree.isDefined && path.nonEmpty ==> {
-        val tree    = oTree.get.withoutVariations
+        val tree = oTree.get.withoutVariations
         val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path))
-        val x       = oldRoot.map(_.toNewRoot)
-        val y       = root.addNodeAt(path, tree)
+        val x = oldRoot.map(_.toNewRoot)
+        val y = root.addNodeAt(path, tree)
         // We compare only size because We have different merging strategies
         // In the current tree, We put the added node/ the merged node at the end of the children
         // Int the new tree, if the node already exists, We merge the node at the same position as the existing node
@@ -200,20 +200,20 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
   test("defaultJsonString"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
-      val x       = Node.defaultNodeJsonWriter.writes(oldRoot)
-      val y       = NewRoot.defaultNodeJsonWriter.writes(root)
+      val x = Node.defaultNodeJsonWriter.writes(oldRoot)
+      val y = NewRoot.defaultNodeJsonWriter.writes(root)
       assertEquals(x, y)
 
   test("minimalNodeJsonWriter"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
-      val x       = Node.minimalNodeJsonWriter.writes(oldRoot)
-      val y       = NewRoot.minimalNodeJsonWriter.writes(root)
+      val x = Node.minimalNodeJsonWriter.writes(oldRoot)
+      val y = NewRoot.minimalNodeJsonWriter.writes(root)
       assertEquals(x, y)
 
   test("partitionTreeJsonWriter"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
-      val x       = Node.partitionTreeJsonWriter.writes(oldRoot)
-      val y       = NewRoot.partitionTreeJsonWriter.writes(root)
+      val x = Node.partitionTreeJsonWriter.writes(oldRoot)
+      val y = NewRoot.partitionTreeJsonWriter.writes(root)
       assertEquals(x, y)

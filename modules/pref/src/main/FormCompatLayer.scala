@@ -15,9 +15,9 @@ object FormCompatLayer:
           "clock",
           List(
             "clockTenths" -> "tenths",
-            "clockBar"    -> "bar",
-            "clockSound"  -> "sound",
-            "moretime"    -> "moretime"
+            "clockBar" -> "bar",
+            "clockSound" -> "sound",
+            "moretime" -> "moretime"
           )
         )
       )
@@ -67,7 +67,7 @@ object FormCompatLayer:
 
   private def reqToFormData(req: Request[?]): FormData =
     (req.body match
-      case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined    => body.asFormUrlEncoded.get
+      case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
       case body: play.api.mvc.AnyContent if body.asMultipartFormData.isDefined =>
         body.asMultipartFormData.get.asFormUrlEncoded
       case _ => Map.empty[String, Seq[String]]

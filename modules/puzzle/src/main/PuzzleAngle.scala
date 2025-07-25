@@ -12,15 +12,15 @@ sealed abstract class PuzzleAngle(val key: String):
   def opening: Option[Opening]
   def categ = this match
     case PuzzleAngle.Theme(PuzzleTheme.mix) => "mix"
-    case PuzzleAngle.Theme(_)               => "theme"
-    case PuzzleAngle.Opening(_)             => "opening"
+    case PuzzleAngle.Theme(_) => "theme"
+    case PuzzleAngle.Opening(_) => "opening"
 
 object PuzzleAngle:
   case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme.value):
-    val name        = PuzzleTheme(theme).name
+    val name = PuzzleTheme(theme).name
     val description = PuzzleTheme(theme).description
-    def asTheme     = theme.some
-    def opening     = none
+    def asTheme = theme.some
+    def opening = none
   case class Opening(either: Either[LilaOpeningFamily.Key, SimpleOpening.Key])
       extends PuzzleAngle(either.fold(_.value, _.value)):
     def openingName = either.fold(
@@ -33,16 +33,16 @@ object PuzzleAngle:
         opKey => SimpleOpening(opKey).map(_.ref.key)
       )
       .flatMap(OpeningDb.shortestLines.get)
-    def isAbstract  = opening.isEmpty
-    val name        = I18nKey(openingName)
+    def isAbstract = opening.isEmpty
+    val name = I18nKey(openingName)
     def description = I18nKey(s"From games with the opening: $openingName")
-    def asTheme     = none
+    def asTheme = none
 
   // def apply(theme: PuzzleTheme.Key): PuzzleAngle = Theme(theme)
   def apply(theme: PuzzleTheme): PuzzleAngle = Theme(theme.key)
   // def apply(opening: SimpleOpening.Key): PuzzleAngle = Opening(opening)
   def apply(family: LilaOpeningFamily): PuzzleAngle = Opening(Left(family.key))
-  def apply(opening: SimpleOpening): PuzzleAngle    = Opening(Right(opening.key))
+  def apply(opening: SimpleOpening): PuzzleAngle = Opening(Right(opening.key))
 
   def find(key: String): Option[PuzzleAngle] =
     PuzzleTheme

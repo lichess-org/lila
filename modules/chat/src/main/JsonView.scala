@@ -19,7 +19,7 @@ object JsonView:
   def syncLines(chat: AnyChat)(using FlairMap): JsonChatLines = JsonChatLines:
     chat match
       case c: MixedChat => JsArray(c.lines.map(lineWriter.writes))
-      case c: UserChat  => JsArray(c.lines.map(userLineWriter.writes))
+      case c: UserChat => JsArray(c.lines.map(userLineWriter.writes))
 
   private[chat] def apply(line: Line)(using getFlair: FlairGet)(using Executor): Fu[JsObject] =
     line.userIdMaybe
@@ -28,7 +28,7 @@ object JsonView:
       .map: flair =>
         given FlairMap = ~(for
           userId <- line.userIdMaybe
-          flair  <- flair
+          flair <- flair
         yield Map(userId -> flair))
         lineWriter.writes(line)
 
@@ -43,7 +43,7 @@ object JsonView:
   def mobile(chat: AnyChat, writeable: Boolean = true)(using FlairGetMap, Executor): Fu[JsObject] =
     asyncLines(chat).map: lines =>
       Json.obj(
-        "lines"     -> lines,
+        "lines" -> lines,
         "writeable" -> writeable
       )
 
@@ -61,12 +61,12 @@ object JsonView:
       OWrites[ChatTimeout.UserEntry]: e =>
         Json.obj(
           "reason" -> e.reason.key,
-          "mod"    -> lightUser(e.mod).fold(UserName("?"))(_.name),
-          "date"   -> e.createdAt
+          "mod" -> lightUser(e.mod).fold(UserName("?"))(_.name),
+          "date" -> e.createdAt
         )
 
     private[chat] def lineWriter(using FlairMap): OWrites[Line] = OWrites:
-      case l: UserLine   => userLineWriter.writes(l)
+      case l: UserLine => userLineWriter.writes(l)
       case l: PlayerLine => playerLineWriter.writes(l)
 
     def userLineWriter(using getFlair: FlairMap): OWrites[UserLine] = OWrites: l =>

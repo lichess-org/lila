@@ -64,7 +64,7 @@ final class LeaderboardApi(
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
     entries <- repo.coll.list[Entry]($doc("u" -> userId, "d".$gt(since)))
-    _       <- entries.nonEmpty.so:
+    _ <- entries.nonEmpty.so:
       repo.coll.delete.one($inIds(entries.map(_.id))).void
   yield entries.map(_.tourId)
 
@@ -126,8 +126,8 @@ final class LeaderboardApi(
       currentPage = page,
       maxPerPage = maxPerPage,
       adapter = new AdapterLike[TourEntry]:
-        private val selector                                    = $doc("u" -> user.id)
-        def nbResults: Fu[Int]                                  = repo.coll.countSel(selector)
+        private val selector = $doc("u" -> user.id)
+        def nbResults: Fu[Int] = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
             .aggregateList(length, _.sec): framework =>
@@ -139,7 +139,7 @@ final class LeaderboardApi(
 
   private def readTourEntry(doc: Bdoc): Option[TourEntry] = for
     entry <- doc.asOpt[Entry]
-    tour  <- doc.getAsOpt[Tournament]("tour")
+    tour <- doc.getAsOpt[Tournament]("tour")
     performance = doc.getAsOpt[IntRating]("perf")
   yield TourEntry(tour, entry, performance)
 
@@ -180,14 +180,14 @@ object LeaderboardApi:
   object ChartData:
 
     case class Ints(v: List[Int]):
-      def mean         = Maths.mean(v)
-      def median       = Maths.median(v)
-      def sum          = v.sum
+      def mean = Maths.mean(v)
+      def median = Maths.median(v)
+      def sum = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
 
     case class PerfResult(nb: Int, points: Ints, rank: Ints):
       private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
-      def rankPercentMean                = rank.mean.map(rankPercent)
-      def rankPercentMedian              = rank.median.map(rankPercent)
+      def rankPercentMean = rank.mean.map(rankPercent)
+      def rankPercentMedian = rank.median.map(rankPercent)
 
     case class AggregationResult(_id: PerfId, nb: Int, points: List[Int], ratios: List[Int])

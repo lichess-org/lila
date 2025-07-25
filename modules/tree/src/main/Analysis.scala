@@ -44,9 +44,9 @@ case class Analysis(
     }
 
   def studyId = id.studyId
-  def valid   = infos.nonEmpty
+  def valid = infos.nonEmpty
 
-  def nbEmptyInfos       = infos.count(_.isEmpty)
+  def nbEmptyInfos = infos.count(_.isEmpty)
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
 
 object Analysis:
@@ -56,9 +56,9 @@ object Analysis:
     case Study(study: StudyId, id: StudyChapterId)
 
   object Id:
-    def apply(gameId: GameId): Id                          = Game(gameId)
+    def apply(gameId: GameId): Id = Game(gameId)
     def apply(study: StudyId, chapter: StudyChapterId): Id = Study(study, chapter)
-    def apply(study: Option[StudyId], id: String): Id      =
+    def apply(study: Option[StudyId], id: String): Id =
       study.fold(Game(GameId(id)))(Study(_, StudyChapterId(id)))
 
     extension (id: Id)
@@ -69,14 +69,14 @@ object Analysis:
 
       def gameId: Option[GameId] = id match
         case Game(gameId) => Some(gameId)
-        case _            => None
+        case _ => None
 
       def chapterId: Option[StudyChapterId] = id match
         case Study(_, chapterId) => Some(chapterId)
-        case _                   => None
+        case _ => None
 
       def studyId: Option[StudyId] = id match
         case Study(studyId, _) => Some(studyId)
-        case _                 => None
+        case _ => None
 
   type FishnetKey = String

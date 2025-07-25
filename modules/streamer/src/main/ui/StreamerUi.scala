@@ -93,7 +93,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                   addQueryParams(
                     routes.Streamer.index().url,
                     Map(
-                      "page"     -> np.toString,
+                      "page" -> np.toString,
                       "requests" -> (if requests then 1 else 0).toString
                     )
                   )
@@ -125,7 +125,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                   case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
                     iframe(
                       frame.credentialless,
-                      st.frameborder  := "0",
+                      st.frameborder := "0",
                       frame.scrolling := "no",
                       src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
                     )
@@ -134,7 +134,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                       val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
                       iframe(
                         frame.credentialless,
-                        st.frameborder  := "0",
+                        st.frameborder := "0",
                         frame.scrolling := "yes",
                         src := s"https://twitch.tv/embed/${twitch.userId}/chat?${darkChat}parent=$netDomain"
                       )
@@ -147,7 +147,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
               case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
                 div(cls := "box embed youTube")(
                   iframe(
-                    src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
+                    src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
                     st.frameborder := "0",
                     frame.allowfullscreen,
                     frame.credentialless

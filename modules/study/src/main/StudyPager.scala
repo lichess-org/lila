@@ -12,7 +12,7 @@ final class StudyPager(
     chapterRepo: ChapterRepo
 )(using Executor):
 
-  val maxPerPage                = MaxPerPage(16)
+  val maxPerPage = MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers.given
@@ -102,11 +102,11 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match
-        case Order.hot          => $sort.desc("rank")
-        case Order.newest       => $sort.desc("createdAt")
-        case Order.oldest       => $sort.asc("createdAt")
-        case Order.updated      => $sort.desc("updatedAt")
-        case Order.popular      => $sort.desc("likes")
+        case Order.hot => $sort.desc("rank")
+        case Order.newest => $sort.desc("createdAt")
+        case Order.oldest => $sort.asc("createdAt")
+        case Order.updated => $sort.desc("updatedAt")
+        case Order.popular => $sort.desc("likes")
         case Order.alphabetical => $sort.asc("name")
         // mine filter for topic view
         case Order.mine => $sort.desc("rank")
@@ -147,17 +147,17 @@ final class StudyPager(
 
 object Orders:
   import lila.core.study.Order
-  val default                   = Order.hot
-  val list                      = Order.values.toList
-  val withoutMine               = list.filterNot(_ == Order.mine)
-  val withoutSelector           = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
-  private val byKey             = list.mapBy(_.toString)
+  val default = Order.hot
+  val list = Order.values.toList
+  val withoutMine = list.filterNot(_ == Order.mine)
+  val withoutSelector = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
+  private val byKey = list.mapBy(_.toString)
   def apply(key: String): Order = byKey.getOrElse(key, default)
-  val name: Order => I18nKey    =
-    case Order.hot          => I18nKey.study.hot
-    case Order.newest       => I18nKey.study.dateAddedNewest
-    case Order.oldest       => I18nKey.study.dateAddedOldest
-    case Order.updated      => I18nKey.study.recentlyUpdated
-    case Order.popular      => I18nKey.study.mostPopular
+  val name: Order => I18nKey =
+    case Order.hot => I18nKey.study.hot
+    case Order.newest => I18nKey.study.dateAddedNewest
+    case Order.oldest => I18nKey.study.dateAddedOldest
+    case Order.updated => I18nKey.study.recentlyUpdated
+    case Order.popular => I18nKey.study.mostPopular
     case Order.alphabetical => I18nKey.study.alphabetical
-    case Order.mine         => I18nKey.study.myStudies
+    case Order.mine => I18nKey.study.myStudies

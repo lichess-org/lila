@@ -67,15 +67,15 @@ final class RoundMobile(
     for
       initialFen <- gameRepo.initialFen(game)
       myPlayer = id.playerId.flatMap(game.playerById)
-      users        <- game.userIdPair.traverse(_.so(lightUserGet))
-      prefs        <- prefApi.byId(game.userIdPair)
+      users <- game.userIdPair.traverse(_.so(lightUserGet))
+      prefs <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
-      chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
-      chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
-      bookmarked   <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
-      forecast     <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
-      tournament   <- tourInfo(game)
+      chat <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
+      chatLines <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+      bookmarked <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
+      forecast <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
+      tournament <- tourInfo(game)
     yield
       def playerJson(color: Color) =
         val pov = Pov(game, color)
@@ -100,7 +100,7 @@ final class RoundMobile(
         .add("socket" -> use.socketStatus.map(_.version))
         .add("expiration" -> game.expirable.option:
           Json.obj(
-            "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
+            "idleMillis" -> (nowMillis - game.movedAt.toMillis),
             "millisToMove" -> game.timeForFirstMove.millis
           ))
         .add("clock", game.clock.map(roundJson.clockJson))
@@ -130,8 +130,8 @@ final class RoundMobile(
           .map: ranks =>
             Json
               .obj(
-                "id"          -> tour.id,
-                "name"        -> tour.name,
+                "id" -> tour.id,
+                "name" -> tour.name,
                 "secondsLeft" -> tour.secondsToFinish
               )
               .add("berserkable" -> tour.isStarted.option(tour.berserkable))

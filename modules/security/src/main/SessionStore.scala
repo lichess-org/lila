@@ -57,14 +57,14 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     coll.insert
       .one:
         $doc(
-          "_id"   -> sessionId,
-          "user"  -> userId,
-          "ip"    -> HTTPRequest.ipAddress(req),
-          "ua"    -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date"  -> nowInstant,
-          "up"    -> up,
-          "api"   -> apiVersion, // lichobile
-          "fp"    -> fp.flatMap(lila.security.FingerHash.from),
+          "_id" -> sessionId,
+          "user" -> userId,
+          "ip" -> HTTPRequest.ipAddress(req),
+          "ua" -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "date" -> nowInstant,
+          "up" -> up,
+          "api" -> apiVersion, // lichobile
+          "fp" -> fp.flatMap(lila.security.FingerHash.from),
           "proxy" -> proxy
         )
       .void
@@ -84,13 +84,13 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .one(
         $id(id),
         $doc(
-          "_id"  -> id,
+          "_id" -> id,
           "user" -> userId,
-          "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> ua,
+          "ip" -> HTTPRequest.ipAddress(req),
+          "ua" -> ua,
           "date" -> nowInstant,
-          "up"   -> true,
-          "fp"   -> mobile.map(_.sri.value)
+          "up" -> true,
+          "fp" -> mobile.map(_.sri.value)
         ),
         upsert = true
       )
@@ -107,7 +107,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   def closeUserExceptSessionId(userId: UserId, sessionId: SessionId): Funit =
     for _ <- coll.update.one(
         $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
-        $set("up"   -> false),
+        $set("up" -> false),
         multi = true
       )
     yield uncacheAllOf(userId)
@@ -115,7 +115,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   def closeAllSessionsOf(userId: UserId): Funit =
     for _ <- coll.update.one(
         $doc("user" -> userId, "up" -> true),
-        $set("up"   -> false),
+        $set("up" -> false),
         multi = true
       )
     yield uncacheAllOf(userId)
@@ -124,7 +124,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     for _ <- coll.delete.one($doc("user" -> userId))
     yield uncacheAllOf(userId)
 
-  private given BSONDocumentHandler[UserSession]                   = Macros.handler[UserSession]
+  private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
     coll
       .find($doc("user" -> userId, "up" -> true))
@@ -140,7 +140,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def setFingerPrint(id: SessionId, fp: FingerPrint): Fu[FingerHash] =
     lila.security.FingerHash.from(fp) match
-      case None       => fufail(s"Can't hash $id's fingerprint $fp")
+      case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         for
           _ <- coll.updateField($id(id), "fp", hash)
@@ -175,7 +175,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .find(
         $doc(
           "user" -> userId,
-          "up"   -> true
+          "up" -> true
         )
       )
       .sort($doc("date" -> -1))
@@ -199,9 +199,9 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         Limit(500),
         Project(
           $doc(
-            "_id"  -> false,
+            "_id" -> false,
             "user" -> true,
-            "x"    -> $arr("$ip", "$fp")
+            "x" -> $arr("$ip", "$fp")
           )
         ),
         UnwindField("x"),

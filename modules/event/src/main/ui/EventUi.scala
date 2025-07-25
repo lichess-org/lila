@@ -48,9 +48,9 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
 
   def iconOf(e: Event) =
     e.icon match
-      case None                                     => i(cls := "img", dataIcon := Icon.Mic)
+      case None => i(cls := "img", dataIcon := Icon.Mic)
       case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := Icon.RadioTower)
-      case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
+      case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
 
   def show(e: Event)(using Context) =
     Page(e.title)
@@ -186,10 +186,10 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
         ): f =>
           div(cls := "complete-parent")(
             input(
-              cls     := "form-control user-autocomplete",
-              name    := f.name,
-              id      := form3.id(f),
-              value   := f.value,
+              cls := "form-control user-autocomplete",
+              name := f.name,
+              id := form3.id(f),
+              value := f.value,
               dataTag := "span"
             )
           )

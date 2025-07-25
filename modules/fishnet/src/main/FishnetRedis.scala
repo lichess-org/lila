@@ -15,7 +15,7 @@ final class FishnetRedis(
     shutdown: CoordinatedShutdown
 )(using Executor):
 
-  val connIn  = client.connectPubSub()
+  val connIn = client.connectPubSub()
   val connOut = client.connectPubSub()
 
   private var stopping = false
@@ -29,7 +29,7 @@ final class FishnetRedis(
     new RedisPubSubAdapter[String, String]:
       override def message(chan: String, msg: String): Unit =
         msg.split(' ') match
-          case Array("start")           => Bus.pub(FishnetStart)
+          case Array("start") => Bus.pub(FishnetStart)
           case Array(gameId, sign, uci) =>
             Uci(uci).foreach { move =>
               Bus.pub(Tell(GameId(gameId), RoundBus.FishnetPlay(move, sign)))

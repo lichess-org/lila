@@ -8,6 +8,7 @@
   <string name="dailyRapid">Daglegt atskák</string>
   <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Daglegt mót í kappskák</string>
   <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Dagleg kappskák</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Daglegt Arena-mót í %s</string>
   <string name="dailyX">Daglegt %s</string>
   <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Austur-mót í atskák</string>
   <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Austur-atskák</string>
@@ -33,6 +34,14 @@
   <string name="yearlyClassical">Árleg kappskák</string>
   <string name="yearlyXArena">Árlegt mót í %s</string>
   <string name="yearlyX">Árlegt %s</string>
+  <string name="rapidShieldArena">Arena-mót í atskák með verðlaunaskjöld</string>
+  <string name="rapidShield">Atskák með verðlaunaskjöld</string>
+  <string name="classicalShieldArena">Arena-mót í hefðbundinni skák með verðlaunaskjöld</string>
+  <string name="classicalShield">Hefðbundin skák með verðlaunaskjöld</string>
+  <string name="xShieldArena">%s Arena-mót með verðlaunaskjöld</string>
+  <string name="xShield">%s Skjöldur</string>
+  <string name="xTeamBattle">%s liðsorrusta</string>
+  <string name="eliteXArena">Einvala Arena-mót í %s</string>
   <string name="eliteX">Einvala %s</string>
   <string name="xArena">Mót í %s</string>
 </resources>

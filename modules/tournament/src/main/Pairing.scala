@@ -17,11 +17,11 @@ case class Pairing(
 
   inline def gameId = id
 
-  def users                                     = List(user1, user2)
-  def usersPair                                 = user1 -> user2
-  def contains(user: UserId): Boolean           = user1 == user || user2 == user
+  def users = List(user1, user2)
+  def usersPair = user1 -> user2
+  def contains(user: UserId): Boolean = user1 == user || user2 == user
   def contains(u1: UserId, u2: UserId): Boolean = contains(u1) && contains(u2)
-  def notContains(user: UserId)                 = !contains(user)
+  def notContains(user: UserId) = !contains(user)
 
   def opponentOf(userId: UserId) =
     if userId == user1 then user2.some
@@ -29,20 +29,20 @@ case class Pairing(
     else none
 
   def finished = status >= chess.Status.Mate
-  def playing  = !finished
+  def playing = !finished
 
-  def quickFinish                = finished && turns.exists(20 >)
-  def quickDraw                  = draw && turns.exists(20 >)
-  def notSoQuickFinish           = finished && turns.exists(14 <=)
+  def quickFinish = finished && turns.exists(20 >)
+  def quickDraw = draw && turns.exists(20 >)
+  def notSoQuickFinish = finished && turns.exists(14 <=)
   def longGame(variant: Variant) = turns.exists(_ >= (variant match
-    case Standard | Chess960 | Horde            => 60
+    case Standard | Chess960 | Horde => 60
     case Antichess | Crazyhouse | KingOfTheHill => 40
-    case ThreeCheck | Atomic | RacingKings      => 20))
+    case ThreeCheck | Atomic | RacingKings => 20))
 
-  def wonBy(user: UserId): Boolean     = winner.exists(user.is(_))
-  def lostBy(user: UserId): Boolean    = winner.exists(user.isnt(_))
+  def wonBy(user: UserId): Boolean = winner.exists(user.is(_))
+  def lostBy(user: UserId): Boolean = winner.exists(user.isnt(_))
   def notLostBy(user: UserId): Boolean = winner.forall(user.is(_))
-  def draw: Boolean                    = finished && winner.isEmpty
+  def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =
     if userId.is(user1) then Color.White.some

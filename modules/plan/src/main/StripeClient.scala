@@ -22,10 +22,10 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
 
   def sessionArgs(mode: StripeMode, data: StripeSessionData, urls: NextUrls): List[(String, Matchable)] =
     List(
-      "mode"                -> mode,
-      "success_url"         -> urls.success,
-      "cancel_url"          -> urls.cancel,
-      "customer"            -> data.customerId.value,
+      "mode" -> mode,
+      "success_url" -> urls.success,
+      "cancel_url" -> urls.cancel,
+      "customer" -> data.customerId.value,
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
     ) ::: {
       // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
@@ -39,10 +39,10 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
           if data.giftTo.isDefined then config.products.gift
           else config.products.onetime
         },
-        "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
+        "line_items[0][price_data][currency]" -> data.checkout.money.currency,
         "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
-        "line_items[0][quantity]"                -> 1,
-        "expand[]"                               -> "payment_intent"
+        "line_items[0][quantity]" -> 1,
+        "expand[]" -> "payment_intent"
       ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
@@ -58,12 +58,12 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
     postOne[StripeSession]("checkout/sessions", args*)
 
   private def recurringPriceArgs(name: String, money: Money) = List(
-    s"$name[0][price_data][product]"                   -> config.products.monthly,
-    s"$name[0][price_data][currency]"                  -> money.currencyCode,
-    s"$name[0][price_data][unit_amount]"               -> StripeAmount(money).value,
-    s"$name[0][price_data][recurring][interval]"       -> "month",
+    s"$name[0][price_data][product]" -> config.products.monthly,
+    s"$name[0][price_data][currency]" -> money.currencyCode,
+    s"$name[0][price_data][unit_amount]" -> StripeAmount(money).value,
+    s"$name[0][price_data][recurring][interval]" -> "month",
     s"$name[0][price_data][recurring][interval_count]" -> 1,
-    s"$name[0][quantity]"                              -> 1
+    s"$name[0][quantity]" -> 1
   )
 
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] =
@@ -75,9 +75,9 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   def createCustomer(user: User, data: PlanCheckout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
-      "email"       -> data.email,
+      "email" -> data.email,
       "description" -> user.username,
-      "expand[]"    -> "subscriptions"
+      "expand[]" -> "subscriptions"
     )
 
   def getCustomer(id: StripeCustomerId): Fu[Option[StripeCustomer]] =
@@ -85,7 +85,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
 
   def updateSubscription(sub: StripeSubscription, money: Money): Fu[StripeSubscription] =
     val args = recurringPriceArgs("items", money) ++ List(
-      "items[0][id]"       -> sub.item.id,
+      "items[0][id]" -> sub.item.id,
       "proration_behavior" -> "none"
     )
     postOne[StripeSubscription](
@@ -138,7 +138,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       .dmap(some)
       .recover:
         case _: NotFoundException => None
-        case e: DeletedException  =>
+        case e: DeletedException =>
           logger.warn(e.getMessage)
           None
 
@@ -165,7 +165,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url")
       .withHttpHeaders(
-        "Authorization"  -> s"Bearer ${config.secretKey.value}",
+        "Authorization" -> s"Bearer ${config.secretKey.value}",
         "Stripe-Version" -> STRIPE_VERSION
       )
 
@@ -186,7 +186,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
-          case None        => fufail { new InvalidRequestException(status, res.body) }
+          case None => fufail { new InvalidRequestException(status, res.body) }
           case Some(error) => fufail { new InvalidRequestException(status, error) }
       case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
 
@@ -197,10 +197,10 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
 
 object StripeClient:
 
-  class StripeException(msg: String)                      extends Exception(msg)
-  class DeletedException(msg: String)                     extends StripeException(msg)
-  class StatusException(status: Int, msg: String)         extends StripeException(s"$status $msg")
-  class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
+  class StripeException(msg: String) extends Exception(msg)
+  class DeletedException(msg: String) extends StripeException(msg)
+  class StatusException(status: Int, msg: String) extends StripeException(s"$status $msg")
+  class NotFoundException(status: Int, msg: String) extends StatusException(status, msg)
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
   object CantUseException extends StripeException("You already donated this week, thank you.")
 
@@ -214,4 +214,4 @@ object StripeClient:
       products: ProductIds
   )
   private[plan] given ConfigLoader[ProductIds] = AutoConfig.loader
-  private[plan] given ConfigLoader[Config]     = AutoConfig.loader
+  private[plan] given ConfigLoader[Config] = AutoConfig.loader

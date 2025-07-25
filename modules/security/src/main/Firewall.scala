@@ -14,7 +14,7 @@ final class Firewall(
     ws: StandaloneWSClient
 )(using Executor):
 
-  private var current: Set[String]    = Set.empty
+  private var current: Set[String] = Set.empty
   private var proxies: Set[IpAddress] = Set.empty
 
   scheduler.scheduleOnce(49.seconds):

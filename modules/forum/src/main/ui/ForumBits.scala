@@ -12,9 +12,9 @@ final class ForumBits(helpers: Helpers):
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(
-          name         := "text",
-          value        := search,
-          placeholder  := trans.search.search.txt(),
+          name := "text",
+          value := search,
+          placeholder := trans.search.search.txt(),
           enterkeyhint := "search"
         )
       )

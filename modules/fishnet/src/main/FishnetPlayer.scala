@@ -28,7 +28,7 @@ final class FishnetPlayer(
         logger.info(e.getMessage)
       }
 
-  private val delayFactor  = 0.011f
+  private val delayFactor = 0.011f
   private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
   private def delayFor(g: Game): Option[FiniteDuration] =
@@ -36,16 +36,16 @@ final class FishnetPlayer(
     else
       for
         pov <- g.aiPov
-        clock     = g.clock | defaultClock
+        clock = g.clock | defaultClock
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
         delay = (clock.remainingTime(pov.color).centis.atMost(totalTime)) * delayFactor
         accel = 1 - ((g.ply.value - 20).atLeast(0).atMost(100)) / 150f
         sleep = (delay * accel).atMost(500)
         if sleep > 25
-        millis     = sleep * 10
+        millis = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
-        divided    = randomized / (if g.ply > 9 then 1 else 2)
+        divided = randomized / (if g.ply > 9 then 1 else 2)
       yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =

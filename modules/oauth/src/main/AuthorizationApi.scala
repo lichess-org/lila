@@ -51,14 +51,14 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
 
 private object AuthorizationApi:
   object BSONFields:
-    val hashedCode         = "_id"
-    val clientId           = "clientId"
-    val userId             = "userId"
-    val redirectUri        = "redirectUri"
-    val codeChallenge      = "codeChallenge"
+    val hashedCode = "_id"
+    val clientId = "clientId"
+    val userId = "userId"
+    val redirectUri = "redirectUri"
+    val codeChallenge = "codeChallenge"
     val hashedClientSecret = "hashedClientSecret"
-    val scopes             = "scopes"
-    val expires            = "expires"
+    val scopes = "scopes"
+    val expires = "expires"
 
   case class PendingAuthorization(
       hashedCode: String,
@@ -83,7 +83,7 @@ private object AuthorizationApi:
         redirectUri = Protocol.RedirectUri(r.get[URL](F.redirectUri)),
         challenge = r.strO(F.hashedClientSecret) match
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
-          case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
+          case None => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
         ,
         scopes = r.get[OAuthScopes](F.scopes),
         expires = r.get[Instant](F.expires)
@@ -91,12 +91,12 @@ private object AuthorizationApi:
 
     def writes(w: BSON.Writer, o: PendingAuthorization) =
       $doc(
-        F.hashedCode         -> o.hashedCode,
-        F.clientId           -> o.clientId.value,
-        F.userId             -> o.userId,
-        F.redirectUri        -> o.redirectUri.value.toString,
-        F.codeChallenge      -> o.challenge.toOption,
+        F.hashedCode -> o.hashedCode,
+        F.clientId -> o.clientId.value,
+        F.userId -> o.userId,
+        F.redirectUri -> o.redirectUri.value.toString,
+        F.codeChallenge -> o.challenge.toOption,
         F.hashedClientSecret -> o.challenge.swap.toOption.map(_.value),
-        F.scopes             -> o.scopes,
-        F.expires            -> o.expires
+        F.scopes -> o.scopes,
+        F.expires -> o.expires
       )

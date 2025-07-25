@@ -26,8 +26,8 @@ trait dsl:
 
   type ReadPref = ReadPref.type => ReadPreference
   object ReadPref:
-    val pri: ReadPreference                    = ReadPreference.primary
-    val sec: ReadPreference                    = ReadPreference.secondaryPreferred
+    val pri: ReadPreference = ReadPreference.primary
+    val sec: ReadPreference = ReadPreference.secondaryPreferred
     given Conversion[ReadPref, ReadPreference] = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
@@ -35,8 +35,8 @@ trait dsl:
   type Barr = BSONArray
 
   def bsonWriteObjTry[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(a)
-  def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A])            = writer.writeOpt(a)
-  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A])    = writer.writeOpt(a) | $empty
+  def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A]) = writer.writeOpt(a)
+  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeOpt(a) | $empty
 
   // **********************************************************************************************//
   // Helpers
@@ -53,11 +53,11 @@ trait dsl:
   def $inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
     $id($doc("$in" -> ids))
 
-  def $boolean(b: Boolean)                         = BSONBoolean(b)
-  def $string(s: String)                           = BSONString(s)
+  def $boolean(b: Boolean) = BSONBoolean(b)
+  def $string(s: String) = BSONString(s)
   def $string[A](a: A)(using sr: StringRuntime[A]) = BSONString(sr(a))
-  def $int(i: Int)                                 = BSONInteger(i)
-  def $int[A](a: A)(using ir: IntRuntime[A])       = BSONInteger(ir(a))
+  def $int(i: Int) = BSONInteger(i)
+  def $int[A](a: A)(using ir: IntRuntime[A]) = BSONInteger(ir(a))
 
   // End of Helpers
   // **********************************************************************************************//
@@ -66,18 +66,18 @@ trait dsl:
 
   // **********************************************************************************************//
   // Top Level Logical Operators
-  def $or(expressions: Bdoc*): Bdoc  = $doc("$or" -> expressions)
+  def $or(expressions: Bdoc*): Bdoc = $doc("$or" -> expressions)
   def $and(expressions: Bdoc*): Bdoc = $doc("$and" -> expressions)
   def $nor(expressions: Bdoc*): Bdoc = $doc("$nor" -> expressions)
-  def $not(expression: Bdoc): Bdoc   = $doc("$not" -> expression)
-  def $expr(expression: Bdoc): Bdoc  = $doc("$expr" -> expression)
+  def $not(expression: Bdoc): Bdoc = $doc("$not" -> expression)
+  def $expr(expression: Bdoc): Bdoc = $doc("$expr" -> expression)
 
   // End of Top Level Logical Operators
   // **********************************************************************************************//
 
   // **********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(term: String): Bdoc               = $doc("$text" -> $doc("$search" -> term))
+  def $text(term: String): Bdoc = $doc("$text" -> $doc("$search" -> term))
   def $text(term: String, lang: String): Bdoc = $doc:
     "$text" -> $doc("$search" -> term, f"$$language" -> lang)
 
@@ -87,7 +87,7 @@ trait dsl:
   // **********************************************************************************************//
   // Top Level Field Update Operators
   def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = $doc("$inc" -> $doc((Seq(item) ++ items)*))
-  def $inc(doc: Bdoc): Bdoc                                      = $doc("$inc" -> doc)
+  def $inc(doc: Bdoc): Bdoc = $doc("$inc" -> doc)
 
   def $mul(item: ElementProducer): Bdoc =
     $doc("$mul" -> $doc(item))
@@ -108,21 +108,21 @@ trait dsl:
     if value then $set(field -> true) else $unset(field)
   def $setsAndUnsets(items: (String, Option[BSONValue])*): Bdoc =
     $set(items.collect { case (k, Some(v)) => k -> v }*) ++ $unset(items.collect { case (k, None) => k })
-  def $min(item: ElementProducer): Bdoc                         = $doc("$min" -> $doc(item))
-  def $max(item: ElementProducer): Bdoc                         = $doc("$max" -> $doc(item))
-  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc   = $doc("$divide" -> $arr(a, b))
+  def $min(item: ElementProducer): Bdoc = $doc("$min" -> $doc(item))
+  def $max(item: ElementProducer): Bdoc = $doc("$max" -> $doc(item))
+  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$divide" -> $arr(a, b))
   def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$multiply" -> $arr(a, b))
 
   // Helpers
-  def $eq[T: BSONWriter](value: T)    = $doc("$eq" -> value)
-  def $gt[T: BSONWriter](value: T)    = $doc("$gt" -> value)
-  def $gte[T: BSONWriter](value: T)   = $doc("$gte" -> value)
-  def $in[T: BSONWriter](values: T*)  = $doc("$in" -> values)
-  def $lt[T: BSONWriter](value: T)    = $doc("$lt" -> value)
-  def $lte[T: BSONWriter](value: T)   = $doc("$lte" -> value)
-  def $ne[T: BSONWriter](value: T)    = $doc("$ne" -> value)
+  def $eq[T: BSONWriter](value: T) = $doc("$eq" -> value)
+  def $gt[T: BSONWriter](value: T) = $doc("$gt" -> value)
+  def $gte[T: BSONWriter](value: T) = $doc("$gte" -> value)
+  def $in[T: BSONWriter](values: T*) = $doc("$in" -> values)
+  def $lt[T: BSONWriter](value: T) = $doc("$lt" -> value)
+  def $lte[T: BSONWriter](value: T) = $doc("$lte" -> value)
+  def $ne[T: BSONWriter](value: T) = $doc("$ne" -> value)
   def $nin[T: BSONWriter](values: T*) = $doc("$nin" -> values)
-  def $exists(value: Boolean)         = $doc("$exists" -> value)
+  def $exists(value: Boolean) = $doc("$exists" -> value)
 
   // End of Top Level Field Update Operators
   // **********************************************************************************************//
@@ -258,21 +258,21 @@ trait dsl:
     def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
 
   def dateBetween(field: String, since: Option[Instant], until: Option[Instant]): Bdoc = (since, until) match
-    case (Some(since), None)        => field.$gte(since)
-    case (None, Some(until))        => field.$lt(until)
+    case (Some(since), None) => field.$gte(since)
+    case (None, Some(until)) => field.$lt(until)
     case (Some(since), Some(until)) => field.$gte(since).$lt(until)
-    case _                          => $empty
+    case _ => $empty
 
   object $sort:
 
-    def asc(field: String)  = $doc(field -> 1)
+    def asc(field: String) = $doc(field -> 1)
     def desc(field: String) = $doc(field -> -1)
 
-    val naturalAsc   = asc("$natural")
-    val naturalDesc  = desc("$natural")
+    val naturalAsc = asc("$natural")
+    val naturalDesc = desc("$natural")
     val naturalOrder = naturalDesc
 
-    val createdAsc  = asc("createdAt")
+    val createdAsc = asc("createdAt")
     val createdDesc = desc("createdAt")
 
     def orderField[A: BSONWriter](values: Iterable[A], field: String = "_id") =
@@ -281,9 +281,9 @@ trait dsl:
   object $lookup:
     def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
       "$lookup" -> $doc(
-        "from"         -> from,
-        "as"           -> as,
-        "localField"   -> local,
+        "from" -> from,
+        "as" -> as,
+        "localField" -> local,
         "foreignField" -> foreign
       )
     )
@@ -294,9 +294,9 @@ trait dsl:
     def pipelineFull(from: String, as: String, let: Bdoc, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
-          "from"     -> from,
-          "as"       -> as,
-          "let"      -> let,
+          "from" -> from,
+          "as" -> as,
+          "let" -> let,
           "pipeline" -> pipe
         )
       )
@@ -306,11 +306,11 @@ trait dsl:
     def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
-          "from"         -> from,
-          "as"           -> as,
-          "localField"   -> local,
+          "from" -> from,
+          "as" -> as,
+          "localField" -> local,
           "foreignField" -> foreign,
-          "pipeline"     -> pipe
+          "pipeline" -> pipe
         )
       )
     def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
@@ -342,7 +342,7 @@ object dsl extends dsl with Handlers:
       c.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
     def list(limit: Int): Fu[List[A]] = gather[List](limit)
-    def listAll(): Fu[List[A]]        = gather[List](Int.MaxValue)
+    def listAll(): Fu[List[A]] = gather[List](Int.MaxValue)
 
     // like headOption, but with stopOnError defaulting to false
     def uno: Fu[Option[A]] =
@@ -396,7 +396,7 @@ object dsl extends dsl with Handlers:
             .writeOpt(id)
             .so:
               case BSONArray(Seq(id, proj: Bdoc)) => byIdProj[D](id, proj)
-              case id                             => one[D]($id(id))
+              case id => one[D]($id(id))
 
     def byIdProj[D](using BSONDocumentReader[D]): [I] => (I, Bdoc) => BSONWriter[I] ?=> Fu[Option[D]] =
       [I] => (id: I, projection: Bdoc) => one[D]($id(id), projection)
@@ -553,7 +553,7 @@ object dsl extends dsl with Handlers:
 
     def updateOrUnsetField[V: BSONWriter](selector: Bdoc, field: String, value: Option[V]): Fu[Int] =
       value match
-        case None    => unsetField(selector, field).dmap(_.n)
+        case None => unsetField(selector, field).dmap(_.n)
         case Some(v) => updateField(selector, field, v).dmap(_.n)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =

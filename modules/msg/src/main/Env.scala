@@ -71,7 +71,7 @@ final class Env(
       msg.get[UserId]("d").foreach { api.setRead(userId, _) }
     case TellUserIn.Send(userId, msg) =>
       for
-        obj  <- msg.obj("d")
+        obj <- msg.obj("d")
         dest <- obj.get[UserId]("dest")
         text <- obj.str("text")
       yield api.post(userId, dest, text)
@@ -81,4 +81,4 @@ final class Env(
 
 private class MsgColls(db: lila.db.Db):
   val thread = db(CollName("msg_thread"))
-  val msg    = db(CollName("msg_msg"))
+  val msg = db(CollName("msg_msg"))

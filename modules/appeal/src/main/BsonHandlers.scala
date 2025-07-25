@@ -11,10 +11,10 @@ private[appeal] object BsonHandlers:
   given BSONHandler[Status] = lila.db.dsl.quickHandler[Status](
     {
       case BSONString(v) => Status(v) | Status.Read
-      case _             => Status.Read
+      case _ => Status.Read
     },
     s => BSONString(s.key)
   )
 
   given BSONDocumentHandler[AppealMsg] = Macros.handler
-  given BSONDocumentHandler[Appeal]    = Macros.handler
+  given BSONDocumentHandler[Appeal] = Macros.handler

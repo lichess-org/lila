@@ -8,9 +8,9 @@ class SwissScoringTest extends munit.FunSuite:
   import SwissScoring.*
 
   def compute(nbRounds: Int, players: List[SwissPlayer], pairings: List[SwissPairing]) =
-    val rounds     = SwissRoundNumber.from((1 to nbRounds).toList)
+    val rounds = SwissRoundNumber.from((1 to nbRounds).toList)
     val pairingMap = SwissPairing.toMap(pairings)
-    val sheets     = SwissSheet.many(rounds, players, pairingMap)
+    val sheets = SwissSheet.many(rounds, players, pairingMap)
     val withSheets = players.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
     computePlayers(SwissRoundNumber(nbRounds), withSheets, pairingMap)
 
@@ -18,7 +18,7 @@ class SwissScoringTest extends munit.FunSuite:
     assertEquals(compute(1, Nil, Nil), Nil)
 
   test("one round, one win"):
-    val players  = List(player('a'), player('b'))
+    val players = List(player('a'), player('b'))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0")
     )
@@ -29,7 +29,7 @@ class SwissScoringTest extends munit.FunSuite:
       case _ => fail("expected 2 players")
 
   test("one round, one draw"):
-    val players  = List(player('a'), player('b'))
+    val players = List(player('a'), player('b'))
     val pairings = List(
       pairing(1, 'a', 'b', "1/2-1/2")
     )
@@ -40,7 +40,7 @@ class SwissScoringTest extends munit.FunSuite:
       case _ => fail("expected 2 players")
 
   test("two rounds"):
-    val players  = List(player('a'), player('b'))
+    val players = List(player('a'), player('b'))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'b', 'a', "1/2-1/2")
@@ -52,7 +52,7 @@ class SwissScoringTest extends munit.FunSuite:
       case _ => fail("expected 2 players")
 
   test("three rounds"):
-    val players  = List(player('a'), player('b'))
+    val players = List(player('a'), player('b'))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'b', 'a', "1/2-1/2"),
@@ -65,7 +65,7 @@ class SwissScoringTest extends munit.FunSuite:
       case _ => fail("expected 2 players")
 
   test("three rounds, three players, one gets a bye on first round"):
-    val players  = List(player('a'), player('b'), player('c', Set(1)))
+    val players = List(player('a'), player('b'), player('c', Set(1)))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'c', 'a', "1-0"),
@@ -79,7 +79,7 @@ class SwissScoringTest extends munit.FunSuite:
       case _ => fail("expected 3 players")
 
   test("three rounds, three players, three byes"):
-    val players  = List(player('a', Set(3)), player('b', Set(2)), player('c', Set(1)))
+    val players = List(player('a', Set(3)), player('b', Set(2)), player('c', Set(1)))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'c', 'a', "1-0"),
@@ -94,11 +94,11 @@ class SwissScoringTest extends munit.FunSuite:
 
   extension (e: SwissPlayer)
     def pointsAndTieBreak: (Float, Float) = (e.points.value, e.tieBreak.value.toFloat)
-    def print                             =
+    def print =
       println(e); e
 
-  def makeUserId(name: Char)                         = UserId(s"user-$name")
-  def makeSwissId                                    = SwissId("swissId")
+  def makeUserId(name: Char) = UserId(s"user-$name")
+  def makeSwissId = SwissId("swissId")
   def player(name: Char, byes: Set[Int] = Set.empty) = SwissPlayer(
     id = SwissPlayer.Id(s"swissId:${makeUserId(name)}"),
     swissId = makeSwissId,

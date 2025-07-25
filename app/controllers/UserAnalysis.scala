@@ -21,23 +21,23 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match
-      case Array(key)      => load(none, Variant.orDefault(Variant.LilaKey(key)))
+      case Array(key) => load(none, Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
-          case Some(variant) if variant != Standard            => load(fen.some, variant)
+          case Some(variant) if variant != Standard => load(fen.some, variant)
           case _ if Fen.Full.clean(fen) == Standard.initialFen => load(none, Standard)
-          case Some(Standard)                                  => load(fen.some, FromPosition)
-          case _                                               => load(arg.some, FromPosition)
+          case Some(Standard) => load(fen.some, FromPosition)
+          case _ => load(arg.some, FromPosition)
       case _ => load(none, Standard)
 
   private def load(urlFen: Option[String], variant: Variant) = Open:
-    val inputFen: Option[Fen.Full]       = urlFen.orElse(get("fen")).flatMap(readFen)
+    val inputFen: Option[Fen.Full] = urlFen.orElse(get("fen")).flatMap(readFen)
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
     val decodedFen: Option[Fen.Full] = chess960PositionNum.flatMap(Chess960.positionToFen).orElse(inputFen)
-    val pov                          = makePov(decodedFen, variant)
-    val orientation                  = get("color").flatMap(Color.fromName) | pov.color
+    val pov = makePov(decodedFen, variant)
+    val orientation = get("color").flatMap(Color.fromName) | pov.color
     for
       data <- env.api.roundApi.userAnalysisJson(
         pov,
@@ -52,9 +52,9 @@ final class UserAnalysis(
       .enforceCrossSiteIsolation
 
   def pgn(pgn: String) = Open:
-    val pov         = makePov(none, Standard)
+    val pov = makePov(none, Standard)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
-    val decodedPgn  =
+    val decodedPgn =
       lila.common.String
         .decodeUriPath(pgn.take(5000))
         .map(_.replace("_", " ").replace("+", " ").trim)
@@ -68,9 +68,9 @@ final class UserAnalysis(
 
   def embed = Anon:
     InEmbedContext:
-      val pov         = makePov(none, Standard)
+      val pov = makePov(none, Standard)
       val orientation = get("color").flatMap(Color.fromName) | pov.color
-      val fen         = get("fen").flatMap(readFen)
+      val fen = get("fen").flatMap(readFen)
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, fen, orientation, owner = false)
         .map: data =>
@@ -111,7 +111,7 @@ final class UserAnalysis(
               val owner = isMyPov(pov)
               for
                 initialFen <- env.game.gameRepo.initialFen(game.id)
-                data       <-
+                data <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
@@ -125,12 +125,12 @@ final class UserAnalysis(
 
   private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    users      <- env.user.api.gamePlayers.analysis(pov.game)
+    users <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
-    _     = gameC.preloadUsers(users)
-    analysis   <- env.analyse.analyser.get(pov.game)
+    _ = gameC.preloadUsers(users)
+    analysis <- env.analyse.analyser.get(pov.game)
     crosstable <- env.game.crosstableApi(pov.game)
-    data       <- env.api.roundApi.review(
+    data <- env.api.roundApi.review(
       pov,
       users,
       tv = none,
@@ -163,11 +163,11 @@ final class UserAnalysis(
             err => BadRequest(err.toString),
             forecasts =>
               val fu = for
-                _   <- env.round.forecastApi.save(pov, forecasts)
+                _ <- env.round.forecastApi.save(pov, forecasts)
                 res <- env.round.forecastApi.loadForDisplay(pov)
               yield res.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
               fu.recover:
-                case Forecast.OutOfSync             => forecastReload
+                case Forecast.OutOfSync => forecastReload
                 case _: lila.core.round.ClientError => forecastReload
           )
   }

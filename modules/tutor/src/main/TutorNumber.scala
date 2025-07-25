@@ -9,7 +9,7 @@ import lila.insight.ClockPercent
 
 trait TutorNumber[V]:
   val iso: Iso.DoubleIso[V]
-  def double(v: V)          = iso to v
+  def double(v: V) = iso to v
   given Zero[ValueCount[V]] = Zero(ValueCount[V](iso.from(0), 0))
   def grade(a: V, b: V): Grade
   def mean(vs: Iterable[ValueCount[V]]): ValueCount[V] =
@@ -28,17 +28,17 @@ trait TutorNumber[V]:
     mean(~a, ~b)
 
   def reverseCompare = new TutorNumber[V]:
-    val iso                                                       = TutorNumber.this.iso
-    override def grade(a: V, b: V)                                = TutorNumber.this.grade(b, a)
+    val iso = TutorNumber.this.iso
+    override def grade(a: V, b: V) = TutorNumber.this.grade(b, a)
     override def mean(vs: Iterable[ValueCount[V]]): ValueCount[V] = TutorNumber.this.mean(vs)
 
 object TutorNumber:
 
   given TutorNumber[GoodPercent] with
-    val iso                                   = summon[Iso[Double, GoodPercent]]
+    val iso = summon[Iso[Double, GoodPercent]]
     def grade(a: GoodPercent, b: GoodPercent) = Grade.percent(a, b)
   given TutorNumber[AccuracyPercent] with
-    val iso                                           = summon[Iso[Double, AccuracyPercent]]
+    val iso = summon[Iso[Double, AccuracyPercent]]
     def grade(a: AccuracyPercent, b: AccuracyPercent) = Grade.percent(a, b)
   given TutorNumber[IntRating] with
     val iso = Iso.double[IntRating](d => IntRating(roundToInt(d)), _.value.toDouble)

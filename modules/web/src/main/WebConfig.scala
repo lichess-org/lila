@@ -17,8 +17,8 @@ final class WebConfig(
 object WebConfig:
 
   object blindCookie:
-    val name                                          = "mBzamRgfXgRBSnXB"
-    val maxAge                                        = 365.days
+    val name = "mBzamRgfXgRBSnXB"
+    val maxAge = 365.days
     def make(lilaCookie: LilaCookie)(enable: Boolean) = lilaCookie.cookie(
       name,
       enable.so("1"),

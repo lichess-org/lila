@@ -10,24 +10,24 @@ import lila.db.dsl.{ *, given }
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
-  private val enterableSelect                  = $doc("status".$lt(Status.finished.id))
-  private val createdSelect                    = $doc("status" -> Status.created.id)
-  private val startedSelect                    = $doc("status" -> Status.started.id)
-  private[tournament] val finishedSelect       = $doc("status" -> Status.finished.id)
-  private val unfinishedSelect                 = $doc("status".$ne(Status.finished.id))
-  private[tournament] val scheduledSelect      = $doc("schedule".$exists(true))
-  private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
+  private val enterableSelect = $doc("status".$lt(Status.finished.id))
+  private val createdSelect = $doc("status" -> Status.created.id)
+  private val startedSelect = $doc("status" -> Status.started.id)
+  private[tournament] val finishedSelect = $doc("status" -> Status.finished.id)
+  private val unfinishedSelect = $doc("status".$ne(Status.finished.id))
+  private[tournament] val scheduledSelect = $doc("schedule".$exists(true))
+  private def forTeamSelect(id: TeamId) = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
-  private def sinceSelect(date: Instant)       = $doc("startsAt".$gt(date))
-  private def variantSelect(variant: Variant)  =
+  private def sinceSelect(date: Instant) = $doc("startsAt".$gt(date))
+  private def variantSelect(variant: Variant) =
     if variant.standard then $doc("variant".$exists(false))
     else $doc("variant" -> variant.id)
   private def nbPlayersSelect(nb: Int) = $doc("nbPlayers".$gte(nb))
-  private val nonEmptySelect           = nbPlayersSelect(1)
+  private val nonEmptySelect = nbPlayersSelect(1)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: TourId): Fu[Option[Tournament]] = coll.byId[Tournament](id)
-  def exists(id: TourId): Fu[Boolean]          = coll.exists($id(id))
+  def exists(id: TourId): Fu[Boolean] = coll.exists($id(id))
 
   def uniqueById(id: TourId): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
@@ -125,9 +125,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       createdBy: Option[UserStr],
       name: Option[String]
   ) =
-    val statusSel  = status.so(s => $doc("status" -> s.id))
+    val statusSel = status.so(s => $doc("status" -> s.id))
     val creatorSel = createdBy.so(u => $doc("createdBy" -> u))
-    val nameSel    = name.so(n => $doc("name" -> n))
+    val nameSel = name.so(n => $doc("name" -> n))
     coll
       .find(forTeamSelect(teamId) ++ statusSel ++ creatorSel ++ nameSel)
       .sort($sort.desc("startsAt"))
@@ -259,13 +259,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           tour.scheduleFreq.map(tour -> _)
         }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
           case ((tours, skip), (_, freq)) if skip.has(freq) => (tours, skip)
-          case ((tours, skip), (tour, freq))                =>
+          case ((tours, skip), (tour, freq)) =>
             (
               tour :: tours,
               freq match
-                case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
+                case Schedule.Freq.Daily => Schedule.Freq.Eastern.some
                 case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
-                case _                     => skip
+                case _ => skip
             )
         }._1
           .reverse

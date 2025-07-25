@@ -18,7 +18,7 @@ final class StreamerApi(
 
   def withColl[A](f: Coll => A): A = f(coll)
 
-  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id)
+  def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
@@ -40,7 +40,7 @@ final class StreamerApi(
 
   def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] = for
     users <- userApi.byIds(live.streams.map(_.streamer.userId))
-    subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
+    subs <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
     users
       .find(_.is(s.streamer))
@@ -66,11 +66,11 @@ final class StreamerApi(
         update.element(
           q = $id(s.streamer.id),
           u = $set(
-            "liveAt"         -> nowInstant,
+            "liveAt" -> nowInstant,
             "lastStreamLang" -> s.language
           )
         )
-      _            <- elements.nonEmpty.so(update.many(elements).void)
+      _ <- elements.nonEmpty.so(update.many(elements).void)
       candidateIds <- cache.candidateIds.getUnit
     yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
@@ -130,7 +130,7 @@ final class StreamerApi(
       .map: doc =>
         for
           streamer <- doc.value
-          tuber    <- streamer.getAsOpt[Streamer.YouTube]("youTube")
+          tuber <- streamer.getAsOpt[Streamer.YouTube]("youTube")
         yield ytApi.channelSubscribe(tuber.channelId, false)
 
   private[streamer] def unignore(userId: UserId): Funit =
@@ -173,7 +173,7 @@ final class StreamerApi(
         ),
         $set(
           "approval.granted" -> false,
-          "demoted"          -> true
+          "demoted" -> true
         ),
         multi = true
       )
@@ -190,7 +190,7 @@ final class StreamerApi(
     def countRequests: Fu[Int] = coll.countSel:
       $doc(
         "approval.requested" -> true,
-        "approval.ignored"   -> false
+        "approval.ignored" -> false
       )
 
   def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
@@ -216,7 +216,7 @@ final class StreamerApi(
 
     private def selectListedApproved =
       $doc(
-        "listed"           -> true,
+        "listed" -> true,
         "approval.granted" -> true
       )
 

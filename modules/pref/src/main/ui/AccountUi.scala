@@ -18,25 +18,25 @@ final class AccountUi(helpers: Helpers):
         )
 
   def categName(categ: PrefCateg)(using Translate): String = categ match
-    case PrefCateg.Display      => trans.preferences.display.txt()
-    case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
+    case PrefCateg.Display => trans.preferences.display.txt()
+    case PrefCateg.ChessClock => trans.preferences.chessClock.txt()
     case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
-    case PrefCateg.Privacy      => trans.preferences.privacy.txt()
+    case PrefCateg.Privacy => trans.preferences.privacy.txt()
 
   def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
   def radios[A](field: play.api.data.Field, options: Iterable[(A, String)]) =
     st.group(cls := "radio"):
       options.toList.map: (key, value) =>
-        val id      = s"ir${field.id}_$key"
+        val id = s"ir${field.id}_$key"
         val checked = field.value.has(key.toString)
         div(
           input(
             st.id := id,
             checked.option(st.checked),
-            tpe      := "radio",
+            tpe := "radio",
             st.value := key.toString,
-            name     := field.name
+            name := field.name
           ),
           label(`for` := id)(value)
         )
@@ -48,22 +48,22 @@ final class AccountUi(helpers: Helpers):
         input(
           st.id := s"ir${field.id}_hidden",
           true.option(st.checked),
-          tpe      := "hidden",
+          tpe := "hidden",
           st.value := "",
-          name     := field.name
+          name := field.name
         ),
         st.style := "display: none;"
       ) :: options
         .map: (key, value) =>
-          val id      = s"ir${field.id}_$key"
-          val intVal  = ~field.value.flatMap(_.toIntOption)
+          val id = s"ir${field.id}_$key"
+          val intVal = ~field.value.flatMap(_.toIntOption)
           val checked = (intVal & key) == key
           div(
             input(
               st.id := id,
               checked.option(st.checked),
-              tpe               := "checkbox",
-              st.value          := key.toString,
+              tpe := "checkbox",
+              st.value := key.toString,
               attr("data-name") := field.name
             ),
             label(`for` := id)(value)

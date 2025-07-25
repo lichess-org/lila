@@ -9,9 +9,9 @@ case class Answer[X](
 
 // a row per dimension value
 case class Cluster[X](
-    x: X,             // dimension value
+    x: X, // dimension value
     insight: Insight, // metric values
-    size: Int,        // sample size
+    size: Int, // sample size
     insightIds: List[String]
 ):
 

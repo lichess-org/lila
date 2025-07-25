@@ -25,7 +25,7 @@ case class Pov(game: Game, color: Color):
 
   def ref = PovRef(game.id, color)
 
-  def withGame(g: Game)   = copy(game = g)
+  def withGame(g: Game) = copy(game = g)
   def withColor(c: Color) = copy(color = c)
 
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
@@ -51,11 +51,11 @@ case class Pov(game: Game, color: Color):
   override def toString = ref.toString
 
 object Pov:
-  def naturalOrientation(game: Game): Pov                  = Pov(game, game.naturalOrientation)
-  def apply(game: Game, player: Player): Pov               = Pov(game, player.color)
+  def naturalOrientation(game: Game): Pov = Pov(game, game.naturalOrientation)
+  def apply(game: Game, player: Player): Pov = Pov(game, player.color)
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
     game.player(user).map { apply(game, _) }
 
 case class PovRef(gameId: GameId, color: Color):
-  def unary_!           = PovRef(gameId, !color)
+  def unary_! = PovRef(gameId, !color)
   override def toString = s"$gameId/${color.name}"

@@ -35,9 +35,9 @@ case class UserInfo(
 object UserInfo:
 
   enum Angle(val key: String):
-    case Activity                           extends Angle("activity")
+    case Activity extends Angle("activity")
     case Games(searchForm: Option[Form[?]]) extends Angle("games")
-    case Other                              extends Angle("other")
+    case Other extends Angle("other")
 
   case class Social(
       relation: Option[lila.relation.Relation],

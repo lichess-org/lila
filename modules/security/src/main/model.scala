@@ -6,11 +6,11 @@ import lila.core.misc.AtInstant
 
 case class Dated[V](value: V, date: Instant):
   def map[X](f: V => X) = copy(value = f(value))
-  def seconds           = date.toSeconds
+  def seconds = date.toSeconds
 
 object Dated:
   given [A] => AtInstant[Dated[A]] = _.date
-  given [A] => Ordering[Dated[A]]  = AtInstant.atInstantOrdering
+  given [A] => Ordering[Dated[A]] = AtInstant.atInstantOrdering
 
 case class AuthInfo(user: UserId, hasFp: Boolean)
 
@@ -26,7 +26,7 @@ case class UserSession(
     date: Option[Instant]
 ):
   inline def id = _id
-  def isMobile  = api.isDefined || Mobile.LichessMobileUaTrim.is(ua)
+  def isMobile = api.isDefined || Mobile.LichessMobileUaTrim.is(ua)
 
 case class LocatedSession(session: UserSession, location: Option[Location])
 

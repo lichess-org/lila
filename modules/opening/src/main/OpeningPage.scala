@@ -37,9 +37,9 @@ case class ResultCounts(
 ):
   lazy val sum: Long = white + draws + black
 
-  def whitePercent                      = percentOf(white)
-  def drawsPercent                      = percentOf(draws)
-  def blackPercent                      = percentOf(black)
+  def whitePercent = percentOf(white)
+  def drawsPercent = percentOf(draws)
+  def blackPercent = percentOf(black)
   private def percentOf(v: Long): Float = (v.toFloat * 100 / sum)
 
 case class OpeningNext(
@@ -80,10 +80,10 @@ def makeOpeningPage(
           next = exp.moves
             .flatMap { m =>
               for
-                uci  <- Uci.Move(m.uci)
+                uci <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
-                result  = ResultCounts(m.white, m.draws, m.black)
-                fen     = Fen.writeOpening(move.after)
+                result = ResultCounts(m.white, m.draws, m.black)
+                fen = Fen.writeOpening(move.after)
                 opening = OpeningDb.findByStandardFen(fen)
               yield OpeningNext(
                 m.san,

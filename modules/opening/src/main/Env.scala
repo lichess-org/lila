@@ -20,7 +20,7 @@ final class Env(
 )(using Executor):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
-  private lazy val wikiColl    = db(CollName("opening_wiki"))
+  private lazy val wikiColl = db(CollName("opening_wiki"))
 
   private lazy val explorer = wire[OpeningExplorer]
 

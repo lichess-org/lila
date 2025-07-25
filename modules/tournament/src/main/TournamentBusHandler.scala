@@ -14,11 +14,11 @@ final private class TournamentBusHandler(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) =>
       for
-        _      <- ejectFromEnterable(userId)
+        _ <- ejectFromEnterable(userId)
         recent <- leaderboard.getAndDeleteRecent(userId, nowInstant.minusDays(3))
-        _      <- recent.parallelVoid(api.removePlayerAndRewriteHistory(_, userId))
-        _      <- shieldApi.clearAfterMarking(userId)
-        _      <- winnersApi.clearAfterMarking(userId)
+        _ <- recent.parallelVoid(api.removePlayerAndRewriteHistory(_, userId))
+        _ <- shieldApi.clearAfterMarking(userId)
+        _ <- winnersApi.clearAfterMarking(userId)
       yield ()
   Bus.sub[lila.core.mod.MarkBooster](booster => ejectFromEnterable(booster.userId))
 

@@ -6,8 +6,8 @@ final class RacerLobby(api: RacerApi)(using Executor)(using scheduler: Scheduler
     currentRace
       .flatMap:
         case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace(7)
-        case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace(10)
-        case race                                                => fuccess(race.id)
+        case race if race.startsInMillis.exists(_ < 3000) => makeNewRace(10)
+        case race => fuccess(race.id)
       .map: raceId =>
         api.join(raceId, player)
         raceId

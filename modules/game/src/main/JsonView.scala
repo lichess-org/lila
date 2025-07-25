@@ -15,15 +15,15 @@ final class JsonView(rematches: Rematches):
   def base(game: Game, initialFen: Option[Fen.Full]) =
     Json
       .obj(
-        "id"        -> game.id,
-        "variant"   -> game.variant,
-        "speed"     -> game.speed.key,
-        "perf"      -> game.perfKey,
-        "rated"     -> game.rated,
-        "fen"       -> Fen.write(game.chess),
-        "turns"     -> game.ply,
-        "source"    -> game.source,
-        "status"    -> game.status,
+        "id" -> game.id,
+        "variant" -> game.variant,
+        "speed" -> game.speed.key,
+        "perf" -> game.perfKey,
+        "rated" -> game.rated,
+        "fen" -> Fen.write(game.chess),
+        "turns" -> game.ply,
+        "source" -> game.source,
+        "status" -> game.status,
         "createdAt" -> game.createdAt
       )
       .add("startedAtTurn" -> game.chess.startedAtPly.some.filter(_ > 0))
@@ -42,7 +42,7 @@ final class JsonView(rematches: Rematches):
     base(game, initialFen) ++ Json
       .obj(
         "player" -> game.turnColor,
-        "fen"    -> Fen.write(game.chess)
+        "fen" -> Fen.write(game.chess)
       )
       .add("check" -> game.position.checkSquare.map(_.key))
       .add("lastMove" -> game.lastMoveKeys)
@@ -53,24 +53,24 @@ final class JsonView(rematches: Rematches):
   def ownerPreview(pov: Pov)(using LightUser.GetterSync) =
     Json
       .obj(
-        "fullId"   -> pov.fullId,
-        "gameId"   -> pov.gameId,
-        "fen"      -> maybeFen(pov),
-        "color"    -> pov.color,
+        "fullId" -> pov.fullId,
+        "gameId" -> pov.gameId,
+        "fen" -> maybeFen(pov),
+        "color" -> pov.color,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
-        "source"   -> pov.game.source,
-        "status"   -> pov.game.status,
-        "variant"  -> Json.obj(
-          "key"  -> pov.game.variant.key,
+        "source" -> pov.game.source,
+        "status" -> pov.game.status,
+        "variant" -> Json.obj(
+          "key" -> pov.game.variant.key,
           "name" -> pov.game.variant.name
         ),
-        "speed"    -> pov.game.speed.key,
-        "perf"     -> pov.game.perfKey,
-        "rated"    -> pov.game.rated,
+        "speed" -> pov.game.speed.key,
+        "perf" -> pov.game.perfKey,
+        "rated" -> pov.game.rated,
         "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
           .obj(
-            "id"       -> pov.opponent.userId,
+            "id" -> pov.opponent.userId,
             "username" -> lila.game.Namer
               .playerTextBlocking(pov.opponent, withRating = false)
           )
@@ -104,7 +104,7 @@ object JsonView:
 
   given OWrites[chess.Status] = OWrites: s =>
     Json.obj(
-      "id"   -> s.id,
+      "id" -> s.id,
       "name" -> s.name
     )
 
@@ -116,14 +116,14 @@ object JsonView:
 
   given OWrites[Crosstable] = OWrites: c =>
     Json.obj(
-      "users"   -> c.users,
+      "users" -> c.users,
       "nbGames" -> c.nbGames
       // "results" -> c.results
     )
 
   given OWrites[Crosstable.Matchup] = OWrites: m =>
     Json.obj(
-      "users"   -> m.users,
+      "users" -> m.users,
       "nbGames" -> m.users.nbGames
     )
 
@@ -133,26 +133,26 @@ object JsonView:
   given OWrites[Blurs] = OWrites: blurs =>
     import lila.game.Blurs.binaryString
     Json.obj(
-      "nb"   -> blurs.nb,
+      "nb" -> blurs.nb,
       "bits" -> blurs.binaryString
     )
 
   given OWrites[chess.variant.Variant] = OWrites: v =>
     Json.obj(
-      "key"   -> v.key,
-      "name"  -> v.name,
+      "key" -> v.key,
+      "name" -> v.name,
       "short" -> v.shortName
     )
 
   given OWrites[Clock] = OWrites: c =>
     Json.obj(
-      "running"   -> c.isRunning,
-      "initial"   -> c.limitSeconds,
+      "running" -> c.isRunning,
+      "initial" -> c.limitSeconds,
       "increment" -> c.incrementSeconds,
-      "white"     -> c.remainingTime(Color.White).toSeconds,
-      "black"     -> c.remainingTime(Color.Black).toSeconds,
-      "emerg"     -> c.config.emergSeconds
+      "white" -> c.remainingTime(Color.White).toSeconds,
+      "black" -> c.remainingTime(Color.Black).toSeconds,
+      "emerg" -> c.config.emergSeconds
     )
 
-  given Writes[Source]                  = writeAs(_.name)
+  given Writes[Source] = writeAs(_.name)
   given Writes[lila.core.game.GameRule] = writeAs(_.toString)

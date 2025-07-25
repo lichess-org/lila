@@ -41,8 +41,8 @@ object page:
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag)
-    val zenable  = p.flags(PageFlags.zen)
-    val playing  = p.flags(PageFlags.playing)
+    val zenable = p.flags(PageFlags.zen)
+    val playing = p.flags(PageFlags.playing)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -69,7 +69,7 @@ object page:
           pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
-            name    := "description"
+            name := "description"
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
@@ -97,37 +97,37 @@ object page:
           cls := {
             val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
             List(
-              baseClass              -> true,
-              "simple-board"         -> pref.simpleBoard,
-              "piece-letter"         -> pref.pieceNotationIsLetter,
-              "blind-mode"           -> ctx.blind,
-              "kid"                  -> ctx.kid.yes,
-              "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
+              baseClass -> true,
+              "simple-board" -> pref.simpleBoard,
+              "piece-letter" -> pref.pieceNotationIsLetter,
+              "blind-mode" -> ctx.blind,
+              "kid" -> ctx.kid.yes,
+              "mobile" -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
-              "no-rating"            -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
-              "no-flair"             -> !pref.flairs,
-              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
-              "zenable"              -> zenable,
-              "zen-auto"             -> (zenable && pref.isZenAuto)
+              "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
+              "no-flair" -> !pref.flairs,
+              "zen" -> (pref.isZen || (playing && pref.isZenAuto)),
+              "zenable" -> zenable,
+              "zen-auto" -> (zenable && pref.isZenAuto)
             )
           },
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser                    := ctx.userId,
-          dataUsername                := ctx.username,
-          dataSoundSet                := pref.currentSoundSet.toString,
+          dataUser := ctx.userId,
+          dataUsername := ctx.username,
+          dataSoundSet := pref.currentSoundSet.toString,
           attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
                                           else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
-          dataNonce        := ctx.nonce,
-          dataTheme        := pref.currentBg,
-          dataBoard        := pref.currentTheme.name,
-          dataPieceSet     := pref.currentPieceSet.name,
-          dataBoard3d      := pref.currentTheme3d.name,
-          dataPieceSet3d   := pref.currentPieceSet3d.name,
-          dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := boardStyle(p.flags(PageFlags.zoom))
+          dataNonce := ctx.nonce,
+          dataTheme := pref.currentBg,
+          dataBoard := pref.currentTheme.name,
+          dataPieceSet := pref.currentPieceSet.name,
+          dataBoard3d := pref.currentTheme3d.name,
+          dataPieceSet3d := pref.currentPieceSet3d.name,
+          dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
+          style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
@@ -151,11 +151,11 @@ object page:
             )
           ),
           div(
-            id  := "main-wrap",
+            id := "main-wrap",
             cls := List(
               "full-screen-force" -> p.flags(PageFlags.fullScreen),
-              "is2d"              -> pref.is2d,
-              "is3d"              -> pref.is3d
+              "is2d" -> pref.is2d,
+              "is3d" -> pref.is3d
             )
           )(p.transform(p.body)),
           bottomHtml,

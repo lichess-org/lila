@@ -12,7 +12,7 @@ object PublicLine:
   given BSONHandler[PublicLine] = Macros.handler
 
   object merge:
-    val sep                                                           = "_@_"
+    val sep = "_@_"
     def apply(prev: PublicLine, next: PublicLine): Option[PublicLine] =
       if prev.from != next.from then none
       else if split(prev.text).contains(next.text) then prev.some

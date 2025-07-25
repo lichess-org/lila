@@ -21,7 +21,7 @@ final class LoginToken(
   def send(user: User, email: EmailAddress): Funit =
     generate(user).flatMap { token =>
       lila.mon.email.send.magicLink.increment()
-      val url                  = s"$baseUrl/auth/token/$token"
+      val url = s"$baseUrl/auth/token/$token"
       given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       import Mailer.html.*
       mailer.sendOrFail:

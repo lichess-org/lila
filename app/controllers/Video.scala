@@ -44,7 +44,7 @@ final class Video(env: Env) extends LilaController(env):
       api.video
         .find(id)
         .flatMap:
-          case None        => NotFound.page(views.video.notFound(control))
+          case None => NotFound.page(views.video.notFound(control))
           case Some(video) =>
             api.video
               .similar(ctx.me, video, 9)

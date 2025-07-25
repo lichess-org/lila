@@ -7,7 +7,7 @@ package lila.db
  * in the cases where accidental duplicate calls don't matter. */
 final private class SingleFutureCache[A](compute: () => Fu[A], expireAfterMillis: Int):
 
-  private var current: Fu[A]  = fufail("SingleFutureCache.empty")
+  private var current: Fu[A] = fufail("SingleFutureCache.empty")
   private var expiresAt: Long = 0
 
   def get: Fu[A] =

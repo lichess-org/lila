@@ -66,7 +66,7 @@ final private[puzzle] class PuzzleFinisher(
           .find(me.value, id)
           .zip(api.puzzle.find(id))
           .flatMap:
-            case (_, None)                 => fuccess(none)
+            case (_, None) => fuccess(none)
             case (prevRound, Some(puzzle)) =>
               val now = nowInstant
               prevRound

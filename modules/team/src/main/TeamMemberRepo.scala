@@ -139,11 +139,11 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   private[team] def countUnsub(teamId: TeamId): Fu[Int] =
     coll.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))
 
-  def teamQuery(teamId: TeamId)                                     = $doc("team" -> teamId)
-  def teamQuery(teamIds: Seq[TeamId])                               = $doc("team".$in(teamIds))
-  private def selectId[U: UserIdOf](teamId: TeamId, user: U)        = $id(TeamMember.makeId(teamId, user.id))
+  def teamQuery(teamId: TeamId) = $doc("team" -> teamId)
+  def teamQuery(teamIds: Seq[TeamId]) = $doc("team".$in(teamIds))
+  private def selectId[U: UserIdOf](teamId: TeamId, user: U) = $id(TeamMember.makeId(teamId, user.id))
   private def selectIds[U: UserIdOf](teamIds: Seq[TeamId], user: U) = $inIds:
     teamIds.map(TeamMember.makeId(_, user.id))
-  private def selectUser[U: UserIdOf](user: U)      = $doc("user" -> user.id)
-  private def selectAnyPerm                         = $doc("perms".$exists(true))
+  private def selectUser[U: UserIdOf](user: U) = $doc("user" -> user.id)
+  private def selectAnyPerm = $doc("perms".$exists(true))
   private def selectPerm(perm: Permission.Selector) = $doc("perms" -> perm(Permission))

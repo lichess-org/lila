@@ -22,7 +22,7 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
-  def perfKey       = perfType.key
+  def perfKey = perfType.key
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
@@ -89,7 +89,7 @@ case class Streaks(cur: Streak, max: Streak):
     copy(cur = cur.continueOrReset(cont, pov)(v)).setMax
   def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
     copy(cur = cur.continueOrStart(cont, pov)(v)).setMax
-  def reset          = copy(cur = Streak.init)
+  def reset = copy(cur = Streak.init)
   private def setMax = copy(max = if cur.v >= max.v then cur else max)
 object Streaks:
   val init = Streaks(Streak.init, Streak.init)
@@ -99,11 +99,11 @@ case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]):
   def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
     if cont then inc(pov, v)
     else
-      val at  = GameAt(pov.game.createdAt, pov.gameId).some
+      val at = GameAt(pov.game.createdAt, pov.gameId).some
       val end = GameAt(pov.game.movedAt, pov.gameId).some
       Streak(v, at, end)
   private def inc(pov: Pov, by: Int) =
-    val at  = GameAt(pov.game.createdAt, pov.gameId).some
+    val at = GameAt(pov.game.createdAt, pov.gameId).some
     val end = GameAt(pov.game.movedAt, pov.gameId).some
     Streak(v + by, from.orElse(at), end)
   def duration = Duration.ofSeconds(v)
@@ -134,7 +134,7 @@ case class Count(
       opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg.agg(r.value)),
       seconds = seconds + (pov.game.durationSeconds match
         case Some(s) if s <= 3 * 60 * 60 => s
-        case _                           => 0),
+        case _ => 0),
       disconnects = disconnects + {
         if ~pov.loss && pov.game.status == chess.Status.Timeout then 1 else 0
       }
@@ -181,7 +181,7 @@ case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: Instant, 
 case class Results(results: List[Result]):
   def agg(pov: Pov, comp: Int) = {
     for
-      opId  <- pov.opponent.userId
+      opId <- pov.opponent.userId
       opInt <- pov.opponent.stableRating
       if pov.game.rated.yes
       if pov.game.bothPlayersHaveMoved

@@ -12,7 +12,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
 
   import JsonView.{ *, given }
   import lila.user.Profile.*
-  private given OWrites[Profile]  = Json.writes
+  private given OWrites[Profile] = Json.writes
   private given OWrites[PlayTime] = Json.writes
 
   def full(
@@ -39,9 +39,9 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
   private def base(u: User, perfs: Option[UserPerfs | KeyedPerf]) =
     Json
       .obj(
-        "id"       -> u.id,
+        "id" -> u.id,
         "username" -> u.username,
-        "perfs"    -> perfs.fold(Json.obj()):
+        "perfs" -> perfs.fold(Json.obj()):
           case p: UserPerfs => perfsJson(p)
           case p: KeyedPerf => keyedPerfJson(p)
       )
@@ -57,7 +57,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
   given lightPerfIsOnlineWrites: OWrites[LightPerf] = OWrites(lightPerfIsOnline)
 
   def disabled(u: LightUser) = Json.obj(
-    "id"       -> u.id,
+    "id" -> u.id,
     "username" -> u.name,
     "disabled" -> true
   )
@@ -70,9 +70,9 @@ object JsonView:
   given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
     Json
       .obj(
-        "id"       -> l.user.id,
+        "id" -> l.user.id,
         "username" -> l.user.name,
-        "perfs"    -> Json.obj(
+        "perfs" -> Json.obj(
           l.perfKey.value -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
         )
       )
@@ -82,10 +82,10 @@ object JsonView:
   given perfWrites: OWrites[Perf] = OWrites: o =>
     Json
       .obj(
-        "games"  -> o.nb,
+        "games" -> o.nb,
         "rating" -> o.glicko.rating.toInt,
-        "rd"     -> o.glicko.deviation.toInt,
-        "prog"   -> o.progress
+        "rd" -> o.glicko.deviation.toInt,
+        "prog" -> o.progress
       )
       .add("prov", o.glicko.provisional)
 
@@ -103,7 +103,7 @@ object JsonView:
 
   private given OWrites[PuzPerf] = OWrites: p =>
     Json.obj(
-      "runs"  -> p.runs,
+      "runs" -> p.runs,
       "score" -> p.score
     )
 
@@ -120,7 +120,7 @@ object JsonView:
           Json
             .obj(
               "from" -> lightUser.syncFallback(note.from),
-              "to"   -> lightUser.syncFallback(note.to),
+              "to" -> lightUser.syncFallback(note.to),
               "text" -> note.text,
               "date" -> note.date
             )
@@ -130,19 +130,19 @@ object JsonView:
   given leaderboardsWrites(using OWrites[LightPerf]): OWrites[lila.rating.UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
-        "bullet"        -> leaderboards.bullet,
-        "blitz"         -> leaderboards.blitz,
-        "rapid"         -> leaderboards.rapid,
-        "classical"     -> leaderboards.classical,
-        "ultraBullet"   -> leaderboards.ultraBullet,
-        "crazyhouse"    -> leaderboards.crazyhouse,
-        "chess960"      -> leaderboards.chess960,
+        "bullet" -> leaderboards.bullet,
+        "blitz" -> leaderboards.blitz,
+        "rapid" -> leaderboards.rapid,
+        "classical" -> leaderboards.classical,
+        "ultraBullet" -> leaderboards.ultraBullet,
+        "crazyhouse" -> leaderboards.crazyhouse,
+        "chess960" -> leaderboards.chess960,
         "kingOfTheHill" -> leaderboards.kingOfTheHill,
-        "threeCheck"    -> leaderboards.threeCheck,
-        "antichess"     -> leaderboards.antichess,
-        "atomic"        -> leaderboards.atomic,
-        "horde"         -> leaderboards.horde,
-        "racingKings"   -> leaderboards.racingKings
+        "threeCheck" -> leaderboards.threeCheck,
+        "antichess" -> leaderboards.antichess,
+        "atomic" -> leaderboards.atomic,
+        "horde" -> leaderboards.horde,
+        "racingKings" -> leaderboards.racingKings
       )
 
   given leaderboardStandardTopOneWrites(using
@@ -150,9 +150,9 @@ object JsonView:
   ): OWrites[lila.rating.UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
-        "bullet"      -> leaderboards.bullet.headOption,
-        "blitz"       -> leaderboards.blitz.headOption,
-        "rapid"       -> leaderboards.rapid.headOption,
-        "classical"   -> leaderboards.classical.headOption,
+        "bullet" -> leaderboards.bullet.headOption,
+        "blitz" -> leaderboards.blitz.headOption,
+        "rapid" -> leaderboards.rapid.headOption,
+        "classical" -> leaderboards.classical.headOption,
         "ultraBullet" -> leaderboards.ultraBullet.headOption
       )

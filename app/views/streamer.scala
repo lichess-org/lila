@@ -7,7 +7,7 @@ import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
 import lila.streamer.Streamer
 
-lazy val bits       = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
+lazy val bits = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
 export ui.index
 

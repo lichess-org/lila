@@ -8,7 +8,7 @@ import chess.{ Centis, Ply, Position }
 
 object TreeBuilder:
 
-  type LogChessError           = String => Unit
+  type LogChessError = String => Unit
   private[tree] type OpeningOf = Fen.Full => Option[Opening]
 
   private[tree] def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
@@ -21,11 +21,11 @@ object TreeBuilder:
       logChessError: LogChessError
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
-    val drawOfferPlies                     = game.drawOffers.normalizedPlies
-    val setup                              = chess.Position.AndFullMoveNumber(game.variant, initialFen)
-    val fen                                = Fen.write(setup)
-    val infos: Vector[Info]                = analysis.so(_.infos.toVector)
-    val openingOf: OpeningOf               =
+    val drawOfferPlies = game.drawOffers.normalizedPlies
+    val setup = chess.Position.AndFullMoveNumber(game.variant, initialFen)
+    val fen = Fen.write(setup)
+    val infos: Vector[Info] = analysis.so(_.infos.toVector)
+    val openingOf: OpeningOf =
       if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
       then OpeningDb.findByFullFen
       else _ => None
@@ -44,9 +44,9 @@ object TreeBuilder:
     )
 
     def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =
-      val fen    = Fen.write(move.after, ply.fullMoveNumber)
-      val index  = (ply - setup.ply - 1).value
-      val info   = infos.lift(index)
+      val fen = Fen.write(move.after, ply.fullMoveNumber)
+      val index = (ply - setup.ply - 1).value
+      val info = infos.lift(index)
       val advice = advices.get(ply)
 
       val branch = Branch(

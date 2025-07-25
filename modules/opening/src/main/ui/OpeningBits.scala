@@ -63,7 +63,7 @@ final class OpeningBits(helpers: Helpers):
         )
       ),
       postForm(
-        cls    := "opening__config__form",
+        cls := "opening__config__form",
         action := routes.Opening.config(thenTo.some.filter(_.nonEmpty) | "index")
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
@@ -87,16 +87,16 @@ final class OpeningBits(helpers: Helpers):
           )
         )
 
-  def queryUrl(q: OpeningQuery): Call       = queryUrl(q.query)
+  def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: OpeningQuery.Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
-  def openingUrl(o: Opening)         = openingKeyUrl(o.key)
+  def openingUrl(o: Opening) = openingKeyUrl(o.key)
   def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key.value, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 
   def percentNumber(v: Double) = f"${v}%1.2f"
-  def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
+  def percentFrag(v: Double) = frag(strong(percentNumber(v)), "%")
 
   def resultSegments(result: ResultCounts) = (result.sum > 0).option:
     import result.*
@@ -109,9 +109,9 @@ final class OpeningBits(helpers: Helpers):
 
   def resultSegment(key: String, help: String, percent: Double, visualPercent: Double) =
     val visible = visualPercent > 7
-    val text    = s"${Math.round(percent)}%"
+    val text = s"${Math.round(percent)}%"
     span(
-      cls   := key,
+      cls := key,
       style := s"height:${percentNumber(visualPercent)}%",
       title := s"$text $help"
     )(visible.option(text))
@@ -127,11 +127,11 @@ final class OpeningBits(helpers: Helpers):
 
   private def exaggerateResults(result: ResultCounts) =
     import result.*
-    val (lower, upper)   = (30d, 70d)
-    val factor           = 100d / (upper - lower)
-    val drawSquishing    = 50d / 100d
+    val (lower, upper) = (30d, 70d)
+    val factor = 100d / (upper - lower)
+    val drawSquishing = 50d / 100d
     val drawHalfSquished = drawsPercent * factor * drawSquishing * 50d / 100d
-    val drawTransformed  = drawsPercent * factor - 2 * drawHalfSquished
+    val drawTransformed = drawsPercent * factor - 2 * drawHalfSquished
     val blackTransformed = (blackPercent - lower) * factor + drawHalfSquished
     val whiteTransformed = (whitePercent - lower) * factor + drawHalfSquished
     (blackTransformed, drawTransformed, whiteTransformed)

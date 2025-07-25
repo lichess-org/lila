@@ -34,7 +34,7 @@ case class RequestWithUser(request: TeamRequest, user: UserWithPerfs):
 
 object RequestWithUser:
   def combine(reqs: List[TeamRequest], users: List[UserWithPerfs]): List[RequestWithUser] = for
-    req  <- reqs
+    req <- reqs
     user <- users.find(_.user.id == req.user)
   yield RequestWithUser(req, user)
 

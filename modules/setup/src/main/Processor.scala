@@ -12,16 +12,16 @@ final private[setup] class Processor(
 )(using Executor, lila.core.game.IdGenerator, lila.core.game.NewPlayer):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
-    me  <- me.map(_.value).soFu(userApi.withPerf(_, config.perfType))
+    me <- me.map(_.value).soFu(userApi.withPerf(_, config.perfType))
     pov <- config.pov(me)
-    _   <- gameRepo.insertDenormalized(pov.game)
+    _ <- gameRepo.insertDenormalized(pov.game)
     _ = onStart.exec(pov.gameId)
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
-    me  <- userApi.withPerf(me, config.perfType)
+    me <- userApi.withPerf(me, config.perfType)
     pov <- config.pov(me.some)
-    _   <- gameRepo.insertDenormalized(pov.game)
+    _ <- gameRepo.insertDenormalized(pov.game)
     _ = onStart.exec(pov.gameId)
   yield pov
 
@@ -38,7 +38,7 @@ final private[setup] class Processor(
           Bus.pub(SetupBus.AddHook(hook))
           Created(hook.id)
       case Right(Some(seek)) => me.fold(fuccess(Refused))(u => createSeekIfAllowed(seek, u.id))
-      case _                 => fuccess(Refused)
+      case _ => fuccess(Refused)
 
   def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
     gameApi.nbPlaying(owner).map { nbPlaying =>

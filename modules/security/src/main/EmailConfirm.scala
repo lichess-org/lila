@@ -92,7 +92,7 @@ ${trans.emailConfirm_justIgnore.txt("https://lichess.org")}
   def confirm(token: String): Fu[EmailConfirm.Result] =
     dryTest(token).flatMap:
       case NeedsConfirm(user) => userRepo.setEmailConfirmed(user.id).inject(JustConfirmed(user))
-      case other              => fuccess(other)
+      case other => fuccess(other)
 
   private val tokener = StringToken[UserId](
     secret = tokenerSecret,
@@ -111,7 +111,7 @@ object EmailConfirm:
 
   object cookie:
 
-    val name        = "email_confirm"
+    val name = "email_confirm"
     private val sep = ":"
 
     def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
@@ -130,7 +130,7 @@ object EmailConfirm:
   import lila.memo.RateLimit
   import lila.common.HTTPRequest
   import lila.core.net.IpAddress
-  given Executor                   = scala.concurrent.ExecutionContextOpportunistic
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
   given lila.core.config.RateLimit = lila.core.config.RateLimit.Yes
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
@@ -179,7 +179,7 @@ object EmailConfirm:
       userApi
         .withEmails(u)
         .flatMap:
-          case None                                          => fuccess(NoSuchUser(u.into(UserName)))
+          case None => fuccess(NoSuchUser(u.into(UserName)))
           case Some(lila.core.user.WithEmails(user, emails)) =>
             if user.enabled.no then fuccess(Closed(user.username))
             else
@@ -188,6 +188,6 @@ object EmailConfirm:
                 .dmap:
                   if _ then
                     emails.current match
-                      case None        => NoEmail(user.username)
+                      case None => NoEmail(user.username)
                       case Some(email) => EmailSent(user.username, email)
                   else Confirmed(user.username)

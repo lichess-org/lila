@@ -48,19 +48,19 @@ object discussion:
                 if appeal.isMuted then
                   submitButton("Un-mute")(
                     title := "Be notified about user replies again",
-                    cls   := "button button-green button-thin"
+                    cls := "button button-green button-thin"
                   )
                 else
                   submitButton("Mute")(
                     title := "Don't be notified about user replies",
-                    cls   := "button button-red button-thin"
+                    cls := "button button-red button-thin"
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
             action := routes.Appeal.sendToZulip(modData.suspect.user.id),
-            cls    := "appeal__actions__slack"
+            cls := "appeal__actions__slack"
           )(
             submitButton(cls := "button button-thin")("Send to Zulip")
           )
@@ -81,7 +81,7 @@ object discussion:
         as.isLeft.option(
           div(cls := "actions")(
             a(
-              cls  := "button button-empty mod-zone-toggle",
+              cls := "button button-empty mod-zone-toggle",
               href := routes.User.mod(appeal.userId),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := Icon.Agent

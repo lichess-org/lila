@@ -11,8 +11,8 @@ final class PromotionApi(domain: NetDomain)(using Executor) extends lila.core.se
       val promotions = extract(text)
       promotions.isEmpty || {
         val prevTextPromotion = prevText.so(extract)
-        val prev              = ~cache.getIfPresent(author.id) -- prevTextPromotion
-        val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
+        val prev = ~cache.getIfPresent(author.id) -- prevTextPromotion
+        val accept = prev.sizeIs < 3 && !prev.exists(promotions.contains)
         if !accept then logger.info(s"Promotion @${author.username} ${identify(text).mkString(", ")}")
         accept
       }

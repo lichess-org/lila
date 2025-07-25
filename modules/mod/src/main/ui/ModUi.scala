@@ -28,7 +28,7 @@ final class ModUi(helpers: Helpers):
   def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || Granter.opt(_.Admin)
     submitButton(
-      cls   := (!allowed).option("disabled"),
+      cls := (!allowed).option("disabled"),
       title := {
         if allowed
         then "Definitely erase everything about this user"
@@ -57,15 +57,15 @@ final class ModUi(helpers: Helpers):
                 div(cls := "box__top__actions")(
                   st.form(cls := "search", action := routes.Mod.log())(
                     input(
-                      st.name     := "id",
-                      value       := artifactId,
+                      st.name := "id",
+                      value := artifactId,
                       placeholder := "filter by id"
                     )
                   ),
                   st.form(cls := "search", action := routes.Mod.log())(
                     input(
-                      st.name     := "mod",
-                      value       := whichMod,
+                      st.name := "mod",
+                      value := whichMod,
                       placeholder := "filter by mod"
                     )
                   )
@@ -124,7 +124,7 @@ final class ModUi(helpers: Helpers):
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
-                        cls   := Granter.of(perm)(u).option("granted"),
+                        cls := Granter.of(perm)(u).option("granted"),
                         title := Granter
                           .of(perm)(u)
                           .so:
@@ -227,7 +227,7 @@ final class ModUi(helpers: Helpers):
                     td(u.seenAt.map(momentFromNow(_))),
                     td(style := "font-size:2em")(
                       if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
-                      else iconTag(Icon.X)(cls                            := "is-red")
+                      else iconTag(Icon.X)(cls := "is-red")
                     )
                   )
               )
@@ -249,7 +249,7 @@ final class ModUi(helpers: Helpers):
                   span(p.period.key),
                   Period.values.toList.map: per =>
                     a(
-                      cls  := (p.period == per).option("current"),
+                      cls := (p.period == per).option("current"),
                       href := routes.Mod.queues(per.key)
                     )(per.toString)
                 )
@@ -265,11 +265,11 @@ final class ModUi(helpers: Helpers):
       span(if p.who == Who.Team then "Team" else "My"),
       List(
         a(
-          cls  := (p.who == Who.Team).option("current"),
+          cls := (p.who == Who.Team).option("current"),
           href := routes.Mod.activityOf("team", p.period.key)
         )("Team"),
         a(
-          cls  := (p.who != Who.Team).option("current"),
+          cls := (p.who != Who.Team).option("current"),
           href := routes.Mod.activityOf("me", p.period.key)
         )("My")
       )
@@ -279,7 +279,7 @@ final class ModUi(helpers: Helpers):
       span(p.period.key),
       Period.values.toList.map { per =>
         a(
-          cls  := (p.period == per).option("current"),
+          cls := (p.period == per).option("current"),
           href := routes.Mod.activityOf(p.who.key, per.key)
         )(per.toString)
       }

@@ -27,10 +27,10 @@ val dgt = lila.web.ui.DgtUi(helpers)
 val relation = lila.relation.ui.RelationUi(helpers)
 
 object oAuth:
-  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
+  val token = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
 
-val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
+val plan = lila.plan.ui.PlanUi(helpers)(netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
 val feed =
@@ -45,11 +45,11 @@ val event = lila.event.ui.EventUi(helpers)(modMenu("event"))(using env.executor)
 val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 
 object account:
-  val ui        = lila.pref.ui.AccountUi(helpers)
-  val pages     = lila.pref.ui.AccountPages(helpers, ui, flagApi)
-  val pref      = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
+  val ui = lila.pref.ui.AccountUi(helpers)
+  val pages = lila.pref.ui.AccountPages(helpers, ui, flagApi)
+  val pref = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
-  val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
+  val security = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.bits.cspExternalEngine,
@@ -59,8 +59,8 @@ val practice = lila.practice.ui.PracticeUi(helpers)(
 
 object forum:
   import lila.forum.ui.*
-  val bits  = ForumBits(helpers)
-  val post  = PostUi(helpers, bits)
+  val bits = ForumBits(helpers)
+  val post = PostUi(helpers, bits)
   val categ = CategUi(helpers, bits)
   val topic = TopicUi(helpers, bits, post)(
     captcha.apply,
@@ -72,7 +72,7 @@ val timeline = lila.timeline.ui.TimelineUi(helpers)(streamer.bits.redirectLink(_
 object opening:
   val bits = lila.opening.ui.OpeningBits(helpers)
   val wiki = lila.opening.ui.WikiUi(helpers, bits)
-  val ui   = lila.opening.ui.OpeningUi(helpers, bits, wiki)
+  val ui = lila.opening.ui.OpeningUi(helpers, bits, wiki)
 
 val video = lila.video.ui.VideoUi(helpers)
 

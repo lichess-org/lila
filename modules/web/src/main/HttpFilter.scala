@@ -32,10 +32,10 @@ final class HttpFilter(
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
     val actionName = HTTPRequest.actionName(req)
-    val reqTime    = nowMillis - startTime
+    val reqTime = nowMillis - startTime
     val statusCode = result.header.status
-    val mobile     = parseMobileUa(req)
-    val client     = if mobile.isDefined then "mobile" else HTTPRequest.clientName(req)
+    val mobile = parseMobileUa(req)
+    val client = if mobile.isDefined then "mobile" else HTTPRequest.clientName(req)
     lila.mon.http.count(actionName, client, req.method, statusCode).increment()
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")

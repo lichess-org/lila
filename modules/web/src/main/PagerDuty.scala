@@ -11,20 +11,20 @@ final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDut
       ws.url("https://api.pagerduty.com/maintenance_windows")
         .withHttpHeaders(
           "Authorization" -> s"Token token=${config.apiKey.value}",
-          "Content-type"  -> "application/json",
-          "Accept"        -> "application/vnd.pagerduty+json;version=2"
+          "Content-type" -> "application/json",
+          "Accept" -> "application/vnd.pagerduty+json;version=2"
         )
         .post(
           Json
             .obj(
               "maintenance_window" -> Json.obj(
-                "type"        -> "maintenance_window",
-                "start_time"  -> isoDateTimeFormatter.print(date),
-                "end_time"    -> isoDateTimeFormatter.print(date.plusMinutes(3)),
+                "type" -> "maintenance_window",
+                "start_time" -> isoDateTimeFormatter.print(date),
+                "end_time" -> isoDateTimeFormatter.print(date.plusMinutes(3)),
                 "description" -> "restart announce",
-                "services"    -> Json.arr(
+                "services" -> Json.arr(
                   Json.obj(
-                    "id"   -> config.serviceId,
+                    "id" -> config.serviceId,
                     "type" -> "service_reference"
                   )
                 )

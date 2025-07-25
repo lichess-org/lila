@@ -62,7 +62,7 @@ case class PlayerAggregateAssessment(
   val assessmentsCount = playerAssessments.size match
     case 0 => 1
     case a => a
-  val cheatingSum       = countAssessmentValue(Cheating)
+  val cheatingSum = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
   def weightedAssessmentValue(assessment: GameAssessment): Double =
@@ -71,31 +71,31 @@ case class PlayerAggregateAssessment(
       else pa.tcFactor.getOrElse(1.0) * (if pa.flags.highlyConsistentMoveTimes then 1.6 else 1.0)
     }.sum
 
-  val weightedCheatingSum       = weightedAssessmentValue(Cheating)
+  val weightedCheatingSum = weightedAssessmentValue(Cheating)
   val weightedLikelyCheatingSum = weightedAssessmentValue(LikelyCheating)
 
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] =
     val filteredAssessments = playerAssessments.filter(predicate)
-    val n                   = filteredAssessments.size
+    val n = filteredAssessments.size
     if n < 2 then none
     else
       val filteredSfAvg = filteredAssessments.map(_.analysis.avg)
-      val avg           = listAverage(filteredSfAvg)
+      val avg = listAverage(filteredSfAvg)
       // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
       val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
       Some((avg.toInt, (avg - width).toInt, (avg + width).toInt))
 
   // Average SF Avg and CI given blur rate
-  val sfAvgBlurs   = sfAvgGiven(_.basics.blurs > 70)
+  val sfAvgBlurs = sfAvgGiven(_.basics.blurs > 70)
   val sfAvgNoBlurs = sfAvgGiven(_.basics.blurs <= 70)
 
   // Average SF Avg and CI given move time coef of variance
-  val sfAvgLowVar  = sfAvgGiven(a => a.basics.moveTimes.sd.toDouble / a.basics.moveTimes.avg < 0.5)
+  val sfAvgLowVar = sfAvgGiven(a => a.basics.moveTimes.sd.toDouble / a.basics.moveTimes.avg < 0.5)
   val sfAvgHighVar = sfAvgGiven(a => a.basics.moveTimes.sd.toDouble / a.basics.moveTimes.avg >= 0.5)
 
   // Average SF Avg and CI given bot
-  val sfAvgHold   = sfAvgGiven(_.basics.hold)
+  val sfAvgHold = sfAvgGiven(_.basics.hold)
   val sfAvgNoHold = sfAvgGiven(!_.basics.hold)
 
   def isGreatUser = user.perfs.bestRating > IntRating(2500) && user.count.rated >= 100

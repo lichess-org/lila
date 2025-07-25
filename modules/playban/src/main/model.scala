@@ -14,13 +14,13 @@ case class UserRecord(
     c: Option[RageSitCounter]
 ):
 
-  inline def userId                    = _id
+  inline def userId = _id
   inline def outcomes: Vector[Outcome] = ~o
-  inline def bans: Vector[TempBan]     = ~b
-  inline def rageSit                   = c | RageSit.empty
+  inline def bans: Vector[TempBan] = ~b
+  inline def rageSit = c | RageSit.empty
 
-  def banInEffect  = bans.lastOption.exists(_.inEffect)
-  def banMinutes   = bans.lastOption.map(_.remainingMinutes)
+  def banInEffect = bans.lastOption.exists(_.inEffect)
+  def banMinutes = bans.lastOption.map(_.remainingMinutes)
   def bansThisWeek =
     val since = nowInstant.minusDays(7)
     bans.count(_.date.isAfter(since))
@@ -29,9 +29,9 @@ case class UserRecord(
 
   def badOutcomeScore: Float =
     outcomes.collect {
-      case Outcome.Sandbag                => .7f
+      case Outcome.Sandbag => .7f
       case Outcome.NoPlay | Outcome.Abort => .8f
-      case o if o != Outcome.Good         => 1
+      case o if o != Outcome.Good => 1
     }.sum
 
   def badOutcomeTolerance(age: Days, trust: UserTrust): Float =
@@ -45,7 +45,7 @@ case class UserRecord(
     bansThisWeek match
       case 0 | 1 => 4
       case 2 | 3 => 3
-      case _     => 2
+      case _ => 2
 
   def badOutcomesStreakSize(age: Days): Int =
     if age < 1
@@ -118,21 +118,21 @@ object TempBan:
         .so: prev =>
           prev.endsAt.toNow.toHours.toSaturatedInt match
             case h if h < 72 => prev.mins * (132 - h) / 60
-            case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
+            case h => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         .atLeast(baseMinutes)
-      val multiplier      = if age == Days(0) then 3 else if age <= 3 then 2 else 1
+      val multiplier = if age == Days(0) then 3 else if age <= 3 then 2 else 1
       val trustMultiplier = if trust.yes then 1 else 2
       base * multiplier * trustMultiplier
 
 enum Outcome(val id: Int, val name: String):
 
-  case Good      extends Outcome(0, "Nothing unusual")
-  case Abort     extends Outcome(1, "Aborts the game")
-  case NoPlay    extends Outcome(2, "Won't play a move")
-  case RageQuit  extends Outcome(3, "Quits without resigning")
-  case Sitting   extends Outcome(4, "Lets time run out")
+  case Good extends Outcome(0, "Nothing unusual")
+  case Abort extends Outcome(1, "Aborts the game")
+  case NoPlay extends Outcome(2, "Won't play a move")
+  case RageQuit extends Outcome(3, "Quits without resigning")
+  case Sitting extends Outcome(4, "Lets time run out")
   case SitMoving extends Outcome(5, "Waits then moves at last moment")
-  case Sandbag   extends Outcome(6, "Deliberately lost the game")
+  case Sandbag extends Outcome(6, "Deliberately lost the game")
   case SitResign extends Outcome(7, "Waits then resigns at last moment")
 
   val key = lila.common.String.lcfirst(toString)

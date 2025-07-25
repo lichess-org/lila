@@ -26,7 +26,7 @@ final class TrophyApi(
     expireAfter = Syncache.ExpireAfter.Write(1.hour)
   )
 
-  private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
+  private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
@@ -97,10 +97,10 @@ final class TrophyApi(
     coll.insert
       .one(
         $doc(
-          "_id"  -> ThreadLocalRandom.nextString(8),
+          "_id" -> ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
-          "url"  -> trophyUrl,
+          "url" -> trophyUrl,
           "date" -> nowInstant
         )
       )

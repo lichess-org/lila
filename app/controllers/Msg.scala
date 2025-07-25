@@ -27,7 +27,7 @@ final class Msg(env: Env) extends LilaController(env):
       env.msg.api
         .convoWithMe(username, before)
         .flatMap:
-          case None    => negotiate(Redirect(routes.Msg.home), notFoundJson())
+          case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
           case Some(c) =>
             def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(
@@ -42,7 +42,7 @@ final class Msg(env: Env) extends LilaController(env):
   def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
       q.trim.some.filter(_.nonEmpty) match
-        case None    => env.msg.json.searchResult(env.msg.search.empty)
+        case None => env.msg.json.searchResult(env.msg.search.empty)
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }
 
@@ -85,7 +85,7 @@ final class Msg(env: Env) extends LilaController(env):
               .flatMap:
                 case lila.core.msg.PostResult.Success => jsonOkResult
                 case lila.core.msg.PostResult.Limited => rateLimited
-                case _                                => BadRequest(jsonError("The message was rejected"))
+                case _ => BadRequest(jsonError("The message was rejected"))
         )
   }
 
@@ -93,6 +93,6 @@ final class Msg(env: Env) extends LilaController(env):
     import lila.common.Json.lightUserWrites
     for threads <- env.msg.api.myThreads.flatMap(env.msg.json.threads)
     yield Json.obj(
-      "me"       -> Json.toJsObject(me.light).add("bot" -> me.isBot),
+      "me" -> Json.toJsObject(me.light).add("bot" -> me.isBot),
       "contacts" -> threads
     )

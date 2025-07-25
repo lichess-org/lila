@@ -38,8 +38,8 @@ final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.Get
       .asyncMany(ids.distinct)
       .map: users =>
         val pairs = for
-          uOpt  <- users
-          user  <- uOpt
+          uOpt <- users
+          user <- uOpt
           flair <- user.flair
         yield user.id -> flair
         pairs.toMap

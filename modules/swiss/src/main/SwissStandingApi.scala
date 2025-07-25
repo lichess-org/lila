@@ -42,7 +42,7 @@ final class SwissStandingApi(
             pageCache.put(
               res.swiss.id -> page,
               Json.obj(
-                "page"    -> page,
+                "page" -> page,
                 "players" -> pagePlayers
                   .map { case ((user, (player, sheet)), r) =>
                     SwissJson.playerJson(
@@ -73,7 +73,7 @@ final class SwissStandingApi(
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for
       rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page.atLeast(1))
-      pairings      <- (!swiss.isCreated).so(SwissPairing.fields { f =>
+      pairings <- (!swiss.isCreated).so(SwissPairing.fields { f =>
         mongo.pairing
           .find($doc(f.swissId -> swiss.id, f.players.$in(rankedPlayers.map(_.player.userId))))
           .sort($sort.asc(f.round))
@@ -84,7 +84,7 @@ final class SwissStandingApi(
       sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
       users <- lightUserApi.asyncManyFallback(rankedPlayers.map(_.player.userId))
     yield Json.obj(
-      "page"    -> page,
+      "page" -> page,
       "players" -> rankedPlayers
         .zip(users)
         .zip(sheets)

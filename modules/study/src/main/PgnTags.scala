@@ -27,7 +27,7 @@ object PgnTags:
       // and that we shouldn't alert about it or try to fix it.
       // But we don't want to publish it.
       case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
-      case _                                           => true
+      case _ => true
   )
 
   private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =

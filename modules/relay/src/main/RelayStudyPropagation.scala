@@ -14,7 +14,7 @@ private final class RelayStudyPropagation(
   // force studies visibility based on broadcast tier
   def onVisibilityChange(tour: RelayTour) = for
     ids <- roundRepo.studyIdsOf(tour.id)
-    _   <- ids.sequentiallyVoid: id =>
+    _ <- ids.sequentiallyVoid: id =>
       studyApi.setVisibility(id, tour.visibility)
   yield ()
 

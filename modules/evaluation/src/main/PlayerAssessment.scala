@@ -100,8 +100,8 @@ object PlayerAssessment:
     lazy val suspiciousErrorRate: Boolean =
       listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match
         case Speed.Bullet => 25
-        case Speed.Blitz  => 20
-        case _            => 15)
+        case Speed.Blitz => 20
+        case _ => 15)
 
     lazy val alwaysHasAdvantage: Boolean =
       !analysis.infos.exists { info =>
@@ -150,7 +150,7 @@ object PlayerAssessment:
         case PlayerFlags(T, _, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
 
         case PlayerFlags(F, F, _, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
-        case _                                   => NotCheating
+        case _ => NotCheating
 
       if flags.suspiciousHoldAlert then assessment
       else if ~game.wonBy(color) then antichessCorrectedGameAssessment(assessment, pov, flags)
@@ -160,9 +160,9 @@ object PlayerAssessment:
 
     val tcFactor: Double = game.speed match
       case Speed.Bullet | Speed.Blitz => 1.25
-      case Speed.Rapid                => 1.0
-      case Speed.Classical            => 0.6
-      case _                          => 1.0
+      case Speed.Rapid => 1.0
+      case Speed.Classical => 0.6
+      case _ => 1.0
     PlayerAssessment(
       _id = s"${game.id}/${color.name}",
       gameId = game.id,

@@ -57,7 +57,7 @@ private case object TutorOpening:
       )
     )
     peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
-    performances     = Answers(myPerfs, peerPerfs)
+    performances = Answers(myPerfs, peerPerfs)
     accuracyQuestion = myPerfs.alignedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))

@@ -100,7 +100,7 @@ final class AssessApi(
               pov -> {
                 fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
-                  case None       => Right(PlayerAssessment.makeBasics(pov, holds.get(pov.gameId)))
+                  case None => Right(PlayerAssessment.makeBasics(pov, holds.get(pov.gameId)))
               }
           }
 
@@ -183,7 +183,7 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
 
     def winnerUserOption = game.winnerColor.map(players(_))
-    def winnerNbGames    = winnerUserOption.map(_.perf.nb)
+    def winnerNbGames = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color): Boolean =
       val x = noFastCoefVariation(game.player(c))
@@ -191,9 +191,9 @@ final class AssessApi(
 
     def isUpset = ~(for
       winner <- game.winner
-      loser  <- game.loser
-      wR     <- winner.rating
-      lR     <- loser.stableRating
+      loser <- game.loser
+      wR <- winner.rating
+      lR <- loser.stableRating
     yield wR <= lR.map(_ - 250))
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =

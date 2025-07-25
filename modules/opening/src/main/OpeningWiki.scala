@@ -13,7 +13,7 @@ case class OpeningWiki(
     revisions: List[OpeningWiki.Revision],
     popularity: Long
 ):
-  def hasMarkup                                 = markup.exists(_.value.nonEmpty)
+  def hasMarkup = markup.exists(_.value.nonEmpty)
   def markupForMove(move: String): Option[Html] =
     markup.map(OpeningWiki.filterMarkupForMove(move))
 
@@ -21,11 +21,11 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   import OpeningWiki.Revision
 
-  given BSONDocumentHandler[Revision]    = Macros.handler
+  given BSONDocumentHandler[Revision] = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
-    wiki      <- cache.get(op.key)
+    wiki <- cache.get(op.key)
     revisions <- withRevisions.so:
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
   yield wiki.copy(revisions = (~revisions).take(25))
@@ -37,9 +37,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
           $doc(
             "$push" -> $doc(
               "revisions" -> $doc(
-                "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
+                "$each" -> List(Revision(Markdown(text), by.id, nowInstant)),
                 "$position" -> 0,
-                "$slice"    -> 30
+                "$slice" -> 30
               )
             )
           ),
@@ -60,8 +60,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       .map: docs =>
         for
           doc <- docs
-          id  <- doc.getAsOpt[OpeningKey]("_id")
-          op  <- OpeningDb.shortestLines.get(id)
+          id <- doc.getAsOpt[OpeningKey]("_id")
+          op <- OpeningDb.shortestLines.get(id)
         yield op
 
   private object markdown:
@@ -74,7 +74,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       strikeThrough = false
     )
 
-    private val moveNumberRegex                           = """(\d+)\.""".r
+    private val moveNumberRegex = """(\d+)\.""".r
     def render(key: OpeningKey)(markdown: Markdown): Html = renderer(s"opening:$key") {
       markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
     }.map(_.replace("{DOT}", "."))
@@ -87,7 +87,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
-    text    = lastRev.map(_.text)
+    text = lastRev.map(_.text)
   yield OpeningWiki(text.map(markdown.render(key)), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
@@ -100,7 +100,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               .one(
                 $id(key),
                 $set(
-                  "popularity"   -> popularity,
+                  "popularity" -> popularity,
                   "popularityAt" -> nowInstant
                 ),
                 upsert = true
@@ -115,7 +115,7 @@ object OpeningWiki:
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 
-  private val MoveLiRegex                                     = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
+  private val MoveLiRegex = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
   private def filterMarkupForMove(move: String)(markup: Html) = markup.map:
     _.linesIterator
       .collect:
@@ -124,6 +124,6 @@ object OpeningWiki:
         case html => html
       .mkString("\n")
 
-  private val priorityByPopularityPercent   = List(3, 0.5, 0.05, 0.005, 0)
+  private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)
   def priorityOf(explored: OpeningExplored) =
     priorityByPopularityPercent.indexWhere(_ <= ~explored.lastPopularityPercent)

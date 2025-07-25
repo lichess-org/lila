@@ -27,7 +27,7 @@ final private class GameJson(
   private def readKey(k: String): (GameId, Ply) =
     k.drop(GameId.size).toIntOption match
       case Some(ply) => (GameId.take(k), Ply(ply))
-      case _         => sys.error(s"puzzle.GameJson invalid key: $k")
+      case _ => sys.error(s"puzzle.GameJson invalid key: $k")
   private def writeKey(id: GameId, ply: Ply) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson"):
@@ -56,17 +56,17 @@ final private class GameJson(
   private def generate(game: Game, plies: Ply): JsObject =
     Json
       .obj(
-        "id"      -> game.id,
-        "perf"    -> perfJson(game),
-        "rated"   -> game.rated,
+        "id" -> game.id,
+        "perf" -> perfJson(game),
+        "rated" -> game.rated,
         "players" -> playersJson(game),
-        "pgn"     -> game.chess.sans.take(plies.value + 1).mkString(" ")
+        "pgn" -> game.chess.sans.take(plies.value + 1).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
   private def perfJson(game: Game) =
     Json.obj(
-      "key"  -> game.perfKey,
+      "key" -> game.perfKey,
       "name" -> lila.rating.PerfType(game.perfKey).trans
     )
 
@@ -80,10 +80,10 @@ final private class GameJson(
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json
       .obj(
-        "id"        -> game.id,
-        "perf"      -> perfJson(game),
-        "players"   -> playersJson(game),
-        "rated"     -> game.rated,
+        "id" -> game.id,
+        "perf" -> perfJson(game),
+        "players" -> playersJson(game),
+        "rated" -> game.rated,
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
           for
@@ -98,7 +98,7 @@ final private class GameJson(
             "fen" -> Fen.write(position).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,
-            "id"  -> UciCharPair(uciMove).toString,
+            "id" -> UciCharPair(uciMove).toString,
             "uci" -> uciMove.uci
           )
         }

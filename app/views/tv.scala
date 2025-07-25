@@ -14,8 +14,8 @@ def index(
     cross: Option[lila.game.Crosstable.WithMatchup],
     history: List[Pov]
 )(using Context) =
-  val title    = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
-  val page     = views.round.ui.RoundPage(pov.game.variant, title)
+  val title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
+  val page = views.round.ui.RoundPage(pov.game.variant, title)
   val roundApp = views.round.ui.roundAppPreload(pov)
   ui.index(channel, champions, pov, data, cross, history)(page)(roundApp)
 

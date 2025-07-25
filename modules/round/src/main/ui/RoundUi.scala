@@ -34,7 +34,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       h3(
         simul | frag(trans.site.currentGames()),
         span(
-          cls      := "move-on switcher",
+          cls := "move-on switcher",
           st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt()
         )(
           label(`for` := switchId)(trans.site.autoSwitch()),
@@ -70,16 +70,16 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
 
   def describePov(pov: Pov) =
     import pov.*
-    val p1            = playerText(game.whitePlayer, withRating = true)
-    val p2            = playerText(game.blackPlayer, withRating = true)
-    val plays         = if game.finishedOrAborted then "played" else "is playing"
+    val p1 = playerText(game.whitePlayer, withRating = true)
+    val p2 = playerText(game.blackPlayer, withRating = true)
+    val plays = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
       if game.sourceIs(_.Import) then "imported"
       else
         game.clock.fold(chess.Speed.Correspondence.name): c =>
           s"${chess.Speed(c.config).name} (${c.config.show})"
 
-    val rated   = game.rated.name
+    val rated = game.rated.name
     val variant =
       if game.variant == chess.variant.FromPosition
       then "position setup chess"
@@ -88,14 +88,14 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       else "chess"
     import chess.Status.*
     val result = (game.winner, game.loser, game.status) match
-      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
+      case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)                          => s"${playerText(l)} ran out of time"
-      case (Some(w), _, UnknownFinish | VariantEnd)         => s"${playerText(w)} won"
-      case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
-      case (_, _, Aborted)                                  => "Game has been aborted"
-      case _ if game.finished                               => "Game ended"
-      case _                                                => "Game is still ongoing"
+      case (_, Some(l), Outoftime) => s"${playerText(l)} ran out of time"
+      case (Some(w), _, UnknownFinish | VariantEnd) => s"${playerText(w)} won"
+      case (_, _, Draw | Stalemate | UnknownFinish) => "Game is a draw"
+      case (_, _, Aborted) => "Game has been aborted"
+      case _ if game.finished => "Game ended"
+      case _ => "Game is still ongoing"
     val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
     s"$p1 $plays $p2 in a $rated $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 

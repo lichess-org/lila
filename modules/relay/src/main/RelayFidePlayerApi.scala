@@ -22,7 +22,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
       .traverse:
         // use FIDE ID = 0 to prevent guessing the player info based on their name
         case ((Some(fideId), _), _) if fideId == FideId(0) => fuccess(none)
-        case ((fideId, name), title)                       => guessPlayer(fideId, name, title)
+        case ((fideId, name), title) => guessPlayer(fideId, name, title)
       .map:
         update(tags, tc, _)
 

@@ -69,7 +69,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
               }
               .flatMap { parsed =>
                 for
-                  p     <- parsed
+                  p <- parsed
                   entry <- p match
                     case List(id, author, title, target, tags, lang, ads, _, include, start, _, _) =>
                       val targets = target.split(';').map(_.trim).toList.flatMap(_.toIntOption)

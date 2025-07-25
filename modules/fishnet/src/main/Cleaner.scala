@@ -15,7 +15,7 @@ final private class Cleaner(
   import BSONHandlers.given
 
   private def analysisTimeout(plies: Int) = plies * Cleaner.timeoutPerPly + 3.seconds
-  private def analysisTimeoutBase         = analysisTimeout(20)
+  private def analysisTimeoutBase = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = nowInstant.minusSeconds(d.toSeconds.toInt)
 

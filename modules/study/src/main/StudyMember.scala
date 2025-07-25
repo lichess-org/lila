@@ -13,7 +13,7 @@ object StudyMember:
   def make(user: User) = StudyMember(id = user.id, role = Role.Read)
 
   enum Role(val id: String, val canWrite: Boolean):
-    case Read  extends Role("r", false)
+    case Read extends Role("r", false)
     case Write extends Role("w", true)
   object Role:
     val byId = values.mapBy(_.id)
@@ -21,7 +21,7 @@ object StudyMember:
 case class StudyMembers(members: StudyMember.MemberMap):
 
   def +(member: StudyMember) = copy(members = members + (member.id -> member))
-  def -(userId: UserId)      = copy(members = members - userId)
+  def -(userId: UserId) = copy(members = members - userId)
 
   def update(id: UserId, f: StudyMember => StudyMember) = copy(
     members = members.view.mapValues { m =>

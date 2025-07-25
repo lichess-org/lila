@@ -30,7 +30,7 @@ final class SwissJson(
     swissJsonBase(swiss) ++ Json
       .obj(
         "verdicts" -> verdictsFor(verdicts, swiss.perfType),
-        "rated"    -> swiss.settings.rated
+        "rated" -> swiss.settings.rated
       )
       .add("stats" -> stats)
   }
@@ -48,9 +48,9 @@ final class SwissJson(
       myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage.orElse(myInfo.map(_.page)).getOrElse(1)
       standing <- standingApi(swiss, page)
-      podium   <- podiumJson(swiss)
-      boards   <- boardApi.get(swiss.id)
-      stats    <- statsApi(swiss)
+      podium <- podiumJson(swiss)
+      boards <- boardApi.get(swiss.id)
+      stats <- statsApi(swiss)
     yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
@@ -60,7 +60,7 @@ final class SwissJson(
           } && verdicts.accepted && isInTeam
         },
         "standing" -> standing,
-        "boards"   -> boards.map(boardJson)
+        "boards" -> boards.map(boardJson)
       )
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("me" -> myInfo.map(myInfoJson))
@@ -142,10 +142,10 @@ final class SwissJson(
     case SwissPlayer.WithUserAndRank(player, user, rank) =>
       Json
         .obj(
-          "rank"     -> rank,
-          "points"   -> player.points.value,
+          "rank" -> rank,
+          "points" -> player.points.value,
           "tieBreak" -> player.tieBreak.value,
-          "rating"   -> player.rating,
+          "rating" -> player.rating,
           "username" -> user.name
         )
         .add("title" -> user.title)
@@ -157,17 +157,17 @@ object SwissJson:
   private def swissJsonBase(swiss: Swiss) =
     Json
       .obj(
-        "id"        -> swiss.id,
+        "id" -> swiss.id,
         "createdBy" -> swiss.createdBy,
-        "startsAt"  -> isoDateTimeFormatter.print(swiss.startsAt),
-        "name"      -> swiss.name,
-        "clock"     -> swiss.clock,
-        "variant"   -> swiss.variant.key,
-        "round"     -> swiss.round,
-        "nbRounds"  -> swiss.settings.nbRounds,
+        "startsAt" -> isoDateTimeFormatter.print(swiss.startsAt),
+        "name" -> swiss.name,
+        "clock" -> swiss.clock,
+        "variant" -> swiss.variant.key,
+        "round" -> swiss.round,
+        "nbRounds" -> swiss.settings.nbRounds,
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
-        "status"    -> swiss.status.toString
+        "status" -> swiss.status.toString
       )
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(
@@ -200,7 +200,7 @@ object SwissJson:
           view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
             pairingJson(view.player, p.pairing) ++
               Json.obj(
-                "user"   -> p.player.user,
+                "user" -> p.player.user,
                 "rating" -> p.player.player.rating
               )
           }
@@ -221,9 +221,9 @@ object SwissJson:
   ): JsObject =
     Json
       .obj(
-        "user"     -> user,
-        "rating"   -> p.rating,
-        "points"   -> p.points,
+        "user" -> user,
+        "rating" -> p.rating,
+        "points" -> p.points,
         "tieBreak" -> p.tieBreak
       )
       .add("performance" -> (performance.so(p.performance)))
@@ -233,9 +233,9 @@ object SwissJson:
   private def outcomeJson(outcome: SwissSheet.Outcome): String =
     outcome match
       case SwissSheet.Outcome.Absent => "absent"
-      case SwissSheet.Outcome.Late   => "late"
-      case SwissSheet.Outcome.Bye    => "bye"
-      case _                         => ""
+      case SwissSheet.Outcome.Late => "late"
+      case SwissSheet.Outcome.Bye => "bye"
+      case _ => ""
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
@@ -256,27 +256,27 @@ object SwissJson:
       player: SwissPlayer
   ): ((Option[SwissPairing], SwissSheet.Outcome)) => String =
     case (Some(pairing), _) => pairingJsonMin(player, pairing)
-    case (_, outcome)       => outcomeJson(outcome)
+    case (_, outcome) => outcomeJson(outcome)
 
   private def myInfoJson(i: MyInfo) =
     Json
       .obj(
-        "rank"   -> i.rank,
+        "rank" -> i.rank,
         "gameId" -> i.gameId,
-        "id"     -> i.user.id,
-        "name"   -> i.user.username,
+        "id" -> i.user.id,
+        "name" -> i.user.username,
         "absent" -> i.player.absent
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
     Json
       .obj(
-        "id"          -> b.game.id,
-        "fen"         -> chess.format.Fen.writeBoardAndColor(b.game.position),
-        "lastMove"    -> (b.game.lastMoveKeys | ""),
+        "id" -> b.game.id,
+        "fen" -> chess.format.Fen.writeBoardAndColor(b.game.position),
+        "lastMove" -> (b.game.lastMoveKeys | ""),
         "orientation" -> b.game.naturalOrientation.name,
-        "white"       -> boardPlayerJson(b.board.white),
-        "black"       -> boardPlayerJson(b.board.black)
+        "white" -> boardPlayerJson(b.board.white),
+        "black" -> boardPlayerJson(b.board.black)
       )
       .add(
         "clock" -> b.game.clock.ifTrue(b.game.isBeingPlayed).map { c =>
@@ -290,19 +290,19 @@ object SwissJson:
 
   private def boardPlayerJson(player: SwissBoard.Player) =
     Json.obj(
-      "rank"   -> player.rank,
+      "rank" -> player.rank,
       "rating" -> player.rating,
-      "user"   -> player.user
+      "user" -> player.user
     )
 
-  private given Writes[SwissRoundNumber]  = Writes(n => JsNumber(n.value))
-  private given Writes[SwissPoints]       = Writes(p => JsNumber(BigDecimal(p.value)))
-  private given Writes[Swiss.TieBreak]    = Writes(t => JsNumber(t.value))
+  private given Writes[SwissRoundNumber] = Writes(n => JsNumber(n.value))
+  private given Writes[SwissPoints] = Writes(p => JsNumber(BigDecimal(p.value)))
+  private given Writes[Swiss.TieBreak] = Writes(t => JsNumber(t.value))
   private given Writes[Swiss.Performance] = Writes(t => JsNumber(t.value.toInt))
 
   private given OWrites[chess.Clock.Config] = OWrites { clock =>
     Json.obj(
-      "limit"     -> clock.limitSeconds,
+      "limit" -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds
     )
   }

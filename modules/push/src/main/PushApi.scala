@@ -57,15 +57,15 @@ final private class PushApi(
               opponent <- asyncOpponentName(pov)
             yield Data(
               title = pov.win match
-                case Some(true)  => "You won!"
+                case Some(true) => "You won!"
                 case Some(false) => "You lost."
-                case _           => "It's a draw."
+                case _ => "It's a draw."
               ,
               body = s"Your game with $opponent is over.",
               stacking = Stacking.GameFinish,
               urgency = Urgency.VeryLow,
               payload = payload(userId)(
-                "type"   -> "gameFinish",
+                "type" -> "gameFinish",
                 "gameId" -> game.id.value,
                 "fullId" -> pov.fullId.value
               ),
@@ -95,7 +95,7 @@ final private class PushApi(
                       ) // ensure game is updated before we count user games
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameMove", userId)
+                      payload <- corresGamePayload(pov, "gameMove", userId)
                     yield Data(
                       title = "It's your turn!",
                       body = s"$opponent played $sanMove",
@@ -126,7 +126,7 @@ final private class PushApi(
                   val data = LazyFu: () =>
                     for
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameTakebackOffer", userId)
+                      payload <- corresGamePayload(pov, "gameTakebackOffer", userId)
                     yield Data(
                       title = "Takeback offer",
                       body = s"$opponent proposes a takeback",
@@ -154,7 +154,7 @@ final private class PushApi(
                   val data = LazyFu: () =>
                     for
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
+                      payload <- corresGamePayload(pov, "gameDrawOffer", userId)
                     yield Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
@@ -173,7 +173,7 @@ final private class PushApi(
       val data = LazyFu: () =>
         for
           opponent <- asyncOpponentName(pov)
-          payload  <- corresGamePayload(pov, "corresAlarm", userId)
+          payload <- corresGamePayload(pov, "corresAlarm", userId)
         yield Data(
           title = "Time is almost up!",
           body = s"You are about to lose on time against $opponent",
@@ -191,10 +191,10 @@ final private class PushApi(
       .mobileOffline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId)(
-          "type"   -> typ,
+          "type" -> typ,
           "gameId" -> pov.gameId.value,
           "fullId" -> pov.fullId.value,
-          "round"  -> Json.stringify(round)
+          "round" -> Json.stringify(round)
         )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
@@ -209,7 +209,7 @@ final private class PushApi(
           urgency = Urgency.Normal,
           mobileCompatible = LichessMobileVersion(0, 17).some,
           payload = payload(to.userId)(
-            "type"     -> "newMessage",
+            "type" -> "newMessage",
             "threadId" -> senderId.value
           )
         )
@@ -227,11 +227,11 @@ final private class PushApi(
           urgency = Urgency.Normal,
           mobileCompatible = None,
           payload = payload(to.userId)(
-            "type"      -> "invitedStudy",
+            "type" -> "invitedStudy",
             "invitedBy" -> invitedBy,
             "studyName" -> studyName.value,
-            "studyId"   -> studyId.value,
-            "url"       -> s"https://lichess.org/study/$studyId"
+            "studyId" -> studyId.value,
+            "url" -> s"https://lichess.org/study/$studyId"
           )
         )
     )
@@ -253,7 +253,7 @@ final private class PushApi(
                   stacking = Stacking.ChallengeCreate,
                   urgency = Urgency.Normal,
                   payload = payload(dest.id)(
-                    "type"        -> "challengeCreate",
+                    "type" -> "challengeCreate",
                     "challengeId" -> c.id.value
                   ),
                   mobileCompatible = None
@@ -279,7 +279,7 @@ final private class PushApi(
                   urgency = Urgency.Normal,
                   mobileCompatible = None,
                   payload = payload(challenger.id)(
-                    "type"        -> "challengeAccept",
+                    "type" -> "challengeAccept",
                     "challengeId" -> c.id.value
                   )
                 )
@@ -299,10 +299,10 @@ final private class PushApi(
             urgency = Urgency.Normal,
             mobileCompatible = None,
             payload = payload(userId)(
-              "type"     -> "tourSoon",
-              "tourId"   -> tour.tourId,
+              "type" -> "tourSoon",
+              "tourId" -> tour.tourId,
               "tourName" -> tour.tourName,
-              "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
+              "path" -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
             )
           )
       )
@@ -322,11 +322,11 @@ final private class PushApi(
               urgency = Urgency.Low,
               mobileCompatible = None,
               payload = payload(to.userId)(
-                "type"        -> "forumMention",
+                "type" -> "forumMention",
                 "mentionedBy" -> mentionedBy,
-                "topic"       -> topicName,
-                "postId"      -> postId.value,
-                "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
+                "topic" -> topicName,
+                "postId" -> postId.value,
+                "url" -> s"https://lichess.org/forum/redirect/post/$postId"
               )
             )
     )
@@ -339,9 +339,9 @@ final private class PushApi(
         stacking = Stacking.StreamStart,
         urgency = Urgency.Low,
         payload = payload(
-          "type"       -> "streamStart",
+          "type" -> "streamStart",
           "streamerId" -> streamerId.value,
-          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
+          "url" -> s"https://lichess.org/streamer/$streamerId/redirect"
         ),
         mobileCompatible = None
       )
@@ -406,9 +406,9 @@ final private class PushApi(
     List(
       if c.rated.yes then "Rated" else "Casual",
       c.timeControl match
-        case Unlimited         => "Unlimited"
+        case Unlimited => "Unlimited"
         case Correspondence(d) => s"$d days"
-        case c: Clock          => c.show
+        case c: Clock => c.show
       ,
       c.variant.name
     ).mkString(" • ")
@@ -443,9 +443,9 @@ private object PushApi:
     type KeyValue = Seq[(String, String)]
     case class Payload(userId: Option[UserId], userData: KeyValue)
     def payload(userId: UserId)(pairs: (String, String)*): Payload = Payload(userId.some, pairs)
-    def payload(pairs: (String, String)*): Payload                 = Payload(none, pairs)
+    def payload(pairs: (String, String)*): Payload = Payload(none, pairs)
 
     type KeyValueMod = Data.KeyValue => Data.KeyValue
     enum FirebaseMod(val mod: KeyValueMod):
       case NotifOnly(m: KeyValueMod) extends FirebaseMod(m)
-      case DataOnly                  extends FirebaseMod(identity)
+      case DataOnly extends FirebaseMod(identity)

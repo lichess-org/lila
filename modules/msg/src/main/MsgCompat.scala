@@ -39,11 +39,11 @@ final class MsgCompat(
             .mapResults: t =>
               val user = lightUserApi.syncFallback(t.other(me))
               Json.obj(
-                "id"        -> user.id,
-                "author"    -> user.titleName,
-                "name"      -> t.lastMsg.text,
+                "id" -> user.id,
+                "author" -> user.titleName,
+                "name" -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
-                "isUnread"  -> t.lastMsg.unreadBy(me)
+                "isUnread" -> t.lastMsg.unreadBy(me)
               ))
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
@@ -65,13 +65,13 @@ final class MsgCompat(
 
   def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(
-      "id"    -> c.contact.id,
-      "name"  -> c.contact.name,
+      "id" -> c.contact.id,
+      "name" -> c.contact.name,
       "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
-          "sender"    -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
-          "receiver"  -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
-          "text"      -> msg.text,
+          "sender" -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
+          "receiver" -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
+          "text" -> msg.text,
           "createdAt" -> msg.date
         )
     )
@@ -89,7 +89,7 @@ final class MsgCompat(
                 .await(2.seconds, "pmAccept") // damn you blocking API
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
-        "text"    -> text(minLength = 3, maxLength = 8000)
+        "text" -> text(minLength = 3, maxLength = 8000)
       )(ThreadData.apply)(unapply)
     ).bindFromRequest()
       .fold(
@@ -115,6 +115,6 @@ final class MsgCompat(
 
   private def renderUser(user: LightUser) =
     Json.toJsObject(user) ++ Json.obj(
-      "online"   -> isOnline.exec(user.id),
+      "online" -> isOnline.exec(user.id),
       "username" -> user.name // for mobile app BC
     )

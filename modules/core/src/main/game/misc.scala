@@ -16,8 +16,8 @@ import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.core.user.User
 import lila.core.userId.{ UserId, UserIdOf }
 
-val maxPlaying           = Max(200) // including correspondence
-val maxPlayingRealtime   = Max(100)
+val maxPlaying = Max(200) // including correspondence
+val maxPlayingRealtime = Max(100)
 val favOpponentOverGames = 1000
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
@@ -59,32 +59,32 @@ object Blurs extends OpaqueLong[Blurs]:
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
-  case Lobby      extends Source(id = 1)
-  case Friend     extends Source(id = 2)
-  case Ai         extends Source(id = 3)
-  case Api        extends Source(id = 4)
-  case Arena      extends Source(id = 5)
-  case Position   extends Source(id = 6)
-  case Import     extends Source(id = 7)
+  case Lobby extends Source(id = 1)
+  case Friend extends Source(id = 2)
+  case Ai extends Source(id = 3)
+  case Api extends Source(id = 4)
+  case Arena extends Source(id = 5)
+  case Position extends Source(id = 6)
+  case Import extends Source(id = 7)
   case ImportLive extends Source(id = 9) // wut?
-  case Simul      extends Source(id = 10)
-  case Pool       extends Source(id = 12)
-  case Swiss      extends Source(id = 13)
+  case Simul extends Source(id = 10)
+  case Pool extends Source(id = 12)
+  case Swiss extends Source(id = 13)
 
 object Source:
-  val byId                           = values.mapBy(_.id)
-  val byName                         = values.mapBy(_.name)
-  val searchable                     = List(Lobby, Friend, Ai, Position, Arena, Simul, Pool, Swiss)
-  val expirable                      = Set(Lobby, Arena, Pool, Swiss)
+  val byId = values.mapBy(_.id)
+  val byName = values.mapBy(_.name)
+  val searchable = List(Lobby, Friend, Ai, Position, Arena, Simul, Pool, Swiss)
+  val expirable = Set(Lobby, Arena, Pool, Swiss)
   def apply(id: Int): Option[Source] = byId.get(id)
 
 trait Event:
   def typ: String
   def data: JsValue
-  def only: Option[Color]   = None
-  def owner: Boolean        = false
-  def watcher: Boolean      = false
-  def troll: Boolean        = false
+  def only: Option[Color] = None
+  def owner: Boolean = false
+  def watcher: Boolean = false
+  def troll: Boolean = false
   def moveBy: Option[Color] = None
 
 val anonCookieName = "rk2"
@@ -181,18 +181,18 @@ object PgnDump:
       division: Boolean = false,
       bookmark: Boolean = false
   ):
-    def requiresAnalysis           = evals || accuracy
+    def requiresAnalysis = evals || accuracy
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
 object BSONFields:
-  val id          = "_id"
-  val playerUids  = "us"
-  val winnerId    = "wid"
-  val createdAt   = "ca"
-  val movedAt     = "ua" // ua = updatedAt (bc)
-  val turns       = "t"
-  val analysed    = "an"
-  val pgnImport   = "pgni"
+  val id = "_id"
+  val playerUids = "us"
+  val winnerId = "wid"
+  val createdAt = "ca"
+  val movedAt = "ua" // ua = updatedAt (bc)
+  val turns = "t"
+  val analysed = "an"
+  val pgnImport = "pgni"
   val playingUids = "pl"
 
 def allowRated(variant: Variant, clock: Option[Clock.Config]) =
@@ -201,11 +201,11 @@ def allowRated(variant: Variant, clock: Option[Clock.Config]) =
       c.limitSeconds > 0 || c.incrementSeconds > 1
 
 def isBoardCompatible(clock: Clock.Config): Boolean = Speed(clock) >= Speed.Rapid
-def isBotCompatible(clock: Clock.Config): Boolean   = Speed(clock) >= Speed.Bullet
+def isBotCompatible(clock: Clock.Config): Boolean = Speed(clock) >= Speed.Bullet
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
-  val iterA   = a.iterator
-  val iterB   = b.iterator
+  val iterA = a.iterator
+  val iterB = b.iterator
   val builder = Vector.newBuilder[A]
   while iterA.hasNext && iterB.hasNext do builder += iterA.next() += iterB.next()
   builder ++= iterA ++= iterB
@@ -215,7 +215,7 @@ def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
 def reasonableMinimumNumberOfMoves(variant: Variant): Int =
   import _root_.chess.variant.*
   variant.match
-    case Standard | Chess960 | Horde            => 20
+    case Standard | Chess960 | Horde => 20
     case Antichess | Crazyhouse | KingOfTheHill => 15
-    case ThreeCheck | Atomic | RacingKings      => 10
-    case _                                      => 15 // from position
+    case ThreeCheck | Atomic | RacingKings => 10
+    case _ => 15 // from position

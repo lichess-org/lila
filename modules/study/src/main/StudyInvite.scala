@@ -33,9 +33,9 @@ final private class StudyInvite(
       invitedUsername: UserStr,
       getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] = for
-    _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
+    _ <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
     inviter <- userApi.me(byUserId).orFail("No such inviter")
-    _        = if inviter.marks.isolate then fufail("You cannot invite new members to the study")
+    _ = if inviter.marks.isolate then fufail("You cannot invite new members to the study")
     given Me = inviter
     _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
@@ -44,22 +44,22 @@ final private class StudyInvite(
         .enabledById(invitedUsername)
         .map(_.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin)))
         .orFail("No such invited")
-    _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
-    relation  <- relationApi.fetchRelation(invited.id, byUserId)
-    _         <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
+    _ <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
+    relation <- relationApi.fetchRelation(invited.id, byUserId)
+    _ <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
     isPresent <- getIsPresent(invited.id)
-    _         <-
+    _ <-
       if isPresent || Granter(_.StudyAdmin) then funit
       else
         prefApi
           .getStudyInvite(invited.id)
           .flatMap:
             case lila.core.pref.StudyInvite.ALWAYS => funit
-            case lila.core.pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
+            case lila.core.pref.StudyInvite.NEVER => fufail("This user doesn't accept study invitations")
             case lila.core.pref.StudyInvite.FRIEND =>
               if relation.has(Follow) then funit
               else fufail("This user only accept study invitations from friends")
-    shouldNotify  = !isPresent && (!inviter.marks.troll || relation.has(Follow))
+    shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
       if Granter(_.StudyAdmin) then 0
       else if relation.has(Follow) then 1

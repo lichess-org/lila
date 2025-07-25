@@ -57,7 +57,7 @@ ${trans.common_orPaste.txt()}"""),
     lifetime = 10.minutes,
     getCurrentValue = id =>
       for
-        hash  <- userRepo.getPasswordHash(id)
+        hash <- userRepo.getPasswordHash(id)
         email <- userRepo.email(id)
       yield ~hash + email.so(_.value)
   )

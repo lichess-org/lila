@@ -40,8 +40,8 @@ final class UblogApi(
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
     author <- userApi.byId(prev.created.by).map(_ | me.value)
-    blog   <- getUserBlog(author, insertMissing = true)
-    post           = data.update(me.value, prev)
+    blog <- getUserBlog(author, insertMissing = true)
+    post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
@@ -87,7 +87,7 @@ final class UblogApi(
       .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
-    val blogId  = UblogBlog.Id.User(user.id)
+    val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog
         .primitiveOne[Tier]($id(blogId.full), "tier")
@@ -173,7 +173,7 @@ final class UblogApi(
     )
 
   private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
-    val retries                                                  = 5 // 30s, 1m, 2m, 4m, 8m
+    val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
       automod(post)
         .flatMapz: mod =>
@@ -222,7 +222,7 @@ final class UblogApi(
     colls.post.exists($id(post.id) ++ $doc("likers" -> user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
-    res       <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
+    res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
     aggResult <- colls.post.aggregateOne(): framework =>
       import framework.*
       Match($id(postId)) -> List(
@@ -233,14 +233,14 @@ final class UblogApi(
         Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
       )
     found = for
-      doc   <- aggResult
-      id    <- doc.getAsOpt[UblogPostId]("_id")
+      doc <- aggResult
+      id <- doc.getAsOpt[UblogPostId]("_id")
       likes <- doc.getAsOpt[UblogPost.Likes]("likes")
-      tier  <- doc.getAsOpt[Tier]("tier")
+      tier <- doc.getAsOpt[Tier]("tier")
       title <- doc.string("title")
     yield (id, likes, tier, title)
     likes <- found match
-      case None                         => fuccess(UblogPost.Likes(0))
+      case None => fuccess(UblogPost.Likes(0))
       case Some(id, likes, tier, title) =>
         for
           _ <- colls.post.updateField($id(postId), "likes", likes)
@@ -254,11 +254,11 @@ final class UblogApi(
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset
-        case None     => base
-        case _        => v
+        case None => base
+        case _ => v
     if !d.hasUpdates then fuccess(post.automod)
     else
-      val base       = post.automod.getOrElse(Assessment(quality = Quality.good))
+      val base = post.automod.getOrElse(Assessment(quality = Quality.good))
       val assessment = Assessment(
         quality = d.quality | base.quality,
         evergreen = d.evergreen.orElse(base.evergreen),
@@ -304,8 +304,8 @@ final class UblogApi(
         import framework.*
         val aggSort = sort match
           case BlogsBy.oldest => Ascending("lived.at")
-          case BlogsBy.likes  => Descending("likes")
-          case _              => Descending("lived.at")
+          case BlogsBy.likes => Descending("likes")
+          case _ => Descending("lived.at")
         Match(select ++ $doc("live" -> true)) -> {
           Sort(aggSort) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
@@ -313,7 +313,7 @@ final class UblogApi(
         }
       .map: docs =>
         for
-          doc  <- docs
+          doc <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
 
@@ -330,7 +330,7 @@ final class UblogApi(
           local = "blog",
           foreign = "_id",
           pipe = List(
-            $doc("$match"   -> $expr($doc("$gt" -> $arr("$tier", Tier.UNLISTED)))),
+            $doc("$match" -> $expr($doc("$gt" -> $arr("$tier", Tier.UNLISTED)))),
             $doc("$project" -> $id(true))
           )
         )
@@ -343,7 +343,7 @@ final class UblogApi(
           local = "created.by",
           foreign = "_id",
           pipe = List(
-            $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
+            $doc("$match" -> $doc(lila.core.user.BSONFields.enabled -> true)),
             $doc("$project" -> $id(true))
           )
         )

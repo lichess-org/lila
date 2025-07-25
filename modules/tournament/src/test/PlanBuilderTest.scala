@@ -9,23 +9,23 @@ import chess.variant.*
 class PlanBuilderTest extends munit.FunSuite:
 
   import lila.core.i18n.*
-  given Translator         = TranslatorStub
+  given Translator = TranslatorStub
   given play.api.i18n.Lang = defaultLang
 
   test("tourney building with stagger"):
     // Test that tourneys are scheduled based on the startAt field of the plan.
-    val dt1   = LocalDateTime.of(2024, 9, 30, 12, 0)
+    val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
     val plan1 = Schedule(Daily, Bullet, Standard, None, dt1).plan
 
     val instant2 = plan1.startsAt.plusHours(1)
-    val plan2    = plan1.copy(startsAt = instant2)
-    val tourney  = plan2.build
+    val plan2 = plan1.copy(startsAt = instant2)
+    val tourney = plan2.build
     assertEquals(tourney.startsAt, instant2)
     assertEquals(tourney.schedule.get.at, dt1)
 
     val tourneyBsonHandler = BSONHandlers.tourHandler
-    val bsonEncoded        = tourneyBsonHandler.write(tourney)
-    val tourney2           = tourneyBsonHandler.read(bsonEncoded)
+    val bsonEncoded = tourneyBsonHandler.write(tourney)
+    val tourney2 = tourneyBsonHandler.read(bsonEncoded)
 
     // Test that serialized & deserialized tourney maintains a startAt based on the plan, and
     // maintains a schedule.at based on the original schedule.
@@ -33,7 +33,7 @@ class PlanBuilderTest extends munit.FunSuite:
     assertEquals(tourney2.schedule.get.at, dt1)
 
   test("plansWithStagger & getNewTourneys"):
-    val dt    = LocalDateTime.of(2024, 9, 30, 12, 0)
+    val dt = LocalDateTime.of(2024, 9, 30, 12, 0)
     val plans = List(
       Schedule(Hourly, Bullet, Standard, None, dt).plan,
       Schedule(Hourly, Blitz, Standard, None, dt).plan,
@@ -70,9 +70,9 @@ class PlanBuilderTest extends munit.FunSuite:
 
   test("Plan overlap"):
     val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
-    val p1  = Schedule(Daily, Bullet, Standard, None, dt1).plan
-    val p2  = Schedule(Hourly, Bullet, Standard, None, dt1).plan
-    val t1  = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
+    val p1 = Schedule(Daily, Bullet, Standard, None, dt1).plan
+    val p2 = Schedule(Hourly, Bullet, Standard, None, dt1).plan
+    val t1 = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
     assertEquals(t1.length, 1, "Expected exactly one tourney!")
     assert(clue(t1.head.schedule.get).freq.isDaily)
 
@@ -81,9 +81,9 @@ class PlanBuilderTest extends munit.FunSuite:
 
   test("Plan overlap, superblitz"):
     val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
-    val p1  = Schedule(Daily, SuperBlitz, Standard, None, dt1).plan
-    val p2  = Schedule(Hourly, SuperBlitz, Standard, None, dt1).plan
-    val t1  = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
+    val p1 = Schedule(Daily, SuperBlitz, Standard, None, dt1).plan
+    val p2 = Schedule(Hourly, SuperBlitz, Standard, None, dt1).plan
+    val t1 = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
     assertEquals(t1.length, 1, "Expected exactly one tourney!")
     assert(clue(t1.head.schedule.get).freq.isDaily)
 
@@ -91,14 +91,14 @@ class PlanBuilderTest extends munit.FunSuite:
     assert(clue(PlanBuilder.getNewTourneys(t1, List(p1, p2))).isEmpty)
 
   test("Overlap from stagger"):
-    val dt1         = LocalDateTime.of(2024, 9, 30, 12, 0)
-    val p1          = Schedule(Daily, Bullet, Standard, None, dt1).plan
+    val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
+    val p1 = Schedule(Daily, Bullet, Standard, None, dt1).plan
     val p1Staggered = p1.copy(startsAt = dt1.plusMinutes(1).instant)
-    val t1          = p1Staggered.build
+    val t1 = p1Staggered.build
     assertEquals(t1.startsAt, p1Staggered.startsAt)
 
     val dt2 = dt1.plusHours(1)
-    val p2  = Schedule(Hourly, Bullet, Standard, None, dt2).plan
+    val p2 = Schedule(Hourly, Bullet, Standard, None, dt2).plan
 
     // The original plan didn't conflict
     assert(!clue(p1).conflictsWith(clue(p2)))
@@ -158,4 +158,4 @@ class PlanBuilderTest extends munit.FunSuite:
     assertSlotFull(-10L, -5L, Seq(-10L), -5L)
     assertSlotFull(-10L, -5L, Seq(-5L), -10L)
     assertSlotFull(-10L, -5L, Seq(-10L, -5L), -8L) // Rounds down when negative
-    assertSlotFull(-1L, 2L, Seq(-1L, 2L), 0L)      // Rounds down when positive
+    assertSlotFull(-1L, 2L, Seq(-1L, 2L), 0L) // Rounds down when positive

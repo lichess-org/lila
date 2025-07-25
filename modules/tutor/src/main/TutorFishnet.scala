@@ -15,9 +15,9 @@ final private class TutorFishnet(
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
 )(using Executor):
 
-  def maxToAnalyse       = Max(nbAnalysis.get())
+  def maxToAnalyse = Max(nbAnalysis.get())
   def maxGamesToConsider = Max(maxToAnalyse.value * 2)
-  val maxTime            = 5.minutes
+  val maxTime = 5.minutes
 
   def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit =
     val totalNbGames = stats.values.map(_.stats.totalNbGames).sum

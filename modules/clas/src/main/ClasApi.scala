@@ -109,8 +109,8 @@ final class ClasApi(
                     local = "clasId",
                     foreign = "_id",
                     pipe = List(
-                      $doc("$match"   -> $doc("teachers" -> teacher)),
-                      $doc("$limit"   -> 1),
+                      $doc("$match" -> $doc("teachers" -> teacher)),
+                      $doc("$limit" -> 1),
                       $doc("$project" -> $id(true))
                     )
                   )
@@ -157,9 +157,9 @@ final class ClasApi(
         .map: docs =>
           import lila.user.BSONHandlers.userHandler
           for
-            doc     <- docs
+            doc <- docs
             student <- doc.asOpt[Student]
-            user    <- doc.getAsOpt[User]("user")
+            user <- doc.getAsOpt[User]("user")
           yield Student.WithUser(student, user)
 
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
@@ -204,7 +204,7 @@ final class ClasApi(
           .zip(clas.byId(student.clasId))
           .map:
             case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
-            case _                           => none
+            case _ => none
       }
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
@@ -243,7 +243,7 @@ final class ClasApi(
         data: ClasForm.CreateStudent,
         teacher: User
     ): Fu[Student.WithPassword] =
-      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
+      val email = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id.value).increment()
       for
@@ -258,7 +258,7 @@ final class ClasApi(
             lang = teacher.lang
           )
           .orFail(s"No user could be created for ${data.username}")
-        _       = studentCache.addStudent(user.id)
+        _ = studentCache.addStudent(user.id)
         student = Student.make(user, clas, teacher.id, data.realName, managed = true)
         _ <- userRepo.setKid(user, KidMode.Yes)
         _ <- perfsRepo.setManagedUserInitialPerfs(user.id)

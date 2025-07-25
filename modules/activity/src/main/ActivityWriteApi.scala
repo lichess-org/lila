@@ -156,7 +156,7 @@ final class ActivityWriteApi(
             .one:
               $doc(
                 "_id" -> $doc(
-                  "$lte"   -> oldId,
+                  "$lte" -> oldId,
                   "$regex" -> BSONRegex(s"^${id.userId}$idSep", "")
                 )
               )

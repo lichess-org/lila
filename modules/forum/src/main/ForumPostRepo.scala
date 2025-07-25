@@ -13,21 +13,21 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       SafeAnd(u.id)
     })
   def withFilter(f: Filter) = if f == filter then this else new ForumPostRepo(coll, f)
-  def unsafe                = withFilter(Unsafe)
+  def unsafe = withFilter(Unsafe)
 
   import BSONHandlers.given
 
-  private val noTroll     = $doc("troll" -> false)
+  private val noTroll = $doc("troll" -> false)
   private val trollFilter = filter match
-    case Safe       => noTroll
+    case Safe => noTroll
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
-    case Unsafe     => $empty
+    case Unsafe => $empty
 
   private val miniProjection = $doc(
-    "topicId"   -> true,
-    "userId"    -> true,
-    "text"      -> true,
-    "troll"     -> true,
+    "topicId" -> true,
+    "userId" -> true,
+    "text" -> true,
+    "troll" -> true,
     "createdAt" -> true
   )
 
@@ -82,7 +82,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
 
   def selectTopic(topicId: ForumTopicId) = $doc("topicId" -> topicId) ++ trollFilter
 
-  def selectCateg(categId: ForumCategId)         = $doc("categId" -> categId) ++ trollFilter
+  def selectCateg(categId: ForumCategId) = $doc("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[ForumCategId]) = $doc("categId".$in(categIds)) ++ trollFilter
 
   val selectNotErased = $doc("erasedAt".$exists(false))
@@ -96,7 +96,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       $doc(
         "createdAt".$gt(nowInstant.minusHours(1)),
         "userId" -> post.userId,
-        "text"   -> post.text
+        "text" -> post.text
       )
     )
 

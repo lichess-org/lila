@@ -23,7 +23,7 @@ object RacerPlayer:
       else User(UserId(str))
     def userIdOf(id: Id) = id match
       case User(uid) => uid.some
-      case _         => none
+      case _ => none
 
   val lichess = Id.User(UserId.lichess)
 

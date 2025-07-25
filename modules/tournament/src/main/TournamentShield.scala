@@ -50,15 +50,15 @@ final class TournamentShieldApi(
         .find:
           $doc(
             "schedule.freq" -> (Schedule.Freq.Shield: Schedule.Freq),
-            "status"        -> (Status.finished: Status)
+            "status" -> (Status.finished: Status)
           )
         .sort($sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.sec)
         .listAll()
         .map: tours =>
           for
-            tour   <- tours
-            categ  <- Category.of(tour)
+            tour <- tours
+            categ <- Category.of(tour)
             winner <- tour.winnerId
           yield Award(
             categ = categ,
@@ -96,32 +96,32 @@ object TournamentShield:
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
 
   enum Category(val of: SpeedOrVariant, val icon: Icon):
-    def key                       = of.fold(_.key, _.key.value)
-    def name                      = of.fold(_.name, _.name)
+    def key = of.fold(_.key, _.key.value)
+    def name = of.fold(_.name, _.name)
     def matches(tour: Tournament) =
       if tour.variant.standard
       then ~(of.left.toOption, tour.scheduleSpeed).mapN(_ == _)
       else of.toOption.has(tour.variant)
 
-    case Bullet        extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet)
-    case SuperBlitz    extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz)
-    case Blitz         extends Category(Left(Schedule.Speed.Blitz), Icon.FlameBlitz)
-    case Rapid         extends Category(Left(Schedule.Speed.Rapid), Icon.Rabbit)
-    case Classical     extends Category(Left(Schedule.Speed.Classical), Icon.Turtle)
-    case HyperBullet   extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet)
-    case UltraBullet   extends Category(Left(Schedule.Speed.UltraBullet), Icon.UltraBullet)
-    case Chess960      extends Category(Right(chess.variant.Chess960), Icon.DieSix)
-    case Crazyhouse    extends Category(Right(chess.variant.Crazyhouse), Icon.Crazyhouse)
+    case Bullet extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet)
+    case SuperBlitz extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz)
+    case Blitz extends Category(Left(Schedule.Speed.Blitz), Icon.FlameBlitz)
+    case Rapid extends Category(Left(Schedule.Speed.Rapid), Icon.Rabbit)
+    case Classical extends Category(Left(Schedule.Speed.Classical), Icon.Turtle)
+    case HyperBullet extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet)
+    case UltraBullet extends Category(Left(Schedule.Speed.UltraBullet), Icon.UltraBullet)
+    case Chess960 extends Category(Right(chess.variant.Chess960), Icon.DieSix)
+    case Crazyhouse extends Category(Right(chess.variant.Crazyhouse), Icon.Crazyhouse)
     case KingOfTheHill extends Category(Right(chess.variant.KingOfTheHill), Icon.FlagKingHill)
-    case ThreeCheck    extends Category(Right(chess.variant.ThreeCheck), Icon.ThreeCheckStack)
-    case Antichess     extends Category(Right(chess.variant.Antichess), Icon.Antichess)
-    case Atomic        extends Category(Right(chess.variant.Atomic), Icon.Atom)
-    case Horde         extends Category(Right(chess.variant.Horde), Icon.Keypad)
-    case RacingKings   extends Category(Right(chess.variant.RacingKings), Icon.FlagRacingKings)
+    case ThreeCheck extends Category(Right(chess.variant.ThreeCheck), Icon.ThreeCheckStack)
+    case Antichess extends Category(Right(chess.variant.Antichess), Icon.Antichess)
+    case Atomic extends Category(Right(chess.variant.Atomic), Icon.Atom)
+    case Horde extends Category(Right(chess.variant.Horde), Icon.Keypad)
+    case RacingKings extends Category(Right(chess.variant.RacingKings), Icon.FlagRacingKings)
 
   object Category:
-    val list                                = values.toList
-    val byKey                               = values.mapBy(_.key)
+    val list = values.toList
+    val byKey = values.mapBy(_.key)
     def of(t: Tournament): Option[Category] = list.find(_.matches(t))
 
   def make(name: String)(t: Tournament) = t.copy(

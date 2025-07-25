@@ -21,23 +21,23 @@ object BSONHandlers:
     { case BSONString(v) => Role.allByForsyth.get(v.head).toTry(s"Invalid role $v") },
     e => BSONString(e.forsyth.toString)
   )
-  given BSONHandler[RelativeStrength]     = valueMapHandler(RelativeStrength.byId)(_.id)
-  given BSONHandler[Result]               = valueMapHandler(Result.byId)(_.id)
-  given BSONHandler[Phase]                = valueMapHandler(Phase.byId)(_.id)
-  given BSONHandler[Termination]          = valueMapHandler(Termination.byId)(_.id)
-  given BSONHandler[MovetimeRange]        = valueMapHandler(MovetimeRange.byId)(_.id)
-  given BSONHandler[Castling]             = valueMapHandler(Castling.byId)(_.id)
-  given BSONHandler[MaterialRange]        = valueMapHandler(MaterialRange.byId)(_.id)
-  given BSONHandler[EvalRange]            = valueMapHandler(EvalRange.byId)(_.id)
-  given BSONHandler[WinPercentRange]      = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
+  given BSONHandler[RelativeStrength] = valueMapHandler(RelativeStrength.byId)(_.id)
+  given BSONHandler[Result] = valueMapHandler(Result.byId)(_.id)
+  given BSONHandler[Phase] = valueMapHandler(Phase.byId)(_.id)
+  given BSONHandler[Termination] = valueMapHandler(Termination.byId)(_.id)
+  given BSONHandler[MovetimeRange] = valueMapHandler(MovetimeRange.byId)(_.id)
+  given BSONHandler[Castling] = valueMapHandler(Castling.byId)(_.id)
+  given BSONHandler[MaterialRange] = valueMapHandler(MaterialRange.byId)(_.id)
+  given BSONHandler[EvalRange] = valueMapHandler(EvalRange.byId)(_.id)
+  given BSONHandler[WinPercentRange] = valueMapHandler(WinPercentRange.byPercent)(_.bottom.toInt)
   given BSONHandler[AccuracyPercentRange] = valueMapHandler(AccuracyPercentRange.byPercent)(_.bottom.toInt)
-  given BSONHandler[ClockPercentRange]    = valueMapHandler(ClockPercentRange.byPercent)(_.bottom.toInt)
-  given BSONHandler[QueenTrade]           = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
-  given BSONHandler[Blur]                 = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
-  given BSONHandler[CplRange]             = valueMapHandler(CplRange.byId)(_.cpl)
-  given BSONHandler[AccuracyPercent]      = percentAsIntHandler[AccuracyPercent]
-  given BSONHandler[WinPercent]           = percentAsIntHandler[WinPercent]
-  given BSONHandler[ClockPercent]         = percentAsIntHandler[ClockPercent]
+  given BSONHandler[ClockPercentRange] = valueMapHandler(ClockPercentRange.byPercent)(_.bottom.toInt)
+  given BSONHandler[QueenTrade] = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
+  given BSONHandler[Blur] = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
+  given BSONHandler[CplRange] = valueMapHandler(CplRange.byId)(_.cpl)
+  given BSONHandler[AccuracyPercent] = percentAsIntHandler[AccuracyPercent]
+  given BSONHandler[WinPercent] = percentAsIntHandler[WinPercent]
+  given BSONHandler[ClockPercent] = percentAsIntHandler[ClockPercent]
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },
@@ -50,7 +50,7 @@ object BSONHandlers:
   )
 
   private[insight] given BSONDocumentHandler[lila.insight.DateRange] = Macros.handler
-  private[insight] given BSONHandler[Period]                         = intAnyValHandler(_.days, Period.apply)
+  private[insight] given BSONHandler[Period] = intAnyValHandler(_.days, Period.apply)
 
   given BSON[InsightMove] with
     def reads(r: BSON.Reader) =
@@ -112,24 +112,24 @@ object BSONHandlers:
       )
     def writes(w: BSON.Writer, e: InsightEntry) =
       BSONDocument(
-        id               -> e.id,
-        userId           -> e.userId,
-        color            -> e.color,
-        perf             -> PerfType(e.perf),
-        opening          -> e.opening,
-        openingFamily    -> e.opening.map(_.family),
-        myCastling       -> e.myCastling,
-        rating           -> e.rating,
-        opponentRating   -> e.opponentRating,
+        id -> e.id,
+        userId -> e.userId,
+        color -> e.color,
+        perf -> PerfType(e.perf),
+        opening -> e.opening,
+        openingFamily -> e.opening.map(_.family),
+        myCastling -> e.myCastling,
+        rating -> e.rating,
+        opponentRating -> e.opponentRating,
         opponentStrength -> e.opponentStrength,
         opponentCastling -> e.opponentCastling,
-        moves            -> e.moves,
-        queenTrade       -> e.queenTrade,
-        result           -> e.result,
-        termination      -> e.termination,
-        ratingDiff       -> e.ratingDiff,
-        analysed         -> w.boolO(e.analysed),
-        provisional      -> w.boolO(e.provisional),
-        source           -> e.source,
-        date             -> e.date
+        moves -> e.moves,
+        queenTrade -> e.queenTrade,
+        result -> e.result,
+        termination -> e.termination,
+        ratingDiff -> e.ratingDiff,
+        analysed -> w.boolO(e.analysed),
+        provisional -> w.boolO(e.provisional),
+        source -> e.source,
+        date -> e.date
       )

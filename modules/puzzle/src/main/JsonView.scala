@@ -43,7 +43,7 @@ final class JsonView(
                 Json.obj("key" -> op.key, "name" -> op.name))
               .add("openingAbstract" -> a.match
                 case op: PuzzleAngle.Opening => op.isAbstract
-                case _                       => false)
+                case _ => false)
         )
 
   def analysis(
@@ -65,7 +65,7 @@ final class JsonView(
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
     Json
       .obj(
-        "id"     -> me.userId,
+        "id" -> me.userId,
         "rating" -> perf.intRating
       )
       .add("provisional" -> perf.provisional)
@@ -82,43 +82,43 @@ final class JsonView(
             rt.map: t =>
               t.theme.value -> JsBoolean(t.vote))
 
-    def api                                                         = base
+    def api = base
     private def base(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(
-      "id"         -> round.id.puzzleId,
-      "win"        -> round.win,
+      "id" -> round.id.puzzleId,
+      "win" -> round.win,
       "ratingDiff" -> ratingDiff
     )
 
   def pref(p: lila.core.pref.Pref) =
     Json.obj(
-      "coords"       -> p.coords,
+      "coords" -> p.coords,
       "keyboardMove" -> p.keyboardMove,
-      "voiceMove"    -> p.voice,
-      "rookCastle"   -> p.rookCastle,
-      "animation"    -> Json.obj("duration" -> p.animationMillis),
-      "destination"  -> p.destination,
-      "moveEvent"    -> p.moveEvent,
-      "highlight"    -> p.highlight,
-      "is3d"         -> p.is3d
+      "voiceMove" -> p.voice,
+      "rookCastle" -> p.rookCastle,
+      "animation" -> Json.obj("duration" -> p.animationMillis),
+      "destination" -> p.destination,
+      "moveEvent" -> p.moveEvent,
+      "highlight" -> p.highlight,
+      "is3d" -> p.is3d
     )
 
   def dashboardJson(dash: PuzzleDashboard, days: Days)(using Translate) = Json.obj(
-    "days"   -> days,
+    "days" -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { (key, res) =>
       key.value -> Json.obj(
-        "theme"   -> PuzzleTheme(key).name.txt(),
+        "theme" -> PuzzleTheme(key).name.txt(),
         "results" -> dashboardResults(res)
       )
     })
   )
 
   private def dashboardResults(res: PuzzleDashboard.Results) = Json.obj(
-    "nb"              -> res.nb,
-    "firstWins"       -> res.firstWins,
-    "replayWins"      -> res.fixed,
+    "nb" -> res.nb,
+    "firstWins" -> res.firstWins,
+    "replayWins" -> res.fixed,
     "puzzleRatingAvg" -> res.puzzleRatingAvg,
-    "performance"     -> res.performance
+    "performance" -> res.performance
   )
 
   def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
@@ -142,7 +142,7 @@ final class JsonView(
       gameJson(gameId = puzzle.gameId, plies = puzzle.initialPly, bc = true).map: gameJson =>
         Json
           .obj(
-            "game"   -> gameJson,
+            "game" -> gameJson,
             "puzzle" -> puzzleJson(puzzle)
           )
           .add("user" -> me.map(_ => perf.intRating).map(userJson))
@@ -155,7 +155,7 @@ final class JsonView(
           .collect { case (puzzle, Some(game)) =>
             gameJson.noCacheBc(game, puzzle.initialPly).map { gameJson =>
               Json.obj(
-                "game"   -> gameJson,
+                "game" -> gameJson,
                 "puzzle" -> puzzleJson(puzzle)
               )
             }
@@ -170,17 +170,17 @@ final class JsonView(
     )
 
     private def puzzleJson(puzzle: Puzzle) = Json.obj(
-      "id"         -> Puzzle.numericalId(puzzle.id),
-      "realId"     -> puzzle.id,
-      "rating"     -> puzzle.glicko.intRating,
-      "attempts"   -> puzzle.plays,
-      "fen"        -> puzzle.fen,
-      "color"      -> puzzle.color.name,
+      "id" -> Puzzle.numericalId(puzzle.id),
+      "realId" -> puzzle.id,
+      "rating" -> puzzle.glicko.intRating,
+      "attempts" -> puzzle.plays,
+      "fen" -> puzzle.fen,
+      "color" -> puzzle.color.name,
       "initialPly" -> (puzzle.initialPly + 1),
-      "gameId"     -> puzzle.gameId,
-      "lines"      -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
+      "gameId" -> puzzle.gameId,
+      "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
-      "vote"   -> 0,
+      "vote" -> 0,
       "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
     )
 
@@ -189,7 +189,7 @@ object JsonView:
   given (using Translate): OWrites[PuzzleAngle] = a =>
     Json
       .obj(
-        "key"  -> a.key,
+        "key" -> a.key,
         "name" -> {
           if a == PuzzleAngle.mix
           then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
@@ -221,7 +221,7 @@ object JsonView:
     chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
 
   def puzzleAndGamejson(puzzle: Puzzle, game: JsObject) = Json.obj(
-    "game"   -> game,
+    "game" -> game,
     "puzzle" -> puzzleJsonBase(puzzle).++ {
       Json.obj("initialPly" -> puzzle.initialPly)
     }
@@ -229,16 +229,16 @@ object JsonView:
 
   def puzzleJsonStandalone(puzzle: Puzzle): JsObject =
     puzzleJsonBase(puzzle) ++ Json.obj(
-      "fen"      -> puzzle.fenAfterInitialMove,
+      "fen" -> puzzle.fenAfterInitialMove,
       "lastMove" -> puzzle.line.head.uci
     )
 
   private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json.obj(
-    "id"       -> puzzle.id,
-    "rating"   -> puzzle.glicko.intRating,
-    "plays"    -> puzzle.plays,
+    "id" -> puzzle.id,
+    "rating" -> puzzle.glicko.intRating,
+    "plays" -> puzzle.plays,
     "solution" -> puzzle.line.tail.map(_.uci),
-    "themes"   -> simplifyThemes(puzzle.themes)
+    "themes" -> simplifyThemes(puzzle.themes)
   )
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
@@ -250,9 +250,9 @@ object JsonView:
           themes.map:
             case PuzzleTheme.WithCount(theme, count) =>
               Json.obj(
-                "key"   -> theme.key,
-                "name"  -> theme.name.txt(),
-                "desc"  -> theme.description.txt(),
+                "key" -> theme.key,
+                "name" -> theme.name.txt(),
+                "desc" -> theme.description.txt(),
                 "count" -> count
               )
   )
@@ -265,14 +265,14 @@ object JsonView:
           .map: (fam, ops) =>
             Json.obj(
               "family" -> Json.obj(
-                "key"   -> fam.family.key,
-                "name"  -> fam.family.name,
+                "key" -> fam.family.key,
+                "name" -> fam.family.name,
                 "count" -> fam.count
               ),
               "openings" -> ops.map: op =>
                 Json.obj(
-                  "key"   -> op.opening.key,
-                  "name"  -> op.opening.variation,
+                  "key" -> op.opening.key,
+                  "name" -> op.opening.variation,
                   "count" -> op.count
                 )
             )

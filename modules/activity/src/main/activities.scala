@@ -21,17 +21,17 @@ object activities:
   opaque type ForumPosts = List[ForumPostId]
   object ForumPosts extends TotalWrapper[ForumPosts, List[ForumPostId]]:
     extension (a: ForumPosts) def +(postId: ForumPostId): ForumPosts = postId :: a.value
-    given Zero[ForumPosts]                                           = Zero(Nil)
+    given Zero[ForumPosts] = Zero(Nil)
 
   opaque type UblogPosts = List[UblogPostId]
   object UblogPosts extends TotalWrapper[UblogPosts, List[UblogPostId]]:
     extension (a: UblogPosts) def +(postId: UblogPostId): UblogPosts = postId :: a.value
-    given Zero[UblogPosts]                                           = Zero(Nil)
+    given Zero[UblogPosts] = Zero(Nil)
 
   opaque type Puzzles = Score
   object Puzzles extends TotalWrapper[Puzzles, Score]:
     extension (a: Puzzles) def +(s: Score) = Puzzles(a.value.plus(s))
-    given Zero[Puzzles]                    = Zero(lila.activity.Score.empty)
+    given Zero[Puzzles] = Zero(lila.activity.Score.empty)
 
   case class Storm(runs: Int, score: Int):
     def +(s: Int) = Storm(runs = runs + 1, score = score.atLeast(s))
@@ -55,7 +55,7 @@ object activities:
   object Learn extends TotalWrapper[Learn, Map[LearnStage, Int]]:
     extension (a: Learn)
       def +(stage: LearnStage): Learn = a.value + (stage -> a.value.get(stage).fold(1)(1 +))
-    given Zero[Learn]                 = Zero(Map.empty)
+    given Zero[Learn] = Zero(Map.empty)
 
   opaque type Practice = Map[StudyId, Int]
   object Practice extends TotalWrapper[Practice, Map[StudyId, Int]]:
@@ -67,7 +67,7 @@ object activities:
   opaque type Simuls = List[SimulId]
   object Simuls extends TotalWrapper[Simuls, List[SimulId]]:
     extension (a: Simuls) def +(s: SimulId): Simuls = s :: a.value
-    given Zero[Simuls]                              = Zero(Nil)
+    given Zero[Simuls] = Zero(Nil)
 
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]):
     def add(gameId: GameId, moved: Boolean, ended: Boolean) =
@@ -81,7 +81,7 @@ object activities:
 
   case class Patron(months: Int)
   case class FollowList(ids: List[UserId], nb: Option[Int]):
-    def actualNb      = nb | ids.size
+    def actualNb = nb | ids.size
     def +(id: UserId) =
       if ids contains id then this
       else
@@ -92,27 +92,27 @@ object activities:
         )
     def isEmpty = ids.isEmpty
   given Zero[FollowList] = Zero(FollowList(Nil, None))
-  given Zero[Follows]    = Zero(Follows(None, None))
+  given Zero[Follows] = Zero(Follows(None, None))
 
   case class Follows(in: Option[FollowList], out: Option[FollowList]):
-    def addIn(id: UserId)  = copy(in = Some(~in + id))
+    def addIn(id: UserId) = copy(in = Some(~in + id))
     def addOut(id: UserId) = copy(out = Some(~out + id))
-    def isEmpty            = in.forall(_.isEmpty) && out.forall(_.isEmpty)
-    def allUserIds         = in.so(_.ids) ::: out.so(_.ids)
+    def isEmpty = in.forall(_.isEmpty) && out.forall(_.isEmpty)
+    def allUserIds = in.so(_.ids) ::: out.so(_.ids)
 
   opaque type Studies = List[StudyId]
   object Studies extends TotalWrapper[Studies, List[StudyId]]:
     extension (a: Studies) def +(s: StudyId): Studies = (s :: a.value).take(maxSubEntries)
-    given Zero[Studies]                               = Zero(Nil)
+    given Zero[Studies] = Zero(Nil)
 
   opaque type Teams = List[TeamId]
   object Teams extends TotalWrapper[Teams, List[TeamId]]:
     extension (a: Teams) def +(s: TeamId): Teams = (s :: a.value).distinct.take(maxSubEntries)
-    given Zero[Teams]                            = Zero(Nil)
+    given Zero[Teams] = Zero(Nil)
 
   case class SwissRank(id: SwissId, rank: Rank)
 
   opaque type Swisses = List[SwissRank]
   object Swisses extends TotalWrapper[Swisses, List[SwissRank]]:
     extension (a: Swisses) def +(s: SwissRank): Swisses = (s :: a.value).take(maxSubEntries)
-    given Zero[Swisses]                                 = Zero(Nil)
+    given Zero[Swisses] = Zero(Nil)

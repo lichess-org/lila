@@ -6,7 +6,7 @@ import lila.db.dsl.{ *, given }
 
 final class NoteApi(coll: Coll)(using Executor):
 
-  def collName  = coll.name
+  def collName = coll.name
   val noteField = "t"
 
   def get(gameId: GameId, userId: UserId): Fu[String] =
@@ -25,9 +25,9 @@ final class NoteApi(coll: Coll)(using Executor):
   def byGameIds(gameIds: Seq[GameId], userId: UserId): Fu[Map[GameId, String]] =
     coll.byIds(gameIds.map(makeId(_, userId)), _.sec).map { docs =>
       (for
-        doc    <- docs
+        doc <- docs
         gameId <- doc.getAsOpt[GameId]("_id")
-        note   <- doc.string(noteField)
+        note <- doc.string(noteField)
       yield (gameId, note)).toMap
     }
 

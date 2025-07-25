@@ -31,7 +31,7 @@ final class Env(
   lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userApi)
 
   private val mobileSecret = appConfig.get[Secret]("oauth.mobile.secret").taggedWith[MobileSecret]
-  lazy val server          = wire[OAuthServer]
+  lazy val server = wire[OAuthServer]
 
 trait OriginBlocklist
 trait MobileSecret

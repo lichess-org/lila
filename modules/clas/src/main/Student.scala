@@ -19,7 +19,7 @@ case class Student(
   def is(other: Student) = id == other.id
 
   def isArchived = archived.isDefined
-  def isActive   = !isArchived
+  def isActive = !isArchived
 
 object Student:
 
@@ -44,7 +44,7 @@ object Student:
     val user: User
   case class WithUser(student: Student, user: User) extends WithUserLike:
     def withPerfs(perfs: UserPerfs) = WithUserPerfs(student, user, perfs)
-  case class WithUserPerf(student: Student, user: User, perf: Perf)        extends WithUserLike
+  case class WithUserPerf(student: Student, user: User, perf: Perf) extends WithUserLike
   case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs) extends WithUserLike:
     def withPerfs = UserWithPerfs(user, perfs)
 
@@ -57,8 +57,8 @@ object Student:
 
   private[clas] object password:
 
-    private val chars      = (('2' to '9') ++ (('a' to 'z').toSet - 'l')).mkString
-    private val nbChars    = chars.length
+    private val chars = (('2' to '9') ++ (('a' to 'z').toSet - 'l')).mkString
+    private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
     def generate = ClearPassword:

@@ -72,13 +72,13 @@ final class ActivityUi(helpers: Helpers)(
         ps.headOption.map(onePractice),
         ps match
           case _ :: rest if rest.nonEmpty => subTag(rest.map(onePractice))
-          case _                          => emptyFrag
+          case _ => emptyFrag
       )
     )
 
   private def onePractice(tup: (lila.core.practice.Study, Int))(using Context) =
     val (study, nb) = tup
-    val href        = routes.Practice.show("-", study.slug, study.id)
+    val href = routes.Practice.show("-", study.slug, study.id)
     frag(
       trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
       br
@@ -190,7 +190,7 @@ final class ActivityUi(helpers: Helpers)(
       Context
   ) =
     corresEnds.toSeq.map { case (pk, (score, povs)) =>
-      val pt   = lila.rating.PerfType(pk)
+      val pt = lila.rating.PerfType(pk)
       val text =
         if pk == PerfKey.correspondence then
           trans.activity.completedNbGames.plural(score.size, subCount(score.size))
@@ -211,9 +211,9 @@ final class ActivityUi(helpers: Helpers)(
               frag(
                 a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
                   pov.game.win.map(_ == pov.color) match
-                    case Some(true)  => trans.site.victory()
+                    case Some(true) => trans.site.victory()
                     case Some(false) => trans.site.defeat()
-                    case _           => "Draw"
+                    case _ => "Draw"
                 ),
                 " vs ",
                 lightPlayerLink(
@@ -306,7 +306,7 @@ final class ActivityUi(helpers: Helpers)(
             div(
               cls := List(
                 "is-gold" -> (t.rank == Rank(1)),
-                "text"    -> (t.rank <= 3)
+                "text" -> (t.rank <= 3)
               ),
               dataIcon := (t.rank <= 3).option(Icon.Trophy)
             )(
@@ -332,7 +332,7 @@ final class ActivityUi(helpers: Helpers)(
             div(
               cls := List(
                 "is-gold" -> (rank == Rank(1)),
-                "text"    -> (rank <= 3)
+                "text" -> (rank <= 3)
               ),
               dataIcon := (rank <= 3).option(Icon.Trophy)
             )(
@@ -359,10 +359,10 @@ final class ActivityUi(helpers: Helpers)(
       div(trans.activity.signedUp())
     )
 
-  val entryTag         = div(cls := "entry")
-  val subTag           = div(cls := "sub")
+  val entryTag = div(cls := "entry")
+  val subTag = div(cls := "sub")
   private val scoreTag = tag("score")
-  private val winTag   = tag("win")
+  private val winTag = tag("win")
 
   private def scoreFrag(s: Score)(using Context) = raw:
     s"""<score>${scoreStr("win", s.win, trans.site.nbWins)}${scoreStr(
@@ -382,5 +382,5 @@ final class ActivityUi(helpers: Helpers)(
     if p == 0 then ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 
-  private val wrapNumberRegex         = """(\d++)""".r
+  private val wrapNumberRegex = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")

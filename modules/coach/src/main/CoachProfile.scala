@@ -21,17 +21,17 @@ case class CoachProfile(
   lazy val studyIds = publicStudies.so(UrlList.study.apply)
 
   def textLines: List[String] = List(
-    "headline"           -> headline,
-    "hourlyRate"         -> hourlyRate,
-    "description"        -> description,
-    "playingExperience"  -> playingExperience,
+    "headline" -> headline,
+    "hourlyRate" -> hourlyRate,
+    "description" -> description,
+    "playingExperience" -> playingExperience,
     "teachingExperience" -> teachingExperience,
-    "otherExperience"    -> otherExperience,
-    "skills"             -> skills,
-    "methodology"        -> methodology,
-    "youtubeVideos"      -> youtubeVideos,
-    "youtubeChannel"     -> youtubeChannel,
-    "publicStudies"      -> publicStudies
+    "otherExperience" -> otherExperience,
+    "skills" -> skills,
+    "methodology" -> methodology,
+    "youtubeVideos" -> youtubeVideos,
+    "youtubeChannel" -> youtubeChannel,
+    "publicStudies" -> publicStudies
   ).collect { case (k, Some(v)) =>
     s"$k: $v"
   }

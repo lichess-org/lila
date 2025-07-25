@@ -39,7 +39,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l".$exists(true)), max)
-    corres   <- (realTime.sizeIs < max).so(
+    corres <- (realTime.sizeIs < max).so(
       createdList(
         $doc($doc("destUser.id" -> userId), "timeControl.l".$exists(false)),
         max - realTime.size
@@ -64,8 +64,8 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     ~(for
       challengerSelect <- c.challenger match
         case Challenger.Registered(uid, _) => some("challenger.id" -> uid.value)
-        case Challenger.Anonymous(sid)     => some("challenger.s" -> sid)
-        case _                             => none
+        case Challenger.Anonymous(sid) => some("challenger.s" -> sid)
+        case _ => none
       destUserId <- c.destUserId
       if c.active
     yield coll.one[Challenge](
@@ -77,9 +77,9 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c).flatMap:
     case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
-    case Some(prev) if prev.id == c.id                        => funit
-    case Some(prev)                                           => cancel(prev) >> insert(c)
-    case None                                                 => insert(c)
+    case Some(prev) if prev.id == c.id => funit
+    case Some(prev) => cancel(prev) >> insert(c)
+    case None => insert(c)
 
   private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
@@ -105,8 +105,8 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         $id(id),
         $doc(
           "$set" -> $doc(
-            "status"    -> Status.Created.id,
-            "seenAt"    -> nowInstant,
+            "status" -> Status.Created.id,
+            "seenAt" -> nowInstant,
             "expiresAt" -> inTwoWeeks
           )
         )
@@ -117,7 +117,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     coll.updateField($id(id), "seenAt", nowInstant).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_.plusHours(3)))
-  def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_.plusHours(3)))
+  def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled, Some(_.plusHours(3)))
   def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
     setStatus(challenge, Status.Declined, Some(_.plusHours(3))) >> {
       (reason != Challenge.DeclineReason.default)
@@ -134,7 +134,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         selectCreatedOrOffline ++ $id(challenge.id),
         $doc(
           "$set" -> $doc(
-            "status"    -> status.id,
+            "status" -> status.id,
             "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(nowInstant) }
           )
         )
@@ -143,5 +143,5 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   private[challenge] def remove(id: ChallengeId) = coll.delete.one($id(id)).void
 
-  private val selectCreated          = $doc("status" -> Status.Created)
+  private val selectCreated = $doc("status" -> Status.Created)
   private val selectCreatedOrOffline = $doc("status".$in(List(Status.Created, Status.Offline)))

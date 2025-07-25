@@ -32,7 +32,7 @@ final private class CorresAlarm(
       _.foreach: game =>
         game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved).so { clock =>
           val remainingSeconds = clock.remainingTime(game.turnColor)
-          val ringsAt          = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
+          val ringsAt = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
           coll.update
             .one(
               $id(game.id),

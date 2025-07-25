@@ -10,7 +10,7 @@ object Rewind:
       .Game(game.variant, initialFen)
       .forward(game.sans.dropRight(1))
       .map { rewindedGame =>
-        val color    = game.turnColor
+        val color = game.turnColor
         val newClock = game.clock.map(_.takeback).map { clk =>
           game.clockHistory.flatMap(_.last(color)).fold(clk) { t =>
             clk.setRemainingTime(color, t)

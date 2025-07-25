@@ -6,7 +6,7 @@ import lila.core.rating as hub
 object RatingRange:
 
   extension (r: hub.RatingRange)
-    def notBroad: Option[hub.RatingRange]           = Option.when(r != hub.RatingRange.broad)(r)
+    def notBroad: Option[hub.RatingRange] = Option.when(r != hub.RatingRange.broad)(r)
     def withinLimits(rating: IntRating, delta: Int) =
       r.copy(
         min = r.min.atMost(rating.map(_ + delta)),
@@ -19,8 +19,8 @@ object RatingRange:
 
   def defaultFor(rating: IntRating) =
     val (rangeMinD, rangeMaxD) = distribution.range(rating.value.toDouble, 0.2)
-    val rangeMin: IntRating    = IntRating(rangeMinD.toInt)
-    val rangeMax: IntRating    = IntRating(rangeMaxD.toInt)
+    val rangeMin: IntRating = IntRating(rangeMinD.toInt)
+    val rangeMax: IntRating = IntRating(rangeMaxD.toInt)
     hub.RatingRange(rangeMin.atLeast(min), rangeMax.atMost(max))
 
   def apply(rating: IntRating, deltaMin: Option[String], deltaMax: Option[String]): Option[hub.RatingRange] =

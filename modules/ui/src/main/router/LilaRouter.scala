@@ -30,14 +30,14 @@ object LilaRouter:
       write: A => String = (_: A).toString
   ): PathBindable[A] = new:
     def bind(_key: String, value: String) = parse(value).toRight(error)
-    def unbind(_key: String, value: A)    = write(value)
+    def unbind(_key: String, value: A) = write(value)
 
   given PathBindable[UserStr] = strPath[UserStr](UserStr.read, "Invalid Lichess username")
   given PathBindable[PerfKey] = strPath[PerfKey](PerfKey.apply, "Invalid Lichess performance key")
-  given PathBindable[GameId]  = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
-  given PathBindable[Color]   =
+  given PathBindable[GameId] = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
+  given PathBindable[Color] =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-  given PathBindable[Uci]        = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
+  given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
   given PathBindable[StudyOrder] = strPath[StudyOrder](
     s => scala.util.Try(StudyOrder.valueOf(s).some).getOrElse(None),
     "Invalid study order"
@@ -60,7 +60,7 @@ object LilaRouter:
 
   given QueryStringBindable[Color] =
     strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-  given QueryStringBindable[Uci]     = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)
+  given QueryStringBindable[Uci] = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)
   given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
     strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)

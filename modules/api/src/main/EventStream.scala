@@ -59,7 +59,7 @@ final class EventStream(
       )
 
       @nowarn var lastSetSeenAt = me.seenAt | me.createdAt
-      @nowarn var online        = true
+      @nowarn var online = true
 
       override def preStart(): Unit =
         super.preStart()
@@ -156,7 +156,7 @@ final class EventStream(
 
   private def challengeJson(tpe: String)(c: Challenge)(using Lang) =
     Json.obj(
-      "type"      -> tpe,
+      "type" -> tpe,
       "challenge" -> challengeJsonView(none)(c)
     )
 

@@ -54,13 +54,13 @@ final class SecurityApi(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> loginPasswordMapping,
-        "token"    -> optional(nonEmptyText)
+        "token" -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
         case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
-        case _             => none
+        case _ => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
-          case Success(_)                => FormValid
+          case Success(_) => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
@@ -86,7 +86,7 @@ final class SecurityApi(
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
+        case None => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
@@ -143,7 +143,7 @@ final class SecurityApi(
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
-          case None         =>
+          case None =>
             store.authInfo(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
@@ -161,7 +161,7 @@ final class SecurityApi(
       .auth(req, required)
       .addEffect:
         case Right(access) => upsertOauth(access, req)
-        case _             => ()
+        case _ => ()
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:

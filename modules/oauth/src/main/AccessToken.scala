@@ -31,15 +31,15 @@ object AccessToken:
   )
 
   object BSONFields:
-    val id           = "_id"
-    val plain        = "plain"
-    val userId       = "userId"
-    val createdAt    = "created"
-    val description  = "description"
-    val usedAt       = "used"
-    val scopes       = "scopes"
+    val id = "_id"
+    val plain = "plain"
+    val userId = "userId"
+    val createdAt = "created"
+    val description = "description"
+    val usedAt = "used"
+    val scopes = "scopes"
     val clientOrigin = "clientOrigin"
-    val expires      = "expires"
+    val expires = "expires"
 
   def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
@@ -48,16 +48,16 @@ object AccessToken:
   import OAuthScope.given
 
   private[oauth] val forAuthProjection = $doc(
-    BSONFields.userId       -> true,
-    BSONFields.scopes       -> true,
+    BSONFields.userId -> true,
+    BSONFields.scopes -> true,
     BSONFields.clientOrigin -> true
   )
 
   given BSONDocumentReader[ForAuth] = new:
     def readDocument(doc: BSONDocument) = for
       tokenId <- doc.getAsTry[AccessTokenId](BSONFields.id)
-      userId  <- doc.getAsTry[UserId](BSONFields.userId)
-      scopes  <- doc.getAsTry[TokenScopes](BSONFields.scopes)
+      userId <- doc.getAsTry[UserId](BSONFields.userId)
+      scopes <- doc.getAsTry[TokenScopes](BSONFields.scopes)
       origin = doc.getAsOpt[String](BSONFields.clientOrigin)
     yield ForAuth(userId, scopes, tokenId, origin)
 
@@ -80,13 +80,13 @@ object AccessToken:
 
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
-        id           -> o.id,
-        plain        -> o.plain,
-        userId       -> o.userId,
-        createdAt    -> o.createdAt,
-        description  -> o.description,
-        usedAt       -> o.usedAt,
-        scopes       -> o.scopes,
+        id -> o.id,
+        plain -> o.plain,
+        userId -> o.userId,
+        createdAt -> o.createdAt,
+        description -> o.description,
+        usedAt -> o.usedAt,
+        scopes -> o.scopes,
         clientOrigin -> o.clientOrigin,
-        expires      -> o.expires
+        expires -> o.expires
       )

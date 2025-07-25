@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import BsonHandlers.given
 
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
-  def points                                    = SwissSheet.pointsFor(outcomes)
+  def points = SwissSheet.pointsFor(outcomes)
   def pointsAfterRound(round: SwissRoundNumber) = SwissSheet.pointsFor(outcomes.take(round.value))
 
 private object SwissSheet:
@@ -38,8 +38,8 @@ private object SwissSheet:
   def pointsFor(outcome: Outcome): SwissPoints = SwissPoints.fromDoubled:
     outcome match
       case Win | Bye | ForfeitWin => 2
-      case Late | Draw            => 1
-      case _                      => 0
+      case Late | Draw => 1
+      case _ => 0
 
   def many(
       swiss: Swiss,
@@ -72,14 +72,14 @@ private object SwissSheet:
         pairingMap.get(round) match
           case Some(pairing) =>
             pairing.status match
-              case Left(_)                                 => Ongoing
-              case Right(None)                             => Draw
+              case Left(_) => Ongoing
+              case Right(None) => Draw
               case Right(Some(color)) if pairing.isForfeit =>
                 if pairing(color) == player.userId then ForfeitWin else ForfeitLoss
               case Right(Some(color)) => if pairing(color) == player.userId then Win else Loss
           case None if player.byes(round) => Bye
-          case None if round.value == 1   => Late
-          case None                       => Absent
+          case None if round.value == 1 => Late
+          case None => Absent
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
     Executor,

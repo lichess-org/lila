@@ -25,12 +25,12 @@ object PuzzleForm:
 
   val round = Form(
     mapping(
-      "win"         -> of[PuzzleWin],
-      "rated"       -> boolean.into[Rated],
-      "replayDays"  -> optional(typeIn[Days](PuzzleDashboard.dayChoices.toSet)),
-      "streakId"    -> optional(nonEmptyText),
+      "win" -> of[PuzzleWin],
+      "rated" -> boolean.into[Rated],
+      "replayDays" -> optional(typeIn[Days](PuzzleDashboard.dayChoices.toSet)),
+      "streakId" -> optional(nonEmptyText),
       "streakScore" -> optional(number(min = 0, max = maxStreakScore)),
-      "color"       -> optional(lila.common.Form.color.mapping)
+      "color" -> optional(lila.common.Form.color.mapping)
     )(RoundData.apply)(unapply)
   )
 
@@ -53,7 +53,7 @@ object PuzzleForm:
   object batch:
     case class Solution(id: PuzzleId, win: PuzzleWin, rated: Rated = Rated.Yes)
     case class SolveData(solutions: List[Solution])
-    given Reads[Solution]  = Json.reads
+    given Reads[Solution] = Json.reads
     given Reads[SolveData] = Json.reads
 
   object bc:
@@ -70,5 +70,5 @@ object PuzzleForm:
 
     case class SolutionBc(id: Long, win: PuzzleWin)
     case class SolveDataBc(solutions: List[SolutionBc])
-    given Reads[SolutionBc]  = Json.reads
+    given Reads[SolutionBc] = Json.reads
     given Reads[SolveDataBc] = Json.reads
