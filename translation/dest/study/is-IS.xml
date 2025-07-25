@@ -104,6 +104,7 @@
     <item quantity="other">Límdu inn skákir sem PGN-texta hér. Fyrir hverja skák er nýr kafli búinn til. Stúdering getur haft allt að %s kafla.</item>
   </plurals>
   <string name="urlOfTheGame">Vefslóð skákanna, ein í hverri línu</string>
+  <string name="loadAGameFromXOrY">Hlaða inn skákum frá %1$s eða %2$s</string>
   <string name="createChapter">Búa til kafla</string>
   <string name="createStudy">Búa til stúderingu</string>
   <string name="editStudy">Breyta stúderingu</string>
@@ -171,13 +172,17 @@
   <string name="sharedAndSavedText">Aðrir meðlimir geta séð leiki þína í rauntíma!&lt;br&gt;Auk þess vistast allt saman til frambúðar.</string>
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
   <string name="studyChaptersTitle">Kaflar stúderingar</string>
+  <string name="studyChaptersText">Ein stúdering getur innhaldið þónokkra kafla.&lt;br&gt;Sérhver kafli hefur sína upphafsstöðu og leikjalista.</string>
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Smelltu á %s hnappinn eða hægrismelltu á leikjalistann hægra megin.&lt;br&gt;Athugasemdir eru deildar og vistaðar.</string>
   <string name="annotatePositionTitle">Skrifa útskýringu á stöðu</string>
   <string name="conclusionTitle">Takk fyrir tímann þinn</string>
   <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
+  <string name="createChapterText">Ein stúdering getur falið í sér þónokkra kafla.&lt;br&gt;Sérhver kafli hefur sinn leikjalista,&lt;br&gt;og getur verið skapaður á ýmsa vegu.</string>
   <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
+  <string name="fromInitialPositionText">Bara byrjunarstaða á taflborði fyrir nýja skák.&lt;br&gt;Vel til þess fallið að kanna byrjanir.</string>
   <string name="customPositionTitle">Sérsniðin staða</string>
+  <string name="customPositionText">Settu upp borðið á þinn hátt.&lt;br&gt;Vel til þess fallið að kanna endatöfl.</string>
   <string name="loadExistingLichessGameTitle">Hlaða inn tiltækri Lichess-skák</string>
   <string name="loadExistingLichessGameText">Límdu inn slóð Lichess-skákar&lt;br&gt;(eins og lichess.org/7fHIU0XI)&lt;br&gt;til að hlaða inn leikjum skákar í kaflanum.</string>
   <string name="fromFenStringTitle">Útfrá Fen-streng</string>
@@ -186,6 +191,7 @@
   <string name="fromPgnGameText">Límdu inn skák í formi PGN.&lt;br&gt;til að hlaða inn leikjum, athugasemdum og afbrigðum í kaflanum.</string>
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
   <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
+  <string name="chapterConclusionText">Kaflar vistast að eilífu.&lt;br&gt;Góða skemmtun við að skipuleggja skákefnið þitt!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svartur tapar, en hvítur getur ekki unnið</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvítur tapar, en svartur getur ekki unnið</string>
