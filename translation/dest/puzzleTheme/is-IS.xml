@@ -88,5 +88,6 @@
   <string name="mix">Kyndugur samtíningur</string>
   <string name="mixDescription">Alls konar samtíningur. Þú veist ekki hverju á að búast við, svo þú hefur augun opin fyrir öllu! Einmitt eins og í alvöru skákum.</string>
   <string name="playerGames">Skákir leikmanns</string>
+  <string name="playerGamesDescription">Flettu upp þrautum sem myndaðar eru útfrá skákunum þínum eða skákunum annars notanda.</string>
   <string name="puzzleDownloadInformation">Þessar þrautir eru í almannaeigu og hægt er að sækja þær frá %s.</string>
 </resources>
