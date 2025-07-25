@@ -7,10 +7,14 @@
   <string name="kingsideCastle">Stutthrókun</string>
   <string name="queensideCastle">Langhrókun</string>
   <string name="promoteC8ToQueen">Breyta c8 í drottningu</string>
+  <string name="dropARookAtB4">Sleppa hrók á b4 (Crazyhouse-afbrigðið eingöngu)</string>
   <string name="offerOrAcceptDraw">Bjóða eða samþykkja jafntefli</string>
   <string name="readOutClocks">Lesa klukkurnar upphátt</string>
   <string name="readOutOpponentName">Lesa nafn mótherjans upphátt</string>
   <string name="otherCommands">Aðrar skipanir</string>
   <string name="tips">Hollráð</string>
   <string name="includingAXToIndicateACapture">Að hafa „x“ með til benda á dráp er frjálst val</string>
+  <string name="bothTheLetterOAndTheDigitZero">Hægt er að nota bæði bókstafinn \"o\" og tölustafinn núll \"0\" við hrókeringu</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Notkun hástafa setur einungis strik í reikninginn ef um óljósar aðstæður sem varða biskup og b-peðið er að ræða</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Til þess að leika forleik (fyrirfram) slær þú bara inn inn fyrirhugaðan forleik áður en komið er að þér</string>
 </resources>
