@@ -7,10 +7,10 @@
   <string name="yesItWillBeFixedSoon">Já. Þetta verður lagað fljótt!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Og nú, hið langa svar! Seinkun í skák samanstendur af tveimur óskyldum gildum (lægra því betra):</string>
   <string name="lichessServerLatency">Seinkun á Lichess-þjóni</string>
-  <string name="lichessServerLatencyExplanation">Tíminn sem það tekur að vinna úr leik á þjóninum. Hann er sá sami fyrir alla og fer aðeins eftir álagi á þjónana. Því fleiri leikmenn, því hærra verður hann, en forritarar Lichess gera sitt besta til að halda honum lágum. Hann fer sjaldan yfir 10 ms.</string>
+  <string name="lichessServerLatencyExplanation">Tíminn sem það tekur að vinna úr leik á þjóninum. Hann er sá sami fyrir alla og fer aðeins eftir álagi á þjónana. Því fleiri skákmenn, því hærra verður hann, en forritarar Lichess gera sitt besta til að halda honum lágum. Hann fer sjaldan yfir 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Netið milli Lichess og þín</string>
   <string name="networkBetweenLichessAndYouExplanation">Tíminn sem það tekur að senda leik frá tölvunni þinni til netþjóna Lichess, og fá svar til baka. Hann er háður fjarlægð þinni frá Lichess (Frakklandi) og gæðum nettengingar þinnar. Tæknimenn Lichess geta ekki lagað þráðlausa netið þitt eða gert ljós hraðar.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Þú getur fundið bæði þessi gildi hvenær sem er með því að smella á notandanafnið þitt í efstu stikunni.</string>
   <string name="lagCompensation">Bætur á seinkun</string>
-  <string name="lagCompensationExplanation">Lichess bætir upp fyrir seinkun á neti. Þetta felur í sér langvinna seinkun og einstakar skammvinnar seinkanir. Takmörk og brjóstvitsfræði eru til staðar, byggðar á tímaskipulagi og þeirri seinkun sem þegar hefur verið bætt upp, svo að útkoman ætti að virðast eðlileg fyrir báða leikmenn. Þess vegna er það ekki annmarki að hafa meiri seinkun á neti en andstæðingur þinn!</string>
+  <string name="lagCompensationExplanation">Lichess bætir upp fyrir seinkun á neti. Þetta felur í sér langvinna seinkun og einstakar skammvinnar seinkanir. Takmörk og brjóstvitsfræði eru til staðar, byggðar á tímaskipulagi og þeirri seinkun sem þegar hefur verið bætt upp, svo að útkoman ætti að virðast eðlileg fyrir báða skákmenn. Þess vegna er það ekki annmarki að hafa meiri seinkun á neti en andstæðingur þinn!</string>
 </resources>

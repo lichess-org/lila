@@ -15,7 +15,7 @@
   <string name="onlyLeaderLeavesTeam">Vinsamlegast bættu við nýjum liðsstjóra áður en þú ferð, eða lokaðu liðinu.</string>
   <string name="quitTeam">Ganga úr liði</string>
   <string name="manuallyReviewAdmissionRequests">Fara handvirkt yfir umsóknir um inngöngu</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Ef hakað er við þetta þurfa leikmenn að senda inn beiðni um að gerast meðlimur, sem þú getur annaðhvort hafnað eða samþykkt.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ef hakað er við þetta þurfa notendur að senda inn beiðni um að gerast meðlimur, sem þú getur annaðhvort hafnað eða samþykkt.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Liðsstjóri</item>
     <item quantity="other">Liðsstjórar</item>
@@ -39,8 +39,8 @@
   <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
   <string name="messageAllMembersOverview">Senda einkaskilaboð til allra meðlima liðsins</string>
   <string name="messageAllMembersLongDescription">Senda einkaskilaboð til ALLRA meðlima liðsins.
-Þú getur notað þetta til að kalla á leikmenn til að taka þátt í móti eða liðsorrustu.
-Skákmenn sem vilja ekki fá skilaboð frá þér gætu yfirgefið liðið.</string>
+Þú getur notað þetta til að kalla á notendur til að taka þátt í móti eða liðsorrustu.
+Notendur sem vilja ekki fá skilaboð frá þér gætu yfirgefið liðið.</string>
   <string name="teamsIlead">Lið sem ég stjórna</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Viltu kannski deila tengli á eitt af þessum væntanlegu mótum?</string>
   <string name="leadersChat">Liðsstjóraspjall</string>

@@ -62,7 +62,7 @@ Hins vegar fá Velunnarar réttinn til að stæra sig af flottum nýjum Velunnar
   <string name="youWillBeChargedXOnY">Þú verður rukkaður um %1$s þann %2$s.</string>
   <string name="makeAdditionalDonation">Veita viðbótarfjárframlag</string>
   <string name="giftPatronWingsShort">Gefa Velunnaravængi</string>
-  <string name="giftPatronWings">Gefa leikmanni Velunnaravængi</string>
+  <string name="giftPatronWings">Gefa notanda Velunnaravængi</string>
   <string name="update">Uppfæra</string>
   <string name="changeMonthlyAmount">Breyta mánaðarlegri upphæð (%s)</string>
   <string name="cancelSupport">Hætta við stuðninginn þinn</string>

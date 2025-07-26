@@ -14,8 +14,8 @@
   <string name="chessPieceSymbol">Taflmannatákn</string>
   <string name="pgnLetter">Bókstafir (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Einbeitingarhamur</string>
-  <string name="showPlayerRatings">Sýna skákstig leikmanns</string>
-  <string name="showFlairs">Sýna brellur leikmanns</string>
+  <string name="showPlayerRatings">Sýna skákstig skákmanns</string>
+  <string name="showFlairs">Sýna brellur notanda</string>
   <string name="explainShowPlayerRatings">Þetta felur öll skákstig fyrir Lichess, til þess að hjálpa þér að einbeita þér að skákinni. Stigaskákir hafa samt áhrif á skákstigin þín, þetta snýst bara um það sem þú færð að sjá.</string>
   <string name="displayBoardResizeHandle">Sýna tól til að stækka og minnka borðið</string>
   <string name="onlyOnInitialPosition">Einungis í upphafsstöðu</string>
@@ -37,7 +37,7 @@
   <string name="inCasualGamesOnly">Einungis í stigalausum leikjum</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
   <string name="explainPromoteToQueenAutomatically">Haltu niðri &lt;ctrl&gt;-lyklinum á meðan þú ert að vekja upp til þess að ákveða handvirkt</string>
-  <string name="whenPremoving">Við fyrirframgefna leiki</string>
+  <string name="whenPremoving">Við að leika forleik</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Þegar tími eftir er undir 30 sekúndum</string>
   <string name="moveConfirmation">Staðfesta leik</string>

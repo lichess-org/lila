@@ -40,7 +40,7 @@ Lykilorð: %3$s</string>
   <string name="inviteDesc1">Ef nemandinn er nú þegar með Lichess-aðgang geturðu boðið honum í bekkinn.</string>
   <string name="inviteDesc2">Þeir munu fá skilaboð á Lichess með tengil til að taka þátt í bekknum.</string>
   <string name="inviteDesc3">Mikilvægt: Bjóddu aðeins nemendum sem þú þekkir og vilja taka þátt í bekknum.</string>
-  <string name="inviteDesc4">Aldrei senda óumbeðin boð til leikmanna af handahófi.</string>
+  <string name="inviteDesc4">Aldrei senda óumbeðin boð til notenda af handahófi.</string>
   <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stofna nýjan aðgang á Lichess</string>
   <string name="createDesc1">Ef nemandinn er ekki með Lichess-aðgang nú þegar, getur þú búið hann til hér.</string>
   <string name="createDesc2">Ekki þarf að gefa upp netfang. Lykilorð myndast sjálfkrafa og þú þarft að senda það til nemandans svo hann geti skráð sig inn.</string>

@@ -66,7 +66,7 @@ Leggur saman stig hvers andstæðings sem skákmaður sigrar og helming af stigi
   <string name="moreRoundsThanPlayersQ">Hvað gerist ef mótið hefur fleiri umferðir en skákmenn?</string>
   <string name="moreRoundsThanPlayersA">Þegar allar mögulegar mætingar hafa verið tefldar er mótinu lokið og sigurvegari útnefndur.</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
-  <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá leikmönnum.
+  <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá skákmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
   <string name="numberOfByesQ">Hversu oft getur skákmaður verið stakur?</string>
   <string name="numberOfByesA">Skákmaður fær eitt stig fyrir að vera stakur í hvert sinn sem mætingaákvörðunarkerfið getur ekki fundið annan skákmann til að mæta honum.
@@ -81,7 +81,7 @@ Að auki er hálft stig gefið ef skákmaður skyldi vera stakur þegar skákma�
   <string name="protectionAgainstNoShowA">Skákmenn sem skrá sig á Swiss-viðburði en tefla ekki skákir sínar geta verið til vandræða.
 Til að vinna bug á þessu vandamáli kemur Lichess í veg fyrir að skákmenn sem flöskuðu á fyrri þátttöku geti tekið þátt í nýjum Swiss-viðburði í ákveðinn tíma.
 Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þátt í viðburðinum samt sem áður.</string>
-  <string name="lateJoinQ">Mega leikmenn taka seint þátt?</string>
+  <string name="lateJoinQ">Mega notendur taka seint þátt?</string>
   <string name="lateJoinA">Já, þar til meira en helmingur umferða hefur hafist; til dæmis á 11 umferða Swiss-móti geta skákmenn mætt áður en 6. umferð hefst og á 12 umferða móti áður en 7. umferð hefst.
 Þeir skákmenn sem mæta seint fá eitt frí, jafnvel þótt þeir hafi misst af þónokkrum umferðum.</string>
   <string name="willSwissReplaceArenasQ">Munu Swiss-mót koma í staðinn fyrir Arena-mót?</string>
@@ -103,13 +103,13 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
   <string name="durationUnknown">Fyrirframskilgreindur hámarksfjöldi umferða, en lengd óþekkt</string>
   <string name="numberOfGames">Fjöldi skáka</string>
   <string name="numberOfGamesAsManyAsPossible">Eins margar og hægt er að tefla innan úthlutaðs tíma</string>
-  <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla leikmenn</string>
+  <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla skákmenn</string>
   <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingSystemArena">Allir tiltækir andstæðingar í svipuðu sæti</string>
   <string name="pairingSystemSwiss">Mætingar best ákvarðaðar miðað við stigafjölda og bráðabana</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
-  <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum leikmönnum</string>
-  <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum leikmönnum</string>
+  <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum skákmönnum</string>
+  <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum skákmönnum</string>
   <string name="identicalPairing">Nákvæmlega eins mætingar</string>
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
