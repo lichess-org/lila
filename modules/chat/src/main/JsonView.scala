@@ -80,6 +80,7 @@ object JsonView:
         .add("p" -> l.patron)
         .add("f" -> l.flair.so(getFlair.get(l.userId)))
         .add("title" -> l.title)
+        .add("tier" -> l.patronTier)
 
     val playerLineWriter: OWrites[PlayerLine] = OWrites: l =>
       Json.obj(
