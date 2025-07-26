@@ -393,7 +393,7 @@ private object RelayFetch:
 
   object multiPgnToGames:
 
-    def parseAndCache(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
+    def either(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
       multiPgn.value
         .foldLeftM(Vector.empty[RelayGame] -> 0):
           case ((acc, index), pgn) =>
@@ -404,7 +404,7 @@ private object RelayFetch:
                 else (acc :+ game, index + 1).asRight
         .map(_._1)
 
-    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = parseAndCache(multiPgn).toFuture
+    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi

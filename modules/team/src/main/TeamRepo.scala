@@ -84,6 +84,9 @@ final class TeamRepo(val coll: Coll)(using Executor):
     _ <- coll.update.one($doc("leaders" -> userId), $pull("leaders" -> userId), multi = true)
   yield ()
 
+  def deleteNewlyCreatedBy(userId: UserId): Funit =
+    coll.delete.one($doc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(1)))).void
+
   private[team] val enabledSelect = $doc("enabled" -> true)
 
   private[team] val sortPopular = $sort.desc("nbMembers")
