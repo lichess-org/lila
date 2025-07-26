@@ -131,18 +131,18 @@
 Направи било који потез да наставиш.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="castling">Рокадирање</string>
-  <string name="theSpecialKingMove">Посебан краљев потез</string>
-  <string name="castlingIntro">Доведите свог краља на сигурно и развијте свог топа за напад!</string>
+  <string name="theSpecialKingMove">Посебан потез краља</string>
+  <string name="castlingIntro">Доведи свог краља на сигурно и развиј свог топа за напад!</string>
   <string name="castleKingSide">Померите свог краља за два поља
 да направите малу рокаду!</string>
   <string name="castleQueenSide">Померите свог краља за два поља
 да направите велику рокаду!</string>
-  <string name="theKnightIsInTheWay">Скакач Вам смета!
-Померите га, и онда направите малу рокаду.</string>
-  <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
-Прво морате померити фигуре.</string>
-  <string name="castleQueenSideMovePiecesFirst">Направите велику рокаду!
-Прво морате померити фигуре.</string>
+  <string name="theKnightIsInTheWay">Скакач је на сред пута!
+Помери га па уради малу рокаду.</string>
+  <string name="castleKingSideMovePiecesFirst">Уради малу рокаду!
+Прво мораш померити фигуре.</string>
+  <string name="castleQueenSideMovePiecesFirst">Уради велику рокаду!
+Прво мораш померити фигуре.</string>
   <string name="youCannotCastleIfMoved">Не можете направити рокаду ако
 се краљ већ померио
 или се топ већ померио.</string>
