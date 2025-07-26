@@ -12,11 +12,6 @@
     padding: 0;
     margin: 0;
   }
-
-  #form3-tier {
-    border: none;
-    background: none;
-  }
 }
 
 .ublog-index .box__top {
@@ -24,7 +19,6 @@
   min-height: 5rem;
   gap: 2rem;
 
-  // forgive all the overrides, container gap is easier for me than the element margin hats and chins
   * {
     margin: 0;
   }
@@ -163,6 +157,43 @@
   .user-link {
     display: flex;
     color: $c-primary;
+  }
+}
+
+.ublog-mod-note-dlg {
+  @extend %flex-column;
+  gap: 2em;
+  span {
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+  }
+}
+
+.ublog-mod-blog-form {
+  display: flex;
+  padding: 0.5em;
+  gap: 1em;
+
+  &.has-note {
+    position: relative;
+    padding-inline-start: 2em;
+    border-radius: 4px;
+    border: solid 1px $m-accent--fade-80;
+
+    &::before {
+      position: absolute;
+      top: 4px;
+      inset-inline-start: 4px;
+      font-family: 'lichess';
+      font-size: 16px;
+      color: $m-accent--fade-70;
+      content: $licon-Agent;
+    }
+  }
+
+  .ublog-mod-note-btn {
+    padding: 8px;
   }
 }
 
