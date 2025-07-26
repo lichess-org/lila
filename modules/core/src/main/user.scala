@@ -57,7 +57,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, isPatron = isPatron)
+    def light = LightUser(id, username, title, flair, isPatron = isPatron, patronMonths = Option(patronMonths))
 
     def profileOrDefault = profile | Profile.default
 
@@ -73,6 +73,7 @@ object user:
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
     def isPatron = plan.active
+    def patronMonths = plan.months
 
     def isBot = title.contains(PlayerTitle.BOT)
     def noBot = !isBot
