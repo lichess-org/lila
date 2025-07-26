@@ -40,6 +40,8 @@ export function verticalResize(o: Opts): VNode {
           divider.observer.observe(divider.parentElement!, { childList: true });
 
           divider.addEventListener('pointerdown', down => {
+            document.body.classList.add('prevent-select');
+
             const el = o.selector
               ? document.querySelector<HTMLElement>(o.selector)!
               : (divider.previousElementSibling as HTMLElement);
@@ -51,6 +53,8 @@ export function verticalResize(o: Opts): VNode {
             };
 
             const up = () => {
+              document.body.classList.remove('prevent-select');
+
               divider.releasePointerCapture(down.pointerId);
               window.removeEventListener('pointermove', move);
               window.removeEventListener('pointerup', up);

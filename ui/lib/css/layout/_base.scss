@@ -34,6 +34,11 @@ body {
   }
 }
 
+body.prevent-select,
+body.prevent-select * {
+  @include prevent-select;
+}
+
 #main-wrap {
   ---main-max-width: #{$main-max-width};
   display: grid;
