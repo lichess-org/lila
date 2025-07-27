@@ -107,10 +107,10 @@ final class IrcApi(
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
       s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
 
-  def ublogBlog(user: LightUser, tier: String, mod: Option[UserName], note: Option[String]): Funit =
+  def ublogBlog(user: LightUser, tier: Option[String], mod: Option[UserName], note: Option[String]): Funit =
     zulip(_.blog, "Tier and plagiarism checks"):
-      s":note: ${markdown.userLink(user)} ${markdown.lichessLink(s"/@/${user.name}/blog", s"blog tier")}" +
-        s" set to **$tier**" +
+      s":note: ${markdown.userLink(user)} ${markdown.lichessLink(s"/@/${user.name}/blog", "blog")}" +
+        tier.fold(" note edit")(t => s" tier set to **${t.toUpperCase()}**") +
         mod.fold("")(m => s" by **${markdown.modLink(m)}**") +
         note.fold("")(n => s"\nnote: $n")
 

@@ -475,23 +475,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     cls := s"btn-rack__btn $other" + (if active then " lit" else "")
 
   private def modForm(blog: UblogBlog) =
-    val (hiliteCls, colorCls) =
-      if blog.modNote.isDefined then ("has-note", "button-red") else ("", "button-dim")
-    postForm(
-      cls := s"ublog-mod-blog-form $hiliteCls",
-      action := routes.Ublog.modBlog(blog.id.full)
-    ):
-      val form = lila.ublog.UblogForm.modBlogForm.fill(blog.tier, blog.modNote.getOrElse(""))
-      val options = lila.ublog.UblogBlog.Tier.options.map((t, n) => (t, s"$n tier")).toList
-      frag(
-        button(
-          cls := s"ublog-mod-note-btn button button-empty $colorCls",
-          dataIcon := Icon.Pencil,
-          title := "Edit this blog's moderation note"
-        ),
-        form3.hidden(form("note"), blog.modNote),
-        form3.select(form("tier"), options)
-      )
+    val colorCls = if blog.modNote.isDefined then "button-red" else "button-dim"
+    val form = lila.ublog.UblogForm.modBlogForm.fill(blog.tier, blog.modNote.getOrElse(""))
+    val options = lila.ublog.UblogBlog.Tier.options.map((t, n) => (t, s"$n tier")).toList
+    postForm(cls := s"ublog-mod-blog-form", action := routes.Ublog.modBlog(blog.id.full))(
+      button(
+        cls := s"ublog-mod-note-btn button button-empty $colorCls",
+        dataIcon := Icon.Pencil,
+        title := "Edit this blog's moderation note"
+      ),
+      form3.hidden(form("note"), blog.modNote),
+      form3.select(form("tier"), options)
+    )
 
   object atom:
     def user(

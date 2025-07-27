@@ -40,7 +40,7 @@ trait IrcApi:
   ): Funit
   def ublogBlog(
       user: LightUser,
-      tier: String,
+      tier: Option[String],
       mod: Option[UserName],
       note: Option[String]
   ): Funit

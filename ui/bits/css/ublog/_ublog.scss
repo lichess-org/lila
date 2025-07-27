@@ -174,27 +174,10 @@
   display: flex;
   padding: 0.5em;
   gap: 1em;
+}
 
-  &.has-note {
-    position: relative;
-    padding-inline-start: 2em;
-    border-radius: 4px;
-    border: solid 1px $m-accent--fade-80;
-
-    &::before {
-      position: absolute;
-      top: 4px;
-      inset-inline-start: 4px;
-      font-family: 'lichess';
-      font-size: 16px;
-      color: $m-accent--fade-70;
-      content: $licon-Agent;
-    }
-  }
-
-  .ublog-mod-note-btn {
-    padding: 8px;
-  }
+.ublog-mod-note-btn {
+  padding: 8px;
 }
 
 .ublog-index__posts--empty {

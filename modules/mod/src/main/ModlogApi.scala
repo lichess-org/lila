@@ -44,9 +44,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def streamerTier(streamerId: UserId, v: Int)(using MyId) = add:
     Modlog(streamerId.some, Modlog.streamerTier, v.toString.some)
 
-  def blogTier(sus: Suspect, oldTier: String, newTier: String, notes: String)(using MyId) = add:
-    val details = s"${oldTier.toUpperCase()} -> ${newTier.toUpperCase()}" +
-      ~(notes != "").option(s" - ${notes.take(80)}")
+  def blogEdit(sus: Suspect, details: String)(using MyId) = add:
     Modlog.make(sus, Modlog.blogTier, details.some)
 
   def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, details: String)(using MyId) = add:
