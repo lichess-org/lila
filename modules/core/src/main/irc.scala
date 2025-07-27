@@ -2,7 +2,7 @@ package lila.core
 package irc
 
 import lila.core.id.{ RelayRoundId, UblogPostId, StudyChapterId }
-import lila.core.userId.{ MyId, UserName }
+import lila.core.userId.{ UserId, MyId, UserName }
 import lila.core.study.data.StudyChapterName
 
 enum ModDomain:
@@ -39,7 +39,7 @@ trait IrcApi:
       automod: Option[String]
   ): Funit
   def ublogBlog(
-      user: LightUser,
+      userId: UserId,
       tier: Option[String],
       mod: Option[UserName],
       note: Option[String]

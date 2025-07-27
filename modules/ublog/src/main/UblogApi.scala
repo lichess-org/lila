@@ -249,12 +249,7 @@ final class UblogApi(
     val setFields = tier.so(t => $doc("modTier" -> t, "tier" -> t))
       ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
     val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
-    irc.ublogBlog(
-      lila.core.LightUser.fallback(blogger.into(UserName)),
-      tier.map(Tier.name),
-      mod.map(_.username),
-      note
-    )
+    irc.ublogBlog(blogger, tier.map(Tier.name), mod.map(_.username), note)
     colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
 
   def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
