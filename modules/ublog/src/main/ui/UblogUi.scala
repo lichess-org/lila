@@ -91,7 +91,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             boxTop(
               h1(trans.ublog.xBlog(userLink(user, withFlair = false))),
               div(cls := "box__top__actions")(
-                blog.allows.moderate.option(tierForm(blog)),
+                blog.allows.moderate.option(modForm(blog)),
                 blog.allows.draft.option(
                   frag(
                     a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
@@ -474,11 +474,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   private def btnCls(active: Boolean, other: String = ""): Modifier =
     cls := s"btn-rack__btn $other" + (if active then " lit" else "")
 
-  private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)):
-    val form = lila.ublog.UblogForm.tier.fill(blog.tier)
-    frag(
-      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
-      form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
+  private def modForm(blog: UblogBlog) =
+    val colorCls = if blog.modNote.isDefined then "button-red" else "button-dim"
+    val form = lila.ublog.UblogForm.modBlogForm.fill(blog.tier, blog.modNote.getOrElse(""))
+    val options = lila.ublog.UblogBlog.Tier.options.map((t, n) => (t, s"$n tier")).toList
+    postForm(cls := s"ublog-mod-blog-form", action := routes.Ublog.modBlog(blog.id.full))(
+      button(
+        cls := s"ublog-mod-note-btn button button-empty $colorCls",
+        dataIcon := Icon.Pencil,
+        title := "Edit this blog's moderation note"
+      ),
+      form3.hidden(form("note"), blog.modNote),
+      form3.select(form("tier"), options)
     )
 
   object atom:

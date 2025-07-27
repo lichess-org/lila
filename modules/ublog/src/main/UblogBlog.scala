@@ -5,7 +5,8 @@ import lila.core.perm.Granter
 case class UblogBlog(
     _id: UblogBlog.Id,
     tier: UblogBlog.Tier, // actual tier, auto or set by a mod
-    modTier: Option[UblogBlog.Tier] // tier set by a mod
+    modTier: Option[UblogBlog.Tier], // tier set by a mod
+    modNote: Option[String]
 ):
   inline def id = _id
   def visible = tier >= UblogBlog.Tier.UNLISTED
@@ -54,7 +55,8 @@ object UblogBlog:
   def make(user: User) = UblogBlog(
     _id = Id.User(user.id),
     tier = UblogBlog.Tier.default(user),
-    modTier = none
+    modTier = none,
+    modNote = none
   )
 
   class Allows(creator: UserId):

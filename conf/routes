@@ -131,7 +131,7 @@ GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
-POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
+POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel

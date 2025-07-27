@@ -12,11 +12,6 @@
     padding: 0;
     margin: 0;
   }
-
-  #form3-tier {
-    border: none;
-    background: none;
-  }
 }
 
 .ublog-index .box__top {
@@ -24,7 +19,6 @@
   min-height: 5rem;
   gap: 2rem;
 
-  // forgive all the overrides, container gap is easier for me than the element margin hats and chins
   * {
     margin: 0;
   }
@@ -164,6 +158,26 @@
     display: flex;
     color: $c-primary;
   }
+}
+
+.ublog-mod-note-dlg {
+  @extend %flex-column;
+  gap: 2em;
+  span {
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+  }
+}
+
+.ublog-mod-blog-form {
+  display: flex;
+  padding: 0.5em;
+  gap: 1em;
+}
+
+.ublog-mod-note-btn {
+  padding: 8px;
 }
 
 .ublog-index__posts--empty {

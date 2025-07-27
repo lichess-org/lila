@@ -197,11 +197,6 @@ final class UblogApi(
     _ <- image.deleteAll(post)
   yield ()
 
-  def setModTier(blog: UblogBlog.Id, tier: Tier): Funit =
-    colls.blog.update
-      .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
-      .void
-
   def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit =
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
 
@@ -250,7 +245,19 @@ final class UblogApi(
         yield likes
   yield likes
 
-  def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
+  def modBlog(blogger: UserId, tier: Option[Tier], note: Option[String], mod: Option[Me] = None): Funit =
+    val setFields = tier.map(t => $doc("modTier" -> t, "tier" -> t)).getOrElse($empty)
+      ++ note.filter(_ != "").map(n => $doc("modNote" -> n)).getOrElse($empty)
+    val unsets = if note.exists(_ == "") then $unset("modNote") else $empty // "" is unset, none to ignore
+    irc.ublogBlog(
+      lila.core.LightUser(blogger, lila.core.userId.UserName(blogger.value), none, none, false),
+      tier.map(Tier.name),
+      mod.map(_.userId.into(UserName)),
+      note
+    )
+    colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
+
+  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset
@@ -285,8 +292,8 @@ final class UblogApi(
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)
     else userApi.byId(userId).map(_.fold(Tier.HIDDEN)(Tier.default))
-  }.flatMap:
-    setModTier(UblogBlog.Id.User(userId), _)
+  }.flatMap: t =>
+    modBlog(userId, t.some, none)
 
   def canBlog(u: User) =
     !u.isBot && {

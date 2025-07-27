@@ -185,15 +185,23 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(env.ublog.api.postPreview(id)): post =>
       Redirect(urlOfPost(post))
 
-  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
+  def modBlog(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
+    import UblogBlog.Tier
+    def tierStr(tier: Tier) = Tier.name(tier).toUpperCase()
     Found(UblogBlog.Id(blogId).so(env.ublog.api.getBlog)): blog =>
-      bindForm(lila.ublog.UblogForm.tier)(
+      bindForm(lila.ublog.UblogForm.modBlogForm)(
         _ => Redirect(urlOfBlog(blog)).flashFailure,
-        tier =>
+        (tier, note) =>
+          val tierChange = if blog.tier == tier then none else tier.some
+          val noteChange = if blog.modNote.exists(_ == note) then none else note.some
+          val log = List(
+            tierChange.map(t => tierStr(blog.tier) + " -> " + tierStr(t)),
+            noteChange.map(_.take(80))
+          ).flatten.mkString(" - ")
           for
             user <- env.user.repo.byId(blog.userId).orFail("Missing blog user!").dmap(Suspect.apply)
-            _ <- env.ublog.api.setModTier(blog.id, tier)
-            _ <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
+            _ <- env.ublog.api.modBlog(blog.userId, tierChange, noteChange, me.some)
+            _ <- env.mod.logApi.blogEdit(user, log)
           yield Redirect(urlOfBlog(blog)).flashSuccess
       )
   }
@@ -219,7 +227,7 @@ final class Ublog(env: Env) extends LilaController(env):
         case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
         case JsSuccess(data, _) =>
           for
-            mod <- env.ublog.api.setModAdjust(post, data)
+            mod <- env.ublog.api.modPost(post, data)
             featured <- env.ublog.api.setFeatured(post, data)
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
