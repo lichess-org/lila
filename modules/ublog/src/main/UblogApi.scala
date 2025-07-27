@@ -246,13 +246,13 @@ final class UblogApi(
   yield likes
 
   def modBlog(blogger: UserId, tier: Option[Tier], note: Option[String], mod: Option[Me] = None): Funit =
-    val setFields = tier.map(t => $doc("modTier" -> t, "tier" -> t)).getOrElse($empty)
-      ++ note.filter(_ != "").map(n => $doc("modNote" -> n)).getOrElse($empty)
-    val unsets = if note.exists(_ == "") then $unset("modNote") else $empty // "" is unset, none to ignore
+    val setFields = tier.so(t => $doc("modTier" -> t, "tier" -> t))
+      ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
+    val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
     irc.ublogBlog(
-      lila.core.LightUser(blogger, lila.core.userId.UserName(blogger.value), none, none, false),
+      lila.core.LightUser.fallback(blogger.into(UserName)),
       tier.map(Tier.name),
-      mod.map(_.userId.into(UserName)),
+      mod.map(_.username),
       note
     )
     colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
