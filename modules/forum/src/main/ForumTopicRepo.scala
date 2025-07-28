@@ -33,8 +33,12 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def byIds(ids: Seq[ForumTopicId]): Fu[List[ForumTopicMini]] =
     coll.byStringIds[ForumTopicMini](ForumTopicId.raw(ids))
 
-  def close(id: ForumTopicId, value: Boolean): Funit =
-    coll.updateField($id(id), "closed", value).void
+  def close(id: ForumTopicId, value: Boolean, byMod: Boolean): Funit =
+    coll.update
+      .one($id(id), $set("closed" -> value, "closedByMod" -> (value && byMod)))
+      .void
+
+  def closedByMod(id: ForumTopicId): Fu[Boolean] = coll.exists($id(id) ++ $doc("closedByMod" -> true))
 
   def remove(topic: ForumTopic): Funit =
     coll.delete.one($id(topic.id)).void
