@@ -58,9 +58,9 @@ final class UblogAutomod(
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
-  private[ublog] def apply(post: UblogPost, retries: Int): Fu[Option[Assessment]] = post.live.so:
+  private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
     val text = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
-    dedup(s"${post.id}:$text").so(assess(text, retries * 0.1))
+    dedup(s"${post.id}:$text").so(assess(text, temperature))
 
   private def assess(userText: String, temperature: Double): Fu[Option[Assessment]] =
     val prompt = promptSetting.get().value
