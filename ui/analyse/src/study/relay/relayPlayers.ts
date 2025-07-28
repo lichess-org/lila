@@ -221,11 +221,12 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return hl('div.table', [
-    hl(
-      'p.relay-tour__standings--disclaimer',
-      { attrs: { 'data-icon': licon.InfoCircle } },
-      'Standings are calculated using broadcasted games and may differ from official results.',
-    ),
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer',
+        { attrs: { 'data-icon': licon.InfoCircle } },
+        'Standings are calculated using broadcasted games and may differ from official results.',
+      ),
     hl(
       'table.relay-tour__players.slist.slist-invert.slist-pad',
       {
