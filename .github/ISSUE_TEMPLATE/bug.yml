@@ -1,6 +1,6 @@
 name: Bug report
 description: Report something not working on the website. See below for mobile app.
-labels: ['bug']
+type: 'Bug'
 body:
   - type: markdown
     attributes:

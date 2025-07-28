@@ -154,12 +154,12 @@ final class UblogApi(
       user: LightUser,
       post: UblogPost,
       tier: Tier,
-      mod: Option[UblogAutomod.Assessment]
+      assessment: Option[UblogAutomod.Assessment]
   ): Funit =
     val source =
       if tier == Tier.UNLISTED then "unlisted tier"
-      else mod.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
-    val automodNotes = mod.map: r =>
+      else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
+    val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n")
     irc.ublogPost(
@@ -249,7 +249,7 @@ final class UblogApi(
     val setFields = tier.so(t => $doc("modTier" -> t, "tier" -> t))
       ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
     val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
-    irc.ublogBlog(blogger, tier.map(Tier.name), mod.map(_.username), note)
+    mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
     colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
 
   def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =

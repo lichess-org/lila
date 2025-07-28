@@ -3,6 +3,7 @@ package lila.forum
 import scalalib.paginator.*
 
 import lila.db.dsl.{ *, given }
+import lila.core.id.ForumTopicSlug
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,
@@ -28,7 +29,7 @@ final class ForumCategApi(
     )
     val topic = ForumTopic.make(
       categId = categ.id,
-      slug = s"$teamId-forum",
+      slug = ForumTopicSlug(s"$teamId-forum"),
       name = name + " forum",
       userId = author,
       troll = false

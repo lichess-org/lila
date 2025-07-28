@@ -2,11 +2,12 @@ package lila.forum
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
+import lila.core.id.ForumTopicSlug
 
 case class ForumTopic(
     @Key("_id") id: ForumTopicId,
     categId: ForumCategId,
-    slug: String,
+    slug: ForumTopicSlug,
     name: String,
     createdAt: Instant,
     updatedAt: Instant,
@@ -66,11 +67,13 @@ object ForumTopic:
     // if most chars are not latin, go for random slug
     if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom.nextString(8)
 
+  def problemReportSlug(userId: UserId) = ForumTopicSlug(s"$userId-problem-report")
+
   val idSize = 8
 
   def make(
       categId: ForumCategId,
-      slug: String,
+      slug: ForumTopicSlug,
       name: String,
       userId: UserId,
       troll: Boolean = false,

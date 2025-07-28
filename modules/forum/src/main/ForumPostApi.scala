@@ -5,6 +5,7 @@ import lila.core.forum.{ BusForum, ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
 import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }
 
 final class ForumPostApi(
@@ -202,7 +203,7 @@ final class ForumPostApi(
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
-      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, s"${user.id.value}-problem-report")
+      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id))
       postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
     yield for
       post <- postOpt

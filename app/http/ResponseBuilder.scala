@@ -77,13 +77,11 @@ trait ResponseBuilder(using Executor)
 
   def notFound(using ctx: Context): Fu[Result] = notFound(none)
   def notFound(msg: Option[String])(using ctx: Context): Fu[Result] =
-    negotiate(
-      html =
-        if HTTPRequest.isSynchronousHttp(ctx.req)
-        then keyPages.notFound(msg)
-        else msg.fold(notFoundText())(notFoundText),
-      json = msg.fold(notFoundJson())(notFoundJson)
-    )
+    if ctx.isOAuth || HTTPRequest.acceptsJson(ctx.req) || HTTPRequest.acceptsNdJson(ctx.req)
+    then msg.fold(notFoundJson())(notFoundJson)
+    else if HTTPRequest.isSynchronousHttp(ctx.req)
+    then keyPages.notFound(msg)
+    else msg.fold(notFoundText())(notFoundText)
 
   def notFoundEmbed(using EmbedContext): Fu[Result] = notFoundEmbed(none)
   def notFoundEmbed(msg: Option[String])(using EmbedContext): Fu[Result] = keyPages.notFoundEmbed(msg)

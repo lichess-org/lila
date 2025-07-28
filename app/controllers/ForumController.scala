@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.core.id.{ ForumCategId, ForumTopicId, ForumTopicSlug }
 import lila.forum.ForumTopic
 
 private[controllers] trait ForumController:
@@ -31,7 +31,7 @@ private[controllers] trait ForumController:
 
   protected def TopicGrantModBySlug[A <: Result](
       categId: ForumCategId,
-      topicSlug: String
+      topicSlug: ForumTopicSlug
   )(a: => Fu[A])(using Context, Me): Fu[Result] =
     TopicGrantMod(categId)(topicRepo.byTree(categId, topicSlug))(a)
 

@@ -61,6 +61,9 @@ object id:
   opaque type ForumTopicId = String
   object ForumTopicId extends OpaqueString[ForumTopicId]
 
+  opaque type ForumTopicSlug = String
+  object ForumTopicSlug extends OpaqueString[ForumTopicSlug]
+
   opaque type ForumCategId = String
   object ForumCategId extends OpaqueString[ForumCategId]
 
