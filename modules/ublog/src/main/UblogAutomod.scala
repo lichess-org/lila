@@ -66,7 +66,7 @@ final class UblogAutomod(
     val prompt = promptSetting.get().value
     (config.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
-        "model" -> config.model,
+        "model" -> modelSetting.get(),
         "temperature" -> temperature,
         "max_tokens" -> 4096,
         "messages" -> Json.arr(
