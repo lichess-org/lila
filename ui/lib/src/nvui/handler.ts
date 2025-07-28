@@ -123,21 +123,21 @@ export function selectionHandler(getOpponentColor: () => Color) {
         // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently.
         if (rank === promotionRank && file && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
           $evBtn.attr('promotion', 'true');
-          $boardLive.text('Promote to: q for queen, r for rook, b for bishop, n for knight');
+          $boardLive.text('Promote to: q for queen, n for knight, r for rook, b for bishop');
           // promotion selector for touchscreens
           const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
-          const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
-          const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
-          const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
+          const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
+          const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
+          const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
           const cancelPromotionKey = $(squareSelector(promotionRank === '8' ? '4' : '5', file));
           queenPromotionKey.attr('promoteTo', 'q');
           queenPromotionKey.text('promote to queen');
+          knightPromotionKey.attr('promoteTo', 'n');
+          knightPromotionKey.text('promote to knight');
           rookPromotionKey.attr('promoteTo', 'r');
           rookPromotionKey.text('promote to rook');
           bishopPromotionKey.attr('promoteTo', 'b');
           bishopPromotionKey.text('promote to bishop');
-          knightPromotionKey.attr('promoteTo', 'n');
-          knightPromotionKey.text('promote to knight');
           cancelPromotionKey.attr('promoteTo', 'x');
           cancelPromotionKey.text('cancel');
           return;
