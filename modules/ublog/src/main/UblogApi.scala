@@ -175,7 +175,7 @@ final class UblogApi(
   private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
-      automod(post)
+      automod(post, n)
         .flatMapz: mod =>
           for _ <- colls.post.updateField($id(post.id), "automod", mod).void
           yield mod.some
