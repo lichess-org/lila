@@ -21,7 +21,7 @@ private object BSONHandlers:
       Uci.readListChars(str).flatMap(_.toNel)
 
     private val scoreSeparator = ':'
-    private val pvSeparator    = '/'
+    private val pvSeparator = '/'
     def readTry(bs: BSONValue) =
       bs match
         case BSONString(value) =>
@@ -43,5 +43,5 @@ private object BSONHandlers:
     { case v: BSONBinary => BinaryFen(v.byteArray) },
     v => BSONBinary(v.value, Subtype.GenericBinarySubtype)
   )
-  given BSONDocumentReader[CloudEval]      = Macros.reader
+  given BSONDocumentReader[CloudEval] = Macros.reader
   given BSONDocumentReader[EvalCacheEntry] = Macros.reader

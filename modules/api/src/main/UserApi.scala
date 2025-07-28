@@ -34,7 +34,7 @@ final class UserApi(
   def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
     val (light, userJson) = u match
       case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
-      case u: LightUser     => (u, Json.toJsObject(u))
+      case u: LightUser => (u, Json.toJsObject(u))
     addStreaming(userJson, light.id) ++
       Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
@@ -59,7 +59,7 @@ final class UserApi(
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
-      case u: User          => userApi.withPerfs(u)
+      case u: User => userApi.withPerfs(u)
       case u: UserWithPerfs => fuccess(u)
     .flatMap: u =>
         if u.enabled.no
@@ -98,22 +98,22 @@ final class UserApi(
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
                   .obj(
-                    "url"     -> makeUrl(s"@/${u.username}"), // for app BC
+                    "url" -> makeUrl(s"@/${u.username}"), // for app BC
                     "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
-                    "count"   -> Json.obj(
-                      "all"      -> u.count.game,
-                      "rated"    -> u.count.rated,
-                      "ai"       -> u.count.ai,
-                      "draw"     -> u.count.draw,
-                      "drawH"    -> u.count.drawH,
-                      "loss"     -> u.count.loss,
-                      "lossH"    -> u.count.lossH,
-                      "win"      -> u.count.win,
-                      "winH"     -> u.count.winH,
+                    "count" -> Json.obj(
+                      "all" -> u.count.game,
+                      "rated" -> u.count.rated,
+                      "ai" -> u.count.ai,
+                      "draw" -> u.count.draw,
+                      "drawH" -> u.count.drawH,
+                      "loss" -> u.count.loss,
+                      "lossH" -> u.count.lossH,
+                      "win" -> u.count.win,
+                      "winH" -> u.count.winH,
                       "bookmark" -> nbBookmarks,
-                      "playing"  -> nbPlaying,
-                      "import"   -> nbImported,
-                      "me"       -> nbGamesWithMe
+                      "playing" -> nbPlaying,
+                      "import" -> nbImported,
+                      "me" -> nbGamesWithMe
                     )
                   )
                   .add("kid", u.kid)
@@ -144,8 +144,8 @@ final class UserApi(
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
-                      "following"  -> relation.exists(_.isFollow),
-                      "blocking"   -> relation.exists(!_.isFollow)
+                      "following" -> relation.exists(_.isFollow),
+                      "blocking" -> relation.exists(!_.isFollow)
                     )
               }.noNull
 
@@ -162,9 +162,9 @@ final class UserApi(
         .map: (perf, rank) =>
           PerfType(perf) -> rank
         .collect {
-          case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
-          case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
-          case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
+          case (perf, rank) if rank == 1 => perfTopTrophy(perf, 1, "Champion")
+          case (perf, rank) if rank <= 10 => perfTopTrophy(perf, 10, "Top 10")
+          case (perf, rank) if rank <= 50 => perfTopTrophy(perf, 50, "Top 50")
           case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 100, "Top 100")
         } ::: all.trophies.map { t =>
         Json
@@ -180,7 +180,7 @@ final class UserApi(
   private def perfTopTrophy(perf: PerfType, top: Int, name: String)(using Lang) = Json.obj(
     "type" -> "perfTop",
     "perf" -> perf.key,
-    "top"  -> top,
+    "top" -> top,
     "name" -> s"${perf.trans} $name"
   )
 
@@ -190,7 +190,7 @@ final class UserApi(
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 
   private def wikiGroups(u: User): List[String] =
-    val perms          = lila.security.Permission.expanded(u).map(_.name).toList
+    val perms = lila.security.Permission.expanded(u).map(_.name).toList
     val wikiAdminGroup = "Administrators"
     if perms.contains("Admin") then wikiAdminGroup :: perms else perms
 

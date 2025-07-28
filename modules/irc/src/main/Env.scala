@@ -19,7 +19,7 @@ final class Env(
 )(using Executor):
 
   import ZulipClient.given
-  private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")
+  private val zulipConfig = appConfig.get[ZulipClient.Config]("zulip")
   private lazy val zulipClient = wire[ZulipClient]
 
   lazy val api: IrcApi = wire[IrcApi]

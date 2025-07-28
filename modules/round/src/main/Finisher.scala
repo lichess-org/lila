@@ -79,16 +79,16 @@ final private class Finisher(
     yield events
 
   private def recordLagStats(game: Game) = for
-    clock  <- game.clock
+    clock <- game.clock
     player <- clock.players.all
-    lt    = player.lag
+    lt = player.lag
     stats = lt.lagStats
     moves = lt.moves if moves > 4
     sd <- stats.stdDev
-    mean      = stats.mean if mean > 0
+    mean = stats.mean if mean > 0
     uncompAvg = Math.round(10 * lt.uncompStats.mean)
     compEstStdErr <- lt.compEstStdErr
-    quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
+    quotaStr = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
   do
     import lila.mon.round.move.lag as lRec
@@ -112,7 +112,7 @@ final private class Finisher(
       message: Option[Messenger.SystemMessage] = None
   )(using proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
-    val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
+    val prog = lila.game.Progress(prev, prev.finish(status, winnerC))
     import prog.game
     if game.nonAi && game.isCorrespondence then Color.all.foreach(notifier.gameEnd(prog.game))
     lila.mon.game
@@ -133,7 +133,7 @@ final private class Finisher(
         winnerId = winnerC.flatMap(game.player(_).userId),
         status = prog.game.status
       )
-      users       <- userApi.pairWithPerfs(game.userIdPair)
+      users <- userApi.pairWithPerfs(game.userIdPair)
       ratingDiffs <- updateCountAndPerfs(game, users)
     yield
       message.foreach { messenger(game, _) }
@@ -163,8 +163,8 @@ final private class Finisher(
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
     (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
-      val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
-      val result    =
+      val tvTime = totalTime.ifTrue(recentTvGames.get(game.id))
+      val result =
         if game.winnerUserId.has(user.id) then 1
         else if game.loserUserId.has(user.id) then -1
         else 0

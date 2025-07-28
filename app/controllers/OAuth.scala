@@ -68,7 +68,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                 Ok(
                   Json
                     .obj(
-                      "token_type"   -> "Bearer",
+                      "token_type" -> "Bearer",
                       "access_token" -> token.plain
                     )
                     .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
@@ -88,8 +88,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                 Ok(
                   Json
                     .obj(
-                      "token_type"    -> "Bearer",
-                      "access_token"  -> token.plain,
+                      "token_type" -> "Bearer",
+                      "access_token" -> token.plain,
                       "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
                     )
                     .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
@@ -133,8 +133,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
             bearer.value -> token.fold[JsValue](JsNull): t =>
               Json.obj(
-                "userId"  -> t.userId,
-                "scopes"  -> t.scopes.into(OAuthScopes).keyList,
+                "userId" -> t.userId,
+                "scopes" -> t.scopes.into(OAuthScopes).keyList,
                 "expires" -> t.expires
               )
           }))

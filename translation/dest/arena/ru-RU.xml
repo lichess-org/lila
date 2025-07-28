@@ -65,8 +65,8 @@
   <string name="whichTeamWillYouRepresentInThisBattle">Какой клуб вы представляете в этом турнире?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Вы должны стать членом одного из этих клубов, чтобы участвовать!</string>
   <string name="created">Создан</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent">Недавно сыгранные</string>
-  <string name="bestResults" comment="Acts as the title of a personal page featuring a player's best tournament results. Please keep it brief.&#10;&#10;Example: https://lichess.org/@/thibault/tournaments/best">Лучшие результаты</string>
+  <string name="recentlyPlayed">Недавно сыгранные</string>
+  <string name="bestResults">Лучшие результаты</string>
   <string name="tournamentStats">Турнирная статистика</string>
   <string name="rankAvgHelp">Среднее занятое место (вхождение в процент лучших игроков). Чем ниже значение, тем лучше.
 
@@ -82,5 +82,5 @@
   <string name="onlyTitled">Только игроки со званиями</string>
   <string name="onlyTitledHelp">Требуется официальное звание для участия в турнире</string>
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира закончена</string>
-  <string name="berserkRate" comment="The percentage of games a player 'berserked' in a tournament (see https://lichess.org/tournament/help?system=arena for an explanation of berserk mode).&#10;&#10;This shows up as a part of a player's stats after a tournament has finished on the tournament's page.">Берсерк</string>
+  <string name="berserkRate">Берсерк</string>
 </resources>

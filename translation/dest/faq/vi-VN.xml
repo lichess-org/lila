@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, câu đố hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được hoàn lại hệ số tự động từ những kẻ gian lận?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu đã xếp hạng mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất hệ số (do thua hoặc hòa) và hệ số của bạn không phải là tạm thời, bạn sẽ được hoàn lại hệ số. Điểm hoàn lại được giới hạn dựa trên hệ số cao nhất của bạn và tiến độ hệ số của bạn sau ván đấu. (Ví dụ: nếu hệ số của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
+  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu đã xếp hạng mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất hệ số (do thua hoặc hòa) và hệ số của bạn không phải là tạm thời, bạn sẽ được hoàn lại hệ số. Điểm hoàn lại được giới hạn dựa trên hệ số cao nhất của bạn và tiến độ hệ số của bạn sau ván đấu. (Ví dụ: nếu hệ số của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
   <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những kỳ thủ rời khỏi ván đấu thay vì chịu thua?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời khỏi ván cờ, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
   <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một điều hành viên?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các định giờ khác được quyết định thế nào?</string>
   <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính = %1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
+  <string name="durationFormula">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s giây = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Tôi có thể chơi những loại biến thể nào trên Lichess?</string>
@@ -96,12 +96,11 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
   <string name="guidelines">hướng dẫn</string>
   <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
+  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
-  <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván (Berserk) và giành chiến thắng 100%% các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
+  <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
   <string name="lichessRatings">Hệ số Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess sử dụng hệ thống xếp hạng nào?</string>
   <string name="ratingSystemUsedByLichess">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo lỗi thời).
@@ -148,7 +147,7 @@ Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
 Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cờ để phát ra âm thanh khi bắt đầu mỗi ván cờ.
 
 Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">máy tính để bàn</string>
+  <string name="desktop">máy tính để bàn</string>
   <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
@@ -166,11 +165,11 @@ Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi 
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)
 5. Thêm lichess.org vào Cho phép</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hạn chế bản thân chơi quá nhiều?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">tình trạng sức khỏe tâm thần độc lập</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Phong cách người dùng Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">ít kiểu thời lượng ván ở phòng chờ hơn</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Chúng tôi thường xuyên nhận được tin nhắn từ nhiều người dùng yêu cầu chúng tôi giúp đỡ để ngăn họ chơi quá nhiều.
+  <string name="stopMyselfFromPlaying">Hạn chế bản thân chơi quá nhiều?</string>
+  <string name="mentalHealthCondition">tình trạng sức khỏe tâm thần độc lập</string>
+  <string name="lichessUserstyles">Phong cách người dùng Lichess</string>
+  <string name="fewerLobbyPools">ít kiểu thời lượng ván ở phòng chờ hơn</string>
+  <string name="adviceOnMitigatingAddiction">Chúng tôi thường xuyên nhận được tin nhắn từ nhiều người dùng yêu cầu chúng tôi giúp đỡ để ngăn họ chơi quá nhiều.
 
 Mặc dù Lichess không cấm hoặc chặn người chơi ngoại trừ các vi phạm Điều khoản Dịch vụ, chúng tôi khuyên bạn nên sử dụng các công cụ bên ngoài để hạn chế hành vi chơi quá mức. Một số đề xuất phổ biến cho trình chặn trang web bao gồm %1$s, %2$s và %3$s. Nếu bạn muốn tiếp tục sử dụng trang web nhưng không bị cám dỗ bởi các kiểu thời gian ván đấu nhanh, bạn cũng có thể quan tâm đến %4$s, đây là một kiểu có %5$s.
 

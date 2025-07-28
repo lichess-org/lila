@@ -17,18 +17,18 @@ import Node.{ Comments, Comment, Gamebook, Shapes }
 // either we decide that branches strictly represent all the children from a node
 // with the first being the mainline, OR we just use it as an List with extra functionalities
 case class Branches(nodes: List[Branch]) extends AnyVal:
-  def first         = nodes.headOption
+  def first = nodes.headOption
   def mainlineFirst = nodes.collectFirst:
     case node if !node.forceVariation => node
   def variations = nodes.drop(1)
-  def isEmpty    = nodes.isEmpty
-  def nonEmpty   = !isEmpty
+  def isEmpty = nodes.isEmpty
+  def nonEmpty = !isEmpty
 
   def ::(b: Branch) = Branches(b :: nodes)
   def :+(b: Branch) = Branches(nodes :+ b)
 
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
-  def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
+  def hasNode(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
   def nodeAt(path: UciPath): Option[Branch] =
     path.split.flatMap: (head, rest) =>
@@ -45,7 +45,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def addNodeAt(node: Branch, path: UciPath): Option[Branches] =
     path.split match
-      case None             => addNode(node).some
+      case None => addNode(node).some
       case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
 
   // suboptimal due to using List instead of Vector
@@ -57,12 +57,12 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def deleteNodeAt(path: UciPath): Option[Branches] =
     path.split.flatMap:
       case (head, p) if p.isEmpty && hasNode(head) => Branches(nodes.filterNot(_.id == head)).some
-      case (_, p) if p.isEmpty                     => none
-      case (head, tail)                            => updateChildren(head, _.deleteNodeAt(tail))
+      case (_, p) if p.isEmpty => none
+      case (head, tail) => updateChildren(head, _.deleteNodeAt(tail))
 
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
     path.split match
-      case None             => this.some
+      case None => this.some
       case Some(head, tail) =>
         get(head).flatMap: node =>
           node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
@@ -71,22 +71,22 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def promoteUpAt(path: UciPath): Option[(Branches, Boolean)] =
     path.split match
-      case None             => Some(this -> false)
+      case None => Some(this -> false)
       case Some(head, tail) =>
         for
-          node                  <- get(head)
-          mainlineNode          <- this.first
+          node <- get(head)
+          mainlineNode <- this.first
           (newChildren, isDone) <- node.children.promoteUpAt(tail)
           newNode = node.copy(children = newChildren)
         yield
           if isDone then update(newNode) -> true
           else if newNode.id == mainlineNode.id then update(newNode) -> false
-          else Branches(newNode :: nodes.filterNot(newNode ==))      -> true
+          else Branches(newNode :: nodes.filterNot(newNode ==)) -> true
 
   def updateAt(path: UciPath, f: Branch => Branch): Option[Branches] =
     path.split.flatMap:
       case (head, p) if p.isEmpty => updateWith(head, n => Some(f(n)))
-      case (head, tail)           => updateChildren(head, _.updateAt(tail, f))
+      case (head, tail) => updateChildren(head, _.updateAt(tail, f))
 
   def updateAllWith(op: Branch => Branch): Branches =
     Branches(nodes.map: n =>
@@ -95,7 +95,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def update(child: Branch): Branches =
     Branches(nodes.map:
       case n if child.id == n.id => child
-      case n                     => n)
+      case n => n)
 
   def updateWith(id: UciCharPair, op: Branch => Option[Branch]): Option[Branches] =
     get(id).flatMap(op).map(update)
@@ -129,7 +129,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 object Branches:
   // already included by `TotalWrapper`?
   // def apply(branches: List[Branch]): Branches = branches
-  val empty: Branches  = Branches(Nil)
+  val empty: Branches = Branches(Nil)
   given Zero[Branches] = Zero(empty)
 
 sealed trait Node:
@@ -181,14 +181,14 @@ case class Root(
     crazyData: Option[Crazyhouse.Data]
 ) extends Node:
 
-  def idOption       = None
-  def moveOption     = None
-  def comp           = false
+  def idOption = None
+  def moveOption = None
+  def comp = false
   def forceVariation = false
 
   // def addChild(branch: Branch)     = copy(children = children :+ branch)
   def addChild(child: Branch): Root = copy(children = children.addNode(child))
-  def prependChild(branch: Branch)  = copy(children = branch :: children)
+  def prependChild(branch: Branch) = copy(children = branch :: children)
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def withChildren(f: Branches => Option[Branches]): Option[Root] =
@@ -322,7 +322,7 @@ case class Branch(
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node:
 
-  def idOption   = Some(id)
+  def idOption = Some(id)
   def moveOption = Some(move)
 
   // NOT `Branches` as it does not represent one mainline move and variations
@@ -338,16 +338,16 @@ case class Branch(
 
   def addChild(branch: Branch): Branch = copy(children = children :+ branch)
 
-  def withClock(clock: Option[Clock])    = copy(clock = clock)
+  def withClock(clock: Option[Clock]) = copy(clock = clock)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
-  def isCommented                          = comments.value.nonEmpty
-  def setComment(comment: Comment)         = copy(comments = comments.set(comment))
+  def isCommented = comments.value.nonEmpty
+  def setComment(comment: Comment) = copy(comments = comments.set(comment))
   def deleteComment(commentId: Comment.Id) = copy(comments = comments.delete(commentId))
-  def deleteComments                       = copy(comments = Comments.empty)
-  def setGamebook(gamebook: Gamebook)      = copy(gamebook = gamebook.some)
-  def setShapes(s: Shapes)                 = copy(shapes = s)
-  def toggleGlyph(glyph: Glyph)            = copy(glyphs = glyphs.toggle(glyph))
+  def deleteComments = copy(comments = Comments.empty)
+  def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
+  def setShapes(s: Shapes) = copy(shapes = s)
+  def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs.toggle(glyph))
 
   def updateMainlineLast(f: Branch => Branch): Branch =
     children.first.fold(f(this)) { main =>
@@ -399,7 +399,7 @@ object Node:
   opaque type Shapes = List[Shape]
   object Shapes extends TotalWrapper[Shapes, List[Shape]]:
     extension (a: Shapes) def ++(shapes: Shapes): Shapes = (a.value ::: shapes.value).distinct
-    val empty: Shapes                                    = Nil
+    val empty: Shapes = Nil
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
     def removeMeta = text.removeMeta.map(t => copy(text = t))
@@ -422,7 +422,7 @@ object Node:
 
       def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
-        case _                        => this == other
+        case _ => this == other
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
@@ -435,23 +435,23 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
-      def findBy(author: Comment.Author)  = a.value.find(_.by.is(author))
+      def findBy(author: Comment.Author) = a.value.find(_.by.is(author))
       def set(comment: Comment): Comments =
         if a.value.exists(_.by.is(comment.by)) then
           a.value.map:
             case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
-            case c                        => c
+            case c => c
         else a.value :+ comment
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
-      def +(comment: Comment): Comments           = comment :: a.value
-      def ++(comments: Comments): Comments        = a.value ::: comments.value
-      def filterEmpty: Comments                   = a.value.filter(_.text.value.nonEmpty)
-      def hasLichessComment                       = a.value.exists(_.by == Comment.Author.Lichess)
+      def +(comment: Comment): Comments = comment :: a.value
+      def ++(comments: Comments): Comments = a.value ::: comments.value
+      def filterEmpty: Comments = a.value.filter(_.text.value.nonEmpty)
+      def hasLichessComment = a.value.exists(_.by == Comment.Author.Lichess)
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
     private def trimOrNone(txt: Option[String]) = txt.map(_.trim).filter(_.nonEmpty)
-    def cleanUp                                 =
+    def cleanUp =
       copy(
         deviation = trimOrNone(deviation),
         hint = trimOrNone(hint)
@@ -459,11 +459,11 @@ object Node:
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
 
   import chess.json.Json.given
-  private val shapeCircleWrites    = Json.writes[Shape.Circle]
-  private val shapeArrowWrites     = Json.writes[Shape.Arrow]
+  private val shapeCircleWrites = Json.writes[Shape.Circle]
+  private val shapeArrowWrites = Json.writes[Shape.Arrow]
   given shapeWrites: Writes[Shape] = Writes[Shape]:
     case s: Shape.Circle => shapeCircleWrites.writes(s)
-    case s: Shape.Arrow  => shapeArrowWrites.writes(s)
+    case s: Shape.Arrow => shapeArrowWrites.writes(s)
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.value.map(shapeWrites.writes))
   }
@@ -477,9 +477,9 @@ object Node:
   given Writes[Comment.Author] = Writes[Comment.Author]:
     case Comment.Author.User(id, name) => Json.obj("id" -> id.value, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
-    case Comment.Author.Lichess        => JsString("lichess")
-    case Comment.Author.Unknown        => JsNull
-  given Writes[Node.Comment]  = Json.writes[Node.Comment]
+    case Comment.Author.Lichess => JsString("lichess")
+    case Comment.Author.Unknown => JsNull
+  given Writes[Node.Comment] = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
   import lila.tree.evals.jsonWrites

@@ -10,6 +10,7 @@ import lila.mod.IpRender.RenderIp
 import lila.security.IpTrust
 import lila.user.WithPerfsAndEmails
 import lila.mod.ModUserSearchResult
+import lila.ui.bits.modMenu
 
 object search:
 
@@ -18,7 +19,7 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          views.mod.ui.menu("search"),
+          modMenu("search"),
           div(cls := "mod-search page-menu__content box")(
             h1(cls := "box__top")("Search users"),
             st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
@@ -26,7 +27,7 @@ object search:
                 name := "q",
                 autofocus,
                 placeholder := "Search by IP, email, or username (exact match only)",
-                value       := form("q").value
+                value := form("q").value
               )
             ),
             res.map: r =>
@@ -47,7 +48,7 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          views.mod.ui.menu("search"),
+          modMenu("search"),
           div(cls := "mod-search page-menu__content box")(
             boxTop(
               h1("Fingerprint: ", fh.value),
@@ -56,7 +57,7 @@ object search:
                   submitButton(
                     cls := List(
                       "button text" -> true,
-                      "active"      -> blocked
+                      "active" -> blocked
                     )
                   )(if blocked then "Banned" else "Ban this print")
                 )
@@ -86,19 +87,19 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          views.mod.ui.menu("search"),
+          modMenu("search"),
           div(cls := "mod-search page-menu__content box")(
             boxTop(
               h1("IP address: ", renderIp(address)),
               if isGranted(_.Admin) then
                 postForm(
-                  cls    := "box__top__actions",
+                  cls := "box__top__actions",
                   action := routes.Mod.singleIpBan(!blocked, address.value)
                 )(
                   submitButton(
                     cls := List(
                       "button text" -> true,
-                      "active"      -> blocked
+                      "active" -> blocked
                     )
                   )(if blocked then "Banned" else "Ban this IP")
                 )
@@ -122,4 +123,4 @@ object search:
   export views.clas.ui.search.teacher
 
   def notes(query: String, pager: Paginator[lila.user.Note])(using Context) =
-    views.user.noteUi.search(query, pager, ui.menu("notes"))
+    views.user.noteUi.search(query, pager, modMenu("notes"))

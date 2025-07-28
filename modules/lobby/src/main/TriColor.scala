@@ -3,13 +3,13 @@ package lila.lobby
 import scalalib.ThreadLocalRandom.nextBoolean
 
 enum TriColor(val name: String, val resolve: () => Color):
-  case White  extends TriColor("white", () => Color.white)
-  case Black  extends TriColor("black", () => Color.black)
+  case White extends TriColor("white", () => Color.white)
+  case Black extends TriColor("black", () => Color.black)
   case Random extends TriColor("random", () => Color.fromWhite(nextBoolean()))
 
   def negate: TriColor = this match
-    case White  => Black
-    case Black  => White
+    case White => Black
+    case Black => White
     case Random => Random
   def compatibleWith(o: TriColor) = o == negate
 

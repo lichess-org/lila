@@ -11,6 +11,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - '.node-version'
   pull_request:
     paths:
       - '.github/workflows/assets.yml'
@@ -18,6 +19,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - '.node-version'
 
 jobs:
   assets:

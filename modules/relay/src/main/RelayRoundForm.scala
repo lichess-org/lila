@@ -73,25 +73,25 @@ final class RelayRoundForm(using mode: Mode):
     val customScoringMapping: Mapping[CustomScoring] =
       mapping("win" -> customPointMapping, "draw" -> customPointMapping)(CustomScoring.apply)(unapply)
     mapping(
-      "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
-      "caption"             -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
-      "syncSource"          -> optional(stringIn(sourceTypes.map(_._1).toSet)),
-      "syncUrl"             -> optional(of[Upstream.Url]),
-      "syncUrls"            -> optional(of[Upstream.Urls]),
-      "syncIds"             -> optional(of[Upstream.Ids]),
-      "syncUsers"           -> optional(of[Upstream.Users]),
-      "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
+      "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
+      "syncSource" -> optional(stringIn(sourceTypes.map(_._1).toSet)),
+      "syncUrl" -> optional(of[Upstream.Url]),
+      "syncUrls" -> optional(of[Upstream.Urls]),
+      "syncIds" -> optional(of[Upstream.Ids]),
+      "syncUsers" -> optional(of[Upstream.Users]),
+      "startsAt" -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
-      "status"              -> optional:
+      "status" -> optional:
         text.partial[Data.Status](_.toString):
           case ok: Data.Status => ok,
-      "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "period" -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay" -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
       "onlyRound" -> optional(cleanNonEmptyText(maxLength = 50)),
-      "slices"    -> optional:
+      "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
-      "rated"         -> optional(boolean.into[Rated]),
+      "rated" -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
@@ -114,28 +114,28 @@ final class RelayRoundForm(using mode: Mode):
 object RelayRoundForm:
 
   val sourceTypes = List(
-    "push"  -> "Broadcaster App",
-    "url"   -> "Single PGN URL",
-    "urls"  -> "Combine several PGN URLs",
-    "ids"   -> "Lichess game IDs",
+    "push" -> "Broadcaster App",
+    "url" -> "Single PGN URL",
+    "urls" -> "Combine several PGN URLs",
+    "ids" -> "Lichess game IDs",
     "users" -> "Lichess usernames"
   )
 
-  private val roundNumberRegex             = """([^\d]*)(\d{1,2})([^\d]*)""".r
+  private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
   val roundNumberIn: String => Option[Int] =
     case roundNumberRegex(_, n, _) => n.toIntOption
-    case _                         => none
+    case _ => none
 
   def fillFromPrevRounds(rounds: List[RelayRound]): Data =
     val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
       case a :: b :: _ => (a, b).some
-      case _           => none
-    val prev: Option[RelayRound]                      = rounds.lastOption
+      case _ => none
+    val prev: Option[RelayRound] = rounds.lastOption
     def replaceRoundNumber(s: String, n: Int): String =
       roundNumberRegex.replaceAllIn(s, m => s"${m.group(1)}${n}${m.group(3)}")
     val prevNumber: Option[Int] = prev.flatMap(p => roundNumberIn(p.name.value))
-    val nextNumber              = (prevNumber | rounds.size) + 1
-    val guessName               = for
+    val nextNumber = (prevNumber | rounds.size) + 1
+    val guessName = for
       n <- prevNumber
       if prevs
         .map(_._2)
@@ -145,14 +145,14 @@ object RelayRoundForm:
     yield replaceRoundNumber(p.name.value, nextNumber)
     val guessStartsAtTime = for
       (prev, old) <- prevs
-      prevDate    <- prev.startsAtTime
-      oldDate     <- old.startsAtTime
+      prevDate <- prev.startsAtTime
+      oldDate <- old.startsAtTime
       delta = prevDate.toEpochMilli - oldDate.toEpochMilli
     yield prevDate.plusMillis(delta)
     val nextUrl: Option[URL] = for
-      p  <- prev
+      p <- prev
       up <- p.sync.upstream
-      lcc     = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
+      lcc = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
       nextLcc = lcc.map(_.copy(round = nextNumber).pageUrl)
       next <- nextLcc.orElse(up.asUrl)
     yield next
@@ -197,7 +197,7 @@ object RelayRoundForm:
       else Right(url)
   yield url
 
-  private val validPorts                                           = Set(-1, 80, 443, 8080, 8491)
+  private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
@@ -240,12 +240,12 @@ object RelayRoundForm:
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
-      case None          => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
-      case Some("url")   => syncUrl
-      case Some("urls")  => syncUrls
-      case Some("ids")   => syncIds
+      case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
+      case Some("url") => syncUrl
+      case Some("urls") => syncUrls
+      case Some("ids") => syncIds
       case Some("users") => syncUsers
-      case _             => None
+      case _ => None
 
     private def relayStartsAt: Option[RelayRound.Starts] = startsAt
       .map(RelayRound.Starts.At(_))
@@ -260,7 +260,7 @@ object RelayRoundForm:
         startsAt = relayStartsAt,
         startedAt = status.fold(round.startedAt):
           case "new" => none
-          case _     => round.startedAt.orElse(nowInstant.some),
+          case _ => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
         rated = rated | Rated.No,
         customScoring = customScoring
@@ -304,15 +304,15 @@ object RelayRoundForm:
         caption = round.caption,
         syncSource = round.sync.upstream
           .fold("push"):
-            case _: Upstream.Url   => "url"
-            case _: Upstream.Urls  => "urls"
-            case _: Upstream.Ids   => "ids"
+            case _: Upstream.Url => "url"
+            case _: Upstream.Urls => "urls"
+            case _: Upstream.Ids => "ids"
             case _: Upstream.Users => "users"
           .some,
         syncUrl = round.sync.upstream.collect:
           case url: Upstream.Url => url,
         syncUrls = round.sync.upstream.collect:
-          case url: Upstream.Url   => Upstream.Urls(List(url.url))
+          case url: Upstream.Url => Upstream.Urls(List(url.url))
           case urls: Upstream.Urls => urls,
         syncIds = round.sync.upstream.collect:
           case ids: Upstream.Ids => ids,

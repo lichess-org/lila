@@ -21,12 +21,12 @@ object StudyForm:
 
     lazy val form = Form(
       mapping(
-        "gameId"      -> optional(of[GameId]),
+        "gameId" -> optional(of[GameId]),
         "orientation" -> optional(of[ChapterMaker.Orientation]),
-        "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
-        "pgn"         -> optional(nonEmptyText.into[PgnStr]),
-        "variant"     -> optional(of[Variant]),
-        "as"          -> optional(nonEmptyText)
+        "fen" -> optional(lila.common.Form.fen.playable(strict = false)),
+        "pgn" -> optional(nonEmptyText.into[PgnStr]),
+        "variant" -> optional(of[Variant]),
+        "as" -> optional(nonEmptyText)
       )(Data.apply)(unapply)
     )
 
@@ -40,7 +40,7 @@ object StudyForm:
     ):
       def as: As = asStr match
         case None | Some("study") => As.NewStudy
-        case Some(studyId)        => As.ChapterOf(StudyId(studyId))
+        case Some(studyId) => As.ChapterOf(StudyId(studyId))
 
       def toChapterData = ChapterMaker.Data(
         name = StudyChapterName(""),
@@ -61,13 +61,13 @@ object StudyForm:
 
     lazy val form = Form(
       mapping(
-        "name"          -> optional(cleanNonEmptyText(minLength = 1, maxLength = 100)),
-        "orientation"   -> optional(of[ChapterMaker.Orientation]),
-        "variant"       -> optional(of[Variant]),
-        "mode"          -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
-        "initial"       -> boolean,
-        "sticky"        -> boolean,
-        "pgn"           -> nonEmptyText.into[PgnStr],
+        "name" -> optional(cleanNonEmptyText(minLength = 1, maxLength = 100)),
+        "orientation" -> optional(of[ChapterMaker.Orientation]),
+        "variant" -> optional(of[Variant]),
+        "mode" -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
+        "initial" -> boolean,
+        "sticky" -> boolean,
+        "pgn" -> nonEmptyText.into[PgnStr],
         "isDefaultName" -> boolean
       )(Data.apply)(unapply)
     )

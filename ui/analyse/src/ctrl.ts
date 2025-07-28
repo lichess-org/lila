@@ -10,11 +10,11 @@ import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -48,6 +48,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { isEquivalent } from 'lib/algo';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -656,12 +657,20 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
-    // Also update parent
-    const parentPath = treePath.init(path);
-    this.tree.setCollapsedAt(parentPath, collapsed);
-    this.tree.setCollapsedRecursive(path, collapsed);
+  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
     this.redraw();
+  }
+
+  // whether [collapsing, expanding] the path, would affect the rendered view
+  wouldCollapseAffectView(path: Tree.Path): [boolean, boolean] {
+    if (typeof structuredClone !== 'function') return [true, true];
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
+    const currentView = renderTreeView(this);
+    return [true, false].map(collapsed => {
+      ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+      return !isEquivalent(currentView, renderTreeView(ctrlWithDiffTree), ['function']);
+    }) as [boolean, boolean];
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
@@ -692,7 +701,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.chessground?.setAutoShapes(computeAutoShapes(this));
+    if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
@@ -717,7 +726,7 @@ export default class AnalyseCtrl {
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
-        this.redraw();
+        if (!(site.blindMode && this.retro)) this.redraw();
       }
     });
   };

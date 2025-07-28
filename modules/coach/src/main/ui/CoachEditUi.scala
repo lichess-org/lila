@@ -16,8 +16,8 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   private lazy val jsonLanguages = safeJsonValue:
     Json.toJson(langList.popularNoRegion.map { l =>
       Json.obj(
-        "code"     -> l.code,
-        "value"    -> langList.name(l.toTag),
+        "code" -> l.code,
+        "value" -> langList.name(l.toTag),
         "searchBy" -> List(
           l.toLocale.getDisplayLanguage,
           l.toLocale.getDisplayCountry
@@ -36,8 +36,8 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
             span(
               h1(ui.titleName(c)),
               a(
-                href     := routes.Coach.show(c.user.username),
-                cls      := "button button-empty text",
+                href := routes.Coach.show(c.user.username),
+                cls := "button button-empty text",
                 dataIcon := Icon.Eye
               )("Preview coach page")
             ),
@@ -89,7 +89,7 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
                     half = true
                   )(
                     form3.input(_)(
-                      data("all")   := jsonLanguages,
+                      data("all") := jsonLanguages,
                       data("value") := c.coach.languages.mkString(",")
                     )
                   ),

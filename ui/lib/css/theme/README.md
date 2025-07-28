@@ -8,8 +8,8 @@
 ## how color themes work
 
 each partial scss file in the `ui/lib/css/theme` directory describes a color theme.
-`_default.scss` is special as in addition to defining the dark theme, it is the baseline
-from which other named themes (`_light.scss`, `_transp.scss`, ...) are extended.
+`_theme.default.scss` is special as in addition to defining the dark theme, it is the baseline
+from which other named themes (`_theme.light.scss`, `_theme.transp.scss`, ...) are extended.
 
 every color in this theme system has both an scss and a css variable representation. your external
 style rules will use the scss form beginning with `$c-` or `$m-` when possible due to

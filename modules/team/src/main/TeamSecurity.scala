@@ -8,14 +8,14 @@ import lila.memo.CacheApi.*
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
-    case Public   extends Permission("Public", "Visible as leader on the team page")
+    case Public extends Permission("Public", "Visible as leader on the team page")
     case Settings extends Permission("Settings", "Change settings and descriptions")
-    case Tour     extends Permission("Tournaments", "Create, manage and join team tournaments")
-    case Comm     extends Permission("Moderation", "Moderate the forum and chats")
-    case Request  extends Permission("Requests", "Accept and decline join requests")
-    case PmAll    extends Permission("Messages", "Send private messages to all members")
-    case Kick     extends Permission("Kick", "Kick members of the team")
-    case Admin    extends Permission("Admin", "Manage leader permissions")
+    case Tour extends Permission("Tournaments", "Create, manage and join team tournaments")
+    case Comm extends Permission("Moderation", "Moderate the forum and chats")
+    case Request extends Permission("Requests", "Accept and decline join requests")
+    case PmAll extends Permission("Messages", "Send private messages to all members")
+    case Kick extends Permission("Kick", "Kick members of the team")
+    case Admin extends Permission("Admin", "Manage leader permissions")
     def key = toString.toLowerCase
   object Permission:
     type Selector = Permission.type => Permission
@@ -77,7 +77,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
           )
 
     private val permissionsForm = mapping(
-      "name"  -> lila.common.Form.username.historicalField,
+      "name" -> lila.common.Form.username.historicalField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,

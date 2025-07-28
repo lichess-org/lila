@@ -100,7 +100,7 @@ final class AssessApi(
               pov -> {
                 fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
-                  case None       => Right(PlayerAssessment.makeBasics(pov, holds.get(pov.gameId)))
+                  case None => Right(PlayerAssessment.makeBasics(pov, holds.get(pov.gameId)))
               }
           }
 
@@ -129,7 +129,7 @@ final class AssessApi(
         else if game.rated.no then false
         else if lila.game.Player.HoldAlert.suspicious(holdAlerts) then true
         else if game.isCorrespondence then false
-        else if game.playedTurns < PlayerAssessment.minPlies then false
+        else if game.playedPlies < PlayerAssessment.minPlies then false
         else if game.players.exists(consistentMoveTimes(game)) then true
         else if game.createdAt.isBefore(bottomDate) then false
         else true
@@ -183,7 +183,7 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
 
     def winnerUserOption = game.winnerColor.map(players(_))
-    def winnerNbGames    = winnerUserOption.map(_.perf.nb)
+    def winnerNbGames = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color): Boolean =
       val x = noFastCoefVariation(game.player(c))
@@ -191,9 +191,9 @@ final class AssessApi(
 
     def isUpset = ~(for
       winner <- game.winner
-      loser  <- game.loser
-      wR     <- winner.rating
-      lR     <- loser.stableRating
+      loser <- game.loser
+      wR <- winner.rating
+      lR <- loser.stableRating
     yield wR <= lR.map(_ - 250))
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
@@ -204,9 +204,9 @@ final class AssessApi(
       // give up on correspondence games
       else if game.isCorrespondence then fuccess(none)
       // stop here for short games
-      else if game.playedTurns < PlayerAssessment.minPlies then fuccess(none)
+      else if game.playedPlies < PlayerAssessment.minPlies then fuccess(none)
       // stop here for long games
-      else if game.playedTurns > 95 then fuccess(none)
+      else if game.playedPlies > 95 then fuccess(none)
       // stop here for casual games
       else if game.rated.no then fuccess(none)
       // discard old games

@@ -40,23 +40,23 @@ final class CoachPager(
             Match(selector) -> List(
               Sort:
                 order match
-                  case Alphabetical  => Ascending("_id")
+                  case Alphabetical => Ascending("_id")
                   case LichessRating => Descending("user.rating")
-                  case Login         => Descending("user.seenAt")
+                  case Login => Descending("user.seenAt")
               ,
               PipelineOperator:
                 $doc:
                   "$lookup" -> $doc(
-                    "from"         -> userRepo.coll.name,
-                    "localField"   -> "_id",
+                    "from" -> userRepo.coll.name,
+                    "localField" -> "_id",
                     "foreignField" -> "_id",
-                    "as"           -> "_user"
+                    "as" -> "_user"
                   )
               ,
               UnwindField("_user"),
               Match(
                 $doc(
-                  s"_user.${lila.core.user.BSONFields.roles}"   -> Permission.Coach.dbKey,
+                  s"_user.${lila.core.user.BSONFields.roles}" -> Permission.Coach.dbKey,
                   s"_user.${lila.core.user.BSONFields.enabled}" -> true,
                   s"_user.${lila.core.user.BSONFields.marks}"
                     .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
@@ -70,9 +70,9 @@ final class CoachPager(
           .map: docs =>
             import userRepo.userHandler
             for
-              doc   <- docs
+              doc <- docs
               coach <- doc.asOpt[Coach]
-              user  <- doc.getAsOpt[User]("_user")
+              user <- doc.getAsOpt[User]("_user")
               perfs = perfsRepo.aggregateReadFirst(doc, user)
             yield coach.withUser(UserWithPerfs(user, perfs))
 
@@ -83,18 +83,18 @@ final class CoachPager(
     )
 
   private val listableSelector = $doc(
-    "listed"    -> Coach.Listed.Yes,
+    "listed" -> Coach.Listed.Yes,
     "available" -> Coach.Available.Yes
   )
 
 object CoachPager:
 
   enum Order(val key: String, val i18nKey: I18nKey):
-    case Login         extends Order("login", I18nKey.coach.lastLogin)
+    case Login extends Order("login", I18nKey.coach.lastLogin)
     case LichessRating extends Order("rating", I18nKey.coach.lichessRating)
-    case Alphabetical  extends Order("alphabetical", I18nKey.study.alphabetical)
+    case Alphabetical extends Order("alphabetical", I18nKey.study.alphabetical)
 
   object Order:
-    val default                   = Login
-    val list                      = values.toList
+    val default = Login
+    val list = values.toList
     def apply(key: String): Order = list.find(_.key == key) | default

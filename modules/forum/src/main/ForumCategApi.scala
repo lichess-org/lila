@@ -58,13 +58,13 @@ final class ForumCategApi(
 
   def denormalize(categ: ForumCateg): Funit =
     for
-      nbTopics      <- topicRepo.countByCateg(categ.id)
-      nbPosts       <- postRepo.countByCateg(categ)
-      lastPost      <- postRepo.lastByCateg(categ)
+      nbTopics <- topicRepo.countByCateg(categ.id)
+      nbPosts <- postRepo.countByCateg(categ)
+      lastPost <- postRepo.lastByCateg(categ)
       nbTopicsTroll <- topicRepo.unsafe.countByCateg(categ.id)
-      nbPostsTroll  <- postRepo.unsafe.countByCateg(categ)
+      nbPostsTroll <- postRepo.unsafe.countByCateg(categ)
       lastPostTroll <- postRepo.unsafe.lastByCateg(categ)
-      _             <-
+      _ <-
         categRepo.coll.update
           .one(
             $id(categ.id),

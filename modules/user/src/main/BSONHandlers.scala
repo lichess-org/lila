@@ -20,37 +20,37 @@ import lila.db.dsl.{ *, given }
 
 object BSONFields:
   export lila.core.user.BSONFields.*
-  val id                    = "_id"
-  val count                 = "count"
-  val profile               = "profile"
-  val toints                = "toints"
-  val playTime              = "time"
-  val playTimeTotal         = "time.total"
-  val seenAt                = "seenAt"
+  val id = "_id"
+  val count = "count"
+  val profile = "profile"
+  val toints = "toints"
+  val playTime = "time"
+  val playTimeTotal = "time.total"
+  val seenAt = "seenAt"
   val createdWithApiVersion = "createdWithApiVersion"
-  val lang                  = "lang"
-  val email                 = "email"
-  val verbatimEmail         = "verbatimEmail"
-  val mustConfirmEmail      = "mustConfirmEmail"
-  val prevEmail             = "prevEmail"
-  val colorIt               = "colorIt"
-  val salt                  = "salt"
-  val bpass                 = "bpass"
-  val sha512                = "sha512"
-  val totpSecret            = "totp"
-  val changedCase           = "changedCase"
-  val delete                = "delete"
-  val foreverClosed         = "foreverClosed"
-  val blind                 = "blind"
+  val lang = "lang"
+  val email = "email"
+  val verbatimEmail = "verbatimEmail"
+  val mustConfirmEmail = "mustConfirmEmail"
+  val prevEmail = "prevEmail"
+  val colorIt = "colorIt"
+  val salt = "salt"
+  val bpass = "bpass"
+  val sha512 = "sha512"
+  val totpSecret = "totp"
+  val changedCase = "changedCase"
+  val delete = "delete"
+  val foreverClosed = "foreverClosed"
+  val blind = "blind"
 
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
 object BSONHandlers:
 
   given playTimeHandler: BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
-  given planHandler: BSONDocumentHandler[Plan]         = Macros.handler[Plan]
-  given profileHandler: BSONDocumentHandler[Profile]   = Macros.handler[Profile]
-  private[user] given BSONHandler[TotpSecret]          = lila.db.dsl.quickHandler[TotpSecret](
+  given planHandler: BSONDocumentHandler[Plan] = Macros.handler[Plan]
+  given profileHandler: BSONDocumentHandler[Profile] = Macros.handler[Profile]
+  private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )
@@ -69,15 +69,15 @@ object BSONHandlers:
       )
     def writes(w: BSON.Writer, o: Count) =
       $doc(
-        "ai"    -> w.int(o.ai),
-        "draw"  -> w.int(o.draw),
+        "ai" -> w.int(o.ai),
+        "draw" -> w.int(o.draw),
         "drawH" -> w.int(o.drawH),
-        "game"  -> w.int(o.game),
-        "loss"  -> w.int(o.loss),
+        "game" -> w.int(o.game),
+        "loss" -> w.int(o.loss),
         "lossH" -> w.int(o.lossH),
         "rated" -> w.int(o.rated),
-        "win"   -> w.int(o.win),
-        "winH"  -> w.int(o.winH)
+        "win" -> w.int(o.win),
+        "winH" -> w.int(o.winH)
       )
 
   private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
@@ -85,7 +85,7 @@ object BSONHandlers:
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )
 
-  given BSONDocumentHandler[AuthData]   = Macros.handler[AuthData]
+  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
   given BSONDocumentHandler[UserDelete] = Macros.handler[UserDelete]
 
   given userHandler: BSONDocumentHandler[User] = new BSON[User]:
@@ -116,25 +116,25 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: User) =
       BSONDocument(
-        id         -> o.id,
-        username   -> o.username,
-        count      -> o.count,
-        enabled    -> o.enabled,
-        roles      -> o.roles.some.filter(_.nonEmpty),
-        profile    -> o.profile,
-        toints     -> w.intO(o.toints),
-        playTime   -> o.playTime,
-        createdAt  -> o.createdAt,
-        seenAt     -> o.seenAt,
-        kid        -> w.boolO(o.kid.yes),
-        lang       -> o.lang,
-        title      -> o.title,
-        plan       -> o.plan.nonEmpty,
+        id -> o.id,
+        username -> o.username,
+        count -> o.count,
+        enabled -> o.enabled,
+        roles -> o.roles.some.filter(_.nonEmpty),
+        profile -> o.profile,
+        toints -> w.intO(o.toints),
+        playTime -> o.playTime,
+        createdAt -> o.createdAt,
+        seenAt -> o.seenAt,
+        kid -> w.boolO(o.kid.yes),
+        lang -> o.lang,
+        title -> o.title,
+        plan -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
-        flair      -> o.flair,
-        marks      -> o.marks.value.nonEmpty.option(o.marks)
+        flair -> o.flair,
+        marks -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  private[user] given BSONDocumentHandler[lila.core.LightUser]      = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.LightUser] = Macros.handler
   private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
-  private[user] given BSONDocumentHandler[lila.user.LightCount]     = Macros.handler
+  private[user] given BSONDocumentHandler[lila.user.LightCount] = Macros.handler

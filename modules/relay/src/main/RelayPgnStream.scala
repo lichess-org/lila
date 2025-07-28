@@ -21,7 +21,7 @@ final class RelayPgnStream(
 
   def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
     for
-      ids     <- roundRepo.idsByTourOrdered(tour.id)
+      ids <- roundRepo.idsByTourOrdered(tour.id)
       studies <- studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids))
       visible = studies.filter(_.canView(me.map(_.id)))
     yield Source(visible)
@@ -40,7 +40,7 @@ final class RelayPgnStream(
       Tag("BroadcastURL", s"$baseUrl${rt.path}") +
       Tag("GameURL", s"$baseUrl${rt.path}/${chapter.id}")
   )
-  private val fileR         = """[\s,]""".r
+  private val fileR = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   def filename(tour: RelayTour): String =
@@ -52,9 +52,9 @@ final class RelayPgnStream(
     id.value match
       case regex(y, m) =>
         for
-          year  <- y.toIntOption
+          year <- y.toIntOption
           month <- m.toIntOption
-          date  <- scala.util.Try(instantOf(year, month, 1, 0, 0)).toOption
+          date <- scala.util.Try(instantOf(year, month, 1, 0, 0)).toOption
         yield date
       case _ => none
 
@@ -75,7 +75,7 @@ final class RelayPgnStream(
                   "$match" -> $expr:
                     $doc(
                       "$and" -> $arr(
-                        $doc("$eq"  -> $arr("$_id", "$$tourId")),
+                        $doc("$eq" -> $arr("$_id", "$$tourId")),
                         $doc("$gte" -> $arr("$tier", 3))
                       )
                     )
@@ -88,7 +88,7 @@ final class RelayPgnStream(
       .mapConcat: doc =>
         for
           round <- doc.asOpt[RelayRound]
-          tour  <- doc.getAsOpt[RelayTour]("tour")
+          tour <- doc.getAsOpt[RelayTour]("tour")
         yield round.withTour(tour)
       .mapAsync(4): rt =>
         studyRepo.publicById(rt.round.studyId).map2(rt -> _)
@@ -106,7 +106,7 @@ final class RelayPgnStream(
       .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         val chan = SyncResult.busChannel(rs.relay.id)
-        val sub  = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
+        val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
           queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
         }
         queue

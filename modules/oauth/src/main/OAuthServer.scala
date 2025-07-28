@@ -13,7 +13,7 @@ final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecret: Secret @@ MobileSecret
+    mobileSecrets: List[Secret] @@ MobileSecrets
 )(using Executor):
 
   import OAuthServer.*
@@ -43,7 +43,7 @@ final class OAuthServer(
           userApi
             .me(at.userId)
             .flatMap:
-              case None    => fufail(NoSuchUser)
+              case None => fufail(NoSuchUser)
               case Some(u) =>
                 val blocked =
                   at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
@@ -71,8 +71,8 @@ final class OAuthServer(
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
   yield for
-    user1  <- auth1
-    user2  <- auth2
+    user1 <- auth1
+    user2 <- auth2
     result <-
       if user1.user.is(user2.user)
       then Left(OneUserWithTwoTokens)
@@ -84,13 +84,18 @@ final class OAuthServer(
     access.flatMap: a =>
       HTTPRequest.userAgent(req).map(_.value) match
         case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
-        case _                                             => Right(a)
+        case _ => Right(a)
 
-  private val bearerSigner = Algo.hmac(mobileSecret.value)
+  private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
+
+  private def checkSignedBearer(bearer: String, signed: String): Boolean =
+    bearerSigners.exists: signer =>
+      signer.sha1(bearer).hash_=(signed)
+
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
     val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if bearerSigner.sha1(bearer).hash_=(signed) => (Bearer(bearer), true)
-      case _                                                                 => (full, false)
+      case Array(bearer, signed) if checkSignedBearer(bearer, signed) => (Bearer(bearer), true)
+      case _ => (full, false)
     tokenApi
       .get(bearer)
       .mapz: token =>
@@ -105,20 +110,20 @@ final class OAuthServer(
 object OAuthServer:
 
   type AccessResult = Either[AuthError, OAuthScope.Access]
-  type AuthResult   = Either[AuthError, OAuthScope.Scoped]
+  type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
-  case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
-  case object NoSuchToken                              extends AuthError("No such token")
+  case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
+  case object NoSuchToken extends AuthError("No such token")
   case class MissingScope(accepted: EndpointScopes, available: TokenScopes)
       extends AuthError(s"Missing scope: ${accepted.show}")
-  case object NoSuchUser           extends AuthError("No such user")
+  case object NoSuchUser extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
-  case object OriginBlocked        extends AuthError("Origin blocked")
+  case object OriginBlocked extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(
-      "X-OAuth-Scopes"          -> tokenScopes.into(OAuthScopes).keyList,
+      "X-OAuth-Scopes" -> tokenScopes.into(OAuthScopes).keyList,
       "X-Accepted-OAuth-Scopes" -> accepted.into(OAuthScopes).keyList
     )

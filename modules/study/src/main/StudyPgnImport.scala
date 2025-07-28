@@ -25,7 +25,7 @@ object StudyPgnImport:
     val annotator = findAnnotator(parsed, contributors)
 
     val timeControl = parsed.tags.timeControl
-    val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
+    val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
     parseComments(parsed.initialPosition.comments, annotator) match
       case (shapes, _, _, comments) =>
         val root = Root(
@@ -111,7 +111,7 @@ object StudyPgnImport:
               c.orElse(clock),
               e.orElse(emt),
               str.trim match
-                case ""  => comments
+                case "" => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             )
@@ -138,13 +138,13 @@ object StudyPgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val position                       = moveOrDrop.after
-            val currentPly                     = context.ply.next
-            val uci                            = moveOrDrop.toUci
-            val sanStr                         = moveOrDrop.toSanStr
+            val position = moveOrDrop.after
+            val currentPly = context.ply.next
+            val uci = moveOrDrop.toUci
+            val sanStr = moveOrDrop.toSanStr
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
-            val mover                          = !position.color
-            val computedClock: Option[Clock]   = clock
+            val mover = !position.color
+            val computedClock: Option[Clock] = clock
               .map(Clock(_, trust = true.some))
               .orElse:
                 (context.clocks(mover), emt).mapN(guessNewClockState(_, context.timeControl, _))

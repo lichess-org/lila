@@ -32,20 +32,20 @@ private final class RecapBuilder(
         import framework.*
         Match($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd))) -> List(
           Group(BSONNull)(
-            "nb"     -> SumAll,
-            "wins"   -> Sum($doc("$cond" -> $arr("$w", 1, 0))),
-            "fixes"  -> Sum($doc("$cond" -> $arr($doc("$and" -> $arr("$w", "$f")), 1, 0))),
-            "votes"  -> Sum($doc("$cond" -> $arr("$v", 1, 0))),
+            "nb" -> SumAll,
+            "wins" -> Sum($doc("$cond" -> $arr("$w", 1, 0))),
+            "fixes" -> Sum($doc("$cond" -> $arr($doc("$and" -> $arr("$w", "$f")), 1, 0))),
+            "votes" -> Sum($doc("$cond" -> $arr("$v", 1, 0))),
             "themes" -> Sum($doc("$cond" -> $arr("$t", 1, 0)))
           )
         )
       }.map: r =>
         for
-          doc    <- r
-          nb     <- doc.int("nb")
-          wins   <- doc.int("wins")
-          fixes  <- doc.int("fixes")
-          votes  <- doc.int("votes")
+          doc <- r
+          nb <- doc.int("nb")
+          wins <- doc.int("wins")
+          fixes <- doc.int("fixes")
+          votes <- doc.int("votes")
           themes <- doc.int("themes")
         yield RecapPuzzles(
           nbs = NbWin(total = nb, win = wins - fixes),
@@ -102,8 +102,8 @@ private final class RecapBuilder(
       g.player(userId)
         .fold(this): player =>
           val opponent = g.opponent(player).userId
-          val winner   = g.winnerUserId
-          val opening  = g.variant.standard.so:
+          val winner = g.winnerUserId
+          val opening = g.variant.standard.so:
             OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(

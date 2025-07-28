@@ -17,11 +17,11 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   val api = env.relation.api
 
   private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
-    user       <- env.user.lightUserApi.asyncFallbackName(username)
-    relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
+    user <- env.user.lightUserApi.asyncFallbackName(username)
+    relation <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-    blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
-    res        <- Ok.snip:
+    blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
+    res <- Ok.snip:
       if mini
       then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else views.relation.actions(user, relation, blocked = blocked, followable = followable)
@@ -36,18 +36,23 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api
-        .reachedMaxFollowing(me)
-        .flatMap:
-          if _ then
-            val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-            env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
+      for
+        reachedMax <- api.reachedMaxFollowing(me)
+        res <-
+          if reachedMax then
+            val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow)
+            for
+              _ <- env.msg.api.postPreset(me, msg)
+              res <- rateLimited(msg.name)
+            yield res
           else
-            api.follow(me, user.id).recoverDefault >> negotiate(
-              renderActions(user.name, getBool("mini")),
-              jsonOkResult
-            )
+            for
+              _ <- api.follow(me, user.id).recoverDefault
+              res <- negotiate(renderActions(user.name, getBool("mini")), jsonOkResult)
+            yield res
+      yield res
   }
+
   def followBc = follow
 
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
@@ -79,7 +84,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     Reasonable(page, Max(20)):
       Found(meOrFetch(username)): user =>
         for
-          _   <- (page == 1).so(api.unfollowInactiveAccounts(user.id))
+          _ <- (page == 1).so(api.unfollowInactiveAccounts(user.id))
           pag <- RelatedPager(api.followingPaginatorAdapter(user.id), page)
           res <- negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
@@ -131,9 +136,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
 
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
-    users       <- env.user.api.listWithPerfs(userIds.toList)
+    users <- env.user.api.listWithPerfs(userIds.toList)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
-    rels        <- users.sequentially: u =>
+    rels <- users.sequentially: u =>
       ctx.userId
         .so(api.fetchRelation(_, u.id))
         .map: rel =>

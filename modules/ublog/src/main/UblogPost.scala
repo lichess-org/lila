@@ -2,7 +2,7 @@ package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.data.OpaqueInstant
+import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
 import lila.core.id.ImageId
 
@@ -22,22 +22,21 @@ case class UblogPost(
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
+    featured: Option[UblogPost.Featured],
     likes: UblogPost.Likes,
     views: UblogPost.Views,
     similar: Option[List[UblogSimilar]],
-    rankAdjustDays: Option[Int],
-    pinned: Option[Boolean],
-    automod: Option[UblogAutomod.Result]
+    automod: Option[UblogAutomod.Assessment]
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
-  def isBy[U: UserIdOf](u: U)       = created.by.is(u)
+  def isBy[U: UserIdOf](u: U) = created.by.is(u)
   def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
-  def allText   = s"$title $intro $markdown"
+  def allText = s"$title $intro $markdown"
 
-  def allows                    = UblogBlog.Allows(created.by)
+  def allows = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
@@ -57,9 +56,6 @@ object UblogPost:
   opaque type Views = Int
   object Views extends RelaxedOpaqueInt[Views]
 
-  opaque type RankDate = Instant
-  object RankDate extends OpaqueInstant[RankDate]
-
   trait BasePost extends lila.core.ublog.UblogPost:
     val blog: UblogBlog.Id
     val title: String
@@ -68,8 +64,9 @@ object UblogPost:
     val created: Recorded
     val updated: Option[Recorded]
     val lived: Option[Recorded]
+    val featured: Option[Featured]
     val sticky: Option[Boolean]
-    def slug      = UblogPost.slug(title)
+    def slug = UblogPost.slug(title)
     def isLichess = created.by.is(UserId.lichess)
 
   case class PreviewPost(
@@ -81,9 +78,22 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
+      featured: Option[Featured],
       sticky: Option[Boolean],
       topics: List[UblogTopic]
   ) extends BasePost
+
+  case class Featured(by: UserId, at: Option[Instant], until: Option[Instant] = none)
+
+  case class CarouselPosts(
+      pinned: List[PreviewPost],
+      queue: List[PreviewPost]
+  ):
+    def shuffled: List[PreviewPost] =
+      (pinned ++ shuffle(queue)).toList
+
+    def has(id: UblogPostId): Boolean =
+      pinned.exists(_.id == id) || queue.exists(_.id == id)
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 

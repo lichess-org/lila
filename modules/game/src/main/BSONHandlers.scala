@@ -101,12 +101,12 @@ object BSONHandlers:
       lila.mon.game.fetch.increment()
 
       val playerIds = r.str(F.playerIds)
-      val light     = lightGameReader.reads(r)
+      val light = lightGameReader.reads(r)
 
       val startedAtPly = Ply(r.intD(F.startedAtTurn))
-      val ply          = r.get[Ply](F.turns).atMost(maxPlies) // unlimited can cause StackOverflowError
-      val turnColor    = ply.turn
-      val createdAt    = r.date(F.createdAt)
+      val ply = r.get[Ply](F.turns).atMost(maxPlies) // unlimited can cause StackOverflowError
+      val turnColor = ply.turn
+      val createdAt = r.date(F.createdAt)
 
       val playedPlies = ply - startedAtPly
 
@@ -115,9 +115,9 @@ object BSONHandlers:
 
       val decoded = r.bytesO(F.huffmanPgn) match
         case Some(huffPgn) => PgnStorage.Huffman.decode(huffPgn, playedPlies, light.id)
-        case None          =>
-          val clm           = r.get[CastleLastMove](F.castleLastMove)
-          val sans          = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
+        case None =>
+          val clm = r.get[CastleLastMove](F.castleLastMove)
+          val sans = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
           val halfMoveClock = HalfMoveClock
             .from:
               sans.reverse
@@ -176,8 +176,8 @@ object BSONHandlers:
         chess = chessGame,
         loadClockHistory = clk =>
           for
-            bw      <- whiteClockHistory
-            bb      <- blackClockHistory
+            bw <- whiteClockHistory
+            bb <- blackClockHistory
             history <-
               BinaryFormat.clockHistory
                 .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
@@ -204,53 +204,53 @@ object BSONHandlers:
 
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
-        F.id         -> o.id,
-        F.playerIds  -> o.players.reduce(_.id.value + _.id.value),
+        F.id -> o.id,
+        F.playerIds -> o.players.reduce(_.id.value + _.id.value),
         F.playerUids -> o.players
           .map(_.userId)
           .toPair
           .match
-            case (None, None)    => None
+            case (None, None) => None
             case (Some(w), None) => Some(List(w.value))
-            case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
+            case (wo, Some(b)) => Some(List(wo.so(_.value), b.value))
         ,
-        F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
-        F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
-        F.status        -> o.status,
-        F.turns         -> o.chess.ply,
+        F.whitePlayer -> w.docO(Player.playerWrite(o.whitePlayer)),
+        F.blackPlayer -> w.docO(Player.playerWrite(o.blackPlayer)),
+        F.status -> o.status,
+        F.turns -> o.chess.ply,
         F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
-        F.clock         -> o.chess.clock.flatMap { c =>
+        F.clock -> o.chess.clock.flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         },
-        F.daysPerTurn       -> o.daysPerTurn,
-        F.moveTimes         -> o.binaryMoveTimes,
+        F.daysPerTurn -> o.daysPerTurn,
+        F.moveTimes -> o.binaryMoveTimes,
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
         F.blackClockHistory -> clockHistory(Color.Black, o.clockHistory, o.chess.clock, o.flagged),
-        F.rated             -> w.yesnoO(o.rated),
-        F.variant           -> o.position.variant.exotic.option(w(o.position.variant.id)),
-        F.bookmarks         -> w.intO(o.bookmarks),
-        F.createdAt         -> w.date(o.createdAt),
-        F.movedAt           -> w.date(o.movedAt),
-        F.source            -> o.metadata.source,
-        F.pgnImport         -> o.metadata.pgnImport,
-        F.tournamentId      -> o.metadata.tournamentId,
-        F.swissId           -> o.metadata.swissId,
-        F.simulId           -> o.metadata.simulId,
-        F.analysed          -> w.boolO(o.metadata.analysed),
-        F.rules             -> o.metadata.nonEmptyRules
+        F.rated -> w.yesnoO(o.rated),
+        F.variant -> o.position.variant.exotic.option(w(o.position.variant.id)),
+        F.bookmarks -> w.intO(o.bookmarks),
+        F.createdAt -> w.date(o.createdAt),
+        F.movedAt -> w.date(o.movedAt),
+        F.source -> o.metadata.source,
+        F.pgnImport -> o.metadata.pgnImport,
+        F.tournamentId -> o.metadata.tournamentId,
+        F.swissId -> o.metadata.swissId,
+        F.simulId -> o.metadata.simulId,
+        F.analysed -> w.boolO(o.metadata.analysed),
+        F.rules -> o.metadata.nonEmptyRules
       ) ++ {
         if o.variant.standard then
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))
         else
           val f = PgnStorage.OldBin
           $doc(
-            F.oldPgn         -> f.encode(o.sans.take(maxPlies.value)),
-            F.binaryPieces   -> BinaryFormat.piece.write(o.position.pieces),
+            F.oldPgn -> f.encode(o.sans.take(maxPlies.value)),
+            F.binaryPieces -> BinaryFormat.piece.write(o.position.pieces),
             F.positionHashes -> o.history.positionHashes.value,
-            F.unmovedRooks   -> o.history.unmovedRooks,
+            F.unmovedRooks -> o.history.unmovedRooks,
             F.castleLastMove -> CastleLastMove(castles = o.history.castles, lastMove = o.history.lastMove),
-            F.checkCount     -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
-            F.crazyData      -> o.position.crazyData
+            F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
+            F.crazyData -> o.position.crazyData
           )
       }
     val emptyCheckCount = CheckCount(0, 0)
@@ -262,8 +262,8 @@ object BSONHandlers:
     private val emptyPlayerBuilder = lila.game.LightPlayer.builderRead($empty)
 
     def reads(r: BSON.Reader): LightGame =
-      val winC                 = r.boolO(F.winnerColor).map { Color.fromWhite(_) }
-      val uids                 = ~r.getO[List[UserId]](F.playerUids)
+      val winC = r.boolO(F.winnerColor).map { Color.fromWhite(_) }
+      val uids = ~r.getO[List[UserId]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
       def makePlayer(field: String, color: Color, uid: Option[UserId]): LightPlayer =
         val builder =
@@ -287,7 +287,7 @@ object BSONHandlers:
       flagged: Option[Color]
   ) =
     for
-      clk     <- clock
+      clk <- clock
       history <- clockHistory
       times = history(color)
     yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged.has(color))

@@ -45,7 +45,7 @@ final class Preload(
       streamerSpots: Int
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
-    withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
+    withPerfs <- ctx.user.soFu(perfsRepo.withPerfs)
     given Option[UserWithPerfs] = withPerfs
     (
       (

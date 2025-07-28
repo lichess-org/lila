@@ -43,7 +43,7 @@ final class PgnDump(
       else fuccess(Tags(Nil))
 
     tagsFuture.map: ts =>
-      val ply  = ts.fen.flatMap(Fen.readWithMoveNumber).fold(Ply.initial)(_.ply)
+      val ply = ts.fen.flatMap(Fen.readWithMoveNumber).fold(Ply.initial)(_.ply)
       val tree = flags.moves.so:
         makeTree(
           applyDelay(game.sans, flags.keepDelayIf(game.playable)),
@@ -87,7 +87,7 @@ final class PgnDump(
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] = for
-    users   <- gameLightUsers(game)
+    users <- gameLightUsers(game)
     fideIds <- users.traverse(_.so(fideIdOf))
   yield Tags:
     val importedDate = importedTags.flatMap(_.apply(_.Date))
@@ -129,12 +129,12 @@ final class PgnDump(
         _.Termination, {
           import chess.Status.*
           game.status match
-            case Created | Started                             => "Unterminated"
-            case Aborted | NoStart                             => "Abandoned"
-            case Timeout | Outoftime                           => "Time forfeit"
+            case Created | Started => "Unterminated"
+            case Aborted | NoStart => "Abandoned"
+            case Timeout | Outoftime => "Time forfeit"
             case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
-            case Cheat                                         => "Rules infraction"
-            case UnknownFinish                                 => "Unknown"
+            case Cheat => "Rules infraction"
+            case UnknownFinish => "Unknown"
         }
       ).some
     ).flatten ::: customStartPosition(game.variant)
@@ -145,7 +145,7 @@ object PgnDump:
 
   export lila.core.game.PgnDump.*
 
-  private val delayMovesBy         = 3
+  private val delayMovesBy = 3
   private val delayKeepsFirstMoves = 5
 
   private[game] def makeTree(
@@ -153,7 +153,7 @@ object PgnDump:
       clocks: Vector[Centis],
       startColor: Color
   ): Option[PgnTree] =
-    val clockOffset                = startColor.fold(0, 1)
+    val clockOffset = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
       san = san,
       timeLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)

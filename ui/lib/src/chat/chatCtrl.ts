@@ -7,7 +7,7 @@ import type {
   ModerationCtrl,
   ChatData,
   NoteCtrl,
-  ChatPalantir,
+  VoiceChatData,
   ChatPlugin,
 } from './interfaces';
 import { type PresetCtrl, presetCtrl } from './preset';
@@ -28,7 +28,7 @@ export class ChatCtrl {
   private allTabs: Tab[] = [];
 
   chatEnabled: Prop<boolean> = storedBooleanProp('chat.enabled', true);
-  palantir: ChatPalantir;
+  voiceChat: VoiceChatData;
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
   preset: PresetCtrl;
@@ -46,10 +46,10 @@ export class ChatCtrl {
       opts.plugin.redraw = redraw;
       this.allTabs.push(opts.plugin);
     }
-    this.palantir = {
+    this.voiceChat = {
       instance: undefined,
       loaded: false,
-      enabled: prop(!opts.kidMode && !!this.data.palantir),
+      enabled: prop(!opts.kidMode && !!this.data.voiceChat),
     };
     this.vm = {
       loading: false,
@@ -83,7 +83,7 @@ export class ChatCtrl {
       ['socket.in.chat_reinstate', this.onReinstate],
       ['chat.writeable', this.onWriteable],
       ['chat.permissions', this.onPermissions],
-      ['palantir.toggle', this.palantir.enabled],
+      ['voiceChat.toggle', this.voiceChat.enabled],
     ];
 
     this.subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));

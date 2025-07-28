@@ -30,8 +30,8 @@ final class SwissFormUi(helpers: Helpers)(
               div(cls := "form-group")(
                 a(
                   dataIcon := Icon.InfoCircle,
-                  cls      := "text",
-                  href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
+                  cls := "text",
+                  href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(
                   trans.site.ourEventTips()
                 )
@@ -193,10 +193,10 @@ final class SwissFormUi(helpers: Helpers)(
             form3.select(
               f,
               Seq(
-                Swiss.ChatFor.NONE    -> trans.site.noChat.txt(),
+                Swiss.ChatFor.NONE -> trans.site.noChat.txt(),
                 Swiss.ChatFor.LEADERS -> trans.site.onlyTeamLeaders.txt(),
                 Swiss.ChatFor.MEMBERS -> trans.site.onlyTeamMembers.txt(),
-                Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
+                Swiss.ChatFor.ALL -> trans.study.everyone.txt()
               )
             )
           },

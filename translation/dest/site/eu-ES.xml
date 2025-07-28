@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Berdinketa horrela adostu delako</string>
   <string name="fiftyMovesWithoutProgress">50 jokaldi aurrera egin gabe</string>
   <string name="currentGames">Oraingo partidak</string>
+  <string name="joinedX">Noiz sartu zen %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partida</item>
@@ -350,7 +351,15 @@
   <string name="openingExplorerAndTablebase">Hasiera arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
+  <string name="whiteProposesTakeback">Zuriak atzera egitea proposatu du</string>
+  <string name="blackProposesTakeback">Beltzak atzera egitea proposatu du</string>
   <string name="takebackPropositionSent">Jokaldia atzera egiteko eskaria bidali da</string>
+  <string name="whiteDeclinesTakeback">Zuriak ez du onartu atzera egitea</string>
+  <string name="blackDeclinesTakeback">Beltzak ez du onartu atzera egitea</string>
+  <string name="whiteAcceptsTakeback">Zuriak atzera egitea onartu du</string>
+  <string name="blackAcceptsTakeback">Beltzak atzera egitea onartu du</string>
+  <string name="whiteCancelsTakeback">Zuriak atzera egiteko eskaera bertan behera utzi du</string>
+  <string name="blackCancelsTakeback">Beltzak atzera egiteko eskaera bertan behera utzi du</string>
   <string name="yourOpponentProposesATakeback">Zure aurkariak jokaldia atzera egiteko eskatu dizu</string>
   <string name="bookmarkThisGame">Partida hau nabarmendu</string>
   <string name="tournament">Txapelketa</string>
@@ -484,7 +493,6 @@
   <string name="points">Puntuak</string>
   <string name="wins">Irabazitakoak</string>
   <string name="losses">Porrotak</string>
-  <string name="createdBy">Sortuta</string>
   <string name="startingIn" comment="Displayed above a timer">Laster hasiko da</string>
   <string name="standByX">Itxaron %s, jokalariak parekatzen, egon prest!</string>
   <string name="pause">Gelditu</string>
@@ -670,6 +678,7 @@
   <string name="really">benetan</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="termsOfService">ToS</string>
+  <string name="titleVerification">Titulua egiaztatzea</string>
   <string name="sourceCode">Iturburu kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>

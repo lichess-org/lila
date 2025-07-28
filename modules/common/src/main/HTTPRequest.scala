@@ -16,7 +16,7 @@ object HTTPRequest:
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
-  def isSafe(req: RequestHeader)   = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
+  def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req) && !isLichessMobile(req)
@@ -26,8 +26,8 @@ object HTTPRequest:
 
   private val appOrigins = List(
     "capacitor://localhost", // ios
-    "ionic://localhost",     // ios
-    "http://localhost"       // android/dev/flutter
+    "ionic://localhost", // ios
+    "http://localhost" // android/dev/flutter
   )
 
   def appOrigin(req: RequestHeader): Option[String] =
@@ -35,7 +35,7 @@ object HTTPRequest:
       appOrigins.exists: appOrigin =>
         reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
 
-  def isApi(req: RequestHeader)      = req.path.startsWith("/api/")
+  def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
@@ -43,19 +43,29 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers.get(HeaderNames.USER_AGENT)
 
-  val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox119Plus                             = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
-  val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  def isLichessMobile(ua: UserAgent): Boolean      = ua.value.startsWith("Lichess Mobile/")
+  val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
+  val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
-  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value.contains("Lichobile/"))
-  def isLichobileDev(req: RequestHeader)           = // lichobile in a browser can't set its user-agent
+  def isLichobile(req: RequestHeader) = userAgent(req).exists(_.value.contains("Lichobile/"))
+  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
-  def isAndroid                     = UaMatcher("Android")
+  def isAndroid = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
+  def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
+    isLichessMobile(ua).so:
+      for
+        uaRest <- ua.value.split("/", 2).lift(1)
+        versionStr = uaRest.takeWhile(' ' != _)
+        version <- versionStr.split('.') match
+          case Array(major, minor, _) =>
+            (major.toIntOption, minor.toIntOption).mapN(LichessMobileVersion(_, _))
+          case _ => none
+      yield version
 
-  def origin(req: RequestHeader): Option[String]  = req.headers.get(HeaderNames.ORIGIN)
+  def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
   def ipAddress(req: RequestHeader) =
@@ -79,7 +89,7 @@ object HTTPRequest:
     """BingPreview|Discordbot|WhatsApp"""
 
   final class UaMatcher(rStr: String):
-    private val pattern                    = rStr.r.pattern
+    private val pattern = rStr.r.pattern
     def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => pattern.matcher(ua.value).find)
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean =
@@ -108,15 +118,15 @@ object HTTPRequest:
 
   def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
-  private val webXhrAccepts                       = "application/web.lichess+json"
-  def startsWithLichobileAccepts(a: String)       = a.startsWith("application/vnd.lichess.v")
+  private val webXhrAccepts = "application/web.lichess+json"
+  def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
-  def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
-  def acceptsJson(req: RequestHeader)             = accepts(req).exists: a =>
+  def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
+  def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
     a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
-  def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
+  def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
-  def isProgrammatic(req: RequestHeader)         =
+  def isProgrammatic(req: RequestHeader) =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) ||
       accepts(req).exists(startsWithLichobileAccepts)
 
@@ -128,14 +138,14 @@ object HTTPRequest:
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
     accepts(req).flatMap:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
-      case _                                => none
+      case _ => none
 
-  private def isDataDump(req: RequestHeader)   = req.path == "/account/personal-data"
-  private def isAppeal(req: RequestHeader)     = req.path.startsWith("/appeal")
+  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader)  = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
+  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
   private def isAccountClose(req: RequestHeader) =
     req.path == "/account/close" || req.path == "/account/delete"
 

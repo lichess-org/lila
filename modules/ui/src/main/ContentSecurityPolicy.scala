@@ -14,9 +14,9 @@ case class ContentSecurityPolicy(
 ):
   def withNonce(nonce: Nonce) = copy(scriptSrc = s"'nonce-${nonce}'" :: scriptSrc)
 
-  def withWebAssembly = copy(scriptSrc = "'wasm-unsafe-eval'" :: scriptSrc)
+  def withWebAssembly = copy(scriptSrc = "'unsafe-eval'" :: scriptSrc)
 
-  def withUnsafeInlineScripts = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
+  def withUnsafeInlineScripts = copy(scriptSrc = "'wasm-unsafe-inline'" :: scriptSrc)
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 

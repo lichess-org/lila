@@ -77,8 +77,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               ctx.isAuth.option(
                 div(cls := "box__top__actions")(
                   a(
-                    href     := routes.Tournament.form,
-                    cls      := "button button-green text",
+                    href := routes.Tournament.form,
+                    cls := "button button-green text",
                     dataIcon := Icon.PlusButton
                   )(trans.site.createANewTournament())
                 )
@@ -135,7 +135,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
   def homepageSpotlight(tour: Tournament)(using Context) =
     val schedClass = tour.scheduleData.so: (freq, speed) =>
-      val invert  = (freq.isWeeklyOrBetter && tour.isNowOrSoon).so(" invert")
+      val invert = (freq.isWeeklyOrBetter && tour.isNowOrSoon).so(" invert")
       val distant = tour.isDistant.so(" distant little")
       s"$freq $speed ${tour.variant.key}$invert$distant"
     val tourClass = s"tour-spotlight id_${tour.id} $schedClass"
@@ -150,7 +150,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               .getOrElse {
                 spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
                   case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-                  case i          => iconTag(i)(cls := "img")
+                  case i => iconTag(i)(cls := "img")
                 }
               },
             span(cls := "content")(
@@ -178,7 +178,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               tour.name(),
               tour.isTeamRelated.option(
                 iconTag(Icon.Group)(
-                  cls   := "tour-team-icon",
+                  cls := "tour-team-icon",
                   title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
                 )
               )

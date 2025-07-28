@@ -4,6 +4,7 @@ import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
+import scalalib.actor.SyncActorMap
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
@@ -12,7 +13,7 @@ import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.minimalNodeJsonWriter
-import scalalib.actor.SyncActorMap
+import lila.core.study.Visibility
 
 final private class StudySocket(
     api: StudyApi,
@@ -43,8 +44,8 @@ final private class StudySocket(
           "analysisProgress",
           Json.obj(
             "analysis" -> analysis,
-            "ch"       -> chapterId,
-            "tree"     -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
+            "ch" -> chapterId,
+            "tree" -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
             "division" -> division
           )
         )
@@ -52,11 +53,11 @@ final private class StudySocket(
     )
 
   private lazy val studyHandler: SocketHandler =
-    case RP.In.ChatSay(roomId, userId, msg)                          => api.talk(userId, roomId, msg)
+    case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
     case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.{ *, given }
       import JsonView.given
-      def who                      = user.map(Who(_, sri))
+      def who = user.map(Who(_, sri))
       def applyWho(f: Who => Unit) = who.foreach(f)
 
       tpe match
@@ -129,7 +130,8 @@ final private class StudySocket(
         case "addChapter" =>
           reading[ChapterMaker.Data](o): data =>
             val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-            applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = true))
+            val withRatings = o.obj("d").flatMap(_.boolean("showRatings")) | true
+            applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = withRatings))
 
         case "setChapter" =>
           o.get[StudyChapterId]("d")
@@ -225,7 +227,7 @@ final private class StudySocket(
 
         case "invite" =>
           for
-            w        <- who
+            w <- who
             username <- o.get[UserStr]("d")
           yield api
             .invite(w.u, studyId, username, isPresent(studyId, _))
@@ -245,7 +247,7 @@ final private class StudySocket(
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
-        Bus.safeAsk[Boolean, IsOfficialRelay](IsOfficialRelay(roomId, _)).not
+        Bus.ask[Boolean, IsOfficialRelay](IsOfficialRelay(roomId, _)).not
     },
     chatBusChan = _.study
   )
@@ -306,9 +308,9 @@ final private class StudySocket(
     version(
       "promote",
       Json.obj(
-        "p"          -> pos,
+        "p" -> pos,
         "toMainline" -> toMainline,
-        "w"          -> who
+        "w" -> who
       )
     )
   def setLiking(liking: Study.Liking, who: Who) =
@@ -338,9 +340,9 @@ final private class StudySocket(
     version(
       "deleteComment",
       Json.obj(
-        "p"  -> pos,
+        "p" -> pos,
         "id" -> commentId,
-        "w"  -> who
+        "w" -> who
       )
     )
   def setGlyphs(pos: Position.Ref, glyphs: Glyphs, who: Who) =
@@ -370,13 +372,13 @@ final private class StudySocket(
     version(
       "forceVariation",
       Json.obj(
-        "p"     -> pos,
+        "p" -> pos,
         "force" -> force,
-        "w"     -> who
+        "w" -> who
       )
     )
   private[study] def reloadChapters(previews: ChapterPreview.AsJsons) = version("chapters", previews)
-  def reloadAll                                                       = version("reload", JsNull)
+  def reloadAll = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: StudyChapterId, who: Who) =
     version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
@@ -385,12 +387,12 @@ final private class StudySocket(
       "descChapter",
       Json.obj(
         "chapterId" -> chapterId,
-        "desc"      -> desc,
-        "w"         -> who
+        "desc" -> desc,
+        "w" -> who
       )
     )
   def descStudy(desc: Option[String], who: Who) = version("descStudy", Json.obj("desc" -> desc, "w" -> who))
-  def setTopics(topics: StudyTopics, who: Who)  =
+  def setTopics(topics: StudyTopics, who: Who) =
     version("setTopics", Json.obj("topics" -> topics, "w" -> who))
   def addChapter(pos: Position.Ref, sticky: Boolean, who: Who) =
     version(
@@ -405,7 +407,7 @@ final private class StudySocket(
     version(
       "conceal",
       Json.obj(
-        "p"   -> pos,
+        "p" -> pos,
         "ply" -> ply
       )
     )
@@ -414,11 +416,11 @@ final private class StudySocket(
       "setTags",
       Json.obj(
         "chapterId" -> chapterId,
-        "tags"      -> tags,
-        "w"         -> who
+        "tags" -> tags,
+        "w" -> who
       )
     )
-  def reloadSri(sri: Sri)                                     = notifySri(sri, "reload", JsNull)
+  def reloadSri(sri: Sri) = notifySri(sri, "reload", JsNull)
   def reloadSriBecauseOf(sri: Sri, chapterId: StudyChapterId) =
     notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
@@ -446,19 +448,20 @@ object StudySocket:
       given Reads[AtPosition] =
         ((__ \ "path").read[UciPath].and((__ \ "ch").read[StudyChapterId]))(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
-      given Reads[SetRole]                  = Json.reads
-      given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)
+      given Reads[SetRole] = Json.reads
+      given Reads[ChapterMaker.Mode] = optRead(ChapterMaker.Mode.apply)
       given Reads[ChapterMaker.Orientation] = stringRead(ChapterMaker.Orientation.apply)
-      given Reads[Settings.UserSelection]   = optRead(Settings.UserSelection.byKey.get)
-      given Reads[chess.variant.Variant]    =
+      given Reads[Settings.UserSelection] = optRead(Settings.UserSelection.byKey.get)
+      given Reads[chess.variant.Variant] =
         optRead(key => chess.variant.Variant(chess.variant.Variant.LilaKey(key)))
-      given Reads[ChapterMaker.Data]          = Json.reads
-      given Reads[ChapterMaker.EditData]      = Json.reads
-      given Reads[ChapterMaker.DescData]      = Json.reads
+      given Reads[ChapterMaker.Data] = Json.reads
+      given Reads[ChapterMaker.EditData] = Json.reads
+      given Reads[ChapterMaker.DescData] = Json.reads
+      given Reads[Visibility] = stringRead(v => Visibility.byKey.getOrElse(v, Visibility.public))
       given studyDataReads: Reads[Study.Data] = Json.reads
-      given Reads[SetTag]                     = Json.reads
-      given Reads[Gamebook]                   = Json.reads
-      given Reads[ExplorerGame]               = Json.reads
+      given Reads[SetTag] = Json.reads
+      given Reads[Gamebook] = Json.reads
+      given Reads[ExplorerGame] = Json.reads
 
     object Out:
       def getIsPresent(reqId: Int, studyId: StudyId, userId: UserId) =

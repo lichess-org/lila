@@ -14,15 +14,15 @@ class ModTimelineTest extends munit.FunSuite:
 
   def line(text: String, source: String) =
     ReportLineFlag(None, PublicLine(text, Source.longNotation.read(source).get, now))
-  val l1                           = line("linguine", "simul/aaa")
-  val l2                           = line("fusilli", "simul/aaa")
-  val l3                           = line("linguine", "relay/bbb")
-  val l4                           = line("bucatini", "study/ccc")
-  val l5                           = line("rigatoni", "study/ccc")
-  val ban1                         = TempBan(now.minusDays(10), 5)
-  val ban2                         = TempBan(now.minusDays(5), 10)
-  val ban3                         = TempBan(now.minusDays(1), 15)
-  def bans(bs: TempBan*)           = PlayBans(NonEmptyList.fromListUnsafe(bs.toList))
+  val l1 = line("linguine", "simul/aaa")
+  val l2 = line("fusilli", "simul/aaa")
+  val l3 = line("linguine", "relay/bbb")
+  val l4 = line("bucatini", "study/ccc")
+  val l5 = line("rigatoni", "study/ccc")
+  val ban1 = TempBan(now.minusDays(10), 5)
+  val ban2 = TempBan(now.minusDays(5), 10)
+  val ban3 = TempBan(now.minusDays(1), 15)
+  def bans(bs: TempBan*) = PlayBans(NonEmptyList.fromListUnsafe(bs.toList))
   given Conversion[TempBan, Event] = bans(_)
 
   test("merge empty"):

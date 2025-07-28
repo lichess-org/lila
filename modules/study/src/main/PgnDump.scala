@@ -34,7 +34,7 @@ final class PgnDump(
       .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
       .map(ofChapter(study, flags)(chapter, _))
 
-  private val fileR         = """[\s,]""".r
+  private val fileR = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
@@ -104,7 +104,7 @@ final class PgnDump(
       analysis: Option[Analysis]
   ): PgnStr =
     val tags = makeTags(study, chapter)(using flags)
-    val pgn  = rootToPgn(chapter.root, tags)(using flags)
+    val pgn = rootToPgn(chapter.root, tags)(using flags)
     annotator.toPgnString(analysis.fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
@@ -116,7 +116,7 @@ object PgnDump:
       orientation: Boolean,
       updateTags: Update[Tags] = identity
   )
-  val fullFlags          = WithFlags(true, true, true, true)
+  val fullFlags = WithFlags(true, true, true, true)
   val withoutOrientation = fullFlags.copy(orientation = false)
 
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
@@ -152,7 +152,7 @@ object PgnDump:
   private def shapeComment(shapes: Shapes): Option[Comment] =
     def render(as: String)(shapes: List[String]) =
       shapes match
-        case Nil    => ""
+        case Nil => ""
         case shapes => s"[%$as ${shapes.mkString(",")}]"
     val circles = render("csl"):
       shapes.value.collect { case Shape.Circle(brush, orig) =>

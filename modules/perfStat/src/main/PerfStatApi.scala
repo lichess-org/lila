@@ -50,10 +50,10 @@ final class PerfStatApi(
                   .perfs(perfKey)
                   .established
                   .soFu(weeklyRatingDistribution(perfKey))
-                percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
-                percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+                percentile = calcPercentile(distribution, u.perfs(perfKey).intRating)
+                percentileLow = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
                 percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-                _              = lightUserApi.preloadUser(u.user)
+                _ = lightUserApi.preloadUser(u.user)
                 _ <- lightUserApi.preloadMany(perfStat.userIds)
               yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
       case _ => fuccess(none)
@@ -105,7 +105,7 @@ final class PerfStatApi(
                   Project(
                     $doc(
                       "_id" -> false,
-                      "r"   -> $doc(
+                      "r" -> $doc(
                         "$subtract" -> $arr(
                           "$rating",
                           $doc("$mod" -> $arr("$rating", percentileOf.group))
@@ -120,7 +120,7 @@ final class PerfStatApi(
                     .flatMap: obj =>
                       for
                         rating <- obj.int("_id")
-                        nb     <- obj.getAsOpt[NbUsers]("nb")
+                        nb <- obj.getAsOpt[NbUsers]("nb")
                       yield rating -> nb
                     .to(Map)
                   (minRating.value to 2800 by percentileOf.group)

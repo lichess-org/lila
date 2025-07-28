@@ -43,9 +43,9 @@ object RacerSocket:
 
     object In:
 
-      case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id)              extends P.In
+      case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id) extends P.In
       case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
-      case class RaceStart(race: RacerRace.Id, player: RacerPlayer.Id)               extends P.In
+      case class RaceStart(race: RacerRace.Id, player: RacerPlayer.Id) extends P.In
 
       val reader: P.In.Reader =
         case P.RawMsg("racer/join", raw) =>

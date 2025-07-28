@@ -54,8 +54,8 @@ object mod:
             li(
               c.giftTo match
                 case Some(giftedId) if u.is(giftedId) => frag("Gift from", userIdLink(c.userId), " ")
-                case Some(giftedId)                   => frag("Gift to", userIdLink(giftedId.some), " ")
-                case _                                => emptyFrag
+                case Some(giftedId) => frag("Gift to", userIdLink(giftedId.some), " ")
+                case _ => emptyFrag
               ,
               c.money.display,
               " with ",
@@ -92,14 +92,14 @@ object mod:
             Granter.opt(_.Admin).option(th("Email")),
             thSortNumber(dataSortDefault)("Same"),
             th("Games"),
-            thSortNumber(playban)(cls                := "i", title := "Playban"),
-            thSortNumber(alt)(cls                    := "i", title := "Alt"),
-            thSortNumber(shadowban)(cls              := "i", title := "Shadowban"),
-            thSortNumber(boosting)(cls               := "i", title := "Boosting"),
-            thSortNumber(engine)(cls                 := "i", title := "Engine"),
-            thSortNumber(closed)(cls                 := "i", title := "Closed"),
-            thSortNumber(reportban)(cls              := "i", title := "Reportban"),
-            thSortNumber(notesText)(cls              := "i", title := "Notes"),
+            thSortNumber(playban)(cls := "i", title := "Playban"),
+            thSortNumber(alt)(cls := "i", title := "Alt"),
+            thSortNumber(shadowban)(cls := "i", title := "Shadowban"),
+            thSortNumber(boosting)(cls := "i", title := "Boosting"),
+            thSortNumber(engine)(cls := "i", title := "Engine"),
+            thSortNumber(closed)(cls := "i", title := "Closed"),
+            thSortNumber(reportban)(cls := "i", title := "Reportban"),
+            thSortNumber(notesText)(cls := "i", title := "Notes"),
             thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
@@ -147,7 +147,7 @@ object mod:
                     a(href := s"${routes.User.show(o.username)}?notes")(
                       notesText(
                         title := s"Notes from ${userNotes.map(_.from).map(titleNameOrId).mkString(", ")}",
-                        cls   := "is-green"
+                        cls := "is-green"
                       ),
                       userNotes.size
                     )
@@ -155,13 +155,13 @@ object mod:
                 }
                 .getOrElse(td(dataSort := 0)),
               userAppeal match
-                case None         => td(dataSort := 0)
+                case None => td(dataSort := 0)
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
                       href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
-                      cls  := List(
-                        "text"         -> true,
+                      cls := List(
+                        "text" -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
                       dataIcon := Icon.InkQuill,
@@ -191,8 +191,8 @@ object mod:
       ctx: Context,
       renderIp: RenderIp
   ): Frag =
-    val canIpBan  = Granter.opt(_.IpBan)
-    val canFpBan  = Granter.opt(_.PrintBan)
+    val canIpBan = Granter.opt(_.IpBan)
+    val canFpBan = Granter.opt(_.PrintBan)
     val canLocate = Granter.opt(_.Admin)
     mzSection("identification")(
       canLocate.option(
@@ -330,11 +330,11 @@ object mod:
   private def altMarks(alts: UserLogins.Alts) =
     List[(Int, Frag)](
       alts.boosters -> boosting,
-      alts.engines  -> engine,
-      alts.trolls   -> shadowban,
-      alts.alts     -> alt,
-      alts.closed   -> closed,
-      alts.cleans   -> clean
+      alts.engines -> engine,
+      alts.trolls -> shadowban,
+      alts.alts -> alt,
+      alts.closed -> closed,
+      alts.cleans -> clean
     ).collect:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))

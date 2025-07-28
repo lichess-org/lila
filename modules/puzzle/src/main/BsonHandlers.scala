@@ -15,15 +15,15 @@ object BsonHandlers:
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for
-      id      <- r.getAsTry[PuzzleId](id)
-      gameId  <- r.getAsTry[GameId](gameId)
-      fen     <- r.getAsTry[Fen.Full](fen)
+      id <- r.getAsTry[PuzzleId](id)
+      gameId <- r.getAsTry[GameId](gameId)
+      fen <- r.getAsTry[Fen.Full](fen)
       lineStr <- r.getAsTry[String](line)
-      line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
-      glicko  <- r.getAsTry[Glicko](glicko)
-      plays   <- r.getAsTry[Int](plays)
-      vote    <- r.getAsTry[Float](vote)
-      themes  <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
+      line <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
+      glicko <- r.getAsTry[Glicko](glicko)
+      plays <- r.getAsTry[Int](plays)
+      vote <- r.getAsTry[Float](vote)
+      themes <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
     yield Puzzle(
       id = id,
       gameId = gameId,
@@ -39,7 +39,7 @@ object BsonHandlers:
     { case BSONString(v) =>
       v.split(PuzzleRound.idSep) match
         case Array(userId, puzzleId) => Success(PuzzleRound.Id(UserId(userId), PuzzleId(puzzleId)))
-        case _                       => handlerBadValue(s"Invalid puzzle round id $v")
+        case _ => handlerBadValue(s"Invalid puzzle round id $v")
     },
     id => BSONString(id.toString)
   )
@@ -67,12 +67,12 @@ object BsonHandlers:
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
       $doc(
-        id      -> r.id,
-        win     -> r.win,
+        id -> r.id,
+        win -> r.win,
         fixedAt -> r.fixedAt,
-        date    -> r.date,
-        vote    -> r.vote,
-        themes  -> w.listO(r.themes)
+        date -> r.date,
+        vote -> r.vote,
+        themes -> w.listO(r.themes)
       )
 
   import PuzzlePath.given

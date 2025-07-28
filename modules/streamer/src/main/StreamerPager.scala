@@ -41,7 +41,7 @@ final class StreamerPager(
           Match(
             $doc(
               "approval.granted" -> true,
-              "listed"           -> Streamer.Listed(true),
+              "listed" -> Streamer.Listed(true),
               "_id".$nin(live.streams.map(_.streamer.id))
             )
           ) -> List(
@@ -54,9 +54,9 @@ final class StreamerPager(
         .map: docs =>
           import userRepo.userHandler
           for
-            doc      <- docs
+            doc <- docs
             streamer <- doc.asOpt[Streamer]
-            user     <- doc.getAsOpt[User]("user")
+            user <- doc.getAsOpt[User]("user")
           yield Streamer.WithUser(streamer, user, false)
         .flatMap: streamers =>
           me.fold(fuccess(streamers)): me =>
@@ -84,9 +84,9 @@ final class StreamerPager(
         .map: docs =>
           import userRepo.userHandler
           for
-            doc      <- docs
+            doc <- docs
             streamer <- doc.asOpt[Streamer]
-            user     <- doc.getAsOpt[User]("user")
+            user <- doc.getAsOpt[User]("user")
           yield Streamer.WithUser(streamer, user)
 
   private val userLookup = $lookup.simple(

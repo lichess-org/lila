@@ -58,31 +58,33 @@
   <string name="subscribeTitle">Tilaa ilmoitukset kunkin kierroksen alkamisesta. Käyttäjätunnuksesi asetuksista voit kytkeä ääni- ja puskuilmoitukset päälle tai pois.</string>
   <string name="uploadImage">Lisää turnauksen kuva</string>
   <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
   <string name="startsAfter">Alkaa %s:n jälkeen</string>
   <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
   <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
   <string name="officialWebsite">Virallinen verkkosivu</string>
   <string name="standings">Tulostaulu</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">Virallinen tulostaulu</string>
+  <string name="officialStandings">Virallinen tulostaulu</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
   <string name="webmastersPage">webmasterin sivulta</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Tämän kierroksen julkinen ja reaaliaikainen PGN-tiedosto. Nopeampaan ja tehokkaampaan synkronisointiin on tarjolla myös %s.</string>
   <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
   <string name="embedThisRound">Upota %s sivustoosi</string>
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">Pelit tässä turnauksessa</string>
+  <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
   <string name="score">Pisteet</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">Kaikki joukkueet</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnauksen laji</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Turnauksen sijainti</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">Parhaat pelaajat</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Aikavyöhyke</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">Kategoria (FIDE-vahvuuslukujen mukaan)</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Mahdolliset lisätiedot</string>
+  <string name="allTeams">Kaikki joukkueet</string>
+  <string name="tournamentFormat">Turnauksen laji</string>
+  <string name="tournamentLocation">Turnauksen sijainti</string>
+  <string name="topPlayers">Parhaat pelaajat</string>
+  <string name="timezone">Aikavyöhyke</string>
+  <string name="fideRatingCategory">Kategoria (FIDE-vahvuuslukujen mukaan)</string>
+  <string name="optionalDetails">Mahdolliset lisätiedot</string>
   <string name="pastBroadcasts">Menneet lähetykset</string>
   <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
   <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
   <string name="sinceHideResults">Koska olet päättänyt piilottaa tulokset ja koska vältämme spoilereita, ovat kaikkien lautojen esikatselut tyhjiä.</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">Live-pelilauta</string>
+  <string name="liveboard">Live-pelilauta</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Yhteisölähetys</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
 </resources>

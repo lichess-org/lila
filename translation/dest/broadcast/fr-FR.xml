@@ -85,4 +85,6 @@
   <string name="backToLiveMove">Retour au coup en direct</string>
   <string name="sinceHideResults">Vous avez choisi de masquer les résultats. Les échiquiers de prévisualisation sont donc vides pour ne rien révéler.</string>
   <string name="liveboard">Échiquier en direct</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Diffusion communautaire</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Créée et gérée par %s.</string>
 </resources>

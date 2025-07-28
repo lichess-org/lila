@@ -1,9 +1,9 @@
-import { looseH as h } from 'lib/snabbdom';
+import { hl } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
-import type { Palantir } from 'lib/chat/interfaces';
+import type { VoiceChat } from 'lib/chat/interfaces';
 
 type State =
   | 'off'
@@ -16,12 +16,12 @@ type State =
   | 'on'
   | 'stopping';
 
-interface PalantirOpts {
+interface VoiceChatOpts {
   uid: string;
   redraw(): void;
 }
 
-export function initModule(opts: PalantirOpts): Palantir | undefined {
+export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const devices = navigator.mediaDevices;
   if (!devices) {
     alert('Voice chat requires navigator.mediaDevices');
@@ -84,7 +84,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
         log('call.close');
         stopCall(call);
       })
-      .on('error', e => {
+      .on('error', (e: any) => {
         log(`call.error: ${e}`);
         stopCall(call);
       });
@@ -116,7 +116,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function log(msg: string) {
-    console.log('[palantir]', msg);
+    console.log('[voiceChat]', msg);
   }
 
   function setState(s: State, msg = '') {
@@ -139,26 +139,26 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
       peer = undefined;
     }
     if (myStream) {
-      myStream.getTracks().forEach(t => t.stop());
+      myStream.getTracks().forEach((t: any) => t.stop());
       myStream = undefined;
     }
     setState('off');
   }
 
-  function connectionsTo(peerId) {
+  function connectionsTo(peerId: any) {
     return (peer && peer.connections[peerId]) || [];
   }
-  function findOpenConnectionTo(peerId) {
-    return connectionsTo(peerId).find(c => c.open);
+  function findOpenConnectionTo(peerId: any) {
+    return connectionsTo(peerId).find((c: any) => c.open);
   }
-  function closeOtherConnectionsTo(peerId) {
+  function closeOtherConnectionsTo(peerId: any) {
     const conns = connectionsTo(peerId);
     for (let i = 0; i < conns.length - 1; i++) conns[i].close();
   }
   function closeDisconnectedCalls() {
     if (peer) {
       for (const otherPeer in peer.connections) {
-        peer.connections[otherPeer].forEach(c => {
+        peer.connections[otherPeer].forEach((c: any) => {
           if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
             log(`close disconnected call to ${c.peer}`);
             c.close();
@@ -182,12 +182,12 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function ping() {
-    if (state !== 'off') pubsub.emit('socket.send', 'palantirPing');
+    if (state !== 'off') pubsub.emit('socket.send', 'voiceChatPing');
   }
 
-  pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
-  pubsub.on('palantir.toggle', v => {
+  pubsub.on('socket.in.voiceChat', uids => uids.forEach(call));
+  pubsub.on('socket.in.voiceChatOff', site.reload); // remote disconnection
+  pubsub.on('voiceChat.toggle', v => {
     if (!v) stop();
   });
 
@@ -206,8 +206,8 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
     render: () => {
       const connections = allOpenConnections();
       return devices
-        ? h(
-            'div.mchat__tab.palantir.data-count.palantir-' + state,
+        ? hl(
+            'div.mchat__tab.voicechat.data-count.voicechat-' + state,
             {
               attrs: {
                 'data-icon': licon.Handset,
@@ -222,7 +222,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
             },
             state === 'on'
               ? connections.map(c =>
-                  h('audio.palantir__audio.' + c.peer, {
+                  hl('audio.voicechat__audio.' + c.peer, {
                     attrs: { autoplay: true },
                     hook: {
                       insert(vnode) {

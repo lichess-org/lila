@@ -58,25 +58,24 @@ object TutorCompare:
   given compOrder: Ordering[AnyComparison] = Ordering.by(_.importance.abs)
 
   type AnyComparison = Comparison[?, ?]
-  type AnyCompare    = TutorCompare[?, ?]
+  type AnyCompare = TutorCompare[?, ?]
 
   def mixedBag(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
     val half = ~scalalib.Maths.divideRoundUp(nb, 2)
     comparisons.partition(_.better) match
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
-  }.sorted(using compOrder.reverse).take(nb)
+  }.sortedReverse.take(nb)
 
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
-    comparisons
-      .sorted(using compOrder.reverse)
+    comparisons.sortedReverse
       .foldLeft(Vector.empty[AnyComparison]):
-        case (Vector(), c)                          => Vector(c)
-        case (acc, _) if acc.size >= nb             => acc
+        case (Vector(), c) => Vector(c)
+        case (acc, _) if acc.size >= nb => acc
         case (acc, c) if acc.exists(_.similarTo(c)) => acc
-        case (acc, c)                               => acc :+ c
+        case (acc, c) => acc :+ c
       .toList
 
   sealed trait Reference[V]:
     val value: ValueCount[V]
-  case class Peers[V](value: ValueCount[V])  extends Reference[V]
+  case class Peers[V](value: ValueCount[V]) extends Reference[V]
   case class DimAvg[V](value: ValueCount[V]) extends Reference[V]

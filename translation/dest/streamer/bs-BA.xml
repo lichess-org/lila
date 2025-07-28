@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Stranica strimera na Lichessu cilja na Vašu publiku jezikom koji pruža Vaša platforma za striming. Postavite ispravan glavni jezik za Vaše šahovske striminge u aplikaciji ili usluzi koju koristite za emitiranje.</string>
   <string name="twitchUsername">Vaše Twitch korisničko ime ili link</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Obavezan je Twitch ili Youtube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch i YouTube promjene moraju biti verificirane.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch i YouTube promjene moraju biti verificirane.
 
 Vaša streamer značka i vidljivost bit će suspendirani za vrijeme provjere. Ovo može potrajati do 72 sata.</string>
   <string name="youTubeChannelId">ID Vašeg kanala na YouTubeu</string>

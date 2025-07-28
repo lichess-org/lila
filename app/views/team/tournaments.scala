@@ -43,7 +43,7 @@ object tournaments:
         tr(
           cls := List(
             "enterable" -> any.isEnterable,
-            "soon"      -> any.isNowOrSoon
+            "soon" -> any.isNowOrSoon
           )
         )(
           td(cls := "icon")(

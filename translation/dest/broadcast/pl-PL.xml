@@ -89,4 +89,6 @@
   <string name="backToLiveMove">Powrót do pozycji na żywo</string>
   <string name="sinceHideResults">Ponieważ zdecydowałeś się ukryć wyniki, wszystkie podglądy szachownic są puste, aby nie uprzedzać tego, co się stanie.</string>
   <string name="liveboard">Na żywo</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmisja społeczności Lichess</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Stworzone i zarządzane przez %s.</string>
 </resources>

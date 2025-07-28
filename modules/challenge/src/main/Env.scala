@@ -79,4 +79,4 @@ final class Env(
 
 private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))
-  val bulk      = db(CollName("challenge_bulk"))
+  val bulk = db(CollName("challenge_bulk"))

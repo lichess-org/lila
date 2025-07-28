@@ -73,7 +73,7 @@ object CacheApi:
   extension [K, V](cache: AsyncCache[K, V])
 
     def invalidate(key: K): Unit = cache.underlying.synchronous.invalidate(key)
-    def invalidateAll(): Unit    = cache.underlying.synchronous.invalidateAll()
+    def invalidateAll(): Unit = cache.underlying.synchronous.invalidateAll()
 
     def update(key: K, f: V => V): Unit =
       cache

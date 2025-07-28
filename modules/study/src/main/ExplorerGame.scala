@@ -38,7 +38,7 @@ final private class ExplorerGameApi(
   private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
-    val gameNodes             = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
+    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
     val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])):
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
@@ -61,12 +61,12 @@ final private class ExplorerGameApi(
     gameTitle(g, tags)
 
   private def gameTitle(g: Game, tags: Tags): String =
-    val white  = tags(_.White) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
-    val black  = tags(_.Black) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
+    val white = tags(_.White) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
+    val black = tags(_.Black) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
     val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
       (tags(_.Event), tags.year.map(_.toString)) match
         case (Some(event), Some(year)) if event.contains(year) => event.some
-        case (Some(event), Some(year))                         => s"$event, $year".some
-        case (eventO, yearO)                                   => eventO.orElse(yearO)
+        case (Some(event), Some(year)) => s"$event, $year".some
+        case (eventO, yearO) => eventO.orElse(yearO)
     s"$white - $black, $result, ${event | "-"}"

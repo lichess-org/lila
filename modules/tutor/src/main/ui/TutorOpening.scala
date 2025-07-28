@@ -34,9 +34,9 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         boxTop(
           h1(
             a(
-              href     := routes.Tutor.openings(user.username, perfReport.perf.key),
+              href := routes.Tutor.openings(user.username, perfReport.perf.key),
               dataIcon := Icon.LessThan,
-              cls      := "text"
+              cls := "text"
             ),
             bits.otherUser(user),
             perfReport.perf.trans,
@@ -48,8 +48,8 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         ),
         bits.mascotSays(
           div(
-            cls              := "lpv lpv--todo",
-            st.data("pgn")   := report.family.anyOpening.pgn,
+            cls := "lpv lpv--todo",
+            st.data("pgn") := report.family.anyOpening.pgn,
             st.data("title") := report.family.name
           ),
           div(cls := "mascot-says__content__text")(
@@ -66,14 +66,14 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
             ),
             div(cls := "mascot-says__buttons")(
               a(
-                cls      := "button button-no-upper text",
+                cls := "button button-no-upper text",
                 dataIcon := Icon.InfoCircle,
-                href     := bits.openingUrl(report.family.anyOpening)
+                href := bits.openingUrl(report.family.anyOpening)
               )("Learn about this opening"),
               a(
-                cls      := "button button-no-upper text",
+                cls := "button button-no-upper text",
                 dataIcon := Icon.Book,
-                href     := s"${routes.UserAnalysis
+                href := s"${routes.UserAnalysis
                     .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
               )("Personal opening explorer"),
               puzzle
@@ -93,9 +93,9 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         boxTop(
           h1(
             a(
-              href     := routes.Tutor.perf(user.username, report.perf.key),
+              href := routes.Tutor.perf(user.username, report.perf.key),
               dataIcon := Icon.LessThan,
-              cls      := "text"
+              cls := "text"
             ),
             bits.otherUser(user),
             report.perf.trans,
@@ -110,7 +110,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
             h2("Your ", color.name, " openings"),
             div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
               div(
-                cls      := "tutor__openings__opening tutor-card tutor-card--link",
+                cls := "tutor__openings__opening tutor-card tutor-card--link",
                 dataHref := routes.Tutor
                   .opening(user.username, report.perf.key, color, fam.family.key.value)
               )(
@@ -132,9 +132,9 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
               )
             }),
             a(
-              cls      := "tutor__openings__color__explorer button button-no-upper text",
+              cls := "tutor__openings__color__explorer button button-no-upper text",
               dataIcon := Icon.Book,
-              href     := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
+              href := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
             )("Personal explorer as ", color.name)
           )
         })

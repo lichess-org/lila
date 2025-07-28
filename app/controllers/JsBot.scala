@@ -12,7 +12,7 @@ final class JsBot(env: Env) extends LilaController(env):
   def index = Secure(_.Beta) { _ ?=> _ ?=>
     for
       bots <- env.jsBot.repo.getLatestBots()
-      res  <- negotiate(
+      res <- negotiate(
         html =
           for page <- renderPage(views.jsBot.play(bots, prefJson))
           yield Ok(page).withServiceWorker,
@@ -26,9 +26,9 @@ final class JsBot(env: Env) extends LilaController(env):
 
   def devIndex = Secure(_.BotEditor) { _ ?=> _ ?=>
     for
-      bots   <- env.jsBot.repo.getLatestBots()
+      bots <- env.jsBot.repo.getLatestBots()
       assets <- env.jsBot.api.devGetAssets
-      page   <- renderPage(views.jsBot.dev(bots, prefJson, assets))
+      page <- renderPage(views.jsBot.dev(bots, prefJson, assets))
     yield Ok(page).withServiceWorker
   }
 
@@ -67,8 +67,8 @@ final class JsBot(env: Env) extends LilaController(env):
       .read(tpe)
       .so: (tpe: AssetType) =>
         def formValue(field: String) = ctx.body.body.dataParts.get(field).flatMap(_.headOption)
-        val author: Option[UserId]   = formValue("author").flatMap(UserStr.read).map(_.id)
-        val name                     = formValue("name").getOrElse(key)
+        val author: Option[UserId] = formValue("author").flatMap(UserStr.read).map(_.id)
+        val name = formValue("name").getOrElse(key)
         ctx.body.body
           .file("file")
           .map: file =>
@@ -76,7 +76,7 @@ final class JsBot(env: Env) extends LilaController(env):
               .storeAsset(tpe, key, file)
               .flatMap:
                 case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(_)    =>
+                case Right(_) =>
                   for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
                   yield JsonOk(Json.obj("key" -> key, "name" -> name))
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))

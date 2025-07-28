@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String                                   = key
+    def value: String = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -207,6 +207,8 @@ object I18nKey:
     val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
     val `sinceHideResults`: I18nKey = "broadcast:sinceHideResults"
     val `liveboard`: I18nKey = "broadcast:liveboard"
+    val `communityBroadcast`: I18nKey = "broadcast:communityBroadcast"
+    val `createdAndManagedBy`: I18nKey = "broadcast:createdAndManagedBy"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
@@ -606,7 +608,6 @@ object I18nKey:
     val `usernamesCannotBeChanged`: I18nKey = "faq:usernamesCannotBeChanged"
     val `uniqueTrophies`: I18nKey = "faq:uniqueTrophies"
     val `ownerUniqueTrophies`: I18nKey = "faq:ownerUniqueTrophies"
-    val `wayOfBerserkExplanation`: I18nKey = "faq:wayOfBerserkExplanation"
     val `aHourlyBulletTournament`: I18nKey = "faq:aHourlyBulletTournament"
     val `goldenZeeExplanation`: I18nKey = "faq:goldenZeeExplanation"
     val `lichessRatings`: I18nKey = "faq:lichessRatings"
@@ -957,6 +958,10 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `pockets`: I18nKey = "nvui:pockets"
+    val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
+    val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
+    val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
@@ -1802,7 +1807,6 @@ object I18nKey:
     val `points`: I18nKey = "points"
     val `wins`: I18nKey = "wins"
     val `losses`: I18nKey = "losses"
-    val `createdBy`: I18nKey = "createdBy"
     val `startingIn`: I18nKey = "startingIn"
     val `standByX`: I18nKey = "standByX"
     val `pause`: I18nKey = "pause"
@@ -2846,13 +2850,14 @@ object I18nKey:
     val `xArena`: I18nKey = "tourname:xArena"
 
   object ublog:
-    val `communityBlogs`: I18nKey = "ublog:communityBlogs"
-    val `friendBlogs`: I18nKey = "ublog:friendBlogs"
-    val `lichessBlog`: I18nKey = "ublog:lichessBlog"
+    val `community`: I18nKey = "ublog:community"
+    val `byMonth`: I18nKey = "ublog:byMonth"
+    val `byTopic`: I18nKey = "ublog:byTopic"
+    val `byLichess`: I18nKey = "ublog:byLichess"
+    val `myFriends`: I18nKey = "ublog:myFriends"
+    val `myLikes`: I18nKey = "ublog:myLikes"
     val `myBlog`: I18nKey = "ublog:myBlog"
     val `likedBlogs`: I18nKey = "ublog:likedBlogs"
-    val `blogTopics`: I18nKey = "ublog:blogTopics"
-    val `lichessOfficialBlog`: I18nKey = "ublog:lichessOfficialBlog"
     val `continueReadingPost`: I18nKey = "ublog:continueReadingPost"
     val `lichessBlogPostsFromXYear`: I18nKey = "ublog:lichessBlogPostsFromXYear"
     val `previousBlogPosts`: I18nKey = "ublog:previousBlogPosts"

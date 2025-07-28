@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">De Lichess streamerpagina toont je publiek de taal die wordt verstrekt door je streamingplatform. Stel de juiste standaardtaal in voor je schaakstreams in de app of service die je gebruikt om te streamen.</string>
   <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch of YouTube is vereist</string>
-  <string name="twitchOrYouTubeMustBeVerified">Wijzigingen op Twitch en YouTube moeten worden geverifieerd.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Wijzigingen op Twitch en YouTube moeten worden geverifieerd.
   
   Je streamerbadge en -klassement worden opgeschort voor de duur van de beoordeling. Dit kan tot 72 uur duren.</string>
   <string name="youTubeChannelId">Jouw YouTubekanaal-ID</string>

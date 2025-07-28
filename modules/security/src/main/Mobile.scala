@@ -28,10 +28,10 @@ object Mobile:
 
   object LichessMobileUa:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
-    private val Regex              =
+    private val Regex =
       """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req).flatMap(parse)
-    def parse(ua: UserAgent): Option[LichessMobileUa]      = is(ua).so:
+    def parse(ua: UserAgent): Option[LichessMobileUa] = is(ua).so:
       ua.value match
         case Regex(version, user, sri, osName, osVersion, device) =>
           val userId = (user != "anon").option(UserStr(user).id)
@@ -43,8 +43,8 @@ object Mobile:
   case class LichessMobileUaTrim(version: String, osName: String, osVersion: String, device: String)
 
   object LichessMobileUaTrim:
-    def is(ua: UserAgent): Boolean                        = ua.value.startsWith("LM/")
-    private val Regex                                     = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
+    def is(ua: UserAgent): Boolean = ua.value.startsWith("LM/")
+    private val Regex = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
     def parse(ua: UserAgent): Option[LichessMobileUaTrim] = is(ua).so:
       ua.value match
         case Regex(version, osName, osVersion, device) =>

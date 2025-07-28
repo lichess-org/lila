@@ -49,9 +49,9 @@ case class Study(
   def rewindTo(chapterId: StudyChapterId): Study =
     copy(position = Position.Ref(chapterId = chapterId, path = UciPath.root))
 
-  def isPublic   = visibility == Visibility.public
+  def isPublic = visibility == Visibility.public
   def isUnlisted = visibility == Visibility.unlisted
-  def isPrivate  = visibility == Visibility.`private`
+  def isPrivate = visibility == Visibility.`private`
 
   def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
@@ -59,7 +59,7 @@ case class Study(
 
   def isRelay = from match
     case _: From.Relay => true
-    case _             => false
+    case _ => false
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
@@ -91,7 +91,7 @@ object Study:
 
   val maxChapters = Max(64)
 
-  val previewNbMembers  = 4
+  val previewNbMembers = 4
   val previewNbChapters = 4
 
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
@@ -119,7 +119,7 @@ object Study:
   case class Data(
       name: String,
       flair: Option[String],
-      visibility: String,
+      visibility: Visibility,
       computer: Settings.UserSelection,
       explorer: Settings.UserSelection,
       cloneable: Settings.UserSelection,
@@ -128,7 +128,6 @@ object Study:
       sticky: String,
       description: String
   ):
-    def vis      = Visibility.byKey.getOrElse(visibility, Visibility.public)
     def settings =
       Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 

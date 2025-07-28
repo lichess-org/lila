@@ -7,7 +7,7 @@ case class LiveStreams(streams: List[Stream]):
 
   private lazy val streamerIds: Set[Streamer.Id] = streams.view.map(_.streamer.id).to(Set)
 
-  def has(id: Streamer.Id): Boolean    = streamerIds(id)
+  def has(id: Streamer.Id): Boolean = streamerIds(id)
   def has(streamer: Streamer): Boolean = has(streamer.id)
 
   def get(streamer: Streamer) = streams.find(_.is(streamer))
@@ -106,7 +106,7 @@ final class LiveStreamApi(
   def of(s: Streamer.WithContext): Fu[Streamer.WithUserAndStream] = all.map: live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live.get(s.streamer), s.subscribed)
 
-  def userIds                                      = userIdsCache
-  def isStreaming(userId: UserId)                  = userIdsCache contains userId
-  def one(userId: UserId): Fu[Option[Stream]]      = all.map(_.streams.find(_.is(userId)))
+  def userIds = userIdsCache
+  def isStreaming(userId: UserId) = userIdsCache contains userId
+  def one(userId: UserId): Fu[Option[Stream]] = all.map(_.streams.find(_.is(userId)))
   def many(userIds: Seq[UserId]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))

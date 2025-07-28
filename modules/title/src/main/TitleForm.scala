@@ -9,13 +9,13 @@ object TitleForm:
 
   val create = Form:
     mapping(
-      "realName"      -> cleanNonEmptyText(minLength = 3, maxLength = 120),
-      "title"         -> playerTitle.field,
-      "fideId"        -> optional(fideId.field),
+      "realName" -> cleanNonEmptyText(minLength = 3, maxLength = 120),
+      "title" -> playerTitle.field,
+      "fideId" -> optional(fideId.field),
       "federationUrl" -> optional(url.field),
-      "public"        -> boolean,
-      "coach"         -> boolean,
-      "comment"       -> optional(cleanNonEmptyText(maxLength = 2000))
+      "public" -> boolean,
+      "coach" -> boolean,
+      "comment" -> optional(cleanNonEmptyText(maxLength = 2000))
     )(TitleRequest.FormData.apply)(unapply)
       .verifying(
         "Missing FIDE ID or federation URL.",
@@ -30,7 +30,7 @@ object TitleForm:
 
   val process = Form:
     mapping(
-      "text"   -> optional(nonEmptyText(maxLength = 2000)),
+      "text" -> optional(nonEmptyText(maxLength = 2000)),
       "action" -> stringIn(Set("approve", "reject", "feedback"))
     )(ProcessData.apply)(unapply)
 
@@ -39,5 +39,5 @@ object TitleForm:
       import TitleRequest.Status
       action match
         case "approve" => Status.approved
-        case "reject"  => Status.rejected
-        case _         => Status.feedback(text | "?")
+        case "reject" => Status.rejected
+        case _ => Status.feedback(text | "?")

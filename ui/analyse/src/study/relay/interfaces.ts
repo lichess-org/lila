@@ -56,6 +56,7 @@ export interface RelayTour {
   tier?: number;
   dates?: RelayTourDates;
   tc?: 'standard' | 'rapid' | 'blitz';
+  communityOwner?: LightUser;
 }
 
 export interface RelaySync {

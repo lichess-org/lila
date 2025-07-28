@@ -33,12 +33,12 @@ final private class RoundAsyncActor(
 
     private var offlineSince: Option[Long] = nowMillis.some
     // whether the player closed the window intentionally
-    private var bye: Boolean        = false
+    private var bye: Boolean = false
     private var botConnections: Int = 0
 
     def botConnected = botConnections > 0
 
-    var userId     = none[UserId]
+    var userId = none[UserId]
     var goneWeight = 1f
 
     def isOnline = offlineSince.isEmpty || botConnected
@@ -141,14 +141,14 @@ final private class RoundAsyncActor(
     case lila.chat.RoundLine(line, json, watcher) =>
       fuccess:
         publish(List(line match
-          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.UserLine => Event.UserMessage(json, l.troll, watcher)
           case _: lila.chat.PlayerLine => Event.PlayerMessage(json)))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
         for
           has <- gameRepo.hasHoldAlert(pov)
-          _   <- has.not.so:
+          _ <- has.not.so:
             lila
               .log("cheat")
               .info:
@@ -237,9 +237,9 @@ final private class RoundAsyncActor(
               )
             else fuccess(List(Event.Reload))
 
-    case DrawForce(playerId) =>
+    case RoundBus.DrawForce(playerId) =>
       handle(playerId): pov =>
-        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn).so:
+        (pov.game.forceDrawable && pov.game.hasClock && !pov.isMyTurn).so:
           getPlayer(!pov.color).isLongGone.flatMap:
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
@@ -269,8 +269,9 @@ final private class RoundAsyncActor(
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
     case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
-    case DrawClaim(playerId)           => handle(playerId)(drawer.claim)
-    case Cheat(color)                  =>
+
+    case DrawClaim(playerId) => handle(playerId)(drawer.claim)
+    case Cheat(color) =>
       handle: game =>
         (game.playable && !game.sourceIs(_.Import)).so:
           finisher.other(game, _.Cheat, Some(!color))
@@ -382,13 +383,13 @@ final private class RoundAsyncActor(
         )
 
   private def recordLag(pov: Pov): Unit =
-    if (pov.game.playedTurns.value & 30) == 10 then
+    if (pov.game.playedPlies.value & 30) == 10 then
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for
-        user  <- pov.player.userId
+        user <- pov.player.userId
         clock <- pov.game.clock
-        lag   <- clock.lag(pov.color).lagMean
+        lag <- clock.lag(pov.color).lagMean
       do putUserLag(user, lag)
 
   private def notifyGone(color: Color, gone: Boolean): Funit =
@@ -439,7 +440,7 @@ final private class RoundAsyncActor(
           Protocol.Out.tellVersion(roomId, version, e)
       if events.exists:
           case e: Event.Move => e.threefold
-          case _             => false
+          case _ => false
       then this ! Threefold
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =

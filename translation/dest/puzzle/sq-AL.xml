@@ -76,7 +76,7 @@
   <string name="fromMyGamesNone">S’keni ushtrime te baza e të dhënave, por Lichess-i prapë ju do fort.
 
 Luani lojëra të shpejta dhe klasike, që të rriten shanset tuaja për të pasur një ushtrim nga tuajt të shtuar atje!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">U gjet një “puzzle” në lojëra nga %2$s</item>
     <item quantity="other">U gjetën %1$s “puzzle” në lojëra nga %2$s</item>
   </plurals>

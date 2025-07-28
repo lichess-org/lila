@@ -123,8 +123,8 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
       .listAll()
       .map: docs =>
         for
-          doc  <- docs
-          id   <- doc.getAsOpt[UserId]("_id")
+          doc <- docs
+          id <- doc.getAsOpt[UserId]("_id")
           perf <- docPerf(doc, perfKey)
         yield id -> perf
       .map: pairs =>
@@ -181,7 +181,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     def readFirst(root: Bdoc, pk: PerfKey): Perf = (for
       perfs <- root.getAsOpt[List[Bdoc]]("perfs")
       perfs <- perfs.headOption
-      perf  <- perfs.getAsOpt[Perf](pk.value)
+      perf <- perfs.getAsOpt[Perf](pk.value)
     yield perf).getOrElse(Perf.default)
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =

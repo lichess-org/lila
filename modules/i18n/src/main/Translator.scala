@@ -31,7 +31,7 @@ object Translator extends Translator:
           val htmlArgs = escapeArgs(args)
           try
             translation match
-              case literal: Simple  => Some(literal.format(htmlArgs))
+              case literal: Simple => Some(literal.format(htmlArgs))
               case literal: Escaped => Some(literal.format(htmlArgs))
               case plurals: Plurals => plurals.format(quantity, htmlArgs)
           catch
@@ -41,10 +41,10 @@ object Translator extends Translator:
         .getOrElse(RawFrag(key.value))
 
     private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] = args.map:
-      case s: String     => escapeHtml(Html(s))
-      case r: RawFrag    => r
+      case s: String => escapeHtml(Html(s))
+      case r: RawFrag => r
       case f: StringFrag => RawFrag(f.render)
-      case a             => RawFrag(a.toString)
+      case a => RawFrag(a.toString)
 
   object txt extends TranslatorTxt:
 
@@ -65,7 +65,7 @@ object Translator extends Translator:
         .flatMap: translation =>
           try
             translation match
-              case literal: Simple  => Some(literal.formatTxt(args))
+              case literal: Simple => Some(literal.formatTxt(args))
               case literal: Escaped => Some(literal.formatTxt(args))
               case plurals: Plurals => plurals.formatTxt(quantity, args)
           catch

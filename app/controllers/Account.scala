@@ -7,6 +7,7 @@ import views.account.pages
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.SessionId
 import lila.security.SecurityForm.Reopen
 import lila.web.AnnounceApi
 import lila.core.user.KidMode
@@ -44,7 +45,8 @@ final class Account(
             .so: (resource, text) =>
               env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
           _ <- env.user.repo.setProfile(me, profile)
-          _ <- bindForm(env.user.forms.flair)(_ => funit, env.user.repo.setFlair(me, _))
+          flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
+          _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
         yield
           env.user.lightUserApi.invalidate(me)
           Redirect(routes.User.show(me.username)).flashSuccess
@@ -63,18 +65,18 @@ final class Account(
   def info = Auth { ctx ?=> me ?=>
     negotiateJson:
       for
-        povs         <- env.round.proxyRepo.urgentGames(me)
+        povs <- env.round.proxyRepo.urgentGames(me)
         nbChallenges <- env.challenge.api.countInFor.get(me)
-        playban      <- env.playban.api.currentBan(me)
-        perfs        <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(me))
+        playban <- env.playban.api.currentBan(me)
+        perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(me))
       yield Ok:
         env.user.jsonView
           .full(me, perfs, withProfile = false) ++ Json
           .obj(
             "prefs" -> lila.pref.JsonView.write(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying"   -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
+            "nowPlaying" -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
             "nbChallenges" -> nbChallenges,
-            "online"       -> true
+            "online" -> true
           )
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
@@ -144,11 +146,11 @@ final class Account(
   }
 
   private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] = for
-    _         <- env.security.store.closeAllSessionsOf(me)
-    _         <- env.push.webSubscriptionApi.unsubscribeByUser(me)
-    _         <- env.push.unregisterDevices(me)
+    _ <- env.security.store.closeAllSessionsOf(me)
+    _ <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _ <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion)
-  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
 
   private def emailForm(using me: Me) =
     env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
@@ -158,7 +160,7 @@ final class Account(
     then Ok.page(renderCheckYourEmail).map(_.hasPersonalData)
     else
       for
-        f   <- emailForm
+        f <- emailForm
         res <- Ok.page(pages.email(f))
       yield res.hasPersonalData
   }
@@ -186,7 +188,7 @@ final class Account(
   def emailConfirm(token: String) = Open:
     Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
       for
-        _   <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
         res <- auth.authenticateUser(
           user,
           remember = true,
@@ -237,17 +239,11 @@ final class Account(
           env.user.repo.disableTwoFactor(me).inject(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 
-  def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> me ?=>
-    val page = (use: Option[Boolean]) => Ok.page(pages.network(use, ctx.pref.isUsingAltSocket))
-    if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
-    else env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
-  }
-
   def close = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.closeAccount
-      res     <- Ok.page(pages.close(form, managed))
+      form <- env.security.forms.closeAccount
+      res <- Ok.page(pages.close(form, managed))
     yield res
   }
 
@@ -263,8 +259,8 @@ final class Account(
   def delete = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.deleteAccount
-      res     <- Ok.page(pages.delete(form, managed))
+      form <- env.security.forms.deleteAccount
+      res <- Ok.page(pages.delete(form, managed))
     yield res
   }
 
@@ -285,9 +281,9 @@ final class Account(
   def kid = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.toggleKid
+      form <- env.security.forms.toggleKid
       content <- env.cms.renderKey("kid-mode")
-      page    <- Ok.page(pages.kid(me, form, managed, content.map(_.html)))
+      page <- Ok.page(pages.kid(me, form, managed, content.map(_.html)))
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
@@ -302,13 +298,13 @@ final class Account(
             negotiate(
               for
                 content <- env.cms.renderKey("kid-mode")
-                page    <- BadRequest.page(pages.kid(me, err, managed = false, content.map(_.html)))
+                page <- BadRequest.page(pages.kid(me, err, managed = false, content.map(_.html)))
               yield page,
               BadRequest(errorsAsJson(err))
             ),
           _ =>
             for
-              _   <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
+              _ <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
               res <- negotiate(
                 Redirect(routes.Account.kid).flashSuccess,
                 jsonOkResult
@@ -319,17 +315,17 @@ final class Account(
 
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me ?=>
     getBoolOptAs[KidMode]("v") match
-      case None    => BadRequest(jsonError("Missing v parameter"))
+      case None => BadRequest(jsonError("Missing v parameter"))
       case Some(v) => env.user.repo.setKid(me, v).inject(jsonOkResult)
   }
 
   def security = Auth { _ ?=> me ?=>
     for
-      _                    <- env.security.api.dedup(me, req)
-      sessions             <- env.security.api.locatedOpenSessions(me, 50)
-      clients              <- env.oAuth.tokenApi.listClients(50)
+      _ <- env.security.api.dedup(me, req)
+      sessions <- env.security.api.locatedOpenSessions(me, 50)
+      clients <- env.oAuth.tokenApi.listClients(50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal
-      currentSessionId = ~env.security.api.reqSessionId(req)
+      currentSessionId = env.security.api.reqSessionId(req)
       page <- Ok.async:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
     yield page.hasPersonalData
@@ -340,8 +336,8 @@ final class Account(
     then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
       for
-        _ <- env.security.store.closeUserAndSessionId(me, sessionId)
-        _ <- env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+        _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
+        _ <- env.push.webSubscriptionApi.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
   }
 
@@ -391,7 +387,7 @@ final class Account(
           notFound
         case Some(user) =>
           for
-            _      <- env.report.api.reopenReports(lila.report.Suspect(user))
+            _ <- env.report.api.reopenReports(lila.report.Suspect(user))
             result <- auth.authenticateUser(user, remember = true)
             _ = lila.mon.user.auth.reopenConfirm("success").increment()
           yield result

@@ -165,16 +165,16 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         ),
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(
-        cls      := "text",
+        cls := "text",
         dataIcon := Icon.InfoCircle,
-        href     := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
+        href := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
       )(trs.whatAreStudies())
     )
 
   def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
-      input(name       := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
-      submitButton(cls := "button", dataIcon  := Icon.Search)
+      input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   object topic:
@@ -214,7 +214,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         myTopics: Option[StudyTopics]
     )(using Context) =
       val active = s"topic:$topic"
-      val url    = (o: Order) => routes.Study.byTopic(topic.value, o)
+      val url = (o: Order) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("analyse.study.index")
         .js(infiniteScrollEsmInit):

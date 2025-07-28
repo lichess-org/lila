@@ -26,13 +26,13 @@ final private class FishnetOpeningBook(
       ws.url(s"${config.explorerEndpoint}/lichess")
         .withRequestTimeout(800.millis)
         .withQueryStringParameters(
-          "variant"     -> game.variant.key.value,
-          "fen"         -> Fen.write(game.chess).value,
-          "topGames"    -> "0",
+          "variant" -> game.variant.key.value,
+          "fen" -> Fen.write(game.chess).value,
+          "topGames" -> "0",
           "recentGames" -> "0",
-          "ratings"     -> (~levelRatings.get(level)).mkString(","),
-          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(","),
-          "source"      -> "fishnet"
+          "ratings" -> (~levelRatings.get(level)).mkString(","),
+          "speeds" -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(","),
+          "source" -> "fishnet"
         )
         .get()
         .map:
@@ -62,9 +62,9 @@ object FishnetOpeningBook:
   case class Response(moves: List[Move]):
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] =
-      val sum     = moves.map(_.score(turn, level)).sum
+      val sum = moves.map(_.score(turn, level)).sum
       val novelty = 50L * 14 // score of 50 winning games
-      val rng     = ThreadLocalRandom.nextLong(sum + novelty)
+      val rng = ThreadLocalRandom.nextLong(sum + novelty)
       moves
         .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
           val nextIt = it + next.score(turn, level)
@@ -79,7 +79,7 @@ object FishnetOpeningBook:
         (15L - level) * draws +
         (16L - 2 * level) * turn.fold(black, white)
 
-  given Reads[Move]     = Json.reads
+  given Reads[Move] = Json.reads
   given Reads[Response] = Json.reads
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
@@ -96,10 +96,10 @@ object FishnetOpeningBook:
   private val openingSpeeds: Map[Speed, Seq[Speed]] =
     import Speed.*
     Map(
-      UltraBullet    -> Seq(UltraBullet, Bullet),
-      Bullet         -> Seq(Bullet, Blitz),
-      Blitz          -> Seq(Bullet, Blitz, Rapid),
-      Rapid          -> Seq(Blitz, Rapid, Classical),
-      Classical      -> Seq(Rapid, Classical, Correspondence),
+      UltraBullet -> Seq(UltraBullet, Bullet),
+      Bullet -> Seq(Bullet, Blitz),
+      Blitz -> Seq(Bullet, Blitz, Rapid),
+      Rapid -> Seq(Blitz, Rapid, Classical),
+      Classical -> Seq(Rapid, Classical, Correspondence),
       Correspondence -> Seq(Rapid, Classical, Correspondence)
     )

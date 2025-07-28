@@ -16,22 +16,22 @@ final class SwissForm(using mode: play.api.Mode):
   def form(user: User, minRounds: Int = 3) =
     Form(
       mapping(
-        "name"  -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
+        "name" -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
         "clock" -> mapping(
-          "limit"     -> number.into[LimitSeconds].verifying(clockLimits.contains),
+          "limit" -> number.into[LimitSeconds].verifying(clockLimits.contains),
           "increment" -> number(min = 0, max = 120).into[IncrementSeconds]
         )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-        "startsAt"          -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
-        "variant"           -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
-        "rated"             -> optional(boolean.into[Rated]),
-        "nbRounds"          -> number(min = minRounds, max = 100),
-        "description"       -> optional(cleanNonEmptyText),
-        "position"          -> optional(lila.common.Form.fen.playableStrict),
-        "chatFor"           -> optional(numberIn(chatForChoices.map(_._1))),
-        "roundInterval"     -> optional(numberIn(roundIntervals)),
-        "password"          -> optional(cleanNonEmptyText),
-        "conditions"        -> SwissCondition.form.all,
+        "startsAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
+        "variant" -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
+        "rated" -> optional(boolean.into[Rated]),
+        "nbRounds" -> number(min = minRounds, max = 100),
+        "description" -> optional(cleanNonEmptyText),
+        "position" -> optional(lila.common.Form.fen.playableStrict),
+        "chatFor" -> optional(numberIn(chatForChoices.map(_._1))),
+        "roundInterval" -> optional(numberIn(roundIntervals)),
+        "password" -> optional(cleanNonEmptyText),
+        "conditions" -> SwissCondition.form.all,
         "forbiddenPairings" -> optional(
           cleanNonEmptyText.verifying(
             s"Maximum forbidden pairings: ${Swiss.maxForbiddenPairings}",
@@ -149,10 +149,10 @@ object SwissForm:
   )
 
   val chatForChoices = List(
-    Swiss.ChatFor.NONE    -> "No chat",
+    Swiss.ChatFor.NONE -> "No chat",
     Swiss.ChatFor.LEADERS -> "Team leaders only",
     Swiss.ChatFor.MEMBERS -> "Team members only",
-    Swiss.ChatFor.ALL     -> "All Lichess players"
+    Swiss.ChatFor.ALL -> "All Lichess players"
   )
 
   case class SwissData(
@@ -171,27 +171,27 @@ object SwissForm:
       forbiddenPairings: Option[String],
       manualPairings: Option[String]
   ):
-    def realVariant       = Variant.orDefault(variant)
-    def realStartsAt      = startsAt | nowInstant.plusMinutes(10)
-    def realChatFor       = chatFor | Swiss.ChatFor.default
+    def realVariant = Variant.orDefault(variant)
+    def realStartsAt = startsAt | nowInstant.plusMinutes(10)
+    def realChatFor = chatFor | Swiss.ChatFor.default
     def realRoundInterval =
       (roundInterval | Swiss.RoundInterval.auto) match
         case Swiss.RoundInterval.auto => autoInterval(clock)
-        case i                        => i.seconds
+        case i => i.seconds
     def realPosition = position.ifTrue(realVariant.standard)
 
-    def isRated           = rated.forall(_.yes)
+    def isRated = rated.forall(_.yes)
     def validRatedVariant = !isRated || lila.core.game.allowRated(realVariant, clock.some)
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*
     Speed(clock) match
-      case UltraBullet                               => 5
-      case Bullet                                    => 10
+      case UltraBullet => 5
+      case Bullet => 10
       case Blitz if clock.estimateTotalSeconds < 300 => 20
-      case Blitz                                     => 30
-      case Rapid                                     => 60
-      case _                                         => 300
+      case Blitz => 30
+      case Rapid => 60
+      case _ => 300
   }.seconds
 
   val joinForm = Form(single("password" -> optional(nonEmptyText)))

@@ -17,31 +17,36 @@ beforeAll(() => {
     site: {
       none: 'None',
     },
-    nvui: {
-      whiteKing: 'white king',
-      whiteQueen: 'white queen',
-      whiteKnight: 'white knight',
-      blackBishop: 'black bishop',
-    },
+    nvui: new Proxy(
+      {
+        whiteKing: 'white king',
+        whiteQueen: 'white queen',
+        whiteKnight: 'white knight',
+        blackBishop: 'black bishop',
+      },
+      {
+        get: (target, prop: string) => (prop in target ? target[prop as keyof typeof target] : () => {}),
+      },
+    ),
   };
   vi.stubGlobal('i18n', i18n);
 });
 
 test('piece command', () => {
-  expect(commands(i18n).piece.apply('p Q', pieces, 'anna')).toBe('white queen: anna 2');
-  expect(commands(i18n).piece.apply('p K', pieces, 'san')).toBe('white king: a1');
-  expect(commands(i18n).piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
-  expect(commands(i18n).piece.apply('p N', pieces, 'nato')).toBe('white knight: bravo 1, bravo 2');
-  expect(commands(i18n).piece.apply('p b', pieces, 'san')).toBe('black bishop: None');
+  expect(commands().piece.apply('p Q', pieces, 'anna')).toBe('white queen: anna 2');
+  expect(commands().piece.apply('p K', pieces, 'san')).toBe('white king: a1');
+  expect(commands().piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
+  expect(commands().piece.apply('p N', pieces, 'nato')).toBe('white knight: bravo 1, bravo 2');
+  expect(commands().piece.apply('p b', pieces, 'san')).toBe('black bishop: None');
 
-  expect(commands(i18n).piece.apply('p X', pieces, 'san')).toBeUndefined();
-  expect(commands(i18n).piece.apply('p |', pieces, 'san')).toBeUndefined();
+  expect(commands().piece.apply('p X', pieces, 'san')).toBeUndefined();
+  expect(commands().piece.apply('p |', pieces, 'san')).toBeUndefined();
 });
 
 test('scan command', () => {
-  expect(commands(i18n).scan.apply('s a', pieces, 'san')).toBe('a1 white king, a2 white queen');
-  expect(commands(i18n).scan.apply('s 1', pieces, 'san')).toBe('a1 white king, b1 white knight');
+  expect(commands().scan.apply('s a', pieces, 'san')).toBe('a1 white king, a2 white queen');
+  expect(commands().scan.apply('s 1', pieces, 'san')).toBe('a1 white king, b1 white knight');
 
-  expect(commands(i18n).scan.apply('s x', pieces, 'san')).toBeUndefined();
-  expect(commands(i18n).scan.apply('s 9', pieces, 'san')).toBeUndefined();
+  expect(commands().scan.apply('s x', pieces, 'san')).toBeUndefined();
+  expect(commands().scan.apply('s 9', pieces, 'san')).toBeUndefined();
 });

@@ -14,7 +14,7 @@
   <string name="otherWaysToHelp">други начини да помогнеш</string>
   <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
   <string name="fairPlay">Фер плеј</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
+  <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
   (На пример, ако ти се рејтинг драстично повећао након тих партија, ти ћеш можда добити смањен повраћај или га нећеш уопште добити). Повраћај никада неће прећи 150 поена.</string>
   <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
   <string name="leavingGameWithoutResigningExplanation">Ако твој противник често напушта партије, он ће добити привремену забрану играња партија. Ово није јавно видљиво на њиховом профилу. Ако се оваквко понашање настави, дужина забране се све више продужује - док овакво понашање може довести и до затварања налога ако је превише често.</string>
@@ -24,7 +24,7 @@
   <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
 На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(почетно време) + 40 × (инкремент сата)</string>
+  <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Које варијанте могу играни на Личесу?</string>

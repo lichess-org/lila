@@ -32,9 +32,8 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     lila.common.Bus
-      .safeAsk[Html, DailyPuzzle.Render](
+      .ask[Html, DailyPuzzle.Render]:
         DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
-      )
       .map: html =>
         DailyPuzzle.WithHtml(puzzle, html).some
   }.recover { case e: Exception =>
@@ -47,14 +46,14 @@ final private[puzzle] class DailyPuzzle(
       .sort($sort.desc(F.day))
       .one[Puzzle]
 
-  private val maxTries                                          = 10
-  private val minPlaysBase                                      = 9000
+  private val maxTries = 10
+  private val minPlaysBase = 9000
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
     def tryAgainMaybe = (tries < maxTries).so(findNewBiased(tries + 1))
     import PuzzleTheme.*
     val minPlays = minPlaysBase * (maxTries - tries) / maxTries
     findNew(minPlays).flatMap:
-      case None                                                          => tryAgainMaybe
+      case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
         tryAgainMaybe.dmap(_.orElse(p.some))
       case p => fuccess(p)

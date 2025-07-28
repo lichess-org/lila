@@ -13,7 +13,7 @@ import lila.core.game.Blurs
 trait Handlers:
 
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
-  def tryBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Try[BSONDocument]   = writer.writeTry(a)
+  def tryBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Try[BSONDocument] = writer.writeTry(a)
 
   def toBson[A](a: A)(using writer: BSONWriter[A]): Option[BSONValue] = writer.writeOpt(a)
 
@@ -75,7 +75,7 @@ trait Handlers:
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
 
   val percentBsonMultiplier = 1000
-  val ratioBsonMultiplier   = 100_000
+  val ratioBsonMultiplier = 100_000
 
   def percentAsIntHandler[A](using p: Percent[A]): BSONHandler[A] =
     doubleAsIntHandler(p.value, p.apply, percentBsonMultiplier)
@@ -116,7 +116,7 @@ trait Handlers:
     def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
   given mapHandler[V: BSONHandler]: BSONHandler[Map[String, V]] = new:
-    def readTry(bson: BSONValue)    = BSONReader.mapReader.readTry(bson)
+    def readTry(bson: BSONValue) = BSONReader.mapReader.readTry(bson)
     def writeTry(v: Map[String, V]) = BSONWriter.mapWriter.writeTry(v)
 
   def typedMapHandler[K, V: BSONHandler](using
@@ -192,7 +192,7 @@ trait Handlers:
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
       case BSONString(v) => Variant.orDefault(Variant.LilaKey(v))
-      case _             => Variant.default
+      case _ => Variant.default
     },
     v => BSONString(v.key.value)
   )
@@ -206,12 +206,12 @@ trait Handlers:
       import chess.Clock.*
       for
         limit <- doc.getAsTry[LimitSeconds]("limit")
-        inc   <- doc.getAsTry[IncrementSeconds]("increment")
+        inc <- doc.getAsTry[IncrementSeconds]("increment")
       yield Config(limit, inc)
     },
     c =>
       BSONDocument(
-        "limit"     -> c.limitSeconds,
+        "limit" -> c.limitSeconds,
         "increment" -> c.incrementSeconds
       )
   )

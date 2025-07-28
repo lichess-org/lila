@@ -23,7 +23,7 @@ final class RacerJson:
             "race" -> Json
               .obj("id" -> race.id.value)
               .add("lobby", race.isLobby),
-            "player"  -> player,
+            "player" -> player,
             "puzzles" -> race.puzzles
           )
           .add("owner", race.owner == player.id) ++

@@ -27,28 +27,28 @@ final class UserGameApi(
   private def write(g: Game, as: Option[User])(using Lang) =
     Json
       .obj(
-        "id"        -> g.id,
-        "rated"     -> g.rated,
-        "variant"   -> g.variant,
-        "speed"     -> g.speed.key,
-        "perf"      -> g.perfKey,
+        "id" -> g.id,
+        "rated" -> g.rated,
+        "variant" -> g.variant,
+        "speed" -> g.speed.key,
+        "perf" -> g.perfKey,
         "timestamp" -> g.createdAt,
-        "turns"     -> g.ply,
-        "status"    -> g.status,
-        "source"    -> g.source.map(_.name),
-        "players"   -> JsObject(g.players.mapList: p =>
+        "turns" -> g.ply,
+        "status" -> g.status,
+        "source" -> g.source.map(_.name),
+        "players" -> JsObject(g.players.mapList: p =>
           p.color.name -> Json
             .obj(
-              "user"   -> p.userId.flatMap(lightUser.sync),
+              "user" -> p.userId.flatMap(lightUser.sync),
               "userId" -> p.userId, // for BC
-              "name"   -> p.name
+              "name" -> p.name
             )
             .add("id" -> as.exists(p.isUser).option(p.id))
             .add("aiLevel" -> p.aiLevel)
             .add("rating" -> p.rating)
             .add("ratingDiff" -> p.ratingDiff)),
-        "fen"       -> chess.format.Fen.writeBoard(g.position),
-        "winner"    -> g.winnerColor.map(_.name),
+        "fen" -> chess.format.Fen.writeBoard(g.position),
+        "winner" -> g.winnerColor.map(_.name),
         "bookmarks" -> g.bookmarks
       )
       .add("analysed" -> g.metadata.analysed)

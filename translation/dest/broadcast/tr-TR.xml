@@ -6,6 +6,10 @@
     <item quantity="one">%s canlı turnuva</item>
     <item quantity="other">%s canlı turnuva</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s izleyici</item>
+    <item quantity="other">%s izleyici</item>
+  </plurals>
   <string name="liveBroadcasts">Canlı Turnuva Yayınları</string>
   <string name="broadcastCalendar">Turnuva takvimi</string>
   <string name="newBroadcast">Canlı Turnuva Ekle</string>
@@ -80,4 +84,7 @@
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
   <string name="backToLiveMove">Canlı hamleye dön</string>
   <string name="sinceHideResults">Sonuçları gizlemeyi seçtiğiniz için, spoiler vermemek adına tüm tahta görünümleri boş olacak.</string>
+  <string name="liveboard">Canlı tahta</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Topluluk yayını</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">%s tarafından oluşturuldu ve yönetiliyor.</string>
 </resources>

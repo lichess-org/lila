@@ -5,7 +5,7 @@ import { join, basename } from 'node:path';
 import { XMLParser } from 'fast-xml-parser';
 import { env } from './env.ts';
 import { readable, isClose } from './parse.ts';
-import { task } from './task.ts';
+import { makeTask } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { zip } from './algo.ts';
 import { transform } from 'esbuild';
@@ -22,7 +22,7 @@ let cats: string[];
 export function i18n(): Promise<any> {
   if (!env.begin('i18n')) return Promise.resolve();
 
-  return task({
+  return makeTask({
     includes: [
       { cwd: env.i18nSrcDir, path: '*.xml' },
       { cwd: join(env.i18nDestDir, 'site'), path: '*.xml' },

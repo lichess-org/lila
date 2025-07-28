@@ -12,12 +12,12 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   def apply(tour: Option[Tournament])(using me: Me) = Form(
     mapping(
-      "id"            -> id[TourId](8, tour.map(_.id))(repo.exists),
+      "id" -> id[TourId](8, tour.map(_.id))(repo.exists),
       "homepageHours" -> number(min = 0, max = maxHomepageHours),
-      "image"         -> stringIn(imageChoices),
-      "headline"      -> text(minLength = 5, maxLength = 30),
-      "teamBattle"    -> boolean,
-      "setup"         -> forms.create(Nil).mapping
+      "image" -> stringIn(imageChoices),
+      "headline" -> text(minLength = 5, maxLength = 30),
+      "teamBattle" -> boolean,
+      "setup" -> forms.create(Nil).mapping
     )(Data.apply)(unapply)
   ).fill(
     Data(
@@ -46,7 +46,7 @@ object CrudForm:
   val maxHomepageHours = 24
 
   val imageChoices = List(
-    ""                    -> "Lichess",
+    "" -> "Lichess",
     "offerspill.logo.png" -> "Offerspill"
   )
   val imageDefault = ""

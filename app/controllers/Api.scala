@@ -21,11 +21,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   private lazy val apiStatusJson = Json.obj:
     "api" -> Json.obj(
       "current" -> Mobile.Api.currentVersion.value,
-      "olds"    -> Json.arr()
+      "olds" -> Json.arr()
     )
 
   val status = Anon:
-    val appVersion  = get("v")
+    val appVersion = get("v")
     val mustUpgrade = appVersion.exists(Mobile.AppVersion.mustUpgrade)
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
@@ -52,7 +52,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def usersByIds = AnonBodyOf(parse.tolerantText): body =>
     val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
-    val cost      = usernames.size / 4
+    val cost = usernames.size / 4
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
@@ -68,7 +68,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     else
       val withSignal = getBool("withSignal")
       env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-        val streamingIds         = env.streamer.liveStreamApi.userIds
+        val streamingIds = env.streamer.liveStreamApi.userIds
         def toJson(u: LightUser) =
           lila.common.Json.lightUser
             .write(u)
@@ -146,7 +146,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
       val onlyUserId = getUserStr("player").map(_.id)
-      val config     = GameApiV2.ByTournamentConfig(
+      val config = GameApiV2.ByTournamentConfig(
         tour = tour,
         format = GameApiV2.Format.byRequest,
         flags = gameC.requestPgnFlags(extended = false),
@@ -238,8 +238,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      env.game.gamesByIdsStream.addGameIds(streamId, ids)
-      jsonOkResult
+      if env.game.gamesByIdsStream.exists(streamId) then
+        env.game.gamesByIdsStream.addGameIds(streamId, ids)
+        jsonOkResult
+      else notFoundJson()
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
@@ -329,12 +331,12 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def toApiResult(json: Seq[JsValue]): ApiResult = ApiResult.Data(JsArray(json))
 
   val toHttp: ApiResult => Result =
-    case ApiResult.Limited          => rateLimitedJson
+    case ApiResult.Limited => rateLimitedJson
     case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
-    case ApiResult.NoData           => notFoundJson()
-    case ApiResult.Custom(result)   => result
-    case ApiResult.Done             => jsonOkResult
-    case ApiResult.Data(json)       => JsonOk(json)
+    case ApiResult.NoData => notFoundJson()
+    case ApiResult.Custom(result) => result
+    case ApiResult.Done => jsonOkResult
+    case ApiResult.Data(json) => JsonOk(json)
 
   def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)

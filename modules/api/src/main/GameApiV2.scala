@@ -42,10 +42,10 @@ final class GameApiV2(
   def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport.ifTrue(config.imported) match
       case Some(imported) => fuccess(imported.pgn.value)
-      case None           =>
+      case None =>
         for
           (game, initialFen, analysis) <- enrich(config.flags)(game)
-          formatted                    <- config.format match
+          formatted <- config.format match
             case Format.JSON =>
               toJson(game, initialFen, analysis, config).map(Json.stringify)
             case Format.PGN =>
@@ -181,7 +181,7 @@ final class GameApiV2(
         enrich(config.flags)(game).dmap { (_, pairing, teams) }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
         config.format match
-          case Format.PGN  => pgnDump.formatter(config.flags)(game, fen, analysis, teams)
+          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams)
           case Format.JSON =>
             def addBerserk(color: Color)(json: JsObject) =
               if pairing.berserkOf(color) then
@@ -254,7 +254,7 @@ final class GameApiV2(
 
   private def formatterFor(config: Config) =
     config.format match
-      case Format.PGN  => pgnDump.formatter(config.flags)
+      case Format.PGN => pgnDump.formatter(config.flags)
       case Format.JSON => jsonFormatter(config)
 
   private def jsonFormatter(config: Config) =
@@ -285,16 +285,16 @@ final class GameApiV2(
         AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
   yield Json
     .obj(
-      "id"         -> g.id,
-      "rated"      -> g.rated,
-      "variant"    -> g.variant.key,
-      "speed"      -> g.speed.key,
-      "perf"       -> g.perfKey,
-      "createdAt"  -> g.createdAt,
+      "id" -> g.id,
+      "rated" -> g.rated,
+      "variant" -> g.variant.key,
+      "speed" -> g.speed.key,
+      "perf" -> g.perfKey,
+      "createdAt" -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
-      "status"     -> g.status.name,
-      "source"     -> g.source,
-      "players"    -> JsObject(lightUsers.mapList: (p, user) =>
+      "status" -> g.status.name,
+      "source" -> g.source,
+      "players" -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
           .add:
@@ -319,7 +319,7 @@ final class GameApiV2(
     .add("swiss" -> g.swissId)
     .add("clock" -> g.clock.map: clock =>
       Json.obj(
-        "initial"   -> clock.limitSeconds,
+        "initial" -> clock.limitSeconds,
         "increment" -> clock.incrementSeconds,
         "totalTime" -> clock.estimateTotalSeconds
       ))
@@ -350,7 +350,7 @@ object GameApiV2:
     val perSecond: MaxPerSecond
 
   enum GameSort(val bson: Bdoc):
-    case DateAsc  extends GameSort(Query.sortChronological)
+    case DateAsc extends GameSort(Query.sortChronological)
     case DateDesc extends GameSort(Query.sortAntiChronological)
 
   case class OneConfig(
@@ -386,7 +386,7 @@ object GameApiV2:
 
     def toSorting =
       sort match
-        case GameSort.DateAsc  => SearchSort(Fields.date, "asc")
+        case GameSort.DateAsc => SearchSort(Fields.date, "asc")
         case GameSort.DateDesc => SearchSort(Fields.date, "desc")
 
     def toGameQuery =

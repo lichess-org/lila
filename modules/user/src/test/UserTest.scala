@@ -3,7 +3,7 @@ package lila.user
 class UserTest extends munit.FunSuite:
 
   given Conversion[String, UserStr] = UserStr(_)
-  given Conversion[String, UserId]  = UserId(_)
+  given Conversion[String, UserId] = UserId(_)
 
   def canSignup(str: String) =
     import lila.user.nameRules.*

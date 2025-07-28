@@ -13,21 +13,21 @@ object CoachProfileForm:
   def edit(coach: Coach) =
     Form(
       mapping(
-        "listed"    -> boolean,
+        "listed" -> boolean,
         "available" -> boolean,
         "languages" -> nonEmptyText,
-        "profile"   -> mapping(
-          "headline"           -> optional(text(minLength = 5, maxLength = 170)),
-          "hourlyRate"         -> optional(text(minLength = 3, maxLength = 140)),
-          "description"        -> optional(of[RichText]),
-          "playingExperience"  -> optional(of[RichText]),
+        "profile" -> mapping(
+          "headline" -> optional(text(minLength = 5, maxLength = 170)),
+          "hourlyRate" -> optional(text(minLength = 3, maxLength = 140)),
+          "description" -> optional(of[RichText]),
+          "playingExperience" -> optional(of[RichText]),
           "teachingExperience" -> optional(of[RichText]),
-          "otherExperience"    -> optional(of[RichText]),
-          "skills"             -> optional(of[RichText]),
-          "methodology"        -> optional(of[RichText]),
-          "youtubeVideos"      -> optional(nonEmptyText),
-          "youtubeChannel"     -> optional(nonEmptyText),
-          "publicStudies"      -> optional(nonEmptyText)
+          "otherExperience" -> optional(of[RichText]),
+          "skills" -> optional(of[RichText]),
+          "methodology" -> optional(of[RichText]),
+          "youtubeVideos" -> optional(nonEmptyText),
+          "youtubeChannel" -> optional(nonEmptyText),
+          "publicStudies" -> optional(nonEmptyText)
         )(CoachProfile.apply)(unapply)
       )(Data.apply)(unapply)
     ).fill(

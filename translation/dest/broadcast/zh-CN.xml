@@ -56,31 +56,33 @@
   <string name="subscribeTitle">订阅后会在每轮开始时通知。您可以在帐户首选项中切换铃声或推送广播通知。</string>
   <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app&#10;&#10;This is advice that appears in the manager view for broadcasts. The 'source' in this context is where the games to be displayed in the tournament will come from. Games can be sourced in a number of ways (aside from the Broadcaster App, which is what Lichess recommends):&#10;* URL(s) pointing to PGN(s)&#10;* IDs of games played on Lichess&#10;* Lichess usernames">可以通过 %s加载看板</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
   <string name="startsAfter">从 %s 开始</string>
   <string name="startVerySoon">转播将很快开始。</string>
   <string name="notYetStarted">转播尚未开始。</string>
   <string name="officialWebsite">官网</string>
   <string name="standings">积分榜</string>
-  <string name="officialStandings" comment="Appears in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;This is a field where a tournament organiser can add a URL pointing to the official standings for their tournament.">官方排名</string>
+  <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s 上的更多选项</string>
   <string name="webmastersPage">网页管理员页面</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">此回合有公开实时的 PGN 源。我们还提供一个 %s ，用于更快并更有效的同步刷新。</string>
   <string name="embedThisBroadcast">将此广播嵌入您的网站</string>
   <string name="embedThisRound">将 %s 嵌入到您的网站</string>
   <string name="ratingDiff">积分差别</string>
-  <string name="gamesThisTournament" comment="Appears as a heading for a list on an individual player's page within a broadcasted tournament. The list shows all the games that individual has played within that tournament.&#10;&#10;Example: https://lichess.org/broadcast/fide-womens-grand-prix-202425--pune/round-7/ZPXXCcDI#players/8608059">这个锦标赛中的游戏</string>
+  <string name="gamesThisTournament">这个锦标赛中的游戏</string>
   <string name="score">得分</string>
-  <string name="allTeams" comment="In this context, these are teams in a tournament that is being broadcast. The tournament format features teams.&#10;&#10;This is the default filter option, showing players from all teams in a given tournament.">所有团队</string>
-  <string name="tournamentFormat" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">锦标赛格式</string>
-  <string name="tournamentLocation" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">锦标赛地点</string>
-  <string name="topPlayers" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;Broadcast creators can enter some top players' names here to attract attention. It is a free-entry field that accepts up to 4 names.">最强棋手</string>
-  <string name="timezone" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">时区</string>
-  <string name="fideRatingCategory" comment="Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.&#10;&#10;The options for this field are Standard, Blitz, or Rapid.">FIDE 评分类别</string>
-  <string name="optionalDetails" comment="Appears as a heading that groups fields in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">可填的信息</string>
+  <string name="allTeams">所有团队</string>
+  <string name="tournamentFormat">锦标赛格式</string>
+  <string name="tournamentLocation">锦标赛地点</string>
+  <string name="topPlayers">最强棋手</string>
+  <string name="timezone">时区</string>
+  <string name="fideRatingCategory">FIDE 评分类别</string>
+  <string name="optionalDetails">可填的信息</string>
   <string name="pastBroadcasts">结束的转播</string>
   <string name="allBroadcastsByMonth">按月查看所有转播</string>
   <string name="backToLiveMove">回到实时着法</string>
   <string name="sinceHideResults">由于您选择隐藏比赛结果，为避免剧透，所有棋局预览均为空白状态。</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">实时棋局</string>
+  <string name="liveboard">实时棋局</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">社区转播</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">由 %s 创建和管理。</string>
 </resources>

@@ -21,18 +21,18 @@ object Condition:
 
   type GetMaxRating = PerfType => Fu[IntRating]
   type GetMyTeamIds = Me => Fu[List[TeamId]]
-  type GetAge       = Me => Fu[Days]
+  type GetAge = Me => Fu[Days]
 
   enum Verdict(val accepted: Boolean, val reason: Option[Translate => String]):
-    case Accepted                              extends Verdict(true, none)
+    case Accepted extends Verdict(true, none)
     case Refused(because: Translate => String) extends Verdict(false, because.some)
-    case RefusedUntil(until: Instant)          extends Verdict(false, none)
+    case RefusedUntil(until: Instant) extends Verdict(false, none)
   export Verdict.*
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(pt: PerfType)(using Translate)           = trans.arena.onlyTitled.txt()
+    def name(pt: PerfType)(using Translate) = trans.arena.onlyTitled.txt()
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
@@ -50,7 +50,7 @@ object Condition:
       else
         Refused: t =>
           given Translate = t
-          val missing     = nb - perf.nb
+          val missing = nb - perf.nb
           trans.site.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans)
     def name(pt: PerfType)(using Translate) =
       trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
@@ -88,7 +88,7 @@ object Condition:
       else
         getMaxRating(pt).map:
           case r if r <= rating => Accepted
-          case r                =>
+          case r =>
             Refused: t =>
               given Translate = t
               trans.site.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans, r)
@@ -125,13 +125,13 @@ object Condition:
 
   case class AllowList(value: String) extends Condition with FlatCond:
     private lazy val segments: Set[String] = value.linesIterator.map(_.trim.toLowerCase).toSet
-    private val titled                     = "%titled"
-    private def allowAnyTitledUser         = segments contains titled
+    private val titled = "%titled"
+    private def allowAnyTitledUser = segments contains titled
     def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
       else if allowAnyTitledUser && me.title.isDefined then Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
-    def userIds: Set[UserId]                = UserId.from(segments - titled)
+    def userIds: Set[UserId] = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]):

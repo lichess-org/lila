@@ -28,15 +28,15 @@ final class CoachUi(helpers: Helpers)(
   def thumbnailUrl(c: Coach) =
     c.picture match
       case Some(image) => picfitUrl.thumbnail(image, Coach.imageSize, Coach.imageSize)
-      case _           => assetUrl("images/placeholder.png")
+      case _ => assetUrl("images/placeholder.png")
 
   def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
     img(
-      widthA  := cssSize,
+      widthA := cssSize,
       heightA := cssSize,
-      cls     := "picture",
-      src     := thumbnailUrl(c.coach),
-      alt     := s"${c.user.titleUsername} Lichess coach picture"
+      cls := "picture",
+      src := thumbnailUrl(c.coach),
+      alt := s"${c.user.titleUsername} Lichess coach picture"
     )
 
   def widget(c: Coach.WithUser, link: Boolean)(using Context) =
@@ -119,9 +119,9 @@ final class CoachUi(helpers: Helpers)(
       )
 
   def show(c: Coach.WithUser, studies: Seq[Frag], posts: Seq[Frag])(using ctx: Context) =
-    val profile   = c.coach.profile
+    val profile = c.coach.profile
     val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
-    val title     = trc.xCoachesStudents.txt(coachName)
+    val title = trc.xCoachesStudents.txt(coachName)
     Page(title)
       .css("bits.coach")
       .graph(
@@ -146,9 +146,9 @@ final class CoachUi(helpers: Helpers)(
               )
             else
               a(
-                cls      := "text button button-empty",
+                cls := "text button button-empty",
                 dataIcon := Icon.BubbleSpeech,
-                href     := s"${routes.Msg.convo(c.user.username)}"
+                href := s"${routes.Msg.convo(c.user.username)}"
               )(trc.sendPM())
           ),
           div(cls := "coach-show__main coach-main box")(
@@ -185,9 +185,9 @@ final class CoachUi(helpers: Helpers)(
                 div(cls := "list")(
                   profile.youtubeUrls.map { url =>
                     iframe(
-                      widthA         := "256",
-                      heightA        := "192",
-                      src            := url.value,
+                      widthA := "256",
+                      heightA := "192",
+                      src := url.value,
                       st.frameborder := "0",
                       frame.credentialless,
                       frame.allowfullscreen
@@ -231,17 +231,17 @@ final class CoachUi(helpers: Helpers)(
                   lang.fold(trans.site.allLanguages.txt())(langList.name),
                   langSelections.map: (code, name) =>
                     a(
-                      href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
-                      cls  := (code == lang.fold("all")(_.code)).option("current")
+                      href := routes.Coach.search(code, order.key, country.fold(allFlags)(_.code)),
+                      cls := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                 ),
                 lila.ui.bits.mselect(
                   "coach-country",
                   country.fold(trans.coach.allCountries.txt())(flagApi.name),
-                  (("all", trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
+                  ((allFlags, trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
-                      cls  := (code == country.fold("all")(_.code)).option("current")
+                      cls := (code == country.fold("all")(_.code)).option("current")
                     )(name)
                 ),
                 lila.ui.bits.mselect(
@@ -250,7 +250,7 @@ final class CoachUi(helpers: Helpers)(
                   CoachPager.Order.list.map: o =>
                     a(
                       href := routes.Coach
-                        .search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
+                        .search(lang.fold("all")(_.code), o.key, country.fold(allFlags)(_.code)),
                       cls := (order == o).option("current")
                     )(o.i18nKey())
                 )
@@ -265,7 +265,9 @@ final class CoachUi(helpers: Helpers)(
                 pager,
                 np =>
                   addQueryParam(
-                    routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url,
+                    routes.Coach
+                      .search(lang.fold("all")(_.code), order.key, country.fold(allFlags)(_.code))
+                      .url,
                     "page",
                     np.toString
                   )

@@ -53,9 +53,9 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
                   a(href := routes.Round.watcher(pov.gameId, pov.color))(
                     gameReport.moves.map: move =>
                       span(
-                        cls      := percentClass(move.activation),
+                        cls := percentClass(move.activation),
                         st.title := move.toString,
-                        style    := s"height:${move.activation}%"
+                        style := s"height:${move.activation}%"
                       )
                   )
                 ),
@@ -103,7 +103,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           div(cls := "box__top__actions")(
             a(
               href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-              cls  := "button button-empty"
+              cls := "button button-empty"
             )("Monitoring")
           )
         ),
@@ -183,7 +183,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             div(cls := "box__top__actions")(
               a(
                 href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-                cls  := "button button-empty"
+                cls := "button button-empty"
               )("Monitoring")
             )
           ),
@@ -208,7 +208,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
                   td(
                     entry.queuedBy match
                       case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
-                      case requester                     => em(requester.name)
+                      case requester => em(requester.name)
                   ),
                   entry.response.fold(td): res =>
                     res.pred

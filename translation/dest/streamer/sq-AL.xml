@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Faqja e transmetuesit Lichess aplikon për publikun tuaj gjuhën e dhënë nga platforma juaj e transmetimit. Caktoni gjuhën e saktë parazgjedhje për transmetime shahu nga ju, te aplikacioni apo shërbimi që përdorni për të transmetuar.</string>
   <string name="twitchUsername">Emër përdoruesi ose URL-ja juaj Twitch</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Duhet doemos Twitch, ose YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Ndryshimet Twitch dhe YouTube duhen verifikuar.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Ndryshimet Twitch dhe YouTube duhen verifikuar.
   
   Stema juaj si transmetues dhe ç’transmetoni do të pezullohen teksa është duke u bërë shqyrtimi. Kjo mund të dojë deri në 72 orë.</string>
   <string name="youTubeChannelId">ID-ja e kanalit tuaj YouTube</string>

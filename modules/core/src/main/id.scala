@@ -6,31 +6,34 @@ import scalalib.newtypes.OpaqueString
 // to makes sure opaque types don't leak out
 object id:
 
+  opaque type SessionId = String
+  object SessionId extends OpaqueString[SessionId]
+
   opaque type GameId = String
   object GameId extends OpaqueString[GameId]:
-    def size                              = 8
-    private val idRegex                   = """[\w-]{8}""".r
-    def validate(id: GameId)              = idRegex.matches(id.value)
-    def take(str: String): GameId         = GameId(str.take(size))
+    def size = 8
+    private val idRegex = """[\w-]{8}""".r
+    def validate(id: GameId) = idRegex.matches(id.value)
+    def take(str: String): GameId = GameId(str.take(size))
     def from(str: String): Option[GameId] = Some(take(str)).filter(validate)
 
   opaque type GameFullId = String
   object GameFullId extends OpaqueString[GameFullId]:
-    val size                                                      = 12
+    val size = 12
     def apply(gameId: GameId, playerId: GamePlayerId): GameFullId = s"$gameId$playerId"
     extension (e: GameFullId)
-      def gameId: GameId         = GameId.take(e)
+      def gameId: GameId = GameId.take(e)
       def playerId: GamePlayerId = GamePlayerId(e.drop(GameId.size))
-      def anyId: GameAnyId       = e.into(GameAnyId)
+      def anyId: GameAnyId = e.into(GameAnyId)
 
   // Either a GameId or a GameFullId
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]:
-    given Conversion[GameId, GameAnyId]     = _.value
+    given Conversion[GameId, GameAnyId] = _.value
     given Conversion[GameFullId, GameAnyId] = _.value
     extension (e: GameAnyId)
-      def gameId: GameId                 = GameId.take(e)
-      def fullId: Option[GameFullId]     = if e.length == GameFullId.size then Some(e) else None
+      def gameId: GameId = GameId.take(e)
+      def fullId: Option[GameFullId] = if e.length == GameFullId.size then Some(e) else None
       def playerId: Option[GamePlayerId] = fullId.map(GameFullId.playerId)
 
   opaque type GamePlayerId = String

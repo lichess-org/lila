@@ -19,7 +19,7 @@
   <string name="keyboardShortcuts">Apa saja pintasan papan ketik yang ada?</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kapan saya dapat menerima pengembalian rating otomatis dari pemain curang?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Satu menit setelah seorang pemain diberikan tanda, 40 permainan terakhir pemain itu selama 3 hari ke belakang akan ditandai. Apabila Anda sempat menjadi lawan pemain itu dalam permainan-permainan tersebut, rating Anda turun (akibat kalah atau seri), dan rating Anda tidak provisional, maka rating Anda akan dikembalikan. Pengembalian rating ini memiliki batas maksimal, yaitu pada puncak rating serta pergerakan rating Anda setelah permainan tersebut. (Sebagai contoh, apabila rating Anda meningkat tajam setelah permainan-permainan tersebut, Anda mungkin tidak akan mendapatkan pengembalian rating atau hanya sebagian.) Pengembalian rating tidak akan melebihi 150 poin.</string>
+  <string name="ratingRefundExplanation">Satu menit setelah seorang pemain diberikan tanda, 40 permainan terakhir pemain itu selama 3 hari ke belakang akan ditandai. Apabila Anda sempat menjadi lawan pemain itu dalam permainan-permainan tersebut, rating Anda turun (akibat kalah atau seri), dan rating Anda tidak provisional, maka rating Anda akan dikembalikan. Pengembalian rating ini memiliki batas maksimal, yaitu pada puncak rating serta pergerakan rating Anda setelah permainan tersebut. (Sebagai contoh, apabila rating Anda meningkat tajam setelah permainan-permainan tersebut, Anda mungkin tidak akan mendapatkan pengembalian rating atau hanya sebagian.) Pengembalian rating tidak akan melebihi 150 poin.</string>
   <string name="preventLeavingGameWithoutResigning">Apa tindakan terhadap pemain yang meninggalkan permainan tanpa menyerah?</string>
   <string name="leavingGameWithoutResigningExplanation">Apabila lawan Anda sering meninggalkan permainan, ia akan mendapat \"ban\", yaitu blokir sementara dari bermain catur. Blokade ini tidak ditampilkan secara publik di profil pemain itu. Kalau perilaku ini berlanjut, maka blokade akan diperpanjang. Pengulangan perilaku ini secara berkelanjutan dapat berujung pada penutupan akun.</string>
   <string name="howCanIBecomeModerator">Bagaimana saya bisa menjadi moderator?</string>
@@ -32,7 +32,7 @@
   <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>
   <string name="basedOnGameDuration">Kontrol waktu Lichess berdasarkan pada perkiraan durasi permainan = %1$s
 Misalnya, perkiraan durasi permainan 5+3 adalah 5 × 60 + 40 × 3 = 420 detik.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(waktu awal jam) + 40 x (kenaikan jam)</string>
+  <string name="durationFormula">(waktu awal jam) + 40 x (kenaikan jam)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
@@ -92,12 +92,11 @@ Kami memberikan gelar tersebut pada pemain terkemuka yang merupakan warga Liches
   <string name="usernamesNotOffensive">Secara umum, nama pengguna (username) tidak boleh: ofensif, berpura-pura menjadi orang lain, maupun bersifat iklan. Anda dapat membaca %1$s lebih lanjut.</string>
   <string name="guidelines">pedoman</string>
   <string name="canIChangeMyUsername">Apakah saya dapat mengubah nama pengguna saya?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Tidak, nama pengguna tidak dapat diubah untuk alasan praktis dan teknis. Nama pengguna digunakan di banyak tempat: database, export, catatan, dan pikiran orang-orang. Anda dapat mengatur kapitalisasi huruf sebanyak satu kali.</string>
+  <string name="usernamesCannotBeChanged">Tidak, nama pengguna tidak dapat diubah untuk alasan praktis dan teknis. Nama pengguna digunakan di banyak tempat: database, export, catatan, dan pikiran orang-orang. Anda dapat mengatur kapitalisasi huruf sebanyak satu kali.</string>
   <string name="uniqueTrophies">Trofi unik</string>
   <string name="ownerUniqueTrophies">Trofi itu unik dalam sejarah Lichess, tidak ada orang lain selain %1$s yang pernah memilikinya.</string>
-  <string name="wayOfBerserkExplanation">Untuk mendapatkannya, hiimgosu menantang dirinya untuk berserk dan memenangkan game 100%% dari %s.</string>
   <string name="aHourlyBulletTournament">1 jam turnamen bulet</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict melakukan streaming selama 2 jam terakhir, dia telah berusaha untuk mengalahkan A.I. level 8 dalam game 1+0, tanpa hasil. Thibault memberitahunya bahwa jika dia berhasil melakukannya secara langsung, dia akan mendapatkan trofi yang unik. Satu jam kemudian, dia menghancurkan Stockfish, dan janji itu dihormati.</string>
+  <string name="goldenZeeExplanation">ZugAddict melakukan streaming selama 2 jam terakhir, dia telah berusaha untuk mengalahkan A.I. level 8 dalam game 1+0, tanpa hasil. Thibault memberitahunya bahwa jika dia berhasil melakukannya secara langsung, dia akan mendapatkan trofi yang unik. Satu jam kemudian, dia menghancurkan Stockfish, dan janji itu dihormati.</string>
   <string name="lichessRatings">Rating Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Sistem rating apakah yang digunakan oleh Lichess?</string>
   <string name="ratingSystemUsedByLichess">Rating dihitung menggunakan metode rating Glicko-2 yang dikembangkan oleh Mark Glickman. Ini adalah metode rating yang sangat populer, dan digunakan oleh sejumlah besar organisasi catur (FIDE menjadi contoh tandingan, karena mereka masih menggunakan sistem rating Elo yang sudah tua).

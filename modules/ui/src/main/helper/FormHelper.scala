@@ -31,7 +31,7 @@ trait FormHelper:
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
-  val postForm     = form(method := "post")
+  val postForm = form(method := "post")
   val submitButton = button(tpe := "submit")
 
   def markdownAvailable(using Translate): Frag =
@@ -53,9 +53,9 @@ trait FormHelper:
         st.input(
           st.id := s"$prefix$id",
           checked(v._1).option(st.checked),
-          tpe   := "checkbox",
+          tpe := "checkbox",
           value := v._1.toString,
-          name  := s"${field.name}[]"
+          name := s"${field.name}[]"
         ),
         label(`for` := s"$prefix$id")(v._2)
       )
@@ -69,7 +69,7 @@ trait FormHelper:
   def translatedBooleanChoices(using Translate) =
     List(
       false -> trans.site.no.txt(),
-      true  -> trans.site.yes.txt()
+      true -> trans.site.yes.txt()
     )
 
   object timeZone:

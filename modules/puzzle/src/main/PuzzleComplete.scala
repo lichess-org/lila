@@ -26,7 +26,7 @@ final class PuzzleComplete(
         api.puzzle
           .find(streakNextId)
           .flatMap:
-            case None         => fuccess(Json.obj("streakComplete" -> true))
+            case None => fuccess(Json.obj("streakComplete" -> true))
             case Some(puzzle) =>
               for
                 score <- data.streakScore
@@ -46,14 +46,14 @@ final class PuzzleComplete(
             finisher(id, angle, data.win, data.rated).flatMapz { (round, perf) =>
               val newMe = me.value.withPerf(perf)
               for
-                _    <- session.onComplete(round, angle)
+                _ <- session.onComplete(round, angle)
                 json <-
                   if mobileBc then
                     fuccess:
                       jsonView.bc.userJson(perf.intRating) ++ Json.obj(
                         "round" -> Json.obj(
                           "ratingDiff" -> 0,
-                          "win"        -> data.win
+                          "win" -> data.win
                         ),
                         "voted" -> round.vote
                       )
@@ -61,15 +61,15 @@ final class PuzzleComplete(
                     (data.replayDays, angle.asTheme) match
                       case (Some(replayDays), Some(theme)) =>
                         for
-                          _    <- replayApi.onComplete(round, replayDays, angle)
+                          _ <- replayApi.onComplete(round, replayDays, angle)
                           next <- replayApi(replayDays.some, theme)
                           json <- next match
-                            case None                 => fuccess(Json.obj("replayComplete" -> true))
+                            case None => fuccess(Json.obj("replayComplete" -> true))
                             case Some(puzzle, replay) =>
                               jsonView.analysis(puzzle, angle, replay.some).map { nextJson =>
                                 Json.obj(
                                   "round" -> jsonView.roundJson.web(round, perf),
-                                  "next"  -> nextJson
+                                  "next" -> nextJson
                                 )
                               }
                         yield json
@@ -85,7 +85,7 @@ final class PuzzleComplete(
                             jsonView.analysis(_, angle, none, Me.from(newMe.user.some))
                         yield Json.obj(
                           "round" -> jsonView.roundJson.web(round, perf),
-                          "next"  -> nextJson
+                          "next" -> nextJson
                         )
               yield json
             }

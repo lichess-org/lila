@@ -72,7 +72,7 @@ final class Practice(
       analysisJson(us).map: (analysisJson, studyJson) =>
         JsonOk(
           Json.obj(
-            "study"    -> studyJson,
+            "study" -> studyJson,
             "analysis" -> analysisJson
           )
         ).noCache
@@ -82,8 +82,8 @@ final class Practice(
       for
         studyJson <- env.study.jsonView.full(study, chapter, chapters.some, none, withMembers = false)
         initialFen = chapter.root.fen.some
-        pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
-        baseData   = env.round.jsonView
+        pov = userAnalysisC.makePov(initialFen, chapter.setup.variant)
+        baseData = env.round.jsonView
           .userAnalysisJson(
             pov,
             ctx.pref,
@@ -111,8 +111,8 @@ final class Practice(
   def config = Secure(_.PracticeConfig) { ctx ?=> _ ?=>
     for
       struct <- api.structure.get
-      form   <- api.config.form
-      page   <- renderPage(views.practice.config(struct, form))
+      form <- api.config.form
+      page <- renderPage(views.practice.config(struct, form))
     yield Ok(page)
   }
 

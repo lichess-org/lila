@@ -16,8 +16,8 @@ case class Federation(
 ):
   def stats(tc: FideTC) = tc match
     case FideTC.standard => this.focus(_.standard)
-    case FideTC.rapid    => this.focus(_.rapid)
-    case FideTC.blitz    => this.focus(_.blitz)
+    case FideTC.rapid => this.focus(_.rapid)
+    case FideTC.blitz => this.focus(_.blitz)
   def slug = Federation.nameToSlug(name)
 
 // Obviously, FIDE country codes don't follow any existing standard.

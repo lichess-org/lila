@@ -10,12 +10,12 @@ object ScheduleTestHelpers:
   def allSchedulesAt(date: LocalDateTime) =
     TournamentScheduler.allWithConflicts(date).sortBy(planSortKey).map(_.schedule)
 
-  val usEastZone  = java.time.ZoneId.of("America/New_York")
-  val parisZone   = java.time.ZoneId.of("Europe/Paris")
+  val usEastZone = java.time.ZoneId.of("America/New_York")
+  val parisZone = java.time.ZoneId.of("Europe/Paris")
   val datePrinter = java.time.format.DateTimeFormatter.ofPattern("MM-dd'T'HH:mm z")
 
   def fullDaySchedule(date: LocalDateTime) =
-    val startOfDay  = date.withTimeAtStartOfDay
+    val startOfDay = date.withTimeAtStartOfDay
     val dayInterval = TimeInterval(startOfDay.instant, java.time.Duration.ofDays(1))
 
     // Prune conflicts in a similar manner to how it is done in production i.e. TournamentScheduler:
@@ -32,10 +32,10 @@ object ScheduleTestHelpers:
       )
       .sortBy(planSortKey)
       .map(p =>
-        val s           = p.schedule
-        val realStart   = s.atInstant
+        val s = p.schedule
+        val realStart = s.atInstant
         val usEastStart = realStart.atZone(usEastZone).format(datePrinter)
-        val parisStart  = realStart.atZone(parisZone).format(datePrinter)
+        val parisStart = realStart.atZone(parisZone).format(datePrinter)
         s"${s} ($usEastStart, $parisStart) ${p.minutes}m"
       )
 
@@ -82,7 +82,7 @@ object ScheduleTestHelpers:
         possibleNewPlans: Iterable[A]
     ): List[A] =
       // Bucket schedules by hour for faster conflict detection
-      val hourMap                                       = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
+      val hourMap = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
       def addToMap(hour: Long, s: ScheduleWithInterval) =
         hourMap.getOrElseUpdate(hour, ArrayBuffer.empty).addOne(s)
 

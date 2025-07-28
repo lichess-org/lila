@@ -21,7 +21,7 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private lazy val logger  = lila.log("ratelimit").branch(key)
+  private lazy val logger = lila.log("ratelimit").branch(key)
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
@@ -56,8 +56,8 @@ final class RateLimit[K](
 object RateLimit:
 
   type ChargeWith = Cost => Unit
-  type Charge     = () => Unit
-  type Cost       = Int
+  type Charge = () => Unit
+  type Cost = Int
 
   enum Result:
     case Through, Limited
@@ -65,6 +65,7 @@ object RateLimit:
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
+    def test[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
 
   def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
     def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =
@@ -90,7 +91,7 @@ object RateLimit:
       def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
         val accepted = limiters.foldLeft(true):
           case (true, limiter) => limiter(k, false, cost, msg)(true)
-          case (false, _)      => false
+          case (false, _) => false
         if accepted then op else default
 
       def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A =

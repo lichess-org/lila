@@ -18,7 +18,7 @@ final private class FishnetRepo(
       clientColl.one[Client]($id(key))
 
   def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client]      =
+  def getOfflineClient: Fu[Client] =
     getEnabledClient(Client.offline.key).getOrElse(fuccess(Client.offline))
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client
@@ -28,7 +28,7 @@ final private class FishnetRepo(
           _ <- clientColl.update.one($id(client.key), $set("instance" -> updated.instance))
           _ = clientCache.invalidate(client.key)
         yield updated
-  def addClient(client: Client)     = clientColl.insert.one(client)
+  def addClient(client: Client) = clientColl.insert.one(client)
   def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one($id(key))
   yield clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
@@ -38,8 +38,8 @@ final private class FishnetRepo(
       $doc:
         "instance.seenAt".$gt(Client.Instance.recentSince)
 
-  def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
-  def getAnalysis(id: Work.Id)           = analysisColl.byId[Work.Analysis](id)
+  def addAnalysis(ana: Work.Analysis) = analysisColl.insert.one(ana).void
+  def getAnalysis(id: Work.Id) = analysisColl.byId[Work.Analysis](id)
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one($id(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one($id(ana.id)).void
   def updateOrGiveUpAnalysis(ana: Work.Analysis, update: Work.Analysis => Work.Analysis) =
@@ -49,8 +49,8 @@ final private class FishnetRepo(
     else updateAnalysis(update(ana))
 
   object status:
-    private def system(v: Boolean)                      = $doc("sender.system" -> v)
-    private def acquired(v: Boolean)                    = $doc("acquired".$exists(v))
+    private def system(v: Boolean) = $doc("sender.system" -> v)
+    private def acquired(v: Boolean) = $doc("acquired".$exists(v))
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl
         .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
@@ -61,10 +61,10 @@ final private class FishnetRepo(
         }))
 
     def compute = for
-      all            <- analysisColl.countSel($empty)
-      userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
-      userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
-      userOldest     <- oldestSeconds(false)
+      all <- analysisColl.countSel($empty)
+      userAcquired <- analysisColl.countSel(system(false) ++ acquired(true))
+      userQueued <- analysisColl.countSel(system(false) ++ acquired(false))
+      userOldest <- oldestSeconds(false)
       systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
       // because counting this is expensive (no useful index)
       systemQueued = all - userAcquired - userQueued - systemAcquired

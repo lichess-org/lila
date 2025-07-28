@@ -17,11 +17,11 @@ case class ForumCateg(
     hidden: Boolean = false
 ):
   def nbTopics(forUser: Option[User]): Int = if forUser.exists(_.marks.troll) then nbTopicsTroll else nbTopics
-  def nbPosts(forUser: Option[User]): Int  = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
+  def nbPosts(forUser: Option[User]): Int = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
   def lastPostId(forUser: Option[User]): ForumPostId =
     if forUser.exists(_.marks.troll) then lastPostIdTroll else lastPostId
 
-  def isTeam       = team.nonEmpty
+  def isTeam = team.nonEmpty
   def isDiagnostic = id == ForumCateg.diagnosticId
 
   def withPost(topic: ForumTopic, post: ForumPost): ForumCateg =
@@ -49,7 +49,7 @@ object ForumCateg:
 
   export lila.core.forum.ForumCateg.*
 
-  val ublogId      = ForumCategId("community-blog-discussions")
+  val ublogId = ForumCategId("community-blog-discussions")
   val diagnosticId = ForumCategId("diagnostic")
 
   def fromTeamId(id: TeamId): ForumCategId = ForumCategId(s"team-$id")

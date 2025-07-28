@@ -20,7 +20,7 @@ final class TextLpvExpand(
 
   def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)
   def getChapterPgn(id: StudyChapterId) = chapterPgnCache.get(id)
-  def getStudyPgn(id: StudyId)          = studyPgnCache.get(id)
+  def getStudyPgn(id: StudyId) = studyPgnCache.get(id)
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
@@ -29,10 +29,10 @@ final class TextLpvExpand(
       .findAllMatchIn(text)
       .map(_.group(1))
       .map:
-        case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(url -> _)
+        case regex.gamePgnRe(url, id) => getPgn(GameId(id)).map(url -> _)
         case regex.chapterPgnRe(url, id) => getChapterPgn(StudyChapterId(id)).map(url -> _)
-        case regex.studyPgnRe(url, id)   => getStudyPgn(StudyId(id)).map(url -> _)
-        case link                        => fuccess(link -> link)
+        case regex.studyPgnRe(url, id) => getStudyPgn(StudyId(id)).map(url -> _)
+        case link => fuccess(link -> link)
       .parallel
       .map:
         _.collect { case (url, Some(LpvEmbed.PublicPgn(pgn))) => url -> pgn }.toMap
@@ -42,7 +42,7 @@ final class TextLpvExpand(
             .get(url)
             .map: pgn =>
               div(
-                cls              := "lpv--autostart is2d",
+                cls := "lpv--autostart is2d",
                 attr("data-pgn") := pgn.value,
                 plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
                 (url.contains("/black")).option(attr("data-orientation") := "black")
@@ -56,13 +56,13 @@ final class TextLpvExpand(
       .map(_.group(1))
       .toList
       .foldLeft(max.value -> List.empty[Fu[(String, Option[LpvEmbed])]]):
-        case ((0, replacements), _)               => 0 -> replacements
+        case ((0, replacements), _) => 0 -> replacements
         case ((counter, replacements), candidate) =>
           val (cost, replacement) = candidate match
-            case regex.gamePgnRe(_, id)    => 1 -> getPgn(GameId(id)).map(id -> _)
+            case regex.gamePgnRe(_, id) => 1 -> getPgn(GameId(id)).map(id -> _)
             case regex.chapterPgnRe(_, id) => 1 -> getChapterPgn(StudyChapterId(id)).map(id -> _)
-            case regex.studyPgnRe(_, id)   => 1 -> getStudyPgn(StudyId(id)).map(id -> _)
-            case link                      => 0 -> fuccess(link -> none)
+            case regex.studyPgnRe(_, id) => 1 -> getStudyPgn(StudyId(id)).map(id -> _)
+            case link => 0 -> fuccess(link -> none)
           (counter - cost) -> (replacement :: replacements)
       ._2
       .parallel
@@ -121,11 +121,11 @@ final class LpvGameRegex(domain: NetDomain):
 
   val pgnCandidates = raw"""(?:https?://)?(?:lichess\.org|$quotedDomain)(/[/\w#]{8,})\b"""
 
-  val blogPgnCandidatesRe  = pgnCandidates.r
+  val blogPgnCandidatesRe = pgnCandidates.r
   val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
 
   val params = raw"""(?:#(?:last|\d{1,4}))?"""
 
-  val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
+  val gamePgnRe = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
   val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
-  val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r
+  val studyPgnRe = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r

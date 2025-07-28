@@ -23,7 +23,7 @@ final class ErrorHandler(
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
       val actionName = HTTPRequest.actionName(req)
-      val client     = HTTPRequest.clientName(req)
+      val client = HTTPRequest.clientName(req)
       lila.mon.http.errorCount(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
@@ -42,8 +42,8 @@ final class ErrorHandler(
     def msgOpt = Option(msg).filter(_.nonEmpty)
     statusCode match
       case 400 | 404 if canShowErrorPage(req) => mainC.handlerNotFound(msgOpt)(using req)
-      case 400 | 404                  => fuccess(NotFound(s"$statusCode - ${msgOpt | "Resource not found"}"))
-      case 403                        => lobbyC.handleStatus(Results.Forbidden)(using req)
+      case 400 | 404 => fuccess(NotFound(s"$statusCode - ${msgOpt | "Resource not found"}"))
+      case 403 => lobbyC.handleStatus(Results.Forbidden)(using req)
       case _ if canShowErrorPage(req) => lobbyC.handleStatus(Results.BadRequest)(using req)
       case _ => fuccess(Results.BadRequest("Sorry, the request could not be processed"))
 

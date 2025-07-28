@@ -84,7 +84,7 @@
   <string name="clearVariations">Borrar variantes</string>
   <string name="deleteChapter">Borrar capítulo</string>
   <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
-  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo</string>
+  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e figuras do capítulo</string>
   <string name="rightUnderTheBoard">Xusto debaixo do taboleiro</string>
   <string name="noPinnedComment">Ningún</string>
   <string name="normalAnalysis">Análise normal</string>

@@ -2,7 +2,7 @@ package lila.core
 package irc
 
 import lila.core.id.{ RelayRoundId, UblogPostId, StudyChapterId }
-import lila.core.userId.MyId
+import lila.core.userId.{ UserId, MyId, UserName }
 import lila.core.study.data.StudyChapterName
 
 enum ModDomain:
@@ -27,6 +27,7 @@ trait IrcApi:
       boardName: StudyChapterName
   ): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
+  def permissionsLog(user: LightUser, details: String)(using mod: LightUser.Me): Funit
   def publicForumLog(icon: String, text: String)(using MyId): Funit
   def ublogPost(
       user: LightUser,
@@ -34,5 +35,12 @@ trait IrcApi:
       slug: String,
       title: String,
       intro: String,
-      topic: String
+      topic: String,
+      automod: Option[String]
+  ): Funit
+  def ublogBlog(
+      userId: UserId,
+      tier: Option[String],
+      mod: Option[UserName],
+      note: Option[String]
   ): Funit

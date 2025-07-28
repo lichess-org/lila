@@ -1,7 +1,8 @@
 import * as co from 'chessops';
-import { zip } from '../algo';
+import { zip, clamp } from '../algo';
 import { clockToSpeed } from '../game/game';
-import { quantizeFilter, filterParameter, filterFacets, combine, type FilterValue } from './filter';
+import { quantizeFilter, evaluateFilter, filterFacets, combine, type FilterValue } from './filter';
+import { pawnStructure } from './filters';
 import type { SearchResult } from 'zerofish';
 import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
@@ -141,7 +142,7 @@ export class Bot implements BotInfo, MoveSource {
     return Boolean(f && (f.move?.length || f.score?.length || f.time?.length));
   }
 
-  private filter(op: FilterType, { chess, movetime }: MoveArgs): number | undefined {
+  private applyFilter(op: FilterType, { chess, movetime }: MoveArgs): number | undefined {
     if (!this.hasFilter(op)) return undefined;
     const f = this.filters![op];
     const x: FilterValue = Object.fromEntries(
@@ -155,7 +156,7 @@ export class Bot implements BotInfo, MoveSource {
         }),
     );
 
-    const vals = filterParameter(f, x);
+    const vals = evaluateFilter(f, x);
     const y = combine(vals, f.by);
     this.trace(`[filter] - ${op} ${stringify(x)} -> ${stringify(vals)} by ${f.by} yields ${y.toFixed(2)}`);
     return y;
@@ -209,6 +210,10 @@ export class Bot implements BotInfo, MoveSource {
       this.scoreByAggression(moves, args);
       this.trace(`[chooseMove] - aggression scored = ${stringify(moves)}`);
     }
+    if (this.hasFilter('pawnStructure')) {
+      this.scoreByPawnStructure(moves, args);
+      this.trace(`[chooseMove] - pawn structure scored = ${stringify(moves)}`);
+    }
     moves.sort(weightSort);
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
@@ -222,7 +227,9 @@ export class Bot implements BotInfo, MoveSource {
     const filtered = moves.filter(mv => !args.avoid.includes(mv.uci));
     this.trace(`[chooseMove] - sorted & filtered = ${stringify(filtered)}`);
     const decayed =
-      this.scoreByMoveQualityDecay(filtered, this.filter('moveDecay', args) ?? 0) ?? filtered[0] ?? moves[0];
+      this.scoreByMoveQualityDecay(filtered, this.applyFilter('moveDecay', args) ?? 0) ??
+      filtered[0] ??
+      moves[0];
     return { ...decayed, movetime };
   }
 
@@ -240,7 +247,7 @@ export class Bot implements BotInfo, MoveSource {
       return [{ uci: '0000', weights: {} }];
     }
     const parsed: SearchMove[] = [];
-    const lc0bias = this.filter('lc0bias', args) ?? 0;
+    const lc0bias = this.applyFilter('lc0bias', args) ?? 0;
     const cp = fishDepth ? fish.lines[fishDepth - 1][0].score : this.cp;
     this.trace(`[parseMoves] - cp = ${cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}`);
     if (fishDepth)
@@ -268,10 +275,10 @@ export class Bot implements BotInfo, MoveSource {
 
   private scoreByCpl(sorted: SearchMove[], args: MoveArgs) {
     if (!this.filters?.cplTarget) return;
-    const mean = this.filter('cplTarget', args)!;
-    const stdev = this.filter('cplStdev', args) ?? 80;
+    const mean = this.applyFilter('cplTarget', args)!;
+    const stdev = this.applyFilter('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
-    // folding the normal at zero skews the observed distribution mean a bit further from the target
+    // folding the normal at zero skews the distribution mean a bit further from the target
     const gain = 0.06;
     const threshold = 80; // something like clamp(stdev, { min: 50, max: 100 }) here?
     for (const mv of sorted) {
@@ -283,17 +290,36 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {
-    const aggression = this.filter('aggression', args) ?? 0;
+    const aggression = this.applyFilter('aggression', args) ?? 0;
     for (const mv of sorted) {
       const chess = args.chess.clone();
-      const normal = normalMove(chess, mv.uci)?.move;
-      if (!normal) {
-        console.error('scoreByAggression wtf', mv, args);
-        continue;
-      }
+      const normal = normalMove(chess, mv.uci)!.move;
       mv.weights.aggressionBias = co.san.makeSan(chess, normal).includes('x') ? aggression : 0;
     }
   }
+
+  private scoreByPawnStructure(sorted: SearchMove[], args: MoveArgs) {
+    const pawnScore = this.applyFilter('pawnStructure', args) ?? 0;
+    for (const mv of sorted) {
+      const chess = args.chess.clone();
+      chess.play(normalMove(chess, mv.uci)!.move);
+      const score = pawnStructure(chess);
+      mv.weights.pawnStructure = clamp(score * pawnScore, { min: 0, max: 1 });
+    }
+    const grouped = sorted.reduce((groups, mv) => {
+      const group = groups.get(mv.weights.pawnStructure!) ?? [];
+      group.push(mv);
+      groups.set(mv.weights.pawnStructure!, group);
+      return groups;
+    }, new Map<number, SearchMove[]>());
+    const vals = [...grouped.keys()].sort((a, b) => b - a);
+    vals.forEach((val, i) => {
+      for (const mv of grouped.get(val)!) {
+        mv.weights.pawnStructure = (vals.length - i) / vals.length;
+      }
+    });
+  }
+
   private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
     // in this weighted random selection, each move's weight is given by a quality decay parameter
     // raised to the power of the move's index as sorted by previous filters. a random number between
@@ -309,7 +335,7 @@ export class Bot implements BotInfo, MoveSource {
   }
 }
 
-type Weights = 'lc0bias' | 'cplBias' | 'aggressionBias';
+type Weights = 'lc0bias' | 'cplBias' | 'aggressionBias' | 'pawnStructure';
 
 interface SearchMove {
   uci: Uci;

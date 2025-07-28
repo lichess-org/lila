@@ -1,12 +1,13 @@
 package lila.oauth
 
-import com.roundeights.hasher.Algo
 import reactivemongo.api.bson.*
+import com.roundeights.hasher.Algo
 
 import lila.core.net.Bearer
+import lila.core.misc.oauth.AccessTokenId
 
 case class AccessToken(
-    id: AccessToken.Id,
+    id: AccessTokenId,
     plain: Bearer,
     userId: UserId,
     createdAt: Option[Instant],
@@ -22,43 +23,41 @@ case class AccessToken(
 
 object AccessToken:
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]:
-    def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
-
   case class ForAuth(
       userId: UserId,
       scopes: TokenScopes,
-      tokenId: AccessToken.Id,
+      tokenId: AccessTokenId,
       clientOrigin: Option[String]
   )
 
   object BSONFields:
-    val id           = "_id"
-    val plain        = "plain"
-    val userId       = "userId"
-    val createdAt    = "created"
-    val description  = "description"
-    val usedAt       = "used"
-    val scopes       = "scopes"
+    val id = "_id"
+    val plain = "plain"
+    val userId = "userId"
+    val createdAt = "created"
+    val description = "description"
+    val usedAt = "used"
+    val scopes = "scopes"
     val clientOrigin = "clientOrigin"
-    val expires      = "expires"
+    val expires = "expires"
+
+  def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
   import OAuthScope.given
 
   private[oauth] val forAuthProjection = $doc(
-    BSONFields.userId       -> true,
-    BSONFields.scopes       -> true,
+    BSONFields.userId -> true,
+    BSONFields.scopes -> true,
     BSONFields.clientOrigin -> true
   )
 
   given BSONDocumentReader[ForAuth] = new:
     def readDocument(doc: BSONDocument) = for
-      tokenId <- doc.getAsTry[AccessToken.Id](BSONFields.id)
-      userId  <- doc.getAsTry[UserId](BSONFields.userId)
-      scopes  <- doc.getAsTry[TokenScopes](BSONFields.scopes)
+      tokenId <- doc.getAsTry[AccessTokenId](BSONFields.id)
+      userId <- doc.getAsTry[UserId](BSONFields.userId)
+      scopes <- doc.getAsTry[TokenScopes](BSONFields.scopes)
       origin = doc.getAsOpt[String](BSONFields.clientOrigin)
     yield ForAuth(userId, scopes, tokenId, origin)
 
@@ -68,7 +67,7 @@ object AccessToken:
 
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
-        id = r.get[Id](id),
+        id = r.get[AccessTokenId](id),
         plain = r.get[Bearer](plain),
         userId = r.get[UserId](userId),
         createdAt = r.getO[Instant](createdAt),
@@ -81,13 +80,13 @@ object AccessToken:
 
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
-        id           -> o.id,
-        plain        -> o.plain,
-        userId       -> o.userId,
-        createdAt    -> o.createdAt,
-        description  -> o.description,
-        usedAt       -> o.usedAt,
-        scopes       -> o.scopes,
+        id -> o.id,
+        plain -> o.plain,
+        userId -> o.userId,
+        createdAt -> o.createdAt,
+        description -> o.description,
+        usedAt -> o.usedAt,
+        scopes -> o.scopes,
         clientOrigin -> o.clientOrigin,
-        expires      -> o.expires
+        expires -> o.expires
       )

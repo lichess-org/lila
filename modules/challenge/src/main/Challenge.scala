@@ -43,18 +43,18 @@ case class Challenge(
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsOpen = challenger match
     case Challenger.Open => true
-    case _               => false
+    case _ => false
 
   def userIds = List(challengerUserId, destUserId).flatten
 
   def daysPerTurn = timeControl match
     case TimeControl.Correspondence(d) => d.some
-    case _                             => none
+    case _ => none
   def unlimited = timeControl == TimeControl.Unlimited
 
   def openDest = destUser.isEmpty
-  def online   = status == Status.Created
-  def active   = online || status == Status.Offline
+  def online = status == Status.Created
+  def active = online || status == Status.Offline
   def canceled = status == Status.Canceled
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
@@ -70,7 +70,7 @@ case class Challenge(
 
   def notableInitialFen: Option[Fen.Full] = variant match
     case FromPosition | Horde | RacingKings | Chess960 => initialFen
-    case _                                             => none
+    case _ => none
 
   def isOpen = open.isDefined
 
@@ -86,7 +86,7 @@ case class Challenge(
   def cancel = copy(status = Status.Canceled)
 
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
-  def isBotCompatible: Boolean   = speed >= Speed.Bullet
+  def isBotCompatible: Boolean = speed >= Speed.Bullet
 
   def nonEmptyRules = rules.nonEmpty.option(rules)
 
@@ -101,8 +101,8 @@ object Challenge:
   enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
 
-    case Created  extends Status(10)
-    case Offline  extends Status(15)
+    case Created extends Status(10)
+    case Offline extends Status(15)
     case Canceled extends Status(20)
     case Declined extends Status(30)
     case Accepted extends Status(40)
@@ -113,35 +113,35 @@ object Challenge:
   enum DeclineReason(val trans: I18nKey):
     val key = DeclineReason.this.toString.toLowerCase
 
-    case Generic     extends DeclineReason(I18nKey.challenge.declineGeneric)
-    case Later       extends DeclineReason(I18nKey.challenge.declineLater)
-    case TooFast     extends DeclineReason(I18nKey.challenge.declineTooFast)
-    case TooSlow     extends DeclineReason(I18nKey.challenge.declineTooSlow)
+    case Generic extends DeclineReason(I18nKey.challenge.declineGeneric)
+    case Later extends DeclineReason(I18nKey.challenge.declineLater)
+    case TooFast extends DeclineReason(I18nKey.challenge.declineTooFast)
+    case TooSlow extends DeclineReason(I18nKey.challenge.declineTooSlow)
     case TimeControl extends DeclineReason(I18nKey.challenge.declineTimeControl)
-    case Rated       extends DeclineReason(I18nKey.challenge.declineRated)
-    case Casual      extends DeclineReason(I18nKey.challenge.declineCasual)
-    case Standard    extends DeclineReason(I18nKey.challenge.declineStandard)
-    case Variant     extends DeclineReason(I18nKey.challenge.declineVariant)
-    case NoBot       extends DeclineReason(I18nKey.challenge.declineNoBot)
-    case OnlyBot     extends DeclineReason(I18nKey.challenge.declineOnlyBot)
+    case Rated extends DeclineReason(I18nKey.challenge.declineRated)
+    case Casual extends DeclineReason(I18nKey.challenge.declineCasual)
+    case Standard extends DeclineReason(I18nKey.challenge.declineStandard)
+    case Variant extends DeclineReason(I18nKey.challenge.declineVariant)
+    case NoBot extends DeclineReason(I18nKey.challenge.declineNoBot)
+    case OnlyBot extends DeclineReason(I18nKey.challenge.declineOnlyBot)
 
   object DeclineReason:
 
-    val default            = Generic
-    val all                = values.toList
-    val byKey              = values.mapBy(_.key)
-    val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
+    val default = Generic
+    val all = values.toList
+    val byKey = values.mapBy(_.key)
+    val allExceptBot = all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
   enum ColorChoice(val trans: I18nKey) derives Eq:
     case Random extends ColorChoice(I18nKey.site.randomColor)
-    case White  extends ColorChoice(I18nKey.site.white)
-    case Black  extends ColorChoice(I18nKey.site.black)
+    case White extends ColorChoice(I18nKey.site.white)
+    case Black extends ColorChoice(I18nKey.site.black)
   object ColorChoice:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):
-    def userIdList                    = userIds.map { (u1, u2) => List(u1, u2) }
+    def userIdList = userIds.map { (u1, u2) => List(u1, u2) }
     def canJoin(using me: Option[Me]) =
       userIdList.forall(ids => me.exists(me => ids.exists(me.is(_))))
     def colorFor(requestedColor: Option[Color])(using me: Option[Me]): Option[ColorChoice] =
@@ -153,12 +153,12 @@ object Challenge:
 
   private def speedOf(timeControl: TimeControl) = timeControl match
     case TimeControl.Clock(config) => Speed(config)
-    case _                         => Speed.Correspondence
+    case _ => Speed.Correspondence
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     lila.rating.PerfType(variant, speedOf(timeControl))
 
-  private val idSize   = 8
+  private val idSize = 8
   private def randomId = ChallengeId(ThreadLocalRandom.nextString(idSize))
 
   def toRegistered(u: WithPerf): Challenger.Registered =
@@ -188,12 +188,12 @@ object Challenge:
       expiresAt: Option[Instant] = None
   ): Challenge =
     val (colorChoice, finalColor) = color match
-      case "white" => ColorChoice.White  -> chess.White
-      case "black" => ColorChoice.Black  -> chess.Black
-      case _       => ColorChoice.Random -> randomColor
+      case "white" => ColorChoice.White -> chess.White
+      case "black" => ColorChoice.Black -> chess.Black
+      case _ => ColorChoice.Random -> randomColor
     val finalRated = timeControl match
       case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Rated.No
-      case _                                                                           => rated
+      case _ => rated
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       id = id.fold(randomId)(_.into(ChallengeId)),

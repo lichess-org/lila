@@ -22,8 +22,8 @@ object RoomSocket:
     private var version = SocketVersion(0)
 
     val process: SyncActor.Receive =
-      case GetVersion(promise)  => promise.success(version)
-      case SetVersion(v)        => version = v
+      case GetVersion(promise) => promise.success(version)
+      case SetVersion(v) => version = v
       case nv: NotifyVersion[?] =>
         version = version.map(_ + 1)
         send.exec:
@@ -80,7 +80,7 @@ object RoomSocket:
 
   def minRoomHandler(rooms: RoomsMap, logger: Logger): SocketHandler =
     case Protocol.In.KeepAlives(roomIds) => roomIds.foreach(rooms.touchOrMake)
-    case P.In.WsBoot                     =>
+    case P.In.WsBoot =>
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) =>
@@ -105,13 +105,13 @@ object RoomSocket:
       case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
       case class ChatTimeout(roomId: RoomId, mod: MyId, suspect: UserId, reason: String, text: String)
           extends P.In
-      case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
-      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
+      case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
+      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri) extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader =
         case P.RawMsg("room/alives", raw) => KeepAlives(RoomId.from(P.In.commas(raw.args))).some
-        case P.RawMsg("chat/say", raw)    =>
+        case P.RawMsg("chat/say", raw) =>
           raw.get(3) { case Array(roomId, userId, msg) =>
             ChatSay(RoomId(roomId), UserId(userId), msg).some
           }

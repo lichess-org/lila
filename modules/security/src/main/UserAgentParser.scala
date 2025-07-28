@@ -50,12 +50,12 @@ object UserAgentParser:
         isRecentChrome(s) || isLastWindows8Chrome(s) || isRecentFirefox(s) || isRecentSafari(s)
 
     // based on https://caniuse.com/usage-table
-    private val isRecentChrome  = isRecentBrowser("chrome", 125) // also covers Edge and Opera
+    private val isRecentChrome = isRecentBrowser("chrome", 125) // also covers Edge and Opera
     private val isRecentFirefox = isRecentBrowser("firefox", 128)
-    private val isRecentSafari  = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
+    private val isRecentSafari = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
 
     private def isRecentBrowser(name: String, minVersion: Int): String => Boolean =
-      val slashed      = name + "/"
+      val slashed = name + "/"
       val prefixLength = slashed.length
       (s: String) =>
         s.startsWith(slashed) &&

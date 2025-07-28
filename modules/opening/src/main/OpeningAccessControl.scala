@@ -17,7 +17,7 @@ final class OpeningAccessControl(proxyApi: Ip2ProxyApi, proxyLimiter: RateLimite
       proxyApi
         .ofReq(req)
         .map: proxy =>
-          !proxy.is ||       // legit IPs are always allowed
+          !proxy.is || // legit IPs are always allowed
             me.exists: me => // only allow proxy IPs if they have a session
               // rate limit requests from proxy IPs per user
               proxyLimiter[Boolean](me.userId, default = false, cost = 1)(true)

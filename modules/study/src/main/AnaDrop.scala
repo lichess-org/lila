@@ -23,9 +23,9 @@ case class AnaDrop(
       .Game(variant.some, fen.some)
       .drop(role, pos)
       .map: (game, drop) =>
-        val uci     = Uci(drop)
+        val uci = Uci(drop)
         val movable = !game.position.end
-        val fen     = chess.format.Fen.write(game)
+        val fen = chess.format.Fen.write(game)
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
@@ -43,11 +43,11 @@ object AnaDrop:
   def parse(o: JsObject) =
     import chess.variant.Variant
     for
-      d    <- o.obj("d")
+      d <- o.obj("d")
       role <- d.str("role").flatMap(chess.Role.allByName.get)
-      pos  <- d.str("pos").flatMap(chess.Square.fromKey)
+      pos <- d.str("pos").flatMap(chess.Square.fromKey)
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
-      fen  <- d.get[Fen.Full]("fen")
+      fen <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
     yield AnaDrop(
       role = role,

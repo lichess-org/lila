@@ -29,7 +29,7 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.canPalantir
+          voiceChat = ctx.canVoiceChat
         )
       case Right((c, res)) =>
         views.chat.json(
@@ -49,9 +49,9 @@ def player(
         "round",
         Json
           .obj(
-            "data"   -> data,
+            "data" -> data,
             "userId" -> ctx.userId,
-            "chat"   -> chatJson
+            "chat" -> chatJson
           )
           .add("noab" -> ctx.me.exists(_.marks.engine))
       )

@@ -14,7 +14,7 @@ final class RelayCalendar(
 
   private val cache = cacheApi[YearMonth, List[WithFirstRound]](32, "relay.calendar.at"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: at =>
-      val max      = 200
+      val max = 200
       val firstDay = LocalDate.of(at.getYear, at.getMonth, 1)
       tourRepo.coll
         .aggregateList(max, _.sec): framework =>
@@ -24,7 +24,7 @@ final class RelayCalendar(
             $doc("$sort" -> RelayRoundRepo.sort.asc),
             $doc(
               "$addFields" -> $doc(
-                "sync.log"  -> $arr(),
+                "sync.log" -> $arr(),
                 "startDate" -> $doc("$ifNull" -> $arr("$startedAt", "$startsAt"))
               )
             ),
@@ -32,7 +32,7 @@ final class RelayCalendar(
               "$match" -> $doc(
                 "startDate" -> $doc(
                   "$gte" -> firstDay,
-                  "$lt"  -> firstDay.plusMonths(1)
+                  "$lt" -> firstDay.plusMonths(1)
                 )
               )
             ),
@@ -42,11 +42,11 @@ final class RelayCalendar(
             // reduce cache size by unselecting some fields
             AddFields(
               $doc(
-                "players"     -> "",
-                "teams"       -> "",
-                "markup"      -> "",
+                "players" -> "",
+                "teams" -> "",
+                "markup" -> "",
                 "subscribers" -> $arr(),
-                "notified"    -> $arr()
+                "notified" -> $arr()
               )
             ) ::
               tourRepo.aggregateRoundAndUnwind(colls, framework, roundPipeline = roundPipeline.some) :::

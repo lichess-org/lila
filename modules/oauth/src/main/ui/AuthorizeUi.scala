@@ -59,10 +59,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := buttonClass(prompt),
+                    cls := buttonClass(prompt),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
-                    id       := "oauth-authorize",
+                    id := "oauth-authorize",
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),

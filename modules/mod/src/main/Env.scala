@@ -37,9 +37,9 @@ final class Env(
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
 
-  private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
+  private lazy val logRepo = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
-  private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
+  private lazy val historyRepo = HistoryRepo(db(CollName("mod_gaming_history")))
   private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
   lazy val presets = wire[ModPresetsApi]

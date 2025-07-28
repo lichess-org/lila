@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.net.{ IpAddress, UserAgent }
 import lila.core.security.{ FingerHash, Ip2ProxyApi, IsProxy }
+import lila.core.misc.AtInstant
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 
@@ -18,7 +19,7 @@ case class UserLogins(
   def rawIps = ips.map(_.ip.value)
   def rawFps = prints.map(_.fp.value)
 
-  def otherUserIds = otherUsers.map(_.userId)
+  def otherUserIds = otherUsers.map(_.user.id)
 
   def usersSharingIp = otherUsers.collect:
     case OtherUser(user, ips, _) if ips.nonEmpty => user
@@ -43,27 +44,26 @@ final class UserLoginsApi(
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user).flatMap { infos =>
-      val ips                                    = distinctRecent(infos.map(_.datedIp))
-      val fps                                    = distinctRecent(infos.flatMap(_.datedFp))
+      val ips = distinctRecent(infos.map(_.datedIp))
+      val fps = distinctRecent(infos.flatMap(_.datedFp))
       val fpClients: Map[FingerHash, UserClient] = infos.view
         .flatMap: i =>
-          i.fp.map:
-            _ -> UserClient(i.ua)
+          i.fp.map(_ -> UserClient(i.ua))
         .toMap
       val ipClients: Map[IpAddress, Set[UserClient]] =
         infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]): (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).foldLeft(Set(UserClient(info.ua)))(_ ++ _))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers)
-        .zip(ip2proxy.keepProxies(ips.map(_.value).toList))
-        .map { (otherUsers, proxies) =>
-          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { (acc, other) =>
+        .zip:
+          ip2proxy.keepProxies:
+            ips.toList.sortedReverse.map(_.value).toList
+        .map: (otherUsers, proxies) =>
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]): (acc, other) =>
             other.ips.foldLeft(acc): (acc, ip) =>
               acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
-          }
-          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { (acc, other) =>
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]): (acc, other) =>
             other.fps.foldLeft(acc): (acc, fp) =>
               acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
-          }
           UserLogins(
             ips = ips.map { ip =>
               IPData(
@@ -86,7 +86,6 @@ final class UserLoginsApi(
             uas = distinctRecent(infos.map(_.datedUa)).toList,
             otherUsers = otherUsers
           )
-        }
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
@@ -146,17 +145,17 @@ final class UserLoginsApi(
           import lila.user.BSONHandlers.userHandler
           import FingerHash.given
           for
-            doc  <- docs
+            doc <- docs
             user <- doc.getAsOpt[User]("user")
-            ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(using collectionReader)
-            fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(using collectionReader)
+            ips <- doc.getAsOpt[Set[IpAddress]]("ips")(using collectionReader)
+            fps <- doc.getAsOpt[Set[FingerHash]]("fps")(using collectionReader)
           yield OtherUser(user, ips.intersect(ipSet), fps.intersect(fpSet))
     )
 
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for
       (ips, fps) <- nextValues("ip", userId).zip(nextValues("fp", userId))
-      users      <- (ips.nonEmpty && fps.nonEmpty).so(
+      users <- (ips.nonEmpty && fps.nonEmpty).so(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
           $doc(
@@ -173,11 +172,12 @@ final class UserLoginsApi(
 
 object UserLogins:
 
-  case class OtherUser[U](user: U, ips: Set[IpAddress], fps: Set[FingerHash])(using userIdOf: UserIdOf[U]):
-    val nbIps  = ips.size
-    val nbFps  = fps.size
-    val score  = nbIps + nbFps + nbIps * nbFps
-    def userId = userIdOf(user)
+  case class OtherUser[U: UserIdOf: AtInstant](user: U, ips: Set[IpAddress], fps: Set[FingerHash]):
+    val nbIps = ips.size
+    val nbFps = fps.size
+    val score = nbIps + nbFps + nbIps * nbFps
+  object OtherUser:
+    given [U: AtInstant] => AtInstant[OtherUser[U]] = _.user.atInstant
 
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
@@ -185,18 +185,18 @@ object UserLogins:
     all
       .foldLeft(Map.empty[V, Instant]):
         case (acc, Dated(v, _)) if acc.contains(v) => acc
-        case (acc, Dated(v, date))                 => acc + (v -> date)
+        case (acc, Dated(v, date)) => acc + (v -> date)
       .view
       .map(Dated.apply)
 
   case class Alts(users: Set[User]):
     lazy val boosters = users.count(_.marks.boost)
-    lazy val engines  = users.count(_.marks.engine)
-    lazy val trolls   = users.count(_.marks.troll)
-    lazy val alts     = users.count(_.marks.alt)
-    lazy val closed   = users.count(u => u.enabled.no && u.marks.clean)
-    lazy val cleans   = users.count(u => u.enabled.yes && u.marks.clean)
-    def score         =
+    lazy val engines = users.count(_.marks.engine)
+    lazy val trolls = users.count(_.marks.troll)
+    lazy val alts = users.count(_.marks.alt)
+    lazy val closed = users.count(u => u.enabled.no && u.marks.clean)
+    lazy val cleans = users.count(u => u.enabled.yes && u.marks.clean)
+    def score =
       (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match
         case 0 => -999999 // rank empty alts last
         case n => n
@@ -218,11 +218,11 @@ object UserLogins:
       client: UserClient
   )
 
-  case class WithMeSortedWithEmails[U: UserIdOf](
+  case class WithMeSortedWithEmails[U: UserIdOf: AtInstant](
       others: List[OtherUser[U]],
       emails: Map[UserId, EmailAddress]
   ):
-    def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
+    def withUsers[V: UserIdOf: AtInstant](newUsers: List[V]) = copy(others = others.flatMap { o =>
       newUsers.find(_.is(o.user)).map { u => o.copy(user = u) }
     })
 
@@ -245,7 +245,7 @@ object UserLogins:
       bans: Map[UserId, Int],
       max: Int
   ):
-    def withUsers[V: UserIdOf](users: List[V]) = copy(
+    def withUsers[V: UserIdOf: AtInstant](users: List[V]) = copy(
       othersWithEmail = othersWithEmail.withUsers(users)
     )
     def othersPartiallyLoaded = othersWithEmail.others.sizeIs >= max

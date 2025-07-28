@@ -12,6 +12,7 @@ import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
+import lila.core.net.LichessMobileVersion
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -56,19 +57,19 @@ final private class PushApi(
               opponent <- asyncOpponentName(pov)
             yield Data(
               title = pov.win match
-                case Some(true)  => "You won!"
+                case Some(true) => "You won!"
                 case Some(false) => "You lost."
-                case _           => "It's a draw."
+                case _ => "It's a draw."
               ,
               body = s"Your game with $opponent is over.",
               stacking = Stacking.GameFinish,
               urgency = Urgency.VeryLow,
               payload = payload(userId)(
-                "type"   -> "gameFinish",
+                "type" -> "gameFinish",
                 "gameId" -> game.id.value,
                 "fullId" -> pov.fullId.value
               ),
-              mobileCompatible = true,
+              mobileCompatible = LichessMobileVersion.zero.some,
               iosBadge = nbMyTurn.some,
               firebaseMod = offlineRoundNotif
             )
@@ -94,14 +95,14 @@ final private class PushApi(
                       ) // ensure game is updated before we count user games
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameMove", userId)
+                      payload <- corresGamePayload(pov, "gameMove", userId)
                     yield Data(
                       title = "It's your turn!",
                       body = s"$opponent played $sanMove",
                       stacking = Stacking.GameMove,
                       urgency = if pov.isMyTurn then Urgency.Normal else Urgency.Low,
                       payload = payload,
-                      mobileCompatible = true,
+                      mobileCompatible = LichessMobileVersion.zero.some,
                       iosBadge = nbMyTurn.some,
                       firebaseMod = offlineRoundNotif
                     )
@@ -125,14 +126,14 @@ final private class PushApi(
                   val data = LazyFu: () =>
                     for
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameTakebackOffer", userId)
+                      payload <- corresGamePayload(pov, "gameTakebackOffer", userId)
                     yield Data(
                       title = "Takeback offer",
                       body = s"$opponent proposes a takeback",
                       stacking = Stacking.GameTakebackOffer,
                       urgency = Urgency.Normal,
                       payload = payload,
-                      mobileCompatible = true,
+                      mobileCompatible = LichessMobileVersion.zero.some,
                       firebaseMod = offlineRoundNotif
                     )
                   IfAway(pov)(maybePushNotif(userId, _.takeback, PrefEvent.gameEvent, data)) >>
@@ -153,7 +154,7 @@ final private class PushApi(
                   val data = LazyFu: () =>
                     for
                       opponent <- asyncOpponentName(pov)
-                      payload  <- corresGamePayload(pov, "gameDrawOffer", userId)
+                      payload <- corresGamePayload(pov, "gameDrawOffer", userId)
                     yield Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
@@ -161,7 +162,7 @@ final private class PushApi(
                       urgency = Urgency.Normal,
                       payload = payload,
                       firebaseMod = offlineRoundNotif,
-                      mobileCompatible = true
+                      mobileCompatible = LichessMobileVersion.zero.some
                     )
                   IfAway(pov)(maybePushNotif(userId, _.draw, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.draw, data)
@@ -172,14 +173,14 @@ final private class PushApi(
       val data = LazyFu: () =>
         for
           opponent <- asyncOpponentName(pov)
-          payload  <- corresGamePayload(pov, "corresAlarm", userId)
+          payload <- corresGamePayload(pov, "corresAlarm", userId)
         yield Data(
           title = "Time is almost up!",
           body = s"You are about to lose on time against $opponent",
           stacking = Stacking.GameMove,
           urgency = Urgency.High,
           payload = payload,
-          mobileCompatible = true,
+          mobileCompatible = LichessMobileVersion.zero.some,
           firebaseMod = offlineRoundNotif
         )
       maybePushNotif(userId, _.corresAlarm, PrefEvent.gameEvent, data) >>
@@ -190,10 +191,10 @@ final private class PushApi(
       .mobileOffline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId)(
-          "type"   -> typ,
+          "type" -> typ,
           "gameId" -> pov.gameId.value,
           "fullId" -> pov.fullId.value,
-          "round"  -> Json.stringify(round)
+          "round" -> Json.stringify(round)
         )
 
   def privateMessage(to: NotifyAllows, senderId: UserId, senderName: String, text: String): Funit =
@@ -206,9 +207,9 @@ final private class PushApi(
           body = text,
           stacking = Stacking.PrivateMessage,
           urgency = Urgency.Normal,
-          mobileCompatible = false,
+          mobileCompatible = LichessMobileVersion(0, 17).some,
           payload = payload(to.userId)(
-            "type"     -> "newMessage",
+            "type" -> "newMessage",
             "threadId" -> senderId.value
           )
         )
@@ -224,13 +225,13 @@ final private class PushApi(
           body = s"$invitedBy invited you to $studyName",
           stacking = Stacking.InvitedStudy,
           urgency = Urgency.Normal,
-          mobileCompatible = false,
+          mobileCompatible = None,
           payload = payload(to.userId)(
-            "type"      -> "invitedStudy",
+            "type" -> "invitedStudy",
             "invitedBy" -> invitedBy,
             "studyName" -> studyName.value,
-            "studyId"   -> studyId.value,
-            "url"       -> s"https://lichess.org/study/$studyId"
+            "studyId" -> studyId.value,
+            "url" -> s"https://lichess.org/study/$studyId"
           )
         )
     )
@@ -252,10 +253,10 @@ final private class PushApi(
                   stacking = Stacking.ChallengeCreate,
                   urgency = Urgency.Normal,
                   payload = payload(dest.id)(
-                    "type"        -> "challengeCreate",
+                    "type" -> "challengeCreate",
                     "challengeId" -> c.id.value
                   ),
-                  mobileCompatible = false
+                  mobileCompatible = None
                 )
             )
 
@@ -276,9 +277,9 @@ final private class PushApi(
                   body = describeChallenge(c),
                   stacking = Stacking.ChallengeAccept,
                   urgency = Urgency.Normal,
-                  mobileCompatible = false,
+                  mobileCompatible = None,
                   payload = payload(challenger.id)(
-                    "type"        -> "challengeAccept",
+                    "type" -> "challengeAccept",
                     "challengeId" -> c.id.value
                   )
                 )
@@ -296,12 +297,12 @@ final private class PushApi(
             body = "The tournament is about to start!",
             stacking = Stacking.ChallengeAccept,
             urgency = Urgency.Normal,
-            mobileCompatible = false,
+            mobileCompatible = None,
             payload = payload(userId)(
-              "type"     -> "tourSoon",
-              "tourId"   -> tour.tourId,
+              "type" -> "tourSoon",
+              "tourId" -> tour.tourId,
               "tourName" -> tour.tourName,
-              "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
+              "path" -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
             )
           )
       )
@@ -319,13 +320,13 @@ final private class PushApi(
               body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
               stacking = Stacking.ForumMention,
               urgency = Urgency.Low,
-              mobileCompatible = false,
+              mobileCompatible = None,
               payload = payload(to.userId)(
-                "type"        -> "forumMention",
+                "type" -> "forumMention",
                 "mentionedBy" -> mentionedBy,
-                "topic"       -> topicName,
-                "postId"      -> postId.value,
-                "url"         -> s"https://lichess.org/forum/redirect/post/$postId"
+                "topic" -> topicName,
+                "postId" -> postId.value,
+                "url" -> s"https://lichess.org/forum/redirect/post/$postId"
               )
             )
     )
@@ -338,11 +339,11 @@ final private class PushApi(
         stacking = Stacking.StreamStart,
         urgency = Urgency.Low,
         payload = payload(
-          "type"       -> "streamStart",
+          "type" -> "streamStart",
           "streamerId" -> streamerId.value,
-          "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
+          "url" -> s"https://lichess.org/streamer/$streamerId/redirect"
         ),
-        mobileCompatible = false
+        mobileCompatible = None
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     for _ <- webPush(webRecips, pushData).addEffects: res =>
@@ -368,7 +369,7 @@ final private class PushApi(
         stacking = Stacking.Generic,
         urgency = Urgency.Normal,
         payload = payload("url" -> url),
-        mobileCompatible = false
+        mobileCompatible = None
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     for _ <- webPush(webRecips, pushData).addEffects: res =>
@@ -405,16 +406,16 @@ final private class PushApi(
     List(
       if c.rated.yes then "Rated" else "Casual",
       c.timeControl match
-        case Unlimited         => "Unlimited"
+        case Unlimited => "Unlimited"
         case Correspondence(d) => s"$d days"
-        case c: Clock          => c.show
+        case c: Clock => c.show
       ,
       c.variant.name
     ).mkString(" • ")
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus
-      .safeAsk[Boolean, Tell]: p =>
+      .ask[Boolean, Tell]: p =>
         Tell(pov.gameId, RoundBus.IsOnGame(pov.color, p))
       .flatMap:
         if _ then funit
@@ -431,7 +432,7 @@ private object PushApi:
       stacking: Stacking,
       urgency: Urgency,
       payload: Data.Payload,
-      mobileCompatible: Boolean,
+      mobileCompatible: Option[LichessMobileVersion] = None,
       iosBadge: Option[Int] = None,
       // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
       firebaseMod: Option[Data.FirebaseMod] = None
@@ -442,9 +443,9 @@ private object PushApi:
     type KeyValue = Seq[(String, String)]
     case class Payload(userId: Option[UserId], userData: KeyValue)
     def payload(userId: UserId)(pairs: (String, String)*): Payload = Payload(userId.some, pairs)
-    def payload(pairs: (String, String)*): Payload                 = Payload(none, pairs)
+    def payload(pairs: (String, String)*): Payload = Payload(none, pairs)
 
     type KeyValueMod = Data.KeyValue => Data.KeyValue
     enum FirebaseMod(val mod: KeyValueMod):
       case NotifOnly(m: KeyValueMod) extends FirebaseMod(m)
-      case DataOnly                  extends FirebaseMod(identity)
+      case DataOnly extends FirebaseMod(identity)

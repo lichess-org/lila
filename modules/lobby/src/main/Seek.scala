@@ -41,18 +41,18 @@ case class Seek(
 
   lazy val perfType = PerfType(realVariant, Speed.Correspondence)
 
-  def perf   = user.perfAt(perfType)
+  def perf = user.perfAt(perfType)
   def rating = perf.rating
 
   def render: JsObject =
     Json
       .obj(
-        "id"       -> _id,
+        "id" -> _id,
         "username" -> user.username,
-        "rating"   -> rating,
-        "variant"  -> Json.obj("key" -> realVariant.key),
-        "perf"     -> Json.obj("key" -> perfType.key),
-        "mode"     -> rated.id // must keep BC
+        "rating" -> rating,
+        "variant" -> Json.obj("key" -> realVariant.key),
+        "perf" -> Json.obj("key" -> perfType.key),
+        "mode" -> rated.id // must keep BC
       )
       .add("days" -> daysPerTurn)
       .add("provisional" -> perf.provisional.yes)
@@ -97,6 +97,6 @@ object Seek:
     b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
     x => x.rating.value * (if x.provisional.yes then -1 else 1)
   )
-  private given BSONHandler[Map[PerfKey, LobbyPerf]]  = typedMapHandlerIso[PerfKey, LobbyPerf]
+  private given BSONHandler[Map[PerfKey, LobbyPerf]] = typedMapHandlerIso[PerfKey, LobbyPerf]
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
-  private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler
+  private[lobby] given BSONDocumentHandler[Seek] = Macros.handler

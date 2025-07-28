@@ -64,27 +64,28 @@ final class AccountTermination(
 
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
-    selfClose    = me.is(u)
+    selfClose = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
-    modClose     = !selfClose && Granter(_.CloseAccount)
-    tos          = u.marks.dirty || modClose || playbanned
-    _           <- userRepo.disable(u, keepEmail = tos, forever = forever)
-    _           <- roundApi.resignAllGamesOf(u.id)
+    modClose = !selfClose && Granter(_.CloseAccount)
+    tos = u.marks.dirty || modClose || playbanned
+    _ <- userRepo.disable(u, keepEmail = tos, forever = forever)
+    _ <- roundApi.resignAllGamesOf(u.id)
     followedIds <- relationApi.accountTermination(u)
-    _           <- rankingApi.remove(u.id)
-    teamIds     <- teamApi.quitAllOnAccountClosure(u.id)
-    _           <- challengeApi.removeByUserId(u.id)
-    _           <- tournamentApi.withdrawAll(u)
-    _           <- swissApi.withdrawAll(u, teamIds)
-    _           <- planApi.cancelIfAny(u).recoverDefault
-    _           <- seekApi.removeByUser(u)
-    _           <- securityStore.closeAllSessionsOf(u.id)
-    _           <- selfClose.so(tokenApi.revokeAllByUser(u))
-    _           <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
-    _           <- pushEnv.unregisterDevices(u)
-    _           <- streamerApi.demote(u.id)
-    reports     <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-    _           <-
+    _ <- rankingApi.remove(u.id)
+    teamIds <- teamApi.quitAllOnAccountClosure(u.id)
+    _ <- tos.so(teamApi.deleteNewlyCreatedBy(u.id))
+    _ <- challengeApi.removeByUserId(u.id)
+    _ <- tournamentApi.withdrawAll(u)
+    _ <- swissApi.withdrawAll(u, teamIds)
+    _ <- planApi.cancelIfAny(u).recoverDefault
+    _ <- seekApi.removeByUser(u)
+    _ <- securityStore.closeAllSessionsOf(u.id)
+    _ <- selfClose.so(tokenApi.revokeAllByUser(u))
+    _ <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
+    _ <- pushEnv.unregisterDevices(u)
+    _ <- streamerApi.demote(u.id)
+    reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
+    _ <-
       if selfClose then modLogApi.selfCloseAccount(u.id, forever, reports)
       else if teacherClose then modLogApi.teacherCloseAccount(u.id)
       else modLogApi.closeAccount(u.id)
@@ -121,19 +122,19 @@ final class AccountTermination(
   private def doDeleteNow(u: User): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     tos = u.marks.dirty || playbanned
-    _   = logger.info(s"Deleting user ${u.username} tos=$tos")
-    _                   <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
-    _                   <- activityWrite.deleteAll(u)
+    _ = logger.info(s"Deleting user ${u.username} tos=$tos")
+    _ <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
+    _ <- activityWrite.deleteAll(u)
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
-    _                   <- analysisRepo.remove(singlePlayerGameIds)
-    _                   <- deleteAllGameChats(u)
-    _                   <- streamerApi.delete(u)
-    swissIds            <- gameRepo.swissIdsOf(u.id)
-    _                   <- swissIds.nonEmpty.so(swissApi.onUserDelete(u.id, swissIds))
-    _                   <- teamApi.onUserDelete(u.id)
-    _                   <- ublogApi.onAccountDelete(u)
-    _                   <- tokenApi.revokeAllByUser(u)
-    _                   <- u.marks.clean.so:
+    _ <- analysisRepo.remove(singlePlayerGameIds)
+    _ <- deleteAllGameChats(u)
+    _ <- streamerApi.delete(u)
+    swissIds <- gameRepo.swissIdsOf(u.id)
+    _ <- swissIds.nonEmpty.so(swissApi.onUserDelete(u.id, swissIds))
+    _ <- teamApi.onUserDelete(u.id)
+    _ <- ublogApi.onAccountDelete(u)
+    _ <- tokenApi.revokeAllByUser(u)
+    _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
   yield
     // a lot of deletion is done by modules listening to the following event:

@@ -10,7 +10,7 @@ case class IrwinReport(
     date: Instant
 ):
 
-  inline def userId    = _id
+  inline def userId = _id
   inline def suspectId = SuspectId(userId)
 
   def note: String = games
@@ -41,9 +41,9 @@ object IrwinReport:
   case class MoveReport(
       activation: Int,
       rank: Option[Int], // selected PV, or null (if move is not in top 5)
-      ambiguity: Int,    // how many good moves are in the position
-      odds: Int,         // winning chances -100 -> 100
-      loss: Int          // percentage loss in winning chances
+      ambiguity: Int, // how many good moves are in the position
+      odds: Int, // winning chances -100 -> 100
+      loss: Int // percentage loss in winning chances
   ):
     override def toString =
       s"Rank: ${rank.fold("-")(_.toString)}, ambiguity: $ambiguity, odds: $odds, loss: $loss"
@@ -51,7 +51,7 @@ object IrwinReport:
   case class WithPovs(report: IrwinReport, povs: Map[GameId, Pov]):
     def withPovs: List[GameReport.WithPov] = for
       gameReport <- report.games
-      pov        <- povs.get(gameReport.gameId)
+      pov <- povs.get(gameReport.gameId)
     yield GameReport.WithPov(gameReport, pov)
 
   case class Dashboard(recent: List[IrwinReport]):

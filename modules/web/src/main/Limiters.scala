@@ -26,7 +26,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 1
   )
 
-  val forumPost  = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
+  val forumPost = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
   val forumTopic = RateLimit[IpAddress](credits = 2, duration = 5.minutes, key = "forum.topic")
 
   val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
@@ -112,7 +112,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val follow = RateLimit[UserId](credits = 150, duration = 72.hour, key = "follow.user")
 
-  val search            = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
+  val search = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
   val searchConcurrency = lila.web.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
     ttl = 10.minutes,
@@ -121,7 +121,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
 
-  val tourJoin = RateLimit[UserId](credits = 60, duration = 10.minutes, key = "tournament.user.join")
+  val tourJoinOrResume =
+    RateLimit[UserId](credits = 30, duration = 10.minutes, key = "tournament.user.joinOrResume")
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 

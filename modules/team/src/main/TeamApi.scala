@@ -27,7 +27,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
 
   def team(id: TeamId) = teamRepo.byId(id)
 
@@ -49,7 +49,7 @@ final class TeamApi(
     val bestId = Team.nameToId(setup.name)
     for
       exists <- chatApi.exists(bestId.into(ChatId))
-      id   = if exists then Team.randomId() else bestId
+      id = if exists then Team.randomId() else bestId
       team = Team.make(
         id = id,
         name = setup.name,
@@ -87,7 +87,7 @@ final class TeamApi(
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(team)
-      _        <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
+      _ <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
@@ -134,7 +134,7 @@ final class TeamApi(
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for
     requestManagers <- memberRepo.leadersOf(user, _.Request)
     teamIds = requestManagers.map(_.team)
-    requests  <- requestRepo.findActiveByTeams(teamIds)
+    requests <- requestRepo.findActiveByTeams(teamIds)
     withUsers <- requestsWithUsers(requests)
   yield withUsers
 
@@ -161,11 +161,11 @@ final class TeamApi(
 
   def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] = for
     teamOption <- teamEnabled(teamId)
-    able       <- teamOption.so(requestable)
+    able <- teamOption.so(requestable)
   yield teamOption.ifTrue(able)
 
   def requestable(team: Team)(using me: Me): Fu[Boolean] = for
-    belongs   <- belongsTo(team.id, me)
+    belongs <- belongsTo(team.id, me)
     requested <- requestRepo.exists(team.id, me)
   yield !belongs && !requested
 
@@ -191,7 +191,7 @@ final class TeamApi(
     else if decision == "accept"
     then
       for
-        _          <- requestRepo.remove(request.id)
+        _ <- requestRepo.remove(request.id)
         userOption <- userApi.byId(request.user)
         _ <- userOption.so(user => doJoin(team)(using Me(user)) >> notifier.acceptRequest(team, request))
       yield ()
@@ -244,7 +244,7 @@ final class TeamApi(
 
   def quit(team: Team, userId: UserId): Funit = for
     res <- memberRepo.remove(team.id, userId)
-    _   <- (res.n == 1).so:
+    _ <- (res.n == 1).so:
       teamRepo.incMembers(team.id, -1)
   yield
     Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
@@ -252,9 +252,9 @@ final class TeamApi(
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
     teamIds <- cached.teamIdsList(userId)
-    _       <- memberRepo.removeByUser(userId)
-    _       <- requestRepo.removeByUser(userId)
-    _       <- teamIds.sequentially(teamRepo.incMembers(_, -1))
+    _ <- memberRepo.removeByUser(userId)
+    _ <- requestRepo.removeByUser(userId)
+    _ <- teamIds.sequentially(teamRepo.incMembers(_, -1))
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
@@ -285,7 +285,7 @@ final class TeamApi(
   yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
-    val users  = parseTagifyInput(json).toList
+    val users = parseTagifyInput(json).toList
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
@@ -323,7 +323,7 @@ final class TeamApi(
         logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
         if team.enabled then
           for
-            _     <- teamRepo.disable(team)
+            _ <- teamRepo.disable(team)
             users <- memberRepo.userIdsByTeam(team.id)
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
@@ -340,7 +340,7 @@ final class TeamApi(
         ids.nonEmpty.option(Team.IdAndLeaderIds(teamId, ids))
 
   def teamsLedBy[U: UserIdOf](leader: U): Fu[List[Team]] = for
-    ids   <- memberRepo.teamsLedBy(leader, None)
+    ids <- memberRepo.teamsLedBy(leader, None)
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 

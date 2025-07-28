@@ -6,6 +6,10 @@
     <item quantity="one">%s diffusion</item>
     <item quantity="other">%s diffusions</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s observateur</item>
+    <item quantity="other">%s observateurs</item>
+  </plurals>
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
   <string name="broadcastCalendar">Calendrier des diffusions</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>

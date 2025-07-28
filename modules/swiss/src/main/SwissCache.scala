@@ -19,8 +19,8 @@ final class SwissCache(
     def clear(id: SwissId) = cache.invalidate(id)
     export cache.get as byId
     def notFinishedById(id: SwissId) = byId(id).dmap(_.filter(_.isNotFinished))
-    def createdById(id: SwissId)     = byId(id).dmap(_.filter(_.isCreated))
-    def startedById(id: SwissId)     = byId(id).dmap(_.filter(_.isStarted))
+    def createdById(id: SwissId) = byId(id).dmap(_.filter(_.isCreated))
+    def startedById(id: SwissId) = byId(id).dmap(_.filter(_.isStarted))
 
   val name = cacheApi.sync[SwissId, Option[String]](
     name = "swiss.name",

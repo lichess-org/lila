@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Barazim me marrëveshje</string>
   <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Erdhi %s</string>
+  <string name="joinedX">Erdhi %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
@@ -495,7 +495,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="points">Pikë</string>
   <string name="wins">Fitore</string>
   <string name="losses">Humbje</string>
-  <string name="createdBy">Krijuar nga</string>
   <string name="startingIn" comment="Displayed above a timer">Fillon më</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
@@ -724,6 +723,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyPreviousBranch">Dega e mëparshme</string>
   <string name="keyNextBranch">Dega pasuese</string>
   <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
+  <string name="variationArrowsInfo">Shigjetat e varianteve ju lejojnë të lëvizni pa përdorur listën e lëvizjeve.</string>
   <string name="playSelectedMove">luaj lëvizjen e përzgjedhur</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
@@ -783,6 +783,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="playChessEverywhere">Luani shah kudo</string>
   <string name="everybodyGetsAllFeaturesForFree">Gjithkush merr falas krejt veçoritë</string>
   <string name="viewTheSolution">Shihni zgjidhjen</string>
+  <string name="noChallenges">Pa sfida.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">I përdorshëm në %s gjuhë!</item>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>

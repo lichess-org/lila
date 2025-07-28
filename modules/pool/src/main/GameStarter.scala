@@ -26,7 +26,7 @@ final private class GameStarter(
       workQueue:
         for
           (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
-          pairings     <- couples.zip(ids).parallel(one(pool, perfs).tupled)
+          pairings <- couples.zip(ids).parallel(one(pool, perfs).tupled)
         yield lila.common.Bus.pub(Pairings(pairings.flatten.toList))
 
   private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(
@@ -38,9 +38,9 @@ final private class GameStarter(
       .soFu: (perf1, perf2) =>
         for
           p1White <- userApi.firstGetsWhite(p1.userId, p2.userId)
-          (whitePerf, blackPerf)     = if p1White then perf1 -> perf2 else perf2 -> perf1
+          (whitePerf, blackPerf) = if p1White then perf1 -> perf2 else perf2 -> perf1
           (whiteMember, blackMember) = if p1White then p1 -> p2 else p2 -> p1
-          game                       = makeGame(
+          game = makeGame(
             id,
             pool,
             whiteMember.userId -> whitePerf,

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Komunitateko blogak</string>
-  <string name="friendBlogs">Lagunen blogak</string>
-  <string name="lichessBlog">Lichess bloga</string>
+  <string name="community">Komunitatea</string>
+  <string name="byMonth">Hilabeteka</string>
+  <string name="byTopic">Gaika</string>
+  <string name="byLichess">Lichessenak</string>
+  <string name="myFriends">Nire lagunak</string>
+  <string name="myLikes">Nire gustukoak</string>
   <string name="myBlog">Nire bloga</string>
   <string name="likedBlogs">Atsegin dituzun sarrerak</string>
-  <string name="blogTopics">Blogeko gaiak</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blog sarrera</item>
     <item quantity="other">%s blog sarrera</item>
   </plurals>
-  <string name="lichessOfficialBlog">Lichessen Blog Ofiziala</string>
   <string name="continueReadingPost">Jarraitu sarrera hau irakurtzen</string>
   <string name="lichessBlogPostsFromXYear">%s urteko Lichessen blogeko sarrerak</string>
   <string name="previousBlogPosts">Aurreko sarrerak</string>

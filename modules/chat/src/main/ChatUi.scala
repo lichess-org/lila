@@ -17,8 +17,8 @@ object ChatUi:
   )
 
   val spectatorsFrag = div(
-    cls           := "chat__members none",
-    aria.live     := "off",
+    cls := "chat__members none",
+    aria.live := "off",
     aria.relevant := "additions removals text"
   )
 
@@ -32,7 +32,7 @@ object ChatUi:
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
-      palantir: Boolean = false
+      voiceChat: Boolean = false
   )(using Context): JsObject =
     json(
       chat.chat,
@@ -45,7 +45,7 @@ object ChatUi:
       resourceId = resourceId,
       restricted = chat.restricted,
       localMod = localMod,
-      palantir = palantir
+      voiceChat = voiceChat
     )
 
   def json(
@@ -60,7 +60,7 @@ object ChatUi:
       restricted: Boolean = false,
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
-      palantir: Boolean = false,
+      voiceChat: Boolean = false,
       hostIds: List[UserId] = Nil
   )(using ctx: Context): JsObject =
     val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
@@ -74,18 +74,18 @@ object ChatUi:
         .obj(
           "data" -> Json
             .obj(
-              "id"         -> chat.id,
-              "name"       -> name,
-              "lines"      -> lines,
+              "id" -> chat.id,
+              "name" -> name,
+              "lines" -> lines,
               "resourceId" -> resourceId.value
             )
             .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
             .add("userId" -> ctx.userId)
             .add("loginRequired" -> chat.loginRequired)
             .add("restricted" -> restricted)
-            .add("palantir" -> (palantir && ctx.isAuth)),
-          "writeable"   -> writeable,
-          "public"      -> public,
+            .add("voiceChat" -> (voiceChat && ctx.isAuth)),
+          "writeable" -> writeable,
+          "public" -> public,
           "permissions" -> Json
             .obj("local" -> (public && localMod))
             .add("broadcast" -> (public && broadcastMod))

@@ -12,6 +12,7 @@ import lila.common.{ Bus, HTTPRequest }
 import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
+import lila.core.user.KidMode
 import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
 
 final class GameStateStream(
@@ -35,7 +36,7 @@ final class GameStateStream(
 
     blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(
-        Props(mkActor(init, as, User(me, me.isBot), queue)),
+        Props(mkActor(init, as, User(me, me.isBot, me.kid), queue)),
         name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom.nextString(8)}"
       )
       queue
@@ -63,9 +64,9 @@ final class GameStateStream(
       BoardDrawOffer.makeChan(id),
       BoardTakeback.makeChan(id),
       BoardGone.makeChan(id),
-      uniqChan(init.game.pov(as)),
-      Chat.chanOf(id.into(ChatId))
+      uniqChan(init.game.pov(as))
     ) :::
+      user.kid.no.option(Chat.chanOf(id.into(ChatId))).toList :::
       user.isBot.option(Chat.chanOf(ChatId(s"$id/w"))).toList
 
     override def preStart(): Unit =
@@ -96,16 +97,16 @@ final class GameStateStream(
       lila.mon.bot.gameStream("stop").increment()
 
     def receive =
-      case MoveGameEvent(g, _, _) if g.id == id && !g.finished                            => pushState(g)
+      case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
       case lila.chat.ChatLine(chatId, UserLine(username, _, _, _, text, false, false), _) =>
         pushChatLine(username, text, chatId.value.lengthIs == GameId.size)
-      case FinishGame(g, _) if g.id == id                                 => onGameOver(g.some)
-      case AbortedBy(pov) if pov.gameId == id                             => onGameOver(pov.game.some)
-      case BoardDrawOffer(g) if g.id == id                                => pushState(g)
-      case BoardTakebackOffer(g) if g.id == id                            => pushState(g)
-      case BoardTakeback(g) if g.id == id                                 => pushState(g)
+      case FinishGame(g, _) if g.id == id => onGameOver(g.some)
+      case AbortedBy(pov) if pov.gameId == id => onGameOver(pov.game.some)
+      case BoardDrawOffer(g) if g.id == id => pushState(g)
+      case BoardTakebackOffer(g) if g.id == id => pushState(g)
+      case BoardTakeback(g) if g.id == id => pushState(g)
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
-      case SetOnline                                                      =>
+      case SetOnline =>
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler
           .scheduleOnce(6.second):
@@ -132,4 +133,4 @@ final class GameStateStream(
 private object GameStateStream:
 
   private case object SetOnline
-  private case class User(id: UserId, isBot: Boolean)
+  private case class User(id: UserId, isBot: Boolean, kid: KidMode)

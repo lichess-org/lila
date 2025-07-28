@@ -90,7 +90,7 @@
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
-  <string name="pinDescription">Tactiek waarbij een stuk niet verzet kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
+  <string name="pinDescription">Tactiek waarbij een stuk niet verplaatst kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
   <string name="promotion">Promotie</string>
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>

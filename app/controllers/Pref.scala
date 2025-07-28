@@ -10,7 +10,7 @@ import lila.common.Json.given
 
 final class Pref(env: Env) extends LilaController(env):
 
-  private def api   = env.pref.api
+  private def api = env.pref.api
   private def forms = lila.pref.PrefForm
 
   def apiGet = Scoped(_.Preference.Read, _.Web.Mobile) { _ ?=> me ?=>
@@ -24,13 +24,13 @@ final class Pref(env: Env) extends LilaController(env):
 
   private val redirects = Map(
     "game-display" -> "display",
-    "site"         -> "privacy"
+    "site" -> "privacy"
   )
 
   def form(categSlug: String) =
     redirects.get(categSlug) match
       case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
-      case None        =>
+      case None =>
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
@@ -39,7 +39,7 @@ final class Pref(env: Env) extends LilaController(env):
                   .form(me)
                   .map:
                     views.account.pref.notification(_)
-            case None        => notFound
+            case None => notFound
             case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
         }
 
@@ -96,4 +96,16 @@ final class Pref(env: Env) extends LilaController(env):
           jsonFormError,
           v => api.setPref(me, change.update(v)).inject(NoContent)
         )
+  }
+
+  def network = Auth { ctx ?=> me ?=>
+    Ok.page(views.account.pref.network(ctx.pref.isUsingAltSocket))
+  }
+
+  def networkPost = AuthBody { ctx ?=> me ?=>
+    for _ <- bindForm(forms.cfRoutingForm)(
+        _ => funit,
+        cfRouting => env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = cfRouting.some))
+      )
+    yield Redirect(routes.Pref.network)
   }

@@ -10,7 +10,7 @@ object Lilakka:
       f: () => Funit
   ): Unit =
     val phase = makePhase(CoordinatedShutdown)
-    val msg   = s"$phase $name"
+    val msg = s"$phase $name"
     cs.addTask(phase, name): () =>
       shutdownLogger.info(msg)
       Chronometer(f())

@@ -221,7 +221,7 @@ interface I18n {
     viewAllXTeams: I18nPlural;
     /** Which team will you represent in this battle? */
     whichTeamWillYouRepresentInThisBattle: string;
-    /** You will be notified when the tournament starts, so it is safe to play in another tab while waiting. */
+    /** You will be notified when the tournament starts, so feel free to leave this tab idle. */
     willBeNotified: string;
     /** You must join one of these teams to participate! */
     youMustJoinOneOfTheseTeamsToParticipate: string;
@@ -247,6 +247,10 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
+    /** Community broadcast */
+    communityBroadcast: string;
+    /** Created and managed by %s. */
+    createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -1215,8 +1219,6 @@ interface I18n {
     viewSiteInformationPopUp: string;
     /** Watch International Master Eric Rosen checkmate %s. */
     watchIMRosenCheckmate: I18nFormat;
-    /** To get it, hiimgosu challenged himself to berserk and win all games of %s. */
-    wayOfBerserkExplanation: I18nFormat;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */
     weCannotDoThatEvenIfItIsServerSideButThatsRare: string;
     /** We repeated a position three times. Why was the game not drawn? */
@@ -1747,7 +1749,7 @@ interface I18n {
     announceLastMove: string;
     /** Announce piece captured in last move. */
     announceLastMoveCapture: string;
-    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king. */
+    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces. */
     announcePieceLocations: string;
     /** Announce pieces on a rank or a file. Example: s a, s 1. */
     announcePiecesOnRankOrFile: string;
@@ -1771,6 +1773,10 @@ interface I18n {
     blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
+    /** %s copied to clipboard */
+    copiedToClipboard: I18nFormat;
+    /** Copy %s to clipboard */
+    copyToClipboard: I18nFormat;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
@@ -1811,8 +1817,12 @@ interface I18n {
     opponentClock: string;
     /** pawn */
     pawn: string;
+    /** PGN and FEN */
+    pgnAndFen: string;
     /** Pieces */
     pieces: string;
+    /** Pockets */
+    pockets: string;
     /** Premove cancelled */
     premoveCancelled: string;
     /** Premove recorded: %s. Hit enter to cancel */
@@ -3145,8 +3155,6 @@ interface I18n {
     createANewTopic: string;
     /** Create a new tournament */
     createANewTournament: string;
-    /** Created by */
-    createdBy: string;
     /** Newly created simuls */
     createdSimuls: string;
     /** Create the game */
@@ -5597,10 +5605,14 @@ interface I18n {
     blogPosts: I18nPlural;
     /** Our simple tips to write great blog posts */
     blogTips: string;
-    /** Blog topics */
-    blogTopics: string;
-    /** Community blogs */
-    communityBlogs: string;
+    /** By Lichess */
+    byLichess: string;
+    /** By month */
+    byMonth: string;
+    /** By topic */
+    byTopic: string;
+    /** Community */
+    community: string;
     /** Continue reading this post */
     continueReadingPost: string;
     /** Enable comments */
@@ -5615,8 +5627,6 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
-    /** Friends blogs */
-    friendBlogs: string;
     /** Image alternative text */
     imageAlt: string;
     /** Image credit */
@@ -5625,16 +5635,16 @@ interface I18n {
     inappropriateContentAccountClosed: string;
     /** Latest blog posts */
     latestBlogPosts: string;
-    /** Lichess blog */
-    lichessBlog: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
-    /** Lichess Official Blog */
-    lichessOfficialBlog: string;
     /** Liked blog posts */
     likedBlogs: string;
     /** My blog */
     myBlog: string;
+    /** My friends */
+    myFriends: string;
+    /** My likes */
+    myLikes: string;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */

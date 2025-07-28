@@ -28,14 +28,14 @@ trait Hcaptcha extends lila.core.security.Hcaptcha:
 object Hcaptcha:
 
   enum Result(val ok: Boolean):
-    case Valid    extends Result(true)
+    case Valid extends Result(true)
     case Disabled extends Result(true)
-    case IpFirst  extends Result(true)
-    case Mobile   extends Result(true)
-    case Fail     extends Result(false)
+    case IpFirst extends Result(true)
+    case Mobile extends Result(true)
+    case Fail extends Result(false)
 
   val field = "h-captcha-response" -> optional(nonEmptyText)
-  val form  = Form(single(field))
+  val form = Form(single(field))
 
   private[security] case class Config(
       endpoint: String,
@@ -68,12 +68,12 @@ final class HcaptchaReal(
   private given Reads[GoodResponse] = Json.reads[GoodResponse]
 
   private case class BadResponse(`error-codes`: List[String]):
-    def missingInput      = `error-codes` contains "missing-input-response"
+    def missingInput = `error-codes` contains "missing-input-response"
     override def toString = `error-codes`.mkString(",")
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
   private object skipIp:
-    private val memo                               = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
+    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
     def get(using req: RequestHeader): Fu[Boolean] =
       if alwaysCaptcha.get() then fuFalse
       else
@@ -91,15 +91,15 @@ final class HcaptchaReal(
       HcaptchaForm(form, config.public, skip)
 
   def verify(response: String)(using req: RequestHeader): Fu[Result] =
-    val client                           = HTTPRequest.clientName(req)
+    val client = HTTPRequest.clientName(req)
     given Conversion[Result, Fu[Result]] = fuccess
     ws.url(config.endpoint)
       .post(
         Map(
-          "secret"   -> config.privateKey.value,
+          "secret" -> config.privateKey.value,
           "response" -> response,
           "remoteip" -> HTTPRequest.ipAddress(req).value,
-          "sitekey"  -> config.publicKey
+          "sitekey" -> config.publicKey
         )
       )
       .flatMap:

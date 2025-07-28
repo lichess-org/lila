@@ -21,10 +21,10 @@ object SimulCondition:
     )(using Me, Perf, GetMyTeamIds, GetMaxRating, GetAge, Executor): Fu[WithVerdicts] =
       list
         .parallel:
-          case c: MaxRating  => c(pt).map(c.withVerdict)
+          case c: MaxRating => c(pt).map(c.withVerdict)
           case c: TeamMember => c.apply.map(c.withVerdict)
           case c: AccountAge => c.apply.map(c.withVerdict(_))
-          case c: FlatCond   => fuccess(c.withVerdict(c(pt)))
+          case c: FlatCond => fuccess(c.withVerdict(c(pt)))
         .dmap(WithVerdicts.apply)
 
   object All:
@@ -35,9 +35,9 @@ object SimulCondition:
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LightTeam]) =
       mapping(
-        "maxRating"  -> maxRating,
-        "minRating"  -> minRating,
-        "team"       -> teamMember(leaderTeams),
+        "maxRating" -> maxRating,
+        "minRating" -> minRating,
+        "team" -> teamMember(leaderTeams),
         "accountAge" -> accountAge
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
@@ -51,5 +51,5 @@ object SimulCondition:
         me: Me
     )(using Executor, Condition.GetMyTeamIds, Perf): Fu[WithVerdicts] =
       given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
-      given GetAge       = me => userApi.accountAge(me.userId)
+      given GetAge = me => userApi.accountAge(me.userId)
       simul.conditions.withVerdicts(pt)

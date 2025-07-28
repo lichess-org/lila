@@ -27,7 +27,7 @@ final private class Streaming(
       activeIds = streamerIds.filter { id =>
         liveStreams.has(id) || isOnline.exec(id.userId)
       }
-      streamers                       <- api.byIds(activeIds)
+      streamers <- api.byIds(activeIds)
       (twitchStreams, youTubeStreams) <-
         twitchApi
           .fetchStreams(streamers, 0, None)

@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast.</string>
   <string name="twitchUsername">Your Twitch username or URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Either Twitch or YouTube is required</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch and YouTube changes must be verified.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch and YouTube changes must be verified.
   
   Your streamer badge and listing will be suspended while the review is in process. This can take up to 72 hours.</string>
   <string name="youTubeChannelId">Your YouTube channel ID</string>

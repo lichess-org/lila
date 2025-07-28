@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogi skupnosti</string>
-  <string name="friendBlogs">Blogi prijateljev</string>
-  <string name="lichessBlog">Lichess spletni dnevnik</string>
   <string name="myBlog">Moj spletni dnevnik</string>
   <string name="likedBlogs">Všečkane objave v spletnem dnevniku</string>
-  <string name="blogTopics">Teme bloga</string>
-  <string name="lichessOfficialBlog">Uradni blog Lichess</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s objava v spletnem dnevniku</item>
+    <item quantity="two">%s objavi v spletnem dnevniku</item>
+    <item quantity="few">%s objave v spletnem dnevniku</item>
+    <item quantity="other">%s objav v spletnem dnevniku</item>
+  </plurals>
   <string name="continueReadingPost">Nadaljujte z branjem te objave</string>
   <string name="lichessBlogPostsFromXYear">Objave v spletnem dnevniku Lichess v %s</string>
   <string name="previousBlogPosts">Prejšnje objave v spletnem dnevniku</string>

@@ -6,20 +6,20 @@
   <string name="phases">قۆناغەکان</string>
   <string name="motifs">بیرۆکەکان</string>
   <string name="advanced">پێشکەوتوو</string>
-  <string name="lengths">درێژیەکان</string>
-  <string name="mates">هاوڕێیان</string>
+  <string name="lengths">درێژییەکان</string>
+  <string name="mates">ماتەکان</string>
   <string name="goals">ئامانجەکان</string>
   <string name="origin">سەرچاوە</string>
-  <string name="specialMoves">جوڵە تایبەتەکان</string>
+  <string name="specialMoves">جووڵە تایبەتەکان</string>
   <string name="didYouLikeThisPuzzle">ئەم مەتەڵەت بەدڵبوو؟</string>
-  <string name="voteToLoadNextOne">دەنگبدە بۆ بارکردنی دانەی داهاتوو!</string>
-  <string name="upVote">ئەو مەتەڵە بەدڵمە</string>
-  <string name="downVote">ئەو مەتەڵە بەدڵمنییە</string>
+  <string name="voteToLoadNextOne">دەنگ بدە بۆ بارکردنی دانەی داھاتوو!</string>
+  <string name="upVote">مەتەڵەکەم بەدڵە</string>
+  <string name="downVote">مەتەڵەکەم بەدڵ نییە</string>
   <string name="yourPuzzleRatingWillNotChange">ڕیزبەندیەکەت گۆڕانکاری بەسەردا نایەت، ئەوەک تێبینییەک، مەتڵەکان پێشبرکێی تێدانییە، ئەو ڕیزبەندییەی کە هەیە تەنها هاوکاری دیاریکردنی باشترین مەتەڵ دەکا کە لەگەڵ ئاستی تۆ گونجاوبێت.</string>
   <string name="findTheBestMoveForWhite">دۆزینەوەی باشترین جوڵە بۆ سپی.</string>
   <string name="findTheBestMoveForBlack">دۆزینەوەی باشترین جوڵە بۆ ڕەش.</string>
   <string name="toGetPersonalizedPuzzles">بۆ بەدەستهێنانی مەتەڵی تایبەتی:</string>
-  <string name="puzzleId">مەتەڵ %s</string>
+  <string name="puzzleId">مەتەڵی %s</string>
   <string name="puzzleOfTheDay">مەتەڵی ڕۆژ</string>
   <string name="dailyPuzzle">مەتەڵی ڕۆژانە</string>
   <string name="clickToSolve">کلیک بکە بۆ شیکارکردن</string>
@@ -77,6 +77,10 @@
   <string name="searchPuzzles">گەڕان بۆ مەتەڵ</string>
   <string name="fromMyGamesNone">هیچ مەتەڵێکت نییە لە داتابەیس، بەڵام لیچێس هێشتا خۆشەویستی زۆری بۆت هەیە.
 یاری ڕاپید یان کلاسیک بکە بۆ بەرزکردنەوەی چانسی دەستکەوتنی مەتەڵی یاریەکانی خۆت!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">مەتەڵێک لە یارییەکانی %2$sدا دۆزرایەوە</item>
+    <item quantity="other">%1$s مەتەڵ لە یارییەکانی %2$sدا دۆزرایەوە</item>
+  </plurals>
   <string name="puzzleDashboardDescription">ڕاهێنان ، شیکردنەوە، بەرەوپێشچوون</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s یاری کرد</item>

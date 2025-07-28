@@ -99,7 +99,6 @@ Do not ask for the LM title.</string>
   <string name="usernamesCannotBeChanged">No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.</string>
   <string name="uniqueTrophies">Unique trophies</string>
   <string name="ownerUniqueTrophies">That trophy is unique in the history of Lichess, nobody other than %1$s will ever have it.</string>
-  <string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win all games of %s.</string>
   <string name="aHourlyBulletTournament">an hourly Bullet tournament</string>
   <string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he'd get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
   <string name="lichessRatings">Lichess ratings</string>

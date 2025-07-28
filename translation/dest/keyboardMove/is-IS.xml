@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Skipanir með inntaki lyklaborðs</string>
+  <string name="performAMove">Leika</string>
   <string name="movePieceFromE2ToE4">Færa taflmann frá e2 til e4</string>
   <string name="moveKnightToC3">Færa riddara til c3</string>
   <string name="kingsideCastle">Stutthrókun</string>
@@ -10,4 +12,5 @@
   <string name="readOutOpponentName">Lesa nafn mótherjans upphátt</string>
   <string name="otherCommands">Aðrar skipanir</string>
   <string name="tips">Hollráð</string>
+  <string name="includingAXToIndicateACapture">Að hafa „x“ með til benda á dráp er frjálst val</string>
 </resources>

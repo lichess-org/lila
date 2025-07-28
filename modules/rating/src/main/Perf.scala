@@ -49,16 +49,16 @@ object PerfExt:
     def toGlickoPlayer = chess.rating.glicko.Player(p.glicko.cap, p.nb, p.latest)
 
     def showRatingProvisional = p.glicko.display
-    def established           = p.glicko.established
+    def established = p.glicko.established
 
 object Perf:
 
   val default = new Perf(lila.rating.Glicko.default, 0, Nil, None)
 
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
-  val defaultManaged       = new Perf(lila.rating.Glicko.defaultManaged, 0, Nil, nowInstant.some)
+  val defaultManaged = new Perf(lila.rating.Glicko.defaultManaged, 0, Nil, nowInstant.some)
   val defaultManagedPuzzle = new Perf(lila.rating.Glicko.defaultManagedPuzzle, 0, Nil, nowInstant.some)
-  val defaultBot           = new Perf(lila.rating.Glicko.defaultBot, 0, Nil, nowInstant.some)
+  val defaultBot = new Perf(lila.rating.Glicko.defaultBot, 0, Nil, nowInstant.some)
 
   val recentMaxSize = 12
 

@@ -17,15 +17,15 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
         case MentionedInThread(mentionedBy, topic, _, category, postId) =>
           Json.obj(
             "mentionedBy" -> getLightUser(mentionedBy),
-            "topic"       -> topic,
-            "category"    -> category,
-            "postId"      -> postId
+            "topic" -> topic,
+            "category" -> category,
+            "postId" -> postId
           )
         case InvitedToStudy(invitedBy, studyName, studyId) =>
           Json.obj(
             "invitedBy" -> getLightUser(invitedBy),
             "studyName" -> studyName,
-            "studyId"   -> studyId
+            "studyId" -> studyId
           )
         case PrivateMessage(senderId, text) =>
           Json.obj(
@@ -34,26 +34,26 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           )
         case TeamJoined(id, name) =>
           Json.obj(
-            "id"   -> id,
+            "id" -> id,
             "name" -> name
           )
-        case ReportedBanned | CoachReview         => Json.obj()
+        case ReportedBanned | CoachReview => Json.obj()
         case TitledTournamentInvitation(id, text) =>
           Json.obj(
-            "id"   -> id,
+            "id" -> id,
             "text" -> text
           )
         case GameEnd(gameId, opponentId, win) =>
           Json.obj(
-            "id"       -> gameId.value,
+            "id" -> gameId.value,
             "opponent" -> opponentId.flatMap(getLightUser),
-            "win"      -> win
+            "win" -> win
           )
-        case _: PlanStart               => Json.obj()
-        case _: PlanExpire              => Json.obj()
+        case _: PlanStart => Json.obj()
+        case _: PlanExpire => Json.obj()
         case RatingRefund(perf, points) =>
           Json.obj(
-            "perf"   -> perf,
+            "perf" -> perf,
             "points" -> points
           )
         case CorresAlarm(gameId, opponent) =>
@@ -71,30 +71,30 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           )
         case GenericLink(url, title, text, icon) =>
           Json.obj(
-            "url"   -> url,
+            "url" -> url,
             "title" -> title,
-            "text"  -> text,
-            "icon"  -> icon
+            "text" -> text,
+            "icon" -> icon
           )
         case StreamStart(streamerId, streamerName) =>
           Json.obj(
-            "sid"  -> streamerId,
+            "sid" -> streamerId,
             "name" -> streamerName
           )
         case BroadcastRound(url, title, text) =>
           Json.obj(
-            "url"   -> url,
+            "url" -> url,
             "title" -> title,
-            "text"  -> text
+            "text" -> text
           )
         case Recap(year) => Json.obj("year" -> year)
 
     def writes(notification: Notification) =
       Json.obj(
         "content" -> writeBody(notification.content),
-        "type"    -> notification.content.key,
-        "read"    -> notification.read.value,
-        "date"    -> notification.createdAt
+        "type" -> notification.content.key,
+        "read" -> notification.read.value,
+        "date" -> notification.createdAt
       )
 
   given OWrites[Notification.AndUnread] = Json.writes

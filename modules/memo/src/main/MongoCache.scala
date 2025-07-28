@@ -54,7 +54,7 @@ final class MongoCache[K, V: BSONHandler] private (
 
 object MongoCache:
 
-  type Loader[K, V]        = K => Fu[V]
+  type Loader[K, V] = K => Fu[V]
   type LoaderWrapper[K, V] = Loader[K, V] => Loader[K, V]
 
   final class Api(
@@ -114,3 +114,6 @@ object MongoCache:
     )(f: Unit => Fu[V]): MongoCache[Unit, V] =
       unit[V](name, dbTtl): loader =>
         _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))
+
+    def put[A: BSONWriter](key: String, value: A): Funit =
+      coll.update.one($id(key), $doc("v" -> value), upsert = true).void

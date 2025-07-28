@@ -492,7 +492,6 @@
   <string name="points">Poäng</string>
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
-  <string name="createdBy">Skapad av</string>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>

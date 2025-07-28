@@ -36,7 +36,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials,
-    env.ublog.automod.promptSetting
+    env.ublog.automod.promptSetting,
+    env.ublog.automod.temperatureSetting
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
@@ -79,6 +80,6 @@ final class Dev(env: Env) extends LilaController(env):
 
   private def runCommand(command: String)(using Me): Fu[String] =
     for
-      _   <- env.mod.logApi.cli(command)
+      _ <- env.mod.logApi.cli(command)
       res <- env.api.cli(command.split(" ").toList)
     yield res

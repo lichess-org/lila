@@ -38,10 +38,10 @@ case class HookConfig(
 
   def withTimeModeString(tc: Option[String]) =
     tc match
-      case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
+      case Some("realTime") => copy(timeMode = TimeMode.RealTime)
       case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
-      case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
-      case _                      => this
+      case Some("unlimited") => copy(timeMode = TimeMode.Unlimited)
+      case _ => this
 
   def hook(
       sri: lila.core.socket.Sri,
@@ -148,11 +148,11 @@ object HookConfig extends BaseConfig:
 
     def writes(w: BSON.Writer, o: HookConfig) =
       $doc(
-        "v"  -> o.variant.id,
+        "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
-        "t"  -> o.time,
-        "i"  -> o.increment,
-        "d"  -> o.days,
-        "m"  -> o.rated.id,
-        "e"  -> o.ratingRange.toString
+        "t" -> o.time,
+        "i" -> o.increment,
+        "d" -> o.days,
+        "m" -> o.rated.id,
+        "e" -> o.ratingRange.toString
       )

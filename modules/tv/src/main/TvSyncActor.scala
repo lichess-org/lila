@@ -69,34 +69,34 @@ final private class TvSyncActor(
           .flatMap(_.title)
           .flatMap(Tv.titleScores.get)
       val player = game.players.all.sorted.lastOption | game.player(game.naturalOrientation)
-      val user   = player.userId.flatMap(lightUserApi.sync)
+      val user = player.userId.flatMap(lightUserApi.sync)
       (user, player.rating).mapN: (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id, game.naturalOrientation))
       onTvGame(game)
       val data = Json.obj(
         "channel" -> channel.key,
-        "id"      -> game.id,
-        "color"   -> game.naturalOrientation.name,
-        "player"  -> user.map: u =>
+        "id" -> game.id,
+        "color" -> game.naturalOrientation.name,
+        "player" -> user.map: u =>
           Json.obj(
-            "name"   -> u.name,
-            "title"  -> u.title,
+            "name" -> u.name,
+            "title" -> u.title,
             "rating" -> player.rating
           )
       )
       Bus.pub(lila.core.game.TvSelect(game.id, game.speed, channel.key, data))
       if channel == Tv.Channel.Best then
         lila.common.Bus
-          .safeAsk[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
+          .ask[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
           .foreach: html =>
             Bus.pub:
               lila.core.game.ChangeFeatured:
                 makeMessage(
                   "featured",
                   Json.obj(
-                    "html"  -> html,
+                    "html" -> html,
                     "color" -> game.naturalOrientation.name,
-                    "id"    -> game.id
+                    "id" -> game.id
                   )
                 )
 

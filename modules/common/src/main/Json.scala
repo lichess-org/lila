@@ -28,7 +28,7 @@ object Json:
   import lila.core.LightUser
   given lightUserWrites: OWrites[LightUser] = OWrites(lightUser.write)
   object lightUser:
-    def write(u: LightUser): JsObject     = writeNoId(u) + ("id" -> JsString(u.id.value))
+    def write(u: LightUser): JsObject = writeNoId(u) + ("id" -> JsString(u.id.value))
     def writeNoId(u: LightUser): JsObject = PlayJson
       .obj("name" -> u.name)
       .add("title", u.title)

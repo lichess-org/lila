@@ -25,7 +25,7 @@ def games(
           h1(userLink(user, params = "?mod"), " games"),
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
-              form3.input(filterForm("opponents"))(placeholder  := "Opponents"),
+              form3.input(filterForm("opponents"))(placeholder := "Opponents"),
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("perf"),
@@ -58,8 +58,8 @@ def games(
         postForm(action := routes.GameMod.post(user.id), cls := "mod-games__analysis-form")(
           isGranted(_.UserEvaluate).option(
             submitButton(
-              cls   := "button button-empty button-thin",
-              name  := "action",
+              cls := "button button-empty button-thin",
+              name := "action",
               value := "analyse"
             )("Analyse selected")
           ),
@@ -71,8 +71,8 @@ def games(
               tr(
                 sortNoneTh(
                   input(
-                    tpe      := "checkbox",
-                    name     := "game[]",
+                    tpe := "checkbox",
+                    name := "game[]",
                     st.value := "all"
                   )
                 ),
@@ -95,8 +95,8 @@ def games(
                     td(cls := analysable.option("input")):
                       analysable.option:
                         input(
-                          tpe      := "checkbox",
-                          name     := s"game[]",
+                          tpe := "checkbox",
+                          name := s"game[]",
                           st.value := pov.gameId
                         )
                     ,
@@ -115,31 +115,31 @@ def games(
                       pov.game.tournamentId.map: tourId =>
                         a(
                           dataIcon := Icon.Trophy,
-                          href     := routes.Tournament.show(tourId).url,
-                          title    := views.tournament.ui.tournamentIdToName(tourId)
+                          href := routes.Tournament.show(tourId).url,
+                          title := views.tournament.ui.tournamentIdToName(tourId)
                         ),
                       pov.game.swissId.map: swissId =>
                         a(
                           dataIcon := Icon.Trophy,
-                          href     := routes.Swiss.show(swissId).url,
-                          title    := s"Swiss #${swissId}"
+                          href := routes.Swiss.show(swissId).url,
+                          title := s"Swiss #${swissId}"
                         )
                     ),
                     td(dataSort := pov.moves)(pov.moves),
                     td(dataSort := ~pov.player.ratingDiff)(
                       pov.win match
-                        case Some(true)  => goodTag(cls := "result")("1")
+                        case Some(true) => goodTag(cls := "result")("1")
                         case Some(false) => badTag(cls := "result")("0")
-                        case None        => span(cls := "result")("½")
+                        case None => span(cls := "result")("½")
                       ,
                       pov.player.ratingDiff match
                         case Some(d) if d.positive => goodTag(s"+$d")
                         case Some(d) if d.negative => badTag(d)
-                        case _                     => span("-")
+                        case _ => span("-")
                     ),
                     assessment match
                       case Some(Left(full)) => td(dataSort := full.analysis.avg)(full.analysis.toString)
-                      case _                => td
+                      case _ => td
                     ,
                     assessment match
                       case Some(ass) =>

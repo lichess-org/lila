@@ -10,8 +10,8 @@ import lila.core.security.{ Ip2ProxyApi, IsProxy }
 import lila.common.HTTPRequest
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
-  def ofReq(req: RequestHeader): Fu[IsProxy]                       = fuccess(IsProxy.empty)
-  def ofIp(ip: IpAddress): Fu[IsProxy]                             = fuccess(IsProxy.empty)
+  def ofReq(req: RequestHeader): Fu[IsProxy] = fuccess(IsProxy.empty)
+  def ofIp(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy.empty)
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
 final class Ip2ProxyServer(
@@ -50,14 +50,15 @@ final class Ip2ProxyServer(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[IsProxy]] =
-    ips.distinct.take(50) match // 50 * ipv6 length < max url length
-      case Nil     => fuccess(Seq.empty[IsProxy])
+    ips.distinct.take(80) match
+      case Nil => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => ofIp(ip).dmap(Seq(_))
-      case ips     =>
+      case ips =>
         ips.flatMap(getCached).parallel.flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
-            val uncachedIps = ips.filterNot(cached.contains)
+            // 50 * ipv6 length < max url length
+            val uncachedIps = ips.filterNot(cached.contains).take(50)
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> uncachedIps.mkString(","))
               .get()

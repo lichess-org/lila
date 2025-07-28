@@ -9,9 +9,9 @@ import ScalatagsTemplate.{ *, given }
 object ModUserTableUi:
 
   val sortNoneTh = th(attr("data-sort-method") := "none")
-  val dataSort   = attr("data-sort")
-  val email      = tag("email")
-  val mark       = tag("marked")
+  val dataSort = attr("data-sort")
+  val email = tag("email")
+  val mark = tag("marked")
 
   def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.mod.canCloseAlt)
 
@@ -27,8 +27,8 @@ object ModUserTableUi:
 
   def userCheckboxTd(isAlt: Boolean)(using Context) = canCloseAlt.option(td:
     input(
-      tpe      := "checkbox",
-      name     := "user[]",
+      tpe := "checkbox",
+      name := "user[]",
       st.value := "all",
       disabled := isAlt.option(true)
     ))
@@ -91,7 +91,7 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
   def mods(users: List[User])(using Context) =
     Page("All mods").css("mod.misc"):
       main(cls := "page-menu")(
-        modUi.menu("mods"),
+        bits.modMenu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
           h1(cls := "box__top")("All mods"),
           st.table(cls := "slist slist-pad sortable")(

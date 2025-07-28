@@ -11,7 +11,7 @@ object PoolList:
 
   extension (i: Int)
     def ++(increment: Int) = Clock.Config(Clock.LimitSeconds(i * 60), Clock.IncrementSeconds(increment))
-    def players            = NbPlayers(i)
+    def players = NbPlayers(i)
 
   val all: List[PoolConfig] = List(
     PoolConfig(1 ++ 0, Wave(12.seconds, 40.players)),

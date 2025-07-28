@@ -11,10 +11,10 @@ import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningVariation }
  */
 case class SimpleOpening(ref: Opening, name: SimpleOpening.Name, family: LilaOpeningFamily):
   import SimpleOpening.*
-  val key            = nameToKey(name.into(OpeningName)).into(Key)
-  def isFamily       = ref.variation.isEmpty
+  val key = nameToKey(name.into(OpeningName)).into(Key)
+  def isFamily = ref.variation.isEmpty
   def familyKeyOrKey = if isFamily then Key(family.key.value) else key
-  def variation      = ref.variation | otherVariations
+  def variation = ref.variation | otherVariations
   inline def nbMoves = ref.nbMoves
   inline def lastUci = ref.lastUci
 
@@ -28,7 +28,7 @@ object SimpleOpening:
 
   val otherVariations = OpeningVariation("Other variations")
 
-  def apply(key: Key): Option[SimpleOpening]     = openings.get(key)
+  def apply(key: Key): Option[SimpleOpening] = openings.get(key)
   def apply(ref: Opening): Option[SimpleOpening] =
     openings.get(nameToKey(OpeningName(nameOf(ref))).into(Key))
 
@@ -39,7 +39,7 @@ object SimpleOpening:
   lazy val openings: Map[Key, SimpleOpening] = OpeningDb.all
     .foldLeft(Map.empty[Key, SimpleOpening]): (acc, ref) =>
       LilaOpeningFamily(ref.family.key.into(LilaOpeningFamily.Key)).fold(acc): fam =>
-        val op   = SimpleOpening(ref, nameOf(ref), fam)
+        val op = SimpleOpening(ref, nameOf(ref), fam)
         val prev = acc.get(op.key)
         if prev.forall(_.nbMoves > op.nbMoves) then acc.updated(op.key, op)
         else acc

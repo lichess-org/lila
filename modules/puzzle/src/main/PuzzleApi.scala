@@ -50,7 +50,7 @@ final class PuzzleApi(
     def upsert(r: PuzzleRound, angle: PuzzleAngle): Funit =
       val roundDoc = roundHandler.write(r) ++
         $doc(
-          PuzzleRound.BSONFields.user  -> r.id.userId,
+          PuzzleRound.BSONFields.user -> r.id.userId,
           PuzzleRound.BSONFields.theme -> angle.some.filter(_ != PuzzleAngle.mix)
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
@@ -91,17 +91,17 @@ final class PuzzleApi(
             $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
           )
           .flatMapz: doc =>
-            val prevUp   = ~doc.int(F.voteUp)
+            val prevUp = ~doc.int(F.voteUp)
             val prevDown = ~doc.int(F.voteDown)
-            val up       = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)).atLeast(newVote)
-            val down     = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)).atLeast(-newVote)
+            val up = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)).atLeast(newVote)
+            val down = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)).atLeast(-newVote)
             coll.update
               .one(
                 $id(puzzleId),
                 $set(
-                  F.voteUp   -> up.atLeast(0),
+                  F.voteUp -> up.atLeast(0),
                   F.voteDown -> down.atLeast(0),
-                  F.vote     -> ((up - down).toFloat / (up + down)).atLeast(0).atMost(1)
+                  F.vote -> ((up - down).toFloat / (up + down)).atLeast(0).atMost(1)
                 ) ++ {
                   newVote <= -100 &&
                   doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))
@@ -110,7 +110,7 @@ final class PuzzleApi(
               .void
 
   def angles: Fu[PuzzleAngle.All] = for
-    themes   <- theme.categorizedWithCount
+    themes <- theme.categorizedWithCount
     openings <- openingApi.collection
   yield PuzzleAngle.All(themes, openings)
 

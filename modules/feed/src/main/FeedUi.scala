@@ -36,8 +36,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
               .opt(_.Feed)
               .option(
                 a(
-                  href     := routes.Feed.createForm,
-                  cls      := "button button-green",
+                  href := routes.Feed.createForm,
+                  cls := "button button-green",
                   dataIcon := Icon.PlusButton
                 )
               ),
@@ -117,8 +117,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
         tag("published")(atomUi.atomDate(up.at)),
         tag("updated")(atomUi.atomDate(up.at)),
         link(
-          rel  := "alternate",
-          tpe  := "text/html",
+          rel := "alternate",
+          tpe := "text/html",
           href := url
         ),
         tag("title")(up.title),
@@ -141,8 +141,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                 editor.option(
                   frag(
                     a(
-                      href     := routes.Feed.edit(update.id),
-                      cls      := "button button-green button-empty button-thin text",
+                      href := routes.Feed.edit(update.id),
+                      cls := "button button-green button-empty button-thin text",
                       dataIcon := Icon.Pencil
                     ),
                     (!update.public).option(badTag(nbsp, "[Draft]")),

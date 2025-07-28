@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Да, Lichess навистина има инспирирано други страни со отворен код, кои ги користат нашиот %1$s, %2$s, или %3$s.</string>
   <string name="fairPlay">Чесна Игра</string>
   <string name="whenAmIEligibleRatinRefund">Кога имам право на автоматско враќање на рејтингот од измамници?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Една минута откако играчот е означен, се земаат неговите 40 најнови оценети игри во последните 3 дена. Ако сте нивниот противник во тие игри, сте изгубиле рејтинг (поради пораз или нерешено), а вашиот рејтинг не бил привремен, добивате рефундирање на рејтингот. Рефундирањето е ограничено врз основа на вашиот највисок рејтинг и напредокот на рејтингот по натпреварот.
+  <string name="ratingRefundExplanation">Една минута откако играчот е означен, се земаат неговите 40 најнови оценети игри во последните 3 дена. Ако сте нивниот противник во тие игри, сте изгубиле рејтинг (поради пораз или нерешено), а вашиот рејтинг не бил привремен, добивате рефундирање на рејтингот. Рефундирањето е ограничено врз основа на вашиот највисок рејтинг и напредокот на рејтингот по натпреварот.
    (На пример, ако вашиот рејтинг значително се зголеми по тие игри, можеби нема да добиете рефундирање или ќе добиете само делумно рефундирање.) Рефундирањето никогаш нема да надмине 150 поени.</string>
   <string name="preventLeavingGameWithoutResigning">Што се случува со играчите кои ја напуштиле играта без да се предадат?</string>
   <string name="leavingGameWithoutResigningExplanation">Ако вашиот противник често ги прекинува/напушта игрите, тој добива порака „забрането играње“, што значи дека му е привремено забрането да игра игри. Ова не е јавно наведено на нивниот профил. Ако ова однесување продолжи, должината на плејбанот се зголемува - а продолженото однесување од ваква природа може да доведе до затворање на сметката.</string>
@@ -27,7 +27,7 @@
   <string name="isCorrespondenceDifferent">Дали кореспонденцијата се разликува од нормалниот шах?</string>
   <string name="basedOnGameDuration">Контролите на време во Lichess се засноваат на проценетото времетраење на играта = %1$s.
 На пример, проценетото времетраење на 5+3 игра е 5 × 60 + 40 × 3 = 420 секунди.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(почетното време на часовникот во секунди) + 40 × (зголемување на времето)</string>
+  <string name="durationFormula">(почетното време на часовникот во секунди) + 40 × (зголемување на времето)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Кои варијации можам да ги играм на Lichess?</string>

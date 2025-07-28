@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Rechercher des problèmes</string>
   <string name="fromMyGamesNone">Vous n\'avez pas de problèmes dans la base de données, mais Lichess vous aime toujours.
 Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème !</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Un problème trouvé dans les parties de %2$s</item>
+    <item quantity="other">%1$s énigme trouvée dans les jeux par %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">S\'entraîner, analyser, s\'améliorer</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s problème fait</item>

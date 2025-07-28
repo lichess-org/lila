@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Uwierzytelnienie dwuetapowe</string>
-  <string name="twoFactorHelp">Uwierzytelnianie dwuetapowe dodaje kolejną warstwę zabezpieczeń do Twojego konta.</string>
-  <string name="twoFactorAppRecommend">Pobierz aplikację do uwierzytelniania dwuskładnikowego. Polecamy następujące aplikacje:</string>
+  <string name="twoFactorAuth">Uwierzytelnianie dwuskładnikowe</string>
+  <string name="twoFactorHelp">Uwierzytelnianie dwuskładnikowe zapewnia dodatkową warstwę zabezpieczeń dla Twojego konta.</string>
+  <string name="twoFactorAppRecommend">Zainstaluj aplikację do uwierzytelniania dwuskładnikowego. Polecamy poniższe aplikacje:</string>
   <string name="scanTheCode">Zeskanuj kod QR za pomocą aplikacji.</string>
-  <string name="enterPassword">Wprowadź hasło i kod uwierzytelniający wygenerowany przez aplikację, aby zakończyć konfigurację. Będziesz potrzebował kodu uwierzytelniającego za każdym razem, gdy się zalogujesz.</string>
+  <string name="enterPassword">Wprowadź hasło i kod uwierzytelniający wygenerowany przez aplikację, aby zakończyć konfigurację. Kod uwierzytelniający będzie wymagany przy każdym logowaniu.</string>
   <string name="ifYouCannotScanEnterX">Jeśli nie możesz zeskanować kodu, wpisz kod %s do swojej aplikacji.</string>
-  <string name="authenticationCode">Kod uwierzytelniania</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Uwaga: Jeśli utracisz dostęp do kodów uwierzytelniania dwuskładnikowego, możesz zrobić %s za pomocą poczty elektronicznej.</string>
-  <string name="enableTwoFactor">Włącz uwierzytelnianie dwuetapowe</string>
-  <string name="disableTwoFactor">Wyłącz uwierzytelnianie dwuetapowe</string>
-  <string name="twoFactorEnabled">Uwierzytelnianie dwuetapowe włączone</string>
-  <string name="twoFactorToDisable">Potrzebujesz hasła i kodu uwierzytelniającego z aplikacji uwierzytelniającej, aby wyłączyć uwierzytelnianie dwuskładnikowe.</string>
-  <string name="openTwoFactorApp">Uruchom na swoim urządzeniu aplikację do uwierzytelnienia dwupoziomowego, aby zobaczyć swój kod autoryzacji i zweryfikować swoją tożsamość.</string>
-  <string name="setupReminder">Włącz proszę uwierzytelnianie dwuetapowe, aby zabezpieczyć swoje konto, możesz to zrobić na https://lichess.org/account/twofactor.
-Otrzymałeś tę wiadomość, ponieważ Twoje konto ma szczególne znaczenie takie jak lider klubu, trener, nauczyciel lub streamer</string>
+  <string name="authenticationCode">Kod uwierzytelniający</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Uwaga: Jeśli utracisz dostęp do kodów uwierzytelniania dwuskładnikowego, możesz wykonać %s za pomocą wiadomości email.</string>
+  <string name="enableTwoFactor">Włącz uwierzytelnianie dwuskładnikowe</string>
+  <string name="disableTwoFactor">Wyłącz uwierzytelnianie dwuskładnikowe</string>
+  <string name="twoFactorEnabled">Włączono uwierzytelnianie dwuskładnikowe</string>
+  <string name="twoFactorToDisable">Aby wyłączyć uwierzytelnianie dwuskładnikowe, należy podać swoje hasło oraz kod uwierzytelniający z aplikacji uwierzytelniającej.</string>
+  <string name="openTwoFactorApp">Otwórz aplikację do uwierzytelniania dwuskładnikowego na swoim urządzeniu, aby wyświetlić kod uwierzytelniający i zweryfikować swoją tożsamość.</string>
+  <string name="setupReminder">Włącz uwierzytelnianie dwuskładnikowe, aby zabezpieczyć swoje konto na stronie https://lichess.org/account/twofactor.
+Otrzymałeś tę wiadomość, ponieważ Twoje konto posiada specjalne uprawnienia, takie jak gracz z tytułem, lider klubu, trener, nauczyciel lub streamer.</string>
 </resources>

@@ -8,7 +8,7 @@ object Pov:
   def list(game: Game): List[Pov] = game.players.mapList(lila.core.game.Pov(game, _))
 
   private inline def orInf(inline sec: Option[Seconds]) = sec.getOrElse(Seconds(Int.MaxValue))
-  private def isFresher(a: Pov, b: Pov)                 = a.game.movedAt.isAfter(b.game.movedAt)
+  private def isFresher(a: Pov, b: Pov) = a.game.movedAt.isAfter(b.game.movedAt)
 
   def priority(a: Pov, b: Pov) =
     if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)

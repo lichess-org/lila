@@ -11,15 +11,15 @@ import lila.core.userId.UserId
 import lila.core.game.Game
 
 enum Status(val id: Int):
-  case created  extends Status(10)
-  case started  extends Status(20)
+  case created extends Status(10)
+  case started extends Status(20)
   case finished extends Status(30)
-  def name                                  = toString
+  def name = toString
   def is(f: Status.type => Status): Boolean = f(Status) == this
 
 object Status:
   val byId: Map[Int, Status] = values.mapBy(_.id)
-  def byName(str: String)    = scala.util
+  def byName(str: String) = scala.util
     .Try(Status.valueOf(str))
     .toOption
     .orElse:

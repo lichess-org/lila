@@ -5,5 +5,5 @@ import com.softwaremill.macwire.*
 @Module
 object Env:
 
-  val langList   = LangList
+  val langList = LangList
   val langPicker = LangPicker

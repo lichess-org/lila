@@ -12,7 +12,7 @@ import { userLink } from 'lib/view/userLink';
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
   values.reverse(); // in place!
-  if (!streakable) return values.map(v => h('score', v));
+  if (!streakable) return values.map(v => h(v > 1 ? 'streak' : 'score', v));
   const nodes = [];
   let streak = 0;
   for (const v of values) {

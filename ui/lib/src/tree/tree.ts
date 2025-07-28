@@ -28,7 +28,7 @@ export interface TreeWrapper {
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
-  setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
+  setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -65,7 +65,7 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
     const nodes = [];
-    for (const i in nodeList) {
+    for (let i = 0; i < nodeList.length; i++) {
       const node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);
@@ -77,10 +77,8 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
-    const pathId = treePath.head(path),
-      child = node.children[0];
-    if (!child || child.id !== pathId) return false;
-    return pathIsMainlineFrom(child, treePath.tail(path));
+    const child = node.children[0];
+    return child?.id === treePath.head(path) && pathIsMainlineFrom(child, treePath.tail(path));
   }
 
   const pathExists = (path: Tree.Path): boolean => !!nodeAtPathOrNull(path);
@@ -112,18 +110,13 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined {
     const node = nodeAtPathOrNull(path);
-    if (node) {
-      update(node);
-      return node;
-    }
-    return;
+    if (node) update(node);
+    return node;
   }
 
   function updateRecursive(path: Tree.Path, update: (node: Tree.Node) => void): void {
     const node = nodeAtPathOrNull(path);
-    if (node) {
-      ops.updateAll(node, update);
-    }
+    if (node) ops.updateAll(node, update);
   }
 
   // returns new path
@@ -136,8 +129,8 @@ export function build(root: Tree.Node): TreeWrapper {
       });
       return newPath;
     }
-    return updateAt(path, function (parent: Tree.Node) {
-      parent.children.push(node);
+    return updateAt(path, n => {
+      n.children.push(node);
     })
       ? newPath
       : undefined;
@@ -150,9 +143,7 @@ export function build(root: Tree.Node): TreeWrapper {
     return newPath ? addNodes(nodes.slice(1), newPath) : undefined;
   }
 
-  function deleteNodeAt(path: Tree.Path): void {
-    ops.removeChild(parentNode(path), treePath.last(path));
-  }
+  const deleteNodeAt = (path: Tree.Path): void => ops.removeChild(parentNode(path), treePath.last(path));
 
   function promoteAt(path: Tree.Path, toMainline: boolean): void {
     const nodes = getNodeList(path);
@@ -173,7 +164,7 @@ export function build(root: Tree.Node): TreeWrapper {
   const setCommentAt = (comment: Tree.Comment, path: Tree.Path) =>
     !comment.text
       ? deleteCommentAt(comment.id, path)
-      : updateAt(path, function (node) {
+      : updateAt(path, node => {
           node.comments = node.comments || [];
           const existing = node.comments.find(function (c) {
             return c.id === comment.id;
@@ -183,24 +174,23 @@ export function build(root: Tree.Node): TreeWrapper {
         });
 
   const deleteCommentAt = (id: string, path: Tree.Path) =>
-    updateAt(path, function (node) {
-      const comments = (node.comments || []).filter(function (c) {
-        return c.id !== id;
-      });
+    updateAt(path, node => {
+      const comments = (node.comments || []).filter(c => c.id !== id);
       node.comments = comments.length ? comments : undefined;
     });
 
   const setGlyphsAt = (glyphs: Tree.Glyph[], path: Tree.Path) =>
-    updateAt(path, function (node) {
+    updateAt(path, node => {
       node.glyphs = glyphs;
     });
 
   const parentNode = (path: Tree.Path): Tree.Node => nodeAtPath(treePath.init(path));
 
-  function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
-    const parent = path && parentNode(path);
-    return parent ? parent.clock : node.clock;
-  }
+  const getParentClock = (node: Tree.Node, path: Tree.Path): Tree.Clock | undefined =>
+    path ? parentNode(path).clock : node.clock;
+
+  const setCollapsedAt = (path: Tree.Path, collapsed: boolean) =>
+    updateAt(path, node => (node.collapsed = collapsed));
 
   return {
     root,
@@ -211,33 +201,26 @@ export function build(root: Tree.Node): TreeWrapper {
     updateAt,
     addNode,
     addNodes,
-    addDests(dests: string, path: Tree.Path) {
-      return updateAt(path, function (node: Tree.Node) {
+    addDests: (dests: string, path: Tree.Path) =>
+      updateAt(path, (node: Tree.Node) => {
         node.dests = dests;
-      });
-    },
-    setShapes(shapes: Tree.Shape[], path: Tree.Path) {
-      return updateAt(path, function (node: Tree.Node) {
+      }),
+    setShapes: (shapes: Tree.Shape[], path: Tree.Path) =>
+      updateAt(path, (node: Tree.Node) => {
         node.shapes = shapes.slice();
-      });
-    },
+      }),
     setCommentAt,
     deleteCommentAt,
     setGlyphsAt,
-    setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
-      return updateAt(path, function (node) {
+    setClockAt: (clock: Tree.Clock | undefined, path: Tree.Path) =>
+      updateAt(path, node => {
         node.clock = clock;
-      });
-    },
-    setCollapsedAt(path: Tree.Path, collapsed: boolean) {
-      return updateAt(path, function (node) {
-        node.collapsed = collapsed;
-      });
-    },
-    setCollapsedRecursive(path: Tree.Path, collapsed: boolean) {
-      return updateRecursive(path, function (node) {
-        node.collapsed = collapsed;
-      });
+      }),
+    setCollapsedAt,
+    setCollapsedRecursiveAndAlsoParent(path: Tree.Path, collapsed: boolean) {
+      // Also update parent
+      setCollapsedAt(treePath.init(path), collapsed);
+      updateRecursive(path, node => (node.collapsed = collapsed));
     },
     pathIsMainline,
     pathIsForcedVariation,
@@ -246,21 +229,17 @@ export function build(root: Tree.Node): TreeWrapper {
     pathExists,
     deleteNodeAt,
     promoteAt,
-    forceVariationAt(path: Tree.Path, force: boolean) {
-      return updateAt(path, function (node) {
+    forceVariationAt: (path: Tree.Path, force: boolean) =>
+      updateAt(path, node => {
         node.forceVariation = force;
-      });
-    },
+      }),
     getCurrentNodesAfterPly,
-    merge(tree: Tree.Node) {
-      ops.merge(root, tree);
-    },
-    removeCeval() {
+    merge: (tree: Tree.Node) => ops.merge(root, tree),
+    removeCeval: () =>
       ops.updateAll(root, function (n) {
         delete n.ceval;
         delete n.threat;
-      });
-    },
+      }),
     parentNode,
     getParentClock,
   };

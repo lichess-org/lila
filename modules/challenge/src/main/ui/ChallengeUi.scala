@@ -7,6 +7,7 @@ import lila.challenge.Challenge.Status
 import lila.core.LightUser
 import lila.core.game.GameRule
 import lila.core.user.WithPerf
+import lila.core.relation.Relation
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -30,8 +31,8 @@ final class ChallengeUi(helpers: Helpers):
           "bits.challengePage",
           Json.obj(
             "xhrUrl" -> routes.Challenge.show(c.id, color).url,
-            "owner"  -> owner,
-            "data"   -> json
+            "owner" -> owner,
+            "data" -> json
           )
         )
       )
@@ -41,7 +42,7 @@ final class ChallengeUi(helpers: Helpers):
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
-    val variant    = c.variant.exotic.so(s" ${c.variant.name}")
+    val variant = c.variant.exotic.so(s" ${c.variant.name}")
     val challenger = c.challengerUser.fold(trans.site.anonymous.txt()): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings.so(s" (${reg.rating.show})")}"
     val players =
@@ -55,7 +56,7 @@ final class ChallengeUi(helpers: Helpers):
     div(cls := "details-wrapper")(
       div(cls := "content")(
         div(
-          cls      := "variant",
+          cls := "variant",
           dataIcon := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
         )(
           div(
@@ -92,10 +93,10 @@ final class ChallengeUi(helpers: Helpers):
 
   private def getRuleStyle(r: GameRule): (String, Flair) =
     r match
-      case GameRule.noAbort     => ("No abort", Flair("symbols.cross-mark"));
-      case GameRule.noRematch   => ("No rematch", Flair("symbols.recycling-symbol"));
-      case GameRule.noGiveTime  => ("No giving of time", Flair("objects.alarm-clock"));
-      case GameRule.noClaimWin  => ("No claiming of win", Flair("objects.hourglass-done"));
+      case GameRule.noAbort => ("No abort", Flair("symbols.cross-mark"));
+      case GameRule.noRematch => ("No rematch", Flair("symbols.recycling-symbol"));
+      case GameRule.noGiveTime => ("No giving of time", Flair("objects.alarm-clock"));
+      case GameRule.noClaimWin => ("No claiming of win", Flair("objects.hourglass-done"));
       case GameRule.noEarlyDraw => ("No early draw", Flair("people.handshake-light-skin-tone"));
 
   def mine(
@@ -159,12 +160,12 @@ final class ChallengeUi(helpers: Helpers):
                           ),
                           br,
                           postForm(
-                            cls    := "user-invite complete-parent",
+                            cls := "user-invite complete-parent",
                             action := routes.Challenge.toFriend(c.id)
                           )(
                             input(
-                              name        := "username",
-                              cls         := "friend-autocomplete",
+                              name := "username",
+                              cls := "friend-autocomplete",
                               placeholder := trans.search.search.txt()
                             ),
                             error.map { p(cls := "error")(_) }
@@ -199,9 +200,9 @@ final class ChallengeUi(helpers: Helpers):
               h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               details(c, color),
               a(
-                id   := "challenge-redirect",
+                id := "challenge-redirect",
                 href := routes.Round.watcher(c.gameId, Color.white),
-                cls  := "button button-fat"
+                cls := "button button-fat"
               ):
                 trans.site.joinTheGame()
             )
@@ -213,9 +214,13 @@ final class ChallengeUi(helpers: Helpers):
             )
       )
 
-  def theirs(c: Challenge, json: JsObject, user: Option[WithPerf], color: Option[Color])(using
-      ctx: Context
-  ) =
+  def theirs(
+      c: Challenge,
+      json: JsObject,
+      user: Option[WithPerf],
+      color: Option[Color],
+      relation: Option[Relation]
+  )(using ctx: Context) =
     page(c, json, owner = false, color):
       main(cls := "page-small challenge-page challenge-theirs box box-pad"):
         c.status match
@@ -234,7 +239,8 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               c.notableInitialFen.map: fen =>
                 div(cls := "board-preview", chessgroundMini(fen.board, !c.finalColor)(div)),
-              if c.open.exists(!_.canJoin) then
+              if relation.has(Relation.Block) then badTag("You have blocked this player.")
+              else if c.open.exists(!_.canJoin) then
                 div(
                   "Waiting for ",
                   fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
@@ -261,7 +267,7 @@ final class ChallengeUi(helpers: Helpers):
                   badTag(
                     p(trans.site.thisGameIsRated()),
                     a(
-                      cls  := "button",
+                      cls := "button",
                       href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.gameId, Color.white)}"
                     )(trans.site.signIn())
                   )
@@ -278,9 +284,9 @@ final class ChallengeUi(helpers: Helpers):
               h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               details(c, color),
               a(
-                id   := "challenge-redirect",
+                id := "challenge-redirect",
                 href := routes.Round.watcher(c.gameId, Color.white),
-                cls  := "button button-fat"
+                cls := "button button-fat"
               )(
                 trans.site.joinTheGame()
               )

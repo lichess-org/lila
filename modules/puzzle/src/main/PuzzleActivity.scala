@@ -20,7 +20,7 @@ final class PuzzleActivity(
   def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
 
-    val baseQuery   = $doc(PuzzleRound.BSONFields.user -> config.user.id)
+    val baseQuery = $doc(PuzzleRound.BSONFields.user -> config.user.id)
     val timeQueries = List(
       config.before.map(before => $doc(PuzzleRound.BSONFields.date.$lt(before))),
       config.since.map(since => $doc(PuzzleRound.BSONFields.date.$gte(since)))
@@ -47,8 +47,8 @@ final class PuzzleActivity(
       )(_.id).map: puzzles =>
         rounds.zip(puzzles).collect { case (round, Some(puzzle)) =>
           Json.obj(
-            "date"   -> round.date,
-            "win"    -> round.win,
+            "date" -> round.date,
+            "win" -> round.win,
             "puzzle" -> JsonView.puzzleJsonStandalone(puzzle)
           )
         }

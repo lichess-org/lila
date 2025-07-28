@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
   <string name="upVote">Tetszett</string>
   <string name="downVote">Nem tetszett</string>
-  <string name="yourPuzzleRatingWillNotChange">A feladvány értékelésed nem fog változni. Ne feledd, a feladványoknak nincs tétje. Az értékelésed csupán segít kiválasztani az aktuális szintednek legjobban megfelelőket.</string>
+  <string name="yourPuzzleRatingWillNotChange">A feladvány értékszámod nem fog változni. Ne feledd, a feladványoknak nincs tétje. Az értékszámod segítségével választjuk ki a jelenlegi szintedhez illő feladványokat.</string>
   <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését.</string>
   <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését.</string>
   <string name="toGetPersonalizedPuzzles">Személyre szóló feladványok:</string>

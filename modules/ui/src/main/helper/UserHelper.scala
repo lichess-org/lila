@@ -18,7 +18,7 @@ trait UserHelper:
   given Conversion[UserWithPerfs, User] = _.user
 
   def usernameOrId(userId: UserId): UserName = lightUserSync(userId).fold(userId.into(UserName))(_.name)
-  def titleNameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.titleName)
+  def titleNameOrId(userId: UserId): String = lightUserSync(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
     userId.flatMap(lightUserSync).fold(UserName.anonymous.value)(_.titleName)
 
@@ -27,15 +27,15 @@ trait UserHelper:
       frag(userTitleTag(t), nbsp)
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
-  def userFlair(user: User): Option[Tag]         = user.flair.map(userFlair)
-  def userFlair(flair: Flair): Tag               = img(cls := "uflair", src := flairSrc(flair))
+  def userFlair(user: User): Option[Tag] = user.flair.map(userFlair)
+  def userFlair(flair: Flair): Tag = img(cls := "uflair", src := flairSrc(flair))
   def userFlairSync(userId: UserId): Option[Tag] = lightUserSync(userId).flatMap(_.flair).map(userFlair)
 
   def renderRating(perf: Perf): Frag = frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")
 
   // UserPerfs selects the best perf
   def userRating(perf: Perf | UserPerfs): Frag = perf match
-    case p: Perf      => renderRating(p)
+    case p: Perf => renderRating(p)
     case p: UserPerfs => ratingApi.bestRated(p).map(_.perf).so(renderRating)
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
@@ -51,7 +51,9 @@ trait UserHelper:
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
-      modIcon: Boolean = false
+      modIcon: Boolean = false,
+      withFlair: Boolean = true,
+      withPowerTip: Boolean = true
   )(using Translate): Tag =
     userIdOption
       .flatMap(u => lightUserSync(u.id))
@@ -61,12 +63,13 @@ trait UserHelper:
           username = user.name,
           isPatron = user.isPatron,
           title = user.title.ifTrue(withTitle),
-          flair = user.flair,
+          flair = if withFlair then user.flair else none,
           cssClass = cssClass,
           withOnline = withOnline,
           truncate = truncate,
           params = params,
-          modIcon = modIcon
+          modIcon = modIcon,
+          withPowerTip = withPowerTip
         )
 
   def lightUserLink(
@@ -96,7 +99,7 @@ trait UserHelper:
       withOnline: Boolean = true
   )(using Translate): Tag =
     span(
-      cls      := userClass(user.id, cssClass, withOnline),
+      cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
       withOnline.so(lineIcon(user.isPatron)),
@@ -112,12 +115,13 @@ trait UserHelper:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      params: String = ""
+      params: String = "",
+      withFlair: Boolean = true
   )(using Translate): Tag =
     a(
-      cls  := userClass(user.id, none, withOnline, withPowerTip),
+      cls := userClass(user.id, none, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
 
   def userSpan(
       user: User,
@@ -129,7 +133,7 @@ trait UserHelper:
       name: Option[Frag] = None
   )(using Translate): Tag =
     span(
-      cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
+      cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
     )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
 
@@ -138,12 +142,13 @@ trait UserHelper:
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      name: Option[Frag] = None
+      name: Option[Frag] = None,
+      withFlair: Boolean = true
   )(using Translate) = frag(
     withOnline.so(lineIcon(user)),
     withTitle.option(titleTag(user.title)),
     name | user.username,
-    userFlair(user),
+    withFlair.so(userFlair(user)),
     withPerfRating.map(userRating)
   )
 
@@ -157,10 +162,11 @@ trait UserHelper:
       title: Option[PlayerTitle],
       flair: Option[Flair],
       params: String,
-      modIcon: Boolean
+      modIcon: Boolean,
+      withPowerTip: Boolean = true
   )(using Translate): Tag =
     a(
-      cls  := userClass(userId, cssClass, withOnline),
+      cls := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
       withOnline.so(if modIcon then moderatorIcon else lineIcon(isPatron)),
@@ -173,7 +179,7 @@ trait UserHelper:
     val user = lightUserSync(userId)
     val name = user.fold(userId.into(UserName))(_.name)
     span(
-      cls      := userClass(userId, none, withOnline),
+      cls := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
     )(
       withOnline.so(lineIcon(user)),
@@ -195,8 +201,8 @@ trait UserHelper:
     else
       (withOnline.so(List((if isOnline.exec(userId) then "online" else "offline") -> true))) ::: List(
         "user-link" -> true,
-        ~cssClass   -> cssClass.isDefined,
-        "ulpt"      -> withPowerTip
+        ~cssClass -> cssClass.isDefined,
+        "ulpt" -> withPowerTip
       )
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
@@ -213,9 +219,9 @@ trait UserHelper:
       icon: Icon
   )(using Translate): Frag =
     span(
-      title    := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
+      title := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
       dataIcon := icon,
-      cls      := "text"
+      cls := "text"
     )(
       if clueless then frag(nbsp, nbsp, nbsp, if nb < 1 then "-" else "?")
       else frag(rating, provisional.yes.option("?"))
@@ -239,19 +245,19 @@ trait UserHelper:
     ratingApi.bestRated(perfs).map(showPerfRating)
 
   def showRatingDiff(diff: IntRatingDiff): Frag = diff.value match
-    case 0          => span("±0")
+    case 0 => span("±0")
     case d if d > 0 => goodTag(s"+$d")
-    case d          => badTag(s"−${-d}")
+    case d => badTag(s"−${-d}")
 
   val patronIconChar = Icon.Wings
-  val lineIconChar   = Icon.Disc
+  val lineIconChar = Icon.Disc
 
-  val lineIcon: Frag                    = i(cls := "line")
+  val lineIcon: Frag = i(cls := "line")
   def patronIcon(using Translate): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
   private def lineIcon(patron: Boolean)(using Translate): Frag = if patron then patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron))
-  def lineIcon(user: LightUser)(using Translate): Frag                 = lineIcon(user.isPatron)
-  def lineIcon(user: User)(using Translate): Frag                      = lineIcon(user.isPatron)
+  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.isPatron)
+  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.isPatron)
   def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar

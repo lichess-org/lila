@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remis durch Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züge ohne Spielfortschritt</string>
   <string name="currentGames">Laufende Partien</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;">Ist vor %s beigetreten</string>
+  <string name="joinedX">Ist vor %s beigetreten</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
@@ -493,7 +493,6 @@
   <string name="points">Punkte</string>
   <string name="wins">Siege</string>
   <string name="losses">Niederlagen</string>
-  <string name="createdBy">Erstellt von</string>
   <string name="startingIn" comment="Displayed above a timer">Beginnt in</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
   <string name="pause">Pausieren</string>
@@ -575,7 +574,7 @@
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
   <string name="reportCheatBoostHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Verhaltens des Spielers. Bitte schreibe nicht einfach nur „Die schummeln (bzw. betrügen)“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
-  <string name="reportUsernameHelp">Erkläre, was an diesem Benutzernamen beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch, ist in Slang, oder ist ein historischer/kultureller Bezugspunkt.</string>
+  <string name="reportUsernameHelp">Erkläre, was an diesem Benutzernamen beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch, Umgangssprache, oder ein historischer/kultureller Bezugspunkt ist.</string>
   <string name="reportProcessedFasterInEnglish">Ihr Bericht wird schneller bearbeitet, wenn er auf Englisch verfasst ist.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>

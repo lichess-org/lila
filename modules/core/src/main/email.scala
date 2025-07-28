@@ -15,13 +15,13 @@ object email:
 
       def conceal = e.split('@') match
         case Array(name, domain) => s"${name.take(3)}*****@$domain"
-        case _                   => e
+        case _ => e
 
       def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
         val lower = e.toLowerCase
         lower.split('@') match
           case Array(name, domain) =>
-            val skipAfterPlus  = name.takeWhile('+' != _)
+            val skipAfterPlus = name.takeWhile('+' != _)
             val normalizedName =
               if EmailAddress.gmailLikeNormalizedDomains(domain) then skipAfterPlus.replace(".", "")
               else skipAfterPlus
@@ -31,7 +31,7 @@ object email:
       def domain: Option[Domain] =
         e.split('@') match
           case Array(_, domain) => Domain.from(domain.toLowerCase)
-          case _                => none
+          case _ => none
 
       def nameAndDomain: Option[(String, Domain)] = domain.map: d =>
         e.takeWhile(_ != '@') -> d
@@ -39,8 +39,8 @@ object email:
       def similarTo(other: EmailAddress) =
         e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
 
-      def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
-      def isBlank    = e.startsWith("noreply.blanked.")
+      def isNoReply = e.startsWith("noreply.") && e.endsWith("@lichess.org")
+      def isBlank = e.startsWith("noreply.blanked.")
       def isSendable = !e.isNoReply && !e.isBlank
 
       def looksLikeFakeEmail =
@@ -62,7 +62,7 @@ object email:
 
     val maxLength = 320
 
-    val gmailDomains: Set[Domain.Lower]  = Domain.Lower.from(Set("gmail.com", "googlemail.com"))
+    val gmailDomains: Set[Domain.Lower] = Domain.Lower.from(Set("gmail.com", "googlemail.com"))
     val yandexDomains: Set[Domain.Lower] =
       Domain.Lower.from(Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by"))
 

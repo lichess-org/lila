@@ -77,7 +77,7 @@
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Un ejercicio encontrado en las partidas de %2$s</item>
     <item quantity="other">%1$s ejercicios encontrados en las partidas de %2$s</item>
   </plurals>

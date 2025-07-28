@@ -34,7 +34,7 @@ final class Tv(
       .flatMap:
         case GameIdAndHistory(gameId, historyIds) =>
           for
-            game  <- gameId.so(gameProxy.game)
+            game <- gameId.so(gameProxy.game)
             games <-
               historyIds
                 .traverse: id =>
@@ -73,9 +73,9 @@ object Tv:
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
   ):
-    def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
+    def isFresh(g: Game): Boolean = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
-    val key                           = lila.common.String.lcfirst(toString)
+    val key = lila.common.String.lcfirst(toString)
     case Best
         extends Channel(
           name = "Top Rated",
@@ -190,19 +190,19 @@ object Tv:
         )
 
   object Channel:
-    val list  = values.toList
+    val list = values.toList
     val byKey = values.mapBy(_.key)
 
   private def rated(min: Int) = (c: Candidate) => c.game.rated.yes && hasMinRating(c.game, IntRating(min))
-  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
-  private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
-  private val standard                                  = variant(V.Standard)
-  private val freshBlitz                                = 60 * 2
+  private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
+  private def variant(variant: chess.variant.Variant) = (c: Candidate) => c.game.variant == variant
+  private val standard = variant(V.Standard)
+  private val freshBlitz = 60 * 2
   private def computerFromInitialPosition(c: Candidate) = c.game.hasAi && !c.game.fromPosition
-  private def hasBot(c: Candidate)                      = c.hasBot
-  private def noBot(c: Candidate)                       = !c.hasBot
+  private def hasBot(c: Candidate) = c.hasBot
+  private def noBot(c: Candidate) = !c.hasBot
 
-  private def olderThan(g: Game, seconds: Int)         = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
+  private def olderThan(g: Game, seconds: Int) = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
   private def fresh(seconds: Int, game: Game): Boolean =
     (game.isBeingPlayed && !olderThan(game, seconds)) ||
       (game.finished && !olderThan(game, 7)) // rematch time
@@ -211,14 +211,14 @@ object Tv:
     g.players.exists(_.rating.exists(_ >= min))
 
   private[tv] val titleScores: Map[PlayerTitle, Int] = Map(
-    PlayerTitle.GM  -> 500,
+    PlayerTitle.GM -> 500,
     PlayerTitle.WGM -> 500,
-    PlayerTitle.IM  -> 300,
+    PlayerTitle.IM -> 300,
     PlayerTitle.WIM -> 300,
-    PlayerTitle.FM  -> 200,
+    PlayerTitle.FM -> 200,
     PlayerTitle.WFM -> 200,
-    PlayerTitle.NM  -> 100,
-    PlayerTitle.CM  -> 100,
+    PlayerTitle.NM -> 100,
+    PlayerTitle.CM -> 100,
     PlayerTitle.WCM -> 100,
     PlayerTitle.WNM -> 100
   )

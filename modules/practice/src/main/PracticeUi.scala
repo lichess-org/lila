@@ -26,8 +26,8 @@ final class PracticeUi(helpers: Helpers)(
           "analyse.study",
           Json.obj(
             "practice" -> data.practice,
-            "study"    -> data.study,
-            "data"     -> data.analysis
+            "study" -> data.study,
+            "data" -> data.analysis
           ) ++ explorerAndCevalConfig
         )
       )
@@ -56,7 +56,7 @@ final class PracticeUi(helpers: Helpers)(
               if ctx.isAuth then
                 (data.nbDoneChapters > 0).option(
                   submitButton(
-                    cls   := "button ok-cancel-confirm",
+                    cls := "button ok-cancel-confirm",
                     title := "You will lose your practice progress!"
                   )("Reset my progress")
                 )
@@ -71,7 +71,7 @@ final class PracticeUi(helpers: Helpers)(
                   section.studies.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { stud =>
                     val prog = data.progressOn(stud.id)
                     a(
-                      cls  := s"study ${if prog.complete then "done" else "ongoing"}",
+                      cls := s"study ${if prog.complete then "done" else "ongoing"}",
                       href := routes.Practice.show(section.id, stud.slug, stud.id)
                     )(
                       ctx.isAuth.option(

@@ -472,7 +472,6 @@
   <string name="points">ქულები</string>
   <string name="wins">იგებს</string>
   <string name="losses">აგებს</string>
-  <string name="createdBy">შემქმნელი</string>
   <string name="standByX">დაელოდეთ %s, ვაჯგუფებთ მოთამაშეებს, მოემზადეთ!</string>
   <string name="pause">შეჩერება</string>
   <string name="resume">გაგრძელება</string>

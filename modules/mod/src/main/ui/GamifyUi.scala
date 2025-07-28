@@ -10,7 +10,7 @@ final class GamifyUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
 
   def index(leaderboards: Gamify.Leaderboards, history: List[Gamify.HistoryMonth])(using ctx: Context) =
-    val title                 = "Moderator hall of fame"
+    val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
         th(year),
@@ -22,7 +22,7 @@ final class GamifyUi(helpers: Helpers, modUi: ModUi):
 
     Page(title).css("mod.gamify"):
       main(cls := "page-menu")(
-        modUi.menu("gamify"),
+        bits.modMenu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
           h1(cls := "box__top")(title),
           div(cls := "champs")(
@@ -56,7 +56,7 @@ final class GamifyUi(helpers: Helpers, modUi: ModUi):
     val title = s"Moderators of the ${period.name}"
     Page(title).css("mod.gamify"):
       main(cls := "page-menu")(
-        modUi.menu("gamify"),
+        bits.modMenu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(

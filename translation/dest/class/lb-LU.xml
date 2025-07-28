@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Coursen</string>
   <string name="features">Funktiounen</string>
+  <string name="messageAllStudents">Avertéier all d\'Schüler iwwer neit Material vum Cours</string>
   <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
   <string name="applyToBeLichessTeacher">Bewerb dech als Lichess-Enseignant</string>
   <string name="noClassesYet">Nach keng Coursen.</string>
@@ -53,6 +54,7 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
     <item quantity="one">Eng oppen Invitatioun</item>
     <item quantity="other">%s oppen Invitatiounen</item>
   </plurals>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Ofgeleent</string>
   <string name="onlyVisibleToTeachers">Nëmme siichtbar fir d\'Enseignantë vum Cours</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwalt</string>
@@ -60,6 +62,9 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
   <string name="upgradeFromManaged">Vu verwalt op selbststänneg upgraden</string>
   <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Fräiginn</string>
   <string name="releaseTheAccount">Gëff de Kont fräi, fir datt de Schüler e selbstänneg verwalte kann.</string>
+  <string name="releaseDesc1">E Konto, dee fräigi gouf, kann net méi verwalt ginn. De Schüler wäert an der Lag sinn de Kannermodus un- an auszemaachen an d\'Passwuert selwer zeréckzesetzen.</string>
+  <string name="releaseDesc2">De Schüler bleift am Cours, nodeems säi Konto fräigi gouf.</string>
+  <string name="realUniqueEmail">Richteg, eendaiteg E-Mail-Adress vum Schüler. Mir schécken eng Confirmatiouns-E-Mail op dës Adress mat engem Link fir d\'Fräigab vum Konto.</string>
   <string name="closeStudent">Kont zoumaachen</string>
   <string name="closeTheAccount">De Schülerkont dauerhaft zoumaachen.</string>
   <string name="closeDesc1">De Schüler wäert dëse Kont ni méi bentoze kënnen. D\'Zoumaachen ass endgülteg. Vergewësser dech, datt de Schüler dat versteet an domat averstanen ass.</string>

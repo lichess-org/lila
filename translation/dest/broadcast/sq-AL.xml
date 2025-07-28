@@ -80,4 +80,6 @@
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
   <string name="backToLiveMove">Mbrapsht te lëvizja “live”</string>
   <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
+  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmetim nga bashkësia</string>
+  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Krijuar dhe administruar nga %s.</string>
 </resources>

@@ -75,6 +75,9 @@
   <string name="fromMyGamesNone">คุณยังไม่มีปริศนาในฐานข้อมูล อย่างไรก็ตาม Lichess ก็ยังรักคุณอยู่
 
 เล่นเกม Rapid หรือ Classical เพื่อเพิ่มโอกาสที่จะให้เกมของคุณถูกเพิ่มในฐานข้อมูล!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="other">%1$s ปริศนาพบในเกมที่เล่นโดย %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">ฝึกฝน วิเคราะห์ พัตนา</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s ถูกเล่น</item>

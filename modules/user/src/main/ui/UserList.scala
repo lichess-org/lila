@@ -135,7 +135,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
                   boxTop(
                     h1("Community bots"),
                     a(
-                      cls  := "bots__about",
+                      cls := "bots__about",
                       href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                     )("About Lichess Bots")
                   ),
@@ -163,9 +163,9 @@ final class UserList(helpers: Helpers, bits: UserBits):
         ),
         a(
           dataIcon := Icon.Swords,
-          cls      := List("bots__list__entry__play button button-empty text" -> true),
+          cls := List("bots__list__entry__play button button-empty text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
-          href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+          href := s"${routes.Lobby.home}?user=${u.username}#friend"
         )(trans.site.play())
       )
   )

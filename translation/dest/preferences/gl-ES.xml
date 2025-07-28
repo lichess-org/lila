@@ -30,12 +30,12 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamento durante a partida</string>
   <string name="howDoYouMovePieces">Como moves as pezas?</string>
   <string name="clickTwoSquares">Premendo na casa de orixe e despois na de destino</string>
-  <string name="dragPiece">Arrastrando a peza</string>
+  <string name="dragPiece">Arrastrar a peza</string>
   <string name="bothClicksAndDrag">Ambas</string>
   <string name="premovesPlayingDuringOpponentTurn">Premovementos (xogar durante o tempo do teu rival)</string>
   <string name="takebacksWithOpponentApproval">Rectificar xogadas (co permiso do rival)</string>
   <string name="inCasualGamesOnly">Só en partidas amigables</string>
-  <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
+  <string name="promoteToQueenAutomatically">Coroar a Dama automaticamente</string>
   <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla &lt;ctrl&gt; ao coroar para desactivar temporalmente a promoción automática</string>
   <string name="whenPremoving">Con premovemento</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>

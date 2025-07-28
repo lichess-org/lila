@@ -11,7 +11,7 @@ case class PoolConfig(
     wave: PoolConfig.Wave
 ):
   val perfKey = PerfKey(chess.Speed(clock).key.value) | PerfKey.classical
-  val id      = PoolConfig.clockToId(clock)
+  val id = PoolConfig.clockToId(clock)
 
 object PoolConfig:
 
@@ -24,11 +24,11 @@ object PoolConfig:
 
   import play.api.libs.json.*
   import lila.common.Json.given
-  private given Lang                            = lila.core.i18n.defaultLang
+  private given Lang = lila.core.i18n.defaultLang
   given (using Translator): OWrites[PoolConfig] = OWrites: p =>
     Json.obj(
-      "id"   -> p.id,
-      "lim"  -> p.clock.limitInMinutes,
-      "inc"  -> p.clock.incrementSeconds,
+      "id" -> p.id,
+      "lim" -> p.clock.limitInMinutes,
+      "inc" -> p.clock.incrementSeconds,
       "perf" -> PerfType(p.perfKey).trans
     )

@@ -25,7 +25,7 @@ trait EitherAssertions extends munit.Assertions:
   extension [E, A](v: Either[E, A])
     def assertRight(f: A => Any)(using munit.Location): Any = v match
       case Right(r) => f(r)
-      case Left(_)  => fail(s"Expected Right but received $v")
+      case Left(_) => fail(s"Expected Right but received $v")
 
 object Helpers:
 

@@ -10,10 +10,10 @@ object JsonView:
 
   def writeEval(e: CloudEval, fen: Fen.Full) =
     Json.obj(
-      "fen"    -> fen,
+      "fen" -> fen,
       "knodes" -> e.knodes,
-      "depth"  -> e.depth,
-      "pvs"    -> JsArray(e.pvs.toList.map(writePv))
+      "depth" -> e.depth,
+      "pvs" -> JsArray(e.pvs.toList.map(writePv))
     )
 
   private def writePv(pv: Pv) = Json

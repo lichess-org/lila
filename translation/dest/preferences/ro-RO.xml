@@ -20,7 +20,7 @@
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="inGameOnly">Doar în joc</string>
-  <string name="exceptInGame">Exceptând în timpul jocului</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceptând în timpul jocului</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când rămân mai puțin de 10 secunde</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Navigator</string>
   <string name="notifyDevice">Dispozitiv</string>
   <string name="bellNotificationSound">Sunet de notificare</string>
-  <string name="blindfold" comment="As in Blindfold chess">Legat la ochi</string>
+  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Legat la ochi</string>
 </resources>

@@ -12,6 +12,7 @@ object ChallengeDenied:
   enum Reason:
     case YouAreAnon
     case YouAreBlocked
+    case Isolated
     case TheyDontAcceptChallenges
     case RatingOutsideRange(perf: PerfType)
     case RatingIsProvisional(perf: PerfType)
@@ -21,15 +22,15 @@ object ChallengeDenied:
 
   def translated(d: ChallengeDenied)(using Translate): String =
     d.reason match
-      case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
-      case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)
+      case Reason.YouAreAnon => trans.registerToSendChallenges.txt()
+      case Reason.YouAreBlocked | Reason.Isolated => trans.youCannotChallengeX.txt(d.dest.titleUsername)
       case Reason.TheyDontAcceptChallenges => trans.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
       case Reason.RatingOutsideRange(perf) =>
         trans.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => trans.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly    => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.FriendsOnly => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
       case Reason.BotUltraBullet => "Bots cannot play UltraBullet. Choose a slower time control."
-      case Reason.SelfChallenge  => "You cannot challenge yourself."
+      case Reason.SelfChallenge => "You cannot challenge yourself."
 
 final class ChallengeGranter(
     prefApi: lila.core.pref.PrefApi,
@@ -54,7 +55,8 @@ final class ChallengeGranter(
           .getChallenge(dest.id)
           .map:
             case lila.core.pref.Challenge.ALWAYS => none
-            case _                               => YouAreAnon.some
+            case _ => YouAreAnon.some
+      case Some(from) if from.marks.isolate => fuccess(Isolated.some)
       case Some(from) =>
         type Res = Option[ChallengeDenied.Reason]
         given Conversion[Res, Fu[Res]] = fuccess
@@ -62,12 +64,12 @@ final class ChallengeGranter(
           .fetchRelation(dest.id, from.userId)
           .zip(prefApi.getChallenge(dest.id))
           .flatMap:
-            case (Some(Block), _)                                  => YouAreBlocked.some
-            case (_, lila.core.pref.Challenge.NEVER)               => TheyDontAcceptChallenges.some
-            case (Some(Follow), _)                                 => none // always accept from followed
+            case (Some(Block), _) => YouAreBlocked.some
+            case (_, lila.core.pref.Challenge.NEVER) => TheyDontAcceptChallenges.some
+            case (Some(Follow), _) => none // always accept from followed
             case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
-            case (_, lila.core.pref.Challenge.FRIEND)              => FriendsOnly.some
-            case (_, lila.core.pref.Challenge.RATING)              =>
+            case (_, lila.core.pref.Challenge.FRIEND) => FriendsOnly.some
+            case (_, lila.core.pref.Challenge.RATING) =>
               perfKey.so: pk =>
                 userApi
                   .perfsOf(from.value -> dest, primary = false)
@@ -78,10 +80,10 @@ final class ChallengeGranter(
                       val diff = (fromPerfs(pk).intRating - destPerfs(pk).intRating).value
                       (Math.abs(diff) > ratingThreshold).option(RatingOutsideRange(pk))
             case (_, lila.core.pref.Challenge.REGISTERED) => none
-            case _ if from == dest                        => SelfChallenge.some
-            case _                                        => none
+            case _ if from == dest => SelfChallenge.some
+            case _ => none
     .map:
       case None if dest.isBot && perfKey == PerfKey.ultraBullet => BotUltraBullet.some
-      case res                                                  => res
+      case res => res
     .map:
       _.map { ChallengeDenied(dest, _) }

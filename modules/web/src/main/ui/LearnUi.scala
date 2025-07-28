@@ -19,9 +19,9 @@ final class LearnUi(helpers: Helpers):
           Json.obj(
             "data" -> data,
             "pref" -> Json.obj(
-              "coords"      -> ctx.pref.coords,
+              "coords" -> ctx.pref.coords,
               "destination" -> ctx.pref.destination,
-              "is3d"        -> ctx.pref.is3d
+              "is3d" -> ctx.pref.is3d
             )
           )
         )

@@ -30,12 +30,12 @@ object String:
         getType(c) match
           case UPPERCASE_LETTER => i + 1
           case LOWERCASE_LETTER => i - 1
-          case _                => i
+          case _ => i
       } > 0
     }
   def noShouting(str: String): String = if isShouting(str) then str.toLowerCase else str
 
-  val atUsernameRegex    = RawHtml.atUsernameRegex
+  val atUsernameRegex = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
 
   object html:
@@ -62,7 +62,7 @@ object String:
 
     def markdownLinksOrRichText(text: String)(using NetDomain): Frag =
       val escaped = Html(escapeHtmlRaw(text))
-      val marked  = RawHtml.justMarkdownLinks(escaped)
+      val marked = RawHtml.justMarkdownLinks(escaped)
       if marked == escaped then richText(text)
       else nl2brUnsafe(marked.value)
 
@@ -70,12 +70,12 @@ object String:
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match
-        case JsNull           => "null"
-        case JsString(s)      => safeJsonString(s)
-        case JsNumber(n)      => n.toString
-        case JsFalse          => "false"
-        case JsTrue           => "true"
-        case JsArray(items)   => items.map(safeJsonValue).mkString("[", ",", "]")
+        case JsNull => "null"
+        case JsString(s) => safeJsonString(s)
+        case JsNumber(n) => n.toString
+        case JsFalse => "false"
+        case JsTrue => "true"
+        case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields
             .map: (k, v) =>

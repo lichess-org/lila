@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">เสมอด้วยการตกลงกัน</string>
   <string name="fiftyMovesWithoutProgress">ห้าสิบตาเดินที่ไร้ความคืบหน้า</string>
   <string name="currentGames">เกมในขณะนี้</string>
+  <string name="joinedX">เข้าร่วม %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s เกม</item>
   </plurals>
@@ -326,7 +327,15 @@
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
+  <string name="whiteProposesTakeback">ขาวข้อเดินใหม่</string>
+  <string name="blackProposesTakeback">ดำข้อเดินใหม่</string>
   <string name="takebackPropositionSent">การขอเดินใหม่ ถูกส่ง</string>
+  <string name="whiteDeclinesTakeback">ขาวไม่ให้เดินใหม่</string>
+  <string name="blackDeclinesTakeback">ดำไม่ให้เดินใหม่</string>
+  <string name="whiteAcceptsTakeback">ขาวให้เดินใหม่ได้</string>
+  <string name="blackAcceptsTakeback">ดำให้เดินใหม่ได้</string>
+  <string name="whiteCancelsTakeback">ขาวยกเลิกการเดินใหม่</string>
+  <string name="blackCancelsTakeback">ดำยกเลิกการเดินใหม่</string>
   <string name="yourOpponentProposesATakeback">คู่แข่งของคุณขอเดินใหม่</string>
   <string name="bookmarkThisGame">หมายเกมนี้ไว้</string>
   <string name="tournament">ทัวร์นาเมนต์</string>
@@ -448,7 +457,6 @@
   <string name="points">แต้ม</string>
   <string name="wins">ชนะ</string>
   <string name="losses">แพ้</string>
-  <string name="createdBy">สร้างโดย</string>
   <string name="startingIn" comment="Displayed above a timer">จะเริ่มใน</string>
   <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
   <string name="pause">พัก</string>
@@ -630,6 +638,7 @@
   <string name="really">จริง ๆ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
+  <string name="titleVerification">ยืนยันตำแหน่ง</string>
   <string name="sourceCode">ซอร์สโค้ด</string>
   <string name="simultaneousExhibitions">มหกรรมไซมัลเทเนียส</string>
   <string name="host">โฮสต์</string>

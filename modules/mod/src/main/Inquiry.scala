@@ -13,7 +13,7 @@ case class Inquiry(
     history: List[lila.mod.Modlog],
     user: UserWithPerfs
 ):
-  def allReports    = report :: moreReports
+  def allReports = report :: moreReports
   def alreadyMarked =
     (report.is(_.Cheat) && user.marks.engine) ||
       (report.is(_.Boost) && user.marks.boost) ||

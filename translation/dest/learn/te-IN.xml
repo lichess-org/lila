@@ -2,9 +2,67 @@
 <resources>
   <string name="learnChess">చదరంగం నేర్చుకొండి</string>
   <string name="byPlaying">ఆటలు ఆడుతూ!</string>
+  <string name="menu">మెను</string>
   <string name="progressX">పురోగతి:%s</string>
   <string name="resetMyProgress">పురోగతిని తిరిగి ప్రారంభించు</string>
   <string name="youWillLoseAllYourProgress">మీ ప్రస్తుత పురోగతిని మొత్తం కోల్పోతారు!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ఆడు!</string>
   <string name="chessPieces">చెస్ ముక్కలు</string>
+  <string name="theRook">ఏనుగు</string>
+  <string name="itMovesInStraightLines">ఇది సరళ రేఖల్లో కదులుతుంది</string>
+  <string name="rookIntro">ఏనుగు ఒక శక్తివంతమైన పిక్క. మీరు దానిని ఆజ్ఞాపించడానికి సిద్ధంగా ఉన్నారా?</string>
+  <string name="rookGoal">ఏనుగును నక్షత్రానికి తీసుకురావడానికి దానిపై క్లిక్ చేయండి!</string>
+  <string name="grabAllTheStars">అన్ని నక్షత్రాలను పట్టుకోండి!</string>
+  <string name="theFewerMoves">మీరు ఎంత తక్కువ ఎత్తుగడలు వేస్తే, 
+మీరు అంత ఎక్కువ పాయింట్లు గెలుస్తారు!</string>
+  <string name="useTwoRooks">పనులను వేగవంతం చేయడానికి రెండు ఏనుగులను ఉపయోగించండి!</string>
+  <string name="rookComplete">అభినందనలు! మీరు ఏనుగును విజయవంతంగా నేర్చుకున్నారు.</string>
+  <string name="theBishop">రథ</string>
+  <string name="itMovesDiagonally">అది వికర్ణంగా కదులుతుంది</string>
+  <string name="bishopIntro">తరువాత రథాన్ని ఎలా నడపాలో నేర్చుకుందాం!</string>
+  <string name="youNeedBothBishops">ఒక కాంతి చతురస్ర రథం, 
+ఒక చీకటి చతురస్ర రథం. 
+మీకు రెండూ అవసరం!</string>
+  <string name="bishopComplete">అభినందనలు! మీరు ఒక రథాన్ని నడిపించవచ్చు.</string>
+  <string name="theQueen">మంత్రి</string>
+  <string name="queenCombinesRookAndBishop">మంత్రి = ఏనుగు + రథం</string>
+  <string name="queenIntro">అత్యంత శక్తివంతమైన చదరంగ పావు ప్రవేశిస్తుంది. ఆమె మహిమ మంత్రి!</string>
+  <string name="queenComplete">అభినందనలు! మంత్రి దగ్గర మీ కోసం ఏ రహస్యాలు లేవు.</string>
+  <string name="theKing">రాజు</string>
+  <string name="theMostImportantPiece">అతి ముఖ్యమైన పిక్క</string>
+  <string name="kingIntro">నువ్వే రాజువని నటించు. యుద్ధంలో పడిపోతే ఆట ఓడిపోయినట్లే.</string>
+  <string name="theKingIsSlow">రాజు నెమ్మదిగా ఉంటాడు.</string>
+  <string name="lastOne">చివరిది!</string>
+  <string name="kingComplete">ఇప్పుడు మీరు కమాండర్‌కి ఆజ్ఞాపించవచ్చు!</string>
+  <string name="theKnight">గుర్రం</string>
+  <string name="itMovesInAnLShape">ఇది ఆంగ్ల అక్షరం \"L\" ఆకారంలో కదులుతుంది</string>
+  <string name="knightIntro">ఇదిగో మీకు ఒక సవాలు. ఆ గుర్రం... ఒక గమ్మత్తైన ముక్క.</string>
+  <string name="knightsHaveAFancyWay">గుర్రాలకు దూకడానికి ఒక విచిత్రమైన మార్గం ఉంటుంది!</string>
+  <string name="knightsCanJumpOverObstacles">గుర్రాలు అడ్డంకులను అధిగమించగలవు!
+తప్పించుకుని నక్షత్రాలను జయించండి!</string>
+  <string name="knightComplete">అభినందనలు! మీరు గుర్రంపై పట్టు సాధించారు.</string>
+  <string name="thePawn">బంటు</string>
+  <string name="itMovesForwardOnly">అది ముందుకు మాత్రమే కదులుతుంది</string>
+  <string name="pawnIntro">బంటులు బలహీనంగా ఉంటాయి, కానీ అవి చాలా సామర్థ్యాన్ని కలిగి ఉంటాయి.</string>
+  <string name="pawnsMoveOneSquareOnly">బంటులు ఒక చతురస్రం మాత్రమే కదులుతాయి.
+కానీ అవి బోర్డు యొక్క మరొక వైపుకు చేరుకున్నప్పుడు, అవి బలమైన పావుగా మారుతాయి!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">చాలా సార్లు రాణిగా పదోన్నతి కల్పించడం ఉత్తమం.
+కానీ కొన్నిసార్లు ఒక గుర్రం ఉపయోగపడుతుంది!</string>
+  <string name="pawnsMoveForward">బంటులు ముందుకు కదులుతాయి,
+కానీ వికర్ణంగా పట్టుకుంటాయి!</string>
+  <string name="captureThenPromote">పట్టుకో, తర్వాత ప్రచారం చేయండి!</string>
+  <string name="useAllThePawns">అన్ని బంటులను ఉపయోగించుకోండి!
+ప్రచారం చేయవలసిన అవసరం లేదు.</string>
+  <string name="aPawnOnTheSecondRank">రెండవ ర్యాంక్‌లోని బంటు ఒకేసారి 2 చతురస్రాలు కదలగలదు!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">అందరు స్టార్లను పొందండి! ప్రచారం చేయాల్సిన అవసరం లేదు.</string>
+  <string name="pawnComplete">అభినందనలు! బంటులు దగ్గర మీ కోసం ఎటువంటి రహస్యాలు లేవు.</string>
+  <string name="pawnPromotion">బంటు ప్రచారం</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">మీ బంటు బోర్డు చివర చేరుకుంది!</string>
+  <string name="itNowPromotesToAStrongerPiece">ఇది ఇప్పుడు బలమైన భాగానికి ప్రోత్సహిస్తుంది.</string>
+  <string name="selectThePieceYouWant">మీకు కావలసిన భాగాన్ని ఎంచుకోండి!</string>
+  <string name="fundamentals">మూలసిద్ధాంతములు</string>
+  <string name="capture">పట్టుకో</string>
+  <string name="takeTheEnemyPieces">శత్రువు ముక్కలను తీసుకోండి</string>
+  <string name="captureIntro">ప్రత్యర్థి రక్షణ లేని ముక్కలను గుర్తించి, వాటిని పట్టుకోండి!</string>
+  <string name="takeTheBlackPieces">నలుపు ముక్కలను తీసుకోండి!</string>
 </resources>

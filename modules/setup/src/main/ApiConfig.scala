@@ -24,7 +24,7 @@ final case class ApiConfig(
 ):
 
   def perfType: PerfType = lila.rating.PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
-  def perfKey            = perfType.key
+  def perfKey = perfType.key
 
   def validFen = Variant.isValidInitialFen(variant, position)
 

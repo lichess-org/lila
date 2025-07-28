@@ -35,9 +35,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         PageModule(
           "tournament",
           Json.obj(
-            "data"        -> data,
-            "userId"      -> ctx.userId,
-            "chat"        -> chat.map(_._2),
+            "data" -> data,
+            "userId" -> ctx.userId,
+            "chat" -> chat.map(_._2),
             "showRatings" -> ctx.pref.showRatings
           )
         )
@@ -107,7 +107,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                   frag(
                     " ",
                     a(
-                      href  := routes.Tournament.moderation(tour.id, "recentlyCreated"),
+                      href := routes.Tournament.moderation(tour.id, "recentlyCreated"),
                       title := "Moderation"
                     )(iconTag(Icon.Agent))
                   )

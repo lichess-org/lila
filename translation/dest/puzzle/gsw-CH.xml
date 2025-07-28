@@ -78,7 +78,7 @@
   <string name="fromMyGamesNone">Du häsch kei Ufgabe i de Datäbank, aber Lichess schätzt dich immerno sehr.
 
 Schpill schnälli und au klassischi Schpiel, will so erhöht sich d\'Chance, dass Ufgabe vu dine eigene Schpiel zuegfüegt werded!</string>
-  <plurals name="puzzlesFoundInUserGames" comment="%2$s is the name of the player.&#10;&#10;%1$s is the number of puzzles (where it is more than one)&#10;&#10;Example: https://lichess.org/training/of-player?name=thibault&#10;A full sentence would be something like &quot;29 puzzles found in games by thibault&quot;">
+  <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Ei Ufgab g\'funde, i de Partie vum %2$s</item>
     <item quantity="other">%1$s Ufgabe g\'funde, i de Partie vum %2$s</item>
   </plurals>

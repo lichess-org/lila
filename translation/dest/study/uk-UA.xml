@@ -172,11 +172,11 @@
   <string name="playAgain">Грати знову</string>
   <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
   <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
-  <string name="perPage">%s на сторінку</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s на сторінку</string>
   <string name="getTheTour">Потрібна допомога? Пройдіть ознайомчий тур!</string>
   <string name="welcomeToLichessStudyTitle">Ласкаво просимо до Lichess Дослідження!</string>
   <string name="welcomeToLichessStudyText">Це спільна дошка для аналізу.&lt;br&gt;&lt;br&gt;Використовуйте її для аналізування та анотування партій,&lt;br&gt;обговорення позицій з друзями&lt;br&gt;і, звісно ж, для шахових уроків!&lt;br&gt;&lt;br&gt;Це потужний інструмент — нумо розберімося, як він працює.</string>
-  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Надано спільний доступ і збережено</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Надано спільний доступ і збережено</string>
   <string name="sharedAndSavedText">Інші учасники можуть бачити ваші ходи в реальному часі!&lt;br&gt;До того ж усе зберігається назавжди.</string>
   <string name="studyMembersTitle">Учасники дослідження</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Глядачі можуть переглядати дослідження й спілкуватися в чаті.&lt;br&gt;&lt;br&gt;%2$s Співавтори можуть робити ходи та оновлювати дослідження.</string>

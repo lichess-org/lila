@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s 방송</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">시청자 %s명</item>
+  </plurals>
   <string name="liveBroadcasts">실시간 대회 방송</string>
   <string name="broadcastCalendar">방송 달력</string>
   <string name="newBroadcast">새 실시간 방송</string>
@@ -78,4 +81,6 @@
   <string name="pastBroadcasts">과거 방송들</string>
   <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
   <string name="backToLiveMove">실시간 수로 돌아가기</string>
+  <string name="sinceHideResults">결과를 숨기도록 설정하였기에, 스포일러 방지 차원에서 모든 보드 미리보기가 비어 있습니다.</string>
+  <string name="liveboard">실시간 체스판</string>
 </resources>

@@ -89,6 +89,14 @@
   <string name="searchPuzzles">ابحث عن ألغاز</string>
   <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="zero">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
+    <item quantity="one">يوجد لُغز واحد في مباريات اللاعب %2$s</item>
+    <item quantity="two">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
+    <item quantity="few">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
+    <item quantity="many">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
+    <item quantity="other">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>
   <plurals name="nbPlayed">
     <item quantity="zero">%s لعبت</item>

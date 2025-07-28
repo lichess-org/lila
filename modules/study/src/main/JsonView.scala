@@ -38,22 +38,22 @@ final class JsonView(
         else study.copy(members = StudyMembers.empty)
     yield Json.toJsObject(jsStudy) ++ Json
       .obj(
-        "liked"    -> liked,
+        "liked" -> liked,
         "features" -> Json
           .obj(
             "cloneable" -> allowed(_.cloneable),
             "shareable" -> allowed(_.shareable),
-            "chat"      -> allowed(_.chat)
+            "chat" -> allowed(_.chat)
           )
           .add("sticky", study.settings.sticky)
           .add("description", study.settings.description),
-        "topics"  -> study.topicsOrEmpty,
+        "topics" -> study.topicsOrEmpty,
         "chapter" -> Json
           .obj(
-            "id"       -> chapter.id,
-            "ownerId"  -> chapter.ownerId,
-            "setup"    -> chapter.setup,
-            "tags"     -> chapter.tagsExport,
+            "id" -> chapter.id,
+            "ownerId" -> chapter.ownerId,
+            "setup" -> chapter.setup,
+            "tags" -> chapter.tagsExport,
             "features" -> Json.obj(
               "computer" -> allowed(_.computer),
               "explorer" -> allowed(_.explorer)
@@ -72,8 +72,8 @@ final class JsonView(
   def chapterConfig(c: Chapter) =
     Json
       .obj(
-        "id"          -> c.id,
-        "name"        -> c.name,
+        "id" -> c.id,
+        "name" -> c.name,
         "orientation" -> c.setup.orientation
       )
       .add("description", c.description)
@@ -82,15 +82,15 @@ final class JsonView(
   def pagerData(s: Study.WithChaptersAndLiked) =
     Json
       .obj(
-        "id"        -> s.study.id,
-        "name"      -> s.study.name,
-        "liked"     -> s.liked,
-        "likes"     -> s.study.likes,
+        "id" -> s.study.id,
+        "name" -> s.study.name,
+        "liked" -> s.liked,
+        "likes" -> s.study.likes,
         "updatedAt" -> s.study.updatedAt,
-        "owner"     -> lightUserApi.sync(s.study.ownerId),
-        "chapters"  -> s.chapters.take(Study.previewNbChapters),
-        "topics"    -> s.study.topicsOrEmpty,
-        "members"   -> s.study.members.members.values.take(Study.previewNbMembers)
+        "owner" -> lightUserApi.sync(s.study.ownerId),
+        "chapters" -> s.chapters.take(Study.previewNbChapters),
+        "topics" -> s.study.topicsOrEmpty,
+        "members" -> s.study.members.members.values.take(Study.previewNbMembers)
       )
       .add("flair", s.study.flair)
 
@@ -110,17 +110,17 @@ final class JsonView(
   private given OWrites[Study] = OWrites: s =>
     Json
       .obj(
-        "id"                 -> s.id,
-        "name"               -> s.name,
-        "members"            -> s.members,
-        "position"           -> s.position,
-        "ownerId"            -> s.ownerId,
-        "settings"           -> s.settings,
-        "visibility"         -> s.visibility,
-        "createdAt"          -> s.createdAt,
+        "id" -> s.id,
+        "name" -> s.name,
+        "members" -> s.members,
+        "position" -> s.position,
+        "ownerId" -> s.ownerId,
+        "settings" -> s.settings,
+        "visibility" -> s.visibility,
+        "createdAt" -> s.createdAt,
         "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.toSeconds).toInt,
-        "from"               -> s.from,
-        "likes"              -> s.likes
+        "from" -> s.from,
+        "likes" -> s.likes
       )
       .add("isNew" -> s.isNew)
       .add("flair" -> s.flair)
@@ -132,8 +132,8 @@ object JsonView:
   given OWrites[lila.core.study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
-    "id"        -> study.id,
-    "name"      -> study.name,
+    "id" -> study.id,
+    "name" -> study.name,
     "createdAt" -> study.createdAt,
     "updatedAt" -> study.updatedAt
   )
@@ -179,25 +179,25 @@ object JsonView:
 
   private given Reads[Square] = Reads: v =>
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
-  private[study] given Writes[Sri]                        = writeAs(_.value)
+  private[study] given Writes[Sri] = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
-  private[study] given Writes[Study.From]                 = Writes:
-    case Study.From.Scratch   => JsString("scratch")
-    case Study.From.Game(id)  => Json.obj("game" -> id)
+  private[study] given Writes[Study.From] = Writes:
+    case Study.From.Scratch => JsString("scratch")
+    case Study.From.Game(id) => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
     case Study.From.Relay(id) => Json.obj("relay" -> id)
   private[study] given Writes[Settings.UserSelection] = Writes(v => JsString(v.key))
-  private[study] given Writes[Settings]               = Json.writes
+  private[study] given Writes[Settings] = Json.writes
 
   private[study] given Reads[Shape] = Reads:
     _.asOpt[JsObject]
       .flatMap { o =>
         for
           brush <- o.str("brush")
-          orig  <- o.get[Square]("orig")
+          orig <- o.get[Square]("orig")
         yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _          => Shape.Circle(brush, orig)
+          case _ => Shape.Circle(brush, orig)
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
 
@@ -214,7 +214,7 @@ object JsonView:
 
   given OWrites[Chapter.Relay] = OWrites: r =>
     Json.obj(
-      "path"      -> r.path,
+      "path" -> r.path,
       "thinkTime" -> r.secondsSinceLastMove
     )
 

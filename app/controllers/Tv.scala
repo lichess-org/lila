@@ -11,7 +11,7 @@ import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 
-  def index     = Open(serveIndex)
+  def index = Open(serveIndex)
   def indexLang = LangPage(routes.Tv.index)(serveIndex)
 
   private def serveIndex(using Context) = serveChannel(Channel.Best.key)
@@ -38,21 +38,21 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   private def lichessTv(channel: Channel)(using Context) =
     Found(env.tv.tv.getGameAndHistory(channel)): (game, history) =>
-      val flip    = getBool("flip")
+      val flip = getBool("flip")
       val natural = Pov.naturalOrientation(game)
-      val pov     = if flip then !natural else natural
-      val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
+      val pov = if flip then !natural else natural
+      val onTv = lila.round.OnTv.Lichess(channel.key, flip)
       env.user.api
         .gamePlayers(game.userIdPair, game.perfKey)
         .flatMap: users =>
           gameC.preloadUsers(users)
           negotiateApi(
             html = for
-              tour   <- env.tournament.api.gameView.watcher(pov.game)
-              data   <- env.api.roundApi.watcher(pov, users, tour, tv = onTv.some)
-              cross  <- env.game.crosstableApi.withMatchup(game)
+              tour <- env.tournament.api.gameView.watcher(pov.game)
+              data <- env.api.roundApi.watcher(pov, users, tour, tv = onTv.some)
+              cross <- env.game.crosstableApi.withMatchup(game)
               champs <- env.tv.tv.getChampions
-              page   <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
+              page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
             yield Ok(page).noCache,
             api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some).dmap { Ok(_) }
           )
@@ -73,7 +73,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Found(gameFu): game =>
       JsonOk:
         Json.obj(
-          "id"   -> game.id,
+          "id" -> game.id,
           "html" -> views.game.mini(Pov.naturalOrientation(game)).toString
         )
 

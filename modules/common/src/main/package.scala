@@ -11,7 +11,7 @@ object extensions:
   import scalalib.model.LangTag
   import play.api.i18n.Lang
   extension (l: LangTag) def toLang: Option[Lang] = Lang.get(l.value)
-  extension (l: Lang) def toTag: LangTag          = LangTag(l.code)
+  extension (l: Lang) def toTag: LangTag = LangTag(l.code)
 
 export extensions.*
 

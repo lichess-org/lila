@@ -61,24 +61,24 @@ object TitleRequest:
       comment: Option[String]
   )
   enum Status:
-    case building                     // until idDocument and selfie are uploaded
+    case building // until idDocument and selfie are uploaded
     case pending(val comment: String) // needs moderator review
     case approved
     case feedback(val text: String)
     case rejected
     case imported
     def name = this match
-      case pending(_)  => "pending"
+      case pending(_) => "pending"
       case feedback(_) => "feedback"
-      case s           => s.toString
-    def now: StatusAt                = StatusAt(this, nowInstant)
+      case s => s.toString
+    def now: StatusAt = StatusAt(this, nowInstant)
     def is(s: Status.type => Status) = this == s(Status)
-    def isPending                    = name == "pending"
-    def isFeedback                   = name == "feedback"
-    def textOpt                      = this match
-      case pending(t)  => t.some
+    def isPending = name == "pending"
+    def isFeedback = name == "feedback"
+    def textOpt = this match
+      case pending(t) => t.some
       case feedback(t) => t.some
-      case _           => none
+      case _ => none
 
   case class StatusAt(status: Status, at: Instant)
 

@@ -73,7 +73,7 @@ final class ForumPaginator(
               )
             .map: docs =>
               for
-                doc   <- docs
+                doc <- docs
                 topic <- doc.asOpt[ForumTopic]
                 post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
               yield TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), me)

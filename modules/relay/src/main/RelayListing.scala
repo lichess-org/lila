@@ -24,7 +24,7 @@ final class RelayListing(
   def active: Fu[List[RelayCard]] = activeCache.get({})
 
   private enum Spot:
-    case UngroupedTour(tour: RelayTour.WithRounds)                                    extends Spot
+    case UngroupedTour(tour: RelayTour.WithRounds) extends Spot
     case GroupWithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.WithRounds]) extends Spot
 
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
@@ -40,18 +40,18 @@ final class RelayListing(
             t.rounds.find(!_.isFinished).map(Selected(t, _, none)).map(NonEmptyList.one)
           case Spot.GroupWithTours(group, tours) =>
             val all = for
-              tour  <- tours.toList
+              tour <- tours.toList
               round <- tour.rounds.find(!_.isFinished)
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).take(3).toNel
         cards <- selected.traverse(toRelayCard)
         sorted = cards.sortBy: t =>
-          val startAt       = t.display.startedAt.orElse(t.display.startsAtTime)
+          val startAt = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))
           (
-            tierPriority(t.tour),                   // by tier
-            crowdRelevant.so(0 - t.crowd.value),    // then by viewers
+            tierPriority(t.tour), // by tier
+            crowdRelevant.so(0 - t.crowd.value), // then by viewers
             startAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
       yield
@@ -86,9 +86,12 @@ final class RelayListing(
           t.focus(_.tour.tier).replace(tier.some)
 
     private def nextRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
-      round   <- t.rounds.find(!_.isFinished)
-      tier    <- t.tour.tier
-      startAt <- round.startedAt.orElse(round.startsAtTime)
+      round <- t.rounds.find(!_.isFinished)
+      tier <- t.tour.tier
+      startAt <- round.startedAt
+        .orElse(round.startsAtTime)
+        .orElse:
+          round.startsAfterPrevious.option(nowInstant)
       days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, startAt)
       newTier <-
         import RelayTour.Tier.*
@@ -100,8 +103,8 @@ final class RelayListing(
     yield newTier
 
     private def lastRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
-      round    <- t.rounds.findLast(_.isFinished)
-      tier     <- t.tour.tier
+      round <- t.rounds.findLast(_.isFinished)
+      tier <- t.tour.tier
       finishAt <- round.finishedAt
       hours = ChronoUnit.HOURS.between(finishAt, nowInstant).toInt
       newTier <-
@@ -124,7 +127,7 @@ final class RelayListing(
     tours = rawTours.flatMap(dynamicTier.apply)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
-    val toursById                  = tours.mapBy(_.tour.id)
+    val toursById = tours.mapBy(_.tour.id)
     val ungroupedTours: List[Spot] = tours
       .filter(t => !groups.exists(_.tours.contains(t.tour.id)))
       .map(Spot.UngroupedTour.apply)
@@ -169,7 +172,7 @@ final class RelayListing(
     )
 
   private def readTourRound(doc: Bdoc): Option[RelayTour.WithRounds] = for
-    tour   <- doc.asOpt[RelayTour]
+    tour <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("rounds")
     if rounds.nonEmpty
   yield tour.withRounds(rounds)
@@ -185,10 +188,10 @@ private object RelayListing:
         .sortBy(-_._1.getEpochSecond)
         .headOption
         .match
-          case None          => trs.rounds.headOption
+          case None => trs.rounds.headOption
           case Some(_, last) =>
             trs.rounds.find(!_.isFinished) match
-              case None       => last.some
+              case None => last.some
               case Some(next) =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
                 then next.some

@@ -28,12 +28,12 @@ final class PlayApi(env: Env) extends LilaController(env):
           else
             {
               for
-                _       <- env.tournament.api.withdrawAll(me)
+                _ <- env.tournament.api.withdrawAll(me)
                 teamIds <- env.team.cached.teamIdsList(me)
-                _       <- env.swiss.api.withdrawAll(me, teamIds)
-                _       <- env.user.api.setBot(me)
-                _       <- env.pref.api.setBot(me)
-                _       <- env.streamer.api.delete(me)
+                _ <- env.swiss.api.withdrawAll(me, teamIds)
+                _ <- env.user.api.setBot(me)
+                _ <- env.pref.api.setBot(me)
+                _ <- env.streamer.api.delete(me)
               yield env.user.lightUserApi.invalidate(me)
             }.pipe(toResult).recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(jsonError(msg))
@@ -95,6 +95,9 @@ final class PlayApi(env: Env) extends LilaController(env):
         case Array("game", id, "claim-victory") =>
           as(GameAnyId(id).gameId): pov =>
             env.bot.player.claimVictory(pov).pipe(toResult)
+        case Array("game", id, "claim-draw") =>
+          as(GameAnyId(id).gameId): pov =>
+            env.bot.player.claimDraw(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
             if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult
@@ -104,13 +107,13 @@ final class PlayApi(env: Env) extends LilaController(env):
   def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id).gameId)(getChat)
-      case _                         => notFoundJson("No such command")
+      case _ => notFoundJson("No such command")
   }
 
   def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id).gameId)(getChat)
-      case _                         => notFoundJson("No such command")
+      case _ => notFoundJson("No such command")
   }
 
   private def getChat(pov: Pov) =
@@ -118,7 +121,7 @@ final class PlayApi(env: Env) extends LilaController(env):
 
   // utils
 
-  private def toResult(f: Funit): Fu[Result]              = catchClientError(f.inject(jsonOkResult))
+  private def toResult(f: Funit): Fu[Result] = catchClientError(f.inject(jsonOkResult))
   private def catchClientError(f: Fu[Result]): Fu[Result] =
     f.recover { case e: lila.core.round.BenignError =>
       BadRequest(jsonError(e.getMessage))
@@ -138,7 +141,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   private def isReallyBotCompatible(game: lila.core.game.Game): Fu[Boolean] =
     lila.game.Game.isBotCompatible(game) match
       case Some(known) => fuccess(known)
-      case None        => game.tournamentId.so(env.tournament.api.isForBots)
+      case None => game.tournamentId.so(env.tournament.api.isForBots)
 
   private def WithPovAsBoard(id: GameId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(id): pov =>
@@ -151,13 +154,13 @@ final class PlayApi(env: Env) extends LilaController(env):
     env.round.proxyRepo
       .game(id)
       .flatMap:
-        case None       => NotFound(jsonError("No such game"))
+        case None => NotFound(jsonError("No such game"))
         case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
 
   def botOnline = Open:
     for
       users <- env.bot.onlineApiUsers.getUsers
-      page  <- renderPage(views.user.list.bots(users))
+      page <- renderPage(views.user.list.bots(users))
     yield Ok(page)
 
   def botOnlineApi = Anon:

@@ -8,12 +8,12 @@ import ScalatagsTemplate.{ *, given }
 
 object help:
 
-  private def header(text: Frag)          = tr(th(colspan := 2)(p(text)))
+  private def header(text: Frag) = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
-  private val or                          = tag("or")("/")
-  private val kbd                         = tag("kbd")
-  private def voice(text: String)         = strong(cls := "val-to-word", text)
-  private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
+  private val or = tag("or")("/")
+  private val kbd = tag("kbd")
+  private def voice(text: String) = strong(cls := "val-to-word", text)
+  private def phonetic(text: String) = strong(cls := "val-to-word phonetic", text)
 
   private def navigateMoves(using Translate) = frag(
     header(trans.site.navigateMoveTree()),
@@ -23,9 +23,9 @@ object help:
     row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
     row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd())
   )
-  private def flip(using Translate)          = row(kbd("f"), trans.site.flipBoard())
-  private def zen(using Translate)           = row(kbd("z"), trans.preferences.zenMode())
-  private def helpDialog(using Translate)    = row(kbd("?"), trans.site.showHelpDialog())
+  private def flip(using Translate) = row(kbd("f"), trans.site.flipBoard())
+  private def zen(using Translate) = row(kbd("z"), trans.preferences.zenMode())
+  private def helpDialog(using Translate) = row(kbd("?"), trans.site.showHelpDialog())
   private def localAnalysis(using Translate) = frag(
     row(kbd("l"), trans.site.toggleLocalAnalysis()),
     row(kbd("space"), trans.site.playComputerMove()),

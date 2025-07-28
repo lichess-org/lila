@@ -38,9 +38,9 @@ final private class FirebasePush(
           config.googleCredentials.so: creds =>
             for
               data <- data.value
-              _    <-
-                if !data.mobileCompatible && device.isMobile
-                then funit // mobile doesn't yet support all messages
+              _ <-
+                if !data.mobileCompatible.exists(device.isMobileVersionCompatible)
+                then funit // don't send to mobile if incompatible version
                 else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
                 then funit // don't send data messages to lichobile
                 else
@@ -69,18 +69,18 @@ final private class FirebasePush(
     ws.url(config.url)
       .withHttpHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
-        "Accept"        -> "application/json",
-        "Content-type"  -> "application/json; UTF-8"
+        "Accept" -> "application/json",
+        "Content-type" -> "application/json; UTF-8"
       )
       .post:
         Json.obj(
           "message" -> Json
             .obj(
               "token" -> device._id,
-              "data"  -> toDataKeyValue:
+              "data" -> toDataKeyValue:
                 data.firebaseMod.match
                   case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
-                  case _                                             =>
+                  case _ =>
                     data.payload.userData ++ (data.iosBadge.map: number =>
                       "iosBadge" -> number.toString)
             )
@@ -98,7 +98,7 @@ final private class FirebasePush(
         lila.mon.push.firebaseStatus(res.status).increment()
         lila.mon.push
           .firebaseType(data.firebaseMod.fold("both"):
-            case PushApi.Data.FirebaseMod.DataOnly     => "data"
+            case PushApi.Data.FirebaseMod.DataOnly => "data"
             case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif")
           .increment()
         if res.status == 200 then funit
@@ -135,5 +135,5 @@ private object FirebasePush:
   final class BothConfigs(val lichobile: Config, val mobile: Config)
   import lila.common.autoconfig.*
   import lila.common.config.given
-  given ConfigLoader[Config]      = AutoConfig.loader[Config]
+  given ConfigLoader[Config] = AutoConfig.loader[Config]
   given ConfigLoader[BothConfigs] = AutoConfig.loader[BothConfigs]

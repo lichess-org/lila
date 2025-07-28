@@ -25,7 +25,7 @@ case class AnaDests(
   def json = Json
     .obj(
       "dests" -> dests,
-      "path"  -> path
+      "path" -> path
     )
     .add("ch", chapterId)
 
@@ -39,7 +39,7 @@ object AnaDests:
     for
       d <- o.obj("d")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
-      fen  <- d.get[Fen.Full]("fen")
+      fen <- d.get[Fen.Full]("fen")
       path <- d.str("path")
       chapterId = d.get[StudyChapterId]("ch")
     yield AnaDests(variant = variant, fen = fen, path = path, chapterId = chapterId)
