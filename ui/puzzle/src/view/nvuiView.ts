@@ -174,7 +174,7 @@ function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): 
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => opponentColor, selectSound),
+    nv.selectionHandler(() => opponentColor),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);

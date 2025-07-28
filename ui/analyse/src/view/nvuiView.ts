@@ -247,7 +247,7 @@ function boardEventsHook(
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
   $buttons.on('blur', leaveSquareHandler($buttons));
-  $buttons.on('click', selectionHandler(opponentColor, selectSound));
+  $buttons.on('click', selectionHandler(opponentColor));
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))

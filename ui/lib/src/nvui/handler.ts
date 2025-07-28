@@ -81,7 +81,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   };
 }
 
-export function selectionHandler(getOpponentColor: () => Color, selectSound: () => void) {
+export function selectionHandler(getOpponentColor: () => Color) {
   return (ev: MouseEvent): void => {
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
@@ -105,7 +105,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {
         $moveBox.val(pos);
-        selectSound();
+        $boardLive.text('selected ' + keyText(ev.target as HTMLElement));
       }
     } else {
       const first = $moveBox.val();
@@ -124,19 +124,23 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
   };
 }
 
+function keyText(target: HTMLElement) {
+  const color = target.getAttribute('color');
+  const piece = target.getAttribute('piece');
+  const key = keyFromAttrs(target);
+  return key && color && piece && color != 'none' && piece != '-'
+    ? key + ' ' + pieceStr(charToRole(piece)!, color as Color)
+    : key
+      ? key
+      : '';
+}
+
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
-    const key = keyFromAttrs(target);
     const $boardLive = $('.boardstatus');
-    if (ev.key === 'o' && key) {
-      const color = target.getAttribute('color');
-      const piece = target.getAttribute('piece');
-      const keyText =
-        color && piece && color != 'none' && piece != '-'
-          ? ' ' + pieceStr(charToRole(piece)!, color as Color)
-          : '';
-      $boardLive.text(key + '' + keyText);
+    if (ev.key === 'o') {
+      $boardLive.text(keyText(target));
     } else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
     else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
   };

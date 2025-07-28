@@ -216,7 +216,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => ctrl.data.opponent.color, selectSound),
+    nv.selectionHandler(() => ctrl.data.opponent.color),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
