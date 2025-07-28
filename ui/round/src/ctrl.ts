@@ -29,6 +29,7 @@ import { PromotionCtrl, promote } from 'lib/game/promotion';
 import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import { Replay } from 'lib/prefs';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 import { endGameView } from './view/main';
 import type {
   Step,
@@ -870,6 +871,10 @@ export default class RoundController implements MoveRootCtrl {
       this.chessground.state.addPieceZIndex = is3d;
       this.chessground.redrawAll();
     });
+    
+    // Setup Safari-specific drag hover fix
+    setupSafariDragHover(cg);
+    
     if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) {
       if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(this);
