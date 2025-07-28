@@ -4,8 +4,9 @@ import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.core.id.{ ForumCategId, ForumTopicId, ForumTopicSlug }
 import lila.forum.ForumCateg.diagnosticId
+import lila.forum.ForumTopic.problemReportSlug
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -34,12 +35,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           }
   }
 
-  def show(categId: ForumCategId, slug: String, page: Int) = Open:
+  def show(categId: ForumCategId, slug: ForumTopicSlug, page: Int) = Open:
     NotForKids:
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
-        if categId == diagnosticId && !ctx.me.exists(me => slug.startsWith(me.userId.value)) && !isGrantedOpt(
-            _.ModerateForum
-          )
+        if categId == diagnosticId &&
+          !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
+          !isGrantedOpt(_.ModerateForum)
         then notFound
         else
           for
@@ -62,15 +63,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               else notFound
           yield res
 
-  def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
+  def close(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
     TopicGrantModBySlug(categId, slug):
       Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
-        topicApi
-          .toggleClose(categ, topic)
-          .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+        for _ <- topicApi.toggleClose(categ, topic)
+        yield Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
   }
 
-  def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
+  def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
     CategGrantMod(categId):
       Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi
@@ -89,7 +89,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def diagnostic = AuthBody { ctx ?=> me ?=>
     NoBot:
-      val slug = s"${me.userId.value}-problem-report"
+      val slug = problemReportSlug(me.userId)
       bindForm(env.forum.forms.diagnostic)(
         err => jsonFormError(err),
         text =>
@@ -103,12 +103,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       )
   }
 
-  def clearDiagnostic(slug: String) = Auth { _ ?=> me ?=>
-    if me.isnt(UserStr(slug)) && !isGranted(_.ModerateForum) then notFound
+  def clearDiagnostic(slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
+    if slug != problemReportSlug(me.userId) && !isGranted(_.ModerateForum) then notFound
     else env.forum.topicApi.removeTopic(diagnosticId, slug).inject(Redirect(routes.ForumCateg.index))
   }
 
-  private def showDiagnostic(slug: String, formText: String)(using Context, Me) =
+  private def showDiagnostic(slug: ForumTopicSlug, formText: String)(using Context, Me) =
     FoundPage(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
       val form = forms.postWithCaptcha(false).some
       views.forum.topic.show(categ, topic, posts, form, None, true, formText.some)

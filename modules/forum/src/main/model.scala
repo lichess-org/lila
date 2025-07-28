@@ -1,5 +1,7 @@
 package lila.forum
 
+import lila.core.id.ForumTopicSlug
+
 case class CategView(
     categ: ForumCateg,
     lastPost: Option[(ForumTopic, ForumPost, Int)],
@@ -19,17 +21,13 @@ case class TopicView(
     lastPage: Int,
     forUser: Option[User]
 ):
+  export topic.{ id, slug, name, createdAt }
 
   def updatedAt = topic.updatedAt(forUser)
   def nbPosts = topic.nbPosts(forUser)
   def nbReplies = topic.nbReplies(forUser)
   def lastPostId = topic.lastPostId(forUser)
   def lastPostUserId = lastPost.flatMap(_.userId)
-
-  def id = topic.id
-  def slug = topic.slug
-  def name = topic.name
-  def createdAt = topic.createdAt
 
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
@@ -38,7 +36,7 @@ case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
 object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
 
-case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: ForumTopicSlug, page: Int, number: Int)
 
 enum Filter:
   case Safe
