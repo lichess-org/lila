@@ -78,7 +78,7 @@ final class GameStateStream(
         // prepend the full game JSON at the start of the stream
         queue.offer(json.some)
         // close stream if game is over
-        if init.game.finished then onGameOver(none)
+        if init.game.finishedOrAborted then onGameOver(none)
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
