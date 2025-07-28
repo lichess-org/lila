@@ -98,14 +98,16 @@ export function selectionHandler(getOpponentColor: () => Color) {
       $moveBox.val('');
     }
 
-    // if no move in box yet
     if ($moveBox.val() === '') {
-      // if user selects another's piece first
-      if ($evBtn.attr('color') === opponentColor) return;
-      // as long as the user is selecting a piece and not a blank tile
-      if ($evBtn.text().match(/^[^\-+]+/g)) {
+      if (
+        $evBtn.attr('color') === opponentColor ||
+        $evBtn.attr('piece') === '-' ||
+        $evBtn.attr('piece') === '+'
+      ) {
+        $boardLive.text(keyText(ev.target as HTMLElement) + ' not selectable');
+      } else {
         $moveBox.val(pos);
-        $boardLive.text('selected ' + keyText(ev.target as HTMLElement));
+        $boardLive.text(keyText(ev.target as HTMLElement) + ' selected');
       }
     } else {
       const first = $moveBox.val();
