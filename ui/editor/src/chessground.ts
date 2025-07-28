@@ -5,6 +5,7 @@ import type EditorCtrl from './ctrl';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -12,6 +13,10 @@ export default function (ctrl: EditorCtrl): VNode {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
+        
+        // Setup Safari-specific drag hover fix
+        setupSafariDragHover(ctrl.chessground);
+        
         bindEvents(el, ctrl);
       },
       destroy: () => ctrl.chessground!.destroy(),

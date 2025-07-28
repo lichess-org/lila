@@ -17,6 +17,7 @@ import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/cev
 import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
@@ -384,6 +385,9 @@ export default class AnalyseCtrl {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
+
+    // Setup Safari-specific drag hover fix
+    setupSafariDragHover(cg);
 
     if (this.data.pref.keyboardMove) {
       this.keyboardMove ??= makeKeyboardMove({

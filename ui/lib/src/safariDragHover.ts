@@ -80,11 +80,20 @@ export function setupSafariDragHover(chessground: CgApi): void {
     });
   });
   
-  observer.observe(chessground.state.dom.elements.board, {
-    attributes: true,
-    attributeFilter: ['class'],
-    subtree: true
-  });
+  // Only observe if board element is a proper DOM node
+  const boardElement = chessground.state.dom.elements.board;
+  if (boardElement && boardElement.nodeType === Node.ELEMENT_NODE) {
+    try {
+      observer.observe(boardElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true
+      });
+    } catch (e) {
+      // Silently fail in test environments or invalid DOM setups
+      console.warn('Safari drag hover: Could not observe board element:', e);
+    }
+  }
   
   chessground.state.dom.elements.board.addEventListener('mousemove', updateHover);
   

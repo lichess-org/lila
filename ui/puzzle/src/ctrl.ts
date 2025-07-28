@@ -36,6 +36,7 @@ import type { ParentCtrl } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
 import { type WithGround } from 'lib/game/ground';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -171,6 +172,10 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   setChessground = (cg: CgApi): void => {
     this.ground(cg);
+    
+    // Setup Safari-specific drag hover fix
+    setupSafariDragHover(cg);
+    
     const makeRoot = (): KeyboardMoveRootCtrl => ({
       data: {
         game: { variant: { key: 'standard' } },
