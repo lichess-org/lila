@@ -199,16 +199,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .map: (p, dir) =>
         s"${if dir then "+" else "-"}${p}"
       .mkString(", ")
-    add:
-      Modlog(
-        user.id.some,
-        Modlog.permissions,
-        details.some
-      )
-    >> ircApi.permissionsLog(
-      user,
-      details
-    )
+    for
+      _ <- add:
+        Modlog(
+          user.id.some,
+          Modlog.permissions,
+          details.some
+        )
+      _ <- ircApi.permissionsLog(user, details)
+    yield ()
 
   def wasUnteachered(user: UserId): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details".$regex(s"-${Permission.Teacher.toString}")))
