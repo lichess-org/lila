@@ -87,6 +87,7 @@ export function selectionHandler(getOpponentColor: () => Color) {
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
     const rank = $evBtn.attr('rank');
+    const file = $evBtn.attr('file');
     const pos = ($evBtn.attr('file') ?? '') + rank;
     const $boardLive = $('.boardstatus');
     const promotionRank = opponentColor === 'black' ? '8' : '1';
@@ -94,7 +95,11 @@ export function selectionHandler(getOpponentColor: () => Color) {
     if (!$moveBox.length) return;
 
     // user can select their own piece again if they change their mind
-    if ($moveBox.val() !== '' && $evBtn.attr('color') === opposite(opponentColor)) {
+    if (
+      $moveBox.val() !== '' &&
+      $evBtn.attr('color') === opposite(opponentColor) &&
+      !$evBtn.attr('promoteTo')
+    ) {
       $moveBox.val('');
     }
 
@@ -110,18 +115,55 @@ export function selectionHandler(getOpponentColor: () => Color) {
         $boardLive.text(keyText(ev.target as HTMLElement) + ' selected');
       }
     } else {
-      const first = $moveBox.val();
-      if (typeof first !== 'string' || !isKey(first)) return;
-      const $firstPiece = $(squareSelector(first[1], first[0]));
-      $moveBox.val($moveBox.val() + pos);
-      // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
-      // if pawn promotion
-      if (rank === promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
-        $evBtn.attr('promotion', 'true');
-        $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
-        return;
+      const input = $moveBox.val();
+      if (typeof input !== 'string') return;
+      if (isKey(input)) {
+        const $firstPiece = $(squareSelector(input[1], input[0]));
+        $moveBox.val($moveBox.val() + pos);
+        // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently.
+        if (rank === promotionRank && file && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
+          $evBtn.attr('promotion', 'true');
+          $boardLive.text('Promote to: q for queen, r for rook, b for bishop, n for knight');
+          // promotion selector for touchscreens
+          const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
+          const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
+          const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
+          const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
+          const cancelPromotionKey = $(squareSelector(promotionRank === '8' ? '4' : '5', file));
+          queenPromotionKey.attr('promoteTo', 'q');
+          queenPromotionKey.text('promote to queen');
+          rookPromotionKey.attr('promoteTo', 'r');
+          rookPromotionKey.text('promote to rook');
+          bishopPromotionKey.attr('promoteTo', 'b');
+          bishopPromotionKey.text('promote to bishop');
+          knightPromotionKey.attr('promoteTo', 'n');
+          knightPromotionKey.text('promote to knight');
+          cancelPromotionKey.attr('promoteTo', 'x');
+          cancelPromotionKey.text('cancel');
+          return;
+        }
+        $('#move-form').trigger('submit');
+      } else {
+        const first = input.substring(0, 2);
+        const second = input.substring(2, 4);
+        if (isKey(first) && isKey(second)) {
+          const promoteTo = $evBtn.attr('promoteTo');
+          if (promoteTo) {
+            if (promoteTo === 'x') {
+              const $allSquares = $(`.board-wrapper button`);
+              $allSquares.each(function (this: HTMLElement) {
+                this.removeAttribute('promoteTo');
+                this.textContent = this.getAttribute('text');
+              });
+              $moveBox.val('');
+              $boardLive.text('promotion cancelled');
+            } else {
+              $moveBox.val($moveBox.val() + promoteTo);
+              $('#move-form').trigger('submit');
+            }
+          }
+        }
       }
-      $('#move-form').trigger('submit');
     }
   };
 }
