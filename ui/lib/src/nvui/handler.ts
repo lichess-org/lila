@@ -6,6 +6,7 @@ import { charToRole, opposite, parseUci } from 'chessops/util';
 import { destsToUcis, sanToUci, sanWriter } from '../game/chess';
 import { renderPieceStr, keyFromAttrs, isKey, pieceStr } from './render';
 import type { PieceStyle, PrefixStyle } from './setting';
+import { isTouchDevice } from '@/device';
 
 /* Listen to interactions on the chessboard */
 export function leaveSquareHandler(buttons: Cash) {
@@ -14,6 +15,16 @@ export function leaveSquareHandler(buttons: Cash) {
     $currBtn.removeAttr('ray');
     buttons.removeClass('active');
     $currBtn.addClass('active');
+  };
+}
+
+export function focusSquareHandler() {
+  return (ev: KeyboardEvent): void => {
+    const $currBtn = $(ev.target as HTMLElement);
+    if ($currBtn.hasClass('selected')) {
+      const $boardLive = $('.boardstatus');
+      $boardLive.text('selected');
+    }
   };
 }
 
@@ -112,7 +123,9 @@ export function selectionHandler(getOpponentColor: () => Color) {
         $boardLive.text(keyText(ev.target as HTMLElement) + ' not selectable');
       } else {
         $moveBox.val(pos);
-        $boardLive.text(keyText(ev.target as HTMLElement) + ' selected');
+        clear('selection');
+        $evBtn.addClass('selected');
+        $boardLive.text(keyText(ev.target as HTMLElement));
       }
     } else {
       const input = $moveBox.val();
@@ -123,25 +136,28 @@ export function selectionHandler(getOpponentColor: () => Color) {
         // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently.
         if (rank === promotionRank && file && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
           $evBtn.attr('promotion', 'true');
-          $boardLive.text('Promote to: q for queen, n for knight, r for rook, b for bishop');
-          // promotion selector for touchscreens
-          const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
-          const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
-          const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
-          const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
-          const cancelPromotionKey = $(squareSelector(promotionRank === '8' ? '4' : '5', file));
-          queenPromotionKey.attr('promoteTo', 'q');
-          queenPromotionKey.text('promote to queen');
-          knightPromotionKey.attr('promoteTo', 'n');
-          knightPromotionKey.text('promote to knight');
-          rookPromotionKey.attr('promoteTo', 'r');
-          rookPromotionKey.text('promote to rook');
-          bishopPromotionKey.attr('promoteTo', 'b');
-          bishopPromotionKey.text('promote to bishop');
-          cancelPromotionKey.attr('promoteTo', 'x');
-          cancelPromotionKey.text('cancel');
+          if (!isTouchDevice())
+            $boardLive.text('Promote to: q for queen, n for knight, r for rook, b for bishop');
+          else {
+            const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
+            const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
+            const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
+            const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
+            const cancelPromotionKey = $(squareSelector(promotionRank === '8' ? '4' : '5', file));
+            queenPromotionKey.attr('promoteTo', 'q');
+            queenPromotionKey.text('promote to queen');
+            knightPromotionKey.attr('promoteTo', 'n');
+            knightPromotionKey.text('promote to knight');
+            rookPromotionKey.attr('promoteTo', 'r');
+            rookPromotionKey.text('promote to rook');
+            bishopPromotionKey.attr('promoteTo', 'b');
+            bishopPromotionKey.text('promote to bishop');
+            cancelPromotionKey.attr('promoteTo', 'x');
+            cancelPromotionKey.text('cancel');
+          }
           return;
         }
+        clear('selection');
         $('#move-form').trigger('submit');
       } else {
         const first = input.substring(0, 2);
@@ -150,15 +166,13 @@ export function selectionHandler(getOpponentColor: () => Color) {
           const promoteTo = $evBtn.attr('promoteTo');
           if (promoteTo) {
             if (promoteTo === 'x') {
-              const $allSquares = $(`.board-wrapper button`);
-              $allSquares.each(function (this: HTMLElement) {
-                this.removeAttribute('promoteTo');
-                this.textContent = this.getAttribute('text');
-              });
+              clear('promotion');
               $moveBox.val('');
               $boardLive.text('promotion cancelled');
             } else {
               $moveBox.val($moveBox.val() + promoteTo);
+              clear('promotion');
+              clear('selection');
               $('#move-form').trigger('submit');
             }
           }
@@ -168,12 +182,28 @@ export function selectionHandler(getOpponentColor: () => Color) {
   };
 }
 
+function clear(what: 'promotion' | 'selection') {
+  const $allSquares = $(`.board-wrapper button`);
+  if (what === 'promotion') {
+    $allSquares.each(function (this: HTMLElement) {
+      this.removeAttribute('promoteTo');
+      this.textContent = this.getAttribute('text');
+    });
+  }
+  if (what === 'selection') {
+    $allSquares.removeClass('selected');
+  }
+}
+
 function keyText(target: HTMLElement) {
   const color = target.getAttribute('color');
   const piece = target.getAttribute('piece');
   const key = keyFromAttrs(target);
   return key && color && piece && color != 'none' && piece != '-'
-    ? key + ' ' + pieceStr(charToRole(piece)!, color as Color)
+    ? key +
+        ' ' +
+        pieceStr(charToRole(piece)!, color as Color) +
+        (target.classList.contains('selected') ? ' selected' : '')
     : key
       ? key
       : '';
