@@ -5,6 +5,7 @@ import { h, type VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();
@@ -19,18 +20,22 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
       insert: vnode => {
-        ctrl.ground(
-          makeChessground(
-            vnode.elm as HTMLElement,
-            makeCgConfig(
-              ctrl.isRacing() && ctrl.isPlayer()
-                ? makeCgOpts(ctrl.run, true, ctrl.flipped)
-                : { fen: INITIAL_BOARD_FEN, orientation: ctrl.run.pov, movable: { color: ctrl.run.pov } },
-              ctrl.pref,
-              ctrl.userMove,
-            ),
+        const cg = makeChessground(
+          vnode.elm as HTMLElement,
+          makeCgConfig(
+            ctrl.isRacing() && ctrl.isPlayer()
+              ? makeCgOpts(ctrl.run, true, ctrl.flipped)
+              : { fen: INITIAL_BOARD_FEN, orientation: ctrl.run.pov, movable: { color: ctrl.run.pov } },
+            ctrl.pref,
+            ctrl.userMove,
           ),
         );
+        
+        ctrl.ground(cg);
+        
+        // Setup Safari-specific drag hover fix
+        setupSafariDragHover(cg);
+        
         pubsub.on('board.change', (is3d: boolean) =>
           ctrl.withGround(g => {
             g.state.addPieceZIndex = is3d;

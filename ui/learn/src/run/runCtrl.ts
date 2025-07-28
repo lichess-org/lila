@@ -7,6 +7,7 @@ import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
 import { pubsub } from 'lib/pubsub';
 import type { WithGround } from 'lib/game/ground';
+import { setupSafariDragHover } from 'lib/safariDragHover';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
@@ -69,6 +70,10 @@ export class RunCtrl {
 
   setChessground = (chessground: CgApi) => {
     this.chessground = chessground;
+    
+    // Setup Safari-specific drag hover fix
+    setupSafariDragHover(chessground);
+    
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
