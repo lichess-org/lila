@@ -60,15 +60,23 @@
   }
 
   @media screen and (orientation: portrait) {
+    .actions button,
+    .actions div,
     .board-wrapper div button {
       aspect-ratio: 1/1;
       overflow: hidden;
       white-space: nowrap;
     }
+    .actions,
     .board-wrapper {
       max-width: $xx-small;
     }
+    .actions {
+      display: flex;
+    }
     @media (max-width: at-most($xx-small)) {
+      .actions button,
+      .actions div,
       .board-wrapper div button {
         width: 12vw;
       }
@@ -86,6 +94,8 @@
       }
     }
     @media (min-width: at-least($xx-small)) {
+      .actions button,
+      .actions div,
       .board-wrapper div button {
         width: 12.5%;
       }

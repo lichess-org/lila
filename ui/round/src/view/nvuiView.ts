@@ -1,6 +1,6 @@
 import type { RoundNvuiContext } from '../round.nvui';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, type VNode, hl, noTrans, onInsert } from 'lib/snabbdom';
+import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/snabbdom';
 import { renderClock } from 'lib/game/clock/clockView';
 import { type Player, type TopOrBottom, playable } from 'lib/game/game';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
@@ -17,7 +17,10 @@ import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
 import { opposite } from 'chessops';
-import { isTouchDevice } from 'lib/device';
+//import { isTouchDevice } from 'lib/device';
+function isTouchDevice() {
+  return true;
+}
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -44,7 +47,12 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
     return hl('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
       pageStyle.get() === 'actions-board'
         ? [ctrl.isPlaying() && inputForm(ctx), renderActions(ctx), renderBoard(ctx)]
-        : [renderBoard(ctx), renderActions(ctx), ctrl.isPlaying() && inputForm(ctx)],
+        : [
+            renderBoard(ctx),
+            renderTouchDeviceCommands(ctx),
+            renderActions(ctx),
+            ctrl.isPlaying() && inputForm(ctx),
+          ],
       gameInfo(ctx),
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
@@ -180,6 +188,38 @@ function renderActions({ ctrl }: RoundNvuiContext): LooseVNodes {
       : playable(ctrl.data)
         ? renderTablePlay(ctrl)
         : renderTableEnd(ctrl),
+  ];
+}
+
+function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
+  const { notify, ctrl } = ctx;
+  return [
+    hl('div.actions', [
+      hl('button', { hook: bind('click', () => notify.set($('.lastMove').text())) }, 'last move'),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            if ($('.nvui .botc').text().trim() != '')
+              notify.set($('.nvui .botc').text() + ' - ' + $('.nvui .topc').text());
+            else notify.set('not available');
+          }),
+        },
+        'clocks',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            if (ctrl.isPlaying()) {
+              $('input.move').val('');
+              $('#move-form').trigger('submit');
+            } else notify.set('not available');
+          }),
+        },
+        'cancel premove',
+      ),
+    ]),
   ];
 }
 
