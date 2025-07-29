@@ -191,7 +191,7 @@
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
   <string name="xPostedInForumY">%1$s póstað í umræðu %2$s</string>
-  <string name="latestForumPosts">Nýjustu færslur á korkinn</string>
+  <string name="latestForumPosts">Nýjustu færslur á korkinum</string>
   <string name="players">Skákmenn</string>
   <string name="friends">Vinir</string>
   <string name="otherPlayers">aðra notendur</string>
@@ -661,8 +661,8 @@
   <string name="whiteCastlingKingside">Hvítur O-O</string>
   <string name="blackCastlingKingside">Svartur O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s færslur á korkinn</item>
-    <item quantity="other">%s póstar á spjallborði</item>
+    <item quantity="one">%s færsla á korkinum</item>
+    <item quantity="other">%s færslur á korkinum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tími sem varið var í að tefla: %s</string>
   <string name="watchGames">Horfa á skákir</string>
