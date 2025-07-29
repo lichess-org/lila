@@ -12,17 +12,17 @@ case class LightUser(
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    isPatron: Boolean,
     patronMonths: Option[Int]
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
+  def isPatron: Boolean = patronMonths.exists(_ > 0)
 
 object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false, None)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, None)
 
   given UserIdOf[LightUser] = _.id
 
@@ -31,21 +31,20 @@ object LightUser:
     name = name,
     title = None,
     flair = None,
-    isPatron = false,
     patronMonths = None
     )
 
   def patronTier(patronMonths: Int): Option[String] = patronMonths match {
-    case m if m >= 60 => Some("5years")
-    case m if m >= 48 => Some("4years")
-    case m if m >= 36 => Some("3years")
-    case m if m >= 24 => Some("2years")
-    case m if m >= 12 => Some("1year")
-    case m if m >= 9  => Some("9months")
-    case m if m >= 6  => Some("6months")
-    case m if m >= 3  => Some("3months")
-    case m if m >= 2  => Some("2months")
-    case m if m >= 1  => Some("1month")
+    case m if m >= 60 => "5years".some
+    case m if m >= 48 => "4years".some
+    case m if m >= 36 => "3years".some
+    case m if m >= 24 => "2years".some
+    case m if m >= 12 => "1year".some
+    case m if m >= 9  => "9months".some
+    case m if m >= 6  => "6months".some
+    case m if m >= 3  => "3months".some
+    case m if m >= 2  => "2months".some
+    case m if m >= 1  => "1month".some
     case _            => None
   }
 
