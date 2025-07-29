@@ -49,8 +49,8 @@ final class UserForm:
 
   def profileOf(user: User) = profile.fill(user.profileOrDefault)
 
-  def flair = Form[Option[Flair]]:
-    single(FlairApi.formPair())
+  def flair(asMod: Boolean) = Form[Option[Flair]]:
+    single(FlairApi.formPair(asMod))
 
 object UserForm:
 

@@ -45,7 +45,8 @@ final class Account(
             .so: (resource, text) =>
               env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
           _ <- env.user.repo.setProfile(me, profile)
-          _ <- bindForm(env.user.forms.flair)(_ => funit, env.user.repo.setFlair(me, _))
+          flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
+          _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
         yield
           env.user.lightUserApi.invalidate(me)
           Redirect(routes.User.show(me.username)).flashSuccess

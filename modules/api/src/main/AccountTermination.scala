@@ -73,6 +73,7 @@ final class AccountTermination(
     followedIds <- relationApi.accountTermination(u)
     _ <- rankingApi.remove(u.id)
     teamIds <- teamApi.quitAllOnAccountClosure(u.id)
+    _ <- tos.so(teamApi.deleteNewlyCreatedBy(u.id))
     _ <- challengeApi.removeByUserId(u.id)
     _ <- tournamentApi.withdrawAll(u)
     _ <- swissApi.withdrawAll(u, teamIds)

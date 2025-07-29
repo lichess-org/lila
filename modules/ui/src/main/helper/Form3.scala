@@ -267,7 +267,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         ),
         div(
           cls := "flair-picker none",
-          (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
+          (!Granter.opt(_.LichessTeam) && !anyFlair).option(exceptEmojis)
         )(
           button(cls := "button button-metal emoji-remove")("clear")
         )
