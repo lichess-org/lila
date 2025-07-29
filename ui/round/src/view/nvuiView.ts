@@ -17,10 +17,8 @@ import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
 import { opposite } from 'chessops';
-//import { isTouchDevice } from 'lib/device';
-function isTouchDevice() {
-  return true;
-}
+import { isTouchDevice } from 'lib/device';
+s
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
