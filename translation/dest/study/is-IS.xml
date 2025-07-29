@@ -171,6 +171,8 @@
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Deilt og vistað</string>
   <string name="sharedAndSavedText">Aðrir meðlimir geta séð leiki þína í rauntíma!&lt;br&gt;Auk þess vistast allt saman til frambúðar.</string>
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Áhorfendur geta skoðað stúderinguna og rabbað í spjallinu.&lt;br&gt;&lt;br&gt;%2$s Þátttakendur geta leikið og uppfært stúderinguna.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Smelltu á %s hnappinn.&lt;br&gt;Ákveddu síðan hverjir mega taka þátt eður ei.</string>
   <string name="studyChaptersTitle">Kaflar stúderingar</string>
   <string name="studyChaptersText">Ein stúdering getur innhaldið þónokkra kafla.&lt;br&gt;Sérhver kafli hefur sína upphafsstöðu og leikjalista.</string>
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
