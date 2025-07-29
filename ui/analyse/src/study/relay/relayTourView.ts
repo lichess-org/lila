@@ -196,9 +196,11 @@ const share = (ctx: RelayViewContext) => {
     ),
   );
   const roundName = ctx.relay.roundName();
+  const group = ctx.relay.data.group;
   return hl(
     'div.relay-tour__share',
     [
+      ...(group ? [[group.name, `/broadcast/${group.slug}/${group.id}`]] : []),
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
       [roundName, ctx.relay.roundPath()],
       [

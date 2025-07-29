@@ -1,16 +1,13 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import scalalib.ThreadLocalRandom
 import lila.core.config.BaseUrl
 
-case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTourId])
+case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
 
 object RelayGroup:
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]:
-    def make = Id(ThreadLocalRandom.nextString(8))
+  def makeId = RelayGroupId(scalalib.ThreadLocalRandom.nextString(8))
 
   opaque type Name = String
   object Name extends OpaqueString[Name]:
@@ -19,6 +16,9 @@ object RelayGroup:
         if tour.value.startsWith(name.value)
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
+      def toSlug =
+        val s = scalalib.StringOps.slug(name.value)
+        if s.isEmpty then "-" else s
 
   case class WithTours(group: RelayGroup, tours: List[RelayTour.TourPreview]):
     def withShorterTourNames = copy(
@@ -29,7 +29,7 @@ object RelayGroup:
 private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.TourPreview]):
   def tourIds = tours.map(_.id)
   def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
-  def make: RelayGroup = RelayGroup(RelayGroup.Id.make, name, tourIds)
+  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds)
 
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
@@ -70,6 +70,8 @@ import reactivemongo.api.bson.*
 final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   import BSONHandlers.given
+
+  def byId(id: RelayGroupId): Fu[Option[RelayGroup]] = coll.byId[RelayGroup](id)
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]

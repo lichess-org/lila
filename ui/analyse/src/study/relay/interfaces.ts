@@ -11,6 +11,8 @@ export interface RelayData {
 }
 
 export interface RelayGroup {
+  id: string;
+  slug: string;
   name: string;
   tours: RelayTourPreview[];
 }

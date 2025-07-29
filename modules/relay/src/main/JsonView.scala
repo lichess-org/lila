@@ -45,6 +45,8 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
+      "id" -> g.group.id,
+      "slug" -> g.group.name.toSlug,
       "name" -> g.group.name,
       "tours" -> g.withShorterTourNames.tours
     )

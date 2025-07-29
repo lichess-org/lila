@@ -40,20 +40,12 @@ final class RelayCalendar(
           )
           Match(selectors.officialPublic ++ selectors.inMonth(at)) -> {
             // reduce cache size by unselecting some fields
-            AddFields(
-              $doc(
-                "players" -> "",
-                "teams" -> "",
-                "markup" -> "",
-                "subscribers" -> $arr(),
-                "notified" -> $arr()
-              )
-            ) ::
+            Project(RelayTourRepo.unsetHeavyOptionalFields) ::
               tourRepo.aggregateRoundAndUnwind(colls, framework, roundPipeline = roundPipeline.some) :::
               List(Sort(Ascending("round.startDate"))) :::
               List(Limit(max))
           }
-        .map(readToursWithRound(WithFirstRound.apply))
+        .map(readToursWithRoundAndGroup(WithFirstRound.apply))
 
   def atMonth(at: YearMonth): Fu[List[WithFirstRound]] = cache.get(at)
 

@@ -9,6 +9,7 @@ import lila.db.dsl.{ *, given }
 final class RelayListing(
     colls: RelayColls,
     groupRepo: RelayGroupRepo,
+    tourRepo: RelayTourRepo,
     cacheApi: lila.memo.CacheApi,
     groupCrowd: RelayGroupCrowdSumCache
 )(using Executor):
@@ -141,7 +142,7 @@ final class RelayListing(
       .aggregateList(max): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           Sort(Descending("tier")),
           Limit(max),
           PipelineOperator(tourRoundPipeline)
@@ -153,14 +154,10 @@ final class RelayListing(
       .aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           PipelineOperator(tourRoundPipeline)
         )
       .map(_.flatMap(readTourRound))
-
-  // unset heavy fields that we don't use for listing
-  private val tourUnsets =
-    $doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)
 
   private val tourRoundPipeline: Bdoc =
     $lookup.pipeline(

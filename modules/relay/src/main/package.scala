@@ -2,7 +2,7 @@ package lila.relay
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
-export lila.core.id.{ RelayRoundId, RelayTourId }
+export lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
 
 val broadcasterUrl = "https://lichess.org/broadcast/app"
 

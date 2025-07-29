@@ -42,6 +42,9 @@ final class RelayApi(
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
 
+  export groupRepo.byId as groupById
+  export tourRepo.byIds as toursByIds
+
   def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id)
 
   def byIdWithTour(id: RelayRoundId): Fu[Option[WithTour]] =

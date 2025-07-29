@@ -62,6 +62,9 @@ case class RelayTour(
   def isPublic = visibility == Visibility.public
   def isPrivate = visibility == Visibility.`private`
 
+  def canView(using me: Option[Me]) =
+    !isPrivate || me.exists(me => ownerIds.exists(_.is(me)))
+
 object RelayTour:
 
   val maxRelays = Max(64)
@@ -144,5 +147,4 @@ object RelayTour:
     def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector) =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
-  import scalalib.ThreadLocalRandom
-  def makeId = RelayTourId(ThreadLocalRandom.nextString(8))
+  def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))

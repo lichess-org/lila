@@ -15,7 +15,7 @@ final class RelayPager(
 )(using Executor):
 
   import BSONHandlers.given
-  import RelayTourRepo.{ selectors, readToursWithRound }
+  import RelayTourRepo.{ selectors, readToursWithRoundAndGroup }
 
   private val maxPerPage = MaxPerPage(24)
 
@@ -53,7 +53,7 @@ final class RelayPager(
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -73,7 +73,7 @@ final class RelayPager(
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -94,7 +94,7 @@ final class RelayPager(
               Limit(length)
             )
           }
-        .map(readToursWithRound(RelayTour.WithLastRound.apply))
+        .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
       _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
@@ -171,7 +171,7 @@ final class RelayPager(
                   tourRepo.aggregateRoundAndUnwind(colls, framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRound(RelayTour.WithLastRound.apply))
+            .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
       ,
       currentPage = page,
       maxPerPage = maxPerPage

@@ -6,7 +6,7 @@ import lila.app.UiEnv.*
 import lila.fide.FidePlayer
 import lila.relay.RelayTour
 
-lazy val ui = lila.fide.ui.FideUi(helpers)(active => Context ?=> views.relay.tour.pageMenu(active))
+lazy val ui = lila.fide.ui.FideUi(helpers)(active => Context ?=> views.relay.menu(active))
 export ui.federation
 
 object player:

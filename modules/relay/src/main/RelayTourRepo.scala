@@ -56,6 +56,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def previews(ids: List[RelayTourId]): Fu[List[TourPreview]] =
     coll.byOrderedIds[TourPreview, RelayTourId](ids, $doc("name" -> true, "live" -> true).some)(_.id)
 
+  def byIds(ids: List[RelayTourId]): Fu[List[RelayTour]] =
+    coll.byOrderedIds[RelayTour, RelayTourId](ids, unsetHeavyOptionalFields.some)(_.id)
+
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
 
@@ -153,7 +156,15 @@ private object RelayTourRepo:
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
 
-  def readToursWithRound[A](
+  private[relay] val unsetHeavyOptionalFields = $doc(
+    "players" -> false,
+    "teams" -> false,
+    "markup" -> false,
+    "subscribers" -> false,
+    "notified" -> false
+  )
+
+  def readToursWithRoundAndGroup[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
   )(docs: List[Bdoc]): List[A] = for
     doc <- docs
