@@ -6,7 +6,6 @@ import { charToRole, opposite, parseUci } from 'chessops/util';
 import { destsToUcis, sanToUci, sanWriter } from '../game/chess';
 import { renderPieceStr, keyFromAttrs, isKey, pieceStr } from './render';
 import type { PieceStyle, PrefixStyle } from './setting';
-import { isTouchDevice } from '@/device';
 
 /* Listen to interactions on the chessboard */
 export function leaveSquareHandler(buttons: Cash) {
@@ -92,7 +91,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   };
 }
 
-export function selectionHandler(getOpponentColor: () => Color) {
+export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = false) {
   return (ev: MouseEvent): void => {
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
@@ -136,7 +135,7 @@ export function selectionHandler(getOpponentColor: () => Color) {
         // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently.
         if (rank === promotionRank && file && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
           $evBtn.attr('promotion', 'true');
-          if (!isTouchDevice())
+          if (!isTouchDevice)
             $boardLive.text('Promote to: q for queen, n for knight, r for rook, b for bishop');
           else {
             const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));

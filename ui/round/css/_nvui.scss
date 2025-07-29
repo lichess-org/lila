@@ -75,7 +75,8 @@
       .board {
         text-align: left;
       }
-      h2 {
+      h2,
+      .boardstatus {
         position: absolute;
         left: -10000px;
         top: auto;
