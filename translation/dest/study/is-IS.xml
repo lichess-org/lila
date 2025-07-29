@@ -178,7 +178,9 @@
   <string name="commentPositionTitle">Gera athugasemd við stöðu</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Smelltu á %s hnappinn eða hægrismelltu á leikjalistann hægra megin.&lt;br&gt;Athugasemdir eru deildar og vistaðar.</string>
   <string name="annotatePositionTitle">Skrifa útskýringu á stöðu</string>
+  <string name="annotatePositionText">Smelltu á !? hnappinn, eða hægrismelltu á listann yfir leiki sem er hægra megin.&lt;br&gt;Stafbrigði sem notuð eru við skýringar eru deild og vistuð.</string>
   <string name="conclusionTitle">Takk fyrir tímann þinn</string>
+  <string name="conclusionText">Þú getur fundið &lt;a href=\'/study/mine/hot\'&gt;fyrri stúderingar&lt;/a&gt; þínar á prófílnum þínum.&lt;br&gt;Einnig er til &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;bloggfærsla um stúderingar&lt;/a&gt;.&lt;br&gt;Reyndir notendur gætu viljað ýta á „?“ til að sjá flýtilykla.&lt;br&gt;Góða skemmtun!</string>
   <string name="createChapterTitle">Búum nú til stúderingarkafla</string>
   <string name="createChapterText">Ein stúdering getur falið í sér þónokkra kafla.&lt;br&gt;Sérhver kafli hefur sinn leikjalista,&lt;br&gt;og getur verið skapaður á ýmsa vegu.</string>
   <string name="fromInitialPositionTitle">Úr uppahafsstöðu</string>
