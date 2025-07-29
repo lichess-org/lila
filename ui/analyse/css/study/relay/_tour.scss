@@ -185,7 +185,11 @@ $hover-bg: $m-primary_bg--mix-30;
       display: block;
     }
     .mselect__item {
+      @extend %flex-between;
       opacity: unset;
+    }
+    .tour-state.ongoing::before {
+      color: $c-bad;
     }
     .mselect__list {
       transform: unset;

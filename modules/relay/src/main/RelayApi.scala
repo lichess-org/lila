@@ -154,7 +154,7 @@ final class RelayApi(
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
         for
           group <- groupRepo.byTour(id)
-          tours <- tourRepo.idNames(group.so(_.tours))
+          tours <- tourRepo.previews(group.so(_.tours))
         yield group.map(RelayGroup.WithTours(_, tours))
     export cache.get
     def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =

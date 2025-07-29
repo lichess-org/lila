@@ -41,7 +41,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.IdName] = Json.writes
+  given OWrites[RelayTour.TourPreview] = Json.writes
 
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(

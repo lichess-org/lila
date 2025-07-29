@@ -20,13 +20,13 @@ object RelayGroup:
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
 
-  case class WithTours(group: RelayGroup, tours: List[RelayTour.IdName]):
+  case class WithTours(group: RelayGroup, tours: List[RelayTour.TourPreview]):
     def withShorterTourNames = copy(
       tours = tours.map: tour =>
         tour.copy(name = group.name.shortTourName(tour.name))
     )
 
-private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.IdName]):
+private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.TourPreview]):
   def tourIds = tours.map(_.id)
   def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
   def make: RelayGroup = RelayGroup(RelayGroup.Id.make, name, tourIds)
@@ -47,7 +47,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           .take(50)
           .map(_.trim.takeWhile(' ' != _))
           .flatMap(parseId)
-          .map(RelayTour.IdName(_, RelayTour.Name("")))
+          .map(RelayTour.TourPreview(_, RelayTour.Name(""), live = none))
         RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours).some
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)

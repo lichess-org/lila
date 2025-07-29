@@ -12,15 +12,16 @@ export interface RelayData {
 
 export interface RelayGroup {
   name: string;
-  tours: RelayTourIdName[];
+  tours: RelayTourPreview[];
 }
 
 export type TourId = string;
 export type RoundId = string;
 
-export interface RelayTourIdName {
+export interface RelayTourPreview {
   id: TourId;
   name: string;
+  live?: boolean;
 }
 
 export interface RelayRound {

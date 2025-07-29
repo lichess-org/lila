@@ -8,7 +8,7 @@ import lila.core.study.Visibility
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
-  import RelayTour.IdName
+  import RelayTour.TourPreview
 
   def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
 
@@ -53,8 +53,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def delete(tour: RelayTour): Funit =
     coll.delete.one($id(tour.id)).void
 
-  def idNames(ids: List[RelayTourId]): Fu[List[IdName]] =
-    coll.byOrderedIds[IdName, RelayTourId](ids, $doc("name" -> true).some)(_.id)
+  def previews(ids: List[RelayTourId]): Fu[List[TourPreview]] =
+    coll.byOrderedIds[TourPreview, RelayTourId](ids, $doc("name" -> true, "live" -> true).some)(_.id)
 
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not

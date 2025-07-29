@@ -231,7 +231,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
   const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
   return hl(
-    'div.mselect.relay-tour__mselect.relay-tour__group-select',
+    'div.mselect.relay-tour__mselect',
     {
       class: { mselect__active: toggle() },
     },
@@ -247,9 +247,21 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
           'nav.mselect__list',
           group.tours.map(tour =>
             hl(
-              `a.mselect__item${tour.id === ctx.relay.data.tour.id ? '.current' : ''}`,
-              { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
-              tour.name,
+              'a.mselect__item',
+              {
+                class: {
+                  current: tour.id === ctx.relay.data.tour.id,
+                  ['ongoing-tour']: !!tour.live,
+                },
+                attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
+              },
+              [
+                tour.name,
+                tour.live &&
+                  hl('span.tour-state.ongoing', {
+                    attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
+                  }),
+              ],
             ),
           ),
         ),
