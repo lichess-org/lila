@@ -227,7 +227,7 @@ final class MsgApi(
           UnwindField("users"),
           Match($doc("users".$ne(user.id))),
           PipelineOperator:
-            $lookup.pipeline(
+            $lookup.simple(
               from = colls.msg,
               as = "msgs",
               local = "_id",
@@ -240,12 +240,7 @@ final class MsgApi(
             )
           ,
           PipelineOperator:
-            $lookup.simple(
-              from = userRepo.coll,
-              as = "contact",
-              local = "users",
-              foreign = "_id"
-            )
+            $lookup.simple(from = userRepo.coll, as = "contact", local = "users", foreign = "_id")
           ,
           UnwindField("contact")
         )

@@ -33,7 +33,7 @@ final class TournamentModeration(playerRepo: PlayerRepo, userRepo: UserRepo)(usi
         Match(playerRepo.selectTour(tourId) ++ ~playerSelect) -> List(
           PipelineOperator(
             $lookup.simple(
-              from = userRepo.coll.name,
+              from = userRepo.coll,
               as = "user",
               local = "uid",
               foreign = "_id"

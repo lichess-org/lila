@@ -89,8 +89,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
         framework.Match(group.firstFilter)
       )
     ) ::: List(
-      framework.PipelineOperator(
-        $lookup.pipeline(
+      framework.PipelineOperator:
+        $lookup.simple(
           from = otherColls.round,
           as = "round",
           local = "_id",

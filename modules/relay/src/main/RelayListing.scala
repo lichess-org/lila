@@ -160,7 +160,7 @@ final class RelayListing(
       .map(_.flatMap(readTourRound))
 
   private val tourRoundPipeline: Bdoc =
-    $lookup.pipeline(
+    $lookup.simple(
       from = colls.round,
       as = "rounds",
       local = "_id",

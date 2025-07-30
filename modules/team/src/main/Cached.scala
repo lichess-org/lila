@@ -42,7 +42,7 @@ final class Cached(
           Match($doc("_id".$startsWith(s"$u@"))) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
-              $lookup.pipeline(
+              $lookup.simple(
                 from = teamRepo.coll,
                 as = "team",
                 local = "_id",

@@ -326,7 +326,7 @@ final class UblogApi(
     import framework.*
     List(
       PipelineOperator:
-        $lookup.pipeline(
+        $lookup.simple(
           from = colls.blog,
           as = "blog",
           local = "blog",
@@ -339,7 +339,7 @@ final class UblogApi(
       ,
       UnwindField("blog"),
       PipelineOperator:
-        $lookup.pipeline(
+        $lookup.simple(
           from = userRepo.coll,
           as = "user",
           local = "created.by",

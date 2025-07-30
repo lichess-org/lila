@@ -70,8 +70,8 @@ final private[puzzle] class DailyPuzzle(
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
             PipelineOperator:
-              $lookup.pipeline(
-                from = colls.puzzle,
+              $lookup.simple(
+                from = colls.puzzle.name,
                 as = "puzzle",
                 local = "ids",
                 foreign = "_id",
