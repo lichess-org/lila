@@ -67,9 +67,7 @@
   <string name="officialStandings">Resmi Sıralamalar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
   <string name="webmastersPage">ağ yöneticileri sayfası</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Bu turun açık, gerçek zamanlı PGN kaynağı. Daha hızlı ve verimli senkronizasyon için %s\'ımız da bulunmaktadır.</string>
   <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>
-  <string name="embedThisRound">%su İnternet sitenizde gömülü paylaşın</string>
   <string name="ratingDiff">Puan farkı</string>
   <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
   <string name="score">Skor</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Canlı hamleye dön</string>
   <string name="sinceHideResults">Sonuçları gizlemeyi seçtiğiniz için, spoiler vermemek adına tüm tahta görünümleri boş olacak.</string>
   <string name="liveboard">Canlı tahta</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Topluluk yayını</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">%s tarafından oluşturuldu ve yönetiliyor.</string>
+  <string name="communityBroadcast">Topluluk yayını</string>
+  <string name="createdAndManagedBy">%s tarafından oluşturuldu ve yönetiliyor.</string>
 </resources>
