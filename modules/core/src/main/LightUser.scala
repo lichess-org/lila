@@ -32,21 +32,20 @@ object LightUser:
     title = None,
     flair = None,
     patronMonths = None
-    )
+  )
 
-  def patronTier(patronMonths: Int): Option[String] = patronMonths match {
+  def patronTier(patronMonths: Int): Option[String] = patronMonths match
     case m if m >= 60 => "5years".some
     case m if m >= 48 => "4years".some
     case m if m >= 36 => "3years".some
     case m if m >= 24 => "2years".some
     case m if m >= 12 => "1year".some
-    case m if m >= 9  => "9months".some
-    case m if m >= 6  => "6months".some
-    case m if m >= 3  => "3months".some
-    case m if m >= 2  => "2months".some
-    case m if m >= 1  => "1month".some
-    case _            => None
-  }
+    case m if m >= 9 => "9months".some
+    case m if m >= 6 => "6months".some
+    case m if m >= 3 => "3months".some
+    case m if m >= 2 => "2months".some
+    case m if m >= 1 => "1month".some
+    case _ => None
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:
