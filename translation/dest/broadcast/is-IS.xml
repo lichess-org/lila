@@ -67,9 +67,7 @@
   <string name="officialStandings">Opinberar stöður</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleiri valkostir á %s</string>
   <string name="webmastersPage">síðu vefstjóra</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Opinber, rauntímatengdur PGN-skeytagjafi fyrir þessa umferð. Við bjóðum einnig upp á %s fyrir hraðari og skilvirkari samstillingu.</string>
   <string name="embedThisBroadcast">Ívefðu þessa útsendingu inn í vefsíðu þína</string>
-  <string name="embedThisRound">Ívefja %s inn í vefsíðuna þína</string>
   <string name="ratingDiff">Mismunur á skákstigum</string>
   <string name="gamesThisTournament">Skákir á þessu móti</string>
   <string name="score">Árangur</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Aftur í að fylgjast með leikjum í beinni</string>
   <string name="sinceHideResults">Þar sem þú kaust að fela niðurstöðurnar, eru öll borðin sem eru til forskoðunar auð til þess að forðast að gefa upp lausnir.</string>
   <string name="liveboard">Taflborð í beinni</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Útsendingar samfélagsins</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Stofnuð og skipulögð af %s.</string>
+  <string name="communityBroadcast">Útsendingar samfélagsins</string>
+  <string name="createdAndManagedBy">Stofnuð og skipulögð af %s.</string>
 </resources>
