@@ -12,7 +12,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
 
-  def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byId[RelayTour](tourId)
+  def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byIdProj[RelayTour](tourId, modelProjection)
 
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
@@ -25,7 +25,14 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   ): Funit =
     coll.update.one($id(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
 
-  def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
+  def lookup(local: String) =
+    $lookup.simple(
+      coll,
+      "tour",
+      local,
+      "_id",
+      pipe = List($doc("$project" -> modelProjection))
+    )
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
     coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
@@ -62,12 +69,6 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
 
-  def info(tourId: RelayTourId): Fu[Option[RelayTour.Info]] =
-    coll.primitiveOne[RelayTour.Info]($id(tourId), "info")
-
-  def allActivePublicTours(max: Max): Fu[List[RelayTour]] =
-    coll.find(selectors.officialActive).sort($sort.desc("tier")).cursor[RelayTour]().list(max.value)
-
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,
@@ -101,7 +102,6 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
             $doc("$addFields" -> $doc("sync.log" -> $arr()))
           )
         )
-      )
     )
 
 private object RelayTourRepo:
@@ -156,12 +156,15 @@ private object RelayTourRepo:
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
 
-  private[relay] val unsetHeavyOptionalFields = $doc(
-    "players" -> false,
-    "teams" -> false,
-    "markup" -> false,
+  private[relay] val modelProjection = $doc(
     "subscribers" -> false,
     "notified" -> false
+  )
+
+  private[relay] val unsetHeavyOptionalFields = modelProjection ++ $doc(
+    "markup" -> false,
+    "players" -> false,
+    "teams" -> false
   )
 
   def readToursWithRoundAndGroup[A](
