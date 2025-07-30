@@ -71,6 +71,7 @@ final class GameStateStream(
 
     override def preStart(): Unit =
       super.preStart()
+      println(s"preStart $id ${user.id}")
       Bus.subscribeActorRef[lila.core.game.FinishGame](self)
       Bus.subscribeActorRef[lila.core.game.AbortedBy](self)
       Bus.subscribeActorRefDyn(self, classifiers)
@@ -86,6 +87,7 @@ final class GameStateStream(
 
     override def postStop(): Unit =
       super.postStop()
+      println(s"postStop $id ${user.id}")
       classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
       Bus.unsubscribeActorRef[lila.core.game.FinishGame](self)
       Bus.unsubscribeActorRef[lila.core.game.AbortedBy](self)
@@ -111,7 +113,7 @@ final class GameStateStream(
         context.system.scheduler
           .scheduleOnce(6.second):
             // gotta send a message to check if the client has disconnected
-            queue.offer(None)
+            queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
             self ! SetOnline
             Bus.pub(Tell(id, RoundBus.QuietFlag))
 
