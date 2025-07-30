@@ -53,8 +53,8 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="customStartDate">Sérsniðinn upphafsdagur</string>
   <string name="customStartDateHelp">Í þínu eigin tímabelti. Þetta hnekkir stillingunni „Tími áður en mót hefst.“</string>
   <string name="allowBerserk">Leyfa Berserk</string>
-  <string name="allowBerserkHelp">Leyfa leikmönnum að helminga tíma sinn á klukku til þess að fá aukastig</string>
-  <string name="allowChatHelp">Leyfa leikmönnum að rabba í spjallherbergi</string>
+  <string name="allowBerserkHelp">Leyfa skákmönnum að helminga tíma sinn á klukku til þess að fá aukastig</string>
+  <string name="allowChatHelp">Leyfa skákmönnum að rabba í spjallherbergi</string>
   <string name="arenaStreaks">Arena-hrina</string>
   <string name="arenaStreaksHelp">Eftir 2 sigra gefa samfelldir sigrar 4 stig í stað 2.</string>
   <string name="noBerserkAllowed">Ekkert Berserk leyfilegt</string>
@@ -73,7 +73,7 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="bestResults">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
   <string name="rankAvgHelp">Meðalstaðan gefur til kynna hlutfall af stöðu þinni. Lægra er betra. 
-Til dæmis, ef þú ert í 3. sæti á móti með 100 leikmönnum jafngildir það 3%. Að vera í 10. sæti á móti með 1000 leikmönnum jafngildir 1%.</string>
+Til dæmis, ef þú ert í 3. sæti á móti með 100 skákmönnum jafngildir það 3%. Að vera í 10. sæti á móti með 1000 skákmönnum jafngildir 1%.</string>
   <string name="medians">miðgildi</string>
   <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
   <string name="total">Samtals</string>
@@ -82,7 +82,7 @@ Til dæmis, ef þú ert í 3. sæti á móti með 100 leikmönnum jafngildir þa
   <string name="rankAvg">Meðalstaða</string>
   <string name="tournamentWinners">Sigurvegarar móts</string>
   <string name="tournamentShields">Mót með verðlaunaskjöld</string>
-  <string name="onlyTitled">Eingöngu leikmenn með titil</string>
+  <string name="onlyTitled">Eingöngu skákmenn með titil</string>
   <string name="onlyTitledHelp">Krefjast opinbers titils til þess að taka þátt í mótinu</string>
   <string name="tournamentPairingsAreNowClosed">Nú er hætt að ákvarða mætingar móts.</string>
   <string name="berserkRate">Berserk-hlutfall</string>

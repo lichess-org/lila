@@ -25,8 +25,11 @@
   <string name="drafts">Drög</string>
   <string name="published">Birt</string>
   <string name="createBlogDiscussion">Leyfa athugasemdir</string>
+  <string name="createBlogDiscussionHelp">Umræða á korkinum verður búin til fyrir fólk til að skrifa athugasemdir við færsluna þína</string>
   <string name="publishOnYourBlog">Birta á blogginu þínu</string>
+  <string name="publishHelp">Ef hakað er við verður færslan birt á blogginu þínu. Ef ekki verður hún lokuð, og verður áfram í færsludrögum þínum</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Líma færslu</string>
+  <string name="stickyPostHelp">Ef hakað er við, þá birtist þessi færsla fyrst í nýlegum færslum á prófílnum þínum og á blogginu þínu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Birti bloggfærslu</item>
     <item quantity="other">Birti %s bloggfærslur</item>
@@ -50,6 +53,7 @@
   <string name="imageCredit">Höfundur myndar</string>
   <string name="deleteBlog">Eyða þessari bloggfærslu til frambúðar</string>
   <string name="safeToUseImages">Óhætt er að notfæra sér myndir frá þessum vefsíðum: </string>
+  <string name="selectPostTopics">Veldu umræðurnar sem færslan þín fjallar um</string>
   <string name="useImagesYouMadeYourself">Þú getur líka notað myndir sem þú bjóst til sjálfur/sjálf/sjálft, myndir sem þú tókst, skjáskot af Lichess... allt sem er ekki í eigu einhvers annars.</string>
   <string name="safeAndRespectfulContent">Þess er vænst að efnið sem þú birtir sé öruggt og tillitssamt. Alls ekki apa eftir efni annarra.</string>
   <string name="inappropriateContentAccountClosed">Allt sem telst óviðeigandi gæti haft í för með sér að aðgangurinn þinn verði lokaður.</string>

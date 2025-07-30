@@ -75,6 +75,7 @@
   <string name="expandVariations">گستردنِ وَرتِش‌ها</string>
   <string name="forceVariation">وَرتِشِ زوری</string>
   <string name="copyVariationPgn">رونوشت‌گیری PGN ِ وَرتِش</string>
+  <string name="copyMainLinePgn">کپی کردن PGN بازی</string>
   <string name="move">حرکت</string>
   <string name="variantLoss">باختِ وَرتا</string>
   <string name="variantWin">بُردِ وَرتا</string>
@@ -157,6 +158,7 @@
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
+  <string name="drawClaimed">بازی در تساوی پایان یافت</string>
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
@@ -166,6 +168,7 @@
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
   <string name="currentGames">بازی‌های جاری</string>
+  <string name="joinedX">عضو شده در %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
@@ -348,7 +351,15 @@
   <string name="openingExplorerAndTablebase">پویشگر گشایش و آخربازی</string>
   <string name="takeback">برگردان</string>
   <string name="proposeATakeback">پیشنهاد برگردان</string>
+  <string name="whiteProposesTakeback">سفید درخواست بازپسگیری میکند</string>
+  <string name="blackProposesTakeback">سیاه درخواست بازپسگیری میکند</string>
   <string name="takebackPropositionSent">برگردان فرستاده شد</string>
+  <string name="whiteDeclinesTakeback">سفید درخواست بازپسگیری را رد میکند</string>
+  <string name="blackDeclinesTakeback">سیاه درخواست بازپسگیری را رد میکند</string>
+  <string name="whiteAcceptsTakeback">سفید درخواست بازپسگیری را تائید میکند</string>
+  <string name="blackAcceptsTakeback">سیاه درخواست بازپسگیری را تائید میکند</string>
+  <string name="whiteCancelsTakeback">سفید درخواست بازپسگیری را لغو میکند</string>
+  <string name="blackCancelsTakeback">سیاه درخواست بازپسگیری را لغو میکند</string>
   <string name="yourOpponentProposesATakeback">حریف‌تان پیشنهاد «برگرداندن» می‌دهد</string>
   <string name="bookmarkThisGame">نشانک‌گذاری</string>
   <string name="tournament">مسابقه</string>
@@ -482,6 +493,7 @@
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
   <string name="losses">باخت‌ها</string>
+  <string name="startingIn" comment="Displayed above a timer">شروع در</string>
   <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="pause">توقف</string>
   <string name="resume">ادامه دادن</string>
@@ -666,6 +678,7 @@
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="termsOfService">شرایطِ استفاده</string>
+  <string name="titleVerification">تائید عنوان</string>
   <string name="sourceCode">کد منبع</string>
   <string name="simultaneousExhibitions">نمایش هم زمان</string>
   <string name="host">میزبان</string>
@@ -737,6 +750,9 @@
   <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
+  <string name="ifYouDoNotGetTheEmail">اگر ایمیل را در 5 دقیقه دریافت نکرده اید</string>
+  <string name="checkAllEmailFolders">فولدر های junk, spam و دیگر را چک کنید</string>
+  <string name="verifyYourAddress">تائید کنید که %s ایمیل شما هست</string>
   <string name="weHaveSentYouAnEmailTo">ما یک رایانامه به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
@@ -782,6 +798,7 @@
   <string name="anonymous">ناشناس</string>
   <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
+  <string name="allLanguages">تمام زبان ها</string>
   <string name="background">زمینه</string>
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
@@ -989,4 +1006,7 @@
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
   <string name="stats">آمار</string>
+  <string name="accessibility">دسترسی</string>
+  <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
+  <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
 </resources>

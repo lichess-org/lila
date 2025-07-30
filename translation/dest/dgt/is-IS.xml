@@ -23,6 +23,7 @@
   <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
   <string name="validDgtOauthToken">Þú ert með OAuth-tóka sem hæfir DGT-tafli.</string>
+  <string name="dgtPlayMenuEntryAdded">Skráningunni %s var bætt við TEFLA-valmyndina þína efst uppi.</string>
   <string name="noSuitableOauthToken">Enginn hæfilegur OAuth-tóki hefur verið búinn til.</string>
   <string name="dgtBoardConnectivity">Tengjanleiki DGT-taflborðs</string>
   <string name="clickToGenerateOne">Smelltu til að búa til einn</string>
