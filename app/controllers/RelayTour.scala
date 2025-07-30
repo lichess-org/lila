@@ -203,8 +203,12 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def embedShow(@nowarn slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
-      val tourFu = env.relay.api.tourById(id).map(_.filterNot(_.isPrivate))
-      FoundEmbed(tourFu): tour =>
+      val tourFu =
+        env.relay.api
+          .tourById(id)
+          .orElse:
+            env.relay.listing.defaultTourOfGroup.get(id.into(RelayGroupId))
+      FoundEmbed(tourFu.map(_.filterNot(_.isPrivate))): tour =>
         env.relay.listing.defaultRoundToLink
           .get(tour.id)
           .flatMap:

@@ -217,6 +217,9 @@ const share = (ctx: RelayViewContext) => {
           ),
         ),
       ],
+      ...(group
+        ? [['Embed this broadcast group', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp]]
+        : []),
       [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
       [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([text, path, help]: [string, string, VNode]) =>
