@@ -40,11 +40,11 @@
   <string name="editRoundStudy">Breyta umferðarstúderingu</string>
   <string name="deleteTournament">Eyða þessu móti</string>
   <string name="definitivelyDeleteTournament">Eyða fortakslaust öllu mótinu, öllum umferðum þess og öllum skákum þess.</string>
-  <string name="showScores">Sýna stig leikmanna út frá úrslitum</string>
-  <string name="replacePlayerTags">Valfrjálst: skipta út nöfnum leikmanna, skákstigum og titlum</string>
+  <string name="showScores">Sýna stig skákmanna útfrá úrslitum</string>
+  <string name="replacePlayerTags">Valfrjálst: skipta út nöfnum skákmanna, skákstigum og titlum</string>
   <string name="fideFederations">Aðildarfélög Alþjóðaskáksambandsins</string>
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
-  <string name="fidePlayers">Leikmenn Alþjóðaskáksambandsins</string>
+  <string name="fidePlayers">Skákmenn Alþjóðaskáksambandsins</string>
   <string name="fidePlayerNotFound">Skákmaður Alþjóðaskáksambandsins fannst ekki</string>
   <string name="fideProfile">Prófill hjá Alþjóðaskáksambandinu</string>
   <string name="federation">Ríkjasamband</string>
@@ -76,7 +76,7 @@
   <string name="allTeams">Öll lið</string>
   <string name="tournamentFormat">Skipulag móts</string>
   <string name="tournamentLocation">Staðsetning móts</string>
-  <string name="topPlayers">Bestu leikmennirnir</string>
+  <string name="topPlayers">Bestu skákmennirnir</string>
   <string name="timezone">Tímabelti</string>
   <string name="fideRatingCategory">FIDE-skákstyrkleikaflokkur</string>
   <string name="optionalDetails">Valfrjálsar upplýsingar</string>

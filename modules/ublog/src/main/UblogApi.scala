@@ -154,12 +154,12 @@ final class UblogApi(
       user: LightUser,
       post: UblogPost,
       tier: Tier,
-      mod: Option[UblogAutomod.Assessment]
+      assessment: Option[UblogAutomod.Assessment]
   ): Funit =
     val source =
       if tier == Tier.UNLISTED then "unlisted tier"
-      else mod.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
-    val automodNotes = mod.map: r =>
+      else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
+    val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n")
     irc.ublogPost(
@@ -175,7 +175,7 @@ final class UblogApi(
   private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
-      automod(post)
+      automod(post, n * 0.1)
         .flatMapz: mod =>
           for _ <- colls.post.updateField($id(post.id), "automod", mod).void
           yield mod.some
@@ -196,11 +196,6 @@ final class UblogApi(
     _ <- colls.post.delete.one($id(post.id))
     _ <- image.deleteAll(post)
   yield ()
-
-  def setModTier(blog: UblogBlog.Id, tier: Tier): Funit =
-    colls.blog.update
-      .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
-      .void
 
   def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit =
     colls.blog.update.one($id(blog), $set("tier" -> tier)).void
@@ -250,7 +245,14 @@ final class UblogApi(
         yield likes
   yield likes
 
-  def setModAdjust(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
+  def modBlog(blogger: UserId, tier: Option[Tier], note: Option[String], mod: Option[Me] = None): Funit =
+    val setFields = tier.so(t => $doc("modTier" -> t, "tier" -> t))
+      ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
+    val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
+    mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
+    colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
+
+  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset
@@ -285,8 +287,8 @@ final class UblogApi(
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)
     else userApi.byId(userId).map(_.fold(Tier.HIDDEN)(Tier.default))
-  }.flatMap:
-    setModTier(UblogBlog.Id.User(userId), _)
+  }.flatMap: t =>
+    modBlog(userId, t.some, none)
 
   def canBlog(u: User) =
     !u.isBot && {
@@ -324,7 +326,7 @@ final class UblogApi(
     import framework.*
     List(
       PipelineOperator:
-        $lookup.pipeline(
+        $lookup.simple(
           from = colls.blog,
           as = "blog",
           local = "blog",
@@ -337,7 +339,7 @@ final class UblogApi(
       ,
       UnwindField("blog"),
       PipelineOperator:
-        $lookup.pipeline(
+        $lookup.simple(
           from = userRepo.coll,
           as = "user",
           local = "created.by",

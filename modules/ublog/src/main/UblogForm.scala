@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
 import lila.core.ublog.Quality
@@ -111,13 +111,13 @@ object UblogForm:
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
 
-  private val tierMapping =
-    "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
-      .into[UblogBlog.Tier]
-
-  val tier = Form:
-    single:
-      tierMapping
+  lazy val modBlogForm = Form(
+    tuple(
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+        .into[UblogBlog.Tier],
+      "note" -> cleanText(0, 800)
+    )
+  )
 
   case class ModPostData(
       quality: Option[Quality] = none,

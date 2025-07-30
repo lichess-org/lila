@@ -37,7 +37,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           Match($doc("correspondenceEmail" -> true)),
           Project($id(true)),
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",

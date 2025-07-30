@@ -216,16 +216,17 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withScores = !!players.find(p => p.score !== undefined);
   const withRank = !!players.find(p => p.rank);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
-  const tbs = players?.[0].tiebreaks;
+  const tbs = players?.[0]?.tiebreaks;
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return hl('div.table', [
-    hl(
-      'p.relay-tour__standings--disclaimer',
-      { attrs: { 'data-icon': licon.InfoCircle } },
-      'Standings are calculated using broadcasted games and may differ from official results.',
-    ),
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer',
+        { attrs: { 'data-icon': licon.InfoCircle } },
+        'Standings are calculated using broadcasted games and may differ from official results.',
+      ),
     hl(
       'table.relay-tour__players.slist.slist-invert.slist-pad',
       {

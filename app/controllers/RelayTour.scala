@@ -6,8 +6,8 @@ import scalalib.Json.given
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.RelayTourId
-import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayPlayer }
+import lila.core.id.{ RelayTourId, RelayGroupId }
+import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayGroup, RelayPlayer }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
@@ -171,25 +171,44 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   }
 
   def show(@nowarn slug: String, id: RelayTourId) = Open:
-    Found(env.relay.api.tourById(id)): tour =>
-      if tour.isPrivate && ctx.isAnon
-      then Unauthorized.page(views.site.message.relayPrivate)
+    env.relay.api
+      .tourById(id)
+      .flatMap:
+        case None => showGroup(slug, id.into(RelayGroupId))
+        case Some(tour) =>
+          if tour.isPrivate && ctx.isAnon
+          then Unauthorized.page(views.site.message.relayPrivate)
+          else
+            env.relay.listing.defaultRoundToLink
+              .get(tour.id)
+              .flatMap:
+                case None =>
+                  ctx.me
+                    .soUse(env.relay.api.canUpdate(tour))
+                    .flatMap:
+                      if _ then Redirect(routes.RelayRound.form(tour.id))
+                      else emptyBroadcastPage(tour)
+                case Some(round) => Redirect(round.withTour(tour).path)
+
+  private def showGroup(@nowarn slug: String, id: RelayGroupId)(using Context): Fu[Result] =
+    Found(env.relay.api.groupById(id)): group =>
+      if slug != group.name.toSlug
+      then Redirect(routes.RelayTour.show(group.name.toSlug, id.into(RelayTourId)))
       else
-        env.relay.listing.defaultRoundToLink
-          .get(tour.id)
-          .flatMap:
-            case None =>
-              ctx.me
-                .soUse(env.relay.api.canUpdate(tour))
-                .flatMap:
-                  if _ then Redirect(routes.RelayRound.form(tour.id))
-                  else emptyBroadcastPage(tour)
-            case Some(round) => Redirect(round.withTour(tour).path)
+        for
+          allTours <- env.relay.api.toursByIds(group.tours)
+          tours = if isGrantedOpt(_.StudyAdmin) then allTours else allTours.filter(_.canView)
+          page <- Ok.page(views.relay.group.show(group, tours))
+        yield page
 
   def embedShow(@nowarn slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
-      val tourFu = env.relay.api.tourById(id).map(_.filterNot(_.isPrivate))
-      FoundEmbed(tourFu): tour =>
+      val tourFu =
+        env.relay.api
+          .tourById(id)
+          .orElse:
+            env.relay.listing.defaultTourOfGroup.get(id.into(RelayGroupId))
+      FoundEmbed(tourFu.map(_.filterNot(_.isPrivate))): tour =>
         env.relay.listing.defaultRoundToLink
           .get(tour.id)
           .flatMap:

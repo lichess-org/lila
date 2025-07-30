@@ -4,8 +4,10 @@
   <string name="tokenGrantsPermission">Tóki veitir öðrum heimild til að nota aðganginn þinn.</string>
   <string name="carefullySelect">Veldu vandlega hvað honum er heimilt að gera fyrir þína hönd.</string>
   <string name="tokenDescription">Lýsing tóka</string>
+  <string name="rememberTokenUse">Svo þú munir hvað þessi tóki er fyrir</string>
   <string name="whatTheTokenCanDo">Það sem tókinn getur gert fyrir þína hönd:</string>
   <string name="doNotShareIt">Tókinn veitir aðgang að aðganginum þínum. ALLS EKKI deila honum með neinum!</string>
+  <string name="copyTokenNow">Vertu viss um að afrita nýja aðgangstókann þinn núna. Þú munt ekki geta séð hann aftur!</string>
   <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Lesa kjörstillingar</string>
   <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Skrifa kjörstillingar</string>
   <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lesa tölvupóstsfang</string>
@@ -20,7 +22,7 @@
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lesa upplýsingar um persónuleg lið</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Gerast meðlimur og segja liði upp</string>
   <string name="teamLead">Hagræða liðum sem þú stjórnar: senda einkaskilaboð, reka meðlimi</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lesa inn leikmenn sem verið er að fylgja</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lesa inn notendur sem verið er að fylgja</string>
   <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Fylgjast með og hætta við að fylgjast með öðrum notendum</string>
   <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Senda einkaskilaboð til annarra notenda</string>
   <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Leika skákir með forritaskil taflborðs</string>
@@ -30,6 +32,8 @@
   <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Búa til sannvottaðar vefsíðulotur (veitir ótakmarkaðan aðgang!)</string>
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Nota gæslutól (innan marka leyfis þíns)</string>
   <string name="personalAccessTokens">Persónulegir aðgangstókar fyrir forritaskil</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Þú getur gert OAuth-beiðnir án þess að fara í gegnum %s.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">heimildarkóðaferlið</string>
   <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Í staðinn skaltu %s sem þú getur notað rakleitt í API-beiðnum.</string>
   <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">búa til persónulegan aðgangstóka</string>
   <string name="guardTokensCarefully">Gættu þessara tóka vandlega! Þau eru sem lykilorð. Kosturinn við að nota tóka frekar en að setja lykilorðið þitt í skriftu er að það er hægt að afturkalla þau, og þú getur búið til fullt af þeim.</string>
@@ -42,5 +46,9 @@
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Síðast notað %s</string>
   <string name="alreadyHavePlayedGames">Þú hefur nú þegar teflt!</string>
   <string name="attentionOfDevelopers">Athugasemd eingöngu fyrir forritara:</string>
+  <string name="possibleToPrefill">Hægt er að fylla út þetta eyðublað fyrirfram með því að fínstilla fyrirspurnarstika vefslóðarinnar.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Til dæmis: %s</string>
+  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">setur hak við gildissviðin %1$s og %2$s, og setur lýsingu á tókanum.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Gildissviðskóðana (e. scope codes) er að finna í HTML-kóða eyðublaðsins.</string>
+  <string name="givingPrefilledUrls">Að gefa notendum þínum þessar fyrirframútfylltu vefslóðir mun hjálpa þeim að fá rétt tókagildissvið.</string>
 </resources>

@@ -353,9 +353,9 @@ final class SwissApi(
         import framework.*
         Match($doc("teamId".$in(teamIds), "featurable" -> true)) -> List(
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.simple(
+              from = mongo.player,
               as = "player",
-              from = mongo.player.name,
               local = "_id",
               foreign = "s",
               pipe = List($doc("$match" -> $doc("u" -> userId)))

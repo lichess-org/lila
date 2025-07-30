@@ -61,6 +61,9 @@ object id:
   opaque type ForumTopicId = String
   object ForumTopicId extends OpaqueString[ForumTopicId]
 
+  opaque type ForumTopicSlug = String
+  object ForumTopicSlug extends OpaqueString[ForumTopicSlug]
+
   opaque type ForumCategId = String
   object ForumCategId extends OpaqueString[ForumCategId]
 
@@ -96,6 +99,9 @@ object id:
 
   opaque type RelayTourId = String
   object RelayTourId extends OpaqueString[RelayTourId]
+
+  opaque type RelayGroupId = String
+  object RelayGroupId extends OpaqueString[RelayGroupId]
 
   opaque type ChallengeId = String
   object ChallengeId extends OpaqueString[ChallengeId]

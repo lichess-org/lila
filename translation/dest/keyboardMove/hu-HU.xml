@@ -16,7 +16,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Ha a fentebbi lépésjelölést nem ismered, itt többet megtudhatsz róla:</string>
   <string name="includingAXToIndicateACapture">Ütés jelölésére az \"x\" hozzáadása nem kötelező</string>
   <string name="bothTheLetterOAndTheDigitZero">Az \"o\" betű és a nulla számjegy \"0\" is használható sáncoláshoz</string>
-  <string name="ifItIsLegalToCastleBothWays">Ha mindkét oldalra szabályos sáncolni, enterrel királyszárnya sáncol</string>
+  <string name="ifItIsLegalToCastleBothWays">Ha mindkét oldalra szabályos sáncolni, használj entert a királyszárnyi sáncoláshoz</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Kis- és nagybetű csak félreérthető helyzetekben számít, amikor a futó és a b-gyalog is érintett</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Előlépés megtételéhez csak gépeld be a lépést, mielőtt még te következel</string>
 </resources>

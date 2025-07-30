@@ -13,6 +13,7 @@ import lila.user.UserRepo
 import lila.core.chat.TimeoutReason
 import lila.core.user.KidMode
 import lila.core.LightUser
+import lila.core.id.ForumTopicSlug
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -44,8 +45,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def streamerTier(streamerId: UserId, v: Int)(using MyId) = add:
     Modlog(streamerId.some, Modlog.streamerTier, v.toString.some)
 
-  def blogTier(sus: Suspect, tier: String)(using MyId) = add:
-    Modlog.make(sus, Modlog.blogTier, tier.some)
+  def blogEdit(sus: Suspect, details: String)(using MyId) = add:
+    Modlog.make(sus, Modlog.blogTier, details.some)
 
   def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, details: String)(using MyId) = add:
     Modlog.make(
@@ -138,24 +139,24 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = Some(text.take(400))
     )
 
-  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using MyId) = add:
+  def toggleCloseTopic(categ: ForumCategId, slug: ForumTopicSlug, closed: Boolean)(using MyId) = add:
     Modlog(
       none,
       if closed then Modlog.closeTopic else Modlog.openTopic,
-      details = s"$categ/$topicSlug".some
+      details = s"$categ/$slug".some
     )
 
-  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using MyId) = add:
+  def toggleStickyTopic(categ: ForumCategId, slug: ForumTopicSlug, sticky: Boolean)(using MyId) = add:
     Modlog(
       none,
       if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
-      details = s"$categ/$topicSlug".some
+      details = s"$categ/$slug".some
     )
 
   // Not to be confused with the eponymous lichess account.
   def postOrEditAsAnonMod(
       categ: ForumCategId,
-      topic: String,
+      topic: ForumTopicSlug,
       postId: ForumPostId,
       text: String,
       edit: Boolean
@@ -198,16 +199,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .map: (p, dir) =>
         s"${if dir then "+" else "-"}${p}"
       .mkString(", ")
-    add:
-      Modlog(
-        user.id.some,
-        Modlog.permissions,
-        details.some
-      )
-    >> ircApi.permissionsLog(
-      user,
-      details
-    )
+    for
+      _ <- add:
+        Modlog(
+          user.id.some,
+          Modlog.permissions,
+          details.some
+        )
+      _ <- ircApi.permissionsLog(user, details)
+    yield ()
 
   def wasUnteachered(user: UserId): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details".$regex(s"-${Permission.Teacher.toString}")))

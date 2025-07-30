@@ -42,10 +42,11 @@ final class PuzzleBatch(
                   Sample(nb),
                   PipelineOperator:
                     $lookup.simple(
-                      from = colls.puzzle,
+                      from = colls.puzzle.name,
                       local = "puzzleId",
                       foreign = "_id",
-                      as = "puzzle"
+                      as = "puzzle",
+                      pipe = Nil
                     )
                   ,
                   PipelineOperator:

@@ -53,8 +53,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   // ensure we have enough after filtering deviation
                   Sample(nbPuzzles * 4),
                   PipelineOperator(
-                    $lookup.pipeline(
-                      from = colls.puzzle,
+                    $lookup.simple(
+                      from = colls.puzzle.name,
                       as = "puzzle",
                       local = "ids",
                       foreign = "_id",

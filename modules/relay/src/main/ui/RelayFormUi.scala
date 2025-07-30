@@ -24,7 +24,7 @@ case class FormNavigation(
     .filter: r =>
       r.sync.upstream.forall(up => up.isUrl && !up.hasLcc)
 
-final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
+final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb, site as trs }
 
@@ -419,7 +419,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         .js(Esm("bits.relayForm"))
         .wrap: body =>
           main(cls := "page page-menu")(
-            menu.fold(tourUi.pageMenu(_), navigationMenu),
+            menu.fold(pageMenu(_), navigationMenu),
             div(cls := "page-menu__content box box-pad")(body)
           )
 
