@@ -67,9 +67,7 @@
   <string name="officialStandings">Official Standings</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
   <string name="webmastersPage">webmasters page</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronization.</string>
   <string name="embedThisBroadcast">Embed this broadcast in your website</string>
-  <string name="embedThisRound">Embed %s in your website</string>
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
   <string name="score">Score</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Back to live move</string>
   <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
   <string name="liveboard">Live board</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Community broadcast</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Created and managed by %s.</string>
+  <string name="communityBroadcast">Community broadcast</string>
+  <string name="createdAndManagedBy">Created and managed by %s.</string>
 </resources>
