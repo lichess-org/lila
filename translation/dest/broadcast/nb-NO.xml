@@ -67,9 +67,7 @@
   <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere alternativer på %s</string>
   <string name="webmastersPage">administratorens side</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig PGN-kilde i sanntid for denne runden. Vi tilbyr også en %s for raskere og mer effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Bygg inn denne overføringen på nettstedet ditt</string>
-  <string name="embedThisRound">Bygg inn %s på nettstedet ditt</string>
   <string name="ratingDiff">Ratingdifferanse</string>
   <string name="gamesThisTournament">Partier i denne turneringen</string>
   <string name="score">Poengsum</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Tilbake til trekk på direkten</string>
   <string name="sinceHideResults">Du valgte å skjule resultatene, så alle forhåndsvisningene av brettene er tomme for å unngå å røpe noe.</string>
   <string name="liveboard">Brett i sanntid</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Fellesskapsoverføring</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Opprettet og forvaltet av %s.</string>
+  <string name="communityBroadcast">Fellesskapsoverføring</string>
+  <string name="createdAndManagedBy">Opprettet og forvaltet av %s.</string>
 </resources>
