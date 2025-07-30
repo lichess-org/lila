@@ -120,9 +120,10 @@ final class GameStateStream(
         context.system.scheduler
           .scheduleOnce(6.second):
             // gotta send a message to check if the client has disconnected
-            queue.offer(None)
-            self ! SetOnline
-            Bus.pub(Tell(id, RoundBus.QuietFlag))
+            for _ <- queue.offer(None)
+            do
+              self ! SetOnline
+              Bus.pub(Tell(id, RoundBus.QuietFlag))
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
