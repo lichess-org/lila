@@ -61,12 +61,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             name = name,
             title = doc.getAsOpt[chess.PlayerTitle](F.title),
             flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-            patronMonths = 
-              for {
-              active <- doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active")) if active
-              months <- doc.child(F.plan).flatMap(_.getAsOpt[Int]("months"))
-            } yield months
-
+            patronMonths = if ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active")) then doc.child(F.plan).flatMap(_.getAsOpt[Int]("months")) else None             
           )
 
   private val projection =
