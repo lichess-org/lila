@@ -352,7 +352,15 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Ändschpiel-Datäbank</string>
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
+  <string name="whiteProposesTakeback">Wiss wott de Zug zrugg neh</string>
+  <string name="blackProposesTakeback">Schwarz wott de Zug zrugg neh</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
+  <string name="whiteDeclinesTakeback">Wiss lähnt d\'Rücknahm ab</string>
+  <string name="blackDeclinesTakeback">Schwarz lähnt d\'Rücknahm ab</string>
+  <string name="whiteAcceptsTakeback">Wiss akzeptiert d\'Rücknahm</string>
+  <string name="blackAcceptsTakeback">Schwarz akzeptiert d\'Rücknahm</string>
+  <string name="whiteCancelsTakeback">Wiss zieht d\'Afrag zrugg</string>
+  <string name="blackCancelsTakeback">Schwarz zieht d\'Afrag zrugg</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
   <string name="bookmarkThisGame">Das Schpiel mit eme Läsezeiche markiere</string>
   <string name="tournament">Turnier</string>
@@ -672,6 +680,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="really">würkli</string>
   <string name="contribute">Mitmache</string>
   <string name="termsOfService">Nutzigs-Bedingige</string>
+  <string name="titleVerification">Überprüefig vum Titel</string>
   <string name="sourceCode">Quällcode</string>
   <string name="simultaneousExhibitions">Simultanschach Veraschtaltige</string>
   <string name="host">Simultanschpiller</string>
@@ -1010,4 +1019,5 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="accessibility">Erreichbarkeit</string>
   <string name="enableBlindMode">Blindmodus aktiviere</string>
   <string name="disableBlindMode">Blindmodus deaktiviere</string>
+  <string name="copyToClipboard">Kopier ufs Clipboard</string>
 </resources>
