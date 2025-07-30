@@ -32,7 +32,6 @@ import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
-import * as gridHacks from './gridHacks';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type StudyCtrl from '../study/studyCtrl';
@@ -96,12 +95,10 @@ export function renderMain(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
       hook: {
-        insert: vn => {
-          const elm = vn.elm as HTMLElement;
+        insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          gridHacks.start(elm);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);

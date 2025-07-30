@@ -92,7 +92,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           key: `relay-games.${resizeId}`,
           min: () => 48,
           max: () => 48 * study.chapters.list.size(),
-          initialMaxHeight: window.innerHeight / 2,
+          initialMaxHeight: () => window.innerHeight / 2,
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
       resizeId &&
@@ -101,7 +101,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           id: resizeId,
           min: () => 0,
           max: () => window.innerHeight,
-          initialMaxHeight: window.innerHeight / 3,
+          initialMaxHeight: () => window.innerHeight / 3,
           kid: hl('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
         }),
       kid,
