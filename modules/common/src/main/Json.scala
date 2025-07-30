@@ -34,6 +34,6 @@ object Json:
       .add("title", u.title)
       .add("flair", u.flair)
       .add("patron", u.isPatron)
-      .add("patronTier", u.patronMonths.flatMap(LightUser.patronTier))
+      .add("patronTier", LightUser.patronTier(u.patronMonths))
 
   trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]

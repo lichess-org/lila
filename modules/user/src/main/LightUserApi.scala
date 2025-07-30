@@ -46,7 +46,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           .recover:
             case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
-    default = id => LightUser(id, id.into(UserName), None, None, patronMonths = None).some,
+    default = id => LightUser(id, id.into(UserName), None, None, patronMonths = 0).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
     expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
@@ -61,10 +61,10 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             name = name,
             title = doc.getAsOpt[chess.PlayerTitle](F.title),
             flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-            patronMonths = for
-              plan <- doc.child(F.plan)
-              months <- if ~plan.getAsOpt[Boolean]("active") then plan.getAsOpt[Int]("months") else None
-            yield months
+            patronMonths = doc
+              .child(F.plan)
+              .so: plan =>
+                plan.getAsOpt[Boolean]("active").orZero.so(~plan.getAsOpt[Int]("months"))
           )
 
   private val projection =

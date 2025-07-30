@@ -12,17 +12,17 @@ case class LightUser(
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    patronMonths: Option[Int]
+    patronMonths: Int // 0 if no plan is ongoing
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
-  def isPatron: Boolean = patronMonths.exists(_ > 0)
+  def isPatron: Boolean = patronMonths > 0
 
 object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, None)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, 0)
 
   given UserIdOf[LightUser] = _.id
 
@@ -31,7 +31,7 @@ object LightUser:
     name = name,
     title = None,
     flair = None,
-    patronMonths = None
+    patronMonths = 0
   )
 
   def patronTier(patronMonths: Int): Option[String] = patronMonths match
