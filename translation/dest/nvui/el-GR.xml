@@ -43,4 +43,7 @@
   <string name="invalidMove">Αντικανονική κίνηση</string>
   <string name="premoveCancelled">Το premove ακυρώθηκε</string>
   <string name="premoveRecorded">Καταγράφηκε premove: %s. Πατήστε Enter για ακύρωση</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Αντιγράψτε το %s στο πρόχειρο</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Το %s αντιγράφηκε στο πρόχειρο</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN και FEN</string>
 </resources>
