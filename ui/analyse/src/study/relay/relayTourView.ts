@@ -233,7 +233,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
   const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
   return hl(
-    'div.mselect.relay-tour__mselect',
+    'div.mselect.relay-tour__mselect.relay-tour__tour-select',
     {
       class: { mselect__active: toggle() },
     },

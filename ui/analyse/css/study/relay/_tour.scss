@@ -185,7 +185,6 @@ $hover-bg: $m-primary_bg--mix-30;
       display: block;
     }
     .mselect__item {
-      @extend %flex-between;
       opacity: unset;
     }
     .tour-state.ongoing::before {
@@ -196,6 +195,11 @@ $hover-bg: $m-primary_bg--mix-30;
       a {
         gap: 1em;
       }
+    }
+  }
+  &__tour-select {
+    .mselect__item {
+      @extend %flex-between;
     }
   }
   &__round-select {
