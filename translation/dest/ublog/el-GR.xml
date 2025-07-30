@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Κοινότητα</string>
+  <string name="byMonth">Ανά μήνα</string>
+  <string name="byTopic">Ανά θέμα</string>
+  <string name="byLichess">Από το Lichess</string>
+  <string name="myFriends">Οι φίλοι μου</string>
   <string name="myBlog">Το ιστολόγιό μου</string>
   <string name="likedBlogs">Αγαπημένες αναρτήσεις</string>
   <plurals name="blogPosts">
