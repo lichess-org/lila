@@ -251,7 +251,6 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   const $board = $(el);
   const $buttons = $board.find('button');
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on('focus', (e: KeyboardEvent) => nv.focusSquareHandler()(e));
   $buttons.on(
     'click',
     nv.selectionHandler(() => ctrl.data.opponent.color, isTouchDevice()),

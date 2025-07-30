@@ -17,16 +17,6 @@ export function leaveSquareHandler(buttons: Cash) {
   };
 }
 
-export function focusSquareHandler() {
-  return (ev: KeyboardEvent): void => {
-    const $currBtn = $(ev.target as HTMLElement);
-    if ($currBtn.hasClass('selected')) {
-      const $boardLive = $('.boardstatus');
-      $boardLive.text('selected');
-    }
-  };
-}
-
 export function positionJumpHandler() {
   return (ev: KeyboardEvent): void => {
     const key = keyFromAttrs(ev.target as HTMLElement);
@@ -124,6 +114,7 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
         $moveBox.val(pos);
         clear('selection');
         $evBtn.addClass('selected');
+        $evBtn.text($evBtn.attr('text') + ' selected');
         $boardLive.text(keyText(ev.target as HTMLElement));
       }
     } else {
@@ -170,8 +161,7 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
               $boardLive.text('promotion cancelled');
             } else {
               $moveBox.val($moveBox.val() + promoteTo);
-              clear('promotion');
-              clear('selection');
+              clear('all');
               $('#move-form').trigger('submit');
             }
           }
@@ -181,17 +171,13 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
   };
 }
 
-function clear(what: 'promotion' | 'selection') {
+function clear(what: 'promotion' | 'selection' | 'all') {
   const $allSquares = $(`.board-wrapper button`);
-  if (what === 'promotion') {
-    $allSquares.each(function (this: HTMLElement) {
-      this.removeAttribute('promoteTo');
-      this.textContent = this.getAttribute('text');
-    });
-  }
-  if (what === 'selection') {
-    $allSquares.removeClass('selected');
-  }
+  $allSquares.each(function (this: HTMLElement) {
+    if (what === 'promotion' || what === 'all') this.removeAttribute('promoteTo');
+    if (what === 'selection' || what === 'all') this.classList.remove('selected');
+    this.textContent = this.getAttribute('text');
+  });
 }
 
 function keyText(target: HTMLElement) {
