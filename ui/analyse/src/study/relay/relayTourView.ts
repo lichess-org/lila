@@ -195,41 +195,49 @@ const share = (ctx: RelayViewContext) => {
       hl('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
     ),
   );
+  const link = (text: string, path: string, help?: VNode) =>
+    hl('div.form-group', [
+      hl('label.form-label', text),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      help,
+    ]);
   const roundName = ctx.relay.roundName();
-  const group = ctx.relay.data.group;
-  return hl(
-    'div.relay-tour__share',
-    [
-      ...(group ? [[group.name, `/broadcast/${group.slug}/${group.id}`]] : []),
-      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
-      [roundName, ctx.relay.roundPath()],
-      [
-        `${roundName} PGN`,
-        `${ctx.relay.roundPath()}.pgn`,
+  const { tour, group } = ctx.relay.data;
+  return hl('div.relay-tour__share-all', [
+    hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle', [
+      hl('legend', 'Share this broadcast by URL'),
+      group && link(group.name, `/broadcast/${group.slug}/${group.id}`),
+      link(tour.name, ctx.relay.tourPath()),
+      link(tour.name + ' | ' + roundName, ctx.relay.roundPath()),
+    ]),
+    hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
+      hl('legend', 'Download PGN'),
+      hl('p.form-group', [
+        'We offer full PGN downloads for all our broadcasts.',
+        hl('br'),
+        'To synchronize ongoing games, use ',
         hl(
-          'div.form-help',
-          i18n.broadcast.pgnSourceHelp.asArray(
-            hl(
-              'a',
-              { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-              'streaming API',
-            ),
-          ),
+          'a',
+          { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+          'our free streaming API',
         ),
-      ],
-      ...(group
-        ? [['Embed this broadcast group', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp]]
-        : []),
-      [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
-      [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
-    ].map(([text, path, help]: [string, string, VNode]) =>
-      hl('div.form-group', [
-        hl('label.form-label', text),
-        copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
-        help,
+        ' for stupendous speed and efficiency.',
       ]),
-    ),
-  );
+      link('This round: ' + roundName, `${ctx.relay.roundPath()}.pgn`),
+      link(
+        'This tournament: ' + tour.name,
+        `${ctx.relay.tourPath()}.pgn`,
+        hl('div.form-help', 'All games of all rounds of this tournament. It may take a while to download.'),
+      ),
+      hl('p.form-group', 'Individual game download is available on each game page.'),
+    ]),
+    hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
+      hl('legend', i18n.broadcast.embedThisBroadcast),
+      group && link('Follow ongoing tournament', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
+      link('This tournament: ' + tour.name, iframe(ctx.relay.tourPath()), iframeHelp),
+      link('This round: ' + roundName, iframe(ctx.relay.roundPath()), iframeHelp),
+    ]),
+  ]);
 };
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {

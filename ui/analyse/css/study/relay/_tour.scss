@@ -349,10 +349,11 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
   &__share {
-    @extend %box-neat, %tour-margin-horiz;
-    background: $c-bg-zebra;
+    @extend %tour-margin-horiz;
     padding: 3em 2vw 0 2vw;
-    margin-bottom: 2em;
+    &.toggle-box--toggle-off {
+      padding: 0 2vw;
+    }
   }
 
   &__players {

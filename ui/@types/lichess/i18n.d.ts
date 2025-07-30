@@ -269,8 +269,6 @@ interface I18n {
     editRoundStudy: string;
     /** Embed this broadcast in your website */
     embedThisBroadcast: string;
-    /** Embed %s in your website */
-    embedThisRound: I18nFormat;
     /** Federation */
     federation: string;
     /** FIDE federations */
@@ -323,8 +321,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
-    pgnSourceHelp: I18nFormat;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */
@@ -3137,6 +3133,8 @@ interface I18n {
     copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
+    /** Copy to clipboard */
+    copyToClipboard: string;
     /** Copy variation PGN */
     copyVariationPgn: string;
     /** Correspondence */
