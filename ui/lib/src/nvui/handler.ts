@@ -115,7 +115,6 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
         clear('selection');
         $evBtn.addClass('selected');
         $evBtn.text($evBtn.attr('text') + ' selected');
-        $boardLive.text(keyText(ev.target as HTMLElement));
       }
     } else {
       const input = $moveBox.val();
