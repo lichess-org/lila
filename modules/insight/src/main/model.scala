@@ -69,7 +69,7 @@ object Termination:
       case S.Timeout => Disconnect
       case S.Outoftime => ClockFlag
       case S.Resign => Resignation
-      case S.Draw => Draw
+      case S.Draw | S.InsufficientMaterialClaim => Draw
       case S.Stalemate => Stalemate
       case S.Mate | S.VariantEnd => Checkmate
       case S.Cheat => Resignation
