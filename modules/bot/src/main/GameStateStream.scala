@@ -13,7 +13,14 @@ import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
-import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
+import lila.game.actorApi.{
+  BoardDrawOffer,
+  BoardGone,
+  BoardTakeback,
+  BoardTakebackOffer,
+  BoardMoretime,
+  MoveGameEvent
+}
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -63,6 +70,7 @@ final class GameStateStream(
       MoveGameEvent.makeChan(id),
       BoardDrawOffer.makeChan(id),
       BoardTakeback.makeChan(id),
+      BoardMoretime.makeChan(id),
       BoardGone.makeChan(id),
       uniqChan(init.game.pov(as))
     ) :::
@@ -105,6 +113,7 @@ final class GameStateStream(
       case BoardDrawOffer(g) if g.id == id => pushState(g)
       case BoardTakebackOffer(g) if g.id == id => pushState(g)
       case BoardTakeback(g) if g.id == id => pushState(g)
+      case BoardMoretime(g) if g.id == id => pushState(g)
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
