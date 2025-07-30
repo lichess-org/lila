@@ -72,6 +72,6 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
       F.id -> false,
       F.username -> true,
       F.title -> true,
-      s"${F.plan}.active" -> true,
+      F.plan -> true,
       F.flair -> true
     ).some
