@@ -83,4 +83,6 @@
   <string name="backToLiveMove">Επιστροφή στην τρέχουσα κίνηση</string>
   <string name="sinceHideResults">Επειδή επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης εμφανίζονται κενές ώστε να αποφευχθούν τα spoilers.</string>
   <string name="liveboard">Ζωντανά</string>
+  <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
+  <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
 </resources>
