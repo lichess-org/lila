@@ -58,8 +58,8 @@ final class EventStream(
         s"eventStreamFor:${me.userId}"
       )
 
-      @nowarn var lastSetSeenAt = me.seenAt | me.createdAt
-      @nowarn var online = true
+      var lastSetSeenAt = me.seenAt | me.createdAt
+      var online = true
 
       override def preStart(): Unit =
         super.preStart()
