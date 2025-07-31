@@ -46,7 +46,7 @@ final class Msg(env: Env) extends LilaController(env):
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }
 
-  def unreadCountBC = Auth { _ ?=> me ?=>
+  def unreadCount = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
       env.msg.compat.unreadCount(me)
   }
