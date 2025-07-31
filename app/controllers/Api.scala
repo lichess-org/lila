@@ -331,7 +331,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /inbox/unread-count
    */
   def mobileHome = Scoped(_.Web.Mobile) { _ ?=> me ?=>
-    limit.apiMe(me, rateLimited):
+    limit.apiMobileHome(me, rateLimited):
       val accountFu = env.api.userApi.forMobileHome
       val recentGamesFu = env.api.gameApiV2.forMobileHome
       val ongoingGamesFu = env.round.proxyRepo
