@@ -63,9 +63,7 @@
   <string name="officialStandings">அதிகாரப்பூர்வ நிலைகள்</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s இல் கூடுதல் தேர்வுரிமை</string>
   <string name="webmastersPage">இணையவல்லுநர் பக்கம்</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">இந்தச் சுற்றுக்கான பொது, நிகழ்நேர PGN ஆதாரம். வேகமான மற்றும் திறமையான ஒத்திசைவுக்கு நாங்கள் %s ஐ வழங்குகிறோம்.</string>
   <string name="embedThisBroadcast">இந்த ஒளிபரப்பை உங்கள் இணையதளத்தில் உட்பொதிக்கவும்</string>
-  <string name="embedThisRound">உங்கள் இணையதளத்தில் %s ஐ உட்பொதிக்கவும்</string>
   <string name="ratingDiff">மதிப்பீடு வேறுபாடு</string>
   <string name="gamesThisTournament">இப்பந்தயத்தில்லுள்ள ஆட்டங்கள்</string>
   <string name="score">மதிப்பெண்</string>

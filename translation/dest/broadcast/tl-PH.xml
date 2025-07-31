@@ -59,7 +59,6 @@
   <string name="iframeHelp" comment="%s is 'webmasters page'">Higit pang mga opsyon sa %s</string>
   <string name="webmastersPage">pahina ng mga webmaster</string>
   <string name="embedThisBroadcast">I-embed ang brodkast na ito sa iyong website</string>
-  <string name="embedThisRound">I-embed ang %s sa iyong website</string>
   <string name="ratingDiff">Pagkakaiba ng marka</string>
   <string name="gamesThisTournament">Mga laro sa torneo na ito</string>
   <string name="score">Iskor</string>

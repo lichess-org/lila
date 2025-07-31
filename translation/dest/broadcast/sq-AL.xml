@@ -64,9 +64,7 @@
   <string name="officialWebsite">Sajti zyrtar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Më tepër mundësi te %s</string>
   <string name="webmastersPage">faqe webmaster-ësh</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Një burim publik,, PGN, i atypëratyshëm për këtë raund. Ofrojmë gjithashtu edhe një %s, për njëkohësim më të shpejtë dhe më efikas.</string>
   <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>
-  <string name="embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
   <string name="gamesThisTournament">Lojëra në këtë turne</string>
   <string name="score">Përfundim</string>
   <string name="allTeams">Krejt ekipet</string>
@@ -80,6 +78,6 @@
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
   <string name="backToLiveMove">Mbrapsht te lëvizja “live”</string>
   <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Transmetim nga bashkësia</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Krijuar dhe administruar nga %s.</string>
+  <string name="communityBroadcast">Transmetim nga bashkësia</string>
+  <string name="createdAndManagedBy">Krijuar dhe administruar nga %s.</string>
 </resources>

@@ -1054,4 +1054,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="accessibility">Accesibilitate</string>
   <string name="enableBlindMode">Activează modul fără vedere</string>
   <string name="disableBlindMode">Dezactivează modul fără vedere</string>
+  <string name="copyToClipboard">Copiază în memorie</string>
 </resources>

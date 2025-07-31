@@ -1009,4 +1009,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="accessibility">Accesibilidad</string>
   <string name="enableBlindMode">Activar modo para no videntes</string>
   <string name="disableBlindMode">Desactivar modo para no videntes</string>
+  <string name="copyToClipboard">Copiar al portapapeles</string>
 </resources>

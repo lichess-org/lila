@@ -1009,4 +1009,5 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="accessibility">Toegankelijkheid</string>
   <string name="enableBlindMode">Modus voor blinden inschakelen</string>
   <string name="disableBlindMode">Modus voor blinden uitschakelen</string>
+  <string name="copyToClipboard">Kopiëren naar klembord</string>
 </resources>
