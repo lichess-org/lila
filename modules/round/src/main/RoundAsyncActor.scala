@@ -249,7 +249,7 @@ final private class RoundAsyncActor(
         game.playable.so(finisher.abortForce(game))
 
     // checks if any player can safely (grace) be flagged
-    case RoundBus.QuietFlag =>
+    case RoundBus.QuietFlagCheck =>
       handle: game =>
         game.outoftime(withGrace = true).so(finisher.outOfTime(game))
 

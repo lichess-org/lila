@@ -119,7 +119,7 @@ final class RoundSocket(
         case "blindfold-no" => forward(Blindfold(_, false))
         case "draw-force" => forward(RoundBus.DrawForce(_))
         case "abort" => forward(RoundBus.Abort(_))
-        case "outoftime" => forward(_ => RoundBus.QuietFlag) // mobile app BC
+        case "outoftime" => forward(_ => RoundBus.QuietFlagCheck) // mobile app BC
         case t => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
