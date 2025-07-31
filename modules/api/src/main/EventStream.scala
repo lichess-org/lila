@@ -90,8 +90,8 @@ final class EventStream(
             .scheduleOnce(6.second):
               if online then
                 // gotta send a message to check if the client has disconnected
-                queue.offer(None)
-                self ! SetOnline
+                for _ <- queue.offer(None)
+                do self ! SetOnline
 
         case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
 

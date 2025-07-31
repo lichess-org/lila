@@ -67,9 +67,7 @@
   <string name="officialStandings">Officiële standen</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Meer opties voor de %s</string>
   <string name="webmastersPage">pagina van de webmaster</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Een publieke real-time PGN-bron voor deze ronde. We bieden ook een %s aan voor een snellere en efficiëntere synchronisatie.</string>
   <string name="embedThisBroadcast">Deze uitzending insluiten in je website</string>
-  <string name="embedThisRound">%s insluiten in je website</string>
   <string name="ratingDiff">Ratingverschil</string>
   <string name="gamesThisTournament">Partijen in dit toernooi</string>
   <string name="score">Score</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Terug naar de actuele stelling</string>
   <string name="sinceHideResults">Omdat je ervoor kiest om de resultaten te verbergen, zijn alle borden leeg om spoilers te voorkomen.</string>
   <string name="liveboard">Live-bord</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Gemeenschapsuitzending</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Aangemaakt en beheerd door %s.</string>
+  <string name="communityBroadcast">Gemeenschapsuitzending</string>
+  <string name="createdAndManagedBy">Aangemaakt en beheerd door %s.</string>
 </resources>

@@ -64,9 +64,7 @@
   <string name="officialStandings">Oficijelna rang lista</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više opcija na %s</string>
   <string name="webmastersPage">stranica web-mastera</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javni, u stvarnom vremenu PGN izvor za ovu rundu. Nudimo također %s za bržu i efikasniju sinkronizaciju.</string>
   <string name="embedThisBroadcast">Uvežite ovo emitovanje u vašu web stranicu</string>
-  <string name="embedThisRound">Uvežite %s u vašu web-stranicu</string>
   <string name="ratingDiff">Razlika u rejtingu</string>
   <string name="gamesThisTournament">Mečevi u ovom turniru</string>
   <string name="score">Bodovi</string>

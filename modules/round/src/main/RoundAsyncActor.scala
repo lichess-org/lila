@@ -301,7 +301,8 @@ final private class RoundAsyncActor(
     case Moretime(playerId, duration, force) =>
       handle(playerId): pov =>
         moretimer(pov, duration, force).flatMapz: progress =>
-          proxy.save(progress).inject(progress.events)
+          for _ <- proxy.save(progress)
+          yield progress.events
 
     case ForecastPlay(lastMove) =>
       handle: game =>

@@ -9,7 +9,7 @@ interface Opts {
   id?: string; // optional id to store the size for a specific instance
   min: () => number;
   max: () => number;
-  initialMaxHeight?: number;
+  initialMaxHeight?: () => number;
   kid?: VNode;
 }
 
@@ -29,7 +29,7 @@ export function verticalResize(o: Opts): VNode {
               : (divider.previousElementSibling as HTMLElement);
             if (el.style.height) return;
             let height = o.id && heightStore(`${o.key}.${o.id}`);
-            if (typeof height !== 'number') height = heightStore(o.key) ?? o.initialMaxHeight;
+            if (typeof height !== 'number') height = heightStore(o.key) ?? o.initialMaxHeight?.();
             if (typeof height !== 'number') height = el.getBoundingClientRect().height;
             el.style.flex = 'none';
             el.style.height = `${clamp(height, { min: o.min(), max: o.max() })}px`;

@@ -62,9 +62,7 @@
   <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">更多選項在%s</string>
   <string name="webmastersPage">網頁管理員頁面</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">這一輪的公開實時 PGN。我們還提供%s以實現更快和更高效的同步。</string>
   <string name="embedThisBroadcast">將此直播嵌入您的網站</string>
-  <string name="embedThisRound">將%s嵌入您的網站</string>
   <string name="ratingDiff">評級差異</string>
   <string name="gamesThisTournament">此比賽的對局</string>
   <string name="score">分數</string>

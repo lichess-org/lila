@@ -1009,4 +1009,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="accessibility">Saavutettavuus</string>
   <string name="enableBlindMode">Siirry sokean käyttäjän tilaan</string>
   <string name="disableBlindMode">Poistu sokean käyttäjän tilasta</string>
+  <string name="copyToClipboard">Kopioi leikepöydälle</string>
 </resources>

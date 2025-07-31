@@ -75,9 +75,7 @@
   <string name="officialStandings">الترتيب الرسمي</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">مصدر PGN عام وحقيقي لهذه الجولة. نحن أيضا نقدم %s لمزامنة أسرع وأحسن.</string>
   <string name="embedThisBroadcast">ادمج هذا البث في موقع الويب الخاص بك</string>
-  <string name="embedThisRound">ادمج %s في موقع الويب الخاص بك</string>
   <string name="ratingDiff">فرق التقييم</string>
   <string name="gamesThisTournament">الألعاب</string>
   <string name="score">النتيجة</string>
@@ -93,6 +91,6 @@
   <string name="backToLiveMove">العودة إلى الحرقات المباشرة</string>
   <string name="sinceHideResults">بما أنك اخترت إخفاء النتائج، فإن جميع لوحات المعاينة فارغة لتجنب الحرق.</string>
   <string name="liveboard">اللوحة الآن</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">بث المجتمع</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">تم إنشاؤها وإدارتها بواسطة %s.</string>
+  <string name="communityBroadcast">بث المجتمع</string>
+  <string name="createdAndManagedBy">تم إنشاؤها وإدارتها بواسطة %s.</string>
 </resources>

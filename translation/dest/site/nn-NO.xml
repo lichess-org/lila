@@ -1010,4 +1010,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="accessibility">Tilgjengelegheit</string>
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
+  <string name="copyToClipboard">Kopiér til utklippstavla</string>
 </resources>

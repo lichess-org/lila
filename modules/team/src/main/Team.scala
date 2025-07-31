@@ -46,7 +46,7 @@ case class Team(
 
   def daysOld = daysBetween(createdAt, nowInstant)
 
-  def notable = open && (nbMembers > 10 || daysOld > 7)
+  def notable = open && (nbMembers > 10 || (nbMembers > 1 && daysOld > 7))
 
 object Team:
 
