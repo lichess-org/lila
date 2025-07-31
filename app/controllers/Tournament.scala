@@ -385,12 +385,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def featured = Open:
     negotiateJson:
       WithMyPerfs:
-        for
-          teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
-          tours <- env.tournament.featuring.homepage.get(teamIds)
-          spotlight = lila.tournament.Spotlight.select(tours, 4)
-          json <- env.tournament.apiJsonView.featured(spotlight)
-        yield Ok(json)
+        JsonOk:
+          env.api.featuredTournaments.map: tours =>
+            Json.obj("featured" -> tours)
 
   def shields = Open:
     for

@@ -770,6 +770,7 @@ GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedG
 GET   /api/games/export/bookmarks      controllers.Game.apiExportByUserBookmarks()
 
 # Lichess Mobile
+GET   /api/mobile/home                 controllers.Api.mobileHome
 GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 # External engine

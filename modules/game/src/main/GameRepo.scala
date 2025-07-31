@@ -87,6 +87,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
 
+  def myRecentFinishedGamesFromSecondary(me: Me, max: Max) =
+    coll
+      .find(Query.user(me.userId) ++ Query.finished)
+      .sort(Query.sortCreated)
+      .cursor[Game](ReadPref.sec)
+      .list(max.value)
+
   def ongoingByUserIdsCursor(userIds: Set[UserId]) =
     coll
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>

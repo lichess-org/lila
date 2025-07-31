@@ -139,6 +139,14 @@ final class GameApiV2(
       .via(upgradeOngoingGame)
       .via(preparationFlow(config))
 
+  def forMobileHome(using me: Me): Fu[JsArray] = for
+    games <- gameRepo.myRecentFinishedGamesFromSecondary(me, Max(10))
+    config = MobileHomeConfig(me)
+    enriched <- games.sequentially(enrich(config.flags))
+    jsons <- enriched.sequentially: (game, fen, analysis) =>
+      toJson(game, fen, analysis, config)
+  yield Json.arr(jsons)
+
   def exportByIds(config: ByIdsConfig): Source[String, ?] =
     gameRepo
       .sortedCursor(
@@ -442,3 +450,9 @@ object GameApiV2:
       perSecond: MaxPerSecond
   )(using val by: Option[Me])
       extends Config
+
+  case class MobileHomeConfig(me: Me) extends Config:
+    val format = GameApiV2.Format.JSON
+    val flags = WithFlags(clocks = false, moves = false, evals = false, opening = false)
+    val by = me.some
+    val perSecond = MaxPerSecond(20)

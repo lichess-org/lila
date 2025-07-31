@@ -23,11 +23,6 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
     "finished" -> finished
   )
 
-  def featured(tournaments: List[Tournament])(using Translate): Fu[JsObject] =
-    tournaments.map(fullJson).parallel.map { objs =>
-      Json.obj("featured" -> objs)
-    }
-
   def calendar(tournaments: List[Tournament])(using Translate): JsObject =
     Json.obj(
       "since" -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
