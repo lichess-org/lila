@@ -121,10 +121,10 @@ final class GameStateStream(
         context.system.scheduler.scheduleOnce(6.second, self, CheckOnline)
       case CheckOnline =>
         // send a message to check if the client is still connected
-        for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
-        do
-          self ! SetOnline
-          Bus.pub(Tell(id, RoundBus.QuietFlag))
+        // for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
+        // do
+        self ! SetOnline
+        Bus.pub(Tell(id, RoundBus.QuietFlag))
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
