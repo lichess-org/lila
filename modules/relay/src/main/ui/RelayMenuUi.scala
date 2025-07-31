@@ -40,7 +40,7 @@ final class RelayMenuUi(helpers: Helpers, ui: RelayUi):
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trc.aboutBroadcasts()),
       a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
       div(cls := "sep"),
-      a(cls := menu.active("players"), href := routes.Fide.index(1))(trc.fidePlayers()),
+      a(cls := menu.active("players"), href := routes.Fide.index())(trc.fidePlayers()),
       a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
         trc.fideFederations()
       )

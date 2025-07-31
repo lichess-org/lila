@@ -137,7 +137,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       )
 
     def searchForm(q: String) =
-      st.form(cls := "fide-players__search-form", action := routes.Fide.index(1), method := "get")(
+      st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
         input(
           cls := "fide-players__search-form__input",
           name := "q",
