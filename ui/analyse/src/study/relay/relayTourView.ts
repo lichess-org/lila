@@ -232,7 +232,7 @@ const share = (ctx: RelayViewContext) => {
         link('This round: ' + roundName, `${ctx.relay.roundPath()}.pgn`),
         link(
           'This tournament: ' + tour.name,
-          `${ctx.relay.tourPath()}.pgn`,
+          `/api/broadcast/${tour.id}.pgn`,
           hl('div.form-help', 'All games of all rounds of this tournament. It may take a while to download.'),
         ),
         hl('p.form-group', 'Individual game download is available on each game page.'),
