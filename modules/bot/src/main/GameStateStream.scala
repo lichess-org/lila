@@ -118,13 +118,13 @@ final class GameStateStream(
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
-        context.system.scheduler
-          .scheduleOnce(6.second):
-            // gotta send a message to check if the client has disconnected
-            for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
-            do
-              self ! SetOnline
-              Bus.pub(Tell(id, RoundBus.QuietFlag))
+        context.system.scheduler.scheduleOnce(6.second, self, CheckOnline)
+      case CheckOnline =>
+        // send a message to check if the client is still connected
+        for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
+        do
+          self ! SetOnline
+          Bus.pub(Tell(id, RoundBus.QuietFlag))
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
@@ -144,4 +144,5 @@ final class GameStateStream(
 private object GameStateStream:
 
   private case object SetOnline
+  private case object CheckOnline
   private case class User(id: UserId, isBot: Boolean, kid: KidMode)
