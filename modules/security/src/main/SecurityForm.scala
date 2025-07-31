@@ -100,7 +100,7 @@ final class SecurityForm(
           "agreement" -> agreement,
           "fp" -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
-          .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
+          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
 
     val mobile = Form:
       mapping(
@@ -108,7 +108,7 @@ final class SecurityForm(
         "password" -> newPasswordField,
         "email" -> emailField
       )(MobileSignupData.apply)(_ => None)
-        .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
+        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
 
   def passwordReset(using RequestHeader) = hcaptcha.form:
     Form:
