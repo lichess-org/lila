@@ -48,7 +48,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def unreadCount = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
-      env.msg.compat.unreadCount(me)
+      env.msg.unreadCount.mobile(me)
   }
 
   def convoDelete(username: UserStr) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
