@@ -120,9 +120,6 @@ final class GameStateStream(
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler.scheduleOnce(6.second, self, CheckOnline)
       case CheckOnline =>
-        // send a message to check if the client is still connected
-        // for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
-        // do
         self ! SetOnline
         Bus.pub(Tell(id, RoundBus.QuietFlagCheck))
 
