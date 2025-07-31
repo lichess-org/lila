@@ -61,9 +61,8 @@ final class GameStateStream(
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(using Lang, RequestHeader): Actor = new:
 
-    val id = init.game.id
+    import init.game.id
 
-    @annotation.nowarn
     var gameOver = false
 
     private val classifiers = List(
