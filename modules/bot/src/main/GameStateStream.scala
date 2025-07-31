@@ -124,7 +124,7 @@ final class GameStateStream(
         // for _ <- queue.offer(None).thenPp(s"queue.offer $id ${user.id}")
         // do
         self ! SetOnline
-        Bus.pub(Tell(id, RoundBus.QuietFlag))
+        Bus.pub(Tell(id, RoundBus.QuietFlagCheck))
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
