@@ -21,6 +21,7 @@ import lila.game.actorApi.{
   BoardMoretime,
   MoveGameEvent
 }
+import lila.bot.OnlineApiUsers.SetOnline
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -116,10 +117,10 @@ final class GameStateStream(
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
-        context.system.scheduler.scheduleOnce(6.second, self, CheckOnline)
+        context.system.scheduler.scheduleOnce(7.second, self, CheckOnline)
       case CheckOnline =>
-        self ! SetOnline
         Bus.pub(Tell(id, RoundBus.QuietFlagCheck))
+        self ! SetOnline
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
@@ -138,6 +139,5 @@ final class GameStateStream(
 
 private object GameStateStream:
 
-  private case object SetOnline
-  private case object CheckOnline
+  private object CheckOnline
   private case class User(id: UserId, isBot: Boolean, kid: KidMode)
