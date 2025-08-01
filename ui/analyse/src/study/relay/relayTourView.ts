@@ -228,6 +228,14 @@ const share = (ctx: RelayViewContext) => {
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',
+          hl('br'),
+          'To download all the broadcasts, use ',
+          hl(
+            'a',
+            { attrs: { href: 'https://database.lichess.org/#broadcasts' } },
+            'our full database exports',
+          ),
+          '.',
         ]),
         link('This round: ' + roundName, `${ctx.relay.roundPath()}.pgn`),
         link(
