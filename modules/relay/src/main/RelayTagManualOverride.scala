@@ -4,7 +4,7 @@ import chess.format.pgn.TagType
 import scalalib.cache.ExpireSetMemo
 import lila.common.Bus
 
-final class RelayTagManualOverride(cacheApi: lila.memo.CacheApi)(using Executor):
+final class RelayTagManualOverride(using Executor):
 
   private val overrides = ExpireSetMemo[(StudyChapterId, TagType)](6.hours)
 

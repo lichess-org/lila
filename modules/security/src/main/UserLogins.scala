@@ -172,7 +172,7 @@ final class UserLoginsApi(
 
 object UserLogins:
 
-  case class OtherUser[U: UserIdOf: AtInstant](user: U, ips: Set[IpAddress], fps: Set[FingerHash]):
+  case class OtherUser[U](user: U, ips: Set[IpAddress], fps: Set[FingerHash]):
     val nbIps = ips.size
     val nbFps = fps.size
     val score = nbIps + nbFps + nbIps * nbFps
@@ -218,11 +218,11 @@ object UserLogins:
       client: UserClient
   )
 
-  case class WithMeSortedWithEmails[U: UserIdOf: AtInstant](
+  case class WithMeSortedWithEmails[U: UserIdOf](
       others: List[OtherUser[U]],
       emails: Map[UserId, EmailAddress]
   ):
-    def withUsers[V: UserIdOf: AtInstant](newUsers: List[V]) = copy(others = others.flatMap { o =>
+    def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
       newUsers.find(_.is(o.user)).map { u => o.copy(user = u) }
     })
 
@@ -245,7 +245,7 @@ object UserLogins:
       bans: Map[UserId, Int],
       max: Int
   ):
-    def withUsers[V: UserIdOf: AtInstant](users: List[V]) = copy(
+    def withUsers[V: UserIdOf](users: List[V]) = copy(
       othersWithEmail = othersWithEmail.withUsers(users)
     )
     def othersPartiallyLoaded = othersWithEmail.others.sizeIs >= max

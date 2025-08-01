@@ -9,7 +9,6 @@ import lila.core.net.IpAddress
 import lila.core.security.UserSignup
 import lila.common.LilaFuture
 import lila.core.data.LazyDep
-import lila.core.misc.AtInstant
 
 final class GarbageCollector(
     userLogins: UserLoginsApi,

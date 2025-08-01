@@ -5,7 +5,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.LightUser
 
-final class RelayMenuUi(helpers: Helpers, ui: RelayUi):
+final class RelayMenuUi(helpers: Helpers):
   import helpers.{ *, given }
   import trans.broadcast as trc
 

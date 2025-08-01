@@ -7,8 +7,6 @@ import play.api.Mode
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.core.misc.lpv.Lpv
-import lila.core.i18n.Translate
-import play.api.libs.json.JsObject
 
 @Module
 final class Env(

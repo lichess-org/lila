@@ -261,7 +261,7 @@ private final class RelayPlayerApi(
         .toMap
     val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
     players.map: (id, rp) =>
-      val found = result.find((p, rank) => p.player.id == id.toString)
+      val found = result.find((p, _) => p.player.id == id.toString)
       id -> rp.copy(
         tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
         rank = Rank.from(found.map(_._2 + 1))
