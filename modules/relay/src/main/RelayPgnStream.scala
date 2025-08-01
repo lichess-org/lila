@@ -76,7 +76,7 @@ final class RelayPgnStream(
                     $doc(
                       "$and" -> $arr(
                         $doc("$eq" -> $arr("$_id", "$$tourId")),
-                        $doc("$gte" -> $arr("$tier", 3))
+                        $doc("$gte" -> $arr("$tier", RelayTour.Tier.normal))
                       )
                     )
               )
