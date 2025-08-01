@@ -39,7 +39,6 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
   if (isTouchDevice()) {
     pieceStyle.set('name');
     prefixStyle.set('name');
-    positionStyle.set('before');
     boardStyle.set('plain');
     return hl('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
       pageStyle.get() === 'actions-board'
@@ -54,6 +53,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
       hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
+      hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
       hl('h2', i18n.keyboardMove.keyboardInputCommands),
       hl('p', [
         i18n.nvui.inputFormCommandList,
