@@ -61,7 +61,7 @@ object ModTimeline:
 
   private def mergeModlog(p: Modlog, n: Modlog): Option[Modlog] =
     (p.action == n.action && p.mod.is(n.mod)).option:
-      p.copy(details = some(List(p.details, n.details).flatten.distinct.mkString(" / ")))
+      p.copy(details = List(p.details, n.details).flatten.distinct.mkString(" / ").some)
 
   private def reportAtoms(report: Report): List[ReportNewAtom | ReportLineFlag] =
     report.atoms
