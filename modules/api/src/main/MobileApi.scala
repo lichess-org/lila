@@ -20,26 +20,36 @@ final class MobileApi(
 
   private given (using trans: Translate): Lang = trans.lang
 
-  def home(using me: Me)(using RequestHeader, Translate): Fu[JsObject] =
-    val accountFu = userApi.forMobileHome
-    val recentGamesFu = gameApi.forMobileHome
-    val ongoingGamesFu = gameProxy
-      .urgentGames(me)
-      .map(_.take(20).map(lobbyApi.nowPlaying))
-    val tournamentsFu = for
-      perfs <- userApi.withPerfs(me.value)
-      tours <- featuredTournaments(using perfs.some)
-    yield tours
-    val inboxFu = unreadCount.mobile(me)
-    (accountFu, recentGamesFu, ongoingGamesFu, tournamentsFu, inboxFu).mapN:
-      (account, recentGames, ongoingGames, tournaments, inbox) =>
-        Json.obj(
-          "account" -> account,
-          "recentGames" -> recentGames,
-          "ongoingGames" -> ongoingGames,
-          "tournaments" -> tournaments,
-          "inbox" -> inbox
-        )
+  def home(
+      getAccount: Boolean,
+      getRecentGames: Boolean,
+      getOngoingGames: Boolean,
+      getTournaments: Boolean,
+      getInbox: Boolean
+  )(using me: Me)(using RequestHeader, Translate): Fu[JsObject] =
+    val accountFu = getAccount.option(userApi.forMobileHome)
+    val recentGamesFu = getRecentGames.option(gameApi.forMobileHome)
+    val ongoingGamesFu = getOngoingGames.option:
+      gameProxy.urgentGames(me).map(_.take(20).map(lobbyApi.nowPlaying))
+    val tournamentsFu = getTournaments.option:
+      for
+        perfs <- userApi.withPerfs(me.value)
+        tours <- featuredTournaments(using perfs.some)
+      yield tours
+    val inboxFu = getInbox.option(unreadCount.mobile(me))
+    for
+      account <- accountFu.sequence
+      recentGames <- recentGamesFu.sequence
+      ongoingGames <- ongoingGamesFu.sequence
+      tournaments <- tournamentsFu.sequence
+      inbox <- inboxFu.sequence
+    yield Json
+      .obj()
+      .add("account", account)
+      .add("recentGames", recentGames)
+      .add("ongoingGames", ongoingGames)
+      .add("tournaments", tournaments)
+      .add("inbox", inbox)
 
   def featuredTournaments(using me: Option[UserWithPerfs])(using Translate): Fu[List[JsObject]] =
     for

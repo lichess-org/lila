@@ -333,7 +333,13 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def mobileHome = Scoped(_.Web.Mobile) { _ ?=> me ?=>
     limit.apiMobileHome(me, rateLimited):
       JsonOk:
-        env.api.mobile.home
+        env.api.mobile.home(
+          getAccount = getBool("account"),
+          getRecentGames = getBool("recentGames"),
+          getOngoingGames = getBool("ongoingGames"),
+          getTournaments = getBool("tournaments"),
+          getInbox = getBool("inbox")
+        )
   }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
