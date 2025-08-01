@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">ชุมชน</string>
+  <string name="byMonth">ตามเดือน</string>
+  <string name="byTopic">ตามหัวข้อ</string>
+  <string name="byLichess">โดย Lichess</string>
+  <string name="myFriends">เพื่อนของฉัน</string>
+  <string name="myLikes">การกดชอบ</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
   <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
   <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>
