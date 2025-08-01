@@ -240,7 +240,7 @@ export default class EditorCtrl {
   startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
   clearBoard = (): boolean => {
-    this.guessCastlingToggles = this.rules !== "antichess";
+    this.guessCastlingToggles = this.rules !== 'antichess';
     const parts = EMPTY_FEN.split(' ');
     parts[1] = this.turn[0];
     return this.setFen(parts.join(' '));
