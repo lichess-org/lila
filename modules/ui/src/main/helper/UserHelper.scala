@@ -253,10 +253,10 @@ trait UserHelper:
   val lineIconChar = Icon.Disc
 
   val lineIcon: Frag = i(cls := "line")
-  def patronIcon(using Translate): Frag =
-    i(cls := "line patron", title := trans.patron.lichessPatron.txt())
+  def patronIcon(tierClass: Option[String] = None)(using Translate): Frag =
+    i(cls := s"line patron ${tierClass.getOrElse("")}", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(using Translate): Frag = if patron then patronIcon else lineIcon
+  private def lineIcon(patron: Boolean)(using Translate): Frag = if patron then patronIcon() else lineIcon
   private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron))
   def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.isPatron)
   def lineIcon(user: User)(using Translate): Frag = lineIcon(user.isPatron)
