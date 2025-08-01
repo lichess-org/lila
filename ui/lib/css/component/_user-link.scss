@@ -33,6 +33,18 @@
       @include if-rtl {
         transform: scaleX(-1);
       }
+
+      &.months1  { -webkit-text-stroke: 0.7px #cd7f32; text-shadow: 0 0 6px #e88d4b; }
+      &.months2  { -webkit-text-stroke: 0.7px #d2691e; }
+      &.months3  { -webkit-text-stroke: 0.7px #b87333; }
+      &.months6  { -webkit-text-stroke: 0.7px #c0c0c0; }
+      &.months9  { -webkit-text-stroke: 0.7px #d3d3d3; }
+      &.years1   { -webkit-text-stroke: 0.7px #ffd700; }
+      &.years2   { -webkit-text-stroke: 0.7px #f5c542; }
+      &.years3   { -webkit-text-stroke: 0.7px #eec900; }
+      &.years4   { -webkit-text-stroke: 0.7px #e5e4e2; }
+      &.years5   { -webkit-text-stroke: 0.7px #ececec; }
+
     }
 
     &::before {

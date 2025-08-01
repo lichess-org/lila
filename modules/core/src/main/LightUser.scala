@@ -38,16 +38,16 @@ object LightUser:
   def patronTier(patronMonths: Int): Option[String] = Option
     .when(patronMonths > 0)(patronMonths)
     .collect:
-      case m if m >= 60 => "5years"
-      case m if m >= 48 => "4years"
-      case m if m >= 36 => "3years"
-      case m if m >= 24 => "2years"
-      case m if m >= 12 => "1year"
-      case m if m >= 9 => "9months"
-      case m if m >= 6 => "6months"
-      case m if m >= 3 => "3months"
-      case m if m >= 2 => "2months"
-      case m if m >= 1 => "1month"
+      case m if m >= 60 => "years5"
+      case m if m >= 48 => "years4"
+      case m if m >= 36 => "years3"
+      case m if m >= 24 => "years2"
+      case m if m >= 12 => "years1"
+      case m if m >= 9 => "months9"
+      case m if m >= 6 => "months6"
+      case m if m >= 3 => "months3"
+      case m if m >= 2 => "months2"
+      case m if m >= 1 => "months1"
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:

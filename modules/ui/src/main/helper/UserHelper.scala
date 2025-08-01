@@ -102,7 +102,7 @@ trait UserHelper:
       cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline.so(lineIcon(user.isPatron)),
+      withOnline.so(lineIcon(user.isPatron, user.patronTier)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
@@ -169,7 +169,7 @@ trait UserHelper:
       cls := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
-      withOnline.so(if modIcon then moderatorIcon else lineIcon(isPatron)),
+      withOnline.so(if modIcon then moderatorIcon else lineIcon(isPatron, None)), //replace with actual patronTier
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
       flair.map(userFlair)
@@ -254,10 +254,10 @@ trait UserHelper:
 
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(tierClass: Option[String] = None)(using Translate): Frag =
-    i(cls := s"line patron ${tierClass.getOrElse("")}", title := trans.patron.lichessPatron.txt())
+    i(cls := s"line patron${tierClass.map(" " + _).getOrElse("")}", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(using Translate): Frag = if patron then patronIcon() else lineIcon
-  private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron))
-  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.isPatron)
-  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.isPatron)
+  private def lineIcon(patron: Boolean, patronTier: Option[String])(using Translate): Frag = if patron then patronIcon(patronTier) else lineIcon
+  private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron), user.flatMap(_.patronTier))
+  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.isPatron, user.patronTier)
+  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.isPatron, user.light.patronTier)
   def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar
