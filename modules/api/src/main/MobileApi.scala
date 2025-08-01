@@ -27,7 +27,7 @@ final class MobileApi(
       .urgentGames(me)
       .map(_.take(20).map(lobbyApi.nowPlaying))
     val tournamentsFu = for
-      perfs <- userApi.withPerfs(me.value) // TODO refetches the user
+      perfs <- userApi.withPerfs(me.value)
       tours <- featuredTournaments(using perfs.some)
     yield tours
     val inboxFu = unreadCount.mobile(me)
