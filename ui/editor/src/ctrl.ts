@@ -99,15 +99,7 @@ export default class EditorCtrl {
 
   onChange(): void {
     if (this.guessCastlingToggles) {
-      const currSetup = this.getSetup(),
-        whiteKingOnE1 = currSetup.board.king.intersect(currSetup.board.white).has(parseSquare('e1')),
-        blackKingOnE8 = currSetup.board.king.intersect(currSetup.board.black).has(parseSquare('e8')),
-        whiteRooks = currSetup.board.rook.intersect(currSetup.board.white),
-        blackRooks = currSetup.board.rook.intersect(currSetup.board.black);
-      this.castlingToggles['K'] = whiteKingOnE1 && whiteRooks.has(parseSquare('h1'));
-      this.castlingToggles['Q'] = whiteKingOnE1 && whiteRooks.has(parseSquare('a1'));
-      this.castlingToggles['k'] = blackKingOnE8 && blackRooks.has(parseSquare('h8'));
-      this.castlingToggles['q'] = blackKingOnE8 && blackRooks.has(parseSquare('a8'));
+      this.castlingToggles = this.computeCastlingToggles();
       this.castlingRights = undefined;
     }
     const fen = this.fenFixedEp(this.getFen());
@@ -124,6 +116,20 @@ export default class EditorCtrl {
       if (this.castlingToggles[toggle]) fen += toggle;
     }
     return fen;
+  }
+
+  private computeCastlingToggles(): CastlingToggles<boolean> {
+    const board = this.getSetup().board,
+      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare('e1')),
+      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare('e8')),
+      whiteRooks = board.rook.intersect(board.white),
+      blackRooks = board.rook.intersect(board.black);
+    return {
+      K: whiteKingOnE1 && whiteRooks.has(parseSquare('h1')),
+      Q: whiteKingOnE1 && whiteRooks.has(parseSquare('a1')),
+      k: blackKingOnE8 && blackRooks.has(parseSquare('h8')),
+      q: blackKingOnE8 && blackRooks.has(parseSquare('a8')),
+    };
   }
 
   private getSetup(): Setup {
