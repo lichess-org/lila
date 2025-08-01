@@ -15,7 +15,7 @@ final private class UblogConfig(
     val carouselSize: Int,
     val automod: AutomodConfig
 )
-final private class AutomodConfig(val url: String, val apiKey: Secret, val model: String)
+final private class AutomodConfig(val url: String, val apiKey: Secret)
 
 @Module
 final class Env(

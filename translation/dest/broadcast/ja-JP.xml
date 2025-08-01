@@ -65,9 +65,7 @@
   <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
   <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
-  <string name="embedThisRound">%s をウェブサイトに埋め込む</string>
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
@@ -83,6 +81,6 @@
   <string name="backToLiveMove">実際の手に戻る</string>
   <string name="sinceHideResults">結果を非表示にするよう選択したため、結果が見えないようプレビューボードはすべて空白です。</string>
   <string name="liveboard">現局面</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">コミュニティ配信</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">作成・管理者は %s です。</string>
+  <string name="communityBroadcast">コミュニティ配信</string>
+  <string name="createdAndManagedBy">作成・管理者は %s です。</string>
 </resources>

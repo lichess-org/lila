@@ -227,7 +227,7 @@ final class MsgApi(
           UnwindField("users"),
           Match($doc("users".$ne(user.id))),
           PipelineOperator:
-            $lookup.pipeline(
+            $lookup.simple(
               from = colls.msg,
               as = "msgs",
               local = "_id",
@@ -240,12 +240,7 @@ final class MsgApi(
             )
           ,
           PipelineOperator:
-            $lookup.simple(
-              from = userRepo.coll,
-              as = "contact",
-              local = "users",
-              foreign = "_id"
-            )
+            $lookup.simple(from = userRepo.coll, as = "contact", local = "users", foreign = "_id")
           ,
           UnwindField("contact")
         )
@@ -296,14 +291,6 @@ final class MsgApi(
       )
       .flatMap: res =>
         (res.nModified > 0).so(notifier.onRead(threadId, me.id, contactId))
-
-  private val hasUnreadLichessMessageSelect = $doc(
-    "lastMsg.read" -> false,
-    "lastMsg.text" -> $doc("$not" -> $doc("$regex" -> "^Welcome!"))
-  )
-  def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] =
-    colls.thread.secondary.exists:
-      $id(MsgThread.id(userId, UserId.lichess)) ++ hasUnreadLichessMessageSelect
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread

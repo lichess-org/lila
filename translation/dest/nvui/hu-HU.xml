@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Lépéslista</string>
+  <string name="king">király</string>
+  <string name="whiteKing">világos király</string>
+  <string name="blackKing">sötét király</string>
+  <string name="queen">vezér</string>
+  <string name="whiteQueen">világos vezér</string>
+  <string name="blackQueen">sötét vezér</string>
+  <string name="rook">bástya</string>
+  <string name="whiteRook">világos bástya</string>
+  <string name="blackRook">sötét bástya</string>
+  <string name="bishop">futó</string>
+  <string name="whiteBishop">világos futó</string>
+  <string name="blackBishop">sötét futó</string>
+  <string name="knight">huszár</string>
+  <string name="whiteKnight">világos huszár</string>
+  <string name="blackKnight">sötét huszár</string>
+  <string name="pawn">gyalog</string>
+  <string name="whitePawn">világos gyalog</string>
+  <string name="blackPawn">sötét gyalog</string>
+  <string name="sanCheck" comment="+ in standard notation">sakk</string>
+  <string name="sanCheckmate" comment="# in standard notation">matt</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">rövidsánc</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">hosszúsánc</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN és FEN</string>
+</resources>

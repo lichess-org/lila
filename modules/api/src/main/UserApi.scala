@@ -149,6 +149,14 @@ final class UserApi(
                     )
               }.noNull
 
+  def forMobileHome(using me: Me, lang: Lang) = extended(
+    me.value,
+    withFollows = false,
+    withTrophies = false,
+    withCanChallenge = false,
+    withPlayban = true
+  )
+
   def getTrophiesAndAwards(u: User) =
     (trophyApi.findByUser(u), shieldApi.active(u), revolutionApi.active(u)).mapN:
       (trophies, shields, revols) =>

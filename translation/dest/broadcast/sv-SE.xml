@@ -67,9 +67,7 @@
   <string name="officialStandings">Officiella ställningar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fler alternativ på %s</string>
   <string name="webmastersPage">webbmasterns sida</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig PGN-källa i realtid för denna omgång. Vi erbjuder även en %s för snabbare och effektivare synkronisering.</string>
   <string name="embedThisBroadcast">Infoga denna sändning på din webbplats</string>
-  <string name="embedThisRound">Infoga %s på din webbplats</string>
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Partier i denna turnering</string>
   <string name="score">Poäng</string>

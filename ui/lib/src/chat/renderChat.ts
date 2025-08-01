@@ -4,13 +4,14 @@ import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
+import { type Hooks } from 'snabbdom';
 
 import type { ChatCtrl } from './chatCtrl';
 
-export function renderChat(ctrl: ChatCtrl): VNode {
+export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
   return hl(
     'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
-    { class: { 'mchat-mod': !!ctrl.moderation } },
+    { class: { 'mchat-mod': !!ctrl.moderation }, hook },
     moderationView(ctrl.moderation) || normalView(ctrl),
   );
 }

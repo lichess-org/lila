@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="pieces">مهره</string>
+  <string name="lastMove">حرکت آخر</string>
+  <string name="yourClock">ساعت شما</string>
+  <string name="opponentClock">ساعت حریف</string>
+  <string name="gameStart">شروع بازی</string>
   <string name="king">شاه</string>
   <string name="whiteKing">شاه سفید</string>
   <string name="blackKing">شاه سیاه</string>

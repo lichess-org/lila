@@ -79,8 +79,8 @@ final class SwissFeature(
           Sort(Descending("nbPlayers")),
           Limit(nb * 50),
           PipelineOperator(
-            $lookup.pipeline(
-              from = "team",
+            $lookup.simple(
+              from = lila.core.config.CollName("team"),
               as = "team",
               local = "teamId",
               foreign = "_id",

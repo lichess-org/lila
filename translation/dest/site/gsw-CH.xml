@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
-  <string name="orLetYourOpponentScanQrCode">Oder loh din Gägner de QR-Code skänne</string>
+  <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
@@ -352,7 +352,15 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="openingExplorerAndTablebase">Eröffnigsbuech &amp; Ändschpiel-Datäbank</string>
   <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
+  <string name="whiteProposesTakeback">Wiss wott de Zug zrugg neh</string>
+  <string name="blackProposesTakeback">Schwarz wott de Zug zrugg neh</string>
   <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
+  <string name="whiteDeclinesTakeback">Wiss lähnt d\'Rücknahm ab</string>
+  <string name="blackDeclinesTakeback">Schwarz lähnt d\'Rücknahm ab</string>
+  <string name="whiteAcceptsTakeback">Wiss akzeptiert d\'Rücknahm</string>
+  <string name="blackAcceptsTakeback">Schwarz akzeptiert d\'Rücknahm</string>
+  <string name="whiteCancelsTakeback">Wiss zieht d\'Afrag zrugg</string>
+  <string name="blackCancelsTakeback">Schwarz zieht d\'Afrag zrugg</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
   <string name="bookmarkThisGame">Das Schpiel mit eme Läsezeiche markiere</string>
   <string name="tournament">Turnier</string>
@@ -592,8 +600,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="clockIncrement">Zit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
   <string name="privacyPolicy">Datäschutzbeschtimmige</string>
-  <string name="letOtherPlayersFollowYou">Loh anderi Schpiller dir folge</string>
-  <string name="letOtherPlayersChallengeYou">Loh anderi Schpiller dich usefordere</string>
+  <string name="letOtherPlayersFollowYou">Lass anderi Schpiller dir folge</string>
+  <string name="letOtherPlayersChallengeYou">Lass anderi Schpiller dich fordere</string>
   <string name="letOtherPlayersInviteYouToStudy">Andere Schpiller erlaube, dich zu ere Schtudie izlade</string>
   <string name="sound">Ton</string>
   <string name="none">Keine</string>
@@ -672,6 +680,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="really">würkli</string>
   <string name="contribute">Mitmache</string>
   <string name="termsOfService">Nutzigs-Bedingige</string>
+  <string name="titleVerification">Überprüefig vum Titel</string>
   <string name="sourceCode">Quällcode</string>
   <string name="simultaneousExhibitions">Simultanschach Veraschtaltige</string>
   <string name="host">Simultanschpiller</string>
@@ -841,7 +850,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="computerThinking">De Computer rächnet ...</string>
   <string name="seeBestMove">Zeig de bescht Zug</string>
   <string name="hideBestMove">Verschteck de bescht Zug</string>
-  <string name="getAHint">Loh dir en Tipp geh</string>
+  <string name="getAHint">Lass dir en Tipp geh</string>
   <string name="evaluatingYourMove">Din Zug wird g\'wertet ...</string>
   <string name="whiteWinsGame">Wiss günnt</string>
   <string name="blackWinsGame">Schwarz günnt</string>
@@ -1010,4 +1019,5 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="accessibility">Erreichbarkeit</string>
   <string name="enableBlindMode">Blindmodus aktiviere</string>
   <string name="disableBlindMode">Blindmodus deaktiviere</string>
+  <string name="copyToClipboard">Kopier ufs Clipboard</string>
 </resources>

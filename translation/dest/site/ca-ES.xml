@@ -1009,4 +1009,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="accessibility">Accessibilitat</string>
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
+  <string name="copyToClipboard">Copia al porta-retalls</string>
 </resources>

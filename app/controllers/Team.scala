@@ -32,14 +32,17 @@ final class Team(env: Env) extends LilaController(env):
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
+      Found(api.team(id)): team =>
+        if !team.notable && HTTPRequest.isCrawler(req).yes
+        then notFound
+        else renderTeam(team, page, mod && canEnterModView)
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
         val canSee =
-          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
-            api.belongsTo(team.id, _)
+          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
+            ctx.userId.so(api.belongsTo(team.id, _))
         canSee.flatMap:
           if _ then
             Ok.async:

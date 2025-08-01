@@ -1008,4 +1008,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="accessibility">Accessibility</string>
   <string name="enableBlindMode">Enable blind mode</string>
   <string name="disableBlindMode">Disable blind mode</string>
+  <string name="copyToClipboard">Copy to clipboard</string>
 </resources>

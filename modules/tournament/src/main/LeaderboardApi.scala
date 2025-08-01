@@ -110,7 +110,7 @@ final class LeaderboardApi(
         withPerformance.so:
           List(
             PipelineOperator:
-              $lookup.pipeline(
+              $lookup.simple(
                 from = playerRepo.coll,
                 as = "player",
                 local = "_id",

@@ -71,9 +71,7 @@
   <string name="officialStandings">Официальная турнирная таблица</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
   <string name="webmastersPage">странице веб-мастера</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публичный PGN-источник для этого раунда в реальном времени. Мы также предлагаем %s для более быстрой и эффективной синхронизации.</string>
   <string name="embedThisBroadcast">Встройте эту трансляцию на ваш сайт</string>
-  <string name="embedThisRound">Встроить %s на свой сайт</string>
   <string name="ratingDiff">Разница в рейтингах</string>
   <string name="gamesThisTournament">Партии этого турнира</string>
   <string name="score">Очки</string>
@@ -89,6 +87,6 @@
   <string name="backToLiveMove">Вернуться к текущему ходу</string>
   <string name="sinceHideResults">Вы выбрали скрыть результаты, поэтому обзор досок пуст, чтобы сохранить интригу.</string>
   <string name="liveboard">Доска в прямом эфире</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Трансляция сообщества</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Создано и управляется %s.</string>
+  <string name="communityBroadcast">Трансляция сообщества</string>
+  <string name="createdAndManagedBy">Создано и управляется %s.</string>
 </resources>

@@ -133,6 +133,7 @@ final class PgnDump(
             case Aborted | NoStart => "Abandoned"
             case Timeout | Outoftime => "Time forfeit"
             case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
+            case InsufficientMaterialClaim => "Insufficient material"
             case Cheat => "Rules infraction"
             case UnknownFinish => "Unknown"
         }

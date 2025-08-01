@@ -42,6 +42,9 @@ final class RelayApi(
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
 
+  export groupRepo.byId as groupById
+  export tourRepo.byIds as toursByIds
+
   def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id)
 
   def byIdWithTour(id: RelayRoundId): Fu[Option[WithTour]] =
@@ -154,7 +157,7 @@ final class RelayApi(
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
         for
           group <- groupRepo.byTour(id)
-          tours <- tourRepo.idNames(group.so(_.tours))
+          tours <- tourRepo.previews(group.so(_.tours))
         yield group.map(RelayGroup.WithTours(_, tours))
     export cache.get
     def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
@@ -243,7 +246,7 @@ final class RelayApi(
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
-    Granter(_.Relay).so:
+    (Granter(_.Relay) || !tour.official).so:
       val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
       canGroup.flatMapz(groupRepo.update(tour.id, data))
 

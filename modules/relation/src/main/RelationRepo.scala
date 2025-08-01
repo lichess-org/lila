@@ -21,7 +21,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
         import framework.*
         Match($doc("u2" -> userId, "r" -> Follow)) -> List(
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.simple(
               from = userRepo.coll,
               as = "follower",
               local = "u1",

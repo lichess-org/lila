@@ -655,7 +655,7 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
-GET   /inbox/unread-count              controllers.Msg.unreadCountBC
+GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
@@ -770,6 +770,7 @@ GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedG
 GET   /api/games/export/bookmarks      controllers.Game.apiExportByUserBookmarks()
 
 # Lichess Mobile
+GET   /api/mobile/home                 controllers.Api.mobileHome
 GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 # External engine

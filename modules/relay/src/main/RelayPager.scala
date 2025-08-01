@@ -15,7 +15,7 @@ final class RelayPager(
 )(using Executor):
 
   import BSONHandlers.given
-  import RelayTourRepo.{ selectors, readToursWithRound }
+  import RelayTourRepo.{ selectors, readToursWithRoundAndGroup, unsetHeavyOptionalFields }
 
   private val maxPerPage = MaxPerPage(24)
 
@@ -29,7 +29,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
-                List(Sort(Descending("createdAt"))) :::
+                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) :::
                   tourRepo.aggregateRound(colls, framework, onlyKeepGroupFirst = false) :::
                   List(Skip(offset), Limit(length))
               }
@@ -47,13 +47,13 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.officialNotPublic) -> {
-              List(Sort(Descending("createdAt"))) ::: tourRepo
+              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -67,13 +67,13 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
-              List(Sort(Descending("createdAt"))) ::: tourRepo
+              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -86,15 +86,11 @@ final class RelayPager(
         .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(selectors.officialInactive) -> {
-            List(Sort(Descending("syncedAt"))) ::: tourRepo.aggregateRoundAndUnwind(
-              colls,
-              framework
-            ) ::: List(
-              Skip(offset),
-              Limit(length)
-            )
+            List(Project(unsetHeavyOptionalFields), Sort(Descending("syncedAt"))) :::
+              tourRepo.aggregateRoundAndUnwind(colls, framework) :::
+              List(Skip(offset), Limit(length))
           }
-        .map(readToursWithRound(RelayTour.WithLastRound.apply))
+        .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
       _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
@@ -166,12 +162,13 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                addFields.map(AddFields(_)).toList :::
+                List(Project(unsetHeavyOptionalFields)) :::
+                  addFields.map(AddFields(_)).toList :::
                   List(Sort(sortFields.map(Descending(_))*)) :::
                   tourRepo.aggregateRoundAndUnwind(colls, framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRound(RelayTour.WithLastRound.apply))
+            .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
       ,
       currentPage = page,
       maxPerPage = maxPerPage

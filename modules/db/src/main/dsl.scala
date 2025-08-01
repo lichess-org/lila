@@ -16,11 +16,12 @@
 
 package lila.db
 
+import scala.collection.Factory
 import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import scala.collection.Factory
+import lila.core.config.CollName
 
 trait dsl:
 
@@ -279,18 +280,6 @@ trait dsl:
       $doc("_order" -> $doc("$indexOfArray" -> $arr(values, "$" + field)))
 
   object $lookup:
-    def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
-      "$lookup" -> $doc(
-        "from" -> from,
-        "as" -> as,
-        "localField" -> local,
-        "foreignField" -> foreign
-      )
-    )
-    def simple(from: Coll, as: String, local: String, foreign: String): Bdoc =
-      simple(from.name, as, local, foreign)
-    def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
-      simple(from.name.value, as, local, foreign)
     def pipelineFull(from: String, as: String, let: Bdoc, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
@@ -303,20 +292,17 @@ trait dsl:
 
     // mongodb 5+ Correlated Subqueries Using Concise Syntax
     // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
-    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      $doc(
-        "$lookup" -> $doc(
-          "from" -> from,
-          "as" -> as,
-          "localField" -> local,
-          "foreignField" -> foreign,
-          "pipeline" -> pipe
-        )
-      )
-    def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipeline(from.name, as, local, foreign, pipe)
-    def pipeline(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      pipeline(from.name.value, as, local, foreign, pipe)
+    def simple(from: CollName, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      val lookup = $doc(
+        "from" -> from.value,
+        "as" -> as,
+        "localField" -> local,
+        "foreignField" -> foreign
+      ) ++ pipe.nonEmpty.so($doc("pipeline" -> pipe))
+      $doc("$lookup" -> lookup)
+
+    def simple(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc] = Nil): Bdoc =
+      simple(CollName(from.name), as, local, foreign, pipe)
 
   implicit class ElementBuilderLike(val field: String)
       extends ElementBuilder

@@ -70,9 +70,7 @@
   <string name="standings">Турнірна таблиця</string>
   <string name="officialStandings">Офіційна турнірна таблиця</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публічне джерело PGN у реальному часі для цього раунду. Ми також пропонуємо %s для швидшої й ефективнішої синхронізації.</string>
   <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>
-  <string name="embedThisRound">Вбудувати %s на своєму сайті</string>
   <string name="ratingDiff">Різниця у рейтингу</string>
   <string name="gamesThisTournament">Ігри в цьому турнірі</string>
   <string name="score">Очки</string>

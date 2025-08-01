@@ -105,7 +105,7 @@ object BSONHandlers:
   given BSONDocumentHandler[RelayTour.Dates] = Macros.handler
   given BSONDocumentHandler[RelayTour] = Macros.handler
 
-  given BSONDocumentHandler[RelayTour.IdName] = Macros.handler
+  given BSONDocumentHandler[RelayTour.TourPreview] = Macros.handler
 
   def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for
     round <- doc.asOpt[RelayRound]

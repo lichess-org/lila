@@ -187,11 +187,19 @@ $hover-bg: $m-primary_bg--mix-30;
     .mselect__item {
       opacity: unset;
     }
+    .tour-state.ongoing::before {
+      color: $c-bad;
+    }
     .mselect__list {
       transform: unset;
       a {
         gap: 1em;
       }
+    }
+  }
+  &__tour-select {
+    .mselect__item {
+      @extend %flex-between;
     }
   }
   &__round-select {
@@ -341,9 +349,11 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
   &__share {
-    @extend %box-neat, %tour-margin-horiz;
-    background: $c-bg-zebra;
-    padding: 3em 2vw 1em 2vw;
+    @extend %tour-margin-horiz;
+    padding: 3em 2vw 0 2vw;
+    &.toggle-box--toggle-off {
+      padding: 0 2vw;
+    }
   }
 
   &__players {
