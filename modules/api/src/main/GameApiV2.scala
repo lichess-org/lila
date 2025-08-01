@@ -140,7 +140,7 @@ final class GameApiV2(
       .via(preparationFlow(config))
 
   def forMobileHome(using me: Me): Fu[JsArray] = for
-    games <- gameRepo.myRecentFinishedGamesFromSecondary(me, Max(10))
+    games <- gameRepo.myRecentFinishedGamesFromSecondary(me, Max(12))
     config = MobileHomeConfig(me)
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
@@ -455,4 +455,4 @@ object GameApiV2:
     val format = GameApiV2.Format.JSON
     val flags = WithFlags(clocks = false, moves = false, evals = false, opening = false)
     val by = me.some
-    val perSecond = MaxPerSecond(20)
+    val perSecond = MaxPerSecond(20) // unused

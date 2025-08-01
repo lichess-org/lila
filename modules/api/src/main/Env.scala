@@ -101,7 +101,7 @@ final class Env(
       teamIds <- me.map(_.userId).so(teamEnv.cached.teamIdsList)
       tours <- tourEnv.featuring.homepage.get(teamIds)
       spotlight = lila.tournament.Spotlight.select(tours, 4)
-      json <- spotlight.parallel(tourEnv.apiJsonView.fullJson)
+      json <- spotlight.sequentially(tourEnv.apiJsonView.fullJson)
     yield json
 
   private lazy val linkCheck = wire[LinkCheck]
