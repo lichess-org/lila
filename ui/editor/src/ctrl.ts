@@ -19,6 +19,7 @@ import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view/dialogs';
 import { opposite } from '@lichess-org/chessground/util';
+import { parseSquare } from 'chessops';
 
 export default class EditorCtrl {
   options: Options;
@@ -36,6 +37,7 @@ export default class EditorCtrl {
   rules: Rules;
   halfmoves: number;
   fullmoves: number;
+  guessCastlingToggles: boolean;
 
   constructor(
     readonly cfg: Config,
@@ -63,6 +65,7 @@ export default class EditorCtrl {
     const params = new URLSearchParams(location.search);
     this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
+    this.guessCastlingToggles = false;
 
     if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
 
@@ -95,6 +98,10 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
+    if (this.guessCastlingToggles) {
+      this.castlingToggles = this.computeCastlingToggles();
+      this.castlingRights = undefined;
+    }
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
@@ -109,6 +116,20 @@ export default class EditorCtrl {
       if (this.castlingToggles[toggle]) fen += toggle;
     }
     return fen;
+  }
+
+  private computeCastlingToggles(): CastlingToggles<boolean> {
+    const board = this.getSetup().board,
+      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare('e1')),
+      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare('e8')),
+      whiteRooks = board.rook.intersect(board.white),
+      blackRooks = board.rook.intersect(board.black);
+    return {
+      K: whiteKingOnE1 && whiteRooks.has(parseSquare('h1')),
+      Q: whiteKingOnE1 && whiteRooks.has(parseSquare('a1')),
+      k: blackKingOnE8 && blackRooks.has(parseSquare('h8')),
+      q: blackKingOnE8 && blackRooks.has(parseSquare('a8')),
+    };
   }
 
   private getSetup(): Setup {
@@ -207,6 +228,7 @@ export default class EditorCtrl {
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
     if (this.castlingToggles[id] !== value) this.castlingRights = undefined;
     this.castlingToggles[id] = value;
+    this.guessCastlingToggles = false;
     this.onChange();
   }
 
@@ -224,9 +246,9 @@ export default class EditorCtrl {
   startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
   clearBoard = (): boolean => {
+    this.guessCastlingToggles = this.rules !== 'antichess';
     const parts = EMPTY_FEN.split(' ');
     parts[1] = this.turn[0];
-
     return this.setFen(parts.join(' '));
   };
 
