@@ -348,6 +348,7 @@ abstract private[controllers] class LilaController(val env: Env)
     .flatMap: perf =>
       f(using perf | lila.rating.Perf.default)
   def WithMyPerfs[A](f: Option[UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+    // TODO refetches the user
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)

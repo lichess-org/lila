@@ -22,8 +22,8 @@ trait I18nHelper:
   export lila.core.i18n.I18nKey as trans
   export I18nKey.{ txt, pluralTxt, pluralSameTxt, apply, plural, pluralSame }
 
-  given ctxTrans(using ctx: Context): Translate = Translate(translator, ctx.lang)
-  given transLang(using trans: Translate): Lang = trans.lang
+  given (using ctx: Context): Translate = Translate(translator, ctx.lang)
+  given (using trans: Translate): Lang = trans.lang
 
   def transDefault: Translate = translator.toDefault
 

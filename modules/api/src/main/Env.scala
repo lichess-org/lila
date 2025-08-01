@@ -7,8 +7,8 @@ import play.api.Mode
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.core.misc.lpv.Lpv
-import lila.core.perf.UserWithPerfs
 import lila.core.i18n.Translate
+import play.api.libs.json.JsObject
 
 @Module
 final class Env(
@@ -96,13 +96,7 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  def featuredTournaments(using me: Option[Me])(using Translate, Option[UserWithPerfs]) =
-    for
-      teamIds <- me.map(_.userId).so(teamEnv.cached.teamIdsList)
-      tours <- tourEnv.featuring.homepage.get(teamIds)
-      spotlight = lila.tournament.Spotlight.select(tours, 4)
-      json <- spotlight.sequentially(tourEnv.apiJsonView.fullJson)
-    yield json
+  lazy val mobile = wire[MobileApi]
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness = wire[ChatFreshness]

@@ -332,24 +332,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    */
   def mobileHome = Scoped(_.Web.Mobile) { _ ?=> me ?=>
     limit.apiMobileHome(me, rateLimited):
-      val accountFu = env.api.userApi.forMobileHome
-      val recentGamesFu = env.api.gameApiV2.forMobileHome
-      val ongoingGamesFu = env.round.proxyRepo
-        .urgentGames(me)
-        .map(_.take(20).map(env.api.lobbyApi.nowPlaying))
-      val tournamentsFu = WithMyPerfs:
-        env.api.featuredTournaments
-      val inboxFu = env.msg.unreadCount.mobile(me)
-      (accountFu, recentGamesFu, ongoingGamesFu, tournamentsFu, inboxFu).mapN:
-        (account, recentGames, ongoingGames, tournaments, inbox) =>
-          JsonOk:
-            Json.obj(
-              "account" -> account,
-              "recentGames" -> recentGames,
-              "ongoingGames" -> ongoingGames,
-              "tournaments" -> tournaments,
-              "inbox" -> inbox
-            )
+      JsonOk:
+        env.api.mobile.home
   }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:

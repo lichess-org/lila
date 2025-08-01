@@ -386,7 +386,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     negotiateJson:
       WithMyPerfs:
         JsonOk:
-          env.api.featuredTournaments.map: tours =>
+          env.api.mobile.featuredTournaments.map: tours =>
             Json.obj("featured" -> tours)
 
   def shields = Open:
