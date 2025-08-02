@@ -1010,4 +1010,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="accessibility">Accessibilità</string>
   <string name="enableBlindMode">Attiva \"modalità non vedenti\"</string>
   <string name="disableBlindMode">Disattiva \"modalità non vedenti\"</string>
+  <string name="copyToClipboard">Copia negli appunti</string>
 </resources>
