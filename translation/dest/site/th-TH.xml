@@ -963,4 +963,5 @@
   <string name="accessibility">การเข้าถึง</string>
   <string name="enableBlindMode">โหมดแบบไม่เห็นหมาก</string>
   <string name="disableBlindMode">โหมดแบบเห็นหมาก</string>
+  <string name="copyToClipboard">คัดลอกไปยังคลิปบอร์ด</string>
 </resources>

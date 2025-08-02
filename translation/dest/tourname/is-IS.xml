@@ -6,32 +6,32 @@
   <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">%s á klukkustundarfresti</string>
   <string name="dailyRapidArena">Daglegt atskákmót</string>
   <string name="dailyRapid">Daglegt atskák</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Daglegt mót í kappskák</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Dagleg kappskák</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Daglegt mót í hægskák</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Dagleg hægskák</string>
   <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Daglegt Arena-mót í %s</string>
   <string name="dailyX">Daglegt %s</string>
   <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Austur-mót í atskák</string>
   <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Austur-atskák</string>
-  <string name="easternClassicalArena">Austur-mót í kappskák</string>
-  <string name="easternClassical">Austan kappskák</string>
+  <string name="easternClassicalArena">Austur-mót í hægskák</string>
+  <string name="easternClassical">Austan hægskák</string>
   <string name="easternXArena">Austur-mót í %s</string>
   <string name="easternX">Austan %s</string>
   <string name="weeklyRapidArena">Vikulegt atskákmót</string>
   <string name="weeklyRapid">Vikuleg atskák</string>
-  <string name="weeklyClassicalArena">Vikulegt mót í kappskák</string>
-  <string name="weeklyClassical">Vikuleg kappskák</string>
+  <string name="weeklyClassicalArena">Vikulegt mót í hægskák</string>
+  <string name="weeklyClassical">Vikuleg hægskák</string>
   <string name="weeklyXArena">Vikulegt mót í %s</string>
   <string name="weeklyX">Vikulegt %s</string>
   <string name="monthlyRapidArena">Atskákmót á mánaðarfresti</string>
   <string name="monthlyRapid">Atskák á mánaðarfresti</string>
-  <string name="monthlyClassicalArena">Mót í kappskák á mánaðarfresti</string>
-  <string name="monthlyClassical">Kappskák á mánaðarfresti</string>
+  <string name="monthlyClassicalArena">Mót í hægskák á mánaðarfresti</string>
+  <string name="monthlyClassical">Hægskák á mánaðarfresti</string>
   <string name="monthlyXArena">Mánaðarlega %s atskák</string>
   <string name="monthlyX">Mánaðarlega %s</string>
   <string name="yearlyRapidArena">Árlegt atskákmót</string>
   <string name="yearlyRapid">Árleg atskák</string>
-  <string name="yearlyClassicalArena">Árlegt mót í kappskák</string>
-  <string name="yearlyClassical">Árleg kappskák</string>
+  <string name="yearlyClassicalArena">Árlegt mót í hægskák</string>
+  <string name="yearlyClassical">Árleg hægskák</string>
   <string name="yearlyXArena">Árlegt mót í %s</string>
   <string name="yearlyX">Árlegt %s</string>
   <string name="rapidShieldArena">Arena-mót í atskák með verðlaunaskjöld</string>

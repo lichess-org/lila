@@ -1008,4 +1008,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="accessibility">Acessibilidade</string>
   <string name="enableBlindMode">Habilitar modo às cegas</string>
   <string name="disableBlindMode">Desabilitar modo às cegas</string>
+  <string name="copyToClipboard">Copiar para a área de transferência</string>
 </resources>

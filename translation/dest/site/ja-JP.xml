@@ -965,4 +965,5 @@
   <string name="accessibility">アクセシビリティ</string>
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
+  <string name="copyToClipboard">クリップボードにコピー</string>
 </resources>

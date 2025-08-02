@@ -964,4 +964,5 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="accessibility">Hỗ trợ tiếp cận</string>
   <string name="enableBlindMode">Bật chế độ mù</string>
   <string name="disableBlindMode">Tắt chế độ mù</string>
+  <string name="copyToClipboard">Sao chép vào bảng nhớ tạm</string>
 </resources>

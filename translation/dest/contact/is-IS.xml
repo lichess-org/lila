@@ -43,7 +43,7 @@
   <string name="calledEnPassant">Þetta kallast framhjáhlaup og er ein regla skákar.</string>
   <string name="tryEnPassant">Prófaðu þennan minni háttar gagnvirka leik til þess að fræðast um framhjáhlaup.</string>
   <string name="illegalCastling">Ólögleg eða ómöguleg hrókering</string>
-  <string name="castlingPrevented">Aðeins er komið í veg fyrir hrókeringu ef kóngurinn fer í gegnum stjórnaðan reit.</string>
+  <string name="castlingPrevented">Aðeins er komið í veg fyrir hrókeringu ef kóngurinn fer í gegnum valdaðan reit.</string>
   <string name="castlingRules">Gakktu úr skugga um að þú skiljir reglurnar um að hrókera</string>
   <string name="tryCastling">Prófaðu þennan minni háttar gagnvirka leik til að æfa hrókeringu í skák</string>
   <string name="castlingImported">Ef þú fluttir inn skákina, eða byrjaðir hana frá ákveðinni stöðu, vertu viss um að þú hafir stillt hrókunarréttinn á réttan hátt.</string>
