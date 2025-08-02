@@ -10,4 +10,11 @@
   <string name="actions">Дії</string>
   <string name="yourClock">Ваш годинник</string>
   <string name="opponentClock">Годинник супротивника</string>
+  <string name="whiteRook">біла тура</string>
+  <string name="blackRook">чорна тура</string>
+  <string name="bishop">слон</string>
+  <string name="whiteBishop">білий слон</string>
+  <string name="blackBishop">чорний слон</string>
+  <string name="knight">кінь</string>
+  <string name="whiteKnight">білий кінь</string>
 </resources>
