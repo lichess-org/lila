@@ -87,14 +87,12 @@ object BSONHandlers:
     }.err(s"Invalid tiebreak ${r.debug}")
 
     def writes(w: BSON.Writer, t: Tiebreak) =
-      val base = $doc("code" -> t.code)
-      t.cutModifier
-        .filter(_ != CutModifier.None)
-        .orElse(t.limitModifier.map(_.value))
-        .fold(base): modifier =>
-          base ++ modifier.match
-            case cut: CutModifier => $doc("cutModifier" -> cut.code)
-            case limit: Float => $doc("limitModifier" -> limit)
+      $doc("code" -> t.code) ++
+        t.foldModifier(
+          $empty,
+          cut => if cut == CutModifier.None then $empty else $doc("cutModifier" -> cut.code),
+          limit => $doc("limitModifier" -> limit.value)
+        )
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound] = Macros.handler
