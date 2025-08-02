@@ -12,16 +12,18 @@ case class LightUser(
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    isPatron: Boolean
+    patronMonths: Int // 0 if no plan is ongoing
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
+  def isPatron = patronMonths > 0
+  def patronTier = LightUser.patronTier(patronMonths)
 
 object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, 0)
 
   given UserIdOf[LightUser] = _.id
 
@@ -30,8 +32,22 @@ object LightUser:
     name = name,
     title = None,
     flair = None,
-    isPatron = false
+    patronMonths = 0
   )
+
+  def patronTier(patronMonths: Int): Option[String] = Option
+    .when(patronMonths > 0)(patronMonths)
+    .collect:
+      case m if m >= 60 => "years5"
+      case m if m >= 48 => "years4"
+      case m if m >= 36 => "years3"
+      case m if m >= 24 => "years2"
+      case m if m >= 12 => "years1"
+      case m if m >= 9 => "months9"
+      case m if m >= 6 => "months6"
+      case m if m >= 3 => "months3"
+      case m if m >= 2 => "months2"
+      case m if m >= 1 => "months1"
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:

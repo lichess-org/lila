@@ -22,7 +22,7 @@ class PgnImportTest extends LilaTest:
       1.b4?! {this one} ) 1... e5 2 c4
   """
 
-  val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
+  val user = LightUser.fallback(UserName("Annotator"))
 
   test("import pgn"):
     StudyPgnImport

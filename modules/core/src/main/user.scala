@@ -9,6 +9,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.{ Days, LangTag }
+import scalalib.zeros.given
 
 import lila.core.email.*
 import lila.core.id.Flair
@@ -57,7 +58,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, isPatron = isPatron)
+    def light = LightUser(id, username, title, flair, patronMonths = isPatron.so(plan.months))
 
     def profileOrDefault = profile | Profile.default
 

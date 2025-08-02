@@ -14,7 +14,7 @@ import play.api.libs.json.Json
 
 class JsonTest extends munit.FunSuite:
 
-  val user = LightUser(UserId("nt9"), UserName("nt9"), None, None, false)
+  val user = LightUser.fallback(UserName("nt9"))
 
   test("Json writes"):
     PgnFixtures.roundTrip
