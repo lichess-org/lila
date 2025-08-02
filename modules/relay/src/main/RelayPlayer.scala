@@ -52,16 +52,17 @@ object RelayPlayer:
         case Outcome.Points.Half => cs(color).draw
         case zero => RelayRound.CustomPoints(zero.value)
 
-    def playerScore = customPlayerPoints
-      .map(_.value)
-      .orElse(playerPoints.map(_.value))
+    def playerScore: Option[Float] =
+      customPlayerPoints
+        .map(_.value)
+        .orElse(playerPoints.map(_.value))
 
     def toTiebreakGame: Option[Tiebreak.Game] =
-      opponent.id.map: opponentId =>
+      (opponent.id, playerPoints).mapN: (opponentId, points) =>
         Tiebreak.Game(
           color = color,
           opponent = Tiebreak.Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
-          points = playerPoints,
+          points = points,
           roundId = round.value.some
         )
 
