@@ -5,7 +5,7 @@ object BuildSettings {
 
   import Dependencies._
 
-  val lilaVersion        = "4.0"
+  val lilaVersion = "4.0"
   val globalScalaVersion = "3.7.2"
 
   def buildSettings =
@@ -14,9 +14,9 @@ object BuildSettings {
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       javacOptions ++= Seq("--release", "21"),
-      organization                           := "org.lichess",
-      version                                := lilaVersion,
-      Compile / doc / sources                := Seq.empty,
+      organization := "org.lichess",
+      version := lilaVersion,
+      Compile / doc / sources := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false
     )
@@ -64,7 +64,7 @@ object BuildSettings {
 
   val srcMain = Seq(
     Compile / scalaSource := (Compile / sourceDirectory).value,
-    Test / scalaSource    := (Test / sourceDirectory).value
+    Test / scalaSource := (Test / sourceDirectory).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
