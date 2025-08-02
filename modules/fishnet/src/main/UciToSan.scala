@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.{ Position, Ply }
 

@@ -10,10 +10,10 @@ val ui = lila.relay.ui.RelayUi(helpers)(
   views.analyse.ui.explorerAndCevalConfig
 )
 private val card = lila.relay.ui.RelayCardUi(helpers, ui)
-val menu = lila.relay.ui.RelayMenuUi(helpers, ui)
+val menu = lila.relay.ui.RelayMenuUi(helpers)
 val tour = lila.relay.ui.RelayTourUi(helpers, ui, card, menu)
 val form = lila.relay.ui.RelayFormUi(helpers, ui, menu)
-val group = lila.relay.ui.RelayGroupUi(helpers, ui, card, menu)
+val group = lila.relay.ui.RelayGroupUi(ui, card, menu)
 
 def show(
     rt: WithTourAndStudy,

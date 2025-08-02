@@ -1,8 +1,7 @@
 package controllers
 
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
-import lila.core.misc.oauth.AccessTokenId
 import lila.push.WebSubscription
 import lila.oauth.AccessToken
 

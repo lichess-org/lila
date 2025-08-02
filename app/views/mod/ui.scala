@@ -8,8 +8,8 @@ import lila.core.shutup.PublicSource
 lazy val ui = ModUi(helpers)
 lazy val userTable = ModUserTableUi(helpers, ui)
 lazy val user = ModUserUi(helpers, ui)
-lazy val gamify = GamifyUi(helpers, ui)
-lazy val publicChat = PublicChatUi(helpers, ui)(highlightBad)
+lazy val gamify = GamifyUi(helpers)
+lazy val publicChat = PublicChatUi(helpers)(highlightBad)
 lazy val commUi = ModCommUi(helpers)(highlightBad)
 lazy val inquiryUi = ModInquiryUi(helpers)(publicLineSource, env.mod.presets.getPmPresets, highlightBad)
 

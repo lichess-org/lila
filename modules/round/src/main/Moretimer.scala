@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ ByColor, Color, Centis }
+import chess.{ ByColor, Color }
 
 import scalalib.data.Preload
 import lila.game.GameExt.withClock

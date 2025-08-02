@@ -2,7 +2,6 @@ package lila.core
 package misc
 
 import lila.core.id.GameId
-import lila.core.net.Bearer
 import lila.core.userId.*
 import lila.core.user.Me
 

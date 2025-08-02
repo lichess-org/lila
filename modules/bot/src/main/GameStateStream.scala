@@ -64,6 +64,7 @@ final class GameStateStream(
 
     import init.game.id
 
+    @scala.annotation.nowarn
     var gameOver = false
 
     private val classifiers = List(

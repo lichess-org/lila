@@ -7,7 +7,6 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
-import lila.core.misc.oauth.AccessTokenId
 import lila.game.PgnDump
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions

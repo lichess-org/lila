@@ -1,6 +1,5 @@
 package lila.api
 
-import scala.annotation.nowarn
 import akka.actor.*
 import akka.stream.scaladsl.*
 import play.api.i18n.Lang
@@ -57,6 +56,7 @@ final class EventStream(
         s"eventStreamFor:${me.userId}"
       )
 
+      @scala.annotation.nowarn
       var lastSetSeenAt = me.seenAt | me.createdAt
 
       override def preStart(): Unit =

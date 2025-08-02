@@ -6,7 +6,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class GamifyUi(helpers: Helpers, modUi: ModUi):
+final class GamifyUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def index(leaderboards: Gamify.Leaderboards, history: List[Gamify.HistoryMonth])(using ctx: Context) =
