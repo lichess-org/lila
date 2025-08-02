@@ -80,8 +80,8 @@ Ekki tapa þínum.</string>
 Verstu ógninni!</string>
   <string name="noEscape">Þú getur ekki flúið
 en þú getur varið!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Ekki láta þá taka
-óvarinn taflmann!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ekki láta andstæðinginn drepa
+óvaldaðan taflmann!</string>
   <string name="combat">Bardagi</string>
   <string name="captureAndDefendPieces">Að drepa og valda taflmenn</string>
   <string name="combatIntro">Góður stríðsmaður getur bæði barist og varist!</string>
@@ -107,7 +107,7 @@ eða verstu árásinni!</string>
   <string name="outOfCheckComplete">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
   <string name="mateInOne">Mát í einum</string>
   <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
-  <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið gegn skák.</string>
+  <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið skák.</string>
   <string name="attackYourOpponentsKing">Gerðu árás á kóng andstæðingsins
 á þann hátt sem ekki er hægt að verja!</string>
   <string name="mateInOneComplete">Til hamingju! Svona vinnurðu í skák!</string>
