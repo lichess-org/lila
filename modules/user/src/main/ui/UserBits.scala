@@ -72,26 +72,35 @@ final class UserBits(helpers: Helpers):
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
   def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) = (!u.lame).so:
+    val linkPrefix = "/player/top/200/"
     rankMap.toList
       .sortBy(_._2)
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
       .collect:
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
-            img(src := assetUrl("images/trophy/gold-cup-2.png"))
+          a(href := linkPrefix + perf.key)(
+            span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
+              img(src := assetUrl("images/trophy/gold-cup-2.png"))
+            )
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
-            img(src := assetUrl("images/trophy/silver-cup-2.png"))
+          a(href := linkPrefix + perf.key)(
+            span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
+              img(src := assetUrl("images/trophy/silver-cup-2.png"))
+            )
           )
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
-            img(src := assetUrl("images/trophy/Fancy-Gold.png"))
+          a(href := linkPrefix + perf.key)(
+            span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
+              img(src := assetUrl("images/trophy/Fancy-Gold.png"))
+            )
           )
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
-            img(src := assetUrl("images/trophy/Gold-Cup.png"))
+          a(href := linkPrefix + perf.key)(
+            span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
+              img(src := assetUrl("images/trophy/Gold-Cup.png"))
+            )
           )
 
   object awards:
