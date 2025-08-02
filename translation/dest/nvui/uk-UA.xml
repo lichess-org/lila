@@ -10,6 +10,14 @@
   <string name="actions">Дії</string>
   <string name="yourClock">Ваш годинник</string>
   <string name="opponentClock">Годинник супротивника</string>
+  <string name="gameStart">Початок гри</string>
+  <string name="king">король</string>
+  <string name="whiteKing">білий король</string>
+  <string name="blackKing">чорний король</string>
+  <string name="queen">ферзь</string>
+  <string name="whiteQueen">білий ферзь</string>
+  <string name="blackQueen">чорний ферзь</string>
+  <string name="rook">тура</string>
   <string name="whiteRook">біла тура</string>
   <string name="blackRook">чорна тура</string>
   <string name="bishop">слон</string>
@@ -17,4 +25,12 @@
   <string name="blackBishop">чорний слон</string>
   <string name="knight">кінь</string>
   <string name="whiteKnight">білий кінь</string>
+  <string name="blackKnight">чорний кінь</string>
+  <string name="pawn">пішак</string>
+  <string name="whitePawn">білий пішак</string>
+  <string name="blackPawn">чорний пішак</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">Кр Ф Т С К x</string>
+  <string name="sanCheck" comment="+ in standard notation">шах</string>
+  <string name="sanCheckmate" comment="# in standard notation">мат</string>
+  <string name="sanPromotesTo" comment="= in standard notation">перетворюється на</string>
 </resources>
