@@ -2,6 +2,16 @@
   @extend %nowrap-hidden;
 
   color: $c-font;
+  $months1-color: #00c8d6;
+  $months2-color: #00a0de;
+  $months3-color: #0075e6;
+  $months6-color: #0046ef;
+  $months9-color: #0014f7;
+  $years1-color: #2400ff;
+  $years2-color: #9600d9;
+  $years3-color: #d3228d;
+  $years4-color: #e75740;
+  $years5-color: #d59020;
 
   &.online .line {
     &::before {
@@ -9,10 +19,56 @@
     }
 
     color: $c-good;
-    opacity: 0.9;
 
     &.patron {
       opacity: 1;
+      position: relative;
+    }
+
+    &.patron::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 5px;
+      height: 5px;
+      background-color: $c-good;
+      border-radius: 50%;
+    }
+  }
+
+  & .line {
+    &.patron {
+      &.months1 {
+        color: $months1-color;
+      }
+      &.months2 {
+        color: $months2-color;
+      }
+      &.months3 {
+        color: $months3-color;
+      }
+      &.months6 {
+        color: $months6-color;
+      }
+      &.months9 {
+        color: $months9-color;
+      }
+      &.years1 {
+        color: $years1-color;
+      }
+      &.years2 {
+        color: $years2-color;
+      }
+      &.years3 {
+        color: $years3-color;
+      }
+      &.years4 {
+        color: $years4-color;
+      }
+      &.years5 {
+        color: $years5-color;
+      }
     }
   }
 
@@ -32,38 +88,6 @@
 
       @include if-rtl {
         transform: scaleX(-1);
-      }
-
-      &.months1 {
-        -webkit-text-stroke: 0.7px #cd7f32;
-        text-shadow: 0 0 6px #e88d4b;
-      }
-      &.months2 {
-        -webkit-text-stroke: 0.7px #d2691e;
-      }
-      &.months3 {
-        -webkit-text-stroke: 0.7px #b87333;
-      }
-      &.months6 {
-        -webkit-text-stroke: 0.7px #c0c0c0;
-      }
-      &.months9 {
-        -webkit-text-stroke: 0.7px #d3d3d3;
-      }
-      &.years1 {
-        -webkit-text-stroke: 0.7px #ffd700;
-      }
-      &.years2 {
-        -webkit-text-stroke: 0.7px #f5c542;
-      }
-      &.years3 {
-        -webkit-text-stroke: 0.7px #eec900;
-      }
-      &.years4 {
-        -webkit-text-stroke: 0.7px #e5e4e2;
-      }
-      &.years5 {
-        -webkit-text-stroke: 0.7px #ececec;
       }
     }
 
