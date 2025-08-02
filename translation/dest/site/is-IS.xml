@@ -1008,4 +1008,5 @@ Allur rekstrarkostnaður, þróun og efniviður er fjármagnaður eingöngu með
   <string name="accessibility">Aðgengi</string>
   <string name="enableBlindMode">Virkja blindingaham</string>
   <string name="disableBlindMode">Afvirkja blindingaham</string>
+  <string name="copyToClipboard">Afrita á klippiborð</string>
 </resources>
