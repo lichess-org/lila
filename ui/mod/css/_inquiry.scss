@@ -13,12 +13,12 @@ body.no-inquiry {
 @keyframes octopus {
   50% {
     transform: scale(1.03);
-    background-color: #4a4a4a;
+    background-color: $c-bg-low;
   }
 
   100% {
     transform: scale(1);
-    background-color: #484541;
+    background-color: $c-bg-zebra;
   }
 }
 
@@ -29,11 +29,11 @@ body.no-inquiry {
 
 #inquiry {
   height: 48px;
-  background: #484541;
+  background: $c-bg-zebra;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid $c-border;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -46,11 +46,11 @@ body.no-inquiry {
     height: 160px;
     width: 160px;
     margin: -80px 0 0 -80px;
-    background: #484541 no-repeat url(../images/icons/octopus.svg);
+    background: $c-bg-zebra no-repeat url(../images/icons/octopus.svg);
     background-size: 35% 35%;
     background-position: 81% 81%;
     border-radius: 0 0 50% 0;
-    border: 2px solid #666;
+    border: 2px solid $c-border;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 
@@ -77,7 +77,7 @@ body.no-inquiry {
   &,
   a,
   a.user-link .line {
-    color: #f0f0f0;
+    color: $c-font;
   }
 
   .meat {
@@ -97,7 +97,7 @@ body.no-inquiry {
     height: 100%;
     margin-inline-start: 10px;
     overflow: hidden;
-    color: #ccc;
+    color: $c-font-clear;
   }
 
   .reports {
@@ -111,7 +111,7 @@ body.no-inquiry {
 
   .docs .expendable {
     padding: 4px 20px 20px 20px;
-    background: #555;
+    background: $c-bg-zebra2;
     position: absolute;
     top: 0;
     left: 0;
@@ -126,14 +126,14 @@ body.no-inquiry {
     @extend %box-radius-bottom, %dropdown-shadow;
 
     z-index: 2;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid $c-border;
     max-height: 500px;
     overflow-y: auto;
   }
 
   .doc:not(:last-child) {
     padding-bottom: 8px;
-    border-bottom: 1px dotted #777;
+    border-bottom: 1px dotted $c-border-light;
     margin-bottom: 8px;
   }
 
@@ -155,7 +155,7 @@ body.no-inquiry {
 
   .report .atom {
     margin-bottom: 0.8em;
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid $c-border-light;
     padding-bottom: 0.8em;
   }
 
@@ -213,7 +213,7 @@ body.no-inquiry {
   .actions:not(.close),
   .links {
     padding-inline-end: 10px;
-    border-inline-end: 1px solid #666;
+    border-inline-end: 1px solid $c-border;
   }
 
   .actions > form {
@@ -222,7 +222,7 @@ body.no-inquiry {
 
   .fbt {
     height: 100%;
-    color: #f0f0f0 !important;
+    color: $c-font !important;
     background: transparent;
     padding: 0 1em;
     transition: none;
@@ -239,12 +239,12 @@ body.no-inquiry {
   }
 
   .fbt.active {
-    color: #fff !important;
+    color: $c-clearer !important;
   }
 
   .links {
     padding: 0 10px;
-    border-inline-start: 1px solid #666;
+    border-inline-start: 1px solid $c-border;
   }
 
   .links a {
@@ -257,7 +257,7 @@ body.no-inquiry {
   }
 
   .process button {
-    background: #555;
+    background: $c-bg-zebra2;
     font-size: 1.8em;
     padding: 0 25px;
   }
@@ -298,7 +298,7 @@ body.no-inquiry {
       position: absolute;
       top: 100%;
       @include inline-end(0);
-      background: #555;
+      background: $c-bg-zebra2;
       overflow: scroll;
       max-height: 80vh;
       padding: 0.4em 0;
@@ -308,7 +308,7 @@ body.no-inquiry {
       > span,
       > i,
       .main {
-        background: #555;
+        background: $c-bg-zebra2;
       }
 
       > div {
@@ -342,7 +342,7 @@ body.no-inquiry {
     }
 
     &.counter:not(.empty) > span {
-      background: #555;
+      background: $c-bg-zebra2;
     }
 
     &.counter > span count {
