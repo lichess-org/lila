@@ -6,7 +6,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String => Frag):
+final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
   import helpers.{ *, given }
 
   def apply(

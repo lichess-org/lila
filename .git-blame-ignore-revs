@@ -87,3 +87,6 @@ cbccd3b23a3ff97e7aaa8e3e4904aa4c521f0103
 
 # scalafmt align none
 bddf2f77e51c4b06a7fefdab4e30331e07be2ed8
+
+# Scala Steward: Reformat with scalafmt 3.9.9
+8c93d107a01f21fa39b8103fc8a6a12e9aea86c2

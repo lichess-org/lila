@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.common.actorBus.*
 import lila.core.socket.Sri
 
 final class BoardApiHookStream(

@@ -13,7 +13,6 @@ import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.FingerHash
 import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }
-import lila.oauth.AccessToken
 
 final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
