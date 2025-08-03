@@ -64,7 +64,7 @@
   <string name="upgradeFromManaged">Байлаулы күйден тәуелсіз күйге ауыстыру</string>
   <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Босату</string>
   <string name="releaseTheAccount">Тіркелгіні босатсаңыз, оны шәкірт дара өзі басқаратын болады.</string>
-  <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін емес. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
+  <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін емес. Шәкірт өз еркімен бала нұсқаны қосып-өшіруге, құпиясөзді қайта орнатуға қабілетті болады.</string>
   <string name="releaseDesc2">Тіркелгі босатылған соң шәкірт үйірмеде қала береді.</string>
   <string name="realUniqueEmail">Шәкірттің шын электронды поштасы. Сонда тіркелгі босатуын растайтын хат жіберетін боламыз.</string>
   <string name="closeStudent">Тіркелгіні жабу</string>
