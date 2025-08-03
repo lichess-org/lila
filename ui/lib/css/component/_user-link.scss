@@ -2,15 +2,15 @@
   @extend %nowrap-hidden;
 
   color: $c-font;
-  $months1-color: #00c8d6;
-  $months2-color: #00a0de;
-  $months3-color: #0075e6;
-  $months6-color: #0046ef;
-  $months9-color: #0014f7;
-  $years1-color: #2400ff;
-  $years2-color: #9600d9;
-  $years3-color: #d3228d;
-  $years4-color: #e75740;
+  $months1-color: #292f56;
+  $months2-color: #1e4572;
+  $months3-color: #005c8b;
+  $months6-color: #007498;
+  $months9-color: #008ba0;
+  $years1-color: #00a3a4;
+  $years2-color: #00bca1;
+  $years3-color: #00d493;
+  $years4-color: #69e882;
   $years5-color: #d59020;
 
   &.online .line {
@@ -28,10 +28,10 @@
     &.patron::after {
       content: '';
       position: absolute;
-      top: 3px;
-      right: 3px;
-      width: 5px;
-      height: 5px;
+      top: 2px;
+      right: 2px;
+      width: 7px;
+      height: 7px;
       background-color: $c-good;
       border-radius: 50%;
     }
@@ -39,6 +39,8 @@
 
   & .line {
     &.patron {
+      text-shadow: 0 0 6px #FFFFFF;
+
       &.months1 {
         color: $months1-color;
       }
