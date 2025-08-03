@@ -255,8 +255,27 @@ trait UserHelper:
   val lineIconChar = Icon.Disc
 
   val lineIcon: Frag = i(cls := "line")
+
+  val tierDescriptions: Map[String, String] = Map(
+    "months1" -> "1 month",
+    "months2" -> "2 months",
+    "months3" -> "3 months",
+    "months6" -> "6 months",
+    "months9" -> "9 months",
+    "years1" -> "1 year",
+    "years2" -> "2 years",
+    "years3" -> "3 years",
+    "years4" -> "4 years",
+    "years5" -> "5 years"
+    )
+
   def patronIcon(tierClass: Option[String] = None)(using Translate): Frag =
-    i(cls := s"line patron${tierClass.map(" " + _).getOrElse("")}", title := trans.patron.lichessPatron.txt())
+    val defaultTitle = trans.patron.lichessPatron.txt()
+    val readableTier = tierClass.flatMap(tierDescriptions.get)
+    val fullTitle = readableTier.map(t => s"$defaultTitle ($t)").getOrElse(defaultTitle)
+    val classSuffix = tierClass.filter(_.nonEmpty).map(" " + _).getOrElse("")
+    i(cls := s"line patron$classSuffix", title := fullTitle)
+
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
   private def lineIcon(patron: Boolean, patronTier: Option[String])(using Translate): Frag =
     if patron then patronIcon(patronTier) else lineIcon
