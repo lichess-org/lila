@@ -30,7 +30,7 @@ final class Preload(
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
-    msgApi: lila.msg.MsgApi,
+    unreadCount: lila.msg.MsgUnreadCount,
     relayListing: lila.relay.RelayListing,
     notifyApi: lila.notify.NotifyApi
 )(using Executor):
@@ -84,7 +84,7 @@ final class Preload(
         ctx.userId
           .ifTrue(nbNotifications > 0)
           .filterNot(liveStreamApi.isStreaming)
-          .so(msgApi.hasUnreadLichessMessage)
+          .so(unreadCount.hasLichessMsg)
       )
     (currentGame, _) <- (ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync)))

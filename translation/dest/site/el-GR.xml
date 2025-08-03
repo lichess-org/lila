@@ -1010,4 +1010,5 @@
   <string name="accessibility">Προσβασιμότητα</string>
   <string name="enableBlindMode">Ενεργοποίηση λειτουργίας για τυφλούς</string>
   <string name="disableBlindMode">Απενεργοποίηση λειτουργίας για τυφλούς</string>
+  <string name="copyToClipboard">Αντιγραφή στο πρόχειρο</string>
 </resources>

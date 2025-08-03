@@ -313,34 +313,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         strong(cls := "inline")(a(href := routes.Clas.teacher(u.username))(nb, " Classes"))
       )
 
-  def modLog(history: List[lila.mod.Modlog])(using Translate) =
-    div(cls := "mod_log mod_log--history")(
-      strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-        "Moderation history",
-        history.isEmpty.option(": nothing to show")
-      ),
-      history.nonEmpty.so:
-        frag(
-          ul:
-            history.map: e =>
-              li(
-                userIdLink(e.mod.userId.some, withTitle = false),
-                " ",
-                b(e.showAction),
-                " ",
-                e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}")(
-                    e.details.orZero: String
-                  )
-                },
-                " ",
-                momentFromNowServer(e.date)
-              )
-          ,
-          br
-        )
-    )
-
   def reportLog(u: User, reports: List[Report])(using Translate): Frag =
     val title = strong(cls := "text", dataIcon := Icon.CautionTriangle)(
       pluralizeLocalize("report", reports.size),

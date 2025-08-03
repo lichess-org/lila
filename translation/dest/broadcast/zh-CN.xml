@@ -65,9 +65,7 @@
   <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s 上的更多选项</string>
   <string name="webmastersPage">网页管理员页面</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">此回合有公开实时的 PGN 源。我们还提供一个 %s ，用于更快并更有效的同步刷新。</string>
   <string name="embedThisBroadcast">将此广播嵌入您的网站</string>
-  <string name="embedThisRound">将 %s 嵌入到您的网站</string>
   <string name="ratingDiff">积分差别</string>
   <string name="gamesThisTournament">这个锦标赛中的游戏</string>
   <string name="score">得分</string>
@@ -83,6 +81,6 @@
   <string name="backToLiveMove">回到实时着法</string>
   <string name="sinceHideResults">由于您选择隐藏比赛结果，为避免剧透，所有棋局预览均为空白状态。</string>
   <string name="liveboard">实时棋局</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">社区转播</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">由 %s 创建和管理。</string>
+  <string name="communityBroadcast">社区转播</string>
+  <string name="createdAndManagedBy">由 %s 创建和管理。</string>
 </resources>

@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.4.0",
+    "@lichess-org/chessground": "9.4.1",
     "@lichess-org/pgn-viewer": "2.4.7",
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.216",
@@ -73,5 +73,8 @@
     "Edge >= 98",
     "Opera >= 84",
     "Safari >= 15.6"
-  ]
+  ],
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
 }

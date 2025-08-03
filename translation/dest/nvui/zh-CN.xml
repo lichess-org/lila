@@ -57,4 +57,6 @@
   <string name="invalidMove">违规着法</string>
   <string name="premoveCancelled">预先走棋已取消</string>
   <string name="premoveRecorded">预先走棋已记录：%s。按回车键以取消</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">复制 %s 到剪贴板</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s 已复制到剪贴板</string>
 </resources>

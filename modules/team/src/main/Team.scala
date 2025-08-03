@@ -44,6 +44,10 @@ case class Team(
 
   def data = TeamData(id, name, description, nbMembers, createdBy)
 
+  def daysOld = daysBetween(createdAt, nowInstant)
+
+  def notable = open && (nbMembers > 10 || (nbMembers > 1 && daysOld > 7))
+
 object Team:
 
   case class WithLeaders(team: Team, leaders: List[TeamMember]):

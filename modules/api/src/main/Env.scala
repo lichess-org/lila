@@ -94,6 +94,8 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
+  lazy val mobile = wire[MobileApi]
+
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness = wire[ChatFreshness]
 

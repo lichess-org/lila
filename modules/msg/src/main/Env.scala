@@ -47,6 +47,8 @@ final class Env(
 
   val search = wire[MsgSearch]
 
+  val unreadCount = wire[MsgUnreadCount]
+
   val compat = wire[MsgCompat]
 
   val twoFactorReminder = wire[TwoFactorReminder]

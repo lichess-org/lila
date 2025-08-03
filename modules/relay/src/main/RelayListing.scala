@@ -9,17 +9,26 @@ import lila.db.dsl.{ *, given }
 final class RelayListing(
     colls: RelayColls,
     groupRepo: RelayGroupRepo,
+    tourRepo: RelayTourRepo,
     cacheApi: lila.memo.CacheApi,
     groupCrowd: RelayGroupCrowdSumCache
 )(using Executor):
 
   import BSONHandlers.given
+  import RelayListing.tierPriority
 
   def spotlight: List[RelayCard] = spotlightCache
 
   val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
     _.expireAfterWrite(5.seconds).buildAsyncFuture: tourId =>
       tourWithRounds(tourId).mapz(RelayListing.defaultRoundToLink)
+
+  val defaultTourOfGroup = cacheApi[RelayGroupId, Option[RelayTour]](8, "relay.defaultTourOfGroup"):
+    _.expireAfterWrite(10.seconds).buildAsyncFuture: groupId =>
+      groupRepo
+        .byId(groupId)
+        .flatMapz: group =>
+          tourRepo.byIds(group.tours).map(RelayListing.defaultTourOfGroup)
 
   def active: Fu[List[RelayCard]] = activeCache.get({})
 
@@ -74,8 +83,6 @@ final class RelayListing(
           group = main.group,
           alts = s.tail.filter(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
         )
-
-  private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 
   private object dynamicTier:
 
@@ -141,7 +148,7 @@ final class RelayListing(
       .aggregateList(max): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           Sort(Descending("tier")),
           Limit(max),
           PipelineOperator(tourRoundPipeline)
@@ -153,17 +160,13 @@ final class RelayListing(
       .aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           PipelineOperator(tourRoundPipeline)
         )
       .map(_.flatMap(readTourRound))
 
-  // unset heavy fields that we don't use for listing
-  private val tourUnsets =
-    $doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)
-
   private val tourRoundPipeline: Bdoc =
-    $lookup.pipeline(
+    $lookup.simple(
       from = colls.round,
       as = "rounds",
       local = "_id",
@@ -178,6 +181,8 @@ final class RelayListing(
   yield tour.withRounds(rounds)
 
 private object RelayListing:
+
+  private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 
   def defaultRoundToLink(trs: RelayTour.WithRounds): Option[RelayRound] =
     if !trs.tour.active then trs.rounds.headOption
@@ -196,3 +201,9 @@ private object RelayListing:
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
                 then next.some
                 else last.some
+
+  def defaultTourOfGroup(tours: List[RelayTour]): Option[RelayTour] =
+    val active = tours.filter(_.active)
+    val filtered = if active.nonEmpty then active else tours
+    // sorted preserves the original ordering while adding its own
+    filtered.sorted(using Ordering.by(tierPriority)).headOption

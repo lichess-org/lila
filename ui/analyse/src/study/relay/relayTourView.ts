@@ -24,6 +24,7 @@ import { displayColumns, isTouchDevice } from 'lib/device';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
+import { pubsub } from 'lib/pubsub';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -91,7 +92,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           key: `relay-games.${resizeId}`,
           min: () => 48,
           max: () => 48 * study.chapters.list.size(),
-          initialMaxHeight: window.innerHeight / 2,
+          initialMaxHeight: () => window.innerHeight / 2,
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
       resizeId &&
@@ -100,7 +101,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
           id: resizeId,
           min: () => 0,
           max: () => window.innerHeight,
-          initialMaxHeight: window.innerHeight / 3,
+          initialMaxHeight: () => window.innerHeight / 3,
           kid: hl('div.chat__members', { hook: onInsert(el => watchers(el, false)) }),
         }),
       kid,
@@ -195,35 +196,63 @@ const share = (ctx: RelayViewContext) => {
       hl('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
     ),
   );
+  const link = (text: string, path: string, help?: VNode) =>
+    hl('div.form-group', [
+      hl('label.form-label', text),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      help,
+    ]);
   const roundName = ctx.relay.roundName();
+  const { tour, group } = ctx.relay.data;
   return hl(
-    'div.relay-tour__share',
+    'div.relay-tour__share-all',
+    {
+      hook: onInsert(_ => pubsub.emit('content-loaded')),
+    },
     [
-      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
-      [roundName, ctx.relay.roundPath()],
-      [
-        `${roundName} PGN`,
-        `${ctx.relay.roundPath()}.pgn`,
-        hl(
-          'div.form-help',
-          i18n.broadcast.pgnSourceHelp.asArray(
-            hl(
-              'a',
-              { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-              'streaming API',
-            ),
-          ),
-        ),
-      ],
-      [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
-      [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
-    ].map(([text, path, help]: [string, string, VNode]) =>
-      hl('div.form-group', [
-        hl('label.form-label', text),
-        copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
-        help,
+      hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle', [
+        hl('legend', 'Share this broadcast by URL'),
+        group && link(group.name, `/broadcast/${group.slug}/${group.id}`),
+        link(tour.name, ctx.relay.tourPath()),
+        link(tour.name + ' | ' + roundName, ctx.relay.roundPath()),
       ]),
-    ),
+      hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
+        hl('legend', 'Download PGN'),
+        hl('p.form-group', [
+          'We offer full PGN downloads for all our broadcasts.',
+          hl('br'),
+          'To synchronize ongoing games, use ',
+          hl(
+            'a',
+            { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            'our free streaming API',
+          ),
+          ' for stupendous speed and efficiency.',
+          hl('br'),
+          'To download all the broadcasts, use ',
+          hl(
+            'a',
+            { attrs: { href: 'https://database.lichess.org/#broadcasts' } },
+            'our full database exports',
+          ),
+          '.',
+        ]),
+        link('This round: ' + roundName, `${ctx.relay.roundPath()}.pgn`),
+        link(
+          'This tournament: ' + tour.name,
+          `/api/broadcast/${tour.id}.pgn`,
+          hl('div.form-help', 'All games of all rounds of this tournament. It may take a while to download.'),
+        ),
+        hl('p.form-group', 'Individual game download is available on each game page.'),
+      ]),
+      hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
+        hl('legend', i18n.broadcast.embedThisBroadcast),
+        group &&
+          link('Follow ongoing tournament', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
+        link('This tournament: ' + tour.name, iframe(ctx.relay.tourPath()), iframeHelp),
+        link('This round: ' + roundName, iframe(ctx.relay.roundPath()), iframeHelp),
+      ]),
+    ],
   );
 };
 
@@ -231,7 +260,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
   const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
   return hl(
-    'div.mselect.relay-tour__mselect.relay-tour__group-select',
+    'div.mselect.relay-tour__mselect.relay-tour__tour-select',
     {
       class: { mselect__active: toggle() },
     },
@@ -247,9 +276,21 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
           'nav.mselect__list',
           group.tours.map(tour =>
             hl(
-              `a.mselect__item${tour.id === ctx.relay.data.tour.id ? '.current' : ''}`,
-              { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
-              tour.name,
+              'a.mselect__item',
+              {
+                class: {
+                  current: tour.id === ctx.relay.data.tour.id,
+                  ['ongoing-tour']: !!tour.live,
+                },
+                attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
+              },
+              [
+                tour.name,
+                tour.live &&
+                  hl('span.tour-state.ongoing', {
+                    attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
+                  }),
+              ],
             ),
           ),
         ),

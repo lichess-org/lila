@@ -323,6 +323,25 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
   }
 
+  /* aggregates, for the new mobile app:
+   * /api/games/user/:user
+   * /api/account?playban=1
+   * /api/account/playing
+   * /tournament/featured
+   * /inbox/unread-count
+   */
+  def mobileHome = Scoped(_.Web.Mobile) { _ ?=> me ?=>
+    limit.apiMobileHome(me, rateLimited):
+      JsonOk:
+        env.api.mobile.home(
+          getAccount = getBool("account"),
+          getRecentGames = getBool("recentGames"),
+          getOngoingGames = getBool("ongoingGames"),
+          getTournaments = getBool("tournaments"),
+          getInbox = getBool("inbox")
+        )
+  }
+
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
 

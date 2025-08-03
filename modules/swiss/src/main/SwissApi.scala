@@ -353,9 +353,9 @@ final class SwissApi(
         import framework.*
         Match($doc("teamId".$in(teamIds), "featurable" -> true)) -> List(
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.simple(
+              from = mongo.player,
               as = "player",
-              from = mongo.player.name,
               local = "_id",
               foreign = "s",
               pipe = List($doc("$match" -> $doc("u" -> userId)))
@@ -628,7 +628,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.pub(
-                    lila.core.round.TellMany(flagged.map(_.id), RoundBus.QuietFlag)
+                    lila.core.round.TellMany(flagged.map(_.id), RoundBus.QuietFlagCheck)
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished

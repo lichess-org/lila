@@ -23,7 +23,7 @@ enum RoundBus extends NotBuseable:
   case Draw(playerId: GamePlayerId, draw: Boolean)
   case FishnetPlay(uci: Uci, sign: String)
   case IsOnGame(color: Color, promise: Promise[Boolean])
-  case QuietFlag
+  case QuietFlagCheck
   case Rematch(playerId: GamePlayerId, rematch: Boolean)
   case Resign(playerId: GamePlayerId)
   case ResignForce(playerId: GamePlayerId)
@@ -31,7 +31,7 @@ enum RoundBus extends NotBuseable:
   case Takeback(playerId: GamePlayerId, takeback: Boolean)
 
 case class Tell(id: GameId, msg: RoundBus)
-case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlag.type)
+case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlagCheck.type)
 
 case class MoveEvent(
     gameId: GameId,

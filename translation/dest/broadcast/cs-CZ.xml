@@ -71,9 +71,7 @@
   <string name="officialStandings">Oficiální pořadí</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
   <string name="webmastersPage">Stránka webmasterů</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Veřejný zdroj PGN v reálném čase pro toto kolo. Nabízíme také %s pro rychlejší a efektivnější synchronizaci.</string>
   <string name="embedThisBroadcast">Vložte toto vysílání na váš web</string>
-  <string name="embedThisRound">Vložte %s na váš web</string>
   <string name="ratingDiff">Ratingový rozdíl</string>
   <string name="gamesThisTournament">Hry v tomto turnaji</string>
   <string name="score">Skóre</string>

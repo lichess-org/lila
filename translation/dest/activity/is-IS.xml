@@ -39,8 +39,8 @@
     <item quantity="other">Lauk við %1$s %2$s-bréfskákir</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Hóf að fylgja %s leikmanni</item>
-    <item quantity="other">Hóf að fylgja %s leikmönnum</item>
+    <item quantity="one">Hóf að fylgja %s notanda</item>
+    <item quantity="other">Hóf að fylgja %s notendum</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Eignaðist %s nýjan fylgjanda</item>

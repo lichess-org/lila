@@ -170,7 +170,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
 
     def lookup(pk: PerfKey): Bdoc =
       val pipe = List($doc("$project" -> $doc(pk.value -> true)))
-      $lookup.pipeline(coll, "perfs", "_id", "_id", pipe)
+      $lookup.simple(coll, "perfs", "_id", "_id", pipe)
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root
