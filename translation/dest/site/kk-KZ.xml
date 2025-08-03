@@ -743,7 +743,7 @@
   <string name="ifYouDoNotGetTheEmail">Егер 5 минутта поштаңызға хат келмесе:</string>
   <string name="checkAllEmailFolders">Спам, себет, басқа да қалталарды қарап шығыңыз</string>
   <string name="verifyYourAddress">%s дұрыс жазылғанын тексеріңіз</string>
-  <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
+  <string name="weHaveSentYouAnEmailTo">Біз %s хат жібердік. Құпиясөзді қайта орнату үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
