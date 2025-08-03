@@ -10,7 +10,7 @@
   <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
   <string name="lost2FA">Мен екі-сатылы өкіл-растама құлыпсөздерін жоғалттым</string>
-  <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
+  <string name="doPasswordReset">Екі-сатылы растауды өшіру үшін құпиясөзді қайта орнатыңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
   <string name="visitTitleConfirmation">Сіздің төлқұжатыңызда атақты көрсету үшін, әрі Атақтылар Алаңына қатысу үшін атақты растау парақшасына өтіңіз</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
-  <string name="illegalPawnCapture">Сарбазды қате жолмен басу</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Сарбазды қате жолмен басу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
