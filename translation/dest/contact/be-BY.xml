@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Як памылку мабільнай прылады Lichess на GitHub</string>
   <string name="reportBugInDiscord">Ва Discord cерверы Lichess</string>
   <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
-  <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Недазволенае ўзяцце пешкі</string>
   <string name="calledEnPassant">Гэта называецца \"ўзяцце на праходзе\" і з\'яўляецца адным з правіл шахмат.</string>
   <string name="tryEnPassant">Паспрабуйце гэтую маленькую інтэрактыўную гульню, каб дазнацца больш пра \"ўзяцце на праходзе\".</string>
   <string name="illegalCastling">Недазволеная або немагчымая ракіроўка</string>
