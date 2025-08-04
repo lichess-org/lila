@@ -121,11 +121,12 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
       )
 
-  def apiShow(id: TourId) = AnonOrScoped(): _ ?=>
+  def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
     env.tournament.tournamentRepo
       .byId(id)
       .flatMapz: tour =>
-        val page = (getInt("page") | 1).atLeast(1).atMost(200)
+        val maxPage = if ctx.isMobileOauth then 5_000 else 200
+        val page = (getInt("page") | 1).atLeast(1).atMost(maxPage)
         given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
         for
           data <- env.tournament.jsonView(
