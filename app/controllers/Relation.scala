@@ -6,6 +6,7 @@ import scalalib.Json.given
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.app.{ *, given }
+import lila.common.MenuItem
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
@@ -16,15 +17,23 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
+  private def renderActions(username: UserName, mini: Boolean, menu: Boolean)(using ctx: Context) = for
     user <- env.user.lightUserApi.asyncFallbackName(username)
     relation <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
-    res <- Ok.snip:
-      if mini
-      then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-      else views.relation.actions(user, relation, blocked = blocked, followable = followable)
+    res <-
+      if menu then
+        Ok(
+          MenuItem.serialize(
+            views.relation.actionsMenu(user, relation, blocked = blocked, followable = followable)
+          )
+        )
+      else
+        Ok.snip:
+          if mini
+          then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+          else views.relation.actions(user, relation, blocked = blocked, followable = followable)
   yield res
 
   private def RatelimitWith(
@@ -48,7 +57,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           else
             for
               _ <- api.follow(me, user.id).recoverDefault
-              res <- negotiate(renderActions(user.name, getBool("mini")), jsonOkResult)
+              res <- negotiate(renderActions(user.name, getBool("mini"), getBool("menu")), jsonOkResult)
             yield res
       yield res
   }
@@ -58,7 +67,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unfollow(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini")),
+        renderActions(user.name, getBool("mini"), getBool("menu")),
         jsonOkResult
       )
   }
@@ -67,7 +76,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.block(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini")),
+        renderActions(user.name, getBool("mini"), getBool("menu")),
         jsonOkResult
       )
   }
@@ -75,7 +84,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unblock(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini")),
+        renderActions(user.name, getBool("mini"), getBool("menu")),
         jsonOkResult
       )
   }

@@ -93,7 +93,7 @@ lazy val coreI18n = module("coreI18n",
 )
 
 lazy val common = module("common",
-  Seq(core),
+  Seq(core, ui),
   Seq(
     kamon.core, scaffeine, apacheText, chess.playJson
   ) ++ flexmark.bundle

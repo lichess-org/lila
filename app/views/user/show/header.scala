@@ -6,6 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
+import lila.common.{ Menu, MenuItem }
 
 object header:
 
@@ -17,6 +18,79 @@ object header:
       u.profile.exists(_.links.isDefined) ||
         u.profile.flatMap(_.nonEmptyBio).exists(_.contains("https://"))
     )
+
+  private def getUserActionsMenu(u: User, social: UserInfo.Social)(using ctx: Context) =
+    new Menu(
+      List(
+        isGranted(_.UserModView).option(
+          MenuItem(
+            "Mod zone",
+            Icon.Agent,
+            routes.User.mod(u.username).url,
+            cssClass = Some("mod-zone-toggle")
+          )
+        ),
+        ctx
+          .is(u)
+          .option(
+            MenuItem(trans.site.editProfile.txt(), Icon.Gear, routes.Account.profile.url)
+          ),
+        Some(
+          MenuItem(trans.site.watchGames.txt(), Icon.AnalogTv, routes.User.tv(u.username).url)
+        )
+      ).flatten ++
+        ctx
+          .isnt(u)
+          .option(
+            views.relation.actionsMenu(
+              u.light,
+              relation = social.relation,
+              followable = social.followable,
+              blocked = social.blocked
+            )
+          )
+          .getOrElse(Nil) ++
+        List(
+          Some(
+            MenuItem(
+              trans.site.openingExplorer.txt(),
+              Icon.Book,
+              s"${routes.UserAnalysis.index}#explorer/${u.username}"
+            )
+          ),
+          Some(
+            MenuItem(trans.site.exportGames.txt(), Icon.Download, routes.User.download(u.username).url)
+          ),
+          (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
+            MenuItem(
+              trans.site.reportXToModerators.txt(u.username),
+              Icon.CautionTriangle,
+              s"${routes.Report.form}?username=${u.username}"
+            )
+          ),
+          (ctx.is(u) || isGranted(_.CloseAccount)).option(
+            MenuItem(trans.site.friends().render, Icon.User, routes.Relation.following(u.username).url)
+          ),
+          (ctx.is(u) || isGranted(_.BoostHunter)).option(
+            MenuItem(
+              trans.site.favoriteOpponents().render,
+              Icon.User,
+              s"${routes.User.opponents}?u=${u.username}"
+            )
+          ),
+          ctx
+            .is(u)
+            .option(
+              MenuItem(trans.site.listBlockedPlayers.txt(), Icon.NotAllowed, routes.Relation.blocks().url)
+            ),
+          ctx.me
+            .soUse(lila.mod.canImpersonate(u.id))
+            .option(
+              MenuItem("Impersonate", Icon.Agent, routes.Mod.impersonate(u.username.value).url)
+            )
+        ).flatten,
+      trans.site.more.txt()
+    ).serialize()
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
@@ -95,82 +169,10 @@ object header:
           (ctx.isAuth && ctx.isnt(u))
             .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
         ),
-        div(cls := "user-actions")(
-          isGranted(_.UserModView).option(
-            a(
-              cls := "mod-zone-toggle",
-              href := routes.User.mod(u.username),
-              dataIcon := Icon.Agent,
-              title := "Mod zone (Hotkey: m)"
-            )
-          ),
-          div(cls := "dropdown")(
-            a(dataIcon := Icon.Hamburger),
-            div(cls := "dropdown-window")(
-              ctx
-                .is(u)
-                .option(
-                  frag(
-                    a(
-                      cls := "text",
-                      href := routes.Account.profile,
-                      dataIcon := Icon.Gear
-                    )(trans.site.editProfile.txt()),
-                    a(
-                      cls := "text",
-                      href := routes.Relation.blocks(),
-                      dataIcon := Icon.NotAllowed
-                    )(trans.site.listBlockedPlayers.txt())
-                  )
-                ),
-              a(
-                cls := "text",
-                href := routes.User.tv(u.username),
-                dataIcon := Icon.AnalogTv
-              )(trans.site.watchGames.txt()),
-              ctx
-                .isnt(u)
-                .option(
-                  views.relation.actions(
-                    u.light,
-                    relation = social.relation,
-                    followable = social.followable,
-                    blocked = social.blocked
-                  )
-                ),
-              a(
-                cls := "text",
-                href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
-                dataIcon := Icon.Book
-              )(trans.site.openingExplorer.txt()),
-              a(
-                cls := "text",
-                href := routes.User.download(u.username),
-                dataIcon := Icon.Download
-              )(trans.site.exportGames.txt()),
-              (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
-                a(
-                  cls := "text",
-                  href := s"${routes.Report.form}?username=${u.username}",
-                  dataIcon := Icon.CautionTriangle
-                )(trans.site.reportXToModerators.txt(u.username))
-              ),
-              (ctx.is(u) || isGranted(_.CloseAccount)).option(
-                a(href := routes.Relation.following(u.username), dataIcon := Icon.User)(trans.site.friends())
-              ),
-              (ctx.is(u) || isGranted(_.BoostHunter)).option(
-                a(href := s"${routes.User.opponents}?u=${u.username}", dataIcon := Icon.User)(
-                  trans.site.favoriteOpponents()
-                )
-              ),
-              ctx.me
-                .soUse(lila.mod.canImpersonate(u.id))
-                .option:
-                  postForm(action := routes.Mod.impersonate(u.username.value)):
-                    submitButton(cls := "btn-rack__btn")("Impersonate")
-            )
-          )
-        )
+        div(
+          cls := "user-actions dropdown-overflow",
+          attr("data-menu") := getUserActionsMenu(u, social)
+        )()
       ),
       ctx.isnt(u).option(noteUi.zone(u, social.notes)),
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
