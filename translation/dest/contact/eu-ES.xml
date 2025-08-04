@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
   <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
-  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Peoiarekin legez-kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
   <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
   <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
