@@ -61,7 +61,8 @@ final class Env(
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView
-)(using val mode: Mode, scheduler: Scheduler)(using
+)(using scheduler: Scheduler)(using
+    Mode,
     Executor,
     ActorSystem,
     akka.stream.Materializer,
