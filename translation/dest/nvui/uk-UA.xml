@@ -11,6 +11,13 @@
   <string name="yourClock">Ваш годинник</string>
   <string name="opponentClock">Годинник супротивника</string>
   <string name="gameStart">Початок гри</string>
+  <string name="goToInputForm">Перейти до форми введення команд.</string>
+  <string name="announceCurrentSquare">Оголосити поточне поле.</string>
+  <string name="announceLastMove">Оголосити останній хід.</string>
+  <string name="announceLastMoveCapture">Оголосити фігуру, яку побили останнім ходом.</string>
+  <string name="announcePossibleMoves">Оголосити можливі ходи обраної фігури.</string>
+  <string name="announcePossibleCaptures">Оголосити можливі взяття обраної фігури.</string>
+  <string name="movePiece">Щоб зробити хід, використайте звичайну шахову нотацію.</string>
   <string name="king">король</string>
   <string name="whiteKing">білий король</string>
   <string name="blackKing">чорний король</string>
@@ -33,4 +40,7 @@
   <string name="sanCheck" comment="+ in standard notation">шах</string>
   <string name="sanCheckmate" comment="# in standard notation">мат</string>
   <string name="sanPromotesTo" comment="= in standard notation">перетворюється на</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">довга рокіровка</string>
+  <string name="invalidMove">Неможливий хід</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN та FEN</string>
 </resources>
