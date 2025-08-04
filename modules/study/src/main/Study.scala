@@ -61,6 +61,8 @@ case class Study(
     case _: From.Relay => true
     case _ => false
 
+  def notable = likes.value > 2 || createdAt.isBefore(nowInstant.minusDays(7))
+
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
