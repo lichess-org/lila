@@ -479,7 +479,6 @@
   <string name="openTournaments">Açık turnuvalar</string>
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
-  <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni bir turnuva oluştur</string>
   <string name="tournamentCalendar">Turnuva takvimi</string>
   <string name="conditionOfEntry">Katılma şartı:</string>
