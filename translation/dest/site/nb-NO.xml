@@ -479,6 +479,7 @@
   <string name="openTournaments">Åpne turneringer</string>
   <string name="duration">Varighet</string>
   <string name="winner">Vinner</string>
+  <string name="standings">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelse for å delta:</string>
