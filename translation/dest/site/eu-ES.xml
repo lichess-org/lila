@@ -479,7 +479,6 @@
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>
   <string name="winner">Irabazlea</string>
-  <string name="standing">Sailkapen-taula</string>
   <string name="createANewTournament">Txapelketa berria sortu</string>
   <string name="tournamentCalendar">Txapelketa-egutegia</string>
   <string name="conditionOfEntry">Parte hartzeko baldintza:</string>
