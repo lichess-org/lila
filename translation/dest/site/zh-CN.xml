@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">与好友下棋</string>
   <string name="playWithTheMachine">与电脑下棋</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址来邀请好友下棋：</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址以邀请好友下棋</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
   <string name="orLetYourOpponentScanQrCode">也可以让对方扫描这个二维码：</string>
@@ -443,6 +443,7 @@
   <string name="openTournaments">公开锦标赛</string>
   <string name="duration">持续时间</string>
   <string name="winner">获胜者</string>
+  <string name="standings">排名</string>
   <string name="createANewTournament">建立新的锦标赛</string>
   <string name="tournamentCalendar">锦标赛日程表</string>
   <string name="conditionOfEntry">参赛条件：</string>
