@@ -464,7 +464,6 @@
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
   <string name="winner">Győztes</string>
-  <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny indítása</string>
   <string name="tournamentCalendar">Versenynaptár</string>
   <string name="conditionOfEntry">Nevezés feltétele:</string>
