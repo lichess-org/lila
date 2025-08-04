@@ -443,7 +443,6 @@
   <string name="openTournaments">ทัวร์นาเมนต์ที่เปิด</string>
   <string name="duration">ระยะเวลา</string>
   <string name="winner">ผู้ชนะ</string>
-  <string name="standing">อันดับ</string>
   <string name="createANewTournament">สร้างทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentCalendar">ปฏิทินทัวร์นาเมนต์</string>
   <string name="conditionOfEntry">เงื่อนไขการเข้าร่วม:</string>
