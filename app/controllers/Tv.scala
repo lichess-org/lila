@@ -27,8 +27,6 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
         Ok.snip(views.tv.ui.side.sides(pov, ct))
       }
 
-  private given Writes[lila.tv.Tv.Champion] = Json.writes
-
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions
       .map:

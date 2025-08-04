@@ -91,7 +91,7 @@ object Stream:
     private given Reads[Item] = Json.reads
     given Reads[Result] = Json.reads
 
-  def toJson(picfit: lila.memo.PicfitUrl, stream: Stream) = Json.obj(
+  def toJson(picfit: lila.core.misc.PicfitUrl, stream: Stream) = Json.obj(
     "stream" -> Json.obj(
       "service" -> stream.serviceName,
       "status" -> stream.status,
@@ -103,7 +103,6 @@ object Stream:
       .add("description" -> stream.streamer.description)
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
       .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
-      .add("image" -> stream.streamer.picture.map { pic =>
-        picfit.thumbnail(pic, Streamer.imageSize, Streamer.imageSize)
-      })
+      .add("image" -> stream.streamer.picture.map: pic =>
+        picfit.thumbnail(pic, Streamer.imageSize, Streamer.imageSize))
   )
