@@ -36,7 +36,7 @@ final class MobileApi(
         perfs <- userApi.withPerfs(u.value)
         tours <- featuredTournaments(using perfs.some)
       yield tours
-    val inboxFu = me.map(unreadCount.mobile)
+    val inboxFu = me.map(me => unreadCount.mobile(me.value))
     for
       account <- accountFu.sequence
       recentGames <- recentGamesFu.sequence
