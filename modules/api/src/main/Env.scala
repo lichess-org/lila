@@ -57,7 +57,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     manifest: lila.web.AssetManifest,
-    tokenApi: lila.oauth.AccessTokenApi
+    tokenApi: lila.oauth.AccessTokenApi,
+    tv: lila.tv.Tv
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
