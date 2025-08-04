@@ -246,10 +246,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):
-      for
-        (active, past) <- env.relay.top(page)
-        res <- JsonOk(env.relay.jsonView.top(active, past))
-      yield res
+      JsonOk(env.relay.topJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):

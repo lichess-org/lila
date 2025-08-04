@@ -1791,7 +1791,7 @@ object I18nKey:
     val `openTournaments`: I18nKey = "openTournaments"
     val `duration`: I18nKey = "duration"
     val `winner`: I18nKey = "winner"
-    val `standing`: I18nKey = "standing"
+    val `standings`: I18nKey = "standings"
     val `createANewTournament`: I18nKey = "createANewTournament"
     val `tournamentCalendar`: I18nKey = "tournamentCalendar"
     val `conditionOfEntry`: I18nKey = "conditionOfEntry"

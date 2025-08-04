@@ -65,6 +65,10 @@ object Tv:
   case class Champions(channels: Map[Channel, Champion]):
     export channels.get
 
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  given Writes[lila.tv.Tv.Champion] = Json.writes
+
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
   enum Channel(

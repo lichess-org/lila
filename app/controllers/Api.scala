@@ -342,6 +342,15 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         )
   }
 
+  /* aggregates, for the new mobile app:
+   * /api/broadcast/top?page=1
+   * /api/tv/channels
+   * /api/streamer/live
+   */
+  def mobileWatch = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+    JsonOk(env.api.mobile.watch)
+  }
+
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
 

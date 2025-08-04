@@ -41,15 +41,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           )
 
   def live = apiC.ApiRequest:
-    for
-      s <- env.streamer.liveStreamApi.all
-      users <- env.user.lightUserApi.asyncManyFallback(s.streams.map(_.streamer.userId))
-    yield apiC.toApiResult:
-      (s.streams
-        .zip(users))
-        .map: (stream, user) =>
-          Json.toJsObject(user) ++
-            lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
+    env.api.mobile.featuredStreamers.map(apiC.toApiResult)
 
   def show(username: UserStr) = Open:
     Found(api.forSubscriber(username)): s =>
