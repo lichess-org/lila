@@ -471,6 +471,7 @@
   <string name="openTournaments">நுழைவேற்கும் பந்தயங்கள்</string>
   <string name="duration">காலம்</string>
   <string name="winner">வெற்றியாளர்</string>
+  <string name="standings">நிலைகள்</string>
   <string name="createANewTournament">புதுப்பந்தயம் ஒன்றைப் படை</string>
   <string name="tournamentCalendar">பந்தயங்களுக்கான நாட்காட்டி</string>
   <string name="conditionOfEntry">நுழைவிற்கு தேவை:</string>
