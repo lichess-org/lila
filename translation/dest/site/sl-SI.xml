@@ -551,7 +551,6 @@
   <string name="openTournaments">Odprti turnirji</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Zmagovalec</string>
-  <string name="standing">Lestvica</string>
   <string name="createANewTournament">Ustvari turnir</string>
   <string name="tournamentCalendar">Turnirski koledar</string>
   <string name="conditionOfEntry">Vstopni pogoji:</string>
@@ -1099,5 +1098,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="accessibility">Dostopnost</string>
   <string name="enableBlindMode">Vključite slepi način</string>
   <string name="disableBlindMode">Izključite slepi način</string>
-  <string name="copyToClipboard" comment="Clipboard is a concept in computing. The clipboard is where text goes after you copy it. Every time  you paste text, you paste from the clipboard.&#10;&#10;Microsoft has translations to most languages and you are encouraged to use their translation for 'clipboard' - you can look it up here: https://msit.powerbi.com/view?r=eyJrIjoiODJmYjU4Y2YtM2M0ZC00YzYxLWE1YTktNzFjYmYxNTAxNjQ0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9">Kopiraj v odložišče</string>
+  <string name="copyToClipboard">Kopiraj v odložišče</string>
 </resources>
