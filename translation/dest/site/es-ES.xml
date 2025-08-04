@@ -479,6 +479,7 @@
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
+  <string name="standings">Clasificaciones</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
   <string name="tournamentCalendar">Calendario de torneos</string>
   <string name="conditionOfEntry">Requisito de entrada:</string>
