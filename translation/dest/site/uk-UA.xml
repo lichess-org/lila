@@ -542,7 +542,6 @@
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
   <string name="winner">Переможець</string>
-  <string name="standing">Турнірна таблиця</string>
   <string name="createANewTournament">Створити новий турнір</string>
   <string name="tournamentCalendar">Турнірний календар</string>
   <string name="conditionOfEntry">Умови участі:</string>
