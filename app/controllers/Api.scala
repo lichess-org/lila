@@ -330,16 +330,9 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /tournament/featured
    * /inbox/unread-count
    */
-  def mobileHome = Scoped(_.Web.Mobile) { _ ?=> me ?=>
-    limit.apiMobileHome(me, rateLimited):
-      JsonOk:
-        env.api.mobile.home(
-          getAccount = getBool("account"),
-          getRecentGames = getBool("recentGames"),
-          getOngoingGames = getBool("ongoingGames"),
-          getTournaments = getBool("tournaments"),
-          getInbox = getBool("inbox")
-        )
+  def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
+    limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):
+      JsonOk(env.api.mobile.home)
   }
 
   /* aggregates, for the new mobile app:
@@ -347,9 +340,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/tv/channels
    * /api/streamer/live
    */
-  def mobileWatch = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+  def mobileWatch = Anon { _ ?=>
     JsonOk(env.api.mobile.watch)
   }
+
+  def mobileProfile = ???
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
