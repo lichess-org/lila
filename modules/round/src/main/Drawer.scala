@@ -55,7 +55,7 @@ final private[round] class Drawer(
         // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
         // are based on whose turn it is.
         if (pov.isMyTurn && pov.game.position.opponentHasInsufficientMaterial) ||
-          (!pov.isMyTurn && pov.game.position.playerHasInsufficientMaterial.exists(identity))
+          (!pov.isMyTurn && ~pov.game.position.playerHasInsufficientMaterial)
         then finisher.other(pov.game, _.InsufficientMaterialClaim, None)
         else
           val progress = Progress(g).map(offerDraw(color))
