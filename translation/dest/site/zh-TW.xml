@@ -431,6 +431,7 @@
   <string name="openTournaments">公開錦標賽</string>
   <string name="duration">持續時間</string>
   <string name="winner">贏家</string>
+  <string name="standings">排行榜</string>
   <string name="createANewTournament">建立新的錦標賽</string>
   <string name="tournamentCalendar">錦標賽日程</string>
   <string name="conditionOfEntry">加入限制:</string>
