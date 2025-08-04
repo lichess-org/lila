@@ -551,6 +551,7 @@
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
   <string name="winner">Победитель</string>
+  <string name="standings">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
   <string name="tournamentCalendar">Турнирный календарь</string>
   <string name="conditionOfEntry">Условия участия:</string>
