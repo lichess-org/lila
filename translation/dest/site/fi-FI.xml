@@ -479,7 +479,6 @@
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
   <string name="winner">Voittaja</string>
-  <string name="standing">Sija</string>
   <string name="createANewTournament">Luo uusi turnaus</string>
   <string name="tournamentCalendar">Turnauskalenteri</string>
   <string name="conditionOfEntry">Liittymisehto:</string>
