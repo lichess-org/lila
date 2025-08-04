@@ -551,6 +551,7 @@
   <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
+  <string name="standings">Klasyfikacja</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejowy</string>
   <string name="conditionOfEntry">Warunki przystąpienia:</string>
