@@ -12,6 +12,9 @@ object mon:
 
   import kamon.Kamon.{ timer, gauge, counter, histogram }
 
+  // escape " into \"
+  extension (s: String) def escape: String = s.replaceAll(""""""", """\\"""")
+
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
@@ -292,7 +295,7 @@ object mon:
         tags("code" -> code.toLong, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
     val dedup = counter("relay.fetch.dedup").withoutTags()
     def push(name: String, user: UserName, client: String)(moves: Int, errors: Int) =
-      val ts = tags("name" -> name, "user" -> user, "client" -> client)
+      val ts = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
       histogram("relay.push.moves").withTags(ts).record(moves)
       histogram("relay.push.errors").withTags(ts).record(errors)
 
