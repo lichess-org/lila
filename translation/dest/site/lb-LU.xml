@@ -479,6 +479,7 @@
   <string name="openTournaments">Oppen Turnéieren</string>
   <string name="duration">Dauer</string>
   <string name="winner">Gewënner</string>
+  <string name="standings">Stand</string>
   <string name="createANewTournament">Neien Turnéier kreéieren</string>
   <string name="tournamentCalendar">Turnéierkalenner</string>
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
