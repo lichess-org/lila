@@ -58,7 +58,9 @@ final class Env(
     webConfig: lila.web.WebConfig,
     manifest: lila.web.AssetManifest,
     tokenApi: lila.oauth.AccessTokenApi,
-    tv: lila.tv.Tv
+    tv: lila.tv.Tv,
+    activityRead: lila.activity.ActivityReadApi,
+    activityJson: lila.activity.JsonView
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
