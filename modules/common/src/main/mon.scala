@@ -291,8 +291,8 @@ object mon:
       timer("relay.http.get").withTags:
         tags("code" -> code.toLong, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
     val dedup = counter("relay.fetch.dedup").withoutTags()
-    def push(name: String, user: UserName, client: String)(moves: Int, errors: Int) =
-      val ts = tags("name" -> name, "user" -> user, "client" -> client)
+    def push(roundId: RelayRoundId, user: UserName, client: String)(moves: Int, errors: Int) =
+      val ts = tags("roundId" -> roundId, "user" -> user, "client" -> client)
       histogram("relay.push.moves").withTags(ts).record(moves)
       histogram("relay.push.errors").withTags(ts).record(errors)
 
