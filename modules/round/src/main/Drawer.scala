@@ -52,8 +52,11 @@ final private[round] class Drawer(
           Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
-        if pov.game.variant.standard && pov.game.position.withColor(color).opponentHasInsufficientMaterial
-        then finisher.other(pov.game, _.Draw, None)
+        // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
+        // are based on whose turn it is.
+        if (pov.isMyTurn && pov.game.position.opponentHasInsufficientMaterial) ||
+          (!pov.isMyTurn && pov.game.position.playerHasInsufficientMaterial.exists(identity))
+        then finisher.other(pov.game, _.InsufficientMaterialClaim, None)
         else
           val progress = Progress(g).map(offerDraw(color))
           messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
