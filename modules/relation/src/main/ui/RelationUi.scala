@@ -3,6 +3,7 @@ package ui
 
 import scalalib.paginator.Paginator
 
+import lila.common.MenuItem
 import lila.core.perf.UserWithPerfs
 import lila.ui.*
 
@@ -42,6 +43,91 @@ final class RelationUi(helpers: Helpers):
           dataIcon := Icon.NotAllowed
         )(trans.site.blocked())
       case _ => emptyFrag
+
+  def actionsMenu(
+      user: lila.core.LightUser,
+      relation: Option[Relation],
+      followable: Boolean,
+      blocked: Boolean
+  )(using ctx: Context) =
+    val blocks = relation.contains(Relation.Block)
+    List(
+      (ctx.isnt(user) && !blocked && !blocks).option(
+        MenuItem(
+          trans.challenge.challengeToPlay.txt(),
+          Icon.Swords,
+          s"${routes.Lobby.home}?user=${user.name}#friend",
+          Some("relation")
+        )
+      ),
+      ctx.me
+        .filter(user.isnt(_))
+        .so: me =>
+          List(
+            relation.isEmpty
+              .option(
+                List(
+                  (followable && !blocked).option(
+                    MenuItem(
+                      trans.site.follow.txt(),
+                      Icon.ThumbsUp,
+                      s"${routes.Relation.follow(user.name)}?menu=1",
+                      Some("relation"),
+                      Some("relation-button")
+                    )
+                  ),
+                  Some(
+                    MenuItem(
+                      trans.site.block.txt(),
+                      Icon.NotAllowed,
+                      s"${routes.Relation.block(user.name)}?menu=1",
+                      Some("relation"),
+                      Some("relation-button")
+                    )
+                  )
+                ).flatten
+              )
+              .getOrElse(List.empty),
+            relation
+              .filter(_ == Relation.Block)
+              .map(_ =>
+                MenuItem(
+                  trans.site.unblock.txt(),
+                  Icon.NotAllowed,
+                  s"${routes.Relation.unblock(user.name)}?menu=1",
+                  Some("relation"),
+                  Some("relation-button")
+                )
+              ),
+            (!blocked && !blocks && !user.isBot).option(
+              MenuItem(
+                trans.site.composeMessage.txt(),
+                Icon.BubbleSpeech,
+                routes.Msg.convo(user.name).url,
+                Some("relation")
+              )
+            ),
+            (!blocked && !blocks && !user.isPatron).option(
+              MenuItem(
+                trans.patron.giftPatronWingsShort.txt(),
+                Icon.Wings,
+                if me.isPatron then routes.Plan.list.url else routes.Plan.index().url,
+                Some("relation")
+              )
+            ),
+            relation
+              .filter(_ == Relation.Follow)
+              .map(_ =>
+                MenuItem(
+                  trans.site.unfollow.txt(),
+                  Icon.ThumbsUp,
+                  s"${routes.Relation.unfollow(user.name)}?menu=1",
+                  Some("relation"),
+                  Some("relation-button")
+                )
+              )
+          ).flatten
+    ).flatten
 
   def actions(
       user: lila.core.LightUser,

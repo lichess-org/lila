@@ -3,6 +3,7 @@ import { text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view/dialogs';
+import { replaceMenuItems } from 'bits/bits.dropdownOverflow';
 
 export function attachDomHandlers() {
   topBar();
@@ -27,10 +28,20 @@ export function attachDomHandlers() {
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
-    xhrText(this.href, { method: 'post' }).then(html => {
+    xhrText(this.href, { method: 'post' }).then(res => {
       if ($a.hasClass('aclose')) $a.hide();
-      else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-      else $a.replaceWith(html);
+      else {
+        try {
+          const menuItems = JSON.parse(res);
+          const parent = this.closest('.dropdown-overflow');
+          if (parent && parent instanceof HTMLElement) {
+            replaceMenuItems(parent, menuItems);
+          }
+        } catch {
+          if (res.includes('relation-actions')) $a.parent().replaceWith(res);
+          else $a.replaceWith(res);
+        }
+      }
     });
     return false;
   });

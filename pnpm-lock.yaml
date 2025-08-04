@@ -493,6 +493,9 @@ importers:
 
   ui/site:
     dependencies:
+      bits:
+        specifier: workspace:*
+        version: link:../bits
       dialog-polyfill:
         specifier: 0.5.6
         version: 0.5.6
