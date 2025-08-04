@@ -151,8 +151,8 @@ final class UserApi(
                     )
               }.noNull
 
-  def forMobileHome(using me: Me, lang: Lang) = extended(
-    me.value,
+  def mobile(user: User)(using Option[Me], Lang) = extended(
+    user,
     withFollows = false,
     withTrophies = false,
     withCanChallenge = false,

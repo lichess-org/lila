@@ -21,14 +21,16 @@ final class MobileApi(
     topRelay: Int => lila.relay.JsonView.Config ?=> Fu[JsObject],
     tv: lila.tv.Tv,
     liveStreamApi: lila.streamer.LiveStreamApi,
+    activityRead: lila.activity.ActivityReadApi,
+    activityJsonView: lila.activity.JsonView,
     picfitUrl: lila.core.misc.PicfitUrl
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
 
   def home(using me: Option[Me])(using RequestHeader, Translate): Fu[JsObject] =
-    val accountFu = me.map(userApi.forMobileHome(using _))
-    val recentGamesFu = me.map(gameApi.forMobileHome(using _))
+    val accountFu = me.map(u => userApi.mobile(u.value))
+    val recentGamesFu = me.map(u => gameApi.mobileRecent(u.value))
     val ongoingGamesFu = me.map: u =>
       gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
     val tournamentsFu = me.map: u =>
@@ -79,3 +81,11 @@ final class MobileApi(
     .map: (stream, user) =>
       Json.toJsObject(user) ++
         lila.streamer.Stream.toJson(picfitUrl, stream)
+
+  def profile(user: User)(using Option[Me], Lang): Fu[JsObject] =
+    for
+      prof <- userApi.mobile(user)
+      activities <- activityRead.recentAndPreload(user)
+      activity <- activities.sequentially(activityJsonView(_, user))
+      games <- gameApi.mobileRecent(user)
+    yield Json.obj("profile" -> prof, "activity" -> activity, "games" -> games)

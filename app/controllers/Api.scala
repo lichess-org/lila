@@ -344,7 +344,15 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     JsonOk(env.api.mobile.watch)
   }
 
-  def mobileProfile = ???
+  /* aggregates, for the new mobile app:
+   * /api/account?playban=1
+   * /api/user/$id/activity
+   * /api/games/user/:user
+   */
+  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile) { _ ?=>
+    Found(meOrFetch(username)): user =>
+      JsonOk(env.api.mobile.profile(user))
+  }
 
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
