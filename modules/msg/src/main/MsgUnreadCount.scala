@@ -8,14 +8,14 @@ import lila.common.HTTPRequest
 
 final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  def mobile(me: User)(using req: RequestHeader): Fu[JsValue] =
+  def mobile(me: Me)(using req: RequestHeader): Fu[JsValue] =
     cache
-      .get(me.id)
+      .get(me.userId)
       .flatMap: unread =>
         if HTTPRequest.isLichessMobile(req)
         then
           (unread > 0)
-            .so(hasLichessMsg(me.id))
+            .so(hasLichessMsg(me.userId))
             .map: lichessMsg =>
               Json.obj("unread" -> unread).add("lichess", lichessMsg)
         else fuccess(JsNumber(unread)) // lichobile
