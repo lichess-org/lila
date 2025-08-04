@@ -551,6 +551,7 @@
   <string name="openTournaments">Odprti turnirji</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Zmagovalec</string>
+  <string name="standings">Lestvica</string>
   <string name="createANewTournament">Ustvari turnir</string>
   <string name="tournamentCalendar">Turnirski koledar</string>
   <string name="conditionOfEntry">Vstopni pogoji:</string>
