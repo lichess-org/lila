@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">双方同意和棋</string>
   <string name="fiftyMovesWithoutProgress">无实质进展的50步</string>
   <string name="currentGames">正在对局</string>
-  <string name="joinedX">加入了%s</string>
+  <string name="joinedX">于 %s 加入</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有 %s 个对局</item>
   </plurals>
@@ -963,4 +963,5 @@
   <string name="accessibility">无障碍</string>
   <string name="enableBlindMode">打开视障模式</string>
   <string name="disableBlindMode">关闭视障模式</string>
+  <string name="copyToClipboard">复制到剪贴板</string>
 </resources>
