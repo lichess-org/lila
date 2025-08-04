@@ -18,11 +18,12 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
-  primer = () =>
+  primer = () => {
     this.ctx?.resume().then(() => {
       setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-      for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
     });
+    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+  };
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
