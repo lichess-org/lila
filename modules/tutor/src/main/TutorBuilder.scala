@@ -110,7 +110,7 @@ private object TutorBuilder:
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question.filter(perfFilter(user.perfType)), user.user, withPovs = false)
-    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value))
+    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
     .map(AnswerMine.apply)
 
   def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: Max = peerNbGames)(using
@@ -118,7 +118,7 @@ private object TutorBuilder:
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
     .askPeers(question.filter(perfFilter(user.perfType)), user.perfStats.rating, nbGames = nbGames)
-    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value))
+    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
   def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: Max = peerNbGames)(using

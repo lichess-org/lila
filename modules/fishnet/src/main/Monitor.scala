@@ -27,7 +27,7 @@ final private class Monitor(
   ) =
     Monitor.success(work, client)
 
-    val userId = client.userId.value
+    import client.userId
 
     monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) / 1000)
 
@@ -71,7 +71,7 @@ final private class Monitor(
 
       val instances = clients.flatMap(_.instance)
 
-      instances.groupMapReduce(_.version.value)(_ => 1)(_ + _).foreach { case (v, nb) =>
+      instances.groupMapReduce(_.version.value)(_ => 1)(_ + _).foreach { (v, nb) =>
         version(v).update(nb)
       }
     }
@@ -119,7 +119,7 @@ object Monitor:
 
   private def success(work: Work.Analysis, client: Client) =
 
-    monResult.success(client.userId.value).increment()
+    monResult.success(client.userId).increment()
 
     work.acquiredAt.foreach { acquiredAt =>
       lila.mon.fishnet
@@ -130,20 +130,20 @@ object Monitor:
 
   private[fishnet] def failure(work: Work, client: Client, e: Exception) =
     logger.warn(s"Received invalid analysis ${work.id} for ${work.game.id} by ${client.fullId}", e)
-    monResult.failure(client.userId.value).increment()
+    monResult.failure(client.userId).increment()
 
   private[fishnet] def timeout(userId: UserId) =
-    monResult.timeout(userId.value).increment()
+    monResult.timeout(userId).increment()
 
   private[fishnet] def abort(client: Client) =
-    monResult.abort(client.userId.value).increment()
+    monResult.abort(client.userId).increment()
 
   private[fishnet] def notFound(id: Work.Id, client: Client) =
     logger.info(s"Received unknown analysis $id by ${client.fullId}")
-    monResult.notFound(client.userId.value).increment()
+    monResult.notFound(client.userId).increment()
 
   private[fishnet] def notAcquired(work: Work, client: Client) =
     logger.info(
       s"Received unacquired analysis ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
     )
-    monResult.notAcquired(client.userId.value).increment()
+    monResult.notAcquired(client.userId).increment()
