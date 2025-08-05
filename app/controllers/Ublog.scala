@@ -131,7 +131,7 @@ final class Ublog(env: Env) extends LilaController(env):
               env.ublog.api
                 .create(data, user)
                 .map: post =>
-                  lila.mon.ublog.create(user.id.value).increment()
+                  lila.mon.ublog.create(user.id).increment()
                   Redirect(editUrlOfPost(post)).flashSuccess
         )
   }
