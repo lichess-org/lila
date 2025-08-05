@@ -216,6 +216,15 @@ function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
         },
         'cancel premove',
       ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            flipBoard(ctx);
+          }),
+        },
+        'flip the board',
+      ),
     ]),
   ];
 }
@@ -245,8 +254,19 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
   ];
 }
 
+function flipBoard(ctx: RoundNvuiContext): void {
+  const { ctrl, notify } = ctx;
+  if (ctrl.data.game.variant.key !== 'racingKings') {
+    notify.set('Flipping the board');
+    setTimeout(() => {
+      ctrl.flip = !ctrl.flip;
+      ctrl.redraw();
+    }, 1000);
+  }
+}
+
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle, notify } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
 
   const $board = $(el);
   const $buttons = $board.find('button');
@@ -264,13 +284,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
         moveStyle.get(),
       )(e);
     else if (e.key.toLowerCase() === 'f') {
-      if (ctrl.data.game.variant.key !== 'racingKings') {
-        notify.set('Flipping the board');
-        setTimeout(() => {
-          ctrl.flip = !ctrl.flip;
-          ctrl.redraw();
-        }, 1000);
-      }
+      flipBoard(ctx);
     } else if (['o', 'l', 't'].includes(e.key)) nv.boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow'))
       nv.arrowKeyHandler(
