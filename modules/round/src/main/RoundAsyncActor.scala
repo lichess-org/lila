@@ -249,7 +249,7 @@ final private class RoundAsyncActor(
         game.playable.so(finisher.abortForce(game))
 
     // checks if any player can safely (grace) be flagged
-    case RoundBus.QuietFlag =>
+    case RoundBus.QuietFlagCheck =>
       handle: game =>
         game.outoftime(withGrace = true).so(finisher.outOfTime(game))
 
@@ -301,7 +301,8 @@ final private class RoundAsyncActor(
     case Moretime(playerId, duration, force) =>
       handle(playerId): pov =>
         moretimer(pov, duration, force).flatMapz: progress =>
-          proxy.save(progress).inject(progress.events)
+          for _ <- proxy.save(progress)
+          yield progress.events
 
     case ForecastPlay(lastMove) =>
       handle: game =>

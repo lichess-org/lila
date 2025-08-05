@@ -4153,8 +4153,8 @@ interface I18n {
     standard: string;
     /** Stand by %s, pairing players, get ready! */
     standByX: I18nFormat;
-    /** Standing */
-    standing: string;
+    /** Standings */
+    standings: string;
     /** started streaming */
     startedStreaming: string;
     /** Starting: */

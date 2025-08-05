@@ -52,16 +52,17 @@ object RelayPlayer:
         case Outcome.Points.Half => cs(color).draw
         case zero => RelayRound.CustomPoints(zero.value)
 
-    def playerScore = customPlayerPoints
-      .map(_.value)
-      .orElse(playerPoints.map(_.value))
+    def playerScore: Option[Float] =
+      customPlayerPoints
+        .map(_.value)
+        .orElse(playerPoints.map(_.value))
 
     def toTiebreakGame: Option[Tiebreak.Game] =
-      opponent.id.map: opponentId =>
+      (opponent.id, playerPoints).mapN: (opponentId, points) =>
         Tiebreak.Game(
           color = color,
           opponent = Tiebreak.Player(opponentId.toString, opponent.rating.map(_.into(Elo))),
-          points = playerPoints,
+          points = points,
           roundId = round.value.some
         )
 
@@ -261,7 +262,7 @@ private final class RelayPlayerApi(
         .toMap
     val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
     players.map: (id, rp) =>
-      val found = result.find((p, rank) => p.player.id == id.toString)
+      val found = result.find((p, _) => p.player.id == id.toString)
       id -> rp.copy(
         tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
         rank = Rank.from(found.map(_._2 + 1))

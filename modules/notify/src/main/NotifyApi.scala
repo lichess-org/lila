@@ -142,17 +142,18 @@ final class NotifyApi(
     bellMany(recips, content)
 
   private def bellOne(note: Notification): Funit =
-    for _ <- insertNotification(note)
-    yield Bus.pub:
-      SendToOnlineUser(
-        note.to,
-        LazyFu: () =>
-          for notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-          yield Json.obj(
-            "t" -> "notifications",
-            "d" -> jsonHandlers(notifications)
-          )
-      )
+    shouldSkipBell(note).not.flatMapz:
+      for _ <- insertNotification(note)
+      yield Bus.pub:
+        SendToOnlineUser(
+          note.to,
+          LazyFu: () =>
+            for notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
+            yield Json.obj(
+              "t" -> "notifications",
+              "d" -> jsonHandlers(notifications)
+            )
+        )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
     val expiresIn = content match
@@ -179,7 +180,11 @@ final class NotifyApi(
     case InvitedToStudy(_, _, studyId) =>
       userApi.isKid(note.to).dmap(_.yes) >>|
         repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
-    case PrivateMessage(sender, _) =>
-      repo.hasRecentPrivateMessageFrom(note.to, sender)
+    case _: PrivateMessage => fuFalse
     case _: CorresAlarm => fuFalse
     case _ => userApi.isKid(note.to).dmap(_.yes)
+
+  private def shouldSkipBell(note: Notification): Fu[Boolean] = note.content match
+    case PrivateMessage(sender, _) =>
+      repo.hasRecentPrivateMessageFrom(note.to, sender)
+    case _ => fuFalse

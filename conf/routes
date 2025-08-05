@@ -655,7 +655,7 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
-GET   /inbox/unread-count              controllers.Msg.unreadCountBC
+GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
@@ -680,6 +680,12 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: GameI
 GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen)
 GET   /editor                          controllers.Editor.index
+
+# Lichess Mobile
+GET   /api/mobile/home                 controllers.Api.mobileHome
+GET   /api/mobile/watch                controllers.Api.mobileHome
+GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
+GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
@@ -768,9 +774,6 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)
 GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 GET   /api/games/export/bookmarks      controllers.Game.apiExportByUserBookmarks()
-
-# Lichess Mobile
-GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 # External engine
 GET   /api/external-engine             controllers.Analyse.externalEngineList

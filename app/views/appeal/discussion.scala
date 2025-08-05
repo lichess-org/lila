@@ -94,7 +94,7 @@ object discussion:
         given RenderIp = m.renderIp
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.user.mod.otherUsers(m.suspect.user, m.logins, m.appeals)(
+          views.user.mod.otherUsers(m.suspect.user, m.logins, m.appeals, readOnly = true)(
             cls := "mod-zone communication__logins"
           )
         )

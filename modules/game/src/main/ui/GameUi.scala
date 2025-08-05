@@ -125,6 +125,8 @@ final class GameUi(helpers: Helpers):
           case Some(InsufficientMaterial) =>
             trans.site.insufficientMaterial.txt() + " • " + trans.site.draw.txt()
           case _ => trans.site.draw.txt()
+      case S.InsufficientMaterialClaim =>
+        trans.site.drawClaimed.txt() + " • " + trans.site.insufficientMaterial.txt()
       case S.Outoftime =>
         (game.turnColor, game.loser) match
           case (White, Some(_)) => trans.site.whiteTimeOut.txt()

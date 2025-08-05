@@ -656,10 +656,13 @@ Team Dogs ; Scooby Doo"""),
             )
           )
         ,
+        tg.isDefined.option:
+          form3.fieldset("Grouping", toggle = false.some):
+            grouping(form)
+        ,
         if Granter.opt(_.Relay) then
           frag(
             form3.fieldset("Broadcast admin", toggle = true.some)(
-              tg.isDefined.option(grouping(form)),
               form3.split(
                 form3.group(
                   form("tier"),

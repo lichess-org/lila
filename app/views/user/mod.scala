@@ -70,10 +70,12 @@ object mod:
       )
     )
 
-  def otherUsers(u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
-      ctx: Context,
-      renderIp: lila.mod.IpRender.RenderIp
-  ): Tag =
+  def otherUsers(
+      u: User,
+      data: UserLogins.TableData[UserWithModlog],
+      appeals: List[Appeal],
+      readOnly: Boolean = false
+  )(using ctx: Context, renderIp: lila.mod.IpRender.RenderIp): Tag =
     import data.*
     val canLocate = Granter.opt(_.Admin)
     mzSection("others")(
@@ -82,12 +84,8 @@ object mod:
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 || othersPartiallyLoaded).option(
-                frag(
-                  nbsp,
-                  a(cls := "more-others")("Load more")
-                )
-              )
+              ((max < 1000 || othersPartiallyLoaded) && !readOnly).option:
+                frag(nbsp, a(cls := "more-others")("Load more"))
             ),
             Granter.opt(_.Admin).option(th("Email")),
             thSortNumber(dataSortDefault)("Same"),
@@ -103,7 +101,7 @@ object mod:
             thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
-            ModUserTableUi.selectAltAll
+            readOnly.not.option(ModUserTableUi.selectAltAll)
           )
         ),
         tbody(
@@ -142,7 +140,7 @@ object mod:
               markTd(o.enabled.no.so(1), closed, log.dateOf(_.closeAccount)),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty
-                .option {
+                .option:
                   td(dataSort := userNotes.size)(
                     a(href := s"${routes.User.show(o.username)}?notes")(
                       notesText(
@@ -152,7 +150,6 @@ object mod:
                       userNotes.size
                     )
                   )
-                }
                 .getOrElse(td(dataSort := 0)),
               userAppeal match
                 case None => td(dataSort := 0)
@@ -171,7 +168,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              ModUserTableUi.userCheckboxTd(o.marks.alt)
+              readOnly.not.option(ModUserTableUi.userCheckboxTd(o.marks.alt))
             )
           }
         )

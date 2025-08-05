@@ -23,9 +23,6 @@ case class Modlog(
       true
     case _ => false
 
-  def gameId: Option[GameId] = GameId.from:
-    details.ifTrue(action == Modlog.cheatDetected).so(_.split(' ').lift(1))
-
   def indexAs(i: String) = copy(index = i.some)
 
   def showAction = action match

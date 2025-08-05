@@ -157,34 +157,37 @@ final class Study(
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
-        negotiate(
-          html =
-            val noCrawler = HTTPRequest.isCrawler(ctx.req).no
-            for
-              (sc, data) <- getJsonData(oldSc, withChapters = true)
-              chat <- noCrawler.so(chatOf(sc.study))
-              sVersion <- noCrawler.so(env.study.version(sc.study.id))
-              streamers <- noCrawler.so(streamerCache.get(sc.study.id))
-              page <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
-            yield Ok(page)
-              .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
-              .enforceCrossSiteIsolation
-          ,
-          json = for
-            (sc, data) <- getJsonData(
-              oldSc,
-              withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
-            )
-            loadChat = !HTTPRequest.isXhr(ctx.req)
-            chatOpt <- loadChat.so(chatOf(sc.study))
-            jsChat <- chatOpt.soFu: c =>
-              lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
-          yield Ok:
-            Json.obj(
-              "study" -> data.study.add("chat" -> jsChat),
-              "analysis" -> data.analysis
-            )
-        )
+        if !oldSc.study.notable && HTTPRequest.isCrawler(req).yes
+        then notFound
+        else
+          negotiate(
+            html =
+              val noCrawler = HTTPRequest.isCrawler(ctx.req).no
+              for
+                (sc, data) <- getJsonData(oldSc, withChapters = true)
+                chat <- noCrawler.so(chatOf(sc.study))
+                sVersion <- noCrawler.so(env.study.version(sc.study.id))
+                streamers <- noCrawler.so(streamerCache.get(sc.study.id))
+                page <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
+              yield Ok(page)
+                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
+                .enforceCrossSiteIsolation
+            ,
+            json = for
+              (sc, data) <- getJsonData(
+                oldSc,
+                withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
+              )
+              loadChat = !HTTPRequest.isXhr(ctx.req)
+              chatOpt <- loadChat.so(chatOf(sc.study))
+              jsChat <- chatOpt.soFu: c =>
+                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+            yield Ok:
+              Json.obj(
+                "study" -> data.study.add("chat" -> jsChat),
+                "analysis" -> data.analysis
+              )
+          )
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 

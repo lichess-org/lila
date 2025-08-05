@@ -31,6 +31,8 @@ final class UserApi(
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
+  export userApi.withPerfs
+
   def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
     val (light, userJson) = u match
       case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
@@ -148,6 +150,14 @@ final class UserApi(
                       "blocking" -> relation.exists(!_.isFollow)
                     )
               }.noNull
+
+  def mobile(user: User)(using Option[Me], Lang) = extended(
+    user,
+    withFollows = false,
+    withTrophies = false,
+    withCanChallenge = false,
+    withPlayban = true
+  )
 
   def getTrophiesAndAwards(u: User) =
     (trophyApi.findByUser(u), shieldApi.active(u), revolutionApi.active(u)).mapN:

@@ -4,10 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class RelayGroupUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
-  import helpers.{ *, given }
-  import trans.broadcast as trc
-
+final class RelayGroupUi(ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
   def show(
       group: lila.relay.RelayGroup,
       tours: List[lila.relay.RelayTour]

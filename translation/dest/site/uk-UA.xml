@@ -1088,4 +1088,5 @@
   <string name="accessibility">Доступність</string>
   <string name="enableBlindMode">Увімкнути режим для незрячих</string>
   <string name="disableBlindMode">Вимкнути режим для незрячих</string>
+  <string name="copyToClipboard">Скопіювати до буферу обміну</string>
 </resources>

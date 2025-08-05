@@ -8,13 +8,10 @@ import scalalib.paginator.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.db.dsl.{ *, given }
 
 final class MsgCompat(
     api: MsgApi,
-    colls: MsgColls,
     security: MsgSecurity,
-    cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline,
     lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
@@ -45,23 +42,6 @@ final class MsgCompat(
                 "updatedAt" -> t.lastMsg.date,
                 "isUnread" -> t.lastMsg.unreadBy(me)
               ))
-
-  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
-
-  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount"):
-    _.expireAfterWrite(10.seconds)
-      .buildAsyncFuture[UserId, Int] { userId =>
-        colls.thread
-          .aggregateOne(_.sec): framework =>
-            import framework.*
-            Match($doc("users" -> userId, "del".$ne(userId))) -> List(
-              Sort(Descending("lastMsg.date")),
-              Limit(maxPerPage.value),
-              Match($doc("lastMsg.read" -> false, "lastMsg.user".$ne(userId))),
-              Count("nb")
-            )
-          .map(~_.flatMap(_.getAsOpt[Int]("nb")))
-      }
 
   def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(

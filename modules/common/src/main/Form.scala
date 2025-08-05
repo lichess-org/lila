@@ -169,7 +169,8 @@ object Form:
   def hasKey[A](choices: Options[A], key: A) =
     choices.map(_._1).toList contains key
 
-  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
+  def trueish(v: Int) = v == 1
+  def trueish(v: String) = v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
 
   def defaulting[A](m: Mapping[A], default: A) =
     optional(m).transform(_ | default, some)

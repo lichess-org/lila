@@ -65,7 +65,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     withPerf,
     usingPerfOf,
     perfOptionOf,
-    addPuzRun
+    addPuzRun,
+    withPerfs
   }
   export gamePlayers.{ apply as gamePlayersAny, loggedIn as gamePlayersLoggedIn }
 
@@ -104,8 +105,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     import lila.memo.CacheApi.invalidate
     for _ <- ups.all.map(perfsRepo.updatePerfs).parallelVoid
     yield gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
-
-  def withPerfs(u: User): Fu[UserWithPerfs] = perfsRepo.withPerfs(u)
 
   def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] =
     userRepo.coll

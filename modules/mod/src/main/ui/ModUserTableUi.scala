@@ -16,14 +16,13 @@ object ModUserTableUi:
   def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.mod.canCloseAlt)
 
   def selectAltAll(using Context) = canCloseAlt.option:
-    sortNoneTh(
+    sortNoneTh:
       select(style := "width: 2em")(
         st.option(value := "")(""),
         st.option(value := "all")("Select all"),
         st.option(value := "none")("Select none"),
         st.option(value := "alt")("Alt selected")
       )
-    )
 
   def userCheckboxTd(isAlt: Boolean)(using Context) = canCloseAlt.option(td:
     input(

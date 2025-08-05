@@ -85,7 +85,7 @@ final private class Titivate(
 
         case game if game.outoftime(withGrace = true) =>
           fuccess:
-            roundApi.tell(game.id, RoundBus.QuietFlag)
+            roundApi.tell(game.id, RoundBus.QuietFlagCheck)
 
         case game if game.abandoned =>
           fuccess:

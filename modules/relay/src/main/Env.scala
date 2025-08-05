@@ -97,6 +97,8 @@ final class Env(
   def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
     (page == 1).so(listing.active).zip(pager.inactive(page))
 
+  val topJson = (page: Int) => (_: JsonView.Config) ?=> top(page).map(jsonView.top)
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val proxy = wire[RelayProxy]

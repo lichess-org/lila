@@ -205,8 +205,11 @@ export function view(ctrl: StudyCtrl): VNode {
             update(vnode);
           },
           postpatch(old, vnode) {
+            const scrollTop = (old.elm as HTMLElement).scrollTop;
             vnode.data!.li = old.data!.li;
             update(vnode);
+            if (old.children?.length === vnode.children?.length)
+              (vnode.elm as HTMLElement).scrollTop = scrollTop;
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;

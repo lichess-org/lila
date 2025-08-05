@@ -44,7 +44,7 @@ final class LobbyApi(
           )
       }
 
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)
+  def nowPlaying(pov: Pov): JsObject = gameJson.ownerPreview(pov)(using lightUserApi.sync)
 
   private def ratingMap(perfs: UserPerfs): JsObject =
     Writes

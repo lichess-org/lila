@@ -10,7 +10,7 @@ import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn,
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
-import chess.tiebreak.{ Tiebreak, CutModifier, LimitModifier }
+import chess.tiebreak.Tiebreak
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 

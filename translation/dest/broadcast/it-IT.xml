@@ -67,9 +67,7 @@
   <string name="officialStandings">Classifica Ufficiale</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Altre opzioni si trovano nella %s</string>
   <string name="webmastersPage">pagina dei gestori web</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una sorgente PGN pubblica per questo round. Viene offerta anche un\'%s per una sincronizzazione più rapida ed efficiente.</string>
   <string name="embedThisBroadcast">Incorpora questa trasmissione nel tuo sito web</string>
-  <string name="embedThisRound">Incorpora %s nel tuo sito web</string>
   <string name="ratingDiff">Differenza di punteggio</string>
   <string name="gamesThisTournament">Partite in questo torneo</string>
   <string name="score">Punteggio</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Torna alla mossa attuale</string>
   <string name="sinceHideResults">Poiché hai scelto di nascondere i risultati, tutte le schede di anteprima sono vuote per evitare spoiler.</string>
   <string name="liveboard">Scacchiera in diretta</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Trasmissione della community</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Creata e gestita da %s.</string>
+  <string name="communityBroadcast">Trasmissione della community</string>
+  <string name="createdAndManagedBy">Creata e gestita da %s.</string>
 </resources>

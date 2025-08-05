@@ -5,7 +5,6 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.id.{ RelayTourId, RelayGroupId }
 import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayGroup, RelayPlayer }
 import lila.relay.ui.FormNavigation
@@ -170,7 +169,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               "Tournament cloned and set to private for now. See the tier selector."
   }
 
-  def show(@nowarn slug: String, id: RelayTourId) = Open:
+  def show(slug: String, id: RelayTourId) = Open:
     env.relay.api
       .tourById(id)
       .flatMap:
@@ -190,7 +189,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
                       else emptyBroadcastPage(tour)
                 case Some(round) => Redirect(round.withTour(tour).path)
 
-  private def showGroup(@nowarn slug: String, id: RelayGroupId)(using Context): Fu[Result] =
+  private def showGroup(slug: String, id: RelayGroupId)(using Context): Fu[Result] =
     Found(env.relay.api.groupById(id)): group =>
       if slug != group.name.toSlug
       then Redirect(routes.RelayTour.show(group.name.toSlug, id.into(RelayTourId)))
@@ -247,10 +246,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):
-      for
-        (active, past) <- env.relay.top(page)
-        res <- JsonOk(env.relay.jsonView.top(active, past))
-      yield res
+      JsonOk(env.relay.topJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):

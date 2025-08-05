@@ -156,9 +156,16 @@ final class ModTimelineUi(helpers: Helpers)(
         else e.showAction
       ,
       div(cls := "mod-timeline__text"):
-        e.gameId.fold[Frag](e.details.orZero: String): gameId =>
-          a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}"):
-            e.details.orZero: String
+        e.details.so: str =>
+          if e.action == Modlog.cheatDetected then
+            richText:
+              """\bgame (\w+)\b""".r
+                .replaceAllIn(
+                  str,
+                  m =>
+                    s"$netBaseUrl${routes.Round.watcher(GameId(m.group(1)), Color.white).url}?pov=${e.user.so(_.value)}"
+                )
+          else frag(str)
     )
 
   private def renderAppeal(t: ModTimeline)(a: AppealMsg)(using Translate) =

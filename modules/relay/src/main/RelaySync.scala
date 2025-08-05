@@ -16,7 +16,7 @@ final private class RelaySync(
     players: RelayPlayerApi,
     notifier: RelayNotifier,
     tagManualOverride: RelayTagManualOverride
-)(using Executor):
+)(using Executor)(using scheduler: Scheduler):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
     study <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
@@ -181,16 +181,12 @@ final private class RelaySync(
         _ <- newEnd.so(onChapterEnd(tour, study, chapter))
       yield (tags.some, newEnd)
 
-  private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
-    _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
-    _ <- (tour.official && chapter.root.mainline.sizeIs > 10).so:
-      studyApi.analysisRequest(
-        studyId = study.id,
-        chapterId = chapter.id,
-        userId = study.ownerId,
-        official = true
-      )
-  yield ()
+  private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
+    for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
+    yield
+      if tour.official && chapter.root.mainline.sizeIs > 4 then
+        scheduler.scheduleOnce(15.seconds):
+          studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(

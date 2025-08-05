@@ -17,7 +17,7 @@ import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
 import lila.core.user.RoleDbKey
 

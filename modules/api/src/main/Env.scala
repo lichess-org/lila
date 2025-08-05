@@ -57,8 +57,12 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     manifest: lila.web.AssetManifest,
-    tokenApi: lila.oauth.AccessTokenApi
-)(using val mode: Mode, scheduler: Scheduler)(using
+    tokenApi: lila.oauth.AccessTokenApi,
+    tv: lila.tv.Tv,
+    activityRead: lila.activity.ActivityReadApi,
+    activityJson: lila.activity.JsonView
+)(using scheduler: Scheduler)(using
+    Mode,
     Executor,
     ActorSystem,
     akka.stream.Materializer,
@@ -93,6 +97,8 @@ final class Env(
   lazy val modTimeline = wire[ModTimelineApi]
 
   lazy val cli = wire[Cli]
+
+  lazy val mobile = wire[MobileApi]
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness = wire[ChatFreshness]

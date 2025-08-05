@@ -1,17 +1,11 @@
 package lila.relay
 package ui
 
-import java.time.YearMonth
-import scalalib.paginator.Paginator
-
-import lila.core.LightUser
-import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class RelayCardUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }
-  import trans.broadcast as trc
 
   private def link(t: RelayTour, url: String, live: Boolean) = a(
     href := url,

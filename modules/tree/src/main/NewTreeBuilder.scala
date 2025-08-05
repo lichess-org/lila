@@ -76,7 +76,7 @@ object NewTreeBuilder:
       val variations = advices
         .get(ply)
         .flatMap: adv =>
-          withAnalysisChild(game.id, game.variant, move.before, ply - 1, openingOf, logChessError)(adv.info)
+          withAnalysisChild(game.id, move.before, ply - 1, openingOf, logChessError)(adv.info)
         .toList
 
       chess.Node(value, none, variations)
@@ -89,7 +89,6 @@ object NewTreeBuilder:
 
   private def withAnalysisChild(
       id: GameId,
-      variant: Variant,
       position: Position,
       ply: Ply,
       openingOf: OpeningOf,

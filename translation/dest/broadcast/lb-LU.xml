@@ -63,9 +63,7 @@
   <string name="officialStandings">Offizielle Stand</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
   <string name="webmastersPage">Webmaster-Säit</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Eng ëffentlech Echtzäit-PGN-Source fir dës Ronn. Mir bidden och eng %s fir eng méi séier a méi effizient Synchroniséierung.</string>
   <string name="embedThisBroadcast">Bann dës Iwwerdroung an deng Websäit an</string>
-  <string name="embedThisRound">Bann %s an deng Websäit an</string>
   <string name="ratingDiff">Wäertungsdifferenz</string>
   <string name="gamesThisTournament">Partien an dësem Turnéier</string>
   <string name="score">Punktestand</string>
@@ -81,6 +79,6 @@
   <string name="backToLiveMove">Zeréck op den aktuellen Zuch</string>
   <string name="sinceHideResults">Well s de dech decidéiert hues fir d\'Resultater ze verstoppen, sinn all d\'Virschau-Vrieder eisel fir Spoileren z\'evitéieren.</string>
   <string name="liveboard">Live-Briet</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Gemeinschafts-Iwwerdroungen</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Ugeluecht a verwalt vum %s.</string>
+  <string name="communityBroadcast">Gemeinschafts-Iwwerdroungen</string>
+  <string name="createdAndManagedBy">Ugeluecht a verwalt vum %s.</string>
 </resources>

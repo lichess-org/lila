@@ -1,6 +1,5 @@
 package lila.api
 
-import scala.annotation.nowarn
 import akka.actor.*
 import akka.stream.scaladsl.*
 import play.api.i18n.Lang
@@ -13,6 +12,7 @@ import lila.common.Json.given
 import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
+import lila.bot.OnlineApiUsers.SetOnline
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
@@ -24,8 +24,6 @@ final class EventStream(
     rematches: Rematches,
     lightUserApi: LightUserApi
 )(using system: ActorSystem)(using Executor, Scheduler, lila.core.i18n.Translator):
-
-  private case object SetOnline
 
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
@@ -58,8 +56,8 @@ final class EventStream(
         s"eventStreamFor:${me.userId}"
       )
 
-      @nowarn var lastSetSeenAt = me.seenAt | me.createdAt
-      @nowarn var online = true
+      @scala.annotation.nowarn
+      var lastSetSeenAt = me.seenAt | me.createdAt
 
       override def preStart(): Unit =
         super.preStart()
@@ -73,7 +71,6 @@ final class EventStream(
         Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
         queue.complete()
-        online = false
 
       self ! SetOnline
 
@@ -86,12 +83,7 @@ final class EventStream(
             userRepo.setSeenAt(me)
             lastSetSeenAt = nowInstant
 
-          context.system.scheduler
-            .scheduleOnce(6.second):
-              if online then
-                // gotta send a message to check if the client has disconnected
-                queue.offer(None)
-                self ! SetOnline
+          context.system.scheduler.scheduleOnce(7.second, self, SetOnline)
 
         case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
 
